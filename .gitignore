@@ -1,0 +1,16 @@
+# Build
+build/
+
+# Logs
+logs
+*.log
+
+# Coverage directory used by tools like istanbul
+coverage
+
+# Dependency directory
+node_modules
+_node_modules
+
+# Users Environment Variables
+.lock-wscript
