@@ -1,5 +1,8 @@
 var webpack = require('webpack');
 
+//filepath used in `output` and `plugins`
+var filepath = 'build/';
+
 module.exports = {
 
   // Efficiently evaluate modules with source maps
@@ -18,7 +21,7 @@ module.exports = {
   // by the dev server for dynamic hot loading.
   output: {
     //path: __dirname + "/build/",
-    filename: "build/bundle-[name].js"
+    filename: filepath + "bundle-[name].js"
   },
 
   // Transform source code using Babel and React Hot Loader
@@ -38,7 +41,7 @@ module.exports = {
   },
 
   plugins: [
-    new webpack.optimize.CommonsChunkPlugin(/* chunkName= */"vendor", /* filename= */"build/bundle-vendor.js"),
+    new webpack.optimize.CommonsChunkPlugin(/* chunkName= */'vendor', /* filename= */filepath + 'bundle-vendor.js'),
     new webpack.HotModuleReplacementPlugin()
   ],
 
