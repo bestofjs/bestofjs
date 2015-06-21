@@ -14,7 +14,14 @@ module.exports = {
       "webpack/hot/only-dev-server",
       "./entry.jsx"
     ],
-    vendor: ["react", "react-router", "material-ui", 'reflux', 'superagent', 'lodash', "./stylesheets/main.less"]
+    vendor: [
+      "react",
+      "react-router",
+      "material-ui",
+      'reflux',
+      'superagent',
+      'lodash'
+    ]
   },
 
   // This will not actually create a bundle.js file in ./build. It is used

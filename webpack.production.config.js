@@ -7,7 +7,14 @@ module.exports = {
 
   entry:  {
     app: "./entry.jsx",
-    vendor: ["react", "react-router", "material-ui", 'reflux', 'superagent', 'lodash', "./stylesheets/main.less"]
+    vendor: [
+      "react",
+      "react-router",
+      "material-ui",
+      'reflux',
+      'superagent',
+      'lodash'
+    ]
   },
 
   output: {

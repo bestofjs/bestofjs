@@ -2,6 +2,7 @@ var React = require('react');
 var Router = require('react-router');
 var {Link} = Router;
 var MainContent = require('../common/MainContent');
+var { RaisedButton, FontIcon } = require('material-ui');
 var flux = require('../../scripts/app');
 
 var ProjectPage = React.createClass({
@@ -39,11 +40,21 @@ var ProjectPage = React.createClass({
               <p>{ project.stars } stars on <a href={ project.repository }>Github</a></p>
               <p>{ project.description }</p>
 
-              <div className="readme" style={{ border: '1px solid #ccc', padding: 20 }}>
+              <div className="readme" style={{ border: '1px solid #ccc', padding: 20, marginBottom: 20 }}>
 
                 {/*<h3>README</h3>*/}
 
                 <div dangerouslySetInnerHTML={ project.readme }></div>
+
+                <div style={{ textAlign: 'center' }}>
+                  <RaisedButton
+                    linkButton={true}
+                    href={ project.repository }
+                    secondary={true}
+                    label="View on GitHub"
+                  >
+                  </RaisedButton>
+                </div>
 
               </div>
 

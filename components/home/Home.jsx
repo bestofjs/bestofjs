@@ -12,25 +12,29 @@ var Home = React.createClass({
         <p>Check the most popular projects and the latest tendancies about JavaScript world: frameworks, librairies...</p>
 
         { this.props.projects && (
-          <div className="pure-g">
-            <div className="pure-u-1-2">
-              <h3>Most popular</h3>
-              <ProjectList
-                projects = {this.props.popularProjects.slice(0,10)}
-              />
+          <div className="row">
+            <div className="col-sm-6">
+              <div className="box">
+                <h3>Most popular</h3>
+                <ProjectList
+                  projects = {this.props.popularProjects.slice(0,10)}
+                />
+              </div>
             </div>
-            <div className="pure-u-1-2">
-              <h3>Hot projects</h3>
-              <ProjectList
-                projects = {this.props.hotProjects.slice(0,10)}
-              />
+            <div className="col-sm-6">
+              <div className="box">
+                <h3>Hot projects</h3>
+                <ProjectList
+                  projects = {this.props.hotProjects.slice(0,10)}
+                />
+              </div>
             </div>
           </div>
         )}
 
         { true && this.props.projects && (
-          <div>
-            <h3>All projects</h3>
+          <div style={{ marginTop: 20 }}>
+            <h2>All projects</h2>
             <ProjectGrid
               projects={ this.props.projects }
               tags={ this.props.tags }

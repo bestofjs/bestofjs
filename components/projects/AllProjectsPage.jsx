@@ -8,7 +8,7 @@ var AllProjectsPage = React.createClass({
   render: function() {
     return (
       <MainContent>
-        <h1>All projects</h1>
+        <h1>All projects ({this.props.projects.length})</h1>
         <ProjectList
           projects = {this.props.projects}
         />

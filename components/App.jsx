@@ -6,13 +6,30 @@ var { Route, DefaultRoute, RouteHandler, Link } = Router;
 
 var mui = require('material-ui');
 var { AppBar, AppCanvas, Menu, IconButton } = mui;
+var ThemeManager = new mui.Styles.ThemeManager();
+
+console.log('palette', ThemeManager.palette);
+//console.log('AppBar', AppBar.getStyle());
+var customTheme = require('../stylesheets/theme');
 
 var flux = require('../scripts/app');
 
-
+ThemeManager.setTheme(customTheme);
 
 var App = React.createClass({
+
   mixins: [Reflux.ListenerMixin],
+
+  // material-ui
+  childContextTypes: {
+    muiTheme: React.PropTypes.object
+  },
+  getChildContext: function() {
+    return {
+      muiTheme: ThemeManager.getCurrentTheme()
+    };
+  },
+
   componentDidMount: function() {
     //Listen to any change from the store (@trigger() in the store)
     this.listenTo(flux.store, this.onChangeStore);

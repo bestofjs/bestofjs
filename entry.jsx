@@ -11,8 +11,8 @@ var {DefaultRoute, Route, Routes, Redirect} = Router;
 
 require('./scripts/app');
 
-
-require('./stylesheets/main.less');
+require('./stylesheets/base.styl');
+require('./stylesheets/table.styl');
 
 var injectTapEventPlugin = require("react-tap-event-plugin");
 //Needed for onTouchTap

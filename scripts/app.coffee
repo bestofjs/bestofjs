@@ -66,6 +66,10 @@ appStore = Reflux.createStore
     @hotProjects = @sortBy @projects.slice(0), 'delta1'
     @trigger @getState
 
+  onGetProject: () ->
+    @project = {}
+    @trigger @getState
+
   onGetProjectCompleted: (data) ->
     console.log 'project', data
     @project = data.project
