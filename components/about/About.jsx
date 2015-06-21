@@ -26,7 +26,7 @@ var About = React.createClass({
 
           <RaisedButton
             linkButton={true}
-            href="https://github.com/michaelrambeau/bestojs-webui"
+            href="https://github.com/michaelrambeau/bestofjs-webui"
             secondary={true}
             label="Star bestof.js.org on GitHub"
           >

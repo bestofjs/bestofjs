@@ -49,7 +49,8 @@ module.exports = {
 
   plugins: [
     new webpack.optimize.CommonsChunkPlugin(/* chunkName= */'vendor', /* filename= */filepath + 'bundle-vendor.js'),
-    new webpack.HotModuleReplacementPlugin()
+    new webpack.NoErrorsPlugin() // tells the reloader to not reload if there is a syntax error in your code. The error is simply printed in the console, and the component will reload when you fix the error.
+    //new webpack.HotModuleReplacementPlugin()
   ],
 
   // Automatically transform files with these extensions
