@@ -1,4 +1,7 @@
 var React = require('react');
+var Router = require('react-router');
+var {Link} = Router;
+
 var MainContent = require('../common/MainContent');
 var ProjectGrid = require('../projects/ProjectGrid');
 var ProjectList = require('../projects/ProjectList');
@@ -9,7 +12,13 @@ var Home = React.createClass({
     return (
       <MainContent>
         <h2>Welcome to bestof.js.org!</h2>
-        <p>Check the most popular projects and the latest tendancies about JavaScript world: frameworks, librairies...</p>
+        <p>Check out the most popular projects and the latest tendancies about JavaScript world:
+          {' '}
+          <Link to="tags" params={{ id: '5568e47e355ea6282ecae9b9' }}>MV* frameworks</Link>,
+          {' '}
+          <Link to="tags" params={{ id: '5568e488355ea6282ecae9e4' }}>React tools</Link>,
+          ...
+        </p>
 
         { this.props.projects && (
           <div className="row">
