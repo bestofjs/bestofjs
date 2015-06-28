@@ -46,7 +46,7 @@ var App = React.createClass({
   render: function() {
     console.log('Render the top level component.');
     return (
-      <AppCanvas predefinedLayout={1}>
+      <AppCanvas predefinedLayout={1} style={{backgroundColor: '#ECECEC'}}>
         <AppBar
            title={ 'bestof.js.org' }
            className="mui-dark-theme"
@@ -60,7 +60,10 @@ var App = React.createClass({
 
         <div className="container">
           <RouteHandler
-            projects={ this.state.projects }
+            allProjects={ this.state.allProjects }
+            searchText={this.state.searchText}
+            filteredProjects={ this.state.filteredProjects }
+            maxStars={ this.state.maxStars }
             popularProjects={ this.state.popularProjects }
             hotProjects={ this.state.hotProjects }
             tags={ this.state.tags }

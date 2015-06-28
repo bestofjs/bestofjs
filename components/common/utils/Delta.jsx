@@ -10,7 +10,7 @@ var Delta = React.createClass({
     }
     var formatDelta = function (value) {
       if (value === 0) return '=';
-      if (value < 0) return  value;
+      if (value < 0) return  '- ' + Math.abs(value);
       return '+ ' + value;
     };
     return (

@@ -23,7 +23,7 @@ var TagPage = React.createClass({
         { tag.projects && (
           <div>
             <p style={{ paddingTop: 0 }}>{ tag.projects.length } projects with the tag &quot;{ tag.name }&quot;.</p>
-            <ProjectList projects={ tag.projects } />
+            <ProjectList projects={ tag.projects } maxStars={ tag.projects[0].stars } />
           </div>
         )}
       </MainContent>

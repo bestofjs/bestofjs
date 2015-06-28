@@ -1,10 +1,15 @@
 var React = require('react');
 var Router = require('react-router');
 var {Link} = Router;
+var { RaisedButton, FlatButton, FontIcon } = require('material-ui');
+
+var flux = require('../../scripts/app');
 
 var MainContent = require('../common/MainContent');
 var ProjectGrid = require('../projects/ProjectGrid');
 var ProjectList = require('../projects/ProjectList');
+var SearchForm = require('./SearchForm');
+var SearchResultList = require('./SearchResultList');
 
 var Home = React.createClass({
 
@@ -20,32 +25,52 @@ var Home = React.createClass({
           ...
         </p>
 
-        { this.props.projects && (
+        <SearchForm
+          searchText = { this.props.searchText }
+        />
+
+        <SearchResultList
+          projects = { this.props.filteredProjects }
+          searchText = { this.props.searchText }
+        />
+
+        { this.props.allProjects && (
           <div className="row">
             <div className="col-sm-6">
               <div className="box">
-                <h3>Most popular</h3>
+                <h3>Most popular projects</h3>
                 <ProjectList
                   projects = {this.props.popularProjects.slice(0,10)}
+                  maxStars = {this.props.maxStars}
                 />
               </div>
             </div>
             <div className="col-sm-6">
               <div className="box">
-                <h3>Hot projects</h3>
+                <h3>Hot projects since yesterday</h3>
                 <ProjectList
                   projects = {this.props.hotProjects.slice(0,10)}
+                  maxStars = {this.props.maxStars}
                 />
               </div>
             </div>
           </div>
         )}
 
+        <div style={{ padding: 20, textAlign: 'center'}}>
+          <FlatButton
+            containerElement={ <Link to="project-list" /> }
+            linkButton={true}
+            secondary={true}
+            label="View All projects"
+          />
+        </div>
+
         { true && this.props.projects && (
           <div style={{ marginTop: 20 }}>
             <h2>All projects</h2>
             <ProjectGrid
-              projects={ this.props.projects }
+              projects={ this.props.allProjects }
               tags={ this.props.tags }
               selectedTag= {this.props.selectedTag}
               selectedSort= {this.props.selectedSort}

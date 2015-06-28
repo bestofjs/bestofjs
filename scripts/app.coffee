@@ -26,7 +26,8 @@ appStore = Reflux.createStore
   listenables: [actions]
 
   init: () ->
-    @projects = []
+    @filteredProjects = []
+    @allProjects = []
     @hotProjects = []
     @popularProjects = []
     @tags = []
@@ -49,7 +50,8 @@ appStore = Reflux.createStore
 
   getState: () ->
     state =
-      projects: @getFilteredProjects()
+      allProjects: @allProjects
+      filteredProjects: @filteredProjects
       popularProjects: @popularProjects
       hotProjects: @hotProjects
       tags: @tags
@@ -58,12 +60,14 @@ appStore = Reflux.createStore
       searchText: @searchText
       project: @project
       tag: @tag
+      maxStars: if @popularProjects.length > 0 then @popularProjects[0].stars else 0
     state
 
   onGetProjectsCompleted: (data) ->
-    {@projects, @tags} = data
-    @popularProjects = @sortBy @projects.slice(0), 'stars'
-    @hotProjects = @sortBy @projects.slice(0), 'delta1'
+    @allProjects = data.projects
+    @tags = data.tags
+    @popularProjects = @sortBy @allProjects.slice(0), 'stars'
+    @hotProjects = @sortBy @allProjects.slice(0), 'delta1'
     @trigger @getState
 
   onGetProject: () ->
@@ -89,8 +93,19 @@ appStore = Reflux.createStore
     @trigger @getState
 
   onChangeText: (text) ->
+    console.log text
     @searchText = text
     @trigger @getState
+    self = this
+    fn = () =>
+      console.log 'update!!!'
+      self.filteredProjects = self.getFilteredProjects()
+      self.trigger self.getState()
+      true
+    _.throttle(fn, 2000)()
+    #update()
+    true
+
 
   onGetTagCompleted: (data) ->
     @tag = data.tag
@@ -98,7 +113,7 @@ appStore = Reflux.createStore
     @trigger @getState
 
   getFilteredProjects: () ->
-    projects = @projects
+    projects = @allProjects
     #console.log 'Filter', projects
     #Filter by tag
     if @selectedTag.id isnt '*'

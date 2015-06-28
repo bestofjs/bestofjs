@@ -6,11 +6,13 @@ var ProjectList = require('../projects/ProjectList');
 var AllProjectsPage = React.createClass({
 
   render: function() {
+    var projects = this.props.allProjects;
     return (
       <MainContent>
-        <h1>All projects ({this.props.projects.length})</h1>
+        <h1>All projects ({ projects.length })</h1>
         <ProjectList
-          projects = {this.props.projects}
+          projects = { projects }
+          maxStars={ this.props.maxStars }
         />
     </MainContent>
     );
