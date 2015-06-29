@@ -95,15 +95,8 @@ appStore = Reflux.createStore
   onChangeText: (text) ->
     console.log text
     @searchText = text
+    @filteredProjects = @getFilteredProjects()
     @trigger @getState
-    self = this
-    fn = () =>
-      console.log 'update!!!'
-      self.filteredProjects = self.getFilteredProjects()
-      self.trigger self.getState()
-      true
-    _.throttle(fn, 2000)()
-    #update()
     true
 
 
@@ -113,8 +106,8 @@ appStore = Reflux.createStore
     @trigger @getState
 
   getFilteredProjects: () ->
+    console.info 'Filter projects', @searchText
     projects = @allProjects
-    #console.log 'Filter', projects
     #Filter by tag
     if @selectedTag.id isnt '*'
       projects = projects.filter (project) =>

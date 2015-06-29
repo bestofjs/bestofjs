@@ -9,24 +9,30 @@ var SearchForm = React.createClass({
     };
   },
   componentDidMount: function() {
-    this.broadcast = _.debounce(this.broadcast, 500);
+    this.emitChangeDelayed = _.debounce(this.emitChange, 300);
   },
   handleChange: function (e) {
     var text = e.target.value;
     this.setState({
       text: text
     });
-    this.broadcast(text);
+    this.emitChangeDelayed(text);
   },
-  broadcast: function (text) {
+  emitChange: function (text) {
     flux.actions.changeText(text);
   },
   render: function() {
+    var style = {
+      width: '100%',
+      padding: '0.5em 1em',
+      border: '1px solid #cbcbcb'
+    };
     return (
-      <form className="pure-form" style={{ marginBottom: 20 }}>
+      <form className="pure-formXXX" style={{ marginBottom: 20 }}>
         <input
           type="text"
-          placeholder="Search for projects" style={{ width: '100%' }}
+          placeholder="Search for projects"
+          style={ style }
           value={ this.state.text }
           onChange={ this.handleChange }
         />

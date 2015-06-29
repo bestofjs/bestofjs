@@ -29,10 +29,12 @@ var Home = React.createClass({
           searchText = { this.props.searchText }
         />
 
-        <SearchResultList
-          projects = { this.props.filteredProjects }
-          searchText = { this.props.searchText }
-        />
+        { this.props.searchText.length > 0 && (
+          <SearchResultList
+            projects = { this.props.filteredProjects }
+            searchText = { this.props.searchText }
+          />
+        ) }
 
         { this.props.allProjects && (
           <div className="row">
