@@ -1,7 +1,7 @@
 var React = require('react');
 var MainContent = require('../common/MainContent');
 var ProjectGrid = require('../projects/ProjectGrid');
-var ProjectList = require('../projects/ProjectList');
+var ProjectList = require('../projects/ProjectList3');
 
 var AllProjectsPage = React.createClass({
 
@@ -13,6 +13,8 @@ var AllProjectsPage = React.createClass({
         <ProjectList
           projects = { projects }
           maxStars={ this.props.maxStars }
+          showDescription={ true }
+          showDelta={ true }
         />
     </MainContent>
     );

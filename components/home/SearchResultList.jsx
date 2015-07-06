@@ -1,6 +1,6 @@
 var React = require('react');
 
-var ProjectList = require('../projects/ProjectList');
+var ProjectList = require('../projects/ProjectList3');
 var SearchText = require('../common/utils/SearchText');
 
 var SearchResultList = React.createClass({
@@ -23,10 +23,11 @@ var SearchResultList = React.createClass({
             <ProjectList
               projects = { projects }
               maxStars = { projects[0].stars}
+              showDescription = { true }
             />
           </div>
         ) : (
-          <div>No project found for { this.props.searchText }</div>
+          <div>No project found for <SearchText>{ this.props.searchText }</SearchText></div>
         )}
     </div>
     );

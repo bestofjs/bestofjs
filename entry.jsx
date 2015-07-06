@@ -41,6 +41,7 @@ Router
   //   scrollBehavior: Router.ScrollToTopBehavior
   // })
 
-  .run(routes, function (Handler) {
+  .run(routes, function (Handler, b) {
+    console.log('Router', Handler, b);
     React.render(<Handler/>, document.getElementById('app'));
   });

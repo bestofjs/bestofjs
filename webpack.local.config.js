@@ -3,6 +3,14 @@ var webpack = require('webpack');
 //filepath used in `output` and `plugins`
 var filepath = 'build/';
 
+//http://stackoverflow.com/questions/30030031/passing-environment-dependent-variables-in-webpack
+var envPlugin = new webpack.DefinePlugin({
+  'process.env': {
+    'NODE_ENV': JSON.stringify('development'),
+    'API':  JSON.stringify('https://bestofjs-michaelrambeau.c9.io/')
+   }
+});
+
 module.exports = {
 
   // Efficiently evaluate modules with source maps
@@ -49,8 +57,8 @@ module.exports = {
 
   plugins: [
     new webpack.optimize.CommonsChunkPlugin(/* chunkName= */'vendor', /* filename= */filepath + 'bundle-vendor.js'),
-    new webpack.NoErrorsPlugin() // tells the reloader to not reload if there is a syntax error in your code. The error is simply printed in the console, and the component will reload when you fix the error.
-    //new webpack.HotModuleReplacementPlugin()
+    new webpack.NoErrorsPlugin(),// tells the reloader to not reload if there is a syntax error in your code. The error is simply printed in the console, and the component will reload when you fix the error.
+    envPlugin
   ],
 
   // Automatically transform files with these extensions

@@ -64,11 +64,45 @@ appStore = Reflux.createStore
     state
 
   onGetProjectsCompleted: (data) ->
-    @allProjects = data.projects
+    projects = data.projects
     @tags = data.tags
+
+    @tagsMap = {}
+    @counters = @updateCounters projects
+    for tag in @tags
+      tag.counter = @counters[tag._id]
+      @tagsMap[tag._id] = tag
+
+    @allProjects = @populateTagData projects
+
+
+    console.log 'tagsMap', @tagsMap
     @popularProjects = @sortBy @allProjects.slice(0), 'stars'
     @hotProjects = @sortBy @allProjects.slice(0), 'delta1'
-    @trigger @getState
+    @trigger @getState()
+
+  updateCounters: (projects) ->
+    counters = {}
+    for project in projects
+      for id in project.tags
+        if counters[id]
+          counters[id]++
+        else
+          counters[id] = 1
+    console.log 'counters', counters
+    counters
+
+  populateTagData: (projects) ->
+    # update project.tags property
+    # from an array of ids to an array of objects
+    for project in projects
+      tags = []
+      for tagId in project.tags
+        tags.push  @tagsMap[tagId]
+      console.log tags
+      project.tags = tags
+    projects
+
 
   onGetProject: () ->
     @project = {}
@@ -81,6 +115,8 @@ appStore = Reflux.createStore
     readme = marked data.readme
     @project.readme =
       __html: readme
+    for tag in @project.tags
+      tag.counter = @counters[tag._id]
     @trigger @getState
 
 
@@ -132,8 +168,9 @@ appStore = Reflux.createStore
 # API
 #
 #path = 'https://bestofjs-michaelrambeau.c9.io/'
-path = 'https://bestofjs.herokuapp.com/'
-console.log 'API...'
+#path = 'https://bestofjs.herokuapp.com/'
+path = process.env.API
+console.info 'API...' + process.env
 actions.getProjects.listen () =>
   request.get "#{path}project/all", (err, response) =>
     actions.getProjects.completed response.body

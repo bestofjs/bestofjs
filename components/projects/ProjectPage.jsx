@@ -4,6 +4,7 @@ var {Link} = Router;
 var MainContent = require('../common/MainContent');
 var { RaisedButton, FontIcon } = require('material-ui');
 var flux = require('../../scripts/app');
+var TagLabel = require('../tags/TagLabel');
 
 var ProjectPage = React.createClass({
   mixins: [Router.State],
@@ -21,14 +22,7 @@ var ProjectPage = React.createClass({
             <div>
               { project.tags.map(function (tag) {
                 return (
-                  <Link to={ 'tags' } params={{ id: tag._id }}
-                    key={ tag._id }
-                    className="project-tag deep-orange darken-1"
-                    style={{ color: 'white', padding: '2px 10px', borderRadius: 4, backgroundColor: 'grey' }}
-                  >
-                    <span className="fa fa-tag" style={{ marginRight: 5 }}></span>
-                    { tag.name }
-                  </Link>
+                  <TagLabel tag={ tag } />
                 );
               }) }
               <h1 style={{ marginTop: 5 }}>{ project.name }</h1>

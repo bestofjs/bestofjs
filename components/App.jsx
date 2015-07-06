@@ -44,7 +44,7 @@ var App = React.createClass({
     this.setState(storeData);
   },
   render: function() {
-    console.log('Render the top level component.');
+    console.log('Render the top level component.', this.state);
     return (
       <AppCanvas predefinedLayout={1} style={{backgroundColor: '#ECECEC'}}>
         <AppBar
@@ -56,7 +56,10 @@ var App = React.createClass({
         >
         </AppBar>
 
-        <AppLeftNav ref="leftNav" />
+        <AppLeftNav
+          ref="leftNav"
+          tags={ this.state.tags }
+        />
 
         <div className="container">
           <RouteHandler

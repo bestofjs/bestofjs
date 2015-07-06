@@ -3,6 +3,13 @@ var webpack = require('webpack');
 //filepath used in `output` and `plugins`
 var filepath = './www/build/';
 
+var envPlugin = new webpack.DefinePlugin({
+  'process.env': {
+    'NODE_ENV': JSON.stringify('production'),
+    'API':  JSON.stringify('https://bestofjs.herokuapp.com/')
+   }
+});
+
 module.exports = {
 
   entry:  {
@@ -34,7 +41,8 @@ module.exports = {
   },
 
   plugins: [
-    new webpack.optimize.CommonsChunkPlugin(/* chunkName= */'vendor', /* filename= */filepath + 'bundle-vendor.js')
+    new webpack.optimize.CommonsChunkPlugin(/* chunkName= */'vendor', /* filename= */filepath + 'bundle-vendor.js'),
+    envPlugin
   ],
 
   // Automatically transform files with these extensions

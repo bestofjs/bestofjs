@@ -7,7 +7,8 @@ var flux = require('../../scripts/app');
 
 var MainContent = require('../common/MainContent');
 var ProjectGrid = require('../projects/ProjectGrid');
-var ProjectList = require('../projects/ProjectList');
+var ProjectList = require('../projects/ProjectList3');
+var TagList = require('../tags/TagList');
 var SearchForm = require('./SearchForm');
 var SearchResultList = require('./SearchResultList');
 
@@ -38,21 +39,30 @@ var Home = React.createClass({
 
         { this.props.allProjects && (
           <div className="row">
-            <div className="col-sm-6">
+            <div className="col-sm-4">
+              <div className="box">
+                <h3>All tags</h3>
+                <TagList tags={ this.props.tags }></TagList>
+              </div>
+            </div>
+
+            <div className="col-sm-4">
               <div className="box">
                 <h3>Most popular projects</h3>
                 <ProjectList
-                  projects = {this.props.popularProjects.slice(0,10)}
+                  projects = {this.props.popularProjects.slice(0,20)}
                   maxStars = {this.props.maxStars}
                 />
               </div>
             </div>
-            <div className="col-sm-6">
+            <div className="col-sm-4">
               <div className="box">
                 <h3>Hot projects since yesterday</h3>
                 <ProjectList
-                  projects = {this.props.hotProjects.slice(0,10)}
+                  projects = {this.props.hotProjects.slice(0,20)}
                   maxStars = {this.props.maxStars}
+                  showDelta={ true }
+                  showStars={ false }
                 />
               </div>
             </div>

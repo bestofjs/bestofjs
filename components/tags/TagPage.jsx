@@ -2,7 +2,7 @@ var React = require('react');
 var Router = require('react-router');
 var {Link} = Router;
 var MainContent = require('../common/MainContent');
-var ProjectList = require('../projects/ProjectList');
+var ProjectList = require('../projects/ProjectList3');
 var flux = require('../../scripts/app');
 
 var TagPage = React.createClass({
@@ -23,7 +23,12 @@ var TagPage = React.createClass({
         { tag.projects && (
           <div>
             <p style={{ paddingTop: 0 }}>{ tag.projects.length } projects with the tag &quot;{ tag.name }&quot;.</p>
-            <ProjectList projects={ tag.projects } maxStars={ tag.projects[0].stars } />
+            <ProjectList
+              projects={ tag.projects }
+              maxStars={ tag.projects[0].stars }
+              showTags={ false }
+              showDescription={ true }
+            />
           </div>
         )}
       </MainContent>
