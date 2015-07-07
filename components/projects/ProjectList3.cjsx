@@ -34,7 +34,7 @@ ProjectList = React.createClass
           key={ project._id }
           index={ index }
           {...this.props}
-         />
+        />
       }
     </div>
 
