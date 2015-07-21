@@ -2,7 +2,7 @@ var React = require('react');
 var Router = require('react-router');
 var {Link} = Router;
 var MainContent = require('../common/MainContent');
-var ProjectList = require('../projects/ProjectList3');
+var ProjectList = require('../projects/ProjectList');
 var flux = require('../../scripts/app');
 
 var TagPage = React.createClass({

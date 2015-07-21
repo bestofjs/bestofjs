@@ -1,7 +1,7 @@
 var React = require('react');
 var MainContent = require('../common/MainContent');
 var ProjectGrid = require('../projects/ProjectGrid');
-var ProjectList = require('../projects/ProjectList3');
+var ProjectList = require('../projects/ProjectList');
 
 var AllProjectsPage = React.createClass({
 

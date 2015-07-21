@@ -1,6 +1,6 @@
 var React = require('react');
 
-var ProjectList = require('../projects/ProjectList3');
+var ProjectList = require('../projects/ProjectList');
 var SearchText = require('../common/utils/SearchText');
 
 var SearchResultList = React.createClass({

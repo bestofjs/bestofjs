@@ -7,7 +7,7 @@ var flux = require('../../scripts/app');
 
 var MainContent = require('../common/MainContent');
 var ProjectGrid = require('../projects/ProjectGrid');
-var ProjectList = require('../projects/ProjectList3');
+var ProjectList = require('../projects/ProjectList');
 var TagList = require('../tags/TagList');
 var SearchForm = require('./SearchForm');
 var SearchResultList = require('./SearchResultList');
