@@ -99,7 +99,6 @@ appStore = Reflux.createStore
       tags = []
       for tagId in project.tags
         tags.push  @tagsMap[tagId]
-      console.log tags
       project.tags = tags
     projects
 
@@ -151,9 +150,9 @@ appStore = Reflux.createStore
     #Filter by text
     if @searchText isnt ''
       projects = projects.filter (project) =>
-        re = new RegExp @searchText, 'i'
+        pattern = if @searchText.length is 1 then '^' + @searchText else @searchText
+        re = new RegExp pattern, 'i'
         re.test project.name
-    #console.log 'Sort', projects
     @sortProjects projects
 
   sortBy: (projects, field, direction = 'DESC') ->

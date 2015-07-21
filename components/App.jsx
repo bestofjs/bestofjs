@@ -46,7 +46,7 @@ var App = React.createClass({
   render: function() {
     console.log('Render the top level component.', this.state);
     return (
-      <AppCanvas predefinedLayout={1} style={{backgroundColor: '#ECECEC'}}>
+      <AppCanvas predefinedLayout={1}>
         <AppBar
            title={ 'bestof.js.org' }
            className="mui-dark-theme"

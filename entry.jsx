@@ -35,12 +35,6 @@ var routes = (
 );
 
 Router
-
-  // .create({
-  //   routes: routes,
-  //   scrollBehavior: Router.ScrollToTopBehavior
-  // })
-
   .run(routes, function (Handler, b) {
     console.log('Router', Handler, b);
     React.render(<Handler/>, document.getElementById('app'));

@@ -10,7 +10,8 @@ var TagLabel = React.createClass({
       container: {
         color: 'white',
         padding: '2px 4px 2px 10px',
-        borderRadius: 4
+        borderRadius: 4,
+        marginRight: 10
       },
       counter: {
         marginLeft: 10,

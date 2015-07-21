@@ -28,7 +28,8 @@ module.exports = {
       "material-ui",
       'reflux',
       'superagent',
-      'lodash'
+      'lodash',
+      'react-sparklines'
     ]
   },
 
@@ -47,6 +48,7 @@ module.exports = {
         exclude: /node_modules/,
         loaders: ["react-hot", "babel-loader"]
       },
+      { test: /react\-sparklines/, loader: "babel-loader?stage=0" },
       { test: /\.cjsx$/, loader: "coffee-jsx-loader" },
       { test: /\.coffee$/, loader: 'coffee-loader' },
       { test: /\.less$/, loader: 'style-loader!css-loader!less-loader' }, // use ! to chain loaders

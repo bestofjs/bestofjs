@@ -52,6 +52,8 @@ var Home = React.createClass({
                 <ProjectList
                   projects = {this.props.popularProjects.slice(0,20)}
                   maxStars = {this.props.maxStars}
+                  showStars = { true }
+                  showDelta = { false }
                 />
               </div>
             </div>
