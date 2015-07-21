@@ -11,7 +11,7 @@ var DeltaBar = require('../common/utils/DeltaBar');
 var Stars = require('../common/utils/Stars');
 
 var lines = require('react-sparklines');
-var { Sparklines, SparklinesBars, SparklinesLine } = lines;
+//var { Sparklines, SparklinesBars, SparklinesLine } = lines;
 
 var {Link} = Router;
 var { Paper, Toolbar, ToolbarGroup, DropDownMenu, TextField } = mui;
