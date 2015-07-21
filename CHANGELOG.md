@@ -1,5 +1,9 @@
 # Change log
 
+## 0.0.2 - 2015-07-21
+* Layout adjustments...
+* Add a colored bar to see star evolution over the last week
+
 ## 0.0.1 - 2015-06-20
 ### The first commit!
 Available pages:

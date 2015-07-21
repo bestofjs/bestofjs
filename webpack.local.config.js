@@ -28,8 +28,8 @@ module.exports = {
       "material-ui",
       'reflux',
       'superagent',
-      'lodash',
-      'react-sparklines'
+      'lodash'
+      //'react-sparklines'
     ]
   },
 
