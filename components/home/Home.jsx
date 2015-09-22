@@ -1,9 +1,9 @@
 var React = require('react');
 var Router = require('react-router');
 var {Link} = Router;
-var { RaisedButton, FlatButton, FontIcon } = require('material-ui');
+//var { RaisedButton, FlatButton, FontIcon } = require('material-ui');
 
-var flux = require('../../scripts/app');
+var actions = require('../../scripts/actions');
 
 var MainContent = require('../common/MainContent');
 var ProjectGrid = require('../projects/ProjectGrid');
@@ -11,12 +11,18 @@ var ProjectList = require('../projects/ProjectList');
 var TagList = require('../tags/TagList');
 var SearchForm = require('./SearchForm');
 var SearchResultList = require('./SearchResultList');
+var ErrorMessage = require('./../common/utils/ErrorMessage');
+
+var SearchContainer = require('./SearchContainer');
+
+require('../../stylesheets/grid.styl');
 
 var Home = React.createClass({
 
   render: function() {
     return (
       <MainContent>
+        { this.props.errorMessage && <ErrorMessage text={ this.props.errorMessage } /> }
         <h2>Welcome to bestof.js.org!</h2>
         <p>Check out the most popular projects and the latest tendancies about JavaScript world:
           {' '}
@@ -26,27 +32,11 @@ var Home = React.createClass({
           ...
         </p>
 
-        <SearchForm
-          searchText = { this.props.searchText }
-        />
-
-        { this.props.searchText.length > 0 && (
-          <SearchResultList
-            projects = { this.props.filteredProjects }
-            searchText = { this.props.searchText }
-          />
-        ) }
+        {false && <SearchContainer {...this.props} />}
 
         { this.props.allProjects && (
           <div className="row">
-            <div className="col-sm-4">
-              <div className="box">
-                <h3>All tags</h3>
-                <TagList tags={ this.props.tags }></TagList>
-              </div>
-            </div>
-
-            <div className="col-sm-4">
+            <div className="col-sm-6">
               <div className="box">
                 <h3>Most popular projects</h3>
                 <ProjectList
@@ -57,7 +47,7 @@ var Home = React.createClass({
                 />
               </div>
             </div>
-            <div className="col-sm-4">
+            <div className="col-sm-6">
               <div className="box">
                 <h3>Hot projects since yesterday</h3>
                 <ProjectList
@@ -71,14 +61,14 @@ var Home = React.createClass({
           </div>
         )}
 
-        <div style={{ padding: 20, textAlign: 'center'}}>
+        { false && <div style={{ padding: 20, textAlign: 'center'}}>
           <FlatButton
             containerElement={ <Link to="project-list" /> }
             linkButton={true}
             secondary={true}
             label="View All projects"
           />
-        </div>
+        </div>}
 
         { true && this.props.projects && (
           <div style={{ marginTop: 20 }}>

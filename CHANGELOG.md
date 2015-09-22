@@ -1,5 +1,13 @@
 # Change log
 
+## 0.0.3 - 2015-09-22
+* New layout, with a sidebar that display the tag list.
+* Search filter updates the URL: `/#/search/flexb` for example
+* No more material-ui dependency
+* No more flexboxgrid dependency
+* Display a "splash" screen when the page loads
+* Initial project data is passed to the root component
+
 ## 0.0.2 - 2015-07-21
 * Add tag list to the home page
 * Add a colored bar to project block, to see star evolution over the last week

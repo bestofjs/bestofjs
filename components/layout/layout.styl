@@ -1,0 +1,101 @@
+//Sass variables
+$sidebarWidth = 280px
+$topbarHeight = 55px
+$menuBreakPoint = 900px
+
+#layout
+  position: relative
+  padding-left: 0
+#menu
+  margin-left: - $sidebarWidth
+  width: $sidebarWidth
+  position: fixed
+  top: 0 //$topbarHeight
+  left: 0
+  bottom: 0
+  //so the menu or its navicon stays above all content
+  z-index: 1000
+  overflow-y: auto
+  -webkit-overflow-scrolling: touch
+
+
+@media screen and (min-width: $menuBreakPoint)
+  #layout
+    padding-left: $sidebarWidth
+    left: 0
+  #menu
+    left: $sidebarWidth
+  #menuLink
+    display: none
+
+@media screen and (max-width: $menuBreakPoint - 1)
+  //push the content to the right when the sibebar is displayed
+  #layout.active
+    position: relative
+    left: $sidebarWidth
+
+#main
+  position: relative
+  //margin-top: $topbarHeight
+  //background-color: white
+
+#header
+  position: fixed
+  top: 0
+  width: 100%
+  background-color: white
+  height: $topbarHeight
+  //use zIndex to display header above the step 1/2/3 menu
+  z-index: 10
+  box-shadow: 0 2px 2px 0 rgba(0,0,0,.14),0 3px 1px -2px rgba(0,0,0,.2),0 1px 5px 0 rgba(0,0,0,.12)
+  padding: 0 10px
+  @media screen and (min-width: $menuBreakPoint)
+    width: "calc(100% - %s)" % $sidebarWidth
+#logo
+  margin-left $topbarHeight
+  @media screen and (min-width: $menuBreakPoint)
+    width: 200px
+    margin-left 0
+
+
+
+#content
+  padding: 30px
+  h1
+    margin: 0
+    font-size: 230%
+    font-weight: normal
+    margin-bottom: 20px
+
+//Responsive sidebar
+#layout.active
+  #menu
+    left: $sidebarWidth
+    width: $sidebarWidth
+  //Push the menu button to the right, when the menu is displayed.
+  .menu-link
+    left: $sidebarWidth
+
+#layout, #menu, .menu-link
+  -webkit-transition: all 0.2s ease-out
+  -moz-transition: all 0.2s ease-out
+  -ms-transition: all 0.2s ease-out
+  -o-transition: all 0.2s ease-out
+  transition: all 0.2s ease-out
+
+.menu-link
+  position: fixed
+  display: block
+  top: 0
+  left: 0
+  font-size: 24px
+  z-index: 10
+  width: $topbarHeight
+  line-height: $topbarHeight
+  text-align: center
+  height: auto
+  padding: 0
+  color: white
+  background-color: #e65100
+  &:hover, &:focus
+    color: white

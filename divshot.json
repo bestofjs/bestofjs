@@ -1,0 +1,6 @@
+{
+  "name": "bestofjs",
+  "root": "./www",
+  "clean_urls": false,
+  "error_page": "error.html"
+}

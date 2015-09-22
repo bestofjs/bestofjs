@@ -13,7 +13,7 @@ var envPlugin = new webpack.DefinePlugin({
 module.exports = {
 
   entry:  {
-    app: "./entry.jsx",
+    app: "./components/entry.jsx",
     vendor: [
       "react",
       "react-router",

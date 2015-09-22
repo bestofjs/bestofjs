@@ -2,8 +2,8 @@ var React = require('react');
 var Router = require('react-router');
 var {Link} = Router;
 var MainContent = require('../common/MainContent');
-var { RaisedButton, FontIcon } = require('material-ui');
-var flux = require('../../scripts/app');
+//var { RaisedButton, FontIcon } = require('material-ui');
+var actions = require('../../scripts/actions');
 var TagLabel = require('../tags/TagLabel');
 
 var ProjectPage = React.createClass({
@@ -11,7 +11,7 @@ var ProjectPage = React.createClass({
   componentDidMount: function() {
     console.log('ProjectPage did mount');
     var id = this.getParams().id;
-    flux.actions.getProject(id);
+    actions.getProject(id);
   },
 
   render: function() {
@@ -22,7 +22,7 @@ var ProjectPage = React.createClass({
             <div>
               { project.tags.map(function (tag) {
                 return (
-                  <TagLabel tag={ tag } />
+                  <TagLabel key={ tag._id } tag={ tag } />
                 );
               }) }
               <h1 style={{ marginTop: 5 }}>{ project.name }</h1>
@@ -41,13 +41,13 @@ var ProjectPage = React.createClass({
                 <div dangerouslySetInnerHTML={ project.readme }></div>
 
                 <div style={{ textAlign: 'center' }}>
-                  <RaisedButton
+                  <a
                     linkButton={true}
                     href={ project.repository }
                     secondary={true}
                     label="View on GitHub"
                   >
-                  </RaisedButton>
+                </a>
                 </div>
 
               </div>

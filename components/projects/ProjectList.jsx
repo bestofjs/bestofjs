@@ -23,7 +23,8 @@ var ProjectList = React.createClass({
       showTags: true,
       showDescription: false,
       showStars: true,
-      showDelta: true
+      showDelta: true,
+      showURL: false
     });
   },
 
@@ -74,6 +75,7 @@ ProjectList.Item = React.createClass({
       }
     };
     var project = this.props.project;
+    //console.log('Display the project', project);
     return (
       <div style={ style.container }>
         <div style={ style.starsBar } />
@@ -101,6 +103,9 @@ ProjectList.Item = React.createClass({
           >
           { this.props.project.name }
           </Link>
+          { this.props.showURL && this.props.project.url && (
+            <a style={{ display: 'block' }} href={ this.props.project.url }>{ this.props.project.url }</a>
+          )}
           { this.props.showDescription && (
             <p>{ this.props.project.description }</p>
           )}
@@ -114,7 +119,7 @@ ProjectList.Item = React.createClass({
         </div>
 
         <div>
-          <DeltaBar data={ project.deltas.slice(0,7) } />
+          { project.deltas.length > 0 && <DeltaBar data={ project.deltas.slice(0,7) } />}
           { false && (<Sparklines data={ project.deltas } width={ 400 }>
             <SparklinesBars color="blue" />
           </Sparklines>)}

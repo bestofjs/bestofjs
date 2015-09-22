@@ -24,14 +24,16 @@ var About = React.createClass({
           That is why bestof.js.org was born!
         </p>
 
-          <RaisedButton
+          <a
             linkButton={true}
             href="https://github.com/michaelrambeau/bestofjs-webui"
             secondary={true}
-            label="Star bestof.js.org on GitHub"
+            label=""
           >
             <i className="fa fa-github"></i>
-          </RaisedButton>
+            {' '}
+            Star bestof.js.org on GitHub
+          </a>
 
           <p>A project by Michael Rambeau</p>
 

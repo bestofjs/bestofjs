@@ -1,9 +1,19 @@
+.header-row
+  display: flex
+  flex-direction: row
+.col-1, .col-2
+  width: 50%
+
 .ui.input
   position: relative;
+  display: flex;
   input
     outline: 0;
+    width: 0
+    max-width: 100%
+    flex: 1 0 auto
   .ui.icon
-    display inline-block
+    flex: 1 0 auto
     font-size: 24px
     cursor: default;
     position: absolute;
