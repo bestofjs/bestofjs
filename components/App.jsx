@@ -68,6 +68,10 @@ var App = React.createClass({
 
         </div>
 
+        <p style={{ textAlign: 'center' }}>
+          Updated everyday. Last update: { moment(this.state.lastUpdate).fromNow() }
+        </p>
+
       </div>
     );
   },

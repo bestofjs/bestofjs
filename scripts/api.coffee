@@ -12,7 +12,9 @@ console.info 'API...' + process.env
 init = () ->
 
   actions.getProjects.listen () =>
-    request.get "#{path}project/all", (err, response) =>
+    # request.get "#{path}project/all", (err, response) =>
+    console.info 'Get projects'
+    request.get "http://development.bestofjs-data.divshot.io/projects.json", (err, response) =>
       if err
         console.log 'FAILED!'
         actions.getProjects.failed err.message

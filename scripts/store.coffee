@@ -47,11 +47,14 @@ appStore = Reflux.createStore
       tag: @tag
       errorMessage: @errorMessage
       maxStars: if @popularProjects.length > 0 then @popularProjects[0].stars else 0
+      lastUpdate: @lastUpdate
     state
 
   onGetProjectsCompleted: (data) ->
     projects = data.projects
     @tags = data.tags
+    @lastUpdate = new Date(data.date)
+    console.log @lastUpdate
 
     @tagsMap = {}
     @counters = @updateCounters projects
