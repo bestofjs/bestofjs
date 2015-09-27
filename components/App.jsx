@@ -12,7 +12,7 @@ var App = React.createClass({
 
   mixins: [Reflux.ListenerMixin],
 
-  componentDidMount: function() {
+  componentWillMount: function() {
     //Listen to any change from the store (@trigger() in the store)
     this.listenTo(store, this.onChangeStore);
     var data = this.props.data;
@@ -68,7 +68,7 @@ var App = React.createClass({
 
         </div>
 
-        <p style={{ textAlign: 'center' }}>
+        <p style={{ fontSize: 13, textAlign: 'center' }}>
           Updated everyday. Last update: { moment(this.state.lastUpdate).fromNow() }
         </p>
 

@@ -1,10 +1,7 @@
 var React = require('react');
 var Router = require('react-router');
-var mui = require('material-ui');
-var Colors = mui.Styles.Colors;
 var TagMenu = require('./TagMenu');
 var TagLabel = require('../tags/TagLabelCompact');
-var SortMenu = require('./SortMenu');
 var flux = require('../../scripts/app');
 var Delta = require('../common/utils/Delta');
 var DeltaBar = require('../common/utils/DeltaBar');
@@ -14,7 +11,6 @@ var Stars = require('../common/utils/Stars');
 //var { Sparklines, SparklinesBars, SparklinesLine } = lines;
 
 var {Link} = Router;
-var { Paper, Toolbar, ToolbarGroup, DropDownMenu, TextField } = mui;
 
 var ProjectList = React.createClass({
 
@@ -63,7 +59,7 @@ ProjectList.Item = React.createClass({
       },
       starsBar: {
         height: 3,
-        backgroundColor: Colors.amber200,
+        backgroundColor: '#ffe082',
         width: (this.props.project.stars * 100 / this.props.maxStars).toFixed() + '%'
       },
       inner: {

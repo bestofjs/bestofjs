@@ -7,7 +7,8 @@ actions = Reflux.createActions
   #Async. actions (ajax requests)
   "getProjects":
     asyncResult: true
-  "getProject":
+  "getProject": {}
+  "getReadme":
     asyncResult: true
   "getTag":
     asyncResult: true

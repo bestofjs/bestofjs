@@ -54,7 +54,7 @@ appStore = Reflux.createStore
     projects = data.projects
     @tags = data.tags
     @lastUpdate = new Date(data.date)
-    console.log @lastUpdate
+    console.info 'Got initial data', @lastUpdate
 
     @tagsMap = {}
     @counters = @updateCounters projects
@@ -91,11 +91,17 @@ appStore = Reflux.createStore
       project.tags = tags
     projects
 
+  # <ProjectPage> component triggers actions.getProject(id)
+  onGetProject: (id) ->
+    found = @allProjects.filter (project) ->
+      project._id is id
+    console.info 'Request project', id, found[0]
+    @project = found[0]
+    @trigger @getState()
+    actions.getReadme @project
 
-  onGetProjectCompleted: (data) ->
-    console.log 'project', data
-    @project = data.project
-    #readme = markdown.toHTML data.readme
+  onGetReadmeCompleted: (data) ->
+    console.info 'readme response', data
     readme = marked data.readme
     @project.readme =
       __html: readme

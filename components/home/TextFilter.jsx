@@ -6,7 +6,6 @@ var actions = require('../../scripts/actions');
 
 var SearchContainer = require('./SearchContainer');
 var MainContent = require('../common/MainContent');
-var ProjectGrid = require('../projects/ProjectGrid');
 var ProjectList = require('../projects/ProjectList');
 var TagList = require('../tags/TagList');
 var SearchForm = require('./SearchForm');

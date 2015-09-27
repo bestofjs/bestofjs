@@ -1,12 +1,10 @@
 var React = require('react');
 var Router = require('react-router');
 var {Link} = Router;
-//var { RaisedButton, FlatButton, FontIcon } = require('material-ui');
 
 var actions = require('../../scripts/actions');
 
 var MainContent = require('../common/MainContent');
-var ProjectGrid = require('../projects/ProjectGrid');
 var ProjectList = require('../projects/ProjectList');
 var TagList = require('../tags/TagList');
 var SearchForm = require('./SearchForm');
@@ -60,27 +58,6 @@ var Home = React.createClass({
             </div>
           </div>
         )}
-
-        { false && <div style={{ padding: 20, textAlign: 'center'}}>
-          <FlatButton
-            containerElement={ <Link to="project-list" /> }
-            linkButton={true}
-            secondary={true}
-            label="View All projects"
-          />
-        </div>}
-
-        { true && this.props.projects && (
-          <div style={{ marginTop: 20 }}>
-            <h2>All projects</h2>
-            <ProjectGrid
-              projects={ this.props.allProjects }
-              tags={ this.props.tags }
-              selectedTag= {this.props.selectedTag}
-              selectedSort= {this.props.selectedSort}
-            />
-          </div>
-        ) }
       </MainContent>
     );
   }

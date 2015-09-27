@@ -17,7 +17,6 @@ module.exports = {
     vendor: [
       "react",
       "react-router",
-      "material-ui",
       'reflux',
       'superagent',
       'lodash'
@@ -47,6 +46,6 @@ module.exports = {
 
   // Automatically transform files with these extensions
   resolve: {
-    extensions: ['', '.js', '.jsx', '.coffee', '.cjsx']
+    extensions: ['', '.js', '.jsx', '.coffee']
   }
 };

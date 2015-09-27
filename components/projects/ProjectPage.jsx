@@ -6,10 +6,11 @@ var MainContent = require('../common/MainContent');
 var actions = require('../../scripts/actions');
 var TagLabel = require('../tags/TagLabel');
 
+require('../../stylesheets/project.styl');
+
 var ProjectPage = React.createClass({
   mixins: [Router.State],
   componentDidMount: function() {
-    console.log('ProjectPage did mount');
     var id = this.getParams().id;
     actions.getProject(id);
   },
@@ -34,23 +35,26 @@ var ProjectPage = React.createClass({
               <p>{ project.stars } stars on <a href={ project.repository }>Github</a></p>
               <p>{ project.description }</p>
 
-              <div className="readme" style={{ border: '1px solid #ccc', padding: 20, marginBottom: 20 }}>
+              { project.readme ? (
+                <div className="readme" style={{ border: '1px solid #ccc', padding: 20, marginBottom: 20 }}>
 
-                {/*<h3>README</h3>*/}
+                  {/*<h3>README</h3>*/}
 
-                <div dangerouslySetInnerHTML={ project.readme }></div>
+                  <div dangerouslySetInnerHTML={ project.readme }></div>
 
-                <div style={{ textAlign: 'center' }}>
-                  <a
-                    linkButton={true}
-                    href={ project.repository }
-                    secondary={true}
-                    label="View on GitHub"
-                  >
-                </a>
+                  <div style={{ textAlign: 'center' }}>
+                    <a
+                      linkButton={true}
+                      href={ project.repository }
+                      secondary={true}
+                      label="View on GitHub"
+                    >
+                  </a>
+                  </div>
                 </div>
-
-              </div>
+              ) : (
+                <p>Loading README.md from Github...</p>
+              )}
 
             </div>
           ) }
