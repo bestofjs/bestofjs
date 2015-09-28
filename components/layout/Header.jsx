@@ -15,7 +15,7 @@ var Header = React.createClass({
           <div className="col-1" style={{ width: '50%' }}>
             <ToggleMenuButton />
             <Link to={ 'home' }>
-              <img id="logo" src="/images/logo.png" alt="bestof.js.org" width="150"/>
+              <img id="logo" src="images/logo.png" alt="bestof.js.org" width="150"/>
             </Link>
           </div>
           <div className="col-2" style={{ width: '50%' }}>

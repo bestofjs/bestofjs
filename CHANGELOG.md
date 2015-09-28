@@ -1,5 +1,11 @@
 # Change log
 
+## 0.1.0 - 2015-09-28
+* The first version pushed to github pages (`bestofjs` repository)
+* No more web application listening to requests:
+  * Project list got from a JSON static file pushed everyday to divshot.io
+  * README.md got from a micro-service created on webtask.io
+
 ## 0.0.3 - 2015-09-22
 * New layout, with a sidebar that display the tag list.
 * Search filter updates the URL: `/#/search/flexb` for example

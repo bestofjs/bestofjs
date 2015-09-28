@@ -1,6 +1,5 @@
 var React = require('react');
 var Router = require('react-router');
-var TagMenu = require('./TagMenu');
 var TagLabel = require('../tags/TagLabelCompact');
 var flux = require('../../scripts/app');
 var Delta = require('../common/utils/Delta');
@@ -17,7 +16,7 @@ var ProjectList = React.createClass({
   getDefaultProps: function () {
     return ({
       showTags: true,
-      showDescription: false,
+      showDescription: true,
       showStars: true,
       showDelta: true,
       showURL: false
@@ -28,7 +27,7 @@ var ProjectList = React.createClass({
     flux.actions.changeText( e.target.value);
   },
 
-  render: function (argument) {
+  render: function () {
     return(
       <div>
         {this.props.projects.map( (project, index) =>

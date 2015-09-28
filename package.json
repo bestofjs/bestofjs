@@ -1,12 +1,14 @@
 {
   "name": "bestofjs-webui",
-  "version": "0.0.3",
+  "version": "0.1.0",
   "description": "bestof.js.org front-end web application",
   "main": "webpack.local.config.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "webpack -p --config webpack.production.config.js",
-    "start": "webpack-dev-server --config webpack.local.config.js --content-base www --hot"
+    "start": "webpack-dev-server --config config/webpack.local.config.js --content-base www --hot",
+    "build": "webpack -p --config config/webpack.production.config.js",
+    "gh-pages": "node config/gh-pages-deploy",
+    "deploy": "npm run build && npm run gh-pages"
   },
   "repository": {
     "type": "git",
@@ -36,7 +38,8 @@
     "stylus-loader": "^1.2.0"
   },
   "devDependencies": {
-    "webpack-dev-server": "^1.9.0",
-    "react-hot-loader": "^1.2.7"
+    "gh-pages": "^0.4.0",
+    "react-hot-loader": "^1.2.7",
+    "webpack-dev-server": "^1.9.0"
   }
 }

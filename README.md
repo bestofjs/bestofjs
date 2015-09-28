@@ -1,4 +1,4 @@
-#  bestof.js.org front end application
+#  bestof.js.org front end web application
 
 ## Concept
 
@@ -19,7 +19,6 @@ This is the front-end application, a single-page application built with the foll
 * React router
 * Reflux
 * Webpack
-* Material UI
 
 Webpack is used to built the application in development and production mode.
 
@@ -28,7 +27,7 @@ Webpack is used to built the application in development and production mode.
 Start the web server and watch for changes on the filesystem:
 
 ```
-npm init
+npm start
 ```
 
 The application should be running at [localhost:8080](http://localhost:8080/)
@@ -39,6 +38,18 @@ Note: built files are not written on the disk, they are served by the server tha
 ## Production deploy
 
 Build the files for production:
+
 ```
 npm run build
+```
+
+Push to Github pages
+```
+npm run gh-pages
+```
+
+These 2 commands can be combined calling
+
+```
+npm run deploy
 ```
