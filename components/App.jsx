@@ -3,10 +3,13 @@ var Router = require('react-router');
 var Reflux = require('reflux');
 var Sidebar = require('./layout/Sidebar2');
 var Header = require('./layout/Header');
+var Footer = require('./layout/Footer');
 var { RouteHandler } = Router;
 
 var store = require('../scripts/store');
 var actions = require('../scripts/actions');
+
+require('./layout/footer.styl');
 
 var App = React.createClass({
 
@@ -68,9 +71,7 @@ var App = React.createClass({
 
         </div>
 
-        <p style={{ fontSize: 13, textAlign: 'center' }}>
-          Updated everyday. Last update: { moment(this.state.lastUpdate).fromNow() }
-        </p>
+        <Footer lastUpdate={ this.state.lastUpdate }/>
 
       </div>
     );
