@@ -2,18 +2,14 @@ var React = require('react');
 var Router = require('react-router');
 var {Link} = Router;
 
-var actions = require('../../scripts/actions');
-
 var MainContent = require('../common/MainContent');
 var ProjectList = require('../projects/ProjectList');
-var TagList = require('../tags/TagList');
-var SearchForm = require('./SearchForm');
-var SearchResultList = require('./SearchResultList');
 var ErrorMessage = require('./../common/utils/ErrorMessage');
 
 var SearchContainer = require('./SearchContainer');
 
 require('../../stylesheets/grid.styl');
+require('../../stylesheets/button.styl');
 
 var Home = React.createClass({
 
@@ -21,16 +17,22 @@ var Home = React.createClass({
     return (
       <MainContent>
         { this.props.errorMessage && <ErrorMessage text={ this.props.errorMessage } /> }
-        <h2>Welcome to bestof.js.org!</h2>
-        <p>Check out the most popular projects and the latest tendancies about JavaScript world:
+        <h2>A place to find the <i>best</i> components to build amazing web applications!</h2>
+        <p>
+          <a id="star-button" href="https://github.com/michaelrambeau/bestofjs-webui">
+            <i className="fa fa-star-o"></i>
+            {' '}
+            Star on Github
+          </a>
+          Check out the most popular open-source projects and the latest trends about web applications:
           {' '}
-          <Link to="tags" params={{ id: '5568e47e355ea6282ecae9b9' }}>MV* frameworks</Link>,
+          <Link to="tags" params={{ id: '5568e47e355ea6282ecae9b9' }}>frameworks</Link>,
           {' '}
-          <Link to="tags" params={{ id: '5568e488355ea6282ecae9e4' }}>React tools</Link>,
-          ...
+          <Link to="tags" params={{ id: '5568e488355ea6282ecae9e4' }}>react tools</Link>,
+          {' '}
+          <Link to="tags" params={{ id: '5568e47a355ea6282ecae9ab' }}>node.js CMS</Link>
+          {' and many more... the best of JavaScript!'}
         </p>
-
-        {false && <SearchContainer {...this.props} />}
 
         { this.props.allProjects && (
           <div className="row">

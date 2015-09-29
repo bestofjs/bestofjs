@@ -10,18 +10,29 @@ var Header = React.createClass({
 
   render: function() {
     return (
-      <div id="header" style={{ }}>
-        <div className="header-row" style={{ maxWidth: 800, margin: '0 auto', paddingTop: 10 }}>
-          <div className="col-1" style={{ width: '50%' }}>
-            <ToggleMenuButton />
-            <Link to={ 'home' }>
-              <img id="logo" src="images/logo.png" alt="bestof.js.org" width="150"/>
-            </Link>
+      <div id="header">
+        <div className="container">
+          { /* Desktop header */}
+          <div id="big-header" className="header-row">
+            <div className="col-1">
+              <ToggleMenuButton />
+              <Link to={ 'home' } className="link-logo" >
+                <img src="images/logo.png" alt="bestof.js.org" width="150"/>
+              </Link>
+            </div>
+            <div className="col-2">
+              <SearchForm
+                searchText = { this.props.searchText }
+              />
+            </div>
           </div>
-          <div className="col-2" style={{ width: '50%' }}>
-            <SearchForm
-              searchText = { this.props.searchText }
-            />
+
+          { /* Desktop header */}
+          <div id="small-header">
+            <ToggleMenuButton />
+              <SearchForm
+                searchText = { this.props.searchText }
+              />
           </div>
         </div>
       </div>

@@ -59,7 +59,7 @@ var SearchForm = React.createClass({
       fontSize: '1em'
     };
     return (
-        <div className="ui input icon" style={{ paddingRight: 10 }}>
+        <div className="ui input icon">
           <input
             type="text"
             style={ style }

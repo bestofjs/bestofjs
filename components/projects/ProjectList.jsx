@@ -85,7 +85,7 @@ ProjectList.Item = React.createClass({
 
             {  this.props.showDelta && (
               <div style={{ fontSize: 16 }}>
-                <Delta value={  this.props.project.delta1 } />
+                <Delta value={ this.props.project.delta1 } big={ true } />
               </div>
             ) }
 

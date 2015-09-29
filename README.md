@@ -3,7 +3,7 @@
 ## Concept
 
 
-bestof.js.org is a place to check the latest tendancies about open source projects related to the JavaScript world.
+[bestof.js.org](http://bestof.js.org/) is an application to check the latest trends about open source projects related to the JavaScript world.
 This is a place where font-end engineers and node.js developers can find the best components to build amazing web applications:
 
 * Frameworks

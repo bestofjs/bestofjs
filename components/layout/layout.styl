@@ -52,11 +52,22 @@ $menuBreakPoint = 900px
   @media screen and (min-width: $menuBreakPoint)
     width: "calc(100% - %s)" % $sidebarWidth
     padding: 0
-#logo
+
+.link-logo
   margin-left $topbarHeight
   @media screen and (min-width: $menuBreakPoint)
-    width: 200px
     margin-left 0
+    img
+      width 200px
+
+.XXX
+  display: none
+  @media screen and (min-width: 450px)
+    display: inline
+    //margin-top: 5px
+  @media screen and (min-width: $menuBreakPoint)
+    width: 200px
+    margin 0
 
 
 

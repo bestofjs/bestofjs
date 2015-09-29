@@ -1,2 +1,65 @@
 #menuLink
   background-color: #e65100
+
+//Break point that define which header to display
+$headerBreakPoint = 450px
+
+#big-header
+  display: none
+  @media (min-width: $headerBreakPoint)
+    display: flex
+    flex-direction: row
+    .col-1
+      display: flex
+      align-items: center
+    .link-logo
+      display block
+
+#small-header
+  display: block
+  .ui.input
+    margin-left: 55px
+  @media (min-width: $headerBreakPoint)
+    display: none
+
+#header
+  .container
+    max-width: 800px
+    margin: 0 auto
+    padding-top: 10px
+    @media (max-width: 1280px)
+      padding-left: 10px
+      padding-right: 20px
+
+.header-row
+  display: flex
+  flex-direction: row
+  .col-1
+    width: 220px
+  .col-2
+    width: calc(100% - 220px)
+  @media screen and (min-width: 660px)
+    .col-1, .col-2
+      width: 50%
+
+//Search input field container that displays an icon
+.ui.input
+  position: relative;
+  display: flex;
+  input
+    outline: 0;
+    width: 0
+    max-width: 100%
+    flex: 1 0 auto
+  .ui.icon
+    flex: 1 0 auto
+    font-size: 24px
+    cursor: default;
+    position: absolute;
+    line-height: 1.5;
+    text-align: center;
+    top: 0;
+    right: 0;
+    margin: 0;
+    height: 100%;
+    width: 2.67142857em;

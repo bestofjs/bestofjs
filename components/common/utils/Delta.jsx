@@ -31,14 +31,13 @@ var Delta = React.createClass({
 
   render: function() {
 
-    var value = this.props.value;
+    var {value, big} = this.props;
 
     var formatDelta = function (value) {
       if (value === 0) return '=';
       if (value < 0) return  '- ' + Math.abs(value);
       return '+ ' + value;
     };
-    var self = this;
     var getStyle = function (value) {
 
       var bgColors = ['#f6faaa','#FEE08B','#FDAE61','#F46D43','#D53E4F','#9E0142'];
@@ -54,7 +53,7 @@ var Delta = React.createClass({
         borderTopColor: bgColors[index],
 
         color: colors[index],
-        fontSize: 13,
+        fontSize: big ? 18 : 13,
         textAlign: 'center'
       };
     };
