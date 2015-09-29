@@ -1,10 +1,6 @@
 var React = require('react');
 var {Navigation, State} = require('react-router');
 
-var actions = require('../../scripts/actions');
-
-require('./style.styl');
-
 var SearchForm = React.createClass({
   mixins: [Navigation, State],
   getInitialState: function() {
