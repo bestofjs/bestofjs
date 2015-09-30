@@ -7,7 +7,7 @@ var filepath = 'build/';
 var envPlugin = new webpack.DefinePlugin({
   'process.env': {
     'NODE_ENV': JSON.stringify('development'),
-    'API':  JSON.stringify('https://bestofjs-michaelrambeau.c9.io/')
+    'API':  JSON.stringify('http://development.bestofjs-data.divshot.io/')
    }
 });
 

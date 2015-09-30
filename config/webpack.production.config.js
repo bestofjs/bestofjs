@@ -6,7 +6,7 @@ var filepath = './www/build/';
 var envPlugin = new webpack.DefinePlugin({
   'process.env': {
     'NODE_ENV': JSON.stringify('production'),
-    'API':  JSON.stringify('https://bestofjs.herokuapp.com/')
+    'API':  JSON.stringify('http://bestofjs-data.divshot.io/')
    }
 });
 
