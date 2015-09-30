@@ -65,7 +65,12 @@ var Delta = React.createClass({
     style.padding = '2px 5px';
 
     return (
-      <div style={ style }>{ formatDelta(value) }</div>
+      <div style={ style }>
+        { formatDelta(value) }
+        { this.props.icon && value !== 0 && (
+          <i className="fa fa-star-o" style={{ fontSize: 14, marginLeft: 4 }}></i>
+        ) }
+      </div>
     );
   }
 

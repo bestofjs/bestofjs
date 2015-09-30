@@ -24,7 +24,7 @@ var Home = React.createClass({
             {' '}
             Star on Github
           </a>
-          Check out the most popular open-source projects and the latest trends about web applications:
+          Check out the most popular open-source projects and the latest trends:
           {' '}
           <Link to="tags" params={{ id: '5568e47e355ea6282ecae9b9' }}>frameworks</Link>,
           {' '}

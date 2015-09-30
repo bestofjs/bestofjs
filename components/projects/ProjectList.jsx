@@ -79,13 +79,20 @@ ProjectList.Item = React.createClass({
           <div style={{ float: 'right' }}>
             { this.props.showStars && (
               <div style={{ fontSize: 24 }}>
-                <Stars value={ this.props.project.stars } />
+                <Stars
+                  value={ this.props.project.stars }
+                  icon={ true }
+                />
               </div>
             )}
 
-            {  this.props.showDelta && (
+            {  this.props.showDelta && project.deltas.length > 0 && (
               <div style={{ fontSize: 16 }}>
-                <Delta value={ this.props.project.delta1 } big={ true } />
+                <Delta
+                  value={ this.props.project.delta1 }
+                  big={ true }
+                  icon={ true }
+                />
               </div>
             ) }
 
