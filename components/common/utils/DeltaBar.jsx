@@ -4,11 +4,19 @@ var Delta = require('./Delta');
 var DeltaBar = React.createClass({
 
   render: function() {
+    var deltas = this.props.data;
     return (
       <div>
-        <p style={{ margin: '0.5em 1em 0.5em', fontSize: 13 }}>Stars added during the last 7 days:</p>
+        <p style={{ margin: '0.5em 1em 0.5em', fontSize: 13 }}>
+          { deltas.length === 1 ? (
+            'Stars added yesterday:'
+          ) : (
+            'Stars added during the last ' + deltas.length + ' days:'
+          )
+          }
+        </p>
         <div style={{ display: 'flex', flexDirection: 'row-reverse' }}>
-        { this.props.data.map( (item, i) =>
+        { deltas.map( (item, i) =>
           <DeltaBar.Item value={ item } key={ i } />
         ) }
         </div>
