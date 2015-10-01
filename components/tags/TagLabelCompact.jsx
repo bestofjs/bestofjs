@@ -8,7 +8,11 @@ var TagLabel = React.createClass({
     var tag = this.props.tag;
     var style = {
       container: {
-        padding: '2px 0'
+        padding: '5px 10px',
+        backgroundColor: '#888',
+        color: "white",
+        fontSize: 14,
+        borderRadius: 4
       },
     };
     return (

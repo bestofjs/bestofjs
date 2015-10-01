@@ -112,7 +112,7 @@ ProjectList.Item = React.createClass({
             <p>{ this.props.project.description }</p>
           )}
           { this.props.showTags && (
-            <div>
+            <div style={{ marginBottom: 5 }}>
               { this.props.project.tags.map( (tag, i) =>
                 <TagLabel tag={ tag } key={ i } /> )
               }

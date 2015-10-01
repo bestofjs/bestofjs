@@ -39,6 +39,7 @@ var Home = React.createClass({
             <div className="col-sm-6">
               <div className="box">
                 <h3>Most popular projects</h3>
+                <p className="explanation">By total number of stars on Github</p>
                 <ProjectList
                   projects = {this.props.popularProjects.slice(0,20)}
                   maxStars = {this.props.maxStars}
@@ -50,6 +51,7 @@ var Home = React.createClass({
             <div className="col-sm-6">
               <div className="box">
                 <h3>Hot projects since yesterday</h3>
+                <p className="explanation">By number of stars added yesterday on Github</p>
                 <ProjectList
                   projects = {this.props.hotProjects.slice(0,20)}
                   maxStars = {this.props.maxStars}

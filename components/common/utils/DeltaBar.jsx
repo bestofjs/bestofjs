@@ -5,11 +5,14 @@ var DeltaBar = React.createClass({
 
   render: function() {
     return (
-      <div style={{ display: 'flex', flexDirection: 'row-reverse' }}>
-      { this.props.data.map( (item, i) =>
-        <DeltaBar.Item value={ item } key={ i } />
-      ) }
-      </div>
+      <div>
+        <p style={{ margin: '0.5em 1em 0.5em', fontSize: 13 }}>Stars added during the last 7 days:</p>
+        <div style={{ display: 'flex', flexDirection: 'row-reverse' }}>
+        { this.props.data.map( (item, i) =>
+          <DeltaBar.Item value={ item } key={ i } />
+        ) }
+        </div>
+    </div>
     );
   }
 
