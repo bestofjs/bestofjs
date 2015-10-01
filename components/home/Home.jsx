@@ -17,10 +17,10 @@ var Home = React.createClass({
     return (
       <MainContent>
         { this.props.errorMessage && <ErrorMessage text={ this.props.errorMessage } /> }
-        <h2>A place to find the <i>best</i> components to build amazing web applications!</h2>
+        <h2>A place to find the <i style={{ color: '#d53e4f' }}>best</i> components to build amazing web applications!</h2>
         <p>
           <a id="star-button" href="https://github.com/michaelrambeau/bestofjs-webui">
-            <i className="fa fa-star-o"></i>
+            <i className="fa fa-github-alt"></i>
             {' '}
             Star on Github
           </a>

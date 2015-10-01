@@ -50,7 +50,7 @@ var SearchForm = React.createClass({
       //width: '100%',
       boxSizing: 'border-box',//to prevent the input from overlapping the container
       padding: '0.5em 1em',
-      border: '2px solid #ddd',
+      border: '3px solid #ddd',
       borderRadius: 6,
       fontSize: '1em'
     };

@@ -18,22 +18,23 @@
     <link rel="stylesheet" href="vendor/pace/pace.css">
     <script src="vendor/pace/pace.js"></script>
 
-    <link href='https://fonts.googleapis.com/css?family=Roboto:400,300,500' rel='stylesheet' type='text/css'>
-
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
-
     <style>
     .nojs{
-      font-family: Roboto,sans-serif;
+      font-family: sans-serif;
       height: 100%;
       margin: 0;
       display: flex;
       align-items: center;
       flex-direction: column;
-      text-align: center;
       height: 100%;
       justify-content: center;
       font-size: 20px;
+      color: #555;
+    }
+    @media (min-width: 600px) {
+      .nojs{
+        font-size: 24px;
+      }
     }
     .nojs > * {
       flex: 0 0 auto;
@@ -44,11 +45,23 @@
   <body>
     <div id="app" >
       <img src="images/logo.png" width="320" height="62" alt="bestof.js.org" />
-      <p>Loading the best of JavaScript: React, Angular, node.js... <br/>it will be awesome!</p>
+      <p>Loading the best of JavaScript:
+      <ul>
+        <li>React</li>
+        <li>Angular</li>
+        <li>node.js</li>
+        <li>and more...</li>
+      </ul>
+      <p>it will be awesome!</p>
     </div>
 
-    <script type="text/javascript" src="build/bundle-vendor.js"></script>
-    <script type="text/javascript" src="build/bundle-app.js"></script>
+
+    <!-- Async load cross-site CSS, mostly interesting for production -->
+    <script>
+      function loadCSS(e,t,n){"use strict";var i=window.document.createElement("link");var o=t||window.document.getElementsByTagName("script")[0];i.rel="stylesheet";i.href=e;i.media="only x";o.parentNode.insertBefore(i,o);setTimeout(function(){i.media=n||"all"})}
+      loadCSS('https://fonts.googleapis.com/css?family=Roboto:400,300,500');
+      loadCSS('https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css');
+    </script>
 
     <!-- numeral is used to format star numbers -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/numeral.js/1.4.5/numeral.min.js"></script>
@@ -58,6 +71,10 @@
 
     <!-- Moment is used to display the last update time -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment.min.js"></script>
+
+    <!-- Libraries are loaded before the app. script to avoid errors like "Moment is not defined" -->
+    <script type="text/javascript" src="build/bundle-vendor.js"></script>
+    <script type="text/javascript" src="build/bundle-app.js"></script>
 
   </body>
 </html>
