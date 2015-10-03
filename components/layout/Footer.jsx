@@ -1,4 +1,5 @@
 var React = require('react');
+var moment = require('moment');
 
 var Footer = React.createClass({
 

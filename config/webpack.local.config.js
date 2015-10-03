@@ -1,4 +1,5 @@
 var webpack = require('webpack');
+var getVendorModules = require('./common/vendor');
 
 //filepath used in `output` and `plugins`
 var filepath = 'build/';
@@ -22,13 +23,7 @@ module.exports = {
       "webpack/hot/only-dev-server",
       "./components/entry.jsx"
     ],
-    vendor: [
-      "react",
-      "react-router",
-      'reflux',
-      'superagent',
-      'lodash'
-    ]
+    vendor: getVendorModules()
   },
 
   // This will not actually create a bundle.js file in ./build. It is used
@@ -47,7 +42,6 @@ module.exports = {
         loaders: ["react-hot", "babel-loader"]
       },
       { test: /\.coffee$/, loader: 'coffee-loader' },
-      { test: /\.less$/, loader: 'style-loader!css-loader!less-loader' }, // use ! to chain loaders
       { test: /\.styl$/, loader: 'style-loader!css-loader!stylus-loader' }, // use ! to chain loaders
       { test: /\.css$/, loader: 'style-loader!css-loader' },
     ]
@@ -61,6 +55,6 @@ module.exports = {
 
   // Automatically transform files with these extensions
   resolve: {
-    extensions: ['', '.js', '.jsx', '.coffee', '.cjsx']
+    extensions: ['', '.js', '.jsx', '.coffee']
   }
 };

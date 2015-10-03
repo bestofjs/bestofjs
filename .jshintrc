@@ -1,6 +1,6 @@
 {
   "esnext": true,
-  "predef": [ "_", "window", "document", "describe", "it", "moment" ],
+  "predef": [ "_", "window", "document", "describe", "it"],
   "node": true,
   "undef": true,
   "unused": true

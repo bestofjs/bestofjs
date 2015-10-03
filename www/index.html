@@ -55,22 +55,12 @@
       <p>it will be awesome!</p>
     </div>
 
-
     <!-- Async load cross-site CSS, mostly interesting for production -->
     <script>
       function loadCSS(e,t,n){"use strict";var i=window.document.createElement("link");var o=t||window.document.getElementsByTagName("script")[0];i.rel="stylesheet";i.href=e;i.media="only x";o.parentNode.insertBefore(i,o);setTimeout(function(){i.media=n||"all"})}
       loadCSS('https://fonts.googleapis.com/css?family=Roboto:400,300,500');
       loadCSS('https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css');
     </script>
-
-    <!-- numeral is used to format star numbers -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/numeral.js/1.4.5/numeral.min.js"></script>
-
-    <!-- marked is used to parse readme content returned by /project/:id requests -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/0.3.2/marked.min.js"></script>
-
-    <!-- Moment is used to display the last update time -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment.min.js"></script>
 
     <!-- Libraries are loaded before the app. script to avoid errors like "Moment is not defined" -->
     <script type="text/javascript" src="build/bundle-vendor.js"></script>

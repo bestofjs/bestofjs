@@ -1,5 +1,6 @@
 Reflux = require 'reflux'
 actions = require './actions'
+marked = require 'marked'
 #
 # STORES
 #

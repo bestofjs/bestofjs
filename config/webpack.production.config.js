@@ -1,4 +1,5 @@
 var webpack = require('webpack');
+var getVendorModules = require('./common/vendor');
 
 //filepath used in `output` and `plugins`
 var filepath = './www/build/';
@@ -14,13 +15,7 @@ module.exports = {
 
   entry:  {
     app: "./components/entry.jsx",
-    vendor: [
-      "react",
-      "react-router",
-      'reflux',
-      'superagent',
-      'lodash'
-    ]
+    vendor: getVendorModules()
   },
 
   output: {
@@ -31,9 +26,7 @@ module.exports = {
   module: {
     loaders: [
       { test: /\.jsx?$/, exclude: /node_modules/, loaders: ["babel-loader"]},
-      { test: /\.cjsx$/, loader: "coffee-jsx-loader" },
       { test: /\.coffee$/, loader: 'coffee-loader' },
-      { test: /\.less$/, loader: 'style-loader!css-loader!less-loader' }, // use ! to chain loaders
       { test: /\.styl$/, loader: 'style-loader!css-loader!stylus-loader' }, // use ! to chain loaders
       { test: /\.css$/, loader: 'style-loader!css-loader' },
     ]
