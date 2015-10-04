@@ -1,3 +1,13 @@
+//Common styles for project tags
+.tag
+  background-color: #838383
+  color white
+  &:hover
+    text-decoration none
+    color white
+    background-color #555
+
+//Tag displayed when filtering projects by tag (with a cross icon to remove the tag)
 //From semantic-ui 'labels'
 .tag-title
   display: inline-block;
@@ -5,13 +15,13 @@
   line-height: 1;
   vertical-align: baseline;
   margin: 0 .14285714em;
-  background-color: #838383;
   border-color: #e8e8e8;
-  background-image: none;
   padding: .5833em .833em;
-  color: white;
   border-radius: .28571429rem;
 
-  &:hover
-    text-decoration none
-    background-color #555
+//Tag displayed inside project blocks
+.tag-compact
+  margin-right 5px
+  padding 5px 10px
+  border-radius 4px
+  background-color #888

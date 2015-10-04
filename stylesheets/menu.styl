@@ -1,14 +1,41 @@
 #menu
   background-color #4d464e
 
+.ui.vertical.menu
+  //First level menu entry
+  a.item
+    display block
+    position relative
+    padding: .8em 1em
+    color: rgba(255,255,255,.95)
+    &:hover, &.active
+      background: rgba(255,255,255,.08);
+      color: #fff;
+      text-decoration none
+  .item
+    padding: .8em 1em;
+    border-bottom 1px solid rgba(255,255,255,.08)
+  .item, .ui.inverted.menu .item>a:not(.ui)
+    background: 0 0
+    color: rgba(255,255,255,.9)
+
+  .item>.header:not(.ui)
+    margin: 0 0 .5em
+    font-size: 1em
+
+
 .tag-menu
   background-color: #4d464e
 .tag-menu-item
   display: block
-  padding: 0.2em 1em
-  color: white
+  padding: 0.2em 0
+  color: rgba(255,255,255,.7)
+  &:hover
+    color: white
+    text-decoration: none
   &.active
-    background-color: #e65100
+    color: white
+    //background-color: #e65100
   .counter
     float right
     color #ccc

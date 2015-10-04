@@ -36,11 +36,18 @@ var routes = (
 
 app.start( function (err, data) {
   var node = document.getElementById('app');
+  //Setup content about bestof.js.org so that it can be used in any page (homepage, about...)
+  var staticContent = {
+    projectName: 'bestof.js.org',
+    repo: 'https://github.com/michaelrambeau/bestofjs-webui'
+  };
   if (err) {
     React.render(<ErrorMessage text={ err.message } />, node);
     return false;
   }
   Router.run(routes, function (Handler) {
-    React.render(<Handler data={ data } />, node);
+    React.render(
+      <Handler data={ data } staticContent={ staticContent }/>,
+      node);
   });
 });

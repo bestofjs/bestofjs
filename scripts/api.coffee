@@ -4,8 +4,6 @@ actions = require('./actions')
 #
 # API
 #
-#path = 'https://bestofjs-michaelrambeau.c9.io/'
-#path = 'https://bestofjs.herokuapp.com/'
 path = process.env.API
 console.info 'API...' + process.env
 

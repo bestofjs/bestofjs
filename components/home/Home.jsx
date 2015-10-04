@@ -4,9 +4,8 @@ var {Link} = Router;
 
 var MainContent = require('../common/MainContent');
 var ProjectList = require('../projects/ProjectList');
-var ErrorMessage = require('./../common/utils/ErrorMessage');
-
-var SearchContainer = require('./SearchContainer');
+var ErrorMessage = require('../common/utils/ErrorMessage');
+var StarMeButton = require('../common/StarMeButton');
 
 require('../../stylesheets/grid.styl');
 require('../../stylesheets/button.styl');
@@ -14,16 +13,15 @@ require('../../stylesheets/button.styl');
 var Home = React.createClass({
 
   render: function() {
+    var {repo, projectName} = this.props.staticContent;
     return (
       <MainContent>
         { this.props.errorMessage && <ErrorMessage text={ this.props.errorMessage } /> }
-        <h2>A place to find the <i style={{ color: '#d53e4f' }}>best</i> components to build amazing web applications!</h2>
+        <h2 style={{ marginTop: 0 }}>
+          A place to find the <i style={{ color: '#d53e4f' }}>best</i> components to build amazing web applications!
+        </h2>
         <p>
-          <a id="star-button" href="https://github.com/michaelrambeau/bestofjs-webui">
-            <i className="fa fa-github-alt"></i>
-            {' '}
-            Star on Github
-          </a>
+          <StarMeButton url={ repo }/>
           Check out the most popular open-source projects and the latest trends:
           {' '}
           <Link to="tags" params={{ id: '5568e47e355ea6282ecae9b9' }}>frameworks</Link>,

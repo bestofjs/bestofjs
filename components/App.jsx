@@ -1,7 +1,7 @@
 var React = require('react');
 var Router = require('react-router');
 var Reflux = require('reflux');
-var Sidebar = require('./layout/Sidebar2');
+var Sidebar = require('./layout/Sidebar');
 var Header = require('./layout/Header');
 var Footer = require('./layout/Footer');
 var { RouteHandler } = Router;
@@ -67,11 +67,15 @@ var App = React.createClass({
             project={ this.state.project }
             tag={ this.state.tag }
             errorMessage={ this.state.errorMessage }
+            staticContent={ this.props.staticContent }
           />
 
         </div>
 
-        <Footer lastUpdate={ this.state.lastUpdate }/>
+        <Footer
+          staticContent={ this.props.staticContent }
+          lastUpdate={ this.state.lastUpdate }
+        />
 
       </div>
     );
