@@ -54,7 +54,8 @@ ProjectList.Item = React.createClass({
         padding: 0,
         backgroundColor: 'white',
         verticalAlign: 'top',
-        border: '1px solid #cbcbcb'
+        border: '1px solid #cbcbcb',
+        boxShadow: '0 2px 5px 0 rgba(0, 0, 0, 0.16)'
       },
       starsBar: {
         height: 3,
@@ -65,14 +66,14 @@ ProjectList.Item = React.createClass({
         padding: '0.5em 1em'
       },
       link: {
-        fontSize: 18,
+        fontSize: '1.2em',
         marginBottom: 5
       }
     };
     var project = this.props.project;
     //console.log('Display the project', project);
     return (
-      <div style={ style.container }>
+      <div className="card">
         <div style={ style.starsBar } />
         <div style= { style.inner }>
 
@@ -109,7 +110,15 @@ ProjectList.Item = React.createClass({
             <a style={{ display: 'block' }} href={ this.props.project.url }>{ this.props.project.url }</a>
           )}
           { this.props.showDescription && (
-            <p>{ this.props.project.description }</p>
+            <p>
+              <Link
+                to={ 'projects' }
+                params={{ id: this.props.project._id }}
+                className="description"
+              >
+                { this.props.project.description }
+              </Link>
+            </p>
           )}
           { this.props.showTags && (
             <div style={{ marginBottom: 5 }}>

@@ -13,12 +13,12 @@ require('../../stylesheets/button.styl');
 var Home = React.createClass({
 
   render: function() {
-    var {repo, projectName} = this.props.staticContent;
+    var { repo } = this.props.staticContent;
     return (
       <MainContent>
         { this.props.errorMessage && <ErrorMessage text={ this.props.errorMessage } /> }
         <h2 style={{ marginTop: 0 }}>
-          A place to find the <i style={{ color: '#d53e4f' }}>best</i> components to build amazing web applications!
+          Find the <i className="special">best</i> components to build amazing web applications!
         </h2>
         <p>
           <StarMeButton url={ repo }/>
@@ -36,7 +36,7 @@ var Home = React.createClass({
           <div className="row">
             <div className="col-sm-6">
               <div className="box">
-                <h3>Most popular projects</h3>
+                <h3 className="with-comment">Most popular projects</h3>
                 <p className="explanation">By total number of stars on Github</p>
                 <ProjectList
                   projects = {this.props.popularProjects.slice(0,20)}
@@ -48,7 +48,7 @@ var Home = React.createClass({
             </div>
             <div className="col-sm-6">
               <div className="box">
-                <h3>Hot projects since yesterday</h3>
+                <h3 className="with-comment">Hot projects since yesterday</h3>
                 <p className="explanation">By number of stars added yesterday on Github</p>
                 <ProjectList
                   projects = {this.props.hotProjects.slice(0,20)}

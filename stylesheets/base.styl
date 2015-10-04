@@ -1,13 +1,13 @@
 body
   font-size: 16px;
   line-height: 1.3333;
-  color #555
+  color #444
   background-color: #ECECEC
 
 a
   color: #e65100
   text-decoration: none
-  transition: all 0.3s  
+  transition: all 0.3s
   &:hover
     text-decoration: underline
     color: #9E0142
@@ -24,11 +24,14 @@ h1, h2, h3
   font-weight normal
 
 h1
-  font-size 44px
+  font-size 40px
 h2
   margin 1em 0 0.8em
 h3
   font-size 22px
+  margin-bottom 0.8em
+  &.with-comment
+    margin-bottom 0
 .explanation
   margin 0 0 10px
 
@@ -42,3 +45,10 @@ h3
   padding: 80px 8px 0
   max-width 800px
   margin 0 auto
+
+ul
+  padding-left 1.2em
+
+i.special
+  color #d53e4f
+  font-weight: bold

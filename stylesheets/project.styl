@@ -1,18 +1,22 @@
 .card
-  padding 2em
-  font-size 15px
-  border-radius 2px
-  box-shadow 0 2px 5px 0 rgba(0, 0, 0, 0.16)
+  margin-bottom: 15px;
+  padding: 0;
+  background-color: white;
+  vertical-align: top;
+  border: 1px solid #cbcbcb;
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16);
 
-.card-title
-  display block
-  font-size 18px
-  color #ef6c00
-  text-decoration none
-  margin-bottom 5px
+.description
+  color #555
+  &:hover
+    text-decoration none
+    color: inherited
 
 .readme
   background-color white
+  //Attempt to split long lines of code inside readme section (TODO: fix it!)
+  pre code
+    word-break break-all
   h1
     font-size 36px
   h2
