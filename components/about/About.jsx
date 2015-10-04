@@ -8,6 +8,7 @@ var About = React.createClass({
   render: function() {
     var projects = this.props.popularProjects.slice(0, 1);
     var {repo, projectName} = this.props.staticContent;
+    console.info(projects.length);
     return (
       <MainContent>
         <StarMeButton url={ repo } />
@@ -27,16 +28,20 @@ var About = React.createClass({
         <p>Everyday, an automatic process checks stars added on Github for every project stored in the application.</p>
         <p>You can check the total number of stars and the number of stars over the last days.</p>
 
-        <p>For example, here is the most popular project ({ projects[0].name }).
-          <br/>The colored bar the bottom shows the stars added on Github over the last days, day by day.
-        </p>
+        {projects.length > 0 && (
+          <div>
+          <p>For example, here is the most popular project ({ projects[0].name }).
+            <br/>The colored bar the bottom shows the stars added on Github over the last days, day by day.
+          </p>
 
-        <ProjectList
-          projects = { projects }
-          maxStars = {this.props.maxStars}
-          showStars = { true }
-          showDelta = { false }
-        />
+          <ProjectList
+            projects = { projects }
+            maxStars = {this.props.maxStars}
+            showStars = { true }
+            showDelta = { false }
+          />
+        </div>
+        )}
 
         <p>
         A project can have been popular a while ago, collecting a big number of stars...<br/>
