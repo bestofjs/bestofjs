@@ -8,7 +8,6 @@ var flux = require('../../scripts/app');
 var TagPage = React.createClass({
   mixins: [Router.State],
   componentDidMount: function() {
-    console.log('TagPage did mount');
     var id = this.getParams().id;
     flux.actions.getTag(id);
   },

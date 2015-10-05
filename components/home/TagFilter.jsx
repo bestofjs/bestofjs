@@ -20,10 +20,10 @@ var TagFilter = React.createClass({
     var id = this.getParams().id;
     if (id !== props.selectedTag._id) {
       if (id) {
-        console.log('Launch selectTag action');
+        //console.log('Launch selectTag action');
         actions.selectTag(id);
       } else {
-        console.log('Launch removeTag action');
+        //console.log('Launch removeTag action');
         actions.removeTag();
       }
 

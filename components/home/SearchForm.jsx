@@ -23,10 +23,8 @@ var SearchForm = React.createClass({
   loadData: function () {
     var text = this.getParams().text;
     if (!text) return;
-    //console.log('param', text);
     if (this.props.searchText !== text) {
       this.setState({text: text});
-      //actions.changeText(text);
     }
   },
   handleChange: function (e) {
@@ -42,8 +40,7 @@ var SearchForm = React.createClass({
     } else {
       this.transitionTo('home');
     }
-    console.log('SearchForm emitChange', text);
-    //actions.changeText(text);
+    //console.log('SearchForm emitChange', text);
   },
   render: function() {
     var style = {

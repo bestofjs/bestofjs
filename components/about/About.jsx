@@ -9,7 +9,6 @@ var About = React.createClass({
   render: function() {
     var projects = this.props.popularProjects.slice(0, 1);
     var {repo, projectName} = this.props.staticContent;
-    console.info(projects.length);
     return (
       <MainContent>
         <StarMeButton url={ repo } />

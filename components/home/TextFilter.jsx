@@ -23,7 +23,7 @@ var TextFilter = React.createClass({
   loadData: function (props) {
     var text = this.getParams().text;
     if (text !== props.searchText) {
-      console.log('====> trigger `actions.changeText` from TextFilter.jsx');
+      //console.log('trigger `actions.changeText` from TextFilter.jsx');
       actions.changeText(text);
     }
   },

@@ -35,11 +35,11 @@ var App = React.createClass({
   },
   onChangeStore: function(storeData) {
     //Store has changed => update the view.
-    console.log('onChangeStore, setState', storeData);
+    //console.log('onChangeStore, setState', storeData);
     this.setState(storeData);
   },
   render: function() {
-    console.log('Render the top level component.', this.state);
+    if (process.env.NODE_ENV === "development") console.log('Render the top level component.', this.state);
     return (
       <div id="layout">
 

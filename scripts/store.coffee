@@ -55,7 +55,6 @@ appStore = Reflux.createStore
     projects = data.projects
     @tags = data.tags
     @lastUpdate = new Date(data.date)
-    console.info 'Got initial data', @lastUpdate
 
     @tagsMap = {}
     @counters = @updateCounters projects
@@ -96,13 +95,11 @@ appStore = Reflux.createStore
   onGetProject: (id) ->
     found = @allProjects.filter (project) ->
       project._id is id
-    console.info 'Request project', id, found[0]
     @project = found[0]
     @trigger @getState()
     actions.getReadme @project
 
   onGetReadmeCompleted: (data) ->
-    console.info 'readme response', data
     readme = marked data.readme
     @project.readme =
       __html: readme
@@ -151,7 +148,7 @@ appStore = Reflux.createStore
     @trigger @getState()
 
   getFilteredProjects: () ->
-    console.log 'Filter projects', @searchText, @selectedTag._id
+    # console.log 'Filter projects', @searchText, @selectedTag._id
     projects = @allProjects
     #Filter by tag
     if @selectedTag._id
@@ -167,6 +164,7 @@ appStore = Reflux.createStore
         if @searchText.length > 2
           if re.test project.description then return true
           if re.test project.repository then return true
+          if re.test project.url then return true
         false
     @sortProjects projects
 

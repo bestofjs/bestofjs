@@ -5,7 +5,6 @@ actions = require('./actions')
 # API
 #
 path = process.env.API
-console.info 'API...' + process.env
 
 init = () ->
 
@@ -15,7 +14,6 @@ init = () ->
         console.log 'FAILED!'
         actions.getProjects.failed err.message
       else
-        console.info 'GET DATA!'
         actions.getProjects.completed response.body
 
   # actions.getProject.listen (id) =>

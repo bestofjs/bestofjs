@@ -4,7 +4,7 @@ request = require('superagent')
 start = (cb) ->
   path = process.env.API
   url = "#{path}projects.json"
-  console.log 'Start the app: load project list from', url
+  if process.env.NODE_ENV is "development" then console.log 'Start the app: load project list from', url
   request.get url, (err, response) =>
     if err then return cb err
     cb null, response.body
