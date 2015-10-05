@@ -2,8 +2,8 @@ var React = require('react');
 var MainContent = require('../common/MainContent');
 var StarMeButton = require('../common/StarMeButton');
 var ProjectList = require('../projects/ProjectList');
-var numeral = require('numeral');
-
+var Delta = require('../common/utils/Delta');
+var Stars = require('../common/utils/Stars');
 var About = React.createClass({
 
   render: function() {
@@ -18,45 +18,21 @@ var About = React.createClass({
         <p>
           Javascript, HTML and CSS are advancing faster than ever, we are going fullspeed on innovation.<br/>
           Amazing open-source projects are released almost everyday.
-          <ul>
-            <li>How to stay up-to-date about the latest tendencies ?</li>
-            <li>How to check quickly the projects that really matter, <i className="special">now</i> and not 6 months ago ?</li>
-          </ul>
-          I created { projectName } to address these questions.
         </p>
+        <ul>
+          <li>How to stay up-to-date about the latest tendencies ?</li>
+          <li>How to check quickly the projects that really matter, <i className="special">now</i> and not 6 months ago ?</li>
+        </ul>
+        <p>I created { projectName } to address these questions.</p>
+
 
         <h2>Concept</h2>
         <p>Checking the number of stars on Github is a good way to check project popularity but it does not tell you when the stars have been added. </p>
         <p>{ projectName } takes "snapshot" of Github stars every day, for more than 300 projects, to detect the trends over the last weeks.</p>
+
         {projects.length > 0 && (
-          <div>
-            <h3>An example</h3>
-            <p>
-              Here is the most popular project of the application ({ projects[0].name }).
-            </p>
-
-            <ProjectList
-              projects = { projects }
-              maxStars = {this.props.maxStars}
-              showStars = { true }
-              showDelta = { false }
-            />
-
-          <p>
-            At the top right corner, { numeral(projects[0].stars) } is the total number of stars on Github.
-            <br/>
-            The colored bar at the bottom shows the stars added on Github over the last days, day by day.
-          </p>
-          </div>
+          <Example project={ projects[0] } />
         )}
-
-        <p>
-        A project can have been popular a while ago, collecting a big number of stars...<br/>
-          but a new contender may have made it obsolete since that time.
-        </p>
-        <p>
-        Now with { projectName } you can see which projects are <i className="special">hot</i> in several categories (frameworks, React components, CSS tools...).
-        </p>
 
         <h2>How it works</h2>
         <p>First, a list of projects related to the web platform (JavaScript of course but also HTML and CSS) is stored in a database.</p>
@@ -78,6 +54,50 @@ var About = React.createClass({
         <p>Thank you for your support!</p>
 
       </MainContent>
+    );
+  }
+
+});
+
+var Example = React.createClass({
+
+  render: function() {
+    var { project, maxStars } = this.props;
+    return (
+      <div>
+        <h2>An example</h2>
+        <p>
+          Here is the most popular project of the application ({ project.name }).
+        </p>
+
+        <ProjectList
+          projects = { [project] }
+          maxStars = { maxStars }
+          showStars = { true }
+          showDelta = { true }
+        />
+
+        <p>
+          At the top right corner:
+        </p>
+        <ul>
+         <li>
+           <Stars value={ project.stars } icon={ true }/>
+           {' '}
+            is the total number of stars on Github.
+         </li>
+         <li>
+           <div style={{ width: 80, display: 'inline-block'}}>
+             <Delta value={ project.delta1 } icon={ true } />
+           </div>
+           {' '}
+          is the number of stars added yesterday.</li>
+        </ul>
+        <p>At the bottom:</p>
+        <p>
+          The colored bar shows the stars added on Github over the last days, day by day.
+        </p>
+      </div>
     );
   }
 
