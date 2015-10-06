@@ -23,7 +23,7 @@ var About = React.createClass({
           <li>How to stay up-to-date about the latest tendencies ?</li>
           <li>How to check quickly the projects that really matter, <i className="special">now</i> and not 6 months ago ?</li>
         </ul>
-        <p>I created { projectName } to address these questions.</p>
+        <p>{ projectName } was creaded to address these questions.</p>
 
 
         <h2>Concept</h2>
@@ -36,15 +36,15 @@ var About = React.createClass({
 
         <h2>How it works</h2>
         <p>First, a list of projects related to the web platform (JavaScript of course but also HTML and CSS) is stored in a database.</p>
-        <p>Everytime I find a new project, I add it to the database.</p>
+        <p>Everytime we find a new project, we add it to the database.</p>
         <p>Then everyday, an automatic task checks project data from Github, for every project stored and generates data consumed by the web application.</p>
         <p>The web application displays the total number of stars and their variation over the last days.</p>
 
         <h2>Do you want more projects ?</h2>
         <p>Rather than scanning all existing projects on Github,
-        I decided to focus on a curated list of projets I find "interesting", based on my experience and on things I read on the internet.<br/>
+        We decided to focus on a curated list of projets we find "interesting", based on our experience and on things we read on the internet.<br/>
         <p>As a result, some great projects must be missing!</p>
-        <p>Do not hesitate to contact me (by creating an issue in the <a href={ repo }>Github repository</a>, for example) if you want to suggest projects to add.
+        <p>Do not hesitate to contact us (by creating an issue in the <a href={ repo }>Github repository</a>, for example) if you want to suggest projects to add.
         </p>
         </p>
 

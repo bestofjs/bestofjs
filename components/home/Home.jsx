@@ -20,7 +20,7 @@ var Home = React.createClass({
         <h2 style={{ marginTop: 0 }}>
           Find the <i className="special">best</i> components to build amazing web applications!
         </h2>
-        <p>
+        <p style={{ marginBottom: '1em' }}>
           <StarMeButton url={ repo }/>
           Check out the most popular open-source projects and the latest trends:
           {' '}
