@@ -53,11 +53,16 @@ appStore = Reflux.createStore
 
   onGetProjectsCompleted: (data) ->
     projects = data.projects
-    @tags = data.tags
     @lastUpdate = new Date(data.date)
 
     @tagsMap = {}
     @counters = @updateCounters projects
+
+    #Include only tag with at least one project
+    @tags = data.tags.filter (tag) =>
+      console.log tag
+      @counters[tag._id] > 0
+
     for tag in @tags
       tag.counter = @counters[tag._id]
       @tagsMap[tag._id] = tag
