@@ -60,7 +60,6 @@ appStore = Reflux.createStore
 
     #Include only tag with at least one project
     @tags = data.tags.filter (tag) =>
-      console.log tag
       @counters[tag._id] > 0
 
     for tag in @tags
@@ -103,6 +102,7 @@ appStore = Reflux.createStore
     @project = found[0]
     @trigger @getState()
     actions.getReadme @project
+    @track 'View project', @project.name
 
   onGetReadmeCompleted: (data) ->
     readme = marked data.readme
@@ -126,6 +126,7 @@ appStore = Reflux.createStore
     @filteredProjects = @getFilteredProjects()
     window.scrollTo(0,0)
     @trigger @getState()
+    @track 'Filter tag', @selectedTag.name
 
   onRemoveTag: () ->
     @selectedTag = {}
@@ -185,5 +186,13 @@ appStore = Reflux.createStore
     nodes = window.document.querySelectorAll('#layout, #menuLink, #menu')
     _.forEach nodes, (element) ->
       element.classList.toggle('active')
+
+  # Analytics tracking
+  track: (category, action) ->
+    console.log 'track', category, action
+    if ga?
+      ga 'send', 'event', category, action
+    else
+      console.error 'Unable to tack events'
 
 module.exports = appStore
