@@ -189,7 +189,6 @@ appStore = Reflux.createStore
 
   # Analytics tracking
   track: (category, action) ->
-    console.log 'track', category, action
     if ga?
       ga 'send', 'event', category, action
     else

@@ -1,5 +1,11 @@
 # Change log
 
+## 0.1.2 - 2015-10-09
+Add Analytics events
+
+## 0.1.1 - 2015-10-07
+Add "About" page
+
 ## 0.1.0 - 2015-09-28
 * The first version pushed to github pages (`bestofjs` repository)
 * No more web application listening to requests:

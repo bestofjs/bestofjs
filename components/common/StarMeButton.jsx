@@ -5,7 +5,7 @@ var StarMeButton = React.createClass({
 
   render: function() {
     return (
-      <a id="star-button" href={ this.props.url }>
+      <a className="btn" id="star-button" href={ this.props.url }>
         <i className="fa fa-github-alt"></i>
         {' '}
         Star on Github

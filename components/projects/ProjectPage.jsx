@@ -1,8 +1,6 @@
 var React = require('react');
 var Router = require('react-router');
-var {Link} = Router;
 var MainContent = require('../common/MainContent');
-//var { RaisedButton, FontIcon } = require('material-ui');
 var actions = require('../../scripts/actions');
 var TagLabel = require('../tags/TagLabel');
 
@@ -18,7 +16,7 @@ var ProjectPage = React.createClass({
   render: function() {
     var project = this.props.project;
     return (
-      <MainContent>
+      <MainContent className="project-page">
           { project._id && (
             <div>
               { project.tags.map(function (tag) {
@@ -26,39 +24,53 @@ var ProjectPage = React.createClass({
                   <TagLabel key={ tag._id } tag={ tag } />
                 );
               }) }
-              <h1 style={{ marginTop: 5 }}>{ project.name }</h1>
+              <h1 style={{ margin: '1rem 0' }}>{ project.name }</h1>
+              <p>
+                <i className="fa fa-quote-left icon"></i>{' '}
+                { project.description }
+                {' '}<i className="fa fa-quote-right icon"></i>
+              </p>
               { project.url && (
                 <p>
-                  <a href={ project.url }>{ project.url }</a>
+                  Website: <a href={ project.url }>{ project.url }</a>
                 </p>
               )}
-              <p>{ project.stars } stars on <a href={ project.repository }>Github</a></p>
-              <p>{ project.description }</p>
+              <p>
+                Github: <a href={ project.repository }>{ project.repository }</a>
+                {' '}
+                { project.stars } <i className="fa fa-star-o"></i>
+              </p>
 
-              { project.readme ? (
-                <div className="readme" style={{ border: '1px solid #ccc', padding: 20, marginBottom: 20 }}>
+              <div className="readme" style={{ margin: '1em 0' }}>
 
-                  {/*<h3>README</h3>*/}
+                  <div>
+                    <div className="header">
+                      <i className="fa fa-book icon"></i>
+                      {' '}
+                      README
+                    </div>
 
-                  <div dangerouslySetInnerHTML={ project.readme }></div>
+                    <div className="body">
+                      { true && project.readme ? (
+                        <div>
+                          <div dangerouslySetInnerHTML={ project.readme }></div>
+                        </div>
+                        ) : (
+                        <div style={{ textAlign: 'center' }}>
+                          <p style={{ color: '#aaa' }}>Loading README from Github...</p>
+                          <i className="fa fa-book" style={{ margin: '1em 0', fontSize: 80, color: '#bbb' }}></i>
+                        </div>
+                      )}
+                    </div>
 
-                  <div style={{ textAlign: 'center' }}>
-                    <a
-                      linkButton={true}
-                      href={ project.repository }
-                      secondary={true}
-                      label="View on GitHub"
-                    >
-                  </a>
+                    <div className="footer" style={{ textAlign: 'center' }}>
+                      <a className="btn" href={ project.repository }>View on Github</a>
+                    </div>
                   </div>
-                </div>
-              ) : (
-                <p>Loading README.md from Github...</p>
-              )}
 
+              </div>
             </div>
           ) }
-
       </MainContent>
     );
   }
