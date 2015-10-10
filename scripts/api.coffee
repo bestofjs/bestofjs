@@ -21,7 +21,7 @@ init = () ->
   #     actions.getProject.completed response.body
 
   actions.getReadme.listen (project) =>
-    webtaskUrl = "https://webtask.it.auth0.com/api/run/wt-mikeair-gmail_com-0/85801138b3a9d89112d0a04eef536d1f?webtask_no_cache=1"
+    webtaskUrl = process.env.GET_README # set up in webpack.*.config.js file
     request.get "#{webtaskUrl}&url=#{project.repository}", (err, response) =>
       actions.getReadme.completed response.body
 

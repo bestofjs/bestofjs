@@ -1,6 +1,6 @@
 Reflux = require 'reflux'
 actions = require './actions'
-marked = require 'marked'
+
 #
 # STORES
 #
@@ -105,7 +105,7 @@ appStore = Reflux.createStore
     @track 'View project', @project.name
 
   onGetReadmeCompleted: (data) ->
-    readme = marked data.readme
+    readme = data.readme # the webtask returns html format instead of markdown
     @project.readme =
       __html: readme
     for tag in @project.tags

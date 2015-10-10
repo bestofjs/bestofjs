@@ -1,5 +1,9 @@
 # Change log
 
+## 0.1.3 - 2015-10-10
+get-readme service URL setup in config files
+Remove `marked` dependency because get-readme service now returns HTML content
+
 ## 0.1.2 - 2015-10-09
 Add Analytics events
 

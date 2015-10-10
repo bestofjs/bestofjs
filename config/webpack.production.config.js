@@ -7,7 +7,9 @@ var filepath = './www/build/';
 var envPlugin = new webpack.DefinePlugin({
   'process.env': {
     'NODE_ENV': JSON.stringify('production'),
-    'API':  JSON.stringify('http://bestofjs-data.divshot.io/')
+    'API':  JSON.stringify('http://bestofjs-data.divshot.io/'),
+    //URL of the "get-readme" micro-service raw code on the MASTER branch ( = production)
+    'GET_README': JSON.stringify('https://webtask.it.auth0.com/api/run/wt-mikeair-gmail_com-0/85801138b3a9d89112d0a04eef536d1f?webtask_no_cache=1')
    }
 });
 

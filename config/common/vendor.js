@@ -7,7 +7,6 @@ module.exports = function() {
    'superagent',
    'lodash',
    'moment',
-   'numeral',
-   'marked'
+   'numeral'
  ];
 };
