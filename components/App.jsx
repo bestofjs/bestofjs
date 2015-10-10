@@ -39,7 +39,9 @@ var App = React.createClass({
     this.setState(storeData);
   },
   render: function() {
-    if (process.env.NODE_ENV === "development") console.log('Render the top level component.', this.state);
+    if (process.env.NODE_ENV === "development") {
+      console.log('[DEV] Render the top level component.', this.state);
+    }
     return (
       <div id="layout">
 

@@ -156,23 +156,33 @@ appStore = Reflux.createStore
   getFilteredProjects: () ->
     # console.log 'Filter projects', @searchText, @selectedTag._id
     projects = @allProjects
-    #Filter by tag
+
+    # STEP 1: filter by tag
     if @selectedTag._id
       projects = projects.filter (project) =>
         ids = _.pluck(project.tags, '_id')
         project.tags.length > 0 and ids.indexOf(@selectedTag._id) > -1
-    #Filter by text
+
+    # STEP 2: Filter by text
     if @searchText isnt ''
-      projects = projects.filter (project) =>
-        pattern = if @searchText.length > 2 then @searchText else '^' + @searchText
-        re = new RegExp pattern, 'i'
-        if re.test project.name then return true
-        if @searchText.length > 2
-          if re.test project.description then return true
-          if re.test project.repository then return true
-          if re.test project.url then return true
-        false
-    @sortProjects projects
+      projects = projects.filter (project) => @filterProject(project, @searchText)
+
+    # Only return N results from the result, to avoid slowing down the page
+    # TODO: implement pagination ?
+    @sortProjects projects.slice(0, 50)
+
+  # Used to filter the project list with a given text
+  # return true if the project is included in the search result
+  filterProject: (project, text) ->
+      # if only one letter is entered, we search projects whose name start by the letter
+      pattern = if text.length > 1 then text else '^' + text
+      re = new RegExp pattern, 'i'
+      if re.test project.name then return true
+      if text.length > 2
+        if re.test project.description then return true
+        if re.test project.repository then return true
+        if re.test project.url then return true
+      false
 
   sortBy: (projects, field, direction = 'DESC') ->
     projects.sort (a, b) ->
@@ -189,9 +199,14 @@ appStore = Reflux.createStore
 
   # Analytics tracking
   track: (category, action) ->
-    if ga?
-      ga 'send', 'event', category, action
+    if process.env.NODE_ENV is "development"
+     # DEV mode: no tracking
+     console.info "No tracking in [DEV] '#{category}' / '#{action}'"
     else
-      console.error 'Unable to tack events'
+      # Check if ga global varialble has been created by index.html page
+      if ga?
+        ga 'send', 'event', category, action
+      else
+        console.error 'Unable to tack events'
 
 module.exports = appStore
