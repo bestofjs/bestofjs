@@ -63,23 +63,43 @@ ProjectList.Item = React.createClass({
         width: (this.props.project.stars * 100 / this.props.maxStars).toFixed() + '%'
       },
       inner: {
-        padding: '0.5em 1em'
+        padding: '1em',
+        position: 'relative'
+      },
+      ranking: {
+        position: 'absolute',
+        top: -10,
+        left: 15,
+        color: '#ccc',
+        fontSize: 64,
+        letterSpacing: -10
       },
       link: {
         fontSize: '1.2em',
-        marginBottom: 5
+        marginBottom: 5,
+        paddingLeft: 20,
+        zIndex:2,
+        position: 'relative',
+        display: 'block',
+        textAlign: 'center'
       }
     };
-    var project = this.props.project;
+    var {project, index} = this.props;
     //console.log('Display the project', project);
     return (
       <div className="card">
         <div style={ style.starsBar } />
         <div style= { style.inner }>
 
+          {true && (
+            <div style={ style.ranking }>
+              { index + 1 }
+            </div>
+          )}
+
           <div style={{ float: 'right' }}>
             { this.props.showStars && (
-              <div style={{ fontSize: 24 }}>
+              <div style={{ fontSize: '1.2em' }}>
                 <Stars
                   value={ this.props.project.stars }
                   icon={ true }
@@ -107,10 +127,10 @@ ProjectList.Item = React.createClass({
           { this.props.project.name }
           </Link>
           { this.props.showURL && this.props.project.url && (
-            <a style={{ display: 'block' }} href={ this.props.project.url }>{ this.props.project.url }</a>
+            <a style={{ display: 'block', marginTop: '1em' }} href={ this.props.project.url }>{ this.props.project.url }</a>
           )}
           { this.props.showDescription && (
-            <p>
+            <p style={{ zIndex:2, position: 'relative' }}>
               <Link
                 to={ 'projects' }
                 params={{ id: this.props.project._id }}

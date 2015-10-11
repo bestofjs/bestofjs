@@ -53,7 +53,7 @@ var Delta = React.createClass({
         borderTopColor: bgColors[index],
 
         color: colors[index],
-        fontSize: big ? 18 : 13,
+        fontSize: big ? 'inherited' : 13,
         textAlign: 'center'
       };
     };

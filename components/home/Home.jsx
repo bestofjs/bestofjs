@@ -43,6 +43,7 @@ var Home = React.createClass({
                   maxStars = {this.props.maxStars}
                   showStars = { true }
                   showDelta = { false }
+                  showIndex={true}
                 />
               </div>
             </div>
@@ -55,6 +56,7 @@ var Home = React.createClass({
                   maxStars = {this.props.maxStars}
                   showDelta={ true }
                   showStars={ false }
+                  showIndex={true}
                 />
               </div>
             </div>
