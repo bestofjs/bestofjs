@@ -22,9 +22,15 @@ var SearchResultList = React.createClass({
         { tag.name && (
           <div style={{ fontSize: 18, marginBottom: 20 }}>
             <Link to="home">
-              <TagLabel tag={ tag } onClickXXX={ this.props.onRemoveTag }/>
+              <TagLabel tag={ tag } />
             </Link>
-            <span style={{  marginLeft: 10 }}>{projects.length } projects</span>
+            <span style={{  marginLeft: 10 }}>
+              { projects.length === 1 ? (
+                'Only one project for now'
+              ) : (
+                projects.length +' projects'
+              ) }
+            </span>
           </div>
         ) }
 

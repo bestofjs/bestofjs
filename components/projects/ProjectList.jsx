@@ -127,7 +127,9 @@ ProjectList.Item = React.createClass({
           { this.props.project.name }
           </Link>
           { this.props.showURL && this.props.project.url && (
-            <a style={{ display: 'block', marginTop: '1em' }} href={ this.props.project.url }>{ this.props.project.url }</a>
+            <a style={{ display: 'block', marginTop: '1em' }} href={ this.props.project.url }>
+              { this.props.project.url }
+            </a>
           )}
           { this.props.showDescription && (
             <p style={{ zIndex:2, position: 'relative' }}>

@@ -1,15 +1,8 @@
 var React = require('react');
 var Router = require('react-router');
-var {Link} = Router;
-
 var actions = require('../../scripts/actions');
-
 var SearchContainer = require('./SearchContainer');
 var MainContent = require('../common/MainContent');
-var ProjectList = require('../projects/ProjectList');
-var TagList = require('../tags/TagList');
-var SearchForm = require('./SearchForm');
-var SearchResultList = require('./SearchResultList');
 
 var TextFilter = React.createClass({
   mixins: [ Router.State ],
@@ -30,7 +23,7 @@ var TextFilter = React.createClass({
 
   render: function() {
     return (
-      <MainContent>
+      <MainContent className="small">
 
         <SearchContainer {...this.props} />
 

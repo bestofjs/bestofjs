@@ -32,7 +32,7 @@ var TagFilter = React.createClass({
 
   render: function() {
     return (
-      <MainContent>
+      <MainContent className="small">
 
         <SearchContainer {...this.props} />
 
