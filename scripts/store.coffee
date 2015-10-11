@@ -60,11 +60,11 @@ appStore = Reflux.createStore
 
     #Include only tag with at least one project
     @tags = data.tags.filter (tag) =>
-      @counters[tag._id] > 0
+      @counters[tag.code] > 0
 
     for tag in @tags
-      tag.counter = @counters[tag._id]
-      @tagsMap[tag._id] = tag
+      tag.counter = @counters[tag.code]
+      @tagsMap[tag.code] = tag
     @allProjects = @populateTagData projects
     @popularProjects = @sortBy @allProjects.slice(0), 'stars'
     @hotProjects = @sortBy @allProjects.slice(0), 'delta1'
@@ -109,7 +109,7 @@ appStore = Reflux.createStore
     @project.readme =
       __html: readme
     for tag in @project.tags
-      tag.counter = @counters[tag._id]
+      tag.counter = @counters[tag.code]
     @trigger @getState()
 
   onGetProjectFailed: (err) ->
@@ -126,7 +126,7 @@ appStore = Reflux.createStore
     @filteredProjects = @getFilteredProjects()
     window.scrollTo(0,0)
     @trigger @getState()
-    @track 'Filter tag', @selectedTag.name
+    @track 'Filter tag', @selectedTag.code
 
   onRemoveTag: () ->
     @selectedTag = {}
@@ -158,10 +158,10 @@ appStore = Reflux.createStore
     projects = @allProjects
 
     # STEP 1: filter by tag
-    if @selectedTag._id
+    if @selectedTag.code
       projects = projects.filter (project) =>
-        ids = _.pluck(project.tags, '_id')
-        project.tags.length > 0 and ids.indexOf(@selectedTag._id) > -1
+        ids = _.pluck(project.tags, 'code')
+        project.tags.length > 0 and ids.indexOf(@selectedTag.code) > -1
 
     # STEP 2: Filter by text
     if @searchText isnt ''

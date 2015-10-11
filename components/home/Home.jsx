@@ -24,11 +24,11 @@ var Home = React.createClass({
           <StarMeButton url={ repo }/>
           Check out the most popular open-source projects and the latest trends:
           {' '}
-          <Link to="tags" params={{ id: '5568e47e355ea6282ecae9b9' }}>frameworks</Link>,
+          <Link to="tags" params={{ id: 'framework' }}>frameworks</Link>,
           {' '}
-          <Link to="tags" params={{ id: '5568e488355ea6282ecae9e4' }}>react tools</Link>,
+          <Link to="tags" params={{ id: 'react' }}>react tools</Link>,
           {' '}
-          <Link to="tags" params={{ id: '5568e47a355ea6282ecae9ab' }}>node.js CMS</Link>
+          <Link to="tags" params={{ id: 'cms-api' }}>node.js CMS</Link>
           {' and many more... the best of JavaScript!'}
         </p>
 

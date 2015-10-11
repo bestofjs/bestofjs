@@ -21,7 +21,7 @@ var ProjectPage = React.createClass({
             <div>
               { project.tags.map(function (tag) {
                 return (
-                  <TagLabel key={ tag._id } tag={ tag } />
+                  <TagLabel key={ tag.code } tag={ tag } />
                 );
               }) }
               <h1 style={{ margin: '1rem 0' }}>{ project.name }</h1>

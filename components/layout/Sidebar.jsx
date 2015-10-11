@@ -36,10 +36,10 @@ var TagMenu = React.createClass({
         { this.props.tags.map( (tag) =>
           <Link
             to={ 'tags' }
-            params={{ id: tag._id }}
-            key={ tag._id }
+            params={{ id: tag.code }}
+            key={ tag.code }
             tag={ tag }
-            active={ tag._id === this.props.selectedTag._id }
+            active={ tag.code === this.props.selectedTag.code }
             className={"tag-menu-item" + (this.props.active ? ' active' : '')}
           >
             { tag.name }

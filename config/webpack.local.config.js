@@ -8,7 +8,7 @@ var filepath = 'build/';
 var envPlugin = new webpack.DefinePlugin({
   'process.env': {
     'NODE_ENV': JSON.stringify('development'),
-    'API':  JSON.stringify('http://development.bestofjs-data.divshot.io/'),
+    'API':  JSON.stringify('http://development.bestofjs-api-v1.divshot.io/'),
     //URL of the "get-readme" micro-service raw code on the `DEV` branch
     'GET_README': JSON.stringify('https://webtask.it.auth0.com/api/run/wt-mikeair-gmail_com-0/d4bf0bb7021ce02e77d5e2dceac010c7?webtask_no_cache=1')
    }

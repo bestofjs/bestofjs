@@ -18,7 +18,7 @@ var TagFilter = React.createClass({
   },
   loadData: function (props) {
     var id = this.getParams().id;
-    if (id !== props.selectedTag._id) {
+    if (id !== props.selectedTag.code) {
       if (id) {
         //console.log('Launch selectTag action');
         actions.selectTag(id);
