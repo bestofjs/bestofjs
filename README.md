@@ -1,4 +1,4 @@
-![bestofjs logo](http://bestof.js.org/images/logo.png)
+![bestofjs logo](http://michaelrambeau.com/img/blog/2015-10-bestofjs.jpg)
 
 ## Concept
 
