@@ -1,11 +1,10 @@
 var React = require('react');
-var actions = require('../../scripts/actions');
 
 var ToggleMenuButton = React.createClass({
 
   handleClick: function (e) {
     e.preventDefault();
-    actions.toggleMenu();
+    this.props.actions.toggleMenu();
   },
 
   render: function() {

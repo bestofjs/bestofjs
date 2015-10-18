@@ -2,7 +2,6 @@ var React = require('react');
 var Router = require('react-router');
 var {Link} = Router;
 
-var actions = require('../../scripts/actions');
 
 var MainContent = require('../common/MainContent');
 var ProjectList = require('../projects/ProjectList');
@@ -25,7 +24,7 @@ var TagFilter = React.createClass({
             projects = { this.props.filteredProjects }
             searchText = { this.props.searchText }
             tag = { this.props.selectedTag }
-            onRemoveTag = { actions.removeTag }
+            onRemoveTag = { this.props.actions.removeTag }
           />
         ) }
 

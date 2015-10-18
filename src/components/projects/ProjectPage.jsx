@@ -1,16 +1,25 @@
 var React = require('react');
 var Router = require('react-router');
 var MainContent = require('../common/MainContent');
-var actions = require('../../scripts/actions');
+
 var TagLabel = require('../tags/TagLabel');
+
+function loadData(props) {
+  //props.loadProject(props.params.id);
+}
 
 require('../../stylesheets/project.styl');
 
 var ProjectPage = React.createClass({
-  mixins: [Router.State],
-  componentDidMount: function() {
-    var id = this.getParams().id;
-    actions.getProject(id);
+
+  componentWillMount() {
+    loadData(this.props);
+  },
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.id !== this.props.id) {
+      loadData(nextProps);
+    }
   },
 
   render: function() {

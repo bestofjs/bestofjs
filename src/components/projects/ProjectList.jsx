@@ -1,7 +1,6 @@
 var React = require('react');
 var Router = require('react-router');
 var TagLabel = require('../tags/TagLabelCompact');
-var flux = require('../../scripts/app');
 var Delta = require('../common/utils/Delta');
 var DeltaBar = require('../common/utils/DeltaBar');
 var Stars = require('../common/utils/Stars');
@@ -24,7 +23,7 @@ var ProjectList = React.createClass({
   },
 
   onChangeText: function (e) {
-    flux.actions.changeText( e.target.value);
+    this.props.actions.changeText( e.target.value);
   },
 
   render: function () {
@@ -48,6 +47,10 @@ var ProjectList = React.createClass({
 
 ProjectList.Item = React.createClass({
   render: function () {
+
+    const { project, index } = this.props;
+    const viewProjectURL = `/projects/${project._id}`;
+
     var style = {
       container: {
         marginBottom: 15,
@@ -84,8 +87,7 @@ ProjectList.Item = React.createClass({
         textAlign: 'center'
       }
     };
-    var {project, index} = this.props;
-    //console.log('Display the project', project);
+
     return (
       <div className="card">
         <div style={ style.starsBar } />
@@ -120,12 +122,12 @@ ProjectList.Item = React.createClass({
           </div>
 
           <Link
-            to={ 'projects' }
-            params={{ id: this.props.project._id }}
+            to={ viewProjectURL }
             style={ style.link }
           >
-          { this.props.project.name }
+            { this.props.project.name }
           </Link>
+
           { this.props.showURL && this.props.project.url && (
             <a style={{ display: 'block', marginTop: '1em' }} href={ this.props.project.url }>
               { this.props.project.url }
@@ -134,8 +136,7 @@ ProjectList.Item = React.createClass({
           { this.props.showDescription && (
             <p style={{ zIndex:2, position: 'relative' }}>
               <Link
-                to={ 'projects' }
-                params={{ id: this.props.project._id }}
+                to={ viewProjectURL }
                 className="description"
               >
                 { this.props.project.description }

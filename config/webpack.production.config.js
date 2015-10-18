@@ -16,7 +16,7 @@ var envPlugin = new webpack.DefinePlugin({
 module.exports = {
 
   entry:  {
-    app: "./components/entry.jsx",
+    app: "./src/entry.jsx",
     vendor: getVendorModules()
   },
 

@@ -1,27 +1,28 @@
 var React = require('react');
-var {Navigation, State} = require('react-router');
+var {History} = require('react-router');
 
 var SearchForm = React.createClass({
-  mixins: [Navigation, State],
+  mixins: [History],
   getInitialState: function() {
     return {
       text: this.props.searchText
     };
   },
-  componentWillReceiveProps: function(nextProps) {
+  componentWillReceivePropsX: function(nextProps) {
     this.loadData();
-    var routes = this.getRoutes();
-    var isSearchPage = routes[1].name == 'search';
+    var routes = this.props.routes;
+    var isSearchPage = routes && routes[1].name == 'search';
     if (!isSearchPage && nextProps.searchText === '') {
       this.setState({text: ''});
     }
   },
   componentDidMount: function() {
-    this.loadData();
+    //this.loadData();
     this.emitChangeDelayed = _.debounce(this.emitChange, 300);
   },
   loadData: function () {
-    var text = this.getParams().text;
+    console.log('context', this.context);
+    var text = this.props.params && this.props.params.text;
     if (!text) return;
     if (this.props.searchText !== text) {
       this.setState({text: text});
@@ -36,9 +37,9 @@ var SearchForm = React.createClass({
   },
   emitChange: function (text) {
     if (text) {
-      this.transitionTo('search', { text: text });
+      this.history.pushState(null, `/search/${text}`);
     } else {
-      this.transitionTo('home');
+      this.history.pushState(null, '/');
     }
     //console.log('SearchForm emitChange', text);
   },
@@ -56,7 +57,7 @@ var SearchForm = React.createClass({
           <input
             type="text"
             style={ style }
-            value={ this.state.text }
+            valueX={ this.state.text }
             onChange={ this.handleChange }
           />
           <i className="fa fa-search ui icon" style={{ color: '#dddddd' }} />

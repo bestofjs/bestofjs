@@ -1,10 +1,9 @@
 var React = require('react');
-var Router = require('react-router');
 var Reflux = require('reflux');
 var Sidebar = require('./layout/Sidebar');
 var Header = require('./layout/Header');
 var Footer = require('./layout/Footer');
-var { RouteHandler } = Router;
+
 
 var store = require('../scripts/store');
 var actions = require('../scripts/actions');
@@ -18,17 +17,9 @@ var App = React.createClass({
   componentWillMount: function() {
     //Listen to any change from the store (@trigger() in the store)
     this.listenTo(store, this.onChangeStore);
-    var data = this.props.data;
-    actions.getProjects.completed(data);
 
-    //Remove the splash screen by removing the .nojs class
-    var elements = document.querySelectorAll('.nojs');
-    Array.prototype.forEach.call( elements, (el) => el.classList.remove('nojs'));
+    actions.getProjects();
 
-    //Add the stylesheets to overwrite inline styles defined in index.html
-    require('./layout/layout.styl');
-    require('../stylesheets/base.styl');
-    require('../stylesheets/table.styl');
   },
   getInitialState: function() {
     return store.getInitialState();
@@ -42,6 +33,12 @@ var App = React.createClass({
     if (process.env.NODE_ENV === "development") {
       console.log('[DEV] Render the top level component.', this.state);
     }
+    //Setup content about bestof.js.org so that it can be used in any page (homepage, about...)
+    var staticContent = {
+      projectName: 'bestof.js.org',
+      repo: 'https://github.com/michaelrambeau/bestofjs-webui'
+    };
+
     return (
       <div id="layout">
 
@@ -56,26 +53,25 @@ var App = React.createClass({
             searchText={this.state.searchText}
           />
 
-          <RouteHandler
-            allProjects={ this.state.allProjects }
-            searchText={this.state.searchText}
-            filteredProjects={ this.state.filteredProjects }
-            maxStars={ this.state.maxStars }
-            popularProjects={ this.state.popularProjects }
-            hotProjects={ this.state.hotProjects }
-            tags={ this.state.tags }
-            selectedTag={ this.state.selectedTag }
-            selectedSort={ this.state.selectedSort }
-            project={ this.state.project }
-            tag={ this.state.tag }
-            errorMessage={ this.state.errorMessage }
-            staticContent={ this.props.staticContent }
-          />
-
+          { this.props.children && React.cloneElement(this.props.children, {
+            allProjects: this.state.allProjects,
+            searchText: this.state.searchText,
+            filteredProjects: this.state.filteredProjects,
+            maxStars: this.state.maxStars,
+            popularProjects: this.state.popularProjects,
+            hotProjects: this.state.hotProjects,
+            tags: this.state.tags,
+            selectedTag: this.state.selectedTag,
+            selectedSort: this.state.selectedSort,
+            project: this.state.project,
+            tag: this.state.tag,
+            errorMessage: this.state.errorMessage,
+            staticContent
+          }) }
         </div>
 
         <Footer
-          staticContent={ this.props.staticContent }
+          staticContent={ staticContent }
           lastUpdate={ this.state.lastUpdate }
         />
 

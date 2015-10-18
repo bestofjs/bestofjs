@@ -23,7 +23,7 @@ module.exports = {
     app: [
       "webpack-dev-server/client?http://localhost:8080",
       "webpack/hot/only-dev-server",
-      "./components/entry.jsx"
+      "./src/entry.jsx"
     ],
     vendor: getVendorModules()
   },

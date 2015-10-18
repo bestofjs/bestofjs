@@ -1,4 +1,6 @@
 var React = require('react');
+var Router = require('react-router');
+var {IndexLink} = Router;
 
 require('../../stylesheets/tag.styl');
 
@@ -7,11 +9,11 @@ var TagTitle = React.createClass({
   render: function() {
     var tag = this.props.tag;
     return (
-      <a className="tag tag-title" onClick={ this.props.onClick } href="">
+      <IndexLink className="tag tag-title" to="/">
         <span style={{ display: 'inline-block' }}>{ tag.name }</span>
         {false && <i className="fa fa-close"></i>}
         <span className="close-icon" style={{ fontSize: 22, marginLeft: 5, display: 'inline-block' }}>&times;</span>
-      </a>
+      </IndexLink>
     );
   }
 

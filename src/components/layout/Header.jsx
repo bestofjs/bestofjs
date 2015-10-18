@@ -1,6 +1,6 @@
 var React = require('react');
 var Router = require('react-router');
-var {Link} = Router;
+var { IndexLink } = Router;
 var SearchForm = require('../home/SearchForm');
 var ToggleMenuButton = require('./ToggleMenuButton');
 
@@ -16,9 +16,9 @@ var Header = React.createClass({
           <div id="big-header" className="header-row">
             <div className="col-1">
               <ToggleMenuButton />
-              <Link to={ 'home' } className="link-logo" >
+              <IndexLink to={ '/' } className="link-logo" >
                 <img src="images/logo.png" alt="bestof.js.org" width="150"/>
-              </Link>
+              </IndexLink>
             </div>
             <div className="col-2">
               <SearchForm

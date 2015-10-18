@@ -1,4 +1,5 @@
 Reflux = require 'reflux'
+request = require 'superagent'
 actions = require './actions'
 
 #
@@ -70,6 +71,14 @@ appStore = Reflux.createStore
     @hotProjects = @sortBy @allProjects.slice(0), 'delta1'
     @filteredProjects = @getFilteredProjects()
     @trigger @getState()
+
+    elements = document.querySelectorAll('.nojs')
+    Array.prototype.forEach.call( elements, (el) => el.classList.remove('nojs'))
+
+    #Add the stylesheets to overwrite inline styles defined in index.html
+    require('../components/layout/layout.styl')
+    require('../stylesheets/base.styl')
+    require('../stylesheets/table.styl');
 
   onGetProjectsFailed: (msg) ->
     @errorMessage = "ERROR: #{msg} !"

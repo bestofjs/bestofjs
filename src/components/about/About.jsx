@@ -7,7 +7,8 @@ var Stars = require('../common/utils/Stars');
 var About = React.createClass({
 
   render: function() {
-    var projects = this.props.popularProjects.slice(0, 1);
+    const data = this.props.githubProjects;
+    var projects = data.popularProjects.slice(0, 1);
     var {repo, projectName} = this.props.staticContent;
     return (
       <MainContent>

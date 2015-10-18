@@ -1,6 +1,8 @@
 var React = require('react');
 var moment = require('moment');
 
+require('./footer.styl');
+
 var Footer = React.createClass({
   render: function() {
     var {repo, projectName} = this.props.staticContent;

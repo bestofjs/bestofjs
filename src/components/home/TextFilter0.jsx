@@ -1,15 +1,11 @@
 var React = require('react');
 var Router = require('react-router');
-//var {Link} = Router;
-
-var actions = require('../../scripts/actions');
-
 var SearchContainer = require('./SearchContainer');
 var MainContent = require('../common/MainContent');
 
-
-var TagFilter = React.createClass({
+var TextFilter = React.createClass({
   mixins: [ Router.State ],
+
   componentDidMount: function() {
     this.loadData(this.props);
   },
@@ -17,16 +13,10 @@ var TagFilter = React.createClass({
     this.loadData(nextProps);
   },
   loadData: function (props) {
-    var id = this.getParams().id;
-    if (id !== props.selectedTag.code) {
-      if (id) {
-        //console.log('Launch selectTag action');
-        actions.selectTag(id);
-      } else {
-        //console.log('Launch removeTag action');
-        actions.removeTag();
-      }
-
+    var text = this.getParams().text;
+    if (text !== props.searchText) {
+      //console.log('trigger `actions.changeText` from TextFilter.jsx');
+      this.props.actions.changeText(text);
     }
   },
 
@@ -42,4 +32,4 @@ var TagFilter = React.createClass({
 
 });
 
-module.exports = TagFilter;
+module.exports = TextFilter;

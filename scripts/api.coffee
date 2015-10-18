@@ -9,7 +9,10 @@ path = process.env.API
 init = () ->
 
   actions.getProjects.listen () =>
-    request.get "#{path}project/all", (err, response) =>
+    path = process.env.API
+    url = "#{path}projects.json"
+    if process.env.NODE_ENV is "development" then console.log '[DEV] Start the app: load project list from', url
+    request.get url, (err, response) =>
       if err
         console.log 'FAILED!'
         actions.getProjects.failed err.message
