@@ -1,11 +1,12 @@
 var React = require('react');
-var Router = require('react-router');
 var MainContent = require('../common/MainContent');
 
 var TagLabel = require('../tags/TagLabel');
 
 function loadData(props) {
-  //props.loadProject(props.params.id);
+  const project = props.githubProjects.project;
+  props.actions.fetchReadme(project)
+    .then( () => console.log('Got the Readme') );
 }
 
 require('../../stylesheets/project.styl');
@@ -23,7 +24,8 @@ var ProjectPage = React.createClass({
   },
 
   render: function() {
-    var project = this.props.project;
+    console.log('Render project page', this.props);
+    var project = this.props.githubProjects.project;
     return (
       <MainContent className="project-page">
           { project._id && (
@@ -62,7 +64,7 @@ var ProjectPage = React.createClass({
                     <div className="body">
                       { true && project.readme ? (
                         <div>
-                          <div dangerouslySetInnerHTML={ project.readme }></div>
+                          <div dangerouslySetInnerHTML={{ __html: project.readme }}></div>
                         </div>
                         ) : (
                         <div style={{ textAlign: 'center' }}>

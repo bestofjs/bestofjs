@@ -49,6 +49,12 @@ function githubProjects(state, action) {
         hotProjects: projects.sortBy(populatedProjects.slice(0), 'delta1'),
         maxStars: (popularProjects.length > 0) ? popularProjects[0].stars : 0
       });
+    case 'GET_PROJECT_SUCCESS':
+      const currentProject = state.project;
+      currentProject.readme = action.data.readme;
+      return Object.assign({}, state, {
+        project: currentProject
+      });
     case '@@reduxReactRouter/routerDidChange':
       if (state.loading) return state;
       const routes = action.payload.routes;
@@ -67,9 +73,9 @@ function githubProjects(state, action) {
       }
       if (lastRoute.path === 'projects/:id') {
         const id = action.payload.params.id;
-        const project = state.allProjects.filter( project => project._id === id );
+        const foundProjects = state.allProjects.filter( project => project._id === id );
         return Object.assign({}, state, {
-          project: project
+          project: foundProjects.length ? foundProjects[0] : null
         });
       }
       return state;

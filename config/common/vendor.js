@@ -3,7 +3,12 @@ module.exports = function() {
   return [
    "react",
    "react-router",
-   'reflux',
+   "redux",
+   "react-redux",
+   "redux-logger",
+   "redux-router",
+   "redux-thunk",
+   "history",
    'superagent',
    'lodash',
    'moment',

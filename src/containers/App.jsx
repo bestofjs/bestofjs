@@ -37,7 +37,7 @@ var App = React.createClass({
 
   render: function() {
     console.log('Rendering the App container', this.props);
-    const {githubProjects, staticContent} = this.props;
+    const {githubProjects, staticContent, actions} = this.props;
     return (
       <div id="layout">
 
@@ -54,7 +54,8 @@ var App = React.createClass({
 
           { this.props.children && React.cloneElement(this.props.children, {
             githubProjects,
-            staticContent
+            staticContent,
+            actions
           }) }
         </div>
 
