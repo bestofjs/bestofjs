@@ -1,5 +1,6 @@
 var webpack = require('webpack');
 var getVendorModules = require('./common/vendor');
+var getCommonPlugins = require('./common/plugins');
 
 //filepath used in `output` and `plugins`
 var filepath = './www/build/';
@@ -12,6 +13,8 @@ var envPlugin = new webpack.DefinePlugin({
     'GET_README': JSON.stringify('https://webtask.it.auth0.com/api/run/wt-mikeair-gmail_com-0/85801138b3a9d89112d0a04eef536d1f?webtask_no_cache=1')
    }
 });
+var plugins = getCommonPlugins(filepath).slice();
+plugins.push(envPlugin);
 
 module.exports = {
 
@@ -34,10 +37,7 @@ module.exports = {
     ]
   },
 
-  plugins: [
-    new webpack.optimize.CommonsChunkPlugin(/* chunkName= */'vendor', /* filename= */filepath + 'bundle-vendor.js'),
-    envPlugin
-  ],
+  plugins: plugins,
 
   // Automatically transform files with these extensions
   resolve: {

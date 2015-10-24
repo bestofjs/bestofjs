@@ -47,6 +47,7 @@ var App = React.createClass({
 
           <Header
             searchText={ githubProjects.textFilter}
+            actions= { this.props.actions }
           />
 
           { this.props.children && React.cloneElement(this.props.children, {

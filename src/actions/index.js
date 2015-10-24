@@ -8,6 +8,8 @@ export const GET_README_REQUEST = 'GET_README_REQUEST';
 export const GET_README_SUCCESS = 'GET_README_SUCCESS';
 export const GET_README_FAILURE = 'GET_README_FAILURE';
 
+export const TOGGLE_MENU = 'TOGGLE_MENU';
+
 function requestProjects() {
   return {
     type: GET_ALL_PROJECTS_REQUEST
@@ -23,6 +25,12 @@ function receiveReadme(json) {
   return {
     type: GET_README_SUCCESS,
     data: json
+  };
+}
+
+export function toggleMenu() {
+  return {
+    type: TOGGLE_MENU
   };
 }
 

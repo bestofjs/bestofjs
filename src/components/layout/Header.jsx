@@ -15,7 +15,9 @@ var Header = React.createClass({
           { /* Desktop header */}
           <div id="big-header" className="header-row">
             <div className="col-1">
-              <ToggleMenuButton />
+              <ToggleMenuButton
+                actions= { this.props.actions }
+              />
               <IndexLink to={ '/' } className="link-logo" >
                 <img src="images/logo.png" alt="bestof.js.org" width="150"/>
               </IndexLink>
@@ -29,10 +31,12 @@ var Header = React.createClass({
 
           { /* Desktop header */}
           <div id="small-header">
-            <ToggleMenuButton />
-              <SearchForm
-                searchText = { this.props.searchText }
-              />
+            <ToggleMenuButton
+              actions= { this.props.actions }
+            />
+            <SearchForm
+              searchText = { this.props.searchText }
+            />
           </div>
         </div>
       </div>

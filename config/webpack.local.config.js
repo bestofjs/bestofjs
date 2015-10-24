@@ -1,5 +1,6 @@
 var webpack = require('webpack');
 var getVendorModules = require('./common/vendor');
+var getCommonPlugins = require('./common/plugins');
 
 //filepath used in `output` and `plugins`
 var filepath = 'build/';
@@ -13,6 +14,9 @@ var envPlugin = new webpack.DefinePlugin({
     'GET_README': JSON.stringify('https://webtask.it.auth0.com/api/run/wt-mikeair-gmail_com-0/d4bf0bb7021ce02e77d5e2dceac010c7?webtask_no_cache=1')
    }
 });
+var plugins = getCommonPlugins(filepath).slice();
+plugins.push(envPlugin);
+plugins.push(new webpack.NoErrorsPlugin());// tells the reloader to not reload if there is a syntax error in your code. The error is simply printed in the console, and the component will reload when you fix the error.)
 
 module.exports = {
 
@@ -49,11 +53,7 @@ module.exports = {
     ]
   },
 
-  plugins: [
-    new webpack.optimize.CommonsChunkPlugin(/* chunkName= */'vendor', /* filename= */filepath + 'bundle-vendor.js'),
-    new webpack.NoErrorsPlugin(),// tells the reloader to not reload if there is a syntax error in your code. The error is simply printed in the console, and the component will reload when you fix the error.
-    envPlugin
-  ],
+  plugins: plugins,
 
   // Automatically transform files with these extensions
   resolve: {

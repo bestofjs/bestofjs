@@ -1,5 +1,6 @@
 import { routerStateReducer as router } from 'redux-router';
 import { combineReducers } from 'redux';
+import _ from 'lodash';
 
 // The store is made of 2 "branches", updated by 2 reducers:
 // - staticContent: some static content shated by all components
@@ -43,6 +44,10 @@ function githubProjects(state, action) {
   if (process.env.NODE_ENV === 'development') console.log('Reducer', action.type);
   if (!state) return initialStateProjects;
   switch (action.type) {
+    case 'TOGGLE_MENU':
+      var nodes = window.document.querySelectorAll('#layout, .menu-link, #menu');
+      _.forEach(nodes, (element) => element.classList.toggle('active'));
+      return state;
     case 'GET_README_SUCCESS':
       const currentProject = state.project;
       currentProject.readme = action.data.readme;
