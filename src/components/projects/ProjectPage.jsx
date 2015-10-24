@@ -5,8 +5,7 @@ var TagLabel = require('../tags/TagLabel');
 
 function loadData(props) {
   const project = props.githubProjects.project;
-  props.actions.fetchReadme(project)
-    .then( () => console.log('Got the Readme') );
+  props.actions.fetchReadme(project);
 }
 
 require('../../stylesheets/project.styl');
@@ -24,7 +23,7 @@ var ProjectPage = React.createClass({
   },
 
   render: function() {
-    console.log('Render project page', this.props);
+    if (process.env.NODE_ENV === 'development') console.log('Render project page', this.props);
     var project = this.props.githubProjects.project;
     return (
       <MainContent className="project-page">

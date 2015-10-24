@@ -1,5 +1,9 @@
 # Change log
 
+## 0.2.0 - 2015-10-24
+Refactoring using Redux instead of Reflux
+Upgrade to React 0.14 and React router 1.0
+
 ## 0.1.3 - 2015-10-10
 get-readme service URL setup in config files
 Remove `marked` dependency because get-readme service now returns HTML content

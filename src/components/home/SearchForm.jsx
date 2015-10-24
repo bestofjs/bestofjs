@@ -21,7 +21,6 @@ var SearchForm = React.createClass({
     this.emitChangeDelayed = _.debounce(this.emitChange, 300);
   },
   loadData: function () {
-    console.log('context', this.context);
     var text = this.props.params && this.props.params.text;
     if (!text) return;
     if (this.props.searchText !== text) {

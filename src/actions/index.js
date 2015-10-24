@@ -19,12 +19,6 @@ function requestReadme() {
   };
 }
 
-function receiveProjects(json) {
-  return {
-    type: GET_ALL_PROJECTS_SUCCESS,
-    data: json
-  };
-}
 function receiveReadme(json) {
   return {
     type: GET_README_SUCCESS,
@@ -32,19 +26,10 @@ function receiveReadme(json) {
   };
 }
 
-export function fetchProjectsOLD() {
-  return dispatch => {
-    console.log('Fetching projects...');
-    dispatch(requestProjects());
-    return request.get(`https://bestofjs-api-v1.divshot.io/projects.json`)
-      .then(response => response.json())
-      .then(json => dispatch(receiveProjects(json)));
-  };
-}
 
 export function fetchReadme(project) {
   return dispatch => {
-    console.log('Fetching README.md...', project);
+    if (process.env.NODE_ENV === 'development') console.log('Fetching README.md...', project);
     dispatch(requestReadme());
     const webtaskUrl = process.env.GET_README; //set up in webpack.*.config.js file
     return request.get(`${webtaskUrl}&url=${project.repository}`)

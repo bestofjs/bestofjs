@@ -12,7 +12,6 @@ require('../../stylesheets/button.styl');
 
 var Home = React.createClass({
   render: function() {
-    console.log('Render Home', this.props);
     const { repo } = this.props.staticContent || '?';
     const  data  = this.props.githubProjects;
     return (

@@ -1,9 +1,8 @@
-var React = require('react');
-var PropTypes = React.PropTypes;
+import React from 'react';
 
-var Sidebar = require('../components/layout/Sidebar');
-var Header = require('../components/layout/Header');
-var Footer = require('../components/layout/Footer');
+import Sidebar  from '../components/layout/Sidebar';
+import Header from '../components/layout/Header';
+import Footer from '../components/layout/Footer';
 
 import { connect } from 'react-redux';
 //import { pushState } from 'redux-router';
@@ -12,10 +11,10 @@ import * as actions from '../actions';
 
 import { bindActionCreators } from 'redux';
 
-function loadData(props) {
-  props.actions.fetchProjects()
-    .then( () => hideSplashScreen() );
-}
+// function loadData(props) {
+//   props.actions.fetchProjects()
+//     .then( () => hideSplashScreen() );
+// }
 
 function hideSplashScreen() {
   var elements = document.querySelectorAll('.nojs');
@@ -26,9 +25,6 @@ function hideSplashScreen() {
   require('../stylesheets/base.styl');
   require('../stylesheets/table.styl');
 }
-
-
-
 var App = React.createClass({
 
   componentWillMount: function() {
@@ -37,7 +33,7 @@ var App = React.createClass({
   },
 
   render: function() {
-    console.log('Rendering the App container', this.props);
+    if (process.env.NODE_ENV === 'development') console.log('Rendering the App container', this.props);
     const {githubProjects, staticContent, actions} = this.props;
     return (
       <div id="layout">
@@ -86,7 +82,7 @@ function mapDispatchToProps(dispatch) {
 
 App.propTypes = {
   // Injected by React Router
-  children: PropTypes.node
+  children: React.PropTypes.node
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

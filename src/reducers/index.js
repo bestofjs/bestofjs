@@ -1,6 +1,16 @@
 import { routerStateReducer as router } from 'redux-router';
 import { combineReducers } from 'redux';
 
+// The store is made of 2 "branches", updated by 2 reducers:
+// - staticContent: some static content shated by all components
+// - githubProjects: data coming from Github projects stored in the application
+
+// ======
+// PART 1
+// ======
+
+//The 1st reducer
+//A reducer that always return the same state... it could be refactored in another way!
 function staticContent() {
   return {
     projectName: 'bestof.js.org',
@@ -8,6 +18,11 @@ function staticContent() {
   };
 }
 
+// ======
+// PART 2
+// ======
+
+//The default state
 const initialStateProjects = {
   loading: true,
   allProjects: [],
@@ -23,9 +38,10 @@ const initialStateProjects = {
   project: null
 };
 
+//The 2nd reducer
 function githubProjects(state, action) {
+  if (process.env.NODE_ENV === 'development') console.log('Reducer', action.type);
   if (!state) return initialStateProjects;
-  console.log('Reducer', action.type);
   switch (action.type) {
     case 'GET_README_SUCCESS':
       const currentProject = state.project;
@@ -64,6 +80,7 @@ function githubProjects(state, action) {
   }
 }
 
+//Let's combine the 2 previous reducers!
 const rootReducer = combineReducers({
   githubProjects,
   staticContent,
