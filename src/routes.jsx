@@ -11,9 +11,7 @@ var TextFilter = require('./components/home/TextFilter');
 var ErrorMessage = require('./components/common/utils/ErrorMessage');
 
 var routes = (
-  <Router
-    onUpdate={() => window.scrollTo(0, 0)}
-  >
+  <Router>
     <Route path="/" component={App} >
       <IndexRoute component={Home} />
       <Route path="home" component={Home}/>

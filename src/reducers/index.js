@@ -1,8 +1,6 @@
 import { routerStateReducer as router } from 'redux-router';
 import { combineReducers } from 'redux';
 
-import * as projects from './projects';
-
 function staticContent() {
   return {
     projectName: 'bestof.js.org',
@@ -27,36 +25,17 @@ const initialStateProjects = {
 
 function githubProjects(state, action) {
   if (!state) return initialStateProjects;
+  console.log('Reducer', action.type);
   switch (action.type) {
-    case 'GET_ALL_PROJECTS_SUCCESS':
-      const tagsById = {};
-      const allProjects = action.data.projects;
-      let allTags = action.data.tags;
-
-      allTags.forEach( (tag) => tagsById[tag.code] = tag);
-
-      const populatedProjects = projects.populateTagData(allProjects, tagsById);
-      const popularProjects = projects.sortBy(populatedProjects, 'stars');
-
-      return Object.assign({}, state, {
-        loading: false,
-        allProjects: populatedProjects,
-        allTags,
-        tagsById,
-        lastUpdate: action.data.date,
-
-        popularProjects,
-        hotProjects: projects.sortBy(populatedProjects.slice(0), 'delta1'),
-        maxStars: (popularProjects.length > 0) ? popularProjects[0].stars : 0
-      });
-    case 'GET_PROJECT_SUCCESS':
+    case 'GET_README_SUCCESS':
       const currentProject = state.project;
       currentProject.readme = action.data.readme;
       return Object.assign({}, state, {
         project: currentProject
       });
     case '@@reduxReactRouter/routerDidChange':
-      if (state.loading) return state;
+      //if (state.loading) return state;
+      window.scrollTo(0, 0);
       const routes = action.payload.routes;
       const lastRoute = routes[routes.length - 1];
       if (lastRoute.path === 'tags/:id') {
@@ -72,6 +51,7 @@ function githubProjects(state, action) {
         });
       }
       if (lastRoute.path === 'projects/:id') {
+        if (state.allProjects.length === 0) return state;
         const id = action.payload.params.id;
         const foundProjects = state.allProjects.filter( project => project._id === id );
         return Object.assign({}, state, {

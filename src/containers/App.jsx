@@ -32,7 +32,8 @@ function hideSplashScreen() {
 var App = React.createClass({
 
   componentWillMount: function() {
-    loadData(this.props);
+    //loadData(this.props);
+    hideSplashScreen();
   },
 
   render: function() {

@@ -9,7 +9,8 @@ module.exports = function() {
    "redux-router",
    "redux-thunk",
    "history",
-   'superagent',
+   'es6-promise',
+   'axios',
    'lodash',
    'moment',
    'numeral'
