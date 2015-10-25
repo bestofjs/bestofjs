@@ -11,7 +11,10 @@ module.exports = function() {
    "history",
    'es6-promise',
    'axios',
-   'lodash',
+   //only include here the functions we use from Lodash
+   'lodash/function/debounce',
+   'lodash/object/get',
+   'lodash/collection/pluck',
    'moment',
    'numeral'
  ];

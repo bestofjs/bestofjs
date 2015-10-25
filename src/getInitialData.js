@@ -30,7 +30,9 @@ function getInitialState(data) {
   const allProjects = data.projects;
   const counters = getTagCounters(allProjects);
 
-  let allTags = data.tags.map( tag => Object.assign({}, tag, {counter: counters[tag.code]}));
+  let allTags = data.tags
+    .filter( tag => counters[tag.code] )//remove unused tags
+    .map( tag => Object.assign({}, tag, {counter: counters[tag.code]}));//add counter data
 
   allTags.forEach( (tag) => tagsById[tag.code] = tag);
 

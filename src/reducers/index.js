@@ -1,6 +1,9 @@
 import { routerStateReducer as router } from 'redux-router';
 import { combineReducers } from 'redux';
-import _ from 'lodash';
+
+//Helpers
+import loading from '../loading';
+import menu from '../menu';
 
 // The store is made of 2 "branches", updated by 2 reducers:
 // - staticContent: some static content shated by all components
@@ -45,8 +48,7 @@ function githubProjects(state, action) {
   if (!state) return initialStateProjects;
   switch (action.type) {
     case 'TOGGLE_MENU':
-      var nodes = window.document.querySelectorAll('#layout, .menu-link, #menu');
-      _.forEach(nodes, (element) => element.classList.toggle('active'));
+      menu.toggle();
       return state;
     case 'GET_README_SUCCESS':
       const currentProject = state.project;
@@ -57,6 +59,8 @@ function githubProjects(state, action) {
     case '@@reduxReactRouter/routerDidChange':
       //if (state.loading) return state;
       window.scrollTo(0, 0);
+      loading.hide();
+      menu.hide();
       const routes = action.payload.routes;
       const lastRoute = routes[routes.length - 1];
       if (lastRoute.path === 'tags/:id') {

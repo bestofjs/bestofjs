@@ -1,5 +1,6 @@
 var React = require('react');
 var {History} = require('react-router');
+import debounce from 'lodash/function/debounce';
 
 var SearchForm = React.createClass({
   mixins: [History],
@@ -18,7 +19,7 @@ var SearchForm = React.createClass({
   },
   componentDidMount: function() {
     //this.loadData();
-    this.emitChangeDelayed = _.debounce(this.emitChange, 300);
+    this.emitChangeDelayed = debounce(this.emitChange, 300);
   },
   loadData: function () {
     var text = this.props.params && this.props.params.text;

@@ -3,15 +3,17 @@ var PropTypes = React.PropTypes;
 var MainContent = require('../common/MainContent');
 var ProjectList = require('../projects/ProjectList');
 var TagLabel = require('../tags/TagTitle');
+import pluck from 'lodash/collection/pluck';
 
 var TagFilter = React.createClass({
 
   render: function() {
+    console.info('TAG filter');
     //const { tag, projects } = this.props;
     const tag = this.props.githubProjects.tagFilter;
     const allProjects = this.props.githubProjects.allProjects;
     const projects = allProjects.filter(function (project) {
-      const ids = _.pluck(project.tags, 'code');
+      const ids = pluck(project.tags, 'code');
       return project.tags.length > 0 && ids.indexOf(tag.code) > -1;
     });
 

@@ -36,7 +36,7 @@
     "react": "^0.14.0",
     "react-dom": "^0.14.0",
     "react-redux": "^2.1.2",
-    "react-router": "^1.0.0-rc1",
+    "react-router": "^1.0.0-rc3",
     "redux": "^3.0.0",
     "redux-logger": "^2.0.2",
     "redux-router": "^1.0.0-beta3",

@@ -1,6 +1,7 @@
 var React = require('react');
 var Router = require('react-router');
-var { Link, IndexLink } = Router;
+var { Link, IndexLink, History } = Router;
+import pushState from 'redux-router';
 
 require('../../stylesheets/menu.styl');
 
@@ -25,26 +26,57 @@ var Sidebar = React.createClass({
 
 module.exports = Sidebar;
 
-
-
 var TagMenu = React.createClass({
-
   render: function() {
     return (
       <div className="tag-menu">
         { this.props.tags.map( (tag) =>
-          <Link
-            to={ '/tags/' + tag.code }
-            key={ tag.code }
+          <TagMenu.item
             tag={ tag }
+            key={ tag.code }
             active={ tag.code === this.props.selectedTag.code }
-            className={"tag-menu-item" + (this.props.active ? ' active' : '')}
-          >
-            { tag.name }
-            <span className="counter">{ tag.counter }</span>
-          </Link>
+          />
          ) }
       </div>
     );
   }
+});
+
+
+TagMenu.item  = React.createClass({
+
+  render: function() {
+    var {tag, active} = this.props;
+    return (
+      <Link
+        href={ '#/tags/' + tag.code }
+        to={ '/tags/' + tag.code }
+        className={"tag-menu-item" + (active ? ' active' : '')}
+      >
+        { tag.name }
+        <span className="counter">{ tag.counter }</span>
+      </Link>
+    );
+  }
+
+});
+TagMenu.item2  = React.createClass({
+  mixins: [ History ],
+  handleClick: function (tag) {
+    console.info('===== CLICK =====', tag.code);
+    //pushState(null, '/tags/' + tag.code);
+    this.history.pushState(null, `/tags/${tag.code}`);
+  },
+  render: function() {
+    var {tag, active} = this.props;
+    return (
+      <button
+        onClick={ () => this.handleClick(tag) }
+      >
+        { tag.name }
+        <span className="counter">{ tag.counter }</span>
+      </button>
+    );
+  }
+
 });

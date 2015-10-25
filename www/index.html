@@ -6,7 +6,6 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <title>Best of JavaScript</title>
     <meta name="description" content="bestof.js.org is a place where front-end engineers and node.js developers can find the best components to build amazing web applications.">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- added for Github pages -->
     <link rel="shortcut icon" href="favicon.ico">
@@ -27,7 +26,6 @@
       background-color: #ececec;
       height: 100%;
       font-family: sans-serif;
-      font-size: 18px;
       color: #555;
     }
     .nojs #app {
@@ -50,9 +48,10 @@
     .nojs .content {
       flex: none;
       max-width: 400px;
+      font-size: 18px;
     }
     @media (min-width: 600px) {
-      .nojs body {
+      .nojs .content {
         font-size: 22px;
       }
       .nojs img {

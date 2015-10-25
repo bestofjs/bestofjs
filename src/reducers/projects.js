@@ -1,7 +1,9 @@
+import get from 'lodash/object/get';
+
 export function sortBy(projects, field, direction = 'DESC') {
   return projects.sort(function(a, b) {
     var diff;
-    diff = _.get(a, field) - _.get(b, field);
+    diff = get(a, field) - get(b, field);
     return diff * ((direction = 'DESC') ? -1 : 1);
   });
 }
