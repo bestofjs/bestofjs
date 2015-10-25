@@ -5,16 +5,17 @@ module.exports = function() {
    "react-router",
    "redux",
    "react-redux",
-   "redux-logger",
    "redux-router",
    "redux-thunk",
    "history",
    'es6-promise',
    'axios',
+
    //only include here the functions we use from Lodash
    'lodash/function/debounce',
    'lodash/object/get',
    'lodash/collection/pluck',
+
    'moment',
    'numeral'
  ];

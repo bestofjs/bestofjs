@@ -4,6 +4,7 @@ import { combineReducers } from 'redux';
 //Helpers
 import loading from '../loading';
 import menu from '../menu';
+import track from '../track';
 
 // The store is made of 2 "branches", updated by 2 reducers:
 // - staticContent: some static content shated by all components
@@ -65,6 +66,7 @@ function githubProjects(state, action) {
       const lastRoute = routes[routes.length - 1];
       if (lastRoute.path === 'tags/:id') {
         const id = action.payload.params.id;
+        track('Filter tag', id);
         return Object.assign({}, state, {
           tagFilter: state.tagsById[id]
         });
@@ -79,8 +81,11 @@ function githubProjects(state, action) {
         if (state.allProjects.length === 0) return state;
         const id = action.payload.params.id;
         const foundProjects = state.allProjects.filter( project => project._id === id );
+        if (!foundProjects.length) return state;
+        const project = foundProjects[0];
+        track( 'View project', project.name);
         return Object.assign({}, state, {
-          project: foundProjects.length ? foundProjects[0] : null
+          project
         });
       }
       return state;

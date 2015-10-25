@@ -18,20 +18,20 @@ var plugins = getCommonPlugins(filepath).slice();
 plugins.push(envPlugin);
 plugins.push(new webpack.NoErrorsPlugin());// tells the reloader to not reload if there is a syntax error in your code. The error is simply printed in the console, and the component will reload when you fix the error.)
 
-module.exports = {
+var modules = getVendorModules();
+modules.push("redux-logger");//use redux-logger only in dev
 
+module.exports = {
   // Efficiently evaluate modules with source maps
   devtool: "eval",
-
   entry:  {
     app: [
       "webpack-dev-server/client?http://localhost:8080",
       "webpack/hot/only-dev-server",
       "./src/entry.jsx"
     ],
-    vendor: getVendorModules()
+    vendor: modules
   },
-
   // This will not actually create a bundle.js file in ./build. It is used
   // by the dev server for dynamic hot loading.
   output: {
