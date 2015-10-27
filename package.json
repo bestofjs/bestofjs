@@ -49,6 +49,7 @@
   },
   "devDependencies": {
     "gh-pages": "^0.4.0",
+    "babel": "^5.8.23",
     "jsdom": "^7.0.2",
     "react-addons-test-utils": "^0.14.0",
     "react-hot-loader": "^1.2.7",
