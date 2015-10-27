@@ -1,5 +1,7 @@
 ![bestofjs logo](http://michaelrambeau.com/img/blog/2015-10-bestofjs.jpg)
 
+[![Build Status](https://travis-ci.org/michaelrambeau/bestofjs-webui.svg?branch=master)](https://travis-ci.org/michaelrambeau/bestofjs-webui)
+
 ## Concept
 
 [bestof.js.org](http://bestof.js.org/) is an application to check the latest trends about open source projects related to the web platform (JavaScript of course, but also html, css...)
