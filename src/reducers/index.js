@@ -1,6 +1,8 @@
 import { routerStateReducer as router } from 'redux-router';
 import { combineReducers } from 'redux';
 
+import getStaticContent from '../staticContent';
+
 //Helpers
 import loading from '../loading';
 import menu from '../menu';
@@ -17,10 +19,7 @@ import track from '../track';
 //The 1st reducer
 //A reducer that always return the same state... it could be refactored in another way!
 function staticContent() {
-  return {
-    projectName: 'bestof.js.org',
-    repo: 'https://github.com/michaelrambeau/bestofjs-webui'
-  };
+  return getStaticContent();
 }
 
 // ======

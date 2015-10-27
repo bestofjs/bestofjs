@@ -7,10 +7,11 @@ import configureStore from './store/configureStore';
 //Object.assign() polyfill for IE (used in the reducer)
 import './es6-polyfill.js';
 
-import getGithubProjects from './getInitialData';
+import {getInitialData} from './projectData';
+//const { getGithubProjects } = data;
 
 //STEP 1: get project data from the static JSON file hosted on the CDN
-getGithubProjects().then( json => startRedux(json) );
+getInitialData().then( json => startRedux(json) );
 
 //STEP 2: Launch the Redux application once we get data
 function startRedux(githubProjects) {

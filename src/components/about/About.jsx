@@ -43,11 +43,12 @@ var About = React.createClass({
 
         <h2>Do you want more projects ?</h2>
         <p>Rather than scanning all existing projects on Github,
-        We decided to focus on a curated list of projets we find "interesting", based on our experience and on things we read on the internet.<br/>
+        We decided to focus on a curated list of projets we find "interesting", based on our experience and on things we read on the internet.
+        </p>
         <p>As a result, some great projects must be missing!</p>
         <p>Do not hesitate to contact us (by creating an issue in the <a href={ repo }>Github repository</a>, for example) if you want to suggest projects to add.
         </p>
-        </p>
+
 
         <h2>Show your support!</h2>
         <p>If you like the application, please star the project on <a href={ repo }>Github</a>...</p>
