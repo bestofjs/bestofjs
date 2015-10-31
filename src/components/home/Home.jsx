@@ -7,9 +7,6 @@ var ProjectList = require('../projects/ProjectList');
 var ErrorMessage = require('../common/utils/ErrorMessage');
 var StarMeButton = require('../common/StarMeButton');
 
-require('../../stylesheets/grid.styl');
-require('../../stylesheets/button.styl');
-
 var Home = React.createClass({
   render: function() {
     const { repo } = this.props.staticContent || '?';

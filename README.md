@@ -49,7 +49,10 @@ Related repositories:
 * [bestofjs-microservices](https://github.com/michaelrambeau/microservices): microservice used to retrieve project information from Github, when a project is opened in the webui application
 * [bestofjs](https://github.com/michaelrambeau/bestofjs): repository used to deploy content to Github pages, linked to js.org domain. Generated from bestofjs-webui repository.
 
-## Development workflow
+
+## Commands
+
+### Development workflow
 
 Start the web server and watch for changes on the filesystem:
 
@@ -64,7 +67,7 @@ Thank to [React hot loader](http://gaearon.github.io/react-hot-loader/), every t
 
 Note: built files are not written on the disk, they are served by the Webpack server that keeps them in memory. Therefore before uploading files to the production web server, the production files have to be built using a specific command.
 
-## Production deploy
+### Production deploy
 
 Build the files for production:
 
@@ -83,4 +86,24 @@ These 2 commands can be combined into one single command:
 
 ```
 npm run deploy
+```
+
+### Testing
+
+Run unit tests:
+
+```
+npm test
+```
+
+Run unit tests in debug mode, to be able to see console.log in the terminal window:
+
+```
+npm run test-debug
+```
+
+Run test from only one single file:
+
+```
+babel-node test/components/ProjectPageSpec.js
 ```

@@ -4,8 +4,6 @@ var { IndexLink } = Router;
 var SearchForm = require('../home/SearchForm');
 var ToggleMenuButton = require('./ToggleMenuButton');
 
-require('./header.styl');
-
 var Header = React.createClass({
 
   render: function() {

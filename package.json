@@ -4,7 +4,8 @@
   "description": "bestof.js.org front-end web application",
   "main": "webpack.local.config.js",
   "scripts": {
-    "test": "babel-node test/components",
+    "test": "babel-tape-runner test/**/*.js | faucet",
+    "test-debug": "babel-tape-runner test/**/*.js",
     "start": "webpack-dev-server --config config/webpack.local.config.js --content-base www --hot",
     "build": "webpack -p --config config/webpack.production.config.js",
     "gh-pages": "node config/gh-pages-deploy",
@@ -24,11 +25,10 @@
   "bugs": {
     "url": "https://github.com/michaelrambeau/bestofjs-webui/issues"
   },
-  "homepage": "https://github.com/michaelrambeau/bestofjs-webui",
+  "homepage": "http:bestof.js.org",
   "dependencies": {
     "axios": "^0.7.0",
     "babel-loader": "^5.0.0",
-    "coffee-loader": "^0.7.2",
     "css-loader": "^0.12.0",
     "es6-promise": "^3.0.2",
     "history": "^1.9.0",
@@ -48,8 +48,9 @@
     "webpack": "^1.8.11"
   },
   "devDependencies": {
+    "babel-tape-runner": "^1.2.0",
+    "faucet": "0.0.1",
     "gh-pages": "^0.4.0",
-    "babel": "^5.8.23",
     "jsdom": "^7.0.2",
     "react-addons-test-utils": "^0.14.0",
     "react-hot-loader": "^1.2.7",

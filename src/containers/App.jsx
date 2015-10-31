@@ -11,10 +11,12 @@ import * as actions from '../actions';
 
 import { bindActionCreators } from 'redux';
 
-// function loadData(props) {
-//   props.actions.fetchProjects()
-//     .then( () => hideSplashScreen() );
-// }
+// require *.styl intructions have been moved from components to the App.jsx container
+// to be able to run tests with node.js
+require('../stylesheets/grid.styl');
+require('../stylesheets/button.styl');
+require('../components/layout/header.styl');
+require('../stylesheets/project.styl');
 
 function hideSplashScreen() {
   var elements = document.querySelectorAll('.nojs');
@@ -28,7 +30,6 @@ function hideSplashScreen() {
 var App = React.createClass({
 
   componentWillMount: function() {
-    //loadData(this.props);
     hideSplashScreen();
   },
 

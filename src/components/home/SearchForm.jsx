@@ -9,14 +9,6 @@ var SearchForm = React.createClass({
       text: this.props.searchText
     };
   },
-  componentWillReceivePropsX: function(nextProps) {
-    this.loadData();
-    var routes = this.props.routes;
-    var isSearchPage = routes && routes[1].name == 'search';
-    if (!isSearchPage && nextProps.searchText === '') {
-      this.setState({text: ''});
-    }
-  },
   componentDidMount: function() {
     //this.loadData();
     this.emitChangeDelayed = debounce(this.emitChange, 300);
@@ -57,7 +49,6 @@ var SearchForm = React.createClass({
           <input
             type="text"
             style={ style }
-            valueX={ this.state.text }
             onChange={ this.handleChange }
           />
           <i className="fa fa-search ui icon" style={{ color: '#dddddd' }} />

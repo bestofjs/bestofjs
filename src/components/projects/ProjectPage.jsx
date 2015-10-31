@@ -8,8 +8,6 @@ function loadData(props) {
   props.actions.fetchReadme(project);
 }
 
-require('../../stylesheets/project.styl');
-
 var ProjectPage = React.createClass({
 
   componentWillMount() {
