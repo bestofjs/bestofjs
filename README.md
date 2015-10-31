@@ -54,6 +54,12 @@ Related repositories:
 
 ### Development workflow
 
+Build `www/index.html` from `scr/index.html` using html-minify module
+
+```
+npm run minify
+```
+
 Start the web server and watch for changes on the filesystem:
 
 ```
