@@ -9,7 +9,7 @@
     "start": "webpack-dev-server --config config/webpack.local.config.js --content-base www --hot",
     "build": "webpack -p --config config/webpack.production.config.js",
     "gh-pages": "node config/gh-pages-deploy",
-    "deploy": "npm run build && npm run gh-pages",
+    "deploy": "npm run minify && npm run build && npm run gh-pages",
     "minify": "html-minifier --remove-comments --minify-css src/index.html > www/index.html"
   },
   "repository": {

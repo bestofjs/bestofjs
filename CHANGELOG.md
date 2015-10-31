@@ -1,7 +1,9 @@
 # Change log
 
-## 0.2.1 - 2015-10-??
-First tests run with `npm test` command
+## 0.2.1 - 2015-10-31
+* First tests run with `npm test` command
+* `www/index.html` optimization, built from `src/index.html` file, using `npm run minify` command.
+* `www/index.html` removed from git index using `git rm --cached www/index.html` command.
 
 ## 0.2.0 - 2015-10-24
 * Refactoring using Redux instead of Reflux
