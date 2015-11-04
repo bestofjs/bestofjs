@@ -4,6 +4,7 @@ var TagLabel = require('../tags/TagLabelCompact');
 var Delta = require('../common/utils/Delta');
 var DeltaBar = require('../common/utils/DeltaBar');
 var Stars = require('../common/utils/Stars');
+var moment = require('moment');
 
 //var lines = require('react-sparklines');
 //var { Sparklines, SparklinesBars, SparklinesLine } = lines;
@@ -63,10 +64,10 @@ ProjectList.Item = React.createClass({
       starsBar: {
         height: 3,
         backgroundColor: '#ffe082',
-        width: (this.props.project.stars * 100 / this.props.maxStars).toFixed() + '%'
+        width: (project.stars * 100 / this.props.maxStars).toFixed() + '%'
       },
       inner: {
-        padding: '1em',
+        padding: '1em 1em 0.5em',
         position: 'relative'
       },
       ranking: {
@@ -103,7 +104,7 @@ ProjectList.Item = React.createClass({
             { this.props.showStars && (
               <div style={{ fontSize: '1.2em' }}>
                 <Stars
-                  value={ this.props.project.stars }
+                  value={ project.stars }
                   icon={ true }
                 />
               </div>
@@ -112,7 +113,7 @@ ProjectList.Item = React.createClass({
             {  this.props.showDelta && project.deltas.length > 0 && (
               <div style={{ fontSize: 16 }}>
                 <Delta
-                  value={ this.props.project.delta1 }
+                  value={ project.deltas[0] }
                   big={ true }
                   icon={ true }
                 />
@@ -125,12 +126,12 @@ ProjectList.Item = React.createClass({
             to={ viewProjectURL }
             style={ style.link }
           >
-            { this.props.project.name }
+            { project.name }
           </Link>
 
-          { this.props.showURL && this.props.project.url && (
-            <a style={{ display: 'block', marginTop: '1em' }} href={ this.props.project.url }>
-              { this.props.project.url }
+          { this.props.showURL && project.url && (
+            <a style={{ display: 'block', marginTop: '1em' }} href={ project.url }>
+              { project.url }
             </a>
           )}
           { this.props.showDescription && (
@@ -139,24 +140,29 @@ ProjectList.Item = React.createClass({
                 to={ viewProjectURL }
                 className="description"
               >
-                { this.props.project.description }
+                { project.description }
               </Link>
             </p>
           )}
           { this.props.showTags && (
             <div style={{ marginBottom: 5 }}>
-              { this.props.project.tags.map( (tag, i) =>
+              { project.tags.map( (tag, i) =>
                 <TagLabel tag={ tag } key={ i } /> )
               }
             </div>
           )}
+
+          <div style={{ marginTop: '1em', fontSize: 13 }}>
+            <span className="octicon octicon-git-commit"></span>
+            {' '}
+            Last push: { moment(project.pushed_at).fromNow() }
+          </div>
+
         </div>
+
 
         <div>
           { project.deltas.length > 0 && <DeltaBar data={ project.deltas.slice(0,7) } />}
-          { false && (<Sparklines data={ project.deltas } width={ 400 }>
-            <SparklinesBars color="blue" />
-          </Sparklines>)}
         </div>
 
       </div>

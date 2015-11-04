@@ -10,7 +10,7 @@ var ToggleMenuButton = React.createClass({
   render: function() {
     return (
       <a href="#menu" className="menu-link" onClick={ this.handleClick }>
-        <i className="fa fa-bars"></i>
+        <span className="mega-octicon octicon-three-bars"></span>
       </a>
     );
   }

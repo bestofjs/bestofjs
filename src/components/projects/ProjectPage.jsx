@@ -34,9 +34,9 @@ var ProjectPage = React.createClass({
               }) }
               <h1 style={{ margin: '1rem 0' }}>{ project.name }</h1>
               <p>
-                <i className="fa fa-quote-left icon"></i>{' '}
+                &ldquo;{' '}
                 { project.description }
-                {' '}<i className="fa fa-quote-right icon"></i>
+                {' '}&rdquo;
               </p>
               { project.url && (
                 <p>
@@ -46,14 +46,14 @@ var ProjectPage = React.createClass({
               <p>
                 Github: <a href={ project.repository }>{ project.repository }</a>
                 {' '}
-                { project.stars } <i className="fa fa-star-o"></i>
+                { project.stars } <span className="octicon octicon-star"></span>
               </p>
 
               <div className="readme" style={{ margin: '1em 0' }}>
 
                   <div>
                     <div className="header">
-                      <i className="fa fa-book icon"></i>
+                      <span className="octicon octicon-book"></span>
                       {' '}
                       README
                     </div>
@@ -66,7 +66,7 @@ var ProjectPage = React.createClass({
                         ) : (
                         <div style={{ textAlign: 'center' }}>
                           <p style={{ color: '#aaa' }}>Loading README from Github...</p>
-                          <i className="fa fa-book" style={{ margin: '1em 0', fontSize: 80, color: '#bbb' }}></i>
+                          <span className="mega-octicon octicon-book" style={{ margin: '1em 0', fontSize: 100, color: '#bbb' }}></span>
                         </div>
                       )}
                     </div>

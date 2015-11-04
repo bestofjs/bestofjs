@@ -10,7 +10,7 @@ var Stars = React.createClass({
       <span>
         { numeral(value).format(digits + ' a') }
         { this.props.icon && (
-          <i className="fa fa-star-o" style={{ fontSizeX: 18, marginLeft: 2 }}></i>
+          <span className="octicon octicon-star" style={{ marginLeft: 2 }}></span>
         ) }
       </span>
     );

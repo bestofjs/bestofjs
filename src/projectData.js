@@ -39,7 +39,7 @@ export function getInitialState(data) {
   allTags.forEach( (tag) => tagsById[tag.code] = tag);
 
   const populatedProjects = projects.populateTagData(allProjects, tagsById);
-  const popularProjects = projects.sortBy(populatedProjects, 'stars');
+  const popularProjects = projects.sortBy(populatedProjects, (project) => project.stars );
 
   const updatedProps = {
     allProjects: populatedProjects,
@@ -47,7 +47,7 @@ export function getInitialState(data) {
     tagsById,
     lastUpdate: data.date,
     popularProjects,
-    hotProjects: projects.sortBy(populatedProjects.slice(0), 'delta1'),
+    hotProjects: projects.sortBy(populatedProjects.slice(0), (project) => project.delta1),
     maxStars: (popularProjects.length > 0) ? popularProjects[0].stars : 0
   };
 

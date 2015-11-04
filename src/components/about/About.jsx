@@ -90,7 +90,7 @@ var Example = React.createClass({
          </li>
          <li>
            <div style={{ width: 80, display: 'inline-block'}}>
-             <Delta value={ project.delta1 } icon={ true } />
+             <Delta value={ project.deltas[0] } icon={ true } />
            </div>
            {' '}
           is the number of stars added yesterday.</li>

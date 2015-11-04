@@ -68,7 +68,7 @@ var Delta = React.createClass({
       <div style={ style }>
         { formatDelta(value) }
         { this.props.icon && value !== 0 && (
-          <i className="fa fa-star-o" style={{ fontSize: 14, marginLeft: 4 }}></i>
+          <span className="octicon octicon-star" style={{ fontSize: 14, marginLeft: 4 }}></span>
         ) }
       </div>
     );

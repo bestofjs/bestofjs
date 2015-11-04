@@ -51,7 +51,7 @@ var SearchForm = React.createClass({
             style={ style }
             onChange={ this.handleChange }
           />
-          <i className="fa fa-search ui icon" style={{ color: '#dddddd' }} />
+          <span className="octicon octicon-search ui icon" style={{ color: '#ccc' }}></span>
         </div>
     );
   }

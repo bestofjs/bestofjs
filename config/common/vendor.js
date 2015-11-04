@@ -13,7 +13,6 @@ module.exports = function() {
 
    //only include here the functions we use from Lodash
    'lodash/function/debounce',
-   'lodash/object/get',
    'lodash/collection/pluck',
 
    'moment',
