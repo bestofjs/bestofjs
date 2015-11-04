@@ -27,7 +27,9 @@ const defaultState = {
 
 export function getInitialState(data) {
   const tagsById = {};
-  const allProjects = data.projects;
+  const allProjects = data.projects.map( item => Object.assign({}, item, {
+    repository: 'https://github.com/' + item.full_name
+  }) );
   const counters = getTagCounters(allProjects);
 
   let allTags = data.tags
