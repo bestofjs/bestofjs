@@ -4,10 +4,8 @@ var TagLabel = require('../tags/TagLabelCompact');
 var Delta = require('../common/utils/Delta');
 var DeltaBar = require('../common/utils/DeltaBar');
 var Stars = require('../common/utils/Stars');
+var Description = require('../common/utils/Description');
 var moment = require('moment');
-
-//var lines = require('react-sparklines');
-//var { Sparklines, SparklinesBars, SparklinesLine } = lines;
 
 var {Link} = Router;
 
@@ -140,7 +138,7 @@ ProjectList.Item = React.createClass({
                 to={ viewProjectURL }
                 className="description"
               >
-                { project.description }
+                <Description text={ project.description } />
               </Link>
             </p>
           )}

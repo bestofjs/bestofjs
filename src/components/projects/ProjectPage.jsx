@@ -1,5 +1,6 @@
 var React = require('react');
 var MainContent = require('../common/MainContent');
+var Description = require('../common/utils/Description');
 
 var TagLabel = require('../tags/TagLabel');
 
@@ -35,7 +36,7 @@ var ProjectPage = React.createClass({
               <h1 style={{ margin: '1rem 0' }}>{ project.name }</h1>
               <p>
                 &ldquo;{' '}
-                { project.description }
+                <Description text={ project.description } />
                 {' '}&rdquo;
               </p>
               { project.url && (
