@@ -1,5 +1,52 @@
-#menuLink
+$sidebarWidth = 280px
+$topbarHeight = 55px
+$menuBreakPoint = 900px
+
+#header
+  position: fixed
+  top: 0
+  width: 100%
+  background-color: white
+  height: $topbarHeight
+  z-index: 10
+  box-shadow: 0 2px 2px 0 rgba(0,0,0,.14),0 3px 1px -2px rgba(0,0,0,.2),0 1px 5px 0 rgba(0,0,0,.12)
+  padding: 0 10px
+  @media screen and (min-width: $menuBreakPoint)
+    width: "calc(100% - %s)" % $sidebarWidth
+    padding: 0
+  .container
+    max-width: 800px
+    margin: 0 auto
+    padding-top: 8px
+    @media (max-width: 1280px)
+      padding-left: 10px
+      padding-right: 20px
+
+// button used to toggle the sibebar
+.menu-link
+  position: fixed
+  display: block
+  top: 0
+  left: 0
+  font-size: 32px
+  z-index: 10
+  width: $topbarHeight
+  line-height: $topbarHeight
+  text-align: center
+  height: auto
+  padding: 0
+  color: white
   background-color: #e65100
+  cursor: pointer
+  &:hover, &:focus
+    color: white
+
+.link-logo
+  margin-left $topbarHeight
+  @media screen and (min-width: $menuBreakPoint)
+    margin-left 0
+    img
+      width 200px
 
 //Break point that define which header to display
 $headerBreakPoint = 450px
@@ -21,15 +68,6 @@ $headerBreakPoint = 450px
     margin-left: 55px
   @media (min-width: $headerBreakPoint)
     display: none
-
-#header
-  .container
-    max-width: 800px
-    margin: 0 auto
-    padding-top: 8px
-    @media (max-width: 1280px)
-      padding-left: 10px
-      padding-right: 20px
 
 .header-row
   display: flex

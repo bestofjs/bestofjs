@@ -48,7 +48,7 @@ function githubProjects(state, action) {
   if (!state) return initialStateProjects;
   switch (action.type) {
     case 'TOGGLE_MENU':
-      menu.toggle();
+      //menu.toggle();
       return state;
     case 'GET_README_SUCCESS':
       const currentProject = state.project;
@@ -57,10 +57,9 @@ function githubProjects(state, action) {
         project: currentProject
       });
     case '@@reduxReactRouter/routerDidChange':
-      //if (state.loading) return state;
-      window.scrollTo(0, 0);
-      loading.hide();
-      menu.hide();
+
+      postNavigationHook();
+
       const routes = action.payload.routes;
       const lastRoute = routes[routes.length - 1];
       if (lastRoute.path === 'tags/:id') {
@@ -91,6 +90,19 @@ function githubProjects(state, action) {
     default:
       return state;
   }
+}
+
+// When a link has been clicked, perform some UI adjustments
+// TODO these operation should not be done inside the reducers, that should be "pure" functions!
+function postNavigationHook() {
+  // navigate to the top of the screen when a route changes
+  window.scrollTo(0, 0);
+
+  // Hide the loading indicator
+  loading.hide();
+
+  // on mobile screens, hide the side after a link has been clicked
+  if (menu.open) menu.hide();
 }
 
 //Let's combine the 2 previous reducers!

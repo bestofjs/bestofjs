@@ -1,7 +1,6 @@
 var React = require('react');
 var Router = require('react-router');
 var { Link, IndexLink, History } = Router;
-import pushState from 'redux-router';
 
 require('../../stylesheets/menu.styl');
 
@@ -9,8 +8,8 @@ var Sidebar = React.createClass({
   render: function() {
     var tags = this.props.tags;
     return (
-      <div id="menu">
-        <div className="ui vertical menu" style={{ minHeight: 28 * tags.length , marginBottom: 20 }}>
+      <nav id="menu">
+        <div className="ui vertical menu">
           <IndexLink to="/" className="item">HOME</IndexLink>
           <Link to="/about" className="item">ABOUT</Link>
           <div className="item">
@@ -18,7 +17,7 @@ var Sidebar = React.createClass({
             <TagMenu tags={ tags } selectedTag={ this.props.selectedTag }></TagMenu>
           </div>
         </div>
-      </div>
+      </nav>
     );
   }
 

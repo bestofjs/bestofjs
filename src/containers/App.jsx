@@ -4,6 +4,9 @@ import Sidebar  from '../components/layout/Sidebar';
 import Header from '../components/layout/Header';
 import Footer from '../components/layout/Footer';
 
+import menu from '../menu';
+
+
 import { connect } from 'react-redux';
 //import { pushState } from 'redux-router';
 
@@ -15,7 +18,6 @@ import { bindActionCreators } from 'redux';
 // to be able to run tests with node.js
 require('../stylesheets/grid.styl');
 require('../stylesheets/button.styl');
-require('../components/layout/header.styl');
 require('../stylesheets/project.styl');
 
 function hideSplashScreen() {
@@ -23,14 +25,17 @@ function hideSplashScreen() {
   Array.prototype.forEach.call( elements, (el) => el.classList.remove('nojs'));
 
   //Add the stylesheets to overwrite inline styles defined in index.html
-  require('../components/layout/layout.styl');
   require('../stylesheets/base.styl');
-  require('../stylesheets/table.styl');
+  require('../stylesheets/header.styl');
+  require('../stylesheets/slideout/index.styl');
 }
 var App = React.createClass({
 
   componentWillMount: function() {
     hideSplashScreen();
+  },
+  componentDidMount: function() {
+    menu.start();
   },
 
   render: function() {
@@ -44,7 +49,7 @@ var App = React.createClass({
           selectedTag={ githubProjects.tagFilter }
         />
 
-        <div id="main">
+        <main id="panel">
 
           <Header
             searchText={ githubProjects.textFilter}
@@ -56,12 +61,13 @@ var App = React.createClass({
             staticContent,
             actions
           }) }
-        </div>
 
-        <Footer
-          staticContent={ this.props.staticContent }
-          lastUpdate={ this.props.githubProjects.lastUpdate }
-        />
+          <Footer
+            staticContent={ this.props.staticContent }
+            lastUpdate={ this.props.githubProjects.lastUpdate }
+          />
+
+        </main>
 
       </div>
     );

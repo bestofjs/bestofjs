@@ -1,5 +1,8 @@
 # Change log
 
+## 0.2.3 - 2015-11-08
+* New sidebar using [slideout](https://github.com/Mango/slideout) JavaScript component instead of pure CSS.
+
 ## 0.2.2 - 2015-11-05
 * Use octicon instead of fontawesome
 * Add `pushed_at` information

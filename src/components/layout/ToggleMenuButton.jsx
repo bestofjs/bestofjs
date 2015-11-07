@@ -2,14 +2,11 @@ var React = require('react');
 
 var ToggleMenuButton = React.createClass({
 
-  handleClick: function (e) {
-    e.preventDefault();
-    this.props.actions.toggleMenu();
-  },
+  //No `handleClick` event here, no action `ToggleMenu` action is dispatched
 
   render: function() {
     return (
-      <a href="#menu" className="menu-link" onClick={ this.handleClick }>
+      <a className="menu-link">
         <span className="mega-octicon octicon-three-bars"></span>
       </a>
     );

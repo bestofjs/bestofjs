@@ -1,6 +1,6 @@
 {
   "name": "bestofjs-webui",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "bestof.js.org front-end web application",
   "main": "webpack.local.config.js",
   "scripts": {
@@ -49,6 +49,7 @@
     "redux-logger": "^2.0.2",
     "redux-router": "^1.0.0-beta3",
     "redux-thunk": "^0.1.0",
+    "slideout": "^0.1.11",
     "style-loader": "^0.12.1",
     "stylus-loader": "^1.2.0",
     "webpack": "^1.8.11"

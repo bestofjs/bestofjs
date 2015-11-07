@@ -1,3 +1,5 @@
+import Slideout from 'slideout';
+
 //A helper to get an array from a "node list" object
 function $$(selector, context) {
   context = context || document;
@@ -5,15 +7,29 @@ function $$(selector, context) {
   return Array.prototype.slice.call(elements);
 }
 
-function getNodes() {
-  return $$('#layout, .menu-link, #menu');
-}
+let slideout = null;
 
 export default ({
+  open: false,
+  start: function () {
+    let self = this;
+    slideout = new Slideout({
+      'panel': document.getElementById('panel'),
+      'menu': document.getElementById('menu'),
+      'padding': 280,
+      'tolerance': 70
+    });
+    $$('.menu-link').forEach(function (node) {
+      node.addEventListener('click', function() {
+        slideout.toggle();
+        self.open = true;
+      });
+    });
+  },
   toggle: function () {
-    getNodes().forEach( element => element.classList.toggle('active'));
+    slideout.toggle();
   },
   hide: function () {
-    getNodes().forEach( element => element.classList.remove('active'));
+    slideout.close();
   }
 });

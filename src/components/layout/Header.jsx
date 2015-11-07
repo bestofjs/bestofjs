@@ -27,7 +27,7 @@ var Header = React.createClass({
             </div>
           </div>
 
-          { /* Desktop header */}
+          { /* Mobile header */}
           <div id="small-header">
             <ToggleMenuButton
               actions= { this.props.actions }
