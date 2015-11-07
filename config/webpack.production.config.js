@@ -30,8 +30,7 @@ module.exports = {
 
   module: {
     loaders: [
-      { test: /\.jsx?$/, exclude: /node_modules/, loaders: ["babel-loader"]},
-      { test: /\.coffee$/, loader: 'coffee-loader' },
+      { test: /\.jsx?$/, exclude: /node_modules/, loader: "babel"},
       { test: /\.styl$/, loader: 'style-loader!css-loader!stylus-loader' }, // use ! to chain loaders
       { test: /\.css$/, loader: 'style-loader!css-loader' },
     ]

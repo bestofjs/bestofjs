@@ -1,15 +1,13 @@
-var React = require('react');
-var ReactRouter = require('react-router');
-var {Route, IndexRoute} = ReactRouter;
+import React from 'react';
+import { Route, IndexRoute } from 'react-router';
 
-var App = require('./containers/App');
-var Home = require('./components/home/Home');
-var About = require('./components/about/About');
-var ProjectPage = require('./components/projects/ProjectPage');
-var TagFilter = require('./components/home/TagFilter');
-var TextFilter = require('./components/home/TextFilter');
-//var ErrorMessage = require('./components/common/utils/ErrorMessage');
-var loading = require('./loading');
+import App from './containers/App';
+import Home from './components/home/Home';
+import About from './components/about/About';
+import ProjectPage from './components/projects/ProjectPage';
+import TagFilter from './components/home/TagFilter';
+import TextFilter from './components/home/TextFilter';
+import loading from './loading';
 
 function getRoutes() {
 
@@ -27,10 +25,7 @@ function getRoutes() {
       <Route path="search/:text" component={ TextFilter }/>
     </Route>
   );
-
-    return (
-      routes
-    );
+  return routes;
 }
 
 module.exports = getRoutes();

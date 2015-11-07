@@ -4,6 +4,7 @@
 * Use octicon instead of fontawesome
 * Add `pushed_at` information
 * Shorter URLs for project pages, no more database _id
+* Upgrade to babel v6
 
 ## 0.2.1 - 2015-10-31
 * First tests run with `npm test` command
