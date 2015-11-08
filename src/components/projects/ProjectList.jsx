@@ -5,7 +5,8 @@ var Delta = require('../common/utils/Delta');
 var DeltaBar = require('../common/utils/DeltaBar');
 var Stars = require('../common/utils/Stars');
 var Description = require('../common/utils/Description');
-var moment = require('moment');
+
+import fromNow from '../../helpers/fromNow';
 
 var {Link} = Router;
 
@@ -153,7 +154,7 @@ ProjectList.Item = React.createClass({
           <div style={{ marginTop: '1em'}}>
             <span className="octicon octicon-git-commit"></span>
             {' '}
-            Last push: { moment(project.pushed_at).fromNow() }
+            Last push: { fromNow(project.pushed_at) }
           </div>
 
         </div>

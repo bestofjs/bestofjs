@@ -15,7 +15,8 @@ module.exports = function() {
    'lodash/function/debounce',
    'lodash/collection/pluck',
 
-   'moment',
-   'numeral'
+   'vague-time', // light equivalent to 'moment' module
+   'numeral',
+   'slideout'
  ];
 };

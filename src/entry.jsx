@@ -8,7 +8,10 @@ import configureStore from './store/configureStore';
 import './es6-polyfill.js';
 
 import {getInitialData} from './projectData';
-//const { getGithubProjects } = data;
+import loading from './loading';
+
+//Set up the http request interceptor
+loading.init();
 
 //STEP 1: get project data from the static JSON file hosted on the CDN
 getInitialData().then( json => startRedux(json) );
