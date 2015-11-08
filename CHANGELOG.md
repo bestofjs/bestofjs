@@ -2,6 +2,9 @@
 
 ## 0.2.3 - 2015-11-08
 * New sidebar using [slideout](https://github.com/Mango/slideout) JavaScript component instead of pure CSS.
+* More colors displayed in the `Delta` bar, inside project blocks.
+* Use `topbar` library instead of `pace` for the loading indicator
+* Use `vague-time` module instead of `moment` to display dates
 
 ## 0.2.2 - 2015-11-05
 * Use octicon instead of fontawesome

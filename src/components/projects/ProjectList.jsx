@@ -154,7 +154,7 @@ ProjectList.Item = React.createClass({
           <div style={{ marginTop: '1em'}}>
             <span className="octicon octicon-git-commit"></span>
             {' '}
-            Last push: { fromNow(project.pushed_at) }
+            Last update: { fromNow(project.pushed_at) }
           </div>
 
         </div>
