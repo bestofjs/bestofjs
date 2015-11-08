@@ -60,20 +60,20 @@ function githubProjects(state, action) {
 
       postNavigationHook();
 
+      let nextState = Object.assign({}, state);
       const routes = action.payload.routes;
       const lastRoute = routes[routes.length - 1];
       if (lastRoute.path === 'tags/:id') {
         const id = action.payload.params.id;
         track('Filter tag', id);
-        return Object.assign({}, state, {
-          tagFilter: state.tagsById[id]
-        });
+        nextState.tagFilter = state.tagsById[id];
+      } else {
+        // Reset the current tag (to disactivate the menu item in the sidebar)
+        nextState.tagFilter = {code: '*'};
       }
       if (lastRoute.path === 'search/:text') {
         const text = action.payload.params.text;
-        return Object.assign({}, state, {
-          textFilter: text
-        });
+        nextState.textFilter = text;
       }
       if (lastRoute.path === 'projects/:id') {
         if (state.allProjects.length === 0) return state;
@@ -82,11 +82,9 @@ function githubProjects(state, action) {
         if (!foundProjects.length) return state;
         const project = foundProjects[0];
         track( 'View project', project.name);
-        return Object.assign({}, state, {
-          project
-        });
+        nextState.project = project;
       }
-      return state;
+      return nextState;
     default:
       return state;
   }
@@ -95,6 +93,7 @@ function githubProjects(state, action) {
 // When a link has been clicked, perform some UI adjustments
 // TODO these operation should not be done inside the reducers, that should be "pure" functions!
 function postNavigationHook() {
+
   // navigate to the top of the screen when a route changes
   window.scrollTo(0, 0);
 
