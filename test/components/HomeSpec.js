@@ -19,6 +19,7 @@ setup();
 import HomePage from '../../src/components/home/Home';
 import Button from '../../src/components/common/StarMeButton';
 import ProjectList from '../../src/components/projects/ProjectList';
+import ProjectCard from '../../src/components/projects/ProjectCard';
 
 
 test('Check Home page', (assert) => {
@@ -40,7 +41,7 @@ test('Check Home page', (assert) => {
   assert.equal(button.length, 1, `There should be one "Star on Github" button.`);
   assert.equal(lists.length, 2, `There should be 2 lists of projects.`);
 
-  const projects = getAllComponents(component, ProjectList.Item);
+  const projects = getAllComponents(component, ProjectCard);
   assert.equal(projects.length, 40, `There should be 40 projects.`);
 
   assert.end();

@@ -31,19 +31,7 @@ var Home = React.createClass({
 
         { data && data.allProjects && (
           <div className="row">
-            <div className="col-sm-6">
-              <div className="box">
-                <h3 className="with-comment">Most popular projects</h3>
-                <p className="explanation">By total number of stars on Github</p>
-                <ProjectList
-                  projects = {data.popularProjects.slice(0,20)}
-                  maxStars = {data.maxStars}
-                  showStars = { true }
-                  showDelta = { false }
-                  showIndex={true}
-                />
-              </div>
-            </div>
+            { /* Part 1: HOT projects */ }
             <div className="col-sm-6">
               <div className="box">
                 <h3 className="with-comment">Hot projects since yesterday</h3>
@@ -53,6 +41,21 @@ var Home = React.createClass({
                   maxStars = {data.maxStars}
                   showDelta={ true }
                   showStars={ false }
+                  showIndex={true}
+                />
+              </div>
+            </div>
+
+            { /* Part 2: Overall rankings */ }
+            <div className="col-sm-6">
+              <div className="box">
+                <h3 className="with-comment">Most popular projects</h3>
+                <p className="explanation">By total number of stars on Github</p>
+                <ProjectList
+                  projects = {data.popularProjects.slice(0,20)}
+                  maxStars = {data.maxStars}
+                  showStars = { true }
+                  showDelta = { false }
                   showIndex={true}
                 />
               </div>
