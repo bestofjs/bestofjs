@@ -16,46 +16,41 @@
     -->
 
     <style>
-    .nojs {
-      height: 100%;
-    }
-    .nojs body {
-      margin: 0;
-      background-color: #ececec;
-      height: 100%;
-      font-family: sans-serif;
-      color: #555;
-    }
-    .nojs #app {
-      height: 100%;
-      flex-flow: row wrap;
-      align-items: stretch;
-    }
-    .nojs .header {
-      padding-top: 5px;
-      background-color: #fff;
-      text-align: center;
-      box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 3px 1px -2px rgba(0,0,0,0.2), 0 1px 5px 0 rgba(0,0,0,0.12);
-    }
-    .nojs .container {
-      min-height: calc(100% - 80px);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    .nojs .content {
-      max-width: 400px;
-      font-size: 18px;
-      padding: 0 10px;
-    }
-    @media (min-width: 600px) {
+      .nojs,
+      .nojs body,
+      .nojs #app {
+        height: 100%;
+      }
+      .nojs body {
+        margin: 0;
+        padding: 0;
+        background-color: #ececec;
+        font-family: sans-serif;
+        color: #555;
+        font-size: 16px;
+      }
+      .nojs header {
+        height: 112px;
+        text-align: center;
+        background: linear-gradient(90deg, #ffe38c, #ffe38c 50%, #9c0042 50%, #9c0042);
+        box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 3px 1px -2px rgba(0,0,0,0.2), 0 1px 5px 0 rgba(0,0,0,0.12);
+      }
+      .nojs main {
+        height: calc(100% - 112px);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
       .nojs .content {
-        font-size: 22px;
+        margin: 0 auto;
+        padding: 1em;
+        max-width: 600px;
       }
-      .nojs img {
-        width: 300px;
+      @media (min-width: 600px) {
+        .nojs body {
+          font-size: 22px;
+        }
       }
-    }
 
     </style>
 
@@ -205,8 +200,10 @@
 
 
     <div id="app">
-      <div class="header"><img src="images/logo.png" width="200" alt="bestof.js.org"/></div>
-      <div class="container">
+      <header>
+        <img src="images/logo2.png" width="200" height="112" alt="bestof.js.org"/>
+      </header>
+      <main>
         <div class="content">
           <p>Loading the best of JavaScript and the web platform...</p>
           <ul>
@@ -218,7 +215,7 @@
           </ul>
           <p>it will be awesome!</p>
         </div>
-      </div>
+      </main>
     </div>
 
 
