@@ -16,18 +16,14 @@ import { bindActionCreators } from 'redux';
 
 // require *.styl intructions have been moved from components to the App.jsx container
 // to be able to run tests with node.js
-require('../stylesheets/grid.styl');
-require('../stylesheets/button.styl');
-require('../stylesheets/project.styl');
 
 function hideSplashScreen() {
   var elements = document.querySelectorAll('.nojs');
   Array.prototype.forEach.call( elements, (el) => el.classList.remove('nojs'));
 
+  require('../stylesheets/main.styl');
   //Add the stylesheets to overwrite inline styles defined in index.html
-  require('../stylesheets/base.styl');
-  require('../stylesheets/header.styl');
-  require('../stylesheets/slideout/index.styl');
+
 }
 var App = React.createClass({
 

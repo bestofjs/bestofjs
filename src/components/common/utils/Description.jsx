@@ -14,7 +14,7 @@ var Description = React.createClass({
     const {text} = this.props;
     const description = text.replace(/\:[a-z_\d]+\:/g, '').trim();
     return (
-      <span>{ description }</span>
+      <span>&ldquo;{' '}{ description }{' '}&rdquo;</span>
     );
   }
 });

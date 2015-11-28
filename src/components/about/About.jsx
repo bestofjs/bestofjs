@@ -1,7 +1,7 @@
 var React = require('react');
 var MainContent = require('../common/MainContent');
 var StarMeButton = require('../common/StarMeButton');
-var ProjectList = require('../projects/ProjectList');
+var ProjectCard = require('../projects/ProjectCard');
 var Delta = require('../common/utils/Delta');
 var Stars = require('../common/utils/Stars');
 var About = React.createClass({
@@ -72,8 +72,10 @@ var Example = React.createClass({
           Here is the most popular project of the application ({ project.name }).
         </p>
 
-        <ProjectList
-          projects = { [project] }
+        <ProjectCard
+          project = { project }
+          index = { 0 }
+          showDescription = { true }
           maxStars = { maxStars }
           showStars = { true }
           showDelta = { true }

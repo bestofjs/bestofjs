@@ -1,7 +1,9 @@
 var React = require('react');
 var MainContent = require('../common/MainContent');
 var Description = require('../common/utils/Description');
-
+var DeltaBar = require('../common/utils/DeltaBar');
+var ProjectCard = require('./ProjectCard');
+import fromNow from '../../helpers/fromNow';
 var TagLabel = require('../tags/TagLabel');
 
 function loadData(props) {
@@ -34,23 +36,35 @@ var ProjectPage = React.createClass({
                 );
               }) }
               <h1 style={{ margin: '1rem 0' }}>{ project.name }</h1>
-              <p>
-                &ldquo;{' '}
-                <Description text={ project.description } />
-                {' '}&rdquo;
-              </p>
-              { project.url && (
-                <p>
-                  Website: <a href={ project.url }>{ project.url }</a>
-                </p>
-              )}
-              <p>
-                Github: <a href={ project.repository }>{ project.repository }</a>
-                {' '}
-                { project.stars } <span className="octicon octicon-star"></span>
-              </p>
+              <div className="project-card">
+                <div className="inner">
+                  <p>
+                    <Description text={ project.description } />
+                  </p>
+                  { project.url && (
+                    <p>
+                      <span className="octicon octicon-globe"></span>
+                      Website: <a href={ project.url }>{ project.url }</a>
+                    </p>
+                  )}
+                  <p>
+                    <span className="octicon octicon-mark-github"></span>
+                    Github: <a href={ project.repository }>{ project.repository }</a>
+                    {' '}
+                    { project.stars } <span className="octicon octicon-star"></span>
+                  </p>
+                  <div className="last-commit">
+                    <span className="octicon octicon-git-commit"></span>
+                    {' '}
+                    Last update: { fromNow(project.pushed_at) }
+                  </div>
+                </div>
+                <div>
+                  { project.deltas.length > 0 && <DeltaBar data={ project.deltas.slice(0,7) } />}
+                </div>
+              </div>
 
-              <div className="readme" style={{ margin: '1em 0' }}>
+              <div className="readme">
 
                   <div>
                     <div className="header">
