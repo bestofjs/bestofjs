@@ -1,5 +1,9 @@
 # Change log
 
+## 0.2.4 - 2015-11-28
+* Get projects.json from firebase instead of divshot (issue #7)
+* Use the new logo in the splash screen
+
 ## 0.2.3 - 2015-11-08
 * New sidebar using [slideout](https://github.com/Mango/slideout) JavaScript component instead of pure CSS.
 * More colors displayed in the `Delta` bar, inside project blocks.
