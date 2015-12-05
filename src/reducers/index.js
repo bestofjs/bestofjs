@@ -8,6 +8,10 @@ import loading from '../loading';
 import menu from '../menu';
 import track from '../track';
 
+function entities(state, action) {
+  return state;
+}
+
 // The store is made of 2 "branches", updated by 2 reducers:
 // - staticContent: some static content shated by all components
 // - githubProjects: data coming from Github projects stored in the application
@@ -43,7 +47,9 @@ const initialStateProjects = {
 };
 
 //The 2nd reducer
-function githubProjects(state, action) {
+function githubProjects(state = {}, action) {
+  console.log('Run the reducer');
+  return state;
   if (process.env.NODE_ENV === 'development') console.log('Reducer', action.type);
   if (!state) return initialStateProjects;
   switch (action.type) {

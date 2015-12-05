@@ -2,7 +2,7 @@ import React from 'react';
 import { Route, IndexRoute } from 'react-router';
 
 import App from './containers/App';
-import Home from './components/home/Home';
+import Home from './containers/HomePage';
 import About from './components/about/About';
 import ProjectPage from './components/projects/ProjectPage';
 import TagFilter from './components/home/TagFilter';

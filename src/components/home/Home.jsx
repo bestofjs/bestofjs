@@ -10,7 +10,7 @@ var StarMeButton = require('../common/StarMeButton');
 var Home = React.createClass({
   render: function() {
     const { repo } = this.props.staticContent || '?';
-    const  data  = this.props.githubProjects;
+    const { hotProjects, popularProjects, maxStars }  = this.props;
     return (
       <MainContent>
         { this.props.errorMessage && <ErrorMessage text={ this.props.errorMessage } /> }
@@ -29,7 +29,7 @@ var Home = React.createClass({
           {' and many more... the best of JavaScript!'}
         </p>
 
-        { data && data.allProjects && (
+        { hotProjects.length && (
           <div className="row">
             { /* Part 1: HOT projects */ }
             <div className="col-sm-6">
@@ -37,8 +37,8 @@ var Home = React.createClass({
                 <h3 className="with-comment">Hot projects since yesterday</h3>
                 <p className="explanation">By number of stars added yesterday on Github</p>
                 <ProjectList
-                  projects = {data.hotProjects.slice(0,20)}
-                  maxStars = {data.maxStars}
+                  projects = { hotProjects }
+                  maxStars = { maxStars }
                   showDelta={ true }
                   showStars={ false }
                   showIndex={true}
@@ -52,8 +52,8 @@ var Home = React.createClass({
                 <h3 className="with-comment">Most popular projects</h3>
                 <p className="explanation">By total number of stars on Github</p>
                 <ProjectList
-                  projects = {data.popularProjects.slice(0,20)}
-                  maxStars = {data.maxStars}
+                  projects = { popularProjects }
+                  maxStars = { maxStars }
                   showStars = { true }
                   showDelta = { false }
                   showIndex={true}

@@ -18,6 +18,7 @@ import { bindActionCreators } from 'redux';
 // to be able to run tests with node.js
 
 function hideSplashScreen() {
+  console.log('Hide!');
   var elements = document.querySelectorAll('.nojs');
   Array.prototype.forEach.call( elements, (el) => el.classList.remove('nojs'));
 
@@ -36,32 +37,22 @@ var App = React.createClass({
 
   render: function() {
     if (process.env.NODE_ENV === 'development') console.log('Rendering the App container', this.props);
-    const {githubProjects, staticContent, actions} = this.props;
+    const {children, actions, allTags} = this.props;
     return (
       <div id="layout">
 
         <Sidebar
-          tags={ githubProjects.allTags}
-          selectedTag={ githubProjects.tagFilter }
+          tags={ allTags}
+          selectedTag={ '*' }
         />
 
         <main id="panel">
 
-          <Header
-            searchText={ githubProjects.textFilter}
-            actions= { this.props.actions }
-          />
 
-          { this.props.children && React.cloneElement(this.props.children, {
-            githubProjects,
-            staticContent,
-            actions
-          }) }
 
-          <Footer
-            staticContent={ this.props.staticContent }
-            lastUpdate={ this.props.githubProjects.lastUpdate }
-          />
+          { children }
+
+
 
         </main>
 
@@ -72,9 +63,20 @@ var App = React.createClass({
 });
 
 function mapStateToProps(state) {
+
+  const {
+    entities: { projects, tags },
+    hotProjectIds,
+    popularProjectIds,
+    tagIds
+  } = state.githubProjects;
+
+  const allTags = tagIds.map( id => tags[id] );
+
   return {
-    githubProjects: state.githubProjects,
-    staticContent: state.staticContent
+    allTags
+    //githubProjects: state.githubProjects,
+    //staticContent: state.staticContent
   };
 }
 

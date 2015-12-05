@@ -12,47 +12,61 @@ export function getInitialData() {
 
 const defaultState = {
   loading: true,
-  allProjects: [],
-  allTags: [],
-  tagsById: null,
-  popularProjects: [],
-  hotProjects: [],
-  lastUpdate: new Date(),
-  tagFilter: {
-    code: '*'
+  entities: {
+    projects: {},
+    tags: {}
   },
+  lastUpdate: new Date(),
+  tagFilter: '*',
   textFilter: '',
-  project: null
+  currentProjectId: null,
+  popularProjectIds: [],
+  hotProjectIds: []
 };
 
 export function getInitialState(data) {
-  const tagsById = {};
+  console.log('Start!');
+  let state = defaultState;
+
+  state.lastUpdate = data.date;
+
+  // Format id and repository fields
   const allProjects = data.projects.map( item => Object.assign({}, item, {
     repository: 'https://github.com/' + item.full_name,
     _id: item.full_name.substr(item.full_name.indexOf('/') + 1)
   }) );
-  const counters = getTagCounters(allProjects);
 
+  // Create project entities
+  allProjects.forEach( item => {
+    const id = item._id;
+    state.entities.projects[id] = item;
+  });
+
+  // Create a hash map [tag code] => number of projects
+  const counters = getTagCounters(data.projects);
+
+  // Format tags array
   let allTags = data.tags
     .filter( tag => counters[tag.code] )//remove unused tags
-    .map( tag => Object.assign({}, tag, {counter: counters[tag.code]}));//add counter data
+    .map( tag => Object.assign({}, tag, {
+      counter: counters[tag.code], //add counter data
+      id: tag.code.toLowerCase()
+    }));
 
-  allTags.forEach( (tag) => tagsById[tag.code] = tag);
+  // Create tags entities
+  allTags.forEach( tag => {
+      const id = tag.id;
+      state.entities.tags[id] = tag;
+  });
 
-  const populatedProjects = projects.populateTagData(allProjects, tagsById);
-  const popularProjects = projects.sortBy(populatedProjects, (project) => project.stars );
+  let popularProjects = projects.sortBy(allProjects, (project) => project.stars );
+  let hotProjects = projects.sortBy(allProjects.slice(0), (project) => project.deltas[0]);
 
-  const updatedProps = {
-    allProjects: populatedProjects,
-    allTags,
-    tagsById,
-    lastUpdate: data.date,
-    popularProjects,
-    hotProjects: projects.sortBy(populatedProjects.slice(0), (project) => project.deltas[0]),
-    maxStars: (popularProjects.length > 0) ? popularProjects[0].stars : 0
-  };
+  state.popularProjectIds = popularProjects.map( item => item._id );
+  state.hotProjectIds = hotProjects.map( item => item._id );
+  state.tagIds = allTags.map( item => item.id );
 
-  const state =  Object.assign( {}, defaultState, updatedProps);
+  console.log('Initial state', state);
   return state;
 }
 
