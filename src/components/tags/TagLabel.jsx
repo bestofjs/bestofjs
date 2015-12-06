@@ -15,7 +15,7 @@ var TagLabel = React.createClass({
       }
     };
     return (
-      <Link to={ `tags/${tag.code}` }
+      <Link to={ `tags/${tag.id}` }
         key={ tag.id }
         className="tag tag-compact"
       >

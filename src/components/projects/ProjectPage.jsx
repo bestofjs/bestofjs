@@ -32,7 +32,7 @@ var ProjectPage = React.createClass({
             <div>
               { project.tags.map(function (tag) {
                 return (
-                  <TagLabel key={ tag.code } tag={ tag } />
+                  <TagLabel key={ tag.id } tag={ tag } />
                 );
               }) }
               <h1 style={{ margin: '1rem 0' }}>{ project.name }</h1>

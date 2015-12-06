@@ -32,8 +32,8 @@ var TagMenu = React.createClass({
         { this.props.tags.map( (tag) =>
           <TagMenu.item
             tag={ tag }
-            key={ tag.code }
-            active={ tag.code === this.props.selectedTag.code }
+            key={ tag.id }
+            active={ tag.id === this.props.selectedTag.id }
           />
          ) }
       </div>
@@ -48,33 +48,13 @@ TagMenu.item  = React.createClass({
     var {tag, active} = this.props;
     return (
       <Link
-        href={ '#/tags/' + tag.code }
-        to={ '/tags/' + tag.code }
+        href={ '#/tags/' + tag.id }
+        to={ '/tags/' + tag.id }
         className={"tag-menu-item" + (active ? ' active' : '')}
       >
         { tag.name }
         <span className="counter">{ tag.counter }</span>
       </Link>
-    );
-  }
-
-});
-TagMenu.item2  = React.createClass({
-  mixins: [ History ],
-  handleClick: function (tag) {
-    console.info('===== CLICK =====', tag.code);
-    //pushState(null, '/tags/' + tag.code);
-    this.history.pushState(null, `/tags/${tag.code}`);
-  },
-  render: function() {
-    var {tag, active} = this.props;
-    return (
-      <button
-        onClick={ () => this.handleClick(tag) }
-      >
-        { tag.name }
-        <span className="counter">{ tag.counter }</span>
-      </button>
     );
   }
 

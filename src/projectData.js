@@ -49,8 +49,8 @@ export function getInitialState(data) {
   let allTags = data.tags
     .filter( tag => counters[tag.code] )//remove unused tags
     .map( tag => Object.assign({}, tag, {
-      counter: counters[tag.code], //add counter data
-      id: tag.code.toLowerCase()
+      counter: counters[tag.id], //add counter data
+      id: tag.code
     }));
 
   // Create tags entities

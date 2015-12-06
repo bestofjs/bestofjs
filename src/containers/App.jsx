@@ -18,7 +18,6 @@ import { bindActionCreators } from 'redux';
 // to be able to run tests with node.js
 
 function hideSplashScreen() {
-  console.log('Hide!');
   var elements = document.querySelectorAll('.nojs');
   Array.prototype.forEach.call( elements, (el) => el.classList.remove('nojs'));
 
