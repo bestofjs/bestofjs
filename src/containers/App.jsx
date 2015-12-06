@@ -37,7 +37,7 @@ var App = React.createClass({
 
   render: function() {
     if (process.env.NODE_ENV === 'development') console.log('Rendering the App container', this.props);
-    const {children, actions, allTags} = this.props;
+    const {children, actions, allTags, lastUpdate, staticContent} = this.props;
     return (
       <div id="layout">
 
@@ -52,7 +52,10 @@ var App = React.createClass({
 
           { children }
 
-
+          <Footer
+            staticContent={ staticContent }
+            lastUpdate={ lastUpdate }
+          />
 
         </main>
 
@@ -68,15 +71,17 @@ function mapStateToProps(state) {
     entities: { projects, tags },
     hotProjectIds,
     popularProjectIds,
-    tagIds
+    tagIds,
+    lastUpdate
   } = state.githubProjects;
 
   const allTags = tagIds.map( id => tags[id] );
 
   return {
-    allTags
+    allTags,
+    lastUpdate,
     //githubProjects: state.githubProjects,
-    //staticContent: state.staticContent
+    staticContent: state.staticContent
   };
 }
 

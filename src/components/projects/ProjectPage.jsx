@@ -28,7 +28,7 @@ var ProjectPage = React.createClass({
     var project = this.props.githubProjects.project;
     return (
       <MainContent className="project-page">
-          { project._id && (
+          { project.id && (
             <div>
               { project.tags.map(function (tag) {
                 return (

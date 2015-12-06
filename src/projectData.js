@@ -33,13 +33,13 @@ export function getInitialState(data) {
   // Format id and repository fields
   const allProjects = data.projects.map( item => Object.assign({}, item, {
     repository: 'https://github.com/' + item.full_name,
-    _id: item.full_name.substr(item.full_name.indexOf('/') + 1)
+    id: item.full_name.substr(item.full_name.indexOf('/') + 1),
+    tagIds: item.tags
   }) );
 
   // Create project entities
   allProjects.forEach( item => {
-    const id = item._id;
-    state.entities.projects[id] = item;
+    state.entities.projects[item.id] = item;
   });
 
   // Create a hash map [tag code] => number of projects
@@ -55,15 +55,14 @@ export function getInitialState(data) {
 
   // Create tags entities
   allTags.forEach( tag => {
-      const id = tag.id;
-      state.entities.tags[id] = tag;
+      state.entities.tags[tag.id] = tag;
   });
 
   let popularProjects = projects.sortBy(allProjects, (project) => project.stars );
   let hotProjects = projects.sortBy(allProjects.slice(0), (project) => project.deltas[0]);
 
-  state.popularProjectIds = popularProjects.map( item => item._id );
-  state.hotProjectIds = hotProjects.map( item => item._id );
+  state.popularProjectIds = popularProjects.map( item => item.id );
+  state.hotProjectIds = hotProjects.map( item => item.id );
   state.tagIds = allTags.map( item => item.id );
 
   console.log('Initial state', state);

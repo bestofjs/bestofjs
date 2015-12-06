@@ -1,6 +1,8 @@
 import React from 'react';
-import Home from '../components/home/Home';
 import { connect } from 'react-redux';
+
+import Home from '../components/home/Home';
+import populate from '../helpers/populate';
 //import { loadUser, loadStarred } from '../actions'
 //var PropTypes = React.PropTypes;
 
@@ -26,20 +28,15 @@ function mapStateToProps(state) {
     hotProjectIds,
     popularProjectIds
   } = state.githubProjects;
-  console.info('TAGS', tags);
-  function populate(project) {
-    project.tags = project.tags.map( id => tags[id] );
-    return project;
-  }
 
   const hotProjects = hotProjectIds
     .map( id => projects[id] )
     .slice(0, 2)
-    .map( populate );
+    .map( populate(tags) );
   const popularProjects = popularProjectIds
     .map( id => projects[id] )
     .slice(0, 2)
-    .map( populate );
+    .map( populate(tags) );
 
   return {
     hotProjects,

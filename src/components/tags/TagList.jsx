@@ -7,7 +7,7 @@ var TagList = React.createClass({
     return (
       <div>
         {this.props.tags.map( (tag, index) =>
-          <div style={{ marginBottom: 10 }} key={ tag._id }>
+          <div style={{ marginBottom: 10 }} key={ tag.id }>
             <TagLabel tag={ tag }/>
           </div>
         )}

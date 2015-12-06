@@ -14,7 +14,7 @@ const ProjectCard = React.createClass({
   render: function () {
 
     const { project, index } = this.props;
-    const viewProjectURL = `/projects/${project._id}`;
+    const viewProjectURL = `/projects/${project.id}`;
 
     var style = {
       starsBar: {

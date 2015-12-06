@@ -84,7 +84,7 @@ function githubProjects(state = {}, action) {
       if (lastRoute.path === 'projects/:id') {
         if (state.allProjects.length === 0) return state;
         const id = action.payload.params.id;
-        const foundProjects = state.allProjects.filter( project => project._id === id );
+        const foundProjects = state.allProjects.filter( project => project.id === id );
         if (!foundProjects.length) return state;
         const project = foundProjects[0];
         track( 'View project', project.name);

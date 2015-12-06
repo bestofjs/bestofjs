@@ -3,7 +3,7 @@ import { Route, IndexRoute } from 'react-router';
 
 import App from './containers/App';
 import Home from './containers/HomePage';
-import About from './components/about/About';
+import About from './containers/AboutPage';
 import ProjectPage from './components/projects/ProjectPage';
 import TagFilter from './components/home/TagFilter';
 import TextFilter from './components/home/TextFilter';

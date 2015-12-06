@@ -7,9 +7,8 @@ var Stars = require('../common/utils/Stars');
 var About = React.createClass({
 
   render: function() {
-    const data = this.props.githubProjects;
-    var projects = data.popularProjects.slice(0, 1);
-    var {repo, projectName} = this.props.staticContent;
+    const { project, staticContent } = this.props;
+    var {repo, projectName} = staticContent;
     return (
       <MainContent>
         <StarMeButton url={ repo } />
@@ -31,9 +30,9 @@ var About = React.createClass({
         <p>Checking the number of stars on Github is a good way to check project popularity but it does not tell you when the stars have been added. </p>
         <p>{ projectName } takes "snapshot" of Github stars every day, for more than 300 projects, to detect the trends over the last weeks.</p>
 
-        {projects.length > 0 && (
-          <Example project={ projects[0] } />
-        )}
+        { project && (
+          <Example project={ project } />
+        ) }
 
         <h2>How it works</h2>
         <p>First, a list of projects related to the web platform (JavaScript of course but also HTML and CSS) is stored in a database.</p>
@@ -77,6 +76,7 @@ var Example = React.createClass({
           index = { 0 }
           showDescription = { true }
           maxStars = { maxStars }
+          showTags = { true }
           showStars = { true }
           showDelta = { true }
         />
