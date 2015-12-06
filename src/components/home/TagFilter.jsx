@@ -1,19 +1,13 @@
 var React = require('react');
-var PropTypes = React.PropTypes;
+
 var MainContent = require('../common/MainContent');
 var ProjectList = require('../projects/ProjectList');
 var TagLabel = require('../tags/TagTitle');
-import pluck from 'lodash/collection/pluck';
 
 var TagFilter = React.createClass({
 
   render: function() {
-    const tag = this.props.githubProjects.tagFilter;
-    const allProjects = this.props.githubProjects.allProjects;
-    const projects = allProjects.filter(function (project) {
-      const ids = pluck(project.tags, 'code');
-      return project.tags.length > 0 && ids.indexOf(tag.code) > -1;
-    });
+    const { tag, projects } = this.props;
 
     return (
       <MainContent className="small">
@@ -33,12 +27,12 @@ var TagFilter = React.createClass({
         ) }
 
         { projects.length > 0 && (
-         <ProjectList
-           projects = { projects }
-           maxStars = { projects[0].stars}
-           showDescription = { true }
-           showURL = { true }
-         />
+           <ProjectList
+             projects = { projects }
+             maxStars = { projects[0].stars}
+             showDescription = { true }
+             showURL = { true }
+           />
        ) }
 
       </MainContent>

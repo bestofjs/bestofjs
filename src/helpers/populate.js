@@ -3,7 +3,7 @@ export default  function populate(tags, project) {
   return function (project) {
     return Object.assign(project, {}, {
       tags: project.tagIds.map( id => ({
-        name: tags[id].name,
+        name: tags[id] ? tags[id].name : '?',
         id: id
       }) )
     });
