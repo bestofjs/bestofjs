@@ -6,7 +6,7 @@ import Home from './containers/HomePage';
 import About from './containers/AboutPage';
 import TagFilter from './containers/TagFilterPage';
 import ProjectPage from './containers/ProjectPage';
-import TextFilter from './components/home/TextFilter';
+import TextFilter from './containers/TextFilterPage';
 import loading from './loading';
 
 function getRoutes() {

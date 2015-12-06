@@ -33,7 +33,7 @@ var TagMenu = React.createClass({
           <TagMenu.item
             tag={ tag }
             key={ tag.id }
-            active={ tag.id === this.props.selectedTag.id }
+            active={ tag.id === this.props.selectedTag }
           />
          ) }
       </div>

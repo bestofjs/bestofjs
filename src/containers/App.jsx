@@ -14,6 +14,13 @@ import * as actions from '../actions';
 
 import { bindActionCreators } from 'redux';
 
+// Return the current tag id (if current path is /tags/:id) or '*'
+function getCurrentTagId(state) {
+  const router = state.router;
+  const route = router.routes[1].path;
+  return route === 'tags/:id' ? router.params.id : '*';
+}
+
 // require *.styl intructions have been moved from components to the App.jsx container
 // to be able to run tests with node.js
 
@@ -36,18 +43,20 @@ var App = React.createClass({
 
   render: function() {
     if (process.env.NODE_ENV === 'development') console.log('Rendering the App container', this.props);
-    const {children, actions, allTags, lastUpdate, staticContent} = this.props;
+    const {children, allTags, lastUpdate, staticContent, textFilter, currentTagId } = this.props;
     return (
       <div id="layout">
 
         <Sidebar
           tags={ allTags}
-          selectedTag={ '*' }
+          selectedTag={ currentTagId }
         />
 
         <main id="panel">
 
-
+          <Header
+            searchText={ textFilter }
+          />
 
           { children }
 
@@ -71,7 +80,8 @@ function mapStateToProps(state) {
     hotProjectIds,
     popularProjectIds,
     tagIds,
-    lastUpdate
+    lastUpdate,
+    textFilter
   } = state.githubProjects;
 
   const allTags = tagIds.map( id => tags[id] );
@@ -79,7 +89,7 @@ function mapStateToProps(state) {
   return {
     allTags,
     lastUpdate,
-    //githubProjects: state.githubProjects,
+    currentTagId: getCurrentTagId(state),
     staticContent: state.staticContent
   };
 }

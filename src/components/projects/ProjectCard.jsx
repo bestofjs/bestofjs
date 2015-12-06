@@ -80,8 +80,8 @@ const ProjectCard = React.createClass({
           )}
           { this.props.showTags && (
             <div className="tags">
-              { project.tags.map( (tag, i) =>
-                <TagLabel tag={ tag } key={ i } /> )
+              { project.tags.map( tag =>
+                <TagLabel tag={ tag } key={ project.id + tag.id } /> )
               }
             </div>
           )}

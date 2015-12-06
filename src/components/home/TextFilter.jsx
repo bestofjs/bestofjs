@@ -28,12 +28,7 @@ var TextFilter = React.createClass({
   },
 
   render: function() {
-    const searchText = this.props.githubProjects.textFilter;
-    const allProjects = this.props.githubProjects.allProjects;
-    const projects = allProjects
-      .filter( project => this.filterProject(project, searchText))
-      .slice(0, 50);//limit result list, just in case, to avoid slow down the app
-
+    const { projects, searchText } = this.props;
     return (
       <MainContent className="small">
 
