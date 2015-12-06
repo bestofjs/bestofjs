@@ -44,12 +44,13 @@ export function getInitialState(data) {
 
   // Create a hash map [tag code] => number of projects
   const counters = getTagCounters(data.projects);
+  console.log('counters', counters);
 
   // Format tags array
   let allTags = data.tags
     .filter( tag => counters[tag.code] )//remove unused tags
     .map( tag => Object.assign({}, tag, {
-      counter: counters[tag.id], //add counter data
+      counter: counters[tag.code], //add counter data
       id: tag.code
     }));
 

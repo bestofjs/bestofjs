@@ -15,15 +15,17 @@ function requestProjects() {
     type: GET_ALL_PROJECTS_REQUEST
   };
 }
-function requestReadme() {
+function requestReadme(id) {
   return {
-    type: GET_README_REQUEST
+    type: GET_README_REQUEST,
+    id
   };
 }
 
-function receiveReadme(json) {
+function receiveReadme(id, json) {
   return {
     type: GET_README_SUCCESS,
+    id,
     data: json
   };
 }
@@ -36,12 +38,13 @@ export function toggleMenu() {
 
 
 export function fetchReadme(project) {
+  const id = project.id;
   return dispatch => {
     if (process.env.NODE_ENV === 'development') console.log('Fetching README.md...', project);
-    dispatch(requestReadme());
+    dispatch(requestReadme(id));
     const webtaskUrl = process.env.GET_README; //set up in webpack.*.config.js file
     return request.get(`${webtaskUrl}&url=${project.repository}`)
       //.then(response => response.json())
-      .then(json => dispatch(receiveReadme(json.data)));
+      .then(json => dispatch(receiveReadme(id, json.data)));
   };
 }

@@ -5,7 +5,7 @@ import App from './containers/App';
 import Home from './containers/HomePage';
 import About from './containers/AboutPage';
 import TagFilter from './containers/TagFilterPage';
-import ProjectPage from './components/projects/ProjectPage';
+import ProjectPage from './containers/ProjectPage';
 import TextFilter from './components/home/TextFilter';
 import loading from './loading';
 

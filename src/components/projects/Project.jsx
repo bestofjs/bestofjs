@@ -11,21 +11,11 @@ function loadData(props) {
   props.actions.fetchReadme(project);
 }
 
-var ProjectPage = React.createClass({
-
-  componentWillMount() {
-    loadData(this.props);
-  },
-
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.id !== this.props.id) {
-      loadData(nextProps);
-    }
-  },
+var Project = React.createClass({
 
   render: function() {
-    if (process.env.NODE_ENV === 'development') console.log('Render project page', this.props);
-    var project = this.props.githubProjects.project;
+    if (process.env.NODE_ENV === 'development') console.log('Render project', this.props);
+    var project = this.props.project;
     return (
       <MainContent className="project-page">
           { project.id && (
@@ -100,4 +90,4 @@ var ProjectPage = React.createClass({
 
 });
 
-module.exports = ProjectPage;
+module.exports = Project;

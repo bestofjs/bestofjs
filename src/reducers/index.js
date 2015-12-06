@@ -48,8 +48,6 @@ const initialStateProjects = {
 
 //The 2nd reducer
 function githubProjects(state = {}, action) {
-  console.log('Run the reducer');
-  return state;
   if (process.env.NODE_ENV === 'development') console.log('Reducer', action.type);
   if (!state) return initialStateProjects;
   switch (action.type) {
@@ -57,12 +55,14 @@ function githubProjects(state = {}, action) {
       //menu.toggle();
       return state;
     case 'GET_README_SUCCESS':
-      const currentProject = state.project;
+      const id = action.id;
+      const projects = Object.assign({}, state.entities.projects);
+      const currentProject = Object.assign({}, projects[id]);
       currentProject.readme = action.data.readme;
-      return Object.assign({}, state, {
-        project: currentProject
-      });
-    case '@@reduxReactRouter/routerDidChange':
+      const newState = Object.assign({}, state);
+      newState.entities.projects[id] = currentProject;
+      return newState;
+    case 'XXXXXXXX@@reduxReactRouter/routerDidChange':
 
       postNavigationHook();
 
