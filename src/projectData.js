@@ -1,6 +1,7 @@
 import request from 'axios';
+
 import * as projects from './reducers/projects';
-//import Promise from 'bluebird';
+import getProjectId from './helpers/getProjectId';
 
 // Called by `entry.jsx` to fetch initial data (project and tag lists)
 // from a static JSON file served by a CDN
@@ -33,7 +34,7 @@ export function getInitialState(data) {
   // Format id and repository fields
   const allProjects = data.projects.map( item => Object.assign({}, item, {
     repository: 'https://github.com/' + item.full_name,
-    id: item.full_name.substr(item.full_name.indexOf('/') + 1),
+    id: getProjectId(item),
     tagIds: item.tags
   }) );
 
