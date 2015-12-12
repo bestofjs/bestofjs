@@ -14,9 +14,6 @@ const HomePage  = React.createClass({
     return false;
   },
 
-  componentDidUpdate: function(prevProps, prevState) {
-    console.info(prevProps, this.props, this.state);
-  },
 
   render: function() {
     log('Render the <HomePage> container', this.props);
@@ -41,11 +38,11 @@ function mapStateToProps(state) {
 
   const hotProjects = hotProjectIds
     .map( id => projects[id] )
-    .slice(0, 2)
+    .slice(0, 20)
     .map( populate(tags) );
   const popularProjects = popularProjectIds
     .map( id => projects[id] )
-    .slice(0, 2)
+    .slice(0, 20)
     .map( populate(tags) );
 
   return {

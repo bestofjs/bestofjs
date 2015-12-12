@@ -2,8 +2,6 @@ var React = require('react');
 var Router = require('react-router');
 var { Link, IndexLink, History } = Router;
 
-require('../../stylesheets/menu.styl');
-
 var Sidebar = React.createClass({
   render: function() {
     var tags = this.props.tags;

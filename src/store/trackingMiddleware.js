@@ -1,4 +1,4 @@
-import trackEvent from '../track';
+import trackEvent from '../helpers/track';
 
 const trackingMiddleware = store => next => action => {
   if (!store.getState().router) return next(action);

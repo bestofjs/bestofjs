@@ -4,9 +4,6 @@ import { combineReducers } from 'redux';
 import getStaticContent from '../staticContent';
 
 //Helpers
-import loading from '../loading';
-import menu from '../menu';
-import track from '../track';
 import log from '../helpers/log';
 
 function entities(state, action) {

@@ -16,20 +16,46 @@ const staticContent = getStaticContent();
 setup();
 
 //Components to check
-import HomePage from '../../src/components/home/Home';
+import Home from '../../src/components/home/Home';
 import Button from '../../src/components/common/StarMeButton';
 import ProjectList from '../../src/components/projects/ProjectList';
 import ProjectCard from '../../src/components/projects/ProjectCard';
 
+import populate from '../../src/helpers/populate';
 
-test('Check Home page', (assert) => {
+function mapStateToProps(state) {
+  const {
+    entities: { projects, tags },
+    hotProjectIds,
+    popularProjectIds
+  } = state.githubProjects;
 
-  const state = getInitialState(data);
+  const hotProjects = hotProjectIds
+    .map( id => projects[id] )
+    .slice(0, 20)
+    .map( populate(tags) );
+  const popularProjects = popularProjectIds
+    .map( id => projects[id] )
+    .slice(0, 20)
+    .map( populate(tags) );
+
+  return {
+    hotProjects,
+    popularProjects
+  };
+}
+
+
+test('Check <Home> component', (assert) => {
+
+  const state = {githubProjects: getInitialState(data)};
+
+  const props = mapStateToProps(state);
 
   const component = TestUtils.renderIntoDocument(
-    <HomePage
-      githubProjects = { state }
-      staticContent = { staticContent }
+    <Home
+      hotProjects = { props.hotProjects }
+      popularProjects = { props.popularProjects }
     />
   );
 

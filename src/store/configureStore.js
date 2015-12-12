@@ -13,7 +13,7 @@ import trackingMiddleware from './trackingMiddleware';
 
 
 //Disable key=_123456 parameter add automatically when using the hash history.
-const history = createHistory({queryKey: true});
+const history = createHistory({queryKey: false});
 
 let middlewares = [
   reduxReactRouter({ routes, history }),

@@ -9,9 +9,6 @@ var ErrorMessage = require('../common/utils/ErrorMessage');
 var StarMeButton = require('../common/StarMeButton');
 
 var Home = React.createClass({
-  shouldComponentUpdateX: function(nextProps, nextState) {
-    return false;
-  },
   render: function() {
     log('Render the <Home> component', this.props);
     const { repo } = this.props.staticContent || '?';

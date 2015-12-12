@@ -2,13 +2,12 @@ import React from 'react';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
 import { ReduxRouter } from 'redux-router';
+
 import configureStore from './store/configureStore';
-
 //Object.assign() polyfill for IE (used in the reducer)
-import './es6-polyfill.js';
-
+import './helpers/es6-polyfill.js';
 import {getInitialData} from './projectData';
-import loading from './loading';
+import loading from './helpers/loading';
 
 //Set up the http request interceptor
 loading.init();

@@ -1,8 +1,6 @@
 var React = require('react');
 import fromNow from '../../helpers/fromNow';
 
-require('./footer.styl');
-
 var Footer = React.createClass({
   render: function() {
     var {repo, projectName} = this.props.staticContent;

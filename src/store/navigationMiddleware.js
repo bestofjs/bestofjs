@@ -1,6 +1,6 @@
 //Helpers
-import loading from '../loading';
-import menu from '../menu';
+import loading from '../helpers/loading';
+import menu from '../helpers/menu';
 
 // Custom middleware to be run AFTER the router middleware
 const navigationMiddleware = store => next => action => {

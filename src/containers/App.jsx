@@ -5,7 +5,7 @@ import Sidebar  from '../components/layout/Sidebar';
 import Header from '../components/layout/Header';
 import Footer from '../components/layout/Footer';
 
-import menu from '../menu';
+import menu from '../helpers/menu';
 import log from '../helpers/log';
 
 
@@ -35,12 +35,6 @@ function hideSplashScreen() {
 
 }
 var App = React.createClass({
-
-  //mixins: [PureRenderMixin],
-
-  shouldComponentUpdateX: function(nextProps, nextState) {
-    return false;
-  },
 
   componentWillMount: function() {
     hideSplashScreen();
