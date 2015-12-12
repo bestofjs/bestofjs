@@ -2,19 +2,14 @@ var React = require('react');
 var MainContent = require('../common/MainContent');
 var Description = require('../common/utils/Description');
 var DeltaBar = require('../common/utils/DeltaBar');
-var ProjectCard = require('./ProjectCard');
 import fromNow from '../../helpers/fromNow';
+import log from '../../helpers/log';
 var TagLabel = require('../tags/TagLabel');
-
-function loadData(props) {
-  const project = props.githubProjects.project;
-  props.actions.fetchReadme(project);
-}
 
 var Project = React.createClass({
 
   render: function() {
-    if (process.env.NODE_ENV === 'development') console.log('Render project', this.props);
+    log('Render <Project>', this.props);
     var project = this.props.project;
     return (
       <MainContent className="project-page">

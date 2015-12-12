@@ -23,7 +23,6 @@ function startRedux(githubProjects) {
     githubProjects
   };
 
-  console.info('Initialize the store', initialState);
   const store = configureStore(initialState);
 
   render(

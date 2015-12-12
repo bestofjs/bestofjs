@@ -3,11 +3,16 @@ import { connect } from 'react-redux';
 
 import TagFilter from '../components/home/TagFilter';
 import populate from '../helpers/populate';
+import log from '../helpers/log';
 
 const TagFilterPage  = React.createClass({
 
+  shouldComponentUpdate: function(nextProps) {
+    return nextProps.tag.id !== this.props.tag.id;
+  },
+
   render: function() {
-    console.log('Render the TAG FILTER container', this.props);
+    log('Render the <TagFilterPage> container', this.props);
     const { tagProjects, tag } = this.props;
     return (
       <TagFilter

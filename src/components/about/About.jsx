@@ -4,9 +4,11 @@ var StarMeButton = require('../common/StarMeButton');
 var ProjectCard = require('../projects/ProjectCard');
 var Delta = require('../common/utils/Delta');
 var Stars = require('../common/utils/Stars');
+import log from '../../helpers/log';
 var About = React.createClass({
 
   render: function() {
+    log('Render the <About> component', this.props);
     const { project, staticContent } = this.props;
     var {repo, projectName} = staticContent;
     return (

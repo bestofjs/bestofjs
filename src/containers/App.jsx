@@ -1,10 +1,12 @@
 import React from 'react';
+//import PureRenderMixin from 'react-addons-pure-render-mixin';
 
 import Sidebar  from '../components/layout/Sidebar';
 import Header from '../components/layout/Header';
 import Footer from '../components/layout/Footer';
 
 import menu from '../menu';
+import log from '../helpers/log';
 
 
 import { connect } from 'react-redux';
@@ -34,6 +36,12 @@ function hideSplashScreen() {
 }
 var App = React.createClass({
 
+  //mixins: [PureRenderMixin],
+
+  shouldComponentUpdateX: function(nextProps, nextState) {
+    return false;
+  },
+
   componentWillMount: function() {
     hideSplashScreen();
   },
@@ -42,7 +50,7 @@ var App = React.createClass({
   },
 
   render: function() {
-    if (process.env.NODE_ENV === 'development') console.log('Rendering the App container', this.props);
+    log('Render the <App> container', this.props, this.state);
     const {children, allTags, lastUpdate, staticContent, textFilter, currentTagId } = this.props;
     return (
       <div id="layout">

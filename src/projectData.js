@@ -26,7 +26,6 @@ const defaultState = {
 };
 
 export function getInitialState(data) {
-  console.log('Start!');
   let state = defaultState;
 
   state.lastUpdate = data.date;
@@ -45,7 +44,6 @@ export function getInitialState(data) {
 
   // Create a hash map [tag code] => number of projects
   const counters = getTagCounters(data.projects);
-  console.log('counters', counters);
 
   // Format tags array
   let allTags = data.tags
@@ -67,7 +65,6 @@ export function getInitialState(data) {
   state.hotProjectIds = hotProjects.map( item => item.id );
   state.tagIds = allTags.map( item => item.id );
 
-  console.log('Initial state', state);
   return state;
 }
 

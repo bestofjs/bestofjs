@@ -1,6 +1,7 @@
 var React = require('react');
 var Router = require('react-router');
 var {Link} = Router;
+import log from '../../helpers/log';
 
 var MainContent = require('../common/MainContent');
 var ProjectList = require('../projects/ProjectList');
@@ -8,7 +9,11 @@ var ErrorMessage = require('../common/utils/ErrorMessage');
 var StarMeButton = require('../common/StarMeButton');
 
 var Home = React.createClass({
+  shouldComponentUpdateX: function(nextProps, nextState) {
+    return false;
+  },
   render: function() {
+    log('Render the <Home> component', this.props);
     const { repo } = this.props.staticContent || '?';
     const { hotProjects, popularProjects, maxStars }  = this.props;
     return (

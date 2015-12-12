@@ -1,15 +1,25 @@
 import React from 'react';
+//import PureRenderMixin from 'react-addons-pure-render-mixin';
 import { connect } from 'react-redux';
 
 import Home from '../components/home/Home';
 import populate from '../helpers/populate';
-//import { loadUser, loadStarred } from '../actions'
-//var PropTypes = React.PropTypes;
+import log from '../helpers/log';
 
 const HomePage  = React.createClass({
 
+  //mixins: [PureRenderMixin],
+
+  shouldComponentUpdate: function(nextProps, nextState) {
+    return false;
+  },
+
+  componentDidUpdate: function(prevProps, prevState) {
+    console.info(prevProps, this.props, this.state);
+  },
+
   render: function() {
-    console.log('Render the HOME container', this.props);
+    log('Render the <HomePage> container', this.props);
     const { hotProjects, popularProjects } = this.props;
     return (
       <Home

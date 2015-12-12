@@ -1,9 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { fetchReadme } from '../actions'
 import Project from '../components/projects/Project';
+import { fetchReadme } from '../actions';
 import populate from '../helpers/populate';
+import log from '../helpers/log';
 
 function loadData(props) {
   const project = props.project;
@@ -23,7 +24,7 @@ const ProjectPage  = React.createClass({
   },
 
   render: function() {
-    console.info('Render the PROJECT container!', this.props);
+    log('Render the <ProjectPage> container', this.props);
     const { project } = this.props;
     return (
       <Project

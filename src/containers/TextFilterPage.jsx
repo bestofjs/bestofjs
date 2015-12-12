@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 
 import TextFilter from '../components/home/TextFilter';
 import populate from '../helpers/populate';
+import log from '../helpers/log';
 
 function filterProject(project, text) {
   //if only one letter is entered, we search projects whose name start by the letter
@@ -27,8 +28,12 @@ function filterProject(project, text) {
 
 const TextFilterPage  = React.createClass({
 
+  shouldComponentUpdate: function(nextProps) {
+    return nextProps.text !== this.props.text;
+  },
+
   render: function() {
-    console.log('Render the TEXT FILTER container', this.props);
+    log('Render the <TextFilterPage> container', this.props);
     const { foundProjects, text } = this.props;
     return (
       <TextFilter

@@ -7,6 +7,7 @@ import getStaticContent from '../staticContent';
 import loading from '../loading';
 import menu from '../menu';
 import track from '../track';
+import log from '../helpers/log';
 
 function entities(state, action) {
   return state;
@@ -48,7 +49,7 @@ const initialStateProjects = {
 
 //The 2nd reducer
 function githubProjects(state = {}, action) {
-  if (process.env.NODE_ENV === 'development') console.log('Reducer', action.type);
+  log('Running the reducer', action.type);
   if (!state) return initialStateProjects;
   switch (action.type) {
     case 'TOGGLE_MENU':
@@ -62,53 +63,11 @@ function githubProjects(state = {}, action) {
       const newState = Object.assign({}, state);
       newState.entities.projects[id] = currentProject;
       return newState;
-    case 'XXXXXXXX@@reduxReactRouter/routerDidChange':
-
-      postNavigationHook();
-
-      let nextState = Object.assign({}, state);
-      const routes = action.payload.routes;
-      const lastRoute = routes[routes.length - 1];
-      if (lastRoute.path === 'tags/:id') {
-        const id = action.payload.params.id;
-        track('Filter tag', id);
-        nextState.tagFilter = state.tagsById[id];
-      } else {
-        // Reset the current tag (to disactivate the menu item in the sidebar)
-        nextState.tagFilter = {code: '*'};
-      }
-      if (lastRoute.path === 'search/:text') {
-        const text = action.payload.params.text;
-        nextState.textFilter = text;
-      }
-      if (lastRoute.path === 'projects/:id') {
-        if (state.allProjects.length === 0) return state;
-        const id = action.payload.params.id;
-        const foundProjects = state.allProjects.filter( project => project.id === id );
-        if (!foundProjects.length) return state;
-        const project = foundProjects[0];
-        track( 'View project', project.name);
-        nextState.project = project;
-      }
-      return nextState;
     default:
       return state;
   }
 }
 
-// When a link has been clicked, perform some UI adjustments
-// TODO these operation should not be done inside the reducers, that should be "pure" functions!
-function postNavigationHook() {
-
-  // navigate to the top of the screen when a route changes
-  window.scrollTo(0, 0);
-
-  // Hide the loading indicator
-  loading.hide();
-
-  // on mobile screens, hide the side after a link has been clicked
-  if (menu.open) menu.hide();
-}
 
 //Let's combine the 2 previous reducers!
 const rootReducer = combineReducers({
