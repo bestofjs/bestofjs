@@ -1,18 +1,22 @@
 var React = require('react');
 var Router = require('react-router');
-var { Link, IndexLink, History } = Router;
+var { Link, IndexLink } = Router;
 
 var Sidebar = React.createClass({
   render: function() {
-    var tags = this.props.tags;
+    var { allTags, popularTags } = this.props;
     return (
       <nav id="menu">
         <div className="ui vertical menu">
           <IndexLink to="/" className="item">HOME</IndexLink>
           <Link to="/about" className="item">ABOUT</Link>
           <div className="item">
-            <div className="header">TAGS</div>
-            <TagMenu tags={ tags } selectedTag={ this.props.selectedTag }></TagMenu>
+            <div className="header">POPULAR TAGS</div>
+            <TagMenu tags={ popularTags } selectedTag={ this.props.selectedTag }></TagMenu>
+          </div>
+          <div className="item">
+            <div className="header">ALL TAGS</div>
+            <TagMenu tags={ allTags } selectedTag={ this.props.selectedTag }></TagMenu>
           </div>
         </div>
       </nav>

@@ -46,12 +46,13 @@ var App = React.createClass({
 
   render: function() {
     log('Render the <App> container', this.props, this.state);
-    const {children, allTags, lastUpdate, staticContent, textFilter, currentTagId } = this.props;
+    const {children, allTags, popularTags, lastUpdate, staticContent, textFilter, currentTagId } = this.props;
     return (
       <div id="layout">
 
         <Sidebar
-          tags={ allTags}
+          allTags={ allTags}
+          popularTags={ popularTags}
           selectedTag={ currentTagId }
         />
 
@@ -90,9 +91,14 @@ function mapStateToProps(state) {
   } = state;
 
   const allTags = tagIds.map( id => tags[id] );
+  const popularTags = allTags
+    .slice()
+    .sort(  (a, b)  => b.counter > a.counter ? 1 : -1)
+    .slice(0, 10);
 
   return {
     allTags,
+    popularTags,
     lastUpdate,
     currentTagId: getCurrentTagId(state),
     staticContent: getStaticContent()

@@ -1,9 +1,10 @@
 # Change log
 
-## 0.2.5 - 2015-12-12
+## 0.2.5 - 2015-12-14
 * Redux optimization, use middleware for tracking and navigation side effects (scroll to top, close the side menu on mobiles), create `containers` connected to Redux state
 * Redirect to homepage for unknown URLs
 * Write some tests using the brand new `enzyme` library
+* New "Popular tag" menu in the sidebar
 
 ## 0.2.4 - 2015-11-28
 * Get projects.json from firebase instead of divshot (issue #7)
