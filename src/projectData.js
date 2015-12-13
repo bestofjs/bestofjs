@@ -12,23 +12,19 @@ export function getInitialData() {
 }
 
 const defaultState = {
-  loading: true,
   entities: {
     projects: {},
     tags: {}
   },
-  lastUpdate: new Date(),
-  tagFilter: '*',
-  textFilter: '',
-  currentProjectId: null,
-  popularProjectIds: [],
-  hotProjectIds: []
+  githubProjects: {
+    lastUpdate: new Date(),
+    popularProjectIds: [],
+    hotProjectIds: []
+  }
 };
 
 export function getInitialState(data) {
   let state = defaultState;
-
-  state.lastUpdate = data.date;
 
   // Format id and repository fields
   const allProjects = data.projects.map( item => Object.assign({}, item, {
@@ -55,15 +51,18 @@ export function getInitialState(data) {
 
   // Create tags entities
   allTags.forEach( tag => {
-      state.entities.tags[tag.id] = tag;
+    state.entities.tags[tag.id] = tag;
   });
 
   let popularProjects = projects.sortBy(allProjects, (project) => project.stars );
   let hotProjects = projects.sortBy(allProjects.slice(0), (project) => project.deltas[0]);
 
-  state.popularProjectIds = popularProjects.map( item => item.id );
-  state.hotProjectIds = hotProjects.map( item => item.id );
-  state.tagIds = allTags.map( item => item.id );
+  state.githubProjects = {
+    popularProjectIds: popularProjects.map( item => item.id ),
+    hotProjectIds: hotProjects.map( item => item.id ),
+    tagIds: allTags.map( item => item.id ),
+    lastUpdate: data.date
+  };
 
   return state;
 }

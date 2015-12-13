@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import About from '../components/about/About';
 import populate from '../helpers/populate';
 import log from '../helpers/log';
+import getStaticContent from '../staticContent';
 
 const AboutPage  = React.createClass({
 
@@ -23,8 +24,8 @@ const AboutPage  = React.createClass({
 function mapStateToProps(state) {
   const {
     entities: { projects, tags },
-    popularProjectIds
-  } = state.githubProjects;
+    githubProjects: { popularProjectIds }
+  } = state;
 
   const project = popularProjectIds
     .map( id => projects[id] )
@@ -33,7 +34,7 @@ function mapStateToProps(state) {
 
   return {
     project: project[0],
-    staticContent: state.staticContent
+    staticContent: getStaticContent()
   };
 }
 

@@ -19,7 +19,7 @@ setup();
 import Header from '../../src/components/layout/Header';
 import SearchForm from '../../src/components/home/SearchForm';
 
-test('Check Header component', (assert) => {
+test('Check <Header> component', (assert) => {
 
   const component = TestUtils.renderIntoDocument(
     <Header />

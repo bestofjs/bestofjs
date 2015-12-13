@@ -6,60 +6,48 @@ import getStaticContent from '../staticContent';
 //Helpers
 import log from '../helpers/log';
 
-function entities(state, action) {
-  return state;
-}
-
 // The store is made of 2 "branches", updated by 2 reducers:
-// - staticContent: some static content shated by all components
+// - entities:
 // - githubProjects: data coming from Github projects stored in the application
 
 // ======
 // PART 1
 // ======
-
-//The 1st reducer
-//A reducer that always return the same state... it could be refactored in another way!
-function staticContent() {
-  return getStaticContent();
+function entities(state, action) {
+  if(!state) return {
+    projects: {},
+    tags: {}
+  };
+  switch (action.type) {
+    case 'GET_README_SUCCESS':
+    case 'GET_README_FAILURE':
+      const id = action.id;
+      const projects = Object.assign({}, state.projects);
+      const currentProject = Object.assign({}, projects[id]);
+      currentProject.readme = action.data.readme;
+      const newState = Object.assign({}, state);
+      newState.projects[id] = currentProject;
+      return newState;
+  }
+  return state;
 }
 
 // ======
 // PART 2
 // ======
 
-//The default state
-const initialStateProjects = {
-  loading: true,
-  allProjects: [],
-  allTags: [],
-  tagsById: null,
-  popularProjects: [],
-  hotProjects: [],
-  lastUpdate: new Date(),
-  tagFilter: {
-    code: '*'
-  },
-  textFilter: '',
-  project: null
-};
-
-//The 2nd reducer
-function githubProjects(state = {}, action) {
+function githubProjects(state, action) {
   log('Running the reducer', action.type);
-  if (!state) return initialStateProjects;
+  if (!state) return {
+    lastUpdate: new Date(),
+    popularProjectIds: [],
+    hotProjectIds: []
+  };
   switch (action.type) {
     case 'TOGGLE_MENU':
       //menu.toggle();
       return state;
-    case 'GET_README_SUCCESS':
-      const id = action.id;
-      const projects = Object.assign({}, state.entities.projects);
-      const currentProject = Object.assign({}, projects[id]);
-      currentProject.readme = action.data.readme;
-      const newState = Object.assign({}, state);
-      newState.entities.projects[id] = currentProject;
-      return newState;
+
     default:
       return state;
   }
@@ -68,8 +56,8 @@ function githubProjects(state = {}, action) {
 
 //Let's combine the 2 previous reducers!
 const rootReducer = combineReducers({
+  entities,
   githubProjects,
-  staticContent,
   router
 });
 

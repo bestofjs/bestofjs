@@ -16,16 +16,12 @@ loading.init();
 getInitialData().then( json => startRedux(json) );
 
 //STEP 2: Launch the Redux application once we get data
-function startRedux(githubProjects) {
+function startRedux(state) {
 
-  const initialState = {
-    githubProjects
-  };
-
-  const store = configureStore(initialState);
+  const store = configureStore(state);
 
   render(
-    <Provider store={store}>
+    <Provider store={ store }>
       <ReduxRouter />
     </Provider>,
     window.document.getElementById('app')

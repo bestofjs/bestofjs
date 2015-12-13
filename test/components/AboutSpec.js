@@ -17,7 +17,7 @@ const staticContent = getStaticContent();
 setup();
 
 //Components to check
-import AboutPage from '../../src/components/about/About';
+import About from '../../src/components/about/About';
 import Button from '../../src/components/common/StarMeButton';
 
 test('Star on Github button', (assert) => {
@@ -49,12 +49,12 @@ test('Star on Github button', (assert) => {
 
 });
 
-test('Check About page', (assert) => {
+test('Check <About> component', (assert) => {
 
   const state = getInitialState(data);
 
   const component = TestUtils.renderIntoDocument(
-    <AboutPage
+    <About
       githubProjects = { state }
       staticContent = { staticContent }
     />

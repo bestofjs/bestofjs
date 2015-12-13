@@ -4,8 +4,9 @@
   "description": "bestof.js.org front-end web application",
   "main": "webpack.local.config.js",
   "scripts": {
-    "test": "babel-tape-runner test/**/*.js | faucet",
-    "test-debug": "babel-tape-runner test/**/*.js",
+    "test": "babel-tape-runner test/**/*Spec.js | faucet",
+    "test-debug": "babel-tape-runner test/**/*Spec.js",
+    "mocha": "mocha test/mocha-basic-test.js --compilers js:babel-register",
     "start": "webpack-dev-server --config config/webpack.local.config.js --content-base www --hot",
     "build": "webpack -p --config config/webpack.production.config.js",
     "gh-pages": "node config/gh-pages-deploy",
@@ -32,6 +33,7 @@
     "babel": "^6.0.0",
     "babel-core": "^6.0.0",
     "babel-loader": "^6.0.0",
+    "babel-plugin-transform-react-display-name": "^6.3.13",
     "babel-preset-es2015": "^6.0.0",
     "babel-preset-react": "^6.0.0",
     "css-loader": "^0.12.0",
@@ -55,7 +57,9 @@
     "webpack": "^1.8.11"
   },
   "devDependencies": {
+    "babel-register": "^6.3.13",
     "babel-tape-runner": "^1.3.0",
+    "enzyme": "^1.2.0",
     "faucet": "0.0.1",
     "gh-pages": "^0.4.0",
     "jsdom": "^7.0.2",

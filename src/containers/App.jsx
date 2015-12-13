@@ -5,6 +5,7 @@ import Sidebar  from '../components/layout/Sidebar';
 import Header from '../components/layout/Header';
 import Footer from '../components/layout/Footer';
 
+import getStaticContent from '../staticContent';
 import menu from '../helpers/menu';
 import log from '../helpers/log';
 
@@ -79,12 +80,14 @@ function mapStateToProps(state) {
 
   const {
     entities: { projects, tags },
-    hotProjectIds,
-    popularProjectIds,
-    tagIds,
-    lastUpdate,
-    textFilter
-  } = state.githubProjects;
+    githubProjects: {
+      hotProjectIds,
+      popularProjectIds,
+      tagIds,
+      lastUpdate,
+      textFilter
+    }
+  } = state;
 
   const allTags = tagIds.map( id => tags[id] );
 
@@ -92,7 +95,7 @@ function mapStateToProps(state) {
     allTags,
     lastUpdate,
     currentTagId: getCurrentTagId(state),
-    staticContent: state.staticContent
+    staticContent: getStaticContent()
   };
 }
 

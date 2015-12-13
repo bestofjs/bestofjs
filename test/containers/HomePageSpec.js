@@ -26,7 +26,7 @@ import {getInitialState} from '../../src/projectData';
 
 test('Check <HomePage> container', (assert) => {
 
-  const state = {githubProjects: getInitialState(data)};
+  const state = getInitialState(data);
   const store = createStore(rootReducer, state);
 
   const component = TestUtils.renderIntoDocument(

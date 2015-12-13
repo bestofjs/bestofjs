@@ -9,7 +9,7 @@ var TagLabel = require('../tags/TagLabel');
 var Project = React.createClass({
 
   render: function() {
-    log('Render <Project>', this.props);
+    // log('Render <Project>', this.props);
     var project = this.props.project;
     return (
       <MainContent className="project-page">
@@ -50,7 +50,6 @@ var Project = React.createClass({
               </div>
 
               <div className="readme">
-
                   <div>
                     <div className="header">
                       <span className="octicon octicon-book"></span>
@@ -59,10 +58,8 @@ var Project = React.createClass({
                     </div>
 
                     <div className="body">
-                      { true && project.readme ? (
-                        <div>
-                          <div dangerouslySetInnerHTML={{ __html: project.readme }}></div>
-                        </div>
+                      { project.readme ? (
+                        <div dangerouslySetInnerHTML={{ __html: project.readme }}></div>
                         ) : (
                         <div style={{ textAlign: 'center' }}>
                           <p style={{ color: '#aaa' }}>Loading README from Github...</p>

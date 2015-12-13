@@ -31,10 +31,15 @@ const HomePage  = React.createClass({
 
 function mapStateToProps(state) {
   const {
-    entities: { projects, tags },
-    hotProjectIds,
-    popularProjectIds
-  } = state.githubProjects;
+    entities: {
+      projects,
+      tags
+    },
+    githubProjects: {
+      hotProjectIds,
+      popularProjectIds
+    }
+  } = state;
 
   const hotProjects = hotProjectIds
     .map( id => projects[id] )

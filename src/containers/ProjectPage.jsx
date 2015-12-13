@@ -24,7 +24,7 @@ const ProjectPage  = React.createClass({
   },
 
   render: function() {
-    log('Render the <ProjectPage> container', this.props);
+    // log('Render the <ProjectPage> container', this.props);
     const { project } = this.props;
     return (
       <Project
@@ -38,7 +38,7 @@ const ProjectPage  = React.createClass({
 function mapStateToProps(state) {
   const {
     entities: { projects, tags },
-  } = state.githubProjects;
+  } = state;
 
   const id = state.router.params.id;
 

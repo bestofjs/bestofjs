@@ -1,6 +1,5 @@
 import test from 'tape';
 import React from 'react';
-import ReactDOM from 'react-dom';
 import TestUtils from 'react-addons-test-utils';
 
 import {getAllTags, getTag, getAllComponents} from '../utils';
@@ -12,7 +11,6 @@ import data  from '../data/projects';
 import {getInitialState} from '../../src/projectData';
 import getStaticContent from '../../src/staticContent';
 
-const staticContent = getStaticContent();
 setup();
 
 //Components to check
@@ -26,9 +24,11 @@ import populate from '../../src/helpers/populate';
 function mapStateToProps(state) {
   const {
     entities: { projects, tags },
-    hotProjectIds,
-    popularProjectIds
-  } = state.githubProjects;
+    githubProjects: {
+      hotProjectIds,
+      popularProjectIds
+    }
+  } = state;
 
   const hotProjects = hotProjectIds
     .map( id => projects[id] )
@@ -48,7 +48,7 @@ function mapStateToProps(state) {
 
 test('Check <Home> component', (assert) => {
 
-  const state = {githubProjects: getInitialState(data)};
+  const state = getInitialState(data);
 
   const props = mapStateToProps(state);
 

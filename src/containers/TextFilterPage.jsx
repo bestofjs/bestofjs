@@ -48,8 +48,8 @@ const TextFilterPage  = React.createClass({
 function mapStateToProps(state) {
   const {
     entities: { projects, tags },
-    popularProjectIds
-  } = state.githubProjects;
+    githubProjects: {popularProjectIds}
+  } = state;
 
   const text = state.router.params.text;
 
