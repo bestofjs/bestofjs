@@ -50,6 +50,12 @@ Related repositories:
 * [bestofjs](https://github.com/michaelrambeau/bestofjs): repository used to deploy content to Github pages, linked to js.org domain. Generated from bestofjs-webui repository.
 
 
+## URLs and environments
+
+* Production version is hosted on Github pages, `.js.org` domain is provided by https://js.org/
+* Firebase (deployed manually, used to share development features): https://bestofjs.firebaseapp.com/
+* Netlify (automatically built from `staging` branch): http://bestofjs.netlify.com/
+
 ## Commands
 
 ### Development workflow

@@ -1,0 +1,9 @@
+{
+  "firebase": "bestofjs",
+  "public": "./www",
+  "ignore": [
+    "firebase.json",
+    "**/.*",
+    "**/node_modules/**"
+  ]
+}
