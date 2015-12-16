@@ -7,8 +7,7 @@ var filepath = './www/build/';
 
 var envPlugin = new webpack.DefinePlugin({
   'process.env': {
-    'NODE_ENV': JSON.stringify('production'),
-    'API':  JSON.stringify('https://bestofjs-api-v1.firebaseapp.com/')
+    'NODE_ENV': JSON.stringify('production')
    }
 });
 var plugins = getCommonPlugins(filepath).slice();

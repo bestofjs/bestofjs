@@ -8,8 +8,7 @@ var filepath = 'build/';
 //http://stackoverflow.com/questions/30030031/passing-environment-dependent-variables-in-webpack
 var envPlugin = new webpack.DefinePlugin({
   'process.env': {
-    'NODE_ENV': JSON.stringify('development'),
-    'API':  JSON.stringify('https://bestofjs-api-v1.firebaseapp.com/'),
+    'NODE_ENV': JSON.stringify('development')
    }
 });
 var plugins = getCommonPlugins(filepath).slice();
