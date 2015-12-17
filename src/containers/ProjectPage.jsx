@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import Project from '../components/projects/Project';
-import { fetchReadme } from '../actions';
+import { fetchReadmeIfNeeded } from '../actions';
 import populate from '../helpers/populate';
 import log from '../helpers/log';
 
@@ -24,7 +24,7 @@ const ProjectPage  = React.createClass({
   },
 
   render: function() {
-    // log('Render the <ProjectPage> container', this.props);
+    log('Render the <ProjectPage> container', this.props);
     const { project } = this.props;
     return (
       <Project
@@ -52,5 +52,5 @@ function mapStateToProps(state) {
 }
 
 export default connect(mapStateToProps, {
-  fetchReadme
+  fetchReadme: fetchReadmeIfNeeded
 })(ProjectPage);

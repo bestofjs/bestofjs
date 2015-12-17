@@ -50,8 +50,28 @@ export function fetchReadme(project) {
     dispatch(requestReadme(id));
     const webtaskUrl = api('GET_README');
     return request.get(`${webtaskUrl}&url=${project.repository}`)
-      //.then(response => response.json())
       .then(json => dispatch(getReadmeSuccess(id, json.data)))
       .catch((response) => dispatch(getReadmeFailure(id, response)));
+  };
+}
+
+function shouldFetchReadme(state, project) {
+  const readme = state.entities.projects[project.id].readme;
+  if (!readme) {
+    return true;
+  }
+  // if (readme.isFetching) {
+  //   return false;
+  // }
+  log('Readme already in the cache!');
+  return false;
+  //return posts.didInvalidate
+}
+
+export function fetchReadmeIfNeeded(project) {
+  return (dispatch, getState) => {
+    if (shouldFetchReadme(getState(), project)) {
+      return dispatch(fetchReadme(project));
+    }
   };
 }
