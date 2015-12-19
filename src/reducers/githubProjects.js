@@ -1,4 +1,4 @@
-//Helpers
+// Helpers
 import log from '../helpers/log';
 
 export default function githubProjects(state, action) {
@@ -9,11 +9,7 @@ export default function githubProjects(state, action) {
     hotProjectIds: []
   };
   switch (action.type) {
-    case 'TOGGLE_MENU':
-      //menu.toggle();
-      return state;
-
-    default:
-      return state;
+  default:
+    return state;
   }
 }

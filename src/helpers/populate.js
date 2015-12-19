@@ -5,7 +5,7 @@
 export default function populate(tags) {
   return function (project) {
     const populated = Object.assign(project, {}, {
-      tags: project.tagIds.map( id => tags[id] )
+      tags: project.tagIds.map(id => tags[id])
     });
     return populated;
   };
