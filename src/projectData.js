@@ -1,7 +1,7 @@
 import request from 'axios';
 
 import api from '../config/api';
-import * as projects from './reducers/projects';
+import * as helpers from './helpers/projectHelpers';
 import getProjectId from './helpers/getProjectId';
 
 // Called by `entry.jsx` to fetch initial data (project and tag lists)
@@ -56,8 +56,8 @@ export function getInitialState(data) {
     state.entities.tags[tag.id] = tag;
   });
 
-  let popularProjects = projects.sortBy(allProjects, (project) => project.stars );
-  let hotProjects = projects.sortBy(allProjects.slice(0), (project) => project.deltas[0]);
+  let popularProjects = helpers.sortBy(allProjects, (project) => project.stars );
+  let hotProjects = helpers.sortBy(allProjects.slice(0), (project) => project.deltas[0]);
 
   state.githubProjects = {
     popularProjectIds: popularProjects.map( item => item.id ),
