@@ -11,6 +11,8 @@ module.exports = {
     'curly': [0],
     'default-case': [0],
     'func-names': [0],
-    'no-use-before-define': [0]
+    'no-use-before-define': [0],
+    // React rules
+    'react/prop-types': 0
   }
 };

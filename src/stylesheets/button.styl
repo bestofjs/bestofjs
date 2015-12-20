@@ -1,13 +1,28 @@
 #star-button
   float right
 .btn
-  margin-left 10px
   color white
   background-color #e65100
   padding 5px 10px
   border-radius 6px
   transition: all 0.3s
+  border: none
   &:hover
     text-decoration none
     color white
     background-color #9E0142
+
+
+$lightOrange = lighten(#e65100, 30%)
+
+.ui.inverted.btn
+  background-color: transparent
+  box-shadow: 0 0 0 2px $lightOrange inset
+  color: $lightOrange
+  display: block
+  text-align: center
+  font-size: 1em
+  width: 100%
+  &:hover
+    background-color: $lightOrange
+    color: white

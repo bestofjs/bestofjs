@@ -3,6 +3,7 @@ import { combineReducers } from 'redux';
 
 import entities from './entities';
 import githubProjects from './githubProjects';
+import auth from './auth';
 
 // The store is made of 2 "branches", updated by 2 reducers:
 // - entities:
@@ -11,6 +12,7 @@ import githubProjects from './githubProjects';
 const rootReducer = combineReducers({
   entities,
   githubProjects,
+  auth,
   router
 });
 
