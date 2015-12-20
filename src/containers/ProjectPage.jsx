@@ -11,7 +11,7 @@ function loadData(props) {
   props.fetchReadme(project);
 }
 
-const ProjectPage  = React.createClass({
+const ProjectPage = React.createClass({
 
   componentWillMount() {
     loadData(this.props);
@@ -23,7 +23,7 @@ const ProjectPage  = React.createClass({
     }
   },
 
-  render: function() {
+  render() {
     log('Render the <ProjectPage> container', this.props);
     const { project } = this.props;
     return (
@@ -47,7 +47,7 @@ function mapStateToProps(state) {
   project = populate(tags)(project);
 
   return {
-    project: project
+    project
   };
 }
 

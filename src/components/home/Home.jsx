@@ -1,6 +1,6 @@
 var React = require('react');
 var Router = require('react-router');
-var {Link} = Router;
+const { Link } = Router;
 import log from '../../helpers/log';
 
 var MainContent = require('../common/MainContent');
@@ -9,10 +9,10 @@ var ErrorMessage = require('../common/utils/ErrorMessage');
 var StarMeButton = require('../common/StarMeButton');
 
 var Home = React.createClass({
-  render: function() {
+  render() {
     log('Render the <Home> component', this.props);
     const { repo } = this.props.staticContent || '?';
-    const { hotProjects, popularProjects, maxStars }  = this.props;
+    const { hotProjects, popularProjects, maxStars } = this.props;
     return (
       <MainContent>
         { this.props.errorMessage && <ErrorMessage text={ this.props.errorMessage } /> }
@@ -41,9 +41,8 @@ var Home = React.createClass({
                 <ProjectList
                   projects = { hotProjects }
                   maxStars = { maxStars }
-                  showDelta={ true }
-                  showStars={ false }
-                  showIndex={true}
+                  showDelta
+                  showIndex
                 />
               </div>
             </div>
@@ -56,9 +55,8 @@ var Home = React.createClass({
                 <ProjectList
                   projects = { popularProjects }
                   maxStars = { maxStars }
-                  showStars = { true }
-                  showDelta = { false }
-                  showIndex={true}
+                  showStars
+                  showIndex
                 />
               </div>
             </div>
@@ -67,7 +65,6 @@ var Home = React.createClass({
       </MainContent>
     );
   }
-
 });
 
 module.exports = Home;

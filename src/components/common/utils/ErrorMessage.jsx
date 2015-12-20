@@ -1,4 +1,4 @@
-import React, { PropTypes, Component } from 'react';
+import React, { Component } from 'react';
 class ErrorMessage extends Component {
   render() {
     return (

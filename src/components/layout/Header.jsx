@@ -5,8 +5,7 @@ var SearchForm = require('../home/SearchForm');
 var ToggleMenuButton = require('./ToggleMenuButton');
 
 var Header = React.createClass({
-
-  render: function() {
+  render() {
     return (
       <div id="header">
         <div className="container">
@@ -40,7 +39,5 @@ var Header = React.createClass({
       </div>
     );
   }
-
 });
-
 module.exports = Header;

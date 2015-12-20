@@ -1,21 +1,15 @@
 import React from 'react';
-//import PureRenderMixin from 'react-addons-pure-render-mixin';
 import { connect } from 'react-redux';
 
 import Home from '../components/home/Home';
 import populate from '../helpers/populate';
 import log from '../helpers/log';
 
-const HomePage  = React.createClass({
-
-  //mixins: [PureRenderMixin],
-
-  shouldComponentUpdate: function(nextProps, nextState) {
+const HomePage = React.createClass({
+  shouldComponentUpdate() {
     return false;
   },
-
-
-  render: function() {
+  render() {
     log('Render the <HomePage> container', this.props);
     const { hotProjects, popularProjects } = this.props;
     return (
@@ -42,13 +36,13 @@ function mapStateToProps(state) {
   } = state;
 
   const hotProjects = hotProjectIds
-    .map( id => projects[id] )
+    .map(id => projects[id])
     .slice(0, 20)
-    .map( populate(tags) );
+    .map(populate(tags));
   const popularProjects = popularProjectIds
-    .map( id => projects[id] )
+    .map(id => projects[id])
     .slice(0, 20)
-    .map( populate(tags) );
+    .map(populate(tags));
 
   return {
     hotProjects,

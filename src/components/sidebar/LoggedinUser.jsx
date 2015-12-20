@@ -14,7 +14,7 @@ const LoggedinUser = React.createClass({
           <div style={{ color: '#aaa' }}>Signed in as:</div>
           <div>{ username }
             {' '}
-            <a href="#" onClick={ onLogout } style={{ color: '#bbb' }}>
+            <a className="logout" href="#" onClick={ onLogout } style={{ color: '#bbb' }}>
               sign out
             </a>
           </div>

@@ -4,7 +4,7 @@
   "description": "bestof.js.org front-end web application",
   "main": "webpack.local.config.js",
   "scripts": {
-    "lint": "eslint src/**/*.jsx",
+    "lint": "eslint src/**/*.*",
     "test": "babel-tape-runner test/**/*Spec.js | faucet",
     "test-debug": "babel-tape-runner test/**/*Spec.js",
     "mocha": "mocha test/mocha-basic-test.js --compilers js:babel-register",

@@ -10,8 +10,8 @@ var Description = React.createClass({
     text: PropTypes.string.isRequired
   },
 
-  render: function() {
-    const {text} = this.props;
+  render() {
+    const { text } = this.props;
     const description = text.replace(/\:[a-z_\d]+\:/g, '').trim();
     return (
       <span>&ldquo;{' '}{ description }{' '}&rdquo;</span>

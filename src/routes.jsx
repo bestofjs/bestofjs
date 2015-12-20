@@ -9,11 +9,9 @@ import ProjectPage from './containers/ProjectPage';
 import TextFilter from './containers/TextFilterPage';
 
 function getRoutes() {
-
   // function onEnter(nextState, state) {
   //   loading.show();
   // }
-
   var routes = (
     <Route path="/" component={App} >
       <IndexRoute component={Home} />

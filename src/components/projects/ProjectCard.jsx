@@ -8,11 +8,10 @@ var Description = require('../common/utils/Description');
 
 import fromNow from '../../helpers/fromNow';
 
-var {Link} = Router;
+var { Link } = Router;
 
 const ProjectCard = React.createClass({
-  render: function () {
-
+  render() {
     const { project, index } = this.props;
     const viewProjectURL = `/projects/${project.id}`;
 
@@ -29,7 +28,6 @@ const ProjectCard = React.createClass({
         )}
         <div className="inner">
 
-
           <div className="ranking">
             { index + 1 }
           </div>
@@ -39,17 +37,17 @@ const ProjectCard = React.createClass({
               <div className="total">
                 <Stars
                   value={ project.stars }
-                  icon={ true }
+                  icon
                 />
               </div>
-            )}
+            ) }
 
-            {  this.props.showDelta && project.deltas.length > 0 && (
+            { this.props.showDelta && project.deltas.length > 0 && (
               <div className="delta">
                 <Delta
                   value={ project.deltas[0] }
-                  big={ true }
-                  icon={ true }
+                  big
+                  icon
                 />
               </div>
             ) }
@@ -80,28 +78,37 @@ const ProjectCard = React.createClass({
           )}
           { this.props.showTags && (
             <div className="tags">
-              { project.tags.map( tag =>
-                <TagLabel tag={ tag } key={ project.id + tag.id } /> )
-              }
+              { project.tags.map(tag =>
+                <TagLabel tag={ tag } key={ project.id + tag.id } />
+              ) }
             </div>
           )}
 
+        </div>
+
+        <div className="inner reviews" style={{ borderTop: '1px solid #ddd' }}>
+          <header>Reviews</header>
+        </div>
+        <div className="inner links" style={{ borderTop: '1px solid #ddd' }}>
+          <header>Links</header>
+        </div>
+
+        <div className="inner github" style={{ borderTop: '1px solid #ddd', paddingBottom: 0 }}>
+          <header style={{ marginBottom: '0.5em' }}>On Github</header>
           <div className="last-commit">
             <span className="octicon octicon-git-commit"></span>
             {' '}
             Last update: { fromNow(project.pushed_at) }
           </div>
-
+          <div>
+            { project.deltas.length > 0 && <DeltaBar data={ project.deltas.slice(0, 7) } />}
+          </div>
         </div>
 
-        <div>
-          { project.deltas.length > 0 && <DeltaBar data={ project.deltas.slice(0,7) } />}
-        </div>
 
       </div>
     );
-
   }
 });
-//export default ProjectCard;
+// export default ProjectCard;
 module.exports = ProjectCard;

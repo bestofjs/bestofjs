@@ -3,11 +3,11 @@ var Delta = require('./Delta');
 
 var DeltaBar = React.createClass({
 
-  render: function() {
+  render() {
     var deltas = this.props.data;
     return (
       <div>
-        <p style={{ margin: '0 1em 0.5em'}}>
+        <p style={{ margin: '0.5em 0' }}>
           <span className="octicon octicon-calendar"></span>{' '}
           { deltas.length === 1 ? (
             'Stars added yesterday:'
@@ -16,8 +16,8 @@ var DeltaBar = React.createClass({
           )
           }
         </p>
-        <div style={{ display: 'flex', flexDirection: 'row-reverse' }}>
-        { deltas.map( (item, i) =>
+        <div className="delta-bar-container">
+        { deltas.map((item, i) =>
           <DeltaBar.Item value={ item } key={ i } />
         ) }
         </div>
@@ -29,7 +29,7 @@ var DeltaBar = React.createClass({
 
 DeltaBar.Item = React.createClass({
 
-  render: function() {
+  render() {
     var style = {
       width: 'auto',
       display: 'block',
@@ -41,7 +41,6 @@ DeltaBar.Item = React.createClass({
       </div>
     );
   }
-
 });
 
 module.exports = DeltaBar;

@@ -3,7 +3,7 @@ var numeral = require('numeral');
 
 var Stars = React.createClass({
 
-  render: function() {
+  render() {
     var value = this.props.value;
     var digits = (value > 1000 && value < 10000) ? '0.0' : '0';
     return (

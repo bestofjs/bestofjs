@@ -2,7 +2,7 @@ var React = require('react');
 
 var SearchText = React.createClass({
 
-  render: function() {
+  render() {
     return (
       <span>
       &ldquo;

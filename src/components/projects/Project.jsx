@@ -3,12 +3,12 @@ var MainContent = require('../common/MainContent');
 var Description = require('../common/utils/Description');
 var DeltaBar = require('../common/utils/DeltaBar');
 import fromNow from '../../helpers/fromNow';
-import log from '../../helpers/log';
+// import log from '../../helpers/log';
 var TagLabel = require('../tags/TagLabel');
 
 var Project = React.createClass({
 
-  render: function() {
+  render() {
     // log('Render <Project>', this.props);
     var project = this.props.project;
     return (
@@ -32,9 +32,12 @@ var Project = React.createClass({
                       Website: <a href={ project.url }>{ project.url }</a>
                     </p>
                   )}
+                </div>
+
+                <div className="inner github" style={{ borderTop: '1px solid #ddd', paddingBottom: 0 }}>
                   <p>
-                    <span className="octicon octicon-mark-github"></span>
-                    Github: <a href={ project.repository }>{ project.repository }</a>
+                      <span className="octicon octicon-mark-github"></span>
+                      Github: <a href={ project.repository }>{ project.repository }</a>
                     {' '}
                     { project.stars } <span className="octicon octicon-star"></span>
                   </p>
@@ -43,10 +46,11 @@ var Project = React.createClass({
                     {' '}
                     Last update: { fromNow(project.pushed_at) }
                   </div>
+                  <div>
+                    { project.deltas.length > 0 && <DeltaBar data={ project.deltas.slice(0, 7) } />}
+                  </div>
                 </div>
-                <div>
-                  { project.deltas.length > 0 && <DeltaBar data={ project.deltas.slice(0,7) } />}
-                </div>
+
               </div>
 
               <div className="readme">

@@ -1,13 +1,13 @@
 import React from 'react';
-var Router = require('react-router');
-var { Link, IndexLink } = Router;
+import Router from 'react-router';
+var { Link } = Router;
 
-const TagMenu = React.createClass({
+var TagMenu = React.createClass({
   render() {
     return (
       <div className="tag-menu">
         { this.props.tags.map(tag =>
-          <TagMenu.item
+          <TagMenu.ItemX
             tag={ tag }
             key={ tag.id }
             active={ tag.id === this.props.selectedTag }
@@ -17,15 +17,12 @@ const TagMenu = React.createClass({
     );
   }
 });
-export default TagMenu;
 
-
-TagMenu.item = React.createClass({
+TagMenu.ItemX = React.createClass({
   render() {
     const { tag, active } = this.props;
     return (
       <Link
-        href={ '#/tags/' + tag.id }
         to={ '/tags/' + tag.id }
         className={ 'tag-menu-item' + (active ? ' active' : '')}
       >
@@ -35,3 +32,4 @@ TagMenu.item = React.createClass({
     );
   }
 });
+module.exports = TagMenu;

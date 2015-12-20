@@ -3,7 +3,7 @@ import ProjectCard from './ProjectCard';
 
 const ProjectList = React.createClass({
 
-  getDefaultProps: function () {
+  getDefaultProps() {
     return ({
       showTags: true,
       showDescription: true,
@@ -13,14 +13,14 @@ const ProjectList = React.createClass({
     });
   },
 
-  onChangeText: function (e) {
-    this.props.actions.changeText( e.target.value);
+  onChangeText(e) {
+    this.props.actions.changeText(e.target.value);
   },
 
-  render: function () {
-    return(
+  render() {
+    return (
       <div>
-        {this.props.projects.map( (project, index) =>
+        {this.props.projects.map((project, index) =>
           <ProjectCard
             { ...this.props }
             project={ project }
@@ -32,7 +32,6 @@ const ProjectList = React.createClass({
       </div>
     );
   }
-
 });
+// export default ProjectList;
 module.exports = ProjectList;
-//export default ProjectList;

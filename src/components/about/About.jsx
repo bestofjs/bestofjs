@@ -7,10 +7,10 @@ var Stars = require('../common/utils/Stars');
 import log from '../../helpers/log';
 var About = React.createClass({
 
-  render: function() {
+  render() {
     log('Render the <About> component', this.props);
     const { project, staticContent } = this.props;
-    var {repo, projectName} = staticContent;
+    var { repo, projectName } = staticContent;
     return (
       <MainContent>
         <StarMeButton url={ repo } />
@@ -64,7 +64,7 @@ var About = React.createClass({
 
 var Example = React.createClass({
 
-  render: function() {
+  render() {
     var { project, maxStars } = this.props;
     return (
       <div>
@@ -76,11 +76,11 @@ var Example = React.createClass({
         <ProjectCard
           project = { project }
           index = { 0 }
-          showDescription = { true }
+          showDescription
           maxStars = { maxStars }
-          showTags = { true }
-          showStars = { true }
-          showDelta = { true }
+          showTags
+          showStar
+          showDelta
         />
 
         <p>
@@ -88,13 +88,13 @@ var Example = React.createClass({
         </p>
         <ul>
          <li>
-           <Stars value={ project.stars } icon={ true }/>
+           <Stars value={ project.stars } icon />
            {' '}
             is the total number of stars on Github.
          </li>
          <li>
-           <div style={{ width: 80, display: 'inline-block'}}>
-             <Delta value={ project.deltas[0] } icon={ true } />
+           <div style={{ width: 80, display: 'inline-block' }}>
+             <Delta value={ project.deltas[0] } icon />
            </div>
            {' '}
           is the number of stars added yesterday.</li>
