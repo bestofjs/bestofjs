@@ -1,14 +1,13 @@
 var React = require('react');
-var {Link} = require('react-router');
+var { Link } = require('react-router');
 
 var TagLabel = React.createClass({
-  render: function() {
+  render() {
     var tag = this.props.tag;
     var style = {
       counter: {
         marginLeft: 10,
         padding: '0 5px',
-        //backgroundColor: '#e65100',
         color: '#ccc',
         borderRadius: 4,
         fontSize: 14

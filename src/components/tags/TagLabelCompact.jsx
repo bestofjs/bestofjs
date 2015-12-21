@@ -1,8 +1,8 @@
 var React = require('react');
-var {Link} = require('react-router');
+var { Link } = require('react-router');
 
 var TagLabel = React.createClass({
-  render: function() {
+  render() {
     var tag = this.props.tag;
     return (
       <Link
@@ -14,7 +14,5 @@ var TagLabel = React.createClass({
       </Link>
     );
   }
-
 });
-
 module.exports = TagLabel;

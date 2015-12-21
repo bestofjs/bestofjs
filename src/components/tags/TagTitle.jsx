@@ -1,12 +1,11 @@
 var React = require('react');
 var Router = require('react-router');
-var {IndexLink} = Router;
+var { IndexLink } = Router;
 
 require('../../stylesheets/tag.styl');
 
 var TagTitle = React.createClass({
-
-  render: function() {
+  render() {
     var tag = this.props.tag;
     return (
       <IndexLink className="tag tag-title" to="/">
@@ -15,7 +14,5 @@ var TagTitle = React.createClass({
       </IndexLink>
     );
   }
-
 });
-
 module.exports = TagTitle;
