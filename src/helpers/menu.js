@@ -3,7 +3,7 @@ import Slideout from 'slideout';
 // A helper to get an array from a "node list" object
 function $$(selector, ctx) {
   const context = ctx || document;
-  var elements = context.querySelectorAll(selector);
+  const elements = context.querySelectorAll(selector);
   return Array.prototype.slice.call(elements);
 }
 

@@ -1,14 +1,13 @@
-var React = require('react');
-var Router = require('react-router');
-const { Link } = Router;
+import React from 'react';
+import { Link } from 'react-router';
+
 import log from '../../helpers/log';
+import MainContent from '../common/MainContent';
+import ProjectList from '../projects/ProjectList';
+import ErrorMessage from '../common/utils/ErrorMessage';
+import StarMeButton from '../common/StarMeButton';
 
-var MainContent = require('../common/MainContent');
-var ProjectList = require('../projects/ProjectList');
-var ErrorMessage = require('../common/utils/ErrorMessage');
-var StarMeButton = require('../common/StarMeButton');
-
-var Home = React.createClass({
+const Home = React.createClass({
   render() {
     log('Render the <Home> component', this.props);
     const { repo } = this.props.staticContent || '?';

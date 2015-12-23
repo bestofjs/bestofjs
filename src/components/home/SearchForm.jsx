@@ -2,7 +2,7 @@ import React from 'react';
 import { History } from 'react-router';
 import debounce from 'lodash/function/debounce';
 
-var SearchForm = React.createClass({
+const SearchForm = React.createClass({
   mixins: [History],
   getInitialState() {
     return {
@@ -13,7 +13,7 @@ var SearchForm = React.createClass({
     this.emitChangeDelayed = debounce(this.emitChange, 300);
   },
   handleChange(e) {
-    var text = e.target.value;
+    const text = e.target.value;
     this.setState({
       text
     });
@@ -28,7 +28,7 @@ var SearchForm = React.createClass({
     // console.log('SearchForm emitChange', text);
   },
   render() {
-    var style = {
+    const style = {
       boxSizing: 'border-box', // to prevent the input from overlapping the container
       padding: '0.5em 1em',
       border: '3px solid #ddd',

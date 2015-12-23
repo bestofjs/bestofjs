@@ -1,16 +1,16 @@
-var React = require('react');
-var MainContent = require('../common/MainContent');
-var StarMeButton = require('../common/StarMeButton');
-var ProjectCard = require('../projects/ProjectCard');
-var Delta = require('../common/utils/Delta');
-var Stars = require('../common/utils/Stars');
+import React from 'react';
+import MainContent from '../common/MainContent';
+import StarMeButton from '../common/StarMeButton';
+import ProjectCard from '../projects/ProjectCard';
+import Delta from '../common/utils/Delta';
+import Stars from '../common/utils/Stars';
 import log from '../../helpers/log';
-var About = React.createClass({
 
+const About = React.createClass({
   render() {
     log('Render the <About> component', this.props);
     const { project, staticContent } = this.props;
-    var { repo, projectName } = staticContent;
+    const { repo, projectName } = staticContent;
     return (
       <MainContent>
         <StarMeButton url={ repo } />
@@ -62,10 +62,10 @@ var About = React.createClass({
 
 });
 
-var Example = React.createClass({
+const Example = React.createClass({
 
   render() {
-    var { project, maxStars } = this.props;
+    const { project, maxStars } = this.props;
     return (
       <div>
         <h2>An example</h2>

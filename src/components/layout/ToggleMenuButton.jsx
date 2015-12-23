@@ -1,6 +1,6 @@
-var React = require('react');
+import React from 'react';
 
-var ToggleMenuButton = React.createClass({
+const ToggleMenuButton = React.createClass({
   // No `handleClick` event here, no action `ToggleMenu` action is dispatched
   render() {
     return (

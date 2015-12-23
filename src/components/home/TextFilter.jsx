@@ -1,9 +1,9 @@
-var React = require('react');
-var MainContent = require('../common/MainContent');
-var ProjectList = require('../projects/ProjectList');
-var SearchText = require('../common/utils/SearchText');
+import React from 'react';
+import MainContent from '../common/MainContent';
+import ProjectList from '../projects/ProjectList';
+import SearchText from '../common/utils/SearchText';
 
-var TextFilter = React.createClass({
+const TextFilter = React.createClass({
   render() {
     const { projects, searchText } = this.props;
     return (

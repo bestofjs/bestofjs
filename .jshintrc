@@ -1,7 +1,0 @@
-{
-  "esnext": true,
-  "predef": [ "window", "document", "ga", "it", "expect"],
-  "node": true,
-  "undef": true,
-  "unused": true
-}

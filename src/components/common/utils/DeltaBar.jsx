@@ -1,10 +1,10 @@
-var React = require('react');
-var Delta = require('./Delta');
+import React from 'react';
+import Delta from './Delta';
 
-var DeltaBar = React.createClass({
+const DeltaBar = React.createClass({
 
   render() {
-    var deltas = this.props.data;
+    const deltas = this.props.data;
     return (
       <div>
         <p style={{ margin: '0.5em 0' }}>
@@ -30,7 +30,7 @@ var DeltaBar = React.createClass({
 DeltaBar.Item = React.createClass({
 
   render() {
-    var style = {
+    const style = {
       width: 'auto',
       display: 'block',
       flex: '1'

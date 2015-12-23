@@ -1,6 +1,6 @@
-var React = require('react');
+import React from 'react';
 
-var StarMeButton = React.createClass({
+const StarMeButton = React.createClass({
   render() {
     return (
       <a className="btn" id="star-button" href={ this.props.url }>

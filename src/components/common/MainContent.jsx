@@ -1,6 +1,6 @@
-var React = require('react');
+import React from 'react';
 
-var MainContent = React.createClass({
+const MainContent = React.createClass({
   render() {
     return (
       <div id="main-content" {...this.props}>

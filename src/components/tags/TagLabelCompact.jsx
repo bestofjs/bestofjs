@@ -1,9 +1,9 @@
-var React = require('react');
-var { Link } = require('react-router');
+import React from 'react';
+import { Link } from 'react-router';
 
-var TagLabel = React.createClass({
+const TagLabel = React.createClass({
   render() {
-    var tag = this.props.tag;
+    const tag = this.props.tag;
     return (
       <Link
         to={ '/tags/' + tag.id }

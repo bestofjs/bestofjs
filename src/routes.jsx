@@ -12,7 +12,7 @@ function getRoutes() {
   // function onEnter(nextState, state) {
   //   loading.show();
   // }
-  var routes = (
+  const routes = (
     <Route path="/" component={App} >
       <IndexRoute component={Home} />
       <Route path="home" component={Home}/>

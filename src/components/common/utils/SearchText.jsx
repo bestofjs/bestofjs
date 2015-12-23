@@ -1,6 +1,6 @@
-var React = require('react');
+import React from 'react';
 
-var SearchText = React.createClass({
+const SearchText = React.createClass({
 
   render() {
     return (

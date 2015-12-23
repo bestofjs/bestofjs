@@ -1,7 +1,7 @@
-var React = require('react');
+import React from 'react';
 import fromNow from '../../helpers/fromNow';
 
-var Footer = React.createClass({
+const Footer = React.createClass({
   render() {
     const { repo, projectName } = this.props.staticContent;
     const lastUpdate = this.props.lastUpdate;

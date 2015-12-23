@@ -1,16 +1,16 @@
-var React = require('react');
-var MainContent = require('../common/MainContent');
-var Description = require('../common/utils/Description');
-var DeltaBar = require('../common/utils/DeltaBar');
+import React from 'react';
+import MainContent from '../common/MainContent';
+import Description from '../common/utils/Description';
+import DeltaBar from '../common/utils/DeltaBar';
 import fromNow from '../../helpers/fromNow';
 // import log from '../../helpers/log';
-var TagLabel = require('../tags/TagLabel');
+import TagLabel from '../tags/TagLabel';
 
-var Project = React.createClass({
+const Project = React.createClass({
 
   render() {
     // log('Render <Project>', this.props);
-    var project = this.props.project;
+    const project = this.props.project;
     return (
       <MainContent className="project-page">
           { project.id && (

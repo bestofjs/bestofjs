@@ -1,11 +1,11 @@
-var React = require('react');
-var numeral = require('numeral');
+import React from 'react';
+import numeral from 'numeral';
 
-var Stars = React.createClass({
+const Stars = React.createClass({
 
   render() {
-    var value = this.props.value;
-    var digits = (value > 1000 && value < 10000) ? '0.0' : '0';
+    const value = this.props.value;
+    const digits = (value > 1000 && value < 10000) ? '0.0' : '0';
     return (
       <span>
         { numeral(value).format(digits + ' a') }

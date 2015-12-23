@@ -1,21 +1,20 @@
 import React from 'react';
-var Router = require('react-router');
-var TagLabel = require('../tags/TagLabelCompact');
-var Delta = require('../common/utils/Delta');
-var DeltaBar = require('../common/utils/DeltaBar');
-var Stars = require('../common/utils/Stars');
-var Description = require('../common/utils/Description');
+import { Link } from 'react-router';
+
+import TagLabel from '../tags/TagLabelCompact';
+import Delta from '../common/utils/Delta';
+import DeltaBar from '../common/utils/DeltaBar';
+import Stars from '../common/utils/Stars';
+import Description from '../common/utils/Description';
 
 import fromNow from '../../helpers/fromNow';
-
-var { Link } = Router;
 
 const ProjectCard = React.createClass({
   render() {
     const { project, index } = this.props;
     const viewProjectURL = `/projects/${project.id}`;
 
-    var style = {
+    const style = {
       starsBar: {
         width: (project.stars * 100 / this.props.maxStars).toFixed() + '%'
       }

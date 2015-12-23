@@ -1,10 +1,10 @@
-var React = require('react');
+import React from 'react';
 
-var MainContent = require('../common/MainContent');
-var ProjectList = require('../projects/ProjectList');
-var TagLabel = require('../tags/TagTitle');
+import MainContent from '../common/MainContent';
+import ProjectList from '../projects/ProjectList';
+import TagLabel from '../tags/TagTitle';
 
-var TagFilter = React.createClass({
+const TagFilter = React.createClass({
 
   render() {
     const { tag, projects } = this.props;

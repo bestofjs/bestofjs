@@ -4,6 +4,7 @@
 // * For a single project: `project = populate(tags)(project);`
 export default function populate(tags) {
   return function (project) {
+    if (!project) throw new Error('populate() called with NO PROJECT!');
     const populated = Object.assign(project, {}, {
       tags: project.tagIds.map(id => tags[id])
     });

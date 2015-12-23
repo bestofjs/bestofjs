@@ -6,7 +6,7 @@
   "rules": {
     "indent": [2, 2],
     "comma-dangle": 0,
-    "no-var": 0,
+    "no-var": 1,
     "vars-on-top": 0,
     "curly": 0,
     "default-case": 0,

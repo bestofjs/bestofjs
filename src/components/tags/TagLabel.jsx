@@ -1,10 +1,10 @@
-var React = require('react');
-var { Link } = require('react-router');
+import React from 'react';
+import { Link } from 'react-router';
 
-var TagLabel = React.createClass({
+const TagLabel = React.createClass({
   render() {
-    var tag = this.props.tag;
-    var style = {
+    const tag = this.props.tag;
+    const style = {
       counter: {
         marginLeft: 10,
         padding: '0 5px',

@@ -24,13 +24,13 @@ function getCurrentTagId(state) {
 // to be able to run tests with node.js
 
 function hideSplashScreen() {
-  var elements = document.querySelectorAll('.nojs');
+  const elements = document.querySelectorAll('.nojs');
   Array.prototype.forEach.call(elements, (el) => el.classList.remove('nojs'));
 
   // Add the stylesheets to overwrite inline styles defined in index.html
   require('../stylesheets/main.styl');
 }
-var App = React.createClass({
+const App = React.createClass({
 
   componentWillMount() {
     hideSplashScreen();

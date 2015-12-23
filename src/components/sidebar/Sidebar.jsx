@@ -1,14 +1,13 @@
 import React from 'react';
-var Router = require('react-router');
-var { Link, IndexLink } = Router;
+import { Link, IndexLink } from 'react-router';
 
 import TagMenu from './TagMenu';
 import LoggedinUser from './LoggedinUser';
 import AnonymousUser from './AnonymousUser';
 
-var Sidebar = React.createClass({
+const Sidebar = React.createClass({
   render() {
-    var { allTags, popularTags, auth, authActions } = this.props;
+    const { allTags, popularTags, auth, authActions } = this.props;
     return (
       <nav id="menu">
         <div className="ui vertical menu">
