@@ -21,7 +21,7 @@ const Tabs = React.createClass({
     const tabs = [
       {
         path: 'readme',
-        text: 'README',
+        text: 'GITHUB',
         icon: 'book'
       },
       {

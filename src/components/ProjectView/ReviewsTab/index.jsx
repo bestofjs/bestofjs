@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 
-import Tabs from './Tabs';
+import Tabs from '../Tabs';
 
 const Reviews = React.createClass({
   propTypes: {
@@ -11,7 +11,8 @@ const Reviews = React.createClass({
     return (
       <div>
         <Tabs project={project} activePath="reviews" />
-          <div className="project-tabs-content">
+        <div className="project-tabs-content">
+          <div className="inner">
             <p>
               <span className="octicon octicon-info"></span>
               {' '}
@@ -23,7 +24,7 @@ const Reviews = React.createClass({
               Stay tuned, reviews are coming soon!
             </p>
           </div>
-
+        </div>
       </div>
     );
   }

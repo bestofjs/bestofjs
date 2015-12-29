@@ -1,7 +1,5 @@
 import React, { PropTypes } from 'react';
 
-import Tabs from './Tabs';
-
 const Readme = React.createClass({
   propTypes: {
     project: PropTypes.object,
@@ -11,10 +9,9 @@ const Readme = React.createClass({
     const { project } = this.props;
     return (
       <div>
-        <Tabs project={project} activePath="readme" />
         <div className="readme">
           <div>
-            {false && <div className="header">
+            {true && <div className="header">
               <span className="octicon octicon-book"></span>
               {' '}
               README
