@@ -1,5 +1,9 @@
 # Change log
 
+## 0.2.6 - 2015-12-30
+* Cache README.md (only fetch it from Github if needed)
+* Fix issue #9
+
 ## 0.2.5 - 2015-12-14
 * Redux optimization, use middleware for tracking and navigation side effects (scroll to top, close the side menu on mobiles), create `containers` connected to Redux state
 * Redirect to homepage for unknown URLs
