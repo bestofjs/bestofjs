@@ -11,7 +11,7 @@ const Home = React.createClass({
   render() {
     log('Render the <Home> component', this.props);
     const { repo } = this.props.staticContent || '?';
-    const { hotProjects, popularProjects, maxStars } = this.props;
+    const { hotProjects, popularProjects, maxStars, isLoggedin } = this.props;
     return (
       <MainContent>
         { this.props.errorMessage && <ErrorMessage text={ this.props.errorMessage } /> }
@@ -40,6 +40,7 @@ const Home = React.createClass({
                 <ProjectList
                   projects = { hotProjects }
                   maxStars = { maxStars }
+                  isLoggedin= { isLoggedin }
                   showDelta
                   showIndex
                 />
@@ -54,6 +55,7 @@ const Home = React.createClass({
                 <ProjectList
                   projects = { popularProjects }
                   maxStars = { maxStars }
+                  isLoggedin= { isLoggedin }
                   showStars
                   showIndex
                 />

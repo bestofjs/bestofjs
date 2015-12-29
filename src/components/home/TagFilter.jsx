@@ -7,7 +7,7 @@ import TagLabel from '../tags/TagTitle';
 const TagFilter = React.createClass({
 
   render() {
-    const { tag, projects } = this.props;
+    const { tag, projects, isLoggedin } = this.props;
 
     return (
       <MainContent className="small">
@@ -28,10 +28,11 @@ const TagFilter = React.createClass({
 
         { projects.length > 0 && (
            <ProjectList
-             projects = { projects }
-             maxStars = { projects[0].stars}
+             projects={ projects }
+             maxStars={ projects[0].stars}
              showDescription
              showURL
+             isLoggedin={ isLoggedin }
            />
        ) }
 

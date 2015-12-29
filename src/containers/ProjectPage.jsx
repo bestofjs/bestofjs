@@ -1,14 +1,18 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 
-import Project from '../components/projects/Project';
-import { fetchReadmeIfNeeded } from '../actions';
+import ProjectView from '../components/ProjectView';
 import populate from '../helpers/populate';
 import log from '../helpers/log';
 
+// import { fetchReadmeIfNeeded } from '../actions';
+import * as actionCreators from '../actions';
+import * as authActionCreators from '../actions/authActions';
+
 function loadData(props) {
   const project = props.project;
-  props.fetchReadme(project);
+  props.actions.fetchReadme(project);
 }
 
 const ProjectPage = React.createClass({
@@ -25,11 +29,19 @@ const ProjectPage = React.createClass({
 
   render() {
     log('Render the <ProjectPage> container', this.props);
-    const { project } = this.props;
+    const { project, auth, path, children, authActions } = this.props;
     return (
-      <Project
-        project = { project }
-      />
+      <ProjectView
+        project={project}
+        auth ={auth}
+        path={path}
+        authActions={authActions}
+      >
+      { children && project && React.cloneElement(children, {
+        project,
+        auth
+      }) }
+    </ProjectView>
     );
   }
 
@@ -37,20 +49,32 @@ const ProjectPage = React.createClass({
 
 function mapStateToProps(state) {
   const {
-    entities: { projects, tags },
+    entities: { projects, tags, links },
+    auth,
+    router
   } = state;
 
   const id = state.router.params.id;
 
   let project = projects[id];
 
-  project = populate(tags)(project);
+  project = populate(tags, links)(project);
 
   return {
-    project
+    project,
+    auth,
+    path: router.routes[router.routes.length - 1].path
   };
 }
 
-export default connect(mapStateToProps, {
-  fetchReadme: fetchReadmeIfNeeded
-})(ProjectPage);
+function mapDispatchToProps(dispatch) {
+  return {
+    actions: bindActionCreators(actionCreators, dispatch),
+    authActions: bindActionCreators(authActionCreators, dispatch)
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(ProjectPage);
+// export default connect(mapStateToProps, {
+//   fetchReadme: fetchReadmeIfNeeded
+// })(ProjectPage);

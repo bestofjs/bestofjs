@@ -7,16 +7,17 @@ import log from '../helpers/log';
 
 const HomePage = React.createClass({
   shouldComponentUpdate() {
-    return false;
+    return true;
   },
   render() {
     log('Render the <HomePage> container', this.props);
-    const { hotProjects, popularProjects } = this.props;
+    const { hotProjects, popularProjects, isLoggedin } = this.props;
     return (
       <Home
         hotProjects = { hotProjects }
         popularProjects = { popularProjects }
         maxStars = { popularProjects.length > 0 ? popularProjects[0].stars : 0 }
+        isLoggedin = { isLoggedin }
       />
     );
   }
@@ -27,26 +28,31 @@ function mapStateToProps(state) {
   const {
     entities: {
       projects,
-      tags
+      tags,
+      links
     },
     githubProjects: {
       hotProjectIds,
       popularProjectIds
+    },
+    auth: {
+      username
     }
   } = state;
 
   const hotProjects = hotProjectIds
     .map(id => projects[id])
-    .slice(0, 20)
-    .map(populate(tags));
+    .slice(0, 2)
+    .map(populate(tags, links));
   const popularProjects = popularProjectIds
     .map(id => projects[id])
-    .slice(0, 20)
-    .map(populate(tags));
+    .slice(0, 2)
+    .map(populate(tags, links));
 
   return {
     hotProjects,
-    popularProjects
+    popularProjects,
+    isLoggedin: username !== ''
   };
 }
 

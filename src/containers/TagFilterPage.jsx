@@ -13,12 +13,13 @@ const TagFilterPage = React.createClass({
 
   render() {
     log('Render the <TagFilterPage> container', this.props);
-    const { tagProjects, tag } = this.props;
+    const { tagProjects, tag, isLoggedin } = this.props;
     return (
       <TagFilter
         projects = { tagProjects }
         tag = { tag }
         maxStars = { tagProjects.length > 0 ? tagProjects[0].stars : 0 }
+        isLoggedin = { isLoggedin }
       />
     );
   }
@@ -27,21 +28,25 @@ const TagFilterPage = React.createClass({
 
 function mapStateToProps(state) {
   const {
-    entities: { projects, tags },
-    githubProjects: { popularProjectIds }
+    entities: { projects, tags, links },
+    githubProjects: { popularProjectIds },
+    auth: {
+      username
+    }
   } = state;
 
   const tagId = state.router.params.id;
 
   const tagProjects = popularProjectIds
     .map(id => projects[id])
-    .filter(project => project.tagIds.indexOf(tagId) > -1)
+    .filter(project => project.tags.indexOf(tagId) > -1)
     .slice(0, 50)
-    .map(populate(tags));
+    .map(populate(tags, links));
 
   return {
     tagProjects,
-    tag: tags[tagId]
+    tag: tags[tagId],
+    isLoggedin: username !== ''
   };
 }
 

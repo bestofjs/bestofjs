@@ -5,7 +5,7 @@ import SearchText from '../common/utils/SearchText';
 
 const TextFilter = React.createClass({
   render() {
-    const { projects, searchText } = this.props;
+    const { projects, searchText, isLoggedin } = this.props;
     return (
       <MainContent className="small">
 
@@ -20,8 +20,9 @@ const TextFilter = React.createClass({
 
         { projects.length > 0 && (
            <ProjectList
-             projects = { projects }
-             maxStars = { projects[0].stars}
+             projects={ projects }
+             maxStars={ projects[0].stars}
+             isLoggedin={ isLoggedin}
              showDescription
              showURL
            />

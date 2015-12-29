@@ -1,0 +1,33 @@
+// Tab used in `ProjectView` component to navigate between
+// README.md, LINKS and REVIEWS views
+
+.project-tabs-header
+  display: flex
+  margin-bottom: -1px
+  > div
+    flex: 1
+    text-align: center
+    padding: 0.5em 0
+    &.active
+      border: 1px solid #ccc
+      border-bottom-color: white;
+      background-color: white
+    a
+      display: block
+      &:hover
+        text-decoration: none
+
+.project-tabs-content
+  background-color white
+  border 1px solid #ccc
+  padding 1em
+
+  .project-link
+    border-top: 1px solid #ccc
+    padding: 1em 0
+    &:last-child
+      border-bottom: 1px solid #ccc
+    .project-link-date
+      font-size: 13px
+    a:hover
+      text-decoration: none

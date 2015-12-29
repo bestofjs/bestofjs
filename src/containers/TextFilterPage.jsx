@@ -34,11 +34,12 @@ const TextFilterPage = React.createClass({
 
   render() {
     log('Render the <TextFilterPage> container', this.props);
-    const { foundProjects, text } = this.props;
+    const { foundProjects, text, isLoggedin } = this.props;
     return (
       <TextFilter
-        projects = { foundProjects }
-        searchText = { text }
+        projects={ foundProjects }
+        searchText={ text }
+        isLoggedin={ isLoggedin }
       />
     );
   }
@@ -48,7 +49,10 @@ const TextFilterPage = React.createClass({
 function mapStateToProps(state) {
   const {
     entities: { projects, tags },
-    githubProjects: { popularProjectIds }
+    githubProjects: { popularProjectIds },
+    auth: {
+      username
+    }
   } = state;
 
   const text = state.router.params.text;
@@ -61,7 +65,8 @@ function mapStateToProps(state) {
 
   return {
     foundProjects,
-    text
+    text,
+    isLoggedin: username !== ''
   };
 }
 

@@ -6,12 +6,13 @@ import Delta from '../common/utils/Delta';
 import DeltaBar from '../common/utils/DeltaBar';
 import Stars from '../common/utils/Stars';
 import Description from '../common/utils/Description';
+import ProjectCardLink from './ProjectCardLink';
 
 import fromNow from '../../helpers/fromNow';
 
 const ProjectCard = React.createClass({
   render() {
-    const { project, index } = this.props;
+    const { project, index, isLoggedin } = this.props;
     const viewProjectURL = `/projects/${project.id}`;
 
     const style = {
@@ -85,12 +86,14 @@ const ProjectCard = React.createClass({
 
         </div>
 
-        <div className="inner reviews" style={{ borderTop: '1px solid #ddd' }}>
+        {false && <div className="inner reviews" style={{ borderTop: '1px solid #ddd' }}>
           <header>Reviews</header>
-        </div>
-        <div className="inner links" style={{ borderTop: '1px solid #ddd' }}>
-          <header>Links</header>
-        </div>
+        </div>}
+
+        <ProjectCardLink
+          links={ project.links || [] }
+          isLoggedin={ isLoggedin }
+        />
 
         <div className="inner github" style={{ borderTop: '1px solid #ddd', paddingBottom: 0 }}>
           <header style={{ marginBottom: '0.5em' }}>On Github</header>

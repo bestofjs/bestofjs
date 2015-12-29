@@ -73,3 +73,10 @@ export function fetchReadmeIfNeeded(project) {
     }
   };
 }
+
+export function getLinksSuccess(json) {
+  return {
+    type: 'GET_LINKS_SUCCESS',
+    data: json
+  };
+}

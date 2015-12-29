@@ -28,10 +28,16 @@ export function getInitialState(data) {
   const state = defaultState;
 
   // Format id and repository fields
-  const allProjects = data.projects.map(item => Object.assign({}, item, {
+  const allProjects = data.projects.map(item => ({
     repository: 'https://github.com/' + item.full_name,
     id: getProjectId(item),
-    tagIds: item.tags
+    tags: item.tags,
+    deltas: item.deltas,
+    description: item.description,
+    name: item.name,
+    pushed_at: item.pushed_at,
+    stars: item.stars,
+    url: item.url
   }));
 
   // Create project entities
@@ -45,9 +51,10 @@ export function getInitialState(data) {
   // Format tags array
   const allTags = data.tags
     .filter(tag => counters[tag.code])// remove unused tags
-    .map(tag => Object.assign({}, tag, {
-      counter: counters[tag.code], // add counter data
-      id: tag.code
+    .map(tag => ({
+      id: tag.code,
+      name: tag.name,
+      counter: counters[tag.code] // add counter data
     }));
 
   // Create tags entities

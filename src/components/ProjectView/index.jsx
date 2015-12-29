@@ -1,16 +1,18 @@
 import React from 'react';
+
+
 import MainContent from '../common/MainContent';
 import Description from '../common/utils/Description';
 import DeltaBar from '../common/utils/DeltaBar';
 import fromNow from '../../helpers/fromNow';
-// import log from '../../helpers/log';
+import log from '../../helpers/log';
 import TagLabel from '../tags/TagLabel';
 
 const Project = React.createClass({
 
   render() {
-    // log('Render <Project>', this.props);
-    const project = this.props.project;
+    log('Render <Project>', this.props);
+    const { project, auth, authActions, children } = this.props;
     return (
       <MainContent className="project-page">
           { project.id && (
@@ -53,31 +55,14 @@ const Project = React.createClass({
 
               </div>
 
-              <div className="readme">
-                  <div>
-                    <div className="header">
-                      <span className="octicon octicon-book"></span>
-                      {' '}
-                      README
-                    </div>
 
-                    <div className="body">
-                      { project.readme ? (
-                        <div dangerouslySetInnerHTML={{ __html: project.readme }}></div>
-                        ) : (
-                        <div style={{ textAlign: 'center' }}>
-                          <p style={{ color: '#aaa' }}>Loading README from Github...</p>
-                          <span className="mega-octicon octicon-book" style={{ margin: '1em 0', fontSize: 100, color: '#bbb' }}></span>
-                        </div>
-                      )}
-                    </div>
+              { children && project && React.cloneElement(children, {
+                project,
+                auth,
+                authActions
+              }) }
 
-                    <div className="footer" style={{ textAlign: 'center' }}>
-                      <a className="btn" href={ project.repository }>View on Github</a>
-                    </div>
-                  </div>
 
-              </div>
             </div>
           ) }
       </MainContent>
