@@ -8,6 +8,7 @@ import log from '../helpers/log';
 const TagFilterPage = React.createClass({
 
   shouldComponentUpdate(nextProps) {
+    if (!nextProps.tag) return false;
     return nextProps.tag.id !== this.props.tag.id;
   },
 

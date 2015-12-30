@@ -4,9 +4,9 @@ const Field = React.createClass({
     label: PropTypes.string.isRequired
   },
   render() {
-    const { label, children } = this.props;
+    const { label, children, showError } = this.props;
     return (
-      <div className="field">
+      <div className={`field ${showError ? ' error' : ''}`}>
         <label>{ label }</label>
         { children }
       </div>

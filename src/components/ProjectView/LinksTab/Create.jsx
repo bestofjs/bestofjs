@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 
-import Field from '../../common/form/Field';
+import LinkReduxForm from './LinkReduxForm';
 
 const CreateLink = React.createClass({
   propTypes: {
@@ -9,25 +9,10 @@ const CreateLink = React.createClass({
   render() {
     const { project } = this.props;
     return (
-      <form className="ui form">
+      <div>
         <h3>Add a link related to "{project.name}" project</h3>
-        <Field label="URL">
-          <input type="text" name="url" />
-        </Field>
-        <Field label="Title">
-          <input type="text" name="title" />
-        </Field>
-        <Field label="Description">
-          <textarea type="text" name="description" />
-        </Field>
-        <div>
-          <button className="btn" type="submit">
-            <span className={`octicon octicon-save`}></span>
-            {' '}
-            SAVE
-          </button>
-        </div>
-      </form>
+        <LinkReduxForm project={ project } />
+      </div>
     );
   }
 });
