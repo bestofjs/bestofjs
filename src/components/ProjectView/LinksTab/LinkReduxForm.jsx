@@ -5,9 +5,13 @@ import Field from '../../common/form/Field';
 import ErrorMessage from '../../common/utils/ErrorMessage';
 
 import validate from './validate';
+import { addLink } from '../../../actions/linkActions';
 
-function submitLinkForm(values, dispatch) {
-  console.info('Form ready to be submitted!', values, dispatch);
+function submitLinkForm(project, username) {
+  return function (values, dispatch) {
+    console.info('Form ready to be submitted!', values, username);
+    return dispatch(addLink(project, values, username));
+  };
 }
 
 const LinkForm = React.createClass({
@@ -18,7 +22,8 @@ const LinkForm = React.createClass({
   },
   render() {
     const {
-      // project,
+      project,
+      auth,
       fields: {
         url,
         title,
@@ -27,14 +32,16 @@ const LinkForm = React.createClass({
       handleSubmit,
       valid,
       // errors,
-      submitFailed
+      submitFailed,
+      submitting
     } = this.props;
     console.log('Render LinkReduxForm', this.props);
     return (
       <form
-        onSubmit={ handleSubmit(submitLinkForm) }
+        onSubmit={ handleSubmit(submitLinkForm(project, auth.username)) }
         className={ `ui form${valid ? '' : ' error'}` }
       >
+        <p>{ auth.username }</p>
         <Field label="URL" showError={ submitFailed && url.error }>
           <input type="text" name="url" {...url} placeholder="http://blog.com/tutorial" />
         </Field>
@@ -47,8 +54,13 @@ const LinkForm = React.createClass({
         { !valid && submitFailed &&
           <ErrorMessage>Fix invalid fields!</ErrorMessage>
         }
+
         <div className="form-action-bar">
-          <button className="btn" type="submit">
+          <button
+            className={ `ui btn${submitting ? ' loading button' : ''}` }
+            disabled={ submitting }
+            type="submit"
+          >
             <span className={`octicon octicon-repo-push`}></span>
             {' '}
             SAVE

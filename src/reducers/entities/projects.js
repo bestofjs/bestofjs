@@ -1,31 +1,22 @@
-import log from '../helpers/log';
+import log from '../../helpers/log';
 
-export default function entities(state, action) {
-  if (!state) return {
-    projects: {},
-    tags: {}
-  };
-  const projects = Object.assign({}, state.projects);
+export default function (state = {}, action) {
   switch (action.type) {
   case 'GET_README_SUCCESS':
-  case 'GET_README_FAILURE':
-    const currentProject = Object.assign({}, projects[action.id]);
-    currentProject.readme = action.data.readme;
-    const newState = Object.assign({}, state);
-    newState.projects[action.id] = currentProject;
-    return newState;
-  case 'GET_LINKS_SUCCESS':
-    const newLinks = action.data;
-    // const links = Object.assign({}, state.links);
-    return Object.assign({}, state, {
-      links: newLinks,
-      projects: addLinkIdsToProjects(state.projects, newLinks)
+    const project = Object.assign({}, state[action.id], {
+      readme: action.data.readme
     });
+    return Object.assign({}, state, {
+      [action.id]: project
+    });
+  case 'GET_LINKS_SUCCESS':
+  case 'CREATE_LINK_SUCCESS':
+    const newLinks = action.data;
+    return addLinkIdsToProjects(state, newLinks);
+  default:
+    return state;
   }
-
-  return state;
 }
-
 
 // A "link" object can be associated to N projects
 // This function loops through projects and update the ".links" property
