@@ -47,14 +47,14 @@ const ProjectPage = React.createClass({
 
 });
 
-function mapStateToProps(state) {
+function mapStateToProps(state, props) {
   const {
     entities: { projects, tags, links },
     auth,
-    router
+    routing
   } = state;
 
-  const id = state.router.params.id;
+  const id = props.params.id;
 
   let project = projects[id];
 
@@ -63,7 +63,7 @@ function mapStateToProps(state) {
   return {
     project,
     auth,
-    path: router.routes[router.routes.length - 1].path
+    path: routing.path
   };
 }
 

@@ -1,9 +1,12 @@
 import React from 'react';
 import { render } from 'react-dom';
+import { Router } from 'react-router';
 import { Provider } from 'react-redux';
-import { ReduxRouter } from 'redux-router';
+import createHistory from 'history/lib/createHashHistory';
+import { syncReduxAndRouter } from 'redux-simple-router';
 
 import configureStore from './store/configureStore';
+import Routes from './routes';
 
 // Object.assign() polyfill for IE (used in the reducer)
 import './helpers/es6-polyfill.js';
@@ -23,9 +26,17 @@ getInitialData().then(json => startRedux(json));
 function startRedux(state) {
   const store = configureStore(state);
   store.dispatch(getLinksSuccess(links));
+
+  // Disable key=_123456 parameter add automatically when using the hash history.
+  const history = createHistory({ queryKey: false });
+
+  syncReduxAndRouter(history, store);
+
   render(
     <Provider store={ store }>
-      <ReduxRouter />
+      <Router history={ history }>
+        { Routes() }
+      </Router>
     </Provider>,
     window.document.getElementById('app')
   );

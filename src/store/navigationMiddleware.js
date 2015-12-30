@@ -18,10 +18,10 @@ function postNavigation() {
 
 // Custom middleware to be run AFTER the router middleware
 const navigationMiddleware = store => next => action => {
-  if (!store.getState().router) return next(action);
-  const previousPage = store.getState().router.location.pathname;
+  if (!store.getState().routing) return next(action);
+  const previousPage = store.getState().routing.path;
   const result = next(action);
-  const nextPage = store.getState().router.location.pathname;
+  const nextPage = store.getState().routing.path;
   // console.info('navigation middleware', previousPage, ' => ', nextPage);
   if (previousPage !== nextPage) {
     postNavigation();

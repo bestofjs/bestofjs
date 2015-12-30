@@ -15,9 +15,10 @@ import log from '../helpers/log';
 
 // Return the current tag id (if current path is /tags/:id) or '*'
 function getCurrentTagId(state) {
-  const router = state.router;
-  const route = router.routes[1].path;
-  return route === 'tags/:id' ? router.params.id : '*';
+  const router = state.routing;
+  //const route = router.routes[1].path;
+  //return route === 'tags/:id' ? router.params.id : '*';
+  return '*';
 }
 
 // require *.styl intructions have been moved from components to the App.jsx container

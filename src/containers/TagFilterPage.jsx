@@ -27,7 +27,7 @@ const TagFilterPage = React.createClass({
 
 });
 
-function mapStateToProps(state) {
+function mapStateToProps(state, props) {
   const {
     entities: { projects, tags, links },
     githubProjects: { popularProjectIds },
@@ -36,7 +36,7 @@ function mapStateToProps(state) {
     }
   } = state;
 
-  const tagId = state.router.params.id;
+  const tagId = props.params.id;
 
   const tagProjects = popularProjectIds
     .map(id => projects[id])
