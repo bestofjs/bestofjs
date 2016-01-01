@@ -35,13 +35,17 @@ const Home = React.createClass({
             { /* Part 1: HOT projects */ }
             <div className="col-sm-6">
               <div className="box">
-                <h3 className="with-comment">Hot projects since yesterday</h3>
+                <h3 className="with-comment">
+                  <span className="mega-octicon octicon-flame icon"></span>{' '}
+                  Hot projects since yesterday
+                </h3>
                 <p className="explanation">By number of stars added yesterday on Github</p>
                 <ProjectList
                   projects = { hotProjects }
                   maxStars = { maxStars }
                   isLoggedin= { isLoggedin }
                   showDelta
+                  showStars={false}
                   showIndex
                 />
               </div>
@@ -50,13 +54,17 @@ const Home = React.createClass({
             { /* Part 2: Overall rankings */ }
             <div className="col-sm-6">
               <div className="box">
-                <h3 className="with-comment">Most popular projects</h3>
+                <h3 className="with-comment">
+                  <span className="mega-octicon octicon-star icon"></span>{' '}
+                  Most popular projects
+                </h3>
                 <p className="explanation">By total number of stars on Github</p>
                 <ProjectList
                   projects = { popularProjects }
                   maxStars = { maxStars }
                   isLoggedin= { isLoggedin }
                   showStars
+                  showDelta={false}
                   showIndex
                 />
               </div>

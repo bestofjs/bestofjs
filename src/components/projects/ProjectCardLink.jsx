@@ -9,7 +9,7 @@ const ProjectCardLink = React.createClass({
   },
   showLinkCount(count) {
     if (count === 0) return <span>No links</span>;
-    if (count === 1) return 'One link:';
+    if (count === 1) return 'One link';
     return <span>{count} links</span>;
   },
   render() {
@@ -17,12 +17,13 @@ const ProjectCardLink = React.createClass({
     return (
       <div className="inner links" style={{ borderTop: '1px solid #ddd' }}>
         <header>
+          <span className="octicon octicon-link"></span>
           { this.showLinkCount(links.length) }
         </header>
         <main>
-        { links.map(link => <ProjectLink link={ link } key={ link.id } />) }
+        { false && links.map(link => <ProjectLink link={ link } key={ link.id } />) }
         </main>
-        {isLoggedin &&
+        {false && isLoggedin &&
           <footer style={{ textAlign: 'center', paddingTop: '0.5em' }}>
             <button className="btn">ADD A LINK</button>
           </footer>

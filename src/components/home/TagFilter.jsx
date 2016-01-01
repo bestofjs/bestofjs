@@ -33,6 +33,7 @@ const TagFilter = React.createClass({
              showDescription
              showURL
              isLoggedin={ isLoggedin }
+             showDelta={false}
            />
        ) }
 

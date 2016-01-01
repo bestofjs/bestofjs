@@ -1,5 +1,6 @@
 import React, { PropTypes } from 'react';
 
+import TagLabel from '../../tags/TagLabel';
 import Description from '../../common/utils/Description';
 import DeltaBar from '../../common/utils/DeltaBar';
 import fromNow from '../../../helpers/fromNow';
@@ -23,11 +24,18 @@ const Header = React.createClass({
             </p>
           )}
         </div>
+        <div className="inner tags" style={{ borderTop: '1px solid #ddd', paddingBottom: '0.5em' }}>
+          { project.tags.map(function (tag) {
+            return (
+              <TagLabel key={ tag.id } tag={ tag } />
+            );
+          }) }
+        </div>
         <div className="inner github" style={{ borderTop: '1px solid #ddd', paddingBottom: 0 }}>
           <p>
-            <span className="octicon octicon-mark-github"></span>
+            <span className="octicon octicon-repo"></span>
             {' '}
-            Github: <a href={ project.repository }>{ project.repository }</a>
+            Github repository: <a href={ project.repository }>{ project.repository }</a>
             {' '}
             { project.stars } <span className="octicon octicon-star"></span>
           </p>

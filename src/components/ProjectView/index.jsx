@@ -2,7 +2,7 @@ import React from 'react';
 
 import MainContent from '../common/MainContent';
 import log from '../../helpers/log';
-import TagLabel from '../tags/TagLabel';
+// import TagLabel from '../tags/TagLabel';
 
 const Project = React.createClass({
 
@@ -13,11 +13,7 @@ const Project = React.createClass({
       <MainContent className="project-page">
           { project.id && (
             <div>
-              { project.tags.map(function (tag) {
-                return (
-                  <TagLabel key={ tag.id } tag={ tag } />
-                );
-              }) }
+
               <h1 style={{ margin: '0 0 0.5rem' }}>{ project.name }</h1>
 
               { children && project && React.cloneElement(children, {

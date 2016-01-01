@@ -11,9 +11,29 @@ import ProjectCardLink from './ProjectCardLink';
 import fromNow from '../../helpers/fromNow';
 
 const ProjectCard = React.createClass({
+  renderReviews(reviews = []) {
+    const count = reviews.length;
+    const text = (count === 1) ? 'One review' : `${count} reviews`;
+    return (
+      <section>
+        <span className="octicon octicon-heart"></span>
+        {text}
+      </section>
+    );
+  },
+  renderLinks(links = []) {
+    const count = links.length;
+    const text = (count === 1) ? 'One link' : `${count} links`;
+    return (
+      <section>
+        <span className="octicon octicon-link"></span>
+        { text }
+      </section>
+    );
+  },
   render() {
     const { project, index, isLoggedin } = this.props;
-    const viewProjectURL = `/projects/${project.id}`;
+    const path = `/projects/${project.id}`;
 
     const style = {
       starsBar: {
@@ -23,11 +43,14 @@ const ProjectCard = React.createClass({
 
     return (
       <div className="project-card">
-        { this.props.maxStars && (
+        { false && this.props.maxStars && (
           <div className="stars-bar" style={ style.starsBar } />
         )}
-        <div className="inner">
-
+        <Link
+          to={ path }
+          className="card-block"
+        >
+        <header>
           <div className="ranking">
             { index + 1 }
           </div>
@@ -54,49 +77,56 @@ const ProjectCard = React.createClass({
 
           </div>
 
-          <Link
-            to={ viewProjectURL }
-            className="link"
+          <div
+            className="title"
           >
             { project.name }
-          </Link>
+          </div>
+        </header>
 
-          { this.props.showURL && project.url && (
+          { false && this.props.showURL && project.url && (
             <a className="url" href={ project.url }>
               { project.url }
             </a>
           )}
+
           { this.props.showDescription && (
-            <p>
-              <Link
-                to={ viewProjectURL }
-                className="description"
-              >
-                <Description text={ project.description } />
-              </Link>
-            </p>
+            <section>
+              <Description text={ project.description } />
+            </section>
           )}
+
+          </Link>
+
           { this.props.showTags && (
-            <div className="tags">
+            <section className="tags-section">
               { project.tags.map(tag =>
                 <TagLabel tag={ tag } key={ project.id + tag.id } />
               ) }
-            </div>
+            </section>
           )}
 
-        </div>
 
-        {false && <div className="inner reviews" style={{ borderTop: '1px solid #ddd' }}>
-          <header>Reviews</header>
-        </div>}
+        {project.reviews &&
+          <Link
+            className="card-block"
+            to={`${path}/reviews`}
+          >
+            {this.renderReviews(project.reviews)}
+          </Link>
+        }
 
-        <ProjectCardLink
-          links={ project.links || [] }
-          isLoggedin={ isLoggedin }
-        />
+        {project.links &&
+          <Link
+            className="card-block"
+            to={`${path}/links`}
+          >
+            {this.renderLinks(project.links)}
+          </Link>
+        }
 
-        <div className="inner github" style={{ borderTop: '1px solid #ddd', paddingBottom: 0 }}>
-          <header style={{ marginBottom: '0.5em' }}>On Github</header>
+        <div className="inner github" style={{ borderTop: '1px solid #cbcbcb', paddingBottom: 0 }}>
+          {false && <header style={{ marginBottom: '0.5em' }}>On Github</header>}
           <div className="last-commit">
             <span className="octicon octicon-git-commit"></span>
             {' '}
