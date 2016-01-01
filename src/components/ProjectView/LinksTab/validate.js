@@ -8,7 +8,8 @@ export default function validate(values) {
     });
 
   const url = values.url || '';
-  if (!isUrl(url)) errors.url = 'Invalid URL';
+  if (url && !isUrl(url)) errors.url = 'Invalid URL';
+
   console.log('Validation errors', errors);
   return errors;
 }

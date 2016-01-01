@@ -4,11 +4,20 @@ const Field = React.createClass({
     label: PropTypes.string.isRequired
   },
   render() {
-    const { label, children, showError } = this.props;
+    const { label, children, showError, errorMessage } = this.props;
     return (
       <div className={`field ${showError ? ' error' : ''}`}>
-        <label>{ label }</label>
+        <label className="field-label">
+          { label }
+        </label>
         { children }
+        { showError &&
+          <div className="field-validation-error">
+            <span className="octicon octicon-alert"></span>
+            {' '}
+            { errorMessage }
+          </div>
+        }
       </div>
     );
   }

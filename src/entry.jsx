@@ -13,8 +13,9 @@ import './helpers/es6-polyfill.js';
 import { getInitialData } from './projectData';
 import loading from './helpers/loading';
 
-import { getLinksSuccess } from './actions';
-import links from './mockLinks';
+import { getLinksSuccess, getReviewsSuccess } from './actions';
+import links from './mock/mockLinks';
+import reviews from './mock/mockReviews';
 
 // Set up the http request interceptor used to display the "loading bar"
 loading.init();
@@ -26,6 +27,7 @@ getInitialData().then(json => startRedux(json));
 function startRedux(state) {
   const store = configureStore(state);
   store.dispatch(getLinksSuccess(links));
+  store.dispatch(getReviewsSuccess(reviews));
 
   // Disable key=_123456 parameter add automatically when using the hash history.
   const history = createHistory({ queryKey: false });

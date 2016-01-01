@@ -41,16 +41,38 @@ const LinkForm = React.createClass({
         onSubmit={ handleSubmit(submitLinkForm(project, auth.username)) }
         className={ `ui form${valid ? '' : ' error'}` }
       >
-        <p>{ auth.username }</p>
-        <Field label="URL" showError={ submitFailed && url.error }>
-          <input type="text" name="url" {...url} placeholder="http://blog.com/tutorial" />
+
+        <Field
+          label="URL"
+          showError={ submitFailed && url.error }
+          errorMessage={ url.error }
+        >
+          <input
+            type="text"
+            placeholder="http://blog.com/tutorial"
+            {...url}
+          />
         </Field>
-        <Field label="Title" showError={ submitFailed && title.error }>
-          <input type="text" name="title" {...title} />
+
+        <Field
+          label="Title"
+          showError={ submitFailed && title.error }
+          errorMessage={ title.error }
+        >
+          <input
+            type="text"
+            {...title}
+          />
         </Field>
-        <Field label="Description" showError={ submitFailed && description.error }>
+
+        <Field
+          label="Description"
+          showError={ submitFailed && description.error }
+          errorMessage={ description.error }
+        >
           <textarea type="text" name="description" {...description} />
         </Field>
+
         { !valid && submitFailed &&
           <ErrorMessage>Fix invalid fields!</ErrorMessage>
         }

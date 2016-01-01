@@ -13,6 +13,10 @@ export default function (state = {}, action) {
   case 'CREATE_LINK_SUCCESS':
     const newLinks = action.data;
     return addLinkIdsToProjects(state, newLinks);
+  case 'GET_REVIEWS_SUCCESS':
+  case 'CREATE_REVIEW_SUCCESS':
+    const newReviews = action.data;
+    return addReviewIdsToProjects(state, newReviews);
   default:
     return state;
   }
@@ -38,6 +42,25 @@ function addLinkIdsToProjects(projects0, links) {
         log('No project with the id', projectId);
       }
     });
+  });
+  return projects1;
+}
+
+function addReviewIdsToProjects(projects0, reviews) {
+  let projects1 = Object.assign({}, projects0);
+  const reviewIds = Object.keys(reviews);
+  reviewIds.forEach(id => {
+    const review = reviews[id];
+    const projectId = review.project;
+    const project = projects1[projectId];
+    if (project) {
+      const reviews0 = project.reviews;
+      const reviews1 = reviews0 ? [id, ...reviews0] : [id]; // update the link id array or create it
+      project.reviews = reviews1;
+      projects1 = Object.assign({}, projects1, { projectId: project });
+    } else {
+      log('No project with the id', projectId);
+    }
   });
   return projects1;
 }

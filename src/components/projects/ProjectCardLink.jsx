@@ -5,7 +5,7 @@ import ProjectLink from './ProjectLink';
 const ProjectCardLink = React.createClass({
   propTypes: {
     links: PropTypes.array.isRequired,
-    isLoggedin: PropTypes.bool.isRequired
+    isLoggedin: PropTypes.bool
   },
   showLinkCount(count) {
     if (count === 0) return <span>No links</span>;

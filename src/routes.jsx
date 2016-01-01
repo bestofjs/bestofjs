@@ -9,11 +9,18 @@ import TextFilter from './containers/TextFilterPage';
 
 // Single Project page
 import ProjectPage from './containers/ProjectPage';
+
+import ProjectGithubTab from './components/ProjectView/GithubTab';
+
 import ProjectLinksTab from './components/ProjectView/LinksTab';
 import ProjectLinksList from './components/ProjectView/LinksTab/List';
 import ProjectLinksAdd from './components/ProjectView/LinksTab/Create';
-import ProjectGithubTab from './components/ProjectView/GithubTab';
+
 import ProjectReviewsTab from './components/ProjectView/ReviewsTab';
+import ProjectReviewsList from './components/ProjectView/ReviewsTab/List';
+import ProjectReviewsAdd from './components/ProjectView/ReviewsTab/Create';
+import ProjectReviewsEdit from './components/ProjectView/ReviewsTab/Edit';
+
 
 const Routes = () => (
   <Route path="/" component={App} >
@@ -22,11 +29,16 @@ const Routes = () => (
     <Route path="about" component={About}/>
     <Route path="projects/:id" component={ProjectPage}>
       <IndexRoute component={ProjectGithubTab} />
+      <Route path="readme" component={ProjectGithubTab} />
       <Route path="links" component={ProjectLinksTab}>
         <IndexRoute component={ProjectLinksList} />
         <Route path="add" component={ProjectLinksAdd} />
       </Route>
-      <Route path="readme" component={ProjectGithubTab} />
+      <Route path="reviews" component={ProjectReviewsTab}>
+        <IndexRoute component={ProjectReviewsList} />
+        <Route path="add" component={ProjectReviewsAdd} />
+        <Route path=":reviewId/edit" component={ProjectReviewsEdit} />
+      </Route>
       <Route path="reviews" component={ProjectReviewsTab} />
     </Route>
     <Route path="tags/:id" component={ TagFilter } />

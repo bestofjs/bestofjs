@@ -33,7 +33,8 @@ const Tabs = React.createClass({
       {
         path: 'reviews',
         text: 'REVIEWS',
-        icon: 'heart'
+        icon: 'heart',
+        counter: project => project.reviews && project.reviews.length
       },
     ];
     const { activePath, project } = this.props;

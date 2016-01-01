@@ -12,7 +12,7 @@ const ProjectLink = React.createClass({
         <div className="project-link-date">
           Added by { link.createdBy }
           {' '}
-          { fromNow(link.date) }
+          { fromNow(link.createdAt) }
         </div>
         <a href={ link.url } target="_blank">
           <span className={`octicon octicon-link-external`}></span>

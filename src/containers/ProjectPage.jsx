@@ -12,7 +12,7 @@ import * as authActionCreators from '../actions/authActions';
 
 function loadData(props) {
   const project = props.project;
-  props.actions.fetchReadme(project);
+  props.actions.fetchReadmeIfNeeded(project);
 }
 
 const ProjectPage = React.createClass({
@@ -29,10 +29,11 @@ const ProjectPage = React.createClass({
 
   render() {
     log('Render the <ProjectPage> container', this.props);
-    const { project, auth, path, children, authActions } = this.props;
+    const { project, review, auth, path, children, authActions } = this.props;
     return (
       <ProjectView
         project={project}
+        review={review}
         auth ={auth}
         path={path}
         authActions={authActions}
@@ -49,19 +50,24 @@ const ProjectPage = React.createClass({
 
 function mapStateToProps(state, props) {
   const {
-    entities: { projects, tags, links },
+    entities: { projects, tags, links, reviews },
     auth,
     routing
   } = state;
 
   const id = props.params.id;
 
-  let project = projects[id];
 
-  project = populate(tags, links)(project);
+  let project = projects[id];
+  project = populate(tags, links, reviews)(project);
+
+  // Review in edit mode
+  const reviewId = props.params.reviewId;
+  const review = reviewId ? reviews[reviewId] : null;
 
   return {
     project,
+    review,
     auth,
     path: routing.path
   };
