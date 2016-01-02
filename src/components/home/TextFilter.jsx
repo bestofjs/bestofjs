@@ -24,6 +24,7 @@ const TextFilter = React.createClass({
              maxStars={ projects[0].stars}
              isLoggedin={ isLoggedin}
              showDescription
+             showDelta={false}
              showURL
            />
        ) }

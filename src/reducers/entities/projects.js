@@ -14,9 +14,9 @@ export default function (state = {}, action) {
     const newLinks = action.data;
     return addLinkIdsToProjects(state, newLinks);
   case 'GET_REVIEWS_SUCCESS':
+    return addReviewIdsToProjects(state, action.data.results);
   case 'CREATE_REVIEW_SUCCESS':
-    const newReviews = action.data;
-    return addReviewIdsToProjects(state, newReviews);
+    return addReviewIdsToProjects(state, [action.data]);
   default:
     return state;
   }
@@ -48,9 +48,8 @@ function addLinkIdsToProjects(projects0, links) {
 
 function addReviewIdsToProjects(projects0, reviews) {
   let projects1 = Object.assign({}, projects0);
-  const reviewIds = Object.keys(reviews);
-  reviewIds.forEach(id => {
-    const review = reviews[id];
+  reviews.forEach(review => {
+    const id = review.id || review.objectId;
     const projectId = review.project;
     const project = projects1[projectId];
     if (project) {

@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 import ReviewReduxForm from './ReviewReduxForm';
 
-import { editReview } from '../../../actions/linkActions';
+import { updateReview } from '../../../actions/reviewActions';
 
 
 const Edit = React.createClass({
@@ -16,14 +16,14 @@ const Edit = React.createClass({
         id: reviewId,
         project: projectId
       });
-      return dispatch(editReview(payload));
+      return dispatch(updateReview(payload, username));
     };
   },
   render() {
     const { project, review, auth } = this.props;
     return (
       <div>
-        <h3>Edit "{project.name}" review {review.score}</h3>
+        <h3>Edit "{project.name}" review {review.rating}</h3>
         <ReviewReduxForm
           project={project}
           auth={auth}

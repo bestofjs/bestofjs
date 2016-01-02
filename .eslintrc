@@ -13,6 +13,7 @@
     "func-names": 0,
     "no-use-before-define": 0,
     "quotes": 1,
+    "dot-notation": 1,
     "react/prop-types": 0,
     "react/no-multi-comp": 0
   }

@@ -1,13 +1,14 @@
+$gutter = 1rem
+
 .row
   display: flex
   flex-direction: column
   @media (min-width: 600px)
     flex-direction: row
-    margin: 0 -0.5em
+    margin-left: -($gutter)
+    margin-right: -($gutter)
   .col-sm-6
     @media (min-width: 600px)
       width 50%
-      padding-right: .5rem
-      padding-left: .5rem
-  .box
-    //width 100%
+      padding-right: $gutter
+      padding-left: $gutter

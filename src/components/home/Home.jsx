@@ -36,7 +36,7 @@ const Home = React.createClass({
             <div className="col-sm-6">
               <div className="box">
                 <h3 className="with-comment">
-                  <span className="mega-octicon octicon-flame icon"></span>{' '}
+                  <span className="mega-octicon octicon-flame icon"></span>
                   Hot projects since yesterday
                 </h3>
                 <p className="explanation">By number of stars added yesterday on Github</p>
@@ -55,7 +55,7 @@ const Home = React.createClass({
             <div className="col-sm-6">
               <div className="box">
                 <h3 className="with-comment">
-                  <span className="mega-octicon octicon-star icon"></span>{' '}
+                  <span className="mega-octicon octicon-star icon"></span>
                   Most popular projects
                 </h3>
                 <p className="explanation">By total number of stars on Github</p>

@@ -1,11 +1,11 @@
 import React, { PropTypes } from 'react';
 import ReviewReduxForm from './ReviewReduxForm';
 
-import { addReview } from '../../../actions/linkActions';
+import { createReview } from '../../../actions/reviewActions';
 
 function submitCreate(project, username) {
   return function (values, dispatch) {
-    return dispatch(addReview(project, values, username));
+    return dispatch(createReview(project, values, username));
   };
 }
 

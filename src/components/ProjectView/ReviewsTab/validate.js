@@ -1,6 +1,6 @@
 export default function validate(values) {
   const errors = {};
-  const requiredFields = ['score'];
+  const requiredFields = ['rating'];
   requiredFields
     .filter(field => !values[field])
     .forEach(field => {

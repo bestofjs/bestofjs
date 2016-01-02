@@ -5,11 +5,11 @@ import createLogger from 'redux-logger';
 import rootReducer from '../reducers';
 
 // Custom middlewares
-import navigationMiddleware from './navigationMiddleware';
+// import navigationMiddleware from './navigationMiddleware';
 // import trackingMiddleware from './trackingMiddleware';
 
 const middlewares = [
-  applyMiddleware(navigationMiddleware),
+  // applyMiddleware(navigationMiddleware),
   // applyMiddleware(trackingMiddleware),
   applyMiddleware(thunk)
 ];

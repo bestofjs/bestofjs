@@ -80,9 +80,3 @@ export function getLinksSuccess(json) {
     data: json
   };
 }
-export function getReviewsSuccess(json) {
-  return {
-    type: 'GET_REVIEWS_SUCCESS',
-    data: json
-  };
-}

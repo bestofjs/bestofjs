@@ -12,11 +12,13 @@ module.exports = function () {
     'axios',
     'redux-form',
 
+    'scroll-behavior/lib/useScrollToTop',
+
     // only include here the functions we use from Lodash
     'lodash/function/debounce',
 
     'vague-time', // light equivalent to 'moment' module
-    'numeral',
-    'slideout'
+    'numeral', // use to format numbers using "k" prefix
+    'slideout' // slide navigation menu
   ];
 };

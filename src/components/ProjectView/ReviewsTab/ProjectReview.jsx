@@ -52,7 +52,7 @@ const ProjectReview = React.createClass({
           {[1, 2, 3, 4, 5].map(i =>
             <span
               key={i}
-              className={`octicon octicon-heart icon ${i <= review.score ? 'on' : 'off'}`}
+              className={`octicon octicon-heart icon ${i <= review.rating ? 'on' : 'off'}`}
             >
             </span>
           )}

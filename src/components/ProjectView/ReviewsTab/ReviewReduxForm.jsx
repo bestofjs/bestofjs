@@ -19,7 +19,7 @@ const ReviewForm = React.createClass({
       auth,
       fields: {
         comment,
-        score
+        rating
       },
       handleSubmit,
       valid,
@@ -37,10 +37,10 @@ const ReviewForm = React.createClass({
 
       <Field
         label="Your rating:"
-        showError={ submitFailed && score.error }
-        errorMessage={ score.error }
+        showError={ submitFailed && rating.error }
+        errorMessage={ rating.error }
       >
-        <RatingBox score={ score } />
+        <RatingBox score={ rating } />
       </Field>
 
         <Field
@@ -56,15 +56,17 @@ const ReviewForm = React.createClass({
         }
 
         <div className="form-action-bar">
-          <button
-            className={ `ui btn${submitting ? ' loading button' : ''}` }
-            disabled={ submitting }
-            type="submit"
-          >
-            <span className={`octicon octicon-cloud-upload`}></span>
-            {' '}
-            SAVE
-          </button>
+          {auth.username &&
+            <button
+              className={ `ui btn${submitting ? ' loading button' : ''}` }
+              disabled={ submitting }
+              type="submit"
+            >
+              <span className={`octicon octicon-cloud-upload`}></span>
+              {' '}
+              SAVE
+            </button>
+          }
         </div>
       </form>
     );
@@ -72,7 +74,7 @@ const ReviewForm = React.createClass({
 });
 const ReviewReduxForm = reduxForm({
   form: 'review',
-  fields: ['comment', 'score'],
+  fields: ['comment', 'rating'],
   validate
 })(ReviewForm);
 
