@@ -21,6 +21,7 @@ const Edit = React.createClass({
   },
   render() {
     const { project, review, auth } = this.props;
+    if (!review) return (<div>Loading the review...</div>);
     return (
       <div>
         <h3>Edit "{project.name}" review {review.rating}</h3>

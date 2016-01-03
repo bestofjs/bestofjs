@@ -63,7 +63,7 @@ function mapStateToProps(state, props) {
 
   // Review in edit mode
   const reviewId = props.params.reviewId;
-  const review = reviewId ? reviews[reviewId] : null;
+  const review = reviews && reviewId ? reviews[reviewId] : null;
 
   return {
     project,

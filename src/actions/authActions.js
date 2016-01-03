@@ -1,3 +1,6 @@
+import Auth from '../api/Auth';
+let auth = null;
+
 // LOGIN
 export function loginRequest() {
   return {
@@ -11,7 +14,7 @@ export function loginSuccess(username) {
   };
 }
 
-export function login() {
+export function fakeLogin() {
   return dispatch => {
     dispatch(loginRequest());
     const p = new Promise(function (resolve) {
@@ -46,5 +49,24 @@ export function logout() {
     });
     return p
       .then(() => dispatch(logoutSuccess()));
+  };
+}
+
+export function init() {
+  auth = new Auth();
+  return dispatch => {
+    auth.checkLocalToken()
+      .then(json => dispatch(loginSuccess(json.nickname)))
+      .catch(err => console.error('ERROR auth init', err.message));
+  };
+}
+
+export function login() {
+  if (!auth) init();
+  return dispatch => {
+    dispatch(loginRequest());
+    return auth.login()
+      .then(json => dispatch(loginSuccess(json.nickname)))
+      .catch(err => console.error('ERROR login', err.message));
   };
 }

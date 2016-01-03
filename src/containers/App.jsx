@@ -35,6 +35,7 @@ const App = React.createClass({
 
   componentWillMount() {
     hideSplashScreen();
+    this.props.authActions.init();
   },
   componentDidMount() {
     menu.start();
