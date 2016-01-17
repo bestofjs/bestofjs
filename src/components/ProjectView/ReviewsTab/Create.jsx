@@ -3,9 +3,9 @@ import ReviewReduxForm from './ReviewReduxForm';
 
 import { createReview } from '../../../actions/reviewActions';
 
-function submitCreate(project, username) {
+function submitCreate(project, auth) {
   return function (values, dispatch) {
-    return dispatch(createReview(project, values, username));
+    return dispatch(createReview(project, values, auth));
   };
 }
 

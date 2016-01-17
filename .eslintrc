@@ -12,6 +12,7 @@
     "default-case": 0,
     "func-names": 0,
     "no-use-before-define": 0,
+    "camelcase": 0,
     "quotes": 1,
     "dot-notation": 1,
     "react/prop-types": 0,

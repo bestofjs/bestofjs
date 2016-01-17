@@ -1,6 +1,13 @@
 import React, { PropTypes } from 'react';
 
 import LinkReduxForm from './LinkReduxForm';
+import { createLink } from '../../../actions/linkActions';
+
+function submitCreate(project, auth) {
+  return function (values, dispatch) {
+    return dispatch(createLink(project, values, auth));
+  };
+}
 
 const CreateLink = React.createClass({
   propTypes: {
@@ -14,6 +21,8 @@ const CreateLink = React.createClass({
         <LinkReduxForm
           project={ project }
           auth={ auth }
+          initialValues={{ projects: [project.id] }}
+          onSave={ submitCreate }
         />
       </div>
     );

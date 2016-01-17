@@ -3,13 +3,29 @@ import request from 'axios';
 import api from '../config/api';
 import * as helpers from './helpers/projectHelpers';
 import getProjectId from './helpers/getProjectId';
+import loading from './helpers/loading';
 
 // Called by `entry.jsx` to fetch initial data (project and tag lists)
 // from a static JSON file served by a CDN
-export function getInitialData() {
+
+export function getInitialData(profile) {
+  return checkLocalData()
+    .then(json => {
+      loading.hide();
+      return Promise.resolve(json);
+    })
+    .catch(() => fetchInitialData())
+    .then(json => getInitialState(json, profile));
+}
+
+export function fetchInitialData() {
   const url = api('GET_PROJECTS') + 'projects.json';
   return request.get(url)
-    .then(json => new Promise(resolve => resolve(getInitialState(json.data))));
+    .then(response => response.data)
+    .then(json => new Promise(resolve => {
+      window.localStorage.setItem('bestofjs_projects', JSON.stringify(json));
+      resolve(json);
+    }));
 }
 
 const defaultState = {
@@ -21,10 +37,14 @@ const defaultState = {
     lastUpdate: new Date(),
     popularProjectIds: [],
     hotProjectIds: []
+  },
+  auth: {
+    username: '',
+    pending: false
   }
 };
 
-export function getInitialState(data) {
+export function getInitialState(data, profile) {
   const state = defaultState;
 
   // Format id and repository fields
@@ -72,6 +92,16 @@ export function getInitialState(data) {
     lastUpdate: data.date
   };
 
+  console.info('Profile', profile);
+  if (profile) {
+    const token = window.localStorage['bestofjs_access_token'];
+    state.auth = {
+      username: profile.nickname,
+      token,
+      pending: false
+    };
+  }
+
   return state;
 }
 
@@ -90,4 +120,17 @@ function getTagCounters(projects) {
     });
   });
   return counters;
+}
+
+function checkLocalData() {
+  return new Promise((resolve, reject) => {
+    const localProjects = window.localStorage.bestofjs_projects;
+    try {
+      const json = JSON.parse(localProjects);
+      resolve(json);
+      console.log('OK!!!', json);
+    } catch (ex) {
+      reject(ex);
+    }
+  });
 }

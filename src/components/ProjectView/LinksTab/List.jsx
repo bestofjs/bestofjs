@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 import { Link } from 'react-router';
-import ProjectLink from '../../projects/ProjectLink';
+import ProjectLink from './ProjectLink';
 
 const List = React.createClass({
   propTypes: {
@@ -46,7 +46,12 @@ const List = React.createClass({
         { links.length > 0 ? (
           <div className="project-link-container">
             {links.map(link =>
-              <ProjectLink link={ link } key={ link.id } />
+              <ProjectLink
+                project={ project }
+                link={ link }
+                key={ link.id }
+                editable={auth.username === link.createdBy}
+              />
             )}
           </div>
         ) : (

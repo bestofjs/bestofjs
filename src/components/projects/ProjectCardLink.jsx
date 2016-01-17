@@ -1,7 +1,5 @@
 import React, { PropTypes } from 'react';
 
-import ProjectLink from './ProjectLink';
-
 const ProjectCardLink = React.createClass({
   propTypes: {
     links: PropTypes.array.isRequired,
@@ -21,7 +19,7 @@ const ProjectCardLink = React.createClass({
           { this.showLinkCount(links.length) }
         </header>
         <main>
-        { false && links.map(link => <ProjectLink link={ link } key={ link.id } />) }
+
         </main>
         {false && isLoggedin &&
           <footer style={{ textAlign: 'center', paddingTop: '0.5em' }}>

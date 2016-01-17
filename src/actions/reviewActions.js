@@ -1,6 +1,9 @@
-import Parse from '../api/Parse';
-
 import { pushPath } from 'redux-simple-router';
+
+import createApi from '../api/userContent';
+import * as crud from './crudActions';
+
+const api = createApi('reviews');
 
 // ==========
 // FETCH ALL
@@ -8,11 +11,8 @@ import { pushPath } from 'redux-simple-router';
 
 export function fetchAllReviews() {
   return dispatch => {
-    const parse = new Parse();
-    parse.getAllReviews()
-      .then(response => response.json())
-      // .then(response => response.data)
-      .then(json => dispatch(getReviewsSuccess(json)))
+    api.getAll()
+      .then(json => dispatch(crud.fetchAllItemsSuccess('review', json)))
       .catch(err => {
         console.error('Error when calling Review API', err);
       });
@@ -23,50 +23,27 @@ export function fetchAllReviews() {
 // CREATE
 // ==========
 
-export function createReview(project, formData, username) {
+export function createReview(project, formData, auth) {
   const payload = Object.assign({}, formData, {
     project: project.id,
-    createdBy: username || 'Anonymous'
+    createdBy: auth.username || 'Anonymous'
   });
   return dispatch => {
-    dispatch(createReviewRequest(payload));
-    const parse = new Parse();
-    return parse.createReview(payload)
-      .then(response => response.json())
-      // .then(response => response.data)
+    // dispatch(createReviewRequest(payload));
+    return api.create(payload, auth.token)
       .then(json => {
         const data = Object.assign({}, payload, {
           id: json.objectId, // POST request return only `objectId` and `createdAt` fields
           createdAt: json.createdAt
         });
-        dispatch(createReviewSuccess(data));
+        dispatch(crud.createItemSuccess('review', data));
         const path = `/projects/${project.id}/reviews/`;
         dispatch(pushPath(path));
-        window.notie.alert(1, 'Thank you for the review!', 1.5);
+        window.notie.alert(1, 'Thank you for the review!', 3);
+      })
+      .catch(err => {
+        console.error('Error when calling Review API', err);
       });
-      // .catch(err => {
-      //   console.error('Error when calling Review API', err);
-      // });
-  };
-}
-
-function createReviewRequest(review) {
-  return {
-    type: 'CREATE_REVIEW_REQUEST',
-    review
-  };
-}
-function createReviewSuccess(review) {
-  return {
-    type: 'CREATE_REVIEW_SUCCESS',
-    data: review
-  };
-}
-
-export function getReviewsSuccess(json) {
-  return {
-    type: 'GET_REVIEWS_SUCCESS',
-    data: json
   };
 }
 
@@ -74,39 +51,25 @@ export function getReviewsSuccess(json) {
 // UPDATE
 // ==========
 
-export function updateReview(formData, username) {
+export function updateReview(formData, auth) {
   const payload = Object.assign({}, formData, {
-    updatedBy: username || 'Anonymous'
+    updatedBy: auth.username || 'Anonymous'
   });
   return dispatch => {
-    dispatch(updateReviewRequest(payload));
-    const parse = new Parse();
-    return parse.updateReview(payload)
-      .then(response => response.json())
+    // dispatch(updateReviewRequest(payload));
+    return api.update(payload, auth.token)
       .then(json => {
         const data = Object.assign({}, payload, {
           updatedAt: json.updatedAt // PUT requests return only `updatedAt` field
         });
-        dispatch(updateReviewSuccess(data));
+        dispatch(crud.updateItemSuccess('review', data));
         const path = `/projects/${formData.project}/reviews/`;
         dispatch(pushPath(path));
-        window.notie.alert(1, 'Your review has been updated.', 1.5);
+        window.notie.alert(1, 'Your review has been updated.', 3);
+      })
+      .catch(err => {
+        console.error('Error when calling Review API', err.message);
+        window.notie.alert(3, 'Sorry, we were unable to save the review.', 3);
       });
-      // .catch(err => {
-      //   console.error('Error when calling Review API', err);
-      // });
-  };
-}
-
-function updateReviewRequest(review) {
-  return {
-    type: 'UPDATE_REVIEW_REQUEST',
-    review
-  };
-}
-function updateReviewSuccess(review) {
-  return {
-    type: 'UPDATE_REVIEW_SUCCESS',
-    review
   };
 }

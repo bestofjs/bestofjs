@@ -31,7 +31,7 @@ const ReviewForm = React.createClass({
     console.log('Render LinkReduxForm', this.props);
     return (
       <form
-        onSubmit={ handleSubmit(onSave(project, auth.username)) }
+        onSubmit={ handleSubmit(onSave(project, auth)) }
         className={ `ui form${valid ? '' : ' error'}` }
       >
 

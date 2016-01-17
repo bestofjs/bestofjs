@@ -2,17 +2,10 @@ import React, { PropTypes } from 'react';
 import { reduxForm } from 'redux-form';
 
 import Field from '../../common/form/Field';
+import SelectBox from '../../../containers/ProjectSelectBoxContainer';
 import ErrorMessage from '../../common/utils/ErrorMessage';
 
 import validate from './validate';
-import { addLink } from '../../../actions/linkActions';
-
-function submitLinkForm(project, username) {
-  return function (values, dispatch) {
-    console.info('Form ready to be submitted!', values, username);
-    return dispatch(addLink(project, values, username));
-  };
-}
 
 const LinkForm = React.createClass({
   propTypes: {
@@ -27,18 +20,20 @@ const LinkForm = React.createClass({
       fields: {
         url,
         title,
-        description
+        description,
+        projects
       },
       handleSubmit,
       valid,
       // errors,
       submitFailed,
-      submitting
+      submitting,
+      onSave // passed from parent component (<Create> / <Edit>)
     } = this.props;
     console.log('Render LinkReduxForm', this.props);
     return (
       <form
-        onSubmit={ handleSubmit(submitLinkForm(project, auth.username)) }
+        onSubmit={ handleSubmit(onSave(project, auth)) }
         className={ `ui form${valid ? '' : ' error'}` }
       >
 
@@ -73,6 +68,14 @@ const LinkForm = React.createClass({
           <textarea type="text" name="description" {...description} />
         </Field>
 
+        <Field
+          label="Related projects"
+          showError={ submitFailed && projects.error }
+          errorMessage={ projects.error }
+        >
+          <SelectBox field={ projects } />
+        </Field>
+
         { !valid && submitFailed &&
           <ErrorMessage>Fix invalid fields!</ErrorMessage>
         }
@@ -94,7 +97,7 @@ const LinkForm = React.createClass({
 });
 const LinkReduxForm = reduxForm({
   form: 'link',
-  fields: ['url', 'title', 'description'],
+  fields: ['url', 'title', 'description', 'projects'],
   validate
 })(LinkForm);
 

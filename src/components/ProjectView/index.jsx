@@ -8,7 +8,7 @@ const Project = React.createClass({
 
   render() {
     log('Render <Project>', this.props);
-    const { project, review, auth, authActions, children } = this.props;
+    const { project, review, link, auth, authActions, children } = this.props;
     return (
       <MainContent className="project-page">
           { project.id && (
@@ -19,6 +19,7 @@ const Project = React.createClass({
               { children && project && React.cloneElement(children, {
                 project,
                 review,
+                link,
                 auth,
                 authActions
               }) }

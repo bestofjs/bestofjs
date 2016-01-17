@@ -15,6 +15,7 @@ import ProjectGithubTab from './components/ProjectView/GithubTab';
 import ProjectLinksTab from './components/ProjectView/LinksTab';
 import ProjectLinksList from './components/ProjectView/LinksTab/List';
 import ProjectLinksAdd from './components/ProjectView/LinksTab/Create';
+import ProjectLinksEdit from './components/ProjectView/LinksTab/Edit';
 
 import ProjectReviewsTab from './components/ProjectView/ReviewsTab';
 import ProjectReviewsList from './components/ProjectView/ReviewsTab/List';
@@ -33,6 +34,7 @@ const Routes = () => (
       <Route path="links" component={ProjectLinksTab}>
         <IndexRoute component={ProjectLinksList} />
         <Route path="add" component={ProjectLinksAdd} />
+        <Route path=":linkId/edit" component={ProjectLinksEdit} />
       </Route>
       <Route path="reviews" component={ProjectReviewsTab}>
         <IndexRoute component={ProjectReviewsList} />

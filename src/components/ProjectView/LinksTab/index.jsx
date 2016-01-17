@@ -7,7 +7,7 @@ const Links = React.createClass({
     project: PropTypes.object
   },
   render() {
-    const { project, auth, authActions, children } = this.props;
+    const { project, link, auth, authActions, children } = this.props;
     return (
       <div>
         <Tabs project={project} activePath="links" />
@@ -15,6 +15,7 @@ const Links = React.createClass({
           <div className="inner">
             { children && project && React.cloneElement(children, {
               project,
+              link,
               auth,
               authActions
             }) }

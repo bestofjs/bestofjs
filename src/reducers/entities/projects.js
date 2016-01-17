@@ -9,14 +9,15 @@ export default function (state = {}, action) {
     return Object.assign({}, state, {
       [action.id]: project
     });
-  case 'GET_LINKS_SUCCESS':
-  case 'CREATE_LINK_SUCCESS':
-    const newLinks = action.data;
-    return addLinkIdsToProjects(state, newLinks);
-  case 'GET_REVIEWS_SUCCESS':
-    return addReviewIdsToProjects(state, action.data.results);
+  case 'FETCH_REVIEWS_SUCCESS':
+    return addReviewIdsToProjects(state, action.payload.results);
+  case 'FETCH_LINKS_SUCCESS':
+    return addLinkIdsToProjects(state, action.payload.results);
   case 'CREATE_REVIEW_SUCCESS':
-    return addReviewIdsToProjects(state, [action.data]);
+    return addReviewIdsToProjects(state, [action.payload]);
+  case 'CREATE_LINK_SUCCESS':
+    debugger;
+    return addLinkIdsToProjects(state, [action.payload]);
   default:
     return state;
   }
@@ -25,11 +26,9 @@ export default function (state = {}, action) {
 // A "link" object can be associated to N projects
 // This function loops through projects and update the ".links" property
 function addLinkIdsToProjects(projects0, links) {
-  // debugger;
-  const linkIds = Object.keys(links);
   let projects1 = Object.assign({}, projects0);
-  linkIds.forEach(id => {
-    const link = links[id];
+  links.forEach(link => {
+    const id = link.id || link.objectId;
     const projectIds = link.projects; // get the array of project ids
     projectIds.forEach(projectId => {
       const project = projects1[projectId];

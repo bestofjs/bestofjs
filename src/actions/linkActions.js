@@ -1,43 +1,75 @@
 import { pushPath } from 'redux-simple-router';
 
-function createLinkRequest(link) {
-  return {
-    type: 'CREATE_LINK_REQUEST',
-    link
-  };
-}
-function createLinkSuccess(link) {
-  return {
-    type: 'CREATE_LINK_SUCCESS',
-    data: {
-      [link.id]: link
-    }
+import createApi from '../api/userContent';
+import * as crud from './crudActions';
+
+const api = createApi('links');
+
+// ==========
+// FETCH ALL
+// ==========
+
+export function fetchAllLinks() {
+  console.info('FETCH links');
+  return dispatch => {
+    api.getAll()
+      .then(json => dispatch(crud.fetchAllItemsSuccess('link', json)))
+      .catch(err => {
+        console.error('Error when calling Review API', err);
+      });
   };
 }
 
-// Called by `LinkReduxForm`, when adding a link from the project tab
-export function addLink(project, linkData, username) {
-  const payload = Object.assign({}, linkData, {
-    projects: [project.id],
-    date: new Date().toISOString(),
-    createdBy: username || 'Anonymous'
+// ==========
+// CREATE
+// ==========
+
+export function createLink(project, formData, auth) {
+  const payload = Object.assign({}, formData, {
+    createdBy: auth.username || 'Anonymous'
   });
   return dispatch => {
-    dispatch(createLinkRequest(payload));
-    const p = new Promise(function (resolve) {
-      setTimeout(function () {
-        const id = (new Date()).getTime();
-        const data = Object.assign({}, payload, {
-          id
-        });
-        resolve(data);
-      }, 1000);
-    });
-    return p
+    // dispatch(createReviewRequest(payload));
+    return api.create(payload, auth.token)
       .then(json => {
-        dispatch(createLinkSuccess(json));
+        const data = Object.assign({}, payload, {
+          id: json.objectId, // POST request return only `objectId` and `createdAt` fields
+          createdAt: json.createdAt
+        });
+        dispatch(crud.createItemSuccess('link', data));
         const path = `/projects/${project.id}/links/`;
         dispatch(pushPath(path));
+        window.notie.alert(1, 'Thank you for the link!', 3);
+      })
+      .catch(err => {
+        console.error('Error when calling API', err);
+      });
+  };
+}
+
+// ==========
+// UPDATE
+// ==========
+
+export function updateLink(formData, auth) {
+  const payload = Object.assign({}, formData, {
+    updatedBy: auth.username || 'Anonymous'
+  });
+  return dispatch => {
+    // dispatch(updateReviewRequest(payload));
+    return api.update(payload, auth.token)
+      .then(json => {
+        const data = Object.assign({}, payload, {
+          updatedAt: json.updatedAt // PUT requests return only `updatedAt` field
+        });
+        dispatch(crud.updateItemSuccess('link', data));
+        const path = `/projects/${formData.project}/links/`;
+        dispatch(pushPath(path));
+        window.notie.alert(1, 'Your link has been updated.', 3);
+      })
+      .catch(err => {
+        console.error('Error when calling Review API', err.message);
+        window.notie.alert(3, 'Sorry, we were unable to save the link.', 3);
       });
   };
 }

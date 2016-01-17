@@ -1,15 +1,14 @@
 import { combineReducers } from 'redux';
 
 import projects from './projects';
-import links from './links';
-import reviews from './reviews';
+import crud from './crud';
 import tags from './tags';
 
 const reducer = combineReducers({
   projects,
   tags,
-  links,
-  reviews
+  links: crud('link'),
+  reviews: crud('review')
 });
 
 export default reducer;

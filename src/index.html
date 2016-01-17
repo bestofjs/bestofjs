@@ -221,6 +221,7 @@
 
     <!-- Async load cross-site CSS, mostly interesting for production -->
     <script>
+      window.bestofjs = {};
       topbar.config({
         barColors: {
           '0': '#f6faaa',
@@ -238,7 +239,9 @@
     </script>
 
     <!-- Auth0Lock script -->
-    <script src="//cdn.auth0.com/js/lock-7.12.min.js"></script>
+    <!-- <script src="//cdn.auth0.com/js/lock-7.12.min.js"></script> -->
+
+    <script src="http://cdn.auth0.com/w2/auth0-6.7.js"></script>
 
     <!-- Libraries are loaded before the app. script to avoid errors like "Moment is not defined" -->
     <script src="build/bundle-vendor.js"></script>

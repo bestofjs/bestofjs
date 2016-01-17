@@ -13,6 +13,8 @@ import getStaticContent from '../staticContent';
 import menu from '../helpers/menu';
 import log from '../helpers/log';
 
+require('../../node_modules/react-select/dist/react-select.css');
+
 // Return the current tag id (if current path is /tags/:id) or '*'
 function getCurrentTagId(state) {
   const router = state.routing;
@@ -35,7 +37,7 @@ const App = React.createClass({
 
   componentWillMount() {
     hideSplashScreen();
-    this.props.authActions.init();
+    // this.props.authActions.init();
   },
   componentDidMount() {
     menu.start();

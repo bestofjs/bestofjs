@@ -1,19 +1,20 @@
 import React, { PropTypes } from 'react';
-import fromNow from '../../helpers/fromNow';
+
+import Header from '../ItemHeader';
 
 const ProjectLink = React.createClass({
   propTypes: {
     link: PropTypes.object.isRequired
   },
   render() {
-    const { link } = this.props;
+    const { link, project, editable } = this.props;
     return (
       <div className="project-link">
-        <div className="project-link-date">
-          Added by { link.createdBy }
-          {' '}
-          { fromNow(link.createdAt) }
-        </div>
+        <Header
+          item={ link }
+          editable={ editable }
+          editLinkTo={ `/projects/${project.id}/links/${link.id}/edit` }
+        />
         <a href={ link.url } target="_blank">
           <span className={`octicon octicon-link-external`}></span>
           {' '}

@@ -43,9 +43,11 @@ export function logout() {
   return dispatch => {
     dispatch(logoutRequest());
     const p = new Promise(function (resolve) {
-      setTimeout(function () {
-        resolve({});
-      }, 1000);
+      // Do not call window.auth0.logout() that will redirect to Github signout page
+      ['id', 'access']
+        .map(key => `bestofjs_${key}_token`)
+        .forEach(key => window.localStorage.removeItem(key));
+      resolve();
     });
     return p
       .then(() => dispatch(logoutSuccess()));
