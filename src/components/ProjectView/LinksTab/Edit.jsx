@@ -7,13 +7,13 @@ const EditLink = React.createClass({
   propTypes: {
     project: PropTypes.object,
   },
-  submitEdit(project, username) {
-    const reviewId = this.props.link.id;
+  submitEdit(project, auth) {
+    const linkId = this.props.link.id;
     return function (values, dispatch) {
       const payload = Object.assign({}, values, {
-        id: reviewId
+        id: linkId
       });
-      return dispatch(updateLink(payload, username));
+      return dispatch(updateLink(project, payload, auth));
     };
   },
   render() {

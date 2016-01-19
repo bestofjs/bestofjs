@@ -29,11 +29,12 @@ const ProjectPage = React.createClass({
 
   render() {
     log('Render the <ProjectPage> container', this.props);
-    const { project, review, auth, path, children, authActions } = this.props;
+    const { project, review, link, auth, path, children, authActions } = this.props;
     return (
       <ProjectView
         project={project}
         review={review}
+        link={link}
         auth ={auth}
         path={path}
         authActions={authActions}
@@ -61,13 +62,16 @@ function mapStateToProps(state, props) {
   let project = projects[id];
   project = populate(tags, links, reviews)(project);
 
-  // Review in edit mode
+  // Review and Link in edit mode
   const reviewId = props.params.reviewId;
+  const linkId = props.params.linkId;
   const review = reviews && reviewId ? reviews[reviewId] : null;
+  const link = links && linkId ? links[linkId] : null;
 
   return {
     project,
     review,
+    link,
     auth,
     path: routing.path
   };

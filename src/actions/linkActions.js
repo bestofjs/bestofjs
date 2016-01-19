@@ -51,7 +51,7 @@ export function createLink(project, formData, auth) {
 // UPDATE
 // ==========
 
-export function updateLink(formData, auth) {
+export function updateLink(project, formData, auth) {
   const payload = Object.assign({}, formData, {
     updatedBy: auth.username || 'Anonymous'
   });
@@ -63,7 +63,7 @@ export function updateLink(formData, auth) {
           updatedAt: json.updatedAt // PUT requests return only `updatedAt` field
         });
         dispatch(crud.updateItemSuccess('link', data));
-        const path = `/projects/${formData.project}/links/`;
+        const path = `/projects/${project.id}/links/`;
         dispatch(pushPath(path));
         window.notie.alert(1, 'Your link has been updated.', 3);
       })

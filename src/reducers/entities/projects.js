@@ -14,9 +14,9 @@ export default function (state = {}, action) {
   case 'FETCH_LINKS_SUCCESS':
     return addLinkIdsToProjects(state, action.payload.results);
   case 'CREATE_REVIEW_SUCCESS':
+  case 'UPDATE_REVIEW_SUCCESS':
     return addReviewIdsToProjects(state, [action.payload]);
   case 'CREATE_LINK_SUCCESS':
-    debugger;
     return addLinkIdsToProjects(state, [action.payload]);
   default:
     return state;

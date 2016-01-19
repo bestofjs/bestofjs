@@ -20,7 +20,7 @@ const LinkForm = React.createClass({
       fields: {
         url,
         title,
-        description,
+        comment,
         projects
       },
       handleSubmit,
@@ -30,7 +30,7 @@ const LinkForm = React.createClass({
       submitting,
       onSave // passed from parent component (<Create> / <Edit>)
     } = this.props;
-    console.log('Render LinkReduxForm', this.props);
+    // console.log('Render LinkReduxForm', this.props);
     return (
       <form
         onSubmit={ handleSubmit(onSave(project, auth)) }
@@ -61,11 +61,11 @@ const LinkForm = React.createClass({
         </Field>
 
         <Field
-          label="Description"
-          showError={ submitFailed && description.error }
-          errorMessage={ description.error }
+          label="Comment"
+          showError={ submitFailed && comment.error }
+          errorMessage={ comment.error }
         >
-          <textarea type="text" name="description" {...description} />
+          <textarea type="text" name="comment" {...comment} />
         </Field>
 
         <Field
@@ -97,7 +97,7 @@ const LinkForm = React.createClass({
 });
 const LinkReduxForm = reduxForm({
   form: 'link',
-  fields: ['url', 'title', 'description', 'projects'],
+  fields: ['url', 'title', 'comment', 'projects'],
   validate
 })(LinkForm);
 

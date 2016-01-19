@@ -8,7 +8,7 @@ const Edit = React.createClass({
   propTypes: {
     project: PropTypes.object
   },
-  submitEdit(project, username) {
+  submitEdit(project, auth) {
     const reviewId = this.props.review.id;
     const projectId = this.props.project.id;
     return function (values, dispatch) {
@@ -16,7 +16,7 @@ const Edit = React.createClass({
         id: reviewId,
         project: projectId
       });
-      return dispatch(updateReview(payload, username));
+      return dispatch(updateReview(payload, auth));
     };
   },
   render() {

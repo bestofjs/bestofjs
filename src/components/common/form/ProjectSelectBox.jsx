@@ -3,11 +3,10 @@ import Select from 'react-select';
 
 const ProjectSelectBox = React.createClass({
   propTypes: {
-    // title: PropTypes.string.isRequired,
-    // onShow: PropTypes.func.isRequired
+    options: PropTypes.array.isRequired,
   },
-  handleChange(values) {
-    console.log("Selected: ", values);
+  handleChange(items) {
+    const values = items.map(item => item.value);
     this.props.field.onChange(values);
   },
   render() {
