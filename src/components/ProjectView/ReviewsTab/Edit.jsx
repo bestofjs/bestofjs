@@ -21,10 +21,12 @@ const Edit = React.createClass({
   },
   render() {
     const { project, review, auth } = this.props;
-    if (!review) return (<div>Loading the review...</div>);
+    if (!review) return (
+      <div>Loading the review...</div>
+    );
     return (
       <div>
-        <h3>Edit "{project.name}" review {review.rating}</h3>
+        <h3>Edit "{project.name}" review ({review.rating}/5)</h3>
         <ReviewReduxForm
           project={project}
           auth={auth}

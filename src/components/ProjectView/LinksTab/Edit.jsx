@@ -18,15 +18,18 @@ const EditLink = React.createClass({
   },
   render() {
     const { project, auth, link } = this.props;
+    if (!link) return (
+      <div>Loading the link...</div> // displayed if the page is loaded from a direct URL
+    );
     return (
       <div>
         <h3>Edit a link</h3>
-        <LinkReduxForm
-          project={ project }
-          auth={ auth }
-          initialValues={ link }
+        {link && <LinkReduxForm
+          project={project}
+          auth={auth}
+          initialValues={link}
           onSave={this.submitEdit}
-        />
+        />}
       </div>
     );
   }
