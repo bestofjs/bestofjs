@@ -50,7 +50,7 @@ export function getInitialState(data, profile) {
   // Format id and repository fields
   const allProjects = data.projects.map(item => ({
     repository: 'https://github.com/' + item.full_name,
-    id: getProjectId(item),
+    id: item._id, //getProjectId(item),
     tags: item.tags,
     deltas: item.deltas,
     description: item.description,

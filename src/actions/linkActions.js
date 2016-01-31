@@ -10,7 +10,6 @@ const api = createApi('links');
 // ==========
 
 export function fetchAllLinks() {
-  console.info('FETCH links');
   return dispatch => {
     api.getAll()
       .then(json => dispatch(crud.fetchAllItemsSuccess('link', json)))
@@ -32,17 +31,15 @@ export function createLink(project, formData, auth) {
     // dispatch(createReviewRequest(payload));
     return api.create(payload, auth.token)
       .then(json => {
-        const data = Object.assign({}, payload, {
-          id: json.objectId, // POST request return only `objectId` and `createdAt` fields
-          createdAt: json.createdAt
-        });
+        const data = Object.assign({}, json);
         dispatch(crud.createItemSuccess('link', data));
         const path = `/projects/${project.id}/links/`;
         dispatch(pushPath(path));
         window.notie.alert(1, 'Thank you for the link!', 3);
       })
       .catch(err => {
-        console.error('Error when calling API', err);
+        window.notie.alert(3, `Sorry, we were unable to create the link. ${err.message}` , 3);
+        console.error('Impossible to create the link', err);
       });
   };
 }
@@ -59,9 +56,7 @@ export function updateLink(project, formData, auth) {
     // dispatch(updateReviewRequest(payload));
     return api.update(payload, auth.token)
       .then(json => {
-        const data = Object.assign({}, payload, {
-          updatedAt: json.updatedAt // PUT requests return only `updatedAt` field
-        });
+        const data = Object.assign({}, json);
         dispatch(crud.updateItemSuccess('link', data));
         const path = `/projects/${project.id}/links/`;
         dispatch(pushPath(path));

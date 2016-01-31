@@ -1,4 +1,5 @@
-const API_BASE_URL = 'https://webtask.it.auth0.com/api/run/wt-mikeair-gmail_com-0/8df41e6c061eb057d6dfe22c85815057';
+// const API_BASE_URL = 'https://webtask.it.auth0.com/api/run/wt-mikeair-gmail_com-0/8df41e6c061eb057d6dfe22c85815057';
+const API_BASE_URL = 'http://localhost:3000';
 
 function apiRequest(url, token, options) {
   const defaultOptions = {
@@ -13,7 +14,10 @@ function apiRequest(url, token, options) {
   return fetch(`${API_BASE_URL}/${url}`, requestOptions)
     .then(response => {
       if (response.status >= 400) {
-        throw new Error('Bad response from server');
+        return response.json()
+          .then(json => {
+            throw new Error(json.message);
+          });
       }
       return response.json();
     });
@@ -41,7 +45,7 @@ function createApi(endPoint) {
         method: 'PUT',
         body: JSON.stringify(body)
       };
-      return apiRequest(`${endPoint}/${body.id}`, token, options);
+      return apiRequest(`${endPoint}/${body._id}`, token, options);
     }
   };
   return api;

@@ -32,10 +32,7 @@ export function createReview(project, formData, auth) {
     // dispatch(createReviewRequest(payload));
     return api.create(payload, auth.token)
       .then(json => {
-        const data = Object.assign({}, payload, {
-          id: json.objectId, // POST request return only `objectId` and `createdAt` fields
-          createdAt: json.createdAt
-        });
+        const data = Object.assign({}, json);
         dispatch(crud.createItemSuccess('review', data));
         const path = `/projects/${project.id}/reviews/`;
         dispatch(pushPath(path));
@@ -59,9 +56,7 @@ export function updateReview(formData, auth) {
     // dispatch(updateReviewRequest(payload));
     return api.update(payload, auth.token)
       .then(json => {
-        const data = Object.assign({}, payload, {
-          updatedAt: json.updatedAt // PUT requests return only `updatedAt` field
-        });
+        const data = Object.assign({}, json);
         dispatch(crud.updateItemSuccess('review', data));
         const path = `/projects/${formData.project}/reviews/`;
         dispatch(pushPath(path));

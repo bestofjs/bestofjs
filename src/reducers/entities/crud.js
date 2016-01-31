@@ -4,9 +4,9 @@ export default function createReducer(model) {
     case `FETCH_${model.toUpperCase()}S_SUCCESS`:
       const state1 = Object.assign({}, state);
       action.payload.results.forEach(result => {
-        const key = result.objectId;
+        const key = result._id;
         const item = Object.assign({}, result, {
-          id: key
+          _id: key
         });
         state1[key] = item;
       });
@@ -14,10 +14,10 @@ export default function createReducer(model) {
     case `CREATE_${model.toUpperCase()}_SUCCESS`:
       const item = action.payload;
       return Object.assign({}, state, {
-        [item.id]: item
+        [item._id]: item
       });
     case `UPDATE_${model.toUpperCase()}_SUCCESS`:
-      const id = action.payload.id;
+      const id = action.payload._id;
       return Object.assign({}, state, {
         [id]: Object.assign({}, state[id], action.payload)
       });

@@ -17,6 +17,7 @@ export default function (state = {}, action) {
   case 'UPDATE_REVIEW_SUCCESS':
     return addReviewIdsToProjects(state, [action.payload]);
   case 'CREATE_LINK_SUCCESS':
+  case 'UPDATE_LINK_SUCCESS':
     return addLinkIdsToProjects(state, [action.payload]);
   default:
     return state;
@@ -28,13 +29,15 @@ export default function (state = {}, action) {
 function addLinkIdsToProjects(projects0, links) {
   let projects1 = Object.assign({}, projects0);
   links.forEach(link => {
-    const id = link.id || link.objectId;
+    const id = link._id;
     const projectIds = link.projects; // get the array of project ids
     projectIds.forEach(projectId => {
       const project = projects1[projectId];
       if (project) {
         const links0 = project.links;
-        const links1 = links0 ? [id, ...links0] : [id]; // update the link id array or create it
+        const links1 = links0 ? (
+          addUniqueLink(links0, id)
+        ) : [id]; // update the link id array or create it if it does not exist
         project.links = links1;
         projects1 = Object.assign({}, projects1, { projectId: project });
       } else {
@@ -48,12 +51,12 @@ function addLinkIdsToProjects(projects0, links) {
 function addReviewIdsToProjects(projects0, reviews) {
   let projects1 = Object.assign({}, projects0);
   reviews.forEach(review => {
-    const id = review.id || review.objectId;
+    const id = review._id;
     const projectId = review.project;
     const project = projects1[projectId];
     if (project) {
       const reviews0 = project.reviews;
-      const reviews1 = reviews0 ? [id, ...reviews0] : [id]; // update the link id array or create it
+      const reviews1 = reviews0 ? addUniqueLink(reviews0, id) : [id]; // update the link id array or create it
       project.reviews = reviews1;
       projects1 = Object.assign({}, projects1, { projectId: project });
     } else {
@@ -61,4 +64,8 @@ function addReviewIdsToProjects(projects0, reviews) {
     }
   });
   return projects1;
+}
+
+function addUniqueLink(ids, id) {
+  return ids.indexOf(id) > -1 ? ids : [id, ...ids];
 }

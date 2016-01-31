@@ -49,7 +49,7 @@ const List = React.createClass({
               <ProjectLink
                 project={ project }
                 link={ link }
-                key={ link.id }
+                key={ link._id }
                 editable={auth.username === link.createdBy}
               />
             )}

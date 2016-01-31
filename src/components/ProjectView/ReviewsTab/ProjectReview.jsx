@@ -27,7 +27,7 @@ const ProjectReview = React.createClass({
         <Header
           item={ review }
           editable={ editable }
-          editLinkTo={ `/projects/${review.project}/reviews/${review.id}/edit` }
+          editLinkTo={ `/projects/${review.project}/reviews/${review._id}/edit` }
         />
         <div className="score-bar readonly">
           {[1, 2, 3, 4, 5].map(i =>

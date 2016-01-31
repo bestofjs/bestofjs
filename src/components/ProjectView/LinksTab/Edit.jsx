@@ -8,10 +8,10 @@ const EditLink = React.createClass({
     project: PropTypes.object,
   },
   submitEdit(project, auth) {
-    const linkId = this.props.link.id;
+    const linkId = this.props.link._id;
     return function (values, dispatch) {
       const payload = Object.assign({}, values, {
-        id: linkId
+        _id: linkId
       });
       return dispatch(updateLink(project, payload, auth));
     };

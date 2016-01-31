@@ -54,7 +54,7 @@ const List = React.createClass({
             <p>Average rating: {project.averageRating.toFixed(1)} / 5</p>
             {reviews.map(review =>
               <ProjectReview
-                key={ review.id }
+                key={ review._id }
                 review={ review }
                 editable={auth.username === review.createdBy}
               />
