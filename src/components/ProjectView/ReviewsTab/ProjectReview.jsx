@@ -1,4 +1,5 @@
 import React, { PropTypes } from 'react';
+import marked from 'marked';
 
 import Header from '../ItemHeader';
 
@@ -13,11 +14,7 @@ const ProjectReview = React.createClass({
       return (<span className="empty-value">(No comment)</span>);
     }
     return (
-      <span>
-        &ldquo;{' '}
-        { comment }
-        {' '}&rdquo;
-      </span>
+      <div dangerouslySetInnerHTML={{ __html: marked(comment) }} />
     );
   },
   render() {
@@ -38,7 +35,7 @@ const ProjectReview = React.createClass({
             </span>
           )}
         </div>
-        <div>
+        <div className="project-item-comment">
           {this.renderComment(review.comment)}
         </div>
       </div>

@@ -1,10 +1,19 @@
 import React, { PropTypes } from 'react';
+import marked from 'marked';
 
 import Header from '../ItemHeader';
 
 const ProjectLink = React.createClass({
   propTypes: {
     link: PropTypes.object.isRequired
+  },
+  renderComment(comment) {
+    if (!comment || comment.trim() === '') {
+      return (<span className="empty-value">(No comment)</span>);
+    }
+    return (
+      <div dangerouslySetInnerHTML={{ __html: marked(comment) }} />
+    );
   },
   render() {
     const { link, project, editable } = this.props;
@@ -20,6 +29,9 @@ const ProjectLink = React.createClass({
           {' '}
           { link.title }
         </a>
+        <div className="project-item-comment" style={{ marginTop: '0.5em' }}>
+          {this.renderComment(link.comment)}
+        </div>
       </div>
     );
   }

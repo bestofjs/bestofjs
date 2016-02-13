@@ -1,5 +1,6 @@
-// const API_BASE_URL = 'https://webtask.it.auth0.com/api/run/wt-mikeair-gmail_com-0/8df41e6c061eb057d6dfe22c85815057';
-const API_BASE_URL = 'http://localhost:3000';
+import getApi from '../../config/api';
+// const API_BASE_URL = 'http://localhost:3000';
+const API_BASE_URL = getApi('USER_CONTENT');
 
 function apiRequest(url, token, options) {
   const defaultOptions = {

@@ -11,6 +11,7 @@ module.exports = function () {
     'es6-promise',
     'axios',
     'redux-form',
+    'marked',
 
     'scroll-behavior/lib/useScrollToTop',
 
