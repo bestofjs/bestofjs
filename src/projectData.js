@@ -2,8 +2,8 @@ import request from 'axios';
 
 import api from '../config/api';
 import * as helpers from './helpers/projectHelpers';
-import getProjectId from './helpers/getProjectId';
-import loading from './helpers/loading';
+// import getProjectId from './helpers/getProjectId';
+// import loading from './helpers/loading';
 
 // Called by `entry.jsx` to fetch initial data (project and tag lists)
 // from a static JSON file served by a CDN
@@ -11,7 +11,7 @@ import loading from './helpers/loading';
 export function getInitialData(profile) {
   return checkLocalData()
     .then(json => {
-      loading.hide();
+      // loading.hide();
       return Promise.resolve(json);
     })
     .catch(() => fetchInitialData())
@@ -50,7 +50,7 @@ export function getInitialState(data, profile) {
   // Format id and repository fields
   const allProjects = data.projects.map(item => ({
     repository: 'https://github.com/' + item.full_name,
-    id: item._id, //getProjectId(item),
+    id: item._id, // getProjectId(item),
     tags: item.tags,
     deltas: item.deltas,
     description: item.description,

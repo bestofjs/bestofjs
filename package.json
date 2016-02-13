@@ -6,7 +6,7 @@
   "scripts": {
     "lint": "eslint src --ext .js --ext .jsx",
     "test": "babel-tape-runner test/**/*Spec.js | faucet",
-    "test-debug": "babel-tape-runner test/**/*Spec.js",
+    "test-debug": "babel-tape-runner test/**/ProjectPageSpec.js",
     "mocha": "mocha test/mocha-basic-test.js --compilers js:babel-register",
     "start": "webpack-dev-server --config config/webpack.local.config.js --content-base www --hot",
     "build": "webpack -p --config config/webpack.production.config.js",

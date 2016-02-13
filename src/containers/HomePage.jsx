@@ -42,11 +42,11 @@ function mapStateToProps(state) {
 
   const hotProjects = hotProjectIds
     .map(id => projects[id])
-    .slice(0, 2)
+    .slice(0, 20) // display only the 20 hottest projects
     .map(populate(tags, links));
   const popularProjects = popularProjectIds
     .map(id => projects[id])
-    .slice(0, 2)
+    .slice(0, 20) // display the "TOP20"
     .map(populate(tags, links));
 
   return {
