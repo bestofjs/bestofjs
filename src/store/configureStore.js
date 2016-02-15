@@ -1,17 +1,21 @@
 import { createStore, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
 import createLogger from 'redux-logger';
+import { syncHistory } from 'react-router-redux';
+import { hashHistory } from 'react-router';
 
 import rootReducer from '../reducers';
 
 // Custom middlewares
 // import navigationMiddleware from './navigationMiddleware';
 // import trackingMiddleware from './trackingMiddleware';
+const reduxRouterMiddleware = syncHistory(hashHistory);
 
 const middlewares = [
   // applyMiddleware(navigationMiddleware),
   // applyMiddleware(trackingMiddleware),
-  applyMiddleware(thunk)
+  applyMiddleware(thunk),
+  applyMiddleware(reduxRouterMiddleware)
 ];
 if (process.env.NODE_ENV === 'development') {
   middlewares.push(

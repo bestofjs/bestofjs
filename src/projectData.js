@@ -3,7 +3,7 @@ import request from 'axios';
 import api from '../config/api';
 import * as helpers from './helpers/projectHelpers';
 // import getProjectId from './helpers/getProjectId';
-// import loading from './helpers/loading';
+import loading from './helpers/loading';
 
 // Called by `entry.jsx` to fetch initial data (project and tag lists)
 // from a static JSON file served by a CDN
@@ -11,7 +11,7 @@ import * as helpers from './helpers/projectHelpers';
 export function getInitialData(profile) {
   return checkLocalData()
     .then(json => {
-      // loading.hide();
+      if (typeof window !== 'undefined') loading.hide();
       return Promise.resolve(json);
     })
     .catch(() => fetchInitialData())

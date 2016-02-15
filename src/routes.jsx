@@ -2,6 +2,7 @@ import React from 'react';
 import { Route, IndexRoute, Redirect } from 'react-router';
 
 import App from './containers/App';
+// import App from './AppUI';
 import Home from './containers/HomePage';
 import About from './containers/AboutPage';
 import TagFilter from './containers/TagFilterPage';

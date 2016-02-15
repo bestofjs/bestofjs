@@ -5,15 +5,13 @@ import { connect } from 'react-redux';
 import * as actions from '../actions';
 import * as authActionCreators from '../actions/authActions';
 
-import Sidebar from '../components/sidebar/Sidebar';
-import Header from '../components/layout/Header';
-import Footer from '../components/layout/Footer';
+// import AppUI from '../components/layout/AppUI';
+import Wrapper from '../components/layout/Layout';
+//const Wrapper = require('../components/layout/Layout');
+//const Wrapper = require('../components/layout/' + (typeof window === 'undefined' ? 'Layout' : 'AppUI'));
 
 import getStaticContent from '../staticContent';
-import menu from '../helpers/menu';
 import log from '../helpers/log';
-
-require('../../node_modules/react-select/dist/react-select.css');
 
 // Return the current tag id (if current path is /tags/:id) or '*'
 function getCurrentTagId(state) {
@@ -23,56 +21,14 @@ function getCurrentTagId(state) {
   return '*';
 }
 
-// require *.styl intructions have been moved from components to the App.jsx container
-// to be able to run tests with node.js
-
-function hideSplashScreen() {
-  const elements = document.querySelectorAll('.nojs');
-  Array.prototype.forEach.call(elements, (el) => el.classList.remove('nojs'));
-
-  // Add the stylesheets to overwrite inline styles defined in index.html
-  require('../stylesheets/main.styl');
-}
 const App = React.createClass({
-
-  componentWillMount() {
-    hideSplashScreen();
-    // this.props.authActions.init();
-  },
-  componentDidMount() {
-    menu.start();
-  },
-
   render() {
-    log('Render the <App> container', this.props, this.state);
+    log('Render the <App> container', this.props.serverSide);
     const { children, allTags, popularTags, lastUpdate, staticContent, textFilter, currentTagId, auth, authActions } = this.props;
     return (
-      <div id="layout">
-
-        <Sidebar
-          allTags={ allTags}
-          popularTags={ popularTags}
-          selectedTag={ currentTagId }
-          auth={ auth }
-          authActions={ authActions }
-        />
-
-        <main id="panel">
-
-          <Header
-            searchText={ textFilter }
-          />
-
-          { children }
-
-          <Footer
-            staticContent={ staticContent }
-            lastUpdate={ lastUpdate }
-          />
-
-        </main>
-
-      </div>
+      <Wrapper {...this.props}>
+        {children}
+      </Wrapper>
     );
   }
 

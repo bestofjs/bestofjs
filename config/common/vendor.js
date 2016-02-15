@@ -5,7 +5,7 @@ module.exports = function () {
     'react-router',
     'redux',
     'react-redux',
-    'redux-simple-router',
+    'react-router-redux',
     'redux-thunk',
     'history',
     'es6-promise',

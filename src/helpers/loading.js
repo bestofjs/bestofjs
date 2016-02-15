@@ -1,7 +1,7 @@
 // Helper used to show/hide the loading bar
 
 import axios from 'axios';
-const loading = window.topbar;
+const loading = typeof window !== 'undefined' && window.topbar;
 
 export default ({
   // init method is called by entry.jsx to setup "interceptors"

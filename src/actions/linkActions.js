@@ -1,4 +1,4 @@
-import { pushPath } from 'redux-simple-router';
+import { pushPath } from 'react-router-redux';
 
 import createApi from '../api/userContent';
 import * as crud from './crudActions';

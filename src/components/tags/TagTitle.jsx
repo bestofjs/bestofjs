@@ -1,7 +1,7 @@
 import React from 'react';
 import { IndexLink } from 'react-router';
 
-require('../../stylesheets/tag.styl');
+// require('../../stylesheets/tag.styl');
 
 const TagTitle = React.createClass({
   render() {

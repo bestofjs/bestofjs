@@ -3,9 +3,10 @@ import { render } from 'react-dom';
 import { Router } from 'react-router';
 import { Provider } from 'react-redux';
 import createHistory from 'history/lib/createHashHistory';
-import { syncReduxAndRouter } from 'redux-simple-router';
+import { syncReduxAndRouter } from 'react-router-redux';
 import useScroll from 'scroll-behavior/lib/useScrollToTop';
 
+import Root from './Root'
 import configureStore from './store/configureStore';
 import Routes from './routes';
 
@@ -23,6 +24,8 @@ import { fetchAllLinks } from './actions/linkActions';
 // Set up the http request interceptor used to display the "loading bar"
 loading.init();
 
+require('./stylesheets/main.styl');
+
 window.auth0 = new window.Auth0({
   domain: 'bestofjs.auth0.com',
   clientID: 'MJjUkmsoTaPHvp7sQOUjyFYOm2iI3chx',
@@ -30,7 +33,8 @@ window.auth0 = new window.Auth0({
   callbackOnLocationHash: true
 });
 
-getToken()
+startRedux();
+if (false) getToken()
   .then(token => getProfile(token))
   .then(profile => getInitialData(profile))
   .then(json => startRedux(json))
@@ -39,24 +43,19 @@ getToken()
 // Launch the Redux application once we get data
 function startRedux(state) {
   console.info('Start the Redux app', state);
-  const store = configureStore(state);
-  //store.dispatch(getLinksSuccess(links));
-  // store.dispatch(getReviewsSuccess(reviews));
-  store.dispatch(fetchAllReviews());
-  store.dispatch(fetchAllLinks());
+  // const store = configureStore(state);
+
+  // store.dispatch(fetchAllReviews());
+  // store.dispatch(fetchAllLinks());
 
   // Disable key=_123456 parameter add automatically when using the hash history.
   // const history = createHistory({ queryKey: false });
-  const history = useScroll(createHistory)({ queryKey: false });
+  // const history = useScroll(createHistory)({ queryKey: false });
 
-  syncReduxAndRouter(history, store);
+  // syncReduxAndRouter(history, store);
 
   render(
-    <Provider store={ store }>
-      <Router history={ history }>
-        { Routes() }
-      </Router>
-    </Provider>,
+    <Root />,
     window.document.getElementById('app')
   );
 }

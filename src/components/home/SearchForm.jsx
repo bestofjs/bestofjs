@@ -1,9 +1,8 @@
 import React from 'react';
-import { History } from 'react-router';
+import { hashHistory } from 'react-router';
 import debounce from 'lodash/function/debounce';
 
 const SearchForm = React.createClass({
-  mixins: [History],
   getInitialState() {
     return {
       text: this.props.searchText
@@ -21,9 +20,9 @@ const SearchForm = React.createClass({
   },
   emitChange(text) {
     if (text) {
-      this.history.pushState(null, `/search/${text}`);
+      hashHistory.pushState(null, `/search/${text}`);
     } else {
-      this.history.pushState(null, '/');
+      hashHistory.pushState(null, '/');
     }
     // console.log('SearchForm emitChange', text);
   },

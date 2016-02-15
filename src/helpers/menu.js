@@ -1,5 +1,5 @@
-import Slideout from 'slideout';
-
+//import Slideout from 'slideout';
+var Slideout = require('slideout');
 // A helper to get an array from a "node list" object
 function $$(selector, ctx) {
   const context = ctx || document;
