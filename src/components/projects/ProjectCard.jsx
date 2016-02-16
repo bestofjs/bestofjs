@@ -35,60 +35,45 @@ const ProjectCard = React.createClass({
     const { project, index, isLoggedin } = this.props;
     const path = `/projects/${project.id}`;
 
-    const style = {
-      starsBar: {
-        width: (project.stars * 100 / this.props.maxStars).toFixed() + '%'
-      }
-    };
-
     return (
       <div className="project-card">
-        { false && this.props.maxStars && (
-          <div className="stars-bar" style={ style.starsBar } />
-        )}
         <Link
           to={ path }
           className="card-block"
         >
-        <header>
-          <div className="ranking">
-            { index + 1 }
-          </div>
+          <header>
+            <div className="ranking">
+              { index + 1 }
+            </div>
 
-          <div className="big-numbers">
-            { this.props.showStars && (
-              <div className="total">
-                <Stars
-                  value={ project.stars }
-                  icon
-                />
-              </div>
-            ) }
+            <div className="big-numbers">
+              { this.props.showStars && (
+                <div className="total">
+                  <Stars
+                    value={ project.stars }
+                    icon
+                  />
+                </div>
+              ) }
 
-            { this.props.showDelta && project.deltas.length > 0 && (
-              <div className="delta">
-                <Delta
-                  value={ project.deltas[0] }
-                  big
-                  icon
-                />
-              </div>
-            ) }
+              { this.props.showDelta && project.deltas.length > 0 && (
+                <div className="delta">
+                  <Delta
+                    value={ project.deltas[0] }
+                    big
+                    icon
+                  />
+                </div>
+              ) }
 
-          </div>
+            </div>
 
-          <div
-            className="title"
-          >
-            { project.name }
-          </div>
-        </header>
-
-          { false && this.props.showURL && project.url && (
-            <a className="url" href={ project.url }>
-              { project.url }
-            </a>
-          )}
+            <div
+              className="title"
+            >
+              { project.name }
+            </div>
+          </header>
 
           { this.props.showDescription && (
             <section>
@@ -96,16 +81,15 @@ const ProjectCard = React.createClass({
             </section>
           )}
 
-          </Link>
+        </Link>
 
-          { this.props.showTags && (
-            <section className="tags-section">
-              { project.tags.map(tag =>
-                <TagLabel tag={ tag } key={ project.id + tag.id } />
-              ) }
-            </section>
-          )}
-
+        { this.props.showTags && (
+          <section className="tags-section">
+            { project.tags.map(tag =>
+              <TagLabel tag={ tag } key={ project.id + tag.id } />
+            ) }
+          </section>
+        )}
 
         {project.reviews &&
           <Link
@@ -125,19 +109,14 @@ const ProjectCard = React.createClass({
           </Link>
         }
 
-        <div className="inner github" style={{ borderTop: '1px solid #cbcbcb', paddingBottom: 0 }}>
-          {false && <header style={{ marginBottom: '0.5em' }}>On Github</header>}
+        <div className="inner github">
           <div className="last-commit">
             <span className="octicon octicon-git-commit"></span>
             {' '}
             Last update: { fromNow(project.pushed_at) }
           </div>
-          <div>
             { project.deltas.length > 0 && <DeltaBar data={ project.deltas.slice(0, 7) } />}
-          </div>
         </div>
-
-
       </div>
     );
   }

@@ -7,7 +7,7 @@ const DeltaBar = React.createClass({
     const deltas = this.props.data;
     return (
       <div>
-        <p style={{ margin: '0.5em 0' }}>
+        <p className="star-added">
           <span className="octicon octicon-calendar"></span>{' '}
           { deltas.length === 1 ? (
             'Stars added yesterday:'
@@ -18,7 +18,7 @@ const DeltaBar = React.createClass({
         </p>
         <div className="delta-bar-container">
         { deltas.map((item, i) =>
-          <DeltaBar.Item value={ item } key={ i } />
+          <Delta key={ i } value={ item } />
         ) }
         </div>
     </div>
@@ -26,21 +26,4 @@ const DeltaBar = React.createClass({
   }
 
 });
-
-DeltaBar.Item = React.createClass({
-
-  render() {
-    const style = {
-      width: 'auto',
-      display: 'block',
-      flex: '1'
-    };
-    return (
-      <div style={ style }>
-        <Delta value={ this.props.value } />
-      </div>
-    );
-  }
-});
-
 module.exports = DeltaBar;
