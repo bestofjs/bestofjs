@@ -25,7 +25,7 @@ const ProjectList = React.createClass({
             { ...this.props }
             project={ project }
             maxStars={ this.props.maxStars }
-            key={ project.id }
+            key={ index }
             index={ index }
           />)
         }
