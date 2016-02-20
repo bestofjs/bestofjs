@@ -8,7 +8,7 @@ import { Provider } from 'react-redux';
 
 import App from '../src/containers/App';
 import rootReducer from '../src/reducers';
-import Routes from '../src/routes';
+import getRoutes from '../src/routes';
 
 // Data
 import data from '../test/data/projects';
@@ -18,7 +18,6 @@ export default function renderHtml(cb) {
   // Create a new Redux store instance
   console.log('Start server rendering');
   const state = getInitialState(data);
-  console.log(state);
   const store = createStore(rootReducer, state);
 
   // Grab the initial state from our Redux store
@@ -26,8 +25,7 @@ export default function renderHtml(cb) {
   let html = '';
 
   // const history = useRouterHistory(createHashHistory)({ queryKey: false });
-  match({ routes: Routes(), location: '/' }, (error, redirectLocation, renderProps) => {
-    console.log('Rendering', error, renderProps);
+  match({ routes: getRoutes(3), location: '/' }, (error, redirectLocation, renderProps) => {
     html = renderToString(
       <Provider store={store}>
         <RouterContext {...renderProps} />
@@ -77,7 +75,7 @@ function renderFullPage(html, initialState) {
           loadCSS('https://cdnjs.cloudflare.com/ajax/libs/octicons/3.1.0/octicons.min.css');
         </script>
         <script>
-          window.__INITIAL_STATE__ = ${JSON.stringify(initialState)}
+          window.bestofjs = { projects: ${JSON.stringify(data)} };
         </script>
         <script src="http://cdn.auth0.com/w2/auth0-6.7.js"></script>
         <script src="build/bundle-vendor.js"></script>

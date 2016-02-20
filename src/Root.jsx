@@ -6,10 +6,12 @@ import { syncReduxAndRouter } from 'react-router-redux';
 import useScroll from 'scroll-behavior/lib/useScrollToTop';
 
 import configureStore from './store/configureStore';
-import Routes from './routes';
+import getRoutes from './routes';
+import { getInitialState } from './projectData';
 
 // Grab the state from a global injected into server-generated HTML
-const state = window.__INITIAL_STATE__;
+//const state = window.__INITIAL_STATE__;
+const state = getInitialState(window.bestofjs.projects);
 const store = configureStore(state);
 
 // Disable key=_123456 parameter add automatically when using the hash history.
@@ -42,7 +44,7 @@ const Root = React.createClass({
     return (
       <Provider store={ store }>
         <Router history={ hashHistory }>
-          { Routes() }
+          { getRoutes(10) }
         </Router>
       </Provider>
     );

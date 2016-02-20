@@ -5,6 +5,7 @@ import Home from '../components/home/Home';
 import populate from '../helpers/populate';
 import log from '../helpers/log';
 
+
 const HomePage = React.createClass({
   shouldComponentUpdate() {
     return true;
@@ -21,10 +22,14 @@ const HomePage = React.createClass({
       />
     );
   }
-
 });
 
-function mapStateToProps(state) {
+function finalMapStateToProps(count) {
+  return function (state) {
+    return mapStateToProps(state, count);
+  };
+}
+function mapStateToProps(state, count) {
   const {
     entities: {
       projects,
@@ -42,11 +47,11 @@ function mapStateToProps(state) {
 
   const hotProjects = hotProjectIds
     .map(id => projects[id])
-    .slice(0, 1) // display only the 20 hottest projects
+    .slice(0, count) // display only the 20 hottest projects
     .map(populate(tags, links));
   const popularProjects = popularProjectIds
     .map(id => projects[id])
-    .slice(0, 1) // display the "TOP20"
+    .slice(0, count) // display the "TOP20"
     .map(populate(tags, links));
 
   return {
@@ -55,6 +60,6 @@ function mapStateToProps(state) {
     isLoggedin: username !== ''
   };
 }
-
-export default connect(mapStateToProps, {
-})(HomePage);
+export default function (count = 10) {
+  return connect(finalMapStateToProps(count), {})(HomePage);
+}
