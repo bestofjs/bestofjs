@@ -25,6 +25,7 @@ import { fetchAllLinks } from './actions/linkActions';
 loading.init();
 
 require('./stylesheets/main.styl');
+require('../node_modules/react-select/dist/react-select.css');
 
 window.auth0 = new window.Auth0({
   domain: 'bestofjs.auth0.com',

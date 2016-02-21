@@ -1,42 +1,51 @@
-var webpack = require('webpack');
-var getVendorModules = require('./common/vendor');
-var getCommonPlugins = require('./common/plugins');
+const webpack = require('webpack');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
-//filepath used in `output` and `plugins`
-var filepath = './www/build/';
+const getCommonPlugins = require('./common/plugins');
 
-var envPlugin = new webpack.DefinePlugin({
+// filepath used in `output` and `plugins`
+const filepath = './www/build/';
+
+const envPlugin = new webpack.DefinePlugin({
   'process.env': {
     'NODE_ENV': JSON.stringify('production')
-   }
+  }
 });
-var plugins = getCommonPlugins(filepath).slice();
+const plugins = [];
 plugins.push(envPlugin);
 
-module.exports = {
+// ExtractTextPlugin used to generate a separate CSS file, in production only.
+// documentation: http://webpack.github.io/docs/stylesheets.html
+plugins.push(new ExtractTextPlugin('./www/build/[name].css'));
 
-  entry:  {
-    app: "./src/entry.jsx",
-    vendor: getVendorModules()
+plugins.push(new webpack.optimize.UglifyJsPlugin({
+  compress: {
+    warnings: false
+  }
+}));
+
+module.exports = {
+  entry: {
+    app: './src/entry.jsx'
   },
 
   output: {
-    //path: __dirname + "/build/",
-    filename: filepath + "bundle-[name].js"
+    // path: __dirname + "/build/",
+    filename: filepath + 'bundle-[name].js'
   },
 
   module: {
     loaders: [
-      { test: /\.jsx?$/, exclude: /node_modules/, loader: "babel"},
-      { test: /\.styl$/, loader: 'style-loader!css-loader!stylus-loader' }, // use ! to chain loaders
-      { test: /\.css$/, loader: 'style-loader!css-loader' },
+      { test: /\.jsx?$/, exclude: /node_modules/, loader: 'babel' },
+      { test: /\.styl$/, loader: ExtractTextPlugin.extract('style-loader', 'css-loader!stylus-loader') }, // use ! to chain loaders
+      { test: /\.css$/, loader: ExtractTextPlugin.extract('style-loader', 'css-loader') },
     ]
   },
 
-  plugins: plugins,
+  plugins,
 
   // Automatically transform files with these extensions
   resolve: {
-    extensions: ['', '.js', '.jsx', '.coffee']
+    extensions: ['', '.js', '.jsx']
   }
 };

@@ -2,14 +2,19 @@ import { createStore, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
 import createLogger from 'redux-logger';
 import { syncHistory } from 'react-router-redux';
-import { hashHistory } from 'react-router';
+import { useRouterHistory } from 'react-router';
+import { createHashHistory } from 'history';
+import useScroll from 'scroll-behavior/lib/useScrollToTop';
 
 import rootReducer from '../reducers';
 
 // Custom middlewares
 // import navigationMiddleware from './navigationMiddleware';
 // import trackingMiddleware from './trackingMiddleware';
-const reduxRouterMiddleware = syncHistory(hashHistory);
+
+const history = useScroll(useRouterHistory(createHashHistory))({ queryKey: false });
+
+const reduxRouterMiddleware = syncHistory(history);
 
 const middlewares = [
   // applyMiddleware(navigationMiddleware),
