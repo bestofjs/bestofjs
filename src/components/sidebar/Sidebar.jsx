@@ -9,7 +9,7 @@ const Sidebar = React.createClass({
   render() {
     const { allTags, popularTags, auth, authActions } = this.props;
     return (
-      <nav id="menu">
+      <nav id="menu" className="slideout-menu">
         <div className="ui vertical menu">
           <div className="item">
             { auth.username ? (

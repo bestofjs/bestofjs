@@ -17,7 +17,7 @@ const Layout = (props) => {
         authActions={ authActions }
       />
 
-      <main id="panel">
+      <main id="panel" className="slideout-panel">
 
         <Header
           searchText={ textFilter }
