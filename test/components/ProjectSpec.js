@@ -3,6 +3,12 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import TestUtils from 'react-addons-test-utils';
 
+import {
+  mount,
+  render,
+  shallow
+} from 'enzyme';
+
 import { getAllTags, getTag, getAllComponents, getComponent } from '../utils';
 import setup from '../setup.js';
 import populate from '../../src/helpers/populate';
@@ -32,7 +38,7 @@ console.log('Project to check', project);
 project = populate(tags)(project);
 
 test('Check <Project> component', (assert) => {
-  const component = TestUtils.renderIntoDocument(
+  const component = shallow(
     <Project
       project = { project }
       actions = { actions }
@@ -41,10 +47,9 @@ test('Check <Project> component', (assert) => {
 
   assert.ok(component, `The component should exist.`);
 
-  const header = getTag(component, 'header');
-  const headerNode = ReactDOM.findDOMNode(header);
+  const header = component.find('header');
   const title = project.name;
-  assert.ok(headerNode.innerHTML.indexOf(title) > -1, `Project name '${title}' should be displayed in the header`);
+  assert.ok(header.html().indexOf(title) > -1, `Project name '${title}' should be displayed in the header`);
 
   assert.end();
 });

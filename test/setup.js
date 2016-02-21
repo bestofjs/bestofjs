@@ -3,7 +3,7 @@ var jsdom = require('jsdom');
 // Function to be run once before all tests.
 
 function init() {
-
+  process.env.NODE_ENV = 'test';
   if (global.window) {
     console.log('((( window object already initialized )))');
     return;

@@ -17,7 +17,6 @@ import menu from './helpers/menu';
 
 const Root = React.createClass({
   componentDidMount() {
-    console.info('Menu start!');
     menu.start();
   },
   render() {

@@ -18,15 +18,20 @@ const ProjectList = React.createClass({
   },
 
   render() {
+    console.log('Render project list', this.props.projects.length);
     return (
       <div>
         {this.props.projects.map((project, index) =>
           <ProjectCard
-            { ...this.props }
             project={ project }
             maxStars={ this.props.maxStars }
             key={ index }
             index={ index }
+            showTags={ this.props.showTags }
+            showDescription={ this.props.showDescription }
+            showStars={ this.props.showStars }
+            showDelta={ this.props.showDelta}
+            showURL={ this.props.showURL }
           />)
         }
       </div>
