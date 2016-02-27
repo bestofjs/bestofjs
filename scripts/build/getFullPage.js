@@ -1,4 +1,4 @@
-export default function (appHtml, data, dev) {
+module.exports = function (dev, appHtml) {
   return (`
     <!doctype html>
     <html>
@@ -13,16 +13,15 @@ export default function (appHtml, data, dev) {
         ${dev ? '<!-- No external stylesheet in dev mode -->' : '<link rel="stylesheet" href="build/app.css">'}
       </head>
       <body>
-        <div id="app"><div>${appHtml}</div></div>
+        <div id="app">
+          ${dev ? '' : `<div>${appHtml}</div>`}
+        </div>
         <!-- Async load cross-site CSS, mostly interesting for production -->
         <script>
           window.bestofjs = {};
           function loadCSS(e,t,n){"use strict";var i=window.document.createElement("link");var o=t||window.document.getElementsByTagName("script")[0];i.rel="stylesheet";i.href=e;i.media="only x";o.parentNode.insertBefore(i,o);setTimeout(function(){i.media=n||"all"})}
           loadCSS('https://fonts.googleapis.com/css?family=Roboto:400,300,500');
           loadCSS('https://cdnjs.cloudflare.com/ajax/libs/octicons/3.1.0/octicons.min.css');
-        </script>
-        <script>
-          window.bestofjs = { projects: ${JSON.stringify(data)} };
         </script>
         <script src="http://cdn.auth0.com/w2/auth0-6.7.js"></script>
         ${dev ? '<script src="build/bundle-vendor.js"></script>' : ''}

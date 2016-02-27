@@ -22,11 +22,7 @@ fetch(url)
     return renderApp(json)
       .then(html => {
         write(
-          getFullPage(html, json, true),
-          'dev.html'
-        );
-        write(
-          getFullPage(html, json, false),
+          getFullPage(false, html),
           'index.html'
         );
       });

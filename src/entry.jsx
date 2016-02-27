@@ -1,14 +1,16 @@
 import React from 'react';
 import { render } from 'react-dom';
-import { Router } from 'react-router';
-import { Provider } from 'react-redux';
-import createHistory from 'history/lib/createHashHistory';
-import { syncReduxAndRouter } from 'react-router-redux';
-import useScroll from 'scroll-behavior/lib/useScrollToTop';
+// import { Router } from 'react-router';
+// import { Provider } from 'react-redux';
+// import createHistory from 'history/lib/createHashHistory';
+// import { syncReduxAndRouter } from 'react-router-redux';
+// import useScroll from 'scroll-behavior/lib/useScrollToTop';
 
-import Root from './Root'
-import configureStore from './store/configureStore';
-import Routes from './routes';
+import Root from './Root';
+// import configureStore from './store/configureStore';
+// import Routes from './routes';
+
+import api from '../config/api';
 
 // Object.assign() polyfill for IE (used in the reducer)
 import './helpers/es6-polyfill.js';
@@ -21,8 +23,19 @@ import { fetchAllLinks } from './actions/linkActions';
 // import links from './mock/mockLinks';
 // import reviews from './mock/mockReviews';
 
+import { getInitialState } from './projectData';
+
 // Set up the http request interceptor used to display the "loading bar"
 loading.init();
+
+fetchData()
+  .then(data => {
+    const state = getInitialState(data);
+    startRedux(state);
+  });
+
+// Grab the state from a global injected into server-generated HTML
+
 
 require('./stylesheets/main.styl');
 require('../node_modules/react-select/dist/react-select.css');
@@ -34,7 +47,6 @@ window.auth0 = new window.Auth0({
   callbackOnLocationHash: true
 });
 
-startRedux();
 if (false) getToken()
   .then(token => getProfile(token))
   .then(profile => getInitialData(profile))
@@ -56,9 +68,29 @@ function startRedux(state) {
   // syncReduxAndRouter(history, store);
 
   render(
-    <Root />,
+    <Root initialState={state} />,
     window.document.getElementById('app')
   );
+}
+
+function fetchData() {
+  const isLocal = window.bestofjs && window.bestofjs.projects;
+  return false ? fetchLocalData() : fetchServerData();
+}
+
+function fetchLocalData() {
+  // read data from global `bestofjs` object
+  return Promise.resolve(window.bestofjs.projects);
+}
+
+function fetchServerData() {
+  const url = `${api('GET_PROJECTS')}projects.json`;
+  return fetch(url)
+    .then(response => response.json())
+    .then(json => new Promise(resolve => {
+      window.localStorage.setItem('bestofjs_projects', JSON.stringify(json));
+      resolve(json);
+    }));
 }
 
 

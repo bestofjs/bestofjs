@@ -12,7 +12,8 @@
     "build": "webpack -p --config config/webpack.production.config.js",
     "gh-pages": "node config/gh-pages-deploy",
     "firebase": "firebase deploy",
-    "deploy": "npm run minify && npm run build && npm run gh-pages",
+    "deploy-all": "npm run minify && npm run build && npm run gh-pages",
+    "deploy-html": "babel-node scripts/deploy/index.js",
     "minify": "html-minifier --remove-comments --minify-css --minify-js src/index.html > www/index.html",
     "html": "babel-node scripts/build/index.js"
   },
@@ -46,6 +47,7 @@
     "fs-extra": "^0.26.5",
     "history": "1.13.1",
     "html-minifier": "^1.0.0",
+    "html-webpack-plugin": "^2.9.0",
     "lodash": "^3.8.0",
     "marked": "^0.3.5",
     "node-fetch": "^1.3.3",

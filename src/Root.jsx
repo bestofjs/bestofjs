@@ -5,11 +5,6 @@ import { Provider } from 'react-redux';
 
 import configureStore from './store/configureStore';
 import getRoutes from './routes';
-import { getInitialState } from './projectData';
-
-// Grab the state from a global injected into server-generated HTML
-const state = getInitialState(window.bestofjs.projects);
-const store = configureStore(state);
 
 const history = useRouterHistory(createHashHistory)({ queryKey: false });
 
@@ -20,8 +15,10 @@ const Root = React.createClass({
     menu.start();
   },
   render() {
+    const initialState = this.props.initialState;
     // How many "hot" and "popular" projects to display in the home page rendered on the server ?
     const TOP_PROJECT_COUNT = 10;
+    const store = configureStore(initialState);
     return (
       <Provider store={ store }>
         <Router history={ history }>
