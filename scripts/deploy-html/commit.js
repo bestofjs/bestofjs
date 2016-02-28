@@ -9,6 +9,7 @@ function commit({
   content = `<p>Empty content, created at ${new Date()}</p>`,
   repo,
   branch,
+  message,
   token
 }) {
   const BASE_URL = `${GITHUB_BASE_URL}/repos/${repo}`;
@@ -77,7 +78,7 @@ function commit({
       body: JSON.stringify({
         parents: [initialCommitSha],
         tree: newTreeSha,
-        message: 'This is a test.'
+        message
       })
     };
     log('STEP 4: create a commit', initialCommitSha, newTreeSha);

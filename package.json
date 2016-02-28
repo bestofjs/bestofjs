@@ -11,12 +11,12 @@
     "build": "npm run build-html && npm run build-js",
     "start": "webpack-dev-server --config config/webpack.local.config.js --content-base www/ --hot",
       "build-js": "webpack -p --config config/webpack.production.config.js",
-    "gh-pages": "node config/gh-pages-deploy",
+    "gh-pages": "node scripts/deploy-gh-pages/",
     "firebase": "firebase deploy",
     "deploy-all": "npm run build && npm run gh-pages",
-    "daily-update": "npm run build-html && npm run deploy-html",
-      "build-html": "babel-node scripts/build/index.js",
-      "deploy-html": "babel-node scripts/deploy/index.js"
+    "daily": "npm run build-html && npm run deploy-html",
+      "build-html": "babel-node scripts/build/",
+      "deploy-html": "babel-node scripts/deploy-html/"
   },
   "repository": {
     "type": "git",
@@ -35,7 +35,6 @@
   "homepage": "http:bestof.js.org",
   "dependencies": {
     "axios": "^0.7.0",
-    "babel": "6.5.2",
     "babel-cli": "6.5.1",
     "babel-core": "6.5.2",
     "babel-loader": "6.2.4",

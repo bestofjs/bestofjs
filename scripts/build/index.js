@@ -8,7 +8,8 @@ import api from '../../config/api';
 import getFullPage from './getFullPage';
 import renderApp from './renderApp';
 
-process.env.NODE_ENV = 'development';
+// Get data from production API
+process.env.NODE_ENV = 'production';
 const url = api('GET_PROJECTS') + 'projects.json';
 
 fetch(url)

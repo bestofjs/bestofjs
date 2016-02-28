@@ -18,7 +18,7 @@ const ProjectList = React.createClass({
   },
 
   render() {
-    console.log('Render project list', this.props.projects.length);
+    // console.log('Render project list', this.props.projects.length);
     return (
       <div>
         {this.props.projects.map((project, index) =>

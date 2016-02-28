@@ -2,6 +2,8 @@ const fs = require('fs');
 require('dotenv').load();
 
 const commit = require('./commit');
+const debug = false;
+const commitMessage = debug ? 'Commit test' : 'Daily deploy';
 
 fs.readFile('www/index.html', 'utf8', (err, data) => {
   if (err) throw err;
@@ -13,7 +15,8 @@ function commitHtml(html) {
   commit({
     filepath: 'index.html',
     content: html,
-    repo: 'michaelrambeau/bestofjs-sandbox',
+    repo: `michaelrambeau/bestofjs${debug ? '-sandbox' : ''}`,
+    message: commitMessage,
     branch: 'gh-pages',
     token: process.env.GITHUB_ACCESS_TOKEN
   });

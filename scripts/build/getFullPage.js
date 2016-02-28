@@ -18,26 +18,17 @@ module.exports = function (dev, appHtml) {
   </head>
   <body>
     <div id="app">
-      ${dev ? '' : `<div>${appHtml}</div>`}
+      ${dev ? '' : `${appHtml}`}
     </div>
     <!-- Async load cross-site CSS, mostly interesting for production -->
     <script>
       window.bestofjs = {};
       function loadCSS(e,t,n){"use strict";var i=window.document.createElement("link");var o=t||window.document.getElementsByTagName("script")[0];i.rel="stylesheet";i.href=e;i.media="only x";o.parentNode.insertBefore(i,o);setTimeout(function(){i.media=n||"all"})}
-      function loadJS(src, cb) {
-          var self = this;
-          var s = document.createElement('script');
-          s.async = true;
-          s.src = src;
-          s.addEventListener('load', function (e) { cb(); }, false);
-          document.body.appendChild(s);
-      }
       loadCSS('https://fonts.googleapis.com/css?family=Roboto:400,300,500');
       loadCSS('https://cdnjs.cloudflare.com/ajax/libs/octicons/3.1.0/octicons.min.css');
     </script>
     ${dev ? '<script src="build/bundle-vendor.js"></script>' : ''}
     <script src="build/bundle-app.js"></script>
-    <script>loadJS('https://cdn.auth0.com/w2/auth0-6.7.min.js', function() { window.initAuth0(); });</script>
     ${dev ? '<!-- No analytics in dev -->' : getAnalytics() }
   </body>
 </html>
