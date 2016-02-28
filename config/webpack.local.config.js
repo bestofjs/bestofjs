@@ -3,7 +3,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 const getVendorModules = require('./common/vendor');
 const getCommonPlugins = require('./common/plugins');
-const getFullPage =require('../scripts/build/getFullPage');
+const getFullPage = require('../scripts/build/getFullPage');
 
 // filepath used in `output` and `plugins`
 const filepath = 'build/';
@@ -36,7 +36,7 @@ modules.push('redux-logger');// use redux-logger only in dev
 module.exports = {
   // Efficiently evaluate modules with source maps
   devtool: 'eval',
-  contentBase: '/www',
+
   entry: {
     app: [
       'webpack-dev-server/client?http://localhost:8080',
@@ -60,7 +60,7 @@ module.exports = {
       {
         test: /\.jsx?$/,
         exclude: /node_modules/,
-        loaders: ["react-hot", "babel"]
+        loaders: ['react-hot', 'babel']
       },
       { test: /\.styl$/, loader: 'style-loader!css-loader!stylus-loader' }, // use ! to chain loaders
       { test: /\.css$/, loader: 'style-loader!css-loader' },
@@ -71,6 +71,6 @@ module.exports = {
 
   // Automatically transform files with these extensions
   resolve: {
-    extensions: ['', '.js', '.jsx', '.coffee']
+    extensions: ['', '.js', '.jsx']
   }
 };

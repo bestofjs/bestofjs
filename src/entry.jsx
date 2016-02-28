@@ -17,11 +17,9 @@ import './helpers/es6-polyfill.js';
 import { getInitialData } from './projectData';
 import loading from './helpers/loading';
 
-// import { getLinksSuccess, getReviewsSuccess } from './actions';
 import { fetchAllReviews } from './actions/reviewActions';
 import { fetchAllLinks } from './actions/linkActions';
-// import links from './mock/mockLinks';
-// import reviews from './mock/mockReviews';
+
 
 import { getInitialState } from './projectData';
 
@@ -34,38 +32,33 @@ fetchData()
     startRedux(state);
   });
 
-// Grab the state from a global injected into server-generated HTML
-
 
 require('./stylesheets/main.styl');
 require('../node_modules/react-select/dist/react-select.css');
 
-window.auth0 = new window.Auth0({
-  domain: 'bestofjs.auth0.com',
-  clientID: 'MJjUkmsoTaPHvp7sQOUjyFYOm2iI3chx',
-  callbackURL: 'http://localhost:8080/#authenticated',
-  callbackOnLocationHash: true
-});
+// called from index.html when auth0.js has been loaded.
+window.initAuth0 = function () {
+  const loc = window.location;
+  window.auth0 = new window.Auth0({
+    domain: 'bestofjs.auth0.com',
+    clientID: 'MJjUkmsoTaPHvp7sQOUjyFYOm2iI3chx',
+    callbackURL: `${loc.protocol}//${loc.host}/#authenticated`,
+    callbackOnLocationHash: true
+  });
+};
 
 if (false) getToken()
   .then(token => getProfile(token))
-  .then(profile => getInitialData(profile))
-  .then(json => startRedux(json))
+  //.then(profile => getInitialData(profile))
+  //.then(json => startRedux(json))
   .catch(err => console.err('ERROR!!!', err.message));
 
 // Launch the Redux application once we get data
 function startRedux(state) {
   console.info('Start the Redux app', state);
   // const store = configureStore(state);
-
   // store.dispatch(fetchAllReviews());
   // store.dispatch(fetchAllLinks());
-
-  // Disable key=_123456 parameter add automatically when using the hash history.
-  // const history = createHistory({ queryKey: false });
-  // const history = useScroll(createHistory)({ queryKey: false });
-
-  // syncReduxAndRouter(history, store);
 
   render(
     <Root initialState={state} />,

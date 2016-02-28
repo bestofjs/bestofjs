@@ -38,9 +38,11 @@ const Tabs = React.createClass({
       },
     ];
     const { activePath, project } = this.props;
+    // Tabs are temporally disabled
+    // TODO remove `style={{ display: 'none' }}` and `tabs.slice...`
     return (
-      <div className="project-tabs-header">
-        { tabs.map(tab =>
+      <div className="project-tabs-header" style={{ display: 'none' }}>
+        { tabs.slice(0, 1).map(tab =>
           <div key={ tab.path } className={activePath === tab.path ? 'active' : ''}>
             { activePath === tab.path ? (
               this.renderTab(tab)

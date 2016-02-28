@@ -1,16 +1,15 @@
-// `npm run html` entry script
-// build 2 html files:
-// - www/index.html: to be deployed on production
-// - www/dev.html: for local tests (served by Webpack dev server)
+// `npm run build-html` entry script
+// Get project data from a static json file and build `www/index.html` file
 
 import fetch from 'node-fetch';
 import fs from 'fs-extra';
 
+import api from '../../config/api';
 import getFullPage from './getFullPage';
 import renderApp from './renderApp';
 
-process.env.NODE_ENV = 'production';
-const url = 'https://bestofjs-api-dev.firebaseapp.com/projects.json';
+process.env.NODE_ENV = 'development';
+const url = api('GET_PROJECTS') + 'projects.json';
 
 fetch(url)
   .then(response => {

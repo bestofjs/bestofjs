@@ -7,24 +7,22 @@ import * as authActionCreators from '../actions/authActions';
 
 // import AppUI from '../components/layout/AppUI';
 import Wrapper from '../components/layout/Layout';
-//const Wrapper = require('../components/layout/Layout');
-//const Wrapper = require('../components/layout/' + (typeof window === 'undefined' ? 'Layout' : 'AppUI'));
 
 import getStaticContent from '../staticContent';
 import log from '../helpers/log';
 
 // Return the current tag id (if current path is /tags/:id) or '*'
 function getCurrentTagId(state) {
-  const router = state.routing;
-  //const route = router.routes[1].path;
-  //return route === 'tags/:id' ? router.params.id : '*';
+  // const router = state.routing;
+  // const route = router.routes[1].path;
+  // return route === 'tags/:id' ? router.params.id : '*';
   return '*';
 }
 
 const App = React.createClass({
   render() {
     log('Render the <App> container', this.props.serverSide);
-    const { children, allTags, popularTags, lastUpdate, staticContent, textFilter, currentTagId, auth, authActions } = this.props;
+    const { children } = this.props;
     return (
       <Wrapper {...this.props}>
         {children}

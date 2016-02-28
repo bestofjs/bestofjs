@@ -6,16 +6,17 @@
   "scripts": {
     "lint": "eslint src --ext .js --ext .jsx",
     "test": "babel-tape-runner test/**/*Spec.js | faucet",
-    "test-debug": "babel-tape-runner test/**/ProjectSpec.js",
-    "mocha": "mocha test/mocha-basic-test.js --compilers js:babel-register",
-    "start": "webpack-dev-server --config config/webpack.local.config.js --content-base www --hot",
-    "build": "webpack -p --config config/webpack.production.config.js",
+      "test-debug": "babel-tape-runner test/**/ProjectSpec.js",
+    "clean": "rimraf www/index.html && rimraf www/build",
+    "build": "npm run build-html && npm run build-js",
+    "start": "webpack-dev-server --config config/webpack.local.config.js --content-base www/ --hot",
+      "build-js": "webpack -p --config config/webpack.production.config.js",
     "gh-pages": "node config/gh-pages-deploy",
     "firebase": "firebase deploy",
-    "deploy-all": "npm run minify && npm run build && npm run gh-pages",
-    "deploy-html": "babel-node scripts/deploy/index.js",
-    "minify": "html-minifier --remove-comments --minify-css --minify-js src/index.html > www/index.html",
-    "html": "babel-node scripts/build/index.js"
+    "deploy-all": "npm run build && npm run gh-pages",
+    "daily-update": "npm run build-html && npm run deploy-html",
+      "build-html": "babel-node scripts/build/index.js",
+      "deploy-html": "babel-node scripts/deploy/index.js"
   },
   "repository": {
     "type": "git",

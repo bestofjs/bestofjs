@@ -8,10 +8,11 @@ import AnonymousUser from './AnonymousUser';
 const Sidebar = React.createClass({
   render() {
     const { allTags, popularTags, auth, authActions } = this.props;
+    // TODO remove style display none
     return (
       <nav id="menu" className="slideout-menu">
         <div className="ui vertical menu">
-          <div className="item">
+          <div className="item" style={{ display: 'none' }}>
             { auth.username ? (
               <LoggedinUser
                 username={ auth.username }
