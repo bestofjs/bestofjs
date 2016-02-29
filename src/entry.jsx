@@ -1,5 +1,6 @@
 import React from 'react';
 import { render } from 'react-dom';
+import request from 'axios';
 // import { Router } from 'react-router';
 // import { Provider } from 'react-redux';
 // import createHistory from 'history/lib/createHashHistory';
@@ -78,8 +79,8 @@ function fetchLocalData() {
 
 function fetchServerData() {
   const url = `${api('GET_PROJECTS')}projects.json`;
-  return fetch(url)
-    .then(response => response.json())
+  return request(url)
+    .then(response => response.data)
     .then(json => new Promise(resolve => {
       window.localStorage.setItem('bestofjs_projects', JSON.stringify(json));
       resolve(json);

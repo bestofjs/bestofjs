@@ -1,5 +1,11 @@
 # Change log
 
+## 0.3.0-alpha - 2016-02-29
+* html page rendered server-side by `npm run daily` script, run every morning on CI
+* Layout adjustment
+* Use stateless components as much as possible
+* only one JavaScript file in production (merging `vendor` and `app` bundles)
+
 ## 0.2.5 - 2015-12-14
 * Redux optimization, use middleware for tracking and navigation side effects (scroll to top, close the side menu on mobiles), create `containers` connected to Redux state
 * Redirect to homepage for unknown URLs
