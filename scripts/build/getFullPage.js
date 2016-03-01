@@ -27,7 +27,6 @@ module.exports = function (dev, appHtml) {
       loadCSS('https://fonts.googleapis.com/css?family=Roboto:400,300,500');
       loadCSS('https://cdnjs.cloudflare.com/ajax/libs/octicons/3.1.0/octicons.min.css');
     </script>
-    ${dev ? '<script src="build/bundle-vendor.js"></script>' : ''}
     <script src="build/bundle-app.js"></script>
     ${dev ? '<!-- No analytics in dev -->' : getAnalytics() }
   </body>
