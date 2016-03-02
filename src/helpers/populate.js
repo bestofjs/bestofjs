@@ -22,7 +22,7 @@ export default function populate(tags, links, reviews) {
 }
 
 function getAverageRating(project, reviews) {
-  if (!reviews || !project.reviews) return;
+  if (!reviews || !project.reviews) return 0;
   const averageRating = (project.reviews
     .map(reviewId => reviews[reviewId].rating)
     .reduce((item0, item1) => item0 + item1)) / project.reviews.length;

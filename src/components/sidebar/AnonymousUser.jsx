@@ -10,7 +10,7 @@ const AnonymousUser = React.createClass({
     });
   },
   render() {
-    const { onLogin, pending } = this.props;
+    const { pending } = this.props;
     if (pending) return (
       <div>Loading...</div>
     );

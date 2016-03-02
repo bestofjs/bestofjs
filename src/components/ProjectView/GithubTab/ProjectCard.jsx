@@ -1,4 +1,4 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
 
 import Description from '../../common/utils/Description';
 import DeltaBar from '../../common/utils/DeltaBar';

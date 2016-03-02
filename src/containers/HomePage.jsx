@@ -11,7 +11,7 @@ const HomePage = React.createClass({
     return true;
   },
   render() {
-    // log('Render the <HomePage> container', this.props);
+    log('Render the <HomePage> container', this.props);
     const { hotProjects, popularProjects, isLoggedin } = this.props;
     return (
       <Home

@@ -15,11 +15,11 @@ import api from '../config/api';
 
 // Object.assign() polyfill for IE (used in the reducer)
 import './helpers/es6-polyfill.js';
-import { getInitialData } from './projectData';
+// import { getInitialData } from './projectData';
 import loading from './helpers/loading';
 
-import { fetchAllReviews } from './actions/reviewActions';
-import { fetchAllLinks } from './actions/linkActions';
+// import { fetchAllReviews } from './actions/reviewActions';
+// import { fetchAllLinks } from './actions/linkActions';
 
 
 import { getInitialState } from './projectData';
@@ -50,13 +50,12 @@ window.initAuth0 = function () {
 
 if (false) getToken()
   .then(token => getProfile(token))
-  //.then(profile => getInitialData(profile))
-  //.then(json => startRedux(json))
+  // .then(profile => getInitialData(profile))
+  // .then(json => startRedux(json))
   .catch(err => console.err('ERROR!!!', err.message));
 
 // Launch the Redux application once we get data
 function startRedux(state) {
-  console.info('Start the Redux app', state);
   // const store = configureStore(state);
   // store.dispatch(fetchAllReviews());
   // store.dispatch(fetchAllLinks());
@@ -69,7 +68,7 @@ function startRedux(state) {
 
 function fetchData() {
   const isLocal = window.bestofjs && window.bestofjs.projects;
-  return false ? fetchLocalData() : fetchServerData();
+  return isLocal ? fetchLocalData() : fetchServerData();
 }
 
 function fetchLocalData() {
@@ -90,9 +89,9 @@ function fetchServerData() {
 
 // Return UserProfile for a given `access_token`
 function getProfile(token) {
-  return new Promise((resolve, reject) => {
+  return new Promise((resolve) => {
     if (!token) return resolve(null);
-    auth0.getProfile(token, function (err, profile) {
+    window.auth0.getProfile(token, function (err, profile) {
       if (err) resolve(null);
       return resolve(profile);
     });

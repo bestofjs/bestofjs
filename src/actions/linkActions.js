@@ -38,7 +38,7 @@ export function createLink(project, formData, auth) {
         window.notie.alert(1, 'Thank you for the link!', 3);
       })
       .catch(err => {
-        window.notie.alert(3, `Sorry, we were unable to create the link. ${err.message}` , 3);
+        window.notie.alert(3, `Sorry, we were unable to create the link. ${err.message}`, 3);
         console.error('Impossible to create the link', err);
       });
   };

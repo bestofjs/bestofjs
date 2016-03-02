@@ -12,7 +12,7 @@ import getStaticContent from '../staticContent';
 import log from '../helpers/log';
 
 // Return the current tag id (if current path is /tags/:id) or '*'
-function getCurrentTagId(state) {
+function getCurrentTagId() {
   // const router = state.routing;
   // const route = router.routes[1].path;
   // return route === 'tags/:id' ? router.params.id : '*';
