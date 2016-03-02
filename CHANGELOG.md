@@ -1,5 +1,12 @@
 # Change log
 
+## 0.3.0-alpha - 2016-02-29
+* html page rendered server-side by `npm run daily` script, run every morning on CI
+* Layout adjustment
+* Use stateless components as much as possible
+* only one JavaScript file in production (merging `vendor` and `app` bundles)
+* use Autprefixer PostCSS plugin to add browser prefixes to CSS code.
+
 ## 0.2.6 - 2015-12-30
 * Cache README.md (only fetch it from Github if needed)
 * Fix issue #9

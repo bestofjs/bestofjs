@@ -1,13 +1,76 @@
 #star-button
   float right
 .btn
-  margin-left 10px
   color white
   background-color #e65100
-  padding 5px 10px
+  padding 10px 15px
   border-radius 6px
   transition: all 0.3s
+  border: none
+  font-size: 1rem
   &:hover
-    text-decoration none
-    color white
-    background-color #9E0142
+    text-decoration: none
+    color: white
+    background-color: #9E0142
+    cursor: pointer
+
+
+$lightOrange = lighten(#e65100, 30%)
+
+.ui.loading.button
+  position: relative;
+  cursor: default;
+  text-shadow: none!important;
+  color: transparent!important;
+  opacity: 1;
+  pointer-events: auto;
+  -webkit-transition: all 0s linear,opacity .1s ease;
+  transition: all 0s linear,opacity .1s ease;
+
+@keyframes button-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+
+.ui.inverted.btn
+  background-color: transparent
+  box-shadow: 0 0 0 2px $lightOrange inset
+  color: $lightOrange
+  display: block
+  text-align: center
+  font-size: 1em
+  width: 100%
+  &:hover
+    background-color: $lightOrange
+    color: white
+
+.ui.loading.button:before
+  position: absolute;
+  content: '';
+  top: 50%;
+  left: 50%;
+  margin: -.64285714em 0 0 -.64285714em;
+  width: 1.28571429em;
+  height: 1.28571429em;
+  border-radius: 500rem;
+  border: .2em solid rgba(0,0,0,.15);
+.ui.loading.button:after
+  position: absolute;
+  content: '';
+  top: 50%;
+  left: 50%;
+  margin: -.64285714em 0 0 -.64285714em;
+  width: 1.28571429em;
+  height: 1.28571429em;
+  animation: button-spin .6s linear;
+  animation-iteration-count: infinite;
+  border-radius: 500rem;
+  border-color: #fff transparent transparent;
+  border-style: solid;
+  border-width: .2em;
+  box-shadow: 0 0 0 1px transparent;

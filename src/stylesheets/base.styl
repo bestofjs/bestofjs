@@ -1,7 +1,9 @@
 body
-  font-size: 16px
+  font-size: 14px
   line-height: 1.3333
   color #444
+  @media (min-width: 768px)
+    font-size: 16px
 body, #panel
   background-color: #ECECEC
 
@@ -13,8 +15,12 @@ a
     text-decoration: underline
     color: #9E0142
 
-html
+html, textarea
   font-family: 'Roboto', sans-serif;
+  box-sizing: border-box;
+
+*, :after, :before
+  box-sizing: inherit // to be able to set with 100% on text fields
 
 
 body, h1, h2, h3, h4, h5, h6
@@ -26,17 +32,20 @@ h1, h2, h3
 
 h1
   //Project and About page title
-  font-size 48px
+  font-size 2.5em
 h2
   margin 1em 0 0.8em
 h3
-  font-size 22px
+  font-size 1.5em
   margin-bottom 0.8em
   &.with-comment
     margin-bottom 0
+    text-align: center
+  .icon
+    color: #fa9e59
 .explanation
   margin 0 0 10px
-
+  text-align: center
 
 .container
   max-width 1000px
@@ -44,7 +53,7 @@ h3
   padding-top 80px
 
 #main-content
-  padding: 80px 8px 0
+  padding: 4.5em 0.5em 0
   max-width 800px
   margin 0 auto
   &.small
@@ -56,6 +65,8 @@ ul
 
 p
   margin 0 0 0.5em
+  &:last-child
+    margin: 0
 
 i.special
   color #d53e4f

@@ -1,16 +1,16 @@
-var React = require('react');
-var MainContent = require('../common/MainContent');
-var StarMeButton = require('../common/StarMeButton');
-var ProjectCard = require('../projects/ProjectCard');
-var Delta = require('../common/utils/Delta');
-var Stars = require('../common/utils/Stars');
+import React from 'react';
+import MainContent from '../common/MainContent';
+import StarMeButton from '../common/StarMeButton';
+import ProjectCard from '../projects/ProjectCard';
+import Delta from '../common/utils/Delta';
+import Stars from '../common/utils/Stars';
 import log from '../../helpers/log';
-var About = React.createClass({
 
-  render: function() {
+const About = React.createClass({
+  render() {
     log('Render the <About> component', this.props);
     const { project, staticContent } = this.props;
-    var {repo, projectName} = staticContent;
+    const { repo, projectName } = staticContent;
     return (
       <MainContent>
         <StarMeButton url={ repo } />
@@ -62,10 +62,10 @@ var About = React.createClass({
 
 });
 
-var Example = React.createClass({
+const Example = React.createClass({
 
-  render: function() {
-    var { project, maxStars } = this.props;
+  render() {
+    const { project, maxStars } = this.props;
     return (
       <div>
         <h2>An example</h2>
@@ -76,11 +76,11 @@ var Example = React.createClass({
         <ProjectCard
           project = { project }
           index = { 0 }
-          showDescription = { true }
+          showDescription
           maxStars = { maxStars }
-          showTags = { true }
-          showStars = { true }
-          showDelta = { true }
+          showTags
+          showStar
+          showDelta
         />
 
         <p>
@@ -88,13 +88,13 @@ var Example = React.createClass({
         </p>
         <ul>
          <li>
-           <Stars value={ project.stars } icon={ true }/>
+           <Stars value={ project.stars } icon />
            {' '}
             is the total number of stars on Github.
          </li>
          <li>
-           <div style={{ width: 80, display: 'inline-block'}}>
-             <Delta value={ project.deltas[0] } icon={ true } />
+           <div style={{ width: 80, display: 'inline-block' }}>
+             <Delta value={ project.deltas[0] } icon />
            </div>
            {' '}
           is the number of stars added yesterday.</li>

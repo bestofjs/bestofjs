@@ -1,34 +1,11 @@
-var React = require('react');
-//var PropTypes = React.PropTypes;
-var MainContent = require('../common/MainContent');
-var ProjectList = require('../projects/ProjectList');
-var SearchText = require('../common/utils/SearchText');
+import React from 'react';
+import MainContent from '../common/MainContent';
+import ProjectList from '../projects/ProjectList';
+import SearchText from '../common/utils/SearchText';
 
-var TextFilter = React.createClass({
-
-  filterProject: function(project, text) {
-    //if only one letter is entered, we search projects whose name start by the letter
-    const pattern = text.length > 1 ? text : '^' + text;
-    const re = new RegExp(pattern, 'i');
-    if (re.test(project.name)) {
-     return true;
-    }
-    if (text.length > 2) {
-     if (re.test(project.description)) {
-       return true;
-     }
-     if (re.test(project.repository)) {
-       return true;
-     }
-     if (re.test(project.url)) {
-       return true;
-     }
-    }
-    return false;
-  },
-
-  render: function() {
-    const { projects, searchText } = this.props;
+const TextFilter = React.createClass({
+  render() {
+    const { projects, searchText, isLoggedin } = this.props;
     return (
       <MainContent className="small">
 
@@ -43,13 +20,14 @@ var TextFilter = React.createClass({
 
         { projects.length > 0 && (
            <ProjectList
-             projects = { projects }
-             maxStars = { projects[0].stars}
-             showDescription = { true }
-             showURL = { true }
+             projects={ projects }
+             maxStars={ projects[0].stars}
+             isLoggedin={ isLoggedin}
+             showDescription
+             showDelta={false}
+             showURL
            />
        ) }
-
       </MainContent>
     );
   }

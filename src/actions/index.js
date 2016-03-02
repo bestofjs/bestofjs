@@ -27,12 +27,11 @@ function getReadmeSuccess(id, json) {
     data: json
   };
 }
-function getReadmeFailure(id, response) {
-  console.log(response);
+function getReadmeFailure(id) {
   return {
     type: GET_README_FAILURE,
     id,
-    data: {readme: 'ERROR'}
+    data: { readme: 'ERROR' }
   };
 }
 
@@ -65,7 +64,6 @@ function shouldFetchReadme(state, project) {
   // }
   log('Readme already in the cache!');
   return false;
-  //return posts.didInvalidate
 }
 
 export function fetchReadmeIfNeeded(project) {
@@ -73,5 +71,12 @@ export function fetchReadmeIfNeeded(project) {
     if (shouldFetchReadme(getState(), project)) {
       return dispatch(fetchReadme(project));
     }
+  };
+}
+
+export function getLinksSuccess(json) {
+  return {
+    type: 'GET_LINKS_SUCCESS',
+    data: json
   };
 }

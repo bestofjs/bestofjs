@@ -1,107 +1,120 @@
 import React from 'react';
-var Router = require('react-router');
-var TagLabel = require('../tags/TagLabelCompact');
-var Delta = require('../common/utils/Delta');
-var DeltaBar = require('../common/utils/DeltaBar');
-var Stars = require('../common/utils/Stars');
-var Description = require('../common/utils/Description');
+import { Link } from 'react-router';
+
+import TagLabel from '../tags/TagLabelCompact';
+import Delta from '../common/utils/Delta';
+import DeltaBar from '../common/utils/DeltaBar';
+import Stars from '../common/utils/Stars';
+import Description from '../common/utils/Description';
 
 import fromNow from '../../helpers/fromNow';
 
-var {Link} = Router;
+const renderReviews = (reviews = []) => {
+  const count = reviews.length;
+  const text = (count === 1) ? 'One review' : `${count} reviews`;
+  return (
+    <section>
+      <span className="octicon octicon-heart"></span>
+      {text}
+    </section>
+  );
+};
 
-const ProjectCard = React.createClass({
-  render: function () {
+const renderLinks = (links = []) => {
+  const count = links.length;
+  const text = (count === 1) ? 'One link' : `${count} links`;
+  return (
+    <section>
+      <span className="octicon octicon-link"></span>
+      { text }
+    </section>
+  );
+};
 
-    const { project, index } = this.props;
-    const viewProjectURL = `/projects/${project.id}`;
-
-    var style = {
-      starsBar: {
-        width: (project.stars * 100 / this.props.maxStars).toFixed() + '%'
-      }
-    };
-
-    return (
-      <div className="project-card">
-        { this.props.maxStars && (
-          <div className="stars-bar" style={ style.starsBar } />
-        )}
-        <div className="inner">
-
-
+const ProjectCard = (props) => {
+  const { project, index /* , isLoggedin */ } = props;
+  const path = `/projects/${project.id}`;
+  return (
+    <div className="project-card">
+      <Link
+        to={ path }
+        className="card-block"
+      >
+        <header>
           <div className="ranking">
             { index + 1 }
           </div>
 
           <div className="big-numbers">
-            { this.props.showStars && (
+            { props.showStars && (
               <div className="total">
                 <Stars
                   value={ project.stars }
-                  icon={ true }
-                />
-              </div>
-            )}
-
-            {  this.props.showDelta && project.deltas.length > 0 && (
-              <div className="delta">
-                <Delta
-                  value={ project.deltas[0] }
-                  big={ true }
-                  icon={ true }
+                  icon
                 />
               </div>
             ) }
 
+            { props.showDelta && project.deltas.length > 0 && (
+              <div className="delta">
+                <Delta
+                  value={ project.deltas[0] }
+                  big
+                  icon
+                />
+              </div>
+            ) }
           </div>
-
-          <Link
-            to={ viewProjectURL }
-            className="link"
-          >
+          <div className="title">
             { project.name }
-          </Link>
-
-          { this.props.showURL && project.url && (
-            <a className="url" href={ project.url }>
-              { project.url }
-            </a>
-          )}
-          { this.props.showDescription && (
-            <p>
-              <Link
-                to={ viewProjectURL }
-                className="description"
-              >
-                <Description text={ project.description } />
-              </Link>
-            </p>
-          )}
-          { this.props.showTags && (
-            <div className="tags">
-              { project.tags.map( tag =>
-                <TagLabel tag={ tag } key={ project.id + tag.id } /> )
-              }
-            </div>
-          )}
-
-          <div className="last-commit">
-            <span className="octicon octicon-git-commit"></span>
-            {' '}
-            Last update: { fromNow(project.pushed_at) }
           </div>
+        </header>
 
+        { props.showDescription && (
+          <section>
+            <Description text={ project.description } />
+          </section>
+        )}
+
+      </Link>
+
+      { props.showTags && (
+        <section className="tags-section">
+          { project.tags.map(tag =>
+            <TagLabel tag={ tag } key={ project.id + tag.id } />
+          ) }
+        </section>
+      )}
+
+      {project.reviews &&
+        <Link
+          className="card-block"
+          to={`${path}/reviews`}
+        >
+          {renderReviews(project.reviews)}
+        </Link>
+      }
+
+      {project.links &&
+        <Link
+          className="card-block"
+          to={`${path}/links`}
+        >
+          {renderLinks(project.links)}
+        </Link>
+      }
+
+      <div className="inner github">
+        <div className="last-commit">
+          <span className="octicon octicon-git-commit"></span>
+          {' '}
+          Last update: { fromNow(project.pushed_at) }
         </div>
-
-        <div>
-          { project.deltas.length > 0 && <DeltaBar data={ project.deltas.slice(0,7) } />}
-        </div>
-
+          { project.deltas.length > 0 && <DeltaBar data={ project.deltas.slice(0, 7) } />}
       </div>
-    );
+    </div>
+  );
+};
 
-  }
-});
-//export default ProjectCard;
+// export default ProjectCard;
 module.exports = ProjectCard;

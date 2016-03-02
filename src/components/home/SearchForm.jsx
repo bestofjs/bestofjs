@@ -1,44 +1,34 @@
-var React = require('react');
-var {History} = require('react-router');
+import React from 'react';
+import { hashHistory } from 'react-router';
 import debounce from 'lodash/function/debounce';
 
-var SearchForm = React.createClass({
-  mixins: [History],
-  getInitialState: function() {
+const SearchForm = React.createClass({
+  getInitialState() {
     return {
       text: this.props.searchText
     };
   },
-  componentDidMount: function() {
-    //this.loadData();
+  componentDidMount() {
     this.emitChangeDelayed = debounce(this.emitChange, 300);
   },
-  loadData: function () {
-    var text = this.props.params && this.props.params.text;
-    if (!text) return;
-    if (this.props.searchText !== text) {
-      this.setState({text: text});
-    }
-  },
-  handleChange: function (e) {
-    var text = e.target.value;
+  handleChange(e) {
+    const text = e.target.value;
     this.setState({
-      text: text
+      text
     });
     this.emitChangeDelayed(text);
   },
-  emitChange: function (text) {
+  emitChange(text) {
     if (text) {
-      this.history.pushState(null, `/search/${text}`);
+      hashHistory.pushState(null, `/search/${text}`);
     } else {
-      this.history.pushState(null, '/');
+      hashHistory.pushState(null, '/');
     }
-    //console.log('SearchForm emitChange', text);
+    // console.log('SearchForm emitChange', text);
   },
-  render: function() {
-    var style = {
-      //width: '100%',
-      boxSizing: 'border-box',//to prevent the input from overlapping the container
+  render() {
+    const style = {
+      boxSizing: 'border-box', // to prevent the input from overlapping the container
       padding: '0.5em 1em',
       border: '3px solid #ddd',
       borderRadius: 6,
@@ -55,7 +45,5 @@ var SearchForm = React.createClass({
         </div>
     );
   }
-
 });
-
 module.exports = SearchForm;

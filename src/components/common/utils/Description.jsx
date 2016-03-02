@@ -1,22 +1,13 @@
-var React = require('react');
-var PropTypes = React.PropTypes;
+import React from 'react';
 
 // Component used to display repository `description`, removing emojis
 // See node.js repository: Node.js JavaScript runtime :sparkles::turtle::rocket::sparkles:
 
-var Description = React.createClass({
-
-  propTypes: {
-    text: PropTypes.string.isRequired
-  },
-
-  render: function() {
-    const {text} = this.props;
-    const description = text.replace(/\:[a-z_\d]+\:/g, '').trim();
-    return (
-      <span>&ldquo;{' '}{ description }{' '}&rdquo;</span>
-    );
-  }
-});
-
+const Description = (props) => {
+  const { text } = props;
+  const description = text.replace(/\:[a-z_\d]+\:/g, '').trim();
+  return (
+    <span>&ldquo;{' '}{ description }{' '}&rdquo;</span>
+  );
+};
 module.exports = Description;

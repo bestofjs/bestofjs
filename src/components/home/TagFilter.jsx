@@ -1,13 +1,13 @@
-var React = require('react');
+import React from 'react';
 
-var MainContent = require('../common/MainContent');
-var ProjectList = require('../projects/ProjectList');
-var TagLabel = require('../tags/TagTitle');
+import MainContent from '../common/MainContent';
+import ProjectList from '../projects/ProjectList';
+import TagLabel from '../tags/TagTitle';
 
-var TagFilter = React.createClass({
+const TagFilter = React.createClass({
 
-  render: function() {
-    const { tag, projects } = this.props;
+  render() {
+    const { tag, projects, isLoggedin } = this.props;
 
     return (
       <MainContent className="small">
@@ -16,11 +16,11 @@ var TagFilter = React.createClass({
 
             <TagLabel tag={ tag } />
 
-            <span style={{  marginLeft: 10 }}>
+            <span style={{ marginLeft: 10 }}>
               { projects.length === 1 ? (
                 'Only one project for now'
               ) : (
-                projects.length +' projects'
+                projects.length + ' projects'
               ) }
             </span>
           </div>
@@ -28,17 +28,18 @@ var TagFilter = React.createClass({
 
         { projects.length > 0 && (
            <ProjectList
-             projects = { projects }
-             maxStars = { projects[0].stars}
-             showDescription = { true }
-             showURL = { true }
+             projects={ projects }
+             maxStars={ projects[0].stars}
+             showDescription
+             showURL
+             isLoggedin={ isLoggedin }
+             showDelta={false}
            />
        ) }
 
       </MainContent>
     );
   }
-
 });
 
 module.exports = TagFilter;

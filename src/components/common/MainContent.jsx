@@ -1,15 +1,12 @@
-var React = require('react');
+import React from 'react';
 
-var MainContent = React.createClass({
-
-  render: function() {
+const MainContent = React.createClass({
+  render() {
     return (
       <div id="main-content" {...this.props}>
         { this.props.children }
       </div>
     );
   }
-
 });
-
 module.exports = MainContent;

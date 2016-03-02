@@ -52,7 +52,7 @@ Related repositories:
 
 ## URLs and environments
 
-* Production version is hosted on Github pages, `.js.org` domain is provided by https://js.org/
+* http://bestof.js.org/ production version is hosted on Github pages, using `.js.org` domain provided by https://js.org/
 * Firebase (deployed manually, used to share development features): https://bestofjs.firebaseapp.com/
 * Netlify (automatically built from `staging` branch): http://bestofjs.netlify.com/
 
@@ -60,19 +60,13 @@ Related repositories:
 
 ### Development workflow
 
-Build `www/index.html` from `scr/index.html` using html-minify module
-
-```
-npm run minify
-```
-
 Start the web server and watch for changes on the filesystem:
 
 ```
 npm start
 ```
 
-The application should be running at [localhost:8080](http://localhost:8080/)
+The application should be running at [localhost:8080/index.html](http://localhost:8080/index.html)
 
 
 Thank to [React hot loader](http://gaearon.github.io/react-hot-loader/), every time a React component is updated, the UI is automatically updated, without losing the application state.
@@ -81,13 +75,13 @@ Note: built files are not written on the disk, they are served by the Webpack se
 
 ### Production deploy
 
-Build the files for production:
+Build the files for production (`index.html` rendered server-side, `build/app.css` and `build/bundle-app.js`):
 
 ```
 npm run build
 ```
 
-Push to Github pages
+Push all files to Github pages
 ```
 npm run gh-pages
 ```
@@ -99,6 +93,18 @@ These 2 commands can be combined into one single command:
 ```
 npm run deploy
 ```
+
+### Daily update
+
+Data come from a static JSON file `projects.json` hosted on a CDN (Firebase).
+Every morning at 6:00 AM (21:00 UTC), the JSON file is updated by a daily batch running in `bestofjs-batches` repository.
+
+Then, 30 minutes later, `npm run daily` command is launched from this repository, in order to rebuild the html file, using React server-side rendering feature.
+
+`npm run daily` is split into 2 tasks:
+
+* `npm run build-html`: build `www/index.html` in local, requesting data by http from `projects.json`
+* `npm run deploy-html`: commit `www/index.html` to `bestofjs` repository, using Github API.
 
 ### Testing
 

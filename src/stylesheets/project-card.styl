@@ -1,27 +1,42 @@
 .project-card
-  margin-bottom: 15px;
-  padding: 0;
-  background-color: white;
-  vertical-align: top;
-  border: 1px solid #cbcbcb;
-  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16);
+  margin-bottom: 2rem
+  padding: 0
+  background-color: white
+  vertical-align: top
+  border: 1px solid #cbcbcb
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16)
+  header
+    padding: 1em 0
+    position: relative
+    overflow: hidden
+  section
+    padding: 1em
+    border-top: 1px solid #cbcbcb
+    &.tags-section
+      padding-bottom: 0.5em
   .stars-bar
     height: 3px
     background-color: #ffe082
   .inner
-    padding: 1em 1em 0.5em
+    padding: 1em
     position: relative
+    &.github
+      border-top: 1px solid #cbcbcb
+      padding-bottom: 0
   .ranking
     position: absolute
-    top: -10px
-    left: 15px
-    color: #ccc
-    font-size: 64px
+    top: 0
+    left: -10px
     letter-spacing: -10px
-  .link
+    text-align: center
+    background-color: #fdcf7d
+    color: white
+    font-size: 4em
+    line-height: 1
+    width: 60px
+  .title
     font-size: 1.2em
     margin-bottom: 5px
-    paddingLeft: 20px
     z-index: 2
     position: relative
     display: block
@@ -36,14 +51,18 @@
   .url
     display: block
     margin-top: 1em
-  .description
+
+  .card-block // class applied to <Link> tag used to open the Project page from the card.
     display block
-    margin 1em 0
     color #555
     &:hover
       text-decoration none
       color: inherited
-  .tags
-    margin-bottom: 0.5em
-  .last-commit
-    //margin-top: 1em
+      background-color: #FFF7EB
+      color: black
+  .star-added
+    margin: 0.5em 0
+  .delta-bar-container
+    margin: 0 -1em
+.empty-value
+  color: #aaa

@@ -1,10 +1,10 @@
-var React = require('react');
+import React from 'react';
 import fromNow from '../../helpers/fromNow';
 
-var Footer = React.createClass({
-  render: function() {
-    var {repo, projectName} = this.props.staticContent;
-    var lastUpdate = this.props.lastUpdate;
+const Footer = React.createClass({
+  render() {
+    const { repo, projectName } = this.props.staticContent;
+    const lastUpdate = this.props.lastUpdate;
     return (
       <div id="footer">
         <p>{ projectName } is a project by <a href="http://michaelrambeau.com">Michael Rambeau</a> made in Osaka.</p>
@@ -16,7 +16,6 @@ var Footer = React.createClass({
       </div>
     );
   }
-
 });
 
 module.exports = Footer;

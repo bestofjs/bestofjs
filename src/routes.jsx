@@ -2,30 +2,55 @@ import React from 'react';
 import { Route, IndexRoute, Redirect } from 'react-router';
 
 import App from './containers/App';
-import Home from './containers/HomePage';
+// import App from './AppUI';
+import getHomePage from './containers/HomePage';
 import About from './containers/AboutPage';
 import TagFilter from './containers/TagFilterPage';
-import ProjectPage from './containers/ProjectPage';
 import TextFilter from './containers/TextFilterPage';
 
-function getRoutes() {
+// Single Project page
+import ProjectPage from './containers/ProjectPage';
 
-  // function onEnter(nextState, state) {
-  //   loading.show();
-  // }
+import ProjectGithubTab from './components/ProjectView/GithubTab';
 
-  var routes = (
+import ProjectLinksTab from './components/ProjectView/LinksTab';
+import ProjectLinksList from './components/ProjectView/LinksTab/List';
+import ProjectLinksAdd from './components/ProjectView/LinksTab/Create';
+import ProjectLinksEdit from './components/ProjectView/LinksTab/Edit';
+
+import ProjectReviewsTab from './components/ProjectView/ReviewsTab';
+import ProjectReviewsList from './components/ProjectView/ReviewsTab/List';
+import ProjectReviewsAdd from './components/ProjectView/ReviewsTab/Create';
+import ProjectReviewsEdit from './components/ProjectView/ReviewsTab/Edit';
+
+
+const getRoutes = (count = 3) => {
+  const Home = getHomePage(count);
+  return (
     <Route path="/" component={App} >
       <IndexRoute component={Home} />
       <Route path="home" component={Home}/>
       <Route path="about" component={About}/>
-      <Route path="projects/:id" component={ProjectPage}/>
+      <Route path="projects/:id" component={ProjectPage}>
+        <IndexRoute component={ProjectGithubTab} />
+        <Route path="readme" component={ProjectGithubTab} />
+        <Route path="links" component={ProjectLinksTab}>
+          <IndexRoute component={ProjectLinksList} />
+          <Route path="add" component={ProjectLinksAdd} />
+          <Route path=":linkId/edit" component={ProjectLinksEdit} />
+        </Route>
+        <Route path="reviews" component={ProjectReviewsTab}>
+          <IndexRoute component={ProjectReviewsList} />
+          <Route path="add" component={ProjectReviewsAdd} />
+          <Route path=":reviewId/edit" component={ProjectReviewsEdit} />
+        </Route>
+        <Route path="reviews" component={ProjectReviewsTab} />
+      </Route>
       <Route path="tags/:id" component={ TagFilter } />
       <Route path="search/:text" component={ TextFilter }/>
       <Redirect from="*" to="home" />
     </Route>
   );
-  return routes;
-}
+};
 
-module.exports = getRoutes();
+export default getRoutes;

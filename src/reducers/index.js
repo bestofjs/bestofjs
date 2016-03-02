@@ -1,17 +1,17 @@
-import { routerStateReducer as router } from 'redux-router';
 import { combineReducers } from 'redux';
+import { routeReducer } from 'react-router-redux';
+import { reducer as formReducer } from 'redux-form';
 
 import entities from './entities';
 import githubProjects from './githubProjects';
-
-// The store is made of 2 "branches", updated by 2 reducers:
-// - entities:
-// - githubProjects: data coming from Github projects stored in the application
+import auth from './auth';
 
 const rootReducer = combineReducers({
   entities,
   githubProjects,
-  router
+  auth,
+  routing: routeReducer,
+  form: formReducer
 });
 
 export default rootReducer;

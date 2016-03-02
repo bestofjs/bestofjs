@@ -1,20 +1,16 @@
-var React = require('react');
-var {Link} = require('react-router');
+import React from 'react';
+import { Link } from 'react-router';
 
-var TagLabel = React.createClass({
-  render: function() {
-    var tag = this.props.tag;
-    return (
-      <Link
-        to={ '/tags/' + tag.id }
-        key={ tag.id }
-        className="tag tag-compact"
-      >
-        <span>{ tag.name }</span>
-      </Link>
-    );
-  }
-
-});
-
+const TagLabel = (props) => {
+  const tag = props.tag;
+  return (
+    <Link
+      to={ '/tags/' + tag.id }
+      key={ tag.id }
+      className="tag tag-compact"
+    >
+      <span>{ tag.name }</span>
+    </Link>
+  );
+};
 module.exports = TagLabel;

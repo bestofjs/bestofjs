@@ -6,9 +6,9 @@ import populate from '../helpers/populate';
 import log from '../helpers/log';
 import getStaticContent from '../staticContent';
 
-const AboutPage  = React.createClass({
+const AboutPage = React.createClass({
 
-  render: function() {
+  render() {
     log('Render the <AboutPage> container', this.props);
     const { staticContent, project } = this.props;
     return (
@@ -23,14 +23,14 @@ const AboutPage  = React.createClass({
 
 function mapStateToProps(state) {
   const {
-    entities: { projects, tags },
+    entities: { projects, tags, links },
     githubProjects: { popularProjectIds }
   } = state;
 
   const project = popularProjectIds
-    .map( id => projects[id] )
+    .map(id => projects[id])
     .slice(0, 1)
-    .map( populate(tags) );
+    .map(populate(tags, links));
 
   return {
     project: project[0],

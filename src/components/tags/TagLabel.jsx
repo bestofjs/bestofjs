@@ -1,26 +1,16 @@
-var React = require('react');
-var {Link} = require('react-router');
+import React from 'react';
+import { Link } from 'react-router';
 
-var TagLabel = React.createClass({
-  render: function() {
-    var tag = this.props.tag;
-    var style = {
-      counter: {
-        marginLeft: 10,
-        padding: '0 5px',
-        //backgroundColor: '#e65100',
-        color: '#ccc',
-        borderRadius: 4,
-        fontSize: 14
-      }
-    };
+const TagLabel = React.createClass({
+  render() {
+    const tag = this.props.tag;
     return (
       <Link to={ `tags/${tag.id}` }
         key={ tag.id }
         className="tag tag-compact"
       >
         <span>{ tag.name }</span>
-        <span style={ style.counter }>{tag.counter}</span>
+        <span className="tag-counter">{tag.counter}</span>
       </Link>
     );
   }

@@ -1,18 +1,17 @@
-var React = require('react');
-var Router = require('react-router');
-var {Link} = Router;
+import React from 'react';
+import { Link } from 'react-router';
+
 import log from '../../helpers/log';
+import MainContent from '../common/MainContent';
+import ProjectList from '../projects/ProjectList';
+import ErrorMessage from '../common/utils/ErrorMessage';
+import StarMeButton from '../common/StarMeButton';
 
-var MainContent = require('../common/MainContent');
-var ProjectList = require('../projects/ProjectList');
-var ErrorMessage = require('../common/utils/ErrorMessage');
-var StarMeButton = require('../common/StarMeButton');
-
-var Home = React.createClass({
-  render: function() {
+const Home = React.createClass({
+  render() {
     log('Render the <Home> component', this.props);
     const { repo } = this.props.staticContent || '?';
-    const { hotProjects, popularProjects, maxStars }  = this.props;
+    const { hotProjects, popularProjects, maxStars, isLoggedin } = this.props;
     return (
       <MainContent>
         { this.props.errorMessage && <ErrorMessage text={ this.props.errorMessage } /> }
@@ -36,14 +35,18 @@ var Home = React.createClass({
             { /* Part 1: HOT projects */ }
             <div className="col-sm-6">
               <div className="box">
-                <h3 className="with-comment">Hot projects since yesterday</h3>
+                <h3 className="with-comment">
+                  <span className="mega-octicon octicon-flame icon"></span>
+                  Hot projects since yesterday
+                </h3>
                 <p className="explanation">By number of stars added yesterday on Github</p>
                 <ProjectList
                   projects = { hotProjects }
                   maxStars = { maxStars }
-                  showDelta={ true }
-                  showStars={ false }
-                  showIndex={true}
+                  isLoggedin= { isLoggedin }
+                  showDelta
+                  showStars={false}
+                  showIndex
                 />
               </div>
             </div>
@@ -51,14 +54,18 @@ var Home = React.createClass({
             { /* Part 2: Overall rankings */ }
             <div className="col-sm-6">
               <div className="box">
-                <h3 className="with-comment">Most popular projects</h3>
+                <h3 className="with-comment">
+                  <span className="mega-octicon octicon-star icon"></span>
+                  Most popular projects
+                </h3>
                 <p className="explanation">By total number of stars on Github</p>
                 <ProjectList
                   projects = { popularProjects }
                   maxStars = { maxStars }
-                  showStars = { true }
-                  showDelta = { false }
-                  showIndex={true}
+                  isLoggedin= { isLoggedin }
+                  showStars
+                  showDelta={false}
+                  showIndex
                 />
               </div>
             </div>
@@ -67,7 +74,6 @@ var Home = React.createClass({
       </MainContent>
     );
   }
-
 });
 
 module.exports = Home;

@@ -3,7 +3,7 @@ import ProjectCard from './ProjectCard';
 
 const ProjectList = React.createClass({
 
-  getDefaultProps: function () {
+  getDefaultProps() {
     return ({
       showTags: true,
       showDescription: true,
@@ -13,26 +13,30 @@ const ProjectList = React.createClass({
     });
   },
 
-  onChangeText: function (e) {
-    this.props.actions.changeText( e.target.value);
+  onChangeText(e) {
+    this.props.actions.changeText(e.target.value);
   },
 
-  render: function () {
-    return(
+  render() {
+    // console.log('Render project list', this.props.projects.length);
+    return (
       <div>
-        {this.props.projects.map( (project, index) =>
+        {this.props.projects.map((project, index) =>
           <ProjectCard
-            { ...this.props }
             project={ project }
             maxStars={ this.props.maxStars }
-            key={ project.id }
+            key={ index }
             index={ index }
+            showTags={ this.props.showTags }
+            showDescription={ this.props.showDescription }
+            showStars={ this.props.showStars }
+            showDelta={ this.props.showDelta}
+            showURL={ this.props.showURL }
           />)
         }
       </div>
     );
   }
-
 });
+// export default ProjectList;
 module.exports = ProjectList;
-//export default ProjectList;

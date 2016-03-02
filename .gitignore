@@ -1,6 +1,9 @@
+# Secret
+.env
+
 # Build
 www/build/
-www/index.html
+www/*.html
 
 # Logs
 logs

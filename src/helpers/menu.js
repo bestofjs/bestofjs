@@ -1,9 +1,8 @@
 import Slideout from 'slideout';
-
-//A helper to get an array from a "node list" object
-function $$(selector, context) {
-  context = context || document;
-  var elements = context.querySelectorAll(selector);
+// A helper to get an array from a "node list" object
+function $$(selector, ctx) {
+  const context = ctx || document;
+  const elements = context.querySelectorAll(selector);
   return Array.prototype.slice.call(elements);
 }
 
@@ -11,8 +10,8 @@ let slideout = null;
 
 export default ({
   open: false,
-  start: function () {
-    let self = this;
+  start() {
+    const self = this;
     slideout = new Slideout({
       'panel': document.getElementById('panel'),
       'menu': document.getElementById('menu'),
@@ -20,16 +19,16 @@ export default ({
       'tolerance': 70
     });
     $$('.menu-link').forEach(function (node) {
-      node.addEventListener('click', function() {
+      node.addEventListener('click', function () {
         slideout.toggle();
         self.open = true;
       });
     });
   },
-  toggle: function () {
+  toggle() {
     slideout.toggle();
   },
-  hide: function () {
+  hide() {
     slideout.close();
   }
 });

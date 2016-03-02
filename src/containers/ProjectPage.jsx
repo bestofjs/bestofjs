@@ -1,17 +1,21 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 
-import Project from '../components/projects/Project';
-import { fetchReadmeIfNeeded } from '../actions';
+import ProjectView from '../components/ProjectView';
 import populate from '../helpers/populate';
 import log from '../helpers/log';
 
+// import { fetchReadmeIfNeeded } from '../actions';
+import * as actionCreators from '../actions';
+import * as authActionCreators from '../actions/authActions';
+
 function loadData(props) {
   const project = props.project;
-  props.fetchReadme(project);
+  props.actions.fetchReadmeIfNeeded(project);
 }
 
-const ProjectPage  = React.createClass({
+const ProjectPage = React.createClass({
 
   componentWillMount() {
     loadData(this.props);
@@ -23,34 +27,64 @@ const ProjectPage  = React.createClass({
     }
   },
 
-  render: function() {
+  render() {
     log('Render the <ProjectPage> container', this.props);
-    const { project } = this.props;
+    const { project, review, link, auth, path, children, authActions } = this.props;
     return (
-      <Project
-        project = { project }
-      />
+      <ProjectView
+        project={project}
+        review={review}
+        link={link}
+        auth ={auth}
+        path={path}
+        authActions={authActions}
+      >
+      { children && project && React.cloneElement(children, {
+        project,
+        auth
+      }) }
+    </ProjectView>
     );
   }
 
 });
 
-function mapStateToProps(state) {
+function mapStateToProps(state, props) {
   const {
-    entities: { projects, tags },
+    entities: { projects, tags, links, reviews },
+    auth,
+    routing
   } = state;
 
-  const id = state.router.params.id;
+  const id = props.params.id;
+
 
   let project = projects[id];
+  project = populate(tags, links, reviews)(project);
 
-  project = populate(tags)(project);
+  // Review and Link in edit mode
+  const reviewId = props.params.reviewId;
+  const linkId = props.params.linkId;
+  const review = reviews && reviewId ? reviews[reviewId] : null;
+  const link = links && linkId ? links[linkId] : null;
 
   return {
-    project: project
+    project,
+    review,
+    link,
+    auth,
+    path: routing.path
   };
 }
 
-export default connect(mapStateToProps, {
-  fetchReadme: fetchReadmeIfNeeded
-})(ProjectPage);
+function mapDispatchToProps(dispatch) {
+  return {
+    actions: bindActionCreators(actionCreators, dispatch),
+    authActions: bindActionCreators(authActionCreators, dispatch)
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(ProjectPage);
+// export default connect(mapStateToProps, {
+//   fetchReadme: fetchReadmeIfNeeded
+// })(ProjectPage);

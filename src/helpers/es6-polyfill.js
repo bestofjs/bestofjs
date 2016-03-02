@@ -1,13 +1,12 @@
-//Object.assign polyfill for IE 10 and 11
-//Code From MDN site
-//Goal_: avoid including `import "babel-core/polyfill";` (=> + 50 KB)
+// Object.assign polyfill for IE 10 and 11
+// Code From MDN site
+// Goal_: avoid including `import "babel-core/polyfill";` (=> + 50 KB)
 if (!Object.assign) {
   Object.defineProperty(Object, 'assign', {
     enumerable: false,
     configurable: true,
     writable: true,
-    value: function(target) {
-      'use strict';
+    value(target) {
       if (target === undefined || target === null) {
         throw new TypeError('Cannot convert first argument to object');
       }

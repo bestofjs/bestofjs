@@ -1,25 +1,26 @@
 import { createStore, applyMiddleware, compose } from 'redux';
-import { reduxReactRouter } from 'redux-router';
-//import { devTools } from 'redux-devtools';
-import createHistory from 'history/lib/createHashHistory';
-import routes from '../routes';
 import thunk from 'redux-thunk';
 import createLogger from 'redux-logger';
+import { syncHistory } from 'react-router-redux';
+import { useRouterHistory } from 'react-router';
+import { createHashHistory } from 'history';
+import useScroll from 'scroll-behavior/lib/useScrollToTop';
+
 import rootReducer from '../reducers';
 
 // Custom middlewares
-import navigationMiddleware from './navigationMiddleware';
-import trackingMiddleware from './trackingMiddleware';
+// import navigationMiddleware from './navigationMiddleware';
+// import trackingMiddleware from './trackingMiddleware';
 
+const history = useScroll(useRouterHistory(createHashHistory))({ queryKey: false });
 
-//Disable key=_123456 parameter add automatically when using the hash history.
-const history = createHistory({queryKey: false});
+const reduxRouterMiddleware = syncHistory(history);
 
-let middlewares = [
-  reduxReactRouter({ routes, history }),
-  applyMiddleware(navigationMiddleware),
-  applyMiddleware(trackingMiddleware),
-  applyMiddleware(thunk)
+const middlewares = [
+  // applyMiddleware(navigationMiddleware),
+  // applyMiddleware(trackingMiddleware),
+  applyMiddleware(thunk),
+  applyMiddleware(reduxRouterMiddleware)
 ];
 if (process.env.NODE_ENV === 'development') {
   middlewares.push(

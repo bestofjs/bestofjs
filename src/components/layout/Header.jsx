@@ -1,12 +1,10 @@
-var React = require('react');
-var Router = require('react-router');
-var { IndexLink } = Router;
-var SearchForm = require('../home/SearchForm');
-var ToggleMenuButton = require('./ToggleMenuButton');
+import React from 'react';
+import { IndexLink } from 'react-router';
+import SearchForm from '../home/SearchForm';
+import ToggleMenuButton from './ToggleMenuButton';
 
-var Header = React.createClass({
-
-  render: function() {
+const Header = React.createClass({
+  render() {
     return (
       <div id="header">
         <div className="container">
@@ -40,7 +38,5 @@ var Header = React.createClass({
       </div>
     );
   }
-
 });
-
 module.exports = Header;

@@ -1,0 +1,22 @@
+{
+  "extends": "airbnb",
+  "plugins": [
+    "react"
+  ],
+  "rules": {
+    "no-console": 0,
+    "indent": [2, 2],
+    "comma-dangle": 0,
+    "no-var": 1,
+    "vars-on-top": 0,
+    "curly": 0,
+    "default-case": 0,
+    "func-names": 0,
+    "no-use-before-define": 0,
+    "camelcase": 0,
+    "quotes": 1,
+    "dot-notation": 1,
+    "react/prop-types": 0,
+    "react/no-multi-comp": 0
+  }
+}
