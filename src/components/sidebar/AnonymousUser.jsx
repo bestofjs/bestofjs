@@ -5,9 +5,7 @@ const AnonymousUser = React.createClass({
     pending: PropTypes.bool.isRequired
   },
   handleLogin() {
-    window.auth0.login({
-      connection: 'github'
-    });
+    this.props.onLogin();
   },
   render() {
     const { pending } = this.props;

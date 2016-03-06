@@ -5,6 +5,8 @@ import { Provider } from 'react-redux';
 
 import configureStore from './store/configureStore';
 import getRoutes from './routes';
+import { fetchAllReviews } from './actions/reviewActions';
+import { fetchAllLinks } from './actions/linkActions';
 
 const history = useRouterHistory(createHashHistory)({ queryKey: false });
 
@@ -19,6 +21,8 @@ const Root = React.createClass({
     // How many "hot" and "popular" projects to display in the home page rendered on the server ?
     const TOP_PROJECT_COUNT = 10;
     const store = configureStore(initialState);
+    store.dispatch(fetchAllReviews());
+    store.dispatch(fetchAllLinks());
     return (
       <Provider store={ store }>
         <Router history={ history }>

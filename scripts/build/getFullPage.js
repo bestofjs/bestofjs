@@ -17,9 +17,7 @@ module.exports = function (dev, appHtml) {
     ${dev ? '<!-- No external stylesheet in dev mode -->' : '<link rel="stylesheet" href="build/app.css">'}
   </head>
   <body>
-    <div id="app">
-      ${dev ? '' : `${appHtml}`}
-    </div>
+    <div id="app"><div>${dev ? '' : `${appHtml}`}</div></div>
     <!-- Async load cross-site CSS, mostly interesting for production -->
     <script>
       window.bestofjs = {};

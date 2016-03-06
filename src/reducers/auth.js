@@ -8,7 +8,11 @@ export default function auth(state = defaultState, action) {
   case 'LOGIN_REQUEST':
     return Object.assign({}, state, { pending: true });
   case 'LOGIN_SUCCESS':
-    return Object.assign({}, state, { pending: false, username: action.username });
+    return Object.assign({}, state, {
+      pending: false,
+      username: action.username,
+      token: action.token
+    });
   case 'LOGIN_FAILURE':
     return Object.assign({}, state, { pending: false });
   // LOGOUT

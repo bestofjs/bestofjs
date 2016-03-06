@@ -3,7 +3,7 @@
 
 # Build
 www/build/
-www/*.html
+www/index.html
 
 # Logs
 logs

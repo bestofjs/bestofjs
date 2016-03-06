@@ -1,4 +1,5 @@
-import { pushPath } from 'react-router-redux';
+import { push } from 'react-router-redux';
+import notie from 'notie';
 
 import createApi from '../api/userContent';
 import * as crud from './crudActions';
@@ -35,11 +36,12 @@ export function createReview(project, formData, auth) {
         const data = Object.assign({}, json);
         dispatch(crud.createItemSuccess('review', data));
         const path = `/projects/${project.id}/reviews/`;
-        dispatch(pushPath(path));
-        window.notie.alert(1, 'Thank you for the review!', 3);
+        dispatch(push(path));
+        notie.alert(1, 'Thank you for the review!', 3);
       })
       .catch(err => {
         console.error('Error when calling Review API', err);
+        notie.alert(3, `Sorry, we were unable to save the review. ${err.message}`, 3);
       });
   };
 }
@@ -59,12 +61,12 @@ export function updateReview(formData, auth) {
         const data = Object.assign({}, json);
         dispatch(crud.updateItemSuccess('review', data));
         const path = `/projects/${formData.project}/reviews/`;
-        dispatch(pushPath(path));
-        window.notie.alert(1, 'Your review has been updated.', 3);
+        dispatch(push(path));
+        notie.alert(1, 'Your review has been updated.', 3);
       })
       .catch(err => {
         console.error('Error when calling Review API', err.message);
-        window.notie.alert(3, 'Sorry, we were unable to save the review.', 3);
+        notie.alert(3, 'Sorry, we were unable to save the review.', 3);
       });
   };
 }

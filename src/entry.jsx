@@ -15,13 +15,9 @@ import api from '../config/api';
 
 // Object.assign() polyfill for IE (used in the reducer)
 import './helpers/es6-polyfill.js';
+
 // import { getInitialData } from './projectData';
 import loading from './helpers/loading';
-
-// import { fetchAllReviews } from './actions/reviewActions';
-// import { fetchAllLinks } from './actions/linkActions';
-
-
 import { getInitialState } from './projectData';
 
 // Set up the http request interceptor used to display the "loading bar"
@@ -37,16 +33,15 @@ fetchData()
 require('./stylesheets/main.styl');
 require('../node_modules/react-select/dist/react-select.css');
 
-// called from index.html when auth0.js has been loaded.
-window.initAuth0 = function () {
+function initAuth0() {
   const loc = window.location;
-  window.auth0 = new window.Auth0({
+  window.auth0 = new Auth0({
     domain: 'bestofjs.auth0.com',
     clientID: 'MJjUkmsoTaPHvp7sQOUjyFYOm2iI3chx',
     callbackURL: `${loc.protocol}//${loc.host}/#authenticated`,
     callbackOnLocationHash: true
   });
-};
+}
 
 if (false) getToken()
   .then(token => getProfile(token))
@@ -104,7 +99,7 @@ function getProfile(token) {
 // Return null if no token is found
 function getToken() {
   const key = 'bestofjs_id_token';
-  const result = window.auth0.parseHash(window.location.hash);
+  const result = auth0.parseHash(window.location.hash);
   let id_token = '';
   let access_token = '';
   if (result && result.id_token) {

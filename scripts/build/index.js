@@ -12,6 +12,7 @@ import renderApp from './renderApp';
 process.env.NODE_ENV = 'production';
 const url = api('GET_PROJECTS') + 'projects.json';
 
+
 fetch(url)
   .then(response => {
     console.log('Got the response from', url);
