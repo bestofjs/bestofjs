@@ -1,5 +1,5 @@
 import { push } from 'react-router-redux';
-import notie from 'notie';
+const notie = typeof window === 'undefined' ? {} : require('notie');
 
 import createApi from '../api/userContent';
 import * as crud from './crudActions';
