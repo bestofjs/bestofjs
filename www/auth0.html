@@ -3,29 +3,44 @@
     <style>
     body {
       background-color: #fa9e59;
+      color: white;
+      text-align: center;
+      font-size: 3em;
+      font-family: sans-serif;
+      display: flex;
+      height: 100%;
+      align-items: center;
+    }
+    div {
+      width: 100%;
     }
     </style>
   </head>
   <body>
+    <div>Github login...</div>
     <script src="//cdn.auth0.com/w2/auth0-6.js"></script>
     <script>
-    auth0 = new Auth0({
-      domain: 'bestofjs.auth0.com',
-      clientID: 'MJjUkmsoTaPHvp7sQOUjyFYOm2iI3chx',
-      callbackURL: `http://localhost:8080/`,
-      callbackOnLocationHash: true
-    });
-    function getProfile(token) {
-      auth0.getProfile(token, (err, profile) => console.log(err, profile))
+    function init() {
+      auth0 = new Auth0({
+        domain: 'bestofjs.auth0.com',
+        clientID: 'MJjUkmsoTaPHvp7sQOUjyFYOm2iI3chx',
+        callbackURL: `/`,
+        callbackOnLocationHash: true
+      });
+      function getProfile(token) {
+        auth0.getProfile(token, (err, profile) => console.log(err, profile))
+      }
+      var result = auth0.parseHash(window.location.hash);
+      if (!result) return;
+      var id_token = result.id_token;
+      var access_token = result.access_token;
+      if (id_token) {
+        window.localStorage.setItem('bestofjs_id_token', id_token);
+        window.localStorage.setItem('bestofjs_access_token', access_token);
+        window.location.href = '/'
+      }
     }
-    var result = auth0.parseHash(window.location.hash);
-    var id_token = result.id_token;
-    var access_token = result.access_token;
-    if (id_token) {
-      window.localStorage.setItem('bestofjs_id_token', id_token);
-      window.localStorage.setItem('bestofjs_access_token', access_token);
-      window.location.href = '/'
-    }
+    init();
     </script>
   </body>
 </html>

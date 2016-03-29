@@ -65,7 +65,7 @@ const LinkForm = React.createClass({
           showError={ submitFailed && comment.error }
           errorMessage={ comment.error }
         >
-          <textarea type="text" name="comment" {...comment} />
+          <textarea type="text" name="comment" {...comment} rows="10" />
         </Field>
 
         <Field

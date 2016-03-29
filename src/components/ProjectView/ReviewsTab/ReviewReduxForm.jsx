@@ -48,7 +48,7 @@ const ReviewForm = React.createClass({
           showError={ submitFailed && comment.error }
           errorMessage={ comment.error }
         >
-          <textarea rows="8" {...comment} />
+          <textarea rows="8" {...comment} rows="10" />
         </Field>
 
         { !valid && submitFailed &&

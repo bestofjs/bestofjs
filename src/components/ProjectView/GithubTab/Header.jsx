@@ -39,7 +39,7 @@ const Header = React.createClass({
             {' '}
             { project.stars } <span className="octicon octicon-star"></span>
           </p>
-          <div className="last-commit">
+          <div className="last-commit" style={{ marginBottom: '0.5em' }}>
             <span className="octicon octicon-git-commit"></span>
             {' '}
             Last update: { fromNow(project.pushed_at) }
