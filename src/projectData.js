@@ -40,7 +40,7 @@ const defaultState = {
   },
   auth: {
     username: '',
-    pending: false
+    pending: true
   }
 };
 

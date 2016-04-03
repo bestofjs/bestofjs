@@ -11,13 +11,13 @@ export function start() {
       .then(token => {
         getProfile(token.id_token)
           .then(profile => {
-            console.info('profile', profile);
+            // console.info('profile', profile);
             if (profile) {
               return dispatch(loginSuccess(profile, token.access_token));
             } else {
               return dispatch(loginFailure());
             }
-          })
+          });
       })
       .catch(err => {
         console.error('Login failure', err);
@@ -28,7 +28,7 @@ export function start() {
 
 function initAuth0() {
   const loc = window.location;
-  console.log('initAuth0', `${loc.protocol}//${loc.host}/`);
+  // console.log('initAuth0', `${loc.protocol}//${loc.host}/`);
   auth0 = new Auth0({
     domain: 'bestofjs.auth0.com',
     clientID: 'MJjUkmsoTaPHvp7sQOUjyFYOm2iI3chx',
@@ -44,7 +44,7 @@ function initAuth0() {
 function getToken() {
   const key = 'bestofjs_id_token';
   const result = auth0.parseHash(window.location.hash);
-  console.info('> Hash URL =>', result);
+  // console.info('> Hash URL =>', result);
   let id_token = '';
   let access_token = '';
   if (result && result.id_token) {
@@ -69,7 +69,7 @@ function getToken() {
 export function getProfile(token) {
   return new Promise((resolve) => {
     if (!token) return resolve(null);
-    console.info('Checking the token...', token);
+    // console.info('Checking the token...', token);
     auth0.getProfile(token, function (err, profile) {
       if (err) return resolve(null);
       return resolve(profile.nickname);

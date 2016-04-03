@@ -2,6 +2,7 @@ import React, { PropTypes } from 'react';
 import { reduxForm } from 'redux-form';
 
 import Field from '../../common/form/Field';
+import Comment from '../../common/form/MarkdownField';
 import SelectBox from '../../../containers/ProjectSelectBoxContainer';
 import ErrorMessage from '../../common/utils/ErrorMessage';
 
@@ -60,13 +61,10 @@ const LinkForm = React.createClass({
           />
         </Field>
 
-        <Field
-          label="Comment"
-          showError={ submitFailed && comment.error }
-          errorMessage={ comment.error }
-        >
-          <textarea type="text" name="comment" {...comment} rows="10" />
-        </Field>
+        <Comment
+          comment={comment}
+          submitFailed={submitFailed}
+        />
 
         <Field
           label="Related projects"

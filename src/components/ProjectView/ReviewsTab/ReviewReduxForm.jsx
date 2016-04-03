@@ -2,6 +2,7 @@ import React, { PropTypes } from 'react';
 import { reduxForm } from 'redux-form';
 
 import Field from '../../common/form/Field';
+import Comment from '../../common/form/MarkdownField';
 import ErrorMessage from '../../common/utils/ErrorMessage';
 import RatingBox from './RatingBox';
 
@@ -35,21 +36,18 @@ const ReviewForm = React.createClass({
         className={ `ui form${valid ? '' : ' error'}` }
       >
 
-      <Field
-        label="Your rating:"
-        showError={ submitFailed && rating.error }
-        errorMessage={ rating.error }
-      >
-        <RatingBox score={ rating } />
-      </Field>
-
         <Field
-          label="Your comment:"
-          showError={ submitFailed && comment.error }
-          errorMessage={ comment.error }
+          label="Your rating:"
+          showError={ submitFailed && rating.error }
+          errorMessage={ rating.error }
         >
-          <textarea rows="8" {...comment} rows="10" />
+          <RatingBox score={ rating } />
         </Field>
+
+        <Comment
+          comment={comment}
+          submitFailed={submitFailed}
+        />
 
         { !valid && submitFailed &&
           <ErrorMessage>Fix invalid fields!</ErrorMessage>
