@@ -9,9 +9,11 @@ This is a place where font-end engineers and node.js developers can find the bes
 
 * Frameworks
 * Librairies
-* CSS tools
+* CSS toolkits
 * Testing tools
 * and many other things...
+
+New feature added on April 2016: sign in with Github to add "Reviews" and "Links" about the projects you care!
 
 ## How it works
 
@@ -27,9 +29,9 @@ The web application displays the total number of stars and their variation over 
 
 Features coming sooner or later:
 
-* See project last commit date (to check projects that are really active)
-* User generated content: project reviews and useful resources about projects
-* Hall of fame: add a link to see a list of some of the most important members of the community (great contributors like Sindre, Substack, TJ...)
+* [x] See project last commit date (to check projects that are really active)
+* [x] User generated content: project reviews and useful resources about projects
+* [ ] Hall of fame: add a link to see a list of some of the most important members of the community (great contributors like Sindre, Substack, TJ...)
 
 ## Technical overview
 

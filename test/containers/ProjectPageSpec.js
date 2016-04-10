@@ -17,10 +17,9 @@ import { getAllTags, getTag, getAllComponents } from '../utils';
 import { fetchReadme } from '../../src/actions';
 
 import {
-  mount,
-  spyLifecycle
+  mount
 } from 'enzyme';
-
+import sinon from 'sinon';
 
 // Data
 import data from '../data/projects';
@@ -42,17 +41,21 @@ test('Check <ProjectPage> container', (assert) => {
     const { name, readme } = store.getState().entities.projects[id];
     if (readme) {
       assert.ok(readme.length > 1000, `There should be a pretty long readme in the project`);
-      assert.end();
+    } else {
+      // assert.fail('No readme found!')
     }
   });
 
-  spyLifecycle(ProjectPage);
+  console.log(ProjectPage.prototype);
+  sinon.spy(ProjectPage.prototype, 'componentWillReceiveProps');
   const component = mount(
     <Provider store={store}>
       <ProjectPage params={{ id }} />
     </Provider>
   );
-  assert.ok(ProjectPage.prototype.componentDidMount.calledOnce, 'componentDidMount should have been called');
+  assert.ok(ProjectPage.prototype.componentWillReceiveProps, 'componentWillReceiveProps should have been called');
 
   assert.ok(component, `The component should exist.`);
+
+  assert.end();
 });

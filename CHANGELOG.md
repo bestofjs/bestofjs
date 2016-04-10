@@ -1,5 +1,10 @@
 # Change log
 
+## 0.3.0 - 2016-04-11
+* Github login feature using Auth0 authentication service
+* Add user generated content feature: "Reviews" and "Links"
+* Update React dependency 0.14.7 -> 15.0.1
+
 ## 0.3.0-alpha - 2016-02-29
 * html page rendered server-side by `npm run daily` script, run every morning on CI
 * Layout adjustment

@@ -6,7 +6,7 @@
   "scripts": {
     "lint": "eslint src --ext .js --ext .jsx",
     "test": "babel-tape-runner test/**/*Spec.js | faucet",
-    "test-debug": "babel-tape-runner test/**/ProjectSpec.js",
+    "test-debug": "babel-tape-runner test/**/ProjectPageSpec.js",
     "clean": "rimraf www/index.html && rimraf www/build",
     "build": "npm run build-html && npm run build-js",
     "start": "webpack-dev-server --config config/webpack.local.config.js --content-base www/ --hot",
@@ -86,6 +86,7 @@
     "jsdom": "^7.0.2",
     "react-addons-test-utils": "15.0.1",
     "react-hot-loader": "^1.2.7",
+    "sinon": "^1.17.3",
     "tape": "^4.2.2",
     "webpack-dev-server": "^1.9.0"
   }
