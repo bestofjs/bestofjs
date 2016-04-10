@@ -16,6 +16,7 @@
     "quotes": 1,
     "dot-notation": 1,
     "react/prop-types": 0,
-    "react/no-multi-comp": 0
+    "react/no-multi-comp": 0,
+    "no-else-return": 1
   }
 }

@@ -29,7 +29,6 @@ const ReviewForm = React.createClass({
       submitting,
       onSave // passed from parent component (<Create> / <Edit>)
     } = this.props;
-    console.log('Render LinkReduxForm', this.props);
     return (
       <form
         onSubmit={ handleSubmit(onSave(project, auth)) }

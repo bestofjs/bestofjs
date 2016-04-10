@@ -46,6 +46,7 @@ const LinkForm = React.createClass({
           <input
             type="text"
             placeholder="http://blog.com/tutorial"
+            maxLength={100}
             {...url}
           />
         </Field>
@@ -57,6 +58,7 @@ const LinkForm = React.createClass({
         >
           <input
             type="text"
+            maxLength={100}
             {...title}
           />
         </Field>

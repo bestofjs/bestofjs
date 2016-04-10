@@ -19,8 +19,8 @@ export function start() {
             }
           });
       })
-      .catch(err => {
-        console.error('Login failure', err);
+      .catch(() => {
+        // console.error('Login failure', err);
         return dispatch(loginFailure());
       });
   };
@@ -55,7 +55,7 @@ function getToken() {
     return Promise.resolve(id_token);
   }
   id_token = localStorage[key];
-  access_token = localStorage['bestofjs_access_token'];
+  access_token = localStorage.bestofjs_access_token;
   if (id_token) {
     return Promise.resolve({
       id_token,
@@ -134,15 +134,6 @@ export function logout() {
     });
     return p
       .then(() => dispatch(logoutSuccess()));
-  };
-}
-
-export function init() {
-  auth = new Auth();
-  return dispatch => {
-    auth.checkLocalToken()
-      .then(json => dispatch(loginSuccess(json.nickname)))
-      .catch(err => console.error('ERROR auth init', err.message));
   };
 }
 

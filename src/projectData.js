@@ -2,11 +2,12 @@ import request from 'axios';
 
 import api from '../config/api';
 import * as helpers from './helpers/projectHelpers';
-// import getProjectId from './helpers/getProjectId';
 import loading from './helpers/loading';
 
 // Called by `entry.jsx` to fetch initial data (project and tag lists)
 // from a static JSON file served by a CDN
+
+const ACCESS_TOKEN = 'bestofjs_access_token';
 
 export function getInitialData(profile) {
   return checkLocalData()
@@ -93,7 +94,7 @@ export function getInitialState(data, profile) {
   };
 
   if (profile) {
-    const token = window.localStorage['bestofjs_access_token'];
+    const token = window.localStorage[ACCESS_TOKEN];
     state.auth = {
       username: profile.nickname,
       token,
@@ -127,7 +128,6 @@ function checkLocalData() {
     try {
       const json = JSON.parse(localProjects);
       resolve(json);
-      console.log('OK!!!', json);
     } catch (ex) {
       reject(ex);
     }

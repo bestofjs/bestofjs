@@ -6,7 +6,5 @@ export default function validate(values) {
     .forEach(field => {
       errors[field] = 'Please rate the project';
     });
-
-  console.log('Validation errors', errors);
   return errors;
 }

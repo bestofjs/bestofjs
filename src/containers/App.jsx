@@ -20,8 +20,8 @@ function getCurrentTagId() {
 }
 
 const App = React.createClass({
-  componentDidMount: function() {
-    console.info(this.props.authActions);
+  componentDidMount() {
+    // console.info(this.props.authActions);
     this.props.authActions.start();
   },
   render() {

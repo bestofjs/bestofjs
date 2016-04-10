@@ -9,8 +9,6 @@ export default function validate(values) {
 
   const url = values.url || '';
   if (url && !isUrl(url)) errors.url = 'Invalid URL';
-
-  console.log('Validation errors', errors);
   return errors;
 }
 
