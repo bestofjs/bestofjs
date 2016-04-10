@@ -6,7 +6,7 @@ const setup = {
     // URL of the "get-readme" micro-service raw code on the `DEV` branch
     GET_README: 'https://webtask.it.auth0.com/api/run/wt-mikeair-gmail_com-0/d4bf0bb7021ce02e77d5e2dceac010c7?webtask_no_cache=1',
 
-    USER_CONTENT: 'https://webtask.it.auth0.com/api/run/wt-mikeair-gmail_com-0/user-content-api-v1'
+    USER_CONTENT: 'https://webtask.it.auth0.com/api/run/wt-mikeair-gmail_com-0/user-content-api-dev'
   },
 
   production: {

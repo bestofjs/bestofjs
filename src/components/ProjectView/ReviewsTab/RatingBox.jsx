@@ -4,7 +4,7 @@ const options = [
   'Some annoying defects',
   'It does the job, nothing more, nothing less',
   'A recommended choice',
-  'Highly recommended over any other choice, a great piece of software'
+  'Highly recommended over any other choice, a great piece of software!'
 ];
 const RatingBox = React.createClass({
   propTypes: {
