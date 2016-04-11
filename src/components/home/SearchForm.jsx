@@ -20,9 +20,9 @@ const SearchForm = React.createClass({
   },
   emitChange(text) {
     if (text) {
-      hashHistory.pushState(null, `/search/${text}`);
+      hashHistory.push(`/search/${text}`);
     } else {
-      hashHistory.pushState(null, '/');
+      hashHistory.push('/');
     }
     // console.log('SearchForm emitChange', text);
   },
