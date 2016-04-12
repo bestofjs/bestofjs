@@ -1,15 +1,26 @@
+<!doctype html>
 <html>
   <head>
+    <meta charset="utf-8">
+    <title>bestof.js.org login with Github</title>
     <style>
+    body, html {
+      height: 100%;
+    }
     body {
       background-color: #fa9e59;
       color: white;
       text-align: center;
       font-size: 3em;
       font-family: sans-serif;
+      display: -webkit-box;
+      display: -webkit-flex;
+      display: -ms-flexbox;
       display: flex;
-      height: 100%;
-      align-items: center;
+      -webkit-box-align: center;
+      -webkit-align-items: center;
+      -ms-flex-align: center;
+              align-items: center;
     }
     div {
       width: 100%;
@@ -24,12 +35,9 @@
       auth0 = new Auth0({
         domain: 'bestofjs.auth0.com',
         clientID: 'MJjUkmsoTaPHvp7sQOUjyFYOm2iI3chx',
-        callbackURL: `/`,
+        callbackURL: '/',
         callbackOnLocationHash: true
       });
-      function getProfile(token) {
-        auth0.getProfile(token, (err, profile) => console.log(err, profile))
-      }
       var result = auth0.parseHash(window.location.hash);
       if (!result) return;
       var id_token = result.id_token;

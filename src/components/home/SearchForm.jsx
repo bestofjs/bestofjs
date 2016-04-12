@@ -40,6 +40,7 @@ const SearchForm = React.createClass({
             type="text"
             style={ style }
             onChange={ this.handleChange }
+            autoFocus
           />
         <span className="mega-octicon octicon-search ui icon"></span>
         </div>
