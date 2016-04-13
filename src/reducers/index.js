@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-import { routeReducer } from 'react-router-redux';
+import { routerReducer } from 'react-router-redux';
 import { reducer as formReducer } from 'redux-form';
 
 import entities from './entities';
@@ -10,7 +10,7 @@ const rootReducer = combineReducers({
   entities,
   githubProjects,
   auth,
-  routing: routeReducer,
+  routing: routerReducer,
   form: formReducer
 });
 

@@ -17,11 +17,11 @@ import api from '../config/api';
 import './helpers/es6-polyfill.js';
 
 // import { getInitialData } from './projectData';
-import loading from './helpers/loading';
+// import loading from './helpers/loading';
 import { getInitialState } from './projectData';
 
 // Set up the http request interceptor used to display the "loading bar"
-loading.init();
+// loading.init();
 
 fetchData()
   .then(data => {

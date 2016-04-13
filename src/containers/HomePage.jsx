@@ -7,9 +7,6 @@ import log from '../helpers/log';
 
 
 const HomePage = React.createClass({
-  shouldComponentUpdate() {
-    return true;
-  },
   render() {
     log('Render the <HomePage> container', this.props);
     const { hotProjects, popularProjects, isLoggedin } = this.props;
