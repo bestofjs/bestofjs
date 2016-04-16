@@ -1,34 +1,22 @@
-import React from 'react';
-import { render } from 'react-dom';
-import request from 'axios';
-// import { Router } from 'react-router';
-// import { Provider } from 'react-redux';
-// import createHistory from 'history/lib/createHashHistory';
-// import { syncReduxAndRouter } from 'react-router-redux';
-// import useScroll from 'scroll-behavior/lib/useScrollToTop';
-
-import Root from './Root';
-// import configureStore from './store/configureStore';
-// import Routes from './routes';
-
-import api from '../config/api';
+// Promise polyfill to avoid "Promise is undefined" error in IE
+require('es6-promise').polyfill();
 
 // Object.assign() polyfill for IE (used in the reducer)
 import './helpers/es6-polyfill.js';
 
-// import { getInitialData } from './projectData';
-// import loading from './helpers/loading';
-import { getInitialState } from './projectData';
+import React from 'react';
+import { render } from 'react-dom';
+import request from 'axios';
 
-// Set up the http request interceptor used to display the "loading bar"
-// loading.init();
+import Root from './Root';
+import api from '../config/api';
+import { getInitialState } from './projectData';
 
 fetchData()
   .then(data => {
     const state = getInitialState(data);
     startRedux(state);
   });
-
 
 require('./stylesheets/main.styl');
 require('../node_modules/react-select/dist/react-select.css');

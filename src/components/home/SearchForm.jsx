@@ -35,15 +35,15 @@ const SearchForm = React.createClass({
       fontSize: '1em'
     };
     return (
-        <div className="ui input icon">
-          <input
-            type="text"
-            style={ style }
-            onChange={ this.handleChange }
-            autoFocus
-          />
+      <div className="ui input icon" style={{ width: 250 }}>
+        <input
+          type="text"
+          style={ style }
+          onChange={ this.handleChange }
+          autoFocus
+        />
         <span className="mega-octicon octicon-search ui icon"></span>
-        </div>
+      </div>
     );
   }
 });

@@ -48,14 +48,14 @@ h3
   text-align: center
 
 .container
-  max-width 1000px
-  margin 0 auto
-  padding-top 80px
+  max-width: $containerWidth
+  margin: 0 auto
+  @media (max-width: $sidebarWidth + $containerWidth)
+    padding-left: $gutter
+    padding-right: $gutter
 
 #main-content
-  padding: 4.5em 0.5em 0
-  max-width 800px
-  margin 0 auto
+  padding-top: $topbarHeight + 20px // because of fixed header
   &.small
     max-width 600px//limit container width for project list pages
 

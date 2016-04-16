@@ -10,7 +10,7 @@ const TagFilter = React.createClass({
     const { tag, projects, isLoggedin } = this.props;
 
     return (
-      <MainContent className="small">
+      <MainContent className="small container">
         { tag.name && (
           <div style={{ fontSize: 18, marginBottom: 20 }}>
 
