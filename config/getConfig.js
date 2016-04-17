@@ -5,13 +5,14 @@ const webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const autoprefixer = require('autoprefixer');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const pkg = require('../package.json');
 
 const getFullPage = require('../scripts/build/getFullPage');
 
 function getPlugins(env) {
   const envPlugin = new webpack.DefinePlugin({
     'process.env': {
-      'NODE_ENV': JSON.stringify(env),
+      'NODE_ENV': JSON.stringify(env)
     }
   });
 
@@ -60,6 +61,13 @@ function getLoaders(env) {
   const stylusLoader = {
     test: /\.styl$/
   };
+
+  // json loader used to read `package.json`
+  const jsonLoader = {
+    test: /\.json$/,
+    loader: 'json'
+  };
+
   if (env === 'development') {
     cssLoader.loader = 'style-loader!css-loader!postcss-loader';
     stylusLoader.loader = 'style-loader!css-loader!postcss-loader!stylus-loader';
@@ -67,7 +75,7 @@ function getLoaders(env) {
     cssLoader.loader = ExtractTextPlugin.extract('style-loader', 'css-loader!postcss-loader');
     stylusLoader.loader = ExtractTextPlugin.extract('style-loader', 'css-loader!postcss-loader!stylus-loader');
   }
-  const loaders = [jsLoader, stylusLoader, cssLoader];
+  const loaders = [jsLoader, jsonLoader, stylusLoader, cssLoader];
   return loaders;
 }
 
