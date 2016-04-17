@@ -22,21 +22,34 @@ const SearchForm = React.createClass({
   },
   render() {
     const style = {
-      boxSizing: 'border-box', // to prevent the input from overlapping the container
-      padding: '0.5em 1em',
-      border: '3px solid #ddd',
-      borderRadius: 6,
-      fontSize: '1em'
+      container: {
+        boxSizing: 'border-box', // to prevent the input from overlapping the container
+        padding: '0 0.5em',
+        border: '3px solid #ddd',
+        borderRadius: 6,
+        fontSize: '1em',
+        outline: 0,
+        display: 'flex',
+        alignItems: 'center'
+      },
+      input: {
+        outline: 0,
+        borderStyle: 'none',
+        fontSize: '1rem'
+      },
+      icon: {
+        color: '#ddd'
+      }
     };
     return (
-      <div className="ui input icon" style={{ width: 250 }}>
+      <div className="search-input-container" style={style.container}>
         <input
           type="text"
-          style={ style }
           onChange={ this.handleChange }
           autoFocus
+          style={style.input}
         />
-        <span className="mega-octicon octicon-search ui icon"></span>
+      <span className="mega-octicon octicon-search icon" style={style.icon}></span>
       </div>
     );
   }

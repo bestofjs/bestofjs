@@ -9,7 +9,7 @@ import log from '../../helpers/log';
 const About = React.createClass({
   render() {
     log('Render the <About> component', this.props);
-    const { project, staticContent } = this.props;
+    const { project, staticContent, count } = this.props;
     const { repo, projectName } = staticContent;
     return (
       <MainContent>
@@ -30,7 +30,7 @@ const About = React.createClass({
 
         <h2>Concept</h2>
         <p>Checking the number of stars on Github is a good way to check project popularity but it does not tell you when the stars have been added. </p>
-        <p>{ projectName } takes "snapshot" of Github stars every day, for more than 300 projects, to detect the trends over the last weeks.</p>
+        <p>{ projectName } takes "snapshot" of Github stars every day, for {count} projects, to detect the trends over the last weeks.</p>
 
         { project && (
           <Example project={ project } />

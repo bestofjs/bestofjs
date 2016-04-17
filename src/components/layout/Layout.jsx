@@ -17,20 +17,22 @@ const Layout = (props) => {
         authActions={ authActions }
       />
 
-      <main id="panel" className="slideout-panel">
+      <div id="panel" className="slideout-panel">
 
         <Header
           searchText={ textFilter }
         />
 
-        { children }
+        <main id="main">
+          { children }
+        </main>
 
         <Footer
           staticContent={ staticContent }
           lastUpdate={ lastUpdate }
         />
 
-      </main>
+      </div>
 
     </div>
   );
