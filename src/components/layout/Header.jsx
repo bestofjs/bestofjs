@@ -1,7 +1,7 @@
 import React from 'react';
 import { IndexLink } from 'react-router';
 
-import SearchForm from '../home/SearchForm';
+import SearchForm from '../../containers/SearchFormContainer';
 import ToggleMenuButton from './ToggleMenuButton';
 
 export default ({ searchText, actions }) => (

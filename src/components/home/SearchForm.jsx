@@ -1,5 +1,4 @@
 import React from 'react';
-import { hashHistory } from 'react-router';
 import debounce from 'lodash/function/debounce';
 
 const SearchForm = React.createClass({
@@ -11,20 +10,15 @@ const SearchForm = React.createClass({
   componentDidMount() {
     this.emitChangeDelayed = debounce(this.emitChange, 300);
   },
+  emitChange(text) {
+    this.props.onChange(text);
+  },
   handleChange(e) {
     const text = e.target.value;
     this.setState({
       text
     });
     this.emitChangeDelayed(text);
-  },
-  emitChange(text) {
-    if (text) {
-      hashHistory.push(`/search/${text}`);
-    } else {
-      hashHistory.push('/');
-    }
-    // console.log('SearchForm emitChange', text);
   },
   render() {
     const style = {

@@ -6,7 +6,7 @@
   "scripts": {
     "lint": "eslint src --ext .js --ext .jsx",
     "test": "babel-tape-runner test/**/*Spec.js | faucet",
-    "test-debug": "babel-tape-runner test/**/ProjectPageSpec.js",
+    "test-debug": "babel-tape-runner test/**/SearchSpec.js",
     "clean": "rimraf www/index.html && rimraf www/build",
     "build": "npm run build-html && npm run build-js",
     "start": "webpack-dev-server --config config/webpack.local.config.js --content-base www/ --hot",
