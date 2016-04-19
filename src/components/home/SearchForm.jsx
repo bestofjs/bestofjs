@@ -21,35 +21,14 @@ const SearchForm = React.createClass({
     this.emitChangeDelayed(text);
   },
   render() {
-    const style = {
-      container: {
-        boxSizing: 'border-box', // to prevent the input from overlapping the container
-        padding: '0 0.5em',
-        border: '3px solid #ddd',
-        borderRadius: 6,
-        fontSize: '1em',
-        outline: 0,
-        display: 'flex',
-        alignItems: 'center'
-      },
-      input: {
-        outline: 0,
-        borderStyle: 'none',
-        fontSize: '1rem'
-      },
-      icon: {
-        color: '#ddd'
-      }
-    };
     return (
-      <div className="search-input-container" style={style.container}>
+      <div id="searchbox">
         <input
           type="text"
           onChange={ this.handleChange }
           autoFocus
-          style={style.input}
         />
-      <span className="mega-octicon octicon-search icon" style={style.icon}></span>
+      <span className="mega-octicon octicon-search icon"></span>
       </div>
     );
   }
