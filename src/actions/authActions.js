@@ -1,10 +1,17 @@
-// 'auth0-js' uses the `window` object that does not exist we do server-side endering
-const Auth0 = typeof window === 'undefined' ? {} : require('auth0-js');
+// auth0 actions
+// 3 exported functions:
+// - start()
+// - login()
+// - logout()
 
-let auth0 = null;
+const APP_URL = 'https://bestofjs.auth0.com';
 
+const LOCAL_KEYS = ['id', 'access']
+  .map(key => `bestofjs_${key}_token`);
+
+// Check if the user is logged in when the application starts
+// called from <App> componentDidMount()
 export function start() {
-  initAuth0();
   return dispatch => {
     loginRequest();
     return getToken()
@@ -13,84 +20,95 @@ export function start() {
           .then(profile => {
             // console.info('profile', profile);
             if (profile) {
-              return dispatch(loginSuccess(profile, token.access_token));
+              return dispatch(loginSuccess(profile, token.id_token));
             } else {
               return dispatch(loginFailure());
             }
+          })
+          .catch(() => {
+            // console.info('Login failure1');
+            return dispatch(loginFailure());
           });
       })
       .catch(() => {
-        // console.error('Login failure', err);
+        // console.info('Login failure2');
         return dispatch(loginFailure());
       });
   };
 }
 
-function initAuth0() {
-  const loc = window.location;
-  // console.log('initAuth0', `${loc.protocol}//${loc.host}/`);
-  auth0 = new Auth0({
-    domain: 'bestofjs.auth0.com',
-    clientID: 'MJjUkmsoTaPHvp7sQOUjyFYOm2iI3chx',
-    callbackURL: `${loc.protocol}//${loc.host}/auth0.html`,
-    callbackOnLocationHash: true
-  });
+// `login` action callded from the login button
+export function login() {
+  const client_id = 'MJjUkmsoTaPHvp7sQOUjyFYOm2iI3chx';
+  const redirect_uri = `${self.location.origin}%2Fauth0.html`;
+  const auth0Client = 'eyJuYW1lIjoiYXV0aDAuanMiLCJ2ZXJzaW9uIjoiNi44LjAifQ';
+  const url = `${APP_URL}/authorize?scope=openid&response_type=token&connection=github&sso=true&client_id=${client_id}&redirect_uri=${redirect_uri}&auth0Client=${auth0Client}`;
+  return dispatch => {
+    dispatch(loginRequest());
+    self.location.href = url;
+  };
 }
 
-// Return user's `id_token` (JWT) checking:
-// - first the URL hash (when coming from Gittub authentication page)
-// - then the local storage
-// Return null if no token is found
+// Return user's `id_token` (JWT) checking from localStorage:
 function getToken() {
-  const key = 'bestofjs_id_token';
-  const result = auth0.parseHash(window.location.hash);
-  // console.info('> Hash URL =>', result);
-  let id_token = '';
-  let access_token = '';
-  if (result && result.id_token) {
-    id_token = result.id_token;
-    access_token = result.access_token;
-    window.localStorage.setItem(key, id_token);
-    window.localStorage.setItem('bestofjs_access_token', access_token);
-    return Promise.resolve(id_token);
-  }
-  id_token = localStorage[key];
-  access_token = localStorage.bestofjs_access_token;
+  const [id_token, access_token] = LOCAL_KEYS.map(
+    key => window.localStorage[key]
+  );
   if (id_token) {
     return Promise.resolve({
       id_token,
       access_token
     });
   }
-  return Promise.resolve('');
+  return Promise.reject('');
 }
 
-// Return UserProfile for a given `access_token`
-export function getProfile(token) {
-  return new Promise((resolve) => {
-    if (!token) return resolve(null);
-    // console.info('Checking the token...', token);
-    auth0.getProfile(token, function (err, profile) {
-      if (err) return resolve(null);
-      return resolve(profile.nickname);
-    });
-  });
+// Return UserProfile for a given `id_token`
+function getProfile(token) {
+  if (!token) return Promise.reject('Token is missing!');
+  // console.info('Auth0 API call with token', token.length);
+  const body = {
+    id_token: token
+  };
+  const options = {
+    body: JSON.stringify(body),
+    method: 'POST',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    }
+  };
+  const url = `${APP_URL}/tokeninfo`;
+  return fetch(url, options)
+    .then(response => checkStatus(response))
+    .then(response => response.json())
+    .then(json => json.nickname);
 }
 
-// LOGIN
+function checkStatus(response) {
+  if (response.status >= 200 && response.status < 300) {
+    return response;
+  } else {
+    const error = new Error(response.statusText);
+    error.response = response;
+    throw error;
+  }
+}
+
 export function loginRequest() {
   return {
     type: 'LOGIN_REQUEST'
   };
 }
-export function loginSuccess(username, token) {
+function loginSuccess(username, token) {
   return {
     type: 'LOGIN_SUCCESS',
     username,
     token
   };
 }
-export function loginFailure(username) {
+function loginFailure(username) {
+  resetToken();
   return {
     type: 'LOGIN_FAILURE',
     username
@@ -111,25 +129,24 @@ export function fakeLogin() {
 }
 
 // LOGOUT
-export function logoutRequest() {
+function logoutRequest() {
   return {
     type: 'LOGOUT_REQUEST'
   };
 }
-export function logoutSuccess() {
+function logoutSuccess() {
   return {
     type: 'LOGOUT_SUCCESS'
   };
 }
 
+// logout button
 export function logout() {
   return dispatch => {
     dispatch(logoutRequest());
     const p = new Promise(function (resolve) {
       // Do not call window.auth0.logout() that will redirect to Github signout page
-      ['id', 'access']
-        .map(key => `bestofjs_${key}_token`)
-        .forEach(key => window.localStorage.removeItem(key));
+      resetToken();
       resolve();
     });
     return p
@@ -137,13 +154,6 @@ export function logout() {
   };
 }
 
-export function login() {
-  return dispatch => {
-    dispatch(loginRequest());
-    return auth0.login({
-      connection: 'github'
-    })
-      .then(json => dispatch(loginSuccess(json.nickname)))
-      .catch(err => console.error('ERROR login', err.message));
-  };
+function resetToken() {
+  LOCAL_KEYS.forEach(key => window.localStorage.removeItem(key));
 }
