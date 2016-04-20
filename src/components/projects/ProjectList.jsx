@@ -13,10 +13,6 @@ const ProjectList = React.createClass({
     });
   },
 
-  onChangeText(e) {
-    this.props.actions.changeText(e.target.value);
-  },
-
   render() {
     // console.log('Render project list', this.props.projects.length);
     return (
@@ -25,7 +21,7 @@ const ProjectList = React.createClass({
           <ProjectCard
             project={ project }
             maxStars={ this.props.maxStars }
-            key={ index }
+            key={ project.id }
             index={ index }
             showTags={ this.props.showTags }
             showDescription={ this.props.showDescription }
@@ -38,5 +34,4 @@ const ProjectList = React.createClass({
     );
   }
 });
-// export default ProjectList;
-module.exports = ProjectList;
+export default ProjectList;

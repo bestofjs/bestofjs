@@ -116,5 +116,4 @@ const ProjectCard = (props) => {
   );
 };
 
-// export default ProjectCard;
-module.exports = ProjectCard;
+export default ProjectCard;

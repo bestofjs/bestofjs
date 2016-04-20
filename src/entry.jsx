@@ -12,6 +12,11 @@ import Root from './Root';
 import api from '../config/api';
 import { getInitialState } from './projectData';
 
+if (process.env.NODE_ENV === 'development') {
+  // to be used from the DevTools console, with "React Perf" Chrome extension
+  window.Perf = require('react-addons-perf');
+}
+
 fetchData()
   .then(data => {
     const state = getInitialState(data);

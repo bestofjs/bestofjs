@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router';
+// import { Link } from 'react-router';
 
 import log from '../../helpers/log';
 import MainContent from '../common/MainContent';
@@ -20,14 +20,7 @@ const Home = React.createClass({
         </h2>
         <p style={{ marginBottom: '1em' }}>
           <StarMeButton url={ repo }/>
-          Check out the most popular open-source projects and the latest trends:
-          {' '}
-          <Link to="/tags/framework">frameworks</Link>,
-          {' '}
-          <Link to="/tags/react">react tools</Link>,
-          {' '}
-          <Link to="/tags/cms-api">node.js CMS</Link>
-          {' and many more... the best of JavaScript!'}
+          Check out the most popular open-source projects and the latest trends about the web platform and node.js.
         </p>
 
         { hotProjects.length && (

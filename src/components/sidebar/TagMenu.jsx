@@ -3,6 +3,9 @@ import React from 'react';
 import TagMenuItem from './TagMenuItem';
 
 const TagMenu = React.createClass({
+  shouldComponentUpdate() {
+    return false;
+  },
   render() {
     return (
       <div className="tag-menu">

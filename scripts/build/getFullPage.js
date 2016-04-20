@@ -12,6 +12,9 @@ module.exports = function (dev, appHtml) {
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <title>The Best of JavaScript and the web platorm</title>
     <meta name="description" content="bestof.js.org is a place where front-end engineers and node.js developers can find the best components to build amazing web applications.">
+    <meta content="Best of JavaScript" property="og:title">
+    <meta content="A place to find the best components to build amazing applications: JavaScript client and server side, html, CSS..." property="og:description">
+    <meta content="http://bestof.js.org/images/logo2.png" property="og:image">
     <!-- added for Github pages -->
     <link rel="shortcut icon" href="favicon.ico">
     ${dev ? '<!-- No external stylesheet in dev mode -->' : '<link rel="stylesheet" href="build/app.css">'}
