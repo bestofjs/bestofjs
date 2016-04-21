@@ -1,4 +1,8 @@
 {
   "presets": ["es2015", "react"],
-  "plugins": ["transform-react-display-name"]
+  "env": {
+    "production": {
+      "presets": ["es2015", "react", "react-optimize"]
+    }
+  }
 }
