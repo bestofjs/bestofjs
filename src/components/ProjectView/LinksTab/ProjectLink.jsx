@@ -24,10 +24,10 @@ const ProjectLink = React.createClass({
           editable={ editable }
           editLinkTo={ `/projects/${project.id}/links/${link._id}/edit` }
         />
-        <a href={ link.url } target="_blank">
-          <span className={`octicon octicon-link-external`}></span>
-          {' '}
+        <a href={ link.url } target="_blank" className="project-link-title">
           { link.title }
+          {' '}
+          <span className={`octicon octicon-link-external`}></span>
         </a>
         <div className="project-item-comment" style={{ marginTop: '0.5em' }}>
           {this.renderComment(link.comment)}

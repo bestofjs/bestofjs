@@ -66,16 +66,13 @@ function getToken() {
 // Return UserProfile for a given `id_token`
 function getProfile(token) {
   if (!token) return Promise.reject('Token is missing!');
-  // console.info('Auth0 API call with token', token.length);
-  const body = {
-    id_token: token
-  };
   const options = {
-    body: JSON.stringify(body),
+    body: `id_token=${token}`,
     method: 'POST',
     headers: {
       'Accept': 'application/json',
-      'Content-Type': 'application/json'
+      // do not use Content-Type: 'application/json' to avoid extra 'OPTIONS' requests (#9)
+      'Content-Type': 'application/x-www-form-urlencoded'
     }
   };
   const url = `${APP_URL}/tokeninfo`;

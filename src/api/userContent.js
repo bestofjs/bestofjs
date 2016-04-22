@@ -1,13 +1,14 @@
 import getApi from '../../config/api';
-// const API_BASE_URL = 'http://localhost:3000';
-const API_BASE_URL = getApi('USER_CONTENT');
+
+const debug = false;
+const API_BASE_URL = debug ? 'http://localhost:3000' : getApi('USER_CONTENT');
 
 function apiRequest(url, token, options) {
   const defaultOptions = {
     method: 'GET',
     headers: {
-      ['Accept']: 'application/json',
-      ['Content-Type']: 'application/json'
+      'Accept': 'application/json',
+      // avoid 'Content-Type' header that causes `OPTIONS` requests (#14)
     }
   };
   const requestOptions = Object.assign({}, defaultOptions, options);

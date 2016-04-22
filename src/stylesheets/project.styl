@@ -1,3 +1,5 @@
+$readmePadding = 1rem
+
 //Color for font-icons used in project page ("book" and "quote" icons)
 .project-page
   .icon
@@ -5,15 +7,15 @@
 
 .readme
   background-color white
-  
+
   border 1px solid #ccc
   .header
-    padding 0.5em 1.5em
+    padding 0.5em $readmePadding
     border-bottom 1px solid #ccc
   .body
-    padding 1.5em
+    padding $readmePadding
   .footer
-    padding 1.5em
+    padding $readmePadding
     border-top 1px solid #ccc
   //Attempt to split long lines of code inside readme section (TODO: fix it!)
   pre code
