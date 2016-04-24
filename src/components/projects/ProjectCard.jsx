@@ -30,7 +30,7 @@ const renderLinks = (links = []) => {
   const list = () => (
     <ul>
       {links.map(link => (
-        <li>{link.title}</li>
+        <li key={link._id}>{link.title}</li>
       ))}
     </ul>
   );

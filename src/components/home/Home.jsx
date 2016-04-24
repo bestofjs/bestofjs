@@ -19,7 +19,6 @@ const Home = React.createClass({
           Find the <i className="special">best</i> components to build amazing web applications!
         </h2>
         <p style={{ marginBottom: '1em' }}>
-          <StarMeButton url={ repo }/>
           Check out the most popular open-source projects and the latest trends about the web platform and node.js.
         </p>
 
