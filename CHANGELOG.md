@@ -1,11 +1,11 @@
 # Change log
 
-## 0.3.1 - 2016-04-23
+## 0.3.1 - 2016-04-24
 * Add Links view in the sidebar
 * Add manifest.json
 * Avoid http `OPTIONS` requests (#14)
 * Upgrade `redux-form` to 5.1.3
-
+* "Github corner" icon
 
 ## 0.3.0 - 2016-04-11
 * Github login feature using Auth0 authentication service

@@ -1,15 +1,12 @@
 import test from 'tape';
 import React from 'react';
-import TestUtils from 'react-addons-test-utils';
 import {
-  mount,
-  render,
+  // mount,
+  // render,
   shallow
 } from 'enzyme';
 
-import {getAllTags, getTag, getAllComponents} from '../utils';
 import setup from '../setup.js';
-
 
 // Data
 import data from '../data/projects';
@@ -19,7 +16,6 @@ setup();
 
 // Components to check
 import Home from '../../src/components/home/Home';
-import Button from '../../src/components/common/StarMeButton';
 import ProjectList from '../../src/components/projects/ProjectList';
 import ProjectCard from '../../src/components/projects/ProjectCard';
 
@@ -79,7 +75,6 @@ test('Check <Home> component', (assert) => {
   const state = getInitialState(data);
 
   const props = mapStateToProps(state);
-  console.log(props.hotProjects.length);
 
   const component = shallow(
     <Home
@@ -89,12 +84,9 @@ test('Check <Home> component', (assert) => {
   );
 
   assert.ok(component, `The component should exist.`);
-  console.log(component.debug());
 
-  const button = component.find(Button);
   const lists = component.find(ProjectList);
 
-  assert.equal(button.length, 1, `There should be one "Star on Github" button.`);
   assert.equal(lists.length, 2, `There should be 2 lists of projects.`);
 
   assert.end();

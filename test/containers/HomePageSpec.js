@@ -1,6 +1,5 @@
 import test from 'tape';
 import React from 'react';
-import TestUtils from 'react-addons-test-utils';
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
 import rootReducer from '../../src/reducers';
@@ -9,14 +8,12 @@ import rootReducer from '../../src/reducers';
 import getHomePage from '../../src/containers/HomePage';
 
 // Sub components
-import Button from '../../src/components/common/StarMeButton';
 import ProjectList from '../../src/components/projects/ProjectList';
 import ProjectCard from '../../src/components/projects/ProjectCard';
 
-import { getAllComponents } from '../utils';
 import {
   mount,
-  render
+  // render
 } from 'enzyme';
 
 import setup from '../setup.js';
@@ -30,7 +27,6 @@ test('Check <HomePage> container', (assert) => {
   const TOP_PROJECT_COUNT = 20;
   const HomePage = getHomePage(TOP_PROJECT_COUNT);
   const state = getInitialState(data);
-  console.log(data.projects.length, Object.keys(state));
   const store = createStore(rootReducer, state);
 
   const component = mount(
@@ -41,10 +37,8 @@ test('Check <HomePage> container', (assert) => {
 
   assert.ok(component, `The component should exist.`);
 
-  const button = component.find(Button);
   const Lists = component.find(ProjectList);
 
-  assert.equal(button.length, 1, `There should be one "Star on Github" button.`);
   assert.equal(Lists.length, 2, `There should be 2 lists of projects.`);
 
   if (false) Lists.forEach(List => {

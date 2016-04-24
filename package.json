@@ -34,7 +34,6 @@
   },
   "homepage": "http://bestof.js.org",
   "dependencies": {
-    "auth0-js": "^6.8.0",
     "autoprefixer": "^6.3.3",
     "axios": "^0.7.0",
     "babel-cli": "6.5.1",
