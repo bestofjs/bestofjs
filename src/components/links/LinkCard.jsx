@@ -20,11 +20,11 @@ export default ({ link, project, editable, showProjects }) => {
 
       {showProjects && (
         <div className="inner">
-          Project{link.projects.length > 1 ? 's: ' : ': '}
           {link.projects.map(p => (
             <a
               key={p.id}
               href={`#/projects/${p.id}`}
+              className="tag-project-name"
             >
               {p.name}
             </a>
