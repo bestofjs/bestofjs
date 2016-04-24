@@ -16,7 +16,7 @@ const Edit = React.createClass({
         _id: reviewId,
         project: projectId
       });
-      return dispatch(updateReview(payload, auth));
+      return dispatch(updateReview(project, payload, auth));
     };
   },
   render() {

@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 
 import Links from '../components/links/Links';
 import log from '../helpers/log';
+import { sortByDate } from '../helpers/projectItemHelpers';
 
 const Page = React.createClass({
   render() {
@@ -23,16 +24,6 @@ const populate = (allProjects) => link => {
   const projects = link.projects.map(id => allProjects[id]);
   return Object.assign({}, link, { projects });
 };
-
-const getDate = item => {
-  const displayDate = item.updatedAt ? item.updatedAt : item.createdAt;
-  return new Date(displayDate);
-};
-
-// sort reviews by date, in decreasing order
-const sortByDate = (a, b) => (
-  getDate(a) > getDate(b) ? -1 : 1
-);
 
 function mapStateToProps(state) {
   const {

@@ -1,3 +1,5 @@
+import { sortByDate } from './projectItemHelpers';
+
 // Add `tag` full object to a project object that contains only an array of tag ids
 // 2 examples of call:
 // * In a map function applied to an array of projets `projects.map( populate(tags) );`
@@ -5,13 +7,20 @@
 export default function populate(tags, links, reviews) {
   return function (project) {
     if (!project) throw new Error('populate() called with NO PROJECT!');
-
     const averageRating = getAverageRating(project, reviews);
     const populated = Object.assign({}, project, {
       tags: project.tags.map(id => tags[id]),
-      links: (links && project.links) ? project.links.map(id => links[id]) : project.links,
+      links: (links && project.links) ? (
+          project.links
+            .map(id => links[id])
+            .sort(sortByDate)
+        ) : (
+          project.links
+        ),
       reviews: (reviews && project.reviews) ? (
-          project.reviews.map(id => reviews[id])
+          project.reviews
+            .map(id => reviews[id])
+            .sort(sortByDate)
         ) : (
           project.reviews
         ),
