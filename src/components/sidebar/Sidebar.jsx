@@ -26,7 +26,7 @@ const Sidebar = React.createClass({
             )}
           </div>
           <IndexLink to="/" className="item">HOME</IndexLink>
-          <Link to="/about" className="item">ABOUT</Link>
+          <Link to="/links" className="item">LINKS</Link>
           <div className="item">
             <div className="header">POPULAR TAGS</div>
             <TagMenu tags={ popularTags } selectedTag={ this.props.selectedTag } />
@@ -35,6 +35,7 @@ const Sidebar = React.createClass({
             <div className="header">ALL TAGS</div>
             <TagMenu tags={ allTags } selectedTag={ this.props.selectedTag } />
           </div>
+          <Link to="/about" className="item">ABOUT</Link>
         </div>
       </nav>
     );

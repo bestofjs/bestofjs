@@ -22,14 +22,16 @@ const EditLink = React.createClass({
       <div>Loading the link...</div> // displayed if the page is loaded from a direct URL
     );
     return (
-      <div>
-        <h3>Edit a link</h3>
-        {link && <LinkReduxForm
-          project={project}
-          auth={auth}
-          initialValues={link}
-          onSave={this.submitEdit}
-        />}
+      <div className="project-tabs-content">
+        <div className="inner">
+          <h3>Edit a link</h3>
+          {link && <LinkReduxForm
+            project={project}
+            auth={auth}
+            initialValues={link}
+            onSave={this.submitEdit}
+          />}
+        </div>
       </div>
     );
   }

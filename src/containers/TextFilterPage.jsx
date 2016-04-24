@@ -48,7 +48,7 @@ const TextFilterPage = React.createClass({
 
 function mapStateToProps(state, props) {
   const {
-    entities: { projects, tags },
+    entities: { projects, tags, links },
     githubProjects: { popularProjectIds },
     auth: {
       username
@@ -61,7 +61,7 @@ function mapStateToProps(state, props) {
     .map(id => projects[id])
     .filter(project => filterProject(project, text))
     .slice(0, 50)
-    .map(populate(tags));
+    .map(populate(tags, links));
 
   return {
     foundProjects,

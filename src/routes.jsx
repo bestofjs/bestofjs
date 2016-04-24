@@ -2,11 +2,11 @@ import React from 'react';
 import { Route, IndexRoute, Redirect } from 'react-router';
 
 import App from './containers/App';
-// import App from './AppUI';
 import getHomePage from './containers/HomePage';
 import About from './containers/AboutPage';
 import TagFilter from './containers/TagFilterPage';
 import TextFilter from './containers/TextFilterPage';
+import Links from './containers/LinksPage';
 
 // Single Project page
 import ProjectPage from './containers/ProjectPage';
@@ -23,7 +23,6 @@ import ProjectReviewsList from './components/ProjectView/ReviewsTab/List';
 import ProjectReviewsAdd from './components/ProjectView/ReviewsTab/Create';
 import ProjectReviewsEdit from './components/ProjectView/ReviewsTab/Edit';
 
-
 const getRoutes = (count = 3) => {
   const Home = getHomePage(count);
   return (
@@ -31,6 +30,7 @@ const getRoutes = (count = 3) => {
       <IndexRoute component={Home} />
       <Route path="home" component={Home}/>
       <Route path="about" component={About}/>
+      <Route path="links" component={Links}/>
       <Route path="projects/:id" component={ProjectPage}>
         <IndexRoute component={ProjectGithubTab} />
         <Route path="readme" component={ProjectGithubTab} />

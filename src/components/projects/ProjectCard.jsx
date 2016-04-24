@@ -22,11 +22,23 @@ const renderReviews = (reviews = []) => {
 
 const renderLinks = (links = []) => {
   const count = links.length;
-  const text = (count === 1) ? 'One link' : `${count} links`;
+  const text = (count === 1) ? (
+    `one link: ${links[0].title}`
+  ) : (
+    `${count} links:`
+  );
+  const list = () => (
+    <ul>
+      {links.map(link => (
+        <li>{link.title}</li>
+      ))}
+    </ul>
+  );
   return (
     <section>
       <span className="octicon octicon-link"></span>
-      { text }
+      {text}
+      {count > 1 && list()}
     </section>
   );
 };

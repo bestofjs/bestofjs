@@ -3,15 +3,19 @@ import getApi from '../../config/api';
 const debug = false;
 const API_BASE_URL = debug ? 'http://localhost:3000' : getApi('USER_CONTENT');
 
+// Call user-content API to read/write "links" and "reviews"
 function apiRequest(url, token, options) {
   const defaultOptions = {
     method: 'GET',
     headers: {
       'Accept': 'application/json',
-      // avoid 'Content-Type' header that causes `OPTIONS` requests (#14)
+      // no 'Content-Type' header for GET requests to avoid `OPTIONS` requests (#14)
     }
   };
   const requestOptions = Object.assign({}, defaultOptions, options);
+  if (requestOptions.method !== 'GET') {
+    requestOptions.headers['Content-Type'] = 'application/json';
+  }
   if (token) requestOptions.headers.token = token;
   return fetch(`${API_BASE_URL}/${url}`, requestOptions)
     .then(response => {

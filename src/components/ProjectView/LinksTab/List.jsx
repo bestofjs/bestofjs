@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 import { Link } from 'react-router';
-import ProjectLink from './ProjectLink';
+import LinkCard from '../../links/LinkCard';
 
 const List = React.createClass({
   propTypes: {
@@ -31,26 +31,31 @@ const List = React.createClass({
     const links = project.links || [];
     return (
       <div>
-        <p>
-          <span className="octicon octicon-info"></span>
-          {' '}
-          Find here intesting reading about {project.name} project:
-        </p>
-        <ul>
-          <li>blog entries</li>
-          <li>tutorials</li>
-          <li>related projects</li>
-          <li>real-world applications...</li>
-        </ul>
+      <div className="project-tabs-content" style={{ marginBottom: '2em' }}>
+        <div className="inner">
+          <p>
+            <span className="octicon octicon-info"></span>
+            {' '}
+            Find here intesting reading about {project.name} project:
+          </p>
+          <ul>
+            <li>blog entries</li>
+            <li>tutorials</li>
+            <li>related projects</li>
+            <li>real-world applications...</li>
+          </ul>
+        </div>
+      </div>
 
         { links.length > 0 ? (
           <div className="project-link-container">
             {links.map(link =>
-              <ProjectLink
-                project={ project }
-                link={ link }
-                key={ link._id }
+              <LinkCard
+                link={link}
+                project={project}
+                key={link._id}
                 editable={auth.username === link.createdBy}
+                showProjects={false}
               />
             )}
           </div>

@@ -1,10 +1,17 @@
 import { push } from 'react-router-redux';
+import { hashHistory } from 'react-router';
 const notie = typeof window === 'undefined' ? {} : require('notie');
 
 import createApi from '../api/userContent';
 import * as crud from './crudActions';
 
 const api = createApi('links');
+
+// Go to project list after successful update or creation
+function goToList(project) {
+  const path = `/projects/${project.id}/links/`;
+  return hashHistory.push(path);
+}
 
 // ==========
 // FETCH ALL
@@ -34,8 +41,7 @@ export function createLink(project, formData, auth) {
       .then(json => {
         const data = Object.assign({}, json);
         dispatch(crud.createItemSuccess('link', data));
-        const path = `/projects/${project.id}/links/`;
-        dispatch(push(path));
+        goToList(project);
         notie.alert(1, 'Thank you for the link!', 3);
       })
       .catch(err => {
@@ -54,13 +60,11 @@ export function updateLink(project, formData, auth) {
     updatedBy: auth.username || 'Anonymous'
   });
   return dispatch => {
-    // dispatch(updateReviewRequest(payload));
     return api.update(payload, auth.token)
       .then(json => {
         const data = Object.assign({}, json);
         dispatch(crud.updateItemSuccess('link', data));
-        const path = `/projects/${project.id}/links/`;
-        dispatch(push(path));
+        goToList(project);
         notie.alert(1, 'Your link has been updated.', 3);
       })
       .catch(err => {

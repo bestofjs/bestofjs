@@ -1,8 +1,15 @@
 # Change log
 
+## 0.3.1 - 2016-04-23
+* Add Links view in the sidebar
+* Add manifest.json
+* Avoid http `OPTIONS` requests (#14)
+* Upgrade `redux-form` to 5.1.3
+
+
 ## 0.3.0 - 2016-04-11
 * Github login feature using Auth0 authentication service
-* Add user generated content feature: "Reviews" and "Links"
+* Add user generated content feature: "Reviews" and "Links" (#2)
 * Update React dependency 0.14.7 -> 15.0.1
 
 ## 0.3.0-alpha - 2016-02-29

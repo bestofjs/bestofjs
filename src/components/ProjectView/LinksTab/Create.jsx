@@ -16,14 +16,16 @@ const CreateLink = React.createClass({
   render() {
     const { project, auth } = this.props;
     return (
-      <div>
-        <h3>Add a link related to "{project.name}" project</h3>
-        <LinkReduxForm
-          project={ project }
-          auth={ auth }
-          initialValues={{ projects: [project.id] }}
-          onSave={ submitCreate }
-        />
+      <div className="project-tabs-content">
+        <div className="inner">
+          <h3>Add a link related to "{project.name}" project</h3>
+          <LinkReduxForm
+            project={ project }
+            auth={ auth }
+            initialValues={{ projects: [project.id] }}
+            onSave={ submitCreate }
+          />
+        </div>
       </div>
     );
   }
