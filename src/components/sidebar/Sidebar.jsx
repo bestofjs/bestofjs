@@ -10,21 +10,21 @@ const Sidebar = React.createClass({
     const { allTags, popularTags, auth, authActions } = this.props;
     return (
       <nav id="menu" className="slideout-menu">
+        <div className={`sidebar-login-block ${auth.username ? 'loggedin' : 'anonymous'}`}>
+          { auth.username ? (
+            <LoggedinUser
+              username={ auth.username }
+              onLogout={ authActions.logout }
+              pending={ auth.pending }
+            />
+          ) : (
+            <AnonymousUser
+              onLogin={ authActions.login }
+              pending={ auth.pending }
+            />
+          )}
+        </div>
         <div className="ui vertical menu">
-          <div className="item">
-            { auth.username ? (
-              <LoggedinUser
-                username={ auth.username }
-                onLogout={ authActions.logout }
-                pending={ auth.pending }
-              />
-            ) : (
-              <AnonymousUser
-                onLogin={ authActions.login }
-                pending={ auth.pending }
-              />
-            )}
-          </div>
           <IndexLink to="/" className="item">HOME</IndexLink>
           <Link to="/links" className="item">LINKS</Link>
           <div className="item">

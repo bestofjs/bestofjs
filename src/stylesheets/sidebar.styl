@@ -1,0 +1,28 @@
+.sidebar-login-block
+  background-color: #9c0042
+  height: 112px
+  display: flex
+  align-items: flex-end
+  color: white
+  &.anonymous
+    align-items: center
+    color: #570025
+  padding: 0
+  background: $logoColors[0] url('../svg/logo-5colors.svg') right no-repeat
+  > div
+    flex: 1
+.login-button
+  width: 100%
+  background-color: rgba(0, 0, 0, 0.1)
+  color: white
+  display: block
+  border: 1px solid white
+  transition: all 0.3s
+  &:hover
+    background-color: rgba(87, 0, 37, 0.7)
+
+.logout-button
+  color: rgba(255, 255, 255, 0.6)
+  //text-decoration: underline
+  &:hover
+    color: white

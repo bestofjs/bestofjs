@@ -13,8 +13,8 @@ const AnonymousUser = React.createClass({
       <div>Loading...</div>
     );
     return (
-      <div>
-        <button className="ui inverted btn" onClick={ this.handleLogin }>
+      <div style={{ padding: '1em' }}>
+        <button className="ui btn login-button" onClick={ this.handleLogin }>
           <span className="octicon octicon-mark-github"></span>
           {' '}
           Sign in with Github

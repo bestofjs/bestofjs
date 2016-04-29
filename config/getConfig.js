@@ -1,11 +1,13 @@
 // Generate Webpack config, dependending on the environment (development or production)
 // The exported function is used by `webpack.*.config.js` files.
 
+const path = require('path');
+const rootPath = path.resolve(__dirname, '..', 'www');
+
 const webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const autoprefixer = require('autoprefixer');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const pkg = require('../package.json');
 
 const getFullPage = require('../scripts/build/getFullPage');
 
@@ -68,14 +70,19 @@ function getLoaders(env) {
     loader: 'json'
   };
 
+  const urlLoader = {
+    test: /\.svg$/,
+    loader: 'url-loader?limit=5000'
+  };
+
   if (env === 'development') {
     cssLoader.loader = 'style-loader!css-loader!postcss-loader';
-    stylusLoader.loader = 'style-loader!css-loader!postcss-loader!stylus-loader';
+    stylusLoader.loader = 'style-loader!css-loader!stylus-loader';
   } else {
     cssLoader.loader = ExtractTextPlugin.extract('style-loader', 'css-loader!postcss-loader');
     stylusLoader.loader = ExtractTextPlugin.extract('style-loader', 'css-loader!postcss-loader!stylus-loader');
   }
-  const loaders = [jsLoader, jsonLoader, stylusLoader, cssLoader];
+  const loaders = [jsLoader, jsonLoader, stylusLoader, cssLoader, urlLoader];
   return loaders;
 }
 
@@ -97,7 +104,13 @@ function getOutput(env) {
   const filepath = env === 'development' ? 'build/' : './www/build/';
   return env === 'development' ? (
     {
-      filename: filepath + 'bundle-[name].js',
+      //filename: filepath + 'bundle-[name].js',
+      //hot: true
+      //inline: true
+      path: rootPath,
+      //publicPath: 'http://localhost:8080/dev/',
+      filename: 'build/bundle-[name].js',
+      hot: true
     }
   ) : (
     {

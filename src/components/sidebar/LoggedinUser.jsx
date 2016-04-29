@@ -10,19 +10,21 @@ const LoggedinUser = React.createClass({
       <div>Loading...</div>
     );
     return (
-      <div>
-          <div style={{ color: '#aaa' }}>Signed in as:</div>
-          <div>{ username }
-            {' '}
-            <a
-              className="logout"
-              href=""
-              onClick={ e => {e.preventDefault(); onLogout();} }
-              style={{ color: '#bbb' }}
-            >
-              sign out
-            </a>
-          </div>
+      <div style={{ backgroundColor: 'rgba(0,0,0,0.15)', padding: '0.5em 1em' }}>
+        <div style={{ fontSize: 16, color: 'white', display: 'flex' }}>
+          {false && <span className="octicon octicon-person"></span>}
+          { username }
+          {' '}
+          {true && <a
+            className="logout-button"
+            title="Sign out"
+            href=""
+            style={{ 'flex': '1', display: 'block', textAlign: 'right' }}
+            onClick={ e => {e.preventDefault(); onLogout();} }
+          >
+            <span className="octicon octicon-x" style={{ justifyContent: 'flex-end' }}></span>
+          </a>}
+        </div>
       </div>
     );
   }
