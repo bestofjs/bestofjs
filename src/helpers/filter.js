@@ -17,7 +17,12 @@ export default function filterProjects(projects, tags, text) {
       rank: rank(p, matchingTags, text)
     }))
     .filter(p => p.rank > 0)
-    .sort((a, b) => a.rank > b.rank ? -1 : 1);
+    .sort((a, b) => {
+      if (a.rank === b.rank) {
+        return a.stars > b.stars ? -1 : 1;
+      }
+      return a.rank > b.rank ? -1 : 1;
+    });
 }
 
 // for a given project and a given search text,
@@ -29,24 +34,24 @@ function rank(project, tags, text) {
 
   if (re1.test(project.name)) {
     // top level relevance: project whose name start by the text
-    return 3;
+    return 5;
   }
   if (text.length > 1) {
     // next level: check if the project names contains the text
     if (re2.test(project.name)) {
-      return 2;
+      return 4;
     }
   }
 
   // check if the project has one of the "matching tags"
   const matchingTags = intersection(tags, project.tags);
   if (matchingTags.length > 0) {
-    return 2;
+    return 3;
   }
 
   if (text.length > 2) {
     if (re2.test(project.description)) {
-      return 1;
+      return 2;
     }
     if (re2.test(project.repository)) {
       return 1;
