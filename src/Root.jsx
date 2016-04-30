@@ -1,6 +1,6 @@
 import React from 'react';
 import { Router, useRouterHistory } from 'react-router';
-import { syncHistoryWithStore } from 'react-router-redux';
+// import { syncHistoryWithStore } from 'react-router-redux';
 import createBrowserHistory from 'history/lib/createHashHistory';
 import useScroll from 'scroll-behavior/lib/useStandardScroll';
 import { Provider } from 'react-redux';
@@ -10,6 +10,7 @@ import getRoutes from './routes';
 import { fetchAllReviews } from './actions/reviewActions';
 import { fetchAllLinks } from './actions/linkActions';
 import menu from './helpers/menu';
+import log from './helpers/log';
 
 // How many "hot" and "popular" projects to display in the home page rendered on the server ?
 const TOP_PROJECT_COUNT = 10;
@@ -27,14 +28,14 @@ const Root = React.createClass({
     const initialState = this.props.initialState;
     this.store = configureStore(initialState);
     const createScrollHistory = useScroll(createBrowserHistory);
-    const appHistory = useRouterHistory(createScrollHistory)();
-    this.history = syncHistoryWithStore(appHistory, this.store);
+    this.appHistory = useRouterHistory(createScrollHistory)();
+    // this.history = syncHistoryWithStore(this.appHistory, this.store);
   },
   render() {
-    // console.info('Render <Root>');
+    log('Render <Root>');
     return (
       <Provider store={ this.store }>
-        <Router history={ this.history }>
+        <Router history={ this.appHistory }>
           { getRoutes(TOP_PROJECT_COUNT) }
         </Router>
       </Provider>

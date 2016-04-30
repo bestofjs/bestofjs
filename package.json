@@ -64,7 +64,6 @@
     "react-dom": "15.0.1",
     "react-redux": "4.4.2",
     "react-router": "2.0.0",
-    "react-router-redux": "4.0.2",
     "react-select": "1.0.0-beta12",
     "redux": "^3.0.4",
     "redux-form": "5.1.3",

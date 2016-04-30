@@ -21,7 +21,6 @@ function getCurrentTagId() {
 
 const App = React.createClass({
   componentDidMount() {
-    // console.info(this.props.authActions);
     this.props.authActions.start();
   },
   render() {

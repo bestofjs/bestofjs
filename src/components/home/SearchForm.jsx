@@ -28,9 +28,9 @@ const SearchForm = React.createClass({
           onChange={ this.handleChange }
           autoFocus
         />
-      <span className="mega-octicon octicon-search icon"></span>
+        <span className="mega-octicon octicon-search icon"></span>
       </div>
     );
   }
 });
-module.exports = SearchForm;
+export default SearchForm;

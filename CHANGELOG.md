@@ -4,6 +4,8 @@
 * Add logo in the sidebar
 * Fix hot reloading for style files
 * use `isomorphic-fetch` for http requests
+* improve search box algorithm, checking the tags and sorting by relevance
+* remove `react-router-redux` dependency to avoid double rendering when navigation occurs
 
 ## 0.3.1 - 2016-04-24
 * Add Links view in the sidebar

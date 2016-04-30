@@ -96,15 +96,3 @@ function getTagCounters(projects) {
   });
   return counters;
 }
-
-function checkLocalData() {
-  return new Promise((resolve, reject) => {
-    const localProjects = window.localStorage.bestofjs_projects;
-    try {
-      const json = JSON.parse(localProjects);
-      resolve(json);
-    } catch (ex) {
-      reject(ex);
-    }
-  });
-}

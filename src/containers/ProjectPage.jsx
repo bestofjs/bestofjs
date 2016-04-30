@@ -29,14 +29,13 @@ const ProjectPage = React.createClass({
 
   render() {
     log('Render the <ProjectPage> container', this.props);
-    const { project, review, link, auth, path, children, authActions } = this.props;
+    const { project, review, link, auth, children, authActions } = this.props;
     return (
       <ProjectView
         project={project}
         review={review}
         link={link}
         auth ={auth}
-        path={path}
         authActions={authActions}
       >
       { children && project && React.cloneElement(children, {
@@ -52,8 +51,7 @@ const ProjectPage = React.createClass({
 function mapStateToProps(state, props) {
   const {
     entities: { projects, tags, links, reviews },
-    auth,
-    routing
+    auth
   } = state;
 
   const id = props.params.id;
@@ -72,8 +70,7 @@ function mapStateToProps(state, props) {
     project,
     review,
     link,
-    auth,
-    path: routing.path
+    auth
   };
 }
 

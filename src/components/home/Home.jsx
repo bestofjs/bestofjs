@@ -1,16 +1,13 @@
 import React from 'react';
-// import { Link } from 'react-router';
 
 import log from '../../helpers/log';
 import MainContent from '../common/MainContent';
 import ProjectList from '../projects/ProjectList';
 import ErrorMessage from '../common/utils/ErrorMessage';
-import StarMeButton from '../common/StarMeButton';
 
 const Home = React.createClass({
   render() {
     log('Render the <Home> component', this.props);
-    const { repo } = this.props.staticContent || '?';
     const { hotProjects, popularProjects, maxStars, isLoggedin } = this.props;
     return (
       <MainContent>
