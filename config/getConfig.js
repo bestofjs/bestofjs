@@ -2,14 +2,13 @@
 // The exported function is used by `webpack.*.config.js` files.
 
 const path = require('path');
-const rootPath = path.resolve(__dirname, '..', 'www');
-
 const webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const autoprefixer = require('autoprefixer');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 const getFullPage = require('../scripts/build/getFullPage');
+const constants = require('./constants');
 
 function getPlugins(env) {
   const envPlugin = new webpack.DefinePlugin({
@@ -38,13 +37,18 @@ function getPlugins(env) {
   } else {
     // ExtractTextPlugin used to generate a separate CSS file, in production only.
     // documentation: http://webpack.github.io/docs/stylesheets.html
-    plugins.push(new ExtractTextPlugin('./www/build/[name].css'));
+    plugins.push(
+      new ExtractTextPlugin(`./${constants.staticFolder}/build/[name].css`)
+    );
+
     // Do not display warning messages from Uglify
-    plugins.push(new webpack.optimize.UglifyJsPlugin({
-      compress: {
-        warnings: false
-      }
-    }));
+    plugins.push(
+      new webpack.optimize.UglifyJsPlugin({
+        compress: {
+          warnings: false
+        }
+      })
+    );
   }
 
   return plugins;
@@ -90,7 +94,7 @@ function getEntry(env) {
   return {
     app: env === 'development' ? (
       [
-        'webpack-dev-server/client?http://localhost:8080',
+        `webpack-dev-server/client?http://localhost:${constants.port}`,
         'webpack/hot/only-dev-server',
         './src/entry.jsx'
       ]
@@ -101,20 +105,17 @@ function getEntry(env) {
 }
 
 function getOutput(env) {
-  const filepath = env === 'development' ? 'build/' : './www/build/';
+  const rootPath = path.resolve(__dirname, '..', constants.staticFolder);
+  const filename = 'build/bundle-[name].js';
   return env === 'development' ? (
     {
-      //filename: filepath + 'bundle-[name].js',
-      //hot: true
-      //inline: true
       path: rootPath,
-      //publicPath: 'http://localhost:8080/dev/',
-      filename: 'build/bundle-[name].js',
+      filename,
       hot: true
     }
   ) : (
     {
-      filename: filepath + 'bundle-[name].js'
+      filename: `${constants.staticFolder}/${filename}`
     }
   );
 }
