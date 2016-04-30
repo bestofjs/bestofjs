@@ -1,5 +1,10 @@
 # Change log
 
+## 0.3.2 - 2016-04-30
+* Add logo in the sidebar
+* Fix hot reloading for style files
+* use `isomorphic-fetch` for http requests
+
 ## 0.3.1 - 2016-04-24
 * Add Links view in the sidebar
 * Add manifest.json

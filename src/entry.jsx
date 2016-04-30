@@ -3,10 +3,10 @@ require('es6-promise').polyfill();
 
 // Object.assign() polyfill for IE (used in the reducer)
 import './helpers/es6-polyfill.js';
+import fetchJSON from './helpers/fetchJSON';
 
 import React from 'react';
 import { render } from 'react-dom';
-import request from 'axios';
 
 import Root from './Root';
 import api from '../config/api';
@@ -46,8 +46,7 @@ function fetchLocalData() {
 
 function fetchServerData() {
   const url = `${api('GET_PROJECTS')}projects.json`;
-  return request(url)
-    .then(response => response.data)
+  return fetchJSON(url)
     .then(json => new Promise(resolve => {
       window.localStorage.setItem('bestofjs_projects', JSON.stringify(json));
       resolve(json);

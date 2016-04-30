@@ -1,11 +1,6 @@
-import request from 'axios';
-
-import api from '../../config/api';
+import fetchJSON from '../helpers/fetchJSON';
 import log from '../helpers/log';
-
-// export const GET_ALL_PROJECTS_REQUEST = 'GET_ALL_PROJECTS_REQUEST';
-// export const GET_ALL_PROJECTS_SUCCESS = 'GET_ALL_PROJECTS_SUCCESS';
-// export const GET_ALL_PROJECTS_FAILURE = 'GET_ALL_PROJECTS_FAILURE';
+import api from '../../config/api';
 
 export const GET_README_REQUEST = 'GET_README_REQUEST';
 export const GET_README_SUCCESS = 'GET_README_SUCCESS';
@@ -48,8 +43,8 @@ export function fetchReadme(project) {
     log('Fetching README.md...', project);
     dispatch(requestReadme(id));
     const webtaskUrl = api('GET_README');
-    return request.get(`${webtaskUrl}&url=${project.repository}`)
-      .then(json => dispatch(getReadmeSuccess(id, json.data)))
+    return fetchJSON(`${webtaskUrl}&url=${project.repository}`)
+      .then(json => dispatch(getReadmeSuccess(id, json)))
       .catch((response) => dispatch(getReadmeFailure(id, response)));
   };
 }

@@ -1,33 +1,8 @@
-import request from 'axios';
-
-import api from '../config/api';
 import * as helpers from './helpers/projectHelpers';
-import loading from './helpers/loading';
 
-// Called by `entry.jsx` to fetch initial data (project and tag lists)
-// from a static JSON file served by a CDN
+// Called by `entry.jsx` to get initial state from project data
 
 const ACCESS_TOKEN = 'bestofjs_access_token';
-
-export function getInitialData(profile) {
-  return checkLocalData()
-    .then(json => {
-      if (typeof window !== 'undefined') loading.hide();
-      return Promise.resolve(json);
-    })
-    .catch(() => fetchInitialData())
-    .then(json => getInitialState(json, profile));
-}
-
-export function fetchInitialData() {
-  const url = api('GET_PROJECTS') + 'projects.json';
-  return request.get(url)
-    .then(response => response.data)
-    .then(json => new Promise(resolve => {
-      window.localStorage.setItem('bestofjs_projects', JSON.stringify(json));
-      resolve(json);
-    }));
-}
 
 const defaultState = {
   entities: {

@@ -1,3 +1,4 @@
+require('isomorphic-fetch');
 import getApi from '../../config/api';
 
 const debug = false;

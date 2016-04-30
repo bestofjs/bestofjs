@@ -18,11 +18,11 @@ function getPlugins(env) {
   });
 
   // fetch polyfill, see http://mts.io/2015/04/08/webpack-shims-polyfills/
-  const fetchPlugin = new webpack.ProvidePlugin({
-    'fetch': 'imports?this=>global!exports?global.fetch!whatwg-fetch'
-  });
+  // const fetchPlugin = new webpack.ProvidePlugin({
+  //   'fetch': 'imports?this=>global!exports?global.fetch!whatwg-fetch'
+  // });
 
-  const plugins = [envPlugin, fetchPlugin];
+  const plugins = [envPlugin];
   if (env === 'development') {
     plugins.push(new webpack.HotModuleReplacementPlugin());
     // Get the html template
