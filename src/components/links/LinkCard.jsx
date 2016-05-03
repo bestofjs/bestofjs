@@ -2,6 +2,7 @@ import React from 'react';
 
 import ItemHeader from '../ProjectView/ItemHeader';
 import Comment from '../common/form/MarkdownReadonly';
+import CardProjectLabels from '../common/CardProjectLabels'
 
 export default ({ link, project, editable, showProjects }) => {
   return (
@@ -19,17 +20,9 @@ export default ({ link, project, editable, showProjects }) => {
       </a>
 
       {showProjects && (
-        <div className="inner">
-          {link.projects.map(p => (
-            <a
-              key={p.id}
-              href={`#/projects/${p.id}`}
-              className="tag-project-name"
-            >
-              {p.name}
-            </a>
-          ))}
-        </div>
+        <CardProjectLabels
+          projects={link.projects}
+        />
       )}
 
       <div className="inner">

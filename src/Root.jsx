@@ -1,6 +1,5 @@
 import React from 'react';
 import { Router, useRouterHistory } from 'react-router';
-// import { syncHistoryWithStore } from 'react-router-redux';
 import createBrowserHistory from 'history/lib/createHashHistory';
 import useScroll from 'scroll-behavior/lib/useStandardScroll';
 import { Provider } from 'react-redux';
@@ -9,6 +8,7 @@ import configureStore from './store/configureStore';
 import getRoutes from './routes';
 import { fetchAllReviews } from './actions/reviewActions';
 import { fetchAllLinks } from './actions/linkActions';
+import { fetchAllHeroes } from './actions/hofActions';
 import menu from './helpers/menu';
 import log from './helpers/log';
 
@@ -23,6 +23,7 @@ const Root = React.createClass({
     menu.start();
     this.store.dispatch(fetchAllReviews());
     this.store.dispatch(fetchAllLinks());
+    this.store.dispatch(fetchAllHeroes());
   },
   init() {
     const initialState = this.props.initialState;

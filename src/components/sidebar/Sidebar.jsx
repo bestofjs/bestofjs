@@ -27,6 +27,7 @@ const Sidebar = React.createClass({
         <div className="ui vertical menu">
           <IndexLink to="/" className="item">HOME</IndexLink>
           <Link to="/links" className="item">LINKS</Link>
+          <Link to="/hof" className="item">HALL OF FAME</Link>
           <div className="item">
             <div className="header">POPULAR TAGS</div>
             <TagMenu tags={ popularTags } selectedTag={ this.props.selectedTag } />

@@ -3,7 +3,15 @@
   "plugins": [
     "react"
   ],
+  "parserOptions": {
+    "ecmaVersion": 6,
+    "sourceType": "module",
+    "ecmaFeatures": {
+        "jsx": true
+    }
+  },
   "rules": {
+    "semi": 0,
     "indent": [2, 2],
     "comma-dangle": 0,
     "no-var": 1,
