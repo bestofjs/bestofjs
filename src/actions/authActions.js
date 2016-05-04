@@ -11,7 +11,7 @@ import UrlManager from './urlManager'
 
 // object used to save the current location in the local storage
 // when the user pushes the login button.
-const urlManager = window && new UrlManager(window)
+const urlManager = typeof window !== 'undefined' && new UrlManager(window)
 
 const APP_URL = 'https://bestofjs.auth0.com'
 
@@ -46,7 +46,7 @@ export function start() {
 // `login` action called from the login button
 export function login() {
   // Save the current URL so that we can redirect the user when we are back
-  urlManager && urlManager.save()
+  if (urlManager) urlManager.save()
   const client_id = 'MJjUkmsoTaPHvp7sQOUjyFYOm2iI3chx'
   const redirect_uri = `${self.location.origin}%2Fauth0.html`
   const auth0Client = 'eyJuYW1lIjoiYXV0aDAuanMiLCJ2ZXJzaW9uIjoiNi44LjAifQ'
