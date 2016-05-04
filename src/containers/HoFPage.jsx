@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 
-import HoF from '../components/hof'
+import HoF from '../components/hof/HeroList'
 
 const getYou = (auth) => ({
   name: auth.name ? `Maybe you, ${auth.name}?` : 'Maybe you?',
