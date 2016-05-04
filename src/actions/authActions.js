@@ -79,7 +79,6 @@ function getProfile(token) {
   return fetch(url, options)
     .then(response => checkStatus(response))
     .then(response => response.json())
-    .then(json => json.nickname);
 }
 
 function checkStatus(response) {
@@ -97,10 +96,10 @@ export function loginRequest() {
     type: 'LOGIN_REQUEST'
   };
 }
-function loginSuccess(username, token) {
+function loginSuccess(profile, token) {
   return {
     type: 'LOGIN_SUCCESS',
-    username,
+    profile,
     token
   };
 }

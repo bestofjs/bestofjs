@@ -3,7 +3,7 @@ import React from 'react'
 import HeroCard from './HeroCard'
 import MainContent from '../common/MainContent'
 
-export default ({ heroes = [] }) => (
+export default ({ heroes = [], you }) => (
   <MainContent>
     <h1>Hall of Fame</h1>
     <p>
@@ -25,6 +25,7 @@ export default ({ heroes = [] }) => (
           hero={hero}
         />
       ))}
+      <HeroCard hero={you} />
     </div>
   </MainContent>
 )
