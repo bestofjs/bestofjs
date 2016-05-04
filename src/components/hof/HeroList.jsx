@@ -4,9 +4,14 @@ import HeroCard from './HeroCard'
 import AnonymousHero from './AnonymousHero'
 import MainContent from '../common/MainContent'
 
-export default ({ heroes = [], you, auth, onLogin }) => (
+export default ({ heroes = [], you, auth, onLogin, isHero }) => (
   <MainContent>
-    <h1>Hall of Fame</h1>
+    <h1>
+      Hall of Fame
+      <span style={{ color: '#aaa', marginLeft: 5 }}>
+        ({heroes.length === 0 ? 'Loading...' : `${heroes.length} members` })
+      </span>
+    </h1>
     <p>
       Some of the greatest developers of the JavaScript community.<br />
       Like the basket-ball Hall of Fame... except they are all still in activity!
@@ -24,12 +29,13 @@ export default ({ heroes = [], you, auth, onLogin }) => (
         <HeroCard
           key={hero.username}
           hero={hero}
+          isCurrentUser={hero.username === auth.username}
         />
       ))}
       {auth.username === '' ? (
         <AnonymousHero onLogin={onLogin} />
       ) : (
-        <HeroCard
+        !isHero && <HeroCard
           hero={you}
           you
         />

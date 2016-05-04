@@ -13,12 +13,17 @@ function followersComment(value) {
   return `that's a lot of followers, you should be in this hall of fame!`
 }
 
-export default ({ hero, you }) => (
-  <div className="hero-card">
+export default ({ hero, you, isCurrentUser }) => (
+  <div className={`hero-card${isCurrentUser ? ' current-user' : ''}`}>
     <a className="header card-block" href={`https://github.com/${hero.username}`} target="_blank">
       <img src={`${hero.avatar}&s=150`} width="100" height="100" alt={hero.username} />
       <div className="header-text">
-        <div className="name">{hero.name}</div>
+        <div className="name">
+          {hero.name}
+          {isCurrentUser && (
+            <span style={{ color: 'rgba(255,255,255,.6)' }}> (You)</span>
+          )}
+        </div>
         {hero.username && (
           <div className="item">
             <span className="octicon octicon-mark-github"></span>
