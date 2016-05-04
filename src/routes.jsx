@@ -50,7 +50,7 @@ const getRoutes = (count = 3) => {
       </Route>
       <Route path="tags/:id" component={ TagFilter } />
       <Route path="search/:text" component={ TextFilter }/>
-      <Redirect from="*" to="home" />
+      <Redirect from="*" to="/" />
     </Route>
   )
 }

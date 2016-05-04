@@ -3,15 +3,20 @@ import numeral from 'numeral'
 
 import CardProjectLabels from '../common/CardProjectLabels'
 
-const getAvatarURL = (hero) => (
-  hero.avatar ? `${hero.avatar}&s=150` : 'svg/square-logo.svg'
-)
 const digits = (value) => (value > 1000) ? '0.0' : '0'
 
-export default ({ hero }) => (
+function followersComment(value) {
+  if (value === 0) return `you don't need all these followers!`
+  if (value < 10) return `that's better than nothing!`
+  if (value < 100) return `that's not so bad!`
+  if (value < 1000) return `that's pretty good, you could be a hall of famer too!`
+  return `that's a lot of followers, you should be in this hall of fame!`
+}
+
+export default ({ hero, you }) => (
   <div className="hero-card">
     <a className="header card-block" href={`https://github.com/${hero.username}`} target="_blank">
-      <img src={getAvatarURL(hero)} width="100" />
+      <img src={`${hero.avatar}&s=150`} width="100" height="100" alt={hero.username} />
       <div className="header-text">
         <div className="name">{hero.name}</div>
         {hero.username && (
@@ -19,12 +24,13 @@ export default ({ hero }) => (
             <span className="octicon octicon-mark-github"></span>
             {' '}
             {hero.username}
-            {' '}
-            {hero.followers > 0 && (
-              <div>
-                {numeral(hero.followers).format(`${digits(hero.followers)} a`)} followers
-              </div>
-            )}
+            <div>
+              {numeral(hero.followers).format(`${digits(hero.followers)} a`)} followers
+              {' '}
+              {you && <span style={{ color: '#aaa', fontSize: 14 }}>
+                ({followersComment(hero.followers)})
+              </span>}
+            </div>
           </div>
         )}
       </div>

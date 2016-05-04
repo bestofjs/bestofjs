@@ -4,68 +4,77 @@
 // - login()
 // - logout()
 
-const APP_URL = 'https://bestofjs.auth0.com';
+import { hashHistory } from 'react-router'
+
+import log from '../helpers/log'
+import UrlManager from './urlManager'
+
+// object used to save the current location in the local storage
+// when the user pushes the login button.
+const urlManager = window && new UrlManager(window)
+
+const APP_URL = 'https://bestofjs.auth0.com'
 
 const LOCAL_KEYS = ['id', 'access']
-  .map(key => `bestofjs_${key}_token`);
+  .map(key => `bestofjs_${key}_token`)
 
 // Check if the user is logged in when the application starts
 // called from <App> componentDidMount()
 export function start() {
   return dispatch => {
-    loginRequest();
+    loginRequest()
     return getToken()
       .then(token => {
         getProfile(token.id_token)
           .then(profile => {
-            // console.info('profile', profile);
             if (profile) {
-              return dispatch(loginSuccess(profile, token.id_token));
+              return dispatch(loginSuccess(profile, token.id_token))
             } else {
-              return dispatch(loginFailure());
+              return dispatch(loginFailure())
             }
           })
           .catch(() => {
-            // console.info('Login failure1');
-            return dispatch(loginFailure());
-          });
+            return dispatch(loginFailure())
+          })
       })
       .catch(() => {
-        // console.info('Login failure2');
-        return dispatch(loginFailure());
-      });
-  };
+        return dispatch(loginFailure())
+      })
+  }
 }
 
-// `login` action callded from the login button
+// `login` action called from the login button
 export function login() {
-  const client_id = 'MJjUkmsoTaPHvp7sQOUjyFYOm2iI3chx';
-  const redirect_uri = `${self.location.origin}%2Fauth0.html`;
-  const auth0Client = 'eyJuYW1lIjoiYXV0aDAuanMiLCJ2ZXJzaW9uIjoiNi44LjAifQ';
-  const url = `${APP_URL}/authorize?scope=openid&response_type=token&connection=github&sso=true&client_id=${client_id}&redirect_uri=${redirect_uri}&auth0Client=${auth0Client}`;
+  // Save the current URL so that we can redirect the user when we are back
+  urlManager && urlManager.save()
+  const client_id = 'MJjUkmsoTaPHvp7sQOUjyFYOm2iI3chx'
+  const redirect_uri = `${self.location.origin}%2Fauth0.html`
+  const auth0Client = 'eyJuYW1lIjoiYXV0aDAuanMiLCJ2ZXJzaW9uIjoiNi44LjAifQ'
+  const url = `${APP_URL}/authorize?scope=openid&response_type=token&connection=github&sso=true&client_id=${client_id}&redirect_uri=${redirect_uri}&auth0Client=${auth0Client}`
   return dispatch => {
-    dispatch(loginRequest());
-    self.location.href = url;
-  };
+    dispatch(loginRequest())
+    // Go to auth0 authenication page
+    self.location.href = url
+  }
 }
 
 // Return user's `id_token` (JWT) checking from localStorage:
 function getToken() {
   const [id_token, access_token] = LOCAL_KEYS.map(
     key => window.localStorage[key]
-  );
+  )
   if (id_token) {
     return Promise.resolve({
       id_token,
       access_token
-    });
+    })
   }
-  return Promise.reject('');
+  return Promise.reject('')
 }
 
 // Return UserProfile for a given `id_token`
 function getProfile(token) {
-  if (!token) return Promise.reject('Token is missing!');
+  if (!token) return Promise.reject('Token is missing!')
   const options = {
     body: `id_token=${token}`,
     method: 'POST',
@@ -74,8 +83,8 @@ function getProfile(token) {
       // do not use Content-Type: 'application/json' to avoid extra 'OPTIONS' requests (#9)
       'Content-Type': 'application/x-www-form-urlencoded'
     }
-  };
-  const url = `${APP_URL}/tokeninfo`;
+  }
+  const url = `${APP_URL}/tokeninfo`
   return fetch(url, options)
     .then(response => checkStatus(response))
     .then(response => response.json())
@@ -83,73 +92,65 @@ function getProfile(token) {
 
 function checkStatus(response) {
   if (response.status >= 200 && response.status < 300) {
-    return response;
+    return response
   } else {
-    const error = new Error(response.statusText);
-    error.response = response;
-    throw error;
+    const error = new Error(response.statusText)
+    error.response = response
+    throw error
   }
 }
 
 export function loginRequest() {
   return {
     type: 'LOGIN_REQUEST'
-  };
+  }
 }
 function loginSuccess(profile, token) {
+  const hash = urlManager && urlManager.get(true)
+  if (hash) {
+    log('POST lOGIN REDIRECT', hash)
+    hashHistory.push(hash)
+  }
   return {
     type: 'LOGIN_SUCCESS',
     profile,
     token
-  };
+  }
 }
 function loginFailure(username) {
-  resetToken();
+  resetToken()
   return {
     type: 'LOGIN_FAILURE',
     username
-  };
-}
-
-export function fakeLogin() {
-  return dispatch => {
-    dispatch(loginRequest());
-    const p = new Promise(function (resolve) {
-      setTimeout(function () {
-        resolve({ username: 'mike' });
-      }, 1000);
-    });
-    return p
-      .then(json => dispatch(loginSuccess(json.username)));
-  };
+  }
 }
 
 // LOGOUT
 function logoutRequest() {
   return {
     type: 'LOGOUT_REQUEST'
-  };
+  }
 }
 function logoutSuccess() {
   return {
     type: 'LOGOUT_SUCCESS'
-  };
+  }
 }
 
 // logout button
 export function logout() {
   return dispatch => {
-    dispatch(logoutRequest());
+    dispatch(logoutRequest())
     const p = new Promise(function (resolve) {
       // Do not call window.auth0.logout() that will redirect to Github signout page
-      resetToken();
-      resolve();
-    });
+      resetToken()
+      resolve()
+    })
     return p
-      .then(() => dispatch(logoutSuccess()));
-  };
+      .then(() => dispatch(logoutSuccess()))
+  }
 }
 
 function resetToken() {
-  LOCAL_KEYS.forEach(key => window.localStorage.removeItem(key));
+  LOCAL_KEYS.forEach(key => window.localStorage.removeItem(key))
 }
