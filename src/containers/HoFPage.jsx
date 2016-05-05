@@ -6,12 +6,12 @@ import * as authActionCreators from '../actions/authActions';
 import HoF from '../components/hof/HeroList'
 
 const getYou = (auth) => ({
-  name: auth.name, // ? `Maybe you, ${auth.name}?` : 'Maybe you?',
+  name: 'Could be you?',
   username: auth.username || '',
   followers: auth.followers || 0,
   avatar: auth.avatar || '',
   projects: [],
-  bio: 'You will be the next shining star, keep up the good work!'
+  bio: `${auth.name}, you will be the next shining star, keep up the good work!`
 })
 
 const Page = ({ heroes, auth, you, authActions, isHero }) => (
@@ -40,7 +40,7 @@ function mapStateToProps(state) {
     .map(hero => populate(projects)(hero))
 
   // Is the current user a Hall of Famer ?
-  const isHero = state.hof.heroesById.filter(id => id === auth.username)
+  const isHero = state.hof.heroesById.filter(id => id === auth.username).length > 1
 
   return {
     heroes: allHeroes,

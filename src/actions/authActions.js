@@ -117,11 +117,10 @@ function loginSuccess(profile, token) {
     token
   }
 }
-function loginFailure(username) {
+function loginFailure() {
   resetToken()
   return {
-    type: 'LOGIN_FAILURE',
-    username
+    type: 'LOGIN_FAILURE'
   }
 }
 

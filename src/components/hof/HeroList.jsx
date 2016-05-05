@@ -13,7 +13,7 @@ export default ({ heroes = [], you, auth, onLogin, isHero }) => (
       </span>
     </h1>
     <p>
-      Some of the greatest developers of the JavaScript community.<br />
+      Some of the greatest developers, authors and speakers of the JavaScript community.<br />
       Like the basket-ball Hall of Fame... except they are all still in activity!
     </p>
     {false && heroes.map(hero => (

@@ -10,7 +10,9 @@ const AnonymousUser = React.createClass({
   render() {
     const { pending } = this.props;
     if (pending) return (
-      <div>Loading...</div>
+      <div style={{ color: 'white', textAlign: 'center' }}>
+        Loading...
+      </div>
     );
     return (
       <div style={{ padding: '1em' }}>
