@@ -3,7 +3,7 @@ import React from 'react';
 import bgColors from './bgColors';
 
 const Delta = (props) => {
-  const { value, big } = props;
+  const { value, big, perDay } = props;
 
   const formatDelta = function (d) {
     if (d === 0) return '=';
@@ -32,6 +32,7 @@ const Delta = (props) => {
       { props.icon && value !== 0 && (
         <span className="octicon octicon-star" style={{ fontSize: 14, marginLeft: 4 }}></span>
       ) }
+      { perDay && '/day' }
     </div>
   );
 };

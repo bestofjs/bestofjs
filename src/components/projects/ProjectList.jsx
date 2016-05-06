@@ -27,6 +27,7 @@ const ProjectList = React.createClass({
             showDescription={ this.props.showDescription }
             showStars={ this.props.showStars }
             showDelta={ this.props.showDelta}
+            deltaFilter={ this.props.deltaFilter}
             showURL={ this.props.showURL }
           />)
         }

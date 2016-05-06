@@ -44,7 +44,7 @@ const renderLinks = (links = []) => {
 };
 
 const ProjectCard = (props) => {
-  const { project, index /* , isLoggedin */ } = props;
+  const { project, index, deltaFilter = 0 } = props;
   const path = `/projects/${project.id}`;
   return (
     <div className="project-card">
@@ -70,9 +70,10 @@ const ProjectCard = (props) => {
             { props.showDelta && project.deltas.length > 0 && (
               <div className="delta">
                 <Delta
-                  value={ project.deltas[0] }
+                  value={ project.stats[deltaFilter] }
                   big
-                  icon
+                  iconXX
+                  perDay={deltaFilter !== 0}
                 />
               </div>
             ) }

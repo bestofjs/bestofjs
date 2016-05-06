@@ -4,11 +4,12 @@ import log from '../../helpers/log';
 import MainContent from '../common/MainContent';
 import ProjectList from '../projects/ProjectList';
 import ErrorMessage from '../common/utils/ErrorMessage';
+import HotFilterPicker from './HotFilterPicker'
 
 const Home = React.createClass({
   render() {
     log('Render the <Home> component', this.props);
-    const { hotProjects, popularProjects, maxStars, isLoggedin } = this.props;
+    const { hotProjects, popularProjects, maxStars, isLoggedin, uiActions, hotFilter } = this.props;
     return (
       <MainContent>
         { this.props.errorMessage && <ErrorMessage text={ this.props.errorMessage } /> }
@@ -26,14 +27,18 @@ const Home = React.createClass({
               <div className="box">
                 <h3 className="with-comment">
                   <span className="mega-octicon octicon-flame icon"></span>
-                  Hot projects since yesterday
+                  <span>Hot projects since </span>
+                  <HotFilterPicker currentValue={hotFilter} onToggle={uiActions.toggleHotFilter} />
                 </h3>
-                <p className="explanation">By number of stars added yesterday on Github</p>
+                <p className="explanation">
+                  By number of stars added {hotFilter ? 'last week' : 'yesterday'} on Github
+                </p>
                 <ProjectList
                   projects = { hotProjects }
                   maxStars = { maxStars }
                   isLoggedin= { isLoggedin }
                   showDelta
+                  deltaFilter={hotFilter}
                   showStars={false}
                   showIndex
                 />

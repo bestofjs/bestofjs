@@ -12,7 +12,10 @@ const defaultState = {
   githubProjects: {
     lastUpdate: new Date(),
     popularProjectIds: [],
-    hotProjectIds: []
+    hotProjects: {
+      daily: [],
+      weekly: []
+    }
   },
   auth: {
     username: '',
@@ -20,11 +23,11 @@ const defaultState = {
   }
 };
 
-export function getInitialState(data, profile) {
-  const state = defaultState;
-
-  // Format id and repository fields
-  const allProjects = data.projects.map(item => ({
+function processProject(item) {
+  const dailyVariation = item.deltas[0]
+  const reducer = (a, b) => a + b
+  const weeklyVariation = parseInt(item.deltas.slice(0, 7).reduce(reducer, 0) / 7, 10)
+  return {
     repository: 'https://github.com/' + item.full_name,
     id: item._id, // getProjectId(item),
     tags: item.tags,
@@ -33,8 +36,16 @@ export function getInitialState(data, profile) {
     name: item.name,
     pushed_at: item.pushed_at,
     stars: item.stars,
-    url: item.url
-  }));
+    url: item.url,
+    stats: [dailyVariation, weeklyVariation]
+  }
+}
+
+export function getInitialState(data, profile) {
+  const state = defaultState;
+
+  // Format id and repository fields
+  const allProjects = data.projects.map(processProject);
 
   // Create project entities
   allProjects.forEach(item => {
@@ -59,11 +70,17 @@ export function getInitialState(data, profile) {
   });
 
   const popularProjects = helpers.sortBy(allProjects, (project) => project.stars);
-  const hotProjects = helpers.sortBy(allProjects.slice(0), (project) => project.deltas[0]);
+  const hotProjects = {
+    daily: helpers.sortBy(allProjects.slice(0), project => project.stats[0]),
+    weekly: helpers.sortBy(allProjects.slice(0), project => project.stats[1])
+  }
 
   state.githubProjects = {
     popularProjectIds: popularProjects.map(item => item.id),
-    hotProjectIds: hotProjects.map(item => item.id),
+    hotProjects: {
+      daily: hotProjects.daily.map(item => item.id),
+      weekly: hotProjects.weekly.map(item => item.id),
+    },
     tagIds: allTags.map(item => item.id),
     lastUpdate: data.date
   };

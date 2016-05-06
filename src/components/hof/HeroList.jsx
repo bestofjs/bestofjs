@@ -24,22 +24,25 @@ export default ({ heroes = [], you, auth, onLogin, isHero }) => (
         https://github.com/{hero.login}
       </div>
     ))}
-    <div className="hero-list" style={{ marginTop: '1.5em' }}>
+    <div className="hero-list" style={{ marginTop: '1em' }}>
       {heroes.map(hero => (
-        <HeroCard
-          key={hero.username}
-          hero={hero}
-          isCurrentUser={hero.username === auth.username}
-        />
+        <div key={hero.username}>
+          <HeroCard
+            hero={hero}
+            isCurrentUser={hero.username === auth.username}
+          />
+        </div>
       ))}
-      {auth.username === '' ? (
-        <AnonymousHero onLogin={onLogin} />
-      ) : (
-        !isHero && <HeroCard
-          hero={you}
-          you
-        />
-      )}
+      <div>
+        {auth.username === '' ? (
+          <AnonymousHero onLogin={onLogin} />
+        ) : (
+          !isHero && <HeroCard
+            hero={you}
+            you
+          />
+        )}
+    </div>
     </div>
   </MainContent>
 )

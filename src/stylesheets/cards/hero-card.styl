@@ -1,17 +1,23 @@
 .hero-list
   display: flex
   flex-wrap: wrap
+  margin: -1em 0 0 -1em
+  > div
+    flex: 0 0 50%
+    padding: 1em 0 0 1em
+    display: flex
+    //flex-direction: column
+  @media (max-width: 550px)
+    flex-direction: column
+    > div
+      flex: 0 0 auto
+
 .hero-card
   flex: 1
-  margin-bottom: 2rem
   padding: 0
   background-color: white
-  vertical-align: top
   border: 1px solid #cbcbcb
   box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16)
-  //max-width: 390px
-  min-width: 300px
-  margin-right: 2em
   .header
     display: flex
     align-items: center
