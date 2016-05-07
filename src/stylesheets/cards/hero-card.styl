@@ -18,6 +18,16 @@
   background-color: white
   border: 1px solid #cbcbcb
   box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16)
+  .card-block // class applied to <Link> tag used to open the Project page from the card.
+    display: flex
+    align-items: center
+    color: inherit
+    flex: 1
+    &:hover
+      text-decoration none
+      color: inherited
+      background-color: #FFF7EB
+      color: black
   .header
     display: flex
     align-items: center
@@ -27,17 +37,11 @@
     .header
       background-color: $bestofjsOrange
       color: white
-  .card-block // class applied to <Link> tag used to open the Project page from the card.
-    //display block
-    color: inherit
-    flex: 1
-    &:hover
-      text-decoration none
-      color: inherited
-      background-color: #FFF7EB
-      color: black
   .name
     font-size: 1.3em
   .inner
-    padding: 1em
+    padding: 0.5em 1em
     border-top: 1px solid rgba(0, 0, 0, 0.16)
+  .icon
+    color: #fa9e59
+    margin-right: 5px

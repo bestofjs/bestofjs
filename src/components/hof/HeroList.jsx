@@ -12,10 +12,10 @@ export default ({ heroes = [], you, auth, onLogin, isHero }) => (
         ({heroes.length === 0 ? 'Loading...' : `${heroes.length} members` })
       </span>
     </h1>
-    <p>
+    <div>
       Some of the greatest developers, authors and speakers of the JavaScript community.<br />
       Like the basket-ball Hall of Fame... except they are all still in activity!
-    </p>
+    </div>
     {false && heroes.map(hero => (
       <div>
         {'* '}

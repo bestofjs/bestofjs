@@ -2,6 +2,7 @@ import React from 'react'
 import numeral from 'numeral'
 
 import CardProjectLabels from '../common/CardProjectLabels'
+import formatUrl from '../../helpers/formatUrl'
 
 const digits = (value) => (value > 1000) ? '0.0' : '0'
 
@@ -15,7 +16,10 @@ function followersComment(value) {
 
 export default ({ hero, you, isCurrentUser }) => (
   <div className={`hero-card${isCurrentUser ? ' current-user' : ''}`}>
-    <a className="header card-block" href={`https://github.com/${hero.username}`} target="_blank">
+    <a className="header card-block" target="_blank"
+      href={`https://github.com/${hero.username}`}
+      title={`${hero.username} Github profile`}
+    >
       <img src={`${hero.avatar}&s=150`} width="100" height="100" alt={hero.username} />
       <div className="header-text">
         <div className="name">
@@ -47,6 +51,25 @@ export default ({ hero, you, isCurrentUser }) => (
       <div className="inner">
         {hero.bio}
       </div>
+    )}
+    {hero.blog && (
+      <a
+        className="inner card-block" target="_blank"
+        href={hero.blog}
+      >
+        <span className="mega-octicon octicon-globe icon"></span>
+        <span>{formatUrl(hero.blog)}</span>
+      </a>
+    )}
+    {hero.modules > 0 && (
+      <a
+        className="inner card-block" target="_blank"
+        title={`${hero.username}'s blog'`}
+        href={`https://www.npmjs.com/~${hero.username}`}
+      >
+        <span className="mega-octicon octicon-package icon"></span>
+        <span>{hero.modules} modules on npm</span>
+      </a>
     )}
   </div>
 )

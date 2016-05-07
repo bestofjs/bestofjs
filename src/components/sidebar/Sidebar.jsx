@@ -1,13 +1,13 @@
-import React from 'react';
-import { Link, IndexLink } from 'react-router';
+import React from 'react'
+import { Link, IndexLink } from 'react-router'
 
-import TagMenu from './TagMenu';
-import LoggedinUser from './LoggedinUser';
-import AnonymousUser from './AnonymousUser';
+import TagMenu from './TagMenu'
+import LoggedinUser from './LoggedinUser'
+import AnonymousUser from './AnonymousUser'
 
 const Sidebar = React.createClass({
   render() {
-    const { allTags, popularTags, auth, authActions } = this.props;
+    const { allTags, popularTags, auth, authActions, hofCount, linkCount } = this.props
     return (
       <nav id="menu" className="slideout-menu">
         <div className={`sidebar-login-block ${auth.username ? 'loggedin' : 'anonymous'}`}>
@@ -26,8 +26,14 @@ const Sidebar = React.createClass({
         </div>
         <div className="ui vertical menu">
           <IndexLink to="/" className="item">HOME</IndexLink>
-          <Link to="/links" className="item">LINKS</Link>
-          <Link to="/hof" className="item">HALL OF FAME</Link>
+          <Link to="/links" className="item">
+            LINKS
+            <span className="counter">{linkCount}</span>
+          </Link>
+          <Link to="/hof" className="item">
+            HALL OF FAME
+            <span className="counter">{hofCount}</span>
+          </Link>
           <div className="item">
             <div className="header">POPULAR TAGS</div>
             <TagMenu tags={ popularTags } selectedTag={ this.props.selectedTag } />
@@ -39,9 +45,7 @@ const Sidebar = React.createClass({
           <Link to="/about" className="item">ABOUT</Link>
         </div>
       </nav>
-    );
+    )
   }
-
-});
-
-module.exports = Sidebar;
+})
+export default Sidebar

@@ -1,11 +1,23 @@
-import React from 'react';
+import React from 'react'
 
-import Sidebar from '../sidebar/Sidebar';
-import Header from './Header';
-import Footer from './Footer';
+import Sidebar from '../sidebar/Sidebar'
+import Header from './Header'
+import Footer from './Footer'
 
 const Layout = (props) => {
-  const { children, allTags, popularTags, lastUpdate, staticContent, textFilter, currentTagId, auth, authActions } = props;
+  const {
+    children,
+    allTags,
+    popularTags,
+    lastUpdate,
+    staticContent,
+    textFilter,
+    currentTagId,
+    auth,
+    authActions,
+    hofCount,
+    linkCount
+  } = props
   return (
     <div id="layout">
 
@@ -15,6 +27,8 @@ const Layout = (props) => {
         selectedTag={ currentTagId }
         auth={ auth }
         authActions={ authActions }
+        hofCount={ hofCount }
+        linkCount={ linkCount }
       />
 
       <div id="panel" className="slideout-panel">
@@ -35,7 +49,7 @@ const Layout = (props) => {
       </div>
 
     </div>
-  );
-};
+  )
+}
 
-export default Layout;
+export default Layout

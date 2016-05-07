@@ -1,16 +1,17 @@
-import React, { PropTypes } from 'react';
+import React, { PropTypes } from 'react'
 
-import TagLabel from '../../tags/TagLabel';
-import Description from '../../common/utils/Description';
-import DeltaBar from '../../common/utils/DeltaBar';
-import fromNow from '../../../helpers/fromNow';
+import TagLabel from '../../tags/TagLabel'
+import Description from '../../common/utils/Description'
+import DeltaBar from '../../common/utils/DeltaBar'
+import fromNow from '../../../helpers/fromNow'
+import formatUrl from '../../../helpers/formatUrl'
 
 const Header = React.createClass({
   propTypes: {
     project: PropTypes.object
   },
   render() {
-    const { project } = this.props;
+    const { project } = this.props
     return (
       <div className="">
         <div className="inner">
@@ -20,7 +21,7 @@ const Header = React.createClass({
           { project.url && (
             <p>
               <span className="octicon octicon-globe"></span>
-              Website: <a href={ project.url }>{ project.url }</a>
+              Website: <a href={ project.url }>{ formatUrl(project.url) }</a>
             </p>
           )}
         </div>
@@ -28,14 +29,14 @@ const Header = React.createClass({
           { project.tags.map(function (tag) {
             return (
               <TagLabel key={ tag.id } tag={ tag } />
-            );
+            )
           }) }
         </div>
         <div className="inner github" style={{ borderTop: '1px solid #ddd', paddingBottom: 0 }}>
           <p>
             <span className="octicon octicon-repo"></span>
             {' '}
-            Github repository: <a href={ project.repository }>{ project.repository }</a>
+            Github repository: <a href={ project.repository }>{ formatUrl(project.repository) }</a>
             {' '}
             { project.stars } <span className="octicon octicon-star"></span>
           </p>
@@ -49,7 +50,7 @@ const Header = React.createClass({
           </div>
         </div>
       </div>
-    );
+    )
   }
-});
-export default Header;
+})
+export default Header
