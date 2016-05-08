@@ -4,16 +4,20 @@
 
 ## Concept
 
-[bestof.js.org](http://bestof.js.org/) is an application to check the latest trends about open source projects related to the web platform (JavaScript of course, but also html, css...)
+[bestof.js.org](http://bestof.js.org/) checks everyday the latest trends about open source projects related to the web platform: JavaScript of course, client and server side, but also html, css...
+
 This is a place where font-end engineers and node.js developers can find the best components to build amazing web applications:
 
 * Frameworks
-* Librairies
+* Libraries
 * CSS toolkits
 * Testing tools
 * and many other things...
 
-New feature added on April 2016: sign in with Github to add "Reviews" and "Links" about the projects you care!
+2 new features have been added recently (May 2015):
+
+* Users can sign in with their Github account and add "Reviews" and "Links" about the projects they care. Anyone can contribute!
+* A Hall of Fame has been created to gather the most amazing people of the community: developers, authors, speakers, mentors...
 
 ## How it works
 
@@ -25,17 +29,31 @@ Then everyday, an automatic task checks project data from Github, for every proj
 
 The web application displays the total number of stars and their variation over the last days.
 
-## Road map
-
-Features coming sooner or later:
-
-* [x] See project last commit date (to check projects that are really active)
-* [x] User generated content: project reviews and useful resources about projects
-* [ ] Hall of fame: add a link to see a list of some of the most important members of the community (great contributors like Sindre, Substack, TJ...)
 
 ## Technical overview
 
-This repository is the front-end application, a single-page application built with the following technologies:
+### Cloud services
+
+#### Database: [mLab](https://mlab.com/)
+
+Database-as-a-Service for MongoDB
+
+#### CI Server: [SemaphoreCI](https://semaphoreci.com/)
+
+The "build scheduler" feature is great. This is what I needed to generate static JSON files every day.
+
+#### node.js microservices: [webtask.io](https://webtask.io/)
+
+#### Authentication: [Auth0](https://auth0.com/)
+
+#### Static hosting
+
+* [Firebase](https://www.firebase.com/): used to serve json data used by the single-page application
+* [Netlify](https://www.netlify.com/): used to check the application is the "staging" environment.
+
+### Libraries
+
+This repository is the front-end application, a single-page application built with the following modules:
 
 * [React](http://facebook.github.io/react/)
 * [Redux](http://redux.js.org/)
@@ -44,12 +62,15 @@ This repository is the front-end application, a single-page application built wi
 
 Webpack is used to built the application in development and production mode.
 
-Related repositories:
+### Repos
 
-* [bestofjs-keystonejs](https://github.com/michaelrambeau/bestofjs-keystonejs): the web application used by admin users to manage data (used to add projects and tags for example). Built with [KeystoneJS](http://keystonejs.com/), a node.js CMS.
+bestof.js.org application is made of 5 repositories:
+
+* [bestofjs-webui](https://github.com/michaelrambeau/bestofjs-webui) (this repo!): the single-page application for end users
+* [bestofjs-admin](https://github.com/michaelrambeau/bestofjs-admin): the web application used by admin users to manage content (used to add projects, tags and hall of fame members for example). Built with [KeystoneJS](http://keystonejs.com/), a node.js CMS.
 * [bestofjs-batches](https://github.com/michaelrambeau/bestofjs-batches): Scheduled tasks that generate every day data used by the web application.
-* [bestofjs-microservices](https://github.com/michaelrambeau/microservices): microservice used to retrieve project information from Github, when a project is opened in the webui application
-* [bestofjs](https://github.com/michaelrambeau/bestofjs): repository used to deploy content to Github pages, linked to js.org domain. Generated from bestofjs-webui repository.
+* [bestofjs-webtasks](https://github.com/michaelrambeau/bestofjs-webtasks): microservices used to serve dynamic data: to read and write user-generated content (links and reviews), to get README.md from Github when a project is opened.
+* [bestofjs](https://github.com/michaelrambeau/bestofjs): repository used to deploy content to Github pages, linked to js.org domain. Generated from bestofjs-webui repository, does not contain any source code.
 
 
 ## URLs and environments

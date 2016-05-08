@@ -1,5 +1,9 @@
 # Change log
 
+## 0.4.0 - 2016-05-08
+* New "Hall of Fame" feature displaying 80 important people (#12)
+* Daily/Weekly filter in the top page.
+
 ## 0.3.2 - 2016-04-30
 * Add logo in the sidebar
 * Fix hot reloading for style files
