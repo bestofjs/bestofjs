@@ -7,7 +7,7 @@ const Description = (props) => {
   const { text } = props;
   const description = text.replace(/\:[a-z_\d]+\:/g, '').trim();
   return (
-    <span>&ldquo;{' '}{ description }{' '}&rdquo;</span>
+    <span>{ description }</span>
   );
 };
 module.exports = Description;

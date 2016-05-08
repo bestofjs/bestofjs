@@ -28,11 +28,11 @@ const Sidebar = React.createClass({
           <IndexLink to="/" className="item">HOME</IndexLink>
           <Link to="/links" className="item">
             LINKS
-            <span className="counter">{linkCount}</span>
+            {linkCount > 0 && <span className="counter">{linkCount}</span>}
           </Link>
           <Link to="/hof" className="item">
             HALL OF FAME
-            <span className="counter">{hofCount}</span>
+            {hofCount > 0 && <span className="counter">{hofCount}</span>}
           </Link>
           <div className="item">
             <div className="header">POPULAR TAGS</div>

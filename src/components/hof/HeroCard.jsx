@@ -64,8 +64,8 @@ export default ({ hero, you, isCurrentUser }) => (
     {hero.modules > 0 && (
       <a
         className="inner card-block" target="_blank"
-        title={`${hero.username}'s blog'`}
-        href={`https://www.npmjs.com/~${hero.username}`}
+        title={`${hero.username}'s npm account'`}
+        href={`https://www.npmjs.com/~${hero.npm || hero.username}`}
       >
         <span className="mega-octicon octicon-package icon"></span>
         <span>{hero.modules} modules on npm</span>
