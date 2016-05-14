@@ -1,5 +1,10 @@
 # Change log
 
+## 0.4.1 - 2016-05-15
+* On mobiles, close the sidebar after navigation occurs
+* Trigger search when enter key is pressed in the search box
+* Include Hall of Famers in search results
+
 ## 0.4.0 - 2016-05-08
 * New "Hall of Fame" feature displaying 80 important people (#12)
 * Daily/Weekly filter in the top page.
