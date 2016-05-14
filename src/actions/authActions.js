@@ -4,7 +4,7 @@
 // - login()
 // - logout()
 
-import { hashHistory } from 'react-router'
+import hashHistory from 'react-router/lib/hashHistory'
 
 import log from '../helpers/log'
 import UrlManager from './urlManager'

@@ -1,6 +1,6 @@
 // Header used by project related items: reviews and links
 import React from 'react'
-import { Link } from 'react-router'
+import Link from 'react-router/lib/Link'
 
 import fromNow from '../../helpers/fromNow'
 

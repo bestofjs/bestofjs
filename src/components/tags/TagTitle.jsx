@@ -1,5 +1,5 @@
 import React from 'react';
-import { IndexLink } from 'react-router';
+import IndexLink from 'react-router/lib/IndexLink';
 
 // require('../../stylesheets/tag.styl');
 

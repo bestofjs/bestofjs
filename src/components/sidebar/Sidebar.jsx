@@ -1,5 +1,6 @@
 import React from 'react'
-import { Link, IndexLink } from 'react-router'
+import Link from 'react-router/lib/Link'
+import IndexLink from 'react-router/lib/IndexLink'
 
 import TagMenu from './TagMenu'
 import LoggedinUser from './LoggedinUser'

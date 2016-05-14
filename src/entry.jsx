@@ -8,10 +8,12 @@ import fetchJSON from './helpers/fetchJSON'
 import React from 'react'
 import { render } from 'react-dom'
 
-import { Router, useRouterHistory } from 'react-router'
+import Router from 'react-router/lib/Router'
+import useRouterHistory from 'react-router/lib/useRouterHistory'
 import createBrowserHistory from 'history/lib/createHashHistory'
 import useScroll from 'scroll-behavior/lib/useStandardScroll'
 import { Provider } from 'react-redux'
+
 import configureStore from './store/configureStore'
 import getRoutes from './routes'
 import api from '../config/api'

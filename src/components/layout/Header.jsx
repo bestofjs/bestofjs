@@ -1,5 +1,5 @@
 import React from 'react';
-import { IndexLink } from 'react-router';
+import IndexLink from 'react-router/lib/IndexLink';
 
 import SearchForm from '../../containers/SearchFormContainer';
 import ToggleMenuButton from './ToggleMenuButton';

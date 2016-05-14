@@ -1,4 +1,4 @@
-import { hashHistory } from 'react-router';
+import hashHistory from 'react-router/lib/hashHistory';
 const notie = typeof window === 'undefined' ? {} : require('notie');
 
 import createApi from '../api/userContent';

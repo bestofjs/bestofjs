@@ -1,5 +1,5 @@
 import React from 'react';
-import { hashHistory } from 'react-router';
+import hashHistory from 'react-router/lib/hashHistory';
 
 import SearchForm from '../components/home/SearchForm';
 
