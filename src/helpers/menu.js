@@ -29,6 +29,6 @@ export default ({
     slideout.toggle();
   },
   hide() {
-    slideout.close();
+    if (slideout) slideout.close();
   }
 });

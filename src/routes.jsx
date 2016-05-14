@@ -27,7 +27,7 @@ import ProjectReviewsEdit from './components/ProjectView/ReviewsTab/Edit'
 const getRoutes = (count = 3) => {
   const Home = getHomePage(count)
   return (
-    <Route path="/" component={App} >
+    <Route path="/" component={App}>
       <IndexRoute component={Home} />
       <Route path="home" component={Home}/>
       <Route path="about" component={About}/>

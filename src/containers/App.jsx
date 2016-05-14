@@ -20,9 +20,10 @@ function getCurrentTagId() {
 const App = React.createClass({
   componentDidMount() {
     this.props.authActions.start()
+    log('App did mount!')
   },
   render() {
-    log('Render the <App> container', this.props.serverSide)
+    log('Render the <App> container', this.props)
     const { children } = this.props
     return (
       <Wrapper {...this.props}>
