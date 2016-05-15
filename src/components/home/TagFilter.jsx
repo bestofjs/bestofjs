@@ -12,15 +12,22 @@ const TagFilter = React.createClass({
     return (
       <MainContent className="small container">
         { tag.name && (
-          <div className="tag-page-header" style={{ marginBottom: 20 }}>
+          <div className="tag-page-header" style={{ marginBottom: '1rem' }}>
             <div>
-              <TagLabel tag={ tag } />
+              {false && <TagLabel tag={ tag } />}
+              <h3 className="with-comment" style={{ fontSize: '1.2rem' }}>
+                <span className="mega-octicon octicon-tag icon"></span>
+                {tag.name}
+              <span className="counter-small"> ({projects.length})</span>
+              <span className="counter-big">
+                { projects.length === 1 ? (
+                  ' (Only one project)'
+                ) : (
+                  ` (${projects.length} projects)`
+                ) }
+              </span>
 
-              { projects.length === 1 ? (
-                ' Only one project for now'
-              ) : (
-                ` ${projects.length} projects`
-              ) }
+              </h3>
             </div>
 
             <div>

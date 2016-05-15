@@ -24,7 +24,7 @@ const defaultState = {
 function processProject(item) {
   const daily = item.deltas[0]
   const reducer = (a, b) => a + b
-  const weekly = parseInt(item.deltas.slice(0, 7).reduce(reducer, 0) / 7, 10)
+  const weekly = Math.round(item.deltas.slice(0, 7).reduce(reducer, 0) / 7)
   return {
     repository: 'https://github.com/' + item.full_name,
     id: item._id, // getProjectId(item),

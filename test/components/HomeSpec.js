@@ -31,12 +31,10 @@ function getHotProjects(state) {
 function mapStateToProps(state) {
   const {
     entities: { projects, tags },
-    githubProjects: {
-      popularProjectIds
-    }
+    githubProjects
   } = state
 
-  const popularProjects = popularProjectIds
+  const popularProjects = githubProjects.total
     .map(id => projects[id])
     .slice(0, 20)
     .map(populate(tags))

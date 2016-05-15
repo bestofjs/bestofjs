@@ -2,15 +2,15 @@ import React from 'react'
 
 const defaultOptions = [
   {
-    text: 'By total number of stars',
+    text: 'By stars (total)',
     value: 'total'
   },
   {
-    text: 'By stars added yesterday',
+    text: 'Since yesterday',
     value: 'daily'
   },
   {
-    text: 'By stars added last week',
+    text: 'Since last week',
     value: 'weekly'
   }
 ]

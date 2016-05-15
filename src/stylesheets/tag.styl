@@ -38,11 +38,17 @@
 .tag-page-header
   display: flex
   align-items: center
-  font-size: 18px
+  .counter-small, .counter-big
+    color: #999
+  @media (min-width: 500px)
+    font-size: 1.2rem
+  @media (min-width: 450px)
+    .counter-small
+      display: none
+  @media (max-width: 449px)
+    .counter-big
+      display: none
+
   > div:last-child
     flex-grow: 1
     text-align: right
-  @media (max-width: 599px)
-    flex-direction: column
-    > div:last-child
-      margin-top: 1rem

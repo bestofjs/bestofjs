@@ -32,7 +32,7 @@ const Delta = (props) => {
       { props.icon && value !== 0 && (
         <span className="octicon octicon-star" style={{ fontSize: 14, marginLeft: 4 }}></span>
       ) }
-      { perDay && '/day' }
+      { perDay && value !== 0 && '/day' }
     </div>
   );
 };
