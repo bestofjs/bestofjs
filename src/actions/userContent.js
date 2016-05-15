@@ -1,8 +1,8 @@
-import hashHistory from 'react-router/lib/hashHistory';
-const notie = typeof window === 'undefined' ? {} : require('notie');
+import hashHistory from 'react-router/lib/hashHistory'
+import msgbox from '../helpers/msgbox'
 
-import createApi from '../api/userContent';
-import * as crud from './crudActions';
+import createApi from '../api/userContent'
+import * as crud from './crudActions'
 
 const settings = {
   'link': {
@@ -53,10 +53,13 @@ export function create(key) {
           const data = Object.assign({}, json);
           dispatch(crud.createItemSuccess(key, data));
           goToList(project, key);
-          notie.alert(1, `Thank you for the ${settings[key].label}!`, 3);
+          msgbox(`Thank you for the ${settings[key].label}!`);
         })
         .catch(err => {
-          notie.alert(3, `Sorry, we were unable to create the ${settings[key].label}. ${err.message}`, 3);
+          msgbox(
+            `Sorry, we were unable to create the ${settings[key].label}. ${err.message}`,
+            { type: 'ERROR' }
+          );
           console.error('Impossible to create the link', err);
         });
     };
@@ -77,11 +80,14 @@ export function update(key) {
         const data = Object.assign({}, json);
         dispatch(crud.updateItemSuccess(key, data));
         goToList(project, key);
-        notie.alert(1, `Your ${settings[key].label} has been updated.`, 3);
+        msgbox(`Your ${settings[key].label} has been updated.`);
       })
       .catch(err => {
         console.error('Error when calling User content API', err.message);
-        notie.alert(3, `Sorry, we were unable to save the ${settings[key].label}.`, 3);
+        msgbox(
+          `Sorry, we were unable to save the ${settings[key].label}.`,
+          { type: 'ERROR' }
+        );
       });
     };
   };

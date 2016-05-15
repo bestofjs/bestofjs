@@ -6,6 +6,7 @@
 
 import hashHistory from 'react-router/lib/hashHistory'
 
+import msgbox from '../helpers/msgbox'
 import log from '../helpers/log'
 import UrlManager from './urlManager'
 
@@ -110,6 +111,7 @@ function loginSuccess(profile, token) {
   if (hash) {
     log('POST lOGIN REDIRECT', hash)
     hashHistory.push(hash)
+    msgbox(`Hello ${profile.name}!`)
   }
   return {
     type: 'LOGIN_SUCCESS',
@@ -131,6 +133,7 @@ function logoutRequest() {
   }
 }
 function logoutSuccess() {
+  msgbox('Disconnected. Come back at any time!', { type: 'INFO' })
   return {
     type: 'LOGOUT_SUCCESS'
   }
