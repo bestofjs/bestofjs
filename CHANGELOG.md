@@ -1,9 +1,12 @@
 # Change log
 
 ## 0.4.1 - 2016-05-15
+* Add a sort filter in tag pages: sort by total number of stars, stars added yesterday and stars added since last week.
 * On mobiles, close the sidebar after navigation occurs
 * Trigger search when enter key is pressed in the search box
 * Include Hall of Famers in search results
+* Display alert after login and logout
+* use `why-did-you-update` to track unnecessary renderings in dev
 
 ## 0.4.0 - 2016-05-08
 * New "Hall of Fame" feature displaying 80 important people (#12)

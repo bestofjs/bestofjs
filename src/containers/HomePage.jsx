@@ -1,17 +1,17 @@
-import React from 'react';
-import { connect } from 'react-redux';
+import React from 'react'
+import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
-import Home from '../components/home/Home';
-import populate from '../helpers/populate';
-import log from '../helpers/log';
-import * as uiActionCreators from '../actions/uiActions';
+import Home from '../components/home/Home'
+import populate from '../helpers/populate'
+import log from '../helpers/log'
+import * as uiActionCreators from '../actions/uiActions'
 
 
 const HomePage = React.createClass({
   render() {
-    log('Render the <HomePage> container', this.props);
-    const { hotProjects, popularProjects, isLoggedin, uiActions, ui } = this.props;
+    log('Render the <HomePage> container', this.props)
+    const { hotProjects, popularProjects, isLoggedin, uiActions, ui } = this.props
     return (
       <Home
         hotProjects = { hotProjects }
@@ -21,14 +21,14 @@ const HomePage = React.createClass({
         uiActions={uiActions}
         hotFilter={ui.hotFilter}
       />
-    );
+    )
   }
-});
+})
 
 function finalMapStateToProps(count) {
   return function (state) {
-    return mapStateToProps(state, count);
-  };
+    return mapStateToProps(state, count)
+  }
 }
 function mapStateToProps(state, count) {
   const {
@@ -37,32 +37,29 @@ function mapStateToProps(state, count) {
       tags,
       links
     },
-    githubProjects: {
-      hotProjects,
-      popularProjectIds
-    },
+    githubProjects,
     auth: {
       username
     },
     ui
-  } = state;
+  } = state
 
-  const key = ui.hotFilter === 0 ? 'daily' : 'weekly'
-  const hot = hotProjects[key]
+  const key = ui.hotFilter // 'daily' or 'weekly'
+  const hot = githubProjects[key]
     .map(id => projects[id])
     .slice(0, count) // display only the 20 hottest projects
-    .map(populate(tags, links));
-  const popularProjects = popularProjectIds
+    .map(populate(tags, links))
+  const popularProjects = githubProjects.total
     .map(id => projects[id])
     .slice(0, count) // display the "TOP20"
-    .map(populate(tags, links));
+    .map(populate(tags, links))
 
   return {
     hotProjects: hot,
     popularProjects,
     isLoggedin: username !== '',
     ui
-  };
+  }
 }
 
 function mapDispatchToProps(dispatch) {
@@ -72,5 +69,5 @@ function mapDispatchToProps(dispatch) {
 }
 
 export default function (count = 10) {
-  return connect(finalMapStateToProps(count), mapDispatchToProps)(HomePage);
+  return connect(finalMapStateToProps(count), mapDispatchToProps)(HomePage)
 }

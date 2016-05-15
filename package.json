@@ -5,7 +5,7 @@
   "main": "",
   "scripts": {
     "lint": "eslint src --ext .js --ext .jsx",
-    "test": "babel-tape-runner test/**/*Spec.js | faucet",
+    "test": "cross-env NODE_ENV=test babel-tape-runner test/**/*Spec.js | faucet",
     "test-debug": "babel-tape-runner test/**/SearchSpec.js",
     "clean": "rimraf www/index.html && rimraf www/build",
     "build": "npm run build-html && npm run build-js",
@@ -92,6 +92,7 @@
     "react-hot-loader": "1.3.0",
     "sinon": "^1.17.3",
     "tape": "^4.2.2",
-    "webpack-dev-server": "1.14.1"
+    "webpack-dev-server": "1.14.1",
+    "why-did-you-update": "0.0.8"
   }
 }

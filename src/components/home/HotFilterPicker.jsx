@@ -1,17 +1,21 @@
 import React from 'react'
 
-const options = [
+const defaultOptions = [
   {
-    text: 'yesterday',
-    value: 0
+    text: 'By total number of stars',
+    value: 'total'
   },
   {
-    text: 'last week',
-    value: 1
+    text: 'By stars added yesterday',
+    value: 'daily'
+  },
+  {
+    text: 'By stars added last week',
+    value: 'weekly'
   }
 ]
 
-export default ({ currentValue, onToggle }) => (
+export default ({ currentValue, onToggle, items = defaultOptions }) => (
   <select
     style={{
       fontSize: 'inherit',
@@ -20,9 +24,9 @@ export default ({ currentValue, onToggle }) => (
       height: 'auto'
     }}
     value={currentValue}
-    onChange={e => onToggle(parseInt(e.target.value, 10))}
+    onChange={e => onToggle(e.target.value)}
   >
-    {options.map(item => (
+    {items.map(item => (
       <option
         value={item.value}
         key={item.value}

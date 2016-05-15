@@ -1,15 +1,15 @@
-import React from 'react';
+import React from 'react'
 
-import log from '../../helpers/log';
-import MainContent from '../common/MainContent';
-import ProjectList from '../projects/ProjectList';
-import ErrorMessage from '../common/utils/ErrorMessage';
+import log from '../../helpers/log'
+import MainContent from '../common/MainContent'
+import ProjectList from '../projects/ProjectList'
+import ErrorMessage from '../common/utils/ErrorMessage'
 import HotFilterPicker from './HotFilterPicker'
 
 const Home = React.createClass({
   render() {
-    log('Render the <Home> component', this.props);
-    const { hotProjects, popularProjects, maxStars, isLoggedin, uiActions, hotFilter } = this.props;
+    log('Render the <Home> component', this.props)
+    const { hotProjects, popularProjects, maxStars, isLoggedin, uiActions, hotFilter } = this.props
     return (
       <MainContent>
         { this.props.errorMessage && <ErrorMessage text={ this.props.errorMessage } /> }
@@ -28,7 +28,20 @@ const Home = React.createClass({
                 <h3 className="with-comment">
                   <span className="mega-octicon octicon-flame icon"></span>
                   <span>Hot projects since </span>
-                  <HotFilterPicker currentValue={hotFilter} onToggle={uiActions.toggleHotFilter} />
+                  <HotFilterPicker
+                    currentValue={hotFilter}
+                    onToggle={uiActions.toggleHotFilter}
+                    items={[
+                      {
+                        value: 'daily',
+                        text: 'yesterday'
+                      },
+                      {
+                        value: 'weekly',
+                        text: 'last week'
+                      }
+                    ]}
+                  />
                 </h3>
                 <p className="explanation">
                   By number of stars added {hotFilter ? 'last week' : 'yesterday'} on Github
@@ -66,8 +79,8 @@ const Home = React.createClass({
           </div>
         )}
       </MainContent>
-    );
+    )
   }
-});
+})
 
-module.exports = Home;
+module.exports = Home

@@ -22,7 +22,7 @@ import ProjectCard from '../../src/components/projects/ProjectCard'
 import populate from '../../src/helpers/populate'
 
 function getHotProjects(state) {
-  return state.githubProjects.hotProjects.daily
+  return state.githubProjects.daily
     .map(id => state.entities.projects[id])
     .slice(0, 20)
     .map(populate(state.entities.tags))

@@ -33,3 +33,16 @@
   marginLeft: 10
   .tag-counter
     margin-left: 5px
+
+// Header that contains the tag title, the number of project and the star filter menu
+.tag-page-header
+  display: flex
+  align-items: center
+  font-size: 18px
+  > div:last-child
+    flex-grow: 1
+    text-align: right
+  @media (max-width: 599px)
+    flex-direction: column
+    > div:last-child
+      margin-top: 1rem

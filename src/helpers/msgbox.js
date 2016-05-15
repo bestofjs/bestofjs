@@ -1,4 +1,4 @@
-const notie = typeof window === 'undefined' ? {} : require('notie')
+const notie = process.env.NODE_ENV === 'test' || typeof window === 'undefined' ? {} : require('notie')
 
 const defaultOptions = {
   type: 'SUCCESS',

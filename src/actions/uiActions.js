@@ -4,3 +4,9 @@ export function toggleHotFilter(value) {
     payload: value
   }
 }
+export function toggleStarFilter(value) {
+  return {
+    type: 'TOGGLE_STAR_FILTER',
+    payload: value
+  }
+}

@@ -11,11 +11,9 @@ const defaultState = {
   },
   githubProjects: {
     lastUpdate: new Date(),
-    popularProjectIds: [],
-    hotProjects: {
-      daily: [],
-      weekly: []
-    }
+    total: [],
+    daily: [],
+    weekly: []
   },
   auth: {
     username: '',
@@ -24,9 +22,9 @@ const defaultState = {
 };
 
 function processProject(item) {
-  const dailyVariation = item.deltas[0]
+  const daily = item.deltas[0]
   const reducer = (a, b) => a + b
-  const weeklyVariation = parseInt(item.deltas.slice(0, 7).reduce(reducer, 0) / 7, 10)
+  const weekly = parseInt(item.deltas.slice(0, 7).reduce(reducer, 0) / 7, 10)
   return {
     repository: 'https://github.com/' + item.full_name,
     id: item._id, // getProjectId(item),
@@ -37,7 +35,11 @@ function processProject(item) {
     pushed_at: item.pushed_at,
     stars: item.stars,
     url: item.url,
-    stats: [dailyVariation, weeklyVariation]
+    stats: {
+      total: item.stars,
+      daily,
+      weekly
+    }
   }
 }
 
@@ -69,18 +71,22 @@ export function getInitialState(data, profile) {
     state.entities.tags[tag.id] = tag;
   });
 
-  const popularProjects = helpers.sortBy(allProjects, (project) => project.stars);
-  const hotProjects = {
-    daily: helpers.sortBy(allProjects.slice(0), project => project.stats[0]),
-    weekly: helpers.sortBy(allProjects.slice(0), project => project.stats[1])
-  }
+  const sortProjects = fn => (
+    helpers.sortBy(allProjects.slice(0), fn)
+  )
+  const sortedProjects = [
+    sortProjects(project => project.stars),
+    sortProjects(project => project.stats.daily),
+    sortProjects(project => project.stats.weekly)
+  ]
+  const sortedProjectIds = sortedProjects.map(
+    projects => projects.map(item => item.id)
+  )
 
   state.githubProjects = {
-    popularProjectIds: popularProjects.map(item => item.id),
-    hotProjects: {
-      daily: hotProjects.daily.map(item => item.id),
-      weekly: hotProjects.weekly.map(item => item.id),
-    },
+    total: sortedProjectIds[0],
+    daily: sortedProjectIds[1],
+    weekly: sortedProjectIds[2],
     tagIds: allTags.map(item => item.id),
     lastUpdate: data.date
   };

@@ -7,6 +7,11 @@ import fetchJSON from './helpers/fetchJSON'
 
 import React from 'react'
 import { render } from 'react-dom'
+// import { whyDidYouUpdate } from 'why-did-you-update'
+
+// if (process.env.NODE_ENV !== 'production') {
+//   whyDidYouUpdate(React)
+// }
 
 import Router from 'react-router/lib/Router'
 import useRouterHistory from 'react-router/lib/useRouterHistory'
