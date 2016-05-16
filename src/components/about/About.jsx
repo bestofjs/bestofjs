@@ -2,14 +2,14 @@ import React from 'react';
 import MainContent from '../common/MainContent';
 import StarMeButton from '../common/StarMeButton';
 import ProjectCard from '../projects/ProjectCard';
-import Delta from '../common/utils/Delta';
+// import Delta from '../common/utils/Delta';
 import Stars from '../common/utils/Stars';
 import log from '../../helpers/log';
 
 const About = React.createClass({
   render() {
     log('Render the <About> component', this.props);
-    const { project, staticContent, count } = this.props;
+    const { project, staticContent, count, ui } = this.props;
     const { repo, projectName } = staticContent;
     return (
       <MainContent>
@@ -33,7 +33,7 @@ const About = React.createClass({
         <p>{ projectName } takes "snapshot" of Github stars every day, for {count} projects, to detect the trends over the last weeks.</p>
 
         { project && (
-          <Example project={ project } />
+          <Example project={project} ui={ui} />
         ) }
 
         <h2>How it works</h2>
@@ -65,7 +65,7 @@ const About = React.createClass({
 const Example = React.createClass({
 
   render() {
-    const { project, maxStars } = this.props;
+    const { project, ui } = this.props;
     return (
       <div>
         <h2>An example</h2>
@@ -77,28 +77,19 @@ const Example = React.createClass({
           project = { project }
           index = { 0 }
           showDescription
-          maxStars = { maxStars }
-          showTags
-          showStar
-          showDelta
+          showDelta={ui.starFilter !== 'total'}
+          deltaFilter={ui.starFilter}
+          showStars={ui.starFilter === 'total'}
         />
 
         <p>
           At the top right corner:
         </p>
-        <ul>
-         <li>
+        <p>
            <Stars value={ project.stars } icon />
            {' '}
             is the total number of stars on Github.
-         </li>
-         <li>
-           <div style={{ width: 80, display: 'inline-block' }}>
-             <Delta value={ project.deltas[0] } icon />
-           </div>
-           {' '}
-          is the number of stars added yesterday.</li>
-        </ul>
+        </p>
         <p>At the bottom:</p>
         <p>
           The colored bar shows the stars added on Github over the last days, day by day.

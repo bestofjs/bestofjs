@@ -10,7 +10,7 @@ function fetchHeroes() {
   };
 }
 
-const fetchHeroesSuccess = json => ({
+export const fetchHeroesSuccess = json => ({
   type: 'FETCH_HEROES_SUCCESS',
   payload: json.heroes
 });

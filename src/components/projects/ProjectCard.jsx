@@ -43,8 +43,11 @@ const renderLinks = (links = []) => {
   )
 }
 
-const ProjectCard = (props) => {
-  const { project, index, deltaFilter = 'total' } = props
+const ProjectCard = (
+  {
+    project, index, deltaFilter = 'total',
+    showStars, showDelta, showDescription, showTags
+  }) => {
   const path = `/projects/${project.id}`
   return (
     <div className="project-card">
@@ -58,7 +61,7 @@ const ProjectCard = (props) => {
           </div>
 
           <div className="big-numbers">
-            { props.showStars && (
+            { showStars && (
               <div className="total">
                 <Stars
                   value={ project.stars }
@@ -67,12 +70,11 @@ const ProjectCard = (props) => {
               </div>
             ) }
 
-            { props.showDelta && project.deltas.length > 0 && (
+            { showDelta && project.deltas.length > 0 && (
               <div className="delta">
                 <Delta
                   value={ project.stats[deltaFilter] }
                   big
-                  iconXX
                   perDay={deltaFilter !== 'total' && deltaFilter !== 'daily' }
                 />
               </div>
@@ -83,7 +85,7 @@ const ProjectCard = (props) => {
           </div>
         </header>
 
-        { props.showDescription && (
+        { showDescription && (
           <section>
             <Description text={ project.description } />
           </section>
@@ -91,7 +93,7 @@ const ProjectCard = (props) => {
 
       </Link>
 
-      { props.showTags && (
+      { showTags && (
         <section className="tags-section">
           { project.tags.map(tag =>
             <TagLabel tag={ tag } key={ project.id + tag.id } />

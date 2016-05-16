@@ -10,12 +10,13 @@ const AboutPage = React.createClass({
 
   render() {
     log('Render the <AboutPage> container', this.props);
-    const { staticContent, project, count } = this.props;
+    const { staticContent, project, count, ui } = this.props;
     return (
       <About
         project={project}
         staticContent={staticContent}
         count={count}
+        ui={ui}
       />
     );
   }
@@ -25,7 +26,8 @@ const AboutPage = React.createClass({
 function mapStateToProps(state) {
   const {
     entities: { projects, tags, links },
-    githubProjects
+    githubProjects,
+    ui
   } = state;
 
   const project = githubProjects.total
@@ -36,7 +38,8 @@ function mapStateToProps(state) {
   return {
     project: project[0],
     staticContent: getStaticContent(),
-    count: Object.keys(projects).length
+    count: Object.keys(projects).length,
+    ui
   };
 }
 

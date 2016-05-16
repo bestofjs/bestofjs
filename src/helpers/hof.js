@@ -1,3 +1,11 @@
+// Return an array containing all Hall of Fame members, with their populated projects
+// Used in the container component and in test files.
+export function getAllHeroes(state) {
+  return state.hof.heroesById
+    .map(id => state.entities.heroes[id])
+    .map(populate(state.entities.projects))
+}
+
 // Return the `Hero` with populated projects
 export const populate = allProjects => hero => {
   const projects = hero.projects.map(id => allProjects[id])

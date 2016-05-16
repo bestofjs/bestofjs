@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux'
 
 import * as authActionCreators from '../actions/authActions';
 import HoF from '../components/hof/HeroList'
-import { populate } from '../helpers/hof'
+import { getAllHeroes } from '../helpers/hof'
 
 const getYou = (auth) => ({
   name: 'Could be you?',
@@ -27,13 +27,11 @@ const Page = ({ heroes, auth, you, authActions, isHero }) => (
 
 function mapStateToProps(state) {
   const {
-    entities: { heroes, projects },
+    // entities: { heroes },
     auth
   } = state
 
-  const allHeroes = state.hof.heroesById
-    .map(id => heroes[id])
-    .map(populate(projects))
+  const allHeroes = getAllHeroes(state)
 
   // Is the current user a Hall of Famer ?
   const isHero = state.hof.heroesById.filter(id => id === auth.username).length > 1
