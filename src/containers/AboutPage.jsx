@@ -25,10 +25,10 @@ const AboutPage = React.createClass({
 function mapStateToProps(state) {
   const {
     entities: { projects, tags, links },
-    githubProjects: { popularProjectIds }
+    githubProjects
   } = state;
 
-  const project = popularProjectIds
+  const project = githubProjects.total
     .map(id => projects[id])
     .slice(0, 1)
     .map(populate(tags, links));
