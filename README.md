@@ -2,9 +2,11 @@
 
 [![Build Status](https://travis-ci.org/michaelrambeau/bestofjs-webui.svg?branch=master)](https://travis-ci.org/michaelrambeau/bestofjs-webui)
 
+[![Join the chat at https://gitter.im/michaelrambeau/bestofjs-webui](https://badges.gitter.im/michaelrambeau/bestofjs-webui.svg)](https://gitter.im/michaelrambeau/bestofjs-webui?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 ## Concept
 
-[bestof.js.org](http://bestof.js.org/) checks everyday the latest trends about open source projects related to the web platform: JavaScript of course, client and server side, but also html, css...
+[bestof.js.org](http://bestof.js.org/) gathers the latest trends about open source projects related to the web platform: JavaScript of course (client and server side) but also html, css...
 
 This is a place where font-end engineers and node.js developers can find the best components to build amazing web applications:
 

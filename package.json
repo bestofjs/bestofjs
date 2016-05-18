@@ -1,6 +1,6 @@
 {
   "name": "bestofjs-webui",
-  "version": "0.4.1",
+  "version": "0.4.2",
   "description": "bestof.js.org front-end web application",
   "main": "",
   "scripts": {
