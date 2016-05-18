@@ -19,6 +19,7 @@ export default ({ hero, you, isCurrentUser }) => (
     <a className="header card-block" target="_blank"
       href={`https://github.com/${hero.username}`}
       title={`${hero.username} Github profile`}
+      data-balloon={`Open ${hero.username}'s profile on Github`}
     >
       <img src={`${hero.avatar}&s=150`} width="100" height="100" alt={hero.username} />
       <div className="header-text">
@@ -55,6 +56,7 @@ export default ({ hero, you, isCurrentUser }) => (
     {hero.blog && (
       <a
         className="inner card-block" target="_blank"
+        data-balloon={`Open ${hero.username}'s website/blog`}
         href={hero.blog}
       >
         <span className="mega-octicon octicon-globe icon"></span>
@@ -65,6 +67,7 @@ export default ({ hero, you, isCurrentUser }) => (
       <a
         className="inner card-block" target="_blank"
         title={`${hero.username}'s npm account'`}
+        data-balloon={`Open ${hero.username}'s profile on npm`}
         href={`https://www.npmjs.com/~${hero.npm || hero.username}`}
       >
         <span className="mega-octicon octicon-package icon"></span>

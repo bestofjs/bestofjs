@@ -42,6 +42,7 @@ fetchData()
 
 // Stylesheets are included here to avoid server-side rendering errors
 require('./stylesheets/main.styl')
+require('./stylesheets/tooltip/balloon.css')
 require('../node_modules/react-select/dist/react-select.css')
 
 // Launch the Redux application once we get data

@@ -13,8 +13,8 @@ export default ({ heroes = [], you, auth, onLogin, isHero }) => (
       </span>
     </h1>
     <div>
-      Some of the greatest developers, authors and speakers of the JavaScript community.<br />
-      Like the basket-ball Hall of Fame... except they are all still in activity!
+      Here are some of the greatest developers, authors and speakers of the JavaScript community.<br />
+      It is like the basket-ball Hall of Fame... except they are all still in activity!
     </div>
     {false && heroes.map(hero => (
       <div>
