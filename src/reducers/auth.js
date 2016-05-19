@@ -4,7 +4,6 @@ const defaultState = {
 }
 export default function auth(state = defaultState, action) {
   switch (action.type) {
-  // LOGIN
   case 'LOGIN_REQUEST':
     return Object.assign({}, state, { pending: true })
   case 'LOGIN_SUCCESS':

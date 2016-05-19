@@ -28,6 +28,7 @@ import { fetchAllLinks } from './actions/linkActions'
 import { fetchAllHeroes } from './actions/hofActions'
 import menu from './helpers/menu'
 import log from './helpers/log'
+import track from './helpers/track'
 
 if (process.env.NODE_ENV === 'development') {
   // to be used from the DevTools console, with "React Perf" Chrome extension
@@ -45,17 +46,31 @@ require('./stylesheets/main.styl')
 require('./stylesheets/tooltip/balloon.css')
 require('../node_modules/react-select/dist/react-select.css')
 
+// Track every router update (except project views that are tracked elsewhere)
+function trackPageView(state) {
+  const path = state.location.pathname
+  const routes = state.routes
+  if (routes.length > 1 && routes[1].path === 'projects/:id') return false
+  track(path)
+}
+
+function onRouterUpdate() {
+  menu.hide()
+  trackPageView(this.state)
+}
+
 // Launch the Redux application once we get data
 function startRedux(state) {
   const initialState = state
   const store = configureStore(initialState)
+  if (process.env.NODE_ENV === 'development') window.store = store
   const createScrollHistory = useScroll(createBrowserHistory)
   const appHistory = useRouterHistory(createScrollHistory)()
 
   render(
     <Provider store={ store }>
-      <Router history={ appHistory } onUpdate={() => menu.hide()}>
-         { getRoutes(10) }
+      <Router history={appHistory} onUpdate={onRouterUpdate}>
+         {getRoutes(10)}
       </Router>
     </Provider>,
     window.document.getElementById('app')
