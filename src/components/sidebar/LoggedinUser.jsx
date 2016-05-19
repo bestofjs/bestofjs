@@ -14,7 +14,6 @@ const LoggedinUser = React.createClass({
         <div className="username">{username}</div>
         <a
           className="logout-button"
-          title="Sign out"
           data-balloon={`Sign out`}
           data-balloon-pos="left"
           href="#"

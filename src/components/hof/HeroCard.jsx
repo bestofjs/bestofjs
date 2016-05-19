@@ -18,7 +18,6 @@ export default ({ hero, you, isCurrentUser }) => (
   <div className={`hero-card${isCurrentUser ? ' current-user' : ''}`}>
     <a className="header card-block" target="_blank"
       href={`https://github.com/${hero.username}`}
-      title={`${hero.username} Github profile`}
       data-balloon={`Open ${hero.username}'s profile on Github`}
     >
       <img src={`${hero.avatar}&s=150`} width="100" height="100" alt={hero.username} />
@@ -66,7 +65,6 @@ export default ({ hero, you, isCurrentUser }) => (
     {hero.modules > 0 && (
       <a
         className="inner card-block" target="_blank"
-        title={`${hero.username}'s npm account'`}
         data-balloon={`Open ${hero.username}'s profile on npm`}
         href={`https://www.npmjs.com/~${hero.npm || hero.username}`}
       >

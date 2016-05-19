@@ -1,8 +1,9 @@
 # Change log
 
-## 0.4.2 - 2016-05-15
+## 0.4.2 - 2016-05-20
 * Fix About page bug introduced by 0.4.1 release
 * Add some tooltips (in the Hall of Famer card, in the colored bar displayed at the bottom of the projects)
+* Track page view events using React Router `onUpdate` to trigger `pageview` events
 
 ## 0.4.1 - 2016-05-15
 * Add a sort filter in tag pages: sort by total number of stars, stars added yesterday and stars added since last week.
