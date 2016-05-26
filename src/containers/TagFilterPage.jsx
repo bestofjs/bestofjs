@@ -10,8 +10,12 @@ import * as uiActionCreators from '../actions/uiActions'
 const TagFilterPage = React.createClass({
 
   shouldComponentUpdate(nextProps) {
+    // `shouldComponentUpdate` has been implemented to avoid
+    // rendering the page twice when browsing tags.
     if (!nextProps.tag) return false
-    return nextProps.tag.id !== this.props.tag.id || nextProps.ui.starFilter !== this.props.ui.starFilter
+    const sameUi = Object.keys(nextProps.ui).
+      every(key => this.props.ui[key] === nextProps.ui[key])
+    return nextProps.tag.id !== this.props.tag.id || !sameUi
   },
 
   render() {

@@ -1,5 +1,5 @@
-import React from 'react';
-import ProjectCard from './ProjectCard';
+import React from 'react'
+import ProjectCard from './ProjectCard'
 
 const ProjectList = React.createClass({
 
@@ -9,12 +9,13 @@ const ProjectList = React.createClass({
       showDescription: true,
       showStars: true,
       showDelta: true,
-      showURL: false
-    });
+      showURL: false,
+      showMetrics: true
+    })
   },
 
   render() {
-    // console.log('Render project list', this.props.projects.length);
+    // console.info('Render project list', this.props.projects.length, this.props.showMetrics)
     return (
       <div>
         {this.props.projects.map((project, index) =>
@@ -29,10 +30,11 @@ const ProjectList = React.createClass({
             showDelta={ this.props.showDelta}
             deltaFilter={ this.props.deltaFilter}
             showURL={ this.props.showURL }
+            showMetrics={ this.props.showMetrics }
           />)
         }
       </div>
-    );
+    )
   }
-});
-export default ProjectList;
+})
+export default ProjectList

@@ -46,7 +46,7 @@ const renderLinks = (links = []) => {
 const ProjectCard = (
   {
     project, index, deltaFilter = 'total',
-    showStars, showDelta, showDescription, showTags
+    showStars, showDelta, showDescription, showTags, showMetrics
   }) => {
   const path = `/projects/${project.id}`
   return (
@@ -119,14 +119,17 @@ const ProjectCard = (
         </Link>
       }
 
-      <div className="inner github">
+      {showMetrics && <div className="inner github">
         <div className="last-commit">
           <span className="octicon octicon-git-commit"></span>
           {' '}
-          Last update: { fromNow(project.pushed_at) }
+          <span data-balloon="Last update">{ fromNow(project.pushed_at) }</span>
         </div>
-          { project.deltas.length > 0 && <DeltaBar data={ project.deltas.slice(0, 7) } />}
-      </div>
+      </div>}
+
+      {showMetrics && project.deltas.length > 0 &&
+        <DeltaBar data={ project.deltas.slice(0, 7) } />
+      }
     </div>
   )
 }

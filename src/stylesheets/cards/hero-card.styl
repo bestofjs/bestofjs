@@ -16,7 +16,7 @@
   flex: 1
   padding: 0
   background-color: white
-  border: 1px solid #cbcbcb
+  border: 1px solid $cardBorderColor
   box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16)
   .card-block // class applied to <Link> tag used to open the Project page from the card.
     display: flex
@@ -41,7 +41,8 @@
     font-size: 1.3em
   .inner
     padding: 0.5em 1em
-    border-top: 1px solid rgba(0, 0, 0, 0.16)
+    border-top: 1px solid $cardBorderColor
+    color: $textSecondaryColor
   .icon
     color: #fa9e59
     margin-right: 5px

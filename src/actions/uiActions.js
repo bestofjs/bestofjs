@@ -10,3 +10,9 @@ export function toggleStarFilter(value) {
     payload: value
   }
 }
+export function toggleMetrics(value) {
+  return {
+    type: 'TOGGLE_METRICS',
+    payload: value
+  }
+}

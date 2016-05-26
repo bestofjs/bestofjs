@@ -9,7 +9,7 @@ import HotFilterPicker from './HotFilterPicker'
 const Home = React.createClass({
   render() {
     log('Render the <Home> component', this.props)
-    const { hotProjects, popularProjects, maxStars, isLoggedin, uiActions, hotFilter } = this.props
+    const { hotProjects, popularProjects, maxStars, isLoggedin, uiActions, hotFilter, showMetrics } = this.props
     return (
       <MainContent>
         { this.props.errorMessage && <ErrorMessage text={ this.props.errorMessage } /> }
@@ -54,6 +54,7 @@ const Home = React.createClass({
                   deltaFilter={hotFilter}
                   showStars={false}
                   showIndex
+                  showMetrics={showMetrics}
                 />
               </div>
             </div>
@@ -73,6 +74,7 @@ const Home = React.createClass({
                   showStars
                   showDelta={false}
                   showIndex
+                  showMetrics={showMetrics}
                 />
               </div>
             </div>

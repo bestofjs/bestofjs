@@ -1,6 +1,7 @@
 const defaultState = {
   hotFilter: 'daily',
-  starFilter: 'total'
+  starFilter: 'total',
+  showMetrics: false
 }
 export default (state = defaultState, action) => {
   switch (action.type) {
@@ -11,6 +12,10 @@ export default (state = defaultState, action) => {
   case 'TOGGLE_STAR_FILTER':
     return Object.assign({}, state, {
       starFilter: action.payload
+    })
+  case 'TOGGLE_METRICS':
+    return Object.assign({}, state, {
+      showMetrics: action.payload
     })
   default:
     return state

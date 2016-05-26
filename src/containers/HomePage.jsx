@@ -20,6 +20,7 @@ const HomePage = React.createClass({
         isLoggedin = { isLoggedin }
         uiActions={uiActions}
         hotFilter={ui.hotFilter}
+        showMetrics={ui.showMetrics}
       />
     )
   }

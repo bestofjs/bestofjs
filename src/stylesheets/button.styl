@@ -14,9 +14,18 @@
     color: white
     background-color: #9E0142
     cursor: pointer
-
-
-$lightOrange = lighten(#e65100, 30%)
+  &:focus
+    outline: none
+  &.mini
+    padding: 5px 10px
+    font-size: 14px
+  &.button-outline
+    color: $searchboxColor
+    background-color: white
+    border: 3px solid $searchboxColor
+    &.on
+      color: $lightOrange
+      border-color: $lightOrange
 
 .ui.loading.button
   position: relative;
@@ -36,19 +45,6 @@ $lightOrange = lighten(#e65100, 30%)
     transform: rotate(360deg);
   }
 }
-
-
-.ui.inverted.btn
-  background-color: transparent
-  box-shadow: 0 0 0 2px $lightOrange inset
-  color: $lightOrange
-  display: block
-  text-align: center
-  font-size: 1em
-  width: 100%
-  &:hover
-    background-color: $lightOrange
-    color: white
 
 .ui.loading.button:before
   position: absolute;

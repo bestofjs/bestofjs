@@ -1,5 +1,8 @@
 # Change log
 
+## 0.4.3 - 2016-05-25
+* Layout improvements to make project and Hall of Fame members card simpler
+
 ## 0.4.2 - 2016-05-20
 * Fix About page bug introduced by 0.4.1 release
 * Add some tooltips (in the Hall of Famer card, in the colored bar displayed at the bottom of the projects)

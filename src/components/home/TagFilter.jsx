@@ -9,6 +9,7 @@ const TagFilter = React.createClass({
 
   render() {
     const { tag, projects, isLoggedin, ui, uiActions } = this.props
+    console.log('Render <TagFilter> component', ui);
     return (
       <MainContent className="small container">
         { tag.name && (
@@ -41,13 +42,14 @@ const TagFilter = React.createClass({
 
         { projects.length > 0 && (
            <ProjectList
-             projects={ projects }
+             projects={projects}
              showDescription
              showURL
-             isLoggedin={ isLoggedin }
+             isLoggedin={isLoggedin}
              showDelta={ui.starFilter !== 'total'}
              deltaFilter={ui.starFilter}
              showStars={ui.starFilter === 'total'}
+             showMetrics={ui.showMetrics}
            />
        ) }
 
@@ -55,5 +57,4 @@ const TagFilter = React.createClass({
     )
   }
 })
-
-module.exports = TagFilter
+export default TagFilter

@@ -3,7 +3,7 @@
   padding: 0
   background-color: white
   vertical-align: top
-  border: 1px solid #cbcbcb
+  border: 1px solid $cardBorderColor
   box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16)
   header
     padding: 1em 0
@@ -11,7 +11,7 @@
     overflow: hidden
   section
     padding: 1em
-    border-top: 1px solid #cbcbcb
+    border-top: 1px solid $cardBorderColor
     &.tags-section
       padding-bottom: 0.5em
   .stars-bar
@@ -19,10 +19,10 @@
     background-color: #ffe082
   .inner
     padding: 1em
-    position: relative
+    color: $textSecondaryColor
     &.github
       border-top: 1px solid #cbcbcb
-      padding-bottom: 0
+      border-bottom: 1px solid #cbcbcb
   .ranking
     position: absolute
     top: 0
@@ -54,7 +54,7 @@
 
   .card-block // class applied to <Link> tag used to open the Project page from the card.
     display block
-    color #555
+    color $textPrimaryColor
     &:hover
       text-decoration none
       color: inherited
@@ -62,7 +62,5 @@
       color: black
   .star-added
     margin: 0 0 1em
-  .delta-bar-container
-    margin: 0 -1em
 .empty-value
   color: #aaa

@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 
 import * as actions from '../actions'
 import * as authActionCreators from '../actions/authActions'
+import * as uiActionCreators from '../actions/uiActions'
 
 import Wrapper from '../components/layout/Layout'
 import getStaticContent from '../staticContent'
@@ -40,7 +41,8 @@ function mapStateToProps(state) {
       tagIds,
       lastUpdate
     },
-    auth
+    auth,
+    ui
   } = state
 
   const allTags = tagIds.map(id => tags[id])
@@ -57,14 +59,16 @@ function mapStateToProps(state) {
     staticContent: getStaticContent(),
     auth,
     hofCount: Object.keys(heroes).length,
-    linkCount: Object.keys(links).length
+    linkCount: Object.keys(links).length,
+    ui
   }
 }
 
 function mapDispatchToProps(dispatch) {
   return {
     actions: bindActionCreators(actions, dispatch),
-    authActions: bindActionCreators(authActionCreators, dispatch)
+    authActions: bindActionCreators(authActionCreators, dispatch),
+    uiActions: bindActionCreators(uiActionCreators, dispatch)
   }
 }
 

@@ -15,35 +15,41 @@ const Layout = (props) => {
     currentTagId,
     auth,
     authActions,
+    uiActions,
     hofCount,
-    linkCount
+    linkCount,
+    ui
   } = props
   return (
     <div id="layout">
 
       <Sidebar
-        allTags={ allTags}
-        popularTags={ popularTags}
-        selectedTag={ currentTagId }
-        auth={ auth }
-        authActions={ authActions }
-        hofCount={ hofCount }
-        linkCount={ linkCount }
+        allTags={allTags}
+        popularTags={popularTags}
+        selectedTag={currentTagId}
+        auth={auth}
+        authActions={authActions}
+        hofCount={hofCount}
+        linkCount={linkCount}
+        uiActions={uiActions}
+        ui={ui}
       />
 
       <div id="panel" className="slideout-panel">
 
         <Header
-          searchText={ textFilter }
+          searchText={textFilter}
+          uiActions={uiActions}
+          ui={ui}
         />
 
         <main id="main">
-          { children }
+          {children}
         </main>
 
         <Footer
-          staticContent={ staticContent }
-          lastUpdate={ lastUpdate }
+          staticContent={staticContent}
+          lastUpdate={lastUpdate}
         />
 
       </div>
