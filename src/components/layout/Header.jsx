@@ -17,7 +17,7 @@ export default ({ searchText, actions, showMetrics, uiActions, ui }) => (
           </IndexLink>
         </div>
         <div className="col-2">
-          <button
+          {false && <button
             className={`btn button-outline ${ui.showMetrics ? 'on' : 'off'}`}
             data-balloon-pos="left"
             data-balloon={`${ui.showMetrics ? 'Hide metrics' : 'Show metrics'}`}
@@ -25,7 +25,7 @@ export default ({ searchText, actions, showMetrics, uiActions, ui }) => (
             style={{ marginRight: '1rem', padding: '0 .5rem' }}
           >
             <span className="mega-octicon octicon-graph"></span>
-          </button>
+          </button>}
           <SearchForm
             searchText = { searchText }
           />

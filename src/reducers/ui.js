@@ -1,7 +1,7 @@
 const defaultState = {
   hotFilter: 'daily',
   starFilter: 'total',
-  showMetrics: false
+  showMetrics: true
 }
 export default (state = defaultState, action) => {
   switch (action.type) {
