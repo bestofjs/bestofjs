@@ -4,6 +4,7 @@
 * Layout improvements to make project and Hall of Fame members card simpler
 * Get rid of hash bang URLs using browser history
 * use `react-router-scroll` middleware
+* Add emojis in description of project page
 
 ## 0.4.2 - 2016-05-20
 * Fix About page bug introduced by 0.4.1 release

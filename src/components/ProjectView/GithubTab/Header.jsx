@@ -16,7 +16,7 @@ const Header = React.createClass({
       <div className="">
         <div className="inner">
           <p>
-            <Description text={ project.description } />
+            <Description text={ project.description } showEmojis />
           </p>
           { project.url && (
             <p>
