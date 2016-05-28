@@ -1,8 +1,8 @@
 {
 	"name": "Best of JavaScript",
 	"short_name": "bestof.js.org",
-	"theme_color": "#e65100",
-	"background_color": "#ececec",
+	"theme_color": "#9c0042",
+	"background_color": "#ffe38c",
 	"display": "standalone",
 	"start_url": "index.html",
   "display": "standalone",

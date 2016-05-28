@@ -1,16 +1,16 @@
-import React from 'react';
-import hashHistory from 'react-router/lib/hashHistory';
+import React from 'react'
+import history from 'react-router/lib/browserHistory'
 
-import SearchForm from '../components/home/SearchForm';
+import SearchForm from '../components/home/SearchForm'
 
 function emitChange(text) {
   if (text) {
-    hashHistory.push(`/search/${text}`);
+    history.push(`/search/${text}`)
   } else {
-    hashHistory.push('/');
+    history.push('/')
   }
 }
 
 export default () => (
   <SearchForm onChange={ emitChange }/>
-);
+)

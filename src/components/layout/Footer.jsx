@@ -11,7 +11,7 @@ const Footer = React.createClass({
         <p>View the code on <a href={ repo }>Github</a> (version {version})</p>
         <p>Data updated from Github everyday. Last update: {fromNow(lastUpdate) }</p>
         <a href="https://js.org" target="_blank" title="JS.ORG | JavaScript Community">
-          <img src="images/dark_horz.png" width="102" alt="JS.ORG Logo"/>
+          <img src="/images/dark_horz.png" width="102" alt="JS.ORG Logo"/>
         </a>
       </div>
     );

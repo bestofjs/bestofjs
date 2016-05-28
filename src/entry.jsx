@@ -14,9 +14,9 @@ import { render } from 'react-dom'
 // }
 
 import Router from 'react-router/lib/Router'
-import useRouterHistory from 'react-router/lib/useRouterHistory'
-import createBrowserHistory from 'history/lib/createHashHistory'
-import useScroll from 'scroll-behavior/lib/useStandardScroll'
+import browserHistory from 'react-router/lib/browserHistory'
+import applyRouterMiddleware from 'react-router/lib/applyRouterMiddleware'
+import useScroll from 'react-router-scroll'
 import { Provider } from 'react-redux'
 
 import configureStore from './store/configureStore'
@@ -64,12 +64,13 @@ function startRedux(state) {
   const initialState = state
   const store = configureStore(initialState)
   if (process.env.NODE_ENV === 'development') window.store = store
-  const createScrollHistory = useScroll(createBrowserHistory)
-  const appHistory = useRouterHistory(createScrollHistory)()
-
   render(
     <Provider store={ store }>
-      <Router history={appHistory} onUpdate={onRouterUpdate}>
+      <Router
+        history={browserHistory}
+        onUpdate={onRouterUpdate}
+        render={applyRouterMiddleware(useScroll())}
+      >
          {getRoutes(10)}
       </Router>
     </Provider>,

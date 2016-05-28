@@ -11,6 +11,7 @@ const contentBase = `${constants.staticFolder}/`;
 const options = {
   contentBase,
   hot: true,
+  historyApiFallback: true,
   stats: {
     colors: true
   }

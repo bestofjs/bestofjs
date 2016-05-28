@@ -9,7 +9,6 @@ const TagFilter = React.createClass({
 
   render() {
     const { tag, projects, isLoggedin, ui, uiActions } = this.props
-    console.log('Render <TagFilter> component', ui);
     return (
       <MainContent className="small container">
         { tag.name && (

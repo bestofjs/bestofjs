@@ -1,4 +1,6 @@
 import React from 'react'
+import Link from 'react-router/lib/Link'
+
 export default ({ projects }) => (
   <div className="inner">
     <div className="card-label-container">
@@ -6,12 +8,12 @@ export default ({ projects }) => (
         .filter(p => !!p)
         .map(p => (
         <div key={p.id}>
-          <a
-            href={`#/projects/${p.id}`}
+          <Link
+            to={`/projects/${p.id}`}
             className="card-label-project"
           >
             {p.name}
-          </a>
+          </Link>
         </div>
       ))}
     </div>

@@ -4,7 +4,7 @@ import IndexLink from 'react-router/lib/IndexLink';
 import SearchForm from '../../containers/SearchFormContainer';
 import ToggleMenuButton from './ToggleMenuButton';
 
-export default ({ searchText, actions, showMetrics, uiActions, ui }) => (
+export default ({ searchText, actions, uiActions, ui }) => (
   <div id="header">
     <ToggleMenuButton
       actions= { actions }
@@ -13,7 +13,7 @@ export default ({ searchText, actions, showMetrics, uiActions, ui }) => (
       <div className="header-row">
         <div className="col-1">
           <IndexLink to={ '/' } className="link-logo" >
-            <img src="images/logo.png" alt="bestof.js.org" width="200"/>
+            <img src="/images/logo.png" alt="bestof.js.org" width="200"/>
           </IndexLink>
         </div>
         <div className="col-2">

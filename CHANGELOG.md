@@ -1,7 +1,9 @@
 # Change log
 
-## 0.4.3 - 2016-05-25
+## 0.4.3 - 2016-05-28
 * Layout improvements to make project and Hall of Fame members card simpler
+* Get rid of hash bang URLs using browser history
+* use `react-router-scroll` middleware
 
 ## 0.4.2 - 2016-05-20
 * Fix About page bug introduced by 0.4.1 release

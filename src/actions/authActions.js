@@ -4,7 +4,7 @@
 // - login()
 // - logout()
 
-import hashHistory from 'react-router/lib/hashHistory'
+import browserHistory from 'react-router/lib/browserHistory'
 
 import msgbox from '../helpers/msgbox'
 import log from '../helpers/log'
@@ -107,10 +107,10 @@ export function loginRequest() {
   }
 }
 function loginSuccess(profile, token) {
-  const hash = urlManager && urlManager.get(true)
-  if (hash) {
-    log('POST lOGIN REDIRECT', hash)
-    hashHistory.push(hash)
+  const path = urlManager && urlManager.get(true)
+  if (path) {
+    log('POST lOGIN REDIRECT', path)
+    browserHistory.push(path)
     msgbox(`Hello ${profile.name}!`)
   }
   return {

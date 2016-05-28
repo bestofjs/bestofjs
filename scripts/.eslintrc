@@ -4,6 +4,7 @@
     "react"
   ],
   "rules": {
+    "semi": 0,
     "no-console": 0,
     "indent": [2, 2],
     "comma-dangle": 0,

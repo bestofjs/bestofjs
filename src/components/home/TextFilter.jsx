@@ -1,4 +1,6 @@
 import React from 'react'
+import Link from 'react-router/lib/Link'
+
 import MainContent from '../common/MainContent'
 import ProjectList from '../projects/ProjectList'
 import SearchText from '../common/utils/SearchText'
@@ -44,8 +46,8 @@ const TextFilter = React.createClass({
               heroes={heroes}
               auth={auth}
             />
-          <div style={{ textAlign: 'center', padding: '2em' }}>
-              To see more amazing people, <a href="/#/hof">Visit the Hall of Fame !</a>
+            <div style={{ textAlign: 'center', padding: '2em' }}>
+              To see more amazing people, <Link to="hof">Visit the Hall of Fame !</Link>
             </div>
           </div>
         )}
