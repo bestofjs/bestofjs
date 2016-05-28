@@ -29,16 +29,16 @@ export default ({ hero, you, isCurrentUser }) => (
           )}
         </div>
         {hero.username && (
-          <div className="item">
-            <span className="octicon octicon-mark-github"></span>
-            {' '}
-            {hero.username}
+          <div className="github-data">
             <div>
-              {numeral(hero.followers).format(`${digits(hero.followers)} a`)} followers
-              {' '}
-              {you && <span style={{ color: '#aaa', fontSize: 14 }}>
+              <span className="text-secondary">{hero.username}</span>
+              <div className="text-secondary">
+                {numeral(hero.followers).format(`${digits(hero.followers)} a`)} followers
+                {' '}
+                {you && <span style={{ color: '#aaa', fontSize: 14 }}>
                 ({followersComment(hero.followers)})
-              </span>}
+                </span>}
+              </div>
             </div>
           </div>
         )}

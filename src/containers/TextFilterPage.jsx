@@ -12,12 +12,16 @@ import * as uiActionCreators from '../actions/uiActions'
 const TextFilterPage = React.createClass({
 
   shouldComponentUpdate(nextProps) {
-    return nextProps.text !== this.props.text
+    // Render only if search box content has changed of if initial data has changed
+    // HoF list may arrive later if `/search/xxx` URL is accessed directely
+    const sameText = nextProps.text === this.props.text
+    const sameData = nextProps.allHeroesCount === this.props.allHeroesCount
+    return !sameText || !sameData
   },
 
   render() {
     log('Render the <TextFilterPage> container', this.props)
-    const { foundProjects, foundHeroes, text, isLoggedin, auth, uiActions, ui } = this.props
+    const { foundProjects, foundHeroes, text, isLoggedin, auth, uiActions, ui, allHeroesCount } = this.props
     return (
       <TextFilter
         projects={ foundProjects }
@@ -27,6 +31,7 @@ const TextFilterPage = React.createClass({
         auth={auth}
         uiActions={uiActions}
         hotFilter={ui.hotFilter}
+        allHeroesCount={allHeroesCount}
       />
     )
   }
@@ -60,7 +65,8 @@ function mapStateToProps(state, props) {
     text,
     isLoggedin: auth.username !== '',
     auth,
-    ui
+    ui,
+    allHeroesCount: allHeroes.length
   }
 }
 

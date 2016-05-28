@@ -47,7 +47,7 @@ const TextFilter = React.createClass({
               auth={auth}
             />
             <div style={{ textAlign: 'center', padding: '2em' }}>
-              To see more amazing people, <Link to="hof">Visit the Hall of Fame !</Link>
+              To see more amazing people, <Link to="/hof">Visit the Hall of Fame !</Link>
             </div>
           </div>
         )}
