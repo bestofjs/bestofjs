@@ -1,4 +1,4 @@
-import hashHistory from 'react-router/lib/hashHistory'
+import browserHistory from 'react-router/lib/browserHistory'
 import msgbox from '../helpers/msgbox'
 
 import createApi from '../api/userContent'
@@ -18,7 +18,7 @@ const settings = {
 // Go to project item list after successful update or creation
 function goToList(project, key) {
   const path = `/projects/${project.id}/${key}s/`;
-  return hashHistory.push(path);
+  return browserHistory.push(path);
 }
 
 // ==========
