@@ -32,9 +32,6 @@ export default function (data) {
         </Provider>
       );
 
-      // Add hashes in URLs
-      html = html.replace(/href=\"\/([^"]*)\"/g, 'href=\"#/$1\"');
-
       // Send the rendered page back to the client
       // const fullpage = renderFullPage(html, initialState);
       return resolve(html);
