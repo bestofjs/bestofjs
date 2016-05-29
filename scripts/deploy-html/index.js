@@ -6,7 +6,7 @@ const fs = require('fs')
 require('dotenv').load()
 
 const commit = require('./commit')
-const debug = true
+const debug = false
 const commitMessage = debug ? 'Commit test' : 'Daily deploy'
 
 const filepaths = ['index.html', 'hof/index.html']
