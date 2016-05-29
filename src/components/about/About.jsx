@@ -80,6 +80,7 @@ const Example = React.createClass({
           showDelta={ui.starFilter !== 'total'}
           deltaFilter={ui.starFilter}
           showStars={ui.starFilter === 'total'}
+          showMetrics
         />
 
         <p>

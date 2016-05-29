@@ -64,22 +64,23 @@ function startRedux(state) {
   const initialState = state
   const store = configureStore(initialState)
   if (process.env.NODE_ENV === 'development') window.store = store
-  render(
-    <Provider store={ store }>
-      <Router
-        history={browserHistory}
-        onUpdate={onRouterUpdate}
-        render={applyRouterMiddleware(useScroll())}
-      >
-         {getRoutes(10)}
-      </Router>
-    </Provider>,
-    window.document.getElementById('app')
-  )
+
+  if (window.location.pathname !== '/hof/') {
+    // default case: render the app as soon as we get project data
+    renderApp(store)
+    store.dispatch(fetchAllHeroes())
+  } else {
+    // if HoF is currently displayed used server-side rendering,
+    // render the app AFTER we get HoF data
+    store.dispatch(fetchAllHeroes())
+    .then(() => {
+      renderApp(store)
+    })
+  }
 
   store.dispatch(fetchAllReviews())
   store.dispatch(fetchAllLinks())
-  store.dispatch(fetchAllHeroes())
+
   // it was hard to find the right place to initialize the sidebar menu
   // because of server side rendering script ('window is not defined' error)
   log('Initialize the sidebar menu')
@@ -103,4 +104,19 @@ function fetchServerData() {
       window.localStorage.setItem('bestofjs_projects', JSON.stringify(json))
       resolve(json)
     }))
+}
+
+function renderApp(store) {
+  render(
+    <Provider store={ store }>
+      <Router
+        history={browserHistory}
+        onUpdate={onRouterUpdate}
+        render={applyRouterMiddleware(useScroll())}
+      >
+         {getRoutes(10)}
+      </Router>
+    </Provider>,
+    window.document.getElementById('app')
+  )
 }

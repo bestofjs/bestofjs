@@ -1,9 +1,12 @@
 # Change log
 
+## 0.4.4 - 2016-05-30
+* server-side rendering for Hall of Fame page
+
 ## 0.4.3 - 2016-05-28
-* Get rid of hash bang URLs using browser history
+* Get rid of hash bang URLs using browser history (#18)
 * use `react-router-scroll` middleware
-* Add emojis in description of project page
+* Add emojis in description of project page (#6)
 
 ## 0.4.2 - 2016-05-20
 * Fix About page bug introduced by 0.4.1 release

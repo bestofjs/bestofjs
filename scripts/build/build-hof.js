@@ -1,16 +1,19 @@
-// `npm run build-html` entry script
-// Get project data from a static json file and build `www/index.html` file
+// Hall of Fame page server-side rendering
+// Create `www/hof/index.html` page
 
 import fetch from 'node-fetch'
 import fs from 'fs-extra'
+
+import { createStore, applyMiddleware, compose } from 'redux'
+import thunk from 'redux-thunk'
 
 import api from '../../config/api'
 import getFullPage from './getFullPage'
 import renderApp from './renderApp'
 
 import rootReducer from '../../src/reducers'
-import { createStore } from 'redux'
 import { getInitialState } from '../../src/projectData'
+import { fetchAllHeroes } from '../../src/actions/hofActions'
 
 // Get data from production API
 process.env.NODE_ENV = 'production'
@@ -26,14 +29,22 @@ fetch(url)
 
     console.log('Start server rendering, using data from', json.projects.length, 'projects')
     const state = getInitialState(json)
-    const store = createStore(rootReducer, state)
+    const middlewares = [
+      applyMiddleware(thunk),
+    ]
+    const finalCreateStore = compose(...middlewares)(createStore)
+    const store = finalCreateStore(rootReducer, state)
 
-    return renderApp(store, '/')
-      .then(html => {
-        write(
-          getFullPage(false, html),
-          'index.html'
-        )
+    return store.dispatch(fetchAllHeroes())
+      .then(result => {
+        console.log('Rendering the Hall of Fame', result.payload.length)
+        return renderApp(store, '/hof')
+          .then(html => {
+            write(
+              getFullPage(false, html),
+              'hof/index.html'
+            )
+          })
       })
   })
   .catch(err => console.log('ERROR!', err.stack))

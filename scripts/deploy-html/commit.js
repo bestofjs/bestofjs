@@ -5,8 +5,7 @@ const fetch = require('node-fetch');
 const GITHUB_BASE_URL = 'https://api.github.com';
 
 function commit({
-  filepath = 'index.html',
-  content = `<p>Empty content, created at ${new Date()}</p>`,
+  files,
   repo,
   branch,
   message,
@@ -45,6 +44,12 @@ function commit({
 
   // STEP 3: create a new tree
   const createTree = (treeSha) => {
+    const tree = files.map(file => ({
+      path: file.filepath,
+      mode: '100644',
+      type: 'blob',
+      content: file.html
+    }))
     const options = {
       method: 'POST',
       headers: {
@@ -53,14 +58,7 @@ function commit({
       },
       body: JSON.stringify({
         base_tree: treeSha,
-        tree: [
-          {
-            path: filepath,
-            mode: '100644',
-            type: 'blob',
-            content
-          }
-        ]
+        tree
       })
     };
     log('STEP 3: create a new tree', treeSha);
@@ -111,9 +109,9 @@ function commit({
     // }
   };
 
-  getInitialCommitSha()
+  return getInitialCommitSha()
     .then(sha => {
-      fetchTree(sha)
+      return fetchTree(sha)
         .then(treeSha => createTree(treeSha))
         .then(json => {
           const newTreeSha = json.sha;
@@ -123,7 +121,10 @@ function commit({
           const commitSha = json.sha;
           return linkCommit(commitSha);
         })
-        .then(json => log('FINISH!', json));
+        .then(json => {
+          log('FINISH!', json)
+          return Promise.resolve(json)
+        });
     })
     .catch(error => log('ERROR', error));
 }

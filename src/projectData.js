@@ -17,7 +17,7 @@ const defaultState = {
   },
   auth: {
     username: '',
-    pending: true
+    pending: false
   }
 };
 
