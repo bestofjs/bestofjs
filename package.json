@@ -14,7 +14,7 @@
     "gh-pages": "node scripts/deploy-gh-pages/",
     "firebase": "firebase deploy",
     "deploy-all": "npm run build && npm run gh-pages",
-    "daily": "npm run build-html && build-html-hof && npm run deploy-html",
+    "daily": "npm run build-html && npm run build-html-hof && npm run deploy-html",
     "build-html": "babel-node scripts/build/",
     "build-html-hof": "babel-node scripts/build/build-hof.js",
     "deploy-html": "babel-node scripts/deploy-html/"
