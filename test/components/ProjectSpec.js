@@ -31,7 +31,7 @@ const {
   entities: { projects, tags },
 } = state;
 
-const id = '55723c9f4140883353bc773e';
+const id = 'react';
 
 let project = projects[id];
 console.log('Project to check', project);

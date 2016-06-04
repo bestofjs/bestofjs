@@ -21,7 +21,7 @@ import sinon from 'sinon'
 import data from '../data/projects'
 import { getInitialState } from '../../src/projectData'
 
-const id = '56a95b5843bdc81100111331'
+const id = 'react'
 
 test('Check <ProjectPage> container', (assert) => {
   const state = getInitialState(data)
