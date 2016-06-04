@@ -5,13 +5,14 @@ import Comment from '../common/form/MarkdownReadonly';
 import CardProjectLabels from '../common/CardProjectLabels'
 
 export default ({ link, project, editable, showProjects }) => {
+  console.info('show project', link.projects)
   return (
     <div className="link-card">
       <div className="header">
         <ItemHeader
           item={link}
           editable={ editable }
-          editLinkTo={ `/projects/${project.slug}/links/${link._id}/edit` }
+          editLinkTo={ project ? `/projects/${project.slug}/links/${link._id}/edit` : '' }
         />
       </div>
       <a className="header" href={link.url} target="_blank">

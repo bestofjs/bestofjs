@@ -6,14 +6,13 @@ function fetchHeroes() {
   return dispatch => {
     return fetchJSON(url)
       .then(json => dispatch(fetchHeroesSuccess(json)))
-    // .catch((response) => dispatch(getReadmeFailure(id, response)));
-  };
+  }
 }
 
 export const fetchHeroesSuccess = json => ({
   type: 'FETCH_HEROES_SUCCESS',
   payload: json.heroes
-});
+})
 
 export function fetchAllHeroes() {
   return fetchHeroes()

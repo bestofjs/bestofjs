@@ -35,7 +35,7 @@ const ItemHeader = React.createClass({
         {' '}
         {item.updatedAt && 'Updated '}
         {fromNow(displayDate)}
-        {editable && this.renderEditButton(editLinkTo)}
+        {editable && editLinkTo && this.renderEditButton(editLinkTo)}
       </div>
     )
   }
