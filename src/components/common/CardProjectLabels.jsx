@@ -9,7 +9,7 @@ export default ({ projects }) => (
         .map(p => (
         <div key={p.id}>
           <Link
-            to={`/projects/${p.id}`}
+            to={`/projects/${p.slug}`}
             className="card-label-project"
           >
             {p.name}

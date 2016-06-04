@@ -21,7 +21,7 @@ function mapStateToProps(state) {
   const options = Object.keys(projects)
     .map(key => projects[key])
     .map(project => ({
-      value: project.id,
+      value: project.slug,
       label: project.name
     }));
   return {

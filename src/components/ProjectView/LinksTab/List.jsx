@@ -8,7 +8,7 @@ const List = React.createClass({
   },
   renderAddButton(project) {
     return (
-      <Link to={ `/projects/${project.id}/links/add` } className="btn">
+      <Link to={ `/projects/${project.slug}/links/add` } className="btn">
         <span className={`octicon octicon-plus`}></span>
         {' '}
         ADD A LINK

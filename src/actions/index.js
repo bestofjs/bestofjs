@@ -38,7 +38,7 @@ export function toggleMenu() {
 
 
 export function fetchReadme(project) {
-  const id = project.id;
+  const id = project.slug;
   return dispatch => {
     log('Fetching README.md...', project);
     dispatch(requestReadme(id));
@@ -50,7 +50,7 @@ export function fetchReadme(project) {
 }
 
 function shouldFetchReadme(state, project) {
-  const readme = state.entities.projects[project.id].readme;
+  const readme = state.entities.projects[project.slug].readme;
   if (!readme) {
     return true;
   }

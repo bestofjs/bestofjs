@@ -22,7 +22,7 @@ const CreateLink = React.createClass({
           <LinkReduxForm
             project={ project }
             auth={ auth }
-            initialValues={{ projects: [project.id] }}
+            initialValues={{ projects: [project.slug] }}
             onSave={ submitCreate }
           />
         </div>

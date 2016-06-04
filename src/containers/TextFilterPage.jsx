@@ -57,7 +57,7 @@ function mapStateToProps(state, props) {
   const allHeroes = Object.keys(heroes).map(id => heroes[id])
   const foundHeroes = allHeroes.filter(filterHero(text))
     .slice(0, 10)
-    .map(populateHero(projects))
+    .map(populateHero(state))
 
   return {
     foundProjects,

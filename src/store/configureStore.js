@@ -2,18 +2,23 @@ import { createStore, applyMiddleware, compose } from 'redux'
 import thunk from 'redux-thunk'
 import createLogger from 'redux-logger'
 
+import convertIdToSlug from './convertIdToSlug'
+import convertSlugToId from './convertSlugToId'
+
 import rootReducer from '../reducers'
 
 const middlewares = [
-  applyMiddleware(thunk),
+  convertIdToSlug,
+  convertSlugToId,
+  thunk
 ]
 if (process.env.NODE_ENV === 'development') {
   middlewares.push(
-    applyMiddleware(createLogger())
+    createLogger()
   )
 }
 
-const finalCreateStore = compose(...middlewares)(createStore)
+const finalCreateStore = compose(applyMiddleware(...middlewares))(createStore)
 
 export default function configureStore(initialState) {
   const store = finalCreateStore(rootReducer, initialState)

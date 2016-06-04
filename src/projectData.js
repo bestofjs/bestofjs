@@ -13,7 +13,7 @@ const defaultState = {
     lastUpdate: new Date(),
     total: [],
     daily: [],
-    weekly: []
+    weekly: [],
   },
   auth: {
     username: '',
@@ -28,6 +28,7 @@ function processProject(item) {
   return {
     repository: 'https://github.com/' + item.full_name,
     id: item._id, // getProjectId(item),
+    slug: item.full_name.substr(item.full_name.indexOf('/') + 1),
     tags: item.tags,
     deltas: item.deltas,
     description: item.description,
@@ -49,10 +50,14 @@ export function getInitialState(data, profile) {
   // Format id and repository fields
   const allProjects = data.projects.map(processProject);
 
+  // Extra map added to lookup a project by database id
+  const allById = {}
+
   // Create project entities
   allProjects.forEach(item => {
-    state.entities.projects[item.id] = item;
-  });
+    state.entities.projects[item.slug] = item
+    allById[item.id] = item.slug
+  })
 
   // Create a hash map [tag code] => number of projects
   const counters = getTagCounters(data.projects);
@@ -80,7 +85,7 @@ export function getInitialState(data, profile) {
     sortProjects(project => project.stats.weekly)
   ]
   const sortedProjectIds = sortedProjects.map(
-    projects => projects.map(item => item.id)
+    projects => projects.map(item => item.slug)
   )
 
   state.githubProjects = {
@@ -88,7 +93,8 @@ export function getInitialState(data, profile) {
     daily: sortedProjectIds[1],
     weekly: sortedProjectIds[2],
     tagIds: allTags.map(item => item.id),
-    lastUpdate: data.date
+    lastUpdate: data.date,
+    allById
   };
 
   if (profile) {

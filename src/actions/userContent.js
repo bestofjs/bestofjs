@@ -17,7 +17,7 @@ const settings = {
 
 // Go to project item list after successful update or creation
 function goToList(project, key) {
-  const path = `/projects/${project.id}/${key}s/`;
+  const path = `/projects/${project.slug}/${key}s/`;
   return browserHistory.push(path);
 }
 
@@ -45,10 +45,10 @@ export function create(key) {
     const payload = Object.assign({}, formData, {
       createdBy: auth.username || 'Anonymous'
     });
-    if (key === 'review') payload.project = project.id;
+    if (key === 'review') payload.project = project.slug;
     return dispatch => {
-      // dispatch(createReviewRequest(payload));
-      return settings[key].api.create(payload, auth.token)
+      const action = dispatch(crud.createItemRequest(key, payload));
+      return settings[key].api.create(action.payload, auth.token)
         .then(json => {
           const data = Object.assign({}, json);
           dispatch(crud.createItemSuccess(key, data));
@@ -75,7 +75,11 @@ export function update(key) {
       updatedBy: auth.username || 'Anonymous'
     });
     return dispatch => {
-      return settings[key].api.update(payload, auth.token)
+      // First dispaych a `...REQUEST` action
+      // that will return an action updated by the middleware
+      // (to convert project `slugs` to db `_id` )
+      const action = dispatch(crud.updateItemRequest(key, payload));
+      return settings[key].api.update(action.payload, auth.token)
       .then(json => {
         const data = Object.assign({}, json);
         dispatch(crud.updateItemSuccess(key, data));

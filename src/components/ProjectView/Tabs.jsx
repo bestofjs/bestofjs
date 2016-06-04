@@ -45,7 +45,7 @@ const Tabs = React.createClass({
             { activePath === tab.path ? (
               this.renderTab(tab)
             ) : (
-              <Link to={`/projects/${project.id}/${tab.path}`}>
+              <Link to={`/projects/${project.slug}/${tab.path}`}>
                 {this.renderTab(tab)}
               </Link>
             )}

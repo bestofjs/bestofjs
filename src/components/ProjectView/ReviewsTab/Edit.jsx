@@ -10,7 +10,7 @@ const Edit = React.createClass({
   },
   submitEdit(project, auth) {
     const reviewId = this.props.review._id;
-    const projectId = this.props.project.id;
+    const projectId = this.props.project.slug;
     return function (values, dispatch) {
       const payload = Object.assign({}, values, {
         _id: reviewId,

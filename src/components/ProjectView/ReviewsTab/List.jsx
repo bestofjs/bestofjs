@@ -16,7 +16,7 @@ const List = React.createClass({
   renderAddButton() {
     const project = this.props.project;
     return (
-      <Link to={ `/projects/${project.id}/reviews/add` } className="btn">
+      <Link to={ `/projects/${project.slug}/reviews/add` } className="btn">
         <span className={`octicon octicon-plus`}></span>
         {' '}
         REVIEW {project.name}

@@ -48,7 +48,7 @@ const ProjectCard = (
     project, index, deltaFilter = 'total',
     showStars, showDelta, showDescription, showTags, showMetrics
   }) => {
-  const path = `/projects/${project.id}`
+  const path = `/projects/${project.slug}`
   return (
     <div className="project-card">
       <Link

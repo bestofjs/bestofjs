@@ -22,7 +22,7 @@ const ProjectLink = React.createClass({
         <Header
           item={ link }
           editable={ editable }
-          editLinkTo={ `/projects/${project.id}/links/${link._id}/edit` }
+          editLinkTo={ `/projects/${project.slug}/links/${link._id}/edit` }
         />
         <a href={ link.url } target="_blank" className="project-link-title">
           { link.title }
