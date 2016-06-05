@@ -25,7 +25,7 @@ This is a place where font-end engineers and node.js developers can find the bes
 
 A list of projects related to the web platform (JavaScript of course but also HTML and CSS) is stored in a MongoDB database.
 
-Everytime we find a new project, we add it to the database.
+Every time we find a new project, we add it to the database.
 
 Then everyday, an automatic task checks project data from Github, for every project stored and generates data consumed by the web application. This batch is an other repository: [bestofjs-batches](https://github.com/michaelrambeau/bestofjs-batches).
 
@@ -42,16 +42,19 @@ Database-as-a-Service for MongoDB
 
 #### CI Server: [SemaphoreCI](https://semaphoreci.com/)
 
-The "build scheduler" feature is great. This is what I needed to generate static JSON files every day.
+The "build scheduler" is used to generate static JSON files every day.
 
-#### node.js microservices: [webtask.io](https://webtask.io/)
+#### node.js microservices
 
-#### Authentication: [Auth0](https://auth0.com/)
+[webtask.io](https://webtask.io/) runs node.js micro services used by the application.
+
+#### Authentication
+
+[Auth0](https://auth0.com/): authentication as a service, used for Github login feature.
 
 #### Static hosting
 
-* [Firebase](https://www.firebase.com/): used to serve json data used by the single-page application
-* [Netlify](https://www.netlify.com/): used to check the application is the "staging" environment.
+[Firebase](https://www.firebase.com/): used to serve json data used by the single-page application
 
 ### Libraries
 
@@ -64,7 +67,7 @@ This repository is the front-end application, a single-page application built wi
 
 Webpack is used to built the application in development and production mode.
 
-### Repos
+### Repositories
 
 bestof.js.org application is made of 5 repositories:
 
@@ -77,9 +80,13 @@ bestof.js.org application is made of 5 repositories:
 
 ## URLs and environments
 
-* http://bestof.js.org/ production version is hosted on Github pages, using `.js.org` domain provided by https://js.org/
-* Firebase (deployed manually, used to share development features): https://bestofjs.firebaseapp.com/
+http://bestof.js.org/ production version is hosted on Github pages, using `.js.org` domain provided by https://js.org/.
+
+Other URLs, used to preview features:
+
+* Firebase (deployed manually using `npm run firebase` command): https://bestofjs.firebaseapp.com/
 * Netlify (automatically built from `staging` branch): http://bestofjs.netlify.com/
+* Surge (deployed manually using `npm run surge` command): http://bestofjs.surge.sh/
 
 ## Commands
 
@@ -117,6 +124,20 @@ These 2 commands can be combined into one single command:
 
 ```
 npm run deploy
+```
+
+### Deploys to other static host services
+
+Firebase (requires `firebase-tools` module to be installed)
+
+```
+npm run firebase
+```
+
+Surge.sh (requires `surge` module to be installed)
+
+```
+npm run surge
 ```
 
 ### Daily update

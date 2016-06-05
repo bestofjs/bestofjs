@@ -3,6 +3,9 @@
   "version": "0.4.4",
   "description": "bestof.js.org front-end web application",
   "main": "",
+  "engines" : {
+     "node" : ">=5.10"
+   },
   "scripts": {
     "lint": "eslint src --ext .js --ext .jsx",
     "test": "cross-env NODE_ENV=test babel-tape-runner test/**/*Spec.js | faucet",
@@ -12,7 +15,8 @@
     "start": "cross-env NODE_ENV=development node config/devserver.js",
     "build-js": "cross-env NODE_ENV=production webpack -p --config config/webpack.production.config.js --progress",
     "gh-pages": "node scripts/deploy-gh-pages/",
-    "firebase": "firebase deploy",
+    "firebase": "firebase deploy --firebase bestofjs --public ./www",
+    "surge": "surge --domain bestofjs.surge.sh --project ./www/",
     "deploy-all": "npm run build && npm run gh-pages",
     "daily": "npm run build-html && npm run build-html-hof && npm run deploy-html",
     "build-html": "babel-node scripts/build/",

@@ -1,8 +1,8 @@
 # Change log
 
-## 0.4.4 - 2016-06-04
+## 0.4.4 - 2016-06-05
 * server-side rendering for Hall of Fame page
-* Make URL nicer: use project "slugs" instead of database ids
+* Make URL nicer: use project "slugs" instead of database ids (#19)
 
 ## 0.4.3 - 2016-05-28
 * Get rid of hash bang URLs using browser history (#18)
