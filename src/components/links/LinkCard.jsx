@@ -1,11 +1,10 @@
-import React from 'react';
+import React from 'react'
 
-import ItemHeader from '../ProjectView/ItemHeader';
-import Comment from '../common/form/MarkdownReadonly';
+import ItemHeader from '../ProjectView/ItemHeader'
+import Comment from '../common/form/MarkdownReadonly'
 import CardProjectLabels from '../common/CardProjectLabels'
 
 export default ({ link, project, editable, showProjects }) => {
-  console.info('show project', link.projects)
   return (
     <div className="link-card">
       <div className="header">
@@ -30,5 +29,5 @@ export default ({ link, project, editable, showProjects }) => {
         <Comment comment={link.comment} emptyText="(No description)" />
       </div>
     </div>
-  );
-};
+  )
+}

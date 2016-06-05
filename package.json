@@ -6,7 +6,7 @@
   "scripts": {
     "lint": "eslint src --ext .js --ext .jsx",
     "test": "cross-env NODE_ENV=test babel-tape-runner test/**/*Spec.js | faucet",
-    "test-debug": "babel-tape-runner test/**/HoFpageSpec.js",
+    "test-debug": "babel-tape-runner test/**/ProjectListSpec.js",
     "clean": "rimraf www/index.html && rimraf www/build",
     "build": "npm run build-html && npm run build-js",
     "start": "cross-env NODE_ENV=development node config/devserver.js",
