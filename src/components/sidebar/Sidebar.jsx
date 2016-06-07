@@ -27,6 +27,7 @@ const Sidebar = React.createClass({
         </div>
         <div className="ui vertical menu">
           <IndexLink to="/" className="item">HOME</IndexLink>
+          <Link to="/projects" className="item">ALL PROJECTS</Link>
           <Link to="/hof" className="item">
             HALL OF FAME
             {hofCount > 0 && <span className="counter">{hofCount}</span>}

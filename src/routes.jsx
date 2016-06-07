@@ -9,6 +9,7 @@ import About from './containers/AboutPage'
 import HoF from './containers/HoFPage'
 import TagFilter from './containers/TagFilterPage'
 import TextFilter from './containers/TextFilterPage'
+import AllProjects from './containers/AllProjectsPage'
 import Links from './containers/LinksPage'
 
 // Single Project page
@@ -35,6 +36,7 @@ const getRoutes = (count = 3) => {
       <Route path="about" component={About}/>
       <Route path="hof" component={HoF}/>
       <Route path="links" component={Links}/>
+      <Route path="projects" component={AllProjects} />
       <Route path="projects/:id" component={ProjectPage}>
         <IndexRoute component={ProjectGithubTab} />
         <Route path="readme" component={ProjectGithubTab} />

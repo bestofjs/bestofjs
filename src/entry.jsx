@@ -45,6 +45,7 @@ fetchData()
 require('./stylesheets/main.styl')
 require('./stylesheets/tooltip/balloon.css')
 require('../node_modules/react-select/dist/react-select.css')
+require('react-virtualized/styles.css')
 
 // Track every router update (except project views that are tracked elsewhere)
 function trackPageView(state) {
