@@ -44,7 +44,7 @@ const Home = React.createClass({
                   />
                 </h3>
                 <p className="explanation">
-                  By number of stars added {hotFilter ? 'last week' : 'yesterday'} on Github
+                  By number of stars added {hotFilter === 'weekly' ? 'last week' : 'yesterday'} on Github
                 </p>
                 <ProjectList
                   projects = { hotProjects }
