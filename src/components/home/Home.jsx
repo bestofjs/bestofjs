@@ -6,6 +6,14 @@ import ProjectList from '../projects/ProjectList'
 import ErrorMessage from '../common/utils/ErrorMessage'
 import HotFilterPicker from './HotFilterPicker'
 
+// explanation added below the combobox used to to set the sort filter
+const addedSince = (hotFilter) => {
+  if (hotFilter === 'weekly') return 'last week'
+  if (hotFilter === 'monthly') return 'last month'
+  if (hotFilter === 'quaterly') return 'last quarter'
+  return 'yesterday'
+}
+
 const Home = React.createClass({
   render() {
     log('Render the <Home> component', this.props)
@@ -39,12 +47,20 @@ const Home = React.createClass({
                       {
                         value: 'weekly',
                         text: 'last week'
+                      },
+                      {
+                        value: 'monthly',
+                        text: 'last month'
+                      },
+                      {
+                        value: 'quaterly',
+                        text: 'last 3 months'
                       }
                     ]}
                   />
                 </h3>
                 <p className="explanation">
-                  By number of stars added {hotFilter === 'weekly' ? 'last week' : 'yesterday'} on Github
+                  By number of stars added {addedSince(hotFilter)} on Github
                 </p>
                 <ProjectList
                   projects = { hotProjects }

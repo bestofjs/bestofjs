@@ -6,6 +6,7 @@ const Delta = (props) => {
   const { value, big, perDay, tooltip } = props
 
   const formatDelta = function (d) {
+    if (d === null) return 'N/A'
     if (d === 0) return '='
     if (d < 0) return '- ' + Math.abs(d)
     return '+ ' + d
@@ -35,7 +36,7 @@ const Delta = (props) => {
       { props.icon && value !== 0 && (
         <span className="octicon octicon-star" style={{ fontSize: 14, marginLeft: 4 }}></span>
       ) }
-      { perDay && value !== 0 && '/day' }
+      { perDay && value !== 0 && value !== null && '/day' }
     </div>
   )
 }

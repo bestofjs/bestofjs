@@ -12,6 +12,14 @@ const defaultOptions = [
   {
     text: 'Since last week',
     value: 'weekly'
+  },
+  {
+    text: 'Since last month',
+    value: 'monthly'
+  },
+  {
+    text: 'Since last 3 months',
+    value: 'quaterly'
   }
 ]
 

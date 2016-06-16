@@ -22,12 +22,13 @@ const defaultState = {
 };
 
 function processProject(item) {
-  const daily = item.deltas[0]
-  const reducer = (a, b) => a + b
-  const weekly = Math.round(item.deltas.slice(0, 7).reduce(reducer, 0) / 7)
+  const days = [1, 7, 30, 90]
+  const trends = days.map(
+    (t, i) => item.trends.length > i ? Math.round(item.trends[i] / t) : null
+  )
   return {
     repository: 'https://github.com/' + item.full_name,
-    id: item._id, // getProjectId(item),
+    id: item._id,
     slug: item.full_name.substr(item.full_name.indexOf('/') + 1),
     tags: item.tags,
     deltas: item.deltas,
@@ -38,8 +39,10 @@ function processProject(item) {
     url: item.url,
     stats: {
       total: item.stars,
-      daily,
-      weekly
+      daily: trends[0],
+      weekly: trends[1],
+      monthly: trends[2],
+      quaterly: trends[3]
     }
   }
 }
@@ -82,7 +85,9 @@ export function getInitialState(data, profile) {
   const sortedProjects = [
     sortProjects(project => project.stars),
     sortProjects(project => project.stats.daily),
-    sortProjects(project => project.stats.weekly)
+    sortProjects(project => project.stats.weekly),
+    sortProjects(project => project.stats.monthly),
+    sortProjects(project => project.stats.quaterly),
   ]
   const sortedProjectIds = sortedProjects.map(
     projects => projects.map(item => item.slug)
@@ -92,6 +97,8 @@ export function getInitialState(data, profile) {
     total: sortedProjectIds[0],
     daily: sortedProjectIds[1],
     weekly: sortedProjectIds[2],
+    monthly: sortedProjectIds[3],
+    quaterly: sortedProjectIds[4],
     tagIds: allTags.map(item => item.id),
     lastUpdate: data.date,
     allById
