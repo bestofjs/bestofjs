@@ -26,7 +26,7 @@ function processProject(item) {
   const trends = days.map(
     (t, i) => item.trends.length > i ? Math.round(item.trends[i] / t) : null
   )
-  return {
+  const result = {
     repository: 'https://github.com/' + item.full_name,
     id: item._id,
     slug: item.full_name.substr(item.full_name.indexOf('/') + 1),
@@ -37,6 +37,9 @@ function processProject(item) {
     pushed_at: item.pushed_at,
     stars: item.stars,
     url: item.url,
+    npm: item.npm,
+    version: item.version,
+    quality: item.quality,
     stats: {
       total: item.stars,
       daily: trends[0],
@@ -45,6 +48,7 @@ function processProject(item) {
       quaterly: trends[3]
     }
   }
+  return result
 }
 
 export function getInitialState(data, profile) {
@@ -88,6 +92,7 @@ export function getInitialState(data, profile) {
     sortProjects(project => project.stats.weekly),
     sortProjects(project => project.stats.monthly),
     sortProjects(project => project.stats.quaterly),
+    sortProjects(project => project.quality),
   ]
   const sortedProjectIds = sortedProjects.map(
     projects => projects.map(item => item.slug)
@@ -99,6 +104,7 @@ export function getInitialState(data, profile) {
     weekly: sortedProjectIds[2],
     monthly: sortedProjectIds[3],
     quaterly: sortedProjectIds[4],
+    quality: sortedProjectIds[5],
     tagIds: allTags.map(item => item.id),
     lastUpdate: data.date,
     allById

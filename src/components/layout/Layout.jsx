@@ -18,7 +18,8 @@ const Layout = (props) => {
     uiActions,
     hofCount,
     linkCount,
-    ui
+    ui,
+    location
   } = props
   return (
     <div id="layout">
@@ -41,6 +42,7 @@ const Layout = (props) => {
           searchText={textFilter}
           uiActions={uiActions}
           ui={ui}
+          location={location}
         />
 
         <main id="main">

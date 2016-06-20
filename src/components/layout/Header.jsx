@@ -17,17 +17,18 @@ export default ({ searchText, actions, uiActions, ui }) => (
           </IndexLink>
         </div>
         <div className="col-2">
-          {false && <button
+          {true && <button
             className={`btn button-outline ${ui.showMetrics ? 'on' : 'off'}`}
             data-balloon-pos="left"
-            data-balloon={`${ui.showMetrics ? 'Hide metrics' : 'Show metrics'}`}
+            data-balloon={`${ui.showMetrics ? 'Hide details' : 'Show details'}`}
             onClick={() => uiActions.toggleMetrics(!ui.showMetrics)}
-            style={{ marginRight: '1rem', padding: '0 .5rem' }}
+            style={{ marginRight: '0.5rem', padding: '0 .5rem' }}
           >
             <span className="mega-octicon octicon-graph"></span>
           </button>}
           <SearchForm
-            searchText = { searchText }
+            searchText={searchText}
+            location={location}
           />
         </div>
       </div>

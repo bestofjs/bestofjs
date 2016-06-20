@@ -111,7 +111,8 @@ function getOutput(env) {
     {
       path: rootPath,
       filename,
-      hot: true
+      hot: true,
+      publicPath: '/' // required when using browserHistory, to make nested URLs work
     }
   ) : (
     {

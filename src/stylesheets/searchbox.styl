@@ -1,7 +1,10 @@
+$colorOn = $searchboxColorOn
+$colorOff = $searchboxColorOff
+
 #searchbox
   box-sizing: border-box // to prevent the input from overlapping the container
   padding: 3px 8px
-  border: 3px solid $searchboxColor
+  border: 3px solid $colorOff
   border-radius: 6px
   font-size: 16px
   outline: 0
@@ -11,5 +14,11 @@
     outline: 0
     border-style: none
     font-size: 16px
+    @media(max-width: 700px)
+      max-width: 150px
   .icon
-    color: $searchboxColor
+    color: $colorOff
+  &.highlight
+    border-color: $colorOn
+    .icon
+      color: $colorOn

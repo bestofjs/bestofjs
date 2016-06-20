@@ -25,8 +25,9 @@ const SearchForm = React.createClass({
     this.emitChange(this.state.text)
   },
   render() {
+    const { highlight } = this.props
     return (
-      <form id="searchbox" onSubmit={this.handleSubmit}>
+      <form id="searchbox" onSubmit={this.handleSubmit} className={`${highlight ? 'highlight' : ''}`}>
         <input
           type="text"
           onChange={ this.handleChange }

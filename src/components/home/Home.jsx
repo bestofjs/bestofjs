@@ -35,7 +35,7 @@ const Home = React.createClass({
               <div className="box">
                 <h3 className="with-comment">
                   <span className="mega-octicon octicon-flame icon"></span>
-                  <span>Hot projects since </span>
+                  <span>Hot projects </span>
                   <HotFilterPicker
                     currentValue={hotFilter}
                     onToggle={uiActions.toggleHotFilter}

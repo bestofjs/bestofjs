@@ -15,20 +15,22 @@ const getYou = (auth) => ({
   bio: `${auth.name}, you will be the next shining star, keep up the good work!`
 })
 
-const Page = ({ heroes, auth, you, authActions, isHero }) => (
+const Page = ({ heroes, auth, you, authActions, isHero, ui }) => (
   <HoF
     heroes={heroes}
     you={you}
     auth={auth}
     onLogin={authActions.login}
     isHero={isHero}
+    showDetails={ui.showMetrics}
   />
 )
 
 function mapStateToProps(state) {
   const {
     // entities: { heroes },
-    auth
+    auth,
+    ui
   } = state
 
   const allHeroes = getAllHeroes(state)
@@ -40,7 +42,8 @@ function mapStateToProps(state) {
     heroes: allHeroes,
     auth,
     you: getYou(auth),
-    isHero
+    isHero,
+    ui
   }
 }
 

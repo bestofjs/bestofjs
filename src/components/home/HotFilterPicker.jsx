@@ -6,20 +6,24 @@ const defaultOptions = [
     value: 'total'
   },
   {
-    text: 'Since yesterday',
+    text: 'Trending yesterday',
     value: 'daily'
   },
   {
-    text: 'Since last week',
+    text: 'Trending last week',
     value: 'weekly'
   },
   {
-    text: 'Since last month',
+    text: 'Trending last month',
     value: 'monthly'
   },
   {
-    text: 'Since last 3 months',
+    text: 'Trending last 3 months',
     value: 'quaterly'
+  },
+  {
+    text: 'By quality score',
+    value: 'quality'
   }
 ]
 

@@ -11,6 +11,9 @@ function emitChange(text) {
   }
 }
 
-export default () => (
-  <SearchForm onChange={ emitChange }/>
-)
+export default (props) => {
+  const highlight = /search/.test(props.location && props.location.pathname)
+  return (
+    <SearchForm onChange={ emitChange } highlight={highlight} />
+  )
+}

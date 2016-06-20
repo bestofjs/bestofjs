@@ -12,13 +12,16 @@ const middlewares = [
   convertSlugToId,
   thunk
 ]
-if (process.env.NODE_ENV === 'development') {
+if (false && process.env.NODE_ENV === 'development') {
   middlewares.push(
     createLogger()
   )
 }
 
-const finalCreateStore = compose(applyMiddleware(...middlewares))(createStore)
+const finalCreateStore = compose(
+  applyMiddleware(...middlewares),
+  window.devToolsExtension ? window.devToolsExtension() : f => f
+)(createStore)
 
 export default function configureStore(initialState) {
   const store = finalCreateStore(rootReducer, initialState)

@@ -19,7 +19,6 @@
     background-color: #ffe082
   .inner
     padding: 1em
-    color: $textSecondaryColor
     &.github
       border-top: 1px solid #cbcbcb
       border-bottom: 1px solid #cbcbcb
@@ -51,7 +50,6 @@
   .url
     display: block
     margin-top: 1em
-
   .card-block // class applied to <Link> tag used to open the Project page from the card.
     display block
     color $textPrimaryColor
@@ -60,6 +58,21 @@
       color: inherited
       background-color: #FFF7EB
       color: black
+  .npm
+    display: flex
+    padding: 0
+    > :first-child
+      flex-grow: 1
+  .quality-link, .npm-link
+    display: flex
+    align-items: center
+  .quality-link
+    justify-content: flex-end
+  .quality-logo, .npm-logo
+    margin-right: .25em
+  .version
+    color: $textSecondaryColor
+    margin-left: .25em
   .star-added
     margin: 0 0 1em
 .empty-value

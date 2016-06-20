@@ -2,13 +2,14 @@ import React from 'react'
 
 import HeroCard from './HeroCard'
 
-export default ({ heroes, auth, style }) => (
+export default ({ heroes, auth, style, showDetails }) => (
   <div className="hero-list" style={style}>
     {heroes.map(hero => (
       <div key={hero.username}>
         <HeroCard
           hero={hero}
           isCurrentUser={hero.username === auth.username}
+          showDetails={showDetails}
         />
       </div>
     ))}

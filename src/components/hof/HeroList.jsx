@@ -4,7 +4,7 @@ import HeroCard from './HeroCard'
 import AnonymousHero from './AnonymousHero'
 import MainContent from '../common/MainContent'
 
-export default ({ heroes = [], you, auth, onLogin, isHero }) => (
+export default ({ heroes = [], you, auth, onLogin, isHero, showDetails }) => (
   <MainContent>
     <h1>
       Hall of Fame
@@ -30,6 +30,7 @@ export default ({ heroes = [], you, auth, onLogin, isHero }) => (
           <HeroCard
             hero={hero}
             isCurrentUser={hero.username === auth.username}
+            showDetails={showDetails}
           />
         </div>
       ))}
