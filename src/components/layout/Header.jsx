@@ -4,7 +4,7 @@ import IndexLink from 'react-router/lib/IndexLink';
 import SearchForm from '../../containers/SearchFormContainer';
 import ToggleMenuButton from './ToggleMenuButton';
 
-export default ({ searchText, actions, uiActions, ui }) => (
+export default ({ searchText, actions, uiActions, ui, location }) => (
   <div id="header">
     <ToggleMenuButton
       actions= { actions }
