@@ -41,6 +41,9 @@ function mapStateToProps(state) {
       tagIds,
       lastUpdate
     },
+    requests: {
+      issues
+    },
     auth,
     ui
   } = state
@@ -60,6 +63,7 @@ function mapStateToProps(state) {
     auth,
     hofCount: Object.keys(heroes).length,
     linkCount: Object.keys(links).length,
+    requestCount: Object.keys(issues).length,
     ui
   }
 }

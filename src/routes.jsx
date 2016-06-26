@@ -14,6 +14,9 @@ import Links from './containers/LinksPage'
 // Single Project page
 import ProjectPage from './containers/ProjectPage'
 
+import SubmitRepoPage from './containers/SubmitRepoPage'
+import UserRequestsPage from './containers/UserRequestsPage'
+
 import ProjectGithubTab from './components/ProjectView/GithubTab'
 
 import ProjectLinksTab from './components/ProjectView/LinksTab'
@@ -32,6 +35,8 @@ const getRoutes = (count = 3) => {
     <Route path="/" component={App}>
       <IndexRoute component={Home} />
       <Route path="home" component={Home}/>
+      <Route path="requests" component={UserRequestsPage}/>
+      <Route path="requests/add-project" component={SubmitRepoPage}/>
       <Route path="about" component={About}/>
       <Route path="hof" component={HoF}/>
       <Route path="links" component={Links}/>

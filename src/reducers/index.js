@@ -6,6 +6,7 @@ import githubProjects from './githubProjects'
 import auth from './auth'
 import hof from './hof'
 import ui from './ui'
+import requests from './requests'
 
 const rootReducer = combineReducers({
   entities,
@@ -13,7 +14,8 @@ const rootReducer = combineReducers({
   auth,
   form: formReducer,
   hof,
-  ui
+  ui,
+  requests
 })
 
 export default rootReducer

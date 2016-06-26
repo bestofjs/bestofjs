@@ -13,7 +13,8 @@ export default function auth(state = defaultState, action) {
       name: action.profile.name,
       avatar: action.profile.picture,
       followers: action.profile.followers,
-      token: action.token
+      token: action.token,
+      github_access_token: action.profile.identities[0].access_token
     })
   case 'LOGIN_FAILURE':
     return Object.assign({}, state, { pending: false })

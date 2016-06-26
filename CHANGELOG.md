@@ -1,5 +1,12 @@
 # Change log
 
+## 0.5.0 - 2016-06-23
+* Add data from npm and packagequality.com
+* Make it compatible with Redux DevTools Chrome extension
+* Add a button to show/hide details
+* Show trends for the last month and the last 3 months
+* Add 'my requests' view and 'add project' feature, to let user suggest new Github projects (#22)
+
 ## 0.4.4 - 2016-06-05
 * server-side rendering for Hall of Fame page
 * Make URL nicer: use project "slugs" instead of database ids (#19)

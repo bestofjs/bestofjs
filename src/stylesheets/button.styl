@@ -20,12 +20,22 @@
     padding: 5px 10px
     font-size: 14px
   &.button-outline
-    color: $searchboxColorOff
     background-color: white
-    border: 3px solid $searchboxColorOff
+    border: 3px solid $bestofjsOrange
+    color: $bestofjsOrange
+    &:hover
+      color: white
+      background-color: $bestofjsOrange
+    &.off
+      color: $searchboxColorOff
+      border-color: $searchboxColorOff
     &.on
       color: $searchboxColorOn
       border-color: $searchboxColorOn
+  &.block
+    display: block
+    text-align: center
+    width: 100%
 
 .ui.loading.button
   position: relative;

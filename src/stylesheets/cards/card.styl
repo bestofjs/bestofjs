@@ -1,0 +1,26 @@
+.card
+  margin-bottom: 2rem
+  padding: 0
+  background-color: white
+  vertical-align: top
+  border: 1px solid $cardBorderColor
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16)
+  .header
+    background-color: $bestofjsPurple
+    color: white
+    font-size: 1em
+    padding: 1rem
+    .counter
+      color: rgba(255, 255, 255, .5)
+  .inner
+    padding: 1rem
+    &:not(last-child)
+      border-bottom: 1px solid $cardBorderColor
+    &.link // class applied to <Link> tag used to open the Project page from the card.
+      display block
+      color $textPrimaryColor
+      &:hover
+        text-decoration none
+        color: inherited
+        background-color: #FFF7EB
+        color: black

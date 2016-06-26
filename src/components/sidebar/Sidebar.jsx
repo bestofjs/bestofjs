@@ -8,7 +8,7 @@ import AnonymousUser from './AnonymousUser'
 
 const Sidebar = React.createClass({
   render() {
-    const { allTags, popularTags, auth, authActions, hofCount, linkCount } = this.props
+    const { allTags, popularTags, auth, authActions, hofCount, linkCount, requestCount } = this.props
     return (
       <nav id="menu" className="slideout-menu">
         <div className={`sidebar-login-block ${auth.username ? 'loggedin' : 'anonymous'}`}>
@@ -31,10 +31,14 @@ const Sidebar = React.createClass({
             HALL OF FAME
             {hofCount > 0 && <span className="counter">{hofCount}</span>}
           </Link>
-          <Link to="/links" className="item">
+          {false && <Link to="/links" className="item">
             LINKS
             {linkCount > 0 && <span className="counter">{linkCount}</span>}
-          </Link>
+          </Link>}
+          {auth.username && <Link to="/requests" className="item">
+            MY REQUESTS
+            {requestCount > 0 && <span className="counter">{requestCount}</span>}
+          </Link>}
           <div className="item">
             <div className="header">POPULAR TAGS</div>
             <TagMenu tags={ popularTags } selectedTag={ this.props.selectedTag } />

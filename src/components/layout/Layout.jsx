@@ -18,6 +18,7 @@ const Layout = (props) => {
     uiActions,
     hofCount,
     linkCount,
+    requestCount,
     ui,
     location
   } = props
@@ -32,6 +33,7 @@ const Layout = (props) => {
         authActions={authActions}
         hofCount={hofCount}
         linkCount={linkCount}
+        requestCount={requestCount}
         uiActions={uiActions}
         ui={ui}
       />

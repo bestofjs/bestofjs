@@ -6,19 +6,22 @@ import Home from '../components/home/Home'
 import populate from '../helpers/populate'
 import log from '../helpers/log'
 import * as uiActionCreators from '../actions/uiActions'
+import * as authActionCreators from '../actions/authActions'
 
 
 const HomePage = React.createClass({
   render() {
     log('Render the <HomePage> container', this.props)
-    const { hotProjects, popularProjects, isLoggedin, uiActions, ui } = this.props
+    const { hotProjects, popularProjects, auth, uiActions, ui, authActions } = this.props
     return (
       <Home
         hotProjects = { hotProjects }
         popularProjects = { popularProjects }
         maxStars = { popularProjects.length > 0 ? popularProjects[0].stars : 0 }
-        isLoggedin = { isLoggedin }
+        isLoggedin = { auth.username !== '' }
+        pending = { auth.pending }
         uiActions={uiActions}
+        authActions={authActions}
         hotFilter={ui.hotFilter}
         showMetrics={ui.showMetrics}
       />
@@ -39,9 +42,7 @@ function mapStateToProps(state, count) {
       links
     },
     githubProjects,
-    auth: {
-      username
-    },
+    auth,
     ui
   } = state
 
@@ -58,14 +59,15 @@ function mapStateToProps(state, count) {
   return {
     hotProjects: hot,
     popularProjects,
-    isLoggedin: username !== '',
+    auth,
     ui
   }
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    uiActions: bindActionCreators(uiActionCreators, dispatch)
+    uiActions: bindActionCreators(uiActionCreators, dispatch),
+    authActions: bindActionCreators(authActionCreators, dispatch)
   }
 }
 
