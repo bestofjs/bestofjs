@@ -3,7 +3,7 @@ import React from 'react'
 import bgColors from './bgColors'
 
 const Delta = (props) => {
-  const { value, big, perDay, tooltip } = props
+  const { value, big, perDay, tooltip, color = true } = props
 
   const formatDelta = function (d) {
     if (d === null) return 'N/A'
@@ -29,12 +29,12 @@ const Delta = (props) => {
 
   return (
     <div
-      style={style}
+      style={color ? style : {}}
       data-balloon={tooltip}
     >
       { formatDelta(value) }
       { props.icon && value !== 0 && (
-        <span className="octicon octicon-star" style={{ fontSize: 14, marginLeft: 4 }}></span>
+        <span className="octicon octicon-star" style={{ fontSize: 14, marginLeft: 2 }}></span>
       ) }
       { perDay && value !== 0 && value !== null && '/day' }
     </div>

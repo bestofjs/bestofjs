@@ -1,7 +1,7 @@
 import test from 'tape'
 import React from 'react'
 import {
-  // mount,
+  mount,
   // render,
   shallow
 } from 'enzyme'
@@ -16,8 +16,7 @@ setup()
 
 // Components to check
 import Home from '../../src/components/home/Home'
-import ProjectList from '../../src/components/projects/ProjectList'
-import ProjectCard from '../../src/components/projects/ProjectCard'
+import ProjectList from '../../src/components/projects/ProjectTable'
 
 import populate from '../../src/helpers/populate'
 
@@ -56,7 +55,7 @@ test('Check <ProjectList>', assert => {
   )
   assert.ok(component, `The component should exist.`)
   // console.log(component.debug())
-  const foundProjects = component.find(ProjectCard)
+  const foundProjects = component.find(ProjectList.Row)
   assert.equal(foundProjects.length, count, `There should be N projects.`)
   assert.end()
 })
@@ -66,11 +65,12 @@ test('Check <Home> component', (assert) => {
 
   const props = mapStateToProps(state)
 
-  const component = shallow(
+  const component = mount(
     <Home
       hotProjects={props.hotProjects }
       popularProjects={props.popularProjects}
       uiActions={{}}
+      authActions={{}}
     />
   )
 

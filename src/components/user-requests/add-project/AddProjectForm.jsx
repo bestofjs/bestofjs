@@ -2,7 +2,7 @@ import React from 'react'
 
 import MainContent from '../../common/MainContent'
 import GithubRepoPicker from '../../common/form/GithubRepoPicker'
-import Field from '../../common/form/Field';
+import Field from '../../common/form/Field'
 
 const AddProjectForm = React.createClass({
   render() {
@@ -12,13 +12,10 @@ const AddProjectForm = React.createClass({
         project
       },
       handleSubmit,
-      valid,
-      // errors,
       submitFailed,
       submitting,
-      projects,
-      onSave // passed from parent component (<Create> / <Edit>)
-    } = this.props;
+      onSave
+    } = this.props
     return (
       <MainContent className="small container double-padding">
         <form className="card ui form" onSubmit={handleSubmit(onSave)}>

@@ -83,16 +83,21 @@ export function getInitialState(data, profile) {
     state.entities.tags[tag.id] = tag;
   });
 
-  const sortProjects = fn => (
+  const sortAllProjects = fn => (
     helpers.sortBy(allProjects.slice(0), fn)
   )
+  const npmProjects = allProjects.filter(project => !!project.npm)
+  const sortNpmProjects = fn => (
+    helpers.sortBy(npmProjects.slice(0), fn)
+  )
+
   const sortedProjects = [
-    sortProjects(project => project.stars),
-    sortProjects(project => project.stats.daily),
-    sortProjects(project => project.stats.weekly),
-    sortProjects(project => project.stats.monthly),
-    sortProjects(project => project.stats.quaterly),
-    sortProjects(project => project.quality),
+    sortAllProjects(project => project.stars),
+    sortAllProjects(project => project.stats.daily),
+    sortAllProjects(project => project.stats.weekly),
+    sortAllProjects(project => project.stats.monthly),
+    sortAllProjects(project => project.stats.quaterly),
+    sortNpmProjects(project => 0 || project.quality)
   ]
   const sortedProjectIds = sortedProjects.map(
     projects => projects.map(item => item.slug)

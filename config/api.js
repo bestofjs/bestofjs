@@ -20,7 +20,7 @@ const setup = {
 
     USER_CONTENT: 'https://webtask.it.auth0.com/api/run/wt-mikeair-gmail_com-0/user-content-api-v1',
 
-    ISSUES_REPO: 'michaelrambeau/bestofjs-webui'
+    ISSUES_REPO: 'michaelrambeau/bestofjs'
   },
 };
 

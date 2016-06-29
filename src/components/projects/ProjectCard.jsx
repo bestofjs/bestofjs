@@ -45,8 +45,14 @@ const renderLinks = (links = []) => {
 
 const ProjectCard = (
   {
-    project, index, deltaFilter = 'total',
-    showStars, showDelta, showDescription, showTags, showMetrics
+    project,
+    index,
+    deltaFilter = 'total',
+    showStars,
+    showDelta,
+    showDescription = true,
+    showTags,
+    showMetrics
   }) => {
   const path = `/projects/${project.slug}`
   return (
@@ -101,7 +107,7 @@ const ProjectCard = (
         </section>
       )}
 
-      {project.reviews &&
+      {showMetrics && project.reviews &&
         <Link
           className="card-block"
           to={`${path}/reviews`}
@@ -110,7 +116,7 @@ const ProjectCard = (
         </Link>
       }
 
-      {project.links &&
+      {showMetrics && project.links &&
         <Link
           className="card-block"
           to={`${path}/links`}
@@ -159,7 +165,7 @@ const ProjectCard = (
         </div>
       </div>}
 
-      {showMetrics && project.deltas.length > 0 &&
+      {false && showMetrics && project.deltas.length > 0 &&
         <DeltaBar data={ project.deltas.slice(0, 7) } />
       }
     </div>

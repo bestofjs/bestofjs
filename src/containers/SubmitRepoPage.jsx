@@ -33,10 +33,4 @@ function mapStateToProps(state) {
   }
 }
 
-function mapDispatchToProps(dispatch) {
-  return {
-    // repoActions: bindActionCreators(repoActionCreators, dispatch)
-  }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(SubmitRepoPage)
+export default connect(mapStateToProps)(SubmitRepoPage)

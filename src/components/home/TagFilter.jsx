@@ -2,8 +2,7 @@ import React from 'react'
 
 import MainContent from '../common/MainContent'
 import ProjectList from '../projects/ProjectList'
-import TagLabel from '../tags/TagTitle'
-import HotFilterPicker from './HotFilterPicker'
+import HotFilterPicker from './HotFilterPickerB'
 
 const TagFilter = React.createClass({
 
@@ -11,31 +10,28 @@ const TagFilter = React.createClass({
     const { tag, projects, isLoggedin, ui, uiActions } = this.props
     const showStars = ui.starFilter === 'total' || ui.starFilter === 'quality'
     return (
-      <MainContent className="small container">
+      <MainContent className="smallW container double-padding">
         { tag.name && (
-          <div className="tag-page-header" style={{ marginBottom: '1rem' }}>
-            <div>
-              {false && <TagLabel tag={ tag } />}
-              <h3 className="with-comment" style={{ fontSize: '1.2rem' }}>
-                <span className="mega-octicon octicon-tag icon"></span>
-                {tag.name}
-              <span className="counter-small"> ({projects.length})</span>
-              <span className="counter-big">
-                { projects.length === 1 ? (
-                  ' (Only one project)'
-                ) : (
-                  ` (${projects.length} projects)`
-                ) }
-              </span>
-
-              </h3>
-            </div>
-
-            <div>
-              <HotFilterPicker
-                currentValue={ui.starFilter}
-                onToggle={uiActions.toggleStarFilter}
-              />
+          <div style={{ marginBottom: '1rem' }}>
+            <div className="card card-homepage">
+              <div className="header">
+                <div className="inner">
+                  <span className="icon mega-octicon octicon-tag icon"></span>
+                  {' '}
+                  <span style={{ fontSize: '1.5rem' }}>{tag.name}</span>
+                  <span className="counter">
+                    { projects.length === 1 ? (
+                      ' (Only one project)'
+                    ) : (
+                      ` (${projects.length} projects)`
+                    ) }
+                  </span>
+                </div>
+                <HotFilterPicker
+                  currentValue={ui.starFilter}
+                  onToggle={uiActions.toggleStarFilter}
+                />
+              </div>
             </div>
           </div>
         ) }
@@ -49,6 +45,7 @@ const TagFilter = React.createClass({
              showDelta={!showStars}
              deltaFilter={ui.starFilter}
              showStars={showStars}
+             showTags={false}
              showMetrics={ui.showMetrics}
            />
        ) }

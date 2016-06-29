@@ -17,7 +17,7 @@ export default ({ searchText, actions, uiActions, ui, location }) => (
           </IndexLink>
         </div>
         <div className="col-2">
-          {true && <button
+          {false && <button
             className={`btn button-outline ${ui.showMetrics ? 'on' : 'off'}`}
             data-balloon-pos="left"
             data-balloon={`${ui.showMetrics ? 'Hide details' : 'Show details'}`}

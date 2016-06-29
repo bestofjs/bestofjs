@@ -18,7 +18,7 @@ export default ({ requests }) => (
         <span className="counter">({requests.length})</span>
       </div>
       {requests.length === 0 ? (
-        <div className="inner">You have not created any request.</div>
+        <div className="card-row inner">You have not created any request.</div>
       ) : (
         requests.map(request => <Issue issue={request} key={request.number} />)
       )}
@@ -27,12 +27,14 @@ export default ({ requests }) => (
 )
 
 const Issue = ({ issue }) => (
-  <a className="inner link" href={issue.html_url} target="_blank">
-    <div style={{ float: 'right' }}>
-      <StateIcon state={issue.state} />
+  <a className="card-row link inner" href={issue.html_url} target="_blank">
+    <div>
+      <div style={{ float: 'right' }}>
+        <StateIcon state={issue.state} />
+      </div>
+      {issue.title}
     </div>
-    {issue.title}
-    <div className="text-secondary text-small">
+    <div className="text-secondary">
       Opened {fromNow(issue.created_at)}
     </div>
   </a>

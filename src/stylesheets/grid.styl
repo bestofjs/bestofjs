@@ -12,3 +12,16 @@ $gutter = 1rem
       width 50%
       padding-right: $gutter
       padding-left: $gutter
+
+.project-grid
+  display: flex
+  flex-wrap: wrap
+  margin: -1em 0 0 -1em
+  > div
+    flex: 0 0 50%
+    padding: 1em 0 0 1em
+    display: flex
+  @media (max-width: 600px)
+    flex-direction: column
+    > div
+      flex: 0 0 auto

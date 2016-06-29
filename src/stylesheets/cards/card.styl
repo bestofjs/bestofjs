@@ -7,20 +7,56 @@
   box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16)
   .header
     background-color: $bestofjsPurple
+    padding: 1rem
     color: white
     font-size: 1em
-    padding: 1rem
-    .counter
-      color: rgba(255, 255, 255, .5)
+    .counter, .comment
+      color: rgba(255, 255, 255, .7)
+    .big
+      font-size: 1.5rem
   .inner
     padding: 1rem
-    &:not(last-child)
-      border-bottom: 1px solid $cardBorderColor
-    &.link // class applied to <Link> tag used to open the Project page from the card.
-      display block
-      color $textPrimaryColor
-      &:hover
-        text-decoration none
-        color: inherited
-        background-color: #FFF7EB
-        color: black
+  .card-row
+    +.card-row
+      border-top: 1px solid $cardBorderColor
+  .link // class applied to <Link> tag used to open the Project page from the card.
+    display block
+    color $textPrimaryColor
+    &:hover
+      text-decoration none
+      color: inherited
+      background-color: #FFF7EB
+      color: black
+    .big-numbers
+      float: right
+
+.card-homepage
+  .header
+    padding: 0
+    .inner
+      padding: .5rem 1rem
+  .icon
+    color: $logoColors[1]
+  .title-section
+    margin-bottom: 0.5rem
+  .tags-section
+    padding-top: 0
+    //margin-top: 0.5rem
+    //margin-bottom: -0.5rem
+
+.hot-filter-menu
+  display: flex
+  background-color: darken($bestofjsPurple, 15%)
+  > div
+    flex: 1
+    padding: 0.2rem 0
+    text-align: center
+    border: 3px solid transparent
+    border-width: 3px 0 3px 0
+    transition: all .3s
+    &.off
+      cursor: pointer
+      color: rgba(255, 255, 255, .5)
+    &.on
+      border-bottom-color: $logoColors[1]
+      color: white

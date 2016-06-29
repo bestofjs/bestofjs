@@ -1,11 +1,9 @@
-import React, { Component } from 'react'
-import Select from 'react-select'
+import React from 'react'
+import { Async } from 'react-select'
 
 import Stars from '../utils/Stars'
 
 function getOptions(input) {
-  // if (input.length < 4) return Promise.resolve({ options: [] })
-  console.log('fetch', input);
   const url = `https://api.github.com/search/repositories?q=${input}&sort=stars&order=desc`
   return fetch(url)
     .then(response => response.json())
@@ -14,35 +12,38 @@ function getOptions(input) {
         value: item.full_name,
         owner: item.owner.login,
         stars: item.stargazers_count,
-        label: item.name
+        label: item.name,
+        description: item.description,
+        avatar: item.owner.avatar_url
       }))
       return { options: items }
     });
 }
 
-const Option = React.createClass({
-  render() {
-    const option = this.props.option
-    return (
-      <div>
-        { option.label }
-        by { option.owner }
-      </div>
-    )
-  }
-})
-
 function renderOption(option) {
-  // const option = this.props.option
+  const avatarSize = 48
   return (
-    <div>
-      <div>
-        { option.label }
-        <div style={{ float: 'right' }}>
-          <Stars value={option.stars} />
+    <div className="repo-picker-option">
+      <div className="first-row">
+        <div className="icon">
+          <img src={`${option.avatar}&size=${avatarSize}`} alt="icon" width={avatarSize} height={avatarSize}/>
+        </div>
+        <div className="title">
+          <span className="repo-name">{option.label}</span>
+          <div className="text-secondary">
+            by {option.owner}
+          </div>
+        </div>
+        <div>
+          <div className="stars">
+            <Stars
+              value={option.stars}
+              icon
+            />
+          </div>
         </div>
       </div>
-      <div className="text-secondary">by { option.owner }</div>
+      <div className="text-secondary">{option.description}</div>
     </div>
   )
 }
@@ -53,15 +54,12 @@ function renderSelectedOption(option) {
   )
 }
 
-class GithubRepo extends Component {
-  constructor(props) {
-    super(props)
-  }
+const GithubRepo = React.createClass({
   render() {
     const { field } = this.props
     return (
       <div>
-        <Select.Async
+        <Async
           loadOptions={getOptions}
           optionRenderer={renderOption}
           valueRenderer={renderSelectedOption}
@@ -75,6 +73,6 @@ class GithubRepo extends Component {
       </div>
     )
   }
-}
+})
 
 export default GithubRepo

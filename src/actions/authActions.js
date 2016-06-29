@@ -31,10 +31,8 @@ export function start() {
         getProfile(token.id_token)
           .then(profile => {
             if (profile) {
-              const action = dispatch(loginSuccess(profile, token.id_token))
-              console.info(profile.nickname)
+              dispatch(loginSuccess(profile, token.id_token))
               return dispatch(getUserRequests(profile.nickname))
-              return action
             } else {
               return dispatch(loginFailure())
             }
@@ -57,7 +55,6 @@ export function login() {
   const redirect_uri = `${self.location.origin}%2Fauth0.html`
   const auth0Client = 'eyJuYW1lIjoiYXV0aDAuanMiLCJ2ZXJzaW9uIjoiNi44LjAifQ'
   const url = `${APP_URL}/authorize?scope=openid&response_type=token&connection=github&sso=true&client_id=${client_id}&redirect_uri=${redirect_uri}&auth0Client=${auth0Client}`
-  console.info(url)
   return dispatch => {
     dispatch(loginRequest())
     // Go to auth0 authenication page
