@@ -12,7 +12,7 @@ const TextFilter = React.createClass({
   render() {
     const { projects, heroes, searchText, isLoggedin, auth } = this.props
     return (
-      <MainContent className="small container">
+      <MainContent className="container">
 
         { projects.length > 0 ? (
           <h3>

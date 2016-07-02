@@ -23,7 +23,7 @@ const ProjectTableView = ({ projects, children, showStars, showDelta, deltaFilte
   </div>
 )
 
-ProjectTableView.Row = ({ project, showStars, showDelta, deltaFilter }) => (
+ProjectTableView.Row = ({ project, showStars, showDelta, deltaFilter, showDescription = true }) => (
   <div className="card-row">
     <Link className="inner link" to={`/projects/${project.slug}`}>
       <div>
@@ -51,9 +51,11 @@ ProjectTableView.Row = ({ project, showStars, showDelta, deltaFilter }) => (
         </div>
         <div className="title-section">{ project.name }</div>
       </div>
-      <div className="text-secondary">
-        <Description text={project.description} />
-      </div>
+      {showDescription && (
+        <div className="description-section text-secondary">
+          <Description text={project.description} />
+        </div>)
+      }
     </Link>
     <div className="inner tags-section">
       {project.tags.map(tag =>

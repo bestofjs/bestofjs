@@ -10,9 +10,9 @@ const TagFilter = React.createClass({
     const { tag, projects, isLoggedin, ui, uiActions } = this.props
     const showStars = ui.starFilter === 'total' || ui.starFilter === 'quality'
     return (
-      <MainContent className="smallW container double-padding">
+      <MainContent className="container">
         { tag.name && (
-          <div style={{ marginBottom: '1rem' }}>
+          <div>
             <div className="card card-homepage">
               <div className="header">
                 <div className="inner">

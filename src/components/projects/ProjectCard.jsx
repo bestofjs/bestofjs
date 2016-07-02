@@ -62,11 +62,15 @@ const ProjectCard = (
         className="card-block"
       >
         <header>
-          <div className="ranking">
+          <div className="header-ranking">
             { index + 1 }
           </div>
 
-          <div className="big-numbers">
+          <div className="header-name">
+            { project.name }
+          </div>
+
+          <div className="header-stars">
             { showStars && (
               <div className="total">
                 <Stars
@@ -85,9 +89,6 @@ const ProjectCard = (
                 />
               </div>
             ) }
-          </div>
-          <div className="title">
-            { project.name }
           </div>
         </header>
 

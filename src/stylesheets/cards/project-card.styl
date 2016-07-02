@@ -7,9 +7,22 @@
   border: 1px solid $cardBorderColor
   box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16)
   header
-    padding: 1em 0
     position: relative
     overflow: hidden
+    display: flex
+    align-items: center
+  .header-ranking
+    margin-left: -10px
+    letter-spacing: -10px
+    text-align: center
+    background-color: $logoColors[0]
+    color: white
+    font-size: 4em
+    line-height: 1
+    width: 60px
+  .header-name
+    flex-grow: 1
+    padding-left: 0.5em
   section
     padding: 1em
     border-top: 1px solid $cardBorderColor
@@ -23,16 +36,7 @@
     &.github
       border-top: 1px solid #cbcbcb
   .ranking
-    position: absolute
-    top: 0
-    left: -10px
-    letter-spacing: -10px
-    text-align: center
-    background-color: $logoColors[1]
-    color: white
-    font-size: 4em
-    line-height: 1
-    width: 60px
+
   .title
     font-size: 1.2em
     margin-bottom: 5px
