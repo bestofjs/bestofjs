@@ -1,11 +1,12 @@
 # Change log
 
-## 0.5.0 - 2016-06-23
-* Add data from npm and packagequality.com
-* Make it compatible with Redux DevTools Chrome extension
-* Add a button to show/hide details
-* Show trends for the last month and the last 3 months
+## 0.5.0 - 2016-07-03
+* Add data from npm (package name and version number) and from http://packagequality.com/ in project card
+* Make it compatible with [Redux DevTools Chrome extension](https://github.com/zalmoxisus/redux-devtools-extension)
+* Show trends for the last month and the last 3 months using tabs to toggle sort order
 * Add 'my requests' view and 'add project' feature, to let user suggest new Github projects (#22)
+* New 2-column layout for tag and search result pages (#17)
+* Truncate project description in the top page
 
 ## 0.4.4 - 2016-06-05
 * server-side rendering for Hall of Fame page
@@ -83,7 +84,7 @@
 ## 0.2.2 - 2015-11-05
 * Use octicon instead of fontawesome
 * Add `pushed_at` information
-* Shorter URLs for project pages, no more database _id
+* Shorter URLs for project pages, no more database `_id`
 * Upgrade to babel v6
 
 ## 0.2.1 - 2015-10-31

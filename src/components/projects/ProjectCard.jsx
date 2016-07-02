@@ -6,6 +6,7 @@ import Delta from '../common/utils/Delta'
 import DeltaBar from '../common/utils/DeltaBar'
 import Stars from '../common/utils/Stars'
 import Description from '../common/utils/Description'
+import NpmSection from './NpmSection'
 
 import fromNow from '../../helpers/fromNow'
 
@@ -93,7 +94,7 @@ const ProjectCard = (
         </header>
 
         { showDescription && (
-          <section>
+          <section className="card-section">
             <Description text={ project.description } />
           </section>
         )}
@@ -101,7 +102,7 @@ const ProjectCard = (
       </Link>
 
       { showTags && (
-        <section className="tags-section">
+        <section className="card-section tags-card-section">
           { project.tags.map(tag =>
             <TagLabel tag={ tag } key={ project.id + tag.id } />
           ) }
@@ -127,35 +128,7 @@ const ProjectCard = (
       }
 
       {showMetrics && project.npm &&
-        <section className="npm">
-          <a
-            data-balloon="View on npm"
-            className="inner card-block npm-link"
-            href={`http://npm.im/${project.npm}`}
-          >
-            <img
-              className="npm-logo"
-              width="16" height="16"
-              src="https://www.npmjs.com/static/images/touch-icons/favicon-16x16.png"
-            />
-            {project.npm}
-            <span className="version">
-              {project.version}
-            </span>
-          </a>
-          <a
-            className="inner card-block quality-link"
-            data-balloon="View on packagequality.com"
-            href={`http://packagequality.com/#?package=${project.npm}`}
-          >
-            <img
-              className="quality-logo"
-              width="16" height="16"
-              src="http://packagequality.com/favicon.ico"
-            />
-            score {project.quality}%
-          </a>
-        </section>
+        <NpmSection project={project} />
       }
 
       {showMetrics && <div className="inner github">

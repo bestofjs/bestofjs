@@ -5,6 +5,7 @@ import Description from '../../common/utils/Description'
 import DeltaBar from '../../common/utils/DeltaBar'
 import fromNow from '../../../helpers/fromNow'
 import formatUrl from '../../../helpers/formatUrl'
+import NpmSection from '../../projects/NpmSection'
 
 const Header = React.createClass({
   propTypes: {
@@ -32,6 +33,9 @@ const Header = React.createClass({
             )
           }) }
         </div>
+        {project.npm &&
+          <NpmSection project={project} />
+        }
         <div className="inner github" style={{ borderTop: '1px solid #ddd', paddingBottom: 0 }}>
           <p>
             <span className="octicon octicon-repo"></span>

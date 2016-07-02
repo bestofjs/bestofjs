@@ -23,11 +23,6 @@
   .header-name
     flex-grow: 1
     padding-left: 0.5em
-  section
-    padding: 1em
-    border-top: 1px solid $cardBorderColor
-    &.tags-section
-      padding-bottom: 0.5em
   .stars-bar
     height: 3px
     background-color: #ffe082
@@ -54,19 +49,35 @@
   .url
     display: block
     margin-top: 1em
-  .card-block // class applied to <Link> tag used to open the Project page from the card.
-    display block
-    color $textPrimaryColor
-    &:hover
-      text-decoration none
-      color: inherited
-      background-color: #FFF7EB
-      color: black
-  .npm
-    display: flex
-    padding: 0
-    > :first-child
-      flex-grow: 1
+  .star-added
+    margin: 0 0 1em
+.empty-value
+  color: #aaa
+
+// Generic card section
+.card-section
+  padding: 1em
+  border-top: 1px solid $cardBorderColor
+
+.card-block // class applied to <Link> tag used to open the Project page from the card.
+  display block
+  color $textPrimaryColor
+  &:hover
+    text-decoration none
+    color: inherited
+    background-color: #FFF7EB
+    color: black
+
+// 'tags' section
+.tags-card-section
+  padding-bottom: 0.5em
+
+// 'npm' section used in project list and single project view
+.npm-card-section
+  display: flex
+  padding: 0
+  > :first-child
+    flex-grow: 1
   .quality-link, .npm-link
     display: flex
     align-items: center
@@ -77,7 +88,3 @@
   .version
     color: $textSecondaryColor
     margin-left: .25em
-  .star-added
-    margin: 0 0 1em
-.empty-value
-  color: #aaa
