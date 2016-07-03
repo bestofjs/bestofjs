@@ -9,7 +9,7 @@ import getRoutes from '../../src/routes'
 
 // How many "hot" and "popular" projects to display in the home page rendered on the server ?
 // This number has to be very low since we only need to render "above the fold" content.
-const TOP_PROJECT_COUNT = 3
+const TOP_PROJECT_COUNT = 5
 
 
 export default function (store, location) {

@@ -14,7 +14,7 @@ const renderReviews = (reviews = []) => {
   const count = reviews.length
   const text = (count === 1) ? 'One review' : `${count} reviews`
   return (
-    <section>
+    <section className="card-section">
       <span className="octicon octicon-heart"></span>
       {text}
     </section>
@@ -36,7 +36,7 @@ const renderLinks = (links = []) => {
     </ul>
   )
   return (
-    <section>
+    <section className="card-section">
       <span className="octicon octicon-link"></span>
       {text}
       {count > 1 && list()}
