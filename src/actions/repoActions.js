@@ -4,10 +4,10 @@ import browserHistory from 'react-router/lib/browserHistory'
 import getApi from '../../config/api'
 import msgbox from '../helpers/msgbox'
 
-export function getUserRequests(username) {
+export function getUserRequests(username, token) {
   return dispatch => {
     const repo = getApi('ISSUES_REPO')
-    return fetchUserIssues(repo, username)
+    return fetchUserIssues(repo, username, token)
       .then(json => {
         dispatch({
           type: 'FETCH_ISSUES_SUCCESS',
@@ -71,12 +71,12 @@ function createGithubIssue(repo, content, token) {
 }
 
 // Get issues created by the user
-function fetchUserIssues(repo, username) {
+function fetchUserIssues(repo, username, token) {
   const url = `https://api.github.com/repos/${repo}/issues?creator=${username}&labels=valid&state=all`
   const options = {
     method: 'GET',
     headers: {
-      // 'Authorization': `token ${token}`
+      'Authorization': `token ${token}` // use the github token to avoid "API rate limited problem"
     }
   }
   return fetch(url, options)

@@ -31,8 +31,9 @@ export function start() {
         getProfile(token.id_token)
           .then(profile => {
             if (profile) {
-              dispatch(loginSuccess(profile, token.id_token))
-              return dispatch(getUserRequests(profile.nickname))
+              const action = dispatch(loginSuccess(profile, token.id_token))
+              const { username, github_access_token } = action.payload
+              return dispatch(getUserRequests(username, github_access_token))
             } else {
               return dispatch(loginFailure())
             }
@@ -118,8 +119,14 @@ function loginSuccess(profile, token) {
   }
   return {
     type: 'LOGIN_SUCCESS',
-    profile,
-    token
+    payload: {
+      username: profile.nickname,
+      github_access_token: profile.identities[0].access_token,
+      name: profile.name,
+      avatar: profile.picture,
+      followers: profile.followers,
+      token
+    }
   }
 }
 function loginFailure() {

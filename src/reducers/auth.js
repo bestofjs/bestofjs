@@ -7,14 +7,8 @@ export default function auth(state = defaultState, action) {
   case 'LOGIN_REQUEST':
     return Object.assign({}, state, { pending: true })
   case 'LOGIN_SUCCESS':
-    return Object.assign({}, state, {
-      pending: false,
-      username: action.profile.nickname,
-      name: action.profile.name,
-      avatar: action.profile.picture,
-      followers: action.profile.followers,
-      token: action.token,
-      github_access_token: action.profile.identities[0].access_token
+    return Object.assign({}, state, action.payload, {
+      pending: false
     })
   case 'LOGIN_FAILURE':
     return Object.assign({}, state, { pending: false })
