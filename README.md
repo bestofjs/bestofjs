@@ -1,4 +1,4 @@
-[![bestofjs logo](http://michaelrambeau.com/img/blog/2015-10-bestofjs.jpg)](http://bestof.js.org/)
+[![bestofjs screenshot](https://cloud.githubusercontent.com/assets/5546996/16543336/4791cf2e-410a-11e6-8e30-cd6b971953b2.png)](http://bestof.js.org/)
 
 [![Build Status](https://travis-ci.org/michaelrambeau/bestofjs-webui.svg?branch=master)](https://travis-ci.org/michaelrambeau/bestofjs-webui)
 
