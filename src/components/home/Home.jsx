@@ -3,11 +3,9 @@ import { Link } from 'react-router'
 
 import log from '../../helpers/log'
 import MainContent from '../common/MainContent'
-// import ProjectList from '../projects/ProjectTable'
 import ErrorMessage from '../common/utils/ErrorMessage'
-// import HotFilterPicker from './HotFilterPicker'
 
-import HomeProjects from './HomeLayoutB'
+import HomeProjects from './HomeProjects'
 
 const Home = React.createClass({
   render() {
@@ -21,12 +19,14 @@ const Home = React.createClass({
     return (
       <MainContent>
         { this.props.errorMessage && <ErrorMessage text={ this.props.errorMessage } /> }
-        <h2 style={{ margin: '0 0 .2em' }}>
-          Find the <i className="special">best</i> components to build amazing web applications!
-        </h2>
-        <p style={{ marginBottom: '1em' }}>
-          Check out the most popular open-source projects and the latest trends about the web platform and node.js.
-        </p>
+        <div className="no-card-container">
+          <h2 style={{ margin: '0 0 .2em' }}>
+            Find the <i className="special">best</i> components to build amazing web applications!
+          </h2>
+          <p style={{ marginBottom: '1em' }}>
+            Check out the most popular open-source projects and the latest trends about the web platform and node.js.
+          </p>
+        </div>
 
         { hotProjects.length && (
           <HomeProjects {...this.props} />
@@ -43,7 +43,7 @@ const Home = React.createClass({
 
 const MoreProjects = ({ handleClick, isLoggedin, pending }) => {
   return (
-    <div>
+    <div className="no-card-container">
       <h3 className="with-comment">Do you want more projects ?</h3>
       {isLoggedin ? (
         <Link className="btn block button-outline" to="/requests/add-project">

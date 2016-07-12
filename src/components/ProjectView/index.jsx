@@ -12,7 +12,9 @@ export default React.createClass({
           { project.id && (
             <div>
 
-              <h1 style={{ margin: '0 0 1rem' }}>{ project.name }</h1>
+              <h1 style={{ margin: '0 0 1rem' }} className="no-card-container">
+                { project.name }
+              </h1>
 
               { children && project && React.cloneElement(children, {
                 project,

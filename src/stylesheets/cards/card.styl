@@ -3,7 +3,7 @@
   padding: 0
   background-color: white
   vertical-align: top
-  border: 1px solid $cardBorderColor
+  // border: 1px solid $cardBorderColor
   box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16)
   .header
     background-color: $bestofjsPurple
@@ -40,14 +40,11 @@
   .title-section
     margin-bottom: 0.5rem
   .description-section
-    //height: 42px
     overflow: hidden
     text-overflow: ellipsis
     white-space: nowrap
   .tags-section
     padding-top: 0
-    //margin-top: 0.5rem
-    //margin-bottom: -0.5rem
 
 .hot-filter-menu
   display: flex
@@ -65,3 +62,13 @@
     &.on
       border-bottom-color: $logoColors[1]
       color: white
+
+.project-filter-tabs
+  display: none
+  @media (min-width: 650px)
+    display: flex
+.project-filter-combobox
+  display: flex
+  align-items: center
+  @media (min-width: 650px)
+    display: none

@@ -8,7 +8,7 @@ import TagLabel from '../tags/TagLabelCompact'
 
 const ProjectTableView = ({ projects, children, showStars, showDelta, deltaFilter }) => (
   <div className="card card-homepage">
-    <div className="header">
+    <div className="card-row">
       { children }
     </div>
     {projects.map(project => (

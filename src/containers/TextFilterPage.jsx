@@ -24,14 +24,15 @@ const TextFilterPage = React.createClass({
     const { foundProjects, foundHeroes, text, isLoggedin, auth, uiActions, ui, allHeroesCount } = this.props
     return (
       <TextFilter
-        projects={ foundProjects }
-        searchText={ text }
-        isLoggedin={ isLoggedin }
+        projects={foundProjects}
+        searchText={text}
+        isLoggedin={isLoggedin}
         heroes={foundHeroes}
         auth={auth}
         uiActions={uiActions}
         hotFilter={ui.hotFilter}
         allHeroesCount={allHeroesCount}
+        ui={ui}
       />
     )
   }

@@ -40,6 +40,7 @@ function processProject(item) {
     npm: item.npm,
     version: item.version,
     quality: item.quality,
+    score: item.score,
     stats: {
       total: item.stars,
       daily: trends[0],
@@ -97,7 +98,8 @@ export function getInitialState(data, profile) {
     sortAllProjects(project => project.stats.weekly),
     sortAllProjects(project => project.stats.monthly),
     sortAllProjects(project => project.stats.quaterly),
-    sortNpmProjects(project => 0 || project.quality)
+    sortNpmProjects(project => 0 || project.quality),
+    sortNpmProjects(project => 0 || project.score)
   ]
   const sortedProjectIds = sortedProjects.map(
     projects => projects.map(item => item.slug)
@@ -109,7 +111,8 @@ export function getInitialState(data, profile) {
     weekly: sortedProjectIds[2],
     monthly: sortedProjectIds[3],
     quaterly: sortedProjectIds[4],
-    quality: sortedProjectIds[5],
+    packagequality: sortedProjectIds[5], // packagequality.com
+    npms: sortedProjectIds[6], // npms.io score
     tagIds: allTags.map(item => item.id),
     lastUpdate: data.date,
     allById

@@ -10,15 +10,16 @@ body, #panel
 .text-secondary
   color: $textSecondaryColor
 .text-small
-  font-size: .75rem 
+  font-size: .75rem
 
 a
   color: #CC4700
   text-decoration: none
   transition: all 0.3s
   &:hover
-    text-decoration: underline
     color: #9E0142
+  &.link:hover
+    text-decoration: underline
 
 html, input, textarea, select
   font-family: 'Roboto', sans-serif;
@@ -70,7 +71,16 @@ h3
   &.double-padding
     padding-top: 2em
   &.small
-    max-width 600px//limit container width for project list pages
+    max-width 600px // limit container width for project list pages
+
+// reset the gutter around the main container on small screens to save space!
+@media (max-width: 400px)
+  #main-content
+    padding-left: 0
+    padding-right: 0
+  .no-card-container
+    padding-left: 1rem
+    padding-right: 1rem
 
 ul
   margin-top 0
@@ -93,3 +103,7 @@ i.special
   width 100%
   height 1px
   background-color #ccc
+
+@media (max-width: 500px)
+  .hidden-mobile
+    display: none

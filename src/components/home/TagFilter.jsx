@@ -2,13 +2,15 @@ import React from 'react'
 
 import MainContent from '../common/MainContent'
 import ProjectList from '../projects/ProjectList'
-import HotFilterPicker from './HotFilterPickerB'
+import ProjectFilterTabs from './ProjectFilter/ProjectFilterTabs'
+import ProjectFilterCombobox from './ProjectFilter/ProjectFilterCombobox'
+import ProjectViewOptions from './ProjectViewOptions'
 
 const TagFilter = React.createClass({
 
   render() {
     const { tag, projects, isLoggedin, ui, uiActions } = this.props
-    const showStars = ui.starFilter === 'total' || ui.starFilter === 'quality'
+    const showStars = ui.starFilter === 'total' || ui.starFilter === 'packagequality' || ui.starFilter === 'npms'
     return (
       <MainContent className="container">
         { tag.name && (
@@ -21,15 +23,30 @@ const TagFilter = React.createClass({
                   <span style={{ fontSize: '1.5rem' }}>{tag.name}</span>
                   <span className="counter">
                     { projects.length === 1 ? (
-                      ' (Only one project)'
+                      ' (one project)'
                     ) : (
                       ` (${projects.length} projects)`
                     ) }
                   </span>
                 </div>
-                <HotFilterPicker
-                  currentValue={ui.starFilter}
-                  onToggle={uiActions.toggleStarFilter}
+              </div>
+
+              <ProjectFilterTabs
+                currentValue={ui.starFilter}
+                onToggle={uiActions.toggleStarFilter}
+              />
+              <ProjectFilterCombobox
+                currentValue={ui.starFilter}
+                onToggle={uiActions.toggleStarFilter}
+              />
+
+              <div className="card-row">
+                <ProjectViewOptions
+                  values={ui.viewOptions}
+                  onChange={uiActions.toggleViewOption}
+                  open={ui.showViewOptions}
+                  onToggle={uiActions.toggleShowViewOptions}
+                  sortFilter={ui.starFilter}
                 />
               </div>
             </div>
@@ -47,6 +64,7 @@ const TagFilter = React.createClass({
              showStars={showStars}
              showTags={false}
              showMetrics={ui.showMetrics}
+             viewOptions={ui.viewOptions}
            />
        ) }
 

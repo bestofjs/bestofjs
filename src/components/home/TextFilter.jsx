@@ -10,18 +10,20 @@ const showCount = (array, text) => `${array.length} ${text}${array.length > 1 ? 
 
 const TextFilter = React.createClass({
   render() {
-    const { projects, heroes, searchText, isLoggedin, auth } = this.props
+    const { projects, heroes, searchText, isLoggedin, auth, ui } = this.props
     return (
       <MainContent className="container">
 
         { projects.length > 0 ? (
-          <h3>
+          <h3 className="no-card-container">
             Results for <SearchText>{ searchText }</SearchText>:{' '}
             {showCount(projects, 'project')} found.
           </h3>
         ) : (
           heroes.length === 0 && (
-            <div>No project found for <SearchText>{ searchText }</SearchText></div>
+            <div className="no-card-container">
+              No project found for <SearchText>{ searchText }</SearchText>
+            </div>
           )
         )}
 
@@ -33,11 +35,12 @@ const TextFilter = React.createClass({
              showDescription
              showDelta={false}
              showURL
+             viewOptions={ui.viewOptions}
            />
        ) }
 
         {heroes.length > 0 && (
-          <div>
+          <div style={{ marginTop: projects.length > 0 ? '2em' : 0 }}>
             <h3>
               Results for <SearchText>{ searchText }</SearchText>:{' '}
               {showCount(heroes, 'Hall of famer')} found.
@@ -45,6 +48,7 @@ const TextFilter = React.createClass({
             <HeroCardList
               heroes={heroes}
               auth={auth}
+              showDetails
             />
             <div style={{ textAlign: 'center', padding: '2em' }}>
               To see more amazing people, <Link to="/hof">Visit the Hall of Fame !</Link>

@@ -1,5 +1,9 @@
 # Change log
 
+# 0.5.1 - 2016-07-12
+* Add data from npms.io
+* Add view options in tag page
+
 ## 0.5.0 - 2016-07-03
 * Add data from npm (package name and version number) and from http://packagequality.com/ in project card
 * Make it compatible with [Redux DevTools Chrome extension](https://github.com/zalmoxisus/redux-devtools-extension)

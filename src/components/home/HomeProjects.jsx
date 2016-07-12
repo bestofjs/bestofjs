@@ -1,7 +1,8 @@
 import React from 'react'
 
 import ProjectList from '../projects/ProjectTable'
-import HotFilterPicker from './HotFilterPickerB'
+import ProjectFilterTabs from './ProjectFilter/ProjectFilterTabs'
+import ProjectFilterCombobox from './ProjectFilter/ProjectFilterCombobox'
 
 // explanation added below the combobox used to to set the sort filter
 const addedSince = (hotFilter) => {
@@ -34,18 +35,24 @@ const HomeB = ({
           showIndex
           showMetrics={showMetrics}
         >
-          <div className="inner">
-            <span className="mega-octicon octicon-flame icon"></span>
-            {' '}
-            <span className="big">Hot projects</span>
-            {false && <p className="comment">
-              By number of stars added {addedSince(hotFilter)} on Github
-            </p>}
+          <div className="header">
+            <div className="inner">
+              <span className="mega-octicon octicon-flame icon"></span>
+              {' '}
+              <span className="big">Hot projects</span>
+              {false && <p className="comment">
+                By number of stars added {addedSince(hotFilter)} on Github
+              </p>}
+            </div>
           </div>
-          <HotFilterPicker
+          <ProjectFilterTabs
             currentValue={hotFilter}
             onToggle={uiActions.toggleHotFilter}
             category="trend"
+          />
+          <ProjectFilterCombobox
+            currentValue={hotFilter}
+            onToggle={uiActions.toggleHotFilter}
           />
         </ProjectList>
       </div>
@@ -63,12 +70,14 @@ const HomeB = ({
           showIndex
           showMetrics={showMetrics}
         >
-          <div className="inner">
-            <span className="mega-octicon octicon-star icon"></span>
-            {' '}
-            <span className="big">Most popular projects</span>
-            <div className="comment" style={{ padding: '0.3rem 0', marginLeft: 34, borderBottom: 'solid 3px transparent' }}>
-              By total number of stars on Github
+          <div className="header">
+            <div className="inner">
+              <span className="mega-octicon octicon-star icon"></span>
+              {' '}
+              <span className="big">Popular projects</span>
+              <div className="comment" style={{ padding: '0.3rem 0', marginLeft: 34, borderBottom: 'solid 3px transparent' }}>
+                By total number of stars on Github
+              </div>
             </div>
           </div>
         </ProjectList>

@@ -51,9 +51,9 @@ const ProjectCard = (
     deltaFilter = 'total',
     showStars,
     showDelta,
-    showDescription = true,
     showTags,
-    showMetrics
+    showMetrics,
+    viewOptions = {}
   }) => {
   const path = `/projects/${project.slug}`
   return (
@@ -86,6 +86,7 @@ const ProjectCard = (
                 <Delta
                   value={ project.stats[deltaFilter] }
                   big
+                  icon
                   perDay={deltaFilter !== 'total' && deltaFilter !== 'daily' }
                 />
               </div>
@@ -93,7 +94,7 @@ const ProjectCard = (
           </div>
         </header>
 
-        { showDescription && (
+        { viewOptions.description && (
           <section className="card-section">
             <Description text={ project.description } />
           </section>
@@ -128,10 +129,14 @@ const ProjectCard = (
       }
 
       {showMetrics && project.npm &&
-        <NpmSection project={project} />
+        <NpmSection
+          project={project}
+          packagequality={viewOptions.packagequality}
+          npms={viewOptions.npms}
+        />
       }
 
-      {showMetrics && <div className="inner github">
+      {viewOptions.commit && <div className="inner github">
         <div className="last-commit">
           <span className="octicon octicon-git-commit"></span>
           {' '}

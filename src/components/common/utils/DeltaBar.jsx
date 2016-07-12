@@ -12,7 +12,7 @@ function getTooltipText(star, i) {
 function getDate(i) {
   if (i === 0) return 'yesterday'
   if (i === 6) return 'one week ago'
-  return `${i} days ago`
+  return `${i + 1} days ago`
 }
 
 const DeltaBar = (props) => {

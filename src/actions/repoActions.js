@@ -72,7 +72,7 @@ function createGithubIssue(repo, content, token) {
 
 // Get issues created by the user
 function fetchUserIssues(repo, username, token) {
-  const url = `https://api.github.com/repos/${repo}/issues?creator=${username}&labels=valid&state=all`
+  const url = `https://api.github.com/repos/${repo}/issues?creator=${username}&state=all`
   const options = {
     method: 'GET',
     headers: {

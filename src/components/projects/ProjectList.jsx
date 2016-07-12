@@ -31,6 +31,7 @@ const ProjectList = React.createClass({
               deltaFilter={ this.props.deltaFilter}
               showURL={ this.props.showURL }
               showMetrics={ this.props.showMetrics }
+              viewOptions={this.props.viewOptions}
             />
           </div>)
         }
