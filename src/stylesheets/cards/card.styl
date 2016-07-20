@@ -27,8 +27,8 @@
       color: inherited
       background-color: #FFF7EB
       color: black
-    .big-numbers
-      float: right
+    // .big-numbers
+    //   float: right
 
 .card-homepage
   .header
@@ -37,9 +37,18 @@
       padding: .5rem 1rem
   .icon
     color: $logoColors[1]
-  .title-section
-    margin-bottom: 0.5rem
+  .avatar-section
+    display: flex
+    align-items: center
+    border-bottom: 1px dashed $cardBorderColor
+  .project-title
+    flex-grow: 1
+    margin-left: 0.5rem
+  .big-numbers
+    margin-right: .5rem
+    min-width: 60px 
   .description-section
+    padding: 1rem
     overflow: hidden
     text-overflow: ellipsis
     white-space: nowrap

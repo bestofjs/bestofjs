@@ -41,6 +41,7 @@ function processProject(item) {
     version: item.version,
     quality: item.quality,
     score: item.score,
+    owner_id: item.owner_id,
     stats: {
       total: item.stars,
       daily: trends[0],

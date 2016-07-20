@@ -5,10 +5,11 @@ import Description from '../common/utils/Description'
 import Delta from '../common/utils/Delta'
 import Stars from '../common/utils/Stars'
 import TagLabel from '../tags/TagLabelCompact'
+import ProjectAvatar from '../common/ProjectAvatar'
 
 const ProjectTableView = ({ projects, children, showStars, showDelta, deltaFilter }) => (
   <div className="card card-homepage">
-    <div className="card-row">
+    <div className="">
       { children }
     </div>
     {projects.map(project => (
@@ -25,8 +26,10 @@ const ProjectTableView = ({ projects, children, showStars, showDelta, deltaFilte
 
 ProjectTableView.Row = ({ project, showStars, showDelta, deltaFilter, showDescription = true }) => (
   <div className="card-row">
-    <Link className="inner link" to={`/projects/${project.slug}`}>
-      <div>
+    <Link className="link" to={`/projects/${project.slug}`}>
+      <div className="avatar-section">
+        <ProjectAvatar project={project} size={75} />
+        <div className="project-title">{ project.name }</div>
         <div className="big-numbers">
           { showStars && (
             <div className="total">
@@ -49,14 +52,13 @@ ProjectTableView.Row = ({ project, showStars, showDelta, deltaFilter, showDescri
             </div>
           ) }
         </div>
-        <div className="title-section">{ project.name }</div>
       </div>
-      {showDescription && (
-        <div className="description-section text-secondary">
-          <Description text={project.description} />
-        </div>)
-      }
     </Link>
+    {showDescription && (
+      <div className="description-section text-secondary">
+        <Description text={project.description} />
+      </div>)
+    }
     <div className="inner tags-section">
       {project.tags.map(tag =>
         <TagLabel tag={tag} key={ project.id + tag.id } />

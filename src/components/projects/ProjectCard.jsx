@@ -7,6 +7,7 @@ import DeltaBar from '../common/utils/DeltaBar'
 import Stars from '../common/utils/Stars'
 import Description from '../common/utils/Description'
 import NpmSection from './NpmSection'
+import Avatar from '../common/ProjectAvatar'
 
 import fromNow from '../../helpers/fromNow'
 
@@ -53,7 +54,8 @@ const ProjectCard = (
     showDelta,
     showTags,
     showMetrics,
-    viewOptions = {}
+    viewOptions = {},
+    showAvatar = true
   }) => {
   const path = `/projects/${project.slug}`
   return (
@@ -63,9 +65,13 @@ const ProjectCard = (
         className="card-block"
       >
         <header>
-          <div className="header-ranking">
-            { index + 1 }
-          </div>
+          {showAvatar ? (
+            <Avatar project={project} size={75} />
+          ) : (
+            <div className="header-ranking">
+              { index + 1 }
+            </div>
+          )}
 
           <div className="header-name">
             { project.name }

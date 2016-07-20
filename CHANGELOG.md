@@ -1,5 +1,8 @@
 # Change log
 
+# 0.6.0 - 2016-07-xx
+* Add project avatar
+
 # 0.5.1 - 2016-07-12
 * Add data from npms.io
 * Add view options in tag page
