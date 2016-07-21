@@ -39,16 +39,13 @@ const TagFilter = React.createClass({
                 currentValue={ui.starFilter}
                 onToggle={uiActions.toggleStarFilter}
               />
-
-              <div className="card-row">
-                <ProjectViewOptions
-                  values={ui.viewOptions}
-                  onChange={uiActions.toggleViewOption}
-                  open={ui.showViewOptions}
-                  onToggle={uiActions.toggleShowViewOptions}
-                  sortFilter={ui.starFilter}
-                />
-              </div>
+              <ProjectViewOptions
+                values={ui.viewOptions}
+                onChange={uiActions.toggleViewOption}
+                open={ui.showViewOptions}
+                onToggle={uiActions.toggleShowViewOptions}
+                sortFilter={ui.starFilter}
+              />
             </div>
           </div>
         ) }
