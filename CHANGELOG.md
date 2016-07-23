@@ -1,5 +1,8 @@
 # Change log
 
+# 0.6.1 - 2016-07-23
+* Add 'Suggest a new Hall of Fame member' button
+
 # 0.6.0 - 2016-07-21
 * Add project avatar
 

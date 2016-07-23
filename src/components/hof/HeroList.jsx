@@ -3,6 +3,7 @@ import React from 'react'
 import HeroCard from './HeroCard'
 import AnonymousHero from './AnonymousHero'
 import MainContent from '../common/MainContent'
+import MoreHeroes from './MoreHeroes'
 
 export default ({ heroes = [], you, auth, onLogin, isHero, showDetails }) => (
   <MainContent>
@@ -16,14 +17,6 @@ export default ({ heroes = [], you, auth, onLogin, isHero, showDetails }) => (
       Here are some of the greatest developers, authors and speakers of the JavaScript community.<br />
       It is like the basket-ball Hall of Fame... except they are all still in activity!
     </div>
-    {false && heroes.map(hero => (
-      <div>
-        {'* '}
-        {hero.name}
-        {' '}
-        https://github.com/{hero.login}
-      </div>
-    ))}
     <div className="hero-list" style={{ marginTop: '1em' }}>
       {heroes.map(hero => (
         <div key={hero.username}>
@@ -43,7 +36,12 @@ export default ({ heroes = [], you, auth, onLogin, isHero, showDetails }) => (
             you
           />
         )}
+      </div>
     </div>
-    </div>
+    <MoreHeroes
+      handleClick={onLogin}
+      isLoggedin={auth.username !== ''}
+      pending={auth.pending}
+    />
   </MainContent>
 )

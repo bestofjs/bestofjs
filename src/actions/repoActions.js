@@ -42,6 +42,31 @@ export function addProject(form, auth) {
   }
 }
 
+// submit handler called by `SubmitHeroPage` container
+export function addHero(form, auth) {
+  return dispatch => {
+    dispatch({
+      type: 'ADD_HERO_REQUEST',
+      payload: form
+    })
+    return createIssueAddHero(form.hero, form.comment, auth.github_access_token)
+      .then(json => {
+        dispatch({
+          type: 'ADD_HERO_SUCCESS',
+          payload: json
+        })
+        msgbox('Thank you! An issue has been created in the repo.')
+        browserHistory.push('/requests')
+      })
+      .catch(err => {
+        msgbox(
+          `Sorry, we were unable to create the issue. ${err}`,
+          { type: 'ERROR' }
+        )
+      })
+  }
+}
+
 export function createIssueAddProject(project, comment, token) {
   const repo = getApi('ISSUES_REPO')
   const url = `https://github.com/${project}`
@@ -68,6 +93,19 @@ function createGithubIssue(repo, content, token) {
   return fetch(url, options)
     .then(r => checkStatus(r))
     .then(r => r.json())
+}
+
+// Add a hall of famer request
+export function createIssueAddHero(username, comment, token) {
+  const repo = getApi('ISSUES_REPO')
+  const url = `https://github.com/${username}`
+  const content = {
+    title: `Add \`${username}\` user to the Hall of Fame`,
+    body: `${url}\n${comment}
+    `,
+    labels: ['user request', 'add hero', 'valid']
+  }
+  return createGithubIssue(repo, content, token)
 }
 
 // Get issues created by the user

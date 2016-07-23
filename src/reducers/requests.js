@@ -10,6 +10,7 @@ export default function (state = defaultState, action) {
       issues: action.payload
     })
   case 'ADD_PROJECT_SUCCESS':
+  case 'ADD_HERO_SUCCESS':
     return ({
       issues: [action.payload, ...state.issues]
     })
