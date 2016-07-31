@@ -2,6 +2,7 @@
 
 # 0.6.1 - 2016-07-23
 * Add 'Suggest a new Hall of Fame member' button
+* Compute project `slug` field from project name instead of using the repository name (because 2 projects have the same `framework` repo name!)
 
 # 0.6.0 - 2016-07-21
 * Add project avatar

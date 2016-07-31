@@ -1,8 +1,9 @@
-import * as helpers from './helpers/projectHelpers';
+import * as helpers from './helpers/projectHelpers'
+import slugify from './helpers/slugify'
 
 // Called by `entry.jsx` to get initial state from project data
 
-const ACCESS_TOKEN = 'bestofjs_access_token';
+const ACCESS_TOKEN = 'bestofjs_access_token'
 
 const defaultState = {
   entities: {
@@ -19,7 +20,7 @@ const defaultState = {
     username: '',
     pending: false
   }
-};
+}
 
 function processProject(item) {
   const days = [1, 7, 30, 90]
@@ -29,7 +30,7 @@ function processProject(item) {
   const result = {
     repository: 'https://github.com/' + item.full_name,
     id: item._id,
-    slug: item.full_name.substr(item.full_name.indexOf('/') + 1),
+    slug: slugify(item.name),
     tags: item.tags,
     deltas: item.deltas,
     description: item.description,
@@ -54,10 +55,10 @@ function processProject(item) {
 }
 
 export function getInitialState(data, profile) {
-  const state = defaultState;
+  const state = defaultState
 
   // Format id and repository fields
-  const allProjects = data.projects.map(processProject);
+  const allProjects = data.projects.map(processProject)
 
   // Extra map added to lookup a project by database id
   const allById = {}
@@ -69,7 +70,7 @@ export function getInitialState(data, profile) {
   })
 
   // Create a hash map [tag code] => number of projects
-  const counters = getTagCounters(data.projects);
+  const counters = getTagCounters(data.projects)
 
   // Format tags array
   const allTags = data.tags
@@ -78,12 +79,12 @@ export function getInitialState(data, profile) {
       id: tag.code,
       name: tag.name,
       counter: counters[tag.code] // add counter data
-    }));
+    }))
 
   // Create tags entities
   allTags.forEach(tag => {
-    state.entities.tags[tag.id] = tag;
-  });
+    state.entities.tags[tag.id] = tag
+  })
 
   const sortAllProjects = fn => (
     helpers.sortBy(allProjects.slice(0), fn)
@@ -117,33 +118,33 @@ export function getInitialState(data, profile) {
     tagIds: allTags.map(item => item.id),
     lastUpdate: data.date,
     allById
-  };
+  }
 
   if (profile) {
-    const token = window.localStorage[ACCESS_TOKEN];
+    const token = window.localStorage[ACCESS_TOKEN]
     state.auth = {
       username: profile.nickname,
       token,
       pending: false
-    };
+    }
   }
 
-  return state;
+  return state
 }
 
 // return a hash object
 // key: tag code
 // value: number of project for the tag
 function getTagCounters(projects) {
-  const counters = {};
+  const counters = {}
   projects.forEach(function (project) {
     project.tags.forEach(function (id) {
       if (counters[id]) {
-        counters[id]++;
+        counters[id]++
       } else {
-        counters[id] = 1;
+        counters[id] = 1
       }
-    });
-  });
-  return counters;
+    })
+  })
+  return counters
 }
