@@ -49,7 +49,8 @@ function processProject(item) {
       weekly: trends[1],
       monthly: trends[2],
       quaterly: trends[3]
-    }
+    },
+    svglogo: item.svglogo
   }
   return result
 }

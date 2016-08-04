@@ -1,10 +1,10 @@
 {
   "name": "bestofjs-webui",
-  "version": "0.6.1",
+  "version": "0.6.2",
   "description": "bestof.js.org front-end web application",
   "main": "",
   "engines" : {
-     "node" : ">=5.10"
+     "node" : ">=6.2.1"
    },
   "scripts": {
     "lint": "eslint src --ext .js --ext .jsx",
