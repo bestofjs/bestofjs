@@ -2,12 +2,13 @@ require('isomorphic-fetch')
 import browserHistory from 'react-router/lib/browserHistory'
 
 import getApi from '../../config/api'
+import { createGithubIssue } from '../api/userContent'
 import msgbox from '../helpers/msgbox'
 
-export function getUserRequests(username, token) {
+export function getUserRequests(username) {
   return dispatch => {
     const repo = getApi('ISSUES_REPO')
-    return fetchUserIssues(repo, username, token)
+    return fetchUserIssues(repo, username)
       .then(json => {
         dispatch({
           type: 'FETCH_ISSUES_SUCCESS',
@@ -24,7 +25,7 @@ export function addProject(form, auth) {
       type: 'ADD_PROJECT_REQUEST',
       payload: form
     })
-    return createIssueAddProject(form.project, form.comment, auth.github_access_token)
+    return createIssueAddProject(form.project, form.comment, auth.token)
       .then(json => {
         dispatch({
           type: 'ADD_PROJECT_SUCCESS',
@@ -80,20 +81,20 @@ export function createIssueAddProject(project, comment, token) {
 }
 
 // Generic function to create an issue in a given Github repo
-function createGithubIssue(repo, content, token) {
-  const url = `https://api.github.com/repos/${repo}/issues`
-  const options = {
-    body: JSON.stringify(content),
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': `token ${token}`
-    }
-  }
-  return fetch(url, options)
-    .then(r => checkStatus(r))
-    .then(r => r.json())
-}
+// function createGithubIssue(repo, content, token) {
+//   const url = `https://api.github.com/repos/${repo}/issues`
+//   const options = {
+//     body: JSON.stringify(content),
+//     method: 'POST',
+//     headers: {
+//       'Content-Type': 'application/json',
+//       'Authorization': `token ${token}`
+//     }
+//   }
+//   return fetch(url, options)
+//     .then(r => checkStatus(r))
+//     .then(r => r.json())
+// }
 
 // Add a hall of famer request
 export function createIssueAddHero(username, comment, token) {
@@ -109,13 +110,10 @@ export function createIssueAddHero(username, comment, token) {
 }
 
 // Get issues created by the user
-function fetchUserIssues(repo, username, token) {
+function fetchUserIssues(repo, username) {
   const url = `https://api.github.com/repos/${repo}/issues?creator=${username}&state=all`
   const options = {
     method: 'GET',
-    headers: {
-      'Authorization': `token ${token}` // use the github token to avoid "API rate limited problem"
-    }
   }
   return fetch(url, options)
     .then(r => checkStatus(r))

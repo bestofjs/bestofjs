@@ -32,8 +32,8 @@ export function start() {
           .then(profile => {
             if (profile) {
               const action = dispatch(loginSuccess(profile, token.id_token))
-              const { username, github_access_token } = action.payload
-              return dispatch(getUserRequests(username, github_access_token))
+              const { username } = action.payload
+              return dispatch(getUserRequests(username))
             } else {
               return dispatch(loginFailure())
             }
@@ -52,10 +52,10 @@ export function start() {
 export function login() {
   // Save the current URL so that we can redirect the user when we are back
   if (urlManager) urlManager.save()
-  const client_id = 'MJjUkmsoTaPHvp7sQOUjyFYOm2iI3chx'
+  const client_id = 'dadmCoaRkXs0IhWwnDmyWaBOjLzJYf4s'
   const redirect_uri = `${self.location.origin}%2Fauth0.html`
-  const auth0Client = 'eyJuYW1lIjoiYXV0aDAuanMiLCJ2ZXJzaW9uIjoiNi44LjAifQ'
-  const url = `${APP_URL}/authorize?scope=openid&response_type=token&connection=github&sso=true&client_id=${client_id}&redirect_uri=${redirect_uri}&auth0Client=${auth0Client}`
+  // const auth0Client = 'eyJuYW1lIjoiYXV0aDAuanMiLCJ2ZXJzaW9uIjoiNi44LjAifQ'
+  const url = `${APP_URL}/authorize?scope=openid&response_type=token&connection=github&sso=true&client_id=${client_id}&redirect_uri=${redirect_uri}`
   return dispatch => {
     dispatch(loginRequest())
     // Go to auth0 authenication page

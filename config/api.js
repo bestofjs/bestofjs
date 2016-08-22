@@ -7,6 +7,7 @@ const setup = {
     GET_README: 'https://webtask.it.auth0.com/api/run/wt-mikeair-gmail_com-0/d4bf0bb7021ce02e77d5e2dceac010c7?webtask_no_cache=1',
 
     USER_CONTENT: 'https://webtask.it.auth0.com/api/run/wt-mikeair-gmail_com-0/user-content-api-dev',
+    // USER_CONTENT: 'http://localhost:3000',
 
     ISSUES_REPO: 'michaelrambeau/bestofjs-sandbox'
   },
@@ -18,7 +19,7 @@ const setup = {
     // Link to `master` branch code
     GET_README: 'https://webtask.it.auth0.com/api/run/wt-mikeair-gmail_com-0/85801138b3a9d89112d0a04eef536d1f?webtask_no_cache=1',
 
-    USER_CONTENT: 'https://webtask.it.auth0.com/api/run/wt-mikeair-gmail_com-0/user-content-api-v1',
+    USER_CONTENT: 'https://webtask.it.auth0.com/api/run/wt-mikeair-gmail_com-0/user-content-api-v2',
 
     ISSUES_REPO: 'michaelrambeau/bestofjs'
   },

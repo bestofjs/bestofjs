@@ -35,7 +35,7 @@ function apiRequest(url, token, options) {
 // - getAll()
 // - create()
 // - update()
-function createApi(endPoint) {
+export function createUserContentApi(endPoint) {
   const api = {
     getAll() {
       return apiRequest(endPoint);
@@ -57,4 +57,17 @@ function createApi(endPoint) {
   };
   return api;
 }
-export default createApi;
+
+// Create an issue in the given repository
+// content: { title, body, tags}
+export function createGithubIssue(repo, content, token) {
+  const body = {
+    repo,
+    content
+  }
+  const options = {
+    method: 'POST',
+    body: JSON.stringify(body)
+  }
+  return apiRequest(`create-issue`, token, options)
+}

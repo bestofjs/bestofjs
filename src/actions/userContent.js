@@ -1,16 +1,16 @@
 import browserHistory from 'react-router/lib/browserHistory'
 import msgbox from '../helpers/msgbox'
 
-import createApi from '../api/userContent'
+import { createUserContentApi } from '../api/userContent'
 import * as crud from './crudActions'
 
 const settings = {
   'link': {
-    api: createApi('links'),
+    api: createUserContentApi('links'),
     label: 'link'
   },
   'review': {
-    api: createApi('reviews'),
+    api: createUserContentApi('reviews'),
     label: 'review'
   }
 }
