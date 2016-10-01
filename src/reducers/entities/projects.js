@@ -4,7 +4,7 @@ export default function (state = {}, action) {
   switch (action.type) {
   case 'GET_README_SUCCESS':
     const project = Object.assign({}, state[action.id], {
-      readme: action.data.readme
+      readme: action.html
     });
     return Object.assign({}, state, {
       [action.id]: project

@@ -1,4 +1,4 @@
-import fetchJSON from '../helpers/fetchJSON';
+import { fetchHTML } from '../helpers/fetch';
 import log from '../helpers/log';
 import api from '../../config/api';
 
@@ -15,11 +15,11 @@ function requestReadme(id) {
   };
 }
 
-function getReadmeSuccess(id, json) {
+function getReadmeSuccess(id, html) {
   return {
     type: GET_README_SUCCESS,
     id,
-    data: json
+    html
   };
 }
 function getReadmeFailure(id) {
@@ -43,8 +43,8 @@ export function fetchReadme(project) {
     log('Fetching README.md...', project);
     dispatch(requestReadme(id));
     const webtaskUrl = api('GET_README');
-    return fetchJSON(`${webtaskUrl}&url=${project.repository}`)
-      .then(json => dispatch(getReadmeSuccess(id, json)))
+    return fetchHTML(`${webtaskUrl}/${project.full_name}`)
+      .then(html => dispatch(getReadmeSuccess(id, html)))
       .catch((response) => dispatch(getReadmeFailure(id, response)));
   };
 }

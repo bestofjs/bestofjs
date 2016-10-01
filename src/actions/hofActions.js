@@ -1,4 +1,4 @@
-import fetchJSON from '../helpers/fetchJSON'
+import { fetchJSON } from '../helpers/fetch'
 import api from '../../config/api'
 
 function fetchHeroes() {

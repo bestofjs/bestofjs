@@ -1,5 +1,5 @@
 {
-  "extends": "airbnb",
+  "extends": "airbnb-base",
   "plugins": [
     "react"
   ],
@@ -25,6 +25,8 @@
     "dot-notation": 1,
     "react/prop-types": 0,
     "react/no-multi-comp": 0,
-    "no-else-return": 0
+    "no-else-return": 0,
+    "arrow-body-style": 0,
+    "no-underscore-dangle": 0
   }
 }

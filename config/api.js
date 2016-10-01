@@ -3,8 +3,9 @@ const setup = {
 
     GET_PROJECTS: 'https://bestofjs-api-dev.firebaseapp.com/',
 
-    // URL of the "get-readme" micro-service raw code on the `DEV` branch
-    GET_README: 'https://webtask.it.auth0.com/api/run/wt-mikeair-gmail_com-0/d4bf0bb7021ce02e77d5e2dceac010c7?webtask_no_cache=1',
+    // GET_README: 'https://webtask.it.auth0.com/api/run/wt-mikeair-gmail_com-0/d4bf0bb7021ce02e77d5e2dceac010c7?webtask_no_cache=1',
+    // GET_README: 'http://localhost:3000',
+    GET_README: 'https://get-github-readme-v1.now.sh',
 
     USER_CONTENT: 'https://webtask.it.auth0.com/api/run/wt-mikeair-gmail_com-0/user-content-api-dev',
     // USER_CONTENT: 'http://localhost:3000',

@@ -1,3 +1,5 @@
+/* globals window, self */
+
 // auth0 actions
 // 3 exported functions:
 // - start()
@@ -9,6 +11,7 @@ import browserHistory from 'react-router/lib/browserHistory'
 import msgbox from '../helpers/msgbox'
 import log from '../helpers/log'
 import UrlManager from './urlManager'
+import { fetchJSON } from '../helpers/fetch'
 
 import { getUserRequests } from './repoActions'
 
@@ -84,25 +87,13 @@ function getProfile(token) {
     body: `id_token=${token}`,
     method: 'POST',
     headers: {
-      'Accept': 'application/json',
+      Accept: 'application/json',
       // do not use Content-Type: 'application/json' to avoid extra 'OPTIONS' requests (#9)
       'Content-Type': 'application/x-www-form-urlencoded'
     }
   }
   const url = `${APP_URL}/tokeninfo`
-  return fetch(url, options)
-    .then(response => checkStatus(response))
-    .then(response => response.json())
-}
-
-function checkStatus(response) {
-  if (response.status >= 200 && response.status < 300) {
-    return response
-  } else {
-    const error = new Error(response.statusText)
-    error.response = response
-    throw error
-  }
+  return fetchJSON(url, options)
 }
 
 export function loginRequest() {
@@ -153,7 +144,7 @@ function logoutSuccess() {
 export function logout() {
   return dispatch => {
     dispatch(logoutRequest())
-    const p = new Promise(function (resolve) {
+    const p = new Promise(resolve => {
       // Do not call window.auth0.logout() that will redirect to Github signout page
       resetToken()
       resolve()

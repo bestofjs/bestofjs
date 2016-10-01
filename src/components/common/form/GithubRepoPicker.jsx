@@ -1,12 +1,10 @@
 import React from 'react'
-import { Async } from 'react-select'
 
-import Stars from '../utils/Stars'
+import { fetchJSON } from '../../../helpers/fetch'
 
 function getOptions(input) {
   const url = `https://api.github.com/search/repositories?q=${input}&sort=stars&order=desc`
-  return fetch(url)
-    .then(response => response.json())
+  return fetchJSON(url)
     .then(json => {
       const items = json.items.map(item => ({
         value: item.full_name,
@@ -26,7 +24,11 @@ function renderOption(option) {
     <div className="repo-picker-option">
       <div className="first-row">
         <div className="icon">
-          <img src={`${option.avatar}&size=${avatarSize}`} alt="icon" width={avatarSize} height={avatarSize}/>
+          <img
+            src={`${option.avatar}&size=${avatarSize}`}
+            alt="icon" width={avatarSize}
+            height={avatarSize}
+          />
         </div>
         <div className="title">
           <span className="repo-name">{option.label}</span>

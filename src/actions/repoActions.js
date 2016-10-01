@@ -1,6 +1,6 @@
-require('isomorphic-fetch')
 import browserHistory from 'react-router/lib/browserHistory'
 
+import { fetchJSON } from '../helpers/fetch'
 import getApi from '../../config/api'
 import { createGithubIssue } from '../api/userContent'
 import msgbox from '../helpers/msgbox'
@@ -80,22 +80,6 @@ export function createIssueAddProject(project, comment, token) {
   return createGithubIssue(repo, content, token)
 }
 
-// Generic function to create an issue in a given Github repo
-// function createGithubIssue(repo, content, token) {
-//   const url = `https://api.github.com/repos/${repo}/issues`
-//   const options = {
-//     body: JSON.stringify(content),
-//     method: 'POST',
-//     headers: {
-//       'Content-Type': 'application/json',
-//       'Authorization': `token ${token}`
-//     }
-//   }
-//   return fetch(url, options)
-//     .then(r => checkStatus(r))
-//     .then(r => r.json())
-// }
-
 // Add a hall of famer request
 export function createIssueAddHero(username, comment, token) {
   const repo = getApi('ISSUES_REPO')
@@ -115,9 +99,8 @@ function fetchUserIssues(repo, username) {
   const options = {
     method: 'GET',
   }
-  return fetch(url, options)
+  return fetchJSON(url, options)
     .then(r => checkStatus(r))
-    .then(r => r.json())
 }
 
 function checkStatus(response) {

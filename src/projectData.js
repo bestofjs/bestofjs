@@ -28,6 +28,7 @@ function processProject(item) {
     (t, i) => item.trends.length > i ? Math.round(item.trends[i] / t) : null
   )
   const result = {
+    full_name: item.full_name,
     repository: 'https://github.com/' + item.full_name,
     id: item._id,
     slug: slugify(item.name),

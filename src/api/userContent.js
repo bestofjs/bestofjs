@@ -1,4 +1,4 @@
-require('isomorphic-fetch');
+import { fetchJSON } from '../helpers/fetch'
 import getApi from '../../config/api';
 
 const debug = false;
@@ -9,7 +9,7 @@ function apiRequest(url, token, options) {
   const defaultOptions = {
     method: 'GET',
     headers: {
-      'Accept': 'application/json',
+      Accept: 'application/json'
       // no 'Content-Type' header for GET requests to avoid `OPTIONS` requests (#14)
     }
   };
@@ -18,16 +18,7 @@ function apiRequest(url, token, options) {
     requestOptions.headers['Content-Type'] = 'application/json';
   }
   if (token) requestOptions.headers.token = token;
-  return fetch(`${API_BASE_URL}/${url}`, requestOptions)
-    .then(response => {
-      if (response.status >= 400) {
-        return response.json()
-          .then(json => {
-            throw new Error(json.message);
-          });
-      }
-      return response.json();
-    });
+  return fetchJSON(`${API_BASE_URL}/${url}`, requestOptions)
 }
 
 // From a given URL end point (`reviews` or `links` for example)
@@ -52,7 +43,7 @@ export function createUserContentApi(endPoint) {
         method: 'PUT',
         body: JSON.stringify(body)
       };
-      return apiRequest(`${endPoint}/${body._id}`, token, options);
+      return apiRequest(`${endPoint}/${body._id}`, token, options)
     }
   };
   return api;
@@ -69,5 +60,5 @@ export function createGithubIssue(repo, content, token) {
     method: 'POST',
     body: JSON.stringify(body)
   }
-  return apiRequest(`create-issue`, token, options)
+  return apiRequest('create-issue', token, options)
 }

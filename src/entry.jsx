@@ -3,7 +3,7 @@ require('es6-promise').polyfill()
 
 // Object.assign() polyfill for IE (used in the reducer)
 import './helpers/es6-polyfill.js'
-import fetchJSON from './helpers/fetchJSON'
+import { fetchJSON } from './helpers/fetch'
 
 import React from 'react'
 import { render } from 'react-dom'
