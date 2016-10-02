@@ -47,20 +47,20 @@ require('./stylesheets/tooltip/balloon.css')
 require('../node_modules/react-select/dist/react-select.css')
 
 // Track every router update (except project views that are tracked elsewhere)
-function trackPageView(state) {
+function trackPageView (state) {
   const path = state.location.pathname
   const routes = state.routes
   if (routes.length > 1 && routes[1].path === 'projects/:id') return false
   track(path)
 }
 
-function onRouterUpdate() {
+function onRouterUpdate () {
   menu.hide()
   trackPageView(this.state)
 }
 
 // Launch the Redux application once we get data
-function startRedux(state) {
+function startRedux (state) {
   const initialState = state
   const store = configureStore(initialState)
   if (process.env.NODE_ENV === 'development') window.store = store
@@ -87,17 +87,17 @@ function startRedux(state) {
   menu.start()
 }
 
-function fetchData() {
+function fetchData () {
   const isLocal = window.bestofjs && window.bestofjs.projects
   return isLocal ? fetchLocalData() : fetchServerData()
 }
 
-function fetchLocalData() {
+function fetchLocalData () {
   // read data from global `bestofjs` object
   return Promise.resolve(window.bestofjs.projects)
 }
 
-function fetchServerData() {
+function fetchServerData () {
   const url = `${api('GET_PROJECTS')}projects.json`
   return fetchJSON(url)
     .then(json => new Promise(resolve => {
@@ -106,16 +106,15 @@ function fetchServerData() {
     }))
 }
 
-function renderApp(store) {
+function renderApp (store) {
   render(
-    <Provider store={ store }>
+    <Provider store={store}>
       <Router
         history={browserHistory}
         onUpdate={onRouterUpdate}
         render={applyRouterMiddleware(useScroll())}
-      >
-         {getRoutes(10)}
-      </Router>
+        children={getRoutes(10)}
+      />
     </Provider>,
     window.document.getElementById('app')
   )

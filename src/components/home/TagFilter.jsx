@@ -33,6 +33,7 @@ const TagFilter = React.createClass({
 
               <ProjectFilterTabs
                 currentValue={ui.starFilter}
+                tag={tag.id}
                 onToggle={uiActions.toggleStarFilter}
               />
               <ProjectFilterCombobox

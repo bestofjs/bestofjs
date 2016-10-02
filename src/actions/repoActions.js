@@ -15,6 +15,12 @@ export function getUserRequests(username) {
           payload: json
         })
       })
+      .catch(e => {
+        dispatch({
+          type: 'FETCH_ISSUES_FAILURE',
+          payload: e
+        })
+      })
   }
 }
 
@@ -100,15 +106,4 @@ function fetchUserIssues(repo, username) {
     method: 'GET',
   }
   return fetchJSON(url, options)
-    .then(r => checkStatus(r))
-}
-
-function checkStatus(response) {
-  if (response.status >= 200 && response.status < 300) {
-    return response
-  } else {
-    const error = new Error(response.statusText)
-    error.response = response
-    throw error
-  }
 }

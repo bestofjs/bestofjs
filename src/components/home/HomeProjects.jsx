@@ -26,35 +26,18 @@ const HomeB = ({
     <div className="col-sm-6">
       <div className="box">
         <ProjectList
-          projects = { hotProjects }
-          maxStars = { maxStars }
-          isLoggedin= { isLoggedin }
+          title={'Hot projects'}
+          comment={`By stars added ${addedSince(hotFilter)} on Github`}
+          icon={'octicon-flame'}
+          projects={hotProjects}
+          maxStars={maxStars}
+          isLoggedin={isLoggedin}
           showDelta
           deltaFilter={hotFilter}
           showStars={false}
           showIndex
           showMetrics={showMetrics}
-        >
-          <div className="header">
-            <div className="inner">
-              <span className="mega-octicon octicon-flame icon"></span>
-              {' '}
-              <span className="big">Hot projects</span>
-              {false && <p className="comment">
-                By number of stars added {addedSince(hotFilter)} on Github
-              </p>}
-            </div>
-          </div>
-          <ProjectFilterTabs
-            currentValue={hotFilter}
-            onToggle={uiActions.toggleHotFilter}
-            category="trend"
-          />
-          <ProjectFilterCombobox
-            currentValue={hotFilter}
-            onToggle={uiActions.toggleHotFilter}
-          />
-        </ProjectList>
+        />
       </div>
     </div>
 
@@ -62,25 +45,17 @@ const HomeB = ({
     <div className="col-sm-6">
       <div className="box">
         <ProjectList
-          projects = { popularProjects }
-          maxStars = { maxStars }
-          isLoggedin= { isLoggedin }
+          title={'Most popular projects'}
+          comment={'By total number of stars on Github'}
+          icon={'octicon-star'}
+          projects={popularProjects}
+          maxStars={maxStars}
+          isLoggedin={isLoggedin}
           showStars
           showDelta={false}
           showIndex
           showMetrics={showMetrics}
-        >
-          <div className="header">
-            <div className="inner">
-              <span className="mega-octicon octicon-star icon"></span>
-              {' '}
-              <span className="big">Popular projects</span>
-              <div className="comment" style={{ padding: '0.3rem 0', marginLeft: 34, borderBottom: 'solid 3px transparent' }}>
-                By total number of stars on Github
-              </div>
-            </div>
-          </div>
-        </ProjectList>
+        />
       </div>
     </div>
   </div>

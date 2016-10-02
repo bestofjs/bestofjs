@@ -7,10 +7,16 @@ import Stars from '../common/utils/Stars'
 import TagLabel from '../tags/TagLabelCompact'
 import ProjectAvatar from '../common/ProjectAvatar'
 
-const ProjectTableView = ({ projects, children, showStars, showDelta, deltaFilter }) => (
-  <div className="card card-homepage">
-    <div className="">
-      { children }
+const ProjectTableView = ({ title, comment, icon, projects, showStars, showDelta, deltaFilter }) => (
+  <div className="project-table">
+    <div className="project-table-header">
+      <div className="icon">
+        <span className={`mega-octicon ${icon}`} />
+      </div>
+      <div className="main-part">
+        <div className="title">{title}</div>
+        <div className="comment">{comment}</div>
+      </div>
     </div>
     {projects.map(project => (
       <ProjectTableView.Row
@@ -25,7 +31,7 @@ const ProjectTableView = ({ projects, children, showStars, showDelta, deltaFilte
 )
 
 ProjectTableView.Row = ({ project, showStars, showDelta, deltaFilter, showDescription = true }) => (
-  <div className="card-row">
+  <div className="project-table-row">
     <Link className="link" to={`/projects/${project.slug}`}>
       <div className="avatar-section">
         <ProjectAvatar project={project} size={75} />
@@ -34,7 +40,7 @@ ProjectTableView.Row = ({ project, showStars, showDelta, deltaFilter, showDescri
           { showStars && (
             <div className="total">
               <Stars
-                value={ project.stars }
+                value={project.stars}
                 icon
               />
             </div>
@@ -43,11 +49,11 @@ ProjectTableView.Row = ({ project, showStars, showDelta, deltaFilter, showDescri
           { showDelta && project.deltas.length > 0 && (
             <div className="delta">
               <Delta
-                value={ project.stats[deltaFilter] }
+                value={project.stats[deltaFilter]}
                 big
                 color={false}
                 icon
-                perDay={deltaFilter !== 'total' && deltaFilter !== 'daily' }
+                perDay={deltaFilter !== 'total' && deltaFilter !== 'daily'}
               />
             </div>
           ) }
@@ -61,7 +67,7 @@ ProjectTableView.Row = ({ project, showStars, showDelta, deltaFilter, showDescri
     }
     <div className="inner tags-section">
       {project.tags.map(tag =>
-        <TagLabel tag={tag} key={ project.id + tag.id } />
+        <TagLabel tag={tag} key={project.id + tag.id} />
       )}
     </div>
   </div>

@@ -2,6 +2,8 @@
 
 # 0.6.3 - 2016-10-01
 * Use micro-service hosted on `now.sh` to get project README.md
+* Add URLs for direct access to trend filters, for example `/tags/react/trends/today`
+* Remove tabs from 'Hot projects' table in the homepage
 
 # 0.6.2 - 2016-08-04
 * Display a SVG icon for some projects (React, Awesome, Redux...), instead of the default repo owner avatar

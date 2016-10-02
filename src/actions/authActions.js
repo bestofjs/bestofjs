@@ -41,11 +41,13 @@ export function start() {
               return dispatch(loginFailure())
             }
           })
-          .catch(() => {
-            return dispatch(loginFailure())
-          })
+          // .catch((e) => {
+          //   console.error('getProfile error', e)
+          //   return dispatch(loginFailure())
+          // })
       })
-      .catch(() => {
+      .catch((e) => {
+        console.error(e)
         return dispatch(loginFailure())
       })
   }
@@ -82,7 +84,7 @@ function getToken() {
 
 // Return UserProfile for a given `id_token`
 function getProfile(token) {
-  if (!token) return Promise.reject('Token is missing!')
+  if (!token) return Promise.reject(new Error('Token is missing!'))
   const options = {
     body: `id_token=${token}`,
     method: 'POST',

@@ -1,32 +1,36 @@
 {
-  "extends": "airbnb-base",
-  "plugins": [
-    "react"
-  ],
+  "parser"  : "babel-eslint",
   "parserOptions": {
     "ecmaVersion": 6,
     "sourceType": "module",
     "ecmaFeatures": {
-        "jsx": true
+      "jsx": true
     }
   },
+  "extends" : [
+    "standard",
+    "standard-react",
+  ],
+  "plugins": [
+    "babel",
+    "import"
+  ],
   "rules": {
-    "semi": 0,
-    "indent": [2, 2],
-    "comma-dangle": 0,
-    "no-var": 1,
-    "vars-on-top": 0,
-    "curly": 0,
-    "default-case": 0,
-    "func-names": 0,
-    "no-use-before-define": 0,
-    "camelcase": 0,
-    "quotes": 1,
-    "dot-notation": 1,
     "react/prop-types": 0,
-    "react/no-multi-comp": 0,
-    "no-else-return": 0,
-    "arrow-body-style": 0,
-    "no-underscore-dangle": 0
+    "jsx-quotes": 0,
+    "import/no-unresolved": 2,
+    "import/named": 2,
+    "import/namespace": 2,
+    "import/default": 2,
+    "import/export": 2
+  },
+  "settings": {
+    "import/resolve": {
+      "extensions": [ ".js", ".jsx" ]
+    },
+    "import/extensions": [
+      ".js",
+      ".jsx"
+    ]
   }
 }

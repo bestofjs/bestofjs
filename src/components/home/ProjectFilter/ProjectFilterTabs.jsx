@@ -1,7 +1,8 @@
 import React from 'react'
+import { Link } from 'react-router'
 import defaultOptions from './items'
 
-export default ({ currentValue, onToggle, items = defaultOptions, category = '*' }) => (
+export default ({ tag, currentValue, onToggle, items = defaultOptions, category = '*' }) => (
   <div
     className="hot-filter-menu project-filter-tabs"
   >
@@ -12,9 +13,9 @@ export default ({ currentValue, onToggle, items = defaultOptions, category = '*'
           key={item.value}
           data-balloon={`Sort by ${item.comment}`}
           className={`hot-filter-menu-item ${currentValue === item.value ? 'on' : 'off'}`}
-          onClick={() => onToggle(item.value)}
+          onClickXX={() => onToggle(item.value)}
         >
-          {item.text}
+          <Link to={`/tags/${tag}/${item.url}`}>{item.text}</Link>
         </div>
     ))}
   </div>

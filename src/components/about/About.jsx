@@ -1,8 +1,9 @@
 import React from 'react';
+import { Link } from 'react-router'
+
 import MainContent from '../common/MainContent';
 import StarMeButton from '../common/StarMeButton';
 import ProjectCard from '../projects/ProjectCard';
-// import Delta from '../common/utils/Delta';
 import Stars from '../common/utils/Stars';
 import log from '../../helpers/log';
 
@@ -30,7 +31,7 @@ const About = React.createClass({
 
         <h2>Concept</h2>
         <p>Checking the number of stars on Github is a good way to check project popularity but it does not tell you when the stars have been added. </p>
-        <p>{ projectName } takes "snapshot" of Github stars every day, for {count} projects, to detect the trends over the last weeks.</p>
+        <p>{ projectName } takes "snapshot" of Github stars every day, for a curated list of {count} projects, to detect the trends over the last months.</p>
 
         { project && (
           <Example project={project} ui={ui} />
@@ -47,10 +48,9 @@ const About = React.createClass({
         We decided to focus on a curated list of projets we find "interesting", based on our experience and on things we read on the internet.
         </p>
         <p>As a result, some great projects must be missing!</p>
-        <p>Do not hesitate to contact us (by creating an issue in the <a href={ repo }>Github repository</a>, for example) if you want to suggest projects to add.
+        <p>
+          Click on <Link to={'/requests/add-project'}>this link</Link> to suggest a new project to add.
         </p>
-
-
         <h2>Show your support!</h2>
         <p>If you like the application, please star the project on <a href={ repo }>Github</a>...</p>
         <p>...we are all made of stars <img src="images/star.png" width="16" height="16" alt="star" /> !</p>
@@ -70,19 +70,20 @@ const Example = React.createClass({
       <div>
         <h2>An example</h2>
         <p>
-          Here is the most popular project of the application ({ project.name }).
+          Here is the most popular project of the application ({ project.name }):
         </p>
 
-        <ProjectCard
-          project = { project }
-          index = { 0 }
-          showDescription
-          showDelta={ui.starFilter !== 'total'}
-          deltaFilter={ui.starFilter}
-          showStars={ui.starFilter === 'total'}
-          showMetrics
-        />
-
+        <div style={{ maxWidth: 400, margin: '1rem auto' }}>
+          <ProjectCard
+            project = { project }
+            index = { 0 }
+            showDescription
+            showDelta={ui.starFilter !== 'total'}
+            deltaFilter={ui.starFilter}
+            showStars={ui.starFilter === 'total'}
+            showMetrics
+          />
+        </div>
         <p>
           At the top right corner:
         </p>
@@ -101,4 +102,4 @@ const Example = React.createClass({
 
 });
 
-module.exports = About;
+export default About

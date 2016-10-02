@@ -9,24 +9,24 @@ import * as uiActionCreators from '../actions/uiActions'
 
 const TagFilterPage = React.createClass({
 
-  shouldComponentUpdate(nextProps) {
+  shouldComponentUpdate (nextProps) {
     // `shouldComponentUpdate` has been implemented to avoid
     // rendering the page twice when browsing tags.
     if (!nextProps.tag) return false
-    const sameUi = Object.keys(nextProps.ui).
-      every(key => this.props.ui[key] === nextProps.ui[key])
+    const sameUi = Object.keys(nextProps.ui)
+      .every(key => this.props.ui[key] === nextProps.ui[key])
     return nextProps.tag.id !== this.props.tag.id || !sameUi
   },
 
-  render() {
+  render () {
     log('Render the <TagFilterPage> container', this.props)
     const { tagProjects, tag, isLoggedin, uiActions, ui } = this.props
     return (
       <TagFilter
-        projects = { tagProjects }
-        tag = { tag }
-        maxStars = { tagProjects.length > 0 ? tagProjects[0].stars : 0 }
-        isLoggedin = { isLoggedin }
+        projects={tagProjects}
+        tag={tag}
+        maxStars={tagProjects.length > 0 ? tagProjects[0].stars : 0}
+        isLoggedin={isLoggedin}
         ui={ui}
         uiActions={uiActions}
       />
@@ -35,36 +35,40 @@ const TagFilterPage = React.createClass({
 
 })
 
-function mapStateToProps(state, props) {
-  const {
-    entities: { projects, tags, links },
-    githubProjects,
-    auth: {
-      username
-    },
-    ui
-  } = state
+function mapStateToProps (sortFilter) {
+  return function (state, props) {
+    const {
+      entities: { projects, tags, links },
+      githubProjects,
+      auth: {
+        username
+      },
+      ui
+    } = state
 
-  const tagId = props.params.id
+    const tagId = props.params.id
 
-  const tagProjects = githubProjects[ui.starFilter]
+    const tagProjects = githubProjects[sortFilter]
     .map(id => projects[id])
     .filter(project => project.tags.indexOf(tagId) > -1)
     .slice(0, 50)
     .map(populate(tags, links))
 
-  return {
-    tagProjects,
-    tag: tags[tagId],
-    isLoggedin: username !== '',
-    ui
+    return {
+      tagProjects,
+      tag: tags[tagId],
+      isLoggedin: username !== '',
+      ui: Object.assign({}, ui, {
+        starFilter: sortFilter
+      })
+    }
   }
 }
 
-function mapDispatchToProps(dispatch) {
+function mapDispatchToProps (dispatch) {
   return {
     uiActions: bindActionCreators(uiActionCreators, dispatch)
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(TagFilterPage)
+export default sortFilter => connect(mapStateToProps(sortFilter), mapDispatchToProps)(TagFilterPage)
