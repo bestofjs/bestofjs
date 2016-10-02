@@ -1,0 +1,55 @@
+// <ProjectTable> component used in the top page to display
+// 'Hot projects' and 'Popular projects'
+.project-table
+  margin-bottom: 1rem
+  padding: 0
+  background-color: white
+  vertical-align: top
+  // border: 1px solid $cardBorderColor
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16)
+
+.project-table-row
+  border-top: 1px solid $cardBorderColor
+  .inner
+    padding: 1rem
+  .link // class applied to <Link> tag used to open the Project page from the card.
+    display block
+    color $textPrimaryColor
+    &:hover
+      text-decoration none
+      color: inherited
+      background-color: #FFF7EB
+      color: black
+  .avatar-section
+    display: flex
+    align-items: center
+    border-bottom: 1px dashed $cardBorderColor
+    padding-top: 1px // to prevent the avatar from overlapping the row border
+    height: 75px
+  .project-title
+    flex-grow: 1
+    text-align: center
+  .big-numbers
+    margin-right: .5rem
+    min-width: 60px
+  .description-section
+    padding: 1rem
+    overflow: hidden
+    text-overflow: ellipsis
+    white-space: nowrap
+  .tags-section
+    padding-top: 0
+
+.project-table-header
+  padding: .5rem 1rem
+  overflow: hidden
+  display: flex
+  align-items: center
+  height: 75px
+  .title
+    font-size: 1.5rem
+  .icon
+    width: 40px
+    color: $logoColors[1]
+  .comment
+    color: rgba(0, 0, 0, .5)
