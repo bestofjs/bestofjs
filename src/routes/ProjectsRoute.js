@@ -16,36 +16,36 @@ const LinksRoutes = {
   path: 'links',
   component: ProjectLinksTab,
   indexRoute: {
-    component: ProjectLinksList,
-    childRoutes: [
-      {
-        path: 'add',
-        component: ProjectLinksAdd
-      },
-      {
-        path: ':linkId/edit',
-        component: ProjectLinksEdit
-      }
-    ]
-  }
+    component: ProjectLinksList
+  },
+  childRoutes: [
+    {
+      path: 'add',
+      component: ProjectLinksAdd
+    },
+    {
+      path: ':linkId/edit',
+      component: ProjectLinksEdit
+    }
+  ]
 }
 
 const ReviewsRoutes = {
   path: 'reviews',
   component: ProjectReviewsTab,
   indexRoute: {
-    component: ProjectReviewsList,
-    childRoutes: [
-      {
-        path: 'add',
-        component: ProjectReviewsAdd
-      },
-      {
-        path: ':reviewId/edit',
-        component: ProjectReviewsEdit
-      }
-    ]
-  }
+    component: ProjectReviewsList
+  },
+  childRoutes: [
+    {
+      path: 'add',
+      component: ProjectReviewsAdd
+    },
+    {
+      path: ':reviewId/edit',
+      component: ProjectReviewsEdit
+    }
+  ]
 }
 
 export default function () {
