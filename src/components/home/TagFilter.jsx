@@ -1,16 +1,23 @@
 import React from 'react'
+import browserHistory from 'react-router/lib/browserHistory'
 
 import MainContent from '../common/MainContent'
 import ProjectList from '../projects/ProjectList'
 import ProjectFilterTabs from './ProjectFilter/ProjectFilterTabs'
 import ProjectFilterCombobox from './ProjectFilter/ProjectFilterCombobox'
 import ProjectViewOptions from './ProjectViewOptions'
+import items from './ProjectFilter/items'
 
 const TagFilter = React.createClass({
 
-  render() {
+  render () {
     const { tag, projects, isLoggedin, ui, uiActions } = this.props
     const showStars = ui.starFilter === 'total' || ui.starFilter === 'packagequality' || ui.starFilter === 'npms'
+    function changeTagFilter (value) {
+      const item = items.find(item => item.value === value)
+      const url = `/tags/${tag.id}/${item.url}`
+      browserHistory.push(url)
+    }
     return (
       <MainContent className="container">
         { tag.name && (
@@ -38,7 +45,7 @@ const TagFilter = React.createClass({
               />
               <ProjectFilterCombobox
                 currentValue={ui.starFilter}
-                onToggle={uiActions.toggleStarFilter}
+                onToggle={changeTagFilter}
               />
               <ProjectViewOptions
                 values={ui.viewOptions}

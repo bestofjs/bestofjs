@@ -13,7 +13,6 @@ export default ({ tag, currentValue, onToggle, items = defaultOptions, category 
           key={item.value}
           data-balloon={`Sort by ${item.comment}`}
           className={`hot-filter-menu-item ${currentValue === item.value ? 'on' : 'off'}`}
-          onClickXX={() => onToggle(item.value)}
         >
           <Link to={`/tags/${tag}/${item.url}`}>{item.text}</Link>
         </div>
