@@ -18,7 +18,7 @@ const setup = {
     GET_PROJECTS: 'https://bestofjs-api-v1.firebaseapp.com/',
 
     // Link to `master` branch code
-    GET_README: 'https://webtask.it.auth0.com/api/run/wt-mikeair-gmail_com-0/85801138b3a9d89112d0a04eef536d1f?webtask_no_cache=1',
+    GET_README: 'https://get-github-readme-v1.now.sh',
 
     USER_CONTENT: 'https://webtask.it.auth0.com/api/run/wt-mikeair-gmail_com-0/user-content-api-v2',
 
