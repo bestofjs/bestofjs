@@ -65,7 +65,7 @@ This repository is the front-end application, a single-page application built wi
 * [React router](https://github.com/rackt/react-router)
 * [Webpack](http://webpack.github.io/)
 
-Webpack is used to built the application in development and production mode.
+Webpack is used to build the application in development and production mode.
 
 ### Repositories
 
