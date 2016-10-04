@@ -11,7 +11,7 @@ const emoji = () => {
 
 const Description = ({ text, showEmojis }) => {
   const replacedBy = showEmojis ? emoji() : ''
-  const result = text.replace(/(\:([a-z_\d]+)\:)/g, replacedBy).trim()
+  const result = text.replace(/(:([a-z_\d]+):)/g, replacedBy).trim()
   if (showEmojis) return (
     <HtmlDescription html={result} />
   )

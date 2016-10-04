@@ -87,9 +87,9 @@ const Example = React.createClass({
           At the top right corner:
         </p>
         <p>
-           <Stars value={project.stars} icon />
-           {' '}
-            is the total number of stars on Github.
+          <Stars value={project.stars} icon />
+          {' '}
+          is the total number of stars on Github.
         </p>
         <p>At the bottom:</p>
         <p>

@@ -59,18 +59,18 @@ const TagFilter = React.createClass({
         )}
 
         {projects.length > 0 && (
-           <ProjectList
-             projects={projects}
-             showDescription
-             showURL
-             isLoggedin={isLoggedin}
-             showDelta={!showStars}
-             deltaFilter={ui.starFilter}
-             showStars={showStars}
-             showTags={false}
-             showMetrics={ui.showMetrics}
-             viewOptions={ui.viewOptions}
-           />
+          <ProjectList
+            projects={projects}
+            showDescription
+            showURL
+            isLoggedin={isLoggedin}
+            showDelta={!showStars}
+            deltaFilter={ui.starFilter}
+            showStars={showStars}
+            showTags={false}
+            showMetrics={ui.showMetrics}
+            viewOptions={ui.viewOptions}
+          />
        )}
 
       </MainContent>

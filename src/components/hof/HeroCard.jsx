@@ -7,11 +7,11 @@ import formatUrl from '../../helpers/formatUrl'
 const digits = (value) => (value > 1000) ? '0.0' : '0'
 
 function followersComment (value) {
-  if (value === 0) return `you don't need all these followers!`
-  if (value < 10) return `that's better than nothing!`
-  if (value < 100) return `that's not so bad!`
-  if (value < 1000) return `that's pretty good, you could be a hall of famer too!`
-  return `that's a lot of followers, you should be in this hall of fame!`
+  if (value === 0) return 'you don\'t need all these followers!'
+  if (value < 10) return 'that\'s better than nothing!'
+  if (value < 100) return 'that\'s not so bad!'
+  if (value < 1000) return 'that\'s pretty good, you could be a hall of famer too!'
+  return 'that\'s a lot of followers, you should be in this hall of fame!'
 }
 
 export default ({ hero, you, isCurrentUser, showDetails }) => {
@@ -36,9 +36,11 @@ export default ({ hero, you, isCurrentUser, showDetails }) => {
                 <div className="text-secondary">
                   {numeral(hero.followers).format(`${digits(hero.followers)} a`)} followers
                   {' '}
-                  {you && <span style={{ color: '#aaa', fontSize: 14 }}>
-                  ({followersComment(hero.followers)})
-                  </span>}
+                  {you &&
+                    <span style={{ color: '#aaa', fontSize: 14 }}>
+                      ({followersComment(hero.followers)})
+                    </span>
+                  }
                 </div>
               </div>
             </div>

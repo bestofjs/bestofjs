@@ -9,22 +9,22 @@ export default React.createClass({
     const { project, review, link, auth, authActions, children } = this.props
     return (
       <MainContent className="container project-page">
-          {project.id && (
-            <div>
+        {project.id && (
+          <div>
 
-              <h1 style={{ margin: '0 0 1rem' }} className="no-card-container">
-                {project.name}
-              </h1>
+            <h1 style={{ margin: '0 0 1rem' }} className="no-card-container">
+              {project.name}
+            </h1>
 
-              {children && project && React.cloneElement(children, {
-                project,
-                review,
-                link,
-                auth,
-                authActions
-              })}
-            </div>
-          )}
+            {children && project && React.cloneElement(children, {
+              project,
+              review,
+              link,
+              auth,
+              authActions
+            })}
+          </div>
+        )}
       </MainContent>
     )
   }

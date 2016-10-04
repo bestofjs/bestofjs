@@ -11,12 +11,12 @@ const Links = React.createClass({
     return (
       <div>
         <Tabs project={project} activePath="links" />
-          {children && project && React.cloneElement(children, {
-            project,
-            link,
-            auth,
-            authActions
-          })}
+        {children && project && React.cloneElement(children, {
+          project,
+          link,
+          auth,
+          authActions
+        })}
       </div>
     )
   }

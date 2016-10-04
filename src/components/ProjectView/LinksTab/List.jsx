@@ -9,7 +9,7 @@ const List = React.createClass({
   renderAddButton (project) {
     return (
       <Link to={`/projects/${project.slug}/links/add`} className="btn">
-        <span className={`octicon octicon-plus`} />
+        <span className={'octicon octicon-plus'} />
         {' '}
         ADD A LINK
       </Link>
@@ -19,7 +19,7 @@ const List = React.createClass({
     if (pending) return 'Loading...'
     return (
       <button className="btn" onClick={onLogin}>
-        <span className={`octicon octicon-mark-github`} />
+        <span className={'octicon octicon-mark-github'} />
         {' '}
         Sign in with Github to add a link
       </button>
@@ -31,21 +31,21 @@ const List = React.createClass({
     const links = project.links || []
     return (
       <div>
-      <div className="project-tabs-content" style={{ marginBottom: '2em' }}>
-        <div className="inner">
-          <p>
-            <span className="octicon octicon-info" />
-            {' '}
-            Find here intesting reading about {project.name} project:
-          </p>
-          <ul>
-            <li>blog entries</li>
-            <li>tutorials</li>
-            <li>related projects</li>
-            <li>real-world applications...</li>
-          </ul>
+        <div className="project-tabs-content" style={{ marginBottom: '2em' }}>
+          <div className="inner">
+            <p>
+              <span className="octicon octicon-info" />
+              {' '}
+              Find here intesting reading about {project.name} project:
+            </p>
+            <ul>
+              <li>blog entries</li>
+              <li>tutorials</li>
+              <li>related projects</li>
+              <li>real-world applications...</li>
+            </ul>
+          </div>
         </div>
-      </div>
 
         {links.length > 0 ? (
           <div className="project-link-container">

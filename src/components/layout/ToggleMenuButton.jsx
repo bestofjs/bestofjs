@@ -10,4 +10,4 @@ const ToggleMenuButton = React.createClass({
     )
   }
 })
-module.exports = ToggleMenuButton
+export default ToggleMenuButton

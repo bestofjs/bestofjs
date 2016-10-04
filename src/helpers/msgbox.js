@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 const notie = process.env.NODE_ENV === 'test' || typeof window === 'undefined' ? {} : require('notie')
 
 const defaultOptions = {

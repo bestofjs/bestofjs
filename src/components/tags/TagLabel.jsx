@@ -17,4 +17,4 @@ const TagLabel = React.createClass({
 
 })
 
-module.exports = TagLabel
+export default TagLabel

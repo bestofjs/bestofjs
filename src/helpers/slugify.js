@@ -14,7 +14,7 @@ const slugify = (value) => {
   result = removeSpaces(result, '-')
   result = replace(result, '&', '-and-')
   result = replace(result, '[^\\w\\-]+', '')
-  result = replace(result, '\-\-+', '-')
+  result = replace(result, '--+', '-')
   return result
 }
 

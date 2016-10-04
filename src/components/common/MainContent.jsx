@@ -9,4 +9,4 @@ const MainContent = React.createClass({
     )
   }
 })
-module.exports = MainContent
+export default MainContent

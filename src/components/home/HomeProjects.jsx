@@ -1,8 +1,8 @@
 import React from 'react'
 
 import ProjectList from '../projects/ProjectTable'
-import ProjectFilterTabs from './ProjectFilter/ProjectFilterTabs'
-import ProjectFilterCombobox from './ProjectFilter/ProjectFilterCombobox'
+// import ProjectFilterTabs from './ProjectFilter/ProjectFilterTabs'
+// import ProjectFilterCombobox from './ProjectFilter/ProjectFilterCombobox'
 
 // explanation added below the combobox used to to set the sort filter
 const addedSince = (hotFilter) => {

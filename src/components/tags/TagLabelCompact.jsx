@@ -13,4 +13,4 @@ const TagLabel = (props) => {
     </Link>
   )
 }
-module.exports = TagLabel
+export default TagLabel

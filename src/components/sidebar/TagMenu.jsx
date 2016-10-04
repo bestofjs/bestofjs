@@ -20,4 +20,4 @@ const TagMenu = React.createClass({
     )
   }
 })
-module.exports = TagMenu
+export default TagMenu

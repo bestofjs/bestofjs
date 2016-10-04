@@ -14,4 +14,4 @@ const TagTitle = React.createClass({
     )
   }
 })
-module.exports = TagTitle
+export default TagTitle

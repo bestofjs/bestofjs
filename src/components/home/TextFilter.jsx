@@ -28,15 +28,15 @@ const TextFilter = React.createClass({
         )}
 
         {projects.length > 0 && (
-           <ProjectList
-             projects={projects}
-             maxStars={projects[0].stars}
-             isLoggedin={isLoggedin}
-             showDescription
-             showDelta={false}
-             showURL
-             viewOptions={ui.viewOptions}
-           />
+          <ProjectList
+            projects={projects}
+            maxStars={projects[0].stars}
+            isLoggedin={isLoggedin}
+            showDescription
+            showDelta={false}
+            showURL
+            viewOptions={ui.viewOptions}
+          />
        )}
 
         {heroes.length > 0 && (

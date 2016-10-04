@@ -20,9 +20,9 @@ const DeltaBar = (props) => {
   return (
     <div>
       <div className="delta-bar-container">
-      {deltas.map((item, i) =>
-        <Delta key={i} value={item} tooltip={getTooltipText(item, i)} />
-      )}
+        {deltas.map((item, i) =>
+          <Delta key={i} value={item} tooltip={getTooltipText(item, i)} />
+        )}
       </div>
     </div>
   )

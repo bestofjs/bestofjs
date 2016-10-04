@@ -12,4 +12,4 @@ const StarMeButton = React.createClass({
   }
 
 })
-module.exports = StarMeButton
+export default StarMeButton

@@ -40,11 +40,11 @@ const ProjectPage = React.createClass({
         auth={auth}
         authActions={authActions}
       >
-      {children && project && React.cloneElement(children, {
-        project,
-        auth
-      })}
-    </ProjectView>
+        {children && project && React.cloneElement(children, {
+          project,
+          auth
+        })}
+      </ProjectView>
     )
   }
 

@@ -30,11 +30,11 @@ const NpmSection = ({ project, packagequality = true, npms = true }) => (
           width="16" height="16"
           src="http://packagequality.com/favicon.ico"
         />
-          {project.quality}<span className="text-secondary">%</span>
-    </a>
-  )}
+        {project.quality}<span className="text-secondary">%</span>
+      </a>
+    )}
 
-  {npms && (
+    {npms && (
       <a
         className="inner card-block quality-link"
         data-balloon="View on npms.io"
@@ -46,9 +46,9 @@ const NpmSection = ({ project, packagequality = true, npms = true }) => (
           width="46" height="18"
           src="/images/npms.png"
         />
-      {project.score}<span className="text-secondary">%</span>
-    </a>
-  )}
+        {project.score}<span className="text-secondary">%</span>
+      </a>
+    )}
 
   </section>
 )

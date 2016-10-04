@@ -25,7 +25,7 @@ const MD = ({ submitFailed, comment, max = 500 }) => (
     showError={submitFailed && comment.error}
     errorMessage={comment.error}
   >
-    <textarea rows="8" {...comment} rows="10" maxLength={max} />
+    <textarea {...comment} rows="10" maxLength={max} />
   </Field>
 )
 export default MD
