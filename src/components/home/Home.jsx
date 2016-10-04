@@ -8,7 +8,7 @@ import ErrorMessage from '../common/utils/ErrorMessage'
 import HomeProjects from './HomeProjects'
 
 const Home = React.createClass({
-  render() {
+  render () {
     log('Render the <Home> component', this.props)
     const {
       hotProjects,
@@ -18,7 +18,7 @@ const Home = React.createClass({
     } = this.props
     return (
       <MainContent>
-        { this.props.errorMessage && <ErrorMessage text={ this.props.errorMessage } /> }
+        {this.props.errorMessage && <ErrorMessage text={this.props.errorMessage} />}
         <div className="no-card-container">
           <h2 style={{ margin: '0 0 .2em' }}>
             Find the <i className="special">best</i> components to build amazing web applications!
@@ -28,7 +28,7 @@ const Home = React.createClass({
           </p>
         </div>
 
-        { hotProjects.length && (
+        {hotProjects.length && (
           <HomeProjects {...this.props} />
         )}
         <MoreProjects

@@ -11,7 +11,7 @@ import track from '../helpers/track'
 import * as actionCreators from '../actions'
 import * as authActionCreators from '../actions/authActions'
 
-function loadData(props) {
+function loadData (props) {
   const project = props.project
   props.actions.fetchReadmeIfNeeded(project)
   track('View project', project.name)
@@ -19,17 +19,17 @@ function loadData(props) {
 
 const ProjectPage = React.createClass({
 
-  componentWillMount() {
+  componentWillMount () {
     loadData(this.props)
   },
 
-  componentWillReceiveProps(nextProps) {
+  componentWillReceiveProps (nextProps) {
     if (nextProps.id !== this.props.id) {
       loadData(nextProps)
     }
   },
 
-  render() {
+  render () {
     log('Render the <ProjectPage> container', this.props)
     const { project, review, link, auth, children, authActions } = this.props
     return (
@@ -37,27 +37,26 @@ const ProjectPage = React.createClass({
         project={project}
         review={review}
         link={link}
-        auth ={auth}
+        auth={auth}
         authActions={authActions}
       >
-      { children && project && React.cloneElement(children, {
+      {children && project && React.cloneElement(children, {
         project,
         auth
-      }) }
+      })}
     </ProjectView>
     )
   }
 
 })
 
-function mapStateToProps(state, props) {
+function mapStateToProps (state, props) {
   const {
     entities: { projects, tags, links, reviews },
     auth
   } = state
 
   const id = props.params.id
-
 
   let project = projects[id]
   project = populate(tags, links, reviews)(project)
@@ -76,7 +75,7 @@ function mapStateToProps(state, props) {
   }
 }
 
-function mapDispatchToProps(dispatch) {
+function mapDispatchToProps (dispatch) {
   return {
     actions: bindActionCreators(actionCreators, dispatch),
     authActions: bindActionCreators(authActionCreators, dispatch)

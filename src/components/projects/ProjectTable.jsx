@@ -35,18 +35,18 @@ ProjectTableView.Row = ({ project, showStars, showDelta, deltaFilter, showDescri
     <Link className="link" to={`/projects/${project.slug}`}>
       <div className="avatar-section">
         <ProjectAvatar project={project} size={75} />
-        <div className="project-title">{ project.name }</div>
+        <div className="project-title">{project.name}</div>
         <div className="big-numbers">
-          { showStars && (
+          {showStars && (
             <div className="total">
               <Stars
                 value={project.stars}
                 icon
               />
             </div>
-          ) }
+          )}
 
-          { showDelta && project.deltas.length > 0 && (
+          {showDelta && project.deltas.length > 0 && (
             <div className="delta">
               <Delta
                 value={project.stats[deltaFilter]}
@@ -56,7 +56,7 @@ ProjectTableView.Row = ({ project, showStars, showDelta, deltaFilter, showDescri
                 perDay={deltaFilter !== 'total' && deltaFilter !== 'daily'}
               />
             </div>
-          ) }
+          )}
         </div>
       </div>
     </Link>

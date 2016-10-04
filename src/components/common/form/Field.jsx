@@ -1,17 +1,17 @@
-import React from 'react';
+import React from 'react'
 const Field = ({ label, children, showError, errorMessage }) => (
   <div className={`field ${showError ? ' error' : ''}`}>
     <label className="field-label">
-      { label }
+      {label}
     </label>
-    { children }
-    { showError &&
+    {children}
+    {showError &&
       <div className="field-validation-error">
-        <span className="octicon octicon-alert"></span>
+        <span className="octicon octicon-alert" />
         {' '}
-        { errorMessage }
+        {errorMessage}
       </div>
     }
   </div>
-);
-export default Field;
+)
+export default Field

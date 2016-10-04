@@ -11,7 +11,7 @@ export default ({ onLogin }) => (
     <div className="inner" style={{ textAlign: 'center' }}>
       <p>To be in good company...</p>
       <button className="ui btn" onClick={onLogin}>
-        <span className="octicon octicon-mark-github"></span>
+        <span className="octicon octicon-mark-github" />
         {' '}
         Sign in with Github
       </button>

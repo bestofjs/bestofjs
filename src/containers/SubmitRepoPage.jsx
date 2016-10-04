@@ -4,14 +4,14 @@ import { connect } from 'react-redux'
 
 import createForm from '../components/user-requests/add-project/AddProjectReduxForm'
 // import * as repoActionCreators from '../actions/repoActions'
-import { addProject } from '../actions/repoActions';
+import { addProject } from '../actions/repoActions'
 
 const SubmitRepoPage = React.createClass({
-  onSave(values, dispatch) {
+  onSave (values, dispatch) {
     const { auth } = this.props
     return dispatch(addProject(values, auth))
   },
-  render() {
+  render () {
     const { projects } = this.props
     const Form = createForm(projects)
     return (
@@ -22,7 +22,7 @@ const SubmitRepoPage = React.createClass({
   }
 })
 
-function mapStateToProps(state) {
+function mapStateToProps (state) {
   const {
     entities: { projects },
     auth

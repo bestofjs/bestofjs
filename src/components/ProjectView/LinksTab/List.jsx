@@ -1,40 +1,40 @@
-import React, { PropTypes } from 'react';
-import Link from 'react-router/lib/Link';
-import LinkCard from '../../links/LinkCard';
+import React, { PropTypes } from 'react'
+import Link from 'react-router/lib/Link'
+import LinkCard from '../../links/LinkCard'
 
 const List = React.createClass({
   propTypes: {
     project: PropTypes.object
   },
-  renderAddButton(project) {
+  renderAddButton (project) {
     return (
-      <Link to={ `/projects/${project.slug}/links/add` } className="btn">
-        <span className={`octicon octicon-plus`}></span>
+      <Link to={`/projects/${project.slug}/links/add`} className="btn">
+        <span className={`octicon octicon-plus`} />
         {' '}
         ADD A LINK
       </Link>
-    );
+    )
   },
-  renderLoginButton(onLogin, pending) {
-    if (pending) return 'Loading...';
+  renderLoginButton (onLogin, pending) {
+    if (pending) return 'Loading...'
     return (
-      <button className="btn" onClick={ onLogin }>
-        <span className={`octicon octicon-mark-github`}></span>
+      <button className="btn" onClick={onLogin}>
+        <span className={`octicon octicon-mark-github`} />
         {' '}
         Sign in with Github to add a link
       </button>
-    );
+    )
   },
-  render() {
-    const { project, auth, authActions } = this.props;
-    const isLoggedin = auth.username !== '';
-    const links = project.links || [];
+  render () {
+    const { project, auth, authActions } = this.props
+    const isLoggedin = auth.username !== ''
+    const links = project.links || []
     return (
       <div>
       <div className="project-tabs-content" style={{ marginBottom: '2em' }}>
         <div className="inner">
           <p>
-            <span className="octicon octicon-info"></span>
+            <span className="octicon octicon-info" />
             {' '}
             Find here intesting reading about {project.name} project:
           </p>
@@ -47,7 +47,7 @@ const List = React.createClass({
         </div>
       </div>
 
-        { links.length > 0 ? (
+        {links.length > 0 ? (
           <div className="project-link-container">
             {links.map(link =>
               <LinkCard
@@ -64,14 +64,14 @@ const List = React.createClass({
         )}
 
         <div style={{ textAlign: 'center', paddingTop: '1em' }}>
-          { isLoggedin ? (
+          {isLoggedin ? (
             this.renderAddButton(project)
           ) : (
             this.renderLoginButton(authActions.login, auth.pending)
-          ) }
+          )}
         </div>
       </div>
-    );
+    )
   }
-});
-export default List;
+})
+export default List

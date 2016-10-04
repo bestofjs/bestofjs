@@ -5,7 +5,7 @@ import GithubRepoPicker from '../../common/form/GithubRepoPicker'
 import Field from '../../common/form/Field'
 
 const AddProjectForm = React.createClass({
-  render() {
+  render () {
     const {
       fields: {
         comment,
@@ -33,18 +33,18 @@ const AddProjectForm = React.createClass({
             <Field
               label="Your comment"
               showError={submitFailed && comment.error}
-              errorMessage={ comment.error }
+              errorMessage={comment.error}
             >
               <input type="text" {...comment} />
             </Field>
           </div>
           <div className="inner form-action-bar">
             <button
-              className={ `ui btn${submitting ? ' loading button' : ''}` }
-              disabled={ submitting }
+              className={`ui btn${submitting ? ' loading button' : ''}`}
+              disabled={submitting}
               type="submit"
             >
-              <span className={`octicon octicon-repo-push`}></span>
+              <span className={`octicon octicon-repo-push`} />
               {' '}
               SAVE REQUEST
             </button>

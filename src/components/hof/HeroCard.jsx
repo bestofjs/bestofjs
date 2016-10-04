@@ -6,7 +6,7 @@ import formatUrl from '../../helpers/formatUrl'
 
 const digits = (value) => (value > 1000) ? '0.0' : '0'
 
-function followersComment(value) {
+function followersComment (value) {
   if (value === 0) return `you don't need all these followers!`
   if (value < 10) return `that's better than nothing!`
   if (value < 100) return `that's not so bad!`
@@ -59,7 +59,7 @@ export default ({ hero, you, isCurrentUser, showDetails }) => {
           data-balloon={`Open ${hero.username}'s website/blog`}
           href={hero.blog}
         >
-          <span className="mega-octicon octicon-globe icon"></span>
+          <span className="mega-octicon octicon-globe icon" />
           <span>{formatUrl(hero.blog)}</span>
         </a>
       )}
@@ -69,9 +69,9 @@ export default ({ hero, you, isCurrentUser, showDetails }) => {
           data-balloon={`Open ${hero.username}'s profile on npm`}
           href={`https://www.npmjs.com/~${hero.npm || hero.username}`}
         >
-          <span className="mega-octicon octicon-package icon"></span>
+          <span className="mega-octicon octicon-package icon" />
           <span>{hero.modules} modules on npm</span>
         </a>
       )}
     </div>
-)}
+) }

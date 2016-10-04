@@ -20,20 +20,20 @@ const TagFilter = React.createClass({
     }
     return (
       <MainContent className="container">
-        { tag.name && (
+        {tag.name && (
           <div>
             <div className="card card-homepage">
               <div className="header">
                 <div className="inner">
-                  <span className="icon mega-octicon octicon-tag icon"></span>
+                  <span className="icon mega-octicon octicon-tag icon" />
                   {' '}
                   <span style={{ fontSize: '1.5rem' }}>{tag.name}</span>
                   <span className="counter">
-                    { projects.length === 1 ? (
+                    {projects.length === 1 ? (
                       ' (one project)'
                     ) : (
                       ` (${projects.length} projects)`
-                    ) }
+                    )}
                   </span>
                 </div>
               </div>
@@ -56,9 +56,9 @@ const TagFilter = React.createClass({
               />
             </div>
           </div>
-        ) }
+        )}
 
-        { projects.length > 0 && (
+        {projects.length > 0 && (
            <ProjectList
              projects={projects}
              showDescription
@@ -71,7 +71,7 @@ const TagFilter = React.createClass({
              showMetrics={ui.showMetrics}
              viewOptions={ui.viewOptions}
            />
-       ) }
+       )}
 
       </MainContent>
     )

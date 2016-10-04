@@ -16,7 +16,7 @@ const renderReviews = (reviews = []) => {
   const text = (count === 1) ? 'One review' : `${count} reviews`
   return (
     <section className="card-section">
-      <span className="octicon octicon-heart"></span>
+      <span className="octicon octicon-heart" />
       {text}
     </section>
   )
@@ -38,7 +38,7 @@ const renderLinks = (links = []) => {
   )
   return (
     <section className="card-section">
-      <span className="octicon octicon-link"></span>
+      <span className="octicon octicon-link" />
       {text}
       {count > 1 && list()}
     </section>
@@ -61,7 +61,7 @@ const ProjectCard = (
   return (
     <div className="project-card">
       <Link
-        to={ path }
+        to={path}
         className="card-block"
       >
         <header>
@@ -69,50 +69,50 @@ const ProjectCard = (
             <Avatar project={project} size={75} />
           ) : (
             <div className="header-ranking">
-              { index + 1 }
+              {index + 1}
             </div>
           )}
 
           <div className="header-name">
-            { project.name }
+            {project.name}
           </div>
 
           <div className="header-stars">
-            { showStars && (
+            {showStars && (
               <div className="total">
                 <Stars
-                  value={ project.stars }
+                  value={project.stars}
                   icon
                 />
               </div>
-            ) }
+            )}
 
-            { showDelta && project.deltas.length > 0 && (
+            {showDelta && project.deltas.length > 0 && (
               <div className="delta">
                 <Delta
-                  value={ project.stats[deltaFilter] }
+                  value={project.stats[deltaFilter]}
                   big
                   icon
-                  perDay={deltaFilter !== 'total' && deltaFilter !== 'daily' }
+                  perDay={deltaFilter !== 'total' && deltaFilter !== 'daily'}
                 />
               </div>
-            ) }
+            )}
           </div>
         </header>
 
-        { viewOptions.description && (
+        {viewOptions.description && (
           <section className="card-section">
-            <Description text={ project.description } />
+            <Description text={project.description} />
           </section>
         )}
 
       </Link>
 
-      { showTags && (
+      {showTags && (
         <section className="card-section tags-card-section">
-          { project.tags.map(tag =>
-            <TagLabel tag={ tag } key={ project.id + tag.id } />
-          ) }
+          {project.tags.map(tag =>
+            <TagLabel tag={tag} key={project.id + tag.id} />
+          )}
         </section>
       )}
 
@@ -144,14 +144,14 @@ const ProjectCard = (
 
       {viewOptions.commit && <div className="inner github">
         <div className="last-commit">
-          <span className="octicon octicon-git-commit"></span>
+          <span className="octicon octicon-git-commit" />
           {' '}
-          <span data-balloon="Last update">{ fromNow(project.pushed_at) }</span>
+          <span data-balloon="Last update">{fromNow(project.pushed_at)}</span>
         </div>
       </div>}
 
       {false && showMetrics && project.deltas.length > 0 &&
-        <DeltaBar data={ project.deltas.slice(0, 7) } />
+        <DeltaBar data={project.deltas.slice(0, 7)} />
       }
     </div>
   )

@@ -4,7 +4,7 @@ const LoggedinUser = React.createClass({
     username: PropTypes.string.isRequired,
     onLogout: PropTypes.func.isRequired
   },
-  render() {
+  render () {
     const { username, onLogout, pending } = this.props
     if (pending) return (
       <div>Loading...</div>
@@ -17,9 +17,9 @@ const LoggedinUser = React.createClass({
           data-balloon={`Sign out`}
           data-balloon-pos="left"
           href="#"
-          onClick={ e => {e.preventDefault(); onLogout()} }
+          onClick={e => { e.preventDefault(); onLogout() }}
         >
-          <span className="octicon octicon-x" style={{ justifyContent: 'flex-end' }}></span>
+          <span className="octicon octicon-x" style={{ justifyContent: 'flex-end' }} />
         </a>
       </div>
     )

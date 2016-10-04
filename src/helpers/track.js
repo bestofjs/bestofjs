@@ -4,7 +4,7 @@ import log from './log'
 
 /* global ga */
 
-export default function track(category, action) {
+export default function track (category, action) {
   if (process.env.NODE_ENV === 'test') return false
   if (process.env.NODE_ENV === 'development') {
     log(`ga ${action ? 'event' : 'pageview'} ${category} ${action || ''} (no tracking in [DEV])`)

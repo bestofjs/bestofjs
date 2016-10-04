@@ -1,4 +1,4 @@
-function checkDuplicate(values, projects) {
+function checkDuplicate (values, projects) {
   const repo = `https://github.com/${values.project}`
   const found = Object.keys(projects)
     .map(key => projects[key])
@@ -7,7 +7,7 @@ function checkDuplicate(values, projects) {
   return true
 }
 
-export default function validate(projects) {
+export default function validate (projects) {
   return function (values) {
     const errors = {}
     const requiredFields = [

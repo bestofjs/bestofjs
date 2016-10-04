@@ -2,14 +2,14 @@ import React from 'react'
 import { connect } from 'react-redux'
 
 import createForm from '../components/user-requests/add-hero/AddHeroReduxForm'
-import { addHero } from '../actions/repoActions';
+import { addHero } from '../actions/repoActions'
 
 const SubmitHeroPage = React.createClass({
-  onSave(values, dispatch) {
+  onSave (values, dispatch) {
     const { auth } = this.props
     return dispatch(addHero(values, auth))
   },
-  render() {
+  render () {
     const { heroes } = this.props
     const Form = createForm(heroes)
     return (
@@ -20,7 +20,7 @@ const SubmitHeroPage = React.createClass({
   }
 })
 
-function mapStateToProps(state) {
+function mapStateToProps (state) {
   const {
     entities: { heroes },
     auth

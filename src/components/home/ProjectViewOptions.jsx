@@ -3,19 +3,19 @@ import React from 'react'
 const allOptions = [
   {
     text: 'Show description',
-    value: 'description',
+    value: 'description'
   },
   {
     text: 'Show npms.io score',
-    value: 'npms',
+    value: 'npms'
   },
   {
     text: 'Show packagequality.com score',
-    value: 'packagequality',
+    value: 'packagequality'
   },
   {
     text: 'Show last commit',
-    value: 'commit',
+    value: 'commit'
   }
 ]
 
@@ -34,9 +34,9 @@ const ProjectViewOptions = ({ open, values, onChange, onToggle, sortFilter }) =>
           <Title sortFilter={sortFilter} />
         </div>
         <a className="" href="#" onClick={handleToggle}>
-          <span className="octicon octicon-gear"></span>
+          <span className="octicon octicon-gear" />
           <span className="" style={{ margin: '0 .2rem' }}>OPTIONS</span>
-          <span className={`octicon octicon-chevron-${open ? 'down' : 'right'}`}></span>
+          <span className={`octicon octicon-chevron-${open ? 'down' : 'right'}`} />
         </a>
       </div>
       {open && (
@@ -78,7 +78,7 @@ const Title = ({ sortFilter }) => {
   }
   return (
     titles[sortFilter]()
-  )}
+  ) }
 
 const ViewOption = ({ option, onChange }) => {
   const handleChange = (e) => {

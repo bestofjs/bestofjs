@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
-import * as authActionCreators from '../actions/authActions';
+import * as authActionCreators from '../actions/authActions'
 import HoF from '../components/hof/HeroList'
 import { getAllHeroes } from '../helpers/hof'
 
@@ -26,7 +26,7 @@ const Page = ({ heroes, auth, you, authActions, isHero, ui }) => (
   />
 )
 
-function mapStateToProps(state) {
+function mapStateToProps (state) {
   const {
     // entities: { heroes },
     auth,
@@ -47,10 +47,10 @@ function mapStateToProps(state) {
   }
 }
 
-function mapDispatchToProps(dispatch) {
+function mapDispatchToProps (dispatch) {
   return {
     authActions: bindActionCreators(authActionCreators, dispatch)
-  };
+  }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Page);
+export default connect(mapStateToProps, mapDispatchToProps)(Page)

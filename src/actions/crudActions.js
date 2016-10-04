@@ -2,7 +2,7 @@
 // Generic action creators for CRUD actions
 //
 
-export function fetchAllItemsSuccess(model, items) {
+export function fetchAllItemsSuccess (model, items) {
   return {
     type: `FETCH_${model.toUpperCase()}S_SUCCESS`,
     meta: {
@@ -10,9 +10,9 @@ export function fetchAllItemsSuccess(model, items) {
       convertProjectIds: true // tell the middleware to convert ids => slugs
     },
     payload: items
-  };
+  }
 }
-export function createItemRequest(model, item) {
+export function createItemRequest (model, item) {
   return {
     type: `CREATE_${model.toUpperCase()}_SUCCESS`,
     meta: {
@@ -20,9 +20,9 @@ export function createItemRequest(model, item) {
       convertProjectSlugs: true // tell the middleware to convert slugs => ids
     },
     payload: item
-  };
+  }
 }
-export function createItemSuccess(model, item) {
+export function createItemSuccess (model, item) {
   return {
     type: `CREATE_${model.toUpperCase()}_SUCCESS`,
     meta: {
@@ -30,9 +30,9 @@ export function createItemSuccess(model, item) {
       convertProjectIds: true // tell the middleware to convert ids => slugs
     },
     payload: item
-  };
+  }
 }
-export function updateItemRequest(model, item) {
+export function updateItemRequest (model, item) {
   return {
     type: `UPDATE_${model.toUpperCase()}_REQUEST`,
     meta: {
@@ -40,9 +40,9 @@ export function updateItemRequest(model, item) {
       convertProjectSlugs: true // tell the middleware to convert slugs => ids
     },
     payload: item
-  };
+  }
 }
-export function updateItemSuccess(model, item) {
+export function updateItemSuccess (model, item) {
   return {
     type: `UPDATE_${model.toUpperCase()}_SUCCESS`,
     meta: {
@@ -50,5 +50,5 @@ export function updateItemSuccess(model, item) {
       convertProjectIds: true // tell the middleware to convert ids => slugs
     },
     payload: item
-  };
+  }
 }

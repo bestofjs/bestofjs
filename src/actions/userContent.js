@@ -16,7 +16,7 @@ const settings = {
 }
 
 // Go to project item list after successful update or creation
-function goToList(project, key) {
+function goToList (project, key) {
   const path = `/projects/${project.slug}/${key}s/`
   return browserHistory.push(path)
 }
@@ -24,7 +24,7 @@ function goToList(project, key) {
 // ==========
 // FETCH ALL
 // ==========
-export function fetchAll(key) {
+export function fetchAll (key) {
   return function () {
     return dispatch => {
       settings[key].api.getAll()
@@ -43,7 +43,7 @@ export function fetchAll(key) {
 // CREATE
 // ==========
 
-export function create(key) {
+export function create (key) {
   return function (project, formData, auth) {
     const payload = Object.assign({}, formData, {
       createdBy: auth.username || 'Anonymous'
@@ -71,7 +71,7 @@ export function create(key) {
 // ==========
 // UPDATE
 // ==========
-export function update(key) {
+export function update (key) {
   return function (project, formData, auth) {
     const payload = Object.assign({}, formData, {
       updatedBy: auth.username || 'Anonymous'

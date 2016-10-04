@@ -3,7 +3,7 @@ import history from 'react-router/lib/browserHistory'
 
 import SearchForm from '../components/home/SearchForm'
 
-function emitChange(text) {
+function emitChange (text) {
   if (text) {
     history.push(`/search/${text}`)
   } else {
@@ -14,6 +14,6 @@ function emitChange(text) {
 export default (props) => {
   const highlight = /search/.test(props.location && props.location.pathname)
   return (
-    <SearchForm onChange={ emitChange } highlight={highlight} />
+    <SearchForm onChange={emitChange} highlight={highlight} />
   )
 }

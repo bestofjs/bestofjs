@@ -1,9 +1,9 @@
-import { fetchAll, create, update } from './userContent';
+import { fetchAll, create, update } from './userContent'
 
-const key = 'link';
+const key = 'link'
 
-export const fetchAllLinks = fetchAll(key);
+export const fetchAllLinks = fetchAll(key)
 
-export const createLink = create(key);
+export const createLink = create(key)
 
-export const updateLink = update(key);
+export const updateLink = update(key)

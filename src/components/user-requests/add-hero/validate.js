@@ -1,4 +1,4 @@
-function checkDuplicate(values, heroes) {
+function checkDuplicate (values, heroes) {
   const found = Object.keys(heroes)
     .map(key => heroes[key])
     .find(hero => hero.username === values.hero)
@@ -6,7 +6,7 @@ function checkDuplicate(values, heroes) {
   return true
 }
 
-export default function validate(heroes) {
+export default function validate (heroes) {
   return function (values) {
     const errors = {}
     const requiredFields = [

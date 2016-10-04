@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'
 export default ({ max, length }) => (
   <span style={{ fontSize: 14 }}>
     {length === 0 ? (
@@ -7,4 +7,4 @@ export default ({ max, length }) => (
       `${max - length} characters left`
     )}
   </span>
-);
+)

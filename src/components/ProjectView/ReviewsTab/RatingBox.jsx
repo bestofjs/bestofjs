@@ -1,17 +1,17 @@
-import React, { PropTypes } from 'react';
+import React, { PropTypes } from 'react'
 const options = [
   'Pretty bad, looks deprecated',
   'Some annoying defects',
   'It does the job, nothing more, nothing less',
   'A recommended choice',
   'Highly recommended over any other choice, a great piece of software!'
-];
+]
 const RatingBox = React.createClass({
   propTypes: {
     score: PropTypes.object
   },
-  render() {
-    const { score } = this.props;
+  render () {
+    const { score } = this.props
     return (
       <div>
         {options.map((item, i) =>
@@ -33,12 +33,11 @@ const RatingBox = React.createClass({
               key={i}
               className={`octicon octicon-heart icon ${i + 1 <= score.value ? 'on' : 'off'}`}
               onClick={() => score.onChange(i + 1)}
-            >
-            </span>
+             />
           )}
         </div>
       </div>
-    );
+    )
   }
-});
-export default RatingBox;
+})
+export default RatingBox

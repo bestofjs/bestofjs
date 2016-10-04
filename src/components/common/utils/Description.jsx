@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'
 
 // Component used to display repository `description`,
 // removing emojis except if `showEmojis` option is set to true
@@ -19,7 +19,7 @@ const Description = ({ text, showEmojis }) => {
 }
 
 const HtmlDescription = ({ html }) => (
-  <span dangerouslySetInnerHTML={{ __html: html }}></span>
+  <span dangerouslySetInnerHTML={{ __html: html }} />
 )
 
 export default Description

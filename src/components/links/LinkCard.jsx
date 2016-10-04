@@ -10,8 +10,8 @@ export default ({ link, project, editable, showProjects }) => {
       <div className="header">
         <ItemHeader
           item={link}
-          editable={ editable }
-          editLinkTo={ project ? `/projects/${project.slug}/links/${link._id}/edit` : '' }
+          editable={editable}
+          editLinkTo={project ? `/projects/${project.slug}/links/${link._id}/edit` : ''}
         />
       </div>
       <a className="header" href={link.url} target="_blank">

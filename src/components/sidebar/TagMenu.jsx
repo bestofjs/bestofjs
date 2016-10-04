@@ -1,23 +1,23 @@
-import React from 'react';
+import React from 'react'
 
-import TagMenuItem from './TagMenuItem';
+import TagMenuItem from './TagMenuItem'
 
 const TagMenu = React.createClass({
-  shouldComponentUpdate() {
-    return false;
+  shouldComponentUpdate () {
+    return false
   },
-  render() {
+  render () {
     return (
       <div className="tag-menu">
-        { this.props.tags.map(tag =>
+        {this.props.tags.map(tag =>
           <TagMenuItem
-            tag={ tag }
-            key={ tag.id }
-            active={ tag.id === this.props.selectedTag }
+            tag={tag}
+            key={tag.id}
+            active={tag.id === this.props.selectedTag}
           />
-         ) }
+         )}
       </div>
-    );
+    )
   }
-});
-module.exports = TagMenu;
+})
+module.exports = TagMenu

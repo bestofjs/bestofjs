@@ -11,46 +11,46 @@ const Header = React.createClass({
   propTypes: {
     project: PropTypes.object
   },
-  render() {
+  render () {
     const { project } = this.props
     return (
       <div className="">
         <div className="inner">
           <p>
-            <Description text={ project.description } showEmojis />
+            <Description text={project.description} showEmojis />
           </p>
-          { project.url && (
+          {project.url && (
             <p>
-              <span className="octicon octicon-globe"></span>
-              Website: <a href={ project.url }>{ formatUrl(project.url) }</a>
+              <span className="octicon octicon-globe" />
+              Website: <a href={project.url}>{formatUrl(project.url)}</a>
             </p>
           )}
         </div>
         <div className="inner tags" style={{ borderTop: '1px solid #ddd', paddingBottom: '0.5em' }}>
-          { project.tags.map(function (tag) {
+          {project.tags.map(function (tag) {
             return (
-              <TagLabel key={ tag.id } tag={ tag } />
+              <TagLabel key={tag.id} tag={tag} />
             )
-          }) }
+          })}
         </div>
         {project.npm &&
           <NpmSection project={project} />
         }
         <div className="inner github" style={{ borderTop: '1px solid #ddd', paddingBottom: 0 }}>
           <p>
-            <span className="octicon octicon-repo"></span>
+            <span className="octicon octicon-repo" />
             {' '}
-            Github repository: <a href={ project.repository }>{ formatUrl(project.repository) }</a>
+            Github repository: <a href={project.repository}>{formatUrl(project.repository)}</a>
             {' '}
-            { project.stars } <span className="octicon octicon-star"></span>
+            {project.stars} <span className="octicon octicon-star" />
           </p>
           <div className="last-commit" style={{ marginBottom: '0.5em' }}>
-            <span className="octicon octicon-git-commit"></span>
+            <span className="octicon octicon-git-commit" />
             {' '}
-            Last update: { fromNow(project.pushed_at) }
+            Last update: {fromNow(project.pushed_at)}
           </div>
           <div>
-            { project.deltas.length > 0 && <DeltaBar data={ project.deltas.slice(0, 7) } />}
+            {project.deltas.length > 0 && <DeltaBar data={project.deltas.slice(0, 7)} />}
           </div>
         </div>
       </div>

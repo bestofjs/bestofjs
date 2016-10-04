@@ -2,7 +2,7 @@ import React from 'react'
 
 import { fetchJSON } from '../../../helpers/fetch'
 
-function getOptions(input) {
+function getOptions (input) {
   const url = `https://api.github.com/search/users?q=${input}&sort=followers&order=desc`
   return fetchJSON(url)
     .then(json => {
@@ -12,10 +12,10 @@ function getOptions(input) {
         avatar: item.avatar_url
       }))
       return { options: items }
-    });
+    })
 }
 
-function renderOption(option) {
+function renderOption (option) {
   const avatarSize = 48
   return (
     <div className="repo-picker-option">
@@ -35,14 +35,14 @@ function renderOption(option) {
   )
 }
 
-function renderSelectedOption(option) {
+function renderSelectedOption (option) {
   return (
     <div>{option.value}</div>
   )
 }
 
 const GithubUser = React.createClass({
-  render() {
+  render () {
     const { field } = this.props
     return (
       <div>

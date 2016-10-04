@@ -5,24 +5,24 @@ import Link from 'react-router/lib/Link'
 import fromNow from '../../helpers/fromNow'
 
 const ItemHeader = React.createClass({
-  renderEditButton(url) {
+  renderEditButton (url) {
     return (
       <Link
-        to={ url }
+        to={url}
         style={{ marginLeft: 5 }}
       >
-        <span className={`octicon octicon-pencil`}></span>
+        <span className={`octicon octicon-pencil`} />
         {' '}
         EDIT
       </Link>
     )
   },
-  render() {
+  render () {
     const { item, editable, editLinkTo } = this.props
     const displayDate = item.updatedAt ? item.updatedAt : item.createdAt
     return (
       <div className="project-review-date">
-        <span className={`octicon octicon-person`}></span>
+        <span className={`octicon octicon-person`} />
         {' '}
         <a
           href={`https://github.com/${item.createdBy}`}
@@ -31,7 +31,7 @@ const ItemHeader = React.createClass({
         >
           {item.createdBy}
         </a>
-        <span className={`octicon octicon-calendar`} style={{ marginLeft: 10 }}></span>
+        <span className={`octicon octicon-calendar`} style={{ marginLeft: 10 }} />
         {' '}
         {item.updatedAt && 'Updated '}
         {fromNow(displayDate)}

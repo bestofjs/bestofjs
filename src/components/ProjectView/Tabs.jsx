@@ -1,23 +1,23 @@
-import React, { PropTypes } from 'react';
-import Link from 'react-router/lib/Link';
+import React, { PropTypes } from 'react'
+import Link from 'react-router/lib/Link'
 
 const Tabs = React.createClass({
   propTypes: {
     activePath: PropTypes.string,
     project: PropTypes.object
   },
-  renderTab(tab) {
-    const count = tab.counter && tab.counter(this.props.project);
+  renderTab (tab) {
+    const count = tab.counter && tab.counter(this.props.project)
     return (
       <span>
-        <span className={`octicon octicon-${tab.icon}`}></span>
+        <span className={`octicon octicon-${tab.icon}`} />
         {' '}
         {tab.text}
-        { count && <span> ({count})</span> }
+        {count && <span> ({count})</span>}
       </span>
-    );
+    )
   },
-  render() {
+  render () {
     const tabs = [
       {
         path: 'readme',
@@ -35,14 +35,14 @@ const Tabs = React.createClass({
         text: 'REVIEWS',
         icon: 'heart',
         counter: project => project.reviews && project.reviews.length
-      },
-    ];
-    const { activePath, project } = this.props;
+      }
+    ]
+    const { activePath, project } = this.props
     return (
       <div className="project-tabs-header">
-        { tabs.map(tab =>
-          <div key={ tab.path } className={activePath === tab.path ? 'active' : ''}>
-            { activePath === tab.path ? (
+        {tabs.map(tab =>
+          <div key={tab.path} className={activePath === tab.path ? 'active' : ''}>
+            {activePath === tab.path ? (
               this.renderTab(tab)
             ) : (
               <Link to={`/projects/${project.slug}/${tab.path}`}>
@@ -52,7 +52,7 @@ const Tabs = React.createClass({
           </div>
         )}
       </div>
-    );
+    )
   }
-});
-export default Tabs;
+})
+export default Tabs

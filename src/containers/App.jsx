@@ -11,7 +11,7 @@ import getStaticContent from '../staticContent'
 import log from '../helpers/log'
 
 // Return the current tag id (if current path is /tags/:id) or '*'
-function getCurrentTagId() {
+function getCurrentTagId () {
   // const router = state.routing
   // const route = router.routes[1].path
   // return route === 'tags/:id' ? router.params.id : '*'
@@ -19,11 +19,11 @@ function getCurrentTagId() {
 }
 
 const App = React.createClass({
-  componentDidMount() {
+  componentDidMount () {
     this.props.authActions.start()
     log('App did mount!')
   },
-  render() {
+  render () {
     log('Render the <App> container', this.props)
     const { children } = this.props
     return (
@@ -34,7 +34,7 @@ const App = React.createClass({
   }
 })
 
-function mapStateToProps(state) {
+function mapStateToProps (state) {
   const {
     entities: { tags, heroes, links },
     githubProjects: {
@@ -68,7 +68,7 @@ function mapStateToProps(state) {
   }
 }
 
-function mapDispatchToProps(dispatch) {
+function mapDispatchToProps (dispatch) {
   return {
     actions: bindActionCreators(actions, dispatch),
     authActions: bindActionCreators(authActionCreators, dispatch),

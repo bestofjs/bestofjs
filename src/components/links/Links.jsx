@@ -1,7 +1,7 @@
-import React from 'react';
+import React from 'react'
 
-import MainContent from '../common/MainContent';
-import LinkCard from './LinkCard';
+import MainContent from '../common/MainContent'
+import LinkCard from './LinkCard'
 
 export default ({ links, username }) => (
   <MainContent>
@@ -20,4 +20,4 @@ export default ({ links, username }) => (
       ))}
     </div>
   </MainContent>
-);
+)

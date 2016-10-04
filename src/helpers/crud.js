@@ -2,7 +2,7 @@
 // the payload can be:
 // - an array of items (`results` key) or
 // - a single item (no key)
-export function convertPayload(payload, fn) {
+export function convertPayload (payload, fn) {
   if (payload.results) return Object.assign({}, payload, {
     results: payload.results.map(fn)
   })

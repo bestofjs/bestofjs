@@ -10,7 +10,7 @@ export default ({ heroes = [], you, auth, onLogin, isHero, showDetails }) => (
     <h1>
       Hall of Fame
       <span style={{ color: '#aaa', marginLeft: 5 }}>
-        ({heroes.length === 0 ? 'Loading...' : `${heroes.length} members` })
+        ({heroes.length === 0 ? 'Loading...' : `${heroes.length} members`})
       </span>
     </h1>
     <div>

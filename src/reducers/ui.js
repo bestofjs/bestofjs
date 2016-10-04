@@ -18,7 +18,7 @@ const toggleStarFilter = (state, filter) => {
     })
   ) : (
     state.viewOptions
-  );
+  )
   return Object.assign({}, state, {
     starFilter: filter,
     viewOptions
@@ -27,29 +27,29 @@ const toggleStarFilter = (state, filter) => {
 
 export default (state = defaultState, action) => {
   switch (action.type) {
-  case 'TOGGLE_HOT_FILTER':
-    return Object.assign({}, state, {
-      hotFilter: action.payload
-    })
-  case 'TOGGLE_STAR_FILTER':
-    return toggleStarFilter(state, action.payload);
-  case 'TOGGLE_METRICS':
-    return Object.assign({}, state, {
-      showMetrics: action.payload
-    })
-  case 'TOGGLE_SHOW_VIEW_OPTIONS':
-    return Object.assign({}, state, {
-      showViewOptions: action.payload
-    })
-  case 'TOGGLE_VIEW_OPTIONS':
-    const { key, checked } = action.payload
-    const viewOptions = Object.assign({}, state.viewOptions, {
-      [key]: checked
-    })
-    return Object.assign({}, state, {
-      viewOptions
-    })
-  default:
-    return state
+    case 'TOGGLE_HOT_FILTER':
+      return Object.assign({}, state, {
+        hotFilter: action.payload
+      })
+    case 'TOGGLE_STAR_FILTER':
+      return toggleStarFilter(state, action.payload)
+    case 'TOGGLE_METRICS':
+      return Object.assign({}, state, {
+        showMetrics: action.payload
+      })
+    case 'TOGGLE_SHOW_VIEW_OPTIONS':
+      return Object.assign({}, state, {
+        showViewOptions: action.payload
+      })
+    case 'TOGGLE_VIEW_OPTIONS':
+      const { key, checked } = action.payload
+      const viewOptions = Object.assign({}, state.viewOptions, {
+        [key]: checked
+      })
+      return Object.assign({}, state, {
+        viewOptions
+      })
+    default:
+      return state
   }
 }

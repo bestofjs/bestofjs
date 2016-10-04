@@ -1,23 +1,23 @@
 import { fetchJSON } from '../helpers/fetch'
-import getApi from '../../config/api';
+import getApi from '../../config/api'
 
-const debug = false;
-const API_BASE_URL = debug ? 'http://localhost:3000' : getApi('USER_CONTENT');
+const debug = false
+const API_BASE_URL = debug ? 'http://localhost:3000' : getApi('USER_CONTENT')
 
 // Call user-content API to read/write "links" and "reviews"
-function apiRequest(url, token, options) {
+function apiRequest (url, token, options) {
   const defaultOptions = {
     method: 'GET',
     headers: {
       Accept: 'application/json'
       // no 'Content-Type' header for GET requests to avoid `OPTIONS` requests (#14)
     }
-  };
-  const requestOptions = Object.assign({}, defaultOptions, options);
-  if (requestOptions.method !== 'GET') {
-    requestOptions.headers['Content-Type'] = 'application/json';
   }
-  if (token) requestOptions.headers.token = token;
+  const requestOptions = Object.assign({}, defaultOptions, options)
+  if (requestOptions.method !== 'GET') {
+    requestOptions.headers['Content-Type'] = 'application/json'
+  }
+  if (token) requestOptions.headers.token = token
   return fetchJSON(`${API_BASE_URL}/${url}`, requestOptions)
 }
 
@@ -26,32 +26,32 @@ function apiRequest(url, token, options) {
 // - getAll()
 // - create()
 // - update()
-export function createUserContentApi(endPoint) {
+export function createUserContentApi (endPoint) {
   const api = {
-    getAll() {
-      return apiRequest(endPoint);
+    getAll () {
+      return apiRequest(endPoint)
     },
-    create(body, token) {
+    create (body, token) {
       const options = {
         method: 'POST',
         body: JSON.stringify(body)
-      };
-      return apiRequest(endPoint, token, options);
+      }
+      return apiRequest(endPoint, token, options)
     },
-    update(body, token) {
+    update (body, token) {
       const options = {
         method: 'PUT',
         body: JSON.stringify(body)
-      };
+      }
       return apiRequest(`${endPoint}/${body._id}`, token, options)
     }
-  };
-  return api;
+  }
+  return api
 }
 
 // Create an issue in the given repository
 // content: { title, body, tags}
-export function createGithubIssue(repo, content, token) {
+export function createGithubIssue (repo, content, token) {
   const body = {
     repo,
     content

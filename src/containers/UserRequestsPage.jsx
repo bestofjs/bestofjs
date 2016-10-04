@@ -7,11 +7,11 @@ import * as repoActionCreators from '../actions/repoActions'
 // import { getUserRequests } from '../actions/repoActions';
 
 const SubmitRepoPage = React.createClass({
-  componentDidMount() {
+  componentDidMount () {
     // const { repoActions, auth } = this.props
     // if (auth.username) repoActions.getUserRequests(auth)
   },
-  render() {
+  render () {
     const { issues } = this.props
     return (
       <List
@@ -21,7 +21,7 @@ const SubmitRepoPage = React.createClass({
   }
 })
 
-function mapStateToProps(state) {
+function mapStateToProps (state) {
   const {
     auth,
     requests: { issues }
@@ -32,7 +32,7 @@ function mapStateToProps(state) {
   }
 }
 
-function mapDispatchToProps(dispatch) {
+function mapDispatchToProps (dispatch) {
   return {
     repoActions: bindActionCreators(repoActionCreators, dispatch)
   }

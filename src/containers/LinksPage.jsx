@@ -6,14 +6,14 @@ import log from '../helpers/log'
 import { sortByDate } from '../helpers/projectItemHelpers'
 
 const Page = React.createClass({
-  render() {
+  render () {
     log('Render the <Link> container', this.props)
     const { links, isLoggedin, username } = this.props
     return (
       <Links
-        links = {links}
-        isLoggedin = {isLoggedin}
-        username = {username}
+        links={links}
+        isLoggedin={isLoggedin}
+        username={username}
       />
     )
   }
@@ -25,7 +25,7 @@ const populate = (allProjects) => link => {
   return Object.assign({}, link, { projects })
 }
 
-function mapStateToProps(state) {
+function mapStateToProps (state) {
   const {
     entities: {
       projects,

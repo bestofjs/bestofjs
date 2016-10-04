@@ -3,9 +3,9 @@
   "version": "0.6.3",
   "description": "bestof.js.org front-end web application",
   "main": "",
-  "engines" : {
-     "node" : ">=6.2.1"
-   },
+  "engines": {
+    "node": ">=6.2.1"
+  },
   "scripts": {
     "lint": "eslint src --ext .js --ext .jsx",
     "test": "cross-env NODE_ENV=test babel-tape-runner test/**/*Spec.js | faucet",
@@ -83,12 +83,18 @@
     "webpack": "1.12.13"
   },
   "devDependencies": {
+    "babel-eslint": "^7.0.0",
     "babel-register": "6.5.2",
     "babel-tape-runner": "2.0.1",
     "enzyme": "2.2.0",
-    "eslint": "^1.10.3",
-    "eslint-config-airbnb": "^2.1.1",
-    "eslint-plugin-react": "^3.11.3",
+    "eslint": "^3.0.0",
+    "eslint-config-standard": "^6.2.0",
+    "eslint-config-standard-react": "^4.2.0",
+    "eslint-plugin-babel": "^3.3.0",
+    "eslint-plugin-import": "^2.0.0",
+    "eslint-plugin-promise": "^2.0.1",
+    "eslint-plugin-react": "6.3.0",
+    "eslint-plugin-standard": "^2.0.1",
     "faucet": "0.0.1",
     "gh-pages": "0.10.0",
     "jsdom": "^7.0.2",

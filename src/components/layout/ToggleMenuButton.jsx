@@ -1,13 +1,13 @@
-import React from 'react';
+import React from 'react'
 
 const ToggleMenuButton = React.createClass({
   // No `handleClick` event here, no action `ToggleMenu` action is dispatched
-  render() {
+  render () {
     return (
       <a className="menu-link">
-        <span className="mega-octicon octicon-three-bars"></span>
+        <span className="mega-octicon octicon-three-bars" />
       </a>
-    );
+    )
   }
-});
-module.exports = ToggleMenuButton;
+})
+module.exports = ToggleMenuButton

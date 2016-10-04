@@ -14,7 +14,7 @@ const defaultState = {
     lastUpdate: new Date(),
     total: [],
     daily: [],
-    weekly: [],
+    weekly: []
   },
   auth: {
     username: '',
@@ -22,7 +22,7 @@ const defaultState = {
   }
 }
 
-function processProject(item) {
+function processProject (item) {
   const days = [1, 7, 30, 90]
   const trends = days.map(
     (t, i) => item.trends.length > i ? Math.round(item.trends[i] / t) : null
@@ -56,7 +56,7 @@ function processProject(item) {
   return result
 }
 
-export function getInitialState(data, profile) {
+export function getInitialState (data, profile) {
   const state = defaultState
 
   // Format id and repository fields
@@ -137,7 +137,7 @@ export function getInitialState(data, profile) {
 // return a hash object
 // key: tag code
 // value: number of project for the tag
-function getTagCounters(projects) {
+function getTagCounters (projects) {
   const counters = {}
   projects.forEach(function (project) {
     project.tags.forEach(function (id) {

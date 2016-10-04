@@ -32,11 +32,11 @@ const Delta = (props) => {
       style={color ? style : {}}
       data-balloon={tooltip}
     >
-      { formatDelta(value) }
-      { props.icon && value !== 0 && (
-        <span className="octicon octicon-star" style={{ fontSize: 14, marginLeft: 2 }}></span>
-      ) }
-      { perDay && value !== 0 && value !== null && '/day' }
+      {formatDelta(value)}
+      {props.icon && value !== 0 && (
+        <span className="octicon octicon-star" style={{ fontSize: 14, marginLeft: 2 }} />
+      )}
+      {perDay && value !== 0 && value !== null && '/day'}
     </div>
   )
 }

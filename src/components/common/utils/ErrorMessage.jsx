@@ -1,12 +1,12 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 class ErrorMessage extends Component {
-  render() {
+  render () {
     return (
       <div className="ui error message">
-        { this.props.children }
+        {this.props.children}
       </div>
-    );
+    )
   }
 }
 
-export default ErrorMessage;
+export default ErrorMessage

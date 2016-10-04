@@ -7,21 +7,21 @@ import LoggedinUser from './LoggedinUser'
 import AnonymousUser from './AnonymousUser'
 
 const Sidebar = React.createClass({
-  render() {
+  render () {
     const { allTags, popularTags, auth, authActions, hofCount, linkCount, requestCount } = this.props
     return (
       <nav id="menu" className="slideout-menu">
         <div className={`sidebar-login-block ${auth.username ? 'loggedin' : 'anonymous'}`}>
-          { auth.username ? (
+          {auth.username ? (
             <LoggedinUser
-              username={ auth.username }
-              onLogout={ authActions.logout }
-              pending={ auth.pending }
+              username={auth.username}
+              onLogout={authActions.logout}
+              pending={auth.pending}
             />
           ) : (
             <AnonymousUser
-              onLogin={ authActions.login }
-              pending={ auth.pending }
+              onLogin={authActions.login}
+              pending={auth.pending}
             />
           )}
         </div>
@@ -41,11 +41,11 @@ const Sidebar = React.createClass({
           </Link>}
           <div className="item">
             <div className="header">POPULAR TAGS</div>
-            <TagMenu tags={ popularTags } selectedTag={ this.props.selectedTag } />
+            <TagMenu tags={popularTags} selectedTag={this.props.selectedTag} />
           </div>
           <div className="item">
             <div className="header">ALL TAGS</div>
-            <TagMenu tags={ allTags } selectedTag={ this.props.selectedTag } />
+            <TagMenu tags={allTags} selectedTag={this.props.selectedTag} />
           </div>
           <Link to="/about" className="item">ABOUT</Link>
         </div>

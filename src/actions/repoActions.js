@@ -5,7 +5,7 @@ import getApi from '../../config/api'
 import { createGithubIssue } from '../api/userContent'
 import msgbox from '../helpers/msgbox'
 
-export function getUserRequests(username) {
+export function getUserRequests (username) {
   return dispatch => {
     const repo = getApi('ISSUES_REPO')
     return fetchUserIssues(repo, username)
@@ -25,7 +25,7 @@ export function getUserRequests(username) {
 }
 
 // submit handler called by `SubmitRepoPage` container
-export function addProject(form, auth) {
+export function addProject (form, auth) {
   return dispatch => {
     dispatch({
       type: 'ADD_PROJECT_REQUEST',
@@ -50,7 +50,7 @@ export function addProject(form, auth) {
 }
 
 // submit handler called by `SubmitHeroPage` container
-export function addHero(form, auth) {
+export function addHero (form, auth) {
   return dispatch => {
     dispatch({
       type: 'ADD_HERO_REQUEST',
@@ -74,7 +74,7 @@ export function addHero(form, auth) {
   }
 }
 
-export function createIssueAddProject(project, comment, token) {
+export function createIssueAddProject (project, comment, token) {
   const repo = getApi('ISSUES_REPO')
   const url = `https://github.com/${project}`
   const content = {
@@ -87,7 +87,7 @@ export function createIssueAddProject(project, comment, token) {
 }
 
 // Add a hall of famer request
-export function createIssueAddHero(username, comment, token) {
+export function createIssueAddHero (username, comment, token) {
   const repo = getApi('ISSUES_REPO')
   const url = `https://github.com/${username}`
   const content = {
@@ -100,10 +100,10 @@ export function createIssueAddHero(username, comment, token) {
 }
 
 // Get issues created by the user
-function fetchUserIssues(repo, username) {
+function fetchUserIssues (repo, username) {
   const url = `https://api.github.com/repos/${repo}/issues?creator=${username}&state=all`
   const options = {
-    method: 'GET',
+    method: 'GET'
   }
   return fetchJSON(url, options)
 }
