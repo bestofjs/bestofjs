@@ -1,4 +1,5 @@
 import React from 'react'
+import { Async } from 'react-select'
 
 import { fetchJSON } from '../../../helpers/fetch'
 
@@ -44,6 +45,9 @@ function renderSelectedOption (option) {
 const GithubUser = React.createClass({
   render () {
     const { field } = this.props
+    const onChange = item => {
+      field.onChange(item)
+    }
     return (
       <div>
         <Async
@@ -53,9 +57,7 @@ const GithubUser = React.createClass({
           value={field.value}
           name={field.name}
           minimumInput={3}
-          onChange={item => {
-            field.onChange(item)
-          }}
+          onChange={onChange}
         />
       </div>
     )

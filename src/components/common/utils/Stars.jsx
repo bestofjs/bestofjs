@@ -12,4 +12,4 @@ const Stars = ({ value, icon = true }) => {
     </span>
   )
 }
-module.exports = Stars
+export default Stars
