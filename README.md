@@ -8,7 +8,7 @@
 
 [bestof.js.org](http://bestof.js.org/) gathers the latest trends about open source projects related to the web platform: JavaScript of course (client and server side) but also html, css...
 
-This is a place where font-end engineers and node.js developers can find the best components to build amazing web applications:
+This is a place where front-end engineers and node.js developers can find the best components to build amazing web applications:
 
 * Frameworks
 * Libraries
