@@ -10,7 +10,7 @@ module.exports = function (dev, appHtml) {
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>The Best of JavaScript and the web platorm</title>
+    <title>The Best of JavaScript and the web platform</title>
     <meta name="description" content="bestof.js.org is a place where front-end engineers and node.js developers can find the best components to build amazing web applications.">
     <meta content="Best of JavaScript" property="og:title">
     <meta content="A place to find the best components to build amazing applications: JavaScript client and server side, html, CSS..." property="og:description">
