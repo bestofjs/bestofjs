@@ -42,7 +42,8 @@ export function fetchReadme (project) {
     log('Fetching README.md...', project)
     dispatch(requestReadme(id))
     const webtaskUrl = api('GET_README')
-    return fetchHTML(`${webtaskUrl}/${project.full_name}`)
+    const branch = project.branch || 'master'
+    return fetchHTML(`${webtaskUrl}/${project.full_name}?branch=${branch}`)
       .then(html => dispatch(getReadmeSuccess(id, html)))
       .catch((response) => dispatch(getReadmeFailure(id, response)))
   }
