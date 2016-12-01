@@ -1,5 +1,8 @@
 # Change log
 
+# 0.6.4 - 2016-12-01
+* Take into account project default branch when calling get-github-readme microservice (#32)
+
 # 0.6.3 - 2016-10-01
 * Use micro-service hosted on `now.sh` to get project README.md
 * Add URLs for direct access to trend filters, for example `/tags/react/trends/today`
