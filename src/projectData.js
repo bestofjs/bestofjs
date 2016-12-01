@@ -27,7 +27,6 @@ function processProject (item) {
   const trends = days.map(
     (t, i) => item.trends.length > i ? Math.round(item.trends[i] / t) : null
   )
-  console.log(item.branch);
   const result = {
     full_name: item.full_name,
     repository: 'https://github.com/' + item.full_name,
