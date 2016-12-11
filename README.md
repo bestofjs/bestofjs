@@ -62,7 +62,12 @@ Database-as-a-Service for MongoDB, free up to 500 MB.
 
 #### CI Server: [SemaphoreCI](https://semaphoreci.com/)
 
-The "build scheduler" is used to generate static JSON files every day.
+There are a lot of good CI servers on the market but I needed a kind of "CRON system - job scheduler" feature to generate every day the application data.
+
+I didn't want to manage a web server up-and-running all day long.
+And then I found [SemaphoreCI](https://semaphoreci.com/) and their amazing "build scheduler" feature.
+
+The "build scheduler" is used to generate every day at a given time the static JSON files consumed by the web UI application.
 
 #### node.js microservices
 
@@ -172,7 +177,7 @@ npm run surge
 ### Daily update
 
 Data come from a static JSON file `projects.json` hosted on a CDN (Firebase).
-Every morning at 6:00 AM (21:00 UTC), the JSON file is updated by a daily batch running in `bestofjs-batches` repository.
+Every day at 6:00 AM (Osaka time, 21:00 UTC), the JSON file is updated by a daily batch running in `bestofjs-batches` repository.
 
 Then, 30 minutes later, `npm run daily` command is launched from this repository, in order to rebuild the html file, using React server-side rendering feature.
 
