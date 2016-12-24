@@ -56,7 +56,7 @@ export function addHero (form, auth) {
       type: 'ADD_HERO_REQUEST',
       payload: form
     })
-    return createIssueAddHero(form.hero, form.comment, auth.github_access_token)
+    return createIssueAddHero(form.hero, form.comment, auth.token)
       .then(json => {
         dispatch({
           type: 'ADD_HERO_SUCCESS',
