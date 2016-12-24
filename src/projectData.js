@@ -49,7 +49,8 @@ function processProject (item) {
       daily: trends[0],
       weekly: trends[1],
       monthly: trends[2],
-      quaterly: trends[3]
+      quaterly: trends[3],
+      oneYear: item.monthlyTrends
     },
     svglogo: item.svglogo,
     branch: item.branch

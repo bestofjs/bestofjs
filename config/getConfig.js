@@ -96,10 +96,10 @@ function getEntry(env) {
       [
         `webpack-dev-server/client?http://localhost:${constants.port}`,
         'webpack/hot/only-dev-server',
-        './src/entry.jsx'
+        './src/entry.js'
       ]
     ) : (
-      './src/entry.jsx'
+      './src/entry.js'
     )
   };
 }

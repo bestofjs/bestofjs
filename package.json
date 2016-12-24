@@ -64,6 +64,7 @@
     "notie": "^2.1.0",
     "numeral": "^1.5.3",
     "postcss-loader": "^0.8.1",
+    "randomcolor": "^0.4.4",
     "react": "15.0.1",
     "react-dom": "15.0.1",
     "react-redux": "4.4.2",
@@ -76,10 +77,11 @@
     "redux-thunk": "^1.0.0",
     "slideout": "^0.1.11",
     "style-loader": "0.13.0",
-    "stylus-loader": "2.1.1",
     "stylus": "0.54.5",
+    "stylus-loader": "2.1.1",
     "url-loader": "^0.5.7",
     "vague-time": "^1.3.0",
+    "victory": "^0.14.2",
     "webpack": "1.12.13"
   },
   "devDependencies": {
