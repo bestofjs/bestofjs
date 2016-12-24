@@ -10,6 +10,9 @@ export default ({ comment, emptyText }) => {
     )
   }
   return (
-    <div dangerouslySetInnerHTML={{ __html: marked(comment) }} />
+    <div
+      dangerouslySetInnerHTML={{ __html: marked(comment) }}
+      className="markdown-body"
+    />
   )
 }
