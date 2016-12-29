@@ -1,5 +1,9 @@
 # Change log
 
+# 0.6.5 - 2016-12-25
+* Improve project README.md styling using the stylesheet from https://github.com/sindresorhus/github-markdown-css project
+* Fix error about Hall of Fame "Suggest a new member" button.
+
 # 0.6.4 - 2016-12-01
 * Take into account project default branch when calling get-github-readme microservice (#32)
 
