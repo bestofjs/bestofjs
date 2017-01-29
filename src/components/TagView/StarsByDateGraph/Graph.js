@@ -1,7 +1,6 @@
 import React from 'react'
 import { VictoryChart, VictoryLine, VictoryAxis, VictoryTheme } from 'victory'
 import numeral from 'numeral'
-import randomColor from 'randomcolor'
 
 function createDate (delta) {
   const now = new Date()
@@ -10,17 +9,26 @@ function createDate (delta) {
   return d
 }
 
-const dates = [12, 9, 6, 3, 0].map(createDate)
+const months = [12, 9, 6, 3, 2, 1, 0]
+const dates = months.map(createDate)
 
 function getGraphData (project) {
-  const data = project.stats.oneYear
+  const l = project.monthly.length + 1
+  const data = project.monthly
     .concat([project.stars])
-    .map((item, i) => ({
-      name: project.name,
-      monthsAgo: new Date(dates[i].getFullYear(), dates[i].getMonth(), dates[i].getDate()),
-      // stars: item - project.stats.oneYear[0]
-      stars: item
-    }))
+    .map((item, i) => {
+      const index = i + (months.length - l)
+      return ({
+        name: project.name,
+        monthsAgo: new Date(
+          dates[index].getFullYear(),
+          dates[index].getMonth(),
+          dates[index].getDate()
+        ),
+        // stars: item - project.stats.oneYear[0]
+        stars: item
+      })
+    })
   return data
 }
 
@@ -42,7 +50,7 @@ function formatStars (value) {
 const Graph = ({ projects }) => {
   if (!projects || projects.length === 0) return <div>No data</div>
   return (
-    <div className="graph-container">
+    <div className="">
       <VictoryChart
         domainPadding={20}
         themeXX={VictoryTheme.material}
@@ -62,9 +70,6 @@ const Graph = ({ projects }) => {
           style={styles.axis}
         />
         {projects.map(project => {
-          const color = randomColor({
-            luminosity: 'dark'
-          })
           return (
           // <ProjectLine key={project.id} project={project} />
             <VictoryLine
@@ -75,10 +80,10 @@ const Graph = ({ projects }) => {
               label={project.name}
               style={{
                 data: {
-                  stroke: color
+                  stroke: project.color
                 },
                 labels: {
-                  fill: color
+                  fill: project.color
                 }
               }}
             />
@@ -105,7 +110,7 @@ const styles = {
       top: 20,
       left: 60,
       bottom: 50,
-      right: 60
+      right: 100
     }
   },
   axis: {

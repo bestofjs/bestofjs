@@ -3,16 +3,18 @@ import browserHistory from 'react-router/lib/browserHistory'
 
 import MainContent from '../common/MainContent'
 import ProjectList from '../projects/ProjectList'
-import ProjectFilterTabs from '../ProjectFilter/ProjectFilterTabs'
-import ProjectFilterCombobox from '../ProjectFilter/ProjectFilterCombobox'
-import ProjectViewOptions from '../ProjectFilter/ProjectViewOptions'
-import items from '../ProjectFilter/items'
-import Graph from './Graph'
+import ProjectFilterTabs from '../ProjectSortFilter'
+import ProjectFilterCombobox from '../ProjectSortFilter/ProjectFilterCombobox'
+import ProjectViewOptions from '../ProjectSortFilter/ProjectViewOptions'
+import items from '../ProjectSortFilter/items'
+import StarsByDateGraph from './StarsByDateGraph'
+import DeltaGraph from './DeltaGraph'
+import TagViewTitle from './TagViewTitle'
 
 const TagFilter = React.createClass({
 
   render () {
-    const { tag, projects, graphProjects, isLoggedin, ui, uiActions } = this.props
+    const { tag, projects, graphProjects, isLoggedin, ui, uiActions, count } = this.props
     const showStars = ui.starFilter === 'total' || ui.starFilter === 'packagequality' || ui.starFilter === 'npms'
     function changeTagFilter (value) {
       const item = items.find(item => item.value === value)
@@ -21,40 +23,45 @@ const TagFilter = React.createClass({
     }
     return (
       <MainContent className="container">
-        <div className="card card-homepage">
-          <div className="header">
-            <div className="inner">
-              <span className="icon mega-octicon octicon-tag icon" />
-              {' '}
-              <span style={{ fontSize: '1.5rem' }}>{tag.name}</span>
-              <span className="counter">
-                {projects.length === 1 ? (
-                  ' (one project)'
-                ) : (
-                  ` (${projects.length} projects)`
-                )}
-              </span>
-            </div>
-          </div>
+        <div className="">
+          {tag ? (
+            <TagViewTitle
+              title={tag.name}
+              count={projects.length}
+              icon={'tag'}
+            />
+          ) : (
+            <TagViewTitle
+              title={'All tags'}
+              count={count}
+              icon={'list-unordered'}
+            />
+          )
+          }
 
           <ProjectFilterTabs
             currentValue={ui.starFilter}
-            tag={tag.id}
-            onToggle={uiActions.toggleStarFilter}
+            rootUrl={tag ? `/tags/${tag.id}` : '/projects'}
           />
-          <ProjectFilterCombobox
+          {false && <ProjectFilterCombobox
             currentValue={ui.starFilter}
             onToggle={changeTagFilter}
-          />
-          <ProjectViewOptions
+          />}
+          {false && <ProjectViewOptions
             values={ui.viewOptions}
             onChange={uiActions.toggleViewOption}
             open={ui.showViewOptions}
             onToggle={uiActions.toggleShowViewOptions}
             sortFilter={ui.starFilter}
-          />
+          />}
         </div>
-        <Graph projects={graphProjects} />
+
+        {ui.starFilter === 'total' && (
+          <StarsByDateGraph projects={graphProjects} sortOrder={ui.starFilter} />
+        )}
+        {['yearly', 'quaterly', 'monthly', 'weekly', 'daily'].includes(ui.starFilter) && (
+          <DeltaGraph projects={graphProjects} sortOrder={ui.starFilter} />
+        )}
 
         {projects.length > 0 && (
           <ProjectList

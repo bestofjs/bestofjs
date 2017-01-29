@@ -7,6 +7,7 @@ import Links from '../containers/LinksPage'
 
 import ProjectsRoute from './ProjectsRoute'
 import TagsRoute from './TagsRoute'
+import AllProjectsRoute from './AllProjectsRoute'
 import RequestsRoute from './RequestsRoute'
 
 function getRoutes (count = 3) {
@@ -36,6 +37,7 @@ function getRoutes (count = 3) {
         component: Links
       },
       TagsRoute(),
+      AllProjectsRoute(),
       ProjectsRoute(),
       ...RequestsRoute()
     ]

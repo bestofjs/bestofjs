@@ -55,22 +55,22 @@
 
 .hot-filter-menu
   display: flex
-  background-color: darken($bestofjsPurple, 15%)
+  // background-color: darken($bestofjsPurple, 15%)
   > div
     flex: 1
     padding: 0.2rem 0
     text-align: center
-    border: 3px solid transparent
-    border-width: 3px 0 3px 0
+    border: 3px solid #ccc
+    border-width: 0 0 3px 0
     transition: all .3s
     &.off
       cursor: pointer
       a
-        color: rgba(255, 255, 255, .5)
+        color: #aaa
     &.on
       border-bottom-color: $logoColors[1]
       a
-       color: white
+       color: inherit
 
 .project-filter-tabs
   display: none

@@ -45,7 +45,7 @@ const HomeB = ({
     <div className="col-sm-6">
       <div className="box">
         <ProjectList
-          title={'Most popular projects'}
+          title={'Popular projects'}
           comment={'By total number of stars on Github'}
           icon={'octicon-star'}
           projects={popularProjects}

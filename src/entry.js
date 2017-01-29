@@ -113,7 +113,7 @@ function renderApp (store) {
         history={browserHistory}
         onUpdate={onRouterUpdate}
         render={applyRouterMiddleware(useScroll())}
-        children={getRoutes(20)}
+        children={getRoutes(10)}
       />
     </Provider>,
     window.document.getElementById('app')

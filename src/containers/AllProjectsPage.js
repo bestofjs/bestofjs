@@ -7,7 +7,7 @@ import populate from '../helpers/populate'
 import log from '../helpers/log'
 import * as uiActionCreators from '../actions/uiActions'
 
-const TagFilterPage = React.createClass({
+const AllProjectsPage = React.createClass({
 
   shouldComponentUpdate (nextProps) {
     // `shouldComponentUpdate` has been implemented to avoid
@@ -19,17 +19,17 @@ const TagFilterPage = React.createClass({
   },
 
   render () {
-    log('Render the <TagFilterPage> container', this.props.routes)
-    const { tagProjects, tag, isLoggedin, uiActions, ui, graphProjects } = this.props
+    log('Render the <AllProjectsPage> container', this.props)
+    const { tagProjects, isLoggedin, uiActions, ui, graphProjects, count } = this.props
     return (
       <TagFilter
         projects={tagProjects}
         graphProjects={graphProjects}
-        tag={tag}
         maxStars={tagProjects.length > 0 ? tagProjects[0].stars : 0}
         isLoggedin={isLoggedin}
         ui={ui}
         uiActions={uiActions}
+        count={count}
       />
     )
   }
@@ -47,23 +47,23 @@ function mapStateToProps (sortFilter) {
       ui
     } = state
 
-    const tagId = props.params.id
-    const tagProjects = githubProjects[sortFilter]
+    const allProjects = githubProjects[sortFilter]
+    const count = allProjects.length
+
+    const tagProjects = allProjects
       .map(id => projects[id])
-      .filter(project => project.tags.indexOf(tagId) > -1)
+      .slice(0, 50)
       .map(populate(tags, links))
     const graphProjects = tagProjects
-      .filter(project => project.monthly.length > 0)
       .slice(0, 10)
-
     return {
       tagProjects,
       graphProjects,
-      tag: tags[tagId],
       isLoggedin: username !== '',
       ui: Object.assign({}, ui, {
         starFilter: sortFilter
-      })
+      }),
+      count
     }
   }
 }
@@ -77,4 +77,4 @@ function mapDispatchToProps (dispatch) {
 export default sortFilter => connect(
   mapStateToProps(sortFilter),
   mapDispatchToProps
-)(TagFilterPage)
+)(AllProjectsPage)

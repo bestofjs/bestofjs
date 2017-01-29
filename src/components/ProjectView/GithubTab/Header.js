@@ -7,6 +7,12 @@ import fromNow from '../../../helpers/fromNow'
 import formatUrl from '../../../helpers/formatUrl'
 import NpmSection from '../../projects/NpmSection'
 
+// Some project URLs do not start with `http` ('daneden.github.io/animate.css' for example)
+function addMissingHttp (url) {
+  if (/^http/.test(url)) return url
+  return `http://${url}`
+}
+
 const Header = React.createClass({
   propTypes: {
     project: PropTypes.object
@@ -22,7 +28,9 @@ const Header = React.createClass({
           {project.url && (
             <p>
               <span className="octicon octicon-globe" />
-              Website: <a href={project.url}>{formatUrl(project.url)}</a>
+              Website:&nbsp;<a href={addMissingHttp(project.url)}>
+                {formatUrl(project.url)}
+              </a>
             </p>
           )}
         </div>

@@ -19,7 +19,7 @@ const ProjectList = React.createClass({
     return (
       <div className="project-grid">
         {this.props.projects.map((project, index) =>
-          <div key={project.id}>
+          <div key={project.slug}>
             <ProjectCard
               project={project}
               maxStars={this.props.maxStars}
