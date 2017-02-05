@@ -3,18 +3,19 @@ import React from 'react'
 import MainContent from '../common/MainContent'
 import ProjectList from '../projects/ProjectList'
 import ProjectFilterTabs from '../ProjectSortFilter'
-import StarsByDateGraph from './StarsByDateGraph'
-import DeltaGraph from './DeltaGraph'
+// import StarsByDateGraph from './StarsByDateGraph'
+// import DeltaGraph from './DeltaGraph'
 import TagViewTitle from './TagViewTitle'
 
 function renderGraph ({ projects, ui }) {
   const filters = ['yearly', 'quaterly', 'monthly', 'weekly', 'daily']
-  if (ui.starFilter === 'total') return (
-    <StarsByDateGraph projects={projects} sortOrder={ui.starFilter} />
-  )
-  return filters.includes(ui.starFilter) && (
-    <DeltaGraph projects={projects} sortOrder={ui.starFilter} />
-  )
+  console.log('[Disabled]', projects, ui, filters); // eslint-disable-line
+  // if (ui.starFilter === 'total') return (
+  //   <StarsByDateGraph projects={projects} sortOrder={ui.starFilter} />
+  // )
+  // return filters.includes(ui.starFilter) && (
+  //   <DeltaGraph projects={projects} sortOrder={ui.starFilter} />
+  // )
 }
 
 const TagFilter = React.createClass({

@@ -1,7 +1,11 @@
 {
-  "extends": "airbnb",
+  "extends" : [
+    "standard",
+    "standard-react",
+  ],
   "plugins": [
-    "react"
+    "babel",
+    "import"
   ],
   "rules": {
     "semi": 0,

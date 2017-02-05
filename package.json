@@ -15,7 +15,6 @@
     "start": "cross-env NODE_ENV=development node config/devserver.js",
     "build-js": "cross-env NODE_ENV=production webpack -p --config config/webpack.production.config.js --progress",
     "gh-pages": "node scripts/deploy-gh-pages/",
-    "firebase": "firebase deploy --project project-2939241904987176880",
     "surge": "surge --domain bestofjs.surge.sh --project ./www/",
     "deploy-all": "npm run build && npm run gh-pages",
     "daily": "npm run build-html && npm run build-html-hof && npm run deploy-html",
