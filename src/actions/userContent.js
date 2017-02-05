@@ -30,9 +30,8 @@ export function fetchAll (key) {
       settings[key].api.getAll()
       .then(json => dispatch(crud.fetchAllItemsSuccess(key, json)))
       .catch(err => {
-        msgbox(
-          `Error when calling user content API. ${err.message}`,
-          { type: 'ERROR' }
+        console.error( // eslint-disable-line no-console
+          `Error when calling user content API. ${err.message}`
         )
       })
     }

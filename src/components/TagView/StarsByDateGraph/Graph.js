@@ -13,9 +13,9 @@ const months = [12, 9, 6, 3, 2, 1, 0]
 const dates = months.map(createDate)
 
 function getGraphData (project) {
-  const l = project.monthly.length + 1
+  const l = project.monthly.length
   const data = project.monthly
-    .concat([project.stars])
+    // .concat([project.stars])
     .map((item, i) => {
       const index = i + (months.length - l)
       return ({

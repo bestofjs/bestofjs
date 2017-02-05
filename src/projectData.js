@@ -47,6 +47,7 @@ function processProject (item) {
   // )
   const monthlyStars = item.monthly.slice(0)
   monthlyStars.reverse() // caution, reverse() mutates the array!
+  if (item.name === 'Calypso') console.info(monthlyStars);
 
   const weeklyTotal = item.deltas.reduce((result, delta) => result + delta, 0)
 
@@ -78,15 +79,16 @@ function processProject (item) {
       total: item.stars,
       daily: item.deltas[0],
       weekly: roundAverage(weeklyTotal / 7),
-      monthly: monthlyStars.length > 0 ? addedAverage(monthlyStars[0], 30) : null,
-      quaterly: monthlyStars.length > 0 ? addedAverage(nthElement(monthlyStars, 2), 90) : null,
-      yearly: item.monthly.length > 0 ? addedAverage(item.monthly[0], 365) : null
+      monthly: monthlyStars.length > 1 ? addedAverage(monthlyStars[1], 30) : null,
+      quaterly: monthlyStars.length > 3 ? addedAverage(nthElement(monthlyStars, 3), 90) : null,
+      yearly: item.monthly.length > 6 ? addedAverage(nthElement(monthlyStars, 6), 365) : null
     },
     monthly: item.monthly,
     svglogo: item.svglogo,
     branch: item.branch,
     color: item.color ? `#${item.color}` : getRandomColor()
   }
+  if (result.slug === 'calypso') console.info(result);
   return result
 }
 
