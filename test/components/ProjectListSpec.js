@@ -12,11 +12,11 @@ import setup from '../setup.js'
 import configureStore from '../../src/store/configureStore'
 
 // Data
-import data from '../data/projects'
-import links from '../data/links'
-import reviews from '../data/reviews'
+import data from '../data/projects.json'
+import links from '../data/links.json'
+import reviews from '../data/reviews.json'
 
-import { getInitialState } from '../../src/projectData'
+import { getInitialState } from '../../src/getInitialState'
 
 // Actions
 import * as actions from '../../src/actions/crudActions'

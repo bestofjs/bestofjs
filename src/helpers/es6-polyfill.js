@@ -1,3 +1,4 @@
+/* eslint-disable */
 // Object.assign polyfill for IE 10 and 11
 // Code From MDN site
 // Goal_: avoid including `import "babel-core/polyfill";` (=> + 50 KB)

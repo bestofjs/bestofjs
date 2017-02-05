@@ -41,13 +41,8 @@ function nthElement (arr, i) {
 }
 
 function processProject (item) {
-  // const days = [1, 7, 30, 90]
-  // const trends = days.map(
-  //   (t, i) => item.trends.length > i ? Math.round(item.trends[i] / t) : null
-  // )
   const monthlyStars = item.monthly.slice(0)
   monthlyStars.reverse() // caution, reverse() mutates the array!
-  if (item.name === 'Calypso') console.info(monthlyStars);
 
   const weeklyTotal = item.deltas.reduce((result, delta) => result + delta, 0)
 
@@ -56,8 +51,6 @@ function processProject (item) {
     return roundAverage(delta / period)
   }
 
-  // const oneYearDelta = item.monthly.length > 0 ? item.stars - item.monthly[0] : null
-  // const oneYearTrend = oneYearDelta === null ? null : roundAverage(oneYearDelta / 365)
   const result = {
     full_name: item.full_name,
     repository: 'https://github.com/' + item.full_name,
@@ -88,7 +81,6 @@ function processProject (item) {
     branch: item.branch,
     color: item.color ? `#${item.color}` : getRandomColor()
   }
-  if (result.slug === 'calypso') console.info(result);
   return result
 }
 

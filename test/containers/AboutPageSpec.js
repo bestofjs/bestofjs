@@ -16,8 +16,8 @@ import {
   mount
 } from 'enzyme'
 
-import data from '../data/projects'
-import { getInitialState } from '../../src/projectData'
+import data from '../data/projects.json'
+import { getInitialState } from '../../src/getInitialState'
 
 test('Check <AboutPage> container', (assert) => {
   const state = getInitialState(data)

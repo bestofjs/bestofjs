@@ -10,18 +10,16 @@ import getHomePage from '../../src/containers/HomePage'
 // Sub components
 import ProjectList from '../../src/components/projects/ProjectTable'
 
-
 import {
-  mount,
-  // render
+  mount
 } from 'enzyme'
 
 import setup from '../setup.js'
 setup()
 
 // Data
-import data from '../data/projects'
-import { getInitialState } from '../../src/projectData'
+import data from '../data/projects.json'
+import { getInitialState } from '../../src/getInitialState'
 
 test('Check <HomePage> container', (assert) => {
   const TOP_PROJECT_COUNT = 20

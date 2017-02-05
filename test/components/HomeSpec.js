@@ -9,8 +9,8 @@ import {
 import setup from '../setup.js'
 
 // Data
-import data from '../data/projects'
-import { getInitialState } from '../../src/projectData'
+import data from '../data/projects.json'
+import { getInitialState } from '../../src/getInitialState'
 
 setup()
 

@@ -17,9 +17,9 @@ import {
   mount
 } from 'enzyme'
 
-import data from '../data/projects'
-import hof from '../data/hof'
-import { getInitialState } from '../../src/projectData'
+import data from '../data/projects.json'
+import hof from '../data/hof.json'
+import { getInitialState } from '../../src/getInitialState'
 import { fetchHeroesSuccess } from '../../src/actions/hofActions'
 
 test('Check <HoFPage> container', (assert) => {
