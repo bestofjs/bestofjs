@@ -10,7 +10,7 @@
   @media screen and (min-width: $sidebarBreakpoint)
     left: $sidebarWidth
   @media screen and (max-width: $sidebarBreakpoint - 1px)
-    padding-left: 60px + 10px
+    padding-left: 60px
   .container
     height: $topbarHeight
     display: flex
@@ -39,7 +39,11 @@
 
 // Hide the logo on small screens
 .link-logo
-  @media (max-width: 550px)
+  flex-grow: 1
+  font-family: 'Comfortaa', sans-serif
+  font-size: 1.5rem
+  color: #e65100
+  @media (max-width: 490px)
     display: none
 
 .header-row
@@ -47,6 +51,8 @@
   width: 100%
   .col-1
     width: 220px
+    display: flex
+    align-items: center
   .col-2
     flex-grow: 1
     display: flex
