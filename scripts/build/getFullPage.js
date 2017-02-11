@@ -46,7 +46,7 @@ module.exports = function (dev, appHtml) {
 };
 
 // Analytics script
-function getAnalytics() {
+function getAnalytics () {
   return (`<script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -60,7 +60,7 @@ function getAnalytics() {
 
 // Script to process page URL `?redirect=true&pathname=%2Fhof`
 // when the user comes from the 404.html page.
-function getRedirect() {
+function getRedirect () {
   return (`
     <script>
     (function(l) {

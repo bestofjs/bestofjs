@@ -4,7 +4,7 @@
 const fetch = require('node-fetch');
 const GITHUB_BASE_URL = 'https://api.github.com';
 
-function commit({
+function commit ({
   files,
   repo,
   branch,
@@ -129,7 +129,7 @@ function commit({
     .catch(error => log('ERROR', error));
 }
 
-function checkStatus(response) {
+function checkStatus (response) {
   if (response.status >= 200 && response.status < 300) {
     return response;
   }

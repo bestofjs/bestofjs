@@ -12,7 +12,7 @@ import getFullPage from './getFullPage'
 import renderApp from './renderApp'
 
 import rootReducer from '../../src/reducers'
-import { getInitialState } from '../../src/projectData'
+import { getInitialState } from '../../src/getInitialState'
 import { fetchAllHeroes } from '../../src/actions/hofActions'
 
 // Get data from production API

@@ -38,7 +38,7 @@ fetch(url)
   })
   .catch(err => console.log('ERROR!', err.stack))
 
-function write(html, filename) {
+function write (html, filename) {
   // path relative from the root folder when the script is launched from the npm command
   const writer = fs.createOutputStream(`./www/${filename}`)
   writer.write(html)

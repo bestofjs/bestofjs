@@ -17,8 +17,7 @@ Promise.all(arr)
   .then(() => console.log('All promises are OK!'))
   .catch(err => console.log('Error in Promise', err))
 
-
-function readFile(filepath) {
+function readFile (filepath) {
   return new Promise(function (resolve, reject) {
     fs.readFile(`www/${filepath}`, 'utf8', (err, data) => {
       if (err) return reject(err)
@@ -33,7 +32,7 @@ function readFile(filepath) {
   })
 }
 
-function commitFiles(files) {
+function commitFiles (files) {
   console.log('Ready to commit files', files.map(file => file.filepath));
   return commit({
     files,

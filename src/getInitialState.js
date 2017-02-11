@@ -22,7 +22,13 @@ const defaultState = {
     pending: false
   },
   ui: {
-    hotFilter: 'daily'
+    hotFilter: 'daily',
+    viewOptions: {
+      description: true,
+      npms: true,
+      packagequality: false,
+      commit: true
+    }
   }
 }
 // Get a random color for projecs whose color is not specified
