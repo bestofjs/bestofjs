@@ -22,7 +22,7 @@ const Page = ({ heroes, auth, you, authActions, isHero, ui }) => (
     auth={auth}
     onLogin={authActions.login}
     isHero={isHero}
-    showDetails={ui.showMetrics}
+    showDetails
   />
 )
 

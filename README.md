@@ -1,4 +1,4 @@
-[![screenshot](https://cloud.githubusercontent.com/assets/5546996/19024064/33793ca0-8937-11e6-9b91-2977955d22c4.png)](http://bestof.js.org/)
+[![screenshot](https://cloud.githubusercontent.com/assets/5546996/22850684/60247c70-f051-11e6-8e31-d5a5f7f10115.png)](http://bestof.js.org/)
 
 [![Build Status](https://travis-ci.org/michaelrambeau/bestofjs-webui.svg?branch=master)](https://travis-ci.org/michaelrambeau/bestofjs-webui)
 
@@ -38,8 +38,6 @@ A Hall of Fame has been created to gather the most amazing people of the communi
 Click [here](http://bestof.js.org/hof) to visit the Hall of fame!
 
 Logged-in users can request the induction of new members.
-
-![image](https://cloud.githubusercontent.com/assets/5546996/19212523/ea5e1fee-8d8d-11e6-8b40-d6309d626b17.png)
 
 ## How it works
 
