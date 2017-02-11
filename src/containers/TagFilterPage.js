@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
-import TagFilter from '../components/home/TagFilter'
+import TagFilter from '../components/TagView'
 import populate from '../helpers/populate'
 import log from '../helpers/log'
 import * as uiActionCreators from '../actions/uiActions'
@@ -19,11 +19,12 @@ const TagFilterPage = React.createClass({
   },
 
   render () {
-    log('Render the <TagFilterPage> container', this.props)
-    const { tagProjects, tag, isLoggedin, uiActions, ui } = this.props
+    log('Render the <TagFilterPage> container', this.props.routes)
+    const { tagProjects, tag, isLoggedin, uiActions, ui, graphProjects } = this.props
     return (
       <TagFilter
         projects={tagProjects}
+        graphProjects={graphProjects}
         tag={tag}
         maxStars={tagProjects.length > 0 ? tagProjects[0].stars : 0}
         isLoggedin={isLoggedin}
@@ -47,15 +48,17 @@ function mapStateToProps (sortFilter) {
     } = state
 
     const tagId = props.params.id
-
     const tagProjects = githubProjects[sortFilter]
-    .map(id => projects[id])
-    .filter(project => project.tags.indexOf(tagId) > -1)
-    .slice(0, 50)
-    .map(populate(tags, links))
+      .map(id => projects[id])
+      .filter(project => project.tags.indexOf(tagId) > -1)
+      .map(populate(tags, links))
+    const graphProjects = tagProjects
+      .filter(project => project.monthly.length > 0)
+      .slice(0, 10)
 
     return {
       tagProjects,
+      graphProjects,
       tag: tags[tagId],
       isLoggedin: username !== '',
       ui: Object.assign({}, ui, {
@@ -71,4 +74,7 @@ function mapDispatchToProps (dispatch) {
   }
 }
 
-export default sortFilter => connect(mapStateToProps(sortFilter), mapDispatchToProps)(TagFilterPage)
+export default sortFilter => connect(
+  mapStateToProps(sortFilter),
+  mapDispatchToProps
+)(TagFilterPage)

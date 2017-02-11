@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
-import TextFilter from '../components/home/TextFilter'
+import TextFilter from '../components/SearchView'
 import populate from '../helpers/populate'
 import log from '../helpers/log'
 import filterProjects from '../helpers/filter'

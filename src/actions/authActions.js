@@ -47,7 +47,6 @@ export function start () {
           // })
       })
       .catch((e) => {
-        console.error(e)
         return dispatch(loginFailure())
       })
   }
@@ -59,7 +58,6 @@ export function login () {
   if (urlManager) urlManager.save()
   const client_id = 'dadmCoaRkXs0IhWwnDmyWaBOjLzJYf4s'
   const redirect_uri = `${self.location.origin}%2Fauth0.html`
-  // const auth0Client = 'eyJuYW1lIjoiYXV0aDAuanMiLCJ2ZXJzaW9uIjoiNi44LjAifQ'
   const url = `${APP_URL}/authorize?scope=openid&response_type=token&connection=github&sso=true&client_id=${client_id}&redirect_uri=${redirect_uri}`
   return dispatch => {
     dispatch(loginRequest())

@@ -10,7 +10,7 @@ import renderApp from './renderApp'
 
 import rootReducer from '../../src/reducers'
 import { createStore } from 'redux'
-import { getInitialState } from '../../src/projectData'
+import { getInitialState } from '../../src/getInitialState'
 
 // Get data from production API
 process.env.NODE_ENV = 'production'

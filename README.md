@@ -118,7 +118,6 @@ http://bestof.js.org/ production version is hosted on Github pages, using `.js.o
 
 Other URLs, used to preview features:
 
-* Firebase (deployed manually using `npm run firebase` command): https://bestofjs.firebaseapp.com/
 * Netlify (automatically built from `staging` branch): http://bestofjs.netlify.com/
 * Surge (deployed manually using `npm run surge` command): http://bestofjs.surge.sh/
 

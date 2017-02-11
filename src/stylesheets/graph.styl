@@ -1,0 +1,22 @@
+.graph-card, .trending-card
+  background-color: white
+  border: 1px solid $cardBorderColor
+  box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16)
+  margin-bottom: 2rem
+.trending-card-header
+  font-size: 1.2rem
+.trending-card-body
+  padding: 2rem
+.graph-card-header, .trending-card-header
+  padding: 2rem
+  border-bottom: 1px solid $cardBorderColor
+.graph-container
+  display: flex
+  @media (max-width: 899px)
+    flex-direction: column
+  > div
+  table td
+    padding: 0.2rem
+.trending-card-comment
+  padding: 2rem
+  border-top: 1px solid $cardBorderColor

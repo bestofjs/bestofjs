@@ -1,5 +1,6 @@
 import * as helpers from './helpers/projectHelpers'
 import slugify from './helpers/slugify'
+import randomColor from 'randomcolor'
 
 // Called by `entry.jsx` to get initial state from project data
 
@@ -19,14 +20,40 @@ const defaultState = {
   auth: {
     username: '',
     pending: false
+  },
+  ui: {
+    hotFilter: 'daily'
   }
+}
+// Get a random color for projecs whose color is not specified
+function getRandomColor () {
+  return randomColor({
+    luminosity: 'dark'
+  })
+}
+
+// Round the average number of stars used in "trending this year" graphs
+function roundAverage (number, decimals = 0) {
+  const i = Math.pow(10, decimals)
+  return Math.round(number * i) / i
+}
+
+function nthElement (arr, i) {
+  if (arr.length === 0) return 0
+  return arr[Math.min(i, arr.length - 1)]
 }
 
 function processProject (item) {
-  const days = [1, 7, 30, 90]
-  const trends = days.map(
-    (t, i) => item.trends.length > i ? Math.round(item.trends[i] / t) : null
-  )
+  const monthlyStars = item.monthly.slice(0)
+  monthlyStars.reverse() // caution, reverse() mutates the array!
+
+  const weeklyTotal = item.deltas.reduce((result, delta) => result + delta, 0)
+
+  const addedAverage = (total, period) => {
+    const delta = item.stars - total
+    return roundAverage(delta / period)
+  }
+
   const result = {
     full_name: item.full_name,
     repository: 'https://github.com/' + item.full_name,
@@ -46,13 +73,16 @@ function processProject (item) {
     owner_id: item.owner_id,
     stats: {
       total: item.stars,
-      daily: trends[0],
-      weekly: trends[1],
-      monthly: trends[2],
-      quaterly: trends[3]
+      daily: item.deltas[0],
+      weekly: roundAverage(weeklyTotal / 7),
+      monthly: monthlyStars.length > 1 ? addedAverage(monthlyStars[1], 30) : null,
+      quaterly: monthlyStars.length > 3 ? addedAverage(nthElement(monthlyStars, 3), 90) : null,
+      yearly: item.monthly.length > 6 ? addedAverage(nthElement(monthlyStars, 6), 365) : null
     },
+    monthly: item.monthly,
     svglogo: item.svglogo,
-    branch: item.branch
+    branch: item.branch,
+    color: item.color ? `#${item.color}` : getRandomColor()
   }
   return result
 }
@@ -104,7 +134,8 @@ export function getInitialState (data, profile) {
     sortAllProjects(project => project.stats.monthly),
     sortAllProjects(project => project.stats.quaterly),
     sortNpmProjects(project => 0 || project.quality),
-    sortNpmProjects(project => 0 || project.score)
+    sortNpmProjects(project => 0 || project.score),
+    sortAllProjects(project => project.stats.yearly)
   ]
   const sortedProjectIds = sortedProjects.map(
     projects => projects.map(item => item.slug)
@@ -118,6 +149,7 @@ export function getInitialState (data, profile) {
     quaterly: sortedProjectIds[4],
     packagequality: sortedProjectIds[5], // packagequality.com
     npms: sortedProjectIds[6], // npms.io score
+    yearly: sortedProjectIds[7],
     tagIds: allTags.map(item => item.id),
     lastUpdate: data.date,
     allById

@@ -8,20 +8,18 @@ import rootReducer from '../../src/reducers'
 import getHomePage from '../../src/containers/HomePage'
 
 // Sub components
-import ProjectList from '../../src/components/projects/ProjectTable'
-
+import ProjectList from '../../src/components/projects/ProjectList'
 
 import {
-  mount,
-  // render
+  mount
 } from 'enzyme'
 
 import setup from '../setup.js'
 setup()
 
 // Data
-import data from '../data/projects'
-import { getInitialState } from '../../src/projectData'
+import data from '../data/projects.json'
+import { getInitialState } from '../../src/getInitialState'
 
 test('Check <HomePage> container', (assert) => {
   const TOP_PROJECT_COUNT = 20
@@ -39,7 +37,7 @@ test('Check <HomePage> container', (assert) => {
 
   const Lists = component.find(ProjectList)
 
-  assert.equal(Lists.length, 2, `There should be 2 lists of projects.`)
+  assert.equal(Lists.length, 1, `There should be 1 list of projects.`)
 
   if (false) Lists.forEach(List => {
     // it does not work with "stateless" components! TODO fix it!

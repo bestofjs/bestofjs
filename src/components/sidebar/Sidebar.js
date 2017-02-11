@@ -26,8 +26,13 @@ const Sidebar = React.createClass({
           )}
         </div>
         <div className="ui vertical menu">
-          <IndexLink to="/" className="item">HOME</IndexLink>
-          <Link to="/hof" className="item">
+          <IndexLink to="/" className="item" activeClassName="active">
+            HOME
+          </IndexLink>
+          <Link to="/projects" className="item" activeClassName="active">
+            ALL PROJECTS
+          </Link>
+          <Link to="/hof" className="item" activeClassName="active">
             HALL OF FAME
             {hofCount > 0 && <span className="counter">{hofCount}</span>}
           </Link>
@@ -35,19 +40,27 @@ const Sidebar = React.createClass({
             LINKS
             {linkCount > 0 && <span className="counter">{linkCount}</span>}
           </Link>}
-          {auth.username && <Link to="/requests" className="item">
+          {auth.username && <Link to="/requests" className="item" activeClassName="active">
             MY REQUESTS
             {requestCount > 0 && <span className="counter">{requestCount}</span>}
           </Link>}
           <div className="item">
             <div className="header">POPULAR TAGS</div>
-            <TagMenu tags={popularTags} selectedTag={this.props.selectedTag} />
+            <TagMenu
+              tags={popularTags}
+              selectedTag={this.props.selectedTag}
+            />
           </div>
           <div className="item">
             <div className="header">ALL TAGS</div>
-            <TagMenu tags={allTags} selectedTag={this.props.selectedTag} />
+            <TagMenu
+              tags={allTags}
+              selectedTag={this.props.selectedTag}
+            />
           </div>
-          <Link to="/about" className="item">ABOUT</Link>
+          <Link to="/about" className="item" activeClassName="active">
+            ABOUT
+          </Link>
         </div>
       </nav>
     )

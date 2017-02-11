@@ -7,7 +7,7 @@
   > div
     flex: 1
     text-align: center
-    padding: 0.5em 0
+    padding: 0.5rem 0
     &.active
       border: 1px solid #ccc
       border-bottom-color: white
@@ -20,20 +20,22 @@
 
 .project-tabs-content
   background-color white
-  border 1px solid #ccc
+  border 1px solid $cardBorderColor
   .inner
-    padding 1em
+    padding 1rem
   .delta-bar-container
-    margin: 0 -1em
+    margin: 0 -1rem
 
   .project-link, .project-review-item
-    border-top: 1px solid #ccc
-    padding: 1em 0
+    border-top: 1px dashed $cardBorderColor
+    padding: 1rem 0
     &:last-child
-      border-bottom: 1px solid #ccc
+      border-bottom: 1px dashed $cardBorderColor
     .project-link-date, project-review-date
       font-size: 13px
     a:hover
       text-decoration: none
     .project-link-title
       font-size: 1.2rem
+  .inner.github, .inner.tags
+    border-top 1px dashed $cardBorderColor

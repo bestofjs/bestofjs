@@ -4,8 +4,8 @@
   padding: 0
   background-color: white
   vertical-align: top
-  border: 1px solid $cardBorderColor
-  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16)
+  // border: 1px solid $cardBorderColor
+  // box-shadow: 0 2px 5px 0 $cardBorderColor
   header
     position: relative
     overflow: hidden
@@ -23,14 +23,14 @@
     width: 60px
   .header-name
     flex-grow: 1
-    text-align: center  
+    text-align: center
   .stars-bar
     height: 3px
     background-color: #ffe082
   .inner
     padding: 1em
     &.github
-      border-top: 1px solid #cbcbcb
+      border-top: 1px dashed $cardBorderColor
   .ranking
 
   .title
@@ -58,7 +58,11 @@
 // Generic card section
 .card-section
   padding: 1em
-  border-top: 1px solid $cardBorderColor
+  border-top: 1px dashed $cardBorderColor
+.description-card-section
+  overflow: hidden
+  text-overflow: ellipsis
+  white-space: nowrap
 
 .card-block // class applied to <Link> tag used to open the Project page from the card.
   display block

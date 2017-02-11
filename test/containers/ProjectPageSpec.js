@@ -18,8 +18,8 @@ import {
 import sinon from 'sinon'
 
 // Data
-import data from '../data/projects'
-import { getInitialState } from '../../src/projectData'
+import data from '../data/projects.json'
+import { getInitialState } from '../../src/getInitialState'
 
 const id = 'react'
 

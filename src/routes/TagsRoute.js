@@ -1,35 +1,5 @@
 import TagFilter from '../containers/TagFilterPage'
-
-const items = [
-  {
-    path: 'popular',
-    key: 'total'
-  },
-  {
-    path: 'trending/today',
-    key: 'daily'
-  },
-  {
-    path: 'trending/this-week',
-    key: 'weekly'
-  },
-  {
-    path: 'trending/this-month',
-    key: 'monthly'
-  },
-  {
-    path: 'trending/last-3-months',
-    key: 'quaterly'
-  },
-  {
-    path: 'score/packagequality',
-    key: 'packagequality'
-  },
-  {
-    path: 'score/npms',
-    key: 'npms'
-  }
-]
+import items from './sortItems'
 
 function TagsRoute () {
   return {
