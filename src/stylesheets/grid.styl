@@ -19,7 +19,7 @@
   margin-top: -($gutter)
   margin-left: -($gutter)
   > div
-    flex: 0 0 50%
+    // flex: 0 0 50% does not work well when using the truncated description
     width: 50% // required, in addition of the previous statement because of description with `white-space: nowrap;`
     padding: ($gutter) 0 0 ($gutter)
     display: flex

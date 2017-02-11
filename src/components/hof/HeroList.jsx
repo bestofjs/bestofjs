@@ -8,10 +8,7 @@ import MoreHeroes from './MoreHeroes'
 export default ({ heroes = [], you, auth, onLogin, isHero, showDetails }) => (
   <MainContent>
     <h1 style={{ marginBottom: '1rem' }}>
-      Hall of Fame
-      <span style={{ color: '#aaa', marginLeft: 5 }}>
-        ({heroes.length === 0 ? 'Loading...' : `${heroes.length} members`})
-      </span>
+      JavaScript Hall of Fame
     </h1>
     <div style={{ marginBottom: '2rem' }}>
       Here are some of the greatest developers, authors and speakers of the JavaScript community.<br />
