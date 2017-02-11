@@ -34,7 +34,7 @@ const Header = React.createClass({
             </p>
           )}
         </div>
-        <div className="inner tags" style={{ borderTop: '1px solid #ddd', paddingBottom: '0.5em' }}>
+        <div className="inner tags" style={{ paddingBottom: '.5em' }}>
           {project.tags.map(function (tag) {
             return (
               <TagLabel key={tag.id} tag={tag} />
@@ -44,7 +44,7 @@ const Header = React.createClass({
         {project.npm &&
           <NpmSection project={project} />
         }
-        <div className="inner github" style={{ borderTop: '1px solid #ddd', paddingBottom: 0 }}>
+        <div className="inner github" style={{ paddingBottom: '0' }}>
           <p>
             <span className="octicon octicon-repo" />
             {' '}
@@ -52,7 +52,7 @@ const Header = React.createClass({
             {' '}
             {project.stars} <span className="octicon octicon-star" />
           </p>
-          <div className="last-commit" style={{ marginBottom: '0.5em' }}>
+          <div className="last-commit" style={{ marginBottom: '1rem' }}>
             <span className="octicon octicon-git-commit" />
             {' '}
             Last update: {fromNow(project.pushed_at)}

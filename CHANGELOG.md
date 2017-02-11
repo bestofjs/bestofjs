@@ -1,5 +1,11 @@
 # Change log
 
+# 0.7.0 - 2017-02-11
+* Update homepage content, removing popular project list, using the `ProjectCard` components
+* Add a 'ALL PROJECT' view
+* Update Tag page tabs layout, adding `Trending / Last 12` months option. Requires project API v2.
+* Use a svg file for the logo
+
 # 0.6.5 - 2016-12-25
 * Improve project README.md styling using the stylesheet from https://github.com/sindresorhus/github-markdown-css project
 * Fix error about Hall of Fame "Suggest a new member" button.

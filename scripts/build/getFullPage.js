@@ -34,7 +34,6 @@ module.exports = function (dev, appHtml) {
       function loadCSS(e,t,n){"use strict";var i=window.document.createElement("link");var o=t||window.document.getElementsByTagName("script")[0];i.rel="stylesheet";i.href=e;i.media="only x";o.parentNode.insertBefore(i,o);setTimeout(function(){i.media=n||"all"})}
       loadCSS('https://fonts.googleapis.com/css?family=Roboto:400,300,500');
       loadCSS('https://cdnjs.cloudflare.com/ajax/libs/octicons/3.1.0/octicons.min.css');
-      loadCSS('https://fonts.googleapis.com/css?family=Comfortaa');
     </script>
     <script src="/build/bundle-app.js"></script>
     <a href="https://github.com/michaelrambeau/bestofjs-webui" class="github-corner">

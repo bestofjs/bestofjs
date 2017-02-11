@@ -20,9 +20,11 @@
   margin-left: -($gutter)
   > div
     flex: 0 0 50%
+    width: 50% // required, in addition of the previous statement because of description with `white-space: nowrap;`
     padding: ($gutter) 0 0 ($gutter)
     display: flex
   @media (max-width: 600px)
     flex-direction: column
     > div
       flex: 0 0 auto
+      width: 100%

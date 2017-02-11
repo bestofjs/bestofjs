@@ -59,7 +59,7 @@ h3
 .container
   max-width: $containerWidth
   margin: 0 auto
-  @media (max-width: $sidebarWidth + $containerWidth)
+  @media (max-width: $sidebarWidth + $containerWidth + 64px)
     padding-left: $gutter
     padding-right: $gutter
 
@@ -67,15 +67,16 @@ h3
   padding-top: $topbarHeight // because of fixed header
 
 #main-content
-  padding-top: 1em
+  padding-top: 2rem
   &.double-padding
     padding-top: 2em
   &.small
     max-width 600px // limit container width for project list pages
 
 // reset the gutter around the main container on small screens to save space!
-@media (max-width: 400px)
+@media (max-width: 450px)
   #main-content
+    padding-top: 1rem
     padding-left: 0
     padding-right: 0
   .no-card-container
@@ -87,6 +88,10 @@ ul
   padding-left 1.2em
   &:last-child
     margin-bottom: 0
+  li
+    margin-bottom: .5rem
+    &:last-child
+      margin-bottom: 0
 
 p
   margin 0 0 0.5em
@@ -107,3 +112,10 @@ i.special
 @media (max-width: 500px)
   .hidden-mobile
     display: none
+
+hr
+  margin: 2rem 0
+  border-width: 0
+  border-color: #ffae63
+  border-style: dashed
+  border-top-width: 1px

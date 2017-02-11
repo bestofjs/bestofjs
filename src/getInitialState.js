@@ -20,6 +20,9 @@ const defaultState = {
   auth: {
     username: '',
     pending: false
+  },
+  ui: {
+    hotFilter: 'daily'
   }
 }
 // Get a random color for projecs whose color is not specified

@@ -8,7 +8,7 @@ import rootReducer from '../../src/reducers'
 import getHomePage from '../../src/containers/HomePage'
 
 // Sub components
-import ProjectList from '../../src/components/projects/ProjectTable'
+import ProjectList from '../../src/components/projects/ProjectList'
 
 import {
   mount
@@ -37,7 +37,7 @@ test('Check <HomePage> container', (assert) => {
 
   const Lists = component.find(ProjectList)
 
-  assert.equal(Lists.length, 2, `There should be 2 lists of projects.`)
+  assert.equal(Lists.length, 1, `There should be 1 list of projects.`)
 
   if (false) Lists.forEach(List => {
     // it does not work with "stateless" components! TODO fix it!

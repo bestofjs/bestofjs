@@ -13,7 +13,7 @@ export default ({ searchText, actions, uiActions, ui, location }) => (
       <div className="header-row">
         <div className="col-1">
           <IndexLink to={'/'} className="link-logo" >
-            bestof.js.org
+            <img src="/svg/bestofjs.svg" width="160" alt="bestof.js.org" />
           </IndexLink>
         </div>
         <div className="col-2">

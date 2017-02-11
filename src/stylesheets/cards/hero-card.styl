@@ -1,12 +1,11 @@
 .hero-list
   display: flex
   flex-wrap: wrap
-  margin: -1em 0 0 -1em
+  margin: -2rem 0 0 -2rem
   > div
     flex: 0 0 50%
-    padding: 1em 0 0 1em
+    padding: 2em 0 0 2em
     display: flex
-    //flex-direction: column
   @media (max-width: 550px)
     flex-direction: column
     > div
@@ -16,8 +15,8 @@
   flex: 1
   padding: 0
   background-color: white
-  border: 1px solid $cardBorderColor
-  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16)
+  // border: 1px solid $cardBorderColor
+  // box-shadow: 0 2px 5px 0 $cardBorderColor
   .card-block // class applied to <Link> tag used to open the Project page from the card.
     display: flex
     align-items: center
@@ -40,8 +39,8 @@
   .name
     font-size: 1.3em
   .inner
-    padding: .5em
-    border-top: 1px solid $cardBorderColor
+    padding: 1rem
+    border-top: 1px dashed $cardBorderColor
     color: $textSecondaryColor
   .icon
     color: #fa9e59

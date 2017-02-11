@@ -2,16 +2,16 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
-import Home from '../components/home/Home'
-import populate from '../helpers/populate'
-import log from '../helpers/log'
-import * as uiActionCreators from '../actions/uiActions'
-import * as authActionCreators from '../actions/authActions'
+import Home from '../../components/home/Home'
+import mapStateToProps from './mapStateToProps'
+import log from '../../helpers/log'
+import * as uiActionCreators from '../../actions/uiActions'
+import * as authActionCreators from '../../actions/authActions'
 
 const HomePage = React.createClass({
   render () {
     log('Render the <HomePage> container', this.props)
-    const { hotProjects, popularProjects, auth, uiActions, ui, authActions } = this.props
+    const { hotProjects, popularProjects, auth, uiActions, ui, authActions, popularTags } = this.props
     return (
       <Home
         hotProjects={hotProjects}
@@ -23,6 +23,8 @@ const HomePage = React.createClass({
         authActions={authActions}
         hotFilter={ui.hotFilter}
         showMetrics={ui.showMetrics}
+        viewOptions={ui.viewOptions}
+        popularTags={popularTags}
       />
     )
   }
@@ -31,35 +33,6 @@ const HomePage = React.createClass({
 function finalMapStateToProps (count) {
   return function (state) {
     return mapStateToProps(state, count)
-  }
-}
-function mapStateToProps (state, count) {
-  const {
-    entities: {
-      projects,
-      tags,
-      links
-    },
-    githubProjects,
-    auth,
-    ui
-  } = state
-
-  const key = ui.hotFilter // 'daily' or 'weekly'
-  const hot = githubProjects[key]
-    .map(id => projects[id])
-    .slice(0, count) // display only the 20 hottest projects
-    .map(populate(tags, links))
-  const popularProjects = githubProjects.total
-    .map(id => projects[id])
-    .slice(0, count) // display the "TOP20"
-    .map(populate(tags, links))
-
-  return {
-    hotProjects: hot,
-    popularProjects,
-    auth,
-    ui
   }
 }
 

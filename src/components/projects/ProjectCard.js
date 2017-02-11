@@ -101,7 +101,7 @@ const ProjectCard = (
         </header>
 
         {viewOptions.description && (
-          <section className="card-section">
+          <section className="card-section description-card-section">
             <Description text={project.description} />
           </section>
         )}
@@ -149,10 +149,6 @@ const ProjectCard = (
           <span data-balloon="Last update">{fromNow(project.pushed_at)}</span>
         </div>
       </div>}
-
-      {false && showMetrics && project.deltas.length > 0 &&
-        <DeltaBar data={project.deltas.slice(0, 7)} />
-      }
     </div>
   )
 }
