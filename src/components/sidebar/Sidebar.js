@@ -32,6 +32,9 @@ const Sidebar = React.createClass({
           <Link to="/projects" className="item" activeClassName="active">
             ALL PROJECTS
           </Link>
+          <a href="https://risingstars2016.js.org/" className="item">
+            RISING STARS 2016
+          </a>
           <Link to="/hof" className="item" activeClassName="active">
             HALL OF FAME
             {hofCount > 0 && <span className="counter">{hofCount}</span>}

@@ -55,7 +55,9 @@ const ProjectCard = (
     showTags,
     showMetrics,
     viewOptions = {},
-    showAvatar = true
+    showAvatar = true,
+    showLinks = false,
+    showReviews = false
   }) => {
   const path = `/projects/${project.slug}`
   return (
@@ -116,7 +118,7 @@ const ProjectCard = (
         </section>
       )}
 
-      {showMetrics && project.reviews &&
+      {showReviews && project.reviews &&
         <Link
           className="card-block"
           to={`${path}/reviews`}
@@ -125,7 +127,7 @@ const ProjectCard = (
         </Link>
       }
 
-      {showMetrics && project.links &&
+      {showLinks && project.links &&
         <Link
           className="card-block"
           to={`${path}/links`}
