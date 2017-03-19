@@ -39,7 +39,7 @@ const NpmSection = ({ project, packagequality = true, npms = true }) => (
         className="inner card-block quality-link"
         data-balloon="View on npms.io"
         target="_blank"
-        href={`https://npms.io/search?term=${project.npm}`}
+        href={`https://npms.io/search?q=${project.npm}`}
       >
         <img
           className="quality-logo"

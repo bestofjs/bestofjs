@@ -1,34 +1,37 @@
 # Change log
 
-# 0.7.0 - 2017-02-11
+## 0.7.1 - 2017-03-20
+* Fix npms.io url (#37)
+
+## 0.7.0 - 2017-02-11
 * Update homepage content, removing popular project list, using the `ProjectCard` components
 * Add a 'ALL PROJECT' view
 * Update Tag page tabs layout, adding `Trending / Last 12` months option. Requires project API v2.
 * Use a svg file for the logo
 
-# 0.6.5 - 2016-12-25
+## 0.6.5 - 2016-12-25
 * Improve project README.md styling using the stylesheet from https://github.com/sindresorhus/github-markdown-css project
 * Fix error about Hall of Fame "Suggest a new member" button.
 
-# 0.6.4 - 2016-12-01
+## 0.6.4 - 2016-12-01
 * Take into account project default branch when calling get-github-readme microservice (#32)
 
-# 0.6.3 - 2016-10-01
+## 0.6.3 - 2016-10-01
 * Use micro-service hosted on `now.sh` to get project README.md
 * Add URLs for direct access to trend filters, for example `/tags/react/trends/today`
 * Remove tabs from 'Hot projects' table in the homepage
 
-# 0.6.2 - 2016-08-04
+## 0.6.2 - 2016-08-04
 * Display a SVG icon for some projects (React, Awesome, Redux...), instead of the default repo owner avatar
 
-# 0.6.1 - 2016-07-23
+## 0.6.1 - 2016-07-23
 * Add 'Suggest a new Hall of Fame member' button
 * Compute project `slug` field from project name instead of using the repository name (because 2 projects have the same `framework` repo name!)
 
-# 0.6.0 - 2016-07-21
+## 0.6.0 - 2016-07-21
 * Add project avatar
 
-# 0.5.1 - 2016-07-12
+## 0.5.1 - 2016-07-12
 * Add data from npms.io
 * Add view options in tag page
 
