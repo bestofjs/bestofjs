@@ -113,7 +113,7 @@ const ProjectCard = (
       {showTags && (
         <section className="card-section tags-card-section">
           {project.tags.map(tag =>
-            <TagLabel tag={tag} key={project.id + tag.id} />
+            <TagLabel tag={tag} key={`${project.slug}-${tag.id}`} />
           )}
         </section>
       )}

@@ -1,11 +1,11 @@
 import { convertPayload, convertItem } from '../helpers/crud'
 
 // Before calling userContent API to create or update data,
-// transform project slugs to database ids.
+// transform project slugs to Github `full_name`
 const convert = store => next => action => {
-  if (action.meta && action.meta.convertProjectSlugs) {
+  if (true && action.meta && action.meta.convertProjectSlugs) {
     const state = store.getState()
-    const getId = slug => state.entities.projects[slug].id
+    const getId = slug => state.entities.projects[slug].full_name
     const fn = convertItem(getId)
     const payload = convertPayload(action.payload, fn)
     const action2 = Object.assign({}, action, { payload })

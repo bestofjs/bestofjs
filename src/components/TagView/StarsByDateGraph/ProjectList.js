@@ -9,7 +9,7 @@ const Table = ({ projects }) => {
           {projects.map((project, i) => (
             <Table.Row
               project={project}
-              key={project.id}
+              key={project.slug}
               index={i + 1}
             />
           ))}

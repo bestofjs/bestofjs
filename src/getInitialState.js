@@ -63,7 +63,6 @@ function processProject (item) {
   const result = {
     full_name: item.full_name,
     repository: 'https://github.com/' + item.full_name,
-    id: item._id,
     slug: slugify(item.name),
     tags: item.tags,
     deltas: item.deltas,

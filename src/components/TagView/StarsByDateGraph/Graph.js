@@ -71,9 +71,8 @@ const Graph = ({ projects }) => {
         />
         {projects.map(project => {
           return (
-          // <ProjectLine key={project.id} project={project} />
             <VictoryLine
-              key={project.id}
+              key={project.slug}
               data={getGraphData(project)}
               x="monthsAgo"
               y="stars"

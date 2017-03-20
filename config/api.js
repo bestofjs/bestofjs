@@ -8,7 +8,7 @@ const setup = {
   production: {
     GET_PROJECTS: 'https://bestofjs-api-v2.firebaseapp.com/',
     GET_README: 'https://get-github-readme-v2.now.sh',
-    USER_CONTENT: 'https://webtask.it.auth0.com/api/run/wt-mikeair-gmail_com-0/user-content-api-v2',
+    USER_CONTENT: 'https://webtask.it.auth0.com/api/run/wt-mikeair-gmail_com-0/user-content-api-v3',
     ISSUES_REPO: 'michaelrambeau/bestofjs'
   }
 }
