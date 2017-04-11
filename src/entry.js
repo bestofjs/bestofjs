@@ -7,20 +7,14 @@ import { fetchJSON } from './helpers/fetch'
 
 import React from 'react'
 import { render } from 'react-dom'
+import { AppContainer } from 'react-hot-loader'
 // import { whyDidYouUpdate } from 'why-did-you-update'
 
 // if (process.env.NODE_ENV !== 'production') {
 //   whyDidYouUpdate(React)
 // }
 
-import Router from 'react-router/lib/Router'
-import browserHistory from 'react-router/lib/browserHistory'
-import applyRouterMiddleware from 'react-router/lib/applyRouterMiddleware'
-import useScroll from 'react-router-scroll'
-import { Provider } from 'react-redux'
-
 import configureStore from './store/configureStore'
-import getRoutes from './routes'
 import api from '../config/api'
 import { getInitialState } from './getInitialState'
 import { fetchAllReviews } from './actions/reviewActions'
@@ -28,12 +22,7 @@ import { fetchAllLinks } from './actions/linkActions'
 import { fetchAllHeroes } from './actions/hofActions'
 import menu from './helpers/menu'
 import log from './helpers/log'
-import track from './helpers/track'
-
-if (process.env.NODE_ENV === 'development') {
-  // to be used from the DevTools console, with "React Perf" Chrome extension
-  window.Perf = require('react-addons-perf')
-}
+import App from './App'
 
 fetchData()
   .then(data => {
@@ -45,19 +34,6 @@ fetchData()
 require('./stylesheets/main.styl')
 require('./stylesheets/tooltip/balloon.css')
 require('../node_modules/react-select/dist/react-select.css')
-
-// Track every router update (except project views that are tracked elsewhere)
-function trackPageView (state) {
-  const path = state.location.pathname
-  const routes = state.routes
-  if (routes.length > 1 && routes[1].path === 'projects/:id') return false
-  track(path)
-}
-
-function onRouterUpdate () {
-  menu.hide()
-  trackPageView(this.state)
-}
 
 // Launch the Redux application once we get data
 function startRedux (state) {
@@ -108,14 +84,21 @@ function fetchServerData () {
 
 function renderApp (store) {
   render(
-    <Provider store={store}>
-      <Router
-        history={browserHistory}
-        onUpdate={onRouterUpdate}
-        render={applyRouterMiddleware(useScroll())}
-        children={getRoutes(10)}
-      />
-    </Provider>,
+    <AppContainer>
+      <App store={store} />
+    </AppContainer>,
     window.document.getElementById('app')
   )
+  // Hot Module Replacement API
+  if (module.hot) {
+    module.hot.accept('./App', () => {
+      const NextApp = require('./App').default
+      render(
+        <AppContainer>
+          <NextApp store={store} />
+        </AppContainer>,
+        document.getElementById('app')
+      )
+    })
+  }
 }

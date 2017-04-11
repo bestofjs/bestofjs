@@ -20,7 +20,6 @@ export default function (store, location) {
           <RouterContext {...renderProps} />
         </Provider>
       )
-
       // Send the rendered page back to the client
       // const fullpage = renderFullPage(html, initialState)
       return resolve(html)

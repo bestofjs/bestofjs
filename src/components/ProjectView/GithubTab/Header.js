@@ -44,7 +44,7 @@ const Header = React.createClass({
         {project.npm &&
           <NpmSection project={project} />
         }
-        <div className="inner github" style={{ paddingBottom: '0' }}>
+        <div className="inner github" style={{ paddingBottom: 0 }}>
           <p>
             <span className="octicon octicon-repo" />
             {' '}

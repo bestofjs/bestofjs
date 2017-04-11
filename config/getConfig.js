@@ -1,45 +1,45 @@
 // Generate Webpack config, dependending on the environment (development or production)
 // The exported function is used by `webpack.*.config.js` files.
 
-const path = require('path');
-const webpack = require('webpack');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const autoprefixer = require('autoprefixer');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
+const path = require('path')
+const webpack = require('webpack')
+const ExtractTextPlugin = require('extract-text-webpack-plugin')
+const autoprefixer = require('autoprefixer')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
 
-const getFullPage = require('../scripts/build/getFullPage');
-const constants = require('./constants');
+const getFullPage = require('../scripts/build/getFullPage')
+const constants = require('./constants')
 
-function getPlugins(env) {
+function getPlugins (env) {
   const envPlugin = new webpack.DefinePlugin({
     'process.env': {
       'NODE_ENV': JSON.stringify(env)
     }
-  });
+  })
 
   // fetch polyfill, see http://mts.io/2015/04/08/webpack-shims-polyfills/
   // const fetchPlugin = new webpack.ProvidePlugin({
   //   'fetch': 'imports?this=>global!exports?global.fetch!whatwg-fetch'
-  // });
+  // })
 
-  const plugins = [envPlugin];
+  const plugins = [envPlugin]
   if (env === 'development') {
-    plugins.push(new webpack.HotModuleReplacementPlugin());
+    plugins.push(new webpack.HotModuleReplacementPlugin())
     // Get the html template
-    const html = getFullPage(true);
+    const html = getFullPage(true)
     plugins.push(new HtmlWebpackPlugin({
       inject: false,
       templateContent: html
-    }));
+    }))
     // tells the reloader to not reload if there is a syntax error in your code.
     // The error is simply printed in the console, and the component will reload when you fix the error.)
-    plugins.push(new webpack.NoErrorsPlugin());
+    plugins.push(new webpack.NoErrorsPlugin())
   } else {
     // ExtractTextPlugin used to generate a separate CSS file, in production only.
     // documentation: http://webpack.github.io/docs/stylesheets.html
     plugins.push(
       new ExtractTextPlugin(`./${constants.staticFolder}/build/[name].css`)
-    );
+    )
 
     // Do not display warning messages from Uglify
     plugins.push(
@@ -48,52 +48,53 @@ function getPlugins(env) {
           warnings: false
         }
       })
-    );
+    )
   }
 
-  return plugins;
+  return plugins
 }
 
-function getLoaders(env) {
+function getLoaders (env) {
   const jsLoader = {
     test: /\.jsx?$/,
     exclude: /node_modules/,
-    loaders: env === 'development' ? ['react-hot', 'babel'] : ['babel']
-  };
+    loaders: ['babel']
+  }
 
   const cssLoader = {
     test: /\.css$/
-  };
+  }
   const stylusLoader = {
     test: /\.styl$/
-  };
+  }
 
   // json loader used to read `package.json`
   const jsonLoader = {
     test: /\.json$/,
     loader: 'json'
-  };
+  }
 
   const urlLoader = {
     test: /\.svg$/,
     loader: 'url-loader?limit=5000'
-  };
+  }
 
   if (env === 'development') {
-    cssLoader.loader = 'style-loader!css-loader!postcss-loader';
-    stylusLoader.loader = 'style-loader!css-loader!stylus-loader';
+    cssLoader.loader = 'style-loader!css-loader!postcss-loader'
+    stylusLoader.loader = 'style-loader!css-loader!stylus-loader'
   } else {
-    cssLoader.loader = ExtractTextPlugin.extract('style-loader', 'css-loader!postcss-loader');
-    stylusLoader.loader = ExtractTextPlugin.extract('style-loader', 'css-loader!postcss-loader!stylus-loader');
+    cssLoader.loader = ExtractTextPlugin.extract('style-loader', 'css-loader!postcss-loader')
+    stylusLoader.loader = ExtractTextPlugin.extract('style-loader', 'css-loader!postcss-loader!stylus-loader')
   }
-  const loaders = [jsLoader, jsonLoader, stylusLoader, cssLoader, urlLoader];
-  return loaders;
+  const loaders = [jsLoader, jsonLoader, stylusLoader, cssLoader, urlLoader]
+  return loaders
 }
 
-function getEntry(env) {
+function getEntry (env) {
   return {
     app: env === 'development' ? (
       [
+        'react-hot-loader/patch',
         `webpack-dev-server/client?http://localhost:${constants.port}`,
         'webpack/hot/only-dev-server',
         './src/entry.js'
@@ -101,12 +102,12 @@ function getEntry(env) {
     ) : (
       './src/entry.js'
     )
-  };
+  }
 }
 
-function getOutput(env) {
-  const rootPath = path.resolve(__dirname, '..', constants.staticFolder);
-  const filename = 'build/bundle-[name].js';
+function getOutput (env) {
+  const rootPath = path.resolve(__dirname, '..', constants.staticFolder)
+  const filename = 'build/bundle-[name].js'
   return env === 'development' ? (
     {
       path: rootPath,
@@ -118,7 +119,7 @@ function getOutput(env) {
     {
       filename: `${constants.staticFolder}/${filename}`
     }
-  );
+  )
 }
 
 module.exports = function (env) {
@@ -133,14 +134,18 @@ module.exports = function (env) {
       loaders: getLoaders(env)
     },
     resolve: {
-      extensions: ['', '.js', '.jsx']
+      extensions: ['', '.js', '.jsx'],
+      // alias: {
+      //   'react': 'preact-compat',
+      //   'react-dom': 'preact-compat'
+      // }
     },
-    postcss() {
-      return [autoprefixer];
+    postcss () {
+      return [autoprefixer]
     }
-  };
-  if (env === 'development') {
-    config.devtool = 'eval';
   }
-  return config;
-};
+  if (env === 'development') {
+    config.devtool = 'eval'
+  }
+  return config
+}
