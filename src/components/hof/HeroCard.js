@@ -76,4 +76,5 @@ export default ({ hero, you, isCurrentUser, showDetails }) => {
         </a>
       )}
     </div>
-) }
+  )
+}

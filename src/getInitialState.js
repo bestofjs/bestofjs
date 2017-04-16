@@ -1,8 +1,7 @@
 import * as helpers from './helpers/projectHelpers'
 import slugify from './helpers/slugify'
-import randomColor from 'randomcolor'
 
-// Called by `entry.jsx` to get initial state from project data
+// Called by `entry.js` to get initial state from project data
 
 const ACCESS_TOKEN = 'bestofjs_access_token'
 
@@ -30,12 +29,6 @@ const defaultState = {
       commit: true
     }
   }
-}
-// Get a random color for projecs whose color is not specified
-function getRandomColor () {
-  return randomColor({
-    luminosity: 'dark'
-  })
 }
 
 // Round the average number of stars used in "trending this year" graphs
@@ -86,8 +79,7 @@ function processProject (item) {
     },
     monthly: item.monthly,
     svglogo: item.svglogo,
-    branch: item.branch,
-    color: item.color ? `#${item.color}` : getRandomColor()
+    branch: item.branch
   }
   return result
 }

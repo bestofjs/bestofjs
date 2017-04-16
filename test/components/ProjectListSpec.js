@@ -1,15 +1,13 @@
 import test from 'tape'
 import React from 'react'
+import { MemoryRouter } from 'react-router-dom'
+import { createStore } from 'redux'
 
 import {
-  // mount,
-  // render,
-  shallow
+  mount
 } from 'enzyme'
 
 import setup from '../setup.js'
-
-import configureStore from '../../src/store/configureStore'
 
 // Data
 import data from '../data/projects.json'
@@ -17,6 +15,7 @@ import links from '../data/links.json'
 import reviews from '../data/reviews.json'
 
 import { getInitialState } from '../../src/getInitialState'
+import rootReducer from '../../src/reducers'
 
 // Actions
 import * as actions from '../../src/actions/crudActions'
@@ -28,7 +27,8 @@ import ProjectList from '../../src/components/projects/ProjectList'
 import ProjectCard from '../../src/components/projects/ProjectCard'
 
 const state = getInitialState(data)
-const store = configureStore(state)
+// const store = configureStore(state)
+const store = createStore(rootReducer, state)
 
 const {
   entities,
@@ -42,10 +42,12 @@ const count = projects.length
 
 // 1. Test the component before the link data arrive
 test('Check <ProjectList> component BEFORE data arrives', (assert) => {
-  const component = shallow(
-    <ProjectList
-      projects = { projects }
-    />
+  const component = mount(
+    <MemoryRouter>
+      <ProjectList
+        projects={projects}
+      />
+    </MemoryRouter>
   )
   assert.ok(component, `The component should exist.`)
   const cards = component.find(ProjectCard)
@@ -74,10 +76,12 @@ testItems('review')
 
 // 3. Check the component after data arrives
 test('Check <ProjectList> component AFTER data arrives', (assert) => {
-  const component = shallow(
-    <ProjectList
-      projects = { projects }
-    />
+  const component = mount(
+    <MemoryRouter>
+      <ProjectList
+        projects={projects}
+      />
+    </MemoryRouter>
   )
   assert.ok(component, `The component should exist.`)
   const cards = component.find(ProjectCard)
@@ -88,10 +92,12 @@ test('Check <ProjectList> component AFTER data arrives', (assert) => {
 test('Check <ProjectList> with React project', (assert) => {
   const filteredProjects = projects.filter(item => item.slug === 'react')
   assert.equal(1, filteredProjects.length, 'There should be one project with "react" slug')
-  const component = shallow(
-    <ProjectList
-      projects = { filteredProjects }
-    />
+  const component = mount(
+    <MemoryRouter>
+      <ProjectList
+        projects={filteredProjects}
+      />
+    </MemoryRouter>
   )
   assert.ok(component, `The component should exist.`)
   const cards = component.find(ProjectCard)

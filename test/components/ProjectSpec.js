@@ -1,20 +1,15 @@
 import test from 'tape'
 import React from 'react'
-import ReactDOM from 'react-dom'
-import TestUtils from 'react-addons-test-utils'
 
 import {
-  mount,
-  render,
   shallow
 } from 'enzyme'
 
-import { getAllTags, getTag, getAllComponents, getComponent } from '../utils'
 import setup from '../setup.js'
 import populate from '../../src/helpers/populate'
 
 // Data
-import data from '../data/projects'
+import data from '../data/projects.json'
 import { getInitialState } from '../../src/getInitialState'
 
 // Actions
@@ -33,18 +28,17 @@ const {
 const id = 'react'
 
 let project = projects[id]
-console.log('Project to check', project)
 project = populate(tags)(project)
 
 test('Check <Project> component', (assert) => {
   const component = shallow(
     <Project
-      project = { project }
-      actions = { actions }
+      project={project}
+      actions={actions}
     />
   )
 
-  assert.ok(component, `The component should exist.`)
+  assert.ok(component, 'The component should exist.')
 
   const header = component.find('header')
   const title = project.name

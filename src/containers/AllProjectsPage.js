@@ -7,8 +7,7 @@ import populate from '../helpers/populate'
 import log from '../helpers/log'
 import * as uiActionCreators from '../actions/uiActions'
 
-const AllProjectsPage = React.createClass({
-
+class AllProjectsPage extends React.Component {
   shouldComponentUpdate (nextProps) {
     // `shouldComponentUpdate` has been implemented to avoid
     // rendering the page twice when browsing tags.
@@ -16,8 +15,7 @@ const AllProjectsPage = React.createClass({
     const sameUi = Object.keys(nextProps.ui)
       .every(key => this.props.ui[key] === nextProps.ui[key])
     return nextProps.tag.id !== this.props.tag.id || !sameUi
-  },
-
+  }
   render () {
     log('Render the <AllProjectsPage> container', this.props)
     const { tagProjects, isLoggedin, uiActions, ui, graphProjects, count } = this.props
@@ -33,8 +31,7 @@ const AllProjectsPage = React.createClass({
       />
     )
   }
-
-})
+}
 
 function mapStateToProps (sortFilter) {
   return function (state, props) {

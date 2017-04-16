@@ -1,5 +1,6 @@
 import test from 'tape'
 import React from 'react'
+import { MemoryRouter } from 'react-router-dom'
 import {
   mount,
   // render,
@@ -33,10 +34,12 @@ test('Check <ProjectList>', assert => {
   const count = 20
   const state = getInitialState(data)
 
-  const component = shallow(
-    <ProjectList
-      projects={getHotProjects(state)}
-    />
+  const component = mount(
+    <MemoryRouter>
+      <ProjectList
+        projects={getHotProjects(state)}
+      />
+    </MemoryRouter>
   )
   assert.ok(component, 'The component should exist.')
   const foundProjects = component.find(ProjectCard)
@@ -50,13 +53,15 @@ test('Check <Home> component', (assert) => {
   const props = mapStateToProps(state)
 
   const component = mount(
-    <Home
-      hotProjects={props.hotProjects}
-      popularProjects={props.popularProjects}
-      uiActions={{}}
-      authActions={{}}
-      popularTags={props.popularTags}
-    />
+    <MemoryRouter>
+      <Home
+        hotProjects={props.hotProjects}
+        popularProjects={props.popularProjects}
+        uiActions={{}}
+        authActions={{}}
+        popularTags={props.popularTags}
+      />
+    </MemoryRouter>
   )
 
   assert.ok(component, 'The component should exist.')

@@ -8,7 +8,7 @@ import log from '../../helpers/log'
 import * as uiActionCreators from '../../actions/uiActions'
 import * as authActionCreators from '../../actions/authActions'
 
-const HomePage = React.createClass({
+class HomePage extends React.Component {
   render () {
     log('Render the <HomePage> container', this.props)
     const { hotProjects, popularProjects, auth, uiActions, ui, authActions, popularTags } = this.props
@@ -28,7 +28,7 @@ const HomePage = React.createClass({
       />
     )
   }
-})
+}
 
 function finalMapStateToProps (count) {
   return function (state) {

@@ -1,4 +1,6 @@
-import React, { PropTypes } from 'react'
+import React from 'react'
+import PropTypes from 'prop-types'
+
 const options = [
   'Pretty bad, looks deprecated',
   'Some annoying defects',

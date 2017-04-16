@@ -1,30 +1,40 @@
-import React, { PropTypes } from 'react'
+import React from 'react'
+import PropTypes from 'prop-types'
 import ReviewReduxForm from './ReviewReduxForm'
+import { withRouter } from 'react-router-dom'
 
+import ProjectHeader from '../ProjectHeader'
+import Tabs from '../Tabs'
 import { createReview } from '../../../actions/reviewActions'
 
-function submitCreate (project, auth) {
+const submitCreate = history => (project, auth) => {
   return function (values, dispatch) {
-    return dispatch(createReview(project, values, auth))
+    return dispatch(createReview(project, values, auth, history))
   }
 }
 
-const Create = React.createClass({
-  propTypes: {
-    project: PropTypes.object
-  },
-  render () {
-    const { project, auth } = this.props
-    return (
-      <div>
-        <h3>Add your review of "{project.name}" project</h3>
-        <ReviewReduxForm
-          project={project}
-          auth={auth}
-          onSave={submitCreate}
-        />
+const Create = ({ project, auth, history }) => {
+  const onSave = submitCreate(history)
+  return (
+    <div>
+      <ProjectHeader project={project} />
+      <Tabs project={project} activePath="reviews" />
+      <div className="project-tabs-content" style={{ marginBottom: '2em' }}>
+        <div className="inner">
+          <h3>Add your review of "{project.name}" project</h3>
+          <ReviewReduxForm
+            project={project}
+            auth={auth}
+            onSave={onSave}
+          />
+        </div>
       </div>
-    )
-  }
-})
-export default Create
+    </div>
+  )
+}
+
+Create.propTypes = {
+  project: PropTypes.object
+}
+
+export default withRouter(Create)

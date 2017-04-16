@@ -21,7 +21,7 @@ function getCurrentTagId () {
 const App = React.createClass({
   componentDidMount () {
     this.props.authActions.start()
-    log('App did mount!')
+    log('App did mount!!!')
   },
   render () {
     log('Render the <App> container', this.props)
@@ -74,11 +74,6 @@ function mapDispatchToProps (dispatch) {
     authActions: bindActionCreators(authActionCreators, dispatch),
     uiActions: bindActionCreators(uiActionCreators, dispatch)
   }
-}
-
-App.propTypes = {
-  // Injected by React Router
-  children: React.PropTypes.node
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(App)

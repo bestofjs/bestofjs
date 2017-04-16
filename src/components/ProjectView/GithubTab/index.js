@@ -1,8 +1,10 @@
-import React, { PropTypes } from 'react'
+import React from 'react'
+import PropTypes from 'prop-types'
 
 import Tabs from '../Tabs'
 import Readme from './Readme'
 import Header from './Header'
+import ProjectHeader from '../ProjectHeader'
 
 const Github = React.createClass({
   propTypes: {
@@ -12,7 +14,8 @@ const Github = React.createClass({
     const { project } = this.props
     return (
       <div>
-        <Tabs project={project} activePath="readme" />
+        <ProjectHeader project={project} />
+        <Tabs project={project} activePath="" />
         <div className="project-tabs-content">
           <Header {...this.props} />
         </div>

@@ -1,5 +1,9 @@
-import React, { PropTypes } from 'react'
-import Link from 'react-router/lib/Link'
+import React from 'react'
+import PropTypes from 'prop-types'
+import { Link } from 'react-router-dom'
+
+import ProjectHeader from '../ProjectHeader'
+import Tabs from '../Tabs'
 import ProjectLink from './ProjectLink'
 
 const List = React.createClass({
@@ -31,6 +35,8 @@ const List = React.createClass({
     const links = project.links || []
     return (
       <div>
+        <ProjectHeader project={project} />
+        <Tabs project={project} activePath="links" />
         <div className="project-tabs-content" style={{ marginBottom: '2em' }}>
           <div className="inner">
             {links.length === 0 && (

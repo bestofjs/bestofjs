@@ -1,12 +1,15 @@
-import React, { PropTypes } from 'react'
+import React from 'react'
+import PropTypes from 'prop-types'
 import { reduxForm, Field } from 'redux-form'
 
 import ErrorMessage from '../../common/utils/ErrorMessage'
 import renderFieldWidget from '../../common/form/renderFieldWidget'
 import Markdown from '../../common/form/MarkdownField'
 import RatingBox from './RatingBox'
-
 import validate from './validate'
+
+const ratingBoxField = renderFieldWidget(RatingBox)
+const mdField = renderFieldWidget(Markdown)
 
 const ReviewForm = React.createClass({
   propTypes: {
@@ -24,8 +27,6 @@ const ReviewForm = React.createClass({
       submitting,
       onSave // passed from parent component (<Create> / <Edit>)
     } = this.props
-    const ratingBoxField = renderFieldWidget(RatingBox)
-    const mdField = renderFieldWidget(Markdown)
     return (
       <form
         onSubmit={handleSubmit(onSave(project, auth))}
@@ -37,10 +38,10 @@ const ReviewForm = React.createClass({
           name="rating"
           component={ratingBoxField}
         />
-        {true && <Field
+        <Field
           name="comment"
           component={mdField}
-        />}
+        />
 
         {!valid && submitFailed &&
           <ErrorMessage>Fix invalid fields!</ErrorMessage>

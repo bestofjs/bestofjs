@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react'
+import React from 'react'
+import PropTypes from 'prop-types'
 
 import TagLabel from '../../tags/TagLabel'
 import Description from '../../common/utils/Description'

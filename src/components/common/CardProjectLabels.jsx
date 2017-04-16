@@ -1,5 +1,5 @@
 import React from 'react'
-import Link from 'react-router/lib/Link'
+import { Link } from 'react-router-dom'
 
 export default ({ projects }) => {
   const validProjects = projects.filter(p => !!p)

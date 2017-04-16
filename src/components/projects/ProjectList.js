@@ -1,42 +1,26 @@
 import React from 'react'
 import ProjectCard from './ProjectCard'
 
-const ProjectList = React.createClass({
-
-  getDefaultProps () {
-    return ({
-      showTags: true,
-      showDescription: true,
-      showStars: true,
-      showDelta: true,
-      showURL: false,
-      showMetrics: true
-    })
-  },
-
-  render () {
-    // console.info('Render project list', this.props.projects.length, this.props.showMetrics)
-    return (
-      <div className="project-grid">
-        {this.props.projects.map((project, index) =>
-          <div key={project.slug}>
-            <ProjectCard
-              project={project}
-              maxStars={this.props.maxStars}
-              index={index}
-              showTags={this.props.showTags}
-              showDescription={this.props.showDescription}
-              showStars={this.props.showStars}
-              showDelta={this.props.showDelta}
-              deltaFilter={this.props.deltaFilter}
-              showURL={this.props.showURL}
-              showMetrics={this.props.showMetrics}
-              viewOptions={this.props.viewOptions}
-            />
-          </div>)
-        }
-      </div>
-    )
-  }
-})
+const ProjectList = ({ projects, showTags = true, showStars = true, showDelta = true, showDescription = true, showURL = false, showMetrics = true, deltaFilter, viewOptions }) => {
+  return (
+    <div className="project-grid">
+      {projects.map((project, index) =>
+        <div key={project.slug}>
+          <ProjectCard
+            project={project}
+            index={index}
+            showTags={showTags}
+            showDescription={showDescription}
+            showStars={showStars}
+            showDelta={showDelta}
+            deltaFilter={deltaFilter}
+            showURL={showURL}
+            showMetrics={showMetrics}
+            viewOptions={viewOptions}
+          />
+        </div>)
+      }
+    </div>
+  )
+}
 export default ProjectList

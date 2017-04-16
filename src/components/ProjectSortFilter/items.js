@@ -4,7 +4,7 @@ export default [
     text: 'Popular',
     comment: 'total number of star',
     category: 'top',
-    url: 'popular'
+    url: ''
   },
   {
     value: 'daily',

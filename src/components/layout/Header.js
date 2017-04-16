@@ -1,5 +1,5 @@
 import React from 'react'
-import IndexLink from 'react-router/lib/IndexLink'
+import { Link } from 'react-router-dom'
 
 import SearchForm from '../../containers/SearchFormContainer'
 import ToggleMenuButton from './ToggleMenuButton'
@@ -12,9 +12,9 @@ export default ({ searchText, actions, uiActions, ui, location }) => (
     <div className="container">
       <div className="header-row">
         <div className="col-1">
-          <IndexLink to={'/'} className="link-logo" >
+          <Link to={'/'} className="link-logo" >
             <img src="/svg/bestofjs.svg" width="160" alt="bestof.js.org" />
-          </IndexLink>
+          </Link>
         </div>
         <div className="col-2">
           <SearchForm

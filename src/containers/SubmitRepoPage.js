@@ -1,26 +1,20 @@
 import React from 'react'
 import { connect } from 'react-redux'
-// import { bindActionCreators } from 'redux'
 
-import createForm from '../components/user-requests/add-project/AddProjectReduxForm'
-// import * as repoActionCreators from '../actions/repoActions'
+import Form from '../components/user-requests/add-project/AddProjectReduxForm'
 import { addProject } from '../actions/repoActions'
 
-const SubmitRepoPage = React.createClass({
-  onSave (values, dispatch) {
-    const { auth } = this.props
+const SubmitRepoPage = ({ projects, auth }) => {
+  const onSave = (values, dispatch) => {
     return dispatch(addProject(values, auth))
-  },
-  render () {
-    const { projects } = this.props
-    const Form = createForm(projects)
-    return (
-      <Form
-        onSave={this.onSave}
-      />
-    )
   }
-})
+  return (
+    <Form
+      onSave={onSave}
+      projects={projects}
+    />
+  )
+}
 
 function mapStateToProps (state) {
   const {

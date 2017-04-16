@@ -3,6 +3,7 @@ setup()
 
 import test from 'tape'
 import React from 'react'
+import { MemoryRouter } from 'react-router-dom'
 import { createStore, applyMiddleware, compose } from 'redux'
 import { Provider } from 'react-redux'
 import thunk from 'redux-thunk'
@@ -35,9 +36,11 @@ test('Check <HoFPage> container', (assert) => {
   assert.ok(heroes.length > 70, `There should be more than 70 hall of famers`)
 
   const component = mount(
-    <Provider store={store}>
-      <HoFPage />
-    </Provider>
+    <MemoryRouter>
+      <Provider store={store}>
+        <HoFPage />
+      </Provider>
+    </MemoryRouter>
   )
 
   assert.ok(component, `The component should exist.`)

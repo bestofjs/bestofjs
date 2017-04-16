@@ -6,8 +6,7 @@ import populate from '../helpers/populate'
 import log from '../helpers/log'
 import getStaticContent from '../staticContent'
 
-const AboutPage = React.createClass({
-
+class AboutPage extends React.Component {
   render () {
     log('Render the <AboutPage> container', this.props)
     const { staticContent, project, count, ui } = this.props
@@ -21,7 +20,7 @@ const AboutPage = React.createClass({
     )
   }
 
-})
+}
 
 function mapStateToProps (state) {
   const {
@@ -43,5 +42,4 @@ function mapStateToProps (state) {
   }
 }
 
-export default connect(mapStateToProps, {
-})(AboutPage)
+export default connect(mapStateToProps, {})(AboutPage)

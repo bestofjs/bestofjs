@@ -1,4 +1,4 @@
-import browserHistory from 'react-router/lib/browserHistory'
+// import browserHistory from 'react-router/lib/browserHistory'
 
 import { fetchJSON } from '../helpers/fetch'
 import getApi from '../../config/api'
@@ -31,14 +31,14 @@ export function addProject (form, auth) {
       type: 'ADD_PROJECT_REQUEST',
       payload: form
     })
-    return createIssueAddProject(form.project, form.comment, auth.token)
+    return createIssueAddProject(form.project.value, form.comment, auth.token)
       .then(json => {
         dispatch({
           type: 'ADD_PROJECT_SUCCESS',
           payload: json
         })
         msgbox('Thank you! An issue has been created in the repo.')
-        browserHistory.push('/requests')
+        // browserHistory.push('/requests')
       })
       .catch(err => {
         msgbox(
@@ -56,14 +56,14 @@ export function addHero (form, auth) {
       type: 'ADD_HERO_REQUEST',
       payload: form
     })
-    return createIssueAddHero(form.hero, form.comment, auth.token)
+    return createIssueAddHero(form.hero.value, form.comment, auth.token)
       .then(json => {
         dispatch({
           type: 'ADD_HERO_SUCCESS',
           payload: json
         })
         msgbox('Thank you! An issue has been created in the repo.')
-        browserHistory.push('/requests')
+        // browserHistory.push('/requests')
       })
       .catch(err => {
         msgbox(

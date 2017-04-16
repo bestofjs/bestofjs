@@ -1,24 +1,20 @@
 import React from 'react'
 import { connect } from 'react-redux'
 
-import createForm from '../components/user-requests/add-hero/AddHeroReduxForm'
+import Form from '../components/user-requests/add-hero/AddHeroReduxForm'
 import { addHero } from '../actions/repoActions'
 
-const SubmitHeroPage = React.createClass({
-  onSave (values, dispatch) {
-    const { auth } = this.props
+const SubmitHeroPage = ({ heroes, auth }) => {
+  const onSave = (values, dispatch) => {
     return dispatch(addHero(values, auth))
-  },
-  render () {
-    const { heroes } = this.props
-    const Form = createForm(heroes)
-    return (
-      <Form
-        onSave={this.onSave}
-      />
-    )
   }
-})
+  return (
+    <Form
+      onSave={onSave}
+      heroes={heroes}
+    />
+  )
+}
 
 function mapStateToProps (state) {
   const {

@@ -2,6 +2,8 @@ import test from 'tape'
 import React from 'react'
 import { Provider } from 'react-redux'
 import { createStore } from 'redux'
+import { MemoryRouter } from 'react-router-dom'
+
 import rootReducer from '../../src/reducers'
 
 // Main components to test
@@ -28,9 +30,11 @@ test('Check <HomePage> container', (assert) => {
   const store = createStore(rootReducer, state)
 
   const component = mount(
-    <Provider store={store}>
-      <HomePage />
-    </Provider>
+    <MemoryRouter>
+      <Provider store={store}>
+        <HomePage />
+      </Provider>
+    </MemoryRouter>
   )
 
   assert.ok(component, `The component should exist.`)

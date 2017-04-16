@@ -1,5 +1,6 @@
-import React, { PropTypes } from 'react'
+import React from 'react'
 import Select from 'react-select'
+import PropTypes from 'prop-types'
 
 const ProjectSelectBox = React.createClass({
   propTypes: {

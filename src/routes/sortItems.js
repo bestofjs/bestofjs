@@ -1,6 +1,6 @@
 const sortItems = [
   {
-    path: 'popular',
+    path: '',
     key: 'total'
   },
   {

@@ -1,65 +1,63 @@
 import React from 'react'
-import { Link } from 'react-router'
+import { Link } from 'react-router-dom'
 
 import log from '../../helpers/log'
 import MainContent from '../common/MainContent'
 
 import HomeProjects from './HomeProjects'
 
-const Home = React.createClass({
-  render () {
-    log('Render the <Home> component', this.props)
-    const {
-      isLoggedin,
-      pending,
-      authActions,
-      popularTags
-    } = this.props
-    return (
-      <MainContent>
-        <div className="no-card-container">
-          <h1 className="with-comment" style={{ margin: '0 0 1rem' }}>
-            The best of JavaScript, HTML, CSS
-          </h1>
-          <p style={{ fontSize: '1.1rem' }}>
-            Check out the most popular open-source projects and the latest trends about the web platform and node.js.
-          </p>
-        </div>
+const Home = (props) => {
+  log('Render the <Home> component', props)
+  const {
+    isLoggedin,
+    pending,
+    authActions,
+    popularTags
+  } = props
+  return (
+    <MainContent>
+      <div className="no-card-container">
+        <h1 className="with-comment" style={{ margin: '0 0 1rem' }}>
+          The best of JavaScript, HTML, CSS
+        </h1>
+        <p style={{ fontSize: '1.1rem' }}>
+          Check out the most popular open-source projects and the latest trends about the web platform and node.js.
+        </p>
+      </div>
 
-        <hr />
+      <hr />
 
-        <h3 className="no-card-container" style={{ margin: '0rem 0 2rem' }}>
-          <span className="icon mega-octicon octicon-flame" />
-          Today hot projects
-          <span className="counter" style={{fontSize: '1rem', color: '#aaa', marginLeft: '.5rem'}}>
-            (by number of stars added yesterday)
-          </span>
+      <h3 className="no-card-container" style={{ margin: '0rem 0 2rem' }}>
+        <span className="icon mega-octicon octicon-flame" />
+        Today hot projects
+        <span className="counter" style={{fontSize: '1rem', color: '#aaa', marginLeft: '.5rem'}}>
+          (by number of stars added yesterday)
+        </span>
+      </h3>
+      <HomeProjects {...props} />
+
+      <hr />
+
+      <div className="no-card-container">
+        <h3 className="with-comment" style={{ margin: '0 0 1rem' }}>
+          Find the <i className="special">best</i> components to build amazing web applications!
         </h3>
-        <HomeProjects {...this.props} />
+        <p>View <Link to="/projects">ALL PROJECTS</Link> or check one of the popular tags:</p>
+        <TagList tags={popularTags} />
+      </div>
 
-        <hr />
+      <hr />
 
-        <div className="no-card-container">
-          <h3 className="with-comment" style={{ margin: '0 0 1rem' }}>
-            Find the <i className="special">best</i> components to build amazing web applications!
-          </h3>
-          <p>View <Link to="/projects">ALL PROJECTS</Link> or check one of the popular tags:</p>
-          <TagList tags={popularTags} />
-        </div>
+      <MoreProjects
+        handleClick={authActions.login}
+        isLoggedin={isLoggedin}
+        pending={pending}
+      />
 
-        <hr />
-
-        <MoreProjects
-          handleClick={authActions.login}
-          isLoggedin={isLoggedin}
-          pending={pending}
-        />
-
-        <hr />
-      </MainContent>
-    )
-  }
-})
+      <hr />
+    </MainContent>
+  )
+}
 
 const MoreProjects = ({ handleClick, isLoggedin, pending }) => {
   return (

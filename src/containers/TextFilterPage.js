@@ -47,7 +47,7 @@ function mapStateToProps (state, props) {
     ui
   } = state
 
-  const text = props.params.text
+  const text = props.match.params.text
   const allTags = Object.keys(tags).map(id => tags[id])
 
   const allProjects = githubProjects.total.map(id => projects[id])

@@ -1,5 +1,6 @@
-import React, { PropTypes } from 'react'
-import Link from 'react-router/lib/Link'
+import React from 'react'
+import PropTypes from 'prop-types'
+import { Link } from 'react-router-dom'
 
 const Tabs = React.createClass({
   propTypes: {
@@ -20,7 +21,7 @@ const Tabs = React.createClass({
   render () {
     const tabs = [
       {
-        path: 'readme',
+        path: '',
         text: 'OVERVIEW',
         icon: 'mark-github'
       },

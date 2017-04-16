@@ -6,7 +6,7 @@
 // - login()
 // - logout()
 
-import browserHistory from 'react-router/lib/browserHistory'
+// import browserHistory from 'react-router/lib/browserHistory'
 
 import msgbox from '../helpers/msgbox'
 import log from '../helpers/log'
@@ -105,7 +105,7 @@ function loginSuccess (profile, token) {
   const path = urlManager && urlManager.get(true)
   if (path) {
     log('POST lOGIN REDIRECT', path)
-    browserHistory.push(path)
+    // browserHistory.push(path)
     msgbox(`Hello ${profile.name}!`)
   }
   return {

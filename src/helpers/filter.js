@@ -1,4 +1,4 @@
-import intersection from 'lodash/array/intersection'
+import intersection from 'lodash.intersection'
 
 // Used to filter projects when the user enters text in the search box
 // Search results are sorted by "relevance"

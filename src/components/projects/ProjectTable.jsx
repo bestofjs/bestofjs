@@ -1,5 +1,5 @@
 import React from 'react'
-import Link from 'react-router/lib/Link'
+import { Link } from 'react-router-dom'
 
 import Description from '../common/utils/Description'
 import Delta from '../common/utils/Delta'

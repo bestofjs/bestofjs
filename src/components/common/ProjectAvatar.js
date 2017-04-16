@@ -14,6 +14,7 @@ const Avatar = ({ project, size = 100 }) => {
       width={size} height={size}
       alt={project.name}
     />
-  ) }
+  )
+}
 
 export default Avatar

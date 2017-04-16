@@ -3,6 +3,7 @@ setup()
 
 import test from 'tape'
 import React from 'react'
+import { MemoryRouter } from 'react-router-dom'
 import { createStore, applyMiddleware, compose } from 'redux'
 import { Provider } from 'react-redux'
 import thunk from 'redux-thunk'
@@ -25,9 +26,11 @@ test('Check <AboutPage> container', (assert) => {
   const store = finalCreateStore(rootReducer, state)
 
   const component = mount(
-    <Provider store={store}>
-      <AboutPage />
-    </Provider>
+    <MemoryRouter>
+      <Provider store={store}>
+        <AboutPage />
+      </Provider>
+    </MemoryRouter>
   )
 
   assert.ok(component, `The component should exist.`)

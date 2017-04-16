@@ -1,13 +1,14 @@
 import test from 'tape'
-
 import React from 'react'
 import ReactDOM from 'react-dom'
-import TestUtils from 'react-addons-test-utils'
+import TestUtils from 'react-dom/test-utils'
 import fetch from 'node-fetch'
+import { mount } from 'enzyme'
+import { MemoryRouter } from 'react-router-dom'
 
 import { getAllTags, getTag } from '../utils'
 import setup from '../setup.js'
-import data from '../data/projects'
+import data from '../data/projects.json'
 import { getInitialState } from '../../src/getInitialState'
 import getStaticContent from '../../src/staticContent'
 
@@ -19,14 +20,14 @@ import About from '../../src/components/about/About'
 import Button from '../../src/components/common/StarMeButton'
 
 test('Star on Github button', assert => {
-  const component = TestUtils.renderIntoDocument(
+  const component = mount(
     <Button url={staticContent.repo} />
   )
 
   assert.ok(component, `The component should exist.`)
 
-  const a = getTag(component, 'a')
-  const node = ReactDOM.findDOMNode(a)
+  const a = component.find('a')
+  const node = a.getNode()
   const url = node.href
 
   assert.ok(/michaelrambeau/.test(url), `It should be one of my repositories.`)
@@ -46,7 +47,9 @@ test('Star on Github button', assert => {
 test('Check <About> component', assert => {
   const state = getInitialState(data)
   const component = TestUtils.renderIntoDocument(
-    <About githubProjects={state} staticContent={staticContent} />
+    <MemoryRouter>
+      <About githubProjects={state} staticContent={staticContent} />
+    </MemoryRouter>
   )
 
   assert.ok(component, `The component should exist.`)

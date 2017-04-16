@@ -18,56 +18,52 @@ function renderGraph ({ projects, ui }) {
   // )
 }
 
-const TagFilter = React.createClass({
+const TagFilter = ({ tag, projects, graphProjects, isLoggedin, ui, count }) => {
+  const showGraph = false
+  const showStars = ui.starFilter === 'total' || ui.starFilter === 'packagequality' || ui.starFilter === 'npms'
+  return (
+    <MainContent>
+      {tag ? (
+        <TagViewTitle
+          title={tag.name}
+          count={projects.length}
+          icon={'tag'}
+        />
+      ) : (
+        <TagViewTitle
+          title={'All tags'}
+          count={count}
+          icon={'list-unordered'}
+        />
+      )}
 
-  render () {
-    const { tag, projects, graphProjects, isLoggedin, ui, count } = this.props
-    const showGraph = false
-    const showStars = ui.starFilter === 'total' || ui.starFilter === 'packagequality' || ui.starFilter === 'npms'
-    return (
-      <MainContent className="container">
-        <div className="">
-          {tag ? (
-            <TagViewTitle
-              title={tag.name}
-              count={projects.length}
-              icon={'tag'}
-            />
-          ) : (
-            <TagViewTitle
-              title={'All tags'}
-              count={count}
-              icon={'list-unordered'}
-            />
-          )}
+      <ProjectFilterTabs
+        currentValue={ui.starFilter}
+        rootUrl={tag ? `/tags/${tag.id}` : '/projects'}
+      />
 
-          <ProjectFilterTabs
-            currentValue={ui.starFilter}
-            rootUrl={tag ? `/tags/${tag.id}` : '/projects'}
-          />
-        </div>
+      {showGraph && renderGraph({
+        projects: graphProjects,
+        ui
+      })}
 
-        {showGraph && renderGraph({
-          projects: graphProjects,
-          ui
-        })}
+      {projects.length > 0 && (
+        <ProjectList
+          projects={projects}
+          showDescription
+          showURL
+          isLoggedin={isLoggedin}
+          showDelta={!showStars}
+          deltaFilter={ui.starFilter}
+          showStars={showStars}
+          showTags={false}
+          showMetrics={ui.showMetrics}
+          viewOptions={ui.viewOptions}
+        />
+     )}
+    </MainContent>
+  )
+}
 
-        {projects.length > 0 && (
-          <ProjectList
-            projects={projects}
-            showDescription
-            showURL
-            isLoggedin={isLoggedin}
-            showDelta={!showStars}
-            deltaFilter={ui.starFilter}
-            showStars={showStars}
-            showTags={false}
-            showMetrics={ui.showMetrics}
-            viewOptions={ui.viewOptions}
-          />
-       )}
-      </MainContent>
-    )
-  }
-})
 export default TagFilter
+// export default () => <p>GO!</p>

@@ -2,7 +2,6 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
-import ProjectView from '../components/ProjectView'
 import populate from '../helpers/populate'
 import log from '../helpers/log'
 import track from '../helpers/track'
@@ -17,38 +16,34 @@ function loadData (props) {
   track('View project', project.name)
 }
 
-const ProjectPage = React.createClass({
+function createProjectPage (ProjectView) {
+  return React.createClass({
 
-  componentWillMount () {
-    loadData(this.props)
-  },
+    componentWillMount () {
+      loadData(this.props)
+    },
 
-  componentWillReceiveProps (nextProps) {
-    if (nextProps.id !== this.props.id) {
-      loadData(nextProps)
+    componentWillReceiveProps (nextProps) {
+      if (nextProps.id !== this.props.id) {
+        loadData(nextProps)
+      }
+    },
+
+    render () {
+      log('Render the <ProjectPage> container', this.props)
+      const { project, review, link, auth, authActions } = this.props
+      return (
+        <ProjectView
+          project={project}
+          review={review}
+          link={link}
+          auth={auth}
+          authActions={authActions}
+        />
+      )
     }
-  },
-
-  render () {
-    log('Render the <ProjectPage> container', this.props)
-    const { project, review, link, auth, children, authActions } = this.props
-    return (
-      <ProjectView
-        project={project}
-        review={review}
-        link={link}
-        auth={auth}
-        authActions={authActions}
-      >
-        {children && project && React.cloneElement(children, {
-          project,
-          auth
-        })}
-      </ProjectView>
-    )
-  }
-
-})
+  })
+}
 
 function mapStateToProps (state, props) {
   const {
@@ -56,14 +51,13 @@ function mapStateToProps (state, props) {
     auth
   } = state
 
-  const id = props.params.id
+  // `Route` components get a `match` prop. from react-router
+  const params = props.match.params
+  const { id, linkId, reviewId } = params
 
   let project = projects[id]
   project = populate(tags, links, reviews)(project)
 
-  // Review and Link in edit mode
-  const reviewId = props.params.reviewId
-  const linkId = props.params.linkId
   const review = reviews && reviewId ? reviews[reviewId] : null
   const link = links && linkId ? links[linkId] : null
 
@@ -82,7 +76,4 @@ function mapDispatchToProps (dispatch) {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(ProjectPage)
-// export default connect(mapStateToProps, {
-//   fetchReadme: fetchReadmeIfNeeded
-// })(ProjectPage)
+export default ProjectView => connect(mapStateToProps, mapDispatchToProps)(createProjectPage(ProjectView))

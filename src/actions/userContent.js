@@ -1,4 +1,3 @@
-import browserHistory from 'react-router/lib/browserHistory'
 import msgbox from '../helpers/msgbox'
 
 import { createUserContentApi } from '../api/userContent'
@@ -16,9 +15,9 @@ const settings = {
 }
 
 // Go to project item list after successful update or creation
-function goToList (project, key) {
+function goToList (project, key, history) {
   const path = `/projects/${project.slug}/${key}s/`
-  return browserHistory.push(path)
+  return history.push(path)
 }
 
 // ==========
@@ -43,7 +42,7 @@ export function fetchAll (key) {
 // ==========
 
 export function create (key) {
-  return function (project, formData, auth) {
+  return function (project, formData, auth, history) {
     const payload = Object.assign({}, formData, {
       createdBy: auth.username || 'Anonymous'
     })
@@ -54,7 +53,7 @@ export function create (key) {
         .then(json => {
           const data = Object.assign({}, json)
           dispatch(crud.createItemSuccess(key, data))
-          goToList(project, key)
+          goToList(project, key, history)
           msgbox(`Thank you for the ${settings[key].label}!`)
         })
         .catch(err => {
@@ -71,7 +70,7 @@ export function create (key) {
 // UPDATE
 // ==========
 export function update (key) {
-  return function (project, formData, auth) {
+  return function (project, formData, auth, history) {
     const payload = Object.assign({}, formData, {
       updatedBy: auth.username || 'Anonymous'
     })
@@ -84,7 +83,7 @@ export function update (key) {
       .then(json => {
         const data = Object.assign({}, json)
         dispatch(crud.updateItemSuccess(key, data))
-        goToList(project, key)
+        goToList(project, key, history)
         msgbox(`Your ${settings[key].label} has been updated.`)
       })
       .catch(err => {

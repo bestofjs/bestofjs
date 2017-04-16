@@ -3,6 +3,7 @@ setup()
 
 import test from 'tape'
 import React from 'react'
+import { MemoryRouter } from 'react-router-dom'
 import { createStore, applyMiddleware, compose } from 'redux'
 import { Provider } from 'react-redux'
 import thunk from 'redux-thunk'
@@ -10,7 +11,9 @@ import thunk from 'redux-thunk'
 import rootReducer from '../../src/reducers'
 
 // Main components to test
-import ProjectPage from '../../src/containers/ProjectPage'
+import createProjectPage from '../../src/containers/createProjectPage'
+import GithubTab from '../../src/components/ProjectView/GithubTab'
+const ProjectPage = createProjectPage(GithubTab)
 
 import {
   mount
@@ -39,9 +42,11 @@ test('Check <ProjectPage> container', (assert) => {
 
   sinon.spy(ProjectPage.prototype, 'componentWillReceiveProps')
   const component = mount(
-    <Provider store={store}>
-      <ProjectPage params={{ id }} />
-    </Provider>
+    <MemoryRouter>
+      <Provider store={store}>
+        <ProjectPage match={{ params: { id } }} />
+      </Provider>
+    </MemoryRouter>
   )
   assert.ok(ProjectPage.prototype.componentWillReceiveProps, 'componentWillReceiveProps should have been called')
 

@@ -7,8 +7,7 @@ import populate from '../helpers/populate'
 import log from '../helpers/log'
 import * as uiActionCreators from '../actions/uiActions'
 
-const TagFilterPage = React.createClass({
-
+class TagFilterPage extends React.Component {
   shouldComponentUpdate (nextProps) {
     // `shouldComponentUpdate` has been implemented to avoid
     // rendering the page twice when browsing tags.
@@ -16,10 +15,9 @@ const TagFilterPage = React.createClass({
     const sameUi = Object.keys(nextProps.ui)
       .every(key => this.props.ui[key] === nextProps.ui[key])
     return nextProps.tag.id !== this.props.tag.id || !sameUi
-  },
-
+  }
   render () {
-    log('Render the <TagFilterPage> container', this.props.routes)
+    log('Render the <TagFilterPage> container')
     const { tagProjects, tag, isLoggedin, uiActions, ui, graphProjects } = this.props
     return (
       <TagFilter
@@ -33,8 +31,7 @@ const TagFilterPage = React.createClass({
       />
     )
   }
-
-})
+}
 
 function mapStateToProps (sortFilter) {
   return function (state, props) {
@@ -47,7 +44,7 @@ function mapStateToProps (sortFilter) {
       ui
     } = state
 
-    const tagId = props.params.id
+    const tagId = props.match.params.id
     const tagProjects = githubProjects[sortFilter]
       .map(id => projects[id])
       .filter(project => project.tags.indexOf(tagId) > -1)

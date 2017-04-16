@@ -1,5 +1,5 @@
 import React from 'react'
-import Link from 'react-router/lib/Link'
+import { Link } from 'react-router-dom'
 
 import TagLabel from '../tags/TagLabelCompact'
 import Delta from '../common/utils/Delta'
