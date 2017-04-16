@@ -59,26 +59,23 @@ function renderSelectedOption (option) {
   )
 }
 
-const GithubRepo = React.createClass({
-  render () {
-    const { field } = this.props
-    const onChange = item => {
-      field.onChange(item)
-    }
-    return (
-      <div>
-        <Async
-          loadOptions={getOptions}
-          optionRenderer={renderOption}
-          valueRenderer={renderSelectedOption}
-          value={field.value}
-          name={field.name}
-          minimumInput={3}
-          onChange={onChange}
-        />
-      </div>
-    )
+const GithubRepo = ({ field }) => {
+  const onChange = item => {
+    field.onChange(item)
   }
-})
+  return (
+    <div>
+      <Async
+        loadOptions={getOptions}
+        optionRenderer={renderOption}
+        valueRenderer={renderSelectedOption}
+        value={field.value}
+        name={field.name}
+        minimumInput={3}
+        onChange={onChange}
+      />
+    </div>
+  )
+}
 
 export default GithubRepo

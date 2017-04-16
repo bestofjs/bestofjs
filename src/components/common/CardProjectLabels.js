@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
-export default ({ projects }) => {
+const CardProjectLabels = ({ projects }) => {
   const validProjects = projects.filter(p => !!p)
   if (validProjects.length === 0) return null
   return (
@@ -21,3 +21,5 @@ export default ({ projects }) => {
     </div>
   )
 }
+
+export default CardProjectLabels

@@ -1,5 +1,6 @@
 import React from 'react'
-export default ({ max, length }) => (
+
+const RemainingChars = ({ max, length }) => (
   <span style={{ fontSize: 14 }}>
     {length === 0 ? (
       `${max} characters max`
@@ -8,3 +9,5 @@ export default ({ max, length }) => (
     )}
   </span>
 )
+
+export default RemainingChars

@@ -1,5 +1,6 @@
 import React from 'react'
-export default ({ onLogin }) => (
+
+const AnonymousHero = ({ onLogin }) => (
   <div className="hero-card">
     <div className="header card-block1">
       <img src="/svg/square-logo.svg" width="100" height="100" alt="logo" />
@@ -18,3 +19,5 @@ export default ({ onLogin }) => (
     </div>
   </div>
 )
+
+export default AnonymousHero

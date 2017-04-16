@@ -14,7 +14,7 @@ function followersComment (value) {
   return 'that\'s a lot of followers, you should be in this hall of fame!'
 }
 
-export default ({ hero, you, isCurrentUser, showDetails }) => {
+const HeroCard = ({ hero, you, isCurrentUser, showDetails }) => {
   return (
     <div className={`hero-card${isCurrentUser ? ' current-user' : ''}`}>
       <a className="header card-block" target="_blank"
@@ -78,3 +78,5 @@ export default ({ hero, you, isCurrentUser, showDetails }) => {
     </div>
   )
 }
+
+export default HeroCard

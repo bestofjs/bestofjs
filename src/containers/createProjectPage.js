@@ -6,7 +6,6 @@ import populate from '../helpers/populate'
 import log from '../helpers/log'
 import track from '../helpers/track'
 
-// import { fetchReadmeIfNeeded } from '../actions'
 import * as actionCreators from '../actions'
 import * as authActionCreators from '../actions/authActions'
 
@@ -17,18 +16,15 @@ function loadData (props) {
 }
 
 function createProjectPage (ProjectView) {
-  return React.createClass({
-
+  return class ProjectPage extends React.Component {
     componentWillMount () {
       loadData(this.props)
-    },
-
+    }
     componentWillReceiveProps (nextProps) {
       if (nextProps.id !== this.props.id) {
         loadData(nextProps)
       }
-    },
-
+    }
     render () {
       log('Render the <ProjectPage> container', this.props)
       const { project, review, link, auth, authActions } = this.props
@@ -42,7 +38,7 @@ function createProjectPage (ProjectView) {
         />
       )
     }
-  })
+  }
 }
 
 function mapStateToProps (state, props) {

@@ -1,7 +1,7 @@
 import React from 'react'
 import marked from 'marked'
 
-export default ({ comment, emptyText }) => {
+const mdReadonly = ({ comment, emptyText }) => {
   if (!comment || comment.trim() === '') {
     return (
       <span className="empty-value">
@@ -16,3 +16,5 @@ export default ({ comment, emptyText }) => {
     />
   )
 }
+
+export default mdReadonly

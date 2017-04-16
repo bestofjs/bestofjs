@@ -4,13 +4,8 @@ import { bindActionCreators } from 'redux'
 
 import List from '../components/user-requests/list/UserRequestList'
 import * as repoActionCreators from '../actions/repoActions'
-// import { getUserRequests } from '../actions/repoActions';
 
-const SubmitRepoPage = React.createClass({
-  componentDidMount () {
-    // const { repoActions, auth } = this.props
-    // if (auth.username) repoActions.getUserRequests(auth)
-  },
+class SubmitRepoPage extends React.Component {
   render () {
     const { issues } = this.props
     return (
@@ -19,7 +14,7 @@ const SubmitRepoPage = React.createClass({
       />
     )
   }
-})
+}
 
 function mapStateToProps (state) {
   const {

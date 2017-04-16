@@ -5,7 +5,7 @@ import AnonymousHero from './AnonymousHero'
 import MainContent from '../common/MainContent'
 import MoreHeroes from './MoreHeroes'
 
-export default ({ heroes = [], you, auth, onLogin, isHero, showDetails }) => (
+const HeroList = ({ heroes = [], you, auth, onLogin, isHero, showDetails }) => (
   <MainContent>
     <h1 style={{ marginBottom: '1rem' }}>
       JavaScript Hall of Fame
@@ -42,3 +42,5 @@ export default ({ heroes = [], you, auth, onLogin, isHero, showDetails }) => (
     />
   </MainContent>
 )
+
+export default HeroList

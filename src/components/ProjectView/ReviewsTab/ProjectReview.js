@@ -35,9 +35,9 @@ const ProjectReview = React.createClass({
              />
           )}
         </div>
-        <div className="project-item-comment">
+        {review.comment && <div className="project-item-comment">
           {this.renderComment(review.comment)}
-        </div>
+        </div>}
       </div>
     )
   }

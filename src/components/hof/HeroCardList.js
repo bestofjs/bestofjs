@@ -2,7 +2,7 @@ import React from 'react'
 
 import HeroCard from './HeroCard'
 
-export default ({ heroes, auth, style, showDetails }) => (
+const HeroCardList = ({ heroes, auth, style, showDetails }) => (
   <div className="hero-list" style={style}>
     {heroes.map(hero => (
       <div key={hero.username}>
@@ -15,3 +15,5 @@ export default ({ heroes, auth, style, showDetails }) => (
     ))}
   </div>
 )
+
+export default HeroCardList

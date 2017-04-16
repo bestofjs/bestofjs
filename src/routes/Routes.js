@@ -16,7 +16,13 @@ import Projects from './Projects'
 const Routes = () => (
   <Switch>
     <Route exact path="/" component={HomePage} />
-    <Route exact path="/projects" component={ProjectsPage('total')} />
+    {items.map(item => (
+      <Route exact
+        key={item.key}
+        path={`/projects/${item.path}`}
+        component={ProjectsPage(item.key)}
+      />
+    ))}
     <Route exact path="/search/:text" component={TextFilter} />
     {items.map(item => (
       <Route exact
