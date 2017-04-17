@@ -33,8 +33,12 @@ const Routes = () => (
     ))}
     <Route exact path="/hof" component={HoFPage} />
     <Route exact path="/about" component={AboutPage} />
-    <Projects />
-    <Requests />
+    <Route path="/projects">
+      <Projects />
+    </Route>
+    <Route path="/requests">
+      <Requests />
+    </Route>
   </Switch>
 )
 
