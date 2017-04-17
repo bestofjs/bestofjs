@@ -13,7 +13,8 @@ import log from '../helpers/log'
 
 class App extends React.Component {
   componentDidMount () {
-    this.props.authActions.start()
+    const history = this.props.history
+    this.props.authActions.start(history)
     log('App did mount!')
   }
   componentDidUpdate (prevProps) {

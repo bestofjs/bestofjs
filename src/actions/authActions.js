@@ -6,8 +6,6 @@
 // - login()
 // - logout()
 
-// import browserHistory from 'react-router/lib/browserHistory'
-
 import msgbox from '../helpers/msgbox'
 import log from '../helpers/log'
 import UrlManager from './urlManager'
@@ -26,7 +24,7 @@ const LOCAL_KEYS = ['id', 'access']
 
 // Check if the user is logged in when the application starts
 // called from <App> componentDidMount()
-export function start () {
+export function start (history) {
   return dispatch => {
     loginRequest()
     return getToken()
@@ -34,7 +32,7 @@ export function start () {
         getProfile(token.id_token)
           .then(profile => {
             if (profile) {
-              const action = dispatch(loginSuccess(profile, token.id_token))
+              const action = dispatch(loginSuccess(profile, token.id_token, history))
               const { username } = action.payload
               return dispatch(getUserRequests(username))
             } else {
@@ -101,11 +99,11 @@ export function loginRequest () {
     type: 'LOGIN_REQUEST'
   }
 }
-function loginSuccess (profile, token) {
+function loginSuccess (profile, token, history) {
   const path = urlManager && urlManager.get(true)
   if (path) {
     log('POST lOGIN REDIRECT', path)
-    // browserHistory.push(path)
+    history.push(path)
     msgbox(`Hello ${profile.name}!`)
   }
   return {

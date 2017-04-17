@@ -4,9 +4,9 @@ import { connect } from 'react-redux'
 import Form from '../components/user-requests/add-project/AddProjectReduxForm'
 import { addProject } from '../actions/repoActions'
 
-const SubmitRepoPage = ({ projects, auth }) => {
+const SubmitRepoPage = ({ projects, auth, history }) => {
   const onSave = (values, dispatch) => {
-    return dispatch(addProject(values, auth))
+    return dispatch(addProject(values, auth, history))
   }
   return (
     <Form

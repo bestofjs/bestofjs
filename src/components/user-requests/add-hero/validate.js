@@ -26,7 +26,7 @@ export default function validate (values, props) {
     })
 
   if (values.hero && !checkDuplicate(values, heroes)) {
-    errors.hero = `${values.hero} already belongs to the hall of fame!`
+    errors.hero = `${values.hero.value} already belongs to the hall of fame!`
   }
   return errors
 }

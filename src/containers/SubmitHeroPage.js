@@ -4,9 +4,9 @@ import { connect } from 'react-redux'
 import Form from '../components/user-requests/add-hero/AddHeroReduxForm'
 import { addHero } from '../actions/repoActions'
 
-const SubmitHeroPage = ({ heroes, auth }) => {
+const SubmitHeroPage = ({ heroes, auth, history }) => {
   const onSave = (values, dispatch) => {
-    return dispatch(addHero(values, auth))
+    return dispatch(addHero(values, auth, history))
   }
   return (
     <Form
