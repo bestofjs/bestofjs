@@ -8,7 +8,7 @@ const CardProjectLabels = ({ projects }) => {
     <div className="inner">
       <div className="card-label-container">
         {validProjects.map(p => (
-          <div key={p.id}>
+          <div key={p.slug}>
             <Link
               to={`/projects/${p.slug}`}
               className="card-label-project"

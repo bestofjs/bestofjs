@@ -5,7 +5,7 @@ import ProjectSelectBox from '../components/common/form/ProjectSelectBox'
 const ProjectSelectBoxContainer = (props) => {
   const { options } = props
   return (
-    <ProjectSelectBox options={options} {...this.props} />
+    <ProjectSelectBox options={options} {...props} />
   )
 }
 
