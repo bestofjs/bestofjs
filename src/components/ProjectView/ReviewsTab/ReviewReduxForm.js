@@ -11,59 +11,56 @@ import validate from './validate'
 const ratingBoxField = renderFieldWidget(RatingBox)
 const mdField = renderFieldWidget(Markdown)
 
-const ReviewForm = React.createClass({
-  propTypes: {
-    project: PropTypes.object,
-    handleSubmit: PropTypes.func.isRequired
-  },
-  render () {
-    const {
-      project,
-      auth,
-      handleSubmit,
-      valid,
-      // errors,
-      submitFailed,
-      submitting,
-      onSave // passed from parent component (<Create> / <Edit>)
-    } = this.props
-    return (
-      <form
-        onSubmit={handleSubmit(onSave(project, auth))}
-        className={`ui form${valid ? '' : ' error'}`}
-      >
+const ReviewForm = ({
+  project,
+  auth,
+  handleSubmit,
+  valid,
+  submitFailed,
+  submitting,
+  onSave // passed from parent component (<Create> / <Edit>)
+}) => {
+  return (
+    <form
+      onSubmit={handleSubmit(onSave(project, auth))}
+      className={`ui form${valid ? '' : ' error'}`}
+    >
 
-        <Field
-          label="Your rating:"
-          name="rating"
-          component={ratingBoxField}
-        />
-        <Field
-          name="comment"
-          component={mdField}
-        />
+      <Field
+        label="Your rating:"
+        name="rating"
+        component={ratingBoxField}
+      />
+      <Field
+        name="comment"
+        component={mdField}
+      />
 
-        {!valid && submitFailed &&
-          <ErrorMessage>Fix invalid fields!</ErrorMessage>
+      {!valid && submitFailed &&
+        <ErrorMessage>Fix invalid fields!</ErrorMessage>
+      }
+
+      <div className="form-action-bar">
+        {auth.username &&
+          <button
+            className={`ui btn${submitting ? ' loading button' : ''}`}
+            disabled={submitting}
+            type="submit"
+          >
+            <span className="octicon octicon-cloud-upload" />
+            {' '}
+            SAVE
+          </button>
         }
+      </div>
+    </form>
+  )
+}
 
-        <div className="form-action-bar">
-          {auth.username &&
-            <button
-              className={`ui btn${submitting ? ' loading button' : ''}`}
-              disabled={submitting}
-              type="submit"
-            >
-              <span className="octicon octicon-cloud-upload" />
-              {' '}
-              SAVE
-            </button>
-          }
-        </div>
-      </form>
-    )
-  }
-})
+ReviewForm.propTypes = {
+  project: PropTypes.object,
+  handleSubmit: PropTypes.func.isRequired
+}
 
 const ReviewReduxForm = reduxForm({
   form: 'review',

@@ -9,6 +9,5 @@ export function sortBy (projects, get, direction = 'DESC') {
 }
 
 export const idToProject = state => id => {
-  const slug = state.githubProjects.allById[id]
-  return state.entities.projects[slug]
+  return state.entities.projects[id]
 }
