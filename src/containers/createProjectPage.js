@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
@@ -16,7 +16,7 @@ function loadData (props) {
 }
 
 function createProjectPage (ProjectView) {
-  return class ProjectPage extends React.Component {
+  return class ProjectPage extends Component {
     componentWillMount () {
       loadData(this.props)
     }

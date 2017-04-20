@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Component } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
@@ -11,7 +11,7 @@ import AppLayout from './AppLayout'
 import getStaticContent from '../staticContent'
 import log from '../helpers/log'
 
-class App extends React.Component {
+class App extends Component {
   componentDidMount () {
     const history = this.props.history
     this.props.authActions.start(history)

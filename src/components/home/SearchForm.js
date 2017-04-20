@@ -1,7 +1,7 @@
-import React from 'react'
+import React, { Component } from 'react'
 import debounce from 'lodash.debounce'
 
-class SearchForm extends React.Component {
+class SearchForm extends Component {
   constructor (props) {
     super(props)
     this.state = {

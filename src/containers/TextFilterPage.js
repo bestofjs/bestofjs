@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
@@ -9,7 +9,7 @@ import filterProjects from '../helpers/filter'
 import { populate as populateHero, filter as filterHero } from '../helpers/hof'
 import * as uiActionCreators from '../actions/uiActions'
 
-class TextFilterPage extends React.Component {
+class TextFilterPage extends Component {
   shouldComponentUpdate (nextProps) {
     // Render only if search box content has changed of if initial data has changed
     // HoF list may arrive later if `/search/xxx` URL is accessed directely

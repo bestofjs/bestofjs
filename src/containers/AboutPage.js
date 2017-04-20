@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
 import About from '../components/about/About'
@@ -6,7 +6,7 @@ import populate from '../helpers/populate'
 import log from '../helpers/log'
 import getStaticContent from '../staticContent'
 
-class AboutPage extends React.Component {
+class AboutPage extends Component {
   render () {
     log('Render the <AboutPage> container', this.props)
     const { staticContent, project, count, ui } = this.props
