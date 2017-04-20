@@ -20,7 +20,8 @@
     "daily": "npm run build-html && npm run build-html-hof && npm run deploy-html",
     "build-html": "NODE_ENV=development babel-node scripts/build/",
     "build-html-hof": "babel-node scripts/build/build-hof.js",
-    "deploy-html": "babel-node scripts/deploy-html/"
+    "deploy-html": "babel-node scripts/deploy-html/",
+    "analyze": "cross-env NODE_ENV=production webpack -p --config config/webpack.production.config.js --json | webpack-bundle-size-analyzer"
   },
   "repository": {
     "type": "git",
@@ -64,7 +65,7 @@
     "numeral": "^1.5.3",
     "postcss-loader": "^0.8.1",
     "preact": "8.1.0",
-    "preact-compat": "^3.14.3",
+    "preact-compat": "3.15.0",
     "prop-types": "15.5.8",
     "react": "15.5.4",
     "react-dom": "15.5.4",
