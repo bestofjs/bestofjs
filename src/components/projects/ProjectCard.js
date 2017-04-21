@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom'
 
 import TagLabel from '../tags/TagLabelCompact'
 import Delta from '../common/utils/Delta'
-import DeltaBar from '../common/utils/DeltaBar'
 import Stars from '../common/utils/Stars'
 import Description from '../common/utils/Description'
 import NpmSection from './NpmSection'

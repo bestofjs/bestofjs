@@ -4,7 +4,7 @@
 * Upgrade to `react-hot-loader` v3
 * Upgrade to `redux-form` v6
 * Upgrade to `react-router` v4
-* Upgrade to `react` v15.5
+* Upgrade to `react` v15.5, replacing `createClass` by class syntax
 
 ## 0.7.2 - 2017-03-20
 * No more database `_id` (#36)
