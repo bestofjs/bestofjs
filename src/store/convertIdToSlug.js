@@ -1,5 +1,4 @@
 import { convertPayload, convertItem } from '../helpers/crud'
-import slugify from '../helpers/slugify'
 
 // Replace project database ids by slugs
 // when we get data from userContent API

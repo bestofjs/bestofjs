@@ -67,7 +67,7 @@ const List = ({ project, auth, authActions }) => {
             {isLoggedin ? (
               <AddButton project={project} />
             ) : (
-              <LoginButton onlogin={authActions.login} pending={auth.pending} />
+              <LoginButton onLogin={authActions.login} pending={auth.pending} />
             )}
           </div>
         </div>

@@ -29,9 +29,6 @@ const Sidebar = ({ allTags, popularTags, auth, authActions, hofCount, linkCount,
         <NavLink to="/projects" className="item" activeClassName="active">
           ALL PROJECTS
         </NavLink>
-        <a href="https://risingstars2016.js.org/" className="item">
-          RISING STARS 2016
-        </a>
         <NavLink to="/hof" className="item" activeClassName="active">
           HALL OF FAME
           {hofCount > 0 && <span className="counter">{hofCount}</span>}
@@ -61,6 +58,9 @@ const Sidebar = ({ allTags, popularTags, auth, authActions, hofCount, linkCount,
         <NavLink to="/about" className="item" activeClassName="active">
           ABOUT
         </NavLink>
+        <a href="https://risingstars2016.js.org/" className="item">
+          RISING STARS 2016
+        </a>
       </div>
     </nav>
   )

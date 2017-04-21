@@ -38,7 +38,6 @@ const ProjectReview = ({ review, editable }) => {
 
 ProjectReview.propTypes = {
   review: PropTypes.object,
-  project: PropTypes.object,
   editable: PropTypes.bool
 }
 

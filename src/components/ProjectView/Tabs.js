@@ -15,7 +15,6 @@ const Tab = ({ tab, project }) => {
 }
 
 Tab.propTypes = {
-  activePath: PropTypes.string,
   project: PropTypes.object
 }
 

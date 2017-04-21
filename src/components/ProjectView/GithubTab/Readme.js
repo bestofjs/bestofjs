@@ -33,8 +33,7 @@ const Readme = ({ project }) => {
 }
 
 Readme.propTypes = {
-  project: PropTypes.object,
-  isLoggedin: PropTypes.bool
+  project: PropTypes.object
 }
 
 export default Readme
