@@ -1,10 +1,10 @@
 # Change log
 
-## 0.7.3 Package upgrades
+## 0.7.3 - 2017-04-22
 * Upgrade to `react-hot-loader` v3
-* Upgrade to `redux-form` v6
-* Upgrade to `react-router` v4
-* Upgrade to `react` v15.5, replacing `createClass` by class syntax
+* Upgrade to `redux-form` v6, rewrite all forms using the new <Field> approach
+* Upgrade to `react-router` v4, create new "routes" components
+* Upgrade to `react` v15.5, replace all `createClass` instructions by class syntax
 
 ## 0.7.2 - 2017-03-20
 * No more database `_id` (#36)
