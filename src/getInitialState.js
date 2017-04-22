@@ -78,7 +78,8 @@ function processProject (item) {
       yearly: item.monthly.length > 6 ? addedAverage(nthElement(monthlyStars, 6), 365) : null
     },
     monthly: item.monthly,
-    svglogo: item.svglogo,
+    svg: item.svglogo,
+    icon: item.icon,
     branch: item.branch
   }
   return result

@@ -1,5 +1,8 @@
 # Change log
 
+## 0.7.4 - 2017-04-23
+* Display project custom icon if provided (#39)
+
 ## 0.7.3 - 2017-04-22
 * Upgrade to `react-hot-loader` v3
 * Upgrade to `redux-form` v6, rewrite all forms using the new <Field> approach
