@@ -12,6 +12,7 @@ export const getPopularTags = createSelector(
   [getAllTags],
   (allTags) => {
     return allTags
+      .slice() // required because `sort()` mutates the array
       .sort((a, b) => b.counter > a.counter ? 1 : -1)
       .slice(0, 10)
   }
