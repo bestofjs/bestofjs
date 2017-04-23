@@ -1,4 +1,5 @@
 import populate from '../../helpers/populate'
+import { getPopularTags } from '../../selectors'
 
 function mapStateToProps (state, count) {
   const {
@@ -21,11 +22,7 @@ function mapStateToProps (state, count) {
     .map(id => projects[id])
     .slice(0, count) // display the "TOP20"
     .map(populate(tags, links))
-  const allTags = githubProjects.tagIds.map(id => tags[id])
-  const popularTags = allTags
-    .slice()
-    .sort((a, b) => b.counter > a.counter ? 1 : -1)
-    .slice(0, 10)
+  const popularTags = getPopularTags(state)
 
   return {
     hotProjects: hot,

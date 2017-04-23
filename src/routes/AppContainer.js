@@ -11,6 +11,8 @@ import AppLayout from './AppLayout'
 import getStaticContent from '../staticContent'
 import log from '../helpers/log'
 
+import { getPopularTags, getAllTags } from '../selectors'
+
 class App extends Component {
   componentDidMount () {
     const history = this.props.history
@@ -33,9 +35,8 @@ class App extends Component {
 
 function mapStateToProps (state) {
   const {
-    entities: { tags, heroes, links },
+    entities: { heroes, links },
     githubProjects: {
-      tagIds,
       lastUpdate
     },
     requests: {
@@ -45,11 +46,8 @@ function mapStateToProps (state) {
     ui
   } = state
 
-  const allTags = tagIds.map(id => tags[id])
-  const popularTags = allTags
-    .slice()
-    .sort((a, b) => b.counter > a.counter ? 1 : -1)
-    .slice(0, 10)
+  const allTags = getAllTags(state)
+  const popularTags = getPopularTags(state)
 
   return {
     allTags,

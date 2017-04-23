@@ -2,6 +2,7 @@
 
 ## 0.7.4 - 2017-04-23
 * Display project custom icon if provided (#39)
+* Use `reselect` selector to avoid unnecessary sidebar menu renderings
 
 ## 0.7.3 - 2017-04-22
 * Upgrade to `react-hot-loader` v3

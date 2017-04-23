@@ -78,6 +78,7 @@
     "redux-form": "6.6.3",
     "redux-logger": "^2.0.2",
     "redux-thunk": "^1.0.0",
+    "reselect": "^3.0.0",
     "slideout": "^0.1.11",
     "style-loader": "0.13.0",
     "stylus": "0.54.5",
