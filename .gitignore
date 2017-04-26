@@ -5,6 +5,7 @@
 www/build/
 www/index.html
 www/hof/index.html
+www/tags/**/*.html
 
 # Logs
 logs

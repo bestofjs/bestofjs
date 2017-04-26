@@ -3,7 +3,6 @@
 // `npm run build-html` task (server-side rendering)
 // `html-webpack-plugin` to serve index.html page in dev mode.
 module.exports = function (dev, appHtml) {
-  console.log(`Get html template in ${dev ? 'dev' : 'production'} mode`);
   return (`<!doctype html>
 <html>
   <head>
