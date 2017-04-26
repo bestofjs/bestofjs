@@ -17,10 +17,10 @@ import { getPopularTags } from '../../src/selectors'
 process.env.NODE_ENV = 'production'
 const url = api('GET_PROJECTS') + 'projects.json'
 
-function getAllPages (tags) {
-  const tagPages = tags.map(tag => ({ path: `/tags/${tag.id}`, filepath: `/tags/${tag.id}/index.html` }))
-  const allPages = [{ path: '/', filepath: 'index.html' }].concat(tagPages)
-  return allPages
+function getAllPaths (tags) {
+  const tagPaths = tags.map(tag => `tags/${tag.id}`)
+  const paths = [ '', 'projects' ].concat(tagPaths)
+  return paths
 }
 
 fetch(url)
@@ -35,8 +35,8 @@ fetch(url)
     const state = getInitialState(json)
     const store = createStore(rootReducer, state)
     const tags = getPopularTags(state)
-    const allPages = getAllPages(tags)
-    const promises = allPages.map(createPage(store))
+    const paths = getAllPaths(tags)
+    const promises = paths.map(createPage(store))
     return Promise.all(promises)
   })
   .catch(err => console.log('ERROR!', err.stack))
@@ -50,8 +50,10 @@ function write (html, filename) {
   return Promise.resolve(`${filename} file created (${(html.length / 1024).toFixed()} KB)`)
 }
 
-const createPage = store => ({ path, filepath }) => {
-  return renderApp(store, path)
+const createPage = store => path => {
+  const url = `/${path}`
+  const filepath = `${path}/index.html`
+  return renderApp(store, url)
     .then(html => {
       return write(getFullPage(false, html), filepath)
     })
