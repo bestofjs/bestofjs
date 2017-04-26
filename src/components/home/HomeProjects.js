@@ -20,8 +20,6 @@ const HomeProjects = ({
 }) => (
   <ProjectList
     projects={hotProjects}
-    maxStars={maxStars}
-    isLoggedin={isLoggedin}
     showDelta
     deltaFilter={hotFilter}
     showStars={false}

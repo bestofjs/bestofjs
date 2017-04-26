@@ -1,4 +1,5 @@
 import { createSelector } from 'reselect'
+import populate from '../helpers/populate'
 
 export const getAllTags = createSelector(
   [
@@ -15,5 +16,19 @@ export const getPopularTags = createSelector(
       .slice() // required because `sort()` mutates the array
       .sort((a, b) => b.counter > a.counter ? 1 : -1)
       .slice(0, 10)
+  }
+)
+
+export const getHotProjects = createSelector(
+  [
+    state => state.githubProjects['daily'],
+    state => state.entities.projects,
+    state => state.entities.tags
+  ],
+  (projectIdList, projectHash, tags) => {
+    return projectIdList
+      .map(id => projectHash[id])
+      .slice(0, 10)
+      .map(populate(tags))
   }
 )

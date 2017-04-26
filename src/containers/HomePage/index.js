@@ -11,12 +11,10 @@ import * as authActionCreators from '../../actions/authActions'
 class HomePage extends Component {
   render () {
     log('Render the <HomePage> container', this.props)
-    const { hotProjects, popularProjects, auth, uiActions, ui, authActions, popularTags } = this.props
+    const { hotProjects, auth, uiActions, ui, authActions, popularTags } = this.props
     return (
       <Home
         hotProjects={hotProjects}
-        popularProjects={popularProjects}
-        maxStars={popularProjects.length > 0 ? popularProjects[0].stars : 0}
         isLoggedin={auth.username !== ''}
         pending={auth.pending}
         uiActions={uiActions}

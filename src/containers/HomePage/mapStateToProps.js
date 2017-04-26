@@ -1,32 +1,16 @@
-import populate from '../../helpers/populate'
-import { getPopularTags } from '../../selectors'
+import { getPopularTags, getHotProjects } from '../../selectors'
 
 function mapStateToProps (state, count) {
   const {
-    entities: {
-      projects,
-      tags,
-      links
-    },
-    githubProjects,
     auth,
     ui
   } = state
 
-  const key = ui.hotFilter // 'daily' or 'weekly'
-  const hot = githubProjects[key]
-    .map(id => projects[id])
-    .slice(0, count) // display only the 20 hottest projects
-    .map(populate(tags, links))
-  const popularProjects = githubProjects.total
-    .map(id => projects[id])
-    .slice(0, count) // display the "TOP20"
-    .map(populate(tags, links))
+  const hot = getHotProjects(state)
   const popularTags = getPopularTags(state)
 
   return {
     hotProjects: hot,
-    popularProjects,
     popularTags,
     auth,
     ui
