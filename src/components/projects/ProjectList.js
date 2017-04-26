@@ -19,7 +19,6 @@ class ProjectList extends React.Component {
       deltaFilter,
       viewOptions
     } = this.props
-    console.info('Render the list', projects[0])
     return (
       <div className="project-grid">
       {projects.map((project, index) =>
