@@ -10,6 +10,8 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const getFullPage = require('../scripts/build/getFullPage')
 const constants = require('./constants')
 
+const USE_PREACT = true
+
 function getPlugins (env) {
   const envPlugin = new webpack.DefinePlugin({
     'process.env': {
@@ -92,7 +94,7 @@ function getLoaders (env) {
 
 function getEntry (env) {
   return {
-    app: env === 'development' ? (
+    app: env === 'development' && !USE_PREACT ? (
       [
         'react-hot-loader/patch',
         `webpack-dev-server/client?http://localhost:${constants.port}`,
@@ -122,6 +124,19 @@ function getOutput (env) {
   )
 }
 
+const defaultResolveOptions = {
+  extensions: ['', '.js', '.jsx']
+}
+const preactAlias = {
+  'react': 'preact-compat',
+  'react-dom': 'preact-compat'
+}
+const resolve = Object.assign(
+  {},
+  defaultResolveOptions,
+  USE_PREACT ? { alias: preactAlias } : {}
+)
+
 module.exports = function (env) {
   const config = {
     debug: true,
@@ -133,13 +148,7 @@ module.exports = function (env) {
     module: {
       loaders: getLoaders(env)
     },
-    resolve: {
-      extensions: ['', '.js', '.jsx'],
-      // alias: {
-      //   'react': 'preact-compat',
-      //   'react-dom': 'preact-compat'
-      // }
-    },
+    resolve,
     postcss () {
       return [autoprefixer]
     }

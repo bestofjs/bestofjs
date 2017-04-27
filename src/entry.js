@@ -91,6 +91,7 @@ function renderApp (store) {
   )
   // Hot Module Replacement API
   if (module.hot) {
+    log('Hot reload enabled')
     module.hot.accept('./App', () => {
       const NextApp = require('./App').default
       render(
