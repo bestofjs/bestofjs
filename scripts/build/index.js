@@ -3,6 +3,7 @@
 
 import fetch from 'node-fetch'
 import fs from 'fs-extra'
+const minify = require('html-minifier').minify;
 
 import api from '../../config/api'
 import getFullPage from './getFullPage'
@@ -53,8 +54,15 @@ function write (html, filename) {
 const createPage = store => path => {
   const url = `/${path}`
   const filepath = `${path}/index.html`
+  const options = {
+    removeComments: true,
+    collapseWhitespace: true,
+    conservativeCollapse: true,
+    minifyJS: true
+  }
   return renderApp(store, url)
     .then(html => {
-      return write(getFullPage(false, html), filepath)
+      const minified = minify(html, options)
+      return write(getFullPage({ html: minified, isDev: false }), filepath)
     })
 }

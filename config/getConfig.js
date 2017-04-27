@@ -28,7 +28,7 @@ function getPlugins (env) {
   if (env === 'development') {
     plugins.push(new webpack.HotModuleReplacementPlugin())
     // Get the html template
-    const html = getFullPage(true)
+    const html = getFullPage({ isDev: true })
     plugins.push(new HtmlWebpackPlugin({
       inject: false,
       templateContent: html
