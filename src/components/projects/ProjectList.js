@@ -1,11 +1,18 @@
 import React from 'react'
 import ProjectCard from './ProjectCard'
 
+function checkIfDifferent (list0, list1) {
+  if (list0.length !== list1.length) return true
+  return !list0.every(
+    (project, i) => project.slug === list1[i].slug
+  )
+}
+
 class ProjectList extends React.Component {
-  shouldComponentUpdate () {
-    // Never re-render the project list
+  shouldComponentUpdate (nextProps) {
+    // Re-render the project list only if the project list has changed
     // to avoid rendering after successful login, and fetch events about heroes, links, reviews and requests
-    return false
+    return checkIfDifferent(this.props.projects, nextProps.projects)
   }
   render () {
     const {

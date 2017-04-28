@@ -1,6 +1,9 @@
 # Change log
 
-## 0.7.4 - 2017-04-23
+## 0.7.5 - 2017-04-29
+* Fix search engine (bug introduced by 0.7.4)
+
+## 0.7.4 - 2017-04-27
 * Display project custom icon if provided (#39)
 * Use `reselect` selector to avoid unnecessary sidebar menu renderings
 * Render only once the project list when the homepage loads
