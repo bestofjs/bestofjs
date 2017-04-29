@@ -26,7 +26,7 @@ const RatingBox = ({ field }) => {
           </label>
         </div>
       )}
-      <div className="score-bar editable">
+      <div className="score-bar editable" style={{ marginTop: '.5rem' }}>
         {options.map((text, i) =>
           <span
             key={i}
