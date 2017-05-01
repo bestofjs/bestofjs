@@ -19,23 +19,16 @@ function getPlugins (env) {
     }
   })
 
-  // fetch polyfill, see http://mts.io/2015/04/08/webpack-shims-polyfills/
-  // const fetchPlugin = new webpack.ProvidePlugin({
-  //   'fetch': 'imports?this=>global!exports?global.fetch!whatwg-fetch'
-  // })
-
   const plugins = [envPlugin]
   if (env === 'development') {
     plugins.push(new webpack.HotModuleReplacementPlugin())
+    plugins.push(new webpack.NamedModulesPlugin())
     // Get the html template
     const html = getFullPage({ isDev: true })
     plugins.push(new HtmlWebpackPlugin({
       inject: false,
       templateContent: html
     }))
-    // tells the reloader to not reload if there is a syntax error in your code.
-    // The error is simply printed in the console, and the component will reload when you fix the error.)
-    plugins.push(new webpack.NoErrorsPlugin())
   } else {
     // ExtractTextPlugin used to generate a separate CSS file, in production only.
     // documentation: http://webpack.github.io/docs/stylesheets.html
@@ -56,51 +49,81 @@ function getPlugins (env) {
   return plugins
 }
 
-function getLoaders (env) {
-  const jsLoader = {
+function getRules (env) {
+  const jsRule = {
     test: /\.jsx?$/,
     exclude: /node_modules/,
-    loaders: ['babel']
+    use: [
+      {
+        loader: 'babel-loader',
+        options: {
+          babelrc: false, // required otherwise src/.babelrc settings will be used
+          presets: [
+            ['es2015', { 'modules': false }],
+            'react'
+          ],
+          plugins: [
+            'react-hot-loader/babel'
+          ]
+        }
+      }
+    ]
   }
-
-  const cssLoader = {
+  const cssRule = {
     test: /\.css$/
   }
-  const stylusLoader = {
+  const stylusRule = {
     test: /\.styl$/
   }
 
-  // json loader used to read `package.json`
-  const jsonLoader = {
-    test: /\.json$/,
-    loader: 'json'
+  const postCssLoader = {
+    loader: 'postcss-loader',
+    options: {
+      plugins: function () {
+        return [autoprefixer]
+      }
+    }
   }
 
-  const urlLoader = {
+  const urlRule = {
     test: /\.svg$/,
-    loader: 'url-loader?limit=5000'
+    use: { loader: 'url-loader', options: { limit: 5000 } }
   }
 
   if (env === 'development') {
-    cssLoader.loader = 'style-loader!css-loader!postcss-loader'
-    stylusLoader.loader = 'style-loader!css-loader!stylus-loader'
+    cssRule.use = [
+      { loader: 'style-loader' },
+      { loader: 'css-loader' },
+      postCssLoader
+    ]
+    stylusRule.use = [
+      { loader: 'style-loader' },
+      { loader: 'css-loader' },
+      { loader: 'stylus-loader' }
+    ]
   } else {
-    cssLoader.loader = ExtractTextPlugin.extract('style-loader', 'css-loader!postcss-loader')
-    stylusLoader.loader = ExtractTextPlugin.extract('style-loader', 'css-loader!postcss-loader!stylus-loader')
+    cssRule.use = ExtractTextPlugin.extract({
+      fallback: 'style-loader',
+      use: ['css-loader', postCssLoader]
+    })
+    stylusRule.use = ExtractTextPlugin.extract({
+      fallback: 'style-loader',
+      use: ['css-loader', postCssLoader, 'stylus-loader']
+    })
   }
-  const loaders = [jsLoader, jsonLoader, stylusLoader, cssLoader, urlLoader]
-  return loaders
+  const rules = [jsRule, stylusRule, cssRule, urlRule]
+  return rules
 }
 
 function getEntry (env) {
+  const devPipeline = [
+    `webpack-dev-server/client?http://localhost:${constants.port}`,
+    'webpack/hot/only-dev-server',
+    './src/entry.js'
+  ]
   return {
-    app: env === 'development' && !USE_PREACT ? (
-      [
-        'react-hot-loader/patch',
-        `webpack-dev-server/client?http://localhost:${constants.port}`,
-        'webpack/hot/only-dev-server',
-        './src/entry.js'
-      ]
+    app: env === 'development' ? (
+      (!USE_PREACT ? ['react-hot-loader/patch'] : []).concat(devPipeline)
     ) : (
       './src/entry.js'
     )
@@ -114,7 +137,6 @@ function getOutput (env) {
     {
       path: rootPath,
       filename,
-      hot: true,
       publicPath: '/' // required when using browserHistory, to make nested URLs work
     }
   ) : (
@@ -125,7 +147,7 @@ function getOutput (env) {
 }
 
 const defaultResolveOptions = {
-  extensions: ['', '.js', '.jsx']
+  extensions: ['.js', '.jsx']
 }
 const preactAlias = {
   'react': 'preact-compat',
@@ -138,20 +160,16 @@ const resolve = Object.assign(
 )
 
 module.exports = function (env) {
+  process.traceDeprecation = true
   const config = {
-    debug: true,
-    noInfo: true, // set to false to see a list of every file being bundled.
     entry: getEntry(env),
     target: env === 'test' ? 'node' : 'web', // necessary per https://webpack.github.io/docs/testing.html#compile-and-test
     output: getOutput(env),
     plugins: getPlugins(env),
     module: {
-      loaders: getLoaders(env)
+      rules: getRules(env)
     },
-    resolve,
-    postcss () {
-      return [autoprefixer]
-    }
+    resolve
   }
   if (env === 'development') {
     config.devtool = 'eval'

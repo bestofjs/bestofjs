@@ -82,24 +82,20 @@ function fetchServerData () {
     }))
 }
 
-function renderApp (store) {
+function renderComponent (Component, store) {
   render(
     <AppContainer>
-      <App store={store} />
+      <Component store={store} />
     </AppContainer>,
     window.document.getElementById('app')
   )
-  // Hot Module Replacement API
+}
+
+function renderApp (store) {
+  renderComponent(App, store)
   if (module.hot) {
-    log('Hot reload enabled')
     module.hot.accept('./App', () => {
-      const NextApp = require('./App').default
-      render(
-        <AppContainer>
-          <NextApp store={store} />
-        </AppContainer>,
-        document.getElementById('app')
-      )
+      renderComponent(App, store)
     })
   }
 }
