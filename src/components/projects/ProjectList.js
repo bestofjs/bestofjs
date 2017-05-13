@@ -24,11 +24,13 @@ class ProjectList extends React.Component {
       showURL = false,
       showMetrics = true,
       deltaFilter,
-      viewOptions
+      viewOptions,
+      paginated
     } = this.props
+    const paginatedProjects = paginated ? projects.slice(0, 10) : projects
     return (
       <div className="project-grid">
-      {projects.map((project, index) =>
+      {paginatedProjects.map((project, index) =>
         <div key={project.slug}>
           <ProjectCard
             project={project}

@@ -5,23 +5,27 @@
 const fs = require('fs')
 require('dotenv').load()
 
+const readFilenamesFromFolder = require('./read-files')
 const commit = require('./commit')
 const debug = false
 const commitMessage = debug ? 'Commit test' : 'Daily deploy'
 
-const filepaths = ['index.html', 'hof/index.html']
+const PUBLIC_DIR = 'www'
 
-const arr = filepaths.map(path => readFile(path))
-Promise.all(arr)
-  .then(files => commitFiles(files))
-  .then(() => console.log('All promises are OK!'))
-  .catch(err => console.log('Error in Promise', err))
+Promise.resolve(PUBLIC_DIR)
+  .then(readFilenamesFromFolder)
+  .then(filenames => filenames.map(readFile))
+  .then(promises => {
+    return Promise.all(promises)
+      .then(files => commitFiles(files))
+      .then(() => console.log('All promises are OK!'))
+      .catch(err => console.log('Error in Promise', err))
+  })
 
 function readFile (filepath) {
   return new Promise(function (resolve, reject) {
-    fs.readFile(`www/${filepath}`, 'utf8', (err, data) => {
+    fs.readFile(`${PUBLIC_DIR}/${filepath}`, 'utf8', (err, data) => {
       if (err) return reject(err)
-      // const html = `<p>Empty content, created at ${new Date()}</p>`
       const html = data
       console.log('Filesystem OK!', filepath, data.length)
       return resolve({

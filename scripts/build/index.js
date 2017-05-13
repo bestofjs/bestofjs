@@ -31,9 +31,8 @@ fetch(url)
   })
   .then(json => {
     console.log('Got JSON', Object.keys(json))
-
     console.log('Start server rendering, using data from', json.projects.length, 'projects')
-    const state = getInitialState(json)
+    const state = getInitialState(json, null, { ssr: true })
     const store = createStore(rootReducer, state)
     const tags = getPopularTags(state)
     const paths = getAllPaths(tags)

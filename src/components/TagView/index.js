@@ -3,8 +3,6 @@ import React from 'react'
 import MainContent from '../common/MainContent'
 import ProjectList from '../projects/ProjectList'
 import ProjectFilterTabs from '../ProjectSortFilter'
-// import StarsByDateGraph from './StarsByDateGraph'
-// import DeltaGraph from './DeltaGraph'
 import TagViewTitle from './TagViewTitle'
 
 function renderGraph ({ projects, ui }) {
@@ -59,6 +57,7 @@ const TagFilter = ({ tag, projects, graphProjects, isLoggedin, ui, count }) => {
           showTags={false}
           showMetrics={ui.showMetrics}
           viewOptions={ui.viewOptions}
+          paginated={ui.paginated}
         />
      )}
     </MainContent>

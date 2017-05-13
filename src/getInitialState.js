@@ -5,7 +5,10 @@ import slugify from './helpers/slugify'
 
 const ACCESS_TOKEN = 'bestofjs_access_token'
 
-const defaultState = {
+// `ssr` option is used to limit the number of projects when the page is rendered on the server
+const defaultOptions = { ssr: false }
+
+const defaultState = ({ ssr } = defaultOptions) => ({
   entities: {
     projects: {},
     tags: {}
@@ -27,9 +30,10 @@ const defaultState = {
       npms: true,
       packagequality: false,
       commit: true
-    }
+    },
+    paginated: ssr
   }
-}
+})
 
 // Round the average number of stars used in "trending this year" graphs
 function roundAverage (number, decimals = 0) {
@@ -85,8 +89,8 @@ function processProject (item) {
   return result
 }
 
-export function getInitialState (data, profile) {
-  const state = defaultState
+export function getInitialState (data, profile, options) {
+  const state = defaultState(options)
 
   // Format id and repository fields
   const allProjects = data.projects.map(processProject)

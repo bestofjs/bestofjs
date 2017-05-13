@@ -12,6 +12,7 @@ import items from './sortItems'
 
 import Requests from './Requests'
 import Projects from './Projects'
+import NoMatch from './NoMatch'
 
 const Routes = () => (
   <Switch>
@@ -39,6 +40,7 @@ const Routes = () => (
     <Route path="/requests">
       <Requests />
     </Route>
+    <Route component={NoMatch} />
   </Switch>
 )
 
