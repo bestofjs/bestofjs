@@ -2,14 +2,13 @@
 // Create `www/hof/index.html` page
 
 import fetch from 'node-fetch'
-import fs from 'fs-extra'
-
 import { createStore, applyMiddleware, compose } from 'redux'
 import thunk from 'redux-thunk'
 
 import api from '../../config/api'
 import getFullPage from './getFullPage'
 import renderApp from './renderApp'
+import write from './write-html'
 
 import rootReducer from '../../src/reducers'
 import { getInitialState } from '../../src/getInitialState'
@@ -48,11 +47,3 @@ fetch(url)
       })
   })
   .catch(err => console.log('ERROR!', err.stack))
-
-function write (html, filename) {
-  // path relative from the root folder when the script is launched from the npm command
-  const writer = fs.createOutputStream(`./www/${filename}`)
-  writer.write(html)
-  writer.end()
-  console.log(`${filename} file created!`, html.length)
-}

@@ -2,12 +2,13 @@
 // Get project data from a static json file and build `www/index.html` file
 
 import fetch from 'node-fetch'
-import fs from 'fs-extra'
+
 const minify = require('html-minifier').minify;
 
 import api from '../../config/api'
 import getFullPage from './getFullPage'
 import renderApp from './renderApp'
+import write from './write-html'
 
 import rootReducer from '../../src/reducers'
 import { createStore } from 'redux'
@@ -41,14 +42,6 @@ fetch(url)
   })
   .catch(err => console.log('ERROR!', err.stack))
   .then(result => console.log('Server-side rendering done!', result))
-
-function write (html, filename) {
-  // path relative from the root folder when the script is launched from the npm command
-  const writer = fs.createOutputStream(`./www/${filename}`)
-  writer.write(html)
-  writer.end()
-  return Promise.resolve(`${filename} file created (${(html.length / 1024).toFixed()} KB)`)
-}
 
 const createPage = store => path => {
   const url = `/${path}`
