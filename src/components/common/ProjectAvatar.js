@@ -1,15 +1,16 @@
 import React from 'react'
 
+import getAvatarUrl from './getAvatarUrl'
+
 const Avatar = ({ project, size = 100 }) => {
-  const { svg, icon } = project
+  const { svg } = project
   if (svg) return (
     <div
       style={{ width: size }}
       dangerouslySetInnerHTML={{ __html: svg }}
     />
   )
-  const githubAvatarUrl = `https://avatars.githubusercontent.com/u/${project.owner_id}?v=3&s=${size}`
-  const url = icon || githubAvatarUrl
+  const url = getAvatarUrl(project, size)
   return (
     <img
       src={url}
