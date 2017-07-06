@@ -23,7 +23,7 @@ Projects are classified using tags such as:
 
 ### Community-driven
 
-Users can sign in with their Github account and contribute to the project by:
+Users can sign in with their GitHub account and contribute to the project by:
 
 * Submitting requests to add new projects
 * Adding "Reviews" to projects (by rating projects from 1 to 5 )
@@ -45,7 +45,7 @@ We maintain a list of projects related to the web platform (JavaScript,HTML and 
 
 Every time we find a new project (or anytime a user submit a new request), we add it to the database.
 
-Then everyday, an automatic task checks project data from Github, for every project stored and generates data consumed by the web application. This daily backend job is in an other repository: [bestofjs-batches](https://github.com/michaelrambeau/bestofjs-batches).
+Then everyday, an automatic task checks project data from GitHub, for every project stored and generates data consumed by the web application. This daily backend job is in an other repository: [bestofjs-batches](https://github.com/michaelrambeau/bestofjs-batches).
 
 The web application displays the total number of stars and their variation over the last days, weeks and months.
 
@@ -69,7 +69,7 @@ The "build scheduler" is used to generate every day at a given time the static J
 
 #### node.js microservices
 
-bestof.js.org is a single-page application hosted on Github pages.
+bestof.js.org is a single-page application hosted on GitHub pages.
 We used microservices for some dynamic tasks like:
 
 * Loading the README.md related to a project and format the html code so that it can be embedded in in the application
@@ -82,7 +82,7 @@ We use 2 free services in the cloud:
 
 #### Authentication
 
-[Auth0](https://auth0.com/): authentication as a service, used for Github login feature.
+[Auth0](https://auth0.com/): authentication as a service, used for GitHub login feature.
 
 #### Static hosting
 
@@ -106,13 +106,13 @@ bestof.js.org application is made of 5 repositories:
 * [bestofjs-webui](https://github.com/michaelrambeau/bestofjs-webui) (this repo!): the single-page application for end users
 * [bestofjs-admin](https://github.com/michaelrambeau/bestofjs-admin): the web application used by admin users to manage content (used to add projects, tags and hall of fame members for example). Built with [KeystoneJS](http://keystonejs.com/), a node.js CMS.
 * [bestofjs-batches](https://github.com/michaelrambeau/bestofjs-batches): Scheduled tasks that generate every day data used by the web application.
-* [bestofjs-webtasks](https://github.com/michaelrambeau/bestofjs-webtasks): microservices used to serve dynamic data: to read and write user-generated content (links and reviews), to get README.md from Github when a project is opened.
-* [bestofjs](https://github.com/michaelrambeau/bestofjs): repository used to deploy content to Github pages, linked to js.org domain. Generated from bestofjs-webui repository, does not contain any source code.
+* [bestofjs-webtasks](https://github.com/michaelrambeau/bestofjs-webtasks): microservices used to serve dynamic data: to read and write user-generated content (links and reviews), to get README.md from GitHub when a project is opened.
+* [bestofjs](https://github.com/michaelrambeau/bestofjs): repository used to deploy content to GitHub pages, linked to js.org domain. Generated from bestofjs-webui repository, does not contain any source code.
 
 
 ## URLs and environments
 
-http://bestof.js.org/ production version is hosted on Github pages, using `.js.org` domain provided by https://js.org/.
+http://bestof.js.org/ production version is hosted on GitHub pages, using `.js.org` domain provided by https://js.org/.
 
 Other URLs, used to preview features:
 
@@ -144,12 +144,12 @@ Build the files for production (`index.html` rendered server-side, `build/app.cs
 npm run build
 ```
 
-Push all files to Github pages
+Push all files to GitHub pages
 ```
 npm run gh-pages
 ```
 
-Note: a specific repository [bestofjs](https://github.com/michaelrambeau/bestofjs), that contains only one branch `gh-pages`, has been created to host the content on Github pages.
+Note: a specific repository [bestofjs](https://github.com/michaelrambeau/bestofjs), that contains only one branch `gh-pages`, has been created to host the content on GitHub pages.
 
 These 2 commands can be combined into one single command:
 
@@ -181,7 +181,7 @@ Then, 30 minutes later, `npm run daily` command is launched from this repository
 `npm run daily` is split into 2 tasks:
 
 * `npm run build-html`: build `www/index.html` in local, requesting data by http from `projects.json`
-* `npm run deploy-html`: commit `www/index.html` to `bestofjs` repository, using Github API.
+* `npm run deploy-html`: commit `www/index.html` to `bestofjs` repository, using GitHub API.
 
 ### Testing
 

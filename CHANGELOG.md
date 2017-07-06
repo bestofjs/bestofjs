@@ -56,7 +56,7 @@
 * Add data from npm (package name and version number) and from http://packagequality.com/ in project card
 * Make it compatible with [Redux DevTools Chrome extension](https://github.com/zalmoxisus/redux-devtools-extension)
 * Show trends for the last month and the last 3 months using tabs to toggle sort order
-* Add 'my requests' view and 'add project' feature, to let user suggest new Github projects (#22)
+* Add 'my requests' view and 'add project' feature, to let user suggest new GitHub projects (#22)
 * New 2-column layout for tag and search result pages (#17)
 * Truncate project description in the top page
 
@@ -98,10 +98,10 @@
 * Add manifest.json
 * Avoid http `OPTIONS` requests (#14)
 * Upgrade `redux-form` to 5.1.3
-* "Github corner" icon
+* "GitHub corner" icon
 
 ## 0.3.0 - 2016-04-11
-* Github login feature using Auth0 authentication service
+* GitHub login feature using Auth0 authentication service
 * Add user generated content feature: "Reviews" and "Links" (#2)
 * Update React dependency 0.14.7 -> 15.0.1
 
@@ -113,7 +113,7 @@
 * use Autprefixer PostCSS plugin to add browser prefixes to CSS code.
 
 ## 0.2.6 - 2015-12-30
-* Cache README.md (only fetch it from Github if needed)
+* Cache README.md (only fetch it from GitHub if needed)
 * Fix issue #9
 
 ## 0.2.5 - 2015-12-14
