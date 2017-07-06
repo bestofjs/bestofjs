@@ -5,7 +5,7 @@ const StarMeButton = ({ url }) => {
     <a className="btn" id="star-button" href={url}>
       <span className="octicon octicon-octoface" />
       {' '}
-      Star on Github
+      Star on GitHub
     </a>
   )
 }
