@@ -17,14 +17,14 @@ const Readme = ({ project }) => {
               <div dangerouslySetInnerHTML={{ __html: project.readme }} />
               ) : (
               <div style={{ textAlign: 'center' }}>
-                <p style={{ color: '#aaa' }}>Loading README from Github...</p>
+                <p style={{ color: '#aaa' }}>Loading README from GitHub...</p>
                 <span className="mega-octicon octicon-book" style={{ margin: '1em 0', fontSize: 100, color: '#bbb' }} />
               </div>
             )}
           </div>
 
           <div className="footer" style={{ textAlign: 'center' }}>
-            <a className="btn" href={project.repository}>View on Github</a>
+            <a className="btn" href={project.repository}>View on GitHub</a>
           </div>
         </div>
       </div>

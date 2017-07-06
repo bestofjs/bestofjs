@@ -22,7 +22,7 @@ const ProjectCard = ({ project }) => {
         <p>
           <span className="octicon octicon-mark-github" />
           {' '}
-          Github: <a href={project.repository}>{project.repository}</a>
+          GitHub: <a href={project.repository}>{project.repository}</a>
           {' '}
           {project.stars} <span className="octicon octicon-star" />
         </p>

@@ -19,7 +19,7 @@ const HeroCard = ({ hero, you, isCurrentUser, showDetails }) => {
     <div className={`hero-card${isCurrentUser ? ' current-user' : ''}`}>
       <a className="header card-block" target="_blank"
         href={`https://github.com/${hero.username}`}
-        data-balloon={`Open ${hero.username}'s profile on Github`}
+        data-balloon={`Open ${hero.username}'s profile on GitHub`}
       >
         <img src={`${hero.avatar}&s=150`} width="100" height="100" alt={hero.username} />
         <div className="header-text">

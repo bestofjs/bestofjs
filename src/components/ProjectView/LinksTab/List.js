@@ -21,7 +21,7 @@ const LoginButton = ({ onLogin, pending }) => {
     <button className="btn" onClick={onLogin}>
       <span className={'octicon octicon-mark-github'} />
       {' '}
-      Sign in with Github to add a link
+      Sign in with GitHub to add a link
     </button>
   )
 }

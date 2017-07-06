@@ -1,7 +1,7 @@
 import { convertPayload, convertItem } from '../helpers/crud'
 
 // Before calling userContent API to create or update data,
-// transform project slugs to Github `full_name`
+// transform project slugs to GitHub `full_name`
 const convert = store => next => action => {
   if (true && action.meta && action.meta.convertProjectSlugs) {
     const state = store.getState()

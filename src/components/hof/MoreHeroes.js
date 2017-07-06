@@ -18,7 +18,7 @@ const MoreHeroes = ({ handleClick, isLoggedin, pending }) => {
         >
           <span className="octicon octicon-mark-github" />
           {' '}
-          Sign in with Github to suggest a new member
+          Sign in with GitHub to suggest a new member
         </button>
       )}
     </div>

@@ -143,7 +143,7 @@ export function logout () {
   return dispatch => {
     dispatch(logoutRequest())
     const p = new Promise(resolve => {
-      // Do not call window.auth0.logout() that will redirect to Github signout page
+      // Do not call window.auth0.logout() that will redirect to GitHub signout page
       resetToken()
       resolve()
     })

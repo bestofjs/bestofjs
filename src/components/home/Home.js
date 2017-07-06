@@ -67,7 +67,7 @@ const MoreProjects = ({ handleClick, isLoggedin, pending }) => {
         <Link className="btn block button-outline" to="/requests/add-project">
           <span className="octicon octicon-plus" />
           {' '}
-          Add a project on Github
+          Add a project on GitHub
         </Link>
       ) : (
         <button
@@ -76,7 +76,7 @@ const MoreProjects = ({ handleClick, isLoggedin, pending }) => {
         >
           <span className="octicon octicon-mark-github" />
           {' '}
-          Sign in with Github to add a new project
+          Sign in with GitHub to add a new project
         </button>
       )}
     </div>
