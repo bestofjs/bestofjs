@@ -1,4 +1,4 @@
-[![screenshot](https://cloud.githubusercontent.com/assets/5546996/22850684/60247c70-f051-11e6-8e31-d5a5f7f10115.png)](http://bestof.js.org/)
+[![screenshot](https://cloud.githubusercontent.com/assets/5546996/22850684/60247c70-f051-11e6-8e31-d5a5f7f10115.png)](https://bestof.js.org/)
 
 [![Build Status](https://travis-ci.org/michaelrambeau/bestofjs-webui.svg?branch=master)](https://travis-ci.org/michaelrambeau/bestofjs-webui)
 
@@ -6,7 +6,7 @@
 
 ## Concept
 
-[bestof.js.org](http://bestof.js.org/) gathers the latest trends about open source projects related to node.js and the web platform: JavaScript of course (client and server side) but also html, css...
+[bestof.js.org](https://bestof.js.org/) gathers the latest trends about open source projects related to node.js and the web platform: JavaScript of course (client and server side) but also html, css...
 
 This is a place where front-end engineers and node.js developers can find the best components to build amazing web applications.
 
@@ -112,7 +112,7 @@ bestof.js.org application is made of 5 repositories:
 
 ## URLs and environments
 
-http://bestof.js.org/ production version is hosted on GitHub pages, using `.js.org` domain provided by https://js.org/.
+https://bestof.js.org/ production version is hosted on GitHub pages, using `.js.org` domain provided by https://js.org/.
 
 Other URLs, used to preview features:
 
