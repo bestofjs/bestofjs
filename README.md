@@ -1,4 +1,4 @@
-[![screenshot](https://cloud.githubusercontent.com/assets/5546996/22850684/60247c70-f051-11e6-8e31-d5a5f7f10115.png)](https://bestof.js.org/)
+[![screenshot](https://user-images.githubusercontent.com/5546996/27979469-459bc2cc-63b1-11e7-9a49-764841fc7fde.png)](https://bestof.js.org/)
 
 [![Build Status](https://travis-ci.org/michaelrambeau/bestofjs-webui.svg?branch=master)](https://travis-ci.org/michaelrambeau/bestofjs-webui)
 
