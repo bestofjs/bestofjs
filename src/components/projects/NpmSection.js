@@ -5,7 +5,7 @@ const NpmSection = ({ project, packagequality = true, npms = true }) => (
     <a
       data-balloon="View on npm"
       className="inner card-block npm-link"
-      href={`http://npm.im/${project.npm}`}
+      href={`https://npm.im/${project.npm}`}
     >
       <img
         className="npm-logo"
@@ -17,22 +17,6 @@ const NpmSection = ({ project, packagequality = true, npms = true }) => (
         {project.version}
       </span>
     </a>
-
-    {packagequality && (
-      <a
-        className="inner card-block quality-link"
-        data-balloon="View on packagequality.com"
-        target="_blank"
-        href={`http://packagequality.com/#?package=${project.npm}`}
-      >
-        <img
-          className="quality-logo"
-          width="16" height="16"
-          src="http://packagequality.com/favicon.ico"
-        />
-        {project.quality}<span className="text-secondary">%</span>
-      </a>
-    )}
 
     {npms && (
       <a
