@@ -25,7 +25,7 @@ const ItemHeader = ({ item, editable, editLinkTo }) => {
       {' '}
       <a
         href={`https://github.com/${item.createdBy}`}
-        title="Github profile"
+        title="GitHub profile"
         target="_blank"
       >
         {item.createdBy}

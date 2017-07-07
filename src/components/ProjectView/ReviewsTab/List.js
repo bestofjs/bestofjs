@@ -31,7 +31,7 @@ const List = ({ project, auth, authActions }) => {
       <button className="btn" onClick={onLogin}>
         <span className="octicon octicon-mark-github" />
         {' '}
-        Sign in with Github to add a review
+        Sign in with GitHub to add a review
       </button>
     )
   }

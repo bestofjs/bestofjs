@@ -5,7 +5,7 @@ import Readme from './Readme'
 import Header from './Header'
 import ProjectHeader from '../ProjectHeader'
 
-const Github = (props) => {
+const GitHub = (props) => {
   const { project } = props
   return (
     <div>
@@ -20,4 +20,4 @@ const Github = (props) => {
   )
 }
 
-export default Github
+export default GitHub

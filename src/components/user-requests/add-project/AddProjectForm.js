@@ -16,12 +16,12 @@ const AddProjectForm = ({
     <MainContent className="small container double-padding">
       <form className="card ui form" onSubmit={handleSubmit(onSave)}>
         <div className="header">
-          Suggest a Github project
+          Suggest a GitHub project
         </div>
         <div className="inner">
           <Field
             name="project"
-            label="Select a project on Github"
+            label="Select a project on GitHub"
             component={autocomplete}
           />
           <Field

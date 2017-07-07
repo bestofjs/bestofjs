@@ -20,7 +20,7 @@ const AddProjectForm = ({
         </div>
         <div className="inner">
           <Field
-            label="Select a user on Github"
+            label="Select a user on GitHub"
             name="hero"
             component={autocomplete}
           />

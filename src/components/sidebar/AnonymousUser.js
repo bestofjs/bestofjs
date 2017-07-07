@@ -12,7 +12,7 @@ const AnonymousUser = ({ pending, onLogin }) => {
       <button className="ui btn login-button" onClick={onLogin}>
         <span className="octicon octicon-mark-github" />
         {' '}
-        Sign in with Github
+        Sign in with GitHub
       </button>
     </div>
   )

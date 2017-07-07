@@ -42,7 +42,7 @@ const Header = ({ project }) => (
       <p>
         <span className="octicon octicon-repo" />
         {' '}
-        Github repository: <a href={project.repository}>{formatUrl(project.repository)}</a>
+        GitHub repository: <a href={project.repository}>{formatUrl(project.repository)}</a>
         {' '}
         {project.stars} <span className="octicon octicon-star" />
       </p>

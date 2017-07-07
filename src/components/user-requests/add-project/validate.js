@@ -13,7 +13,7 @@ export default function validate (values, props) {
   const requiredFields = [
     {
       name: 'project',
-      message: 'Please select a project on Github'
+      message: 'Please select a project on GitHub'
     },
     {
       name: 'comment',

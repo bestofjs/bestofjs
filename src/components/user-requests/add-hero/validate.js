@@ -12,7 +12,7 @@ export default function validate (values, props) {
   const requiredFields = [
     {
       name: 'hero',
-      message: () => 'Please select a user on Github'
+      message: () => 'Please select a user on GitHub'
     },
     {
       name: 'comment',

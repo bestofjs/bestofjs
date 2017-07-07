@@ -14,7 +14,7 @@ const AnonymousHero = ({ onLogin }) => (
       <button className="ui btn" onClick={onLogin}>
         <span className="octicon octicon-mark-github" />
         {' '}
-        Sign in with Github
+        Sign in with GitHub
       </button>
     </div>
   </div>
