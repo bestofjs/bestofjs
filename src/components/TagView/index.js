@@ -1,7 +1,7 @@
 import React from 'react'
 
 import MainContent from '../common/MainContent'
-import ProjectList from '../projects/ProjectList'
+import ProjectList from '../projects/ConnectedProjectList'
 import ProjectFilterTabs from '../ProjectSortFilter'
 import TagViewTitle from './TagViewTitle'
 

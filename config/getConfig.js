@@ -10,7 +10,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const getFullPage = require('../scripts/build/getFullPage')
 const constants = require('./constants')
 
-const USE_PREACT = true
+const USE_PREACT = false
 
 function getPlugins (env) {
   const envPlugin = new webpack.DefinePlugin({
@@ -60,6 +60,7 @@ function getRules (env) {
           babelrc: false, // required otherwise src/.babelrc settings will be used
           presets: [
             ['es2015', { 'modules': false }],
+            'stage-1',
             'react'
           ],
           plugins: [

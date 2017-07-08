@@ -6,6 +6,7 @@ import LoggedinUser from './LoggedinUser'
 import AnonymousUser from './AnonymousUser'
 
 const Sidebar = ({ allTags, popularTags, auth, authActions, hofCount, linkCount, requestCount, selectedTag }) => {
+  const myProjectsCount = auth && auth.myProjects && auth.myProjects.length
   return (
     <nav id="menu" className="slideout-menu">
       <div className={`sidebar-login-block ${auth.username ? 'loggedin' : 'anonymous'}`}>
@@ -36,6 +37,10 @@ const Sidebar = ({ allTags, popularTags, auth, authActions, hofCount, linkCount,
         {false && <NavLink to="/links" className="item">
           LINKS
           {linkCount > 0 && <span className="counter">{linkCount}</span>}
+        </NavLink>}
+        {auth.username && <NavLink to="/myprojects" className="item" activeClassName="active">
+          MY PROJECTS
+          {myProjectsCount > 0 && <span className="counter">{myProjectsCount}</span>}
         </NavLink>}
         {auth.username && <NavLink to="/requests" className="item" activeClassName="active">
           MY REQUESTS

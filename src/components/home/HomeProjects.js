@@ -1,6 +1,7 @@
 import React from 'react'
 
-import ProjectList from '../projects/ProjectList'
+import ProjectList from '../projects/ConnectedProjectList'
+
 
 const viewOptions = {
   description: true,

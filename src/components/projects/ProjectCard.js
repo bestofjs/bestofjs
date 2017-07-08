@@ -6,6 +6,7 @@ import Delta from '../common/utils/Delta'
 import Stars from '../common/utils/Stars'
 import Description from '../common/utils/Description'
 import NpmSection from './NpmSection'
+import CardFooter from './CardFooter'
 import Avatar from '../common/ProjectAvatar'
 
 import fromNow from '../../helpers/fromNow'
@@ -56,9 +57,14 @@ const ProjectCard = (
     viewOptions = {},
     showAvatar = true,
     showLinks = false,
-    showReviews = false
+    showReviews = false,
+    onAddToMyProjects,
+    onRemoveFromMyProjects,
+    isLoggedin
   }) => {
   const path = `/projects/${project.slug}`
+  const handleAddToMyProjects = () => onAddToMyProjects(project)
+  const handleRemoveFromMyProjects = () => onRemoveFromMyProjects(project)
   return (
     <div className="project-card">
       <Link
@@ -149,7 +155,17 @@ const ProjectCard = (
           {' '}
           <span data-balloon="Last update">{fromNow(project.pushed_at)}</span>
         </div>
-      </div>}
+      </div>
+      }
+
+      {isLoggedin && (
+        <CardFooter
+          belongsToMyProjects={project.belongsToMyProjects}
+          onAdd={handleAddToMyProjects}
+          onRemove={handleRemoveFromMyProjects}
+          pending={project.pending}
+        />
+      )}
     </div>
   )
 }

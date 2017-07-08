@@ -2,17 +2,19 @@ import React from 'react'
 import { Route, Switch } from 'react-router-dom'
 
 import getHomePage from '../containers/HomePage'
-const HomePage = getHomePage(10)
 import AboutPage from '../containers/AboutPage'
 import ProjectsPage from '../containers/AllProjectsPage'
 import HoFPage from '../containers/HoFPage'
 import TagFilter from '../containers/TagFilterPage'
 import TextFilter from '../containers/TextFilterPage'
+import MyProjectsPage from '../containers/MyProjectsPage'
 import items from './sortItems'
 
 import Requests from './Requests'
 import Projects from './Projects'
 import NoMatch from './NoMatch'
+
+const HomePage = getHomePage(10)
 
 const Routes = () => (
   <Switch>
@@ -36,6 +38,9 @@ const Routes = () => (
     <Route exact path="/about" component={AboutPage} />
     <Route path="/projects">
       <Projects />
+    </Route>
+    <Route path="/myprojects">
+      <MyProjectsPage />
     </Route>
     <Route path="/requests">
       <Requests />

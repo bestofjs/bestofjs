@@ -1,10 +1,10 @@
 import test from 'tape'
 import React from 'react'
 import { MemoryRouter } from 'react-router-dom'
+import { Provider } from 'react-redux'
+import { createStore } from 'redux'
 import {
-  mount,
-  // render,
-  shallow
+  mount
 } from 'enzyme'
 
 import setup from '../setup.js'
@@ -13,15 +13,15 @@ import setup from '../setup.js'
 import data from '../data/projects.json'
 import { getInitialState } from '../../src/getInitialState'
 import mapStateToProps from '../../src/containers/HomePage/mapStateToProps'
-
-setup()
+import rootReducer from '../../src/reducers'
 
 // Components to check
 import Home from '../../src/components/home/Home'
 import ProjectList from '../../src/components/projects/ProjectList'
 import ProjectCard from '../../src/components/projects/ProjectCard'
-
 import populate from '../../src/helpers/populate'
+
+setup()
 
 function getHotProjects (state) {
   return state.githubProjects.daily
@@ -49,18 +49,21 @@ test('Check <ProjectList>', assert => {
 
 test('Check <Home> component', (assert) => {
   const state = getInitialState(data)
+  const store = createStore(rootReducer, state)
 
   const props = mapStateToProps(state)
 
   const component = mount(
     <MemoryRouter>
-      <Home
-        hotProjects={props.hotProjects}
-        popularProjects={props.popularProjects}
-        uiActions={{}}
-        authActions={{}}
-        popularTags={props.popularTags}
-      />
+      <Provider store={store}>
+        <Home
+          hotProjects={props.hotProjects}
+          popularProjects={props.popularProjects}
+          uiActions={{}}
+          authActions={{}}
+          popularTags={props.popularTags}
+        />
+      </Provider>
     </MemoryRouter>
   )
 

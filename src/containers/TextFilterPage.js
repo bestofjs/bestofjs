@@ -2,24 +2,27 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
+import withUser from './withUser'
 import TextFilter from '../components/SearchView'
 import populate from '../helpers/populate'
 import log from '../helpers/log'
 import filterProjects from '../helpers/filter'
 import { populate as populateHero, filter as filterHero } from '../helpers/hof'
 import * as uiActionCreators from '../actions/uiActions'
+import * as myProjectsActionCreators from '../actions/myProjectsActions'
 
 class TextFilterPage extends Component {
   shouldComponentUpdate (nextProps) {
+    return true
     // Render only if search box content has changed of if initial data has changed
     // HoF list may arrive later if `/search/xxx` URL is accessed directely
-    const sameText = nextProps.text === this.props.text
-    const sameData = nextProps.allHeroesCount === this.props.allHeroesCount
-    return !sameText || !sameData
+    // const sameText = nextProps.text === this.props.text
+    // const sameData = nextProps.allHeroesCount === this.props.allHeroesCount
+    // return !sameText || !sameData
   }
   render () {
     log('Render the <TextFilterPage> container', this.props)
-    const { foundProjects, foundHeroes, text, isLoggedin, auth, uiActions, ui, allHeroesCount } = this.props
+    const { foundProjects, foundHeroes, text, isLoggedin, auth, uiActions, myProjectsActions, ui, allHeroesCount } = this.props
     return (
       <TextFilter
         projects={foundProjects}
@@ -28,6 +31,7 @@ class TextFilterPage extends Component {
         heroes={foundHeroes}
         auth={auth}
         uiActions={uiActions}
+        myProjectsActions={myProjectsActions}
         hotFilter={ui.hotFilter}
         allHeroesCount={allHeroesCount}
         ui={ui}
@@ -70,8 +74,10 @@ function mapStateToProps (state, props) {
 
 function mapDispatchToProps (dispatch) {
   return {
-    uiActions: bindActionCreators(uiActionCreators, dispatch)
+    uiActions: bindActionCreators(uiActionCreators, dispatch),
+    myProjectsActions: bindActionCreators(myProjectsActionCreators, dispatch)
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(TextFilterPage)
+const withUserPage = withUser(TextFilterPage)
+export default connect(mapStateToProps, mapDispatchToProps)(withUserPage)

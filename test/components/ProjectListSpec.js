@@ -16,15 +16,16 @@ import reviews from '../data/reviews.json'
 
 import { getInitialState } from '../../src/getInitialState'
 import rootReducer from '../../src/reducers'
+import populate from '../../src/helpers/populate'
 
 // Actions
 import * as actions from '../../src/actions/crudActions'
 
-setup()
-
 // Components to check
 import ProjectList from '../../src/components/projects/ProjectList'
 import ProjectCard from '../../src/components/projects/ProjectCard'
+
+setup()
 
 const state = getInitialState(data)
 // const store = configureStore(state)
@@ -38,6 +39,7 @@ const {
 const projects = githubProjects.total
   .slice(0, 50)
   .map(id => entities.projects[id])
+  .map(populate(entities.tags))
 const count = projects.length
 
 // 1. Test the component before the link data arrive

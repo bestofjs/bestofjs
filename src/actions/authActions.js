@@ -114,7 +114,9 @@ function loginSuccess (profile, token, history) {
       name: profile.name,
       avatar: profile.picture,
       followers: profile.followers,
-      token
+      token,
+      user_id: profile.user_id,
+      myProjects: profile.user_metadata.projects
     }
   }
 }
