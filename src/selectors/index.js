@@ -133,7 +133,7 @@ export const getMyProjects = createSelector(
     state => state.entities.tags
   ],
   (projects, auth, tags) => projects
-    .filter(project => auth.myProjects.includes(project.slug))
+    .filter(project => auth.myProjects && auth.myProjects.includes(project.slug))
     .map(getFullProject(tags, auth))
 )
 
