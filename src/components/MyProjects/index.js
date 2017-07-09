@@ -16,9 +16,13 @@ const Counter = ({ count }) => {
   )
 }
 
-const EmptyList = () => (
+const EmptyList = ({ isLoggedin }) => (
   <div style={{ border: '2px dashed #fa9e59', padding: '2rem' }}>
-    Add projects you want to follow by using the `ADD` button.
+    {isLoggedin ? (
+      <span>Add projects you want to follow by using the `ADD` button.</span>
+    ) : (
+      <span>Please sign-in to access this feature!</span>
+    )}
   </div>
 )
 
