@@ -12,8 +12,8 @@ import write from './write-html'
 
 import rootReducer from '../../src/reducers'
 import { createStore } from 'redux'
-import { getInitialState } from '../../src/getInitialState'
 import { getPopularTags } from '../../src/selectors'
+import { fetchProjectsFromAPI, fetchProjectsSuccess } from '../../src/actions/entitiesActions'
 
 // Get data from production API
 process.env.NODE_ENV = 'production'
@@ -25,6 +25,27 @@ function getAllPaths (tags) {
   return paths
 }
 
+const defaultState = {
+  entities: {
+    projects: {},
+    tags: {}
+  },
+  auth: {
+    username: '',
+    pending: true
+  },
+  ui: {
+    hotFilter: 'daily',
+    viewOptions: {
+      description: true,
+      npms: true,
+      packagequality: false,
+      commit: true
+    },
+    paginated: true
+  }
+}
+
 fetch(url)
   .then(response => {
     console.log('Got the response from', url)
@@ -33,8 +54,10 @@ fetch(url)
   .then(json => {
     console.log('Got JSON', Object.keys(json))
     console.log('Start server rendering, using data from', json.projects.length, 'projects')
-    const state = getInitialState(json, null, { ssr: true })
-    const store = createStore(rootReducer, state)
+    // const state = getInitialState(json, null, { ssr: true })
+    const store = createStore(rootReducer, defaultState)
+    store.dispatch(fetchProjectsSuccess(json))
+    const state = store.getState()
     const tags = getPopularTags(state)
     const paths = getAllPaths(tags)
     const promises = paths.map(createPage(store))

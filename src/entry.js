@@ -1,22 +1,17 @@
+/* eslint-disable import/first */
+// Object.assign() polyfill for IE (used in the reducer)
+import './helpers/es6-polyfill.js'
 // Promise polyfill to avoid "Promise is undefined" error in IE
 require('es6-promise').polyfill()
 
-// Object.assign() polyfill for IE (used in the reducer)
-import './helpers/es6-polyfill.js'
-import { fetchJSON } from './helpers/fetch'
-
 import React from 'react'
-import { render } from 'react-dom'
 import { AppContainer } from 'react-hot-loader'
-// import { whyDidYouUpdate } from 'why-did-you-update'
+import { render } from 'react-dom'
 
-// if (process.env.NODE_ENV !== 'production') {
-//   whyDidYouUpdate(React)
-// }
+import { fetchJSON } from './helpers/fetch'
 
 import configureStore from './store/configureStore'
 import api from '../config/api'
-import { getInitialState } from './getInitialState'
 import { fetchAllReviews } from './actions/reviewActions'
 import { fetchAllLinks } from './actions/linkActions'
 import { fetchAllHeroes } from './actions/hofActions'
@@ -29,12 +24,12 @@ import { fetchProjectsFromAPI, fetchProjectsSuccess } from './actions/entitiesAc
 function start () {
   const store = configureStore({})
   if (process.env.NODE_ENV === 'development') window.store = store
-  fetchProjectsFromAPI().then(
-    data => {
+  fetchProjectsFromAPI()
+    .then(data => {
       store.dispatch(fetchProjectsSuccess(data))
       dispatchActions({ store })
-    }
-  )
+    })
+    .catch(e => console.error('Unable to render', e))
 }
 
 start()
@@ -43,14 +38,14 @@ function dispatchActions({ store }) {
   if (window.location.pathname !== '/hof/') {
     // default case: render the app as soon as we get project data
     renderApp(store)
-    store.dispatch(fetchAllHeroes())
+    // store.dispatch(fetchAllHeroes())
   } else {
     // if HoF is currently displayed used server-side rendering,
     // render the app AFTER we get HoF data, to avoid display an empty list
     store.dispatch(fetchAllHeroes())
-    .then(() => {
-      renderApp(store)
-    })
+      .then(() => {
+        renderApp(store)
+      })
   }
 }
 

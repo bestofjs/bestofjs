@@ -1,6 +1,6 @@
 const defaultState = {
   username: '',
-  pending: true
+  pending: false
 }
 export default function auth (state = defaultState, action) {
   switch (action.type) {

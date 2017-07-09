@@ -1,3 +1,4 @@
+/* eslint-disable import/first */
 // Hall of Fame page server-side rendering
 // Create `www/hof/index.html` page
 
@@ -11,8 +12,8 @@ import renderApp from './renderApp'
 import write from './write-html'
 
 import rootReducer from '../../src/reducers'
-import { getInitialState } from '../../src/getInitialState'
 import { fetchAllHeroes } from '../../src/actions/hofActions'
+import { fetchProjectsFromAPI, fetchProjectsSuccess } from '../../src/actions/entitiesActions'
 
 // Get data from production API
 process.env.NODE_ENV = 'production'
@@ -27,12 +28,12 @@ fetch(url)
     console.log('Got JSON', Object.keys(json))
 
     console.log('Start server rendering, using data from', json.projects.length, 'projects')
-    const state = getInitialState(json)
     const middlewares = [
       applyMiddleware(thunk),
     ]
     const finalCreateStore = compose(...middlewares)(createStore)
-    const store = finalCreateStore(rootReducer, state)
+    const store = finalCreateStore(rootReducer)
+    store.dispatch(fetchProjectsSuccess(json))
 
     return store.dispatch(fetchAllHeroes())
       .then(result => {
