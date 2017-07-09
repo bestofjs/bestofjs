@@ -19,8 +19,9 @@ function checkIfDifferent (list0, list1) {
 
 class ProjectList extends React.Component {
   shouldComponentUpdate (nextProps) {
-    // Re-render the project list only if the project list has changed
-    // to avoid rendering after successful login, and fetch events about heroes, links, reviews and requests
+    // Re-render the project list only if the project list has changed or if the loggin status has changed
+    if (nextProps.isLoggedin !== this.props.isLoggedin) return true
+    // to avoid rendering after fetch events about heroes, links, reviews and requests
     return checkIfDifferent(this.props.projects, nextProps.projects)
   }
   render () {
