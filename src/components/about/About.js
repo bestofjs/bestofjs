@@ -1,9 +1,9 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
 
 import MainContent from '../common/MainContent'
 import StarMeButton from '../common/StarMeButton'
 import log from '../../helpers/log'
+import CreateIssueLink from '../user-requests/add-project/CreateIssueLink'
 
 const About = ({ staticContent, count }) => {
   log('Render the <About> component')
@@ -41,7 +41,7 @@ const About = ({ staticContent, count }) => {
         </p>
         <p>As a result, some great projects must be missing!</p>
         <p>
-          Click on <Link to={'/requests/add-project'}>this link</Link> to suggest a new project to add.
+          Create a GitHub issue <CreateIssueLink>here</CreateIssueLink> to suggest a new project to add.
         </p>
         <h2>Show your support!</h2>
         <p>If you like the application, please star the project on <a href={repo}>GitHub</a>...</p>

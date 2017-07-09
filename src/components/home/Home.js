@@ -3,8 +3,8 @@ import { Link } from 'react-router-dom'
 
 import log from '../../helpers/log'
 import MainContent from '../common/MainContent'
-
 import HomeProjects from './HomeProjects'
+import CreateIssueLink from '../user-requests/add-project/CreateIssueLink'
 
 const Home = (props) => {
   log('Render the <Home> component', props)
@@ -63,22 +63,13 @@ const MoreProjects = ({ handleClick, isLoggedin, pending }) => {
   return (
     <div className="no-card-container">
       <h3 className="with-comment" style={{ marginBottom: '0.5rem' }}>Do you want more projects ?</h3>
-      {isLoggedin ? (
-        <Link className="btn block button-outline" to="/requests/add-project">
-          <span className="octicon octicon-plus" />
-          {' '}
-          Add a project on GitHub
-        </Link>
-      ) : (
-        <button
-          className={`btn block button-outline${pending ? ' ui loading button' : ''}`}
-          onClick={handleClick}
-        >
-          <span className="octicon octicon-mark-github" />
-          {' '}
-          Sign in with GitHub to add a new project
-        </button>
-      )}
+      <CreateIssueLink
+        className={`btn block button-outline${pending ? ' ui loading button' : ''}`}
+      >
+        <span className="octicon octicon-mark-github" />
+        {' '}
+        Create an issue on GitHub
+      </CreateIssueLink>
     </div>
   )
 }
