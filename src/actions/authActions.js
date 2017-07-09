@@ -6,6 +6,8 @@
 // - login()
 // - logout()
 
+import get from 'lodash.get'
+
 import msgbox from '../helpers/msgbox'
 import log from '../helpers/log'
 import UrlManager from './urlManager'
@@ -116,7 +118,7 @@ function loginSuccess (profile, token, history) {
       followers: profile.followers,
       token,
       user_id: profile.user_id,
-      myProjects: profile.user_metadata.projects
+      myProjects: get(profile, 'user_metadata.projects') || []
     }
   }
 }

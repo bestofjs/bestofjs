@@ -35,20 +35,15 @@ class App extends Component {
 
 function mapStateToProps (state) {
   const {
-    entities: { heroes, links },
-    githubProjects: {
-      lastUpdate
-    },
+    entities: { heroes, links, meta: { lastUpdate } },
     requests: {
       issues
     },
     auth,
     ui
   } = state
-
   const allTags = getAllTags(state)
   const popularTags = getPopularTags(state)
-
   return {
     allTags,
     popularTags,

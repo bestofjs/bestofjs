@@ -1,5 +1,9 @@
 # Change log
 
+## 0.8.0 - 2017-07-09
+* "My projects" feature #40
+* https #41
+
 ## 0.7.5 - 2017-04-29
 * Fix search engine (bug introduced by 0.7.4)
 

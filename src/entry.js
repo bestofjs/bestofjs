@@ -24,11 +24,41 @@ import menu from './helpers/menu'
 import log from './helpers/log'
 import App from './App'
 
-fetchData()
-  .then(data => {
-    const state = getInitialState(data)
-    startRedux(state)
-  })
+import { fetchProjectsFromAPI, fetchProjectsSuccess } from './actions/entitiesActions'
+
+function start () {
+  const store = configureStore({})
+  if (process.env.NODE_ENV === 'development') window.store = store
+  fetchProjectsFromAPI().then(
+    data => {
+      store.dispatch(fetchProjectsSuccess(data))
+      dispatchActions({ store })
+    }
+  )
+}
+
+start()
+
+function dispatchActions({ store }) {
+  if (window.location.pathname !== '/hof/') {
+    // default case: render the app as soon as we get project data
+    renderApp(store)
+    store.dispatch(fetchAllHeroes())
+  } else {
+    // if HoF is currently displayed used server-side rendering,
+    // render the app AFTER we get HoF data, to avoid display an empty list
+    store.dispatch(fetchAllHeroes())
+    .then(() => {
+      renderApp(store)
+    })
+  }
+}
+
+// fetchData()
+//   .then(data => {
+//     const state = getInitialState(data)
+//     startRedux(state)
+//   })
 
 // Stylesheets are included here to avoid server-side rendering errors
 require('./stylesheets/main.styl')

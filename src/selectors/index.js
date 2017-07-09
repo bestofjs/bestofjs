@@ -1,12 +1,39 @@
 import { createSelector } from 'reselect'
 import populate from '../helpers/populate'
+import * as helpers from '../helpers/projectHelpers'
+import filterProjects from '../helpers/filter'
 
+// return a hash object
+// key: tag code
+// value: number of project for the tag
+const getTagCounters = createSelector(
+  [state => state.entities.projects],
+  (projects) => {
+    const counters = {}
+    Object.values(projects).forEach(function (project) {
+      project.tags.forEach(function (id) {
+        if (counters[id]) {
+          counters[id]++
+        } else {
+          counters[id] = 1
+        }
+      })
+    })
+    return counters
+  }
+)
+
+// Return an array of all tags, including counter about the number of projects by tag
 export const getAllTags = createSelector(
   [
-    state => state.githubProjects.tagIds,
-    state => state.entities.tags
+    state => state.entities.projects,
+    state => state.entities.tags,
+    getTagCounters
   ],
-  (tagIds, tags) => tagIds.map(id => tags[id])
+  (projectIds, tagIds, countsByTag) => Object.values(tagIds).map(tag => {
+    const counter = countsByTag[tag.code]
+    return { ...tag, counter }
+  })
 )
 
 export const getPopularTags = createSelector(
@@ -19,16 +46,106 @@ export const getPopularTags = createSelector(
   }
 )
 
-export const getHotProjects = createSelector(
+const allProjects = createSelector(
+  [state => state.entities.projects],
+  (projectsById) => Object.values(projectsById)
+)
+
+export const getAllProjectsCount = createSelector(
+  [allProjects],
+  (projects) => projects.length
+)
+
+// const npmProjects = createSelector(
+//   [allProjects],
+//   (projects) => projects.filter(project => !!project.npm)
+// )
+
+const sortProjects = fn => projects => helpers.sortBy(projects.slice(0), fn)
+
+const sortFn = {
+  total: project => project.stars,
+  daily: project => project.stats.daily,
+  weekly: project => project.stats.weekly,
+  monthly: project => project.stats.monthly,
+  quaterly: project => project.stats.quaterly,
+  quality: project => project.quality,
+  score: project => project.score,
+  yearly: project => project.stats.yearly
+}
+
+// a sub-selector used by both `getProjectsSortedBy` and `getProjectsByTag`
+const getRawProjectsSortedBy = ({ criteria }) => createSelector(
   [
-    state => state.githubProjects['daily'],
-    state => state.entities.projects,
-    state => state.entities.tags
+    allProjects
   ],
-  (projectIdList, projectHash, tags) => {
-    return projectIdList
-      .map(id => projectHash[id])
-      .slice(0, 10)
-      .map(populate(tags))
+  (projects, tags) => {
+    return sortProjects(sortFn[criteria])(projects)
   }
 )
+
+// Create a selector for a given criteria (`total`, `daily`)
+export const getProjectsSortedBy = ({ criteria, limit }) => createSelector(
+  [
+    getRawProjectsSortedBy({ criteria, limit }),
+    state => state.entities.tags,
+    state => state.auth
+  ],
+  (projects, tags, auth) => projects
+    .map(getFullProject(tags, auth))
+    .slice(0, limit)
+)
+
+// TOP 10 projects displayed in the homepage
+export const getHotProjects = getProjectsSortedBy({ criteria: 'daily', limit: 10 })
+
+// Selector used to display the list of projects belonging to a given tag
+export const getProjectsByTag = ({ criteria, tagId, limit }) => createSelector(
+  [
+    getRawProjectsSortedBy({ criteria, limit }),
+    state => state.entities.tags,
+    state => state.auth
+  ],
+  (projects, tags, auth) => {
+    const filteredProjects = projects
+      .filter(project => project.tags.includes(tagId))
+      .map(getFullProject(tags, auth))
+    return filteredProjects
+  }
+)
+
+export const searchForProjects = text => createSelector(
+  [
+    getRawProjectsSortedBy({ criteria: 'total' }),
+    getAllTags,
+    state => state.entities.tags,
+    state => state.auth
+  ],
+  (projects, allTags, tagsById, auth) => filterProjects(projects, allTags, text)
+    .slice(0, 50)
+    .map(getFullProject(tagsById, auth))
+)
+
+export const getMyProjects = createSelector(
+  [
+    getRawProjectsSortedBy({ criteria: 'total' }),
+    state => state.auth,
+    state => state.entities.tags
+  ],
+  (projects, auth, tags) => projects
+    .filter(project => auth.myProjects.includes(project.slug))
+    .map(getFullProject(tags, auth))
+)
+
+export const getFullProject = (tags, auth) => project => {
+  const { myProjects, pendingProject } = auth
+  const fullProject = populate(tags)(project)
+  const pending = project.slug === pendingProject
+  const belongsToMyProjects = myProjects && myProjects.includes(project.slug)
+  if (!myProjects) return fullProject
+  return {
+    ...fullProject,
+    belongsToMyProjects,
+    pending
+  }
+}

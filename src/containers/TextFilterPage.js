@@ -4,9 +4,9 @@ import { bindActionCreators } from 'redux'
 
 import withUser from './withUser'
 import TextFilter from '../components/SearchView'
-import populate from '../helpers/populate'
 import log from '../helpers/log'
-import filterProjects from '../helpers/filter'
+import { searchForProjects } from '../selectors'
+
 import { populate as populateHero, filter as filterHero } from '../helpers/hof'
 import * as uiActionCreators from '../actions/uiActions'
 import * as myProjectsActionCreators from '../actions/myProjectsActions'
@@ -43,18 +43,12 @@ class TextFilterPage extends Component {
 function mapStateToProps (state, props) {
   const {
     entities: { projects, tags, heroes, links },
-    githubProjects,
     auth,
     ui
   } = state
 
   const text = props.match.params.text
-  const allTags = Object.keys(tags).map(id => tags[id])
-
-  const allProjects = githubProjects.total.map(id => projects[id])
-  const foundProjects = filterProjects(allProjects, allTags, text)
-    .slice(0, 50)
-    .map(populate(tags, links))
+  const foundProjects = searchForProjects(text)(state)
 
   const allHeroes = Object.keys(heroes).map(id => heroes[id])
   const foundHeroes = allHeroes.filter(filterHero(text))

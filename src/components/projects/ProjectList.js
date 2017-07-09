@@ -3,10 +3,15 @@ import ProjectCard from './ProjectCard'
 
 const belongsToMyProjects = project => !!project.belongsToMyProjects
 const getMyProjects = projects => projects.filter(belongsToMyProjects)
+const getPendingProject = projects => {
+  const found = projects.find(project => !!project.pending)
+  return found && found.slug
+}
 
 function checkIfDifferent (list0, list1) {
   if (list0.length !== list1.length) return true
   if (getMyProjects(list1).join() !== getMyProjects(list0).join()) return true
+  if (getPendingProject(list0) !== getPendingProject(list1)) return true // to show loading during pending requests
   return !list0.every(
     (project, i) => project.slug === list1[i].slug
   )

@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
 import TagFilter from '../components/TagView'
-import populate from '../helpers/populate'
+import { getProjectsByTag } from '../selectors'
 import log from '../helpers/log'
 import * as uiActionCreators from '../actions/uiActions'
 
@@ -36,8 +36,7 @@ class TagFilterPage extends Component {
 function mapStateToProps (sortFilter) {
   return function (state, props) {
     const {
-      entities: { projects, tags, links },
-      githubProjects,
+      entities: { tags },
       auth: {
         username
       },
@@ -45,17 +44,10 @@ function mapStateToProps (sortFilter) {
     } = state
 
     const tagId = props.match.params.id
-    const tagProjects = githubProjects[sortFilter]
-      .map(id => projects[id])
-      .filter(project => project.tags.indexOf(tagId) > -1)
-      .map(populate(tags, links))
-    const graphProjects = tagProjects
-      .filter(project => project.monthly.length > 0)
-      .slice(0, 10)
-
+    const tagProjects = getProjectsByTag({ criteria: sortFilter, tagId, limit: 100 })(state)
     return {
       tagProjects,
-      graphProjects,
+      // graphProjects,
       tag: tags[tagId],
       isLoggedin: username !== '',
       ui: Object.assign({}, ui, {

@@ -3,9 +3,9 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
 import TagFilter from '../components/TagView'
-import populate from '../helpers/populate'
 import log from '../helpers/log'
 import * as uiActionCreators from '../actions/uiActions'
+import { getProjectsSortedBy, getAllProjectsCount } from '../selectors'
 
 class AllProjectsPage extends Component {
   shouldComponentUpdate (nextProps) {
@@ -35,27 +35,16 @@ class AllProjectsPage extends Component {
 
 function mapStateToProps (sortFilter) {
   return function (state, props) {
+    const tagProjects = getProjectsSortedBy({ criteria: sortFilter, limit: 50 })(state)
+    const count = getAllProjectsCount(state)
     const {
-      entities: { projects, tags, links },
-      githubProjects,
       auth: {
         username
       },
       ui
     } = state
-
-    const allProjects = githubProjects[sortFilter]
-    const count = allProjects.length
-
-    const tagProjects = allProjects
-      .map(id => projects[id])
-      .slice(0, 50)
-      .map(populate(tags, links))
-    const graphProjects = tagProjects
-      .slice(0, 10)
     return {
       tagProjects,
-      graphProjects,
       isLoggedin: username !== '',
       ui: Object.assign({}, ui, {
         starFilter: sortFilter

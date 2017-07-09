@@ -4,13 +4,15 @@ import projects from './projects'
 import crud from './crud'
 import tags from './tags'
 import heroes from './heroes'
+import meta from './meta'
 
 const reducer = combineReducers({
   projects,
   tags,
   links: crud('link'),
   reviews: crud('review'),
-  heroes
+  heroes,
+  meta
 })
 
 export default reducer

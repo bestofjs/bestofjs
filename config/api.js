@@ -2,8 +2,8 @@ const setup = {
   development: {
     GET_PROJECTS: 'https://bestofjs-api-dev.firebaseapp.com/',
     GET_README: 'https://get-github-readme-v2.now.sh',
-    // USER_CONTENT: 'http://localhost:3000',
-    USER_CONTENT: 'https://webtask.it.auth0.com/api/run/wt-mikeair-gmail_com-0/user-content-api-dev',
+    USER_CONTENT: 'http://localhost:3000',
+    // USER_CONTENT: 'https://webtask.it.auth0.com/api/run/wt-mikeair-gmail_com-0/user-content-api-dev',
     ISSUES_REPO: 'michaelrambeau/bestofjs-sandbox'
   },
   production: {

@@ -1,8 +1,11 @@
 import mapValues from 'lodash.mapvalues'
 import log from '../../helpers/log'
+import processProject from './processProject'
 
 export default function (state = {}, action) {
   switch (action.type) {
+    case 'FETCH_PROJECTS_SUCCESS':
+      return setProjects(state, action.payload)
     case 'GET_README_SUCCESS':
       const project = Object.assign({}, state[action.id], {
         readme: action.html
@@ -20,17 +23,26 @@ export default function (state = {}, action) {
     case 'CREATE_LINK_SUCCESS':
     case 'UPDATE_LINK_SUCCESS':
       return addLinkIdsToProjects(state, [action.payload])
-    case 'LOGIN_SUCCESS':
-      return setMyProjects(state, action.payload.myProjects)
-    case 'UPDATE_MY_PROJECTS_REQUEST':
-      return updateMyProjectsRequest(state, action.payload)
-    case 'ADD_TO_MY_PROJECTS_SUCCESS':
-      return addToMyProjects(state, action.payload)
-    case 'REMOVE_FROM_MY_PROJECTS_SUCCESS':
-      return removeFromMyProjects(state, action.payload)
+    // case 'LOGIN_SUCCESS':
+    //   return setMyProjects(state, action.payload.myProjects)
+    // case 'UPDATE_MY_PROJECTS_REQUEST':
+    //   return updateMyProjectsRequest(state, action.payload)
+    // case 'ADD_TO_MY_PROJECTS_SUCCESS':
+    //   return addToMyProjects(state, action.payload)
+    // case 'REMOVE_FROM_MY_PROJECTS_SUCCESS':
+    //   return removeFromMyProjects(state, action.payload)
     default:
       return state
   }
+}
+
+function setProjects (entities, payload) {
+  const projectsBySlug = payload.projects
+    .map(processProject)
+    .reduce((acc, project) => {
+      return {...acc, [project.slug]: project}
+    }, {})
+  return projectsBySlug
 }
 
 // A "link" object can be associated to N projects
@@ -79,23 +91,23 @@ function addUniqueLink (ids, id) {
   return ids.indexOf(id) > -1 ? ids : [id, ...ids]
 }
 
-function setMyProjects (entities, myProjects) {
-  return mapValues(entities, project => myProjects.includes(project.slug)
-    ? { ...project, belongsToMyProjects: true }
-    : project
-  )
-}
+// function setMyProjects (entities, myProjects) {
+//   return mapValues(entities, project => myProjects.includes(project.slug)
+//     ? { ...project, belongsToMyProjects: true }
+//     : project
+//   )
+// }
 
-const toggleMyProjects = belongsToMyProjects => (entities, slug) => {
-  return mapValues(entities, project => project.slug === slug
-    ? { ...project, belongsToMyProjects, pending: false }
-    : project
-  )
-}
-
-const addToMyProjects = toggleMyProjects(true)
-const removeFromMyProjects = toggleMyProjects(false)
-
-function updateMyProjectsRequest (entities, project) {
-  return { ...entities, [project.slug]: {...entities[project.slug], pending: true} }
-}
+// const toggleMyProjects = belongsToMyProjects => (entities, slug) => {
+//   return mapValues(entities, project => project.slug === slug
+//     ? { ...project, pending: false }
+//     : project
+//   )
+// }
+//
+// const addToMyProjects = toggleMyProjects(true)
+// const removeFromMyProjects = toggleMyProjects(false)
+//
+// function updateMyProjectsRequest (entities, project) {
+//   return { ...entities, [project.slug]: {...entities[project.slug], pending: true} }
+// }
