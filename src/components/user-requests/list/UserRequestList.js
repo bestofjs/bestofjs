@@ -1,16 +1,16 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
 
 import MainContent from '../../common/MainContent'
 import fromNow from '../../../helpers/fromNow'
+import CreateIssueLink from '../add-project/CreateIssueLink'
 
 export default ({ requests }) => (
   <MainContent className="small container double-padding">
-    <Link className="btn block button-outline" to="/requests/add-project" style={{ marginBottom: '2em' }}>
+    <CreateIssueLink className="btn block button-outline" style={{ marginBottom: '2em' }}>
       <span className="octicon octicon-plus" />
       {' '}
       ADD A PROJECT
-    </Link>
+    </CreateIssueLink>
     <div className="card">
       <div className="header">
         My requests
