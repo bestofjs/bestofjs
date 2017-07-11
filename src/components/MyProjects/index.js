@@ -33,7 +33,7 @@ const MyProjectsPage = ({ projects, ui, isLoggedin }) => {
       <h3 className="no-card-container">
         <span className={`icon mega-octicon octicon-bookmark`} style={{ marginRight: '.25rem' }} />
         {' '}
-        My projects
+        Bookmarked projects
         <Counter count={projects.length} />
       </h3>
       {projects.length === 0 && (

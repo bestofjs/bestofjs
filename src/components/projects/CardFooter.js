@@ -6,21 +6,22 @@ const CardFooter = ({ belongsToMyProjects, onAdd, onRemove, pending }) => {
     <div className="project-card-footer card-section">
       {belongsToMyProjects ? (
         <button
-          className={`btn mini ${extraClassName}`}
+          className={`btn mini light ${extraClassName}`}
           onClick={onRemove}
           disabled={pending}
         >
           <span className="icon octicon octicon-dash" />
-          REMOVE
+          REMOVE BOOKMARK
         </button>
       ) : (
         <button
           className={`btn mini ${extraClassName}`}
           onClick={onAdd}
           disabled={pending}
+          data-balloon="The project will be visible on `MY PROJECTS` page"
         >
           <span className="icon octicon octicon-plus" />
-          ADD
+          ADD BOOKMARK
         </button>
       )}
     </div>
