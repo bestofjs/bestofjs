@@ -1,36 +1,28 @@
-import setup from '../setup.js'
-setup()
-
 import test from 'tape'
 import React from 'react'
 import { MemoryRouter } from 'react-router-dom'
-import { createStore, applyMiddleware, compose } from 'redux'
 import { Provider } from 'react-redux'
-import thunk from 'redux-thunk'
-
-import rootReducer from '../../src/reducers'
-
-// Main components to test
-import createProjectPage from '../../src/containers/createProjectPage'
-import GithubTab from '../../src/components/ProjectView/GithubTab'
-const ProjectPage = createProjectPage(GithubTab)
-
 import {
   mount
 } from 'enzyme'
 import sinon from 'sinon'
 
+// Main components to test
+import createProjectPage from '../../src/containers/createProjectPage'
+import GithubTab from '../../src/components/ProjectView/GithubTab'
+
 // Data
 import data from '../data/projects.json'
-import { getInitialState } from '../../src/getInitialState'
+import getStore from '../getStore'
 
+import setup from '../setup.js'
+setup()
+
+const ProjectPage = createProjectPage(GithubTab)
 const id = 'react'
 
 test('Check <ProjectPage> container', (assert) => {
-  const state = getInitialState(data)
-  const finalCreateStore = compose(applyMiddleware(thunk))(createStore)
-  const store = finalCreateStore(rootReducer, state)
-
+  const store = getStore(data, { withThunk: true })
   store.subscribe(() => {
     const { readme } = store.getState().entities.projects[id]
     if (readme) {

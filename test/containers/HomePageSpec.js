@@ -1,10 +1,10 @@
 import test from 'tape'
 import React from 'react'
 import { Provider } from 'react-redux'
-import { createStore } from 'redux'
 import { MemoryRouter } from 'react-router-dom'
-
-import rootReducer from '../../src/reducers'
+import {
+  mount
+} from 'enzyme'
 
 // Main components to test
 import getHomePage from '../../src/containers/HomePage'
@@ -12,23 +12,17 @@ import getHomePage from '../../src/containers/HomePage'
 // Sub components
 import ProjectList from '../../src/components/projects/ProjectList'
 
-import {
-  mount
-} from 'enzyme'
+// Data
+import data from '../data/projects.json'
+import getStore from '../getStore'
 
 import setup from '../setup.js'
 setup()
 
-// Data
-import data from '../data/projects.json'
-import { getInitialState } from '../../src/getInitialState'
-
 test('Check <HomePage> container', (assert) => {
   const TOP_PROJECT_COUNT = 20
   const HomePage = getHomePage(TOP_PROJECT_COUNT)
-  const state = getInitialState(data)
-  const store = createStore(rootReducer, state)
-
+  const store = getStore(data)
   const component = mount(
     <MemoryRouter>
       <Provider store={store}>

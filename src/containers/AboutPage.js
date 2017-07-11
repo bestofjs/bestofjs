@@ -19,23 +19,15 @@ class AboutPage extends Component {
       />
     )
   }
-
 }
 
 function mapStateToProps (state) {
   const {
     entities: { projects, tags, links },
-    githubProjects,
     ui
   } = state
 
-  const project = githubProjects.total
-    .map(id => projects[id])
-    .slice(0, 1)
-    .map(populate(tags, links))
-
   return {
-    project: project[0],
     staticContent: getStaticContent(),
     count: Object.keys(projects).length,
     ui

@@ -1,23 +1,20 @@
 import test from 'tape'
 import React from 'react'
-import ReactDOM from 'react-dom'
 import TestUtils from 'react-dom/test-utils'
 import fetch from 'node-fetch'
 import { mount } from 'enzyme'
 import { MemoryRouter } from 'react-router-dom'
 
-import { getAllTags, getTag } from '../utils'
+import { getAllTags } from '../utils'
 import setup from '../setup.js'
-import data from '../data/projects.json'
-import { getInitialState } from '../../src/getInitialState'
 import getStaticContent from '../../src/staticContent'
-
-const staticContent = getStaticContent()
-setup()
 
 // Components to check
 import About from '../../src/components/about/About'
 import Button from '../../src/components/common/StarMeButton'
+const staticContent = getStaticContent()
+
+setup()
 
 test('Star on Github button', assert => {
   const component = mount(
@@ -45,10 +42,9 @@ test('Star on Github button', assert => {
 })
 
 test('Check <About> component', assert => {
-  const state = getInitialState(data)
   const component = TestUtils.renderIntoDocument(
     <MemoryRouter>
-      <About githubProjects={state} staticContent={staticContent} />
+      <About staticContent={staticContent} />
     </MemoryRouter>
   )
 

@@ -10,17 +10,19 @@ import populate from '../../src/helpers/populate'
 
 // Data
 import data from '../data/projects.json'
-import { getInitialState } from '../../src/getInitialState'
+import getStore from '../getStore'
 
 // Actions
 import * as actions from '../../src/actions'
 
-setup()
-
 // Components to check
 import Project from '../../src/components/projects/ProjectCard'
 
-const state = getInitialState(data)
+setup()
+
+const store = getStore(data)
+const state = store.getState()
+
 const {
   entities: { projects, tags }
 } = state

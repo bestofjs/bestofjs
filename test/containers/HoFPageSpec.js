@@ -1,32 +1,28 @@
-import setup from '../setup.js'
-setup()
-
 import test from 'tape'
 import React from 'react'
 import { MemoryRouter } from 'react-router-dom'
 import { createStore, applyMiddleware, compose } from 'redux'
 import { Provider } from 'react-redux'
 import thunk from 'redux-thunk'
-
-import rootReducer from '../../src/reducers'
-
-import HoFPage from '../../src/containers/HoFPage'
-import Card from '../../src/components/hof/HeroCard'
-import { getAllHeroes } from '../../src/helpers/hof'
-
 import {
   mount
 } from 'enzyme'
 
+import rootReducer from '../../src/reducers'
 import data from '../data/projects.json'
+
+import HoFPage from '../../src/containers/HoFPage'
+import Card from '../../src/components/hof/HeroCard'
+import { getAllHeroes } from '../../src/helpers/hof'
 import hof from '../data/hof.json'
-import { getInitialState } from '../../src/getInitialState'
 import { fetchHeroesSuccess } from '../../src/actions/hofActions'
+import getStore from '../getStore'
+
+import setup from '../setup.js'
+setup()
 
 test('Check <HoFPage> container', (assert) => {
-  const state = getInitialState(data)
-  const finalCreateStore = compose(applyMiddleware(thunk))(createStore)
-  const store = finalCreateStore(rootReducer, state)
+  const store = getStore(data)
 
   store.dispatch(fetchHeroesSuccess(hof))
   const newState = store.getState()

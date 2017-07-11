@@ -2,7 +2,6 @@ import test from 'tape'
 import React from 'react'
 import { MemoryRouter } from 'react-router-dom'
 import { Provider } from 'react-redux'
-import { createStore } from 'redux'
 import {
   mount
 } from 'enzyme'
@@ -11,33 +10,26 @@ import setup from '../setup.js'
 
 // Data
 import data from '../data/projects.json'
-import { getInitialState } from '../../src/getInitialState'
-import mapStateToProps from '../../src/containers/HomePage/mapStateToProps'
-import rootReducer from '../../src/reducers'
 
 // Components to check
 import Home from '../../src/components/home/Home'
 import ProjectList from '../../src/components/projects/ProjectList'
 import ProjectCard from '../../src/components/projects/ProjectCard'
-import populate from '../../src/helpers/populate'
+import { getHotProjects, getPopularTags } from '../../src/selectors'
+import getStore from '../getStore'
 
 setup()
 
-function getHotProjects (state) {
-  return state.githubProjects.daily
-    .map(id => state.entities.projects[id])
-    .slice(0, 20)
-    .map(populate(state.entities.tags))
-}
-
 test('Check <ProjectList>', assert => {
-  const count = 20
-  const state = getInitialState(data)
+  const count = 10
+  const store = getStore(data)
+  const state = store.getState()
+  const projects = getHotProjects(state)
 
   const component = mount(
     <MemoryRouter>
       <ProjectList
-        projects={getHotProjects(state)}
+        projects={projects}
       />
     </MemoryRouter>
   )
@@ -48,20 +40,19 @@ test('Check <ProjectList>', assert => {
 })
 
 test('Check <Home> component', (assert) => {
-  const state = getInitialState(data)
-  const store = createStore(rootReducer, state)
-
-  const props = mapStateToProps(state)
+  const store = getStore(data)
+  const state = store.getState()
+  const projects = getHotProjects(state)
+  const tags = getPopularTags(state)
 
   const component = mount(
     <MemoryRouter>
       <Provider store={store}>
         <Home
-          hotProjects={props.hotProjects}
-          popularProjects={props.popularProjects}
+          hotProjects={projects}
           uiActions={{}}
           authActions={{}}
-          popularTags={props.popularTags}
+          popularTags={tags}
         />
       </Provider>
     </MemoryRouter>

@@ -1,7 +1,6 @@
 import test from 'tape'
 import React from 'react'
 import { MemoryRouter } from 'react-router-dom'
-import { createStore } from 'redux'
 
 import {
   mount
@@ -14,33 +13,23 @@ import data from '../data/projects.json'
 import links from '../data/links.json'
 import reviews from '../data/reviews.json'
 
-import { getInitialState } from '../../src/getInitialState'
-import rootReducer from '../../src/reducers'
-import populate from '../../src/helpers/populate'
-
 // Actions
 import * as actions from '../../src/actions/crudActions'
+import { getProjectsSortedBy } from '../../src/selectors'
 
 // Components to check
 import ProjectList from '../../src/components/projects/ProjectList'
 import ProjectCard from '../../src/components/projects/ProjectCard'
 
+import getStore from '../getStore'
+
 setup()
 
-const state = getInitialState(data)
-// const store = configureStore(state)
-const store = createStore(rootReducer, state)
+const store = getStore(data)
+const state = store.getState()
 
-const {
-  entities,
-  githubProjects
-} = state
-
-const projects = githubProjects.total
-  .slice(0, 50)
-  .map(id => entities.projects[id])
-  .map(populate(entities.tags))
-const count = projects.length
+const count = 20
+const projects = getProjectsSortedBy({criteria: 'total', limit: count})(state)
 
 // 1. Test the component before the link data arrive
 test('Check <ProjectList> component BEFORE data arrives', (assert) => {

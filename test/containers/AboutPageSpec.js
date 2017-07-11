@@ -1,30 +1,22 @@
-import setup from '../setup.js'
-setup()
-
 import test from 'tape'
 import React from 'react'
 import { MemoryRouter } from 'react-router-dom'
-import { createStore, applyMiddleware, compose } from 'redux'
 import { Provider } from 'react-redux'
-import thunk from 'redux-thunk'
-
-import rootReducer from '../../src/reducers'
-
-// Main components to test
-import AboutPage from '../../src/containers/AboutPage'
-
 import {
   mount
 } from 'enzyme'
 
+import getStore from '../getStore'
+
+// Main components to test
+import AboutPage from '../../src/containers/AboutPage'
 import data from '../data/projects.json'
-import { getInitialState } from '../../src/getInitialState'
+
+import setup from '../setup.js'
+setup()
 
 test('Check <AboutPage> container', (assert) => {
-  const state = getInitialState(data)
-  const finalCreateStore = compose(applyMiddleware(thunk))(createStore)
-  const store = finalCreateStore(rootReducer, state)
-
+  const store = getStore(data)
   const component = mount(
     <MemoryRouter>
       <Provider store={store}>
