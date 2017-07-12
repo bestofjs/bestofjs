@@ -128,20 +128,30 @@ export const searchForProjects = text => createSelector(
 
 export const getMyProjects = createSelector(
   [
-    getRawProjectsSortedBy({ criteria: 'total' }),
+    // getRawProjectsSortedBy({ criteria: 'total' }),
+    state => state.entities.projects,
     state => state.auth,
     state => state.entities.tags
   ],
-  (projects, auth, tags) => projects
-    .filter(project => auth.myProjects && auth.myProjects.includes(project.slug))
-    .map(getFullProject(tags, auth))
+  (projects, auth, tags) => {
+    if (!auth.myProjects) return []
+    const myProjectsSlugs = auth.myProjects
+      .sort((a, b) => (a.bookmarked_at > b.bookmarked_at ? -1 : 1))
+      .map(item => item.slug)
+    const result = myProjectsSlugs
+      .map(slug => projects[slug])
+      .map(getFullProject(tags, auth))
+    return result
+  }
 )
 
 export const getFullProject = (tags, auth) => project => {
   const { myProjects, pendingProject } = auth
   const fullProject = populate(tags)(project)
   const pending = project.slug === pendingProject
-  const belongsToMyProjects = myProjects && myProjects.includes(project.slug)
+  const belongsToMyProjects = myProjects && myProjects
+    .map(item => item.slug)
+    .includes(project.slug)
   if (!myProjects) return fullProject
   return {
     ...fullProject,

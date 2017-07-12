@@ -35,12 +35,12 @@ export default function auth (state = defaultState, action) {
 
 const addToMyProjects = (state, slug) => ({
   ...state,
-  myProjects: [ ...state.myProjects, slug ],
+  myProjects: [ ...state.myProjects, {slug, bookmarked_at: new Date()} ],
   pendingProject: ''
 })
 const removeFromMyProjects = (state, slug) => ({
   ...state,
-  myProjects: state.myProjects.filter(item => item !== slug),
+  myProjects: state.myProjects.filter(item => item.slug !== slug),
   pendingProject: ''
 })
 const updateMyProjectsRequest = (state, project) => ({

@@ -54,8 +54,8 @@ const toggleUpdateMyProjects = add => project => {
     const state = getState()
     const { user_id, token, myProjects } = state.auth
     const projects = add
-      ? myProjects.concat(project.slug)
-      : myProjects.filter(slug => slug !== project.slug)
+      ? myProjects.concat({ bookmarked_at: new Date(), slug: project.slug })
+      : myProjects.filter(item => item.slug !== project.slug)
     saveMyProjects({ user_id, token, projects })
       .then(() => {
         const actionCreator = add ? addToMyProjectsSuccess : removeFromMyProjectsSuccess

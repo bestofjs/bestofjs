@@ -18,7 +18,6 @@ const CardFooter = ({ belongsToMyProjects, onAdd, onRemove, pending }) => {
           className={`btn mini ${extraClassName}`}
           onClick={onAdd}
           disabled={pending}
-          data-balloon="The project will be visible on `MY PROJECTS` page"
         >
           <span className="icon octicon octicon-plus" />
           ADD BOOKMARK
