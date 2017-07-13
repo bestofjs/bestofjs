@@ -20,6 +20,18 @@ export const findProject = (id) => createSelector(
     const links = linkIds.map(linkId => allLinks[linkId])
     const reviewIds = reviewsByProject[project.slug] || []
     const reviews = reviewIds.map(reviewId => allReviews[reviewId])
-    return { ...populate(tags)(project), links, reviews }
+    const averageRating = calculateAverageRating(reviews)
+    return { ...populate(tags)(project), links, reviews, averageRating }
   }
 )
+
+function calculateAverageRating (reviews) {
+  if (!reviews) return 0
+  const sum = reviews
+    .map(review => review.rating)
+    .reduce(
+      (item0, item1) => item0 + item1,
+      0
+    )
+  return sum / reviews.length
+}
