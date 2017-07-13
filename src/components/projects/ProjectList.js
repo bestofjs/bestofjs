@@ -43,25 +43,25 @@ class ProjectList extends React.Component {
     const paginatedProjects = paginated ? projects.slice(0, 10) : projects
     return (
       <div className="project-grid">
-      {paginatedProjects.map((project, index) =>
-        <div key={project.slug}>
-          <ProjectCard
-            project={project}
-            index={index}
-            showTags={showTags}
-            showDescription={showDescription}
-            showStars={showStars}
-            showDelta={showDelta}
-            deltaFilter={deltaFilter}
-            showURL={showURL}
-            showMetrics={showMetrics}
-            viewOptions={viewOptions}
-            isLoggedin={isLoggedin}
-            onAddToMyProjects={onAddToMyProjects}
-            onRemoveFromMyProjects={onRemoveFromMyProjects}
-          />
-        </div>)
-      }
+        {paginatedProjects.map((project, index) =>
+          <div key={project.slug}>
+            <ProjectCard
+              project={project}
+              index={index}
+              showTags={showTags}
+              showDescription={showDescription}
+              showStars={showStars}
+              showDelta={showDelta}
+              deltaFilter={deltaFilter}
+              showURL={showURL}
+              showMetrics={showMetrics}
+              viewOptions={viewOptions}
+              isLoggedin={isLoggedin}
+              onAddToMyProjects={onAddToMyProjects}
+              onRemoveFromMyProjects={onRemoveFromMyProjects}
+            />
+          </div>)
+        }
       </div>
     )
   }

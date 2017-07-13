@@ -28,7 +28,7 @@ const Page = ({ heroes, auth, you, authActions, isHero, ui }) => (
 
 function mapStateToProps (state) {
   const {
-    // entities: { heroes },
+    entities: { heroes },
     auth,
     ui
   } = state
@@ -36,7 +36,7 @@ function mapStateToProps (state) {
   const allHeroes = getAllHeroes(state)
 
   // Is the current user a Hall of Famer ?
-  const isHero = state.hof.heroesById.filter(id => id === auth.username).length > 1
+  const isHero = !!heroes[auth.username]
 
   return {
     heroes: allHeroes,

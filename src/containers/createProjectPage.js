@@ -2,12 +2,13 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
-import populate from '../helpers/populate'
 import log from '../helpers/log'
 import track from '../helpers/track'
 
 import * as actionCreators from '../actions'
 import * as authActionCreators from '../actions/authActions'
+
+import { findProject } from '../selectors/project'
 
 function loadData (props) {
   const project = props.project
@@ -43,7 +44,7 @@ function createProjectPage (ProjectView) {
 
 function mapStateToProps (state, props) {
   const {
-    entities: { projects, tags, links, reviews },
+    entities: { links, reviews },
     auth
   } = state
 
@@ -51,8 +52,7 @@ function mapStateToProps (state, props) {
   const params = props.match.params
   const { id, linkId, reviewId } = params
 
-  let project = projects[id]
-  project = populate(tags, links, reviews)(project)
+  const project = findProject(id)(state)
 
   const review = reviews && reviewId ? reviews[reviewId] : null
   const link = links && linkId ? links[linkId] : null

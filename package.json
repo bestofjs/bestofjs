@@ -58,6 +58,7 @@
     "imports-loader": "0.7.1",
     "isomorphic-fetch": "^2.2.1",
     "lodash.debounce": "^4.0.8",
+    "lodash.flatten": "^4.4.0",
     "lodash.get": "^4.4.2",
     "lodash.intersection": "^4.4.0",
     "lodash.mapvalues": "^4.6.0",

@@ -25,7 +25,7 @@ function start () {
       store.dispatch(fetchProjectsSuccess(data))
       dispatchActions({ store })
     })
-    .catch(e => console.error('Unable to render', e))
+    .catch(e => console.error('Unable to render', e)) // eslint-disable-line no-console
 }
 
 start()

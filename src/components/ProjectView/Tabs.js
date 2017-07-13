@@ -9,7 +9,7 @@ const Tab = ({ tab, project }) => {
       <span className={`octicon octicon-${tab.icon}`} />
       {' '}
       {tab.text}
-      {count && <span> ({count})</span>}
+      {count > 0 && <span> ({count})</span>}
     </span>
   )
 }

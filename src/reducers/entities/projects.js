@@ -1,4 +1,3 @@
-import mapValues from 'lodash.mapvalues'
 import log from '../../helpers/log'
 import processProject from './processProject'
 
@@ -13,24 +12,12 @@ export default function (state = {}, action) {
       return Object.assign({}, state, {
         [action.id]: project
       })
-    case 'FETCH_REVIEWS_SUCCESS':
-      return addReviewIdsToProjects(state, action.payload.results)
-    case 'FETCH_LINKS_SUCCESS':
-      return addLinkIdsToProjects(state, action.payload.results)
     case 'CREATE_REVIEW_SUCCESS':
     case 'UPDATE_REVIEW_SUCCESS':
       return addReviewIdsToProjects(state, [action.payload])
     case 'CREATE_LINK_SUCCESS':
     case 'UPDATE_LINK_SUCCESS':
       return addLinkIdsToProjects(state, [action.payload])
-    // case 'LOGIN_SUCCESS':
-    //   return setMyProjects(state, action.payload.myProjects)
-    // case 'UPDATE_MY_PROJECTS_REQUEST':
-    //   return updateMyProjectsRequest(state, action.payload)
-    // case 'ADD_TO_MY_PROJECTS_SUCCESS':
-    //   return addToMyProjects(state, action.payload)
-    // case 'REMOVE_FROM_MY_PROJECTS_SUCCESS':
-    //   return removeFromMyProjects(state, action.payload)
     default:
       return state
   }
@@ -90,24 +77,3 @@ function addReviewIdsToProjects (projects0, reviews) {
 function addUniqueLink (ids, id) {
   return ids.indexOf(id) > -1 ? ids : [id, ...ids]
 }
-
-// function setMyProjects (entities, myProjects) {
-//   return mapValues(entities, project => myProjects.includes(project.slug)
-//     ? { ...project, belongsToMyProjects: true }
-//     : project
-//   )
-// }
-
-// const toggleMyProjects = belongsToMyProjects => (entities, slug) => {
-//   return mapValues(entities, project => project.slug === slug
-//     ? { ...project, pending: false }
-//     : project
-//   )
-// }
-//
-// const addToMyProjects = toggleMyProjects(true)
-// const removeFromMyProjects = toggleMyProjects(false)
-//
-// function updateMyProjectsRequest (entities, project) {
-//   return { ...entities, [project.slug]: {...entities[project.slug], pending: true} }
-// }
