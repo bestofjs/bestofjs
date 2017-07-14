@@ -140,6 +140,7 @@ export const getMyProjects = createSelector(
       .map(item => item.slug)
     const result = myProjectsSlugs
       .map(slug => projects[slug])
+      .filter(project => !!project)
       .map(getFullProject(tags, auth))
     return result
   }
