@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 import SearchForm from '../../containers/SearchFormContainer'
 import ToggleMenuButton from './ToggleMenuButton'
 
-export default ({ searchText, actions, uiActions, ui, location }) =>
+const Header = ({ searchText, actions, location }) =>
   <div id="header">
     <ToggleMenuButton actions={actions} />
     <div className="container">
@@ -20,3 +20,5 @@ export default ({ searchText, actions, uiActions, ui, location }) =>
       </div>
     </div>
   </div>
+
+export default Header

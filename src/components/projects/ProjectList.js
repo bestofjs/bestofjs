@@ -1,5 +1,7 @@
 import React from 'react'
+
 import ProjectCard from './ProjectCard'
+import log from '../../helpers/log'
 
 const belongsToMyProjects = project => !!project.belongsToMyProjects
 const getMyProjects = projects => projects.filter(belongsToMyProjects)
@@ -38,6 +40,7 @@ class ProjectList extends React.Component {
       onAddToMyProjects,
       onRemoveFromMyProjects
     } = this.props
+    log('Render <ProjectList>', projects.length)
     const paginatedProjects = paginated ? projects.slice(0, 10) : projects
     return (
       <div className="project-grid">

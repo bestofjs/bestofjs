@@ -18,6 +18,7 @@ const Footer = ({ staticContent, lastUpdate }) => {
       <a
         href="https://js.org"
         target="_blank"
+        rel="noopener noreferrer"
         title="JS.ORG | JavaScript Community"
       >
         <img src="/images/dark_horz.png" width="102" alt="JS.ORG Logo" />

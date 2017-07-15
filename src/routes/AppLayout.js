@@ -1,55 +1,20 @@
 import React from 'react'
 
 import Routes from './Routes'
-import Sidebar from '../components/sidebar/Sidebar'
-import Header from '../components/layout/Header'
-import Footer from '../components/layout/Footer'
+import Sidebar from '../components/sidebar/ConnectedSidebar'
+import Header from '../components/header/ConnectedHeader'
+import Footer from '../components/footer/ConnectedFooter'
 
-const AppLayout = props => {
-  const {
-    allTags,
-    popularTags,
-    lastUpdate,
-    staticContent,
-    textFilter,
-    currentTagId,
-    auth,
-    authActions,
-    uiActions,
-    hofCount,
-    linkCount,
-    requestCount,
-    ui,
-    location
-  } = props
+const AppLayout = () => {
   return (
     <div id="layout">
-      <Sidebar
-        allTags={allTags}
-        popularTags={popularTags}
-        selectedTag={currentTagId}
-        auth={auth}
-        authActions={authActions}
-        hofCount={hofCount}
-        linkCount={linkCount}
-        requestCount={requestCount}
-        uiActions={uiActions}
-        ui={ui}
-      />
-
+      <Sidebar />
       <div id="panel" className="slideout-panel">
-        <Header
-          searchText={textFilter}
-          uiActions={uiActions}
-          ui={ui}
-          location={location}
-        />
-
+        <Header />
         <main id="main">
           <Routes />
         </main>
-
-        <Footer staticContent={staticContent} lastUpdate={lastUpdate} />
+        <Footer />
       </div>
     </div>
   )
