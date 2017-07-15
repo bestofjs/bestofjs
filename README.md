@@ -1,7 +1,6 @@
 [![screenshot](https://user-images.githubusercontent.com/5546996/27979469-459bc2cc-63b1-11e7-9a49-764841fc7fde.png)](https://bestof.js.org/)
 
-[![Build Status](https://travis-ci.org/michaelrambeau/bestofjs-webui.svg?branch=master)](https://travis-ci.org/michaelrambeau/bestofjs-webui)
-
+[![Join Slack](https://slackin-bestofjs.now.sh/badge.svg)](https://bestofjs.slack.com/messages)
 [![Join the chat at https://gitter.im/michaelrambeau/bestofjs-webui](https://badges.gitter.im/michaelrambeau/bestofjs-webui.svg)](https://gitter.im/michaelrambeau/bestofjs-webui?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 ## Concept
@@ -131,11 +130,6 @@ npm start
 
 The application should be running at [localhost:8080/index.html](http://localhost:8080/index.html)
 
-
-Thank to [React hot loader](http://gaearon.github.io/react-hot-loader/), every time a React component is updated, the UI is automatically updated, without losing the application state.
-
-Note: built files are not written on the disk, they are served by the Webpack server that keeps them in memory. Therefore before uploading files to the production web server, the production files have to be built using a specific command.
-
 ### Production deploy
 
 Build the files for production (`index.html` rendered server-side, `build/app.css` and `build/bundle-app.js`):
@@ -202,6 +196,8 @@ Run test from only one single file:
 ```
 babel-node test/components/ProjectPageSpec.js
 ```
+
+Unit tests run on TravisCI after every push to the repo. Current status: [![Build Status](https://travis-ci.org/michaelrambeau/bestofjs-webui.svg?branch=master)](https://travis-ci.org/michaelrambeau/bestofjs-webui)
 
 ## Show your support!
 
