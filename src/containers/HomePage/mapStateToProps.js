@@ -1,10 +1,7 @@
 import { getPopularTags, getHotProjects } from '../../selectors'
 
-function mapStateToProps (state, count) {
-  const {
-    auth,
-    ui
-  } = state
+function mapStateToProps(state, count) {
+  const { auth, ui } = state
 
   const hot = getHotProjects(state)
   const popularTags = getPopularTags(state)

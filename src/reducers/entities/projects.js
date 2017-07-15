@@ -1,6 +1,6 @@
 import processProject from './processProject'
 
-export default function (state = {}, action) {
+export default function(state = {}, action) {
   switch (action.type) {
     case 'FETCH_PROJECTS_SUCCESS':
       return setProjects(state, action.payload)
@@ -12,11 +12,11 @@ export default function (state = {}, action) {
   }
 }
 
-function setProjects (entities, payload) {
+function setProjects(entities, payload) {
   const projectsBySlug = payload.projects
     .map(processProject)
     .reduce((acc, project) => {
-      return {...acc, [project.slug]: project}
+      return { ...acc, [project.slug]: project }
     }, {})
   return projectsBySlug
 }

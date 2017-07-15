@@ -6,7 +6,7 @@
     "node": ">=6.2.1"
   },
   "scripts": {
-    "lint": "eslint src --ext .js --ext .jsx",
+    "lint": "eslint src --ext .js --ext .jsx --fix",
     "test": "cross-env NODE_ENV=test babel-tape-runner test/**/*Spec.js | faucet",
     "test-debug": "babel-tape-runner test/**/ProjectPageSpec.js",
     "clean": "rimraf www/index.html && rimraf www/build",
@@ -27,11 +27,7 @@
     "type": "git",
     "url": "https://github.com/michaelrambeau/bestofjs-webui.git"
   },
-  "keywords": [
-    "react",
-    "redux",
-    "webpack"
-  ],
+  "keywords": ["react", "redux", "webpack"],
   "author": "Michael Rambeau",
   "license": "MIT",
   "bugs": {
@@ -99,17 +95,17 @@
     "babel-register": "6.5.2",
     "babel-tape-runner": "2.0.1",
     "enzyme": "^2.8.0",
-    "eslint": "^3.0.0",
-    "eslint-config-standard": "^6.2.0",
-    "eslint-config-standard-react": "^4.2.0",
+    "eslint": "3.14.1",
+    "eslint-config-prettier": "^2.3.0",
     "eslint-plugin-babel": "^3.3.0",
     "eslint-plugin-import": "^2.0.0",
+    "eslint-plugin-prettier": "^2.1.2",
     "eslint-plugin-promise": "^2.0.1",
-    "eslint-plugin-react": "6.3.0",
-    "eslint-plugin-standard": "^2.0.1",
+    "eslint-plugin-react": "^7.1.0",
     "faucet": "0.0.1",
     "gh-pages": "0.10.0",
     "jsdom": "^7.0.2",
+    "prettier": "^1.5.2",
     "react-addons-perf": "15.0.1",
     "react-dom": "15.5.4",
     "react-test-renderer": "15.5.4",

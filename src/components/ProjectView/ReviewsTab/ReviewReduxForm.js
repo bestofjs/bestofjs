@@ -25,20 +25,12 @@ const ReviewForm = ({
       onSubmit={handleSubmit(onSave(project, auth))}
       className={`ui form${valid ? '' : ' error'}`}
     >
+      <Field label="Your rating:" name="rating" component={ratingBoxField} />
+      <Field name="comment" component={mdField} />
 
-      <Field
-        label="Your rating:"
-        name="rating"
-        component={ratingBoxField}
-      />
-      <Field
-        name="comment"
-        component={mdField}
-      />
-
-      {!valid && submitFailed &&
-        <ErrorMessage>Fix invalid fields!</ErrorMessage>
-      }
+      {!valid &&
+        submitFailed &&
+        <ErrorMessage>Fix invalid fields!</ErrorMessage>}
 
       <div className="form-action-bar">
         {auth.username &&
@@ -47,11 +39,8 @@ const ReviewForm = ({
             disabled={submitting}
             type="submit"
           >
-            <span className="octicon octicon-cloud-upload" />
-            {' '}
-            SAVE
-          </button>
-        }
+            <span className="octicon octicon-cloud-upload" /> SAVE
+          </button>}
       </div>
     </form>
   )

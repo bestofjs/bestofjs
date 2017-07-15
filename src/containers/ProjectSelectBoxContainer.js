@@ -2,19 +2,13 @@ import React from 'react'
 import { connect } from 'react-redux'
 import ProjectSelectBox from '../components/common/form/ProjectSelectBox'
 
-const ProjectSelectBoxContainer = (props) => {
+const ProjectSelectBoxContainer = props => {
   const { options } = props
-  return (
-    <ProjectSelectBox options={options} {...props} />
-  )
+  return <ProjectSelectBox options={options} {...props} />
 }
 
-function mapStateToProps (state) {
-  const {
-    entities: {
-      projects
-    }
-  } = state
+function mapStateToProps(state) {
+  const { entities: { projects } } = state
 
   const options = Object.keys(projects)
     .map(key => projects[key])

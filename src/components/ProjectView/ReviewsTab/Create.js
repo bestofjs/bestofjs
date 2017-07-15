@@ -8,7 +8,7 @@ import Tabs from '../Tabs'
 import { createReview } from '../../../actions/reviewActions'
 
 const submitCreate = history => (project, auth) => {
-  return function (values, dispatch) {
+  return function(values, dispatch) {
     return dispatch(createReview(project, values, auth, history))
   }
 }
@@ -21,12 +21,10 @@ const Create = ({ project, auth, history }) => {
       <Tabs project={project} activePath="reviews" />
       <div className="project-tabs-content" style={{ marginBottom: '2em' }}>
         <div className="inner">
-          <h3>Add your review of "{project.name}" project</h3>
-          <ReviewReduxForm
-            project={project}
-            auth={auth}
-            onSave={onSave}
-          />
+          <h3>
+            Add your review of &quot{project.name}&quot project
+          </h3>
+          <ReviewReduxForm project={project} auth={auth} onSave={onSave} />
         </div>
       </div>
     </div>

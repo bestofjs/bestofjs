@@ -1,6 +1,6 @@
 import Slideout from 'slideout'
 // A helper to get an array from a "node list" object
-function $$ (selector, ctx) {
+function $$(selector, ctx) {
   const context = ctx || document
   const elements = context.querySelectorAll(selector)
   return Array.prototype.slice.call(elements)
@@ -8,27 +8,27 @@ function $$ (selector, ctx) {
 
 let slideout = null
 
-export default ({
+export default {
   open: false,
-  start () {
+  start() {
     const self = this
     slideout = new Slideout({
-      'panel': document.getElementById('panel'),
-      'menu': document.getElementById('menu'),
-      'padding': 280,
-      'tolerance': 70
+      panel: document.getElementById('panel'),
+      menu: document.getElementById('menu'),
+      padding: 280,
+      tolerance: 70
     })
-    $$('.menu-link').forEach(function (node) {
-      node.addEventListener('click', function () {
+    $$('.menu-link').forEach(function(node) {
+      node.addEventListener('click', function() {
         slideout.toggle()
         self.open = true
       })
     })
   },
-  toggle () {
+  toggle() {
     slideout.toggle()
   },
-  hide () {
+  hide() {
     if (slideout) slideout.close()
   }
-})
+}

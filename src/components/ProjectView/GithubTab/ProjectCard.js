@@ -11,28 +11,28 @@ const ProjectCard = ({ project }) => {
         <p>
           <Description text={project.description} />
         </p>
-        {project.url && (
+        {project.url &&
           <p>
             <span className="octicon octicon-globe" />
             Website: <a href={project.url}>{project.url}</a>
-          </p>
-        )}
+          </p>}
       </div>
-      <div className="inner github" style={{ borderTop: '1px solid #ddd', paddingBottom: 0 }}>
+      <div
+        className="inner github"
+        style={{ borderTop: '1px solid #ddd', paddingBottom: 0 }}
+      >
         <p>
-          <span className="octicon octicon-mark-github" />
-          {' '}
-          GitHub: <a href={project.repository}>{project.repository}</a>
-          {' '}
-          {project.stars} <span className="octicon octicon-star" />
+          <span className="octicon octicon-mark-github" /> GitHub:{' '}
+          <a href={project.repository}>{project.repository}</a> {project.stars}{' '}
+          <span className="octicon octicon-star" />
         </p>
         <div className="last-commit">
-          <span className="octicon octicon-git-commit" />
-          {' '}
-          Last update: {fromNow(project.pushed_at)}
+          <span className="octicon octicon-git-commit" /> Last update:{' '}
+          {fromNow(project.pushed_at)}
         </div>
         <div>
-          {project.deltas.length > 0 && <DeltaBar data={project.deltas.slice(0, 7)} />}
+          {project.deltas.length > 0 &&
+            <DeltaBar data={project.deltas.slice(0, 7)} />}
         </div>
       </div>
     </div>

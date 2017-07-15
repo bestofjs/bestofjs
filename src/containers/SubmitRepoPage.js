@@ -8,19 +8,11 @@ const SubmitRepoPage = ({ projects, auth, history }) => {
   const onSave = (values, dispatch) => {
     return dispatch(addProject(values, auth, history))
   }
-  return (
-    <Form
-      onSave={onSave}
-      projects={projects}
-    />
-  )
+  return <Form onSave={onSave} projects={projects} />
 }
 
-function mapStateToProps (state) {
-  const {
-    entities: { projects },
-    auth
-  } = state
+function mapStateToProps(state) {
+  const { entities: { projects }, auth } = state
   return {
     projects,
     auth

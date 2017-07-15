@@ -17,10 +17,11 @@ const RatingBox = ({ field }) => {
         <div key={i} className="radio-button">
           <label>
             <input
-              type="radio" name="score"
+              type="radio"
+              name="score"
               value={i + 1}
               onChange={handleClick(i)}
-              checked={field.value === (i + 1)}
+              checked={field.value === i + 1}
             />
             {i + 1} - {item}
           </label>
@@ -30,9 +31,11 @@ const RatingBox = ({ field }) => {
         {options.map((text, i) =>
           <span
             key={i}
-            className={`octicon octicon-heart icon ${i + 1 <= field.value ? 'on' : 'off'}`}
+            className={`octicon octicon-heart icon ${i + 1 <= field.value
+              ? 'on'
+              : 'off'}`}
             onClick={handleClick(i + 1)}
-           />
+          />
         )}
       </div>
     </div>

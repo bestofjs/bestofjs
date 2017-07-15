@@ -8,21 +8,21 @@ export const GET_README_FAILURE = 'GET_README_FAILURE'
 
 export const TOGGLE_MENU = 'TOGGLE_MENU'
 
-function requestReadme (id) {
+function requestReadme(id) {
   return {
     type: GET_README_REQUEST,
     id
   }
 }
 
-function getReadmeSuccess (id, html) {
+function getReadmeSuccess(id, html) {
   return {
     type: GET_README_SUCCESS,
     id,
     html
   }
 }
-function getReadmeFailure (id) {
+function getReadmeFailure(id) {
   return {
     type: GET_README_FAILURE,
     id,
@@ -30,13 +30,13 @@ function getReadmeFailure (id) {
   }
 }
 
-export function toggleMenu () {
+export function toggleMenu() {
   return {
     type: TOGGLE_MENU
   }
 }
 
-export function fetchReadme (project) {
+export function fetchReadme(project) {
   const id = project.slug
   return dispatch => {
     log('Fetching README.md...', project)
@@ -45,11 +45,11 @@ export function fetchReadme (project) {
     const branch = project.branch || 'master'
     return fetchHTML(`${webtaskUrl}/${project.full_name}?branch=${branch}`)
       .then(html => dispatch(getReadmeSuccess(id, html)))
-      .catch((response) => dispatch(getReadmeFailure(id, response)))
+      .catch(response => dispatch(getReadmeFailure(id, response)))
   }
 }
 
-function shouldFetchReadme (state, project) {
+function shouldFetchReadme(state, project) {
   const readme = state.entities.projects[project.slug].readme
   if (!readme) {
     return true
@@ -61,7 +61,7 @@ function shouldFetchReadme (state, project) {
   return false
 }
 
-export function fetchReadmeIfNeeded (project) {
+export function fetchReadmeIfNeeded(project) {
   return (dispatch, getState) => {
     if (shouldFetchReadme(getState(), project)) {
       return dispatch(fetchReadme(project))
@@ -69,7 +69,7 @@ export function fetchReadmeIfNeeded (project) {
   }
 }
 
-export function getLinksSuccess (json) {
+export function getLinksSuccess(json) {
   return {
     type: 'GET_LINKS_SUCCESS',
     data: json

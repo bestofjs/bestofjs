@@ -12,13 +12,12 @@ const defaultState = {
 }
 
 const toggleStarFilter = (state, filter) => {
-  const viewOptions = filter === 'packagequality' || filter === 'npms' ? (
-    Object.assign({}, state.viewOptions, {
-      [filter]: true
-    })
-  ) : (
-    state.viewOptions
-  )
+  const viewOptions =
+    filter === 'packagequality' || filter === 'npms'
+      ? Object.assign({}, state.viewOptions, {
+          [filter]: true
+        })
+      : state.viewOptions
   return Object.assign({}, state, {
     starFilter: filter,
     viewOptions

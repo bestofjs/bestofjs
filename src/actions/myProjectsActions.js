@@ -13,7 +13,7 @@ import { fetchJSON } from '../helpers/fetch'
 //   }
 // }
 
-function saveMyProjects ({ user_id, token, projects }) {
+function saveMyProjects({ user_id, token, projects }) {
   const url = `https://bestofjs.auth0.com/api/v2/users/${user_id}`
   const body = {
     user_metadata: {
@@ -31,14 +31,14 @@ function saveMyProjects ({ user_id, token, projects }) {
   return fetchJSON(url, options)
 }
 
-export function addToMyProjectsSuccess (project) {
+export function addToMyProjectsSuccess(project) {
   return {
     type: 'ADD_TO_MY_PROJECTS_SUCCESS',
     payload: project.slug
   }
 }
 
-export function removeFromMyProjectsSuccess (project) {
+export function removeFromMyProjectsSuccess(project) {
   return {
     type: 'REMOVE_FROM_MY_PROJECTS_SUCCESS',
     payload: project.slug
@@ -56,11 +56,12 @@ const toggleUpdateMyProjects = add => project => {
     const projects = add
       ? myProjects.concat({ bookmarked_at: new Date(), slug: project.slug })
       : myProjects.filter(item => item.slug !== project.slug)
-    saveMyProjects({ user_id, token, projects })
-      .then(() => {
-        const actionCreator = add ? addToMyProjectsSuccess : removeFromMyProjectsSuccess
-        dispatch(actionCreator(project))
-      })
+    saveMyProjects({ user_id, token, projects }).then(() => {
+      const actionCreator = add
+        ? addToMyProjectsSuccess
+        : removeFromMyProjectsSuccess
+      dispatch(actionCreator(project))
+    })
   }
 }
 

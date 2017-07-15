@@ -8,17 +8,25 @@ import log from '../helpers/log'
 import * as uiActionCreators from '../actions/uiActions'
 
 class TagFilterPage extends Component {
-  shouldComponentUpdate (nextProps) {
+  shouldComponentUpdate(nextProps) {
     // `shouldComponentUpdate` has been implemented to avoid
     // rendering the page twice when browsing tags.
     if (!nextProps.tag) return false
-    const sameUi = Object.keys(nextProps.ui)
-      .every(key => this.props.ui[key] === nextProps.ui[key])
+    const sameUi = Object.keys(nextProps.ui).every(
+      key => this.props.ui[key] === nextProps.ui[key]
+    )
     return nextProps.tag.id !== this.props.tag.id || !sameUi
   }
-  render () {
+  render() {
     log('Render the <TagFilterPage> container')
-    const { tagProjects, tag, isLoggedin, uiActions, ui, graphProjects } = this.props
+    const {
+      tagProjects,
+      tag,
+      isLoggedin,
+      uiActions,
+      ui,
+      graphProjects
+    } = this.props
     return (
       <TagFilter
         projects={tagProjects}
@@ -33,18 +41,16 @@ class TagFilterPage extends Component {
   }
 }
 
-function mapStateToProps (sortFilter) {
-  return function (state, props) {
-    const {
-      entities: { tags },
-      auth: {
-        username
-      },
-      ui
-    } = state
+function mapStateToProps(sortFilter) {
+  return function(state, props) {
+    const { entities: { tags }, auth: { username }, ui } = state
 
     const tagId = props.match.params.id
-    const tagProjects = getProjectsByTag({ criteria: sortFilter, tagId, limit: 100 })(state)
+    const tagProjects = getProjectsByTag({
+      criteria: sortFilter,
+      tagId,
+      limit: 100
+    })(state)
     return {
       tagProjects,
       // graphProjects,
@@ -57,13 +63,11 @@ function mapStateToProps (sortFilter) {
   }
 }
 
-function mapDispatchToProps (dispatch) {
+function mapDispatchToProps(dispatch) {
   return {
     uiActions: bindActionCreators(uiActionCreators, dispatch)
   }
 }
 
-export default sortFilter => connect(
-  mapStateToProps(sortFilter),
-  mapDispatchToProps
-)(TagFilterPage)
+export default sortFilter =>
+  connect(mapStateToProps(sortFilter), mapDispatchToProps)(TagFilterPage)

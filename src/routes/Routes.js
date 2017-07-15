@@ -16,24 +16,26 @@ import NoMatch from './NoMatch'
 
 const HomePage = getHomePage(10)
 
-const Routes = () => (
+const Routes = () =>
   <Switch>
     <Route exact path="/" component={HomePage} />
-    {items.map(item => (
-      <Route exact
+    {items.map(item =>
+      <Route
+        exact
         key={item.key}
         path={`/projects/${item.path}`}
         component={ProjectsPage(item.key)}
       />
-    ))}
+    )}
     <Route exact path="/search/:text" component={TextFilter} />
-    {items.map(item => (
-      <Route exact
+    {items.map(item =>
+      <Route
+        exact
         key={item.key}
         path={`/tags/:id/${item.path}`}
         component={TagFilter(item.key)}
       />
-    ))}
+    )}
     <Route exact path="/hof" component={HoFPage} />
     <Route exact path="/about" component={AboutPage} />
     <Route path="/projects">
@@ -47,6 +49,5 @@ const Routes = () => (
     </Route>
     <Route component={NoMatch} />
   </Switch>
-)
 
 export default Routes

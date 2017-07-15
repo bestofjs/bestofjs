@@ -7,7 +7,7 @@ import log from '../helpers/log'
 import getStaticContent from '../staticContent'
 
 class AboutPage extends Component {
-  render () {
+  render() {
     log('Render the <AboutPage> container', this.props)
     const { staticContent, project, count, ui } = this.props
     return (
@@ -21,11 +21,8 @@ class AboutPage extends Component {
   }
 }
 
-function mapStateToProps (state) {
-  const {
-    entities: { projects, tags, links },
-    ui
-  } = state
+function mapStateToProps(state) {
+  const { entities: { projects, tags, links }, ui } = state
 
   return {
     staticContent: getStaticContent(),

@@ -14,31 +14,27 @@ import log from '../helpers/log'
 import { getPopularTags, getAllTags } from '../selectors'
 
 class App extends Component {
-  componentDidMount () {
+  componentDidMount() {
     const history = this.props.history
     this.props.authActions.start(history)
     log('App did mount!')
   }
-  componentDidUpdate (prevProps) {
+  componentDidUpdate(prevProps) {
     const { location, onRouterUpdate } = this.props
     if (location !== prevProps.location) {
       onRouterUpdate && onRouterUpdate(location)
     }
   }
-  render () {
+  render() {
     log('Render the <App> container', this.props)
-    return (
-      <AppLayout {...this.props} />
-    )
+    return <AppLayout {...this.props} />
   }
 }
 
-function mapStateToProps (state) {
+function mapStateToProps(state) {
   const {
     entities: { heroes, links, meta: { lastUpdate } },
-    requests: {
-      issues
-    },
+    requests: { issues },
     auth,
     ui
   } = state
@@ -57,7 +53,7 @@ function mapStateToProps (state) {
   }
 }
 
-function mapDispatchToProps (dispatch) {
+function mapDispatchToProps(dispatch) {
   return {
     actions: bindActionCreators(actions, dispatch),
     authActions: bindActionCreators(authActionCreators, dispatch),
@@ -65,6 +61,4 @@ function mapDispatchToProps (dispatch) {
   }
 }
 
-export default withRouter(
-  connect(mapStateToProps, mapDispatchToProps)(App)
-)
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App))

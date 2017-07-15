@@ -4,18 +4,18 @@ import { createUserContentApi } from '../api/userContent'
 import * as crud from './crudActions'
 
 const settings = {
-  'link': {
+  link: {
     api: createUserContentApi('links'),
     label: 'link'
   },
-  'review': {
+  review: {
     api: createUserContentApi('reviews'),
     label: 'review'
   }
 }
 
 // Go to project item list after successful update or creation
-function goToList (project, key, history) {
+function goToList(project, key, history) {
   const path = `/projects/${project.slug}/${key}s/`
   return history.push(path)
 }
@@ -23,16 +23,18 @@ function goToList (project, key, history) {
 // ==========
 // FETCH ALL
 // ==========
-export function fetchAll (key) {
-  return function () {
+export function fetchAll(key) {
+  return function() {
     return dispatch => {
-      settings[key].api.getAll()
-      .then(json => dispatch(crud.fetchAllItemsSuccess(key, json)))
-      .catch(err => {
-        console.error( // eslint-disable-line no-console
-          `Error when calling user content API. ${err.message}`
-        )
-      })
+      settings[key].api
+        .getAll()
+        .then(json => dispatch(crud.fetchAllItemsSuccess(key, json)))
+        .catch(err => {
+          console.error(
+            // eslint-disable-line no-console
+            `Error when calling user content API. ${err.message}`
+          )
+        })
     }
   }
 }
@@ -41,15 +43,16 @@ export function fetchAll (key) {
 // CREATE
 // ==========
 
-export function create (key) {
-  return function (project, formData, auth, history) {
+export function create(key) {
+  return function(project, formData, auth, history) {
     const payload = Object.assign({}, formData, {
       createdBy: auth.username || 'Anonymous'
     })
     if (key === 'review') payload.project = project.slug
     return dispatch => {
       const action = dispatch(crud.createItemRequest(key, payload))
-      return settings[key].api.create(action.payload, auth.token)
+      return settings[key].api
+        .create(action.payload, auth.token)
         .then(json => {
           const data = Object.assign({}, json)
           dispatch(crud.createItemSuccess(key, data))
@@ -58,7 +61,8 @@ export function create (key) {
         })
         .catch(err => {
           msgbox(
-            `Sorry, we were unable to create the ${settings[key].label}. ${err.message}`,
+            `Sorry, we were unable to create the ${settings[key]
+              .label}. ${err.message}`,
             { type: 'ERROR' }
           )
         })
@@ -69,8 +73,8 @@ export function create (key) {
 // ==========
 // UPDATE
 // ==========
-export function update (key) {
-  return function (project, formData, auth, history) {
+export function update(key) {
+  return function(project, formData, auth, history) {
     const payload = Object.assign({}, formData, {
       updatedBy: auth.username || 'Anonymous'
     })
@@ -79,19 +83,21 @@ export function update (key) {
       // that will return an action updated by the middleware
       // (to convert project `slugs` to db `_id` )
       const action = dispatch(crud.updateItemRequest(key, payload))
-      return settings[key].api.update(action.payload, auth.token)
-      .then(json => {
-        const data = Object.assign({}, json)
-        dispatch(crud.updateItemSuccess(key, data))
-        goToList(project, key, history)
-        msgbox(`Your ${settings[key].label} has been updated.`)
-      })
-      .catch(err => {
-        msgbox(
-          `Sorry, we were unable to save the ${settings[key].label}. ${err.message}`,
-          { type: 'ERROR' }
-        )
-      })
+      return settings[key].api
+        .update(action.payload, auth.token)
+        .then(json => {
+          const data = Object.assign({}, json)
+          dispatch(crud.updateItemSuccess(key, data))
+          goToList(project, key, history)
+          msgbox(`Your ${settings[key].label} has been updated.`)
+        })
+        .catch(err => {
+          msgbox(
+            `Sorry, we were unable to save the ${settings[key]
+              .label}. ${err.message}`,
+            { type: 'ERROR' }
+          )
+        })
     }
   }
 }

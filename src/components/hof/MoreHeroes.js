@@ -5,13 +5,9 @@ const MoreHeroes = ({ handleClick, isLoggedin, pending }) => {
   return (
     <div className="no-card-container" style={{ marginTop: '2rem' }}>
       <h3 className="with-comment">Do you want more members ?</h3>
-      <CreateIssueLink
-        className="btn block button-outline"
-      >
-        {' '}
-        Create an issue to recommend a new member
+      <CreateIssueLink className="btn block button-outline">
+        {' '}Create an issue to recommend a new member
       </CreateIssueLink>
-
     </div>
   )
 }

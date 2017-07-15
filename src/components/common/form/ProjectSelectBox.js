@@ -3,7 +3,7 @@ import Select from 'react-select'
 import PropTypes from 'prop-types'
 
 const ProjectSelectBox = ({ options, field }) => {
-  const handleChange = (items) => {
+  const handleChange = items => {
     const values = items.map(item => item.value)
     field.onChange(values)
   }

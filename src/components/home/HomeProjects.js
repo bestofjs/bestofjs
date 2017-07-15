@@ -2,7 +2,6 @@ import React from 'react'
 
 import ProjectList from '../projects/ConnectedProjectList'
 
-
 const viewOptions = {
   description: true,
   npms: false,
@@ -18,7 +17,7 @@ const HomeProjects = ({
   uiActions,
   hotFilter,
   showMetrics
-}) => (
+}) =>
   <ProjectList
     projects={hotProjects}
     showDelta
@@ -28,6 +27,5 @@ const HomeProjects = ({
     showMetrics={false}
     viewOptions={viewOptions}
   />
-)
 
 export default HomeProjects

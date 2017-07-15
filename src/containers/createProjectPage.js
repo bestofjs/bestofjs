@@ -10,23 +10,23 @@ import * as authActionCreators from '../actions/authActions'
 
 import { findProject } from '../selectors/project'
 
-function loadData (props) {
+function loadData(props) {
   const project = props.project
   props.actions.fetchReadmeIfNeeded(project)
   track('View project', project.name)
 }
 
-function createProjectPage (ProjectView) {
+function createProjectPage(ProjectView) {
   return class ProjectPage extends Component {
-    componentWillMount () {
+    componentWillMount() {
       loadData(this.props)
     }
-    componentWillReceiveProps (nextProps) {
+    componentWillReceiveProps(nextProps) {
       if (nextProps.id !== this.props.id) {
         loadData(nextProps)
       }
     }
-    render () {
+    render() {
       log('Render the <ProjectPage> container', this.props)
       const { project, review, link, auth, authActions } = this.props
       return (
@@ -42,11 +42,8 @@ function createProjectPage (ProjectView) {
   }
 }
 
-function mapStateToProps (state, props) {
-  const {
-    entities: { links, reviews },
-    auth
-  } = state
+function mapStateToProps(state, props) {
+  const { entities: { links, reviews }, auth } = state
 
   // `Route` components get a `match` prop. from react-router
   const params = props.match.params
@@ -65,11 +62,12 @@ function mapStateToProps (state, props) {
   }
 }
 
-function mapDispatchToProps (dispatch) {
+function mapDispatchToProps(dispatch) {
   return {
     actions: bindActionCreators(actionCreators, dispatch),
     authActions: bindActionCreators(authActionCreators, dispatch)
   }
 }
 
-export default ProjectView => connect(mapStateToProps, mapDispatchToProps)(createProjectPage(ProjectView))
+export default ProjectView =>
+  connect(mapStateToProps, mapDispatchToProps)(createProjectPage(ProjectView))

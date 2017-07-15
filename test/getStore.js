@@ -4,7 +4,7 @@ import thunk from 'redux-thunk'
 import { fetchProjectsSuccess } from '../src/actions/entitiesActions'
 import rootReducer from '../src/reducers'
 
-export default function getState (data, { withThunk = false } = {}) {
+export default function getState(data, { withThunk = false } = {}) {
   const createAppStore = withThunk
     ? compose(applyMiddleware(thunk))(createStore)
     : createStore

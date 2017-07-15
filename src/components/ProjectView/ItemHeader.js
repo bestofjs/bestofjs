@@ -6,13 +6,8 @@ import fromNow from '../../helpers/fromNow'
 
 const EditButton = ({ url }) => {
   return (
-    <Link
-      to={url}
-      style={{ marginLeft: 5 }}
-    >
-      <span className="octicon octicon-pencil" />
-      {' '}
-      EDIT
+    <Link to={url} style={{ marginLeft: 5 }}>
+      <span className="octicon octicon-pencil" /> EDIT
     </Link>
   )
 }
@@ -21,8 +16,7 @@ const ItemHeader = ({ item, editable, editLinkTo }) => {
   const displayDate = item.updatedAt ? item.updatedAt : item.createdAt
   return (
     <div className="project-review-date">
-      <span className="octicon octicon-person" />
-      {' '}
+      <span className="octicon octicon-person" />{' '}
       <a
         href={`https://github.com/${item.createdBy}`}
         title="GitHub profile"
@@ -30,8 +24,10 @@ const ItemHeader = ({ item, editable, editLinkTo }) => {
       >
         {item.createdBy}
       </a>
-      <span className="octicon octicon-calendar" style={{ marginLeft: 10 }} />
-      {' '}
+      <span
+        className="octicon octicon-calendar"
+        style={{ marginLeft: 10 }}
+      />{' '}
       {item.updatedAt && 'Updated '}
       {fromNow(displayDate)}
       {editable && editLinkTo && <EditButton url={editLinkTo} />}

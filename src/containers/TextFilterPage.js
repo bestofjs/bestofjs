@@ -12,7 +12,7 @@ import * as uiActionCreators from '../actions/uiActions'
 import * as myProjectsActionCreators from '../actions/myProjectsActions'
 
 class TextFilterPage extends Component {
-  shouldComponentUpdate (nextProps) {
+  shouldComponentUpdate(nextProps) {
     return true
     // Render only if search box content has changed of if initial data has changed
     // HoF list may arrive later if `/search/xxx` URL is accessed directely
@@ -20,9 +20,19 @@ class TextFilterPage extends Component {
     // const sameData = nextProps.allHeroesCount === this.props.allHeroesCount
     // return !sameText || !sameData
   }
-  render () {
+  render() {
     log('Render the <TextFilterPage> container', this.props)
-    const { foundProjects, foundHeroes, text, isLoggedin, auth, uiActions, myProjectsActions, ui, allHeroesCount } = this.props
+    const {
+      foundProjects,
+      foundHeroes,
+      text,
+      isLoggedin,
+      auth,
+      uiActions,
+      myProjectsActions,
+      ui,
+      allHeroesCount
+    } = this.props
     return (
       <TextFilter
         projects={foundProjects}
@@ -40,18 +50,15 @@ class TextFilterPage extends Component {
   }
 }
 
-function mapStateToProps (state, props) {
-  const {
-    entities: { projects, tags, heroes, links },
-    auth,
-    ui
-  } = state
+function mapStateToProps(state, props) {
+  const { entities: { projects, tags, heroes, links }, auth, ui } = state
 
   const text = props.match.params.text
   const foundProjects = searchForProjects(text)(state)
 
   const allHeroes = Object.keys(heroes).map(id => heroes[id])
-  const foundHeroes = allHeroes.filter(filterHero(text))
+  const foundHeroes = allHeroes
+    .filter(filterHero(text))
     .slice(0, 10)
     .map(populateHero(state))
 
@@ -66,7 +73,7 @@ function mapStateToProps (state, props) {
   }
 }
 
-function mapDispatchToProps (dispatch) {
+function mapDispatchToProps(dispatch) {
   return {
     uiActions: bindActionCreators(uiActionCreators, dispatch),
     myProjectsActions: bindActionCreators(myProjectsActionCreators, dispatch)

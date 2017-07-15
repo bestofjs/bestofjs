@@ -5,12 +5,11 @@ import { Provider } from 'react-redux'
 import Routes from './routes/AppContainer'
 import onRouterUpdate from './onRouterUpdate'
 
-const App = ({ store }) => (
+const App = ({ store }) =>
   <Provider store={store}>
-    <Router >
+    <Router>
       <Routes onRouterUpdate={onRouterUpdate} />
     </Router>
   </Provider>
-)
 
 export default App

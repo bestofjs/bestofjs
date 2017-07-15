@@ -17,22 +17,20 @@ const staticContent = getStaticContent()
 setup()
 
 test('Star on Github button', assert => {
-  const component = mount(
-    <Button url={staticContent.repo} />
-  )
+  const component = mount(<Button url={staticContent.repo} />)
 
-  assert.ok(component, `The component should exist.`)
+  assert.ok(component, 'The component should exist.')
 
   const a = component.find('a')
   const node = a.getNode()
   const url = node.href
 
-  assert.ok(/michaelrambeau/.test(url), `It should be one of my repositories.`)
+  assert.ok(/michaelrambeau/.test(url), 'It should be one of my repositories.')
 
   // http request to check the repository
   fetch(url)
     .then(r => {
-      assert.ok(r.status === 200, `Github response should be OK`)
+      assert.ok(r.status === 200, 'Github response should be OK')
       assert.end()
     })
     .catch(err => {
@@ -48,11 +46,11 @@ test('Check <About> component', assert => {
     </MemoryRouter>
   )
 
-  assert.ok(component, `The component should exist.`)
+  assert.ok(component, 'The component should exist.')
 
   const p = getAllTags(component, 'p')
 
-  assert.ok(p.length > 10, `There should be several paragraphs.`)
+  assert.ok(p.length > 10, 'There should be several paragraphs.')
 
   assert.end()
 })

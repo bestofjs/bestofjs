@@ -2,7 +2,7 @@ import React from 'react'
 import { VictoryChart, VictoryLine, VictoryAxis, VictoryTheme } from 'victory'
 import numeral from 'numeral'
 
-function createDate (delta) {
+function createDate(delta) {
   const now = new Date()
   const d = new Date(now.getFullYear(), now.getMonth(), now.getDate())
   d.setMonth(now.getMonth() - delta)
@@ -12,13 +12,13 @@ function createDate (delta) {
 const months = [12, 9, 6, 3, 2, 1, 0]
 const dates = months.map(createDate)
 
-function getGraphData (project) {
+function getGraphData(project) {
   const l = project.monthly.length
   const data = project.monthly
     // .concat([project.stars])
     .map((item, i) => {
       const index = i + (months.length - l)
-      return ({
+      return {
         name: project.name,
         monthsAgo: new Date(
           dates[index].getFullYear(),
@@ -27,23 +27,26 @@ function getGraphData (project) {
         ),
         // stars: item - project.stats.oneYear[0]
         stars: item
-      })
+      }
     })
   return data
 }
 
-function getTickValues () {
+function getTickValues() {
   return [12, 9, 6, 3, 0].map(createDate)
 }
 
-function formatDate (d) {
+function formatDate(d) {
   const months = 'Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec'.split(' ')
-  const label = `'${d.getFullYear().toString().substr(2)} ${months[d.getMonth()]}`
+  const label = `'${d.getFullYear().toString().substr(2)} ${months[
+    d.getMonth()
+  ]}`
   return label
 }
 
-function formatStars (value) {
-  const digits = (value > 1000 && value < 10000 && value % 1000 !== 0) ? '0.0' : '0'
+function formatStars(value) {
+  const digits =
+    value > 1000 && value < 10000 && value % 1000 !== 0 ? '0.0' : '0'
   return numeral(value).format(`${digits} a`)
 }
 
@@ -115,7 +118,7 @@ const styles = {
   axis: {
     axis: { stroke: 'black', strokeWidth: 1 },
     ticks: {
-      size: (tick) => 10,
+      size: tick => 10,
       stroke: 'black',
       strokeWidth: 1
     },

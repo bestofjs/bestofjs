@@ -22,18 +22,37 @@ const ReviewsListComponent = createProjectPage(ReviewsTabList)
 const ReviewsAddComponent = createProjectPage(ReviewsTabAdd)
 const ReviewsEditComponent = createProjectPage(ReviewsTabEdit)
 
-const ProjectsRoutes = () => (
+const ProjectsRoutes = () =>
   <MainContent className="container project-page">
-    <Route exact path="/projects/:id" component={createProjectPage(GithubTab)} />
+    <Route
+      exact
+      path="/projects/:id"
+      component={createProjectPage(GithubTab)}
+    />
 
     <Route exact path="/projects/:id/links" component={LinksListComponent} />
     <Route exact path="/projects/:id/links/add" component={LinksAddComponent} />
-    <Route exact path="/projects/:id/links/:linkId/edit" component={LinksEditComponent} />
+    <Route
+      exact
+      path="/projects/:id/links/:linkId/edit"
+      component={LinksEditComponent}
+    />
 
-    <Route exact path="/projects/:id/reviews" component={ReviewsListComponent} />
-    <Route exact path="/projects/:id/reviews/add" component={ReviewsAddComponent} />
-    <Route exact path="/projects/:id/reviews/:reviewId/edit" component={ReviewsEditComponent} />
+    <Route
+      exact
+      path="/projects/:id/reviews"
+      component={ReviewsListComponent}
+    />
+    <Route
+      exact
+      path="/projects/:id/reviews/add"
+      component={ReviewsAddComponent}
+    />
+    <Route
+      exact
+      path="/projects/:id/reviews/:reviewId/edit"
+      component={ReviewsEditComponent}
+    />
   </MainContent>
-)
 
 export default ProjectsRoutes

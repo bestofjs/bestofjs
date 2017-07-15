@@ -5,7 +5,7 @@ const debug = false
 const API_BASE_URL = debug ? 'http://localhost:3000' : getApi('USER_CONTENT')
 
 // Call user-content API to read/write "links" and "reviews"
-function apiRequest (url, token, options) {
+function apiRequest(url, token, options) {
   const defaultOptions = {
     method: 'GET',
     headers: {
@@ -26,19 +26,19 @@ function apiRequest (url, token, options) {
 // - getAll()
 // - create()
 // - update()
-export function createUserContentApi (endPoint) {
+export function createUserContentApi(endPoint) {
   const api = {
-    getAll () {
+    getAll() {
       return apiRequest(endPoint)
     },
-    create (body, token) {
+    create(body, token) {
       const options = {
         method: 'POST',
         body: JSON.stringify(body)
       }
       return apiRequest(endPoint, token, options)
     },
-    update (body, token) {
+    update(body, token) {
       const options = {
         method: 'PUT',
         body: JSON.stringify(body)
@@ -51,7 +51,7 @@ export function createUserContentApi (endPoint) {
 
 // Create an issue in the given repository
 // content: { title, body, tags}
-export function createGithubIssue (repo, content, token) {
+export function createGithubIssue(repo, content, token) {
   const body = {
     repo,
     content

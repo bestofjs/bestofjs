@@ -3,20 +3,19 @@ import { Async } from 'react-select'
 
 import { fetchJSON } from '../../../helpers/fetch'
 
-function getOptions (input) {
+function getOptions(input) {
   const url = `https://api.github.com/search/users?q=${input}&sort=followers&order=desc`
-  return fetchJSON(url)
-    .then(json => {
-      const items = json.items.map(item => ({
-        value: item.login,
-        label: item.login,
-        avatar: item.avatar_url
-      }))
-      return { options: items }
-    })
+  return fetchJSON(url).then(json => {
+    const items = json.items.map(item => ({
+      value: item.login,
+      label: item.login,
+      avatar: item.avatar_url
+    }))
+    return { options: items }
+  })
 }
 
-function renderOption (option) {
+function renderOption(option) {
   const avatarSize = 48
   return (
     <div className="repo-picker-option">
@@ -24,21 +23,26 @@ function renderOption (option) {
         <div className="icon">
           <img
             src={`${option.avatar}&size=${avatarSize}`}
-            alt="icon" width={avatarSize}
+            alt="icon"
+            width={avatarSize}
             height={avatarSize}
           />
         </div>
         <div className="title">
-          <span className="repo-name">{option.label}</span>
+          <span className="repo-name">
+            {option.label}
+          </span>
         </div>
       </div>
     </div>
   )
 }
 
-function renderSelectedOption (option) {
+function renderSelectedOption(option) {
   return (
-    <div>{option.value}</div>
+    <div>
+      {option.value}
+    </div>
   )
 }
 

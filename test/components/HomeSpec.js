@@ -2,9 +2,7 @@ import test from 'tape'
 import React from 'react'
 import { MemoryRouter } from 'react-router-dom'
 import { Provider } from 'react-redux'
-import {
-  mount
-} from 'enzyme'
+import { mount } from 'enzyme'
 
 import setup from '../setup.js'
 
@@ -28,9 +26,7 @@ test('Check <ProjectList>', assert => {
 
   const component = mount(
     <MemoryRouter>
-      <ProjectList
-        projects={projects}
-      />
+      <ProjectList projects={projects} />
     </MemoryRouter>
   )
   assert.ok(component, 'The component should exist.')
@@ -39,7 +35,7 @@ test('Check <ProjectList>', assert => {
   assert.end()
 })
 
-test('Check <Home> component', (assert) => {
+test('Check <Home> component', assert => {
   const store = getStore(data)
   const state = store.getState()
   const projects = getHotProjects(state)

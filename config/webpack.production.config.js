@@ -1,2 +1,2 @@
-const getConfig = require('./getConfig');
-module.exports = getConfig('production');
+const getConfig = require('./getConfig')
+module.exports = getConfig('production')

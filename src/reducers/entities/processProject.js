@@ -1,17 +1,17 @@
 import slugify from '../../helpers/slugify'
 
 // Round the average number of stars used in "trending this year" graphs
-function roundAverage (number, decimals = 0) {
+function roundAverage(number, decimals = 0) {
   const i = Math.pow(10, decimals)
   return Math.round(number * i) / i
 }
 
-function nthElement (arr, i) {
+function nthElement(arr, i) {
   if (arr.length === 0) return 0
   return arr[Math.min(i, arr.length - 1)]
 }
 
-export default function processProject (item) {
+export default function processProject(item) {
   const monthlyStars = item.monthly.slice(0)
   monthlyStars.reverse() // caution, reverse() mutates the array!
 
@@ -42,9 +42,16 @@ export default function processProject (item) {
       total: item.stars,
       daily: item.deltas[0],
       weekly: roundAverage(weeklyTotal / 7),
-      monthly: monthlyStars.length > 1 ? addedAverage(monthlyStars[1], 30) : null,
-      quaterly: monthlyStars.length > 3 ? addedAverage(nthElement(monthlyStars, 3), 90) : null,
-      yearly: item.monthly.length > 6 ? addedAverage(nthElement(monthlyStars, 6), 365) : null
+      monthly:
+        monthlyStars.length > 1 ? addedAverage(monthlyStars[1], 30) : null,
+      quaterly:
+        monthlyStars.length > 3
+          ? addedAverage(nthElement(monthlyStars, 3), 90)
+          : null,
+      yearly:
+        item.monthly.length > 6
+          ? addedAverage(nthElement(monthlyStars, 6), 365)
+          : null
     },
     monthly: item.monthly,
     svg: item.svglogo,

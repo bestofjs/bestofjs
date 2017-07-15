@@ -2,10 +2,11 @@
 // the payload can be:
 // - an array of items (`results` key) or
 // - a single item (no key)
-export function convertPayload (payload, fn) {
-  if (payload.results) return Object.assign({}, payload, {
-    results: payload.results.map(fn)
-  })
+export function convertPayload(payload, fn) {
+  if (payload.results)
+    return Object.assign({}, payload, {
+      results: payload.results.map(fn)
+    })
   return fn(payload)
 }
 
@@ -14,9 +15,10 @@ export function convertPayload (payload, fn) {
 // - an array of project (`projects` field) or
 // - a single project (`project`)
 export const convertItem = fn => item => {
-  if (item.projects) return Object.assign({}, item, {
-    projects: item.projects.map(fn)
-  })
+  if (item.projects)
+    return Object.assign({}, item, {
+      projects: item.projects.map(fn)
+    })
   return Object.assign({}, item, {
     project: fn(item.project)
   })

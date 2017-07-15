@@ -5,7 +5,7 @@ import Sidebar from '../components/sidebar/Sidebar'
 import Header from '../components/layout/Header'
 import Footer from '../components/layout/Footer'
 
-const AppLayout = (props) => {
+const AppLayout = props => {
   const {
     allTags,
     popularTags,
@@ -24,7 +24,6 @@ const AppLayout = (props) => {
   } = props
   return (
     <div id="layout">
-
       <Sidebar
         allTags={allTags}
         popularTags={popularTags}
@@ -39,7 +38,6 @@ const AppLayout = (props) => {
       />
 
       <div id="panel" className="slideout-panel">
-
         <Header
           searchText={textFilter}
           uiActions={uiActions}
@@ -51,13 +49,8 @@ const AppLayout = (props) => {
           <Routes />
         </main>
 
-        <Footer
-          staticContent={staticContent}
-          lastUpdate={lastUpdate}
-        />
-
+        <Footer staticContent={staticContent} lastUpdate={lastUpdate} />
       </div>
-
     </div>
   )
 }

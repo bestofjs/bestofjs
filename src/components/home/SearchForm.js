@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import debounce from 'lodash.debounce'
 
 class SearchForm extends Component {
-  constructor (props) {
+  constructor(props) {
     super(props)
     this.state = {
       text: this.props.searchText
@@ -10,32 +10,32 @@ class SearchForm extends Component {
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
   }
-  componentDidMount () {
+  componentDidMount() {
     this.emitChangeDelayed = debounce(this.emitChange, 300)
   }
-  emitChange (text) {
+  emitChange(text) {
     this.props.onChange(text)
   }
-  handleChange (e) {
+  handleChange(e) {
     const text = e.target.value
     this.setState({
       text
     })
     this.emitChangeDelayed(text)
   }
-  handleSubmit (e) {
+  handleSubmit(e) {
     e.preventDefault()
     this.emitChange(this.state.text)
   }
-  render () {
+  render() {
     const { highlight } = this.props
     return (
-      <form id="searchbox" onSubmit={this.handleSubmit} className={`${highlight ? 'highlight' : ''}`}>
-        <input
-          type="text"
-          onChange={this.handleChange}
-          autoFocus
-        />
+      <form
+        id="searchbox"
+        onSubmit={this.handleSubmit}
+        className={`${highlight ? 'highlight' : ''}`}
+      >
+        <input type="text" onChange={this.handleChange} autoFocus />
         <span className="mega-octicon octicon-search icon" />
       </form>
     )

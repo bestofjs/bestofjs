@@ -8,19 +8,11 @@ const SubmitHeroPage = ({ heroes, auth, history }) => {
   const onSave = (values, dispatch) => {
     return dispatch(addHero(values, auth, history))
   }
-  return (
-    <Form
-      onSave={onSave}
-      heroes={heroes}
-    />
-  )
+  return <Form onSave={onSave} heroes={heroes} />
 }
 
-function mapStateToProps (state) {
-  const {
-    entities: { heroes },
-    auth
-  } = state
+function mapStateToProps(state) {
+  const { entities: { heroes }, auth } = state
   return {
     heroes,
     auth

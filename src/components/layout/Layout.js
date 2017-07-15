@@ -4,7 +4,7 @@ import Sidebar from '../sidebar/Sidebar'
 import Header from './Header'
 import Footer from './Footer'
 
-const Layout = (props) => {
+const Layout = props => {
   const {
     children,
     allTags,
@@ -24,7 +24,6 @@ const Layout = (props) => {
   } = props
   return (
     <div id="layout">
-
       <Sidebar
         allTags={allTags}
         popularTags={popularTags}
@@ -39,7 +38,6 @@ const Layout = (props) => {
       />
 
       <div id="panel" className="slideout-panel">
-
         <Header
           searchText={textFilter}
           uiActions={uiActions}
@@ -51,13 +49,8 @@ const Layout = (props) => {
           {children}
         </main>
 
-        <Footer
-          staticContent={staticContent}
-          lastUpdate={lastUpdate}
-        />
-
+        <Footer staticContent={staticContent} lastUpdate={lastUpdate} />
       </div>
-
     </div>
   )
 }

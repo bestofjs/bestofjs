@@ -16,9 +16,12 @@ import menu from './helpers/menu'
 import log from './helpers/log'
 import App from './App'
 
-import { fetchProjectsFromAPI, fetchProjectsSuccess } from './actions/entitiesActions'
+import {
+  fetchProjectsFromAPI,
+  fetchProjectsSuccess
+} from './actions/entitiesActions'
 
-function start () {
+function start() {
   const store = configureStore({})
   fetchProjectsFromAPI()
     .then(data => {
@@ -30,7 +33,7 @@ function start () {
 
 start()
 
-function dispatchActions ({ store }) {
+function dispatchActions({ store }) {
   if (window.location.pathname !== '/hof/') {
     // default case: render the app as soon as we get project data
     renderApp(store)
@@ -38,10 +41,9 @@ function dispatchActions ({ store }) {
   } else {
     // if HoF is currently displayed used server-side rendering,
     // render the app AFTER we get HoF data, to avoid display an empty list
-    store.dispatch(fetchAllHeroes())
-      .then(() => {
-        renderApp(store)
-      })
+    store.dispatch(fetchAllHeroes()).then(() => {
+      renderApp(store)
+    })
   }
   store.dispatch(fetchAllReviews())
   store.dispatch(fetchAllLinks())
@@ -57,7 +59,7 @@ require('./stylesheets/main.styl')
 require('./stylesheets/tooltip/balloon.css')
 require('../node_modules/react-select/dist/react-select.css')
 
-function renderComponent (Component, store) {
+function renderComponent(Component, store) {
   render(
     <AppContainer>
       <Component store={store} />
@@ -66,7 +68,7 @@ function renderComponent (Component, store) {
   )
 }
 
-function renderApp (store) {
+function renderApp(store) {
   renderComponent(App, store)
   if (module.hot) {
     module.hot.accept('./App', () => {
