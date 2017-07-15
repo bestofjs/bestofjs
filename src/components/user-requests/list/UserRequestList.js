@@ -4,7 +4,7 @@ import MainContent from '../../common/MainContent'
 import fromNow from '../../../helpers/fromNow'
 import CreateIssueLink from '../add-project/CreateIssueLink'
 
-export default ({ requests }) =>
+const UserRequestList = ({ requests }) =>
   <MainContent className="small container double-padding">
     <CreateIssueLink
       className="btn block button-outline"
@@ -44,3 +44,5 @@ const StateIcon = ({ state }) => {
   const icon = state === 'closed' ? 'closed' : 'opened'
   return <span style={{ color }} className={`octicon octicon-issue-${icon}`} />
 }
+
+export default UserRequestList

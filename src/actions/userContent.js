@@ -30,10 +30,7 @@ export function fetchAll(key) {
         .getAll()
         .then(json => dispatch(crud.fetchAllItemsSuccess(key, json)))
         .catch(err => {
-          console.error(
-            // eslint-disable-line no-console
-            `Error when calling user content API. ${err.message}`
-          )
+          console.error(`Error when calling user content API. ${err.message}`) // eslint-disable-line no-console
         })
     }
   }

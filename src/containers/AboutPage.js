@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
 import About from '../components/about/About'
-import populate from '../helpers/populate'
 import log from '../helpers/log'
 import getStaticContent from '../staticContent'
 
@@ -22,8 +21,7 @@ class AboutPage extends Component {
 }
 
 function mapStateToProps(state) {
-  const { entities: { projects, tags, links }, ui } = state
-
+  const { entities: { projects }, ui } = state
   return {
     staticContent: getStaticContent(),
     count: Object.keys(projects).length,

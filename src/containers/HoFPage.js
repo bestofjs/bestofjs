@@ -15,7 +15,7 @@ const getYou = auth => ({
   bio: `${auth.name}, you will be the next shining star, keep up the good work!`
 })
 
-const Page = ({ heroes, auth, you, authActions, isHero, ui }) =>
+const Page = ({ heroes, auth, you, authActions, isHero }) =>
   <HoF
     heroes={heroes}
     you={you}

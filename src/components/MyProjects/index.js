@@ -23,10 +23,10 @@ const EmptyList = ({ isLoggedin }) =>
   </div>
 
 const MyProjectsPage = ({ projects, ui, isLoggedin }) => {
-  const showStars =
-    ui.starFilter === 'total' ||
-    ui.starFilter === 'packagequality' ||
-    ui.starFilter === 'npms'
+  // const showStars =
+  //   ui.starFilter === 'total' ||
+  //   ui.starFilter === 'packagequality' ||
+  //   ui.starFilter === 'npms'
   return (
     <MainContent>
       <h3 className="no-card-container">
@@ -42,11 +42,10 @@ const MyProjectsPage = ({ projects, ui, isLoggedin }) => {
         <ProjectList
           projects={projects}
           isLoggedin={isLoggedin}
-          deltaFilter={ui.starFilter}
           viewOptions={ui.viewOptions}
           showStars={true}
           showDelta={false}
-          deltaFilter={'daily'}
+          deltaFilter="daily"
         />}
     </MainContent>
   )

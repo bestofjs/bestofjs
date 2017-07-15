@@ -10,11 +10,15 @@ export default function createReducer(model) {
           {}
         )
       case `CREATE_${model.toUpperCase()}_SUCCESS`:
-        const item = action.payload
-        return { ...state, [item._id]: item }
+        return { ...state, [action.payload._id]: action.payload }
       case `UPDATE_${model.toUpperCase()}_SUCCESS`:
-        const id = action.payload._id
-        return { ...state, [id]: { ...state[id], ...action.payload } }
+        return {
+          ...state,
+          [action.payload._id]: {
+            ...state[action.payload._id],
+            ...action.payload
+          }
+        }
       default:
         return state
     }

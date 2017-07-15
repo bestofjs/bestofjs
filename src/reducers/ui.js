@@ -41,12 +41,9 @@ export default (state = defaultState, action) => {
         showViewOptions: action.payload
       })
     case 'TOGGLE_VIEW_OPTIONS':
-      const { key, checked } = action.payload
-      const viewOptions = Object.assign({}, state.viewOptions, {
-        [key]: checked
-      })
       return Object.assign({}, state, {
-        viewOptions
+        ...state.viewOptions,
+        [action.payload.key]: action.payload.checked
       })
     default:
       return state

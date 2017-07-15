@@ -7,12 +7,12 @@ import formatUrl from '../../helpers/formatUrl'
 const digits = value => (value > 1000 ? '0.0' : '0')
 
 function followersComment(value) {
-  if (value === 0) return 'you don\'t need all these followers!'
-  if (value < 10) return 'that\'s better than nothing!'
-  if (value < 100) return 'that\'s not so bad!'
+  if (value === 0) return "You don't need all these followers!"
+  if (value < 10) return "That's better than nothing!"
+  if (value < 100) return "That's not so bad!"
   if (value < 1000)
-    return 'that\'s pretty good, you could be a hall of famer too!'
-  return 'that\'s a lot of followers, you should be in this hall of fame!'
+    return "That's pretty good, you could be a hall of famer too!"
+  return "That's a lot of followers, you should be in this hall of fame!"
 }
 
 const HeroCard = ({ hero, you, isCurrentUser, showDetails }) => {

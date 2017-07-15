@@ -74,7 +74,7 @@ const sortFn = {
 
 // a sub-selector used by both `getProjectsSortedBy` and `getProjectsByTag`
 const getRawProjectsSortedBy = ({ criteria }) =>
-  createSelector([allProjects], (projects, tags) => {
+  createSelector([allProjects], projects => {
     return sortProjects(sortFn[criteria])(projects)
   })
 

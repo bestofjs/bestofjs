@@ -14,7 +14,7 @@
   "rules": {
     "prettier/prettier": ["error", { "singleQuote": true, "semi": false }],
     "semi": ["error", "never"],
-    "quotes": ["error", "single"],
+    "quotes": ["error", "single", { "avoidEscape": true }],
     "react/prop-types": 0,
     "jsx-quotes": 0,
     "camelcase": 0,

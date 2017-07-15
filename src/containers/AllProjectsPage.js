@@ -42,7 +42,7 @@ class AllProjectsPage extends Component {
 }
 
 function mapStateToProps(sortFilter) {
-  return function(state, props) {
+  return function(state) {
     const tagProjects = getProjectsSortedBy({
       criteria: sortFilter,
       limit: 50

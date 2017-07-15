@@ -12,14 +12,6 @@ import * as uiActionCreators from '../actions/uiActions'
 import * as myProjectsActionCreators from '../actions/myProjectsActions'
 
 class TextFilterPage extends Component {
-  shouldComponentUpdate(nextProps) {
-    return true
-    // Render only if search box content has changed of if initial data has changed
-    // HoF list may arrive later if `/search/xxx` URL is accessed directely
-    // const sameText = nextProps.text === this.props.text
-    // const sameData = nextProps.allHeroesCount === this.props.allHeroesCount
-    // return !sameText || !sameData
-  }
   render() {
     log('Render the <TextFilterPage> container', this.props)
     const {
@@ -51,17 +43,14 @@ class TextFilterPage extends Component {
 }
 
 function mapStateToProps(state, props) {
-  const { entities: { projects, tags, heroes, links }, auth, ui } = state
-
+  const { entities: { heroes }, auth, ui } = state
   const text = props.match.params.text
   const foundProjects = searchForProjects(text)(state)
-
   const allHeroes = Object.keys(heroes).map(id => heroes[id])
   const foundHeroes = allHeroes
     .filter(filterHero(text))
     .slice(0, 10)
     .map(populateHero(state))
-
   return {
     foundProjects,
     foundHeroes,

@@ -1,3 +1,7 @@
+/* eslint-disable */
+
+/* WORK in PROGRESS, COMING SOON! */
+
 import React from 'react'
 import { VictoryChart, VictoryLine, VictoryAxis, VictoryTheme } from 'victory'
 import numeral from 'numeral'

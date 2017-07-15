@@ -62,7 +62,7 @@ const Home = props => {
   )
 }
 
-const MoreProjects = ({ handleClick, isLoggedin, pending }) => {
+const MoreProjects = ({ pending }) => {
   return (
     <div className="no-card-container">
       <h3 className="with-comment" style={{ marginBottom: '0.5rem' }}>

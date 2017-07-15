@@ -9,15 +9,7 @@ const viewOptions = {
   commit: false
 }
 
-const HomeProjects = ({
-  hotProjects,
-  popularProjects,
-  maxStars,
-  isLoggedin,
-  uiActions,
-  hotFilter,
-  showMetrics
-}) =>
+const HomeProjects = ({ hotProjects, hotFilter }) =>
   <ProjectList
     projects={hotProjects}
     showDelta

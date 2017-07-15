@@ -1,6 +1,6 @@
 import React from 'react'
 
-const NpmSection = ({ project, packagequality = true, npms = true }) =>
+const NpmSection = ({ project, npms = true }) =>
   <section className="card-section npm-card-section">
     <a
       data-balloon="View on npm"

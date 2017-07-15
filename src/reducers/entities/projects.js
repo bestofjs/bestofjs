@@ -5,8 +5,10 @@ export default function(state = {}, action) {
     case 'FETCH_PROJECTS_SUCCESS':
       return setProjects(state, action.payload)
     case 'GET_README_SUCCESS':
-      const project = { ...state[action.id], readme: action.html }
-      return { ...state, [action.id]: project }
+      return {
+        ...state,
+        [action.id]: { ...state[action.id], readme: action.html }
+      }
     default:
       return state
   }
