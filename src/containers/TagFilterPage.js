@@ -8,15 +8,6 @@ import log from '../helpers/log'
 import * as uiActionCreators from '../actions/uiActions'
 
 class TagFilterPage extends Component {
-  shouldComponentUpdate(nextProps) {
-    // `shouldComponentUpdate` has been implemented to avoid
-    // rendering the page twice when browsing tags.
-    if (!nextProps.tag) return false
-    const sameUi = Object.keys(nextProps.ui).every(
-      key => this.props.ui[key] === nextProps.ui[key]
-    )
-    return nextProps.tag.id !== this.props.tag.id || !sameUi
-  }
   render() {
     log('Render the <TagFilterPage> container')
     const {
