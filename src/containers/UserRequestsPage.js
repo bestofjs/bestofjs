@@ -6,28 +6,21 @@ import List from '../components/user-requests/list/UserRequestList'
 import * as repoActionCreators from '../actions/repoActions'
 
 class SubmitRepoPage extends Component {
-  render () {
+  render() {
     const { issues } = this.props
-    return (
-      <List
-        requests={issues}
-      />
-    )
+    return <List requests={issues} />
   }
 }
 
-function mapStateToProps (state) {
-  const {
-    auth,
-    requests: { issues }
-  } = state
+function mapStateToProps(state) {
+  const { auth, requests: { issues } } = state
   return {
     issues,
     auth
   }
 }
 
-function mapDispatchToProps (dispatch) {
+function mapDispatchToProps(dispatch) {
   return {
     repoActions: bindActionCreators(repoActionCreators, dispatch)
   }

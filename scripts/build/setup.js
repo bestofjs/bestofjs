@@ -1,2 +1,2 @@
-global.window = {};
-console.log(global);
+global.window = {}
+console.log(global)

@@ -1,0 +1,35 @@
+{
+  "parser": "babel-eslint",
+  "env": {
+    "browser": true,
+    "node": true
+  },
+  "extends": [
+    "eslint:recommended",
+    "plugin:import/errors",
+    "plugin:react/recommended",
+    "prettier"
+  ],
+  "plugins": ["import", "react", "prettier"],
+  "rules": {
+    "prettier/prettier": ["error", { "singleQuote": true, "semi": false }],
+    "semi": ["error", "never"],
+    "quotes": ["error", "single", { "avoidEscape": true }],
+    "react/prop-types": 0,
+    "jsx-quotes": 0,
+    "camelcase": 0,
+    "curly": 0,
+    "import/no-unresolved": 2,
+    "import/named": 2,
+    "import/namespace": 2,
+    "import/default": 2,
+    "import/export": 2,
+    "no-console": 1
+  },
+  "settings": {
+    "import/resolve": {
+      "extensions": [".js", ".jsx"]
+    },
+    "import/extensions": [".js", ".jsx"]
+  }
+}

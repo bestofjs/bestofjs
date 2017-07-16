@@ -3,22 +3,30 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
 import TagFilter from '../components/TagView'
-import populate from '../helpers/populate'
 import log from '../helpers/log'
 import * as uiActionCreators from '../actions/uiActions'
+import { getProjectsSortedBy, getAllProjectsCount } from '../selectors'
 
 class AllProjectsPage extends Component {
-  shouldComponentUpdate (nextProps) {
+  shouldComponentUpdate(nextProps) {
     // `shouldComponentUpdate` has been implemented to avoid
     // rendering the page twice when browsing tags.
     if (!nextProps.tag) return false
-    const sameUi = Object.keys(nextProps.ui)
-      .every(key => this.props.ui[key] === nextProps.ui[key])
+    const sameUi = Object.keys(nextProps.ui).every(
+      key => this.props.ui[key] === nextProps.ui[key]
+    )
     return nextProps.tag.id !== this.props.tag.id || !sameUi
   }
-  render () {
+  render() {
     log('Render the <AllProjectsPage> container', this.props)
-    const { tagProjects, isLoggedin, uiActions, ui, graphProjects, count } = this.props
+    const {
+      tagProjects,
+      isLoggedin,
+      uiActions,
+      ui,
+      graphProjects,
+      count
+    } = this.props
     return (
       <TagFilter
         projects={tagProjects}
@@ -33,29 +41,16 @@ class AllProjectsPage extends Component {
   }
 }
 
-function mapStateToProps (sortFilter) {
-  return function (state, props) {
-    const {
-      entities: { projects, tags, links },
-      githubProjects,
-      auth: {
-        username
-      },
-      ui
-    } = state
-
-    const allProjects = githubProjects[sortFilter]
-    const count = allProjects.length
-
-    const tagProjects = allProjects
-      .map(id => projects[id])
-      .slice(0, 50)
-      .map(populate(tags, links))
-    const graphProjects = tagProjects
-      .slice(0, 10)
+function mapStateToProps(sortFilter) {
+  return function(state) {
+    const tagProjects = getProjectsSortedBy({
+      criteria: sortFilter,
+      limit: 50
+    })(state)
+    const count = getAllProjectsCount(state)
+    const { auth: { username }, ui } = state
     return {
       tagProjects,
-      graphProjects,
       isLoggedin: username !== '',
       ui: Object.assign({}, ui, {
         starFilter: sortFilter
@@ -65,13 +60,11 @@ function mapStateToProps (sortFilter) {
   }
 }
 
-function mapDispatchToProps (dispatch) {
+function mapDispatchToProps(dispatch) {
   return {
     uiActions: bindActionCreators(uiActionCreators, dispatch)
   }
 }
 
-export default sortFilter => connect(
-  mapStateToProps(sortFilter),
-  mapDispatchToProps
-)(AllProjectsPage)
+export default sortFilter =>
+  connect(mapStateToProps(sortFilter), mapDispatchToProps)(AllProjectsPage)

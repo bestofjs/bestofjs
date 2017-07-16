@@ -6,10 +6,11 @@ const Tab = ({ tab, project }) => {
   const count = tab.counter && tab.counter(project)
   return (
     <span>
-      <span className={`octicon octicon-${tab.icon}`} />
-      {' '}
-      {tab.text}
-      {count && <span> ({count})</span>}
+      <span className={`octicon octicon-${tab.icon}`} /> {tab.text}
+      {count > 0 &&
+        <span>
+          {' '}({count})
+        </span>}
     </span>
   )
 }
@@ -42,13 +43,11 @@ const Tabs = ({ activePath, project }) => {
     <div className="project-tabs-header">
       {tabs.map(tab =>
         <div key={tab.path} className={activePath === tab.path ? 'active' : ''}>
-          {activePath === tab.path ? (
-            <Tab tab={tab} project={project} />
-          ) : (
-            <Link to={`/projects/${project.slug}/${tab.path}`}>
-              <Tab tab={tab} project={project} />
-            </Link>
-          )}
+          {activePath === tab.path
+            ? <Tab tab={tab} project={project} />
+            : <Link to={`/projects/${project.slug}/${tab.path}`}>
+                <Tab tab={tab} project={project} />
+              </Link>}
         </div>
       )}
     </div>

@@ -22,8 +22,8 @@ Promise.resolve(PUBLIC_DIR)
       .catch(err => console.log('Error in Promise', err))
   })
 
-function readFile (filepath) {
-  return new Promise(function (resolve, reject) {
+function readFile(filepath) {
+  return new Promise(function(resolve, reject) {
     fs.readFile(`${PUBLIC_DIR}/${filepath}`, 'utf8', (err, data) => {
       if (err) return reject(err)
       const html = data
@@ -36,8 +36,8 @@ function readFile (filepath) {
   })
 }
 
-function commitFiles (files) {
-  console.log('Ready to commit files', files.map(file => file.filepath));
+function commitFiles(files) {
+  console.log('Ready to commit files', files.map(file => file.filepath))
   return commit({
     files,
     repo: `michaelrambeau/bestofjs${debug ? '-sandbox' : ''}`,

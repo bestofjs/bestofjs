@@ -2,12 +2,11 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
 import About from '../components/about/About'
-import populate from '../helpers/populate'
 import log from '../helpers/log'
 import getStaticContent from '../staticContent'
 
 class AboutPage extends Component {
-  render () {
+  render() {
     log('Render the <AboutPage> container', this.props)
     const { staticContent, project, count, ui } = this.props
     return (
@@ -19,23 +18,11 @@ class AboutPage extends Component {
       />
     )
   }
-
 }
 
-function mapStateToProps (state) {
-  const {
-    entities: { projects, tags, links },
-    githubProjects,
-    ui
-  } = state
-
-  const project = githubProjects.total
-    .map(id => projects[id])
-    .slice(0, 1)
-    .map(populate(tags, links))
-
+function mapStateToProps(state) {
+  const { entities: { projects }, ui } = state
   return {
-    project: project[0],
     staticContent: getStaticContent(),
     count: Object.keys(projects).length,
     ui

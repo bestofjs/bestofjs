@@ -1,75 +1,27 @@
 import React, { Component } from 'react'
-import { bindActionCreators } from 'redux'
-import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
 
-import * as actions from '../actions'
-import * as authActionCreators from '../actions/authActions'
-import * as uiActionCreators from '../actions/uiActions'
-
 import AppLayout from './AppLayout'
-import getStaticContent from '../staticContent'
 import log from '../helpers/log'
 
-import { getPopularTags, getAllTags } from '../selectors'
-
 class App extends Component {
-  componentDidMount () {
+  componentDidMount() {
     const history = this.props.history
-    this.props.authActions.start(history)
+    // Start Auth0 authenication process, using the browser `history` provided by `withRouter`
+    this.props.startAuth(history)
     log('App did mount!')
   }
-  componentDidUpdate (prevProps) {
+  componentDidUpdate(prevProps) {
     const { location, onRouterUpdate } = this.props
+    // Browser side effects: scroll up and hide the sidebar when the location changes
     if (location !== prevProps.location) {
       onRouterUpdate && onRouterUpdate(location)
     }
   }
-  render () {
+  render() {
     log('Render the <App> container', this.props)
-    return (
-      <AppLayout {...this.props} />
-    )
+    return <AppLayout {...this.props} />
   }
 }
 
-function mapStateToProps (state) {
-  const {
-    entities: { heroes, links },
-    githubProjects: {
-      lastUpdate
-    },
-    requests: {
-      issues
-    },
-    auth,
-    ui
-  } = state
-
-  const allTags = getAllTags(state)
-  const popularTags = getPopularTags(state)
-
-  return {
-    allTags,
-    popularTags,
-    lastUpdate,
-    staticContent: getStaticContent(),
-    auth,
-    hofCount: Object.keys(heroes).length,
-    linkCount: Object.keys(links).length,
-    requestCount: Object.keys(issues).length,
-    ui
-  }
-}
-
-function mapDispatchToProps (dispatch) {
-  return {
-    actions: bindActionCreators(actions, dispatch),
-    authActions: bindActionCreators(authActionCreators, dispatch),
-    uiActions: bindActionCreators(uiActionCreators, dispatch)
-  }
-}
-
-export default withRouter(
-  connect(mapStateToProps, mapDispatchToProps)(App)
-)
+export default withRouter(App)

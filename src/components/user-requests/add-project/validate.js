@@ -1,4 +1,4 @@
-function checkDuplicate (values, projects) {
+function checkDuplicate(values, projects) {
   const repo = `https://github.com/${values.project.value}`
   const found = Object.keys(projects)
     .map(key => projects[key])
@@ -7,7 +7,7 @@ function checkDuplicate (values, projects) {
   return true
 }
 
-export default function validate (values, props) {
+export default function validate(values, props) {
   const { projects } = props
   const errors = {}
   const requiredFields = [
@@ -20,11 +20,9 @@ export default function validate (values, props) {
       message: 'Please explain in a few words why you want to add this project.'
     }
   ]
-  requiredFields
-    .filter(field => !values[field.name])
-    .forEach(field => {
-      errors[field.name] = field.message
-    })
+  requiredFields.filter(field => !values[field.name]).forEach(field => {
+    errors[field.name] = field.message
+  })
 
   if (values.project && !checkDuplicate(values, projects)) {
     errors.project = 'The project already exists!'

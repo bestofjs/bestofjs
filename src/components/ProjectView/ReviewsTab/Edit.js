@@ -10,7 +10,7 @@ import { updateReview } from '../../../actions/reviewActions'
 const submitEdit = (review, history) => (project, auth) => {
   const reviewId = review._id
   const projectId = project.slug
-  return function (values, dispatch) {
+  return function(values, dispatch) {
     const payload = Object.assign({}, values, {
       _id: reviewId,
       project: projectId
@@ -20,9 +20,7 @@ const submitEdit = (review, history) => (project, auth) => {
 }
 
 const EditReview = ({ project, review, auth, history }) => {
-  if (!review) return (
-    <div>Loading the review...</div>
-  )
+  if (!review) return <div>Loading the review...</div>
   const onSave = submitEdit(review, history)
   return (
     <div>
@@ -30,7 +28,9 @@ const EditReview = ({ project, review, auth, history }) => {
       <Tabs project={project} activePath="reviews" />
       <div className="project-tabs-content" style={{ marginBottom: '2em' }}>
         <div className="inner">
-          <h3>Edit "{project.name}" review ({review.rating}/5)</h3>
+          <h3>
+            Edit &quot{project.name}&quot review ({review.rating}/5)
+          </h3>
           <ReviewReduxForm
             project={project}
             auth={auth}

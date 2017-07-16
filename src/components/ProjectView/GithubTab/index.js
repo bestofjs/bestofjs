@@ -5,7 +5,7 @@ import Readme from './Readme'
 import Header from './Header'
 import ProjectHeader from '../ProjectHeader'
 
-const GitHub = (props) => {
+const GitHub = props => {
   const { project } = props
   return (
     <div>

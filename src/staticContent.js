@@ -2,7 +2,7 @@
 
 import pkg from '../package.json'
 
-export default function () {
+export default function() {
   return {
     projectName: 'bestof.js.org',
     repo: 'https://github.com/michaelrambeau/bestofjs-webui',

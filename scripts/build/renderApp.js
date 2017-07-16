@@ -6,13 +6,11 @@ import { Provider } from 'react-redux'
 
 import App from '../../src/routes/AppContainer'
 
-export default function (store, location) {
+export default function(store, location) {
   return new Promise((resolve, reject) => {
     const html = renderToString(
       <Provider store={store}>
-        <StaticRouter
-          location={location}
-        >
+        <StaticRouter location={location}>
           <App />
         </StaticRouter>
       </Provider>

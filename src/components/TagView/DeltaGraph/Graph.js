@@ -1,7 +1,11 @@
+/* eslint-disable */
+
+/* WORK in PROGRESS, COMING SOON! */
+
 import React from 'react'
 import { VictoryChart, VictoryBar, VictoryAxis, VictoryLabel } from 'victory'
 
-function getGraphData (projects, sortOrder) {
+function getGraphData(projects, sortOrder) {
   const count = 10
   const data = projects
     .filter(project => project.stats[sortOrder] > 0)
@@ -17,32 +21,23 @@ function getGraphData (projects, sortOrder) {
   return data
 }
 
-function formatDelta (delta) {
+function formatDelta(delta) {
   return `+${delta}☆`
 }
 
-const Label = () => (
-  <a href={`/projects/`}>link</a>
-)
+const Label = () => <a href={'/projects/'}>link</a>
 
 const Graph = ({ projects, sortOrder }) => {
   return (
     <div>
-      <VictoryChart
-        domainPadding={20}
-        padding={styles.chart.padding}
-      >
+      <VictoryChart domainPadding={20} padding={styles.chart.padding}>
         <VictoryAxis
           style={styles.axis}
-          labelXX={`Stars added by day`}
+          labelXX={'Stars added by day'}
           axisLabelComponent={<VictoryLabel dy={1} />}
           tickFormat={formatDelta}
         />
-        <VictoryAxis
-          dependentAxis
-          tickCount={5}
-          tickFormat={x => ''}
-        />
+        <VictoryAxis dependentAxis tickCount={5} tickFormat={x => ''} />
         <VictoryBar
           data={getGraphData(projects, sortOrder)}
           horizontal
@@ -74,7 +69,7 @@ const styles = {
   axis: {
     axis: { stroke: 'black', strokeWidth: 1 },
     ticks: {
-      size: (tick) => 10,
+      size: tick => 10,
       stroke: 'black',
       strokeWidth: 1
     },

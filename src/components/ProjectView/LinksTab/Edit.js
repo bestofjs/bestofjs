@@ -8,7 +8,7 @@ import Tabs from '../Tabs'
 import { updateLink } from '../../../actions/linkActions'
 
 const submitEdit = (linkId, history) => (project, auth) => {
-  return function (values, dispatch) {
+  return function(values, dispatch) {
     const payload = Object.assign({}, values, {
       _id: linkId
     })
@@ -17,9 +17,10 @@ const submitEdit = (linkId, history) => (project, auth) => {
 }
 
 const EditLink = ({ project, auth, link, history }) => {
-  if (!link) return (
-    <div>Loading the link...</div> // displayed if the page is loaded from a direct URL
-  )
+  if (!link)
+    return (
+      <div>Loading the link...</div> // displayed if the page is loaded from a direct URL
+    )
   const linkId = link._id
   const onSave = submitEdit(linkId, history)
   return (
@@ -29,12 +30,13 @@ const EditLink = ({ project, auth, link, history }) => {
       <div className="project-tabs-content">
         <div className="inner">
           <h3>Edit a link</h3>
-          {link && <LinkReduxForm
-            project={project}
-            auth={auth}
-            initialValues={link}
-            onSave={onSave}
-          />}
+          {link &&
+            <LinkReduxForm
+              project={project}
+              auth={auth}
+              initialValues={link}
+              onSave={onSave}
+            />}
         </div>
       </div>
     </div>

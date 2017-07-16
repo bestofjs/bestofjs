@@ -12,10 +12,10 @@ const constants = require('./constants')
 
 const USE_PREACT = true
 
-function getPlugins (env) {
+function getPlugins(env) {
   const envPlugin = new webpack.DefinePlugin({
     'process.env': {
-      'NODE_ENV': JSON.stringify(env)
+      NODE_ENV: JSON.stringify(env)
     }
   })
 
@@ -25,10 +25,12 @@ function getPlugins (env) {
     plugins.push(new webpack.NamedModulesPlugin())
     // Get the html template
     const html = getFullPage({ isDev: true })
-    plugins.push(new HtmlWebpackPlugin({
-      inject: false,
-      templateContent: html
-    }))
+    plugins.push(
+      new HtmlWebpackPlugin({
+        inject: false,
+        templateContent: html
+      })
+    )
   } else {
     // ExtractTextPlugin used to generate a separate CSS file, in production only.
     // documentation: http://webpack.github.io/docs/stylesheets.html
@@ -49,7 +51,7 @@ function getPlugins (env) {
   return plugins
 }
 
-function getRules (env) {
+function getRules(env) {
   const jsRule = {
     test: /\.jsx?$/,
     exclude: /node_modules/,
@@ -58,13 +60,8 @@ function getRules (env) {
         loader: 'babel-loader',
         options: {
           babelrc: false, // required otherwise src/.babelrc settings will be used
-          presets: [
-            ['es2015', { 'modules': false }],
-            'react'
-          ],
-          plugins: [
-            'react-hot-loader/babel'
-          ]
+          presets: [['es2015', { modules: false }], 'stage-1', 'react'],
+          plugins: ['react-hot-loader/babel']
         }
       }
     ]
@@ -79,7 +76,7 @@ function getRules (env) {
   const postCssLoader = {
     loader: 'postcss-loader',
     options: {
-      plugins: function () {
+      plugins: function() {
         return [autoprefixer]
       }
     }
@@ -115,42 +112,39 @@ function getRules (env) {
   return rules
 }
 
-function getEntry (env) {
+function getEntry(env) {
   const devPipeline = [
     `webpack-dev-server/client?http://localhost:${constants.port}`,
     'webpack/hot/only-dev-server',
     './src/entry.js'
   ]
   return {
-    app: env === 'development' ? (
-      (!USE_PREACT ? ['react-hot-loader/patch'] : []).concat(devPipeline)
-    ) : (
-      './src/entry.js'
-    )
+    app:
+      env === 'development'
+        ? (!USE_PREACT ? ['react-hot-loader/patch'] : []).concat(devPipeline)
+        : './src/entry.js'
   }
 }
 
-function getOutput (env) {
+function getOutput(env) {
   const rootPath = path.resolve(__dirname, '..', constants.staticFolder)
   const filename = 'build/bundle-[name].js'
-  return env === 'development' ? (
-    {
-      path: rootPath,
-      filename,
-      publicPath: '/' // required when using browserHistory, to make nested URLs work
-    }
-  ) : (
-    {
-      filename: `${constants.staticFolder}/${filename}`
-    }
-  )
+  return env === 'development'
+    ? {
+        path: rootPath,
+        filename,
+        publicPath: '/' // required when using browserHistory, to make nested URLs work
+      }
+    : {
+        filename: `${constants.staticFolder}/${filename}`
+      }
 }
 
 const defaultResolveOptions = {
   extensions: ['.js', '.jsx']
 }
 const preactAlias = {
-  'react': 'preact-compat',
+  react: 'preact-compat',
   'react-dom': 'preact-compat'
 }
 const resolve = Object.assign(
@@ -159,7 +153,7 @@ const resolve = Object.assign(
   USE_PREACT ? { alias: preactAlias } : {}
 )
 
-module.exports = function (env) {
+module.exports = function(env) {
   process.traceDeprecation = true
   const config = {
     entry: getEntry(env),

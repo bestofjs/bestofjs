@@ -6,18 +6,14 @@ import convertSlugToId from './convertSlugToId'
 
 import rootReducer from '../reducers'
 
-const middlewares = [
-  convertIdToSlug,
-  convertSlugToId,
-  thunk
-]
+const middlewares = [convertIdToSlug, convertSlugToId, thunk]
 
 const finalCreateStore = compose(
   applyMiddleware(...middlewares),
   window.devToolsExtension ? window.devToolsExtension() : f => f
 )(createStore)
 
-export default function configureStore (initialState) {
+export default function configureStore(initialState) {
   const store = finalCreateStore(rootReducer, initialState)
 
   if (module.hot) {

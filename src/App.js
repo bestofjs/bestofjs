@@ -2,15 +2,24 @@ import React from 'react'
 import { BrowserRouter as Router } from 'react-router-dom'
 import { Provider } from 'react-redux'
 
-import Routes from './routes/AppContainer'
+import AppContainer from './routes/AppContainer'
 import onRouterUpdate from './onRouterUpdate'
 
-const App = ({ store }) => (
-  <Provider store={store}>
-    <Router >
-      <Routes onRouterUpdate={onRouterUpdate} />
-    </Router>
-  </Provider>
-)
+import { start } from './actions/authActions'
+
+const startAuthProcess = store => history => {
+  store.dispatch(start(history))
+}
+
+const App = ({ store }) => {
+  const startAuth = startAuthProcess(store)
+  return (
+    <Provider store={store}>
+      <Router>
+        <AppContainer onRouterUpdate={onRouterUpdate} startAuth={startAuth} />
+      </Router>
+    </Provider>
+  )
+}
 
 export default App

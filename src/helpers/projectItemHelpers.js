@@ -4,6 +4,4 @@ export const getDate = item => {
 }
 
 // sort reviews by date, in decreasing order
-export const sortByDate = (a, b) => (
-  getDate(a) > getDate(b) ? -1 : 1
-)
+export const sortByDate = (a, b) => (getDate(a) > getDate(b) ? -1 : 1)

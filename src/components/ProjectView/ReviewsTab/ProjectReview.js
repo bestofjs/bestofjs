@@ -6,11 +6,9 @@ import Header from '../ItemHeader'
 
 const Comment = ({ comment }) => {
   if (comment.trim() === '') {
-    return (<span className="empty-value">(No comment)</span>)
+    return <span className="empty-value">(No comment)</span>
   }
-  return (
-    <div dangerouslySetInnerHTML={{ __html: marked(comment) }} />
-  )
+  return <div dangerouslySetInnerHTML={{ __html: marked(comment) }} />
 }
 
 const ProjectReview = ({ review, editable }) => {
@@ -25,13 +23,16 @@ const ProjectReview = ({ review, editable }) => {
         {[1, 2, 3, 4, 5].map(i =>
           <span
             key={i}
-            className={`octicon octicon-heart icon ${i <= review.rating ? 'on' : 'off'}`}
-           />
+            className={`octicon octicon-heart icon ${i <= review.rating
+              ? 'on'
+              : 'off'}`}
+          />
         )}
       </div>
-      {review.comment && <div className="project-item-comment">
-        <Comment comment={review.comment} />
-      </div>}
+      {review.comment &&
+        <div className="project-item-comment">
+          <Comment comment={review.comment} />
+        </div>}
     </div>
   )
 }

@@ -18,9 +18,14 @@ const options = {
 }
 
 const server = new WebpackDevServer(webpack(config), options)
-server.listen(port, 'localhost', function (err) {
+server.listen(port, 'localhost', function(err) {
   if (err) {
     console.log(err)
   }
-  console.log('Bestofjs WebpackDevServer listening at localhost:', port, 'Serving content from', contentBase)
+  console.log(
+    'Bestofjs WebpackDevServer listening at localhost:',
+    port,
+    'Serving content from',
+    contentBase
+  )
 })

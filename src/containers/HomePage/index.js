@@ -9,9 +9,16 @@ import * as uiActionCreators from '../../actions/uiActions'
 import * as authActionCreators from '../../actions/authActions'
 
 class HomePage extends Component {
-  render () {
+  render() {
     log('Render the <HomePage> container', this.props)
-    const { hotProjects, auth, uiActions, ui, authActions, popularTags } = this.props
+    const {
+      hotProjects,
+      auth,
+      uiActions,
+      ui,
+      authActions,
+      popularTags
+    } = this.props
     return (
       <Home
         hotProjects={hotProjects}
@@ -28,19 +35,19 @@ class HomePage extends Component {
   }
 }
 
-function finalMapStateToProps (count) {
-  return function (state) {
+function finalMapStateToProps(count) {
+  return function(state) {
     return mapStateToProps(state, count)
   }
 }
 
-function mapDispatchToProps (dispatch) {
+function mapDispatchToProps(dispatch) {
   return {
     uiActions: bindActionCreators(uiActionCreators, dispatch),
     authActions: bindActionCreators(authActionCreators, dispatch)
   }
 }
 
-export default function (count = 10) {
+export default function(count = 10) {
   return connect(finalMapStateToProps(count), mapDispatchToProps)(HomePage)
 }

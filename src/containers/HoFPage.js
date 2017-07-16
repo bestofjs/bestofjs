@@ -6,7 +6,7 @@ import * as authActionCreators from '../actions/authActions'
 import HoF from '../components/hof/HeroList'
 import { getAllHeroes } from '../helpers/hof'
 
-const getYou = (auth) => ({
+const getYou = auth => ({
   name: 'Could be you?',
   username: auth.username || '',
   followers: auth.followers || 0,
@@ -15,7 +15,7 @@ const getYou = (auth) => ({
   bio: `${auth.name}, you will be the next shining star, keep up the good work!`
 })
 
-const Page = ({ heroes, auth, you, authActions, isHero, ui }) => (
+const Page = ({ heroes, auth, you, authActions, isHero }) =>
   <HoF
     heroes={heroes}
     you={you}
@@ -24,19 +24,14 @@ const Page = ({ heroes, auth, you, authActions, isHero, ui }) => (
     isHero={isHero}
     showDetails
   />
-)
 
-function mapStateToProps (state) {
-  const {
-    // entities: { heroes },
-    auth,
-    ui
-  } = state
+function mapStateToProps(state) {
+  const { entities: { heroes }, auth, ui } = state
 
   const allHeroes = getAllHeroes(state)
 
   // Is the current user a Hall of Famer ?
-  const isHero = state.hof.heroesById.filter(id => id === auth.username).length > 1
+  const isHero = !!heroes[auth.username]
 
   return {
     heroes: allHeroes,
@@ -47,7 +42,7 @@ function mapStateToProps (state) {
   }
 }
 
-function mapDispatchToProps (dispatch) {
+function mapDispatchToProps(dispatch) {
   return {
     authActions: bindActionCreators(authActionCreators, dispatch)
   }

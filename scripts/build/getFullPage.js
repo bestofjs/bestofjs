@@ -2,8 +2,8 @@
 // Used by:
 // `npm run build-html` task (server-side rendering)
 // `html-webpack-plugin` to serve index.html page in dev mode.
-module.exports = function ({ isDev, html }) {
-  return (`<!doctype html>
+module.exports = function({ isDev, html }) {
+  return `<!doctype html>
 <html>
   <head>
     <meta charset="utf-8">
@@ -13,17 +13,22 @@ module.exports = function ({ isDev, html }) {
     <meta name="description" content="bestof.js.org is a place where front-end engineers and node.js developers can find the best components to build amazing web applications.">
     <meta content="Best of JavaScript" property="og:title">
     <meta content="A place to find the best components to build amazing applications: JavaScript client and server side, html, CSS..." property="og:description">
-    <meta content="http://bestof.js.org/images/logo2.png" property="og:image">
+    <meta content="https://bestof.js.org/images/logo2.png" property="og:image">
 
     <meta name="mobile-web-app-capable" content="yes">
     <link rel="manifest" href="/manifest.json">
     <link rel="icon" type="image/png" href="images/app-icon-192.png" sizes="192x192">
+    <link rel="alternate" type="application/rss+xml" href="/rss/weekly-trends.xml" />
     <meta name="theme-color" content="#e65100">
 
     <!-- added for Github pages -->
     <link rel="shortcut icon" href="/favicon.ico">
-    ${isDev ? '<!-- Redirect script not necessary in dev (webpack does the job) -->' : getRedirect()}
-    ${isDev ? '<!-- No external stylesheet in dev mode -->' : '<link rel="stylesheet" href="/build/app.css">'}
+    ${isDev
+      ? '<!-- Redirect script not necessary in dev (webpack does the job) -->'
+      : getRedirect()}
+    ${isDev
+      ? '<!-- No external stylesheet in dev mode -->'
+      : '<link rel="stylesheet" href="/build/app.css">'}
   </head>
   <body>
     <div id="app">${isDev ? '' : `${html}`}</div>
@@ -41,12 +46,12 @@ module.exports = function ({ isDev, html }) {
     ${isDev ? '<!-- No analytics in dev -->' : getAnalytics()}
   </body>
 </html>
-  `);
-};
+  `
+}
 
 // Analytics script
-function getAnalytics () {
-  return (`<script>
+function getAnalytics() {
+  return `<script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
   m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
@@ -54,19 +59,19 @@ function getAnalytics () {
   ga('create', 'UA-44563970-2', 'auto');
   ga('send', 'pageview');
 </script>
-`);
+`
 }
 
 // Script to process page URL `?redirect=true&pathname=%2Fhof`
 // when the user comes from the 404.html page.
-function getRedirect () {
-  return (`
+function getRedirect() {
+  return `
     <script>
     (function(l) {
       // SET THIS: e.g. my-repo-name
       var gitHubRepoName = 'bestofjs'
       // SET THIS: e.g. http://subdomain.example.tld
-      var domain = 'http://bestof.js.org'
+      var domain = 'https://bestof.js.org'
       if (l.pathname.split('/')[1] === gitHubRepoName) {
         l.replace(domain);
       } else if (l.search) {
@@ -85,5 +90,5 @@ function getRedirect () {
       }
     }(window.location))
     </script>
-  `)
+  `
 }

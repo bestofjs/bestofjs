@@ -1,6 +1,6 @@
 import React from 'react'
 
-import ProjectList from '../projects/ProjectList'
+import ProjectList from '../projects/ConnectedProjectList'
 
 const viewOptions = {
   description: true,
@@ -9,15 +9,7 @@ const viewOptions = {
   commit: false
 }
 
-const HomeProjects = ({
-  hotProjects,
-  popularProjects,
-  maxStars,
-  isLoggedin,
-  uiActions,
-  hotFilter,
-  showMetrics
-}) => (
+const HomeProjects = ({ hotProjects, hotFilter }) =>
   <ProjectList
     projects={hotProjects}
     showDelta
@@ -27,6 +19,5 @@ const HomeProjects = ({
     showMetrics={false}
     viewOptions={viewOptions}
   />
-)
 
 export default HomeProjects

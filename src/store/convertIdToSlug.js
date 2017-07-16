@@ -12,9 +12,10 @@ const convert = store => next => action => {
         full_name: projects[key].full_name
       }))
       .reduce(
-        (acc, item) => Object.assign({}, acc, {
-          [item.full_name]: item.slug
-        }),
+        (acc, item) =>
+          Object.assign({}, acc, {
+            [item.full_name]: item.slug
+          }),
         {}
       )
     const getSlug = id => byFullname[id]

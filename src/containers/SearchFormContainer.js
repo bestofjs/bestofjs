@@ -11,13 +11,11 @@ const emitChange = history => text => {
   }
 }
 
-const SearchFormContainer = (props) => {
+const SearchFormContainer = props => {
   const history = props.history
   const onChange = emitChange(history)
   const highlight = /search/.test(props.location && props.location.pathname)
-  return (
-    <SearchForm onChange={onChange} highlight={highlight} />
-  )
+  return <SearchForm onChange={onChange} highlight={highlight} />
 }
 
 export default withRouter(SearchFormContainer)

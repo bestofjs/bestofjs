@@ -8,9 +8,7 @@ import ProjectLink from './ProjectLink'
 const AddButton = ({ project }) => {
   return (
     <Link to={`/projects/${project.slug}/links/add`} className="btn">
-      <span className={'octicon octicon-plus'} />
-      {' '}
-      ADD A LINK
+      <span className={'octicon octicon-plus'} /> ADD A LINK
     </Link>
   )
 }
@@ -19,9 +17,8 @@ const LoginButton = ({ onLogin, pending }) => {
   if (pending) return 'Loading...'
   return (
     <button className="btn" onClick={onLogin}>
-      <span className={'octicon octicon-mark-github'} />
-      {' '}
-      Sign in with GitHub to add a link
+      <span className={'octicon octicon-mark-github'} /> Sign in with GitHub to
+      add a link
     </button>
   )
 }
@@ -35,7 +32,7 @@ const List = ({ project, auth, authActions }) => {
       <Tabs project={project} activePath="links" />
       <div className="project-tabs-content" style={{ marginBottom: '2em' }}>
         <div className="inner">
-          {links.length === 0 && (
+          {links.length === 0 &&
             <div>
               <p>
                 Find here intesting reading about {project.name} project:
@@ -47,9 +44,8 @@ const List = ({ project, auth, authActions }) => {
                 <li>real-world applications...</li>
               </ul>
               <p>Be the first to add a link!</p>
-            </div>
-          )}
-          {links.length > 0 && (
+            </div>}
+          {links.length > 0 &&
             <div className="project-link-container">
               {links.map(link =>
                 <ProjectLink
@@ -60,15 +56,15 @@ const List = ({ project, auth, authActions }) => {
                   showProjects={false}
                 />
               )}
-            </div>
-          )}
+            </div>}
 
           <div style={{ textAlign: 'center', paddingTop: '1em' }}>
-            {isLoggedin ? (
-              <AddButton project={project} />
-            ) : (
-              <LoginButton onLogin={authActions.login} pending={auth.pending} />
-            )}
+            {isLoggedin
+              ? <AddButton project={project} />
+              : <LoginButton
+                  onLogin={authActions.login}
+                  pending={auth.pending}
+                />}
           </div>
         </div>
       </div>

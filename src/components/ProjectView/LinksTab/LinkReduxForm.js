@@ -26,13 +26,7 @@ const LinkForm = ({
       onSubmit={handleSubmit(onSave(project, auth))}
       className={`ui form${valid ? '' : ' error'}`}
     >
-
-      <Field
-        label="URL"
-        name="url"
-        component={renderInput}
-        type="text"
-      />
+      <Field label="URL" name="url" component={renderInput} type="text" />
 
       <Field
         label="Title"
@@ -42,10 +36,7 @@ const LinkForm = ({
         maxLength={100}
       />
 
-      <Field
-        name="comment"
-        component={mdField}
-      />
+      <Field name="comment" component={mdField} />
 
       <Field
         label="Related projects"
@@ -53,9 +44,9 @@ const LinkForm = ({
         component={renderSelectProject}
       />
 
-      {!valid && submitFailed &&
-        <ErrorMessage>Fix invalid fields!</ErrorMessage>
-      }
+      {!valid &&
+        submitFailed &&
+        <ErrorMessage>Fix invalid fields!</ErrorMessage>}
 
       <div className="form-action-bar">
         <button
@@ -63,9 +54,7 @@ const LinkForm = ({
           disabled={submitting}
           type="submit"
         >
-          <span className="octicon octicon-repo-push" />
-          {' '}
-          SAVE
+          <span className="octicon octicon-repo-push" /> SAVE
         </button>
       </div>
     </form>
