@@ -10,7 +10,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const getFullPage = require('../scripts/build/getFullPage')
 const constants = require('./constants')
 
-const USE_PREACT = false
+const USE_PREACT = true
 
 function getPlugins(env) {
   const envPlugin = new webpack.DefinePlugin({
