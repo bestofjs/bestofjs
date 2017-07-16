@@ -31,14 +31,14 @@ export default function auth(state = defaultState, action) {
   }
 }
 
-const addToMyProjects = (state, slug) => ({
+const addToMyProjects = (state, myProjects) => ({
   ...state,
-  myProjects: [...state.myProjects, { slug, bookmarked_at: new Date() }],
+  myProjects,
   pendingProject: ''
 })
-const removeFromMyProjects = (state, slug) => ({
+const removeFromMyProjects = (state, myProjects) => ({
   ...state,
-  myProjects: state.myProjects.filter(item => item.slug !== slug),
+  myProjects,
   pendingProject: ''
 })
 const updateMyProjectsRequest = (state, project) => ({

@@ -8,15 +8,6 @@ import * as uiActionCreators from '../actions/uiActions'
 import { getProjectsSortedBy, getAllProjectsCount } from '../selectors'
 
 class AllProjectsPage extends Component {
-  shouldComponentUpdate(nextProps) {
-    // `shouldComponentUpdate` has been implemented to avoid
-    // rendering the page twice when browsing tags.
-    if (!nextProps.tag) return false
-    const sameUi = Object.keys(nextProps.ui).every(
-      key => this.props.ui[key] === nextProps.ui[key]
-    )
-    return nextProps.tag.id !== this.props.tag.id || !sameUi
-  }
   render() {
     log('Render the <AllProjectsPage> container', this.props)
     const {

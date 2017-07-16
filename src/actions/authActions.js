@@ -6,8 +6,7 @@
 // - login()
 // - logout()
 
-import get from 'lodash.get'
-
+import { APP_URL, readUserProjects } from '../api/auth0'
 import msgbox from '../helpers/msgbox'
 import log from '../helpers/log'
 import UrlManager from './urlManager'
@@ -18,8 +17,6 @@ import { getUserRequests } from './repoActions'
 // object used to save the current location in the local storage
 // when the user pushes the login button.
 const urlManager = typeof window !== 'undefined' && new UrlManager(window)
-
-const APP_URL = 'https://bestofjs.auth0.com'
 
 const LOCAL_KEYS = ['id', 'access'].map(key => `bestofjs_${key}_token`)
 
@@ -114,7 +111,7 @@ function loginSuccess(profile, token, history) {
       followers: profile.followers,
       token,
       user_id: profile.user_id,
-      myProjects: get(profile, 'user_metadata.projects') || []
+      myProjects: readUserProjects(profile)
     }
   }
 }

@@ -1,20 +1,8 @@
+import { APP_URL, readUserProjects } from '../api/auth0'
 import { fetchJSON } from '../helpers/fetch'
 
-// export function saveMyProjectsRequest () {
-//   return dispatch => {
-//     dispatch({
-//       type: 'SAVE_MY_PROJECTS_REQUEST'
-//     })
-//     fetchMyProjects()
-//       .then(projects => dispatch({
-//         type: 'FETCH_MY_PROJECTS_SUCCESS',
-//         payload: projects
-//       }))
-//   }
-// }
-
 function saveMyProjects({ user_id, token, projects }) {
-  const url = `https://bestofjs.auth0.com/api/v2/users/${user_id}`
+  const url = `${APP_URL}/api/v2/users/${user_id}`
   const body = {
     user_metadata: {
       projects
@@ -31,17 +19,17 @@ function saveMyProjects({ user_id, token, projects }) {
   return fetchJSON(url, options)
 }
 
-export function addToMyProjectsSuccess(project) {
+export function addToMyProjectsSuccess(projects) {
   return {
     type: 'ADD_TO_MY_PROJECTS_SUCCESS',
-    payload: project.slug
+    payload: projects
   }
 }
 
-export function removeFromMyProjectsSuccess(project) {
+export function removeFromMyProjectsSuccess(projects) {
   return {
     type: 'REMOVE_FROM_MY_PROJECTS_SUCCESS',
-    payload: project.slug
+    payload: projects
   }
 }
 
@@ -54,15 +42,25 @@ const toggleUpdateMyProjects = add => project => {
     const state = getState()
     const { user_id, token, myProjects } = state.auth
     const projects = add
-      ? myProjects.concat({ bookmarked_at: new Date(), slug: project.slug })
+      ? addToMyProjectsIfUnique(myProjects, project.slug)
       : myProjects.filter(item => item.slug !== project.slug)
-    saveMyProjects({ user_id, token, projects }).then(() => {
+    saveMyProjects({ user_id, token, projects }).then(profile => {
+      const myProjects = readUserProjects(profile)
       const actionCreator = add
         ? addToMyProjectsSuccess
         : removeFromMyProjectsSuccess
-      dispatch(actionCreator(project))
+      dispatch(actionCreator(myProjects))
     })
   }
+}
+
+// Add the project to user's list only if it has not already bookmarked before
+function addToMyProjectsIfUnique(myProjects, slug) {
+  const found = myProjects.map(item => item.slug).find(item => item === slug)
+  console.log('Found?', found, slug)
+  return found
+    ? myProjects
+    : myProjects.concat({ bookmarked_at: new Date(), slug })
 }
 
 // Actual actions creators called from the UI
