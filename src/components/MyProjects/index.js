@@ -37,7 +37,7 @@ const MyProjectsPage = ({ projects, ui, isLoggedin }) => {
         Bookmarked projects
         <Counter count={projects.length} />
       </h3>
-      {projects.length === 0 && <EmptyList />}
+      {projects.length === 0 && <EmptyList isLoggedin={isLoggedin} />}
       {projects.length > 0 &&
         <ProjectList
           projects={projects}
