@@ -1,7 +1,9 @@
+import { fetchJSON } from '../helpers/fetch'
+import log from '../helpers/log'
+import api from '../../config/api'
 import msgbox from '../helpers/msgbox'
 
 import { createUserContentApi } from '../api/userContent'
-import * as crud from './crudActions'
 
 const settings = {
   link: {
@@ -21,18 +23,22 @@ function goToList(project, key, history) {
 }
 
 // ==========
-// FETCH ALL
+// FETCH
 // ==========
-export function fetchAll(key) {
-  return function() {
-    return dispatch => {
-      settings[key].api
-        .getAll()
-        .then(json => dispatch(crud.fetchAllItemsSuccess(key, json)))
-        .catch(err => {
-          console.error(`Error when calling user content API. ${err.message}`) // eslint-disable-line no-console
-        })
-    }
+
+export function fetchProjectUserContent(project) {
+  const id = project.slug
+  return dispatch => {
+    log('Fetching project user content', project)
+    dispatch(fetchItemsRequest('link', id))
+    const baseUrl = api('GET_USER_CONTENT')
+    return fetchJSON(`${baseUrl}/projects/${project.full_name}/user-content`)
+      .then(json => {
+        const { reviews, links } = json
+        dispatch(fetchItemsSuccess('link', links))
+        dispatch(fetchItemsSuccess('review', reviews))
+      })
+      .catch(err => dispatch(fetchItemsFailure('link', err.message)))
   }
 }
 
@@ -47,12 +53,12 @@ export function create(key) {
     })
     if (key === 'review') payload.project = project.slug
     return dispatch => {
-      const action = dispatch(crud.createItemRequest(key, payload))
+      const action = dispatch(createItemRequest(key, payload))
       return settings[key].api
         .create(action.payload, auth.token)
         .then(json => {
           const data = Object.assign({}, json)
-          dispatch(crud.createItemSuccess(key, data))
+          dispatch(createItemSuccess(key, data))
           goToList(project, key, history)
           msgbox(`Thank you for the ${settings[key].label}!`)
         })
@@ -70,6 +76,7 @@ export function create(key) {
 // ==========
 // UPDATE
 // ==========
+
 export function update(key) {
   return function(project, formData, auth, history) {
     const payload = Object.assign({}, formData, {
@@ -79,16 +86,17 @@ export function update(key) {
       // First dispaych a `...REQUEST` action
       // that will return an action updated by the middleware
       // (to convert project `slugs` to db `_id` )
-      const action = dispatch(crud.updateItemRequest(key, payload))
+      const action = dispatch(updateItemRequest(key, payload))
       return settings[key].api
         .update(action.payload, auth.token)
         .then(json => {
           const data = Object.assign({}, json)
-          dispatch(crud.updateItemSuccess(key, data))
+          dispatch(updateItemSuccess(key, data))
           goToList(project, key, history)
           msgbox(`Your ${settings[key].label} has been updated.`)
         })
         .catch(err => {
+          console.error(err)
           msgbox(
             `Sorry, we were unable to save the ${settings[key]
               .label}. ${err.message}`,
@@ -96,5 +104,76 @@ export function update(key) {
           )
         })
     }
+  }
+}
+
+export function fetchItemsRequest(model) {
+  return {
+    type: `FETCH_${model.toUpperCase()}S_REQUEST`,
+    meta: {
+      model
+    }
+  }
+}
+
+export function fetchItemsSuccess(model, items) {
+  return {
+    type: `FETCH_${model.toUpperCase()}S_SUCCESS`,
+    meta: {
+      model,
+      convertProjectIds: true // tell the middleware to convert ids => slugs
+    },
+    payload: items
+  }
+}
+
+export function fetchItemsFailure(model, error) {
+  return {
+    type: `FETCH_${model.toUpperCase()}S_FAILURE`,
+    meta: {
+      model
+    },
+    error
+  }
+}
+
+export function createItemRequest(model, item) {
+  return {
+    type: `CREATE_${model.toUpperCase()}_SUCCESS`,
+    meta: {
+      model,
+      convertProjectSlugs: true // tell the middleware to convert slugs => ids
+    },
+    payload: item
+  }
+}
+export function createItemSuccess(model, item) {
+  return {
+    type: `CREATE_${model.toUpperCase()}_SUCCESS`,
+    meta: {
+      model,
+      convertProjectIds: true // tell the middleware to convert ids => slugs
+    },
+    payload: item
+  }
+}
+export function updateItemRequest(model, item) {
+  return {
+    type: `UPDATE_${model.toUpperCase()}_REQUEST`,
+    meta: {
+      model,
+      convertProjectSlugs: true // tell the middleware to convert slugs => ids
+    },
+    payload: item
+  }
+}
+export function updateItemSuccess(model, item) {
+  return {
+    type: `UPDATE_${model.toUpperCase()}_SUCCESS`,
+    meta: {
+      model,
+      convertProjectIds: true // tell the middleware to convert ids => slugs
+    },
+    payload: item
   }
 }

@@ -3,11 +3,7 @@
 // - an array of items (`results` key) or
 // - a single item (no key)
 export function convertPayload(payload, fn) {
-  if (payload.results)
-    return Object.assign({}, payload, {
-      results: payload.results.map(fn)
-    })
-  return fn(payload)
+  return Array.isArray(payload) ? payload.map(fn) : fn(payload)
 }
 
 // Transform project field for a given item, applying the given funcion fn

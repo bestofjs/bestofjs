@@ -18,7 +18,14 @@ const Counter = ({ count }) => {
 const EmptyList = ({ isLoggedin }) =>
   <div style={{ border: '2px dashed #fa9e59', padding: '2rem' }}>
     {isLoggedin
-      ? <span>Add projects you want to follow by using the `ADD` button.</span>
+      ? <div>
+          <p>
+            {"You don't have bookmarked any project."}
+          </p>
+          <p>
+            Add projects you want to follow by using the `ADD BOOKMARK` button.
+          </p>
+        </div>
       : <span>Please sign-in to access this feature!</span>}
   </div>
 
@@ -37,7 +44,7 @@ const MyProjectsPage = ({ projects, ui, isLoggedin }) => {
         Bookmarked projects
         <Counter count={projects.length} />
       </h3>
-      {projects.length === 0 && <EmptyList />}
+      {projects.length === 0 && <EmptyList isLoggedin={isLoggedin} />}
       {projects.length > 0 &&
         <ProjectList
           projects={projects}

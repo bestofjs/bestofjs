@@ -12,7 +12,7 @@ import links from '../data/links.json'
 import reviews from '../data/reviews.json'
 
 // Actions
-import * as actions from '../../src/actions/crudActions'
+import { fetchItemsSuccess } from '../../src/actions/userContent'
 import { getProjectsSortedBy } from '../../src/selectors'
 
 // Components to check
@@ -50,9 +50,9 @@ const userContentItems = {
 const testItems = key => {
   test(`Check state after "${key}" data arrives`, assert => {
     const items = userContentItems[key]
-    store.dispatch(actions.fetchAllItemsSuccess(key, items))
+    store.dispatch(fetchItemsSuccess(key, items))
     const state1 = store.getState()
-    const itemCount = items.results.length
+    const itemCount = items.length
     const stateItems = Object.keys(state1.entities[`${key}s`]).map(
       id => state1.entities[`${key}s`][id]
     )

@@ -22,7 +22,7 @@ const CreateLink = ({ project, auth, history }) => {
       <div className="project-tabs-content">
         <div className="inner">
           <h3>
-            Add a link related to &quot{project.name}&quot project
+            Add a link related to &quot;{project.name}&quot; project
           </h3>
           <LinkReduxForm
             project={project}

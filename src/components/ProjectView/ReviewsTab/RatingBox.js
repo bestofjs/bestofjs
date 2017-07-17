@@ -34,7 +34,7 @@ const RatingBox = ({ field }) => {
             className={`octicon octicon-heart icon ${i + 1 <= field.value
               ? 'on'
               : 'off'}`}
-            onClick={handleClick(i + 1)}
+            onClick={handleClick(i)}
           />
         )}
       </div>

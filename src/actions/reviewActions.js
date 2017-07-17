@@ -1,8 +1,6 @@
-import { fetchAll, create, update } from './userContent'
+import { create, update } from './userContent'
 
 const key = 'review'
-
-export const fetchAllReviews = fetchAll(key)
 
 export const createReview = create(key)
 

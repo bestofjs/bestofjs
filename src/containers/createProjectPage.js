@@ -7,12 +7,14 @@ import track from '../helpers/track'
 
 import * as actionCreators from '../actions'
 import * as authActionCreators from '../actions/authActions'
+import * as userContentActionCreators from '../actions/userContent'
 
 import { findProject } from '../selectors/project'
 
 function loadData(props) {
   const project = props.project
   props.actions.fetchReadmeIfNeeded(project)
+  props.userContentActions.fetchProjectUserContent(project)
   track('View project', project.name)
 }
 
@@ -65,7 +67,8 @@ function mapStateToProps(state, props) {
 function mapDispatchToProps(dispatch) {
   return {
     actions: bindActionCreators(actionCreators, dispatch),
-    authActions: bindActionCreators(authActionCreators, dispatch)
+    authActions: bindActionCreators(authActionCreators, dispatch),
+    userContentActions: bindActionCreators(userContentActionCreators, dispatch)
   }
 }
 
