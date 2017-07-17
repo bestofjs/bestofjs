@@ -5,27 +5,23 @@ import log from '../../helpers/log'
 import MainContent from '../common/MainContent'
 import HomeProjects from './HomeProjects'
 import CreateIssueLink from '../user-requests/add-project/CreateIssueLink'
+import Intro from './StateOfJSIntro'
 
 const Home = props => {
   log('Render the <Home> component', props)
   const { isLoggedin, pending, authActions, popularTags } = props
+  const newsDate = new Date(2017, 6, 18)
   return (
     <MainContent>
       <div className="no-card-container">
-        <h1 className="with-comment" style={{ margin: '0 0 1rem' }}>
-          The best of JavaScript, HTML, CSS
-        </h1>
-        <p style={{ fontSize: '1.1rem' }}>
-          Check out the most popular open-source projects and the latest trends
-          about the web platform and node.js.
-        </p>
+        <Intro date={newsDate} />
       </div>
 
       <hr />
 
       <h3 className="no-card-container" style={{ margin: '0rem 0 2rem' }}>
         <span className="icon mega-octicon octicon-flame" />
-        Today hot projects
+        Today Hot Projects
         <span
           className="counter"
           style={{ fontSize: '1rem', color: '#aaa', marginLeft: '.5rem' }}
