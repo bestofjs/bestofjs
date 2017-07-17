@@ -22,7 +22,7 @@ const Create = ({ project, auth, history }) => {
       <div className="project-tabs-content" style={{ marginBottom: '2em' }}>
         <div className="inner">
           <h3>
-            Add your review of &quot{project.name}&quot project
+            Add your review of &quot;{project.name}&quot; project
           </h3>
           <ReviewReduxForm project={project} auth={auth} onSave={onSave} />
         </div>

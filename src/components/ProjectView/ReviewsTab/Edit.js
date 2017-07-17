@@ -29,7 +29,7 @@ const EditReview = ({ project, review, auth, history }) => {
       <div className="project-tabs-content" style={{ marginBottom: '2em' }}>
         <div className="inner">
           <h3>
-            Edit &quot{project.name}&quot review ({review.rating}/5)
+            Edit &quot;{project.name}&quot; review ({review.rating}/5)
           </h3>
           <ReviewReduxForm
             project={project}

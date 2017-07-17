@@ -1,203 +1,32 @@
-{
-	"results": [{
-		"_id": "570b9197c2eba00100a28b89",
-		"title": "Why I use Tape Instead of Mocha & So Should You",
-		"url": "https://medium.com/javascript-scene/why-i-use-tape-instead-of-mocha-so-should-you-6aa105d8eaf4",
-		"projects": ["55a9a85d803a2a030022c5a3"],
-		"createdBy": "michaelrambeau",
-		"createdAt": "2016-04-11T11:59:19.719Z",
-		"updatedAt": "2016-04-17T21:49:54.243Z",
-		"comment": "TL;DR: Mocha is a $150k Porsche Panamera when the best tool for the job is a $30k Tesla Model 3. Don’t waste your resources on testing bells and whistles. Invest them in creating your app, instead."
-	}, {
-		"_id": "57140568183140010032e8e9",
-		"title": "Building the F8 2016 App",
-		"url": "http://makeitopen.com/",
-		"projects": ["55fbaf4dc0b48f03006c6c98"],
-		"createdBy": "michaelrambeau",
-		"createdAt": "2016-04-17T21:51:36.425Z",
-		"updatedAt": "2016-04-22T21:29:16.353Z",
-		"comment": "How Facebook team built a mobile application for both iOS and Android platforms, using React Native.\n\nQuite thorough and it's really interesting to see how the Facebook team works with their own tools (like \"Flow\" for static type checking)"
-	}, {
-		"_id": "571bfb7a3da0f8b401aa7ace",
-		"title": "React Native: A year in review",
-		"url": "https://code.facebook.com/posts/597378980427792/react-native-a-year-in-review",
-		"projects": ["55fbaf4dc0b48f03006c6c98"],
-		"createdBy": "michaelrambeau",
-		"createdAt": "2016-04-23T22:47:22.723Z",
-		"updatedAt": "2016-04-24T06:01:29.240Z",
-		"comment": ""
-	}, {
-		"_id": "571c13344edea90100bc772a",
-		"title": "Angular 2 + React Native",
-		"url": "http://angularjs.blogspot.jp/2016/04/angular-2-react-native.html",
-		"projects": ["55fbaf4dc0b48f03006c6c98", "55723c9f4140883353bc774e"],
-		"createdBy": "michaelrambeau",
-		"createdAt": "2016-04-24T00:28:36.890Z",
-		"updatedAt": "2016-04-24T07:17:21.625Z",
-		"comment": "The best of the 2 worlds ?"
-	}, {
-		"_id": "571c9326faaa2601003388be",
-		"title": "Building realtime applications with CycleJS and RxJS",
-		"url": "https://blog.pusher.com/building-realtime-applications-with-cyclejs-and-rxjs",
-		"projects": ["55c51add83653f03001e12b4", "55723c9f4140883353bc7753"],
-		"createdBy": "michaelrambeau",
-		"createdAt": "2016-04-24T09:34:30.678Z",
-		"updatedAt": "2016-04-25T21:21:11.556Z",
-		"comment": "An article from pusher.com blog: \"How to build a realtime chat application using CycleJS, a functional, reactive framework that uses the Reactive JavaScript Extensions under the hood. We’ll see how to model an application using Cycle and get familiar with the core concept of RxJS: data as streams that can be observed.\""
-	}, {
-		"_id": "5721501dccb26c010074774f",
-		"title": "The Making of “The Aviator”: Animating a Basic 3D Scene with Three.js",
-		"url": "http://tympanus.net/codrops/2016/04/26/the-aviator-animating-basic-3d-scene-threejs/",
-		"projects": ["557cc579d58410fe3c16671a"],
-		"createdBy": "michaelrambeau",
-		"createdAt": "2016-04-27T23:49:49.918Z",
-		"comment": "\"A tutorial that explores the basics of creating animated 3D scenes using Three.js.\""
-	}, {
-		"_id": "57235546a4af6001008e6746",
-		"title": "3 Lightweight React Alternatives: Preact, VirtualDom & Deku",
-		"url": "http://www.sitepoint.com/react-alternatives-preact-virtualdom-deku",
-		"projects": ["56a95b5843bdc81100111331", "567e62d1f3509303006b38f2", "565a90593e403f0300e42da3"],
-		"createdBy": "michaelrambeau",
-		"createdAt": "2016-04-29T12:36:22.329Z",
-		"updatedAt": "2016-04-30T04:17:33.933Z",
-		"comment": "An in-depth comparison of 3 React alternatives (Deku, Preact and Virtual Dom) and why they could prove useful for your next project."
-	}, {
-		"_id": "572a68ddd4e96901003d8fbf",
-		"title": "JavaScript Testing: Unit vs Functional vs Integration Tests",
-		"url": "http://www.sitepoint.com/javascript-testing-unit-functional-integration/",
-		"projects": ["55a9a85d803a2a030022c5a3"],
-		"createdBy": "michaelrambeau",
-		"createdAt": "2016-05-04T21:25:49.791Z",
-		"comment": "An extensive look at testing from a JavaScript point of view including what different types of testing you can do and how they relate to each other. "
-	}, {
-		"_id": "572a6e9b2e92af01008286c8",
-		"title": "Performance optimisations for React applications",
-		"url": "https://medium.com/@alexandereardon/performance-optimisations-for-react-applications-b453c597b191",
-		"projects": ["55723c9f4140883353bc775c"],
-		"createdBy": "michaelrambeau",
-		"createdAt": "2016-05-04T21:50:19.543Z",
-		"comment": "The key takeaway: “Return false from shouldComponentUpdate as high up in your application as you can.” "
-	}, {
-		"_id": "572a6ef6622be00100326fe7",
-		"title": "Testing in React: Getting Off The Ground",
-		"url": "https://medium.com/javascript-inside/testing-in-react-getting-off-the-ground-5f569f3088a",
-		"projects": ["55723c9f4140883353bc775c"],
-		"createdBy": "michaelrambeau",
-		"createdAt": "2016-05-04T21:51:50.861Z",
-		"comment": "A high level guide into testing your React Application"
-	}, {
-		"_id": "572a752e3ebe420100b342a7",
-		"title": "Creating a Donation Widget with Flight Components",
-		"url": "http://www.sitepoint.com/creating-donation-widget-with-flight-components",
-		"projects": ["55723c9f4140883353bc76ef", "55723c9f4140883353bc76f2"],
-		"createdBy": "michaelrambeau",
-		"createdAt": "2016-05-04T22:18:22.222Z",
-		"comment": "Learning the basics of Twitter’s Flight.js by making a donation widget, using Materialize for the front-end, and Stripe to handle the payments."
-	}, {
-		"_id": "572a7603c3a60f01001f80b9",
-		"title": "Sinon Tutorial: JavaScript Testing with Mocks, Spies & Stubs",
-		"url": "http://www.sitepoint.com/sinon-tutorial-javascript-testing-mocks-spies-stubs/",
-		"projects": ["55723c9f4140883353bc7730"],
-		"createdBy": "michaelrambeau",
-		"createdAt": "2016-05-04T22:21:55.147Z",
-		"comment": "Sinon helps eliminate complexity in tests by allowing you to easily create so called ‘test-doubles’"
-	}, {
-		"_id": "572a82cb774b4a0100a55e40",
-		"title": "When should I use TypeScript?",
-		"url": "https://medium.com/@alexewerlof/when-should-i-use-typescript-311cb5fe801b",
-		"projects": ["55e6ac347526280300ce7789"],
-		"createdBy": "michaelrambeau",
-		"createdAt": "2016-05-04T23:16:27.295Z",
-		"comment": "What makes a good use case for Typescript and when it doesn’t make sense to use it."
-	}, {
-		"_id": "572a84c5ac2f200100ca9a05",
-		"title": "Functional Programming for JavaScript People",
-		"url": "https://medium.com/@chetcorcos/functional-programming-for-javascript-people-1915d8775504",
-		"projects": ["55985fa7d4ce7a0300ee3dfa"],
-		"createdBy": "michaelrambeau",
-		"createdAt": "2016-05-04T23:24:53.600Z",
-		"comment": "This is not a casual read (get coffee) - it digs deep, but you’ll learn some cool stuff about functional programming concepts."
-	}, {
-		"_id": "572a868f5f654f0100d5ab18",
-		"title": "Animating with React, Redux, and d3",
-		"url": "http://swizec.com/blog/animating-with-react-redux-and-d3/swizec/6775",
-		"projects": ["55723c9f4140883353bc774c", "55723c9f4140883353bc775c", "558dc98489fc680300dfa5aa"],
-		"createdBy": "michaelrambeau",
-		"createdAt": "2016-05-05T00:00:00.000Z",
-		"updatedAt": "2016-06-02T00:00:00.000Z",
-		"comment": "The whole thing is built with React, Redux, and d3. No tricks for animation; just a bit of cleverness."
-	}, {
-		"_id": "572a8aa7667b4001007abe36",
-		"title": "Server-Side Rendering With React, Node And Express",
-		"url": "https://www.smashingmagazine.com/2016/03/server-side-rendering-react-node-express/",
-		"projects": ["55723c9f4140883353bc76ea", "55723c9f4140883353bc775c"],
-		"createdBy": "michaelrambeau",
-		"createdAt": "2016-05-04T23:49:59.483Z",
-		"comment": "A very in-depth tutorial, with code, diagrams, and insights into the process behind creating an isomorphic React and Express app."
-	}, {
-		"_id": "572a91167e80c601008e6933",
-		"title": "Introduction to Functional Reactive Programming with RxJS",
-		"url": "http://www.sitepoint.com/functional-reactive-programming-rxjs",
-		"projects": ["55723c9f4140883353bc7753"],
-		"createdBy": "michaelrambeau",
-		"createdAt": "2016-05-05T00:17:26.819Z",
-		"comment": "Playing with The Reactive Extensions for JavaScript (RxJS) library"
-	}, {
-		"_id": "572a9314e5f9cb0100cd6387",
-		"title": "Essential Tools for Building SPAs With AngularJS",
-		"url": "http://www.telerik.com/blogs/angularjs-developer-tools-list",
-		"projects": ["55723c9f4140883353bc774e"],
-		"createdBy": "michaelrambeau",
-		"createdAt": "2016-05-05T00:25:56.129Z",
-		"comment": "The best tools to get the job done right."
-	}, {
-		"_id": "572a948f5403bf010020df59",
-		"title": "A gentle introduction to functional JavaScript",
-		"url": "http://jrsinclair.com/articles/2016/gentle-introduction-to-functional-javascript-intro",
-		"projects": ["55ab9d0f8f937d03008d41c4"],
-		"createdBy": "michaelrambeau",
-		"createdAt": "2016-05-05T00:32:15.745Z",
-		"comment": "Gentle, well-presented 4 parter on functional JavaScript, starting from ‘why’."
-	}, {
-		"_id": "572a9b486e9319010037dba6",
-		"title": "9 things every React.js beginner should know",
-		"url": "https://camjackson.net/post/9-things-every-reactjs-beginner-should-know",
-		"projects": ["55723c9f4140883353bc775c"],
-		"createdBy": "michaelrambeau",
-		"createdAt": "2016-05-05T01:00:56.289Z",
-		"comment": "Some good practices like using functional components."
-	}, {
-		"_id": "572a9f5e8fac72010076ad84",
-		"title": "Pocket-sized JavaScript",
-		"url": "http://www.thedotpost.com/2015/12/henrik-joreteg-pocket-sized-javascript",
-		"projects": ["565a90593e403f0300e42da3"],
-		"createdBy": "michaelrambeau",
-		"createdAt": "2016-05-05T01:18:22.661Z",
-		"comment": "Being minimalist from the start and using new techniques like Virtual DOM and Web Workers, we can do more with less and build blazing fast apps on mobile."
-	}, {
-		"_id": "572aabb75023c201001b9c38",
-		"title": "Lodash: 10 Javascript Utility Functions That You Should Probably Stop Rewriting",
-		"url": "http://colintoh.com/blog/lodash-10-javascript-utility-functions-stop-rewriting",
-		"projects": ["55723c9f4140883353bc773f"],
-		"createdBy": "michaelrambeau",
-		"createdAt": "2016-05-05T02:11:03.772Z",
-		"comment": "\"Whereas jQuery is the Swiss Army knife of DOM, Lodash is the equivalent of the Batman’s utility belt for Javascript.\""
-	}, {
-		"_id": "572b5a229749e60100faaaae",
-		"title": "Full-Stack Redux Tutorial",
-		"url": "http://teropa.info/blog/2015/09/10/full-stack-redux-tutorial.html",
-		"projects": ["558dc98489fc680300dfa5aa", "55723c9f4140883353bc775c", "55723c9f4140883353bc7738", "55723c9f4140883353bc7716", "55e6ab3a7526280300ce7788", "55723c9f4140883353bc76f4"],
-		"createdBy": "jvalen",
-		"createdAt": "2016-05-05T14:35:14.689Z",
-		"comment": "One of the best tutorials I've seen related to Redux, covering a wide range of technologies such as React, Immutable and testing."
-	}, {
-		"_id": "5733bf44984c920100b9d896",
-		"title": "Ionic Framework: A definitive 10,000 word guide Read",
-		"url": "http://tutorials.pluralsight.com/front-end-javascript/ionic-framework-a-definitive-10-000-word-guide",
-		"projects": ["55723c9f4140883353bc7751"],
-		"createdBy": "michaelrambeau",
-		"createdAt": "2016-05-11T23:24:52.915Z",
-		"updatedAt": "2016-05-28T11:02:35.214Z",
-		"comment": "A comprehensive guide to creating a hybrid app with Ionic from development to publishing in the app store."
-	}]
-}
+[
+  {
+    "_id": "580bce3a89081b01000881b0",
+    "url": "vuex.vuejs.org",
+    "title": "Vuex - Global State Management for Vue.js",
+    "createdBy": "LinusBorg",
+    "createdAt": "2016-10-22T20:38:18.318Z",
+    "__v": 0,
+    "projects": ["vuejs/vue"],
+    "comment": ""
+  },
+  {
+    "_id": "581ba8740a6d400100879b66",
+    "url": "https://github.com/vuejs/vue-router",
+    "title": "The official router for Vue.js",
+    "createdBy": "vinicius73",
+    "createdAt": "2016-11-03T21:13:24.754Z",
+    "__v": 0,
+    "comment": "`vue-router` is the official router for [Vue.js](http://vuejs.org).\n\n- Nested route/view mapping\n- Modular, component-based router configuration\n- Route params, query, wildcards\n- View transition effects powered by Vue.js' transition system\n- Fine-grained navigation control\n- Links with automatic active CSS classes\n- HTML5 history mode or hash mode, with auto-fallback in IE9\n- Customizable Scroll Behavior\n\nGet started with the [documentation](http://vuejs.github.io/vue-router)",
+    "projects": ["vuejs/vue"]
+  },
+  {
+    "_id": "595ffd9d4e832b0100a688c2",
+    "url": "https://www.codementor.io/vuejsdevelopers/7-ways-to-define-a-component-template-in-vue-js-8wxxhmxo6",
+    "title": "7 Ways To Define A Component Template in Vue.js",
+    "createdBy": "michaelrambeau",
+    "createdAt": "2017-07-07T21:31:09.471Z",
+    "__v": 0,
+    "comment": "There's plenty of choice when it comes to defining component templates in Vue. By my count there are at least seven different ways:\n\n* String\n* Template literal\n* X-Templates\n* Inline\n* Render functions\n* JSX\n* Single page components\n* And maybe more!\n\nIn this article we'll go through examples of each and address the pros and cons so you know which one is the best to use in any particular situation.",
+    "projects": ["vuejs/vue"]
+  }
+]

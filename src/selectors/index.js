@@ -159,3 +159,21 @@ export const getFullProject = (tags, auth) => project => {
     pending
   }
 }
+
+export const getProjectsByFullname = createSelector(
+  [state => state.entities.projects],
+  projects => {
+    return Object.keys(projects)
+      .map(key => ({
+        slug: key,
+        full_name: projects[key].full_name
+      }))
+      .reduce((acc, item) => ({ ...acc, [item.full_name]: item.slug }), {})
+  }
+)
+
+export const getProjectSlugFromFullname = fullname =>
+  createSelector(
+    [getProjectsByFullname],
+    projectsByFullname => projectsByFullname[fullname]
+  )

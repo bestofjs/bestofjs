@@ -9,8 +9,6 @@ import { AppContainer } from 'react-hot-loader'
 import { render } from 'react-dom'
 
 import configureStore from './store/configureStore'
-import { fetchAllReviews } from './actions/reviewActions'
-import { fetchAllLinks } from './actions/linkActions'
 import { fetchAllHeroes } from './actions/hofActions'
 import menu from './helpers/menu'
 import log from './helpers/log'
@@ -45,9 +43,6 @@ function dispatchActions({ store }) {
       renderApp(store)
     })
   }
-  store.dispatch(fetchAllReviews())
-  store.dispatch(fetchAllLinks())
-
   // it was hard to find the right place to initialize the sidebar menu
   // because of server side rendering script ('window is not defined' error)
   log('Initialize the sidebar menu')
