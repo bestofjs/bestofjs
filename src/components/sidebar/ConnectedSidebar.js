@@ -1,5 +1,6 @@
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
+import { withRouter } from 'react-router-dom'
 
 import Sidebar from './Sidebar'
 import { getPopularTags, getAllTags } from '../../selectors'
@@ -31,4 +32,5 @@ function mapDispatchToProps(dispatch) {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Sidebar)
+// withRouter is needed to handle `activeClassName` property correctly
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Sidebar))
