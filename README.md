@@ -1,6 +1,5 @@
 [![screenshot](https://user-images.githubusercontent.com/5546996/27979469-459bc2cc-63b1-11e7-9a49-764841fc7fde.png)](https://bestof.js.org/)
 
-[![Join Slack](https://slackin-bestofjs.now.sh/badge.svg)](https://bestofjs.slack.com/messages)
 [![Join the chat at https://gitter.im/michaelrambeau/bestofjs-webui](https://badges.gitter.im/michaelrambeau/bestofjs-webui.svg)](https://gitter.im/michaelrambeau/bestofjs-webui?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 ## Concept
