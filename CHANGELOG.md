@@ -1,9 +1,12 @@
 # Change log
 
-## 0.8.0 - 2017-07-09
+## 0.8.0 - 2017-07-18
 * "My projects" feature #40
 * Serve site over https #41
 * Use `prettier` to format the code
+* Fetch links and reviews related to projects using `bestofjs-api` #48
+* Promote "State of JavaScript 2017" in the top page
+* Refactoring using `reselect` selectors and removing all `shouldComponentUpdate` statements
 
 ## 0.7.5 - 2017-04-29
 * Fix search engine (bug introduced by 0.7.4)
