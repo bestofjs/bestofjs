@@ -5,7 +5,7 @@ const NpmSection = ({ project, npms = true }) =>
     <a
       data-balloon="View on npm"
       className="inner card-block npm-link"
-      href={`https://npm.im/${project.npm}`}
+      href={`https://www.npmjs.com/package/${project.npm}`}
     >
       <img
         className="npm-logo"
