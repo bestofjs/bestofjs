@@ -5,7 +5,7 @@ import fromNow from '../../helpers/fromNow'
 const url = 'http://stateofjs.com/'
 
 const Intro = ({ date }) =>
-  <div id="stateofjs-container">
+  <div>
     <div>
       <h1 className="with-comment" style={{ margin: '0 0 1rem' }}>
         The best of JavaScript, HTML and CSS

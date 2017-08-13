@@ -88,6 +88,7 @@ const ProjectCard = ({
                   value={project.stats[deltaFilter]}
                   big
                   icon
+                  color={false}
                   perDay={deltaFilter !== 'total' && deltaFilter !== 'daily'}
                 />
               </div>}
