@@ -26,3 +26,4 @@ _node_modules
 
 _backup
 .divshot-cache
+package-lock.json

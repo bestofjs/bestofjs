@@ -10,7 +10,7 @@ import Intro from './StateOfJSIntro'
 const Home = props => {
   log('Render the <Home> component', props)
   const { isLoggedin, pending, authActions, popularTags } = props
-  const newsDate = new Date(2017, 6, 18)
+  const newsDate = new Date(2017, 7, 13)
   return (
     <MainContent>
       <div className="no-card-container">

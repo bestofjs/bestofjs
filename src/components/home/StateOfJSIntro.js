@@ -8,7 +8,7 @@ const Intro = ({ date }) =>
   <div id="stateofjs-container">
     <div>
       <h1 className="with-comment" style={{ margin: '0 0 1rem' }}>
-        The best of JavaScript
+        The best of JavaScript, HTML and CSS
       </h1>
       <p>
         Check out the most popular open-source projects and the latest trends
@@ -21,7 +21,7 @@ const Intro = ({ date }) =>
             className="mega-octicon octicon-megaphone"
             style={{ color: '#fa9e59' }}
           />{' '}
-          <span style={{ fontSize: '1.5rem' }}>Breaking News</span>
+          <span style={{ fontSize: '1.5rem' }}>Coming Soon...</span>
           <span
             className="counter"
             style={{ fontSize: '1rem', color: '#aaa', marginLeft: '.5rem' }}
@@ -30,25 +30,14 @@ const Intro = ({ date }) =>
           </span>
         </p>
         <p>
-          We need your input about the{' '}
+          More than 23,000 developers replied to{' '}
           <a href={url} target="_blank" rel="noopener noreferrer">
             The State of JavaScript
-          </a>!
+          </a>{' '}
+          survey.
         </p>
+        <p>Thank you to all... the results are coming soon!</p>
       </div>
-    </div>
-    <div id="stateofjs-logo-cell">
-      <a
-        href={url}
-        target="_blank"
-        rel="noopener noreferrer"
-        alt="The State of JavaScript"
-      >
-        <img
-          id="stateofjs-logo"
-          src="https://stateofjs.netlify.com/images/javascript2017.svg"
-        />
-      </a>
     </div>
   </div>
 
