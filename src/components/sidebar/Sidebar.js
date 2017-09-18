@@ -10,6 +10,7 @@ const Sidebar = ({
   popularTags,
   auth,
   authActions,
+  projectCount,
   hofCount,
   linkCount,
   requestCount,
@@ -40,6 +41,10 @@ const Sidebar = ({
         </NavLink>
         <NavLink to="/projects" className="item" activeClassName="active">
           ALL PROJECTS
+          {hofCount > 0 &&
+            <span className="counter">
+              {projectCount}
+            </span>}
         </NavLink>
         <NavLink to="/hof" className="item" activeClassName="active">
           HALL OF FAME

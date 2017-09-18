@@ -1,7 +1,7 @@
 # Change log
 
 ## 0.9.0 - 2017-09-18
-* New "Daily Trends" block in `/project/:slug` pages, including a heatmap show stargazer count variations over the last 12 months
+* New "Daily Trends" block in `/project/:slug` pages, including a heatmap showing stargazer variations over the last 12 months #33
 
 ## 0.8.0 - 2017-07-18
 * "My projects" feature #40

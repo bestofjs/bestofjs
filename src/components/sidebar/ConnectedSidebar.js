@@ -10,13 +10,19 @@ import * as authActionCreators from '../../actions/authActions'
 import * as uiActionCreators from '../../actions/uiActions'
 
 function mapStateToProps(state) {
-  const { entities: { heroes, links }, requests: { issues }, auth, ui } = state
+  const {
+    entities: { heroes, links, projects },
+    requests: { issues },
+    auth,
+    ui
+  } = state
   const allTags = getAllTags(state)
   const popularTags = getPopularTags(state)
   return {
     allTags,
     popularTags,
     auth,
+    projectCount: Object.keys(projects).length,
     hofCount: Object.keys(heroes).length,
     linkCount: Object.keys(links).length,
     requestCount: Object.keys(issues).length,
