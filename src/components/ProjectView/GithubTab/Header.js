@@ -2,7 +2,7 @@ import React from 'react'
 
 import TagLabel from '../../tags/TagLabel'
 import Description from '../../common/utils/Description'
-import DeltaBar from '../../common/utils/DeltaBar'
+import StarIcon from '../../common/utils/StarIcon'
 import fromNow from '../../../helpers/fromNow'
 import formatUrl from '../../../helpers/formatUrl'
 import NpmSection from '../../projects/NpmSection'
@@ -33,19 +33,16 @@ const Header = ({ project }) =>
       })}
     </div>
     {project.npm && <NpmSection project={project} />}
-    <div className="inner github" style={{ paddingBottom: 0 }}>
+    <div className="inner github">
       <p>
         <span className="octicon octicon-repo" /> GitHub repository:{' '}
         <a href={project.repository}>{formatUrl(project.repository)}</a>{' '}
-        {project.stars} <span className="octicon octicon-star" />
+        {project.stars}
+        <StarIcon />
       </p>
-      <div className="last-commit" style={{ marginBottom: '1rem' }}>
+      <div className="last-commit">
         <span className="octicon octicon-git-commit" /> Last update:{' '}
         {fromNow(project.pushed_at)}
-      </div>
-      <div>
-        {project.deltas.length > 0 &&
-          <DeltaBar data={project.deltas.slice(0, 7)} />}
       </div>
     </div>
   </div>

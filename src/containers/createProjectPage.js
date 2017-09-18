@@ -14,6 +14,7 @@ import { findProject } from '../selectors/project'
 function loadData(props) {
   const project = props.project
   props.actions.fetchReadmeIfNeeded(project)
+  props.actions.fetchProjectData(project)
   props.userContentActions.fetchProjectUserContent(project)
   track('View project', project.name)
 }

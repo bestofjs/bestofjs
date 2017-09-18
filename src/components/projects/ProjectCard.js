@@ -3,7 +3,8 @@ import { Link } from 'react-router-dom'
 
 import TagLabel from '../tags/TagLabelCompact'
 import Delta from '../common/utils/Delta'
-import Stars from '../common/utils/Stars'
+import StarDelta from '../common/utils/StarDelta'
+import StarTotal from '../common/utils/StarTotal'
 import Description from '../common/utils/Description'
 import NpmSection from './NpmSection'
 import CardFooter from './CardFooter'
@@ -78,19 +79,24 @@ const ProjectCard = ({
           <div className="header-stars">
             {showStars &&
               <div className="total">
-                <Stars value={project.stars} icon />
+                <StarTotal value={project.stars} icon />
               </div>}
 
             {showDelta &&
               project.deltas.length > 0 &&
               <div className="delta">
-                <Delta
+                <StarDelta
                   value={project.stats[deltaFilter]}
-                  big
-                  icon
-                  color={false}
-                  perDay={deltaFilter !== 'total' && deltaFilter !== 'daily'}
+                  average={deltaFilter !== 'daily'}
                 />
+                {false &&
+                  <Delta
+                    value={project.stats[deltaFilter]}
+                    big
+                    icon
+                    color={false}
+                    perDay={deltaFilter !== 'total' && deltaFilter !== 'daily'}
+                  />}
               </div>}
           </div>
         </header>

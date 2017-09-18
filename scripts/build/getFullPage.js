@@ -23,6 +23,8 @@ module.exports = function({ isDev, html }) {
 
     <!-- added for Github pages -->
     <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/hint.css/2.5.0/hint.min.css">
+
     ${isDev
       ? '<!-- Redirect script not necessary in dev (webpack does the job) -->'
       : getRedirect()}

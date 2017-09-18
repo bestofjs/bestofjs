@@ -1,9 +1,9 @@
 const setup = {
   development: {
-    GET_PROJECTS: 'https://bestofjs-api-v2.firebaseapp.com/',
+    GET_PROJECTS: 'https://bestofjs-api-dev.firebaseapp.com/',
     GET_README: 'https://get-github-readme-v2.now.sh',
-    GET_USER_CONTENT: 'https://bestofjs-api-v0.now.sh',
-    // 'https://webtask.it.auth0.com/api/run/wt-mikeair-gmail_com-0/user-content-api-dev',
+    GET_USER_CONTENT: 'https://bestofjs-api-v1.now.sh',
+    GET_PROJECT_DATA: 'https://bestofjs-api-v1.now.sh',
     USER_CONTENT:
       'https://webtask.it.auth0.com/api/run/wt-mikeair-gmail_com-0/user-content-api-v3',
     ISSUES_REPO: 'michaelrambeau/bestofjs-sandbox'
@@ -11,7 +11,8 @@ const setup = {
   production: {
     GET_PROJECTS: 'https://bestofjs-api-v2.firebaseapp.com/',
     GET_README: 'https://get-github-readme-v2.now.sh',
-    GET_USER_CONTENT: 'https://bestofjs-api-v0.now.sh',
+    GET_USER_CONTENT: 'https://bestofjs-api-v1.now.sh',
+    GET_PROJECT_DATA: 'https://bestofjs-api-v1.now.sh',
     USER_CONTENT:
       'https://webtask.it.auth0.com/api/run/wt-mikeair-gmail_com-0/user-content-api-v3',
     ISSUES_REPO: 'michaelrambeau/bestofjs'

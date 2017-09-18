@@ -4,6 +4,7 @@ import Tabs from '../Tabs'
 import Readme from './Readme'
 import Header from './Header'
 import ProjectHeader from '../ProjectHeader'
+import Trends from './Trends'
 
 const GitHub = props => {
   const { project } = props
@@ -14,7 +15,7 @@ const GitHub = props => {
       <div className="project-tabs-content">
         <Header {...props} />
       </div>
-      <br />
+      <Trends {...props} />
       <Readme {...props} />
     </div>
   )

@@ -31,8 +31,9 @@
     padding: 1em
     &.github
       border-top: 1px dashed $cardBorderColor
-  .ranking
-
+  .star-delta
+    text-align: center
+    margin-right: .5rem
   .title
     font-size: 1.2em
     margin-bottom: 5px
@@ -45,7 +46,6 @@
     .total
       font-size: 1.2em
   .octicon
-    width: 20px
     text-align: left
   .url
     display: block
@@ -58,7 +58,8 @@
 // Generic card section
 .card-section
   padding: 1em
-  border-top: 1px dashed $cardBorderColor
+  &:not(:first-child)
+    border-top: 1px dashed $cardBorderColor
 .description-card-section
   overflow: hidden
   text-overflow: ellipsis

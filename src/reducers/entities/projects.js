@@ -9,6 +9,14 @@ export default function(state = {}, action) {
         ...state,
         [action.id]: { ...state[action.id], readme: action.html }
       }
+    case 'GET_PROJECT_DATA_SUCCESS':
+      return {
+        ...state,
+        [action.id]: {
+          ...state[action.id],
+          deltas: action.payload['daily-trends']
+        }
+      }
     default:
       return state
   }

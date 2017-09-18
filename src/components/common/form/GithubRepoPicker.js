@@ -1,7 +1,7 @@
 import React from 'react'
 import { Async } from 'react-select'
 
-import Stars from '../utils/Stars'
+import Stars from '../utils/StarTotal'
 
 import { fetchJSON } from '../../../helpers/fetch'
 

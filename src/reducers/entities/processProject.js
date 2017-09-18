@@ -1,7 +1,7 @@
 import slugify from '../../helpers/slugify'
 
 // Round the average number of stars used in "trending this year" graphs
-function roundAverage(number, decimals = 0) {
+function roundAverage(number, decimals = 1) {
   const i = Math.pow(10, decimals)
   return Math.round(number * i) / i
 }
@@ -41,7 +41,7 @@ export default function processProject(item) {
     stats: {
       total: item.stars,
       daily: item.deltas[0],
-      weekly: roundAverage(weeklyTotal / 7),
+      weekly: item.deltas.length > 6 ? roundAverage(weeklyTotal / 7) : null,
       monthly:
         monthlyStars.length > 1 ? addedAverage(monthlyStars[1], 30) : null,
       quaterly:

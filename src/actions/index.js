@@ -1,4 +1,4 @@
-import { fetchHTML } from '../helpers/fetch'
+import { fetchHTML, fetchJSON } from '../helpers/fetch'
 import log from '../helpers/log'
 import api from '../../config/api'
 
@@ -15,6 +15,13 @@ function requestReadme(id) {
   }
 }
 
+function requestProjectData(id) {
+  return {
+    type: 'GET_PROJECT_DATA_REQUEST',
+    id
+  }
+}
+
 function getReadmeSuccess(id, html) {
   return {
     type: GET_README_SUCCESS,
@@ -22,11 +29,27 @@ function getReadmeSuccess(id, html) {
     html
   }
 }
+
+function getProjectDataSuccess(id, payload) {
+  return {
+    type: 'GET_PROJECT_DATA_SUCCESS',
+    id,
+    payload
+  }
+}
+
 function getReadmeFailure(id) {
   return {
     type: GET_README_FAILURE,
     id,
     data: { readme: 'ERROR' }
+  }
+}
+
+function getProjectDataFailure(id) {
+  return {
+    type: 'GET_PROJECT_DATA_FAILURE',
+    id
   }
 }
 
@@ -73,5 +96,17 @@ export function getLinksSuccess(json) {
   return {
     type: 'GET_LINKS_SUCCESS',
     data: json
+  }
+}
+
+export function fetchProjectData(project) {
+  const id = project.slug
+  return dispatch => {
+    log('Fetching project data...', project)
+    dispatch(requestProjectData(id))
+    const url = api('GET_PROJECT_DATA')
+    return fetchJSON(`${url}/projects/${project.full_name}`)
+      .then(html => dispatch(getProjectDataSuccess(id, html)))
+      .catch(response => dispatch(getProjectDataFailure(id, response)))
   }
 }
