@@ -62,7 +62,7 @@ const MonthlyTrends = ({ project }) => {
   }
   return (
     <div className="card-section">
-      {stats.weekly
+      {stats.weekly || stats.weekly === 0
         ? <div>
             <p>Stars added on GitHub, per day, on average:</p>
             <div className="daily-trends-container">
