@@ -27,9 +27,11 @@ const StarDeltaNormal = ({ value }) => {
 
 const StarDeltaAverage = ({ value, inline }) => {
   const integerPart = Math.abs(Math.trunc(value))
-  const decimalPart = ((value - integerPart) * 10).toFixed().slice(0, 1)
+  const decimalPart = (Math.abs(value - integerPart) * 10).toFixed().slice(0, 1)
   const sign = getSign(value)
   const display = inline ? 'inline' : 'block'
+  if (value === null)
+    return <div className="star-delta text-secondary text-small">N/A</div>
   return (
     <div className="star-delta">
       <div style={{ display }}>
