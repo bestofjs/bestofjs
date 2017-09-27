@@ -1,5 +1,8 @@
 # Change log
 
+## 0.10.0 - 2017-09-28
+* Add npm dependencies, commit count and contributor count #52
+
 ## 0.9.0 - 2017-09-18
 * New "Daily Trends" block in `/project/:slug` pages, including a heatmap showing stargazer variations over the last 12 months #33
 

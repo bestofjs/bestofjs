@@ -1,16 +1,19 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import numeral from 'numeral'
 
 import TagLabel from '../tags/TagLabelCompact'
 import Delta from '../common/utils/Delta'
 import StarDelta from '../common/utils/StarDelta'
 import StarTotal from '../common/utils/StarTotal'
 import Description from '../common/utils/Description'
-import NpmSection from './NpmSection'
+import NpmCardSection from './NpmCardSection'
 import CardFooter from './CardFooter'
 import Avatar from '../common/ProjectAvatar'
 
 import fromNow from '../../helpers/fromNow'
+
+const formatNumber = number => numeral(number).format('0,0')
 
 const renderReviews = (reviews = []) => {
   const count = reviews.length
@@ -128,17 +131,23 @@ const ProjectCard = ({
 
       {showMetrics &&
         project.npm &&
-        <NpmSection
+        <NpmCardSection
           project={project}
           packagequality={viewOptions.packagequality}
           npms={viewOptions.npms}
         />}
 
       {viewOptions.commit &&
-        <div className="inner github">
-          <div className="last-commit">
+        <div className="inner github" style={{ display: 'flex' }}>
+          <div className="last-commit" style={{ flex: '1' }}>
             <span className="octicon octicon-git-commit" />{' '}
             <span data-balloon="Last update">{fromNow(project.pushed_at)}</span>
+          </div>
+          <div>
+            <span className="octicon octicon-organization" />{' '}
+            <span data-balloon="Number of contributors">
+              {formatNumber(project.contributor_count)}
+            </span>
           </div>
         </div>}
 

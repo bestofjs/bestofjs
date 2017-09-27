@@ -1,6 +1,6 @@
 {
   "name": "bestofjs-webui",
-  "version": "0.9.0",
+  "version": "0.10.0",
   "description": "bestof.js.org front-end web application",
   "engines": {
     "node": ">=6.2.1"
@@ -76,6 +76,7 @@
     "react-router": "4.1.1",
     "react-router-dom": "4.1.1",
     "react-select": "1.0.0-beta14",
+    "react-toggled": "^1.0.2",
     "recursive-readdir": "^2.1.1",
     "redux": "3.6.0",
     "redux-form": "6.6.3",

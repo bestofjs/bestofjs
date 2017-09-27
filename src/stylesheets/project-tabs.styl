@@ -37,5 +37,45 @@
       text-decoration: none
     .project-link-title
       font-size: 1.2rem
-  .inner.github, .inner.tags
+  .inner.github, .inner.tags, .inner.npm-section
     border-top 1px dashed $cardBorderColor
+  .inner.github, .inner.npm-section
+    border-top 1px dashed $cardBorderColor
+    a
+      color: inherit
+      &:hover
+        color: #CC4700
+  .toggler
+    color: inherit
+    cursor: pointer
+    &:hover
+      color: #CC4700
+    .icon
+      margin-right: .25rem
+  .dependencies
+    overflow: hidden
+    white-space: nowrap
+    text-overflow: ellipsis
+    .inline-list a
+      color: #999
+      &:not(:last-child)
+        margin-right: .5rem
+    .block-list
+      margin-top: .5rem
+      padding-left: 1rem // add more identation compared to other list
+      list-style: none
+      border-left: 1px dashed #cbcbcb
+      li
+        margin-bottom: .25rem //override .5rem to make the list more compact
+      a
+        color: inherit
+        &:hover
+          color: #CC4700
+  .inner.github // 2-column layout used to display GitHub data
+    display: flex
+    > div:first-child
+      flex: 1
+    @media (max-width: 600px)
+      flex-direction: column
+      > div:last-child
+        margin-top: .5rem
