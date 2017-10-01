@@ -1,11 +1,16 @@
 import React from 'react'
 import Toggle from 'react-toggled'
+import { Link } from 'react-router-dom'
+
+import withPackageData from '../../../containers/withPackageData'
+import StarTotal from '../../common/utils/StarTotal'
 
 const NpmSection = ({ project }) =>
   <section className="inner npm-section">
     <a
       href={`https://www.npmjs.com/package/${project.npm}`}
       style={{ display: 'flex', alignItems: 'center', marginBottom: '.5rem' }}
+      target="_blank"
     >
       <img
         src="https://s3-us-west-2.amazonaws.com/svgporn.com/logos/npm.svg"
@@ -15,7 +20,7 @@ const NpmSection = ({ project }) =>
         width="40.95"
         style={{ marginRight: '.25rem' }}
       />
-      <span style={{ marginRight: '.25rem' }}>
+      <span className="link" style={{ marginRight: '.25rem' }}>
         {project.npm}
       </span>
       <span className="version text-secondary">
@@ -47,9 +52,9 @@ const DependencyList = ({ dependencies }) =>
         {!on && <DependencyListPreview dependencies={dependencies} />}
         <div>
           {on &&
-            <DependencyFullList
+            <ConnectedDependencyFullList
               togglerProps={getTogglerProps()}
-              dependencies={dependencies}
+              packageNames={dependencies}
             />}
         </div>
       </div>}
@@ -58,25 +63,53 @@ const DependencyList = ({ dependencies }) =>
 const DependencyListPreview = ({ dependencies }) =>
   <span className="inline-list" style={{ marginLeft: '.5rem' }}>
     {dependencies.map(packageName =>
-      <a
-        key={packageName}
-        href={`https://npm.im/${packageName}`}
-        target="_blank"
-      >
+      <span key={packageName}>
         {packageName}
-      </a>
+      </span>
     )}
   </span>
 
-const DependencyFullList = ({ dependencies }) =>
-  <ul className="block-list">
-    {dependencies.map(packageName =>
-      <li key={packageName}>
-        <a key={packageName} href={`https://npm.im/${packageName}`}>
-          {packageName}
-        </a>
-      </li>
-    )}
-  </ul>
+const DependencyFullList = ({ packages }) => {
+  return (
+    <table className="block-list">
+      <thead>
+        <tr>
+          <td>Package on npm</td>
+          <td>Project on bestof.js.org</td>
+        </tr>
+      </thead>
+      <tbody>
+        {packages.map(npmPackage =>
+          <tr key={npmPackage.name}>
+            <td>
+              <a href={`https://npm.im/${npmPackage.name}`} target="_blank">
+                {npmPackage.name}
+              </a>
+            </td>
+            <td>
+              {npmPackage.project
+                ? <span>
+                    <Link
+                      to={`/projects/${npmPackage.project.slug}`}
+                      styleX={{
+                        textDecoration: 'underline'
+                      }}
+                      className="text-secondary"
+                    >
+                      {npmPackage.project.name}{' '}
+                      <StarTotal value={npmPackage.project.stars} icon />
+                    </Link>
+                    <span className="text-secondary" />
+                  </span>
+                : <span style={{ color: '#ccc' }}>N/A</span>}
+            </td>
+          </tr>
+        )}
+      </tbody>
+    </table>
+  )
+}
+
+const ConnectedDependencyFullList = withPackageData(DependencyFullList)
 
 export default NpmSection

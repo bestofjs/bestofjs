@@ -2,11 +2,7 @@ import React from 'react'
 
 const NpmCardSection = ({ project }) =>
   <section className="card-section npm-card-section">
-    <a
-      data-balloon="View on npm"
-      className="inner card-block npm-link"
-      href={`https://www.npmjs.com/package/${project.npm}`}
-    >
+    <div className="inner" data-balloon={'Package name on npm'}>
       <img
         className="npm-logo icon"
         width="16"
@@ -17,9 +13,12 @@ const NpmCardSection = ({ project }) =>
       <span className="version">
         {project.version}
       </span>
-    </a>
+    </div>
     {(project.dependency_count || project.dependency_count === 0) &&
-      <div className="inner" data-balloon="Number of dependencies">
+      <div
+        className="inner"
+        data-balloon={`${project.dependency_count} dependencies`}
+      >
         <span className="octicon octicon-package icon" />
         <span>
           {' '}{project.dependency_count}

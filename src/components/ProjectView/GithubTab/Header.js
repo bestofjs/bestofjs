@@ -22,7 +22,11 @@ const Header = ({ project }) =>
       <p>
         <Description text={project.description} showEmojis />
         {project.url &&
-          <a href={addMissingHttp(project.url)} style={{ marginLeft: '.5rem' }}>
+          <a
+            href={addMissingHttp(project.url)}
+            style={{ marginLeft: '.5rem' }}
+            target="_blank"
+          >
             {formatUrl(project.url)}
           </a>}
       </p>
@@ -37,7 +41,9 @@ const Header = ({ project }) =>
       <div>
         <p>
           <span className="octicon octicon-repo" /> Repo:{' '}
-          <a href={project.repository}>{project.full_name}</a>{' '}
+          <a href={project.repository} className="link" target="_blank">
+            {project.full_name}
+          </a>{' '}
           {formatNumber(project.stars)}
           <StarIcon />
         </p>

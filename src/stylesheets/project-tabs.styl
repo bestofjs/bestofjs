@@ -25,7 +25,8 @@
     padding 1rem
   .delta-bar-container
     margin: 0 -1rem
-
+  a:hover
+    text-decoration: none
   .project-link, .project-review-item
     border-top: 1px dashed $cardBorderColor
     padding: 1rem 0
@@ -33,14 +34,16 @@
       border-bottom: 1px dashed $cardBorderColor
     .project-link-date, project-review-date
       font-size: 13px
-    a:hover
-      text-decoration: none
     .project-link-title
       font-size: 1.2rem
   .inner.github, .inner.tags, .inner.npm-section
     border-top 1px dashed $cardBorderColor
   .inner.github, .inner.npm-section
     border-top 1px dashed $cardBorderColor
+    .link
+      border-bottom: 1px dotted $cardBorderColor
+      &:hover
+        // border-color: transparent
     a
       color: inherit
       &:hover
@@ -56,15 +59,28 @@
     overflow: hidden
     white-space: nowrap
     text-overflow: ellipsis
-    .inline-list a
+    .inline-list > *
       color: #999
       &:not(:last-child)
         margin-right: .5rem
     .block-list
+      width: 100%
+      border-spacing: 0
       margin-top: .5rem
-      padding-left: 1rem // add more identation compared to other list
+      border: 1px dashed #cbcbcb
+      // padding-left: 1rem // add more identation compared to other list
       list-style: none
-      border-left: 1px dashed #cbcbcb
+      // border-left: 1px dashed #cbcbcb
+      thead td
+        background-color: #ececec
+      td
+        padding: .25rem .5rem
+      @media (max-width: 500px)
+        td:last-child
+          display: none // Hide the link on bestof.js.org on small screens
+
+      tbody tr td
+        border-top: 1px dashed #cbcbcb
       li
         margin-bottom: .25rem //override .5rem to make the list more compact
       a

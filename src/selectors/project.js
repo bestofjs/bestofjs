@@ -1,6 +1,7 @@
 import { createSelector } from 'reselect'
 import populate from '../helpers/populate'
 import { linksByProject, reviewsByProject } from './userContent'
+import { npmProjects } from './index'
 
 // Return a full `project` object, including `tags`, `links` and `reviews`
 // to be used by `/projects/:id` pages
@@ -40,3 +41,9 @@ function calculateAverageRating(reviews) {
     .reduce((item0, item1) => item0 + item1, 0)
   return sum / reviews.length
 }
+
+export const findProjectByNpmName = npmName =>
+  createSelector([npmProjects], projects => {
+    const foundProject = projects.find(project => project.npm === npmName)
+    return foundProject
+  })
