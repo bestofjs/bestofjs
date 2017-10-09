@@ -83,6 +83,13 @@ $pagination-shadow-inset = inset 0 1px 2px rgba(black, 0.2)
   padding-left: 0.75em
   padding-right: 0.75em
   white-space: nowrap
+  // hide both buttons between 900 and 1000 because of the sidebar that limits the available space
+  @media (min-width: 900px) and (max-width: 1000px)
+    display: none
+  // Show caption only on mobile screens, because the number buttons are not displayed 
+  @media (min-width: 600px)
+    .text
+      display: none
 
 .pagination-link
   &.is-current
@@ -105,6 +112,6 @@ $pagination-shadow-inset = inset 0 1px 2px rgba(black, 0.2)
 
 // Show number links only on big screens
 // "Previous" and "Next" buttons always show up
-@media (max-width: 1199px)
+@media (max-width: 599px)
   .pagination-list
     display: none
