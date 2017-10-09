@@ -33,8 +33,8 @@ function rank(project, tags, text) {
   const re1 = new RegExp('^' + text, 'i')
   const re2 = new RegExp(text, 'i')
 
-  if (re1.test(project.name)) {
-    // top level relevance: project whose name start by the text
+  if (re1.test(project.name) || (project.npm && re1.test(project.npm))) {
+    // top level relevance: project whose name or npm package name start by the text
     return 5
   }
   if (text.length > 1) {

@@ -15,13 +15,13 @@ class ProjectList extends React.Component {
       showMetrics = true,
       deltaFilter,
       viewOptions,
-      paginated,
+      items,
       isLoggedin,
       onAddToMyProjects,
       onRemoveFromMyProjects
     } = this.props
-    log('Render <ProjectList>', projects.length)
-    const paginatedProjects = paginated ? projects.slice(0, 10) : projects
+    const paginatedProjects = items || projects
+    log('Render <ProjectList>', paginatedProjects.length)
     return (
       <div className="project-grid">
         {paginatedProjects.map((project, index) =>

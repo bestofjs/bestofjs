@@ -17,7 +17,7 @@ module.exports = function({ isDev, html }) {
 
     <meta name="mobile-web-app-capable" content="yes">
     <link rel="manifest" href="/manifest.json">
-    <link rel="icon" type="image/png" href="images/app-icon-192.png" sizes="192x192">
+    <link rel="icon" type="image/png" href="/images/app-icon-192.png" sizes="192x192">
     <link rel="alternate" type="application/rss+xml" href="/rss/weekly-trends.xml" />
     <meta name="theme-color" content="#e65100">
 

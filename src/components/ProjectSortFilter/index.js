@@ -5,10 +5,10 @@ const trendingOptions = items.filter(option => option.category === 'trend')
 const popularOption = items[0]
 const defaultTrendingOption = trendingOptions[0]
 
-const Tabs = ({ rootUrl, currentValue }) => {
+const Tabs = ({ rootUrl, currentValue, withPagination }) => {
   const currentItem = items.find(item => item.value === currentValue)
   return (
-    <div style={{ marginBottom: '2rem' }}>
+    <div style={{ marginBottom: withPagination ? '1rem' : '2rem' }}>
       <div className="project-sort-tabs-level1">
         <div className={`${currentValue === 'total' ? 'on' : 'off'}`}>
           <Link to={`${rootUrl}/${popularOption.url}`}>

@@ -6,6 +6,7 @@ import TagFilter from '../components/TagView'
 import log from '../helpers/log'
 import * as uiActionCreators from '../actions/uiActions'
 import { getProjectsSortedBy, getAllProjectsCount } from '../selectors'
+import { getPageNumber } from '../components/common/pagination/helpers'
 
 class AllProjectsPage extends Component {
   render() {
@@ -16,27 +17,41 @@ class AllProjectsPage extends Component {
       uiActions,
       ui,
       graphProjects,
-      count
+      count,
+      url,
+      itemPerPage,
+      pageNumber
     } = this.props
     return (
       <TagFilter
         projects={tagProjects}
+        total={count}
+        url={url}
         graphProjects={graphProjects}
-        maxStars={tagProjects.length > 0 ? tagProjects[0].stars : 0}
         isLoggedin={isLoggedin}
         ui={ui}
         uiActions={uiActions}
         count={count}
+        itemPerPage={itemPerPage}
+        pageNumber={pageNumber}
+        showTags={true}
       />
     )
   }
 }
 
 function mapStateToProps(sortFilter) {
-  return function(state) {
+  return function(state, props) {
+    const { location } = props
+    const pageNumber = getPageNumber(location) || 1
+    const itemPerPage = 50
+    const start = itemPerPage * (pageNumber - 1)
+    const url = location.pathname
+
     const tagProjects = getProjectsSortedBy({
       criteria: sortFilter,
-      limit: 50
+      start,
+      limit: itemPerPage
     })(state)
     const count = getAllProjectsCount(state)
     const { auth: { username }, ui } = state
@@ -46,7 +61,10 @@ function mapStateToProps(sortFilter) {
       ui: Object.assign({}, ui, {
         starFilter: sortFilter
       }),
-      count
+      count,
+      url,
+      itemPerPage,
+      pageNumber
     }
   }
 }

@@ -1,0 +1,110 @@
+$grey = #999
+$grey-darker = #666
+$grey-lighter = #aaa
+$link = #ffae63
+$link-hover = $bestofjsOrange
+$link-hover-border = $bestofjsOrange
+$link-focus = $link-hover
+$link-active = blue
+$link-active-border = blue
+$link-invert = white
+
+$pagination-color = $grey-darker
+$pagination-border-color = #ffae63
+
+$pagination-hover-color = $link-hover
+$pagination-hover-border-color = $link-hover-border
+
+$pagination-focus-color = $link-focus
+$pagination-focus-border-color = $link-focus-border
+
+$pagination-active-color = $link-active
+$pagination-active-border-color = $link-active-border
+
+$pagination-disabled-color = $grey
+$pagination-disabled-background-color = transparent
+$pagination-disabled-border-color = $grey-lighter
+
+$pagination-current-color = $link-invert
+$pagination-current-background-color = $link
+$pagination-current-border-color = $link
+
+$pagination-ellipsis-color = $grey-light
+
+$pagination-shadow-inset = inset 0 1px 2px rgba(black, 0.2)
+
+.pagination
+  font-size: inherit
+  margin-bottom: 1rem
+
+.pagination,
+.pagination-list
+  align-items: center
+  display: flex
+  justify-content: center
+  text-align: center
+
+.pagination-previous,
+.pagination-next,
+.pagination-link,
+.pagination-ellipsis
+  // +control
+  // +unselectable
+  color: #ffae63
+  background-color: white
+  border: 1px solid #ffae63 // added
+  font-size: 1em
+  padding: 0.25em 0.5em
+  justify-content: center
+  margin: 0.25rem
+  text-align: center
+
+.pagination-previous,
+.pagination-next,
+.pagination-link
+  border-color: $pagination-border-color
+  min-width: 2.25em
+  &:hover
+    border-color: $pagination-hover-border-color
+    color: $pagination-hover-color
+  &:focus
+    border-color: $pagination-focus-border-color
+  &:active
+    box-shadow: $pagination-shadow-inset
+  &[disabled]
+    background-color: $pagination-disabled-background-color
+    border-color: $pagination-disabled-border-color
+    box-shadow: none
+    color: $pagination-disabled-color
+    opacity: 0.5
+
+.pagination-previous,
+.pagination-next
+  padding-left: 0.75em
+  padding-right: 0.75em
+  white-space: nowrap
+
+.pagination-link
+  &.is-current
+    background-color: $pagination-current-background-color
+    border-color: $pagination-current-border-color
+    color: $pagination-current-color
+
+
+.pagination-ellipsis
+  color: $pagination-ellipsis-color
+  pointer-events: none
+
+.pagination-list
+  flex-wrap: wrap
+
+// added: reset styles related to the <ul> element
+.pagination-list
+  margin: 0
+  list-style: none
+
+// Show number links only on big screens
+// "Previous" and "Next" buttons always show up
+@media (max-width: 1199px)
+  .pagination-list
+    display: none

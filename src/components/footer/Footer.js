@@ -7,7 +7,8 @@ const Footer = ({ staticContent, lastUpdate }) => {
     <div id="footer">
       <p>
         {projectName} is a project by{' '}
-        <a href="http://michaelrambeau.com">Michael Rambeau</a> made in Osaka.
+        <a href="https://michaelrambeau.com">Michael Rambeau</a> made in Osaka,
+        Japan.
       </p>
       <p>
         View the code on <a href={repo}>GitHub</a> (version {version})
@@ -21,7 +22,12 @@ const Footer = ({ staticContent, lastUpdate }) => {
         rel="noopener noreferrer"
         title="JS.ORG | JavaScript Community"
       >
-        <img src="/images/dark_horz.png" width="102" alt="JS.ORG Logo" />
+        <img
+          src="/images/dark_horz.png"
+          width="102"
+          alt="JS.ORG Logo"
+          style={{ marginTop: '1rem' }}
+        />
       </a>
     </div>
   )
