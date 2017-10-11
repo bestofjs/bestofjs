@@ -8,7 +8,7 @@ import populate from '../../src/helpers/populate'
 
 // Data
 import data from '../data/projects.json'
-import getStore from '../getStore'
+import getStore from '../../scripts/getStore'
 
 // Actions
 import * as actions from '../../src/actions'

@@ -15,13 +15,9 @@ export default function buildXml(projects) {
     addItem(xml, project)
   })
   return xml.end({ pretty: true })
-
-  // console.log(xml)
-  // return xml
 }
 
 function addItem(xmlParent, project) {
-  console.log(project)
   const xmlItem = xmlParent.ele('item')
   xmlItem.ele(
     'title',

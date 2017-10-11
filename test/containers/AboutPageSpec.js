@@ -4,7 +4,7 @@ import { MemoryRouter } from 'react-router-dom'
 import { Provider } from 'react-redux'
 import { mount } from 'enzyme'
 
-import getStore from '../getStore'
+import getStore from '../../scripts/getStore'
 
 // Main components to test
 import AboutPage from '../../src/containers/AboutPage'

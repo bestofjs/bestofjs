@@ -14,7 +14,7 @@ import Home from '../../src/components/home/Home'
 import ProjectList from '../../src/components/projects/ProjectList'
 import ProjectCard from '../../src/components/projects/ProjectCard'
 import { getHotProjects, getPopularTags } from '../../src/selectors'
-import getStore from '../getStore'
+import getStore from '../../scripts/getStore'
 
 setup()
 

@@ -19,7 +19,7 @@ import { getProjectsSortedBy } from '../../src/selectors'
 import ProjectList from '../../src/components/projects/ProjectList'
 import ProjectCard from '../../src/components/projects/ProjectCard'
 
-import getStore from '../getStore'
+import getStore from '../../scripts/getStore'
 
 setup()
 

@@ -11,7 +11,7 @@ import GithubTab from '../../src/components/ProjectView/GithubTab'
 
 // Data
 import data from '../data/projects.json'
-import getStore from '../getStore'
+import getStore from '../../scripts/getStore'
 
 import setup from '../setup.js'
 setup()

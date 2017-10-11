@@ -11,7 +11,7 @@ import Card from '../../src/components/hof/HeroCard'
 import { getAllHeroes } from '../../src/helpers/hof'
 import hof from '../data/hof.json'
 import { fetchHeroesSuccess } from '../../src/actions/hofActions'
-import getStore from '../getStore'
+import getStore from '../../scripts/getStore'
 
 import setup from '../setup.js'
 setup()

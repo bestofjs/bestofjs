@@ -1,5 +1,8 @@
-// `npm run build-html` entry script
-// Get project data from a static json file and build `www/index.html` file
+/*
+`npm run build-html` entry script
+Get project data from a static json file and build `www/index.html` file
+*/
+/* eslint-disable no-console */
 
 import fetch from 'node-fetch'
 
@@ -9,14 +12,9 @@ import api from '../../config/api'
 import getFullPage from './getFullPage'
 import renderApp from './renderApp'
 import write from './write-html'
+import getStore from '../getStore'
 
-import rootReducer from '../../src/reducers'
-import { createStore } from 'redux'
 import { getPopularTags } from '../../src/selectors'
-import {
-  fetchProjectsFromAPI,
-  fetchProjectsSuccess
-} from '../../src/actions/entitiesActions'
 
 // Get data from production API
 process.env.NODE_ENV = 'production'
@@ -28,7 +26,7 @@ function getAllPaths(tags) {
   return paths
 }
 
-const defaultState = {
+const initialState = {
   entities: {
     projects: {},
     tags: {}
@@ -61,14 +59,12 @@ fetch(url)
       json.projects.length,
       'projects'
     )
-    // const state = getInitialState(json, null, { ssr: true })
-    const store = createStore(rootReducer, defaultState)
-    store.dispatch(fetchProjectsSuccess(json))
+    const store = getStore(json, initialState)
     const state = store.getState()
     const tags = getPopularTags(state)
     const paths = getAllPaths(tags)
     const promises = paths.map(createPage(store))
-    return Promise.all(promises)
+    return global.Promise.all(promises)
   })
   .catch(err => console.log('ERROR!', err.stack))
   .then(result => console.log('Server-side rendering done!', result))

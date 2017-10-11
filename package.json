@@ -16,11 +16,12 @@
     "gh-pages": "node scripts/deploy-gh-pages/",
     "surge": "surge --domain bestofjs.surge.sh --project ./www/",
     "deploy-all": "npm run build && npm run gh-pages",
-    "daily": "npm run build-html && npm run build-html-hof && npm run deploy-html",
+    "daily": "npm run build-html && npm run build-html-hof && npm run deploy-html && npm run rss-once-a-week",
     "build-html": "babel-node scripts/build/",
     "build-html-hof": "babel-node scripts/build/build-hof.js",
     "deploy-html": "node scripts/deploy-html/",
     "analyze": "cross-env NODE_ENV=production webpack -p --config config/webpack.production.config.js --json | webpack-bundle-size-analyzer",
+    "rss-once-a-week": "babel-node scripts/rss/once-a-week",
     "rss": "babel-node scripts/rss"
   },
   "repository": {
