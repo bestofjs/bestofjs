@@ -1,8 +1,12 @@
-// Read html files generated in www folder and commit to deploy on Github pages.
-// script launched from `npm run deploy-html`
-// To run this file in local, a Github access token is required
-// Create a `.env` file that contains only: `GITHUB_ACCESS_TOKEN=xxxx`
+/*
+Read html and xml files generated in www folder and commit to deploy on Github pages.
+script launched from `npm run deploy-static-pages` script
+To run this file in local, a Github access token is required
+Create a `.env` file that contains only: `GITHUB_ACCESS_TOKEN=xxxx`
+*/
+/* eslint-disable no-console */
 const fs = require('fs')
+const prettyBytes = require('pretty-bytes')
 require('dotenv').load()
 
 const readFilenamesFromFolder = require('./read-files')
@@ -27,7 +31,7 @@ function readFile(filepath) {
     fs.readFile(`${PUBLIC_DIR}/${filepath}`, 'utf8', (err, data) => {
       if (err) return reject(err)
       const html = data
-      console.log('Filesystem OK!', filepath, data.length)
+      console.log('Filesystem OK!', filepath, prettyBytes(data.length))
       return resolve({
         filepath,
         html

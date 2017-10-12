@@ -7,7 +7,7 @@ const GITHUB_BASE_URL = 'https://api.github.com'
 function commit({ files, repo, branch, message, token }) {
   const BASE_URL = `${GITHUB_BASE_URL}/repos/${repo}`
 
-  const log = console.log
+  const log = console.log //eslint-disable-line no-console
 
   // Helper to make API requests
   const githubFetch = (url, options) => {

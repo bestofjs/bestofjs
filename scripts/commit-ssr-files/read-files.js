@@ -7,14 +7,13 @@ const getRelativePath = folder => fullFilepath => {
   return fullFilepath.slice(index + folder.length + 1)
 }
 
-function readHtmlFilenamesFromFolder(folder = 'www') {
+function readFilenamesFromFolder(folder = 'www') {
   const filepath = path.join(process.cwd(), folder)
-  const re = /.*index\.html$/
+  const re = /.*index\.html$|xml$/
   const isHtmlPage = filename => re.test(filename)
   return pify(readdir)(filepath)
     .then(filenames => filenames.filter(isHtmlPage))
     .then(filenames => filenames.map(getRelativePath(folder)))
 }
 
-module.exports = readHtmlFilenamesFromFolder
-// readHtmlFilenamesFromFolder()
+module.exports = readFilenamesFromFolder

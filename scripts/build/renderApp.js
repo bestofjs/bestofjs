@@ -7,7 +7,7 @@ import { Provider } from 'react-redux'
 import App from '../../src/routes/AppContainer'
 
 export default function(store, location) {
-  return new Promise((resolve, reject) => {
+  return new Promise(resolve => {
     const html = renderToString(
       <Provider store={store}>
         <StaticRouter location={location}>

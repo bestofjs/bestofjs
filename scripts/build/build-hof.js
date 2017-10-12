@@ -1,4 +1,4 @@
-/* eslint-disable import/first */
+/* eslint-disable no-console */
 // Hall of Fame page server-side rendering
 // Create `www/hof/index.html` page
 
@@ -13,10 +13,7 @@ import write from './write-html'
 
 import rootReducer from '../../src/reducers'
 import { fetchAllHeroes } from '../../src/actions/hofActions'
-import {
-  fetchProjectsFromAPI,
-  fetchProjectsSuccess
-} from '../../src/actions/entitiesActions'
+import { fetchProjectsSuccess } from '../../src/actions/entitiesActions'
 
 // Get data from production API
 process.env.NODE_ENV = 'production'
