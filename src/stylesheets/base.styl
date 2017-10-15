@@ -77,7 +77,7 @@ h3
 
 // reset the gutter around the main container on small screens to save space!
 @media (max-width: 450px)
-  #main-content
+  #main-content, #footer-content
     padding-top: 1rem
     padding-left: 0
     padding-right: 0
@@ -121,3 +121,9 @@ hr
   border-color: #ffae63
   border-style: dashed
   border-top-width: 1px
+#main-content > section:not(:last-child)
+  margin-bottom: 2rem
+  padding-bottom: 2rem
+  border-bottom: 1px dashed #ffae63
+#footer-content > section
+  border-top: 1px dashed #ffae63

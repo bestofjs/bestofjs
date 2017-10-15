@@ -4,7 +4,7 @@ import pkg from '../package.json'
 
 export default function() {
   return {
-    projectName: 'bestof.js.org',
+    projectName: 'Best of JavaScript',
     repo: 'https://github.com/michaelrambeau/bestofjs-webui',
     version: pkg.version
   }

@@ -1,6 +1,17 @@
 #footer
   margin: 2rem 0
-  font-size: 13px
-  text-align: center
-  p
-    margin-bottom 1em
+  .footer-bottom
+    margin-top: 2rem
+    padding-top: 2rem
+    text-align: center
+  p:not(:last-child)
+    margin-bottom 1rem
+  .grid
+    padding-top: 2rem
+    display: flex
+    > div
+      flex: 1
+    @media (max-width: 900px)
+      flex-direction: column
+      > div:not(:last-child)
+        margin-bottom: 1rem

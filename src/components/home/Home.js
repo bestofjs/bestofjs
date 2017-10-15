@@ -5,7 +5,8 @@ import log from '../../helpers/log'
 import MainContent from '../common/MainContent'
 import HomeProjects from './HomeProjects'
 import CreateIssueLink from '../user-requests/add-project/CreateIssueLink'
-import Intro from './StateOfJSIntro'
+import Intro from './Intro'
+import StateOfJSIntro from './StateOfJSIntro'
 
 const Home = props => {
   log('Render the <Home> component', props)
@@ -13,47 +14,45 @@ const Home = props => {
   const newsDate = new Date(2017, 7, 13)
   return (
     <MainContent>
-      <div className="no-card-container">
-        <Intro date={newsDate} />
-      </div>
-
-      <hr />
-
-      <h3 className="no-card-container" style={{ margin: '0rem 0 2rem' }}>
-        <span className="icon mega-octicon octicon-flame" />
-        Today Hot Projects
-        <span
-          className="counter"
-          style={{ fontSize: '1rem', color: '#aaa', marginLeft: '.5rem' }}
-        >
-          (by number of stars added yesterday)
-        </span>
-      </h3>
-      <HomeProjects {...props} />
-
-      <hr />
-
-      <div className="no-card-container">
-        <h3 className="with-comment" style={{ margin: '0 0 1rem' }}>
-          Find the <i className="special">best</i> components to build amazing
-          web applications!
+      <section className="no-card-container">
+        <Intro />
+      </section>
+      <section className="no-card-container">
+        <StateOfJSIntro date={newsDate} />
+      </section>
+      <section>
+        <h3 className="no-card-container" style={{ margin: '0rem 0 2rem' }}>
+          <span className="icon mega-octicon octicon-flame" />
+          Today Hot Projects
+          <span
+            className="counter"
+            style={{ fontSize: '1rem', color: '#aaa', marginLeft: '.5rem' }}
+          >
+            (by number of stars added yesterday)
+          </span>
         </h3>
-        <p>
-          View <Link to="/projects">ALL PROJECTS</Link> or check one of the
-          popular tags:
-        </p>
-        <TagList tags={popularTags} />
-      </div>
-
-      <hr />
-
-      <MoreProjects
-        handleClick={authActions.login}
-        isLoggedin={isLoggedin}
-        pending={pending}
-      />
-
-      <hr />
+        <HomeProjects {...props} />
+      </section>
+      <section>
+        <div className="no-card-container">
+          <h3 className="with-comment" style={{ margin: '0 0 1rem' }}>
+            Find the <i className="special">best</i> components to build amazing
+            web applications!
+          </h3>
+          <p>
+            View <Link to="/projects">ALL PROJECTS</Link> or check one of the
+            popular tags:
+          </p>
+          <TagList tags={popularTags} />
+        </div>
+      </section>
+      <section>
+        <MoreProjects
+          handleClick={authActions.login}
+          isLoggedin={isLoggedin}
+          pending={pending}
+        />
+      </section>
     </MainContent>
   )
 }

@@ -24,7 +24,6 @@ function withPaginationControls(
         {showPaginationControls({})}
         <View {...props} />
         {showPaginationControls({ style: { marginTop: '2rem' } })}
-        <hr />
       </div>
     )
   }

@@ -46,7 +46,7 @@ const TagFilter = ({
       {tag
         ? <TagViewTitle title={tag.name} count={total} icon={'tag'} />
         : <TagViewTitle
-            title={'All tags'}
+            title={'All projects'}
             count={total}
             icon={'list-unordered'}
           />}
