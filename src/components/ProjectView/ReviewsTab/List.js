@@ -15,7 +15,7 @@ const List = ({ project, auth, authActions }) => {
     if (isAlreadyReviewed)
       return (
         <div>
-          Thank you for having reviewed &quot{project.name}&quot project!
+          Thank you for having reviewed &quot;{project.name}&quot; project!
         </div>
       )
     return renderAddButton(project)

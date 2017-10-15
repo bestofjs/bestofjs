@@ -7,10 +7,10 @@ import ProjectHeader from '../ProjectHeader'
 import Tabs from '../Tabs'
 import { updateReview } from '../../../actions/reviewActions'
 
-const submitEdit = (review, history) => (project, auth) => {
+const submitEdit = (review, history, dispatch) => (project, auth) => {
   const reviewId = review._id
   const projectId = project.slug
-  return function(values, dispatch) {
+  return function(values) {
     const payload = Object.assign({}, values, {
       _id: reviewId,
       project: projectId
@@ -19,9 +19,9 @@ const submitEdit = (review, history) => (project, auth) => {
   }
 }
 
-const EditReview = ({ project, review, auth, history }) => {
+const EditReview = ({ project, review, auth, history, dispatch }) => {
   if (!review) return <div>Loading the review...</div>
-  const onSave = submitEdit(review, history)
+  const onSave = submitEdit(review, history, dispatch)
   return (
     <div>
       <ProjectHeader project={project} />

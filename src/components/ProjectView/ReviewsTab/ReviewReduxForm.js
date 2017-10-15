@@ -1,42 +1,58 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { reduxForm, Field } from 'redux-form'
+import { withFormik } from 'formik'
+import classNames from 'classnames'
 
-import ErrorMessage from '../../common/utils/ErrorMessage'
-import renderFieldWidget from '../../common/form/renderFieldWidget'
+import FieldRow from '../../common/form/FieldRow'
 import Markdown from '../../common/form/MarkdownField'
 import RatingBox from './RatingBox'
 import validate from './validate'
 
-const ratingBoxField = renderFieldWidget(RatingBox)
-const mdField = renderFieldWidget(Markdown)
-
 const ReviewForm = ({
-  project,
+  values,
   auth,
   handleSubmit,
-  valid,
-  submitFailed,
-  submitting,
-  onSave // passed from parent component (<Create> / <Edit>)
+  handleChange,
+  isValid,
+  isSubmitting,
+  setFieldValue,
+  setFieldTouched
 }) => {
+  const canSubmit = isValid && !isSubmitting
   return (
     <form
-      onSubmit={handleSubmit(onSave(project, auth))}
-      className={`ui form${valid ? '' : ' error'}`}
+      onSubmit={handleSubmit}
+      className={classNames('ui form', { error: !isValid })}
     >
-      <Field label="Your rating:" name="rating" component={ratingBoxField} />
-      <Field name="comment" component={mdField} />
+      <FieldRow label="Your rating:">
+        <RatingBox
+          field={{
+            name: 'rating',
+            value: values.rating,
+            onChange: value => {
+              setFieldValue('rating', value)
+              setFieldTouched('rating', true)
+            }
+          }}
+        />
+      </FieldRow>
 
-      {!valid &&
-        submitFailed &&
-        <ErrorMessage>Fix invalid fields!</ErrorMessage>}
+      <Markdown
+        field={{
+          name: 'comment',
+          onChange: handleChange,
+          value: values.comment
+        }}
+      />
 
       <div className="form-action-bar">
         {auth.username &&
           <button
-            className={`ui btn${submitting ? ' loading button' : ''}`}
-            disabled={submitting}
+            className={classNames('ui btn', {
+              'loading button': isSubmitting,
+              disabled: !canSubmit
+            })}
+            disabled={!canSubmit}
             type="submit"
           >
             <span className="octicon octicon-cloud-upload" /> SAVE
@@ -51,8 +67,13 @@ ReviewForm.propTypes = {
   handleSubmit: PropTypes.func.isRequired
 }
 
-const ReviewReduxForm = reduxForm({
-  form: 'review',
+const ReviewReduxForm = withFormik({
+  isInitialValid: false,
+  mapPropsToValues: props => ({ ...props.initialValues }),
+  handleSubmit: (values, { props }) => {
+    const { project, auth, onSave } = props
+    return onSave(project, auth)(values)
+  },
   validate
 })(ReviewForm)
 

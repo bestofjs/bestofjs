@@ -1,57 +1,77 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { reduxForm, Field } from 'redux-form'
+import { Field, withFormik } from 'formik'
+import classNames from 'classnames'
 
 import SelectBox from '../../../containers/ProjectSelectBoxContainer'
 import ErrorMessage from '../../common/utils/ErrorMessage'
-import renderInput from '../../common/form/renderInput'
-import renderFieldWidget from '../../common/form/renderFieldWidget'
+import FieldRow from '../../common/form/FieldRow'
 import Markdown from '../../common/form/MarkdownField'
 import validate from './validate'
 
-const mdField = renderFieldWidget(Markdown)
-const renderSelectProject = renderFieldWidget(SelectBox)
-
 const LinkForm = ({
-  project,
-  auth,
   handleSubmit,
-  valid,
+  handleChange,
+  setFieldValue,
+  isValid,
   submitFailed,
-  submitting,
-  onSave // passed from parent component (<Create> / <Edit>)
+  isSubmitting,
+  touched,
+  errors,
+  values
 }) => {
+  const canSubmit = isValid && !isSubmitting
   return (
     <form
-      onSubmit={handleSubmit(onSave(project, auth))}
-      className={`ui form${valid ? '' : ' error'}`}
+      onSubmit={handleSubmit}
+      className={classNames('ui form', { error: !isValid })}
     >
-      <Field label="URL" name="url" component={renderInput} type="text" />
+      <FieldRow
+        label={'URL'}
+        showError={touched.url && errors.url}
+        errorMessage={errors.url}
+      >
+        <Field name="url" type="text" />
+      </FieldRow>
 
-      <Field
-        label="Title"
-        name="title"
-        component={renderInput}
-        type="text"
-        maxLength={100}
+      <FieldRow
+        label={'Title'}
+        showError={touched.title && errors.title}
+        errorMessage={errors.title}
+      >
+        <Field name="title" type="text" maxLength={100} />
+      </FieldRow>
+
+      <Markdown
+        field={{
+          name: 'comment',
+          onChange: handleChange,
+          value: values.comment
+        }}
       />
 
-      <Field name="comment" component={mdField} />
+      <FieldRow label="Related Projects">
+        <SelectBox
+          multi={true}
+          field={{
+            name: 'projects',
+            value: values.projects,
+            onChange: values => setFieldValue('projects', values)
+          }}
+        />
+      </FieldRow>
 
-      <Field
-        label="Related projects"
-        name="projects"
-        component={renderSelectProject}
-      />
-
-      {!valid &&
+      {!isValid &&
         submitFailed &&
         <ErrorMessage>Fix invalid fields!</ErrorMessage>}
 
       <div className="form-action-bar">
         <button
-          className={`ui btn${submitting ? ' loading button' : ''}`}
-          disabled={submitting}
+          className={classNames('ui btn', {
+            'loading button': isSubmitting,
+            disabled: !canSubmit
+          })}
+          disabled={!canSubmit}
           type="submit"
         >
           <span className="octicon octicon-repo-push" /> SAVE
@@ -66,8 +86,12 @@ LinkForm.propTypes = {
   handleSubmit: PropTypes.func.isRequired
 }
 
-const LinkReduxForm = reduxForm({
-  form: 'link',
+const LinkReduxForm = withFormik({
+  mapPropsToValues: props => ({ ...props.initialValues }),
+  handleSubmit: (values, { props }) => {
+    const { project, auth, onSave } = props
+    return onSave(project, auth)(values)
+  },
   validate
 })(LinkForm)
 

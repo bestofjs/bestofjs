@@ -9,7 +9,7 @@
   transition: all 0.3s
   border: none
   font-size: 1rem
-  &:hover
+  &:hover:not(.disabled)
     text-decoration: none
     color: white
     background-color: #9E0142
@@ -38,8 +38,10 @@
       &:hover
         color: white
         background-color: $textSecondaryColor
+  &.disabled
+    opacity: 0.5
   .icon
-    margin-right: .5rem     
+    margin-right: .5rem
   &.block
     display: block
     text-align: center

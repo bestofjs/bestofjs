@@ -29,7 +29,6 @@ const ProjectsRoutes = () =>
       path="/projects/:id"
       component={createProjectPage(GithubTab)}
     />
-
     <Route exact path="/projects/:id/links" component={LinksListComponent} />
     <Route exact path="/projects/:id/links/add" component={LinksAddComponent} />
     <Route
@@ -37,7 +36,6 @@ const ProjectsRoutes = () =>
       path="/projects/:id/links/:linkId/edit"
       component={LinksEditComponent}
     />
-
     <Route
       exact
       path="/projects/:id/reviews"
@@ -45,13 +43,13 @@ const ProjectsRoutes = () =>
     />
     <Route
       exact
-      path="/projects/:id/reviews/add"
-      component={ReviewsAddComponent}
+      path="/projects/:id/reviews/:reviewId/edit"
+      component={ReviewsEditComponent}
     />
     <Route
       exact
-      path="/projects/:id/reviews/:reviewId/edit"
-      component={ReviewsEditComponent}
+      path="/projects/:id/reviews/add"
+      component={ReviewsAddComponent}
     />
   </MainContent>
 

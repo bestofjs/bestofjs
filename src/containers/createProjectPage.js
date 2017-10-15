@@ -31,16 +31,7 @@ function createProjectPage(ProjectView) {
     }
     render() {
       log('Render the <ProjectPage> container', this.props)
-      const { project, review, link, auth, authActions } = this.props
-      return (
-        <ProjectView
-          project={project}
-          review={review}
-          link={link}
-          auth={auth}
-          authActions={authActions}
-        />
-      )
+      return <ProjectView {...this.props} />
     }
   }
 }
@@ -66,10 +57,12 @@ function mapStateToProps(state, props) {
 }
 
 function mapDispatchToProps(dispatch) {
+  console.log({ userContentActionCreators })
   return {
     actions: bindActionCreators(actionCreators, dispatch),
     authActions: bindActionCreators(authActionCreators, dispatch),
-    userContentActions: bindActionCreators(userContentActionCreators, dispatch)
+    userContentActions: bindActionCreators(userContentActionCreators, dispatch),
+    dispatch
   }
 }
 

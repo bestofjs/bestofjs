@@ -7,22 +7,23 @@ import ProjectHeader from '../ProjectHeader'
 import Tabs from '../Tabs'
 import { updateLink } from '../../../actions/linkActions'
 
-const submitEdit = (linkId, history) => (project, auth) => {
-  return function(values, dispatch) {
-    const payload = Object.assign({}, values, {
+const submitEdit = (linkId, history, dispatch) => (project, auth) => {
+  return function(values) {
+    const payload = {
+      ...values,
       _id: linkId
-    })
+    }
     return dispatch(updateLink(project, payload, auth, history))
   }
 }
 
-const EditLink = ({ project, auth, link, history }) => {
+const EditLink = ({ project, auth, link, history, dispatch }) => {
   if (!link)
     return (
       <div>Loading the link...</div> // displayed if the page is loaded from a direct URL
     )
   const linkId = link._id
-  const onSave = submitEdit(linkId, history)
+  const onSave = submitEdit(linkId, history, dispatch)
   return (
     <div>
       <ProjectHeader project={project} />

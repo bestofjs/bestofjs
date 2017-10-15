@@ -7,14 +7,14 @@ import ProjectHeader from '../ProjectHeader'
 import Tabs from '../Tabs'
 import { createReview } from '../../../actions/reviewActions'
 
-const submitCreate = history => (project, auth) => {
-  return function(values, dispatch) {
+const submitCreate = (history, dispatch) => (project, auth) => {
+  return function(values) {
     return dispatch(createReview(project, values, auth, history))
   }
 }
 
-const Create = ({ project, auth, history }) => {
-  const onSave = submitCreate(history)
+const Create = ({ project, auth, history, dispatch }) => {
+  const onSave = submitCreate(history, dispatch)
   return (
     <div>
       <ProjectHeader project={project} />
@@ -24,7 +24,12 @@ const Create = ({ project, auth, history }) => {
           <h3>
             Add your review of &quot;{project.name}&quot; project
           </h3>
-          <ReviewReduxForm project={project} auth={auth} onSave={onSave} />
+          <ReviewReduxForm
+            project={project}
+            auth={auth}
+            onSave={onSave}
+            initialValues={{ comment: '' }}
+          />
         </div>
       </div>
     </div>

@@ -1,15 +1,17 @@
 # Change log
 
-## 0.10.0 - 2017-10-9
+## 0.10.0 - 2017-10-16
 * Add npm packages dependency list, commit count and contributor count #52
 * Pagination for "All projects" and tag pages #54
+* Use `formik` instead of `redux-form` to manage user content forms
+* RSS Weekly feed #40
 
 ## 0.9.0 - 2017-09-18
 * New "Daily Trends" block in `/project/:slug` pages, including a heatmap showing stargazer variations over the last 12 months #33
 
 ## 0.8.0 - 2017-07-18
-* "My projects" feature #40
-* Serve site over https #41
+* "My projects" feature #41
+* Serve site over https #45
 * Use `prettier` to format the code
 * Fetch links and reviews related to projects using `bestofjs-api` #48
 * Promote "State of JavaScript 2017" in the top page
@@ -183,7 +185,7 @@ Add "About" page
 * New layout, with a sidebar that display the tag list.
 * Search filter updates the URL: `/#/search/flexb` for example
 * No more material-ui dependency
-* No more flexboxgrid dependency
+* No more `flexboxgrid` dependency
 * Display a "splash" screen when the page loads
 * Initial project data is passed to the root component
 
@@ -197,7 +199,7 @@ Available pages:
 * `/home`: home page, with most starred and hot projects
 * `/projects`: list of all projects
 * `/projects/:project_id` project page, load README.md from GitHub
-* `/tags/``:tag_id tag page, list of all associated projects
+* `/tags/`: tag_id tag page, list of all associated projects
 * `/about` static page; about bestof.js.org project
 
 [How to keep a change log file updated](http://keepachangelog.com/)

@@ -7,14 +7,14 @@ import ProjectHeader from '../ProjectHeader'
 import Tabs from '../Tabs'
 import { createLink } from '../../../actions/linkActions'
 
-const submitCreate = history => (project, auth) => {
-  return function(values, dispatch) {
+const submitCreate = (history, dispatch) => (project, auth) => {
+  return function(values) {
     return dispatch(createLink(project, values, auth, history))
   }
 }
 
-const CreateLink = ({ project, auth, history }) => {
-  const onSave = submitCreate(history)
+const CreateLink = ({ project, auth, history, dispatch }) => {
+  const onSave = submitCreate(history, dispatch)
   return (
     <div>
       <ProjectHeader project={project} />
@@ -41,4 +41,3 @@ CreateLink.propTypes = {
 }
 
 export default withRouter(CreateLink)
-// export default () => <p>GO!</p>
