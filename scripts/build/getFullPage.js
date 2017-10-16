@@ -20,11 +20,8 @@ module.exports = function({ isDev, html }) {
     <link rel="icon" type="image/png" href="/images/app-icon-192.png" sizes="192x192">
     <link rel="alternate" type="application/rss+xml" href="/rss/weekly-trends.xml" />
     <meta name="theme-color" content="#e65100">
-
     <!-- added for Github pages -->
     <link rel="shortcut icon" href="/favicon.ico">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/hint.css/2.5.0/hint.min.css">
-
     ${isDev
       ? '<!-- Redirect script not necessary in dev (webpack does the job) -->'
       : getRedirect()}
@@ -40,6 +37,7 @@ module.exports = function({ isDev, html }) {
       function loadCSS(e,t,n){"use strict";var i=window.document.createElement("link");var o=t||window.document.getElementsByTagName("script")[0];i.rel="stylesheet";i.href=e;i.media="only x";o.parentNode.insertBefore(i,o);setTimeout(function(){i.media=n||"all"})}
       loadCSS('https://fonts.googleapis.com/css?family=Roboto:400,300,500');
       loadCSS('https://cdnjs.cloudflare.com/ajax/libs/octicons/3.1.0/octicons.min.css');
+      loadCSS('https://cdnjs.cloudflare.com/ajax/libs/hint.css/2.5.0/hint.min.css');
     </script>
     <script src="/build/bundle-app.js"></script>
     <a href="https://github.com/michaelrambeau/bestofjs-webui" class="github-corner">
