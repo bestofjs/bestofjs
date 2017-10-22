@@ -28,7 +28,7 @@ export function start(history) {
     return getToken()
       .then(getProfile)
       .then(({ profile, token }) => {
-        const action = dispatch(loginSuccess(profile, token.id_token, history))
+        const action = dispatch(loginSuccess(profile, token, history))
         const { username } = action.payload
         return dispatch(getUserRequests(username))
       })
@@ -67,10 +67,10 @@ function getToken() {
 }
 
 // Return UserProfile for a given `id_token`
-function getProfile(token) {
-  if (!token) return Promise.reject(new Error('Token is missing!'))
+function getProfile({ id_token /*, access_token */ }) {
+  // if (!token) return Promise.reject(new Error('Token is missing!'))
   const options = {
-    body: `id_token=${token}`,
+    body: `id_token=${id_token}`,
     method: 'POST',
     headers: {
       Accept: 'application/json',
@@ -79,7 +79,7 @@ function getProfile(token) {
     }
   }
   const url = `${APP_URL}/tokeninfo`
-  return fetchJSON(url, options).then(profile => ({ token, profile }))
+  return fetchJSON(url, options).then(profile => ({ token: id_token, profile }))
 }
 
 export function loginRequest() {
