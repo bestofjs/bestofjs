@@ -6,6 +6,7 @@ const webpack = require('webpack')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const autoprefixer = require('autoprefixer')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+// const WebpackMonitor = require('webpack-monitor')
 
 const getFullPage = require('../scripts/build/getFullPage')
 const constants = require('./constants')
@@ -18,9 +19,13 @@ function getPlugins(env) {
       NODE_ENV: JSON.stringify(env)
     }
   })
-
+  // const monitor = new WebpackMonitor({
+  //   launch: true, // -> default 'false'
+  //   port: 3030 // default -> 8081
+  // })
   const plugins = [envPlugin]
   if (env === 'development') {
+    // plugins.push(monitor)
     plugins.push(new webpack.HotModuleReplacementPlugin())
     plugins.push(new webpack.NamedModulesPlugin())
     // Get the html template
@@ -35,6 +40,7 @@ function getPlugins(env) {
     // ExtractTextPlugin used to generate a separate CSS file, in production only.
     // documentation: http://webpack.github.io/docs/stylesheets.html
     plugins.push(new ExtractTextPlugin('build/[name].css'))
+    // plugins.push(monitor)
 
     // Do not display warning messages from Uglify
     plugins.push(

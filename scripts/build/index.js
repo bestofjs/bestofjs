@@ -18,10 +18,16 @@ import { getPopularTags } from '../../src/selectors'
 // Get data from production API
 const url = api('GET_PROJECTS') + 'projects.json'
 
-function getAllPaths(tags) {
-  const tagPaths = tags.map(tag => `tags/${tag.id}`)
-  const paths = ['', 'projects'].concat(tagPaths)
-  return paths
+function getAllSettings(tags) {
+  return [].concat(
+    tags.map(tag => ({
+      path: `tags/${tag.id}`,
+      title: `Best of JavaScript | '${tag.name}' projects`,
+      description: `The best projects under '${tag.name}' tag, from Best of JavaScript (${tag.counter} projects).`
+    })),
+    { path: '' },
+    { path: 'projects', title: 'Best of JavaScript | All projects' }
+  )
 }
 
 const initialState = {
@@ -60,14 +66,15 @@ fetch(url)
     const store = getStore(json, initialState)
     const state = store.getState()
     const tags = getPopularTags(state)
-    const paths = getAllPaths(tags)
-    const promises = paths.map(createPage(store))
+    const settings = getAllSettings(tags)
+    const promises = settings.map(createPage(store))
     return Promise.all(promises)
   })
   .catch(err => console.log('ERROR!', err.stack))
   .then(result => console.log('Server-side rendering done!', result))
 
-const createPage = store => path => {
+const createPage = store => pageSettings => {
+  const { path, title, description } = pageSettings
   const url = `/${path}`
   const filepath = `${path}/index.html`
   const options = {
@@ -78,6 +85,9 @@ const createPage = store => path => {
   }
   return renderApp(store, url).then(html => {
     const minified = minify(html, options)
-    return write(getFullPage({ html: minified, isDev: false }), filepath)
+    return write(
+      getFullPage({ html: minified, isDev: false, title, description }),
+      filepath
+    )
   })
 }

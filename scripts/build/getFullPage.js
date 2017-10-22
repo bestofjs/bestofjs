@@ -2,17 +2,27 @@
 // Used by:
 // `npm run build-html` task (server-side rendering)
 // `html-webpack-plugin` to serve index.html page in dev mode.
-module.exports = function({ isDev, html }) {
+
+const defaultTitle = 'The Best of JavaScript and the web platform'
+const defaultDescription =
+  'bestof.js.org is a place where front-end engineers and node.js developers can find the best components to build amazing web applications.'
+
+module.exports = function({
+  isDev,
+  html,
+  title = defaultTitle,
+  description = defaultDescription
+}) {
   return `<!doctype html>
 <html>
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>The Best of JavaScript and the web platform</title>
-    <meta name="description" content="bestof.js.org is a place where front-end engineers and node.js developers can find the best components to build amazing web applications.">
-    <meta content="Best of JavaScript" property="og:title">
-    <meta content="A place to find the best components to build amazing applications: JavaScript client and server side, html, CSS..." property="og:description">
+    <title>${title}</title>
+    <meta name="description" content="${description}">
+    <meta content="${title}" property="og:title">
+    <meta content="${description}" property="og:description">
     <meta content="https://bestof.js.org/images/logo2.png" property="og:image">
 
     <meta name="mobile-web-app-capable" content="yes">
@@ -68,9 +78,7 @@ function getRedirect() {
   return `
     <script>
     (function(l) {
-      // SET THIS: e.g. my-repo-name
       var gitHubRepoName = 'bestofjs'
-      // SET THIS: e.g. http://subdomain.example.tld
       var domain = 'https://bestof.js.org'
       if (l.pathname.split('/')[1] === gitHubRepoName) {
         l.replace(domain);

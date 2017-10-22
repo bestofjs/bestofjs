@@ -27,3 +27,6 @@ _node_modules
 _backup
 .divshot-cache
 package-lock.json
+
+# Webpack monitor files
+monitor/
