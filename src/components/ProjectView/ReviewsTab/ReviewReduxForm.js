@@ -46,7 +46,7 @@ const ReviewForm = ({
       />
 
       <div className="form-action-bar">
-        {auth.username &&
+        {auth.username && (
           <button
             className={classNames('ui btn', {
               'loading button': isSubmitting,
@@ -56,7 +56,8 @@ const ReviewForm = ({
             type="submit"
           >
             <span className="octicon octicon-cloud-upload" /> SAVE
-          </button>}
+          </button>
+        )}
       </div>
     </form>
   )
@@ -68,12 +69,12 @@ ReviewForm.propTypes = {
 }
 
 const ReviewReduxForm = withFormik({
-  isInitialValid: false,
   mapPropsToValues: props => ({ ...props.initialValues }),
   handleSubmit: (values, { props }) => {
     const { project, auth, onSave } = props
     return onSave(project, auth)(values)
   },
+  isInitialValid: props => props.isInitialValid,
   validate
 })(ReviewForm)
 

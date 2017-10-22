@@ -31,13 +31,15 @@ const EditLink = ({ project, auth, link, history, dispatch }) => {
       <div className="project-tabs-content">
         <div className="inner">
           <h3>Edit a link</h3>
-          {link &&
+          {link && (
             <LinkReduxForm
               project={project}
               auth={auth}
               initialValues={link}
               onSave={onSave}
-            />}
+              isInitialValid={true}
+            />
+          )}
         </div>
       </div>
     </div>

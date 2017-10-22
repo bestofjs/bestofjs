@@ -35,6 +35,7 @@ const EditReview = ({ project, review, auth, history, dispatch }) => {
             project={project}
             auth={auth}
             initialValues={review}
+            isInitialValid={true}
             onSave={onSave}
           />
         </div>

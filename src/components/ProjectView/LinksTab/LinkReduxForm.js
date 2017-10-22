@@ -62,8 +62,7 @@ const LinkForm = ({
       </FieldRow>
 
       {!isValid &&
-        submitFailed &&
-        <ErrorMessage>Fix invalid fields!</ErrorMessage>}
+        submitFailed && <ErrorMessage>Fix invalid fields!</ErrorMessage>}
 
       <div className="form-action-bar">
         <button
@@ -92,6 +91,7 @@ const LinkReduxForm = withFormik({
     const { project, auth, onSave } = props
     return onSave(project, auth)(values)
   },
+  isInitialValid: props => props.isInitialValid,
   validate
 })(LinkForm)
 
