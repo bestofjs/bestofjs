@@ -22,7 +22,7 @@ test('Check <ProjectList>', assert => {
   const count = 10
   const store = getStore(data)
   const state = store.getState()
-  const projects = getHotProjects(state)
+  const projects = getHotProjects(count)(state)
 
   const component = mount(
     <MemoryRouter>
@@ -36,9 +36,10 @@ test('Check <ProjectList>', assert => {
 })
 
 test('Check <Home> component', assert => {
+  const count = 10
   const store = getStore(data)
   const state = store.getState()
-  const projects = getHotProjects(state)
+  const projects = getHotProjects(count)(state)
   const tags = getPopularTags(state)
 
   const component = mount(

@@ -3,7 +3,6 @@
 Get project data from a static json file and build `www/index.html` file
 */
 /* eslint-disable no-console */
-
 import fetch from 'node-fetch'
 
 const minify = require('html-minifier').minify
@@ -17,7 +16,6 @@ import getStore from '../getStore'
 import { getPopularTags } from '../../src/selectors'
 
 // Get data from production API
-process.env.NODE_ENV = 'production'
 const url = api('GET_PROJECTS') + 'projects.json'
 
 function getAllPaths(tags) {

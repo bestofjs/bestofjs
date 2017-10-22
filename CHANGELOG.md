@@ -1,5 +1,8 @@
 # Change log
 
+## 0.11.0 - 2017-10-22
+* Code splitting
+
 ## 0.10.0 - 2017-10-16
 * Add npm packages dependency list, commit count and contributor count #52
 * Pagination for "All projects" and tag pages #54

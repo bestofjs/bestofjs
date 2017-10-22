@@ -93,16 +93,11 @@ export const getProjectsSortedBy = ({ criteria, start, limit }) =>
     (projects, tags, auth) => projects.map(getFullProject(tags, auth))
   )
 
-// TOP 10 projects displayed in the homepage
-export const getHotProjects = createSelector(
-  [
-    getProjectsSortedBy({
-      criteria: 'daily',
-      limit: 10
-    })
-  ],
-  projects => projects.slice(0, 10)
-)
+export const getHotProjects = count =>
+  getProjectsSortedBy({
+    criteria: 'daily',
+    limit: count
+  })
 
 const getAllProjectsByTag = tagId =>
   createSelector([allProjects], projects =>

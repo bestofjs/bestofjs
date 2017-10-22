@@ -1,53 +1,58 @@
 import React from 'react'
-import { Route, Switch } from 'react-router-dom'
+import { Route, Switch, Redirect } from 'react-router-dom'
+
+import asyncComponent from './asyncComponent'
 
 import getHomePage from '../containers/HomePage'
-import AboutPage from '../containers/AboutPage'
 import ProjectsPage from '../containers/AllProjectsPage'
 import HoFPage from '../containers/HoFPage'
 import TagFilter from '../containers/TagFilterPage'
 import TextFilter from '../containers/TextFilterPage'
-import MyProjectsPage from '../containers/MyProjectsPage'
 import items from './sortItems'
-
-import Requests from './Requests'
-import Projects from './Projects'
 import NoMatch from './NoMatch'
 
 const HomePage = getHomePage(10)
+const AsyncAboutPage = asyncComponent(() => import('../containers/AboutPage'))
+const AsyncMyProjects = asyncComponent(() =>
+  import('../containers/MyProjectsPage')
+)
+const AsyncViewProject = asyncComponent(() => import('./Projects'))
+const AsyncRequests = asyncComponent(() => import('./Requests'))
 
-const Routes = () =>
+const Routes = () => (
   <Switch>
     <Route exact path="/" component={HomePage} />
-    {items.map(item =>
+    {items.map(item => (
       <Route
         exact
         key={item.key}
         path={`/projects/${item.path}`}
         component={ProjectsPage(item.key)}
       />
-    )}
+    ))}
+    <Route path="/projects">
+      <AsyncViewProject />
+    </Route>
     <Route exact path="/search/:text" component={TextFilter} />
-    {items.map(item =>
+    {items.map(item => (
       <Route
         exact
         key={item.key}
         path={`/tags/:id/${item.path}`}
         component={TagFilter(item.key)}
       />
-    )}
-    <Route exact path="/hof" component={HoFPage} />
-    <Route exact path="/about" component={AboutPage} />
-    <Route path="/projects">
-      <Projects />
-    </Route>
+    ))}
+    <Route exact path="/hall-of-fame" component={HoFPage} />
+    <Redirect from="/hof" to="/hall-of-fame" />
     <Route path="/myprojects">
-      <MyProjectsPage />
+      <AsyncMyProjects />
     </Route>
     <Route path="/requests">
-      <Requests />
+      <AsyncRequests />
     </Route>
+    <Route exact path="/about" component={AsyncAboutPage} />
     <Route component={NoMatch} />
   </Switch>
+)
 
 export default Routes

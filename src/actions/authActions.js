@@ -26,18 +26,11 @@ export function start(history) {
   return dispatch => {
     loginRequest()
     return getToken()
-      .then(token => {
-        getProfile(token.id_token).then(profile => {
-          if (profile) {
-            const action = dispatch(
-              loginSuccess(profile, token.id_token, history)
-            )
-            const { username } = action.payload
-            return dispatch(getUserRequests(username))
-          } else {
-            return dispatch(loginFailure())
-          }
-        })
+      .then(getProfile)
+      .then(({ profile, token }) => {
+        const action = dispatch(loginSuccess(profile, token.id_token, history))
+        const { username } = action.payload
+        return dispatch(getUserRequests(username))
       })
       .catch(() => {
         return dispatch(loginFailure())
@@ -86,7 +79,7 @@ function getProfile(token) {
     }
   }
   const url = `${APP_URL}/tokeninfo`
-  return fetchJSON(url, options)
+  return fetchJSON(url, options).then(profile => ({ token, profile }))
 }
 
 export function loginRequest() {

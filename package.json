@@ -1,26 +1,31 @@
 {
   "name": "bestofjs-webui",
-  "version": "0.10.0",
+  "version": "0.11.0",
   "description": "bestof.js.org front-end web application",
   "engines": {
     "node": ">=8.1.2"
   },
   "scripts": {
     "lint": "eslint src --ext .js --ext .jsx --fix",
-    "test": "cross-env NODE_ENV=test babel-tape-runner test/**/*Spec.js | faucet",
+    "test":
+      "cross-env NODE_ENV=test babel-tape-runner test/**/*Spec.js | faucet",
     "test-debug": "babel-tape-runner test/**/ProjectListSpec.js",
     "clean": "rimraf www/index.html && rimraf www/build",
     "build": "npm run build-html && npm run build-js",
     "start": "cross-env NODE_ENV=development node config/devserver.js",
-    "build-js": "cross-env NODE_ENV=production webpack -p --config config/webpack.production.config.js --progress",
+    "build-js":
+      "cross-env NODE_ENV=production webpack -p --config config/webpack.production.config.js --progress",
     "gh-pages": "node scripts/deploy-gh-pages/",
     "surge": "surge --domain bestofjs.surge.sh --project ./www/",
     "deploy-all": "npm run build && npm run gh-pages",
-    "daily": "npm run build-html && npm run build-html-hof && npm run rss-once-a-week && npm run commit-ssr-files",
-    "build-html": "babel-node scripts/build/",
-    "build-html-hof": "babel-node scripts/build/build-hof.js",
+    "daily":
+      "npm run build-html && npm run build-html-hof && npm run rss-once-a-week && npm run commit-ssr-files",
+    "build-html": "cross-env NODE_ENV=production babel-node scripts/build/",
+    "build-html-hof":
+      "cross-env NODE_ENV=production babel-node scripts/build/build-hof.js",
     "commit-ssr-files": "node scripts/commit-ssr-files",
-    "analyze": "cross-env NODE_ENV=production webpack -p --config config/webpack.production.config.js --json | webpack-bundle-size-analyzer",
+    "analyze":
+      "cross-env NODE_ENV=production webpack -p --config config/webpack.production.config.js --json | webpack-bundle-size-analyzer",
     "rss-once-a-week": "babel-node scripts/rss/once-a-week",
     "rss": "babel-node scripts/rss"
   },
@@ -28,11 +33,7 @@
     "type": "git",
     "url": "https://github.com/michaelrambeau/bestofjs-webui.git"
   },
-  "keywords": [
-    "react",
-    "redux",
-    "webpack"
-  ],
+  "keywords": ["react", "redux", "webpack"],
   "author": "Michael Rambeau",
   "license": "MIT",
   "bugs": {
@@ -44,9 +45,8 @@
     "babel-cli": "6.24.1",
     "babel-core": "6.24.1",
     "babel-loader": "7.0.0",
-    "babel-preset-es2015": "6.24.1",
-    "babel-preset-react": "6.24.1",
-    "babel-preset-stage-1": "6.24.1",
+    "babel-plugin-transform-runtime": "^6.23.0",
+    "babel-preset-react-app": "^3.0.3",
     "classnames": "^2.2.5",
     "cross-env": "^1.0.7",
     "css-loader": "0.28.0",
@@ -101,7 +101,7 @@
     "xmlbuilder": "^9.0.0"
   },
   "devDependencies": {
-    "babel-eslint": "^7.0.0",
+    "babel-eslint": "8.0.1",
     "babel-plugin-module-resolver": "^2.7.0",
     "babel-register": "6.5.2",
     "babel-tape-runner": "2.0.1",

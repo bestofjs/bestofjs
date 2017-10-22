@@ -34,9 +34,7 @@ function getPlugins(env) {
   } else {
     // ExtractTextPlugin used to generate a separate CSS file, in production only.
     // documentation: http://webpack.github.io/docs/stylesheets.html
-    plugins.push(
-      new ExtractTextPlugin(`./${constants.staticFolder}/build/[name].css`)
-    )
+    plugins.push(new ExtractTextPlugin('build/[name].css'))
 
     // Do not display warning messages from Uglify
     plugins.push(
@@ -60,8 +58,9 @@ function getRules(env) {
         loader: 'babel-loader',
         options: {
           babelrc: false, // required otherwise src/.babelrc settings will be used
-          presets: [['es2015', { modules: false }], 'stage-1', 'react'],
-          plugins: ['react-hot-loader/babel']
+          presets: [['es2015', { modules: false }], 'react-app'],
+          // transform-runtime plugin is required to perform module async loading
+          plugins: ['transform-runtime', 'react-hot-loader/babel']
         }
       }
     ]
@@ -129,15 +128,16 @@ function getEntry(env) {
 function getOutput(env) {
   const rootPath = path.resolve(__dirname, '..', constants.staticFolder)
   const filename = 'build/bundle-[name].js'
+  const output = {
+    path: rootPath,
+    filename,
+    publicPath: '/'
+  }
   return env === 'development'
-    ? {
-        path: rootPath,
-        filename,
+    ? Object.assign({}, output, {
         publicPath: '/' // required when using browserHistory, to make nested URLs work
-      }
-    : {
-        filename: `${constants.staticFolder}/${filename}`
-      }
+      })
+    : output
 }
 
 const defaultResolveOptions = {

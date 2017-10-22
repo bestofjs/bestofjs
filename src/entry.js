@@ -32,12 +32,12 @@ function start() {
 start()
 
 function dispatchActions({ store }) {
-  if (window.location.pathname !== '/hof/') {
+  if (window.location.pathname !== '/hall-of-fame/') {
     // default case: render the app as soon as we get project data
     renderApp(store)
     store.dispatch(fetchAllHeroes())
   } else {
-    // if HoF is currently displayed used server-side rendering,
+    // if HoF is currently displayed via the server-side rendering,
     // render the app AFTER we get HoF data, to avoid display an empty list
     store.dispatch(fetchAllHeroes()).then(() => {
       renderApp(store)

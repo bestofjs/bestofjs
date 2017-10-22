@@ -4,7 +4,7 @@
 # Build
 www/build/
 www/index.html
-www/hof/index.html
+www/hall-of-fame/index.html
 www/tags/**/*.html
 www/projects/**/*.html
 www/rss/**/*.xml

@@ -24,16 +24,15 @@ const Sidebar = ({
           ? 'loggedin'
           : 'anonymous'}`}
       >
-        {auth.username
-          ? <LoggedinUser
-              username={auth.username}
-              onLogout={authActions.logout}
-              pending={auth.pending}
-            />
-          : <AnonymousUser
-              onLogin={authActions.login}
-              pending={auth.pending}
-            />}
+        {auth.username ? (
+          <LoggedinUser
+            username={auth.username}
+            onLogout={authActions.logout}
+            pending={auth.pending}
+          />
+        ) : (
+          <AnonymousUser onLogin={authActions.login} pending={auth.pending} />
+        )}
       </div>
       <div className="ui vertical menu">
         <NavLink to="/" className="item" exact activeClassName="active">
@@ -41,42 +40,34 @@ const Sidebar = ({
         </NavLink>
         <NavLink to="/projects" className="item" activeClassName="active">
           ALL PROJECTS
-          {hofCount > 0 &&
-            <span className="counter">
-              {projectCount}
-            </span>}
+          {hofCount > 0 && <span className="counter">{projectCount}</span>}
         </NavLink>
-        <NavLink to="/hof" className="item" activeClassName="active">
+        <NavLink to="/hall-of-fame" className="item" activeClassName="active">
           HALL OF FAME
-          {hofCount > 0 &&
-            <span className="counter">
-              {hofCount}
-            </span>}
+          {hofCount > 0 && <span className="counter">{hofCount}</span>}
         </NavLink>
-        {false &&
+        {false && (
           <NavLink to="/links" className="item">
             LINKS
-            {linkCount > 0 &&
-              <span className="counter">
-                {linkCount}
-              </span>}
-          </NavLink>}
-        {auth.username &&
+            {linkCount > 0 && <span className="counter">{linkCount}</span>}
+          </NavLink>
+        )}
+        {auth.username && (
           <NavLink to="/myprojects" className="item" activeClassName="active">
             MY PROJECTS
-            {myProjectsCount > 0 &&
-              <span className="counter">
-                {myProjectsCount}
-              </span>}
-          </NavLink>}
-        {auth.username &&
+            {myProjectsCount > 0 && (
+              <span className="counter">{myProjectsCount}</span>
+            )}
+          </NavLink>
+        )}
+        {auth.username && (
           <NavLink to="/requests" className="item" activeClassName="active">
             MY REQUESTS
-            {requestCount > 0 &&
-              <span className="counter">
-                {requestCount}
-              </span>}
-          </NavLink>}
+            {requestCount > 0 && (
+              <span className="counter">{requestCount}</span>
+            )}
+          </NavLink>
+        )}
         <div className="item">
           <div className="header">POPULAR TAGS</div>
           <TagMenu tags={popularTags} selectedTag={selectedTag} />

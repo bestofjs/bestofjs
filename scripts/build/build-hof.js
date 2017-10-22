@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 // Hall of Fame page server-side rendering
-// Create `www/hof/index.html` page
+// Create `www/hall-of-fame/index.html` page
 
 import fetch from 'node-fetch'
 import { createStore, applyMiddleware, compose } from 'redux'
@@ -38,10 +38,16 @@ fetch(url)
     store.dispatch(fetchProjectsSuccess(json))
 
     return store.dispatch(fetchAllHeroes()).then(result => {
-      console.log('Rendering the Hall of Fame', result.payload.length)
-      return renderApp(store, '/hof').then(html => {
-        write(getFullPage({ html, isDev: false }), 'hof/index.html')
+      console.log('Rendering the Hall of Fame', {
+        count: result.payload.length
+      })
+      return renderApp(store, '/hall-of-fame').then(html => {
+        return write(
+          getFullPage({ html, isDev: false }),
+          'hall-of-fame/index.html'
+        )
       })
     })
   })
+  .then(console.log)
   .catch(err => console.log('ERROR!', err.stack))

@@ -4,7 +4,7 @@ import { StaticRouter } from 'react-router'
 
 import { Provider } from 'react-redux'
 
-import App from '../../src/routes/AppContainer'
+import App from '../../src/routes/ServerSideApp'
 
 export default function(store, location) {
   return new Promise(resolve => {
