@@ -10,9 +10,7 @@ const TagMenuItem = ({ tag, active }) => {
       activeClassName="active"
     >
       {tag.name}
-      <span className="counter">
-        {tag.counter}
-      </span>
+      <span className="counter">{tag.counter}</span>
     </NavLink>
   )
 }

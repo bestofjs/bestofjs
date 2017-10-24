@@ -7,18 +7,19 @@ function withPaginationControls(
 ) {
   return function PaginatedView(props) {
     const showPaginationControls = ({ style = {} }) =>
-      total > pageSize &&
-      <PaginationControls
-        currentPage={pageNumber}
-        query={query}
-        total={total}
-        limit={10}
-        pageSize={pageSize}
-        url={url}
-        singular={'item'}
-        plural={'items'}
-        style={style}
-      />
+      total > pageSize && (
+        <PaginationControls
+          currentPage={pageNumber}
+          query={query}
+          total={total}
+          limit={10}
+          pageSize={pageSize}
+          url={url}
+          singular={'item'}
+          plural={'items'}
+          style={style}
+        />
+      )
     return (
       <div>
         {showPaginationControls({})}

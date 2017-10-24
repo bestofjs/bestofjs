@@ -57,7 +57,6 @@ function mapStateToProps(state, props) {
 }
 
 function mapDispatchToProps(dispatch) {
-  console.log({ userContentActionCreators })
   return {
     actions: bindActionCreators(actionCreators, dispatch),
     authActions: bindActionCreators(authActionCreators, dispatch),

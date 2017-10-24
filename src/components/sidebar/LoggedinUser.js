@@ -9,9 +9,7 @@ const LoggedinUser = ({ username, onLogout, pending }) => {
   }
   return (
     <div className="sidebar-username-block">
-      <div className="username">
-        {username}
-      </div>
+      <div className="username">{username}</div>
       <a
         className="logout-button"
         data-balloon={'Sign out'}

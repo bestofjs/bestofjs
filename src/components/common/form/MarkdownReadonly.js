@@ -3,11 +3,7 @@ import marked from 'marked'
 
 const mdReadonly = ({ comment, emptyText }) => {
   if (!comment || comment.trim() === '') {
-    return (
-      <span className="empty-value">
-        {emptyText || '(No comment)'}
-      </span>
-    )
+    return <span className="empty-value">{emptyText || '(No comment)'}</span>
   }
   return (
     <div

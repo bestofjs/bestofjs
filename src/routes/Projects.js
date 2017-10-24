@@ -22,7 +22,7 @@ const ReviewsListComponent = createProjectPage(ReviewsTabList)
 const ReviewsAddComponent = createProjectPage(ReviewsTabAdd)
 const ReviewsEditComponent = createProjectPage(ReviewsTabEdit)
 
-const ProjectsRoutes = () =>
+const ProjectsRoutes = () => (
   <MainContent className="container project-page">
     <Route
       exact
@@ -52,5 +52,6 @@ const ProjectsRoutes = () =>
       component={ReviewsAddComponent}
     />
   </MainContent>
+)
 
 export default ProjectsRoutes

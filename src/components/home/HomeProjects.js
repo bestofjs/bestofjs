@@ -9,7 +9,7 @@ const viewOptions = {
   commit: false
 }
 
-const HomeProjects = ({ hotProjects, hotFilter }) =>
+const HomeProjects = ({ hotProjects, hotFilter }) => (
   <ProjectList
     projects={hotProjects}
     showDelta
@@ -19,5 +19,6 @@ const HomeProjects = ({ hotProjects, hotFilter }) =>
     showMetrics={false}
     viewOptions={viewOptions}
   />
+)
 
 export default HomeProjects

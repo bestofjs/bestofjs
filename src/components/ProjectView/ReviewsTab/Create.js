@@ -21,9 +21,7 @@ const Create = ({ project, auth, history, dispatch }) => {
       <Tabs project={project} activePath="reviews" />
       <div className="project-tabs-content" style={{ marginBottom: '2em' }}>
         <div className="inner">
-          <h3>
-            Add your review of &quot;{project.name}&quot; project
-          </h3>
+          <h3>Add your review of &quot;{project.name}&quot; project</h3>
           <ReviewReduxForm
             project={project}
             auth={auth}

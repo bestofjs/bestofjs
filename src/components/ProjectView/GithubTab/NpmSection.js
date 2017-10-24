@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom'
 import withPackageData from '../../../containers/withPackageData'
 import StarTotal from '../../common/utils/StarTotal'
 
-const NpmSection = ({ project }) =>
+const NpmSection = ({ project }) => (
   <section className="inner npm-section">
     <a
       href={`https://www.npmjs.com/package/${project.npm}`}
@@ -23,24 +23,25 @@ const NpmSection = ({ project }) =>
       <span className="link" style={{ marginRight: '.25rem' }}>
         {project.npm}
       </span>
-      <span className="version text-secondary">
-        {project.version}
-      </span>
+      <span className="version text-secondary">{project.version}</span>
     </a>
     <Dependencies project={project} />
   </section>
+)
 
 const Dependencies = ({ project }) => {
   const count = project.dependency_count
   if (count === 0) return <span>No dependencies</span>
-  return project.dependencies
-    ? <DependencyList dependencies={project.dependencies} />
-    : <span>Loading...</span>
+  return project.dependencies ? (
+    <DependencyList dependencies={project.dependencies} />
+  ) : (
+    <span>Loading...</span>
+  )
 }
 
-const DependencyList = ({ dependencies }) =>
+const DependencyList = ({ dependencies }) => (
   <Toggle>
-    {({ on, getTogglerProps }) =>
+    {({ on, getTogglerProps }) => (
       <div className="dependencies">
         <a className="toggler" {...getTogglerProps()}>
           <span
@@ -51,23 +52,25 @@ const DependencyList = ({ dependencies }) =>
         </a>
         {!on && <DependencyListPreview dependencies={dependencies} />}
         <div>
-          {on &&
+          {on && (
             <ConnectedDependencyFullList
               togglerProps={getTogglerProps()}
               packageNames={dependencies}
-            />}
+            />
+          )}
         </div>
-      </div>}
-  </Toggle>
-
-const DependencyListPreview = ({ dependencies }) =>
-  <span className="inline-list" style={{ marginLeft: '.5rem' }}>
-    {dependencies.map(packageName =>
-      <span key={packageName}>
-        {packageName}
-      </span>
+      </div>
     )}
+  </Toggle>
+)
+
+const DependencyListPreview = ({ dependencies }) => (
+  <span className="inline-list" style={{ marginLeft: '.5rem' }}>
+    {dependencies.map(packageName => (
+      <span key={packageName}>{packageName}</span>
+    ))}
   </span>
+)
 
 const DependencyFullList = ({ packages }) => {
   return (
@@ -79,7 +82,7 @@ const DependencyFullList = ({ packages }) => {
         </tr>
       </thead>
       <tbody>
-        {packages.map(npmPackage =>
+        {packages.map(npmPackage => (
           <tr key={npmPackage.name}>
             <td>
               <a href={`https://npm.im/${npmPackage.name}`} target="_blank">
@@ -87,24 +90,26 @@ const DependencyFullList = ({ packages }) => {
               </a>
             </td>
             <td>
-              {npmPackage.project
-                ? <span>
-                    <Link
-                      to={`/projects/${npmPackage.project.slug}`}
-                      styleX={{
-                        textDecoration: 'underline'
-                      }}
-                      className="text-secondary"
-                    >
-                      {npmPackage.project.name}{' '}
-                      <StarTotal value={npmPackage.project.stars} icon />
-                    </Link>
-                    <span className="text-secondary" />
-                  </span>
-                : <span style={{ color: '#ccc' }}>N/A</span>}
+              {npmPackage.project ? (
+                <span>
+                  <Link
+                    to={`/projects/${npmPackage.project.slug}`}
+                    styleX={{
+                      textDecoration: 'underline'
+                    }}
+                    className="text-secondary"
+                  >
+                    {npmPackage.project.name}{' '}
+                    <StarTotal value={npmPackage.project.stars} icon />
+                  </Link>
+                  <span className="text-secondary" />
+                </span>
+              ) : (
+                <span style={{ color: '#ccc' }}>N/A</span>
+              )}
             </td>
           </tr>
-        )}
+        ))}
       </tbody>
     </table>
   )

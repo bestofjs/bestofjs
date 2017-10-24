@@ -13,7 +13,7 @@ const RatingBox = ({ field }) => {
   const handleClick = i => () => field.onChange(i + 1)
   return (
     <div>
-      {options.map((item, i) =>
+      {options.map((item, i) => (
         <div key={i} className="radio-button">
           <label>
             <input
@@ -26,9 +26,9 @@ const RatingBox = ({ field }) => {
             {i + 1} - {item}
           </label>
         </div>
-      )}
+      ))}
       <div className="score-bar editable" style={{ marginTop: '.5rem' }}>
-        {options.map((text, i) =>
+        {options.map((text, i) => (
           <span
             key={i}
             className={`octicon octicon-heart icon ${i + 1 <= field.value
@@ -36,7 +36,7 @@ const RatingBox = ({ field }) => {
               : 'off'}`}
             onClick={handleClick(i)}
           />
-        )}
+        ))}
       </div>
     </div>
   )

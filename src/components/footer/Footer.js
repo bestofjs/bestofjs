@@ -9,15 +9,14 @@ const Footer = ({ staticContent, lastUpdate }) => {
         <section className="no-card-container">
           <div className="grid">
             <div>
-              {false &&
+              {false && (
                 <p>
                   <i>{projectName}</i>, a project by{' '}
                   <a href="https://michaelrambeau.com">Michael Rambeau</a>
-                </p>}
+                </p>
+              )}
               <p>Data updated from GitHub everyday</p>
-              <p>
-                Last update: {fromNow(lastUpdate)}
-              </p>
+              <p>Last update: {fromNow(lastUpdate)}</p>
             </div>
             <div>
               {false && <p>Made in Osaka, Japan</p>}

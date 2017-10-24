@@ -15,7 +15,7 @@ const getYou = auth => ({
   bio: `${auth.name}, you will be the next shining star, keep up the good work!`
 })
 
-const Page = ({ heroes, auth, you, authActions, isHero }) =>
+const Page = ({ heroes, auth, you, authActions, isHero }) => (
   <HoF
     heroes={heroes}
     you={you}
@@ -24,6 +24,7 @@ const Page = ({ heroes, auth, you, authActions, isHero }) =>
     isHero={isHero}
     showDetails
   />
+)
 
 function mapStateToProps(state) {
   const { entities: { heroes }, auth, ui } = state

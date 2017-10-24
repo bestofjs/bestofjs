@@ -7,13 +7,13 @@ const CardProjectLabels = ({ projects }) => {
   return (
     <div className="inner">
       <div className="card-label-container">
-        {validProjects.map(p =>
+        {validProjects.map(p => (
           <div key={p.slug}>
             <Link to={`/projects/${p.slug}`} className="card-label-project">
               {p.name}
             </Link>
           </div>
-        )}
+        ))}
       </div>
     </div>
   )

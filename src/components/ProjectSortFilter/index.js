@@ -23,9 +23,9 @@ const Tabs = ({ rootUrl, currentValue, withPagination }) => {
           </Link>
         </div>
       </div>
-      {currentItem.category === 'trend' &&
+      {currentItem.category === 'trend' && (
         <div className="project-sort-tabs-level2">
-          {trendingOptions.map(item =>
+          {trendingOptions.map(item => (
             <Link
               key={item.value}
               className={`${currentValue === item.value ? 'on' : 'off'}`}
@@ -33,8 +33,9 @@ const Tabs = ({ rootUrl, currentValue, withPagination }) => {
             >
               {item.text}
             </Link>
-          )}
-        </div>}
+          ))}
+        </div>
+      )}
     </div>
   )
 }

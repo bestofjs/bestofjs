@@ -33,63 +33,59 @@ const HeroCard = ({ hero, you, isCurrentUser, showDetails }) => {
         <div className="header-text">
           <div className="name">
             {hero.name}
-            {isCurrentUser &&
-              <span style={{ color: 'rgba(255,255,255,.6)' }}> (You)</span>}
+            {isCurrentUser && (
+              <span style={{ color: 'rgba(255,255,255,.6)' }}> (You)</span>
+            )}
           </div>
-          {hero.username &&
+          {hero.username && (
             <div className="github-data">
               <div>
-                <span className="text-secondary">
-                  {hero.username}
-                </span>
+                <span className="text-secondary">{hero.username}</span>
                 <div className="text-secondary">
                   {numeral(hero.followers).format(
                     `${digits(hero.followers)} a`
                   )}{' '}
                   followers{' '}
-                  {you &&
+                  {you && (
                     <span style={{ color: '#aaa', fontSize: 14 }}>
                       ({followersComment(hero.followers)})
-                    </span>}
+                    </span>
+                  )}
                 </div>
               </div>
-            </div>}
+            </div>
+          )}
         </div>
       </a>
       {showDetails &&
-        hero.projects.length > 0 &&
-        <CardProjectLabels projects={hero.projects} />}
+        hero.projects.length > 0 && (
+          <CardProjectLabels projects={hero.projects} />
+        )}
+      {showDetails && hero.bio && <div className="inner">{hero.bio}</div>}
       {showDetails &&
-        hero.bio &&
-        <div className="inner">
-          {hero.bio}
-        </div>}
+        hero.blog && (
+          <a
+            className="inner card-block"
+            target="_blank"
+            data-balloon={`Open ${hero.username}'s website/blog`}
+            href={hero.blog}
+          >
+            <span className="mega-octicon octicon-globe icon" />
+            <span>{formatUrl(hero.blog)}</span>
+          </a>
+        )}
       {showDetails &&
-        hero.blog &&
-        <a
-          className="inner card-block"
-          target="_blank"
-          data-balloon={`Open ${hero.username}'s website/blog`}
-          href={hero.blog}
-        >
-          <span className="mega-octicon octicon-globe icon" />
-          <span>
-            {formatUrl(hero.blog)}
-          </span>
-        </a>}
-      {showDetails &&
-        hero.modules > 0 &&
-        <a
-          className="inner card-block"
-          target="_blank"
-          data-balloon={`Open ${hero.username}'s profile on npm`}
-          href={`https://www.npmjs.com/~${hero.npm || hero.username}`}
-        >
-          <span className="mega-octicon octicon-package icon" />
-          <span>
-            {hero.modules} modules on npm
-          </span>
-        </a>}
+        hero.modules > 0 && (
+          <a
+            className="inner card-block"
+            target="_blank"
+            data-balloon={`Open ${hero.username}'s profile on npm`}
+            href={`https://www.npmjs.com/~${hero.npm || hero.username}`}
+          >
+            <span className="mega-octicon octicon-package icon" />
+            <span>{hero.modules} modules on npm</span>
+          </a>
+        )}
     </div>
   )
 }

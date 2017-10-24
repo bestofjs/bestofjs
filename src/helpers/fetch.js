@@ -4,12 +4,16 @@ const fetch = require('isomorphic-fetch')
 
 export function fetchJSON(url, options) {
   log('Fetch', url)
-  return fetch(url, options).then(checkStatus).then(r => r.json())
+  return fetch(url, options)
+    .then(checkStatus)
+    .then(r => r.json())
 }
 
 export function fetchHTML(url, options) {
   log('Fetch', url)
-  return fetch(url, options).then(checkStatus).then(r => r.text())
+  return fetch(url, options)
+    .then(checkStatus)
+    .then(r => r.text())
 }
 
 function checkStatus(response) {

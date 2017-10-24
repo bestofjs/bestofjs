@@ -12,17 +12,20 @@ const showCount = (array, text) =>
 const TextFilter = ({ projects, heroes, searchText, isLoggedin, auth, ui }) => {
   return (
     <MainContent className="container">
-      {projects.length > 0
-        ? <h3 className="no-card-container">
-            Results for <SearchText>{searchText}</SearchText>:{' '}
-            {showCount(projects, 'project')} found.
-          </h3>
-        : heroes.length === 0 &&
+      {projects.length > 0 ? (
+        <h3 className="no-card-container">
+          Results for <SearchText>{searchText}</SearchText>:{' '}
+          {showCount(projects, 'project')} found.
+        </h3>
+      ) : (
+        heroes.length === 0 && (
           <div className="no-card-container">
             No project found for <SearchText>{searchText}</SearchText>
-          </div>}
+          </div>
+        )
+      )}
 
-      {projects.length > 0 &&
+      {projects.length > 0 && (
         <ProjectList
           projects={projects}
           maxStars={projects[0].stars}
@@ -31,9 +34,10 @@ const TextFilter = ({ projects, heroes, searchText, isLoggedin, auth, ui }) => {
           showDelta={false}
           showURL
           viewOptions={ui.viewOptions}
-        />}
+        />
+      )}
 
-      {heroes.length > 0 &&
+      {heroes.length > 0 && (
         <div style={{ marginTop: projects.length > 0 ? '2em' : 0 }}>
           <h3>
             Results for <SearchText>{searchText}</SearchText>:{' '}
@@ -44,7 +48,8 @@ const TextFilter = ({ projects, heroes, searchText, isLoggedin, auth, ui }) => {
             To see more amazing people,{' '}
             <Link to="/hof">Visit the Hall of Fame !</Link>
           </div>
-        </div>}
+        </div>
+      )}
     </MainContent>
   )
 }

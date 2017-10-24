@@ -43,13 +43,15 @@ const TagFilter = ({
   })
   return (
     <MainContent>
-      {tag
-        ? <TagViewTitle title={tag.name} count={total} icon={'tag'} />
-        : <TagViewTitle
-            title={'All projects'}
-            count={total}
-            icon={'list-unordered'}
-          />}
+      {tag ? (
+        <TagViewTitle title={tag.name} count={total} icon={'tag'} />
+      ) : (
+        <TagViewTitle
+          title={'All projects'}
+          count={total}
+          icon={'list-unordered'}
+        />
+      )}
       <ProjectFilterTabs
         currentValue={ui.starFilter}
         rootUrl={tag ? `/tags/${tag.id}` : '/projects'}

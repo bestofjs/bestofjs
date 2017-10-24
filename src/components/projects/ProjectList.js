@@ -24,7 +24,7 @@ class ProjectList extends React.Component {
     log('Render <ProjectList>', paginatedProjects.length)
     return (
       <div className="project-grid">
-        {paginatedProjects.map((project, index) =>
+        {paginatedProjects.map((project, index) => (
           <div key={project.slug}>
             <ProjectCard
               project={project}
@@ -42,7 +42,7 @@ class ProjectList extends React.Component {
               onRemoveFromMyProjects={onRemoveFromMyProjects}
             />
           </div>
-        )}
+        ))}
       </div>
     )
   }

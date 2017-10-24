@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Title = ({ title, count, icon }) =>
+const Title = ({ title, count, icon }) => (
   <h3
     className="no-card-container"
     style={{ marginBottom: '1rem', display: 'flex', alignItems: 'center' }}
@@ -17,5 +17,6 @@ const Title = ({ title, count, icon }) =>
       {count === 1 ? ' (one project)' : ` (${count} projects)`}
     </span>
   </h3>
+)
 
 export default Title

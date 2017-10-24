@@ -15,19 +15,20 @@ const Counter = ({ count }) => {
   )
 }
 
-const EmptyList = ({ isLoggedin }) =>
+const EmptyList = ({ isLoggedin }) => (
   <div style={{ border: '2px dashed #fa9e59', padding: '2rem' }}>
-    {isLoggedin
-      ? <div>
-          <p>
-            {"You don't have bookmarked any project."}
-          </p>
-          <p>
-            Add projects you want to follow by using the `ADD BOOKMARK` button.
-          </p>
-        </div>
-      : <span>Please sign-in to access this feature!</span>}
+    {isLoggedin ? (
+      <div>
+        <p>{"You don't have bookmarked any project."}</p>
+        <p>
+          Add projects you want to follow by using the `ADD BOOKMARK` button.
+        </p>
+      </div>
+    ) : (
+      <span>Please sign-in to access this feature!</span>
+    )}
   </div>
+)
 
 const MyProjectsPage = ({ projects, ui, isLoggedin }) => {
   // const showStars =
@@ -45,7 +46,7 @@ const MyProjectsPage = ({ projects, ui, isLoggedin }) => {
         <Counter count={projects.length} />
       </h3>
       {projects.length === 0 && <EmptyList isLoggedin={isLoggedin} />}
-      {projects.length > 0 &&
+      {projects.length > 0 && (
         <ProjectList
           projects={projects}
           isLoggedin={isLoggedin}
@@ -53,7 +54,8 @@ const MyProjectsPage = ({ projects, ui, isLoggedin }) => {
           showStars={true}
           showDelta={false}
           deltaFilter="daily"
-        />}
+        />
+      )}
     </MainContent>
   )
 }

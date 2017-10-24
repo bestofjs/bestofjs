@@ -5,7 +5,7 @@ import React from 'react'
 import FieldRow from './FieldRow'
 import Remaining from './RemainingChars'
 
-const MD = ({ submitFailed, field, max = 500 }) =>
+const MD = ({ submitFailed, field, max = 500 }) => (
   <FieldRow
     label={
       <div style={{ display: 'flex' }}>
@@ -34,4 +34,5 @@ const MD = ({ submitFailed, field, max = 500 }) =>
   >
     <textarea {...field} rows="10" maxLength={max} />
   </FieldRow>
+)
 export default MD

@@ -1,6 +1,6 @@
 import React from 'react'
 
-const TopIntro = () =>
+const TopIntro = () => (
   <div>
     <h1 className="with-comment" style={{ margin: '0 0 1rem' }}>
       The best of JavaScript, HTML and CSS
@@ -10,5 +10,6 @@ const TopIntro = () =>
       about the web platform and node.js.
     </p>
   </div>
+)
 
 export default TopIntro

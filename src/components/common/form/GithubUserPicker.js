@@ -29,9 +29,7 @@ function renderOption(option) {
           />
         </div>
         <div className="title">
-          <span className="repo-name">
-            {option.label}
-          </span>
+          <span className="repo-name">{option.label}</span>
         </div>
       </div>
     </div>
@@ -39,11 +37,7 @@ function renderOption(option) {
 }
 
 function renderSelectedOption(option) {
-  return (
-    <div>
-      {option.value}
-    </div>
-  )
+  return <div>{option.value}</div>
 }
 
 const GithubUser = ({ field }) => {

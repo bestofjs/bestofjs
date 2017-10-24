@@ -29,36 +29,39 @@ class Page extends React.Component {
 }
 
 const PreviousPageLink = ({ isFirstPage, currentPage, url }) => {
-  return isFirstPage
-    ? <div disabled className="pagination-previous">
-        <span className="octicon octicon-chevron-left" />
-        <span className="text"> Previous</span>
-      </div>
-    : <Link
-        to={`${url}?page=${currentPage - 1}`}
-        className="pagination-previous"
-        data-balloon={`Show the previous page of projects (#${currentPage -
-          1})`}
-      >
-        <span className="octicon octicon-chevron-left" />
-        <span className="text"> Previous</span>
-      </Link>
+  return isFirstPage ? (
+    <div disabled className="pagination-previous">
+      <span className="octicon octicon-chevron-left" />
+      <span className="text"> Previous</span>
+    </div>
+  ) : (
+    <Link
+      to={`${url}?page=${currentPage - 1}`}
+      className="pagination-previous"
+      data-balloon={`Show the previous page of projects (#${currentPage - 1})`}
+    >
+      <span className="octicon octicon-chevron-left" />
+      <span className="text"> Previous</span>
+    </Link>
+  )
 }
 
 const NextPageLink = ({ isLastPage, currentPage, url }) => {
-  return isLastPage
-    ? <div disabled className="pagination-previous">
-        <span className="text">Next </span>
-        <span className="octicon octicon-chevron-right" />
-      </div>
-    : <Link
-        to={`${url}?page=${currentPage + 1}`}
-        className="pagination-previous"
-        data-balloon={`Show the next page of projects (#${currentPage + 1})`}
-      >
-        <span className="text">Next </span>
-        <span className="octicon octicon-chevron-right" />
-      </Link>
+  return isLastPage ? (
+    <div disabled className="pagination-previous">
+      <span className="text">Next </span>
+      <span className="octicon octicon-chevron-right" />
+    </div>
+  ) : (
+    <Link
+      to={`${url}?page=${currentPage + 1}`}
+      className="pagination-previous"
+      data-balloon={`Show the next page of projects (#${currentPage + 1})`}
+    >
+      <span className="text">Next </span>
+      <span className="octicon octicon-chevron-right" />
+    </Link>
+  )
 }
 
 class Pagination extends React.Component {
@@ -80,11 +83,7 @@ class Pagination extends React.Component {
         count += ' ' + singular
       }
     }
-    return (
-      <div className="Pagination__count">
-        {count}
-      </div>
-    )
+    return <div className="Pagination__count">{count}</div>
   }
   onPageSelect(page) {
     if (this.props.onPageSelect) {

@@ -4,7 +4,7 @@ import fromNow from '../../helpers/fromNow'
 
 const url = 'http://stateofjs.com/'
 
-const Intro = ({ date }) =>
+const Intro = ({ date }) => (
   <div>
     <div>
       <p>
@@ -30,5 +30,6 @@ const Intro = ({ date }) =>
       <p>Thank you to all... the results are coming soon!</p>
     </div>
   </div>
+)
 
 export default Intro

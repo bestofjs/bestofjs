@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 import SearchForm from '../../containers/SearchFormContainer'
 import ToggleMenuButton from './ToggleMenuButton'
 
-const Header = ({ searchText, actions, location }) =>
+const Header = ({ searchText, actions, location }) => (
   <div id="header">
     <ToggleMenuButton actions={actions} />
     <div className="container">
@@ -20,5 +20,6 @@ const Header = ({ searchText, actions, location }) =>
       </div>
     </div>
   </div>
+)
 
 export default Header

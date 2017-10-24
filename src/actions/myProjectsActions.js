@@ -57,7 +57,6 @@ const toggleUpdateMyProjects = add => project => {
 // Add the project to user's list only if it has not already bookmarked before
 function addToMyProjectsIfUnique(myProjects, slug) {
   const found = myProjects.map(item => item.slug).find(item => item === slug)
-  console.log('Found?', found, slug)
   return found
     ? myProjects
     : myProjects.concat({ bookmarked_at: new Date(), slug })

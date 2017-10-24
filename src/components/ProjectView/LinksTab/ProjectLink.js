@@ -22,10 +22,11 @@ const ProjectLink = ({ link, project, editable }) => {
       <a href={link.url} target="_blank" className="project-link-title">
         {link.title} <span className="octicon octicon-link-external" />
       </a>
-      {link.comment &&
+      {link.comment && (
         <div className="project-item-comment" style={{ marginTop: '0.5em' }}>
           <Comment comment={link.comment} />
-        </div>}
+        </div>
+      )}
     </div>
   )
 }

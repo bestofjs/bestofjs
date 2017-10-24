@@ -34,12 +34,8 @@ function renderOption(option) {
           />
         </div>
         <div className="title">
-          <span className="repo-name">
-            {option.label}
-          </span>
-          <div className="text-secondary">
-            by {option.owner}
-          </div>
+          <span className="repo-name">{option.label}</span>
+          <div className="text-secondary">by {option.owner}</div>
         </div>
         <div>
           <div className="stars">
@@ -47,19 +43,13 @@ function renderOption(option) {
           </div>
         </div>
       </div>
-      <div className="text-secondary">
-        {option.description}
-      </div>
+      <div className="text-secondary">{option.description}</div>
     </div>
   )
 }
 
 function renderSelectedOption(option) {
-  return (
-    <div>
-      {option.value}
-    </div>
-  )
+  return <div>{option.value}</div>
 }
 
 const GithubRepo = ({ field }) => {

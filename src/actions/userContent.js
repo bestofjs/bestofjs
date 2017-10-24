@@ -96,7 +96,6 @@ export function update(key) {
           msgbox(`Your ${settings[key].label} has been updated.`)
         })
         .catch(err => {
-          console.error(err)
           msgbox(
             `Sorry, we were unable to save the ${settings[key]
               .label}. ${err.message}`,

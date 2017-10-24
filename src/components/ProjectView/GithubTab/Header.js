@@ -16,19 +16,20 @@ function addMissingHttp(url) {
 
 const formatNumber = number => numeral(number).format('0,0')
 
-const Header = ({ project }) =>
+const Header = ({ project }) => (
   <div className="">
     <div className="inner">
       <p>
         <Description text={project.description} showEmojis />
-        {project.url &&
+        {project.url && (
           <a
             href={addMissingHttp(project.url)}
             style={{ marginLeft: '.5rem' }}
             target="_blank"
           >
             {formatUrl(project.url)}
-          </a>}
+          </a>
+        )}
       </p>
     </div>
     <div className="inner tags" style={{ paddingBottom: '.5em' }}>
@@ -66,5 +67,6 @@ const Header = ({ project }) =>
       </div>
     </div>
   </div>
+)
 
 export default Header

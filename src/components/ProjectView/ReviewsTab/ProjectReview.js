@@ -20,19 +20,20 @@ const ProjectReview = ({ review, editable }) => {
         editLinkTo={`/projects/${review.project}/reviews/${review._id}/edit`}
       />
       <div className="score-bar readonly">
-        {[1, 2, 3, 4, 5].map(i =>
+        {[1, 2, 3, 4, 5].map(i => (
           <span
             key={i}
             className={`octicon octicon-heart icon ${i <= review.rating
               ? 'on'
               : 'off'}`}
           />
-        )}
+        ))}
       </div>
-      {review.comment &&
+      {review.comment && (
         <div className="project-item-comment">
           <Comment comment={review.comment} />
-        </div>}
+        </div>
+      )}
     </div>
   )
 }

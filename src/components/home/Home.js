@@ -77,14 +77,15 @@ const MoreProjects = ({ pending }) => {
 
 export default Home
 
-const TagList = ({ tags }) =>
+const TagList = ({ tags }) => (
   <ul>
-    {tags.map(tag =>
+    {tags.map(tag => (
       <li key={tag.id}>
         <Link to={`/tags/${tag.id}`}>{tag.name}</Link> ({tag.counter} projects)
       </li>
-    )}
+    ))}
   </ul>
+)
 
 // const Hero = () => (
 //   <div id="hero">

@@ -32,11 +32,9 @@ const List = ({ project, auth, authActions }) => {
       <Tabs project={project} activePath="links" />
       <div className="project-tabs-content" style={{ marginBottom: '2em' }}>
         <div className="inner">
-          {links.length === 0 &&
+          {links.length === 0 && (
             <div>
-              <p>
-                Find here intesting reading about {project.name} project:
-              </p>
+              <p>Find here intesting reading about {project.name} project:</p>
               <ul>
                 <li>blog entries</li>
                 <li>tutorials</li>
@@ -44,10 +42,11 @@ const List = ({ project, auth, authActions }) => {
                 <li>real-world applications...</li>
               </ul>
               <p>Be the first to add a link!</p>
-            </div>}
-          {links.length > 0 &&
+            </div>
+          )}
+          {links.length > 0 && (
             <div className="project-link-container">
-              {links.map(link =>
+              {links.map(link => (
                 <ProjectLink
                   link={link}
                   project={project}
@@ -55,16 +54,16 @@ const List = ({ project, auth, authActions }) => {
                   editable={auth.username === link.createdBy}
                   showProjects={false}
                 />
-              )}
-            </div>}
+              ))}
+            </div>
+          )}
 
           <div style={{ textAlign: 'center', paddingTop: '1em' }}>
-            {isLoggedin
-              ? <AddButton project={project} />
-              : <LoginButton
-                  onLogin={authActions.login}
-                  pending={auth.pending}
-                />}
+            {isLoggedin ? (
+              <AddButton project={project} />
+            ) : (
+              <LoginButton onLogin={authActions.login} pending={auth.pending} />
+            )}
           </div>
         </div>
       </div>

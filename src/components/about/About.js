@@ -14,9 +14,7 @@ const About = ({ staticContent, count }) => {
         <h1>About</h1>
         <StarMeButton url={repo} />
 
-        <h2>
-          Why {projectName} ?
-        </h2>
+        <h2>Why {projectName} ?</h2>
         <p>
           Javascript, HTML and CSS are advancing faster than ever, we are going
           fullspeed on innovation.<br />
@@ -29,9 +27,7 @@ const About = ({ staticContent, count }) => {
             <i className="special">now</i> and not 6 months ago ?
           </li>
         </ul>
-        <p>
-          {projectName} was creaded to address these questions.
-        </p>
+        <p>{projectName} was creaded to address these questions.</p>
 
         <h2>Concept</h2>
         <p>

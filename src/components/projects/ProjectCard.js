@@ -29,14 +29,9 @@ const renderReviews = (reviews = []) => {
 const renderLinks = (links = []) => {
   const count = links.length
   const text = count === 1 ? `one link: ${links[0].title}` : `${count} links:`
-  const list = () =>
-    <ul>
-      {links.map(link =>
-        <li key={link._id}>
-          {link.title}
-        </li>
-      )}
-    </ul>
+  const list = () => (
+    <ul>{links.map(link => <li key={link._id}>{link.title}</li>)}</ul>
+  )
   return (
     <section className="card-section">
       <span className="octicon octicon-link" />
@@ -69,75 +64,83 @@ const ProjectCard = ({
     <div className="project-card">
       <Link to={path} className="card-block">
         <header>
-          {showAvatar
-            ? <Avatar project={project} size={75} />
-            : <div className="header-ranking">
-                {index + 1}
-              </div>}
+          {showAvatar ? (
+            <Avatar project={project} size={75} />
+          ) : (
+            <div className="header-ranking">{index + 1}</div>
+          )}
 
-          <div className="header-name">
-            {project.name}
-          </div>
+          <div className="header-name">{project.name}</div>
 
           <div className="header-stars">
-            {showStars &&
+            {showStars && (
               <div className="total">
                 <StarTotal value={project.stars} icon />
-              </div>}
+              </div>
+            )}
 
             {showDelta &&
-              project.deltas.length > 0 &&
-              <div className="delta">
-                <StarDelta
-                  value={project.stats[deltaFilter]}
-                  average={deltaFilter !== 'daily'}
-                />
-                {false &&
-                  <Delta
+              project.deltas.length > 0 && (
+                <div className="delta">
+                  <StarDelta
                     value={project.stats[deltaFilter]}
-                    big
-                    icon
-                    color={false}
-                    perDay={deltaFilter !== 'total' && deltaFilter !== 'daily'}
-                  />}
-              </div>}
+                    average={deltaFilter !== 'daily'}
+                  />
+                  {false && (
+                    <Delta
+                      value={project.stats[deltaFilter]}
+                      big
+                      icon
+                      color={false}
+                      perDay={
+                        deltaFilter !== 'total' && deltaFilter !== 'daily'
+                      }
+                    />
+                  )}
+                </div>
+              )}
           </div>
         </header>
 
-        {viewOptions.description &&
+        {viewOptions.description && (
           <section className="card-section description-card-section">
             <Description text={project.description} />
-          </section>}
+          </section>
+        )}
       </Link>
 
-      {showTags &&
+      {showTags && (
         <section className="card-section tags-card-section">
-          {project.tags.map(tag =>
+          {project.tags.map(tag => (
             <TagLabel tag={tag} key={`${project.slug}-${tag.id}`} />
-          )}
-        </section>}
+          ))}
+        </section>
+      )}
 
       {showReviews &&
-        project.reviews &&
-        <Link className="card-block" to={`${path}/reviews`}>
-          {renderReviews(project.reviews)}
-        </Link>}
+        project.reviews && (
+          <Link className="card-block" to={`${path}/reviews`}>
+            {renderReviews(project.reviews)}
+          </Link>
+        )}
 
       {showLinks &&
-        project.links &&
-        <Link className="card-block" to={`${path}/links`}>
-          {renderLinks(project.links)}
-        </Link>}
+        project.links && (
+          <Link className="card-block" to={`${path}/links`}>
+            {renderLinks(project.links)}
+          </Link>
+        )}
 
       {showMetrics &&
-        project.npm &&
-        <NpmCardSection
-          project={project}
-          packagequality={viewOptions.packagequality}
-          npms={viewOptions.npms}
-        />}
+        project.npm && (
+          <NpmCardSection
+            project={project}
+            packagequality={viewOptions.packagequality}
+            npms={viewOptions.npms}
+          />
+        )}
 
-      {viewOptions.commit &&
+      {viewOptions.commit && (
         <div className="inner github" style={{ display: 'flex' }}>
           <div className="last-commit" style={{ flex: '1' }}>
             <span className="octicon octicon-git-commit" />{' '}
@@ -149,15 +152,17 @@ const ProjectCard = ({
               {formatNumber(project.contributor_count)}
             </span>
           </div>
-        </div>}
+        </div>
+      )}
 
-      {isLoggedin &&
+      {isLoggedin && (
         <CardFooter
           belongsToMyProjects={project.belongsToMyProjects}
           onAdd={handleAddToMyProjects}
           onRemove={handleRemoveFromMyProjects}
           pending={project.pending}
-        />}
+        />
+      )}
     </div>
   )
 }

@@ -21,9 +21,7 @@ const CreateLink = ({ project, auth, history, dispatch }) => {
       <Tabs project={project} activePath="links" />
       <div className="project-tabs-content">
         <div className="inner">
-          <h3>
-            Add a link related to &quot;{project.name}&quot; project
-          </h3>
+          <h3>Add a link related to &quot;{project.name}&quot; project</h3>
           <LinkReduxForm
             project={project}
             auth={auth}

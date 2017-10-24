@@ -14,12 +14,8 @@ const StarDeltaNormal = ({ value }) => {
   const sign = getSign(value)
   return (
     <div className="star-delta">
-      <span style={{ marginRight: 2 }}>
-        {sign}
-      </span>
-      <span>
-        {Math.abs(value)}
-      </span>
+      <span style={{ marginRight: 2 }}>{sign}</span>
+      <span>{Math.abs(value)}</span>
       <StarIcon />
     </div>
   )
@@ -35,15 +31,9 @@ const StarDeltaAverage = ({ value, inline }) => {
   return (
     <div className="star-delta">
       <div style={{ display }}>
-        <span style={{ marginRight: 2 }}>
-          {sign}
-        </span>
-        <span>
-          {integerPart}
-        </span>
-        <span className="text-small">
-          .{decimalPart}
-        </span>
+        <span style={{ marginRight: 2 }}>{sign}</span>
+        <span>{integerPart}</span>
+        <span className="text-small">.{decimalPart}</span>
       </div>
       <div style={{ textAlign: 'center', display }}>
         <StarIcon />

@@ -42,26 +42,27 @@ const List = ({ project, auth, authActions }) => {
       <Tabs project={project} activePath="reviews" />
       <div className="project-tabs-content" style={{ marginBottom: '2em' }}>
         <div className="inner">
-          {reviews.length === 0 &&
+          {reviews.length === 0 && (
             <p>
               Find here what users really think reading about {project.name}{' '}
               project.
-            </p>}
+            </p>
+          )}
 
-          {reviews.length > 0
-            ? <div className="project-link-container">
-                <p>
-                  Average rating: {project.averageRating.toFixed(1)} / 5
-                </p>
-                {reviews.map(review =>
-                  <ProjectReview
-                    key={review._id}
-                    review={review}
-                    editable={auth.username === review.createdBy}
-                  />
-                )}
-              </div>
-            : <p>Be the first to review the project!</p>}
+          {reviews.length > 0 ? (
+            <div className="project-link-container">
+              <p>Average rating: {project.averageRating.toFixed(1)} / 5</p>
+              {reviews.map(review => (
+                <ProjectReview
+                  key={review._id}
+                  review={review}
+                  editable={auth.username === review.createdBy}
+                />
+              ))}
+            </div>
+          ) : (
+            <p>Be the first to review the project!</p>
+          )}
 
           <div style={{ textAlign: 'center', padding: '2em 0 1em' }}>
             {isLoggedin

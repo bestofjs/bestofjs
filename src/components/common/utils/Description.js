@@ -13,14 +13,11 @@ const Description = ({ text, showEmojis }) => {
   const replacedBy = showEmojis ? emoji() : ''
   const result = text.replace(/(:([a-z_\d]+):)/g, replacedBy).trim()
   if (showEmojis) return <HtmlDescription html={result} />
-  return (
-    <span>
-      {result}
-    </span>
-  )
+  return <span>{result}</span>
 }
 
-const HtmlDescription = ({ html }) =>
+const HtmlDescription = ({ html }) => (
   <span dangerouslySetInnerHTML={{ __html: html }} />
+)
 
 export default Description

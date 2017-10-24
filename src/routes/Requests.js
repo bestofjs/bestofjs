@@ -4,10 +4,11 @@ import { Route } from 'react-router-dom'
 // import SubmitHeroPage from '../containers/SubmitHeroPage'
 import UserRequestsPage from '../containers/UserRequestsPage'
 
-const RequestsRoutes = () =>
+const RequestsRoutes = () => (
   <div>
     <Route exact path="/requests" component={UserRequestsPage} />
   </div>
+)
 
 export default RequestsRoutes
 
