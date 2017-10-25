@@ -10,13 +10,18 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 const getFullPage = require('../scripts/build/getFullPage')
 const constants = require('./constants')
+const packageJson = require('../package.json')
 
 const USE_PREACT = true
 
 function getPlugins(env) {
+  // Rather than importing the whole package.json in the source code,
+  // we make available a global variable `PACKAGEJSON_VERSION`
   const envPlugin = new webpack.DefinePlugin({
+    PACKAGEJSON_VERSION: JSON.stringify(packageJson.version),
     'process.env': {
-      NODE_ENV: JSON.stringify(env)
+      NODE_ENV: JSON.stringify(env),
+      VERSION: JSON.stringify(packageJson.version)
     }
   })
   // const monitor = new WebpackMonitor({
@@ -45,6 +50,7 @@ function getPlugins(env) {
     // Do not display warning messages from Uglify
     plugins.push(
       new webpack.optimize.UglifyJsPlugin({
+        sourceMap: true,
         compress: {
           warnings: false
         }
@@ -169,10 +175,8 @@ module.exports = function(env) {
     module: {
       rules: getRules(env)
     },
-    resolve
-  }
-  if (env === 'development') {
-    config.devtool = 'eval'
+    resolve,
+    devtool: env === 'development' ? 'eval' : 'source-map'
   }
   return config
 }

@@ -4,6 +4,7 @@ var jsdom = require('jsdom')
 
 function init() {
   process.env.NODE_ENV = 'test'
+  process.env.VERSION = '0.0.0'
   if (global.window) {
     console.log('((( window object already initialized )))') // eslint-disable-no-console
     return

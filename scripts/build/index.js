@@ -3,6 +3,7 @@
 Get project data from a static json file and build `www/index.html` file
 */
 /* eslint-disable no-console */
+require('./setup')
 import fetch from 'node-fetch'
 
 const minify = require('html-minifier').minify
