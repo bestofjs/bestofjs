@@ -7,34 +7,32 @@
   },
   "scripts": {
     "lint": "eslint src --ext .js --ext .jsx --fix",
-    "test":
-      "cross-env NODE_ENV=test babel-tape-runner test/**/*Spec.js | faucet",
+    "test": "cross-env NODE_ENV=test babel-tape-runner test/**/*Spec.js | faucet",
     "test-debug": "babel-tape-runner test/**/ProjectListSpec.js",
     "clean": "rimraf www/index.html && rimraf www/build",
     "build": "npm run build-html && npm run build-js",
     "start": "cross-env NODE_ENV=development node config/devserver.js",
-    "build-js":
-      "cross-env NODE_ENV=production webpack -p --config config/webpack.production.config.js --progress",
+    "build-js": "cross-env NODE_ENV=production webpack -p --config config/webpack.production.config.js --progress",
     "gh-pages": "node scripts/deploy-gh-pages/",
     "surge": "surge --domain bestofjs.surge.sh --project ./www/",
     "deploy-all": "npm run build && npm run gh-pages",
-    "daily":
-      "npm run build-html && npm run build-html-hof && npm run rss-once-a-week && npm run commit-ssr-files",
+    "daily": "npm run build-html && npm run build-html-hof && npm run rss-once-a-week && npm run commit-ssr-files",
     "build-html": "cross-env NODE_ENV=production babel-node scripts/build/",
-    "build-html-hof":
-      "cross-env NODE_ENV=production babel-node scripts/build/build-hof.js",
+    "build-html-hof": "cross-env NODE_ENV=production babel-node scripts/build/build-hof.js",
     "commit-ssr-files": "node scripts/commit-ssr-files",
-    "analyze":
-      "cross-env NODE_ENV=production webpack -p --config config/webpack.production.config.js --json | webpack-bundle-size-analyzer",
-    "rss-once-a-week":
-      "cross-env NODE_ENV=production babel-node scripts/rss/once-a-week",
+    "analyze": "cross-env NODE_ENV=production webpack -p --config config/webpack.production.config.js --json | webpack-bundle-size-analyzer",
+    "rss-once-a-week": "cross-env NODE_ENV=production babel-node scripts/rss/once-a-week",
     "rss": "babel-node scripts/rss"
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/michaelrambeau/bestofjs-webui.git"
   },
-  "keywords": ["react", "redux", "webpack"],
+  "keywords": [
+    "react",
+    "redux",
+    "webpack"
+  ],
   "author": "Michael Rambeau",
   "license": "MIT",
   "bugs": {
@@ -78,13 +76,13 @@
     "preact-compat": "3.15.0",
     "prop-types": "15.5.8",
     "qs": "^6.5.1",
-    "react": "15.6.0",
+    "react": "^16.0.0",
     "react-calendar-heatmap": "1.4.1",
-    "react-dom": "15.6.0",
-    "react-hot-loader": "^3.0.0-beta.6",
-    "react-redux": "5.0.4",
-    "react-router": "4.1.1",
-    "react-router-dom": "4.1.1",
+    "react-dom": "^16.0.0",
+    "react-hot-loader": "^3.1.1",
+    "react-redux": "^5.0.6",
+    "react-router": "^4.2.0",
+    "react-router-dom": "^4.2.2",
     "react-select": "1.0.0-rc.10",
     "react-toggled": "^1.0.2",
     "recursive-readdir": "^2.1.1",
@@ -107,7 +105,8 @@
     "babel-plugin-module-resolver": "^2.7.0",
     "babel-register": "6.5.2",
     "babel-tape-runner": "2.0.1",
-    "enzyme": "^2.8.0",
+    "enzyme": "^3.1.0",
+    "enzyme-adapter-react-16": "^1.0.2",
     "eslint": "3.14.1",
     "eslint-config-prettier": "^2.3.0",
     "eslint-plugin-babel": "^3.3.0",
@@ -120,13 +119,11 @@
     "jsdom": "^7.0.2",
     "prettier": "^1.5.2",
     "pretty-bytes": "^4.0.2",
-    "react-addons-perf": "15.0.1",
-    "react-test-renderer": "15.5.4",
+    "react-test-renderer": "^16.0.0",
     "sinon": "^1.17.3",
     "tape": "^4.2.2",
     "webpack-bundle-size-analyzer": "^2.7.0",
     "webpack-dev-server": "2.4.5",
-    "webpack-monitor": "^1.0.13",
-    "why-did-you-update": "0.0.8"
+    "webpack-monitor": "^1.0.13"
   }
 }

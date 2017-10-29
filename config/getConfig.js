@@ -12,7 +12,7 @@ const getFullPage = require('../scripts/build/getFullPage')
 const constants = require('./constants')
 const packageJson = require('../package.json')
 
-const USE_PREACT = true
+const USE_PREACT = false
 
 function getPlugins(env) {
   // Rather than importing the whole package.json in the source code,

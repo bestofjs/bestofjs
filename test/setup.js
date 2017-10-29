@@ -1,8 +1,10 @@
-var jsdom = require('jsdom')
+const jsdom = require('jsdom')
+import { configure } from 'enzyme'
+import Adapter from 'enzyme-adapter-react-16'
 
 // Function to be run once before all tests.
-
 function init() {
+  configure({ adapter: new Adapter() })
   process.env.NODE_ENV = 'test'
   process.env.VERSION = '0.0.0'
   if (global.window) {

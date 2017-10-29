@@ -22,7 +22,7 @@ test('Star on Github button', assert => {
   assert.ok(component, 'The component should exist.')
 
   const a = component.find('a')
-  const node = a.getNode()
+  const node = a.instance()
   const url = node.href
 
   assert.ok(/michaelrambeau/.test(url), 'It should be one of my repositories.')
