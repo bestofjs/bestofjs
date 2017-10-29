@@ -54,18 +54,23 @@ require('./stylesheets/main.styl')
 require('./stylesheets/tooltip/balloon.css')
 require('../node_modules/react-select/dist/react-select.css')
 
-function renderComponent(Component, store) {
+function renderComponent(Component, store, hotreload) {
   render(
-    <AppContainer>
+    hotreload ? (
+      <AppContainer>
+        <Component store={store} />
+      </AppContainer>
+    ) : (
       <Component store={store} />
-    </AppContainer>,
+    ),
     window.document.getElementById('app')
   )
 }
 
 function renderApp(store) {
-  renderComponent(App, store)
-  if (module.hot) {
+  const hotreload = !process.env.USE_PREACT && module.hot
+  renderComponent(App, store, hotreload)
+  if (hotreload) {
     module.hot.accept('./App', () => {
       renderComponent(App, store)
     })

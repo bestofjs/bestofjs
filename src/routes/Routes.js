@@ -12,12 +12,18 @@ import items from './sortItems'
 import NoMatch from './NoMatch'
 
 const HomePage = getHomePage(10)
-const AsyncAboutPage = asyncComponent(() => import('../containers/AboutPage'))
-const AsyncMyProjects = asyncComponent(() =>
-  import('../containers/MyProjectsPage')
+const AsyncAboutPage = asyncComponent(() =>
+  import(/* webpackChunkName: "about" */ '../containers/AboutPage')
 )
-const AsyncViewProject = asyncComponent(() => import('./Projects'))
-const AsyncRequests = asyncComponent(() => import('./Requests'))
+const AsyncMyProjects = asyncComponent(() =>
+  import(/* webpackChunkName: "my-projects" */ '../containers/MyProjectsPage')
+)
+const AsyncViewProject = asyncComponent(() =>
+  import(/* webpackChunkName: "single-project" */ './Projects')
+)
+const AsyncRequests = asyncComponent(() =>
+  import(/* webpackChunkName: "my-requests" */ './Requests')
+)
 
 const Routes = () => (
   <Switch>

@@ -6,13 +6,14 @@ const webpack = require('webpack')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const autoprefixer = require('autoprefixer')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
-// const WebpackMonitor = require('webpack-monitor')
+const WebpackMonitor = require('webpack-monitor')
 
 const getFullPage = require('../scripts/build/getFullPage')
 const constants = require('./constants')
 const packageJson = require('../package.json')
 
-const USE_PREACT = false
+const USE_PREACT = true
+const USE_MONITOR = false
 
 function getPlugins(env) {
   // Rather than importing the whole package.json in the source code,
@@ -21,14 +22,18 @@ function getPlugins(env) {
     PACKAGEJSON_VERSION: JSON.stringify(packageJson.version),
     'process.env': {
       NODE_ENV: JSON.stringify(env),
-      VERSION: JSON.stringify(packageJson.version)
+      VERSION: JSON.stringify(packageJson.version),
+      USE_PREACT
     }
   })
-  // const monitor = new WebpackMonitor({
-  //   launch: true, // -> default 'false'
-  //   port: 3030 // default -> 8081
-  // })
-  const plugins = [envPlugin]
+  const monitor =
+    USE_MONITOR &&
+    new WebpackMonitor({
+      launch: true, // -> default 'false'
+      port: 3030 // default -> 8081
+    })
+  const concatPlugin = new webpack.optimize.ModuleConcatenationPlugin()
+  const plugins = [envPlugin, concatPlugin]
   if (env === 'development') {
     // plugins.push(monitor)
     plugins.push(new webpack.HotModuleReplacementPlugin())
@@ -45,7 +50,7 @@ function getPlugins(env) {
     // ExtractTextPlugin used to generate a separate CSS file, in production only.
     // documentation: http://webpack.github.io/docs/stylesheets.html
     plugins.push(new ExtractTextPlugin('build/[name].css'))
-    // plugins.push(monitor)
+    if (USE_MONITOR) plugins.push(monitor)
 
     // Do not display warning messages from Uglify
     plugins.push(
@@ -62,6 +67,10 @@ function getPlugins(env) {
 }
 
 function getRules(env) {
+  // transform-runtime plugin is required to perform module async loading
+  const plugins = ['transform-runtime'].concat(
+    USE_PREACT ? [] : 'react-hot-loader/babel'
+  )
   const jsRule = {
     test: /\.jsx?$/,
     exclude: /node_modules/,
@@ -71,8 +80,7 @@ function getRules(env) {
         options: {
           babelrc: false, // required otherwise src/.babelrc settings will be used
           presets: [['es2015', { modules: false }], 'react-app'],
-          // transform-runtime plugin is required to perform module async loading
-          plugins: ['transform-runtime', 'react-hot-loader/babel']
+          plugins
         }
       }
     ]
@@ -143,6 +151,7 @@ function getOutput(env) {
   const output = {
     path: rootPath,
     filename,
+    chunkFilename: filename,
     publicPath: '/'
   }
   return env === 'development'
