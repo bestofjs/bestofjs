@@ -23,6 +23,7 @@ function getPlugins(env) {
     'process.env': {
       NODE_ENV: JSON.stringify(env),
       VERSION: JSON.stringify(packageJson.version),
+      GITHUB_URL: JSON.stringify(packageJson.repository.url),
       USE_PREACT
     }
   })

@@ -1,6 +1,6 @@
 {
   "name": "bestofjs-webui",
-  "version": "0.11.1",
+  "version": "0.11.2",
   "description": "bestof.js.org front-end web application",
   "engines": {
     "node": ">=8.1.2"
@@ -32,13 +32,13 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/michaelrambeau/bestofjs-webui.git"
+    "url": "https://github.com/bestofjs/bestofjs-webui"
   },
   "keywords": ["react", "redux", "webpack"],
   "author": "Michael Rambeau",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/michaelrambeau/bestofjs-webui/issues"
+    "url": "https://github.com/bestofjs/bestofjs-webui/issues"
   },
   "homepage": "https://bestof.js.org",
   "dependencies": {
