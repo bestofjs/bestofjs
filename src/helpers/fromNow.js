@@ -4,7 +4,12 @@ import vagueTime from 'vague-time'
 // but vague-time module is lighter than moment!
 
 export default function(strDate) {
-  return vagueTime.get({
-    to: new Date(strDate)
-  })
+  try {
+    return vagueTime.get({
+      to: new Date(strDate)
+    })
+  } catch (e) {
+    // avoid throwing "Invalid date" errors
+    return '?'
+  }
 }
