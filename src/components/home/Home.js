@@ -11,7 +11,7 @@ import StateOfJSIntro from './StateOfJSIntro'
 const Home = props => {
   log('Render the <Home> component', props)
   const { isLoggedin, pending, authActions, popularTags } = props
-  const newsDate = new Date(2017, 7, 13)
+  const newsDate = new Date('2017-12-13T01:00:00.000Z')
   return (
     <MainContent>
       <section className="no-card-container">
