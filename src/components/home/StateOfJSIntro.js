@@ -3,9 +3,7 @@ import React from 'react'
 import fromNow from '../../helpers/fromNow'
 
 const urls = {
-  site: 'http://stateofjs.com',
-  event:
-    'https://medium.com/@sachagreif/announcing-the-stateofjs-2017-launch-livestream-14e4aeeeec3a'
+  site: 'https://stateofjs.com'
 }
 
 const Intro = ({ date }) => (
@@ -34,16 +32,7 @@ const Intro = ({ date }) => (
         survey.
       </p>
       <p>
-        The results will be published {fromNow(date)}, thank you for your
-        patience!
-      </p>
-      <p>
-        Join the{' '}
-        <a href={urls.event} target="_blank">
-          Launch Livestream
-        </a>{' '}
-        on December 12 for a look at the survey results, Q&A sessions, and more
-        with special guests!
+        The results were published {fromNow(date)}, thank you for your patience!
       </p>
     </div>
     <div id="stateofjs-logo-cell">
