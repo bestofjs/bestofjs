@@ -79,8 +79,8 @@ const Sidebar = ({
         <NavLink to="/about" className="item" activeClassName="active">
           ABOUT
         </NavLink>
-        <a href="https://risingstars2016.js.org/" className="item">
-          RISING STARS 2016
+        <a href="https://risingstars.js.org/" className="item">
+          RISING STARS
         </a>
       </div>
     </nav>
