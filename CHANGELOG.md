@@ -1,5 +1,9 @@
 # Change log
 
+## 0.11.3 - 2018-01-20
+* `JavaScript Rising Stars` link
+* Add tag description
+
 ## 0.11.0 - 2017-10-22
 * Code splitting
 
