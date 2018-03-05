@@ -6,19 +6,14 @@ import MainContent from '../common/MainContent'
 import HomeProjects from './HomeProjects'
 import CreateIssueLink from '../user-requests/add-project/CreateIssueLink'
 import Intro from './Intro'
-import RisingStars from './RisingStars'
 
 const Home = props => {
   log('Render the <Home> component', props)
   const { isLoggedin, pending, authActions, popularTags } = props
-  const newsDate = new Date('2018-01-13T01:00:00.000Z')
   return (
     <MainContent>
       <section className="no-card-container">
         <Intro />
-      </section>
-      <section className="no-card-container">
-        <RisingStars date={newsDate} />
       </section>
       <section>
         <h3 className="no-card-container" style={{ margin: '0rem 0 2rem' }}>
