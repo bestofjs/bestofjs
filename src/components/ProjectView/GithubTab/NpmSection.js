@@ -13,11 +13,11 @@ const NpmSection = ({ project }) => (
       target="_blank"
     >
       <img
-        src="https://s3-us-west-2.amazonaws.com/svgporn.com/logos/npm.svg"
+        src="https://bestof.js.org/logos/npm.svg"
         alt="NPM"
         className="npm"
-        height="16"
-        width="40.95"
+        height="7"
+        width="18"
         style={{ marginRight: '.25rem' }}
       />
       <span className="link" style={{ marginRight: '.25rem' }}>

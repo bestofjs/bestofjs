@@ -5,9 +5,10 @@ const NpmCardSection = ({ project }) => (
     <div className="inner" data-balloon={'Package name on npm'}>
       <img
         className="npm-logo icon"
-        width="16"
-        height="16"
-        src="https://www.npmjs.com/static/images/touch-icons/favicon-16x16.png"
+        width="18"
+        height="7"
+        src="https://bestof.js.org/logos/npm.svg"
+        alt="npm package"
       />
       {project.npm}
       <span className="version">{project.version}</span>
