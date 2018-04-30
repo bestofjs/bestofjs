@@ -5,11 +5,9 @@ import Button from '../../common/form/Button'
 
 import getApi from '../../../config/api'
 
-const A = Button.withComponent('a')
-
 const CreateIssueLink = ({ className, style, children, showAsButton }) => {
   const repo = getApi('ISSUES_REPO')
-  const Component = showAsButton ? A : styled.a``
+  const Component = showAsButton ? Button : styled.a``
   return (
     <Component
       target="_blank"

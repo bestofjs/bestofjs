@@ -52,18 +52,13 @@ const Home = props => {
   )
 }
 
-const MoreProjects = ({ pending }) => {
+const MoreProjects = () => {
   return (
     <div className="no-card-container">
       <h3 className="with-comment" style={{ marginBottom: '0.5rem' }}>
         Do you want more projects ?
       </h3>
-      <CreateIssueLink
-        showAsButton
-        className={`btn block button-outline${pending
-          ? ' ui loading button'
-          : ''}`}
-      >
+      <CreateIssueLink showAsButton className={`button-outline block`}>
         <span className="octicon octicon-mark-github" /> Create an issue on
         GitHub
       </CreateIssueLink>
