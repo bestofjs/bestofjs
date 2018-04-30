@@ -6,6 +6,7 @@ import { withRouter } from 'react-router-dom'
 import ProjectHeader from '../ProjectHeader'
 import Tabs from '../Tabs'
 import { createLink } from '../../../actions/linkActions'
+import ProjectTabsContent from '../ProjectTabsContent'
 
 const submitCreate = (history, dispatch) => (project, auth) => {
   return function(values) {
@@ -19,7 +20,7 @@ const CreateLink = ({ project, auth, history, dispatch }) => {
     <div>
       <ProjectHeader project={project} />
       <Tabs project={project} activePath="links" />
-      <div className="project-tabs-content">
+      <ProjectTabsContent>
         <div className="inner">
           <h3>Add a link related to &quot;{project.name}&quot; project</h3>
           <LinkReduxForm
@@ -29,7 +30,7 @@ const CreateLink = ({ project, auth, history, dispatch }) => {
             onSave={onSave}
           />
         </div>
-      </div>
+      </ProjectTabsContent>
     </div>
   )
 }

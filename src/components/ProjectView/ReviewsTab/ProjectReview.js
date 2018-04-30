@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import marked from 'marked'
 
 import Header from '../ItemHeader'
+import Div from './ScoreBar'
 
 const Comment = ({ comment }) => {
   if (comment.trim() === '') {
@@ -19,7 +20,7 @@ const ProjectReview = ({ review, editable }) => {
         editable={editable}
         editLinkTo={`/projects/${review.project}/reviews/${review._id}/edit`}
       />
-      <div className="score-bar readonly">
+      <Div className="score-bar readonly">
         {[1, 2, 3, 4, 5].map(i => (
           <span
             key={i}
@@ -28,7 +29,7 @@ const ProjectReview = ({ review, editable }) => {
               : 'off'}`}
           />
         ))}
-      </div>
+      </Div>
       {review.comment && (
         <div className="project-item-comment">
           <Comment comment={review.comment} />

@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import Div from './ScoreBar'
 
 const options = [
   'Pretty bad, looks deprecated',
@@ -27,7 +28,7 @@ const RatingBox = ({ field }) => {
           </label>
         </div>
       ))}
-      <div className="score-bar editable" style={{ marginTop: '.5rem' }}>
+      <Div className="score-bar editable" style={{ marginTop: '.5rem' }}>
         {options.map((text, i) => (
           <span
             key={i}
@@ -37,7 +38,7 @@ const RatingBox = ({ field }) => {
             onClick={handleClick(i)}
           />
         ))}
-      </div>
+      </Div>
     </div>
   )
 }

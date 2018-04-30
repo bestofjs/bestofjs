@@ -1,10 +1,12 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Link } from 'react-router-dom'
 
+import Link from '../../common/form/Button/Link'
 import ProjectHeader from '../ProjectHeader'
 import Tabs from '../Tabs'
 import ProjectReview from './ProjectReview'
+import ProjectTabsContent from '../ProjectTabsContent'
+import Button from '../../common/form/Button'
 
 const List = ({ project, auth, authActions }) => {
   const isLoggedin = auth.username !== ''
@@ -30,17 +32,17 @@ const List = ({ project, auth, authActions }) => {
   const renderLoginButton = (onLogin, pending) => {
     if (pending) return 'Loading...'
     return (
-      <button className="btn" onClick={onLogin}>
+      <Button className="btn" onClick={onLogin}>
         <span className="octicon octicon-mark-github" /> Sign in with GitHub to
         add a review
-      </button>
+      </Button>
     )
   }
   return (
     <div>
       <ProjectHeader project={project} />
       <Tabs project={project} activePath="reviews" />
-      <div className="project-tabs-content" style={{ marginBottom: '2em' }}>
+      <ProjectTabsContent style={{ marginBottom: '2em' }}>
         <div className="inner">
           {reviews.length === 0 && (
             <p>
@@ -70,7 +72,7 @@ const List = ({ project, auth, authActions }) => {
               : renderLoginButton(authActions.login, auth.pending)}
           </div>
         </div>
-      </div>
+      </ProjectTabsContent>
     </div>
   )
 }

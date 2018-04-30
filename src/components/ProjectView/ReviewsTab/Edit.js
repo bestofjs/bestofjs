@@ -6,6 +6,7 @@ import { withRouter } from 'react-router-dom'
 import ProjectHeader from '../ProjectHeader'
 import Tabs from '../Tabs'
 import { updateReview } from '../../../actions/reviewActions'
+import ProjectTabsContent from '../ProjectTabsContent'
 
 const submitEdit = (review, history, dispatch) => (project, auth) => {
   const reviewId = review._id
@@ -26,7 +27,7 @@ const EditReview = ({ project, review, auth, history, dispatch }) => {
     <div>
       <ProjectHeader project={project} />
       <Tabs project={project} activePath="reviews" />
-      <div className="project-tabs-content" style={{ marginBottom: '2em' }}>
+      <ProjectTabsContent style={{ marginBottom: '2em' }}>
         <div className="inner">
           <h3>
             Edit &quot;{project.name}&quot; review ({review.rating}/5)
@@ -39,7 +40,7 @@ const EditReview = ({ project, review, auth, history, dispatch }) => {
             onSave={onSave}
           />
         </div>
-      </div>
+      </ProjectTabsContent>
     </div>
   )
 }

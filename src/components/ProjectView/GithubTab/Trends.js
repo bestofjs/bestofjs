@@ -1,13 +1,15 @@
 import React from 'react'
-import Heatmap from './Heatmap'
+import styled from 'styled-components'
 
+import Heatmap from './Heatmap'
 import StarDelta from '../../common/utils/StarDelta'
 import StarIcon from '../../common/utils/StarIcon'
+import Card from '../../common/Card'
 
 // New "DAILY TRENDS" block (Sep. 2017, v0.9)
 // Show the heat map only if we have at least 2 daily deltas to show
 const Trends = ({ project }) => (
-  <div className="card" style={{ marginTop: '2rem' }}>
+  <Card style={{ marginTop: '2rem' }}>
     <div className="header">
       <span className="octicon octicon-graph" />
       <span> DAILY TRENDS</span>
@@ -20,7 +22,7 @@ const Trends = ({ project }) => (
       )}
       <MonthlyTrends project={project} />
     </div>
-  </div>
+  </Card>
 )
 
 const MonthlyTrendsItem = ({ item, stats }) => {
@@ -33,6 +35,21 @@ const MonthlyTrendsItem = ({ item, stats }) => {
     </div>
   )
 }
+
+const Div = styled.div`
+  width: 100%;
+  display: flex;
+  > div {
+    flex: 1;
+    text-align: center;
+  }
+  @media (max-width: 600px) {
+    flex-direction: column;
+    > div:not(:first-child) {
+      margin-top: 0.5rem;
+    }
+  }
+`
 
 const MonthlyTrends = ({ project }) => {
   const stats = project.stats
@@ -63,20 +80,20 @@ const MonthlyTrends = ({ project }) => {
     // return <MonthlyTrendsItem item={items[0]} stats={stats} />
   }
   return (
-    <div className="card-section">
+    <Card.Section>
       {stats.weekly || stats.weekly === 0 ? (
         <div>
           <p>Stars added on GitHub, per day, on average:</p>
-          <div className="daily-trends-container">
+          <Div>
             {items.map((item, i) => (
               <MonthlyTrendsItem item={item} key={i} stats={stats} />
             ))}
-          </div>
+          </Div>
         </div>
       ) : (
         <OnlyYesterday stats={stats} />
       )}
-    </div>
+    </Card.Section>
   )
 }
 

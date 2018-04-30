@@ -1,10 +1,38 @@
 import React from 'react'
+import styled from 'styled-components'
 import fromNow from '../../helpers/fromNow'
+
+const StyledFooter = styled.footer`
+  margin: 2rem 0;
+  .footer-bottom {
+    margin-top: 2rem;
+    padding-top: 2rem;
+    text-align: center;
+  }
+  p:not(:last-child) {
+    margin-bottom: 1rem;
+  }
+  .grid {
+    padding-top: 2rem;
+    display: flex;
+  }
+  .grid > div {
+    flex: 1;
+  }
+  @media (max-width: 900px) {
+    .grid {
+      flex-direction: column;
+    }
+    .grid > div:not(:last-child) {
+      margin-bottom: 1rem;
+    }
+  }
+`
 
 const Footer = ({ staticContent, lastUpdate }) => {
   const { repo, projectName, version } = staticContent
   return (
-    <footer id="footer">
+    <StyledFooter id="footer">
       <div id="footer-content" className="container">
         <section className="no-card-container">
           <div className="grid">
@@ -50,7 +78,7 @@ const Footer = ({ staticContent, lastUpdate }) => {
           </a>
         </section>
       </div>
-    </footer>
+    </StyledFooter>
   )
 }
 

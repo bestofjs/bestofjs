@@ -59,6 +59,7 @@ const MoreProjects = ({ pending }) => {
         Do you want more projects ?
       </h3>
       <CreateIssueLink
+        showAsButton
         className={`btn block button-outline${pending
           ? ' ui loading button'
           : ''}`}

@@ -1,9 +1,62 @@
 import React from 'react'
 import { NavLink } from 'react-router-dom'
+import styled from 'styled-components'
 
 import TagMenu from './TagMenu'
 import LoggedinUser from './LoggedinUser'
 import AnonymousUser from './AnonymousUser'
+import Counter from './Counter'
+
+const sidebarBgColor = '#421729'
+
+const Nav = styled.nav`
+  background-color: ${sidebarBgColor};
+`
+
+const SubMenu = styled.div`
+  padding: 0.8em 1em;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+`
+
+const SubMenuHeader = styled.div`
+  color: rgba(255, 255, 255, 0.9);
+  margin: 0 0 0.5em;
+  font-size: 1em;
+`
+
+const Item = styled(NavLink)`
+  display: block;
+  position: relative;
+  padding: 1em;
+  color: rgba(255, 255, 255, 0.95);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+  &.active,
+  &:hover {
+    background: rgba(255, 255, 255, 0.08);
+    color: #fff;
+    text-decoration: none;
+  }
+`
+const ExternalLink = Item.withComponent('a')
+
+import image from '../../svg/logo-5colors.svg'
+
+const LoginBlock = styled.div`
+  background-color: #9c0042;
+  height: 112px;
+  display: flex;
+  align-items: flex-end;
+  color: #fff;
+  padding: 0;
+  background: #ffe38c url(${image}) right no-repeat;
+  &.anonymous {
+    align-items: center;
+    color: #570025;
+  }
+  > div {
+    flex: 1;
+  }
+`
 
 const Sidebar = ({
   allTags,
@@ -12,14 +65,13 @@ const Sidebar = ({
   authActions,
   projectCount,
   hofCount,
-  linkCount,
   requestCount,
   selectedTag
 }) => {
   const myProjectsCount = auth && auth.myProjects && auth.myProjects.length
   return (
-    <nav id="menu" className="slideout-menu">
-      <div
+    <Nav id="menu" className="slideout-menu">
+      <LoginBlock
         className={`sidebar-login-block ${auth.username
           ? 'loggedin'
           : 'anonymous'}`}
@@ -33,58 +85,51 @@ const Sidebar = ({
         ) : (
           <AnonymousUser onLogin={authActions.login} pending={auth.pending} />
         )}
-      </div>
+      </LoginBlock>
       <div className="ui vertical menu">
-        <NavLink to="/" className="item" exact activeClassName="active">
+        <Item to="/" className="item" exact activeClassName="active">
           HOME
-        </NavLink>
-        <NavLink to="/projects" className="item" activeClassName="active">
+        </Item>
+        <Item to="/projects" className="item" activeClassName="active">
           ALL PROJECTS
-          {hofCount > 0 && <span className="counter">{projectCount}</span>}
-        </NavLink>
-        <NavLink to="/hall-of-fame" className="item" activeClassName="active">
+          <Counter count={projectCount} />
+        </Item>
+        <Item to="/hall-of-fame" className="item" activeClassName="active">
           HALL OF FAME
-          {hofCount > 0 && <span className="counter">{hofCount}</span>}
-        </NavLink>
-        {false && (
-          <NavLink to="/links" className="item">
-            LINKS
-            {linkCount > 0 && <span className="counter">{linkCount}</span>}
-          </NavLink>
-        )}
+          <Counter count={hofCount} />
+        </Item>
         {auth.username && (
-          <NavLink to="/myprojects" className="item" activeClassName="active">
+          <Item to="/myprojects" className="item" activeClassName="active">
             MY PROJECTS
-            {myProjectsCount > 0 && (
-              <span className="counter">{myProjectsCount}</span>
-            )}
-          </NavLink>
+            <Counter count={myProjectsCount} />
+          </Item>
         )}
         {auth.username && (
-          <NavLink to="/requests" className="item" activeClassName="active">
+          <Item to="/requests" className="item" activeClassName="active">
             MY REQUESTS
-            {requestCount > 0 && (
-              <span className="counter">{requestCount}</span>
-            )}
-          </NavLink>
+            <Counter count={requestCount} />
+          </Item>
         )}
-        <div className="item">
-          <div className="header">POPULAR TAGS</div>
+        <SubMenu className="item">
+          <SubMenuHeader>POPULAR TAGS</SubMenuHeader>
           <TagMenu tags={popularTags} selectedTag={selectedTag} />
-        </div>
-        <div className="item">
-          <div className="header">ALL TAGS</div>
+        </SubMenu>
+        <SubMenu className="item">
+          <SubMenuHeader>ALL TAGS</SubMenuHeader>
           <TagMenu tags={allTags} selectedTag={selectedTag} />
-        </div>
-        <NavLink to="/about" className="item" activeClassName="active">
+        </SubMenu>
+        <Item to="/about" className="item" activeClassName="active">
           ABOUT
-        </NavLink>
-        <a href="https://risingstars.js.org/" className="item">
+        </Item>
+        <ExternalLink href="https://risingstars.js.org/" className="item">
           RISING STARS
-        </a>
+        </ExternalLink>
       </div>
-    </nav>
+    </Nav>
   )
 }
 
 export default Sidebar
+
+// const x = () => <div>side</div>
+// export default x

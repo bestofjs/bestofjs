@@ -1,6 +1,29 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
+import styled from 'styled-components'
+
+const Div = styled.div`
+  display: flex;
+  margin-bottom: -1px;
+  > div {
+    flex: 1;
+    text-align: center;
+    padding: 0.5rem 0;
+  }
+  > div.active {
+    border: 1px solid #ccc;
+    border-bottom-color: #fff;
+    background-color: #fff;
+    z-index: 1;
+  }
+  > div a {
+    display: block;
+  }
+  > div a:hover {
+    text-decoration: none;
+  }
+`
 
 const Tab = ({ tab, project }) => {
   const count = tab.counter && tab.counter(project)
@@ -37,7 +60,7 @@ const Tabs = ({ activePath, project }) => {
     }
   ]
   return (
-    <div className="project-tabs-header">
+    <Div className="project-tabs-header">
       {tabs.map(tab => (
         <div key={tab.path} className={activePath === tab.path ? 'active' : ''}>
           {activePath === tab.path ? (
@@ -49,7 +72,7 @@ const Tabs = ({ activePath, project }) => {
           )}
         </div>
       ))}
-    </div>
+    </Div>
   )
 }
 

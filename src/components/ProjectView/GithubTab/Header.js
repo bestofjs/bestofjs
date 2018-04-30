@@ -1,7 +1,7 @@
 import React from 'react'
 import numeral from 'numeral'
 
-import TagLabel from '../../tags/TagLabel'
+import TagLabel from '../../tags/TagLabelCompact'
 import Description from '../../common/utils/Description'
 import StarIcon from '../../common/utils/StarIcon'
 import fromNow from '../../../helpers/fromNow'

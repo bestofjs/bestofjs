@@ -1,0 +1,55 @@
+/* Code from slideout component
+https://github.com/Mango/slideout */
+:root {
+  --sidebarWidth: 280px;
+  --sidebarBreakpoint: 900px;
+}
+
+body {
+  width: 100%;
+  height: 100%;
+}
+
+.slideout-menu {
+  position: fixed;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  z-index: 0;
+  width: var(--sidebarWidth);
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  display: none;
+}
+
+.slideout-panel {
+  position: relative;
+  z-index: 1;
+}
+
+.slideout-open,
+.slideout-open body,
+.slideout-open .slideout-panel {
+  overflow: hidden;
+}
+
+.slideout-open .slideout-menu {
+  display: block;
+}
+
+/* Adjustments for desktop screens: open the sidebar by default
+code from: https://github.com/Mango/slideout/issues/77#issuecomment-104253233 */
+@media screen and (min-width: 900px) {
+  .slideout-panel {
+    margin-left: var(--sidebarWidth);
+  }
+
+  .slideout-menu {
+    display: block;
+  }
+
+  .menu-link {
+    display: none;
+  }
+}

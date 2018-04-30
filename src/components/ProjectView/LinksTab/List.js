@@ -1,13 +1,15 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import Link from '../../common/form/Button/Link'
 
 import ProjectHeader from '../ProjectHeader'
 import Tabs from '../Tabs'
 import ProjectLink from './ProjectLink'
+import ProjectTabsContent from '../ProjectTabsContent'
+import Button from '../../common/form/Button'
 
 const AddButton = ({ project }) => {
   return (
-    <Link to={`/projects/${project.slug}/links/add`} className="btn">
+    <Link to={`/projects/${project.slug}/links/add`}>
       <span className={'octicon octicon-plus'} /> ADD A LINK
     </Link>
   )
@@ -16,10 +18,10 @@ const AddButton = ({ project }) => {
 const LoginButton = ({ onLogin, pending }) => {
   if (pending) return 'Loading...'
   return (
-    <button className="btn" onClick={onLogin}>
+    <Button className="btn" onClick={onLogin}>
       <span className={'octicon octicon-mark-github'} /> Sign in with GitHub to
       add a link
-    </button>
+    </Button>
   )
 }
 
@@ -30,7 +32,7 @@ const List = ({ project, auth, authActions }) => {
     <div>
       <ProjectHeader project={project} />
       <Tabs project={project} activePath="links" />
-      <div className="project-tabs-content" style={{ marginBottom: '2em' }}>
+      <ProjectTabsContent style={{ marginBottom: '2em' }}>
         <div className="inner">
           {links.length === 0 && (
             <div>
@@ -66,7 +68,7 @@ const List = ({ project, auth, authActions }) => {
             )}
           </div>
         </div>
-      </div>
+      </ProjectTabsContent>
     </div>
   )
 }

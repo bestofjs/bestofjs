@@ -7,6 +7,89 @@ import React from 'react'
 import classNames from 'classnames'
 import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
+import styled from 'styled-components'
+
+import PaginationList from './PaginationList'
+
+const Div = styled.div`
+  font-size: inherit;
+  margin-bottom: 1rem;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  .pagination-previous,
+  .pagination-next,
+  .pagination-link,
+  .pagination-ellipsis {
+    color: #ffae63;
+    background-color: #fff;
+    border: 1px solid #ffae63;
+    font-size: 1em;
+    padding: 0.25em 0.5em;
+    justify-content: center;
+    margin: 0.25rem;
+    text-align: center;
+  }
+  .pagination-previous,
+  .pagination-next,
+  .pagination-link {
+    border-color: #ffae63;
+    min-width: 2.25em;
+  }
+  .pagination-previous:hover,
+  .pagination-next:hover,
+  .pagination-link:hover {
+    border-color: $bestofjsOrange;
+    color: $bestofjsOrange;
+  }
+  .pagination-previous:focus,
+  .pagination-next:focus,
+  .pagination-link:focus {
+    border-color: $link-focus-border;
+  }
+  .pagination-previous:active,
+  .pagination-next:active,
+  .pagination-link:active {
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.2);
+  }
+  .pagination-previous[disabled],
+  .pagination-next[disabled],
+  .pagination-link[disabled] {
+    background-color: transparent;
+    border-color: #aaa;
+    box-shadow: none;
+    color: #999;
+    opacity: 0.5;
+  }
+  .pagination-previous,
+  .pagination-next {
+    padding-left: 0.75em;
+    padding-right: 0.75em;
+    white-space: nowrap;
+  }
+  @media (min-width: 900px) and (max-width: 1000px) {
+    .pagination-previous,
+    .pagination-next {
+      display: none;
+    }
+  }
+  @media (min-width: 600px) {
+    .pagination-previous .text,
+    .pagination-next .text {
+      display: none;
+    }
+  }
+  .pagination-link.is-current {
+    background-color: #ffae63;
+    border-color: #ffae63;
+    color: #fff;
+  }
+  .pagination-ellipsis {
+    color: $grey-light;
+    pointer-events: none;
+  }
+`
 
 class Page extends React.Component {
   onSelect() {
@@ -158,9 +241,7 @@ class Pagination extends React.Component {
     }
     return (
       // override bulma marginTop (small screens)
-      <ul className="pagination-list" style={{ marginTop: 0 }}>
-        {pages}
-      </ul>
+      <PaginationList style={{ marginTop: 0 }}>{pages}</PaginationList>
     )
   }
   render() {
@@ -170,7 +251,7 @@ class Pagination extends React.Component {
     const isFirstPage = currentPage === 1
     const isLastPage = currentPage === totalPages
     return (
-      <div className={className} style={this.props.style}>
+      <Div>
         {false && this.renderCount()}
         <PreviousPageLink
           url={url}
@@ -183,7 +264,7 @@ class Pagination extends React.Component {
           currentPage={currentPage}
         />
         {this.renderPages()}
-      </div>
+      </Div>
     )
   }
 }

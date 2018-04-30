@@ -1,9 +1,27 @@
 import React from 'react'
+import styled from 'styled-components'
 
 import HeroCard from './HeroCard'
 import AnonymousHero from './AnonymousHero'
 import MainContent from '../common/MainContent'
 import MoreHeroes from './MoreHeroes'
+
+const Grid = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  margin: -2rem 0 0 -2rem;
+  > div {
+    flex: 0 0 50%;
+    padding: 2em 0 0 2em;
+    display: flex;
+  }
+  @media (max-width: 550px) {
+    flex-direction: column;
+    > div {
+      flex: 0 0 auto;
+    }
+  }
+`
 
 const HeroList = ({ heroes = [], you, auth, onLogin, isHero, showDetails }) => (
   <MainContent>
@@ -14,7 +32,7 @@ const HeroList = ({ heroes = [], you, auth, onLogin, isHero, showDetails }) => (
       It is like the basket-ball Hall of Fame... except they are all still in
       activity!
     </div>
-    <div className="hero-list">
+    <Grid>
       {heroes.map(hero => (
         <div key={hero.username}>
           <HeroCard
@@ -31,7 +49,7 @@ const HeroList = ({ heroes = [], you, auth, onLogin, isHero, showDetails }) => (
           !isHero && <HeroCard hero={you} you />
         )}
       </div>
-    </div>
+    </Grid>
     <MoreHeroes
       handleClick={onLogin}
       isLoggedin={auth.username !== ''}

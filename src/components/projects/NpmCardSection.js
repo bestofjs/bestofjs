@@ -1,7 +1,9 @@
 import React from 'react'
 
+import Section from './ProjectCardSection'
+
 const NpmCardSection = ({ project }) => (
-  <section className="card-section npm-card-section">
+  <Section className="npm-card-section">
     <div className="inner" data-balloon={'Package name on npm'}>
       <img
         className="npm-logo icon"
@@ -22,7 +24,7 @@ const NpmCardSection = ({ project }) => (
         <span> {project.dependency_count}</span>
       </div>
     )}
-  </section>
+  </Section>
 )
 
 export default NpmCardSection

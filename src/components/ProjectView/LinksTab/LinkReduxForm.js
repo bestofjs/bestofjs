@@ -6,17 +6,21 @@ import classNames from 'classnames'
 import SelectBox from '../../../containers/ProjectSelectBoxContainer'
 import ErrorMessage from '../../common/utils/ErrorMessage'
 import FieldRow from '../../common/form/FieldRow'
+import Button from '../../common/form/Button'
 import Markdown from '../../common/form/MarkdownField'
 import validate from './validate'
+import Input from '../../common/form/Input'
+import ActionBar from '../../common/form/ActionBar'
 
 const LinkForm = ({
   handleSubmit,
   handleChange,
+  handleBlur,
   setFieldValue,
   isValid,
   submitFailed,
   isSubmitting,
-  touched,
+  // touched,
   errors,
   values
 }) => {
@@ -26,20 +30,31 @@ const LinkForm = ({
       onSubmit={handleSubmit}
       className={classNames('ui form', { error: !isValid })}
     >
-      <FieldRow
-        label={'URL'}
-        showError={touched.url && errors.url}
-        errorMessage={errors.url}
-      >
-        <Field name="url" type="text" />
+      <FieldRow label={'URL'} showError={errors.url} errorMessage={errors.url}>
+        <Input
+          name="url"
+          type="text"
+          onChange={handleChange}
+          onBlur={handleBlur}
+          value={values.url}
+          isError={!!errors.url}
+        />
       </FieldRow>
 
       <FieldRow
         label={'Title'}
-        showError={touched.title && errors.title}
+        showError={errors.title}
         errorMessage={errors.title}
       >
-        <Field name="title" type="text" maxLength={100} />
+        <Input
+          name="title"
+          type="text"
+          maxLength={100}
+          onChange={handleChange}
+          onBlur={handleBlur}
+          value={values.title}
+          isError={!!errors.title}
+        />
       </FieldRow>
 
       <Markdown
@@ -64,18 +79,18 @@ const LinkForm = ({
       {!isValid &&
         submitFailed && <ErrorMessage>Fix invalid fields!</ErrorMessage>}
 
-      <div className="form-action-bar">
-        <button
-          className={classNames('ui btn', {
-            'loading button': isSubmitting,
+      <ActionBar>
+        <Button
+          loading={isSubmitting}
+          className={classNames({
             disabled: !canSubmit
           })}
           disabled={!canSubmit}
           type="submit"
         >
           <span className="octicon octicon-repo-push" /> SAVE
-        </button>
-      </div>
+        </Button>
+      </ActionBar>
     </form>
   )
 }

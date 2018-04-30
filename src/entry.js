@@ -50,9 +50,12 @@ function dispatchActions({ store }) {
 }
 
 // Stylesheets are included here to avoid server-side rendering errors
-require('./stylesheets/main.styl')
-require('./stylesheets/tooltip/balloon.css')
-require('../node_modules/react-select/dist/react-select.css')
+// require('./stylesheets/main.styl')
+import './stylesheets/tooltip/balloon.css'
+import '../node_modules/react-select/dist/react-select.css'
+import './stylesheets/base.css'
+import './stylesheets/slideout.css'
+import './stylesheets/github-corner.css'
 
 function renderComponent(Component, store, hotreload) {
   render(

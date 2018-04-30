@@ -5,6 +5,7 @@ import Readme from './Readme'
 import Header from './Header'
 import ProjectHeader from '../ProjectHeader'
 import Trends from './Trends'
+import ProjectTabsContent from '../ProjectTabsContent'
 
 const GitHub = props => {
   const { project } = props
@@ -12,9 +13,9 @@ const GitHub = props => {
     <div>
       <ProjectHeader project={project} />
       <Tabs project={project} activePath="" />
-      <div className="project-tabs-content">
+      <ProjectTabsContent>
         <Header {...props} />
-      </div>
+      </ProjectTabsContent>
       <Trends {...props} />
       <Readme {...props} />
     </div>

@@ -1,7 +1,29 @@
 import React from 'react'
+import styled from 'styled-components'
 
 import ProjectCard from './ProjectCard'
 import log from '../../helpers/log'
+
+const gutter = `2rem`
+
+const Grid = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: -${gutter};
+  margin-left: -${gutter};
+  > div {
+    width: 50%;
+    padding: ${gutter} 0 0 ${gutter};
+    display: flex;
+  }
+  @media (max-width: 600px) {
+    flex-direction: column;
+    > div {
+      flex: 0 0 auto;
+      width: 100%;
+    }
+  }
+`
 
 class ProjectList extends React.Component {
   render() {
@@ -23,7 +45,7 @@ class ProjectList extends React.Component {
     const paginatedProjects = items || projects
     log('Render <ProjectList>', paginatedProjects.length)
     return (
-      <div className="project-grid">
+      <Grid>
         {paginatedProjects.map((project, index) => (
           <div key={project.slug}>
             <ProjectCard
@@ -43,7 +65,7 @@ class ProjectList extends React.Component {
             />
           </div>
         ))}
-      </div>
+      </Grid>
     )
   }
 }

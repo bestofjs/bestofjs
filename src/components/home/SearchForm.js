@@ -1,5 +1,37 @@
 import React, { Component } from 'react'
 import debounce from 'lodash.debounce'
+import styled from 'styled-components'
+
+const colorOn = '#fa9e59'
+const colorOff = '#cbcbcb'
+
+const Form = styled.form`
+  box-sizing: border-box;
+  padding: 3px 8px;
+  border: 3px solid ${colorOff};
+  border-radius: 6px;
+  font-size: 16px;
+  outline: 0;
+  display: flex;
+  align-items: center;
+  input {
+    outline: 0;
+    border-style: none;
+    font-size: 16px;
+  }
+  @media (max-width: 700px) {
+    max-width: 150px;
+  }
+  .icon {
+    color: ${colorOff};
+  }
+  &.highlight {
+    border-color: ${colorOn};
+  }
+  &.highlight .icon {
+    color: ${colorOn};
+  }
+`
 
 class SearchForm extends Component {
   constructor(props) {
@@ -30,14 +62,14 @@ class SearchForm extends Component {
   render() {
     const { highlight } = this.props
     return (
-      <form
+      <Form
         id="searchbox"
         onSubmit={this.handleSubmit}
         className={`${highlight ? 'highlight' : ''}`}
       >
         <input type="text" onChange={this.handleChange} autoFocus />
         <span className="mega-octicon octicon-search icon" />
-      </form>
+      </Form>
     )
   }
 }

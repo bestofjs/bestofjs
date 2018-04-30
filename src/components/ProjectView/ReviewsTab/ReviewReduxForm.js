@@ -5,8 +5,10 @@ import classNames from 'classnames'
 
 import FieldRow from '../../common/form/FieldRow'
 import Markdown from '../../common/form/MarkdownField'
+import Button from '../../common/form/Button'
 import RatingBox from './RatingBox'
 import validate from './validate'
+import ActionBar from '../../common/form/ActionBar'
 
 const ReviewForm = ({
   values,
@@ -45,20 +47,20 @@ const ReviewForm = ({
         }}
       />
 
-      <div className="form-action-bar">
+      <ActionBar>
         {auth.username && (
-          <button
-            className={classNames('ui btn', {
-              'loading button': isSubmitting,
+          <Button
+            loading={isSubmitting}
+            className={classNames({
               disabled: !canSubmit
             })}
             disabled={!canSubmit}
             type="submit"
           >
             <span className="octicon octicon-cloud-upload" /> SAVE
-          </button>
+          </Button>
         )}
-      </div>
+      </ActionBar>
     </form>
   )
 }

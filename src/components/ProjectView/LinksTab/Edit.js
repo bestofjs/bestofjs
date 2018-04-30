@@ -6,6 +6,7 @@ import { withRouter } from 'react-router-dom'
 import ProjectHeader from '../ProjectHeader'
 import Tabs from '../Tabs'
 import { updateLink } from '../../../actions/linkActions'
+import ProjectTabsContent from '../ProjectTabsContent'
 
 const submitEdit = (linkId, history, dispatch) => (project, auth) => {
   return function(values) {
@@ -28,7 +29,7 @@ const EditLink = ({ project, auth, link, history, dispatch }) => {
     <div>
       <ProjectHeader project={project} />
       <Tabs project={project} activePath="links" />
-      <div className="project-tabs-content">
+      <ProjectTabsContent>
         <div className="inner">
           <h3>Edit a link</h3>
           {link && (
@@ -41,7 +42,7 @@ const EditLink = ({ project, auth, link, history, dispatch }) => {
             />
           )}
         </div>
-      </div>
+      </ProjectTabsContent>
     </div>
   )
 }

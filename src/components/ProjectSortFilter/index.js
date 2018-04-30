@@ -1,6 +1,10 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+
+import TabLevel1 from './TabLevel1'
+import TabLevel2 from './TabLevel2'
 import items from './items'
+
 const trendingOptions = items.filter(option => option.category === 'trend')
 const popularOption = items[0]
 const defaultTrendingOption = trendingOptions[0]
@@ -9,7 +13,7 @@ const Tabs = ({ rootUrl, currentValue, withPagination }) => {
   const currentItem = items.find(item => item.value === currentValue)
   return (
     <div style={{ marginBottom: withPagination ? '1rem' : '2rem' }}>
-      <div className="project-sort-tabs-level1">
+      <TabLevel1>
         <div className={`${currentValue === 'total' ? 'on' : 'off'}`}>
           <Link to={`${rootUrl}/${popularOption.url}`}>
             <span className="mega-octicon octicon-star icon" />
@@ -22,9 +26,9 @@ const Tabs = ({ rootUrl, currentValue, withPagination }) => {
             TRENDING
           </Link>
         </div>
-      </div>
+      </TabLevel1>
       {currentItem.category === 'trend' && (
-        <div className="project-sort-tabs-level2">
+        <TabLevel2>
           {trendingOptions.map(item => (
             <Link
               key={item.value}
@@ -34,7 +38,7 @@ const Tabs = ({ rootUrl, currentValue, withPagination }) => {
               {item.text}
             </Link>
           ))}
-        </div>
+        </TabLevel2>
       )}
     </div>
   )

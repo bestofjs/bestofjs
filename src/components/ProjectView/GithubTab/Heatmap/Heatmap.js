@@ -3,6 +3,8 @@ import CalendarHeatmap from 'react-calendar-heatmap'
 import tinytime from 'tinytime'
 import times from 'lodash.times'
 
+import './heatmap.css'
+
 const fulldate = tinytime('{YYYY}/{Mo}/{DD} ({dddd})', {
   padMonth: true,
   padDays: true

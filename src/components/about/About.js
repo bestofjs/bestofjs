@@ -1,19 +1,19 @@
 import React from 'react'
 
 import MainContent from '../common/MainContent'
-import StarMeButton from '../common/StarMeButton'
 import log from '../../helpers/log'
 import CreateIssueLink from '../user-requests/add-project/CreateIssueLink'
+import Card from '../common/Card'
+
+import '../../stylesheets/markdown-body.css'
 
 const About = ({ staticContent, count }) => {
   log('Render the <About> component')
   const { repo, projectName } = staticContent
   return (
     <MainContent style={{ paddingTop: '2rem' }}>
-      <div className="card markdown-body" style={{ padding: '2rem' }}>
+      <Card className="card markdown-body" style={{ padding: '2rem' }}>
         <h1>About</h1>
-        <StarMeButton url={repo} />
-
         <h2>Why {projectName} ?</h2>
         <p>
           Javascript, HTML and CSS are advancing faster than ever, we are going
@@ -77,7 +77,7 @@ const About = ({ staticContent, count }) => {
           <img src="images/star.png" width="16" height="16" alt="star" /> !
         </p>
         <p>Thank you for your support!</p>
-      </div>
+      </Card>
     </MainContent>
   )
 }

@@ -4,6 +4,7 @@ Textarea to enter comment in Markdown language, used in "Link" and "Review" form
 import React from 'react'
 import FieldRow from './FieldRow'
 import Remaining from './RemainingChars'
+import Textarea from './Textarea'
 
 const MD = ({ submitFailed, field, max = 500 }) => (
   <FieldRow
@@ -32,7 +33,7 @@ const MD = ({ submitFailed, field, max = 500 }) => (
     showError={submitFailed && field.error}
     errorMessage={field.error}
   >
-    <textarea {...field} rows="10" maxLength={max} />
+    <Textarea {...field} rows="10" maxLength={max} />
   </FieldRow>
 )
 export default MD

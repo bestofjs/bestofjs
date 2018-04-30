@@ -6,6 +6,7 @@ import { withRouter } from 'react-router-dom'
 import ProjectHeader from '../ProjectHeader'
 import Tabs from '../Tabs'
 import { createReview } from '../../../actions/reviewActions'
+import ProjectTabsContent from '../ProjectTabsContent'
 
 const submitCreate = (history, dispatch) => (project, auth) => {
   return function(values) {
@@ -19,7 +20,7 @@ const Create = ({ project, auth, history, dispatch }) => {
     <div>
       <ProjectHeader project={project} />
       <Tabs project={project} activePath="reviews" />
-      <div className="project-tabs-content" style={{ marginBottom: '2em' }}>
+      <ProjectTabsContent style={{ marginBottom: '2em' }}>
         <div className="inner">
           <h3>Add your review of &quot;{project.name}&quot; project</h3>
           <ReviewReduxForm
@@ -29,7 +30,7 @@ const Create = ({ project, auth, history, dispatch }) => {
             initialValues={{ comment: '' }}
           />
         </div>
-      </div>
+      </ProjectTabsContent>
     </div>
   )
 }
