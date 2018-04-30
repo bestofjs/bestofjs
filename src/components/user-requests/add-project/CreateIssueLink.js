@@ -3,7 +3,7 @@ import styled from 'styled-components'
 
 import Button from '../../common/form/Button'
 
-import getApi from '../../../../config/api'
+import getApi from '../../../config/api'
 
 const A = Button.withComponent('a')
 

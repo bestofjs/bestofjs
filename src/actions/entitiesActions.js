@@ -1,5 +1,5 @@
 import { fetchJSON } from '../helpers/fetch'
-import api from '../../config/api'
+import api from '../config/api'
 
 export function fetchProjectsFromAPI() {
   const url = `${api('GET_PROJECTS')}projects.json`

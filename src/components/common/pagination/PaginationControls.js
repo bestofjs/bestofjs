@@ -245,7 +245,7 @@ class Pagination extends React.Component {
     )
   }
   render() {
-    const className = classNames('pagination', this.props.className)
+    // const className = classNames('pagination', this.props.className)
     const { url, total, pageSize, currentPage } = this.props
     const totalPages = Math.ceil(total / pageSize)
     const isFirstPage = currentPage === 1

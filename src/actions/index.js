@@ -1,6 +1,6 @@
 import { fetchHTML, fetchJSON } from '../helpers/fetch'
 import log from '../helpers/log'
-import api from '../../config/api'
+import api from '../config/api'
 
 export const GET_README_REQUEST = 'GET_README_REQUEST'
 export const GET_README_SUCCESS = 'GET_README_SUCCESS'

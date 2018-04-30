@@ -7,6 +7,8 @@ import LoggedinUser from './LoggedinUser'
 import AnonymousUser from './AnonymousUser'
 import Counter from './Counter'
 
+import image from '../../svg/logo-5colors.svg'
+
 const sidebarBgColor = '#421729'
 
 const Nav = styled.nav`
@@ -38,8 +40,6 @@ const Item = styled(NavLink)`
   }
 `
 const ExternalLink = Item.withComponent('a')
-
-import image from '../../svg/logo-5colors.svg'
 
 const LoginBlock = styled.div`
   background-color: #9c0042;

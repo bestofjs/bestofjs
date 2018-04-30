@@ -1,5 +1,5 @@
 import { fetchJSON } from '../helpers/fetch'
-import getApi from '../../config/api'
+import getApi from '../config/api'
 import { createGithubIssue } from '../api/userContent'
 import msgbox from '../helpers/msgbox'
 

@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Field, withFormik } from 'formik'
+import { withFormik } from 'formik'
 import classNames from 'classnames'
 
 import SelectBox from '../../../containers/ProjectSelectBoxContainer'

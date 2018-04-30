@@ -43,12 +43,12 @@ export function login() {
   // Save the current URL so that we can redirect the user when we are back
   if (urlManager) urlManager.save()
   const client_id = 'dadmCoaRkXs0IhWwnDmyWaBOjLzJYf4s'
-  const redirect_uri = `${self.location.origin}%2Fauth0.html`
+  const redirect_uri = `${window.location.origin}%2Fauth0.html`
   const url = `${APP_URL}/authorize?scope=openid&response_type=token&connection=github&sso=true&client_id=${client_id}&redirect_uri=${redirect_uri}`
   return dispatch => {
     dispatch(loginRequest())
     // Go to auth0 authenication page
-    self.location.href = url
+    window.location.href = url
   }
 }
 

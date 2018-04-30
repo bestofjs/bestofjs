@@ -1,5 +1,5 @@
 import { fetchJSON } from '../helpers/fetch'
-import getApi from '../../config/api'
+import getApi from '../config/api'
 
 const debug = false
 const API_BASE_URL = debug ? 'http://localhost:3000' : getApi('USER_CONTENT')

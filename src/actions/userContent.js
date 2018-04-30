@@ -1,6 +1,6 @@
 import { fetchJSON } from '../helpers/fetch'
 import log from '../helpers/log'
-import api from '../../config/api'
+import api from '../config/api'
 import msgbox from '../helpers/msgbox'
 
 import { createUserContentApi } from '../api/userContent'
