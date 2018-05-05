@@ -245,13 +245,12 @@ class Pagination extends React.Component {
     )
   }
   render() {
-    // const className = classNames('pagination', this.props.className)
-    const { url, total, pageSize, currentPage } = this.props
+    const { url, total, pageSize, currentPage, style } = this.props
     const totalPages = Math.ceil(total / pageSize)
     const isFirstPage = currentPage === 1
     const isLastPage = currentPage === totalPages
     return (
-      <Div>
+      <Div style={style}>
         {false && this.renderCount()}
         <PreviousPageLink
           url={url}

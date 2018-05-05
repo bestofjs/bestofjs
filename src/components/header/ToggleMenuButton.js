@@ -27,7 +27,8 @@ const A = styled.a`
 
 const ToggleMenuButton = () => {
   return (
-    <A>
+    <A className="menu-link">
+      {/* The `menu-link` class name is used target this button, see `helpers/menu.js` */}
       <span className="mega-octicon octicon-three-bars" />
     </A>
   )

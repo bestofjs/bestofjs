@@ -1,0 +1,20 @@
+{
+  "entities": {
+    "projects": {},
+    "tags": {}
+  },
+  "auth": {
+    "username": "",
+    "pending": true
+  },
+  "ui": {
+    "hotFilter": "daily",
+    "viewOptions": {
+      "description": true,
+      "npms": true,
+      "packagequality": false,
+      "commit": true
+    },
+    "paginated": true
+  }
+}

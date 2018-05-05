@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 import fetch from 'node-fetch'
 
-import api from '../../config/api'
+import api from '../../src/config/api'
 import getStore from '../getStore'
 import { getProjectsSortedBy } from '../../src/selectors'
 import buildXml from './build-xml'

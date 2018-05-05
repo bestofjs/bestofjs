@@ -25,8 +25,12 @@ const LOCAL_KEYS = ['id', 'access'].map(key => `bestofjs_${key}_token`)
 export function start(history) {
   return dispatch => {
     loginRequest()
-    return getToken()
-      .then(getProfile)
+    const { id_token } = getToken()
+    if (!id_token) {
+      // No token found in the local storage => nothing to do
+      return false
+    }
+    getProfile({ id_token })
       .then(({ profile, token }) => {
         const action = dispatch(loginSuccess(profile, token, history))
         const { username } = action.payload
@@ -57,13 +61,12 @@ function getToken() {
   const [id_token, access_token] = LOCAL_KEYS.map(
     key => window.localStorage[key]
   )
-  if (id_token) {
-    return Promise.resolve({
-      id_token,
-      access_token
-    })
-  }
-  return Promise.reject('')
+  return id_token
+    ? {
+        id_token,
+        access_token
+      }
+    : {}
 }
 
 // Return UserProfile for a given `id_token`

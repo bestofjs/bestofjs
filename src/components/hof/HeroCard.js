@@ -1,9 +1,9 @@
 import React from 'react'
-import styled from 'styled-components'
 import numeral from 'numeral'
 
 import CardProjectLabels from '../common/CardProjectLabels'
 import formatUrl from '../../helpers/formatUrl'
+import Card from './Card'
 
 const digits = value => (value > 1000 ? '0.0' : '0')
 
@@ -15,57 +15,6 @@ function followersComment(value) {
     return "That's pretty good, you could be a hall of famer too!"
   return "That's a lot of followers, you should be in this hall of fame!"
 }
-const bestofjsOrange = '#e65100'
-const cardBorderColor = '#cbcbcb'
-const textSecondaryColor = '#777'
-
-const Card = styled.div`
-  flex: 1;
-  padding: 0;
-  background-color: #fff;
-  border: 1px solid ${cardBorderColor};
-  .card-block {
-    display: flex;
-    align-items: center;
-    color: inherit;
-    flex: 1;
-  }
-  .card-block:hover {
-    text-decoration: none;
-    color: inherited;
-    background-color: #fff7eb;
-    color: #000;
-  }
-  .header {
-    display: flex;
-    align-items: center;
-  }
-  .header-text {
-    padding: 0 1em;
-  }
-  .hero-card.current-user .header {
-    background-color: ${bestofjsOrange};
-    color: #fff;
-  }
-  .hero-card.current-user .header .text-secondary {
-    color: rgba(255, 255, 255, 0.6);
-  }
-  .name {
-    font-size: 1.3em;
-  }
-  .inner {
-    padding: 1rem;
-    border-top: 1px dashed ${cardBorderColor};
-    color: ${textSecondaryColor};
-  }
-  .icon {
-    color: #fa9e59;
-    margin-right: 5px;
-  }
-  .github-data {
-    margin-top: 0.2em;
-  }
-`
 
 const HeroCard = ({ hero, you, isCurrentUser, showDetails }) => {
   return (

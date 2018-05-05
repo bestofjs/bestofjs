@@ -6,19 +6,14 @@ Used perform "code splitting", in order to decrease the size of the main JavaScr
 https://serverless-stack.com/chapters/code-splitting-in-create-react-app.html
 */
 import React, { Component } from 'react'
-
-const Loading = () => (
-  <div id="loading">
-    <div className="ui loading button" />
-  </div>
-)
+import Spinner from '../components/common/Spinner'
 
 export default function asyncComponent(importComponent) {
   class AsyncComponent extends Component {
     constructor(props) {
       super(props)
       this.state = {
-        component: () => <Loading />
+        component: () => <Spinner />
       }
     }
     async componentDidMount() {

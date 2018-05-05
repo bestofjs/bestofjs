@@ -18,9 +18,9 @@ const Form = styled.form`
     outline: 0;
     border-style: none;
     font-size: 16px;
-  }
-  @media (max-width: 700px) {
-    max-width: 150px;
+    @media (max-width: 700px) {
+      max-width: 150px;
+    }
   }
   .icon {
     color: ${colorOff};

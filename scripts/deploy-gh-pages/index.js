@@ -6,7 +6,7 @@ const ghpages = require('gh-pages')
 const path = require('path')
 
 // Folder to deploy to Github pages (relative to the current file)
-const BUILD_FOLDER = '../../www'
+const BUILD_FOLDER = '../../build'
 
 const options = {
   repo: 'https://github.com/michaelrambeau/bestofjs.git',

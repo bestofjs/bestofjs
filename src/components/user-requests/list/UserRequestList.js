@@ -3,16 +3,18 @@ import React from 'react'
 import MainContent from '../../common/MainContent'
 import fromNow from '../../../helpers/fromNow'
 import CreateIssueLink from '../add-project/CreateIssueLink'
+import Card from '../../common/Card'
 
 const UserRequestList = ({ requests }) => (
   <MainContent className="small container double-padding">
     <CreateIssueLink
       className="btn block button-outline"
+      showAsButton
       style={{ marginBottom: '2em' }}
     >
       <span className="octicon octicon-plus" /> ADD A PROJECT
     </CreateIssueLink>
-    <div className="card">
+    <Card>
       <div className="header">
         My requests <span className="counter">({requests.length})</span>
       </div>
@@ -21,7 +23,7 @@ const UserRequestList = ({ requests }) => (
       ) : (
         requests.map(request => <Issue issue={request} key={request.number} />)
       )}
-    </div>
+    </Card>
   </MainContent>
 )
 

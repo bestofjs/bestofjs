@@ -6,6 +6,8 @@ const Span = styled.span`
   color: rgba(255, 255, 255, 0.5);
 `
 
-const Counter = ({ count }) => <Span>{count}</Span>
+const Counter = ({ count }) => {
+  return count > 0 && <Span>{count}</Span>
+}
 
 export default Counter

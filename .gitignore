@@ -8,6 +8,8 @@ www/hall-of-fame/index.html
 www/tags/**/*.html
 www/projects/**/*.html
 www/rss/**/*.xml
+build
+ssr-temp
 
 # Logs
 logs

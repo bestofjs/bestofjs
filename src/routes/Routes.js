@@ -5,7 +5,7 @@ import asyncComponent from './asyncComponent'
 
 import getHomePage from '../containers/HomePage'
 import ProjectsPage from '../containers/AllProjectsPage'
-import HoFPage from '../containers/HoFPage'
+import HoFPage from '../containers/HallOfFamePage'
 import TagFilter from '../containers/TagFilterPage'
 import TextFilter from '../containers/TextFilterPage'
 import items from './sortItems'
