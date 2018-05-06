@@ -8,16 +8,13 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "npm run build-js && npm run ssr",
-    "build-js": "react-scripts build",
+    "build-js": "NODE_ENV=production react-scripts build",
     "clean": "rimraf build",
     "gh-pages": "node scripts/deploy-gh-pages/",
     "surge": "surge --domain bestofjs.surge.sh --project ./build/",
     "deploy-all": "npm run build && npm run gh-pages",
     "daily":
       "npm run build && npm run rss-once-a-week && npm run commit-ssr-files",
-    "build-html": "cross-env NODE_ENV=production babel-node scripts/build/",
-    "build-html-hof":
-      "cross-env NODE_ENV=production node -r esm scripts/build/build-hof.js",
     "commit-ssr-files": "node scripts/commit-ssr-files",
     "rss-once-a-week":
       "cross-env NODE_ENV=production node -r scripts/rss/once-a-week",
