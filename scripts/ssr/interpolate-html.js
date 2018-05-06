@@ -19,6 +19,10 @@ export default function interpolateHtml({
     new RegExp(`%${escapeStringRegexp('DESCRIPTION')}%`, 'g'),
     description
   )
+  html = html.replace(
+    new RegExp(`%${escapeStringRegexp('TITLE')}%`, 'g'),
+    title
+  )
   html = includeAppHtml(html, appHtml)
   html = includeStyles(html, styles)
   return html
