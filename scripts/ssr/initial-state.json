@@ -5,7 +5,7 @@
   },
   "auth": {
     "username": "",
-    "pending": true
+    "pending": false
   },
   "ui": {
     "hotFilter": "daily",

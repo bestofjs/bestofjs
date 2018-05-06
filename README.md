@@ -1,10 +1,8 @@
-[![screenshot](https://user-images.githubusercontent.com/5546996/27979469-459bc2cc-63b1-11e7-9a49-764841fc7fde.png)](https://bestof.js.org/)
-
-[![Join the chat at https://gitter.im/michaelrambeau/bestofjs-webui](https://badges.gitter.im/michaelrambeau/bestofjs-webui.svg)](https://gitter.im/michaelrambeau/bestofjs-webui?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+[![screenshot](https://user-images.githubusercontent.com/5546996/39668776-1d4f4136-5113-11e8-9aac-4665a2071f7b.png)](https://bestof.js.org/)
 
 ## Concept
 
-[bestof.js.org](https://bestof.js.org/) gathers the latest trends about open source projects related to node.js and the web platform: JavaScript of course (client and server side) but also html, css...
+[bestof.js.org](https://bestof.js.org/) gathers the latest trends about open source projects related to node.js and the web platform: JavaScript of course (client and server side) but also HTML, CSS...
 
 This is a place where front-end engineers and node.js developers can find the best components to build amazing web applications.
 
@@ -12,12 +10,12 @@ This is a place where front-end engineers and node.js developers can find the be
 
 Projects are classified using tags such as:
 
-* [React](https://bestof.js.org/tags/react): Create React App, Material UI, React Router, React Starter Kit...
-* [Frameworks](https://bestof.js.org/tags/framework): AngularJS, React, Vue...
-* [Testing](https://bestof.js.org/tags/test): Mocha, Jasmine, AVA, Jest...
+* [UI Frameworks](https://bestof.js.org/tags/framework): The best frameworks to build web applications that run in the browser: Angular, React, Vue...
+* [React](https://bestof.js.org/tags/react): The React eco-system
+* [Testing](https://bestof.js.org/tags/test): The best testing tools: Jest, Mocha, Jasmine, AVA...
 * [CSS toolkits](https://bestof.js.org/tags/css-lib): Bootstrap, SemanticUI, Foundation...
-* [Chart](https://bestof.js.org/tags/chart): D3, ChartJS, echarts...
-* [Animation](https://bestof.js.org/tags/animation): Animate.css, Velocity, anime.js
+* [Chart](https://bestof.js.org/tags/chart): Data visualization and chart libraries: D3, ChartJS, echarts...
+* And many more!
 
 ### Community-driven
 
@@ -88,12 +86,13 @@ We use 2 free services in the cloud:
 
 ### Libraries
 
-This repository is the front-end application, a single-page application built with the following modules:
+This repository contains _Best of JavaScript_ front-end application code, a single-page application built with the following technologies:
 
+* [Create React App](https://github.com/facebook/create-react-app)
 * [React](http://facebook.github.io/react/)
 * [Redux](http://redux.js.org/)
-* [React router](https://github.com/rackt/react-router)
-* [Webpack](http://webpack.github.io/)
+* [React Router](https://reacttraining.com/react-router/)
+* [Styled Components](https://www.styled-components.com/)
 
 Webpack is used to build the application in development and production mode.
 
@@ -105,7 +104,7 @@ bestof.js.org application is made of 5 repositories:
 * [bestofjs-admin](https://github.com/michaelrambeau/bestofjs-admin): the web application used by admin users to manage content (used to add projects, tags and hall of fame members for example). Built with [KeystoneJS](http://keystonejs.com/), a node.js CMS.
 * [bestofjs-batches](https://github.com/michaelrambeau/bestofjs-batches): Scheduled tasks that generate every day data used by the web application.
 * [bestofjs-webtasks](https://github.com/michaelrambeau/bestofjs-webtasks): microservices used to serve dynamic data: to read and write user-generated content (links and reviews), to get README.md from GitHub when a project is opened.
-* [bestofjs](https://github.com/michaelrambeau/bestofjs): repository used to deploy content to GitHub pages, linked to js.org domain. Generated from bestofjs-webui repository, does not contain any source code.
+* [bestofjs](https://github.com/michaelrambeau/bestofjs): repository used to deploy content to GitHub pages, linked to js.org domain. Generated from bestofjs-webui repository, does not contain any source code. Used oto gather issues about user requests.
 
 
 ## URLs and environments
@@ -131,38 +130,19 @@ The application should be running at [localhost:8080/index.html](http://localhos
 
 ### Production deploy
 
-Build the files for production (`index.html` rendered server-side, `build/app.css` and `build/bundle-app.js`):
+Build the files for production, running Server-Side-Rendering scripts:
 
 ```
 npm run build
 ```
 
-Push all files to GitHub pages
+Push all files to GitHub pages:
+
 ```
 npm run gh-pages
 ```
 
 Note: a specific repository [bestofjs](https://github.com/michaelrambeau/bestofjs), that contains only one branch `gh-pages`, has been created to host the content on GitHub pages.
-
-These 2 commands can be combined into one single command:
-
-```
-npm run deploy
-```
-
-### Deploys to other static host services
-
-Firebase (requires `firebase-tools` module to be installed)
-
-```
-npm run firebase
-```
-
-Surge.sh (requires `surge` module to be installed)
-
-```
-npm run surge
-```
 
 ### Daily update
 
@@ -170,33 +150,6 @@ Data come from a static JSON file `projects.json` hosted on a CDN (Firebase).
 Every day at 6:00 AM (Osaka time, 21:00 UTC), the JSON file is updated by a daily batch running in `bestofjs-batches` repository.
 
 Then, 30 minutes later, `npm run daily` command is launched from this repository, in order to rebuild the html file, using React server-side rendering feature.
-
-`npm run daily` is split into 2 tasks:
-
-* `npm run build-html`: build `www/index.html` in local, requesting data by http from `projects.json`
-* `npm run deploy-html`: commit `www/index.html` to `bestofjs` repository, using GitHub API.
-
-### Testing
-
-Run unit tests:
-
-```
-npm test
-```
-
-Run unit tests in debug mode, to be able to see console.log in the terminal window:
-
-```
-npm run test-debug
-```
-
-Run test from only one single file:
-
-```
-babel-node test/components/ProjectPageSpec.js
-```
-
-Unit tests run on TravisCI after every push to the repo. Current status: [![Build Status](https://travis-ci.org/michaelrambeau/bestofjs-webui.svg?branch=master)](https://travis-ci.org/michaelrambeau/bestofjs-webui)
 
 ## Show your support!
 
