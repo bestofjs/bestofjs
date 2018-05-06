@@ -11,7 +11,8 @@ import menu from './helpers/menu'
 import registerServiceWorker from './registerServiceWorker'
 
 // Old-fashioned stylesheets
-import './stylesheets/tooltip/balloon.css'
+import './stylesheets/global-styles'
+import './stylesheets/balloon.css'
 import '../node_modules/react-select/dist/react-select.css'
 import './stylesheets/base.css'
 import './stylesheets/slideout.css'

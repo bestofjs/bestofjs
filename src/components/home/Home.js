@@ -6,6 +6,7 @@ import MainContent from '../common/MainContent'
 import HomeProjects from './HomeProjects'
 import CreateIssueLink from '../user-requests/add-project/CreateIssueLink'
 import Intro from './Intro'
+import TagList from './TagList'
 
 const Home = props => {
   log('Render the <Home> component', props)
@@ -67,26 +68,3 @@ const MoreProjects = () => {
 }
 
 export default Home
-
-const TagList = ({ tags }) => (
-  <ul>
-    {tags.map(tag => (
-      <li key={tag.id}>
-        <Link to={`/tags/${tag.id}`}>{tag.name}</Link> ({tag.counter} projects)
-      </li>
-    ))}
-  </ul>
-)
-
-// const Hero = () => (
-//   <div id="hero">
-//     <div className="container no-card-container">
-//       <h1 className="with-comment" style={{ margin: '0 0 1rem' }}>
-//         The best of JavaScript, HTML, CSS
-//       </h1>
-//       <p style={{ fontSize: '1.1rem' }}>
-//         Check out the most popular open-source projects and the latest trends about the web platform and node.js.
-//       </p>
-//     </div>
-//   </div>
-// )

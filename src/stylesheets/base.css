@@ -5,19 +5,6 @@
   --textPrimaryColor: #333;
   --textSecondaryColor: #777;
 }
-html {
-  font-size: 14px;
-}
-@media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
-}
-body {
-  font-size: 1rem;
-  line-height: 1.3333;
-  color: var(--textPrimaryColor);
-}
 body,
 #panel {
   background-color: #ececec;
@@ -38,13 +25,6 @@ a:hover {
 }
 a.link:hover {
   text-decoration: underline;
-}
-html,
-input,
-textarea,
-select {
-  font-family: 'Roboto', sans-serif;
-  box-sizing: border-box;
 }
 *,
 :after,
@@ -123,19 +103,6 @@ h3 .icon {
     padding-right: 1rem;
   }
 }
-/* ul:not(.pagination-list) {
-  margin-top: 0;
-  padding-left: 1.2em;
-}
-ul:not(.pagination-list):last-child {
-  margin-bottom: 0;
-}
-ul:not(.pagination-list) li {
-  margin-bottom: 0.5rem;
-}
-ul:not(.pagination-list) li:last-child {
-  margin-bottom: 0;
-} */
 p {
   margin: 0 0 0.5em;
 }
@@ -171,7 +138,4 @@ hr {
 }
 #footer-content > section {
   border-top: 1px dashed #ffae63;
-}
-#loading {
-  padding: 5rem 0;
 }
