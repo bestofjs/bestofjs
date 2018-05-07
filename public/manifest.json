@@ -1,9 +1,9 @@
 {
   "name": "Best of JavaScript",
-  "short_name": "bestof.js.org",
+  "short_name": "Best of JS",
   "theme_color": "#e65100",
   "background_color": "#ffe38c",
-  "start_url": "index.html",
+  "start_url": "/?utm_source=homescreen",
   "display": "standalone",
   "icons": [
     {

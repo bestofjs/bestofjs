@@ -17,7 +17,7 @@
       "npm run build && npm run rss-once-a-week && npm run commit-ssr-files",
     "commit-ssr-files": "node scripts/commit-ssr-files",
     "rss-once-a-week":
-      "cross-env NODE_ENV=production node -r scripts/rss/once-a-week",
+      "cross-env NODE_ENV=production node -r esm scripts/rss/once-a-week",
     "rss": "node -r esm scripts/rss",
     "ssr": "npm run ssr-step1 && npm run ssr-step2",
     "ssr-step1":
