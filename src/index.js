@@ -8,7 +8,7 @@ import {
   fetchProjectsSuccess
 } from './actions/entitiesActions'
 import menu from './helpers/menu'
-import registerServiceWorker from './registerServiceWorker'
+import { unregister } from './registerServiceWorker'
 
 // Old-fashioned stylesheets
 import './stylesheets/global-styles'
@@ -33,4 +33,4 @@ function start() {
 }
 
 start()
-registerServiceWorker()
+unregister()
