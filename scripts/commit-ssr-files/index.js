@@ -7,7 +7,7 @@ Create a `.env` file that contains only: `GITHUB_ACCESS_TOKEN=xxxx`
 /* eslint-disable no-console */
 const fs = require('fs')
 const prettyBytes = require('pretty-bytes')
-require('dotenv').load()
+require('dotenv').config({ silent: true }) // avoid warning about missing `.env` file on CI server
 
 const readFilenamesFromFolder = require('./read-files')
 const commit = require('./commit')

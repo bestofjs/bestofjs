@@ -9,7 +9,7 @@ This file would display the **hottest projects of the week**, the same list as h
 
 ## Implementation
 
-The XML file is created in the `www` folder so that it can be available from the following URL:
+The XML file is created in the `build` folder so that it can be available from the following URL:
 
 https://bestof.js.org/rss/weekly-trends.xml
 
@@ -26,10 +26,10 @@ So we are going to add a step in the **daily** build process, but this step will
 
 `npm run daily` script, used to has been added to trigger the XML generation, has been updated.
 
-
 ```json
 {
-  "daily": "npm run build-html && npm run build-html-hof && npm run deploy-html && npm run rss-once-a-week",
+  "daily":
+    "npm run build-html && npm run build-html-hof && npm run deploy-html && npm run rss-once-a-week",
   "rss-once-a-week": "babel-node scripts/rss/once-a-week",
   "rss": "babel-node scripts/rss"
 }
