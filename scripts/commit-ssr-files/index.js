@@ -1,5 +1,5 @@
 /*
-Read html and xml files generated in www folder and commit to deploy on Github pages.
+Read html and xml files generated in the `build` folder and commit to deploy on Github pages.
 script launched from `npm run deploy-static-pages` script
 To run this file in local, a Github access token is required
 Create a `.env` file that contains only: `GITHUB_ACCESS_TOKEN=xxxx`
@@ -14,7 +14,7 @@ const commit = require('./commit')
 const debug = false
 const commitMessage = debug ? 'Commit test' : 'Daily deploy'
 
-const PUBLIC_DIR = 'www'
+const PUBLIC_DIR = 'build'
 
 Promise.resolve(PUBLIC_DIR)
   .then(readFilenamesFromFolder)

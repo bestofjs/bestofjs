@@ -7,7 +7,7 @@ const getRelativePath = folder => fullFilepath => {
   return fullFilepath.slice(index + folder.length + 1)
 }
 
-function readFilenamesFromFolder(folder = 'www') {
+function readFilenamesFromFolder(folder = 'build') {
   const filepath = path.join(process.cwd(), folder)
   const re = /.*index\.html$|xml$/
   const isHtmlPage = filename => re.test(filename)

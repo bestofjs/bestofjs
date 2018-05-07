@@ -1,6 +1,6 @@
 /*
 `npm run build-html` entry script
-Get project data from a static json file and build `www/index.html` file
+Get project data from a static json file and build `build/index.html` file
 */
 /* eslint-disable no-console */
 import fetch from 'node-fetch'
@@ -8,7 +8,6 @@ import { minify } from 'html-minifier'
 
 import api from '../../src/config/api'
 import renderApp from './render-app'
-import write from './write-html'
 import getStore from '../getStore'
 import { getPopularTags } from '../../src/selectors'
 import { readHtmlTemplate, writeHtmlFile } from './filesystem-utils'
@@ -22,7 +21,9 @@ function getAllSettings(tags) {
     tags.map(tag => ({
       path: `tags/${tag.id}`,
       title: `Best of JavaScript | '${tag.name}' projects`,
-      description: `The best projects under '${tag.name}' tag, from Best of JavaScript (${tag.counter} projects).`
+      description: `The best projects under '${
+        tag.name
+      }' tag, from Best of JavaScript (${tag.counter} projects).`
     })),
     { path: '', title: 'Best of JavaScript' },
     { path: 'projects', title: 'Best of JavaScript | All projects' },

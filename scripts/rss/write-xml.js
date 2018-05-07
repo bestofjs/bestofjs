@@ -2,7 +2,7 @@ import fs from 'fs-extra'
 import path from 'path'
 
 export default function writeHtmlFile(xml, filename) {
-  const filepath = path.join(process.cwd(), 'www', 'rss', filename)
+  const filepath = path.join(process.cwd(), 'build', 'rss', filename)
   return fs
     .outputFile(filepath, xml)
     .then(
