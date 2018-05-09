@@ -10,34 +10,47 @@ import * as authActionCreators from '../actions/authActions'
 import * as userContentActionCreators from '../actions/userContent'
 
 import { findProject } from '../selectors/project'
+import Spinner from '../components/common/Spinner'
 
 function loadData(props) {
   const project = props.project
+  if (!project) return
   props.actions.fetchReadmeIfNeeded(project)
   props.actions.fetchProjectData(project)
   props.userContentActions.fetchProjectUserContent(project)
   track('View project', project.name)
 }
 
+class FetchProject extends Component {
+  componentWillMount() {
+    loadData(this.props)
+  }
+  render() {
+    log('Render the <FetchProject> container', this.props)
+    return this.props.children()
+  }
+}
+
 function createProjectPage(ProjectView) {
   return class ProjectPage extends Component {
-    componentWillMount() {
-      loadData(this.props)
-    }
-    componentWillReceiveProps(nextProps) {
-      if (nextProps.id !== this.props.id) {
-        loadData(nextProps)
-      }
-    }
     render() {
-      log('Render the <ProjectPage> container', this.props)
-      return <ProjectView {...this.props} />
+      const { project } = this.props
+      return project ? (
+        <FetchProject {...this.props}>
+          {() => <ProjectView {...this.props} />}
+        </FetchProject>
+      ) : (
+        <Spinner />
+      )
     }
   }
 }
 
 function mapStateToProps(state, props) {
-  const { entities: { links, reviews }, auth } = state
+  const {
+    entities: { links, reviews },
+    auth
+  } = state
 
   // `Route` components get a `match` prop. from react-router
   const params = props.match.params

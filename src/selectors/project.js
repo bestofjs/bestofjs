@@ -24,7 +24,9 @@ export const findProject = id =>
       allReviews
     ) => {
       const project = projects[id]
-      if (!project) throw new Error(`No project with the key '${id}'`)
+      // `project` can be not found if the entities have not been loaded yet,
+      //  e.g. when `/projects/:id` URL is loaded directly in the browser.
+      if (!project) return null
       const linkIds = linksByProject[project.slug] || []
       const links = linkIds.map(linkId => allLinks[linkId])
       const reviewIds = reviewsByProject[project.slug] || []
