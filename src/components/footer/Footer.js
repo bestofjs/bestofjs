@@ -29,7 +29,12 @@ const StyledFooter = styled.footer`
   }
 `
 
-const Footer = ({ staticContent, lastUpdate }) => {
+const Footer = ({
+  staticContent,
+  lastUpdate,
+  showRefreshButton,
+  fetchProjects
+}) => {
   const { repo, projectName, version } = staticContent
   return (
     <StyledFooter id="footer">
@@ -39,6 +44,12 @@ const Footer = ({ staticContent, lastUpdate }) => {
             <div>
               <p>Data updated from GitHub everyday</p>
               <p>Last update: {fromNow(lastUpdate)}</p>
+              {showRefreshButton && (
+                <p>
+                  New data is available!{' '}
+                  <button onClick={fetchProjects}>REFRESH</button>
+                </p>
+              )}
             </div>
             <div>
               <p>

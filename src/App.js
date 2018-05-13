@@ -13,10 +13,14 @@ const startAuthProcess = store => history => {
 
 const App = ({ store }) => {
   const startAuth = startAuthProcess(store)
+  const handleRouteChange = onRouterUpdate(store.dispatch)
   return (
     <Provider store={store}>
       <Router>
-        <AppContainer onRouterUpdate={onRouterUpdate} startAuth={startAuth} />
+        <AppContainer
+          onRouterUpdate={handleRouteChange}
+          startAuth={startAuth}
+        />
       </Router>
     </Provider>
   )

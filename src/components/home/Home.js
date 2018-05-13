@@ -11,7 +11,7 @@ import Spinner from '../common/Spinner'
 
 const Home = props => {
   log('Render the <Home> component', props)
-  const { isLoggedin, pending, authActions, popularTags, hotProjects } = props
+  const { isLoggedin, pending, authActions, popularTags } = props
   return (
     <MainContent>
       <section className="no-card-container">
@@ -28,7 +28,7 @@ const Home = props => {
             (by number of stars added yesterday)
           </span>
         </h3>
-        {hotProjects.length > 0 ? <HomeProjects {...props} /> : <Spinner />}
+        {!pending ? <HomeProjects {...props} /> : <Spinner />}
       </section>
       <section>
         <div className="no-card-container">
@@ -40,11 +40,7 @@ const Home = props => {
             View <Link to="/projects">ALL PROJECTS</Link> or check one of the
             popular tags:
           </p>
-          {popularTags.length > 0 ? (
-            <TagList tags={popularTags} />
-          ) : (
-            <Spinner />
-          )}
+          {!pending > 0 ? <TagList tags={popularTags} /> : <Spinner />}
         </div>
       </section>
       <section>

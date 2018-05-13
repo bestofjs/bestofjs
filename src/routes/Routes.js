@@ -25,40 +25,42 @@ const AsyncRequests = asyncComponent(() =>
   import(/* webpackChunkName: "my-requests" */ './Requests')
 )
 
-const Routes = () => (
-  <Switch>
-    <Route exact path="/" component={HomePage} />
-    {items.map(item => (
-      <Route
-        exact
-        key={item.key}
-        path={`/projects/${item.path}`}
-        component={ProjectsPage(item.key)}
-      />
-    ))}
-    <Route path="/projects">
-      <AsyncViewProject />
-    </Route>
-    <Route exact path="/search/:text" component={TextFilter} />
-    {items.map(item => (
-      <Route
-        exact
-        key={item.key}
-        path={`/tags/:id/${item.path}`}
-        component={TagFilter(item.key)}
-      />
-    ))}
-    <Route exact path="/hall-of-fame" component={HoFPage} />
-    <Redirect from="/hof" to="/hall-of-fame" />
-    <Route path="/myprojects">
-      <AsyncMyProjects />
-    </Route>
-    <Route path="/requests">
-      <AsyncRequests />
-    </Route>
-    <Route exact path="/about" component={AsyncAboutPage} />
-    <Route component={NoMatch} />
-  </Switch>
-)
+const Routes = () => {
+  return (
+    <Switch>
+      <Route exact path="/" component={HomePage} />
+      {items.map(item => (
+        <Route
+          exact
+          key={item.key}
+          path={`/projects/${item.path}`}
+          component={ProjectsPage(item.key)}
+        />
+      ))}
+      <Route path="/projects">
+        <AsyncViewProject />
+      </Route>
+      <Route exact path="/search/:text" component={TextFilter} />
+      {items.map(item => (
+        <Route
+          exact
+          key={item.key}
+          path={`/tags/:id/${item.path}`}
+          component={TagFilter(item.key)}
+        />
+      ))}
+      <Route exact path="/hall-of-fame" component={HoFPage} />
+      <Redirect from="/hof" to="/hall-of-fame" />
+      <Route path="/myprojects">
+        <AsyncMyProjects />
+      </Route>
+      <Route path="/requests">
+        <AsyncRequests />
+      </Route>
+      <Route exact path="/about" component={AsyncAboutPage} />
+      <Route component={NoMatch} />
+    </Switch>
+  )
+}
 
 export default Routes

@@ -3,9 +3,11 @@ import { connect } from 'react-redux'
 import getStaticContent from '../../staticContent'
 import Footer from './Footer'
 import { fetchProjects } from '../../actions/entitiesActions'
+import { isFreshDataAvailable } from '../../selectors'
 
 function mapStateToProps(state) {
   const staticContent = getStaticContent()
+  const showRefreshButton = isFreshDataAvailable(new Date())(state)
   const {
     entities: {
       meta: { lastUpdate }
@@ -13,7 +15,8 @@ function mapStateToProps(state) {
   } = state
   return {
     lastUpdate,
-    staticContent
+    staticContent,
+    showRefreshButton
   }
 }
 

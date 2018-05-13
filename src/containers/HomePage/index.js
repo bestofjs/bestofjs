@@ -17,13 +17,14 @@ class HomePage extends Component {
       uiActions,
       ui,
       authActions,
-      popularTags
+      popularTags,
+      pending
     } = this.props
     return (
       <Home
         hotProjects={hotProjects}
         isLoggedin={auth.username !== ''}
-        pending={auth.pending}
+        pending={auth.pending || pending}
         uiActions={uiActions}
         authActions={authActions}
         hotFilter={ui.hotFilter}
