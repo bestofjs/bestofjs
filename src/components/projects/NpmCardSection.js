@@ -9,7 +9,7 @@ const NpmCardSection = ({ project }) => (
         className="npm-logo icon"
         width="18"
         height="7"
-        src="https://bestof.js.org/logos/npm.svg"
+        src="/logos/npm.svg"
         alt="npm package"
       />
       {project.npm}

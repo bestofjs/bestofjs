@@ -13,7 +13,7 @@ const NpmSection = ({ project }) => (
       target="_blank"
     >
       <img
-        src="https://bestof.js.org/logos/npm.svg"
+        src="/logos/npm.svg"
         alt="NPM"
         className="npm"
         height="7"
@@ -78,7 +78,7 @@ const DependencyFullList = ({ packages }) => {
       <thead>
         <tr>
           <td>Package on npm</td>
-          <td>Project on bestof.js.org</td>
+          <td>Project on bestofjs.org</td>
         </tr>
       </thead>
       <tbody>

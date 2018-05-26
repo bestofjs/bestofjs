@@ -1,7 +1,7 @@
 {
   "name": "bestofjs-webui",
   "version": "0.12.0",
-  "description": "bestof.js.org front-end web application",
+  "description": "bestofjs.org front-end web application",
   "engines": {
     "node": ">=8.4.0"
   },
@@ -34,7 +34,7 @@
   "bugs": {
     "url": "https://github.com/bestofjs/bestofjs-webui/issues"
   },
-  "homepage": "https://bestof.js.org",
+  "homepage": "https://bestofjs.org",
   "dependencies": {
     "classnames": "^2.2.5",
     "cross-env": "^1.0.7",

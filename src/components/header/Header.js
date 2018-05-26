@@ -67,7 +67,7 @@ const Header = ({ searchText, actions, location }) => (
       <Row className="header-row">
         <div className="col-1">
           <LinkLogo to={'/'}>
-            <img src="/svg/bestofjs.svg" width="160" alt="bestof.js.org" />
+            <img src="/svg/bestofjs.svg" width="160" alt="bestofjs.org" />
           </LinkLogo>
         </div>
         <div className="col-2">

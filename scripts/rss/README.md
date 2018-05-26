@@ -5,13 +5,13 @@
 Create a RSS feed available for RSS readers such as feedly.com or Netvibes, as requested by users in https://github.com/michaelrambeau/bestofjs-webui/issues/40 issue.
 
 Every week an XML file should be created.
-This file would display the **hottest projects of the week**, the same list as https://bestof.js.org/projects/trending/this-week
+This file would display the **hottest projects of the week**, the same list as https://bestofjs.org/projects/trending/this-week
 
 ## Implementation
 
 The XML file is created in the `build` folder so that it can be available from the following URL:
 
-https://bestof.js.org/rss/weekly-trends.xml
+https://bestofjs.org/rss/weekly-trends.xml
 
 ## Scheduling
 

@@ -1,8 +1,8 @@
-[![screenshot](https://user-images.githubusercontent.com/5546996/39668776-1d4f4136-5113-11e8-9aac-4665a2071f7b.png)](https://bestof.js.org/)
+[![screenshot](https://user-images.githubusercontent.com/5546996/39668776-1d4f4136-5113-11e8-9aac-4665a2071f7b.png)](https://bestofjs.org/)
 
 ## Concept
 
-[bestof.js.org](https://bestof.js.org/) gathers the latest trends about open source projects related to node.js and the web platform: JavaScript of course (client and server side) but also HTML, CSS...
+[bestofjs.org](https://bestofjs.org/) gathers the latest trends about open source projects related to node.js and the web platform: JavaScript of course (client and server side) but also HTML, CSS...
 
 This is a place where front-end engineers and node.js developers can find the best components to build amazing web applications.
 
@@ -10,11 +10,11 @@ This is a place where front-end engineers and node.js developers can find the be
 
 Projects are classified using tags such as:
 
-* [UI Frameworks](https://bestof.js.org/tags/framework): The best frameworks to build web applications that run in the browser: Angular, React, Vue...
-* [React](https://bestof.js.org/tags/react): The React eco-system
-* [Testing](https://bestof.js.org/tags/test): The best testing tools: Jest, Mocha, Jasmine, AVA...
-* [CSS toolkits](https://bestof.js.org/tags/css-lib): Bootstrap, SemanticUI, Foundation...
-* [Chart](https://bestof.js.org/tags/chart): Data visualization and chart libraries: D3, ChartJS, echarts...
+* [UI Frameworks](https://bestofjs.org/tags/framework): The best frameworks to build web applications that run in the browser: Angular, React, Vue...
+* [React](https://bestofjs.org/tags/react): The React eco-system
+* [Testing](https://bestofjs.org/tags/test): The best testing tools: Jest, Mocha, Jasmine, AVA...
+* [CSS toolkits](https://bestofjs.org/tags/css-lib): Bootstrap, SemanticUI, Foundation...
+* [Chart](https://bestofjs.org/tags/chart): Data visualization and chart libraries: D3, ChartJS, echarts...
 * And many more!
 
 ### Community-driven
@@ -31,7 +31,7 @@ Anyone can contribute!
 
 A Hall of Fame has been created to gather the most amazing people of the community: developers, authors, speakers, mentors...
 
-Click [here](https://bestof.js.org/hof) to visit the Hall of fame!
+Click [here](https://bestofjs.org/hof) to visit the Hall of fame!
 
 Logged-in users can request the induction of new members.
 
@@ -44,7 +44,6 @@ Every time we find a new project (or anytime a user submit a new request), we ad
 Then everyday, an automatic task checks project data from GitHub, for every project stored and generates data consumed by the web application. This daily backend job is in an other repository: [bestofjs-batches](https://github.com/michaelrambeau/bestofjs-batches).
 
 The web application displays the total number of stars and their variation over the last days, weeks and months.
-
 
 ## Technical overview
 
@@ -65,7 +64,7 @@ The "build scheduler" is used to generate every day at a given time the static J
 
 #### node.js microservices
 
-bestof.js.org is a single-page application hosted on GitHub pages.
+bestofjs.org is a single-page application hosted on GitHub pages.
 We used microservices for some dynamic tasks like:
 
 * Loading the README.md related to a project and format the html code so that it can be embedded in in the application
@@ -98,7 +97,7 @@ Webpack is used to build the application in development and production mode.
 
 ### Repositories
 
-bestof.js.org application is made of 5 repositories:
+bestofjs.org application is made of 5 repositories:
 
 * [bestofjs-webui](https://github.com/michaelrambeau/bestofjs-webui) (this repo!): the single-page application for end users
 * [bestofjs-admin](https://github.com/michaelrambeau/bestofjs-admin): the web application used by admin users to manage content (used to add projects, tags and hall of fame members for example). Built with [KeystoneJS](http://keystonejs.com/), a node.js CMS.
@@ -106,10 +105,9 @@ bestof.js.org application is made of 5 repositories:
 * [bestofjs-webtasks](https://github.com/michaelrambeau/bestofjs-webtasks): microservices used to serve dynamic data: to read and write user-generated content (links and reviews), to get README.md from GitHub when a project is opened.
 * [bestofjs](https://github.com/michaelrambeau/bestofjs): repository used to deploy content to GitHub pages, linked to js.org domain. Generated from bestofjs-webui repository, does not contain any source code. Used oto gather issues about user requests.
 
-
 ## URLs and environments
 
-https://bestof.js.org/ production version is hosted on GitHub pages, using `.js.org` domain provided by https://js.org/.
+https://bestofjs.org/ production version is hosted on GitHub pages, using `.js.org` domain provided by https://js.org/.
 
 Other URLs, used to preview features:
 
@@ -155,4 +153,4 @@ Then, 30 minutes later, `npm run daily` command is launched from this repository
 
 That's all, thank you for your attention, please **star** the repo to show your support...
 
-...we are all made of stars ![star](https://bestof.js.org/images/star.png) !
+...we are all made of stars ![star](https://bestofjs.org/images/star.png) !

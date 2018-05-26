@@ -74,19 +74,6 @@ const Footer = ({
             <a href="https://michaelrambeau.com">Michael Rambeau</a>, made in
             Osaka, Japan.
           </p>
-          <a
-            href="https://js.org"
-            target="_blank"
-            rel="noopener noreferrer"
-            title="JS.ORG | JavaScript Community"
-          >
-            <img
-              src="/images/dark_horz.png"
-              width="102"
-              alt="JS.ORG Logo"
-              style={{ marginTop: '1rem' }}
-            />
-          </a>
         </section>
       </div>
     </StyledFooter>

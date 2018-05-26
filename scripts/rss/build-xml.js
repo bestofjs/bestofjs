@@ -8,7 +8,7 @@ export default function buildXml(projects) {
     .att('version', '2.0')
     .ele('channel')
   xml.ele('title', {}, 'Best of JavaScript - Weekly trends')
-  xml.ele('link', {}, 'http://bestof.js.org/projects/trending/this-week')
+  xml.ele('link', {}, 'http://bestofjs.org/projects/trending/this-week')
   xml.ele('pubDate', {}, new Date())
   xml.ele('lastBuildDate', {}, new Date())
   projects.forEach(project => {
