@@ -41,30 +41,6 @@
     </svg>
   </a>
   <script>
-    // Script to process page URL `?redirect=true&pathname=%2Fhof`
-    // when the user comes from the 404.html page.
-    (function (l) {
-      var gitHubRepoName = 'bestofjs'
-      var domain = 'https://bestofjs.org'
-      if (l.pathname.split('/')[1] === gitHubRepoName) {
-        l.replace(domain);
-      } else if (l.search) {
-        var q = {};
-        l.search.slice(1).split('&').forEach(function (v) {
-          var a = v.split('=');
-          q[a[0]] = a.slice(1).join('=').replace(/%2F/g, '/').replace(/%26/g, '&');
-        });
-        if (q.redirect === 'true') {
-          window.history.replaceState(null, null,
-            (q.pathname ? q.pathname : '') +
-            (q.query ? q.query : '') +
-            l.hash
-          );
-        }
-      }
-    }(window.location))
-  </script>
-  <script>
     function loadCSS(e, t, n) { "use strict"; var i = window.document.createElement("link"); var o = t || window.document.getElementsByTagName("script")[0]; i.rel = "stylesheet"; i.href = e; i.media = "only x"; o.parentNode.insertBefore(i, o); setTimeout(function () { i.media = n || "all" }) }
     loadCSS('https://fonts.googleapis.com/css?family=Roboto:400,300,500');
     loadCSS('https://cdnjs.cloudflare.com/ajax/libs/octicons/3.1.0/octicons.min.css');
