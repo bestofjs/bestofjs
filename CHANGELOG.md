@@ -1,10 +1,10 @@
 # Change log
 
-# 0.12.0
+## 0.12.0 - 2018-06-01
 
 * Use `styled-components` instead of `stylus` to style the application
 * Use `create-react-app` instead of custom webpack settings
-* New Server-Side-Rendering script, split into 2 parts
+* Server-Side-Rendering script disabled
 * Load "Hall of Fame" data only from the relevant page, not when the application starts
 
 ## 0.11.3 - 2018-01-20
