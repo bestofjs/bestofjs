@@ -1,4 +1,4 @@
-[![screenshot](https://user-images.githubusercontent.com/5546996/40810684-9266ff9e-6569-11e8-89c8-1632a6b29784.pngs)](https://bestofjs.org/)
+[![screenshot](https://user-images.githubusercontent.com/5546996/40810684-9266ff9e-6569-11e8-89c8-1632a6b29784.png)](https://bestofjs.org/)
 
 ## Concept
 
