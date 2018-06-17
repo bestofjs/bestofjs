@@ -8,6 +8,11 @@ import CreateIssueLink from '../user-requests/add-project/CreateIssueLink'
 import Intro from './Intro'
 import TagList from './TagList'
 import Spinner from '../common/Spinner'
+import Subscribe from './Subscribe'
+import SectionTitle from './SectionTitle'
+import News from './News'
+
+const date = new Date(2018, 5, 18)
 
 const Home = props => {
   log('Render the <Home> component', props)
@@ -18,7 +23,15 @@ const Home = props => {
         <Intro />
       </section>
       <section>
-        <h3 className="no-card-container" style={{ margin: '0rem 0 2rem' }}>
+        <News date={date} title="Weekly Best of JavaScript">
+          We have just launched{' '}
+          <a href="https://weekly.bestofjs.org">Weekly Best of JavaScript</a>,
+          our weekly newsletter. Get the weekly trends in your inbox and never
+          miss a big story!
+        </News>
+      </section>
+      <section>
+        <SectionTitle>
           <span className="icon mega-octicon octicon-flame" />
           Today Hot Projects
           <span
@@ -27,15 +40,19 @@ const Home = props => {
           >
             (by number of stars added yesterday)
           </span>
-        </h3>
+        </SectionTitle>
         {!pending ? <HomeProjects {...props} /> : <Spinner />}
       </section>
       <section>
+        <SectionTitle>Weekly Newsletter</SectionTitle>
+        <Subscribe />
+      </section>
+      <section>
         <div className="no-card-container">
-          <h3 className="with-comment" style={{ margin: '0 0 1rem' }}>
+          <SectionTitle>
             Find the <i className="special">best</i> components to build amazing
             web applications!
-          </h3>
+          </SectionTitle>
           <p>
             View <Link to="/projects">ALL PROJECTS</Link> or check one of the
             popular tags:
@@ -57,9 +74,7 @@ const Home = props => {
 const MoreProjects = () => {
   return (
     <div className="no-card-container">
-      <h3 className="with-comment" style={{ marginBottom: '0.5rem' }}>
-        Do you want more projects ?
-      </h3>
+      <SectionTitle>Do you want more projects ?</SectionTitle>
       <CreateIssueLink showAsButton className={`button-outline block`}>
         <span className="octicon octicon-mark-github" /> Create an issue on
         GitHub

@@ -8,10 +8,7 @@ const Title = ({ title, count, icon, description }) => (
         style={{ marginRight: '.25rem' }}
       />{' '}
       <span style={{ fontSize: '1.5rem' }}>{title}</span>
-      <span
-        className="counter"
-        style={{ color: '#999', fontSize: '1rem', marginLeft: '.25rem' }}
-      >
+      <span className="counter" style={{ color: '#999', marginLeft: '.25rem' }}>
         {count === 1 ? ' (one project)' : ` (${count} projects)`}
       </span>
     </h3>

@@ -13,22 +13,23 @@
     "gh-pages": "node scripts/deploy-gh-pages/",
     "surge": "surge --domain bestofjs.surge.sh --project ./build/",
     "deploy-all": "npm run build && npm run gh-pages",
-    "daily":
-      "npm run build && npm run rss-once-a-week && npm run commit-ssr-files",
+    "daily": "npm run build && npm run rss-once-a-week && npm run commit-ssr-files",
     "commit-ssr-files": "node scripts/commit-ssr-files",
-    "rss-once-a-week":
-      "cross-env NODE_ENV=production node -r esm scripts/rss/once-a-week",
+    "rss-once-a-week": "cross-env NODE_ENV=production node -r esm scripts/rss/once-a-week",
     "rss": "node -r esm scripts/rss",
     "ssr": "npm run ssr-step1 && npm run ssr-step2",
-    "ssr-step1":
-      "cross-env NODE_ENV=production webpack --config ./scripts/ssr/webpack.ssr.config.js",
+    "ssr-step1": "cross-env NODE_ENV=production webpack --config ./scripts/ssr/webpack.ssr.config.js",
     "ssr-step2": "cross-env NODE_ENV=production node -r esm scripts/ssr"
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/bestofjs/bestofjs-webui"
   },
-  "keywords": ["react", "redux", "webpack"],
+  "keywords": [
+    "react",
+    "redux",
+    "webpack"
+  ],
   "author": "Michael Rambeau",
   "license": "MIT",
   "bugs": {

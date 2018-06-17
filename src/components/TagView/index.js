@@ -51,11 +51,7 @@ const TagFilter = ({
           description={tag.description}
         />
       ) : (
-        <TagViewTitle
-          title={'All projects'}
-          count={total}
-          icon={'list-unordered'}
-        />
+        <TagViewTitle title={'All projects'} count={total} />
       )}
       <ProjectFilterTabs
         currentValue={ui.starFilter}

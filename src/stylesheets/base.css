@@ -2,7 +2,7 @@
   --containerWidth: 980px;
   --gutter: 2rem;
   --topbarHeight: 60px;
-  --textPrimaryColor: #333;
+  --textPrimaryColor: #541600;
   --textSecondaryColor: #777;
 }
 body,
@@ -58,8 +58,6 @@ h3 {
 h3.with-comment {
   font-size: 1.3em;
   margin-bottom: 0;
-  text-align: center;
-  min-height: 38px;
 }
 h3 .icon {
   color: #fa9e59;

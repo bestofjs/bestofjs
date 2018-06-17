@@ -12,7 +12,7 @@ injectGlobal`
   input,
   textarea,
   select {
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Roboto Slab', sans-serif;
     box-sizing: border-box;
   }  
   html {

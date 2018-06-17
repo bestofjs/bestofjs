@@ -6,8 +6,8 @@ const TopIntro = () => (
       The best of JavaScript, HTML and CSS
     </h1>
     <p>
-      Check out the most popular open-source projects and the latest trends
-      about the web platform and node.js.
+      A curated list of the most popular open-source projects related to the web
+      platform and node.js.
     </p>
   </div>
 )

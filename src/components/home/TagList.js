@@ -5,6 +5,7 @@ import PropTypes from 'prop-types'
 
 const LinkList = styled.ul`
   margin-top: 0;
+  margin-bottom: 0;
   padding-left: 1.2em;
   li {
     margin-bottom: 0.5rem;
