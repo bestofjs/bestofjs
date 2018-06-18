@@ -22,7 +22,7 @@ const Home = props => {
       <section className="no-card-container">
         <Intro />
       </section>
-      <section>
+      <section className="no-card-container">
         <News date={date} title="Weekly Best of JavaScript">
           We have just launched{' '}
           <a href="https://weekly.bestofjs.org">Weekly Best of JavaScript</a>,
@@ -31,7 +31,7 @@ const Home = props => {
         </News>
       </section>
       <section>
-        <SectionTitle>
+        <SectionTitle className="no-card-container">
           <span className="icon mega-octicon octicon-flame" />
           Today Hot Projects
           <span
@@ -44,7 +44,9 @@ const Home = props => {
         {!pending ? <HomeProjects {...props} /> : <Spinner />}
       </section>
       <section>
-        <SectionTitle>Weekly Newsletter</SectionTitle>
+        <SectionTitle className="no-card-container">
+          Weekly Newsletter
+        </SectionTitle>
         <Subscribe />
       </section>
       <section>
