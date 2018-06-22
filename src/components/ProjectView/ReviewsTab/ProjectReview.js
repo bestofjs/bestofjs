@@ -1,16 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import marked from 'marked'
 
 import Header from '../ItemHeader'
 import Div from './ScoreBar'
-
-const Comment = ({ comment }) => {
-  if (comment.trim() === '') {
-    return <span className="empty-value">(No comment)</span>
-  }
-  return <div dangerouslySetInnerHTML={{ __html: marked(comment) }} />
-}
+import MarkdownReadonly from '../../common/form/MarkdownReadonly'
 
 const ProjectReview = ({ review, editable }) => {
   return (
@@ -24,15 +17,15 @@ const ProjectReview = ({ review, editable }) => {
         {[1, 2, 3, 4, 5].map(i => (
           <span
             key={i}
-            className={`octicon octicon-heart icon ${i <= review.rating
-              ? 'on'
-              : 'off'}`}
+            className={`octicon octicon-heart icon ${
+              i <= review.rating ? 'on' : 'off'
+            }`}
           />
         ))}
       </Div>
       {review.comment && (
         <div className="project-item-comment">
-          <Comment comment={review.comment} />
+          <MarkdownReadonly comment={review.comment} />
         </div>
       )}
     </div>

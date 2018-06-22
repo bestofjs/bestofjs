@@ -1,15 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import marked from 'marked'
 
+import MarkdownReadonly from '../../common/form/MarkdownReadonly'
 import Header from '../ItemHeader'
-
-const Comment = ({ comment }) => {
-  if (!comment || comment.trim() === '') {
-    return <span className="empty-value">(No comment)</span>
-  }
-  return <div dangerouslySetInnerHTML={{ __html: marked(comment) }} />
-}
 
 const ProjectLink = ({ link, project, editable }) => {
   return (
@@ -24,7 +17,7 @@ const ProjectLink = ({ link, project, editable }) => {
       </a>
       {link.comment && (
         <div className="project-item-comment" style={{ marginTop: '0.5em' }}>
-          <Comment comment={link.comment} />
+          <MarkdownReadonly comment={link.comment} />
         </div>
       )}
     </div>
