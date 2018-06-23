@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { withFormik } from 'formik'
 import classNames from 'classnames'
+import { Link } from 'react-router-dom'
 
 import SelectBox from '../../../containers/ProjectSelectBoxContainer'
 import ErrorMessage from '../../common/utils/ErrorMessage'
@@ -22,7 +23,8 @@ const LinkForm = ({
   isSubmitting,
   // touched,
   errors,
-  values
+  values,
+  project
 }) => {
   const canSubmit = isValid && !isSubmitting
   return (
@@ -80,6 +82,12 @@ const LinkForm = ({
         submitFailed && <ErrorMessage>Fix invalid fields!</ErrorMessage>}
 
       <ActionBar>
+        <Link
+          style={{ marginRight: '2rem' }}
+          to={`/projects/${project.slug}/links`}
+        >
+          CANCEL
+        </Link>
         <Button
           loading={isSubmitting}
           className={classNames({

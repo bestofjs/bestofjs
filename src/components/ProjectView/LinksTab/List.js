@@ -3,7 +3,7 @@ import Link from '../../common/form/Button/Link'
 
 import ProjectHeader from '../ProjectHeader'
 import Tabs from '../Tabs'
-import ProjectLink from './ProjectLink'
+import ProjectLinkCard from './ProjectLinkCard'
 import ProjectTabsContent from '../ProjectTabsContent'
 import Button from '../../common/form/Button'
 
@@ -26,7 +26,7 @@ const LoginButton = ({ onLogin, pending }) => {
 }
 
 const List = ({ project, auth, authActions }) => {
-  const isLoggedin = auth.username !== ''
+  const isAuthenticated = auth.username !== ''
   const links = project.links || []
   return (
     <div>
@@ -34,34 +34,13 @@ const List = ({ project, auth, authActions }) => {
       <Tabs project={project} activePath="links" />
       <ProjectTabsContent style={{ marginBottom: '2em' }}>
         <div className="inner">
-          {links.length === 0 && (
-            <div>
-              <p>Find here intesting reading about {project.name} project:</p>
-              <ul>
-                <li>blog entries</li>
-                <li>tutorials</li>
-                <li>related projects</li>
-                <li>real-world applications...</li>
-              </ul>
-              <p>Be the first to add a link!</p>
-            </div>
-          )}
-          {links.length > 0 && (
-            <div className="project-link-container">
-              {links.map(link => (
-                <ProjectLink
-                  link={link}
-                  project={project}
-                  key={link._id}
-                  editable={auth.username === link.createdBy}
-                  showProjects={false}
-                />
-              ))}
-            </div>
-          )}
-
+          <p>
+            Interesting links about <i>{project.name}</i> : blog entries,
+            tutorials, related projects, real-world applications...
+          </p>
+          {links.length === 0 && <p>Be the first to add a link!</p>}
           <div style={{ textAlign: 'center', paddingTop: '1em' }}>
-            {isLoggedin ? (
+            {isAuthenticated ? (
               <AddButton project={project} />
             ) : (
               <LoginButton onLogin={authActions.login} pending={auth.pending} />
@@ -69,6 +48,20 @@ const List = ({ project, auth, authActions }) => {
           </div>
         </div>
       </ProjectTabsContent>
+
+      {links.length > 0 && (
+        <div className="project-link-container">
+          {links.map(link => (
+            <ProjectLinkCard
+              link={link}
+              project={project}
+              key={link._id}
+              editable={auth.username === link.createdBy}
+              showProjects={false}
+            />
+          ))}
+        </div>
+      )}
     </div>
   )
 }
