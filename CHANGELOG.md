@@ -1,5 +1,9 @@
 # Change log
 
+## Next release
+
+- Update RSS feed URL, the feed is built from the weekly site https://weekly.bestofjs.org/rss/trends.xml
+
 ## 0.12.0 - 2018-06-01
 
 - Use `styled-components` instead of `stylus` to style the application

@@ -60,7 +60,10 @@ const Footer = ({
                 (v{version})
               </p>
               <p>
-                <a href="/rss/weekly-trends.xml" target="_blank">
+                <a
+                  href="https://weekly.bestofjs.org/rss/trends.xml"
+                  target="_blank"
+                >
                   <span className="octicon octicon-rss" />{' '}
                   <span>Weekly feed</span>
                 </a>
