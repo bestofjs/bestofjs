@@ -8,9 +8,13 @@ import rootReducer from '../reducers'
 
 const middlewares = [convertIdToSlug, convertSlugToId, thunk]
 
+const isProduction = process.env.NODE_ENV === 'production'
+
 const finalCreateStore = compose(
   applyMiddleware(...middlewares),
-  window.devToolsExtension ? window.devToolsExtension() : f => f
+  !isProduction && window.devToolsExtension
+    ? window.devToolsExtension()
+    : f => f
 )(createStore)
 
 export default function configureStore(initialState) {

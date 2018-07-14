@@ -5,7 +5,6 @@ import { withRouter } from 'react-router-dom'
 import Header from './Header'
 
 import * as actions from '../../actions'
-import * as authActionCreators from '../../actions/authActions'
 import * as uiActionCreators from '../../actions/uiActions'
 
 function mapStateToProps(state, props) {
@@ -20,9 +19,13 @@ function mapStateToProps(state, props) {
 function mapDispatchToProps(dispatch) {
   return {
     actions: bindActionCreators(actions, dispatch),
-    authActions: bindActionCreators(authActionCreators, dispatch),
     uiActions: bindActionCreators(uiActionCreators, dispatch)
   }
 }
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Header))
+export default withRouter(
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )(Header)
+)

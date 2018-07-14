@@ -6,7 +6,6 @@ import Home from '../../components/home/Home'
 import mapStateToProps from './mapStateToProps'
 import log from '../../helpers/log'
 import * as uiActionCreators from '../../actions/uiActions'
-import * as authActionCreators from '../../actions/authActions'
 
 class HomePage extends Component {
   render() {
@@ -45,10 +44,13 @@ function finalMapStateToProps(count) {
 function mapDispatchToProps(dispatch) {
   return {
     uiActions: bindActionCreators(uiActionCreators, dispatch),
-    authActions: bindActionCreators(authActionCreators, dispatch)
+    authActions: {}
   }
 }
 
 export default function(count = 10) {
-  return connect(finalMapStateToProps(count), mapDispatchToProps)(HomePage)
+  return connect(
+    finalMapStateToProps(count),
+    mapDispatchToProps
+  )(HomePage)
 }

@@ -5,7 +5,7 @@ import { fetchProjectsIfNeeded } from './actions/entitiesActions'
 /**
  *  Routing side effects: what happens when a route changes
  */
-const onRouterUpdate = dispatch => location => {
+const onRouterUpdate = ({ dispatch, location }) => {
   if (typeof window === 'undefined') return
   // Hide the side menu (on mobiles)
   menu.hide()

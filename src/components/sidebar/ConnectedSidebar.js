@@ -1,12 +1,12 @@
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
+import PropTypes from 'prop-types'
 
 import Sidebar from './Sidebar'
 import { getPopularTags, getAllTags } from '../../selectors'
 
 import * as actions from '../../actions'
-import * as authActionCreators from '../../actions/authActions'
 import * as uiActionCreators from '../../actions/uiActions'
 
 function mapStateToProps(state) {
@@ -30,13 +30,29 @@ function mapStateToProps(state) {
   }
 }
 
-function mapDispatchToProps(dispatch) {
+function mapDispatchToProps(dispatch, props) {
+  const { dependencies } = props
+  const auth = dependencies.authApi
   return {
     actions: bindActionCreators(actions, dispatch),
-    authActions: bindActionCreators(authActionCreators, dispatch),
+    authActions: {
+      login: auth.login,
+      logout: auth.logout
+    },
     uiActions: bindActionCreators(uiActionCreators, dispatch)
   }
 }
 
 // withRouter is needed to handle `activeClassName` property correctly
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Sidebar))
+const ConnectedSidebar = withRouter(
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )(Sidebar)
+)
+
+ConnectedSidebar.propTypes = {
+  dependencies: PropTypes.object.isRequired
+}
+
+export default ConnectedSidebar

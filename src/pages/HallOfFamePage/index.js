@@ -1,10 +1,8 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux'
 
 import FetchHeroes from '../../containers/FetchHeroes'
 import HoF from '../../components/hof/HeroList'
-import * as authActionCreators from '../../actions/authActions'
 import { getAllHeroes } from '../../helpers/hof'
 
 const getYou = auth => ({
@@ -40,9 +38,13 @@ const mapStateToProps = state => {
     you: getYou(auth)
   }
 }
-function mapDispatchToProps(dispatch) {
+function mapDispatchToProps(dispatch, props) {
+  const { dependencies } = props
+  const { authApi } = dependencies
   return {
-    authActions: bindActionCreators(authActionCreators, dispatch)
+    authActions: {
+      login: authApi.login
+    }
   }
 }
 export default connect(

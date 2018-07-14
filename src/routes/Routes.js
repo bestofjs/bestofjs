@@ -25,7 +25,7 @@ const AsyncRequests = asyncComponent(() =>
   import(/* webpackChunkName: "my-requests" */ './Requests')
 )
 
-const Routes = () => {
+const Routes = props => {
   return (
     <Switch>
       <Route exact path="/" component={HomePage} />
@@ -38,7 +38,7 @@ const Routes = () => {
         />
       ))}
       <Route path="/projects">
-        <AsyncViewProject />
+        <AsyncViewProject {...props} />
       </Route>
       <Route exact path="/search/:text" component={SearchResultsPage} />
       {items.map(item => (
@@ -49,7 +49,11 @@ const Routes = () => {
           component={TagFilter(item.key)}
         />
       ))}
-      <Route exact path="/hall-of-fame" component={HoFPage} />
+      <Route
+        exact
+        path="/hall-of-fame"
+        render={ownProps => <HoFPage {...props} {...ownProps} />}
+      />
       <Redirect from="/hof" to="/hall-of-fame" />
       <Route path="/myprojects">
         <AsyncMyProjects />

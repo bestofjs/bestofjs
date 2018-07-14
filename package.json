@@ -19,7 +19,7 @@
     "rss": "node -r esm scripts/rss",
     "ssr": "npm run ssr-step1 && npm run ssr-step2",
     "ssr-step1": "cross-env NODE_ENV=production webpack --config ./scripts/ssr/webpack.ssr.config.js",
-    "ssr-step2": "cross-env NODE_ENV=production node -r esm scripts/ssr"
+    "test":"react-scripts test --env=jsdom"
   },
   "repository": {
     "type": "git",

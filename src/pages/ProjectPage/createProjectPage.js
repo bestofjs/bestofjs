@@ -5,7 +5,6 @@ import { bindActionCreators } from 'redux'
 import log from '../../helpers/log'
 import track from '../../helpers/track'
 import * as actionCreators from '../../actions'
-import * as authActionCreators from '../../actions/authActions'
 import * as userContentActionCreators from '../../actions/userContent'
 import { findProject } from '../../selectors/project'
 import Spinner from '../../components/common/Spinner'
@@ -55,7 +54,6 @@ function mapStateToProps(state, props) {
   const { id, linkId, reviewId } = params
 
   const project = findProject(id)(state)
-
   const review = reviews && reviewId ? reviews[reviewId] : null
   const link = links && linkId ? links[linkId] : null
 
@@ -67,10 +65,14 @@ function mapStateToProps(state, props) {
   }
 }
 
-function mapDispatchToProps(dispatch) {
+function mapDispatchToProps(dispatch, props) {
+  const { dependencies } = props
+  const { authApi } = dependencies
   return {
     actions: bindActionCreators(actionCreators, dispatch),
-    authActions: bindActionCreators(authActionCreators, dispatch),
+    authActions: {
+      login: authApi.login
+    },
     userContentActions: bindActionCreators(userContentActionCreators, dispatch),
     dispatch
   }

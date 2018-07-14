@@ -1,4 +1,4 @@
-import { APP_URL, readUserProjects } from '../api/auth0'
+import { APP_URL, readUserProjects } from '../api/auth/auth0'
 import { fetchJSON } from '../helpers/fetch'
 
 function saveMyProjects({ user_id, token, projects }) {
