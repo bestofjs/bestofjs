@@ -2,15 +2,13 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
-import log from '../helpers/log'
-import track from '../helpers/track'
-
-import * as actionCreators from '../actions'
-import * as authActionCreators from '../actions/authActions'
-import * as userContentActionCreators from '../actions/userContent'
-
-import { findProject } from '../selectors/project'
-import Spinner from '../components/common/Spinner'
+import log from '../../helpers/log'
+import track from '../../helpers/track'
+import * as actionCreators from '../../actions'
+import * as authActionCreators from '../../actions/authActions'
+import * as userContentActionCreators from '../../actions/userContent'
+import { findProject } from '../../selectors/project'
+import Spinner from '../../components/common/Spinner'
 
 function loadData(props) {
   const project = props.project
@@ -79,4 +77,7 @@ function mapDispatchToProps(dispatch) {
 }
 
 export default ProjectView =>
-  connect(mapStateToProps, mapDispatchToProps)(createProjectPage(ProjectView))
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )(createProjectPage(ProjectView))

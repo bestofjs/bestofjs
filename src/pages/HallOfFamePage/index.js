@@ -2,10 +2,10 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
-import FetchHeroes from './FetchHeroes'
-import HoF from '../components/hof/HeroList'
-import * as authActionCreators from '../actions/authActions'
-import { getAllHeroes } from '../helpers/hof'
+import FetchHeroes from '../../containers/FetchHeroes'
+import HoF from '../../components/hof/HeroList'
+import * as authActionCreators from '../../actions/authActions'
+import { getAllHeroes } from '../../helpers/hof'
 
 const getYou = auth => ({
   name: 'Could be you?',
@@ -45,4 +45,7 @@ function mapDispatchToProps(dispatch) {
     authActions: bindActionCreators(authActionCreators, dispatch)
   }
 }
-export default connect(mapStateToProps, mapDispatchToProps)(HallOfFamePage)
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(HallOfFamePage)

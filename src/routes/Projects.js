@@ -2,7 +2,7 @@ import React from 'react'
 import { Route } from 'react-router-dom'
 
 import MainContent from '../components/common/MainContent'
-import createProjectPage from '../containers/createProjectPage'
+import createProjectPage from '../pages/ProjectPage/createProjectPage'
 
 import GithubTab from '../components/ProjectView/GithubTab'
 

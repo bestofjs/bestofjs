@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
-import About from '../components/about/About'
-import log from '../helpers/log'
-import getStaticContent from '../staticContent'
+import About from '../../components/about/About'
+import log from '../../helpers/log'
+import getStaticContent from '../../staticContent'
 
 class AboutPage extends Component {
   render() {
@@ -21,7 +21,10 @@ class AboutPage extends Component {
 }
 
 function mapStateToProps(state) {
-  const { entities: { projects }, ui } = state
+  const {
+    entities: { projects },
+    ui
+  } = state
   return {
     staticContent: getStaticContent(),
     count: Object.keys(projects).length,
@@ -29,4 +32,7 @@ function mapStateToProps(state) {
   }
 }
 
-export default connect(mapStateToProps, {})(AboutPage)
+export default connect(
+  mapStateToProps,
+  {}
+)(AboutPage)

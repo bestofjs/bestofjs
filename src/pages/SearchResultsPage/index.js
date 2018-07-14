@@ -2,14 +2,17 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
-import withUser from './withUser'
-import TextFilter from '../components/SearchView'
-import log from '../helpers/log'
-import { searchForProjects } from '../selectors'
+import withUser from '../../containers/withUser'
+import TextFilter from '../../components/SearchView'
+import log from '../../helpers/log'
+import { searchForProjects } from '../../selectors'
 
-import { populate as populateHero, filter as filterHero } from '../helpers/hof'
-import * as uiActionCreators from '../actions/uiActions'
-import * as myProjectsActionCreators from '../actions/myProjectsActions'
+import {
+  populate as populateHero,
+  filter as filterHero
+} from '../../helpers/hof'
+import * as uiActionCreators from '../../actions/uiActions'
+import * as myProjectsActionCreators from '../../actions/myProjectsActions'
 
 class TextFilterPage extends Component {
   render() {
@@ -43,7 +46,11 @@ class TextFilterPage extends Component {
 }
 
 function mapStateToProps(state, props) {
-  const { entities: { heroes }, auth, ui } = state
+  const {
+    entities: { heroes },
+    auth,
+    ui
+  } = state
   const text = props.match.params.text
   const foundProjects = searchForProjects(text)(state)
   const allHeroes = Object.keys(heroes).map(id => heroes[id])
@@ -70,4 +77,7 @@ function mapDispatchToProps(dispatch) {
 }
 
 const withUserPage = withUser(TextFilterPage)
-export default connect(mapStateToProps, mapDispatchToProps)(withUserPage)
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withUserPage)

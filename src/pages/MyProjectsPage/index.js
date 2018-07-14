@@ -2,11 +2,11 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
-import MyProjects from '../components/MyProjects'
-import withUser from './withUser'
-import { getMyProjects } from '../selectors'
-import log from '../helpers/log'
-import * as uiActionCreators from '../actions/uiActions'
+import MyProjects from '../../components/MyProjects'
+import withUser from '../../containers/withUser'
+import { getMyProjects } from '../../selectors'
+import log from '../../helpers/log'
+import * as uiActionCreators from '../../actions/uiActions'
 
 class MyProjectPage extends Component {
   render() {
@@ -32,6 +32,7 @@ function mapDispatchToProps(dispatch) {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(
-  withUser(MyProjectPage)
-)
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withUser(MyProjectPage))

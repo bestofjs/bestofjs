@@ -3,20 +3,20 @@ import { Route, Switch, Redirect } from 'react-router-dom'
 
 import asyncComponent from './asyncComponent'
 
-import getHomePage from '../containers/HomePage'
-import ProjectsPage from '../containers/AllProjectsPage'
-import HoFPage from '../containers/HallOfFamePage'
-import TagFilter from '../containers/TagFilterPage'
-import TextFilter from '../containers/TextFilterPage'
+import getHomePage from '../pages/HomePage'
+import AllProjectsPage from '../pages/AllProjectsPage'
+import HoFPage from '../pages/HallOfFamePage'
+import TagFilter from '../pages/TagFilterPage'
+import SearchResultsPage from '../pages/SearchResultsPage'
 import items from './sortItems'
 import NoMatch from './NoMatch'
 
 const HomePage = getHomePage(10)
 const AsyncAboutPage = asyncComponent(() =>
-  import(/* webpackChunkName: "about" */ '../containers/AboutPage')
+  import(/* webpackChunkName: "about" */ '../pages/AboutPage')
 )
 const AsyncMyProjects = asyncComponent(() =>
-  import(/* webpackChunkName: "my-projects" */ '../containers/MyProjectsPage')
+  import(/* webpackChunkName: "my-projects" */ '../pages/MyProjectsPage')
 )
 const AsyncViewProject = asyncComponent(() =>
   import(/* webpackChunkName: "single-project" */ './Projects')
@@ -34,13 +34,13 @@ const Routes = () => {
           exact
           key={item.key}
           path={`/projects/${item.path}`}
-          component={ProjectsPage(item.key)}
+          component={AllProjectsPage(item.key)}
         />
       ))}
       <Route path="/projects">
         <AsyncViewProject />
       </Route>
-      <Route exact path="/search/:text" component={TextFilter} />
+      <Route exact path="/search/:text" component={SearchResultsPage} />
       {items.map(item => (
         <Route
           exact

@@ -1,40 +1,41 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
+import { withRouter } from 'react-router-dom'
 
-import TagFilter from '../components/TagView'
-import log from '../helpers/log'
-import * as uiActionCreators from '../actions/uiActions'
-import { getProjectsSortedBy, getAllProjectsCount } from '../selectors'
-import { getPageNumber } from '../components/common/pagination/helpers'
+import TagFilter from '../../components/TagView'
+import { getProjectsByTag, getTagCounters } from '../../selectors'
+import log from '../../helpers/log'
+import * as uiActionCreators from '../../actions/uiActions'
+import { getPageNumber } from '../../components/common/pagination/helpers'
 
-class AllProjectsPage extends Component {
+class TagFilterPage extends Component {
   render() {
-    log('Render the <AllProjectsPage> container', this.props)
+    log('Render the <TagFilterPage> container')
     const {
       tagProjects,
+      total,
+      tag,
+      pageNumber,
+      url,
+      itemPerPage,
       isLoggedin,
       uiActions,
       ui,
-      graphProjects,
-      count,
-      url,
-      itemPerPage,
-      pageNumber
+      graphProjects
     } = this.props
     return (
       <TagFilter
         projects={tagProjects}
-        total={count}
+        total={total}
+        itemPerPage={itemPerPage}
         url={url}
+        pageNumber={pageNumber}
         graphProjects={graphProjects}
+        tag={tag}
         isLoggedin={isLoggedin}
         ui={ui}
         uiActions={uiActions}
-        count={count}
-        itemPerPage={itemPerPage}
-        pageNumber={pageNumber}
-        showTags={true}
       />
     )
   }
@@ -42,29 +43,37 @@ class AllProjectsPage extends Component {
 
 function mapStateToProps(sortFilter) {
   return function(state, props) {
+    const {
+      entities: { tags },
+      auth: { username },
+      ui
+    } = state
     const { location } = props
     const pageNumber = getPageNumber(location) || 1
     const itemPerPage = 50
     const start = itemPerPage * (pageNumber - 1)
     const url = location.pathname
 
-    const tagProjects = getProjectsSortedBy({
+    const tagId = props.match.params.id
+    const total = getTagCounters(state)[tagId]
+    const tagProjects = getProjectsByTag({
       criteria: sortFilter,
+      tagId,
       start,
       limit: itemPerPage
     })(state)
-    const count = getAllProjectsCount(state)
-    const { auth: { username }, ui } = state
     return {
       tagProjects,
+      total,
+      pageNumber,
+      itemPerPage,
+      url,
+      // graphProjects,
+      tag: tags[tagId],
       isLoggedin: username !== '',
       ui: Object.assign({}, ui, {
         starFilter: sortFilter
-      }),
-      count,
-      url,
-      itemPerPage,
-      pageNumber
+      })
     }
   }
 }
@@ -76,4 +85,9 @@ function mapDispatchToProps(dispatch) {
 }
 
 export default sortFilter =>
-  connect(mapStateToProps(sortFilter), mapDispatchToProps)(AllProjectsPage)
+  withRouter(
+    connect(
+      mapStateToProps(sortFilter),
+      mapDispatchToProps
+    )(TagFilterPage)
+  )
