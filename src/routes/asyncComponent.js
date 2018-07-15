@@ -12,8 +12,6 @@ export default function asyncComponent(importComponent) {
   class AsyncComponent extends Component {
     constructor(props) {
       super(props)
-      console.log('Async', props)
-
       this.state = {
         component: () => <Spinner />
       }
