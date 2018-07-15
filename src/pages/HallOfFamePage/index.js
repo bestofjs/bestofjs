@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 
 import FetchHeroes from '../../containers/FetchHeroes'
 import HoF from '../../components/hof/HeroList'
-import { getAllHeroes } from '../../helpers/hof'
+import { getAllHeroes } from '../../selectors/hall-of-fame'
 
 const getYou = auth => ({
   name: 'Could be you?',

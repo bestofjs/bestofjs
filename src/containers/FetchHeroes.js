@@ -9,28 +9,34 @@ import { fetchAllHeroes } from '../actions/hofActions'
 import Spinner from '../components/common/Spinner'
 
 class FetchHeroes extends React.Component {
+  state = {
+    loading: false
+  }
   fetchDataIfNeeded = () => {
     const { heroesById } = this.props
     if (Object.keys(heroesById).length === 0) {
       this.fetchData()
     }
   }
-  fetchData = () => {
-    this.props.fetchAllHeroes()
+  fetchData = async () => {
+    this.setState({ loading: true })
+    await this.props.fetchAllHeroes()
+    this.setState({ loading: false })
   }
   componentDidMount() {
     this.fetchDataIfNeeded()
   }
   render() {
-    const { loading, children } = this.props
+    const { children } = this.props
+    const { loading } = this.state
     return loading ? <Spinner /> : children
   }
 }
 
 const mapStateToProps = state => {
   return {
-    heroesById: state.entities.heroes,
-    loading: state.hof.loading
+    heroesById: state.entities.heroes
+    // loading: state.hof.loading
   }
 }
 const mapDispatchToProps = dispatch => {
@@ -38,4 +44,7 @@ const mapDispatchToProps = dispatch => {
     fetchAllHeroes: () => dispatch(fetchAllHeroes())
   }
 }
-export default connect(mapStateToProps, mapDispatchToProps)(FetchHeroes)
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(FetchHeroes)

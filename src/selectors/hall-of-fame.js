@@ -1,12 +1,19 @@
-import { idToProject } from './projectHelpers'
+import { createSelector } from 'reselect'
 
-// Return an array containing all Hall of Fame members, with their populated projects
-// Used in the container component and in test files.
-export function getAllHeroes(state) {
-  return state.hof.heroesById
-    .map(id => state.entities.heroes[id])
-    .map(populate(state))
-}
+import { idToProject } from '../helpers/projectHelpers'
+
+export const getAllHeroes = createSelector(
+  state => state.entities.heroes,
+  state => state,
+  (heroesById, state) => {
+    return Object.values(heroesById).map(populate(state))
+  }
+)
+
+export const searchForHeroes = text =>
+  createSelector(getAllHeroes, heroes => {
+    return heroes.filter(filter(text)).slice(0, 10)
+  })
 
 // Return the `Hero` with populated projects
 export const populate = state => hero => {

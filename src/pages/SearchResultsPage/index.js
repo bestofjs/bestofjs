@@ -5,14 +5,10 @@ import { bindActionCreators } from 'redux'
 import withUser from '../../containers/withUser'
 import TextFilter from '../../components/SearchView'
 import log from '../../helpers/log'
-import { searchForProjects } from '../../selectors'
-
-import {
-  populate as populateHero,
-  filter as filterHero
-} from '../../helpers/hof'
 import * as uiActionCreators from '../../actions/uiActions'
 import * as myProjectsActionCreators from '../../actions/myProjectsActions'
+import { searchForProjects } from '../../selectors'
+import { searchForHeroes } from '../../selectors/hall-of-fame'
 
 class TextFilterPage extends Component {
   render() {
@@ -25,8 +21,7 @@ class TextFilterPage extends Component {
       auth,
       uiActions,
       myProjectsActions,
-      ui,
-      allHeroesCount
+      ui
     } = this.props
     return (
       <TextFilter
@@ -38,7 +33,6 @@ class TextFilterPage extends Component {
         uiActions={uiActions}
         myProjectsActions={myProjectsActions}
         hotFilter={ui.hotFilter}
-        allHeroesCount={allHeroesCount}
         ui={ui}
       />
     )
@@ -46,26 +40,17 @@ class TextFilterPage extends Component {
 }
 
 function mapStateToProps(state, props) {
-  const {
-    entities: { heroes },
-    auth,
-    ui
-  } = state
+  const { auth, ui } = state
   const text = props.match.params.text
   const foundProjects = searchForProjects(text)(state)
-  const allHeroes = Object.keys(heroes).map(id => heroes[id])
-  const foundHeroes = allHeroes
-    .filter(filterHero(text))
-    .slice(0, 10)
-    .map(populateHero(state))
+  const foundHeroes = searchForHeroes(text)(state)
   return {
     foundProjects,
     foundHeroes,
     text,
     isLoggedin: auth.username !== '',
     auth,
-    ui,
-    allHeroesCount: allHeroes.length
+    ui
   }
 }
 
