@@ -32,6 +32,3 @@ package-lock.json
 
 # Webpack monitor files
 monitor/
-
-# WIP
-docs

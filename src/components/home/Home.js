@@ -15,7 +15,7 @@ import News from './News'
 const date = new Date(2018, 5, 18)
 
 const Home = props => {
-  log('Render the <Home> component', props)
+  log('Render the <Home> component')
   const { isLoggedin, pending, authActions, popularTags } = props
   return (
     <MainContent>

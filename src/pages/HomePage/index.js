@@ -9,7 +9,7 @@ import * as uiActionCreators from '../../actions/uiActions'
 
 class HomePage extends Component {
   render() {
-    log('Render the <HomePage> container', this.props)
+    log('Render the <HomePage> container')
     const {
       hotProjects,
       auth,
