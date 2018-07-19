@@ -9,6 +9,42 @@ The application is made with `create-react-app` and uses `redux` to manage the s
 - Dispatch `FETCH_PROJECTS_SUCCESS` action
 - The reducer updates `entities` object, creating the 2 objects `projects` and `tags`, that are indexed by id.
 
+## JSON data loaded from the API
+
+```json
+{
+  "date": "2018-04-18T21:03:03.017Z",
+  "tags": [
+    {
+      "name": "UI Framework",
+      "description":
+        "Libraries and frameworks to build UI interfaces in the browser",
+      "code": "framework"
+    }
+  ],
+  "projects": [
+    {
+      "name": "React",
+      "stars": 93838,
+      "deltas": [101, 83, 99, 79, 59, 94, 86],
+      "monthly": [64493, 71161, 78767, 86090, 88592, 90932, 93737],
+      "url": "https://reactjs.org",
+      "full_name": "facebook/react",
+      "description":
+        "A declarative, efficient, and flexible JavaScript library for building user interfaces.",
+      "pushed_at": "2018-04-18T20:20:59.000Z",
+      "owner_id": 69631,
+      "tags": ["framework", "vdom", "react"],
+      "contributor_count": 1177,
+      "npm": "react",
+      "version": "16.3.2",
+      "dependency_count": 4,
+      "icon": "react.svg"
+    }
+  ]
+}
+```
+
 ## Shape of the Redux store
 
 ```js
