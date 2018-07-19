@@ -9,17 +9,13 @@ import filterProjects from '../helpers/filter'
 export const getTagCounters = createSelector(
   [state => state.entities.projects],
   projects => {
-    const counters = {}
-    Object.values(projects).forEach(function(project) {
-      project.tags.forEach(function(id) {
-        if (counters[id]) {
-          counters[id]++
-        } else {
-          counters[id] = 1
-        }
-      })
+    const processProjectTags = (acc, id) => ({
+      ...acc,
+      [id]: acc[id] ? acc[id] + 1 : 1
     })
-    return counters
+    const processProjects = (acc, project) =>
+      project.tags.reduce(processProjectTags, acc)
+    return Object.values(projects).reduce(processProjects, {})
   }
 )
 
