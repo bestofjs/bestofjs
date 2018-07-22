@@ -7,10 +7,12 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build-js": "react-scripts build",
+    "build": "react-scripts build",
     "clean": "rimraf build",
     "surge": "surge --domain bestofjs.surge.sh --project ./build/",
-    "test": "react-scripts test --env=jsdom"
+    "test": "react-scripts test --env=jsdom",
+    "pretty-quick": "pretty-quick",
+    "precommit": "pretty-quick --staged"
   },
   "repository": {
     "type": "git",
@@ -63,6 +65,7 @@
     "vague-time": "^2.4.1"
   },
   "devDependencies": {
+    "husky": "^0.14.3",
     "prettier": "^1.12.1",
     "pretty-quick": "^1.4.1"
   }

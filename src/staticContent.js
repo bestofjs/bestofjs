@@ -1,5 +1,6 @@
 /*
 Some "static content" used in several places in the application: Homepage, About...
+We don't import package.json to get the version number to save bytes!
 */
 
 export default function() {
