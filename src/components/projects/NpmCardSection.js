@@ -1,7 +1,7 @@
 import React from 'react'
 
 import Section from './ProjectCardSection'
-import prettyBytes from 'pretty-bytes'
+import prettyBytes from '../../helpers/pretty-bytes'
 
 const NpmCardSection = ({ project }) => {
   const bundleSize = project.gzip ? prettyBytes(project.gzip) : 0
