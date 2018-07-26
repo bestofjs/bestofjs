@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Fragment } from 'react'
 import numeral from 'numeral'
 
 import TagLabel from '../../tags/TagLabelCompact'
@@ -17,7 +17,7 @@ function addMissingHttp(url) {
 const formatNumber = number => numeral(number).format('0,0')
 
 const Header = ({ project }) => (
-  <div className="">
+  <Fragment>
     <div className="inner">
       <p>
         <Description text={project.description} showEmojis />
@@ -66,7 +66,7 @@ const Header = ({ project }) => (
         </p>
       </div>
     </div>
-  </div>
+  </Fragment>
 )
 
 export default Header

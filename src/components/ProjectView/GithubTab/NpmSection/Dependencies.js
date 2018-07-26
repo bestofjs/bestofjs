@@ -1,33 +1,10 @@
 import React from 'react'
+
 import Toggle from 'react-toggled'
 import { Link } from 'react-router-dom'
 
-import withPackageData from '../../../containers/withPackageData'
-import StarTotal from '../../common/utils/StarTotal'
-
-const NpmSection = ({ project }) => (
-  <section className="inner npm-section">
-    <a
-      href={`https://www.npmjs.com/package/${project.npm}`}
-      style={{ display: 'flex', alignItems: 'center', marginBottom: '.5rem' }}
-      target="_blank"
-    >
-      <img
-        src="/logos/npm.svg"
-        alt="NPM"
-        className="npm"
-        height="7"
-        width="18"
-        style={{ marginRight: '.25rem' }}
-      />
-      <span className="link" style={{ marginRight: '.25rem' }}>
-        {project.npm}
-      </span>
-      <span className="version text-secondary">{project.version}</span>
-    </a>
-    <Dependencies project={project} />
-  </section>
-)
+import withPackageData from '../../../../containers/withPackageData'
+import StarTotal from '../../../common/utils/StarTotal'
 
 const Dependencies = ({ project }) => {
   const count = project.dependency_count
@@ -35,7 +12,7 @@ const Dependencies = ({ project }) => {
   return project.dependencies ? (
     <DependencyList dependencies={project.dependencies} />
   ) : (
-    <span>Loading...</span>
+    <span>Loading dependencies...</span>
   )
 }
 
@@ -117,4 +94,4 @@ const DependencyFullList = ({ packages }) => {
 
 const ConnectedDependencyFullList = withPackageData(DependencyFullList)
 
-export default NpmSection
+export default Dependencies

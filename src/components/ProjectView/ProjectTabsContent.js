@@ -47,9 +47,6 @@ const ProjectTabsContent = styled.div`
     border-bottom: 1px dotted ${cardBorderColor};
   }
   .inner.github a,
-  .inner.npm-section a {
-    color: inherit;
-  }
   .inner.github a:hover,
   .inner.npm-section a:hover {
     color: #cc4700;
