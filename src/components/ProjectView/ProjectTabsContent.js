@@ -51,16 +51,6 @@ const ProjectTabsContent = styled.div`
   .inner.npm-section a:hover {
     color: #cc4700;
   }
-  .toggler {
-    color: inherit;
-    cursor: pointer;
-  }
-  .toggler:hover {
-    color: #cc4700;
-  }
-  .toggler .icon {
-    margin-right: 0.25rem;
-  }
   .dependencies {
     overflow: hidden;
     white-space: nowrap;

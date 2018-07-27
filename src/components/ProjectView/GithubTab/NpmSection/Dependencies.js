@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom'
 
 import withPackageData from '../../../../containers/withPackageData'
 import StarTotal from '../../../common/utils/StarTotal'
+import ExpandableSection from './ExpandableSection'
 
 const Dependencies = ({ project }) => {
   const count = project.dependency_count
@@ -20,13 +21,10 @@ const DependencyList = ({ dependencies }) => (
   <Toggle>
     {({ on, getTogglerProps }) => (
       <div className="dependencies">
-        <a className="toggler" {...getTogglerProps()}>
-          <span
-            className={`octicon octicon-triangle-${on ? 'down' : 'right'} icon`}
-          />{' '}
+        <ExpandableSection on={on} getTogglerProps={getTogglerProps}>
           {dependencies.length}
           {' dependencies'}
-        </a>
+        </ExpandableSection>
         {!on && <DependencyListPreview dependencies={dependencies} />}
         <div>
           {on && (
