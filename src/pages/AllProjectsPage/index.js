@@ -7,6 +7,7 @@ import log from '../../helpers/log'
 import * as uiActionCreators from '../../actions/uiActions'
 import { getProjectsSortedBy, getAllProjectsCount } from '../../selectors'
 import { getPageNumber } from '../../components/common/pagination/helpers'
+import Spinner from '../../components/common/Spinner'
 
 class AllProjectsPage extends Component {
   render() {
@@ -22,7 +23,10 @@ class AllProjectsPage extends Component {
       itemPerPage,
       pageNumber
     } = this.props
-    return (
+    const loading = tagProjects.length === 0
+    return loading ? (
+      <Spinner />
+    ) : (
       <TagFilter
         projects={tagProjects}
         total={count}
