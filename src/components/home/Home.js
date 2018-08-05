@@ -22,14 +22,16 @@ const Home = props => {
       <section className="no-card-container">
         <Intro />
       </section>
-      <section className="no-card-container">
-        <News date={date} title="Weekly Best of JavaScript">
-          We have just launched{' '}
-          <a href="https://weekly.bestofjs.org">Weekly Best of JavaScript</a>,
-          our weekly newsletter. Get the weekly trends in your inbox and never
-          miss a big story!
-        </News>
-      </section>
+      {false && (
+        <section className="no-card-container">
+          <News date={date} title="Weekly Best of JavaScript">
+            We have just launched{' '}
+            <a href="https://weekly.bestofjs.org">Weekly Best of JavaScript</a>,
+            our weekly newsletter. Get the weekly trends in your inbox and never
+            miss a big story!
+          </News>
+        </section>
+      )}
       <section>
         <SectionTitle className="no-card-container">
           <span className="icon mega-octicon octicon-flame" />
