@@ -37,7 +37,7 @@ const Header = ({ project }) => (
         return <TagLabel key={tag.id} tag={tag} />
       })}
     </div>
-    {project.npm && <NpmSection project={project} />}
+    {false && project.npm && <NpmSection project={project} />}
     <div className="inner github" style={{ display: 'flex' }}>
       <div>
         <p>

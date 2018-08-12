@@ -2,10 +2,21 @@ import React from 'react'
 
 import Toggle from 'react-toggled'
 import { Link } from 'react-router-dom'
+import styled from 'styled-components'
 
 import withPackageData from '../../../../containers/withPackageData'
 import StarTotal from '../../../common/utils/StarTotal'
 import ExpandableSection from './ExpandableSection'
+import DependencyTable from './DependencyTable'
+
+const DependenciesContainer = styled.div`
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  .inline-list > *:not(:last-child) {
+    margin-right: 0.5rem;
+  }
+`
 
 const Dependencies = ({ project }) => {
   const count = project.dependency_count
@@ -20,7 +31,7 @@ const Dependencies = ({ project }) => {
 const DependencyList = ({ dependencies }) => (
   <Toggle>
     {({ on, getTogglerProps }) => (
-      <div className="dependencies">
+      <DependenciesContainer>
         <ExpandableSection on={on} getTogglerProps={getTogglerProps}>
           {dependencies.length}
           {' dependencies'}
@@ -34,7 +45,7 @@ const DependencyList = ({ dependencies }) => (
             />
           )}
         </div>
-      </div>
+      </DependenciesContainer>
     )}
   </Toggle>
 )
@@ -42,14 +53,16 @@ const DependencyList = ({ dependencies }) => (
 const DependencyListPreview = ({ dependencies }) => (
   <span className="inline-list" style={{ marginLeft: '.5rem' }}>
     {dependencies.map(packageName => (
-      <span key={packageName}>{packageName}</span>
+      <span className="text-secondary" key={packageName}>
+        {packageName}
+      </span>
     ))}
   </span>
 )
 
 const DependencyFullList = ({ packages }) => {
   return (
-    <table className="block-list">
+    <DependencyTable className="block-list">
       <thead>
         <tr>
           <td>Package on npm</td>
@@ -69,9 +82,6 @@ const DependencyFullList = ({ packages }) => {
                 <span>
                   <Link
                     to={`/projects/${npmPackage.project.slug}`}
-                    styleX={{
-                      textDecoration: 'underline'
-                    }}
                     className="text-secondary"
                   >
                     {npmPackage.project.name}{' '}
@@ -86,7 +96,7 @@ const DependencyFullList = ({ packages }) => {
           </tr>
         ))}
       </tbody>
-    </table>
+    </DependencyTable>
   )
 }
 

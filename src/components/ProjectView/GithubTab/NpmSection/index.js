@@ -20,7 +20,7 @@ const NpmSection = ({ project }) => (
       <span className="link" style={{ marginRight: '.25rem' }}>
         {project.npm}
       </span>
-      <span className="version text-secondary">{project.version}</span>
+      <span className="version">{project.version}</span>
     </a>
     <BundleSize project={project} style={{ marginBottom: '.5rem' }} />
     <Dependencies project={project} />

@@ -8,7 +8,7 @@ const handlers = {
   }),
   GET_PROJECT_DATA_SUCCESS: (state, action) => {
     const { contributor_count, commit_count } = action.payload.github
-    const { npm, bundle } = action.payload
+    const { npm, bundle, packageSize } = action.payload
     const { dependencies } = npm
     return {
       ...state,
@@ -18,7 +18,8 @@ const handlers = {
         commit_count,
         contributor_count,
         dependencies,
-        bundle
+        bundle,
+        packageSize
       }
     }
   }
