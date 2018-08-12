@@ -3,6 +3,7 @@ import styled from 'styled-components'
 
 const action = 'https://api.elasticemail.com/contact/add?version=2'
 const name = 'email'
+const breakPoint = 600
 
 const Div = styled.div`
   background-color: white;
@@ -17,15 +18,21 @@ const Text = styled.p`
 
 const Row = styled.div`
   display: flex;
+  flex-direction: column;
+  @media (min-width: ${breakPoint}px) {
+    flex-direction: row;
+  }
 `
 const Input = styled.input`
-  margin-right: 1rem;
   font-size: 1rem;
   font-family: Roboto Slab, sans-serif;
   border-radius: 3px;
   padding: 10px;
   border: 1px solid #cc4700;
   flex-grow: 1;
+  @media (min-width: ${breakPoint}px) {
+    margin-right: 1rem;
+  }
 `
 
 const Button = styled.button`
@@ -40,19 +47,24 @@ const Button = styled.button`
   font-weight: 400;
   white-space: nowrap;
   font-size: 1rem;
+  @media (max-width: ${breakPoint - 1}px) {
+    margin-top: 0.5rem;
+  }
 `
 
 const Subscribe = () => {
   return (
     <Div>
-      <Title>Get the latest JS rankings in your inbox every week</Title>
+      <Title>Get the rankings in your inbox every week</Title>
       <Text>
         Sign up for and you'll receive exclusive stats about the most popular
         JavaScript projects every week.
       </Text>
       <Text>
-        Check the latest issue of{' '}
-        <a href="https://weekly.bestofjs.org">Weekly Best of JavaScript</a>.
+        Check online the latest issue:{' '}
+        <a href="https://weekly.bestofjs.org/latest">
+          Weekly Best of JavaScript
+        </a>.
       </Text>
       <form action={action} method="post">
         <Row>

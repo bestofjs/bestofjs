@@ -1,8 +1,19 @@
 # Architecture - Date Flow
 
-The application is made with `create-react-app` and uses `redux` to manage the state.
+## API request made by the application
+
+- https://bestofjs-api-v2.firebaseapp.com/projects.json called when the application starts, to fetch data about ALL projects displayed in list of project pages
+- https://bestofjs-api-v2.now.sh/projects/:owner/:repo called to get the details of a given project:
+  - number of contributors
+  - list of dependencies
+  - data for the daily trends "heat map"
+  - ...
+- https://get-github-readme-v2.now.sh/:owner/:repo?branch=master called to fetch and format the README.md of a given project from GitHub
+- https://bestofjs-api-v1.now.sh/projects/:owner/:repo/user-content called to fetch user links and user reviews about a given project.
 
 ## Flow
+
+The application is made with `create-react-app` and uses `redux` to manage the state.
 
 - The app starts => dispatch `FETCH_PROJECTS` action and call `fetchProjectsFromAPI` to get data from the API
 - Ajax request https://bestofjs-api-v2.firebaseapp.com/projects.json => +150KB gzipped (527KB)
