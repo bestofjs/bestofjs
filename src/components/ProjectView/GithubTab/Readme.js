@@ -4,7 +4,6 @@ import styled from 'styled-components'
 
 import Button from '../../common/form/Button'
 
-// import '../../../stylesheets/github-readme.css'
 import '../../../stylesheets/markdown-body.css'
 
 const GithubLink = Button.withComponent('a')

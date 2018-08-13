@@ -6,7 +6,6 @@ import Description from '../../common/utils/Description'
 import StarIcon from '../../common/utils/StarIcon'
 import fromNow from '../../../helpers/fromNow'
 import formatUrl from '../../../helpers/formatUrl'
-import NpmSection from './NpmSection'
 
 // Some project URLs do not start with `http` ('daneden.github.io/animate.css' for example)
 function addMissingHttp(url) {
@@ -37,7 +36,6 @@ const Header = ({ project }) => (
         return <TagLabel key={tag.id} tag={tag} />
       })}
     </div>
-    {false && project.npm && <NpmSection project={project} />}
     <div className="inner github" style={{ display: 'flex' }}>
       <div>
         <p>

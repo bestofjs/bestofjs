@@ -10,18 +10,18 @@ import Card from '../../common/Card'
 // Show the heat map only if we have at least 2 daily deltas to show
 const Trends = ({ project }) => (
   <Card style={{ marginTop: '2rem' }}>
-    <div className="header">
+    <Card.Header>
       <span className="octicon octicon-graph" />
       <span> DAILY TRENDS</span>
-    </div>
-    <div className="body">
+    </Card.Header>
+    <Card.Body>
       {project.deltas.length > 1 && (
         <div className="inner">
           <Heatmap deltas={project.deltas} />
         </div>
       )}
       <MonthlyTrends project={project} />
-    </div>
+    </Card.Body>
   </Card>
 )
 

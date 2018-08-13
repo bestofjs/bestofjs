@@ -39,13 +39,13 @@ const PackageSize = ({ project, ...rest }) => {
 const PackageSizePreview = ({ packageSize }) => {
   return (
     <span className="text-secondary" style={{ marginLeft: '.5rem' }}>
-      <FileSize value={packageSize.installSize} />
+      <FileSize value={packageSize.installSize} /> on the disk
     </span>
   )
 }
 
 const BundleSizeDetails = ({ project, packageSize }) => {
-  const url = `https://bundlephobia.com/result?p=${project.npm}`
+  const url = `https://packagephobia.now.sh/result?p=${project.npm}`
   return (
     <List>
       <List.Item>
@@ -60,7 +60,7 @@ const BundleSizeDetails = ({ project, packageSize }) => {
       </List.Item>
       <List.Link>
         View details on{' '}
-        <a className="" href={url}>
+        <a href={url} target="_blank">
           <i>Package Phobia</i>
         </a>
       </List.Link>

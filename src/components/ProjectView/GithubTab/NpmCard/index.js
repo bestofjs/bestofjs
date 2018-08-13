@@ -8,29 +8,22 @@ import PackageSize from './PackageSize'
 const NpmCard = ({ project }) => {
   return (
     <Card style={{ marginTop: '2rem' }}>
-      <div className="header">
+      <Card.Header>
         <span className="octicon octicon-package" />
-        {/* <img
-          src="/logos/npm.svg"
-          alt="NPM"
-          className="npm"
-          height="7"
-          width="18"
-          style={{ marginRight: '.25rem' }}
-        /> */}
         <span> PACKAGE</span>
-      </div>
-      <div className="body">
-        <div className="inner">
+      </Card.Header>
+      <Card.Body>
+        <Card.Section>
           <span style={{ marginRight: '.25rem' }}>{project.npm}</span>
           <span className="version">{project.version}</span>
           <a
             href={`https://www.npmjs.com/package/${project.npm}`}
             style={{ marginLeft: '.25rem' }}
+            target="_blank"
           >
             View on NPM
           </a>
-        </div>
+        </Card.Section>
         <Card.Section>
           <Dependencies project={project} />
         </Card.Section>
@@ -40,7 +33,7 @@ const NpmCard = ({ project }) => {
         <Card.Section>
           <PackageSize project={project} />
         </Card.Section>
-      </div>
+      </Card.Body>
     </Card>
   )
 }

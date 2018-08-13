@@ -39,7 +39,7 @@ const BundleSize = ({ project, ...rest }) => {
 const BundleSizePreview = ({ bundle }) => {
   return (
     <span className="text-secondary" style={{ marginLeft: '.5rem' }}>
-      <FileSize value={bundle.gzip} />
+      <FileSize value={bundle.gzip} /> (Minified + Gzipped)
     </span>
   )
 }
@@ -56,72 +56,11 @@ const BundleSizeDetails = ({ project, bundle, packageSize }) => {
       </List.Item>
       <List.Link>
         View details on{' '}
-        <a href={url}>
+        <a href={url} target="_blank">
           <i>Bundle Phobia</i>
         </a>
       </List.Link>
-      {/* <p>
-        Install size: <FileSize value={packageSize.installSize} />
-      </p> */}
     </List>
-  )
-}
-
-const BundleSizeDetails0 = ({ project, bundle, packageSize }) => {
-  const url = `https://bundlephobia.com/result?p=${project.npm}`
-  return (
-    <div style={{ margin: '.5rem 0 1rem', paddingLeft: '.5rem' }}>
-      <List style={{ marginBottom: '1rem' }}>
-        <thead>
-          <tr>
-            <td colSpan="2">
-              <i>
-                Data from{' '}
-                <a className="link" href={url}>
-                  Bundlephobia.com
-                </a>
-              </i>
-            </td>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Minified + Gzipped</td>
-            <td>
-              <FileSize value={bundle.gzip} />
-            </td>
-          </tr>
-          <tr>
-            <td>Minified</td>
-            <td>
-              <FileSize value={bundle.size} />
-            </td>
-          </tr>
-        </tbody>
-      </List>
-      <List>
-        <thead>
-          <tr>
-            <td colSpan="2">
-              <i>
-                Data from{' '}
-                <a className="link" href={url}>
-                  View on Package Phobia.com
-                </a>
-              </i>
-            </td>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Installation size</td>
-            <td>
-              <FileSize value={packageSize.installSize} />
-            </td>
-          </tr>
-        </tbody>
-      </List>
-    </div>
   )
 }
 

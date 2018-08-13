@@ -9,18 +9,6 @@ const Card = styled.div`
   background-color: #fff;
   vertical-align: top;
   border: 1px solid ${cardBorderColor};
-  .header {
-    padding: 0.5rem 1rem;
-    font-size: 1em;
-    border-bottom: 1px solid #ccc;
-  }
-  .header .counter,
-  .header .comment {
-    color: rgba(255, 255, 255, 0.7);
-  }
-  .header .big {
-    font-size: 1.5rem;
-  }
   .inner {
     padding: 1rem;
   }
@@ -38,6 +26,21 @@ const Card = styled.div`
     color: #000;
   }
 `
+
+Card.Header = styled.div`
+  padding: 0.5rem 1rem;
+  font-size: 1em;
+  border-bottom: 1px solid #ccc;
+  .counter,
+  .comment {
+    color: rgba(255, 255, 255, 0.7);
+  }
+  .big {
+    font-size: 1.5rem;
+  }
+`
+
+Card.Body = styled.div``
 
 Card.Section = styled.div`
   padding: 1em;

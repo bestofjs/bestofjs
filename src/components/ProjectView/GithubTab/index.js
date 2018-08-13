@@ -6,7 +6,7 @@ import Header from './Header'
 import ProjectHeader from '../ProjectHeader'
 import Trends from './Trends'
 import ProjectTabsContent from '../ProjectTabsContent'
-import NpmCard from './NpmSection/NpmCard'
+import NpmCard from './NpmCard'
 
 const GitHub = props => {
   const { project } = props
@@ -17,7 +17,7 @@ const GitHub = props => {
       <ProjectTabsContent>
         <Header {...props} />
       </ProjectTabsContent>
-      <NpmCard {...props} />
+      {project.npm && <NpmCard {...props} />}
       <Trends {...props} />
       <Readme {...props} />
     </div>
