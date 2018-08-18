@@ -17,7 +17,7 @@ const GitHub = props => {
       <ProjectTabsContent>
         <Header {...props} />
       </ProjectTabsContent>
-      {project.npm && <NpmCard {...props} />}
+      {project.packageName && <NpmCard {...props} />}
       <Trends {...props} />
       <Readme {...props} />
     </div>

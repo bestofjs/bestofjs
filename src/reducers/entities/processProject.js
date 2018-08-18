@@ -33,9 +33,7 @@ export default function processProject(item) {
     pushed_at: item.pushed_at,
     stars: item.stars,
     url: item.url,
-    npm: item.npm,
-    version: item.version,
-    dependency_count: item.dependency_count,
+    packageName: item.npm,
     contributor_count: item.contributor_count,
     owner_id: item.owner_id,
     stats: {

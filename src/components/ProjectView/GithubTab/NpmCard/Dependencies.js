@@ -19,13 +19,11 @@ const DependenciesContainer = styled.div`
 `
 
 const Dependencies = ({ project }) => {
-  const count = project.dependency_count
+  const { dependencies } = project.npm
+  if (!dependencies) return <span>Loading dependencies...</span>
+  const count = dependencies.length
   if (count === 0) return <span>No dependencies</span>
-  return project.dependencies ? (
-    <DependencyList dependencies={project.dependencies} />
-  ) : (
-    <span>Loading dependencies...</span>
-  )
+  return <DependencyList dependencies={dependencies} />
 }
 
 const DependencyList = ({ dependencies }) => (

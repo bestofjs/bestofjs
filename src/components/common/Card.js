@@ -30,7 +30,7 @@ const Card = styled.div`
 Card.Header = styled.div`
   padding: 0.5rem 1rem;
   font-size: 1em;
-  border-bottom: 1px solid #ccc;
+  border-bottom: 1px solid ${cardBorderColor};
   .counter,
   .comment {
     color: rgba(255, 255, 255, 0.7);
@@ -47,6 +47,12 @@ Card.Section = styled.div`
   &:not(:first-child) {
     border-top: 1px dashed ${cardBorderColor};
   }
+`
+
+Card.Footer = styled.div`
+  padding: 0.5rem 1rem;
+  text-align: center;
+  border-top: 1px solid ${cardBorderColor};
 `
 
 export default Card

@@ -9,7 +9,6 @@ const handlers = {
   GET_PROJECT_DATA_SUCCESS: (state, action) => {
     const { contributor_count, commit_count } = action.payload.github
     const { npm, bundle, packageSize } = action.payload
-    const { dependencies } = npm
     return {
       ...state,
       [action.id]: {
@@ -17,7 +16,7 @@ const handlers = {
         deltas: action.payload['daily-trends'],
         commit_count,
         contributor_count,
-        dependencies,
+        npm,
         bundle,
         packageSize
       }
