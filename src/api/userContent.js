@@ -1,10 +1,7 @@
 import { fetchJSON } from '../helpers/fetch'
 import getApi from '../config/api'
 
-const debug = false
-const API_BASE_URL = debug
-  ? 'http://localhost:3000'
-  : getApi('GET_USER_CONTENT')
+const API_BASE_URL = getApi('USER_CONTENT')
 
 // Call user-content API to read/write "links" and "reviews"
 function apiRequest(url, token, options) {

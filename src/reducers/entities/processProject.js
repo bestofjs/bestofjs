@@ -56,8 +56,7 @@ export default function processProject(item) {
     monthly: item.monthly,
     svg: item.svglogo,
     icon: item.icon,
-    branch: item.branch,
-    gzip: item.gzip
+    branch: item.branch
   }
   return result
 }

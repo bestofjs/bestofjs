@@ -34,7 +34,7 @@ class ProjectList extends React.Component {
       showDelta = true,
       showDescription = true,
       showURL = false,
-      showMetrics = true,
+      showMetrics = false,
       deltaFilter,
       viewOptions,
       items,

@@ -74,7 +74,7 @@ const TagFilter = ({
         deltaFilter={ui.starFilter}
         showStars={showStars}
         showTags={showTags}
-        showMetrics={ui.showMetrics}
+        showMetrics={false}
         viewOptions={ui.viewOptions}
       />
     </MainContent>
