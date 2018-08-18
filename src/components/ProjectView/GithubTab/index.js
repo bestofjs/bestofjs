@@ -1,12 +1,12 @@
 import React from 'react'
 
 import Tabs from '../Tabs'
-import Readme from './Readme'
 import Header from './Header'
 import ProjectHeader from '../ProjectHeader'
-import Trends from './Trends'
 import ProjectTabsContent from '../ProjectTabsContent'
 import NpmCard from './NpmCard'
+import TrendsCard from './TrendsCard'
+import ReadmeCard from './ReadmeCard'
 
 const GitHub = props => {
   const { project } = props
@@ -18,8 +18,8 @@ const GitHub = props => {
         <Header {...props} />
       </ProjectTabsContent>
       {project.packageName && <NpmCard {...props} />}
-      <Trends {...props} />
-      <Readme {...props} />
+      <TrendsCard {...props} />
+      <ReadmeCard {...props} />
     </div>
   )
 }
