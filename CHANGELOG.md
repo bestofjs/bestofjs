@@ -1,6 +1,6 @@
 # Change log
 
-## Next release
+## 0.13.0 - 2018-08-19
 
 - Add bundle size and package size data (#61)
 - Update RSS feed URL, the feed is built from the weekly site https://weekly.bestofjs.org/rss/trends.xml
