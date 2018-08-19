@@ -9,7 +9,6 @@ import PackageSize from './PackageSize'
 
 const NpmCard = ({ project }) => {
   const { packageName, npm } = project
-  const { version } = npm || {}
   return (
     <Card style={{ marginTop: '2rem' }}>
       <Card.Header>
@@ -17,27 +16,11 @@ const NpmCard = ({ project }) => {
         <span> PACKAGE</span>
       </Card.Header>
       <Card.Body>
-        {npm ? (
-          <Fragment>
-            <Card.Section>
-              <span style={{ marginRight: '.25rem' }}>{packageName}</span>
-              {version && (
-                <span className="version text-secondary">{version}</span>
-              )}
-            </Card.Section>
-            <Card.Section>
-              <Dependencies project={project} />
-            </Card.Section>
-            <Card.Section>
-              <BundleSize project={project} />
-            </Card.Section>
-            <Card.Section>
-              <PackageSize project={project} />
-            </Card.Section>
-          </Fragment>
-        ) : (
-          <Spinner />
-        )}
+        <CardBodyContent
+          project={project}
+          npm={npm}
+          packageName={packageName}
+        />
       </Card.Body>
       <Card.Footer>
         <a
@@ -49,6 +32,33 @@ const NpmCard = ({ project }) => {
         </a>
       </Card.Footer>
     </Card>
+  )
+}
+
+const CardBodyContent = ({ project, npm, packageName }) => {
+  if (!npm) return <Spinner />
+  if (npm.errorMessage)
+    return (
+      <Card.Section>
+        <div>{npm.errorMessage}</div>
+      </Card.Section>
+    )
+  return (
+    <Fragment>
+      <Card.Section>
+        <span style={{ marginRight: '.25rem' }}>{packageName}</span>
+        <span className="version text-secondary">{npm.version}</span>
+      </Card.Section>
+      <Card.Section>
+        <Dependencies project={project} />
+      </Card.Section>
+      <Card.Section>
+        <BundleSize project={project} />
+      </Card.Section>
+      <Card.Section>
+        <PackageSize project={project} />
+      </Card.Section>
+    </Fragment>
   )
 }
 

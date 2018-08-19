@@ -46,10 +46,11 @@ function getReadmeFailure(id) {
   }
 }
 
-function getProjectDataFailure(id) {
+function getProjectDataFailure(id, errorMessage) {
   return {
     type: 'GET_PROJECT_DATA_FAILURE',
-    id
+    id,
+    errorMessage
   }
 }
 
@@ -107,6 +108,8 @@ export function fetchProjectData(project) {
     const url = api('GET_PROJECT_DATA')
     return fetchJSON(`${url}/projects/${project.full_name}`)
       .then(html => dispatch(getProjectDataSuccess(id, html)))
-      .catch(response => dispatch(getProjectDataFailure(id, response)))
+      .catch(error =>
+        dispatch(getProjectDataFailure(id, error.message || 'Unexpected Error'))
+      )
   }
 }

@@ -2,11 +2,10 @@ const setup = {
   development: {
     GET_PROJECTS: 'https://bestofjs-api-dev.firebaseapp.com/',
     GET_README: 'https://get-github-readme-v2.now.sh',
-    GET_USER_CONTENT: 'https://bestofjs-api-mncryqflqv.now.sh',
+    GET_USER_CONTENT: 'https://bestofjs-api-v1.now.sh',
     USER_CONTENT:
       'https://webtask.it.auth0.com/api/run/wt-mikeair-gmail_com-0/user-content-api-v3',
-    // GET_PROJECT_DATA: 'https://bestofjs-api-v2.now.sh',
-    GET_PROJECT_DATA: 'https://bestofjs-api-mncryqflqv.now.sh',
+    GET_PROJECT_DATA: 'https://bestofjs-api-v1.now.sh',
     ISSUES_REPO: 'michaelrambeau/bestofjs-sandbox'
   },
   production: {

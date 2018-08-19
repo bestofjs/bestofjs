@@ -56,12 +56,12 @@ const Header = ({ project }) => (
           <span className="octicon octicon-organization" />{' '}
           {formatNumber(project.contributor_count)} contributors
         </p>
-        <p>
-          <span className="octicon octicon-history" />{' '}
-          {project.commit_count
-            ? `${formatNumber(project.commit_count)} commits`
-            : 'Loading'}
-        </p>
+        {project.commit_count && (
+          <p>
+            <span className="octicon octicon-history" />
+            {` ${formatNumber(project.commit_count)} commits`}
+          </p>
+        )}
       </div>
     </div>
   </Fragment>
