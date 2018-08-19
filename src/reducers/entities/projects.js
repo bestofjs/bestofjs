@@ -7,18 +7,29 @@ const handlers = {
     [action.id]: { ...state[action.id], readme: action.html }
   }),
   GET_PROJECT_DATA_SUCCESS: (state, action) => {
-    const { contributor_count, commit_count } = action.payload.github
-    const { dependencies } = action.payload.npm
+    const { id, payload } = action
+    const { contributor_count, commit_count } = payload.github
+    const { npm, bundle, packageSize } = payload
     return {
       ...state,
-      [action.id]: {
-        ...state[action.id],
+      [id]: {
+        ...state[id],
         deltas: action.payload['daily-trends'],
         commit_count,
         contributor_count,
-        dependencies
+        npm,
+        bundle,
+        packageSize
       }
     }
+  },
+  GET_PROJECT_DATA_FAILURE: (state, action) => {
+    const { errorMessage, id } = action
+    const npm = {
+      errorMessage
+    }
+    const project = { ...state[id], npm }
+    return { ...state, [id]: project }
   }
 }
 

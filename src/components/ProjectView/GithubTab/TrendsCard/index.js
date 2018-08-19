@@ -2,26 +2,26 @@ import React from 'react'
 import styled from 'styled-components'
 
 import Heatmap from './Heatmap'
-import StarDelta from '../../common/utils/StarDelta'
-import StarIcon from '../../common/utils/StarIcon'
-import Card from '../../common/Card'
+import StarDelta from '../../../common/utils/StarDelta'
+import StarIcon from '../../../common/utils/StarIcon'
+import Card from '../../../common/Card'
 
 // New "DAILY TRENDS" block (Sep. 2017, v0.9)
 // Show the heat map only if we have at least 2 daily deltas to show
-const Trends = ({ project }) => (
+const TrendsCards = ({ project }) => (
   <Card style={{ marginTop: '2rem' }}>
-    <div className="header">
+    <Card.Header>
       <span className="octicon octicon-graph" />
       <span> DAILY TRENDS</span>
-    </div>
-    <div className="body">
+    </Card.Header>
+    <Card.Body>
       {project.deltas.length > 1 && (
         <div className="inner">
           <Heatmap deltas={project.deltas} />
         </div>
       )}
       <MonthlyTrends project={project} />
-    </div>
+    </Card.Body>
   </Card>
 )
 
@@ -97,4 +97,4 @@ const MonthlyTrends = ({ project }) => {
   )
 }
 
-export default Trends
+export default TrendsCards

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Fragment } from 'react'
 import numeral from 'numeral'
 
 import TagLabel from '../../tags/TagLabelCompact'
@@ -6,7 +6,6 @@ import Description from '../../common/utils/Description'
 import StarIcon from '../../common/utils/StarIcon'
 import fromNow from '../../../helpers/fromNow'
 import formatUrl from '../../../helpers/formatUrl'
-import NpmSection from './NpmSection'
 
 // Some project URLs do not start with `http` ('daneden.github.io/animate.css' for example)
 function addMissingHttp(url) {
@@ -17,7 +16,7 @@ function addMissingHttp(url) {
 const formatNumber = number => numeral(number).format('0,0')
 
 const Header = ({ project }) => (
-  <div className="">
+  <Fragment>
     <div className="inner">
       <p>
         <Description text={project.description} showEmojis />
@@ -37,7 +36,6 @@ const Header = ({ project }) => (
         return <TagLabel key={tag.id} tag={tag} />
       })}
     </div>
-    {project.npm && <NpmSection project={project} />}
     <div className="inner github" style={{ display: 'flex' }}>
       <div>
         <p>
@@ -58,15 +56,15 @@ const Header = ({ project }) => (
           <span className="octicon octicon-organization" />{' '}
           {formatNumber(project.contributor_count)} contributors
         </p>
-        <p>
-          <span className="octicon octicon-history" />{' '}
-          {project.commit_count
-            ? `${formatNumber(project.commit_count)} commits`
-            : 'Loading'}
-        </p>
+        {project.commit_count && (
+          <p>
+            <span className="octicon octicon-history" />
+            {` ${formatNumber(project.commit_count)} commits`}
+          </p>
+        )}
       </div>
     </div>
-  </div>
+  </Fragment>
 )
 
 export default Header

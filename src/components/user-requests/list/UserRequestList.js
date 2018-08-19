@@ -15,9 +15,9 @@ const UserRequestList = ({ requests }) => (
       <span className="octicon octicon-plus" /> ADD A PROJECT
     </CreateIssueLink>
     <Card>
-      <div className="header">
+      <Card.Header>
         My requests <span className="counter">({requests.length})</span>
-      </div>
+      </Card.Header>
       {requests.length === 0 ? (
         <div className="card-row inner">You have not created any request.</div>
       ) : (

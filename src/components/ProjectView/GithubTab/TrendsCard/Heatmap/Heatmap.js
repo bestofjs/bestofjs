@@ -30,9 +30,9 @@ const sameDate = (a, b) => {
 }
 
 const getClassName = active => value =>
-  `${active && value && sameDate(value.date, active.date)
-    ? 'active '
-    : ''}color-${value ? scale(value.count) : 'empty'}`
+  `${
+    active && value && sameDate(value.date, active.date) ? 'active ' : ''
+  }color-${value ? scale(value.count) : 'empty'}`
 
 const getTitle = value =>
   value ? `${value.count} stars added on ${value.date}` : 'No data'

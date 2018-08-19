@@ -2,6 +2,7 @@
 
 ## Next release
 
+- Add bundle size and package size data (#61)
 - Update RSS feed URL, the feed is built from the weekly site https://weekly.bestofjs.org/rss/trends.xml
 - Add commit hook, using [pretty-quick](https://github.com/azz/pretty-quick)
 
