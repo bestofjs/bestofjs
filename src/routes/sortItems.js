@@ -17,7 +17,7 @@ const sortItems = [
   },
   {
     path: 'trending/last-3-months',
-    key: 'quaterly'
+    key: 'quarterly'
   },
   {
     path: 'trending/last-12-months',

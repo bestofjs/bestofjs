@@ -7,7 +7,7 @@ import TagViewTitle from './TagViewTitle'
 import withPaginationControls from '../common/pagination/withPaginationControls'
 
 function renderGraph({ projects, ui }) {
-  const filters = ['yearly', 'quaterly', 'monthly', 'weekly', 'daily']
+  const filters = ['yearly', 'quarterly', 'monthly', 'weekly', 'daily']
   console.log('[Disabled]', projects, ui, filters) // eslint-disable-line
   // if (ui.starFilter === 'total') return (
   //   <StarsByDateGraph projects={projects} sortOrder={ui.starFilter} />

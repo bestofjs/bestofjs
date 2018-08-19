@@ -57,7 +57,7 @@ const MonthlyTrends = ({ project }) => {
     { label: 'Yesterday', category: 'daily' },
     { label: 'Last week', category: 'weekly' },
     { label: 'Last month', category: 'monthly' },
-    { label: 'Last 3 months', category: 'quaterly' },
+    { label: 'Last 3 months', category: 'quarterly' },
     { label: 'Last 12 months', category: 'yearly' }
   ].filter(item => {
     const value = stats[item.category]

@@ -31,7 +31,7 @@ export default [
     title: 'Trending projects this month'
   },
   {
-    value: 'quaterly',
+    value: 'quarterly',
     text: 'Last 3 months',
     comment: 'stars added the last 3 months',
     category: 'trend',

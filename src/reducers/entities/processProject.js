@@ -42,7 +42,7 @@ export default function processProject(item) {
       weekly: item.deltas.length > 6 ? roundAverage(weeklyTotal / 7) : null,
       monthly:
         monthlyStars.length > 1 ? addedAverage(monthlyStars[1], 30) : null,
-      quaterly:
+      quarterly:
         monthlyStars.length > 3
           ? addedAverage(nthElement(monthlyStars, 3), 90)
           : null,
