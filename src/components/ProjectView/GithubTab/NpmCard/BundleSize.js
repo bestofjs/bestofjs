@@ -44,8 +44,8 @@ const BundleSizePreview = ({ bundle }) => {
   )
 }
 
-const BundleSizeDetails = ({ project, bundle, packageSize }) => {
-  const url = `https://bundlephobia.com/result?p=${project.npm}`
+const BundleSizeDetails = ({ project, bundle }) => {
+  const url = `https://bundlephobia.com/result?p=${project.packageName}`
   return (
     <List>
       <List.Item>

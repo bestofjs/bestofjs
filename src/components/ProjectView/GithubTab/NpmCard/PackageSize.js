@@ -45,7 +45,7 @@ const PackageSizePreview = ({ packageSize }) => {
 }
 
 const BundleSizeDetails = ({ project, packageSize }) => {
-  const url = `https://packagephobia.now.sh/result?p=${project.npm}`
+  const url = `https://packagephobia.now.sh/result?p=${project.packageName}`
   return (
     <List>
       <List.Item>
