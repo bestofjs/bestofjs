@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react'
 import numeral from 'numeral'
 
-import TagLabel from '../../tags/TagLabelCompact'
+import TagLabelGroup from '../../tags/TagLabelGroup'
 import Description from '../../common/utils/Description'
 import StarIcon from '../../common/utils/StarIcon'
 import fromNow from '../../../helpers/fromNow'
@@ -31,10 +31,8 @@ const Header = ({ project }) => (
         )}
       </p>
     </div>
-    <div className="inner tags" style={{ paddingBottom: '.5em' }}>
-      {project.tags.map(function(tag) {
-        return <TagLabel key={tag.id} tag={tag} />
-      })}
+    <div className="inner tags">
+      <TagLabelGroup tags={project.tags} />
     </div>
     <div className="inner github" style={{ display: 'flex' }}>
       <div>

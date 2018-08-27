@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import numeral from 'numeral'
 import styled from 'styled-components'
 
-import TagLabel from '../tags/TagLabelCompact'
+import TagLabelGroup from '../tags/TagLabelGroup'
 import StarDelta from '../common/utils/StarDelta'
 import StarTotal from '../common/utils/StarTotal'
 import Description from '../common/utils/Description'
@@ -15,32 +15,6 @@ import Section from './ProjectCardSection'
 import fromNow from '../../helpers/fromNow'
 
 const formatNumber = number => numeral(number).format('0,0')
-
-const renderReviews = (reviews = []) => {
-  const count = reviews.length
-  const text = count === 1 ? 'One review' : `${count} reviews`
-  return (
-    <Section>
-      <span className="octicon octicon-heart" />
-      {text}
-    </Section>
-  )
-}
-
-const renderLinks = (links = []) => {
-  const count = links.length
-  const text = count === 1 ? `one link: ${links[0].title}` : `${count} links:`
-  const list = () => (
-    <ul>{links.map(link => <li key={link._id}>{link.title}</li>)}</ul>
-  )
-  return (
-    <Section>
-      <span className="octicon octicon-link" />
-      {text}
-      {count > 1 && list()}
-    </Section>
-  )
-}
 
 const cardBorderColor = '#cbcbcb'
 
@@ -182,25 +156,9 @@ const ProjectCard = ({
 
       {showTags && (
         <Section className="tags-card-section">
-          {project.tags.map(tag => (
-            <TagLabel tag={tag} key={`${project.slug}-${tag.id}`} />
-          ))}
+          <TagLabelGroup tags={project.tags} />
         </Section>
       )}
-
-      {showReviews &&
-        project.reviews && (
-          <Link className="card-block" to={`${path}/reviews`}>
-            {renderReviews(project.reviews)}
-          </Link>
-        )}
-
-      {showLinks &&
-        project.links && (
-          <Link className="card-block" to={`${path}/links`}>
-            {renderLinks(project.links)}
-          </Link>
-        )}
 
       {showMetrics &&
         project.npm && (
