@@ -44,8 +44,10 @@ function calculateAverageRating(reviews) {
   return sum / reviews.length
 }
 
-export const findProjectByNpmName = npmName =>
+export const findProjectByNpmName = packageName =>
   createSelector([npmProjects], projects => {
-    const foundProject = projects.find(project => project.npm === npmName)
+    const foundProject = projects.find(
+      project => project.packageName === packageName
+    )
     return foundProject
   })

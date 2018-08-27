@@ -15,7 +15,7 @@ const NpmCardSection = ({ project }) => {
           src="/logos/npm.svg"
           alt="npm package"
         />
-        {project.npm}
+        {project.packageName}
         <span className="version">{project.version}</span>
       </div>
       {project.gzip > 0 && (

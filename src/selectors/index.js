@@ -51,7 +51,7 @@ export const getAllProjectsCount = createSelector(
 )
 
 export const npmProjects = createSelector([allProjects], projects =>
-  projects.filter(project => !!project.npm)
+  projects.filter(project => !!project.packageName)
 )
 
 const sortProjects = fn => projects => helpers.sortBy(projects.slice(0), fn)
