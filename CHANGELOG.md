@@ -1,5 +1,9 @@
 # Change log
 
+## 0.13.1 - - 2018-09-15
+
+- Add link to [State of JavaScript 2018](https://stateofjs.com/)
+
 ## 0.13.0 - 2018-08-19
 
 - Add bundle size and package size data (#61)
