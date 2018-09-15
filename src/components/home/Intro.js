@@ -7,7 +7,7 @@ const TopIntro = () => (
     </h1>
     <p>
       A curated list of the most popular open-source projects related to the web
-      platform and node.js.
+      platform and Node.js.
     </p>
   </div>
 )

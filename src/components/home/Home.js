@@ -11,8 +11,10 @@ import Spinner from '../common/Spinner'
 import Subscribe from './Subscribe'
 import SectionTitle from './SectionTitle'
 import News from './News'
+import StateOfJS2018 from './StateOfJS2018'
+import SectionHeader from '../common/SectionHeader'
 
-const date = new Date(2018, 5, 18)
+const date = new Date(2018, 8, 8)
 
 const Home = props => {
   log('Render the <Home> component')
@@ -21,6 +23,9 @@ const Home = props => {
     <MainContent>
       <section className="no-card-container">
         <Intro />
+      </section>
+      <section className="no-card-container" style={{ paddingBottomX: 0 }}>
+        <StateOfJS2018 date={date} />
       </section>
       {false && (
         <section className="no-card-container">
@@ -33,16 +38,12 @@ const Home = props => {
         </section>
       )}
       <section>
-        <SectionTitle className="no-card-container">
-          <span className="icon mega-octicon octicon-flame" />
-          Today Hot Projects
-          <span
-            className="counter"
-            style={{ fontSize: '1rem', color: '#aaa', marginLeft: '.5rem' }}
-          >
-            (by number of stars added yesterday)
-          </span>
-        </SectionTitle>
+        <SectionHeader>
+          <SectionHeader.Title>Today Hot Projects</SectionHeader.Title>
+          <SectionHeader.SubTitle>
+            by number of stars added yesterday
+          </SectionHeader.SubTitle>
+        </SectionHeader>
         {!pending ? <HomeProjects {...props} /> : <Spinner />}
       </section>
       <section>
