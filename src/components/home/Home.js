@@ -38,7 +38,7 @@ const Home = props => {
         </section>
       )}
       <section>
-        <SectionHeader>
+        <SectionHeader icon="flame">
           <SectionHeader.Title>Today Hot Projects</SectionHeader.Title>
           <SectionHeader.SubTitle>
             by number of stars added yesterday

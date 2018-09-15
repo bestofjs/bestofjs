@@ -35,7 +35,7 @@ const StateOfJavaScript2018 = ({ date }) => {
   return (
     <Grid>
       <div>
-        <SectionHeader>
+        <SectionHeader icon="megaphone">
           <SectionHeader.Title>State of JavaScript 2018</SectionHeader.Title>
           <SectionHeader.SubTitle>
             Published {fromNow(date)}

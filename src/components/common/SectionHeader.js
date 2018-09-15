@@ -15,12 +15,12 @@ const MainCell = styled.div`
   flex-grow: 1;
 `
 
-const NewsHeader = ({ children }) => {
+const NewsHeader = ({ children, icon }) => {
   return (
     <Div>
       <IconCell>
         <span
-          className="mega-octicon octicon-megaphone"
+          className={`mega-octicon octicon-${icon}`}
           style={{ color: '#fa9e59' }}
         />
       </IconCell>
