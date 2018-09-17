@@ -6,6 +6,7 @@ import Spinner from '../../../common/Spinner'
 import Dependencies from './Dependencies'
 import BundleSize from './BundleSize'
 import PackageSize from './PackageSize'
+import License from './LicenseSection'
 
 const NpmCard = ({ project }) => {
   const { packageName, npm } = project
@@ -57,6 +58,9 @@ const CardBodyContent = ({ project, npm, packageName }) => {
       </Card.Section>
       <Card.Section>
         <PackageSize project={project} />
+      </Card.Section>
+      <Card.Section>
+        <License project={project} />
       </Card.Section>
     </Fragment>
   )

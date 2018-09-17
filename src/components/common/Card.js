@@ -28,8 +28,8 @@ const Card = styled.div`
 `
 
 Card.Header = styled.div`
-  padding: 0.5rem 1rem;
-  font-size: 1em;
+  padding: 1rem;
+  font-size: 1rem;
   border-bottom: 1px solid ${cardBorderColor};
   .counter,
   .comment {
@@ -50,7 +50,7 @@ Card.Section = styled.div`
 `
 
 Card.Footer = styled.div`
-  padding: 0.5rem 1rem;
+  padding: 1rem;
   text-align: center;
   border-top: 1px solid ${cardBorderColor};
 `
