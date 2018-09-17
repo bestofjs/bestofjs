@@ -2,7 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 
 const Div = styled.div`
-  margin: 0.5rem 0px 0px;
+  margin: 1rem 0px 0px;
   padding-left: 1rem;
   border-left: 1px dashed #cbcbcb;
 `
