@@ -4,6 +4,7 @@ import styled from 'styled-components'
 import Toggle from 'react-toggled'
 
 import ExpandableSection from '../ExpandableSection'
+import PackageName from './PackageName'
 
 const BasicList = styled.ul`
   margin: 0;
@@ -42,21 +43,10 @@ const PackageList = ({ packages, ...rest }) => {
     <BasicList {...rest}>
       {packages.map(packageName => (
         <li key={packageName}>
-          <PackageRow packageName={packageName} />
+          <PackageName name={packageName} />
         </li>
       ))}
     </BasicList>
-  )
-}
-
-const PackageRow = ({ packageName }) => {
-  const [nameOnly, versionOnly] = packageName.split('@')
-  const url = `https://npm.im/${nameOnly}`
-  return (
-    <span>
-      <a href={url}>{nameOnly}</a>{' '}
-      <span className="text-secondary">{versionOnly}</span>
-    </span>
   )
 }
 
