@@ -4,14 +4,16 @@ import styled from 'styled-components'
 import Table from '../DependencyTable'
 import allLicenseTypes from './license-types.json'
 import TruncatedList from './TruncatedPackageList'
+import PackageName from './PackageName'
 
 const LicenseReport = ({ licenses }) => {
   return (
-    <div>
+    <div style={{ marginTop: '1rem' }}>
+      <Intro licenses={licenses} />
       <Table>
         <thead>
           <tr>
-            <td width="50%">Type</td>
+            <td width="50%">License Type</td>
             <td>Packages</td>
           </tr>
         </thead>
@@ -51,8 +53,9 @@ const LicenseReport = ({ licenses }) => {
             rel="noopener noreferrer"
             href="https://tldrlegal.com/"
           >
-            TL;DR Legal
-          </a>.
+            <i>TL;DR Legal</i>
+          </a>{' '}
+          site.
         </p>
       </Credits>
     </div>
@@ -75,6 +78,36 @@ const LicenseType = ({ licenseName }) => {
       </a>
     </div>
   )
+}
+
+const Intro = ({ licenses }) => {
+  const add = (acc, value) => acc + value
+  const packageCount = licenses.map(license => license.count).reduce(add, 0)
+  const licenseCount = licenses.length
+  const licenseNames = licenses.map(license => license.name)
+  const intro = count => {
+    if (count === 1)
+      return (
+        <span>
+          The {packageCount} packages we analyzed are all{' '}
+          <em>{licenseNames[0]}</em> licensed.
+        </span>
+      )
+    return (
+      <span>
+        We found {licenseCount} different licenses ({licenseNames.join(', ')})
+        in the {packageCount} packages we analyzed.
+      </span>
+    )
+  }
+  if (packageCount === 1)
+    return (
+      <div>
+        <PackageName name={licenses[0].packages[0]} />
+        {` package is ${licenseNames[0]} licensed (no dependencies).`}
+      </div>
+    )
+  return <div>{intro(licenseCount)}</div>
 }
 
 LicenseReport.propTypes = {}

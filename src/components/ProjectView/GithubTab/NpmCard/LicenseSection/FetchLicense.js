@@ -18,7 +18,7 @@ const FetchLicense = ({ project }) => {
             <div style={{ marginTop: '1rem' }}>
               <div>
                 Please wait while we are checking all the dependencies. It may
-                take a while...
+                take a while, depending on the size of the package.
               </div>
               <Spinner />
             </div>
