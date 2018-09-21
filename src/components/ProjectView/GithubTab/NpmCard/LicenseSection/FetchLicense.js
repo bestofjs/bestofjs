@@ -3,13 +3,14 @@ import { Fetch } from 'react-request'
 
 import Spinner from '../../../../common/Spinner'
 import LicenseReport from './LicenseReport'
+import getApi from '../../../../../config/api'
 
 const sortByCount = (a, b) => (a.count > b.count ? -1 : 1)
 
 const FetchLicense = ({ project }) => {
   const { packageName } = project
-  const url = `https://fetch-license.now.sh/${packageName}`
-  // const url = `http://localhost:3001/${packageName}`
+  const root = getApi('FETCH_LICENSE')
+  const url = `${root}/package?name=${packageName}`
   return (
     <Fetch url={url}>
       {({ fetching, failed, data }) => {
@@ -25,7 +26,11 @@ const FetchLicense = ({ project }) => {
           )
         }
         if (failed) {
-          return <div>The request did not succeed.</div>
+          return (
+            <div style={{ marginTop: '1rem' }}>
+              Sorry, the request about "{packageName}" package did not succeed.
+            </div>
+          )
         }
         if (data) {
           const packagesByLicense = data.licenses
