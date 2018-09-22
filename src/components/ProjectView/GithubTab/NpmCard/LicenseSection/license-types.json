@@ -23,5 +23,10 @@
     "description":
       "You can do what you like with the software, as long as you include the required notices. This permissive license contains a patent license from the contributors of the code.",
     "link": "https://tldrlegal.com/license/apache-license-2.0-(apache-2.0)"
+  },
+  "CC0": {
+    "description":
+      "Releases software into the public domain, or otherwise grants permission to use it for any purpose. Disclaims patent licenses.",
+    "link": "https://tldrlegal.com/license/creative-commons-cc0-1.0-universal"
   }
 }
