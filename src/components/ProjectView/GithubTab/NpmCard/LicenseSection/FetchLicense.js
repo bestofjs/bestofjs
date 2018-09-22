@@ -17,10 +17,11 @@ const FetchLicense = ({ project }) => {
         if (fetching) {
           return (
             <div style={{ marginTop: '1rem' }}>
-              <div>
-                Please wait while we are checking all the dependencies. It may
-                take a while, depending on the size of the package.
-              </div>
+              <p>Please wait while we are checking all the dependencies.</p>
+              <p>
+                It may take a while, depending on the number of the dependencies
+                but the results will be cached.
+              </p>
               <Spinner />
             </div>
           )
@@ -32,17 +33,20 @@ const FetchLicense = ({ project }) => {
             </div>
           )
         }
-        if (data) {
-          const packagesByLicense = data.licenses
-          const licenses = Object.keys(packagesByLicense)
+        if (data && data.meta) {
+          const {
+            licenses,
+            meta: { count }
+          } = data
+          const licenseList = Object.keys(licenses)
             .map(key => ({
               name: key,
-              ...packagesByLicense[key]
+              ...licenses[key]
             }))
             .sort(sortByCount)
           return (
             <div>
-              <LicenseReport licenses={licenses} />
+              <LicenseReport licenses={licenseList} packageCount={count} />
             </div>
           )
         }

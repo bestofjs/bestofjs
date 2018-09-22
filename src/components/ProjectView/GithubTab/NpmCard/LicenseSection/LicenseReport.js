@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import styled from 'styled-components'
 
 import Table from '../DependencyTable'
@@ -6,10 +7,10 @@ import allLicenseTypes from './license-types.json'
 import TruncatedList from './TruncatedPackageList'
 import PackageName from './PackageName'
 
-const LicenseReport = ({ licenses }) => {
+const LicenseReport = ({ licenses, packageCount }) => {
   return (
     <div style={{ marginTop: '1rem' }}>
-      <Intro licenses={licenses} />
+      <Intro licenses={licenses} packageCount={packageCount} />
       <Table>
         <thead>
           <tr>
@@ -27,7 +28,9 @@ const LicenseReport = ({ licenses }) => {
                 <LicenseType licenseName={license.name} />
               </td>
               <td>
-                <p>{license.count} packages</p>
+                {license.packages.length > 1 && (
+                  <p>{license.packages.length} packages</p>
+                )}
                 <TruncatedList packages={license.packages} />
               </td>
             </tr>
@@ -80,9 +83,7 @@ const LicenseType = ({ licenseName }) => {
   )
 }
 
-const Intro = ({ licenses }) => {
-  const add = (acc, value) => acc + value
-  const packageCount = licenses.map(license => license.count).reduce(add, 0)
+const Intro = ({ licenses, packageCount }) => {
   const licenseCount = licenses.length
   const licenseNames = licenses.map(license => license.name)
   const intro = count => {
@@ -102,14 +103,32 @@ const Intro = ({ licenses }) => {
   }
   if (packageCount === 1)
     return (
-      <div>
-        <PackageName name={licenses[0].packages[0]} />
-        {` package is ${licenseNames[0]} licensed (no dependencies).`}
-      </div>
+      <SinglePackageIntro
+        packageName={licenses[0].packages[0]}
+        licenseNames={licenseNames}
+      />
     )
   return <div>{intro(licenseCount)}</div>
 }
 
-LicenseReport.propTypes = {}
+const SinglePackageIntro = ({ packageName, licenseNames }) => {
+  return licenseNames.length === 1 ? (
+    <div>
+      <PackageName name={packageName} />
+      {` package is ${licenseNames[0]} licensed.`}
+    </div>
+  ) : (
+    <div>
+      We found {licenseNames.length} different licenses ({licenseNames.join(
+        ', '
+      )}) in <PackageName name={packageName} /> package.
+    </div>
+  )
+}
+
+LicenseReport.propTypes = {
+  licenses: PropTypes.array.isRequired,
+  packageCount: PropTypes.number.isRequired
+}
 
 export default LicenseReport
