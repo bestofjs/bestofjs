@@ -28,5 +28,10 @@
     "description":
       "Releases software into the public domain, or otherwise grants permission to use it for any purpose. Disclaims patent licenses.",
     "link": "https://tldrlegal.com/license/creative-commons-cc0-1.0-universal"
+  },
+  "Unlicense": {
+    "description":
+      "Releases code into the public domain, thereby releasing all rights you may hold to that code.",
+    "link": "https://tldrlegal.com/license/unlicense"
   }
 }
