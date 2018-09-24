@@ -10,11 +10,7 @@ import TagList from './TagList'
 import Spinner from '../common/Spinner'
 import Subscribe from './Subscribe'
 import SectionTitle from './SectionTitle'
-import News from './News'
-import StateOfJS2018 from './StateOfJS2018'
 import SectionHeader from '../common/SectionHeader'
-
-const date = new Date(2018, 8, 8)
 
 const Home = props => {
   log('Render the <Home> component')
@@ -24,19 +20,6 @@ const Home = props => {
       <section className="no-card-container">
         <Intro />
       </section>
-      <section className="no-card-container" style={{ paddingBottomX: 0 }}>
-        <StateOfJS2018 date={date} />
-      </section>
-      {false && (
-        <section className="no-card-container">
-          <News date={date} title="Weekly Best of JavaScript">
-            We have just launched{' '}
-            <a href="https://weekly.bestofjs.org">Weekly Best of JavaScript</a>,
-            our weekly newsletter. Get the weekly trends in your inbox and never
-            miss a big story!
-          </News>
-        </section>
-      )}
       <section>
         <SectionHeader icon="flame">
           <SectionHeader.Title>Today Hot Projects</SectionHeader.Title>
