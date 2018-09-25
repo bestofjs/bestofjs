@@ -16,7 +16,7 @@ const FetchLicense = ({ project }) => {
       {({ fetching, failed, data }) => {
         if (fetching) {
           return (
-            <div style={{ marginTop: '1rem' }}>
+            <div>
               <p>Please wait while we are checking all the dependencies.</p>
               <p>
                 It may take a while, depending on the number of the dependencies
@@ -28,7 +28,7 @@ const FetchLicense = ({ project }) => {
         }
         if (failed) {
           return (
-            <div style={{ marginTop: '1rem' }}>
+            <div>
               Sorry, the request about "{packageName}" package did not succeed.
             </div>
           )
@@ -44,13 +44,12 @@ const FetchLicense = ({ project }) => {
               ...licenses[key]
             }))
             .sort(sortByCount)
-          return (
-            <div>
-              <LicenseReport licenses={licenseList} packageCount={count} />
-            </div>
+          return licenseList.length > 0 ? (
+            <LicenseReport licenses={licenseList} packageCount={count} />
+          ) : (
+            <div>No license found.</div>
           )
         }
-
         return null
       }}
     </Fetch>

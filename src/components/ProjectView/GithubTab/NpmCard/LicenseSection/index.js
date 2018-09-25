@@ -13,7 +13,11 @@ const License = ({ project }) => {
           <ExpandableSection on={on} getTogglerProps={getTogglerProps}>
             All Licenses
           </ExpandableSection>
-          {on && <FetchLicense project={project} />}
+          {on && (
+            <div style={{ marginTop: '1rem' }}>
+              <FetchLicense project={project} />
+            </div>
+          )}
         </div>
       )}
     </Toggle>
