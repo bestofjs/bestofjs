@@ -6,7 +6,10 @@ import Table from '../DependencyTable'
 import allLicenseTypes from './license-types.json'
 import TruncatedList from './TruncatedPackageList'
 import PackageName from './PackageName'
+import Badge from './Badge'
 import fromNow from '../../../../../helpers/fromNow'
+
+const isUnlicensed = name => /unlicense/i.test(name)
 
 const LicenseReport = ({ licenses, packageCount, date }) => {
   return (
@@ -20,19 +23,22 @@ const LicenseReport = ({ licenses, packageCount, date }) => {
           </tr>
         </thead>
         <tbody>
-          {licenses.map(license => (
-            <tr key={license.name}>
+          {licenses.map(({ name, packages }) => (
+            <tr key={name}>
               <td>
                 <p>
-                  <i>{license.name}</i>
+                  <i>{name}</i>
+                  {isUnlicensed(name) && (
+                    <Badge danger>
+                      <b>!</b>
+                    </Badge>
+                  )}
                 </p>
-                <LicenseType licenseName={license.name} />
+                <LicenseType licenseName={name} />
               </td>
               <td>
-                {license.packages.length > 1 && (
-                  <p>{license.packages.length} packages</p>
-                )}
-                <TruncatedList packages={license.packages} />
+                {packages.length > 1 && <p>{packages.length} packages</p>}
+                <TruncatedList packages={packages} />
               </td>
             </tr>
           ))}
@@ -61,6 +67,7 @@ const LicenseReport = ({ licenses, packageCount, date }) => {
           </a>{' '}
           site.
         </p>
+        <Feedback />
       </Credits>
     </div>
   )
@@ -76,7 +83,9 @@ const LicenseType = ({ licenseName }) => {
   const { description, link } = explanation
   return (
     <div>
-      <p className="text-secondary">{description}</p>
+      <p className="text-secondary">
+        <span class="octicon octicon-quote" /> {description}..
+      </p>
       <a className="text-secondary?" href={link} target="_blank">
         More details
       </a>
@@ -90,16 +99,16 @@ const Intro = ({ licenses, packageCount }) => {
   const intro = count => {
     if (count === 1)
       return (
-        <span>
+        <p>
           The {packageCount} packages we analyzed are all{' '}
           <em>{licenseNames[0]}</em> licensed.
-        </span>
+        </p>
       )
     return (
-      <span>
+      <p>
         We found {licenseCount} different licenses ({licenseNames.join(', ')})
         in the {packageCount} packages we analyzed.
-      </span>
+      </p>
     )
   }
   if (packageCount === 1)
@@ -111,6 +120,36 @@ const Intro = ({ licenses, packageCount }) => {
     )
   return <div>{intro(licenseCount)}</div>
 }
+
+const Feedback = () => (
+  <div style={{ marginTop: '.5rem' }}>
+    <p>
+      <Badge style={{ marginLeft: 0, marginRight: '.5rem' }}>
+        New Feature!
+      </Badge>
+    </p>
+    <p>
+      What do you think of this <i>Licenses</i> new feature...{' '}
+      <span role="img" aria-label="good">
+        👍{' '}
+      </span>useful?{' '}
+      <span role="img" aria-label="good">
+        👎
+      </span>{' '}
+      useless?{' '}
+    </p>
+    <p>
+      Give us feedback on{' '}
+      <a
+        target="_blank"
+        rel="noopener noreferrer"
+        href="https://github.com/bestofjs/bestofjs-webui/issues/53"
+      >
+        GitHub
+      </a>, thank you!
+    </p>
+  </div>
+)
 
 const SinglePackageIntro = ({ packageName, licenseNames }) => {
   return licenseNames.length === 1 ? (
