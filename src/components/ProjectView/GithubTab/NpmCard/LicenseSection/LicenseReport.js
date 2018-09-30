@@ -44,7 +44,7 @@ const LicenseReport = ({ licenses, packageCount, date }) => {
           ))}
         </tbody>
       </Table>
-      <Credits>
+      <Div>
         <p>
           The package and its dependencies have been scanned using{' '}
           <a
@@ -68,10 +68,16 @@ const LicenseReport = ({ licenses, packageCount, date }) => {
           site.
         </p>
         <Feedback />
-      </Credits>
+      </Div>
     </div>
   )
 }
+
+const Div = styled.div`
+  margin: 1rem 0px 0px;
+  padding-left: 1rem;
+  border-left: 1px dashed #cbcbcb;
+`
 
 const Credits = styled.div`
   margin-top: 1rem;
@@ -125,7 +131,7 @@ const Feedback = () => (
   <div style={{ marginTop: '.5rem' }}>
     <p>
       <Badge style={{ marginLeft: 0, marginRight: '.5rem' }}>
-        New Feature!
+        <span class="octicon octicon-megaphone" /> New Feature!
       </Badge>
     </p>
     <p>
