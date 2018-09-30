@@ -1,6 +1,10 @@
 # Change log
 
-## 0.13.1 - - 2018-09-15
+## 0.14.0
+
+- Add "All Licenses" feature (#53) in Package section
+
+## 0.13.1 - 2018-09-15
 
 - Add link to [State of JavaScript 2018](https://stateofjs.com/)
 

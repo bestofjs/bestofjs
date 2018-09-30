@@ -1,6 +1,6 @@
 {
   "name": "bestofjs-webui",
-  "version": "0.13.1",
+  "version": "0.14.0",
   "description": "bestofjs.org front-end web application",
   "engines": {
     "node": ">=8.4.0"
@@ -49,6 +49,7 @@
     "react-calendar-heatmap": "1.4.1",
     "react-dom": "^16.3.1",
     "react-redux": "^5.0.6",
+    "react-request": "^3.1.2",
     "react-router": "^4.2.0",
     "react-router-dom": "^4.2.2",
     "react-scripts": "^1.1.4",

@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
+import classNames from 'classnames'
 
 const TogglerLink = styled.a`
   :focus {
@@ -8,6 +9,7 @@ const TogglerLink = styled.a`
   }
   color: inherit;
   cursor: pointer;
+  font-size: 1rem;
   :hover {
     color: #cc4700;
   }
@@ -18,7 +20,10 @@ const TogglerLink = styled.a`
 
 const ExpandableSection = ({ on, getTogglerProps, children }) => {
   return (
-    <TogglerLink {...getTogglerProps()}>
+    <TogglerLink
+      {...getTogglerProps()}
+      className={classNames(on ? 'on' : 'off')}
+    >
       <span
         className={`octicon octicon-triangle-${on ? 'down' : 'right'} icon`}
       />{' '}

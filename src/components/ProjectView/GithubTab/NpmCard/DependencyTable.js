@@ -1,40 +1,41 @@
 import styled from 'styled-components'
 
+const cellPadding = '1rem 1rem'
+
 const DependencyTable = styled.table`
   width: 100%;
   border-spacing: 0;
-  margin-top: 0.5rem;
+  margin-top: 1rem;
   border: 1px dashed #cbcbcb;
   tbody td {
-    padding: 0.25rem 0.5rem;
+    padding: ${cellPadding};
     border-top: 1px dashed #cbcbcb;
     &:first-child {
       width: 200px;
     }
+    vertical-align: top;
   }
   thead td {
-    padding: 0.25rem 0.5rem;
+    padding: ${cellPadding};
     background-color: #ececec;
     font-style: normal;
     text-align: left;
   }
-  s thead td {
-    background-color: #ececec;
-  }
   td {
-    padding: 0.25rem 0.5rem;
+    padding: ${cellPadding};
   }
   @media (max-width: 500px) {
     td:last-child {
       display: none;
     }
   }
-  a {
-    color: inherit;
-  }
-  a:hover {
-    color: #cc4700;
-  }
 `
+
+// a {
+//   color: inherit;
+// }
+// a:hover {
+//   color: #cc4700;
+// }
 
 export default DependencyTable
