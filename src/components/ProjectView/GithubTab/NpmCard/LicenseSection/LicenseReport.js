@@ -1,13 +1,12 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import styled from 'styled-components'
 
 import Table from '../DependencyTable'
 import allLicenseTypes from './license-types.json'
 import TruncatedList from './TruncatedPackageList'
 import PackageName from './PackageName'
 import Badge from './Badge'
-import fromNow from '../../../../../helpers/fromNow'
+import Credits from './Credits'
 
 const isUnlicensed = name => /unlicense/i.test(name)
 
@@ -44,44 +43,10 @@ const LicenseReport = ({ licenses, packageCount, date }) => {
           ))}
         </tbody>
       </Table>
-      <Div>
-        <p>
-          The package and its dependencies have been scanned using{' '}
-          <a
-            target="_blank"
-            rel="noopener noreferrer"
-            href="https://npm.im/legally"
-          >
-            <i>legally</i>
-          </a>{' '}
-          {fromNow(date)}.
-        </p>
-        <p>
-          Find more information about licenses on{' '}
-          <a
-            target="_blank"
-            rel="noopener noreferrer"
-            href="https://tldrlegal.com/"
-          >
-            <i>TL;DR Legal</i>
-          </a>{' '}
-          site.
-        </p>
-        <Feedback />
-      </Div>
+      <Credits date={date} />
     </div>
   )
 }
-
-const Div = styled.div`
-  margin: 1rem 0px 0px;
-  padding-left: 1rem;
-  border-left: 1px dashed #cbcbcb;
-`
-
-const Credits = styled.div`
-  margin-top: 1rem;
-`
 
 const LicenseType = ({ licenseName }) => {
   const explanation = allLicenseTypes[licenseName]
@@ -126,36 +91,6 @@ const Intro = ({ licenses, packageCount }) => {
     )
   return <div>{intro(licenseCount)}</div>
 }
-
-const Feedback = () => (
-  <div style={{ marginTop: '.5rem' }}>
-    <p>
-      <Badge style={{ marginLeft: 0, marginRight: '.5rem' }}>
-        <span class="octicon octicon-megaphone" /> New Feature!
-      </Badge>
-    </p>
-    <p>
-      What do you think of this <i>Licenses</i> new feature...{' '}
-      <span role="img" aria-label="good">
-        👍{' '}
-      </span>useful?{' '}
-      <span role="img" aria-label="good">
-        👎
-      </span>{' '}
-      useless?{' '}
-    </p>
-    <p>
-      Give us feedback on{' '}
-      <a
-        target="_blank"
-        rel="noopener noreferrer"
-        href="https://github.com/bestofjs/bestofjs-webui/issues/53"
-      >
-        GitHub
-      </a>, thank you!
-    </p>
-  </div>
-)
 
 const SinglePackageIntro = ({ packageName, licenseNames }) => {
   return licenseNames.length === 1 ? (

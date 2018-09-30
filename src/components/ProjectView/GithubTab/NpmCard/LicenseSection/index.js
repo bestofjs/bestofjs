@@ -14,7 +14,7 @@ const License = ({ project }) => {
           <ExpandableSection on={on} getTogglerProps={getTogglerProps}>
             All Licenses
           </ExpandableSection>
-          {!on && <Badge>New feature!</Badge>}
+          <Badge>New feature!</Badge>
           {on && (
             <div style={{ marginTop: '1rem' }}>
               <FetchLicense project={project} />
