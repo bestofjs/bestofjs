@@ -36,8 +36,9 @@ const FetchLicense = ({ project }) => {
         if (data && data.meta) {
           const {
             licenses,
-            meta: { count }
+            meta: { count, date }
           } = data
+          console.info(date)
           const licenseList = Object.keys(licenses)
             .map(key => ({
               name: key,
@@ -45,7 +46,11 @@ const FetchLicense = ({ project }) => {
             }))
             .sort(sortByCount)
           return licenseList.length > 0 ? (
-            <LicenseReport licenses={licenseList} packageCount={count} />
+            <LicenseReport
+              licenses={licenseList}
+              packageCount={count}
+              date={new Date(date)}
+            />
           ) : (
             <div>No license found.</div>
           )

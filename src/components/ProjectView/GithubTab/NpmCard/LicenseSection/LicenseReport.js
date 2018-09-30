@@ -6,8 +6,9 @@ import Table from '../DependencyTable'
 import allLicenseTypes from './license-types.json'
 import TruncatedList from './TruncatedPackageList'
 import PackageName from './PackageName'
+import fromNow from '../../../../../helpers/fromNow'
 
-const LicenseReport = ({ licenses, packageCount }) => {
+const LicenseReport = ({ licenses, packageCount, date }) => {
   return (
     <div style={{ marginTop: '1rem' }}>
       <Intro licenses={licenses} packageCount={packageCount} />
@@ -39,7 +40,7 @@ const LicenseReport = ({ licenses, packageCount }) => {
       </Table>
       <Credits>
         <p>
-          Data is provided by{' '}
+          The package and its dependencies have been scanned using{' '}
           <a
             target="_blank"
             rel="noopener noreferrer"
@@ -47,7 +48,7 @@ const LicenseReport = ({ licenses, packageCount }) => {
           >
             <i>legally</i>
           </a>{' '}
-          package.
+          {fromNow(date)}.
         </p>
         <p>
           Find more information about licenses on{' '}
