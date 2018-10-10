@@ -20,12 +20,10 @@ const setup = {
   }
 }
 
-function getApi(key) {
+export default function getApi(key) {
   const { NODE_ENV } = process.env
   const isLocalEnv = NODE_ENV === 'development'
   const api = isLocalEnv ? setup.development : setup.production
   if (!api[key]) throw new Error(`No API end point defined for ${key}`)
   return api[key]
 }
-
-module.exports = getApi
