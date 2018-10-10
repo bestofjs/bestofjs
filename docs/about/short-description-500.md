@@ -1,8 +1,8 @@
-[Best of JavaScript](https://bestof.js.org) is a web application that gathers the latest trends about:
+[Best of JavaScript](https://bestofjs.org) is a web application that gathers the latest trends about:
 
-* JavaScript, on both front-end (React, Vue.JS...) and back-end sides (node.js)
-* HTML
-* CSS
+- JavaScript, on both front-end (React, Vue.JS...) and back-end sides (Node.js)
+- HTML
+- CSS
 
 It tracks a curated list of more than 1000 open-source projects, providing detailed stats on their popularity, based on GitHub stars.
 

@@ -20,15 +20,14 @@ coverage
 
 # Dependency directory
 node_modules
-_node_modules
 
 # Users Environment Variables
 .lock-wscript
 .DS_Store
-
-_backup
-.divshot-cache
 package-lock.json
 
 # Webpack monitor files
 monitor/
+
+# Private notes
+memo/
