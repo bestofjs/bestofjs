@@ -1,6 +1,10 @@
 # Change log
 
-## 0.14.0
+## 0.15.0
+
+- Upgrade `create-react-app`
+
+## 0.14.0 - 2018-10-01
 
 - Add "All Licenses" feature (#53) in Package section
 
