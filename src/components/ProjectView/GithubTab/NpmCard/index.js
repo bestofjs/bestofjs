@@ -7,6 +7,7 @@ import Dependencies from './Dependencies'
 import BundleSize from './BundleSize'
 import PackageSize from './PackageSize'
 import License from './LicenseSection'
+import ExternalLink from '../../../common/ExternalLink'
 
 const NpmCard = ({ project }) => {
   const { packageName, npm } = project
@@ -24,13 +25,12 @@ const NpmCard = ({ project }) => {
         />
       </Card.Body>
       <Card.Footer>
-        <a
-          href={`https://www.npmjs.com/package/${project.packageName}`}
+        <ExternalLink
+          url={`https://www.npmjs.com/package/${project.packageName}`}
           style={{ marginLeft: '.25rem' }}
-          target="_blank"
         >
           View on NPM
-        </a>
+        </ExternalLink>
       </Card.Footer>
     </Card>
   )

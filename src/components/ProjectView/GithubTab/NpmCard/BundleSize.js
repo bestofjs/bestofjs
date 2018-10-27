@@ -5,6 +5,7 @@ import Toggle from 'react-toggled'
 import ExpandableSection from './ExpandableSection'
 import FileSize from './FileSize'
 import List from './SizeDetailsList'
+import ExternalLink from '../../../common/ExternalLink'
 
 const BundleSize = ({ project, ...rest }) => {
   const { bundle, packageSize } = project
@@ -56,9 +57,9 @@ const BundleSizeDetails = ({ project, bundle }) => {
       </List.Item>
       <List.Link>
         View details on{' '}
-        <a href={url} target="_blank">
+        <ExternalLink url={url}>
           <i>Bundle Phobia</i>
-        </a>
+        </ExternalLink>
       </List.Link>
     </List>
   )

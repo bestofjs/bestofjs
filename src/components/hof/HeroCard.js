@@ -4,6 +4,7 @@ import numeral from 'numeral'
 import CardProjectLabels from '../common/CardProjectLabels'
 import formatUrl from '../../helpers/formatUrl'
 import Card from './Card'
+import ExternalLink from '../common/ExternalLink'
 
 const digits = value => (value > 1000 ? '0.0' : '0')
 
@@ -19,10 +20,9 @@ function followersComment(value) {
 const HeroCard = ({ hero, you, isCurrentUser, showDetails }) => {
   return (
     <Card className={`hero-card${isCurrentUser ? ' current-user' : ''}`}>
-      <a
+      <ExternalLink
         className="header card-block"
-        target="_blank"
-        href={`https://github.com/${hero.username}`}
+        url={`https://github.com/${hero.username}`}
         data-balloon={`Open ${hero.username}'s profile on GitHub`}
       >
         <img
@@ -57,7 +57,7 @@ const HeroCard = ({ hero, you, isCurrentUser, showDetails }) => {
             </div>
           )}
         </div>
-      </a>
+      </ExternalLink>
       {showDetails &&
         hero.projects.length > 0 && (
           <CardProjectLabels projects={hero.projects} />
@@ -65,27 +65,25 @@ const HeroCard = ({ hero, you, isCurrentUser, showDetails }) => {
       {showDetails && hero.bio && <div className="inner">{hero.bio}</div>}
       {showDetails &&
         hero.blog && (
-          <a
+          <ExternalLink
             className="inner card-block"
-            target="_blank"
             data-balloon={`Open ${hero.username}'s website/blog`}
-            href={hero.blog}
+            url={hero.blog}
           >
             <span className="mega-octicon octicon-globe icon" />
             <span>{formatUrl(hero.blog)}</span>
-          </a>
+          </ExternalLink>
         )}
       {showDetails &&
         hero.modules > 0 && (
-          <a
+          <ExternalLink
             className="inner card-block"
-            target="_blank"
             data-balloon={`Open ${hero.username}'s profile on npm`}
-            href={`https://www.npmjs.com/~${hero.npm || hero.username}`}
+            url={`https://www.npmjs.com/~${hero.npm || hero.username}`}
           >
             <span className="mega-octicon octicon-package icon" />
             <span>{hero.modules} modules on npm</span>
-          </a>
+          </ExternalLink>
         )}
     </Card>
   )

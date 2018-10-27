@@ -4,6 +4,7 @@ import MainContent from '../../common/MainContent'
 import fromNow from '../../../helpers/fromNow'
 import CreateIssueLink from '../add-project/CreateIssueLink'
 import Card from '../../common/Card'
+import ExternalLink from '../../common/ExternalLink'
 
 const UserRequestList = ({ requests }) => (
   <MainContent className="small container double-padding">
@@ -28,7 +29,7 @@ const UserRequestList = ({ requests }) => (
 )
 
 const Issue = ({ issue }) => (
-  <a className="card-row link inner" href={issue.html_url} target="_blank">
+  <ExternalLink className="card-row link inner" url={issue.html_url}>
     <div>
       <div style={{ float: 'right' }}>
         <StateIcon state={issue.state} />
@@ -36,7 +37,7 @@ const Issue = ({ issue }) => (
       {issue.title}
     </div>
     <div className="text-secondary">Opened {fromNow(issue.created_at)}</div>
-  </a>
+  </ExternalLink>
 )
 
 const StateIcon = ({ state }) => {

@@ -5,6 +5,7 @@ import styled, { css } from 'styled-components'
 import MarkdownReadonly from '../../common/form/MarkdownReadonly'
 import fromNow from '../../../helpers/fromNow'
 import Button from '../../common/form/Button/Link'
+import ExternalLink from '../../common/ExternalLink'
 
 const cardSection = css`
   border-top: 1px dashed rgb(203, 203, 203);
@@ -21,7 +22,7 @@ const Header = styled.div`
   padding: 1rem;
 `
 
-const Title = styled.a`
+const Title = styled(ExternalLink)`
   font-size: 1.5rem;
 `
 
@@ -42,7 +43,7 @@ const ProjectLinkCard = ({ project, link, editable }) => {
   return (
     <Card>
       <Header>
-        <Title href={link.url} target="_blank" className="project-link-title">
+        <Title href={link.url} className="project-link-title">
           {link.title} <span className="octicon octicon-link-external" />
         </Title>
       </Header>
@@ -51,13 +52,12 @@ const ProjectLinkCard = ({ project, link, editable }) => {
       </Description>
       <Meta>
         Link added by{' '}
-        <a
+        <ExternalLink
           href={`https://github.com/${link.createdBy}`}
           title="GitHub profile"
-          target="_blank"
         >
           {link.createdBy}
-        </a>{' '}
+        </ExternalLink>{' '}
         {fromNow(link.createdAt)}
       </Meta>
       {editable && (

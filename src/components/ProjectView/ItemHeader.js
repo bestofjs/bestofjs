@@ -3,6 +3,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 
 import fromNow from '../../helpers/fromNow'
+import ExternalLink from '../common/ExternalLink'
 
 const EditButton = ({ url }) => {
   return (
@@ -17,17 +18,13 @@ const ItemHeader = ({ item, editable, editLinkTo }) => {
   return (
     <div className="project-review-date">
       <span className="octicon octicon-person" />{' '}
-      <a
-        href={`https://github.com/${item.createdBy}`}
+      <ExternalLink
+        url={`https://github.com/${item.createdBy}`}
         title="GitHub profile"
-        target="_blank"
       >
         {item.createdBy}
-      </a>
-      <span
-        className="octicon octicon-calendar"
-        style={{ marginLeft: 10 }}
-      />{' '}
+      </ExternalLink>
+      <span className="octicon octicon-calendar" style={{ marginLeft: 10 }} />{' '}
       {item.updatedAt && 'Updated '}
       {fromNow(displayDate)}
       {editable && editLinkTo && <EditButton url={editLinkTo} />}

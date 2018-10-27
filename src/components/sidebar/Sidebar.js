@@ -72,9 +72,9 @@ const Sidebar = ({
   return (
     <Nav id="menu" className="slideout-menu">
       <LoginBlock
-        className={`sidebar-login-block ${auth.username
-          ? 'loggedin'
-          : 'anonymous'}`}
+        className={`sidebar-login-block ${
+          auth.username ? 'loggedin' : 'anonymous'
+        }`}
       >
         {auth.username ? (
           <LoggedinUser
@@ -121,7 +121,7 @@ const Sidebar = ({
         <Item to="/about" className="item" activeClassName="active">
           ABOUT
         </Item>
-        <ExternalLink href="https://risingstars.js.org/" className="item">
+        <ExternalLink url="https://risingstars.js.org/" className="item">
           RISING STARS
         </ExternalLink>
       </div>

@@ -2,6 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 
 import fromNow from '../../../../../helpers/fromNow'
+import ExternalLink from '../../../../common/ExternalLink'
 
 const Div = styled.div`
   margin: 1rem 0px 0px;
@@ -15,24 +16,16 @@ const Credits = ({ date }) => {
     <Div>
       <p>
         The package and <b>all</b> its dependencies have been scanned using{' '}
-        <a
-          target="_blank"
-          rel="noopener noreferrer"
-          href="https://npm.im/legally"
-        >
+        <ExternalLink url="https://npm.im/legally">
           <i>legally</i>
-        </a>{' '}
+        </ExternalLink>{' '}
         {fromNow(date)}.
       </p>
       <p>
         Find more information about licenses on{' '}
-        <a
-          target="_blank"
-          rel="noopener noreferrer"
-          href="https://tldrlegal.com/"
-        >
+        <ExternalLink href="https://tldrlegal.com/">
           <i>TL;DR Legal</i>
-        </a>{' '}
+        </ExternalLink>{' '}
         site.
       </p>
       <Feedback />

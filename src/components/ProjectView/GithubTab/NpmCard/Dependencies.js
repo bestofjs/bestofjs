@@ -8,6 +8,7 @@ import withPackageData from '../../../../containers/withPackageData'
 import StarTotal from '../../../common/utils/StarTotal'
 import ExpandableSection from './ExpandableSection'
 import DependencyTable from './DependencyTable'
+import ExternalLink from '../../../common/ExternalLink'
 
 const DependenciesContainer = styled.div`
   overflow: hidden;
@@ -71,9 +72,9 @@ const DependencyFullList = ({ packages }) => {
         {packages.map(npmPackage => (
           <tr key={npmPackage.name}>
             <td>
-              <a href={`https://npm.im/${npmPackage.name}`} target="_blank">
+              <ExternalLink url={`https://npm.im/${npmPackage.name}`}>
                 {npmPackage.name}
-              </a>
+              </ExternalLink>
             </td>
             <td>
               {npmPackage.project ? (

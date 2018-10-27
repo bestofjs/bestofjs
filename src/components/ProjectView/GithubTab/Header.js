@@ -6,6 +6,7 @@ import Description from '../../common/utils/Description'
 import StarIcon from '../../common/utils/StarIcon'
 import fromNow from '../../../helpers/fromNow'
 import formatUrl from '../../../helpers/formatUrl'
+import ExternalLink from '../../common/ExternalLink'
 
 // Some project URLs do not start with `http` ('daneden.github.io/animate.css' for example)
 function addMissingHttp(url) {
@@ -21,13 +22,12 @@ const Header = ({ project }) => (
       <p>
         <Description text={project.description} showEmojis />
         {project.url && (
-          <a
-            href={addMissingHttp(project.url)}
+          <ExternalLink
+            url={addMissingHttp(project.url)}
             style={{ marginLeft: '.5rem' }}
-            target="_blank"
           >
             {formatUrl(project.url)}
-          </a>
+          </ExternalLink>
         )}
       </p>
     </div>
@@ -38,9 +38,9 @@ const Header = ({ project }) => (
       <div>
         <p>
           <span className="octicon octicon-repo" /> Repo:{' '}
-          <a href={project.repository} className="link" target="_blank">
+          <ExternalLink url={project.repository} className="link">
             {project.full_name}
-          </a>{' '}
+          </ExternalLink>{' '}
           {formatNumber(project.stars)}
           <StarIcon />
         </p>

@@ -7,6 +7,7 @@ import TruncatedList from './TruncatedPackageList'
 import PackageName from './PackageName'
 import Badge from './Badge'
 import Credits from './Credits'
+import ExternalLink from '../../../../common/ExternalLink'
 
 const isUnlicensed = name => /unlicense/i.test(name)
 
@@ -57,9 +58,9 @@ const LicenseType = ({ licenseName }) => {
       <p className="text-secondary">
         <span class="octicon octicon-quote" /> {description}..
       </p>
-      <a className="text-secondary?" href={link} target="_blank">
+      <ExternalLink className="text-secondary?" url={link}>
         More details
-      </a>
+      </ExternalLink>
     </div>
   )
 }
