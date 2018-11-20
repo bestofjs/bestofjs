@@ -5,9 +5,10 @@ import styled from 'styled-components'
 import Logo from './Logo'
 import fromNow from '../../../helpers/fromNow'
 import SectionHeader from '../../common/SectionHeader'
+import ExternalLink from '../../common/ExternalLink'
 
 const urls = {
-  site: 'https://stateofjs.com'
+  site: 'https://2018.stateofjs.com/'
 }
 
 const breakPoint = 900
@@ -42,20 +43,19 @@ const StateOfJavaScript2018 = ({ date }) => {
           </SectionHeader.SubTitle>
         </SectionHeader>
         <p>
-          We need your input about the{' '}
-          <a href={urls.site} target="_blank">
-            The State of JavaScript 2018
-          </a>.
+          The results for the{' '}
+          <ExternalLink url={urls.site}>2018 State of JavaScript</ExternalLink>{' '}
+          survey have been published!
         </p>
         <p>
-          Go take the annual survey, tell us about the libraries you use, and
-          help us identify the latest trends in the JavaScript ecosystem.
+          Go and check the answers of more than 20,000 developers about the
+          technologies they use or want to use.
         </p>
       </div>
       <LogoCell>
-        <a href={urls.site} target="_blank">
+        <ExternalLink url={urls.site}>
           <Logo />
-        </a>
+        </ExternalLink>
       </LogoCell>
     </Grid>
   )
