@@ -11,9 +11,6 @@ import Spinner from '../common/Spinner'
 import Subscribe from './Subscribe'
 import SectionTitle from './SectionTitle'
 import SectionHeader from '../common/SectionHeader'
-import StateOfJS2018 from './StateOfJS2018'
-
-const date = new Date(2018, 10, 19)
 
 const Home = props => {
   log('Render the <Home> component')
@@ -22,9 +19,6 @@ const Home = props => {
     <MainContent>
       <section className="no-card-container">
         <Intro />
-      </section>
-      <section className="no-card-container" style={{ paddingBottomX: 0 }}>
-        <StateOfJS2018 date={date} />
       </section>
       <section>
         <SectionHeader icon="flame">
