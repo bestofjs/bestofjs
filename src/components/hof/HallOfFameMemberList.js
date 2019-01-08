@@ -39,13 +39,6 @@ const HallOfFameMemberList = ({
         />
       </div>
     ))}
-    <div>
-      {auth.username === '' ? (
-        <AnonymousHero onLogin={onLogin} />
-      ) : (
-        !isHero && <HeroCard hero={you} you />
-      )}
-    </div>
   </Grid>
 )
 
