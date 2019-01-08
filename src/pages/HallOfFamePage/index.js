@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 
 import FetchHeroes from '../../containers/FetchHeroes'
-import HoF from '../../components/hof/HeroList'
+import HallOfFame from '../../components/hof/HallOfFame'
 import { getAllHeroes } from '../../selectors/hall-of-fame'
 
 const getYou = auth => ({
@@ -17,7 +17,7 @@ const getYou = auth => ({
 const HallOfFamePage = ({ you, auth, authActions, heroes }) => {
   return (
     <FetchHeroes>
-      <HoF
+      <HallOfFame
         heroes={heroes}
         you={you}
         auth={auth}

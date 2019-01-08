@@ -5,6 +5,7 @@ import MainContent from '../common/MainContent'
 import ProjectList from '../projects/ConnectedProjectList'
 import SearchText from '../common/utils/SearchText'
 import HeroCardList from '../hof/HeroCardList'
+import HallOfFameMemberList from '../hof/HallOfFameMemberList'
 
 const showCount = (array, text) =>
   `${array.length} ${text}${array.length > 1 ? 's' : ''}`
@@ -43,7 +44,7 @@ const TextFilter = ({ projects, heroes, searchText, isLoggedin, auth, ui }) => {
             Results for <SearchText>{searchText}</SearchText>:{' '}
             {showCount(heroes, 'Hall of famer')} found.
           </h3>
-          <HeroCardList heroes={heroes} auth={auth} showDetails />
+          <HallOfFameMemberList heroes={heroes} auth={auth} showDetails />
           <div style={{ textAlign: 'center', padding: '2em' }}>
             To see more amazing people,{' '}
             <Link to="/hof">Visit the Hall of Fame !</Link>
