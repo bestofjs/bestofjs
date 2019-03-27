@@ -25,6 +25,8 @@ function scale(value) {
   return values.indexOf(found)
 }
 
+const formatDate = date => date.toISOString().slice(0, 10)
+
 const sameDate = (a, b) => {
   return a.toISOString().slice(0, 10) === b.toISOString().slice(0, 10)
 }
@@ -34,8 +36,14 @@ const getClassName = active => value =>
     active && value && sameDate(value.date, active.date) ? 'active ' : ''
   }color-${value ? scale(value.count) : 'empty'}`
 
-const getTitle = value =>
-  value ? `${value.count} stars added on ${value.date}` : 'No data'
+const getTitle = value => {
+  if (!value) return 'No data'
+  const { count, date } = value
+  if (count === 0) return `No star added on ${formatDate(date)}`
+  return `${count > 0 ? '+' : '-'} ${Math.abs(count)} stars on ${formatDate(
+    date
+  )}`
+}
 
 const Details = ({ date, delta, yesterday }) => {
   const starVariation = () => {
