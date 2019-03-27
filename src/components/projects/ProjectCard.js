@@ -149,7 +149,7 @@ const ProjectCard = ({
 
         {viewOptions.description && (
           <Section className="description-card-section">
-            <Description text={project.description} />
+            <Description text={project.description} showEmojis={false} />
           </Section>
         )}
       </BlockLink>

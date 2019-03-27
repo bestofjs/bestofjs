@@ -20,7 +20,7 @@ const Header = ({ project }) => (
   <Fragment>
     <div className="inner">
       <p>
-        <Description text={project.description} showEmojis />
+        <Description text={project.description} showEmojis={true} />
         {project.url && (
           <ExternalLink
             url={addMissingHttp(project.url)}

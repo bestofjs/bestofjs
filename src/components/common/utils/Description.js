@@ -6,7 +6,7 @@ import React from 'react'
 
 const emoji = () => {
   const size = 20
-  return `<img align="absmiddle" width="${size}" height=${size} src="https://assets-cdn.github.com/images/icons/emoji/$2.png">`
+  return `<img align="absmiddle" width="${size}" height=${size} src="https://github.githubassets.com/images/icons/emoji/$2.png">`
 }
 
 const Description = ({ text, showEmojis }) => {
