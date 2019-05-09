@@ -34,10 +34,13 @@ const Form = styled.form`
 `
 
 class SearchForm extends Component {
+  static sanitize(text) {
+    return text.replace(/[*+?^${}()|[\]\\%/]/, '')
+  }
   constructor(props) {
     super(props)
     this.state = {
-      text: this.props.searchText
+      text: ''
     }
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
@@ -49,11 +52,13 @@ class SearchForm extends Component {
     this.props.onChange(text)
   }
   handleChange(e) {
-    const text = e.target.value
-    this.setState({
-      text
-    })
-    this.emitChangeDelayed(text)
+    const text = SearchForm.sanitize(e.target.value)
+    if (text !== this.state.text) {
+      this.setState({
+        text
+      })
+      this.emitChangeDelayed(text)
+    }
   }
   handleSubmit(e) {
     e.preventDefault()
@@ -67,7 +72,12 @@ class SearchForm extends Component {
         onSubmit={this.handleSubmit}
         className={`${highlight ? 'highlight' : ''}`}
       >
-        <input type="text" onChange={this.handleChange} autoFocus />
+        <input
+          type="text"
+          value={this.state.text}
+          onChange={this.handleChange}
+          autoFocus
+        />
         <span className="mega-octicon octicon-search icon" />
       </Form>
     )
