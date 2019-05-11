@@ -1,8 +1,8 @@
-// import styled from 'styled-components'
+import styled from 'styled-components'
 
 import NormalButton from './NormalButton'
 
-const LoadingButton = NormalButton.extend`
+const LoadingButton = styled(NormalButton)`
   position: relative;
   cursor: default;
   text-shadow: none !important;
