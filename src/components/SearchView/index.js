@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom'
 import MainContent from '../common/MainContent'
 import ProjectList from '../projects/ConnectedProjectList'
 import SearchText from '../common/utils/SearchText'
-import HeroCardList from '../hof/HeroCardList'
 import HallOfFameMemberList from '../hof/HallOfFameMemberList'
 
 const showCount = (array, text) =>

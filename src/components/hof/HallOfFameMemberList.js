@@ -2,7 +2,6 @@ import React from 'react'
 import styled from 'styled-components'
 
 import HeroCard from './HeroCard'
-import AnonymousHero from './AnonymousHero'
 
 const Grid = styled.div`
   display: flex;
@@ -21,14 +20,7 @@ const Grid = styled.div`
   }
 `
 
-const HallOfFameMemberList = ({
-  heroes = [],
-  you,
-  auth,
-  onLogin,
-  isHero,
-  showDetails
-}) => (
+const HallOfFameMemberList = ({ heroes = [], auth, showDetails }) => (
   <Grid>
     {heroes.map(hero => (
       <div key={hero.username}>

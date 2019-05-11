@@ -1,8 +1,9 @@
 # Change log
 
-## 0.15.0
+## 0.15.3 - 2019-05-11
 
-- Upgrade `create-react-app`
+- Upgrade `react-scripts` from Create React App v2
+- Fix error about special symbols in search field (#69)
 
 ## 0.14.0 - 2018-10-01
 
