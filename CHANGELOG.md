@@ -1,5 +1,9 @@
 # Change log
 
+# 0.16.0 - 2018-06-23
+
+- Upgrade `react-scripts@3` and `react@16.8`
+
 ## 0.15.3 - 2019-05-11
 
 - Upgrade `react-scripts` from Create React App v2
