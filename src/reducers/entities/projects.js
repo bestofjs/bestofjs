@@ -8,13 +8,20 @@ const handlers = {
   }),
   GET_PROJECT_DATA_SUCCESS: (state, action) => {
     const { id, payload } = action
-    const { contributor_count, commit_count } = payload.github
-    const { npm, bundle, packageSize } = payload
+    const {
+      npm,
+      bundle,
+      packageSize,
+      github: { description, contributor_count, commit_count },
+      dailyTrends
+    } = payload
+
     return {
       ...state,
       [id]: {
         ...state[id],
-        deltas: action.payload['daily-trends'],
+        description,
+        deltas: dailyTrends,
         commit_count,
         contributor_count,
         npm,

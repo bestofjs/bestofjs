@@ -1,6 +1,11 @@
 # Change log
 
-# 0.16.0 - 2018-06-23
+## 0.17.0 - 209-07-18
+
+- Upgrade projects JSON API (hosted on Firebase) `v2` => `v3`
+- Upgrade project details API (hosted on Now.sh) `v1` => `v2`
+
+## 0.16.0 - 2019-06-23
 
 - Upgrade `react-scripts@3` and `react@16.8`
 

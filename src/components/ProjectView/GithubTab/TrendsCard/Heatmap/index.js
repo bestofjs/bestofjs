@@ -16,9 +16,10 @@ class HeatmapContainer extends Component {
     const getDate = i => {
       return new Date(new Date().setDate(today.getDate() - i - 1))
     }
-    const values = deltas
-      .map((delta, i) => ({ date: getDate(i), count: delta }))
-      .reverse()
+    const values = reverse(deltas).map((delta, i) => ({
+      date: getDate(i),
+      count: delta
+    }))
     const { active, selected } = this.state
     return (
       <Heatmap
@@ -30,6 +31,12 @@ class HeatmapContainer extends Component {
       />
     )
   }
+}
+
+const reverse = array => {
+  const reversed = array.slice()
+  reversed.reverse()
+  return reversed
 }
 
 export default HeatmapContainer

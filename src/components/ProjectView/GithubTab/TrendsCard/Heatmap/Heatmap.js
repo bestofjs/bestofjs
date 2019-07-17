@@ -77,7 +77,7 @@ const Heatmap = ({ values, active, selected, onClick }) => {
       )}
       <CalendarHeatmap
         endDate={yesterday}
-        numDays={364}
+        numDays={365}
         values={values}
         classForValue={getClassName(active)}
         titleForValue={getTitle}

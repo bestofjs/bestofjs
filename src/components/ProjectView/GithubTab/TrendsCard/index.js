@@ -15,7 +15,7 @@ const TrendsCards = ({ project }) => (
       <span> DAILY TRENDS</span>
     </Card.Header>
     <Card.Body>
-      {project.deltas.length > 1 && (
+      {project.deltas && project.deltas.length > 1 && (
         <div className="inner">
           <Heatmap deltas={project.deltas} />
         </div>

@@ -135,15 +135,14 @@ const ProjectCard = ({
               </div>
             )}
 
-            {showDelta &&
-              project.deltas.length > 0 && (
-                <div className="delta">
-                  <StarDelta
-                    value={project.stats[deltaFilter]}
-                    average={deltaFilter !== 'daily'}
-                  />
-                </div>
-              )}
+            {showDelta && (
+              <div className="delta">
+                <StarDelta
+                  value={project.stats[deltaFilter]}
+                  average={deltaFilter !== 'daily'}
+                />
+              </div>
+            )}
           </div>
         </header>
 
@@ -160,14 +159,13 @@ const ProjectCard = ({
         </Section>
       )}
 
-      {showMetrics &&
-        project.npm && (
-          <NpmCardSection
-            project={project}
-            packagequality={viewOptions.packagequality}
-            npms={viewOptions.npms}
-          />
-        )}
+      {showMetrics && project.npm && (
+        <NpmCardSection
+          project={project}
+          packagequality={viewOptions.packagequality}
+          npms={viewOptions.npms}
+        />
+      )}
 
       {viewOptions.commit && (
         <div className="inner github" style={{ display: 'flex' }}>
