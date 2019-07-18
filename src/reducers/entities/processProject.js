@@ -31,6 +31,7 @@ export default function processProject(item) {
 }
 
 function average(delta, numberOfDays) {
+  if (delta === undefined) return undefined // handle recently added projects, without `yearly`, `monthly` data available
   return round(delta / numberOfDays)
 }
 
