@@ -12,7 +12,8 @@ const handlers = {
       npm,
       bundle,
       packageSize,
-      github: { description, contributor_count, commit_count },
+      description,
+      github: { contributor_count, commit_count },
       dailyTrends
     } = payload
 
