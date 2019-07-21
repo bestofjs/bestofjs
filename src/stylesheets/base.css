@@ -5,6 +5,26 @@
   --textPrimaryColor: #541600;
   --textSecondaryColor: #777;
 }
+
+html,
+body {
+  margin: 0;
+}
+html,
+input,
+textarea,
+select {
+  font-family: 'Roboto Slab', sans-serif;
+  box-sizing: border-box;
+}
+html {
+  font-size: 14px;
+}
+body {
+  font-size: 1rem;
+  line-height: 1.3333;
+  color: var(--textPrimaryColor);
+}
 body,
 #panel {
   background-color: #ececec;

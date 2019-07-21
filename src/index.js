@@ -12,7 +12,6 @@ import { unregister } from './registerServiceWorker'
 import createAuthApi from './api/auth/auth-api'
 
 // Old-fashioned stylesheets
-import './stylesheets/global-styles'
 import './stylesheets/balloon.css'
 import '../node_modules/react-select/dist/react-select.css'
 import './stylesheets/base.css'
