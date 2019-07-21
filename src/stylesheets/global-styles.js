@@ -18,11 +18,6 @@ injectGlobal`
   html {
     font-size: 14px;
   }
-  @media (min-width: 768px) {
-    html {
-      font-size: 16px;
-    }
-  }
   body {
     font-size: 1rem;
     line-height: 1.3333;
