@@ -9,6 +9,7 @@ import ExternalLink from '../../common/ExternalLink'
 const UserRequestList = ({ requests }) => (
   <MainContent className="small container double-padding">
     <CreateIssueLink
+      type="ADD_PROJECT"
       className="btn block button-outline"
       showAsButton
       style={{ marginBottom: '2em' }}

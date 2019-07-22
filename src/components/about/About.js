@@ -17,7 +17,8 @@ const About = ({ staticContent, count }) => {
         <h2>Why {projectName} ?</h2>
         <p>
           Javascript, HTML and CSS are advancing faster than ever, we are going
-          fullspeed on innovation.<br />
+          fullspeed on innovation.
+          <br />
           Amazing open-source projects are released almost everyday.
         </p>
         <ul>
@@ -64,8 +65,9 @@ const About = ({ staticContent, count }) => {
         </p>
         <p>As a result, some great projects must be missing!</p>
         <p>
-          Create a GitHub issue <CreateIssueLink>here</CreateIssueLink> to
-          suggest a new project to add.
+          Create a GitHub issue{' '}
+          <CreateIssueLink type="ADD_PROJECT">here</CreateIssueLink> to suggest
+          a new project to add.
         </p>
         <h2>Show your support!</h2>
         <p>

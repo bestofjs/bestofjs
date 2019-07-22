@@ -5,7 +5,11 @@ const MoreHeroes = () => {
   return (
     <div className="no-card-container" style={{ marginTop: '2rem' }}>
       <h3>Do you want more members ?</h3>
-      <CreateIssueLink showAsButton className={`button-outline block`}>
+      <CreateIssueLink
+        type="ADD_HALL_OF_FAME_MEMBER"
+        showAsButton
+        className={`button-outline block`}
+      >
         {' '}
         Create an issue to recommend a new member
       </CreateIssueLink>

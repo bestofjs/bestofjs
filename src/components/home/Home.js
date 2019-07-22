@@ -63,8 +63,12 @@ const MoreProjects = () => {
   return (
     <div className="no-card-container">
       <SectionTitle>Do you want more projects ?</SectionTitle>
-      <CreateIssueLink showAsButton className={`button-outline block`}>
-        <span className="octicon octicon-mark-github" /> Create an issue on
+      <CreateIssueLink
+        type="ADD_PROJECT"
+        showAsButton
+        className={`button-outline block`}
+      >
+        <span className="octicon octicon-mark-github" /> Recommend a project on
         GitHub
       </CreateIssueLink>
     </div>
