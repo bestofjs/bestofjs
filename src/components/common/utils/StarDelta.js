@@ -26,7 +26,7 @@ const StarDeltaAverage = ({ value, inline }) => {
   const decimalPart = (Math.abs(value - integerPart) * 10).toFixed().slice(0, 1)
   const sign = getSign(value)
   const display = inline ? 'inline' : 'block'
-  if (value === null)
+  if (value === undefined)
     return <div className="star-delta text-secondary text-small">N/A</div>
   return (
     <div className="star-delta">
