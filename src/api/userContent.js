@@ -1,5 +1,5 @@
 import { fetchJSON } from '../helpers/fetch'
-import getApi from '../config/api'
+import getApi from '../api/config'
 
 const API_BASE_URL = getApi('USER_CONTENT')
 

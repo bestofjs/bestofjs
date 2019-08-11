@@ -5,13 +5,13 @@ import Header from '../ItemHeader'
 import Div from './ScoreBar'
 import MarkdownReadonly from '../../common/form/MarkdownReadonly'
 
-const ProjectReview = ({ review, editable }) => {
+const ProjectReview = ({ project, review, editable }) => {
   return (
     <div className="project-review-item">
       <Header
         item={review}
         editable={editable}
-        editLinkTo={`/projects/${review.project}/reviews/${review._id}/edit`}
+        editLinkTo={`/projects/${project.slug}/reviews/${review._id}/edit`}
       />
       <Div className="score-bar readonly">
         {[1, 2, 3, 4, 5].map(i => (

@@ -23,7 +23,7 @@ const Credits = ({ date }) => {
       </p>
       <p>
         Find more information about licenses on{' '}
-        <ExternalLink href="https://tldrlegal.com/">
+        <ExternalLink url="https://tldrlegal.com/">
           <i>TL;DR Legal</i>
         </ExternalLink>{' '}
         site.
@@ -47,7 +47,8 @@ const Feedback = () => (
         href="https://github.com/bestofjs/bestofjs-webui/issues/53"
       >
         GitHub
-      </a>, thank you!
+      </a>
+      , thank you!
     </p>
   </div>
 )

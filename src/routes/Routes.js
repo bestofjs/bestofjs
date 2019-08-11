@@ -19,7 +19,7 @@ const AsyncMyProjects = asyncComponent(() =>
   import(/* webpackChunkName: "my-projects" */ '../pages/MyProjectsPage')
 )
 const AsyncViewProject = asyncComponent(() =>
-  import(/* webpackChunkName: "single-project" */ './Projects')
+  import(/* webpackChunkName: "single-project" */ '../pages/ProjectDetails/ProjectDetails')
 )
 const AsyncRequests = asyncComponent(() =>
   import(/* webpackChunkName: "my-requests" */ './Requests')
@@ -37,7 +37,7 @@ const Routes = props => {
           component={AllProjectsPage(item.key)}
         />
       ))}
-      <Route path="/projects">
+      <Route path="/projects/:id">
         <AsyncViewProject {...props} />
       </Route>
       <Route exact path="/search/:text" component={SearchResultsPage} />

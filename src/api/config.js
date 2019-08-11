@@ -12,6 +12,7 @@ const baseSetup = {
 const setup = {
   development: {
     ...baseSetup,
+    GET_PROJECTS: 'https://bestofjs-api-v3.firebaseapp.com/',
     ISSUES_REPO: 'michaelrambeau/bestofjs-sandbox'
   },
   production: {

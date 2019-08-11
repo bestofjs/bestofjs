@@ -1,17 +1,12 @@
 import { createStore, applyMiddleware, compose } from 'redux'
 import thunk from 'redux-thunk'
 
-import convertIdToSlug from './convertIdToSlug'
-import convertSlugToId from './convertSlugToId'
-
 import rootReducer from '../reducers'
-
-const middlewares = [convertIdToSlug, convertSlugToId, thunk]
 
 const isProduction = process.env.NODE_ENV === 'production'
 
 const finalCreateStore = compose(
-  applyMiddleware(...middlewares),
+  applyMiddleware(thunk),
   !isProduction && window.devToolsExtension
     ? window.devToolsExtension()
     : f => f

@@ -78,8 +78,9 @@ const LinkForm = ({
         />
       </FieldRow>
 
-      {!isValid &&
-        submitFailed && <ErrorMessage>Fix invalid fields!</ErrorMessage>}
+      {!isValid && submitFailed && (
+        <ErrorMessage>Fix invalid fields!</ErrorMessage>
+      )}
 
       <ActionBar>
         <Link

@@ -1,9 +1,11 @@
 export default function validate(values) {
   const errors = {}
   const requiredFields = ['url', 'title']
-  requiredFields.filter(field => !values[field]).forEach(field => {
-    errors[field] = 'Required'
-  })
+  requiredFields
+    .filter(field => !values[field])
+    .forEach(field => {
+      errors[field] = 'Required'
+    })
 
   const url = values.url || ''
   if (url && !isUrl(url)) errors.url = 'Invalid URL'

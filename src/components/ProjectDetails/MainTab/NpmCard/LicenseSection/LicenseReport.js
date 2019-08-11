@@ -56,7 +56,7 @@ const LicenseType = ({ licenseName }) => {
   return (
     <div>
       <p className="text-secondary">
-        <span class="octicon octicon-quote" /> {description}..
+        <span className="octicon octicon-quote" /> {description}..
       </p>
       <ExternalLink className="text-secondary?" url={link}>
         More details
@@ -101,9 +101,8 @@ const SinglePackageIntro = ({ packageName, licenseNames }) => {
     </div>
   ) : (
     <div>
-      We found {licenseNames.length} different licenses ({licenseNames.join(
-        ', '
-      )}) in <PackageName name={packageName} /> package.
+      We found {licenseNames.length} different licenses (
+      {licenseNames.join(', ')}) in <PackageName name={packageName} /> package.
     </div>
   )
 }

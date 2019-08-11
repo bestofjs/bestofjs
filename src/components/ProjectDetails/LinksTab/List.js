@@ -25,13 +25,17 @@ const LoginButton = ({ onLogin, pending }) => {
   )
 }
 
-const List = ({ project, auth, authActions }) => {
+const List = ({ project, links, reviews, auth, authActions }) => {
   const isAuthenticated = auth.username !== ''
-  const links = project.links || []
+  // const links = project.links || []
   return (
     <div>
-      <ProjectHeader project={project} />
-      <Tabs project={project} activePath="links" />
+      <Tabs
+        project={project}
+        activePath="links"
+        links={links}
+        reviews={reviews}
+      />
       <ProjectTabsContent style={{ marginBottom: '2em' }}>
         <div className="inner">
           <p>

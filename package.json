@@ -46,6 +46,7 @@
     "prop-types": "15.5.8",
     "qs": "^6.5.1",
     "react": "16.8.6",
+    "react-async": "^7.0.5",
     "react-calendar-heatmap": "1.4.1",
     "react-dom": "16.8.6",
     "react-redux": "6.0.0",

@@ -39,7 +39,7 @@ Tab.propTypes = {
   project: PropTypes.object
 }
 
-const Tabs = ({ activePath, project }) => {
+const Tabs = ({ activePath, project, links, reviews }) => {
   const tabs = [
     {
       path: '',
@@ -50,13 +50,13 @@ const Tabs = ({ activePath, project }) => {
       path: 'links',
       text: 'LINKS',
       icon: 'link',
-      counter: project => project.links && project.links.length
+      counter: project => links && links.length
     },
     {
       path: 'reviews',
       text: 'REVIEWS',
       icon: 'heart',
-      counter: project => project.reviews && project.reviews.length
+      counter: project => reviews && reviews.length
     }
   ]
   return (

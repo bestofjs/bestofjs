@@ -3,7 +3,7 @@ import { Fetch } from 'react-request'
 
 import Spinner from '../../../../common/Spinner'
 import LicenseReport from './LicenseReport'
-import getApi from '../../../../../config/api'
+import getApi from '../../../../../api/config'
 
 const sortByCount = (a, b) => (a.count > b.count ? -1 : 1)
 
@@ -38,7 +38,6 @@ const FetchLicense = ({ project }) => {
             licenses,
             meta: { count, date }
           } = data
-          console.info(date)
           const licenseList = Object.keys(licenses)
             .map(key => ({
               name: key,

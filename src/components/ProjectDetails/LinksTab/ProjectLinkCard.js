@@ -43,7 +43,7 @@ const ProjectLinkCard = ({ project, link, editable }) => {
   return (
     <Card>
       <Header>
-        <Title href={link.url} className="project-link-title">
+        <Title url={link.url} className="project-link-title">
           {link.title} <span className="octicon octicon-link-external" />
         </Title>
       </Header>
@@ -53,7 +53,7 @@ const ProjectLinkCard = ({ project, link, editable }) => {
       <Meta>
         Link added by{' '}
         <ExternalLink
-          href={`https://github.com/${link.createdBy}`}
+          url={`https://github.com/${link.createdBy}`}
           title="GitHub profile"
         >
           {link.createdBy}

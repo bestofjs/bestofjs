@@ -32,9 +32,9 @@ const RatingBox = ({ field }) => {
         {options.map((text, i) => (
           <span
             key={i}
-            className={`octicon octicon-heart icon ${i + 1 <= field.value
-              ? 'on'
-              : 'off'}`}
+            className={`octicon octicon-heart icon ${
+              i + 1 <= field.value ? 'on' : 'off'
+            }`}
             onClick={handleClick(i)}
           />
         ))}

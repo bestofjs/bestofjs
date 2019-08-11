@@ -1,0 +1,30 @@
+{
+  "MIT": {
+    "description": "Licenses that are commonly associated with projects that contain publicly available code.",
+    "link": "https://tldrlegal.com/license/mit-license"
+  },
+  "ISC": {
+    "description": "A short, permissive software license. Basically, you can do whatever you want as long as you include the original copyright.",
+    "link": "https://tldrlegal.com/license/-isc-license"
+  },
+  "BSD 3 Clause": {
+    "description": "The BSD 3-clause license allows you almost unlimited freedom with the software so long as you include the BSD copyright and license notice in it.",
+    "link": "https://tldrlegal.com/license/bsd-3-clause-license-(revised)"
+  },
+  "BSD 2 Clause": {
+    "description": "The BSD 2-clause license allows you almost unlimited freedom with the software so long as you include the BSD copyright notice in it (found in Fulltext). Many other licenses are influenced by this one.",
+    "link": "https://tldrlegal.com/license/bsd-2-clause-license-(freebsd)"
+  },
+  "Apache 2.0": {
+    "description": "You can do what you like with the software, as long as you include the required notices. This permissive license contains a patent license from the contributors of the code.",
+    "link": "https://tldrlegal.com/license/apache-license-2.0-(apache-2.0)"
+  },
+  "CC0": {
+    "description": "Releases software into the public domain, or otherwise grants permission to use it for any purpose. Disclaims patent licenses.",
+    "link": "https://tldrlegal.com/license/creative-commons-cc0-1.0-universal"
+  },
+  "Unlicense": {
+    "description": "Releases code into the public domain, thereby releasing all rights you may hold to that code.",
+    "link": "https://tldrlegal.com/license/unlicense"
+  }
+}

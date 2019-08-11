@@ -1,8 +1,9 @@
 export default function createReducer(model) {
   return function(state = {}, action) {
-    switch (action.type) {
+    const { id, type } = action
+    switch (type) {
       case `FETCH_${model.toUpperCase()}S_SUCCESS`:
-        return addProjectItems(state, action.payload)
+        return addProjectItems({ id, state, items: action.payload })
       case `CREATE_${model.toUpperCase()}_SUCCESS`:
         return { ...state, [action.payload._id]: action.payload }
       case `UPDATE_${model.toUpperCase()}_SUCCESS`:
@@ -19,12 +20,10 @@ export default function createReducer(model) {
   }
 }
 
-function addProjectItems(state, items) {
-  return items.reduce(
-    (acc, item) => ({
-      ...acc,
-      [item._id]: { ...item, _id: item._id }
-    }),
-    {}
-  )
+function addProjectItems({ id, state: previousState, items }) {
+  const state = { ...previousState }
+  items.forEach(item => {
+    state[item._id] = { ...item, project: id } // replace project GitHub full_name by its id (slug)
+  })
+  return state
 }

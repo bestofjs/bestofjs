@@ -3,11 +3,20 @@ import PropTypes from 'prop-types'
 
 import Button from '../../common/form/Button'
 import Card from '../../common/Card'
+import Spinner from '../../common/Spinner'
+import { useFetchProjectReadMe } from '../../../api/hooks'
 import '../../../stylesheets/markdown-body.css'
 
 const GithubLink = Button.withComponent('a')
 
 const ReadmeCard = ({ project }) => {
+  const { data: html, isLoading, error } = useFetchProjectReadMe(project)
+  const ReadmeContent = () => {
+    if (isLoading) return <Spinner />
+    if (error) return <div>Unable to fetch README.md content from GitHub</div>
+    return <div dangerouslySetInnerHTML={{ __html: html }} />
+  }
+
   return (
     <Card className="readme">
       <Card.Header>
@@ -15,17 +24,7 @@ const ReadmeCard = ({ project }) => {
       </Card.Header>
       <Card.Body>
         <Card.Section>
-          {project.readme ? (
-            <div dangerouslySetInnerHTML={{ __html: project.readme }} />
-          ) : (
-            <div style={{ textAlign: 'center' }}>
-              <p style={{ color: '#aaa' }}>Loading README from GitHub...</p>
-              <span
-                className="mega-octicon octicon-book"
-                style={{ margin: '1em 0', fontSize: 100, color: '#bbb' }}
-              />
-            </div>
-          )}
+          <ReadmeContent />
         </Card.Section>
       </Card.Body>
       <Card.Footer>
@@ -36,7 +35,7 @@ const ReadmeCard = ({ project }) => {
 }
 
 ReadmeCard.propTypes = {
-  project: PropTypes.object
+  project: PropTypes.object.isRequired
 }
 
 export default ReadmeCard
