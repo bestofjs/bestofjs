@@ -1,7 +1,7 @@
 import { createStore, applyMiddleware, compose } from 'redux'
 import thunk from 'redux-thunk'
 
-import rootReducer from '../reducers'
+import rootReducer from './reducers'
 
 const isProduction = process.env.NODE_ENV === 'production'
 
@@ -17,8 +17,8 @@ export default function configureStore(initialState) {
 
   if (module.hot) {
     // Enable Webpack hot module replacement for reducers
-    module.hot.accept('../reducers', () => {
-      const nextRootReducer = require('../reducers')
+    module.hot.accept('./reducers', () => {
+      const nextRootReducer = require('./reducers')
       store.replaceReducer(nextRootReducer)
     })
   }

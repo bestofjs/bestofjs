@@ -4,7 +4,7 @@ import ReactDOM from 'react-dom'
 import { createMemoryHistory } from 'history'
 
 import App from './App'
-import configureStore from './store/configureStore'
+import configureStore from './store'
 import createAuthMockApi from './api/auth/auth-mock-api'
 
 it('renders without crashing', () => {

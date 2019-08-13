@@ -8,7 +8,17 @@ import Card from '../../common/Card'
 
 const formatNumber = number => numeral(number).format('0,0')
 
-const GitHubCard = ({ project }) => {
+const GitHubCard = ({
+  project: {
+    full_name,
+    repository,
+    stars,
+    created_at,
+    pushed_at,
+    contributor_count,
+    commit_count
+  }
+}) => {
   return (
     <Card>
       <Card.Header>
@@ -20,26 +30,26 @@ const GitHubCard = ({ project }) => {
           <div style={{ display: 'flex' }}>
             <div style={{ flex: '1 1 0%' }}>
               <p>
-                <ExternalLink url={project.repository}>
-                  {project.full_name}
-                </ExternalLink>{' '}
-                {formatNumber(project.stars)}
+                <ExternalLink url={repository}>{full_name}</ExternalLink>{' '}
+                {formatNumber(stars)}
                 <StarIcon />
               </p>
-              <p>
-                Created {fromNow(project.created_at)}, last commit{' '}
-                {fromNow(project.pushed_at)}
-              </p>
+              {created_at && (
+                <p>
+                  Created {fromNow(created_at)}, last commit{' '}
+                  {fromNow(pushed_at)}
+                </p>
+              )}
             </div>
             <div>
               <p>
                 <span className="octicon octicon-organization" />{' '}
-                {formatNumber(project.contributor_count)} contributors
+                {formatNumber(contributor_count)} contributors
               </p>
-              {project.commit_count && (
+              {commit_count && (
                 <p>
                   <span className="octicon octicon-history" />
-                  {` ${formatNumber(project.commit_count)} commits`}
+                  {` ${formatNumber(commit_count)} commits`}
                 </p>
               )}
             </div>
