@@ -7,6 +7,6 @@ export default function() {
   return {
     projectName: 'Best of JavaScript',
     repo: 'https://github.com/bestofjs/bestofjs-webui',
-    version: '0.17.0'
+    version: '0.18.0'
   }
 }

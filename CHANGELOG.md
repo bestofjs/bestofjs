@@ -1,6 +1,11 @@
 # Change log
 
-## 0.17.0 - 209-07-18
+## 0.18.0 - 2019-08-14
+
+- Remove "links" and "reviews" feature
+- Use hook to fetch project details
+
+## 0.17.0 - 2019-07-18
 
 - Upgrade projects JSON API (hosted on Firebase) `v2` => `v3`
 - Upgrade project details API (hosted on Now.sh) `v1` => `v2`

@@ -17,7 +17,7 @@ const About = ({ staticContent, count }) => {
         <h2>Why {projectName} ?</h2>
         <p>
           Javascript, HTML and CSS are advancing faster than ever, we are going
-          fullspeed on innovation.
+          full speed on innovation.
           <br />
           Amazing open-source projects are released almost everyday.
         </p>
@@ -28,7 +28,7 @@ const About = ({ staticContent, count }) => {
             <i className="special">now</i> and not 6 months ago ?
           </li>
         </ul>
-        <p>{projectName} was creaded to address these questions.</p>
+        <p>{projectName} was created to address these questions.</p>
 
         <h2>Concept</h2>
         <p>
@@ -46,7 +46,7 @@ const About = ({ staticContent, count }) => {
           First, a list of projects related to the web platform (JavaScript of
           course but also HTML and CSS) is stored in a database.
         </p>
-        <p>Everytime we find a new project, we add it to the database.</p>
+        <p>Every time we find a new project, we add it to the database.</p>
         <p>
           Then everyday, an automatic task checks project data from GitHub, for
           every project stored and generates data consumed by the web
@@ -57,11 +57,11 @@ const About = ({ staticContent, count }) => {
           variation over the last days.
         </p>
 
-        <h2>Do you want more projects ?</h2>
+        <h2>Do you want more projects?</h2>
         <p>
-          Rather than scanning all existing projects on GitHub, We decided to
-          focus on a curated list of projets we find &quot;interesting&quot;,
-          based on our experience and on things we read on the internet.
+          Rather than scanning all existing projects on GitHub, we focus on a
+          curated list of projects we find &quot;interesting&quot;, based on our
+          experience and on things we read on the internet.
         </p>
         <p>As a result, some great projects must be missing!</p>
         <p>
