@@ -1,5 +1,5 @@
 import { fetchJSON } from '../helpers/fetch'
-import api from '../config/api'
+import api from '../api/config'
 import { isFreshDataAvailable } from '../selectors'
 
 export function fetchProjectsFromAPI() {

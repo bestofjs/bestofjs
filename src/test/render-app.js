@@ -4,7 +4,7 @@ import { createMemoryHistory } from 'history'
 import { render, Simulate, wait, prettyDOM } from 'react-testing-library'
 
 import createAuthMockApi from '../api/auth/auth-mock-api'
-import configureStore from '../store/configureStore'
+import configureStore from '../store'
 import App from '../App'
 import { fetchProjectsSuccess } from '../actions/entitiesActions'
 import data from './data/projects.json'

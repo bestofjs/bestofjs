@@ -1,5 +1,5 @@
 import { fetchJSON } from '../helpers/fetch'
-import api from '../config/api'
+import api from '../api/config'
 
 function fetchHeroes() {
   const url = `${api('GET_PROJECTS')}hof.json`

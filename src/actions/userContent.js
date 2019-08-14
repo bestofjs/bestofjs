@@ -1,6 +1,6 @@
 import { fetchJSON } from '../helpers/fetch'
 import log from '../helpers/log'
-import api from '../config/api'
+import api from '../api/config'
 import msgbox from '../helpers/msgbox'
 
 import { createUserContentApi } from '../api/userContent'
@@ -30,13 +30,13 @@ export function fetchProjectUserContent(project) {
   const id = project.slug
   return dispatch => {
     log('Fetching project user content', project)
-    dispatch(fetchItemsRequest('link', id))
+    // dispatch(fetchItemsRequest('link', id))
     const baseUrl = api('GET_USER_CONTENT')
     return fetchJSON(`${baseUrl}/projects/${project.full_name}/user-content`)
       .then(json => {
         const { reviews, links } = json
-        dispatch(fetchItemsSuccess('link', links))
-        dispatch(fetchItemsSuccess('review', reviews))
+        dispatch(fetchItemsSuccess({ id, model: 'link', items: links }))
+        dispatch(fetchItemsSuccess({ id, model: 'review', items: reviews }))
       })
       .catch(err => dispatch(fetchItemsFailure('link', err.message)))
   }
@@ -64,8 +64,9 @@ export function create(key) {
         })
         .catch(err => {
           msgbox(
-            `Sorry, we were unable to create the ${settings[key]
-              .label}. ${err.message}`,
+            `Sorry, we were unable to create the ${settings[key].label}. ${
+              err.message
+            }`,
             { type: 'ERROR' }
           )
         })
@@ -97,8 +98,9 @@ export function update(key) {
         })
         .catch(err => {
           msgbox(
-            `Sorry, we were unable to save the ${settings[key]
-              .label}. ${err.message}`,
+            `Sorry, we were unable to save the ${settings[key].label}. ${
+              err.message
+            }`,
             { type: 'ERROR' }
           )
         })
@@ -115,12 +117,12 @@ export function fetchItemsRequest(model) {
   }
 }
 
-export function fetchItemsSuccess(model, items) {
+export function fetchItemsSuccess({ id, model, items }) {
   return {
     type: `FETCH_${model.toUpperCase()}S_SUCCESS`,
+    id,
     meta: {
-      model,
-      convertProjectIds: true // tell the middleware to convert ids => slugs
+      model
     },
     payload: items
   }

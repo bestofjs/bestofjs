@@ -3,7 +3,7 @@ import styled from 'styled-components'
 
 import ExternalLink from '../../common/form/Button/ExternalLink'
 
-import getApi from '../../../config/api'
+import getApi from '../../../api/config'
 
 const templates = {
   ADD_PROJECT: 'add-a-project-to-best-of-javascript.md',

@@ -1,10 +1,10 @@
-[![screenshot](https://user-images.githubusercontent.com/5546996/44306701-2f2f8000-a3cf-11e8-9c56-44da357721b6.png)](https://bestofjs.org/)
+[![screenshot](https://user-images.githubusercontent.com/5546996/63021437-8c271e80-bedb-11e9-9ff9-497da0388943.png)](https://bestofjs.org/)
 
 ## Concept
 
-[Best of JavaScript](https://bestofjs.org/) gathers the latest trends about open source projects related to node.js and the web platform: JavaScript of course (client and server side) but also HTML, CSS...
+[Best of JavaScript](https://bestofjs.org/) gathers the latest trends about open source projects related to Node.js and the web platform: JavaScript of course (client and server side) but also HTML, CSS...
 
-This is a place where front-end engineers and node.js developers can find the best components to build amazing web applications.
+This is a place where front-end engineers and Node.js developers can find the best components to build amazing web applications.
 
 ### Tags
 
@@ -19,18 +19,16 @@ Projects are classified using tags such as:
 
 ### Community-driven
 
-Users can sign-in with their GitHub account and contribute to the project by:
+If you find an interesting project to add, you can suggest it by [creating an issue here](https://github.com/michaelrambeau/bestofjs/issues/new?template=add-a-project-to-best-of-javascript.md).
 
-- Adding "Reviews" to projects (by rating projects from 1 to 5 )
-- Adding "Links" (blog entries, tutorials, videos...) related to projects
-
-Anyone can contribute!
+You can sign-in with your GitHub account to create "bookmarks".
+Later you can find then from "MY PROJECTS" menu entry, in the left sidebar.
 
 ### The JavaScript Hall of Fame
 
-A Hall of Fame has been created to gather the most amazing people of the community: developers, authors, speakers, mentors...
+The _JavaScript Hall of Fame_ gathers the most amazing people of the community: developers, authors, speakers, mentors...
 
-Click [here](https://bestofjs.org/hall-of-fame) to visit the Hall of fame!
+Click [here](https://bestofjs.org/hall-of-fame) to visit the Hall of Fame!
 
 ## How it works
 
@@ -38,7 +36,7 @@ We maintain a list of projects related to the web platform (JavaScript, HTML and
 
 Every time we find a new project, or anytime a user submit a new request, we add it to the database.
 
-Everyday a scheduled task checks project data from GitHub, for every project stored and generates data consumed by the web application.
+Everyday a scheduled task checks project data from GitHub and generates data consumed by the web application.
 
 The web application displays the total number of stars and their variation over the last days, weeks and months.
 
