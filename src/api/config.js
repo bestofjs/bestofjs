@@ -1,10 +1,9 @@
 const baseSetup = {
   GET_PROJECTS: 'https://bestofjs-api-v3.firebaseapp.com/',
   GET_README: 'https://get-github-readme-v2.now.sh',
-  GET_USER_CONTENT: 'https://bestofjs-api-v2.now.sh',
   USER_CONTENT:
     'https://webtask.it.auth0.com/api/run/wt-mikeair-gmail_com-0/user-content-api-v3',
-  GET_PROJECT_DATA: 'https://bestofjs-api-v2.now.sh',
+  GET_PROJECT_DETAILS: 'https://bestofjs-api-v2.now.sh',
   ISSUES_REPO: 'michaelrambeau/bestofjs',
   FETCH_LICENSE: 'https://fetch-license.now.sh'
 }
@@ -20,7 +19,7 @@ const setup = {
   }
 }
 
-export default function getApi(key) {
+export default function getApiRootURL(key) {
   const { NODE_ENV } = process.env
   const isLocalEnv = NODE_ENV === 'development'
   const api = isLocalEnv ? setup.development : setup.production

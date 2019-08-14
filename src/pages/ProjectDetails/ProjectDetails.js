@@ -6,7 +6,6 @@ import { Route, Switch } from 'react-router-dom'
 
 import track from '../../helpers/track'
 import * as actionCreators from '../../actions'
-import * as userContentActionCreators from '../../actions/userContent'
 import { findProject } from '../../selectors/project'
 import { useFetchProjectDetails } from '../../api/hooks'
 
@@ -78,7 +77,6 @@ function mapDispatchToProps(dispatch, props) {
     authActions: {
       login: authApi.login
     },
-    userContentActions: bindActionCreators(userContentActionCreators, dispatch),
     dispatch
   }
 }

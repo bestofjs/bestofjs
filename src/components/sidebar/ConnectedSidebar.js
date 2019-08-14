@@ -11,7 +11,7 @@ import * as uiActionCreators from '../../actions/uiActions'
 
 function mapStateToProps(state) {
   const {
-    entities: { heroes, links, projects },
+    entities: { heroes, projects },
     requests: { issues },
     auth,
     ui
@@ -24,7 +24,6 @@ function mapStateToProps(state) {
     auth,
     projectCount: Object.keys(projects).length,
     hofCount: Object.keys(heroes).length,
-    linkCount: Object.keys(links).length,
     requestCount: Object.keys(issues).length,
     ui
   }

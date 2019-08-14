@@ -36,7 +36,11 @@ const CardBodyContent = ({ project, isLoading, error }) => {
   if (error)
     return (
       <Card.Section>
-        <div>Unable to find package details</div>
+        <div>
+          Unable to find package details:
+          <br />
+          {error.message}
+        </div>
       </Card.Section>
     )
 
