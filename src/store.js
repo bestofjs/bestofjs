@@ -7,8 +7,8 @@ const isProduction = process.env.NODE_ENV === 'production'
 
 const finalCreateStore = compose(
   applyMiddleware(thunk),
-  !isProduction && window.devToolsExtension
-    ? window.devToolsExtension()
+  !isProduction && window.__REDUX_DEVTOOLS_EXTENSION__
+    ? window.__REDUX_DEVTOOLS_EXTENSION__()
     : f => f
 )(createStore)
 

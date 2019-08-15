@@ -25,9 +25,9 @@ const TrendsCards = ({ project }) => (
   </Card>
 )
 
-const MonthlyTrendsItem = ({ item, stats }) => {
+const MonthlyTrendsItem = ({ item, trends }) => {
   const { label, category } = item
-  const value = stats[category]
+  const value = trends[category]
   return (
     <div>
       <div>{label}</div>
@@ -52,7 +52,7 @@ const Div = styled.div`
 `
 
 const MonthlyTrends = ({ project }) => {
-  const stats = project.stats
+  const trends = project.trends
   const items = [
     { label: 'Yesterday', category: 'daily' },
     { label: 'Last week', category: 'weekly' },
@@ -60,11 +60,11 @@ const MonthlyTrends = ({ project }) => {
     { label: 'Last 3 months', category: 'quarterly' },
     { label: 'Last 12 months', category: 'yearly' }
   ].filter(item => {
-    const value = stats[item.category]
+    const value = trends[item.category]
     return value !== undefined && value !== null
   })
-  const OnlyYesterday = ({ stats }) => {
-    const value = stats.daily
+  const OnlyYesterday = ({ trends }) => {
+    const value = trends.daily
     if (value === 0) return <div>No star added on GitHub yesterday</div>
     return value > 0 ? (
       <div>
@@ -77,21 +77,21 @@ const MonthlyTrends = ({ project }) => {
         <StarIcon /> lost yesterday
       </div>
     )
-    // return <MonthlyTrendsItem item={items[0]} stats={stats} />
+    // return <MonthlyTrendsItem item={items[0]} trends={trends} />
   }
   return (
     <Card.Section>
-      {stats.weekly || stats.weekly === 0 ? (
+      {trends.weekly || trends.weekly === 0 ? (
         <div>
           <p>Stars added on GitHub, per day, on average:</p>
           <Div>
             {items.map((item, i) => (
-              <MonthlyTrendsItem item={item} key={i} stats={stats} />
+              <MonthlyTrendsItem item={item} key={i} trends={trends} />
             ))}
           </Div>
         </div>
       ) : (
-        <OnlyYesterday stats={stats} />
+        <OnlyYesterday trends={trends} />
       )}
     </Card.Section>
   )

@@ -138,7 +138,7 @@ const ProjectCard = ({
             {showDelta && (
               <div className="delta">
                 <StarDelta
-                  value={project.stats[deltaFilter]}
+                  value={project.trends[deltaFilter]}
                   average={deltaFilter !== 'daily'}
                 />
               </div>

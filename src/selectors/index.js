@@ -33,12 +33,15 @@ export const getAllTags = createSelector(
     })
 )
 
-export const getPopularTags = createSelector([getAllTags], allTags => {
-  return allTags
-    .slice() // required because `sort()` mutates the array
-    .sort((a, b) => (b.counter > a.counter ? 1 : -1))
-    .slice(0, 10)
-})
+export const getPopularTags = createSelector(
+  [getAllTags],
+  allTags => {
+    return allTags
+      .slice() // required because `sort()` mutates the array
+      .sort((a, b) => (b.counter > a.counter ? 1 : -1))
+      .slice(0, 10)
+  }
+)
 
 const allProjects = createSelector(
   [state => state.entities.projects],
@@ -50,32 +53,36 @@ export const getAllProjectsCount = createSelector(
   projects => projects.length
 )
 
-export const npmProjects = createSelector([allProjects], projects =>
-  projects.filter(project => !!project.packageName)
+export const npmProjects = createSelector(
+  [allProjects],
+  projects => projects.filter(project => !!project.packageName)
 )
 
 const sortProjects = fn => projects => helpers.sortBy(projects.slice(0), fn)
 
 const sortFn = {
   total: project => project.stars,
-  daily: project => project.stats.daily,
-  weekly: project => project.stats.weekly,
-  monthly: project => project.stats.monthly,
-  quarterly: project => project.stats.quarterly,
+  daily: project => project.trends.daily,
+  weekly: project => project.trends.weekly,
+  monthly: project => project.trends.monthly,
+  quarterly: project => project.trends.quarterly,
   quality: project => project.quality,
   score: project => project.score,
-  yearly: project => project.stats.yearly
+  yearly: project => project.trends.yearly
 }
 
 // a sub-selector used by both `getProjectsSortedBy` and `getProjectsByTag`
 const getRawProjectsSortedBy = ({ criteria, start = 0, limit = 10 }) => {
-  return createSelector([allProjects], projects => {
-    const sliced = sortProjects(sortFn[criteria])(projects).slice(
-      start,
-      start + limit
-    )
-    return sliced
-  })
+  return createSelector(
+    [allProjects],
+    projects => {
+      const sliced = sortProjects(sortFn[criteria])(projects).slice(
+        start,
+        start + limit
+      )
+      return sliced
+    }
+  )
 }
 
 // Create a selector for a given criteria (`total`, `daily`)
@@ -96,8 +103,9 @@ export const getHotProjects = count =>
   })
 
 const getAllProjectsByTag = tagId =>
-  createSelector([allProjects], projects =>
-    projects.filter(project => project.tags.includes(tagId))
+  createSelector(
+    [allProjects],
+    projects => projects.filter(project => project.tags.includes(tagId))
   )
 
 // Selector used to display the list of projects belonging to a given tag
@@ -156,7 +164,6 @@ export const getFullProject = (tags, auth) => project => {
   const pending = project.slug === pendingProject
   const belongsToMyProjects =
     myProjects && myProjects.map(item => item.slug).includes(project.slug)
-  if (!myProjects) return fullProject
   return {
     ...fullProject,
     belongsToMyProjects,
@@ -186,7 +193,10 @@ export const getProjectSlugFromFullname = fullname =>
 // that is to say if the `lastUpdate` date is older than 24 hours
 // since new data is supposed to be generate every day at 21:00 GMT.
 export const isFreshDataAvailable = date =>
-  createSelector([state => state.entities.meta.lastUpdate], lastUpdate => {
-    const hours = (date - lastUpdate) / 1000 / 3600
-    return hours > 24
-  })
+  createSelector(
+    [state => state.entities.meta.lastUpdate],
+    lastUpdate => {
+      const hours = (date - lastUpdate) / 1000 / 3600
+      return hours > 24
+    }
+  )
