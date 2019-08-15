@@ -5,6 +5,7 @@ import Heatmap from './Heatmap'
 import StarDelta from '../../../common/utils/StarDelta'
 import StarIcon from '../../../common/utils/StarIcon'
 import Card from '../../../common/Card'
+import { getDeltaByDay } from '../../../../selectors/project'
 
 // New "DAILY TRENDS" block (Sep. 2017, v0.9)
 // Show the heat map only if we have at least 2 daily deltas to show
@@ -27,7 +28,7 @@ const TrendsCards = ({ project }) => (
 
 const MonthlyTrendsItem = ({ item, trends }) => {
   const { label, category } = item
-  const value = trends[category]
+  const value = getDeltaByDay(category)({ trends })
   return (
     <div>
       <div>{label}</div>
@@ -52,17 +53,18 @@ const Div = styled.div`
 `
 
 const MonthlyTrends = ({ project }) => {
-  const trends = project.trends
+  const { trends } = project
   const items = [
     { label: 'Yesterday', category: 'daily' },
     { label: 'Last week', category: 'weekly' },
     { label: 'Last month', category: 'monthly' },
     { label: 'Last 3 months', category: 'quarterly' },
     { label: 'Last 12 months', category: 'yearly' }
-  ].filter(item => {
-    const value = trends[item.category]
+  ].filter(({ category }) => {
+    const value = trends[category]
     return value !== undefined && value !== null
   })
+
   const OnlyYesterday = ({ trends }) => {
     const value = trends.daily
     if (value === 0) return <div>No star added on GitHub yesterday</div>
@@ -77,7 +79,6 @@ const MonthlyTrends = ({ project }) => {
         <StarIcon /> lost yesterday
       </div>
     )
-    // return <MonthlyTrendsItem item={items[0]} trends={trends} />
   }
   return (
     <Card.Section>

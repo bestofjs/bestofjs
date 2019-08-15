@@ -11,6 +11,7 @@ import NpmCardSection from './NpmCardSection'
 import CardFooter from './CardFooter'
 import Avatar from '../common/ProjectAvatar'
 import Section from './ProjectCardSection'
+import { getDeltaByDay } from '../../selectors/project'
 
 import fromNow from '../../helpers/fromNow'
 
@@ -116,6 +117,7 @@ const ProjectCard = ({
   const path = `/projects/${project.slug}`
   const handleAddToMyProjects = () => onAddToMyProjects(project)
   const handleRemoveFromMyProjects = () => onRemoveFromMyProjects(project)
+
   return (
     <Div className="project-card">
       <BlockLink to={path} className="card-block">
@@ -138,7 +140,7 @@ const ProjectCard = ({
             {showDelta && (
               <div className="delta">
                 <StarDelta
-                  value={project.trends[deltaFilter]}
+                  value={getDeltaByDay(deltaFilter)(project)}
                   average={deltaFilter !== 'daily'}
                 />
               </div>
