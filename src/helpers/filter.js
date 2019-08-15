@@ -57,7 +57,7 @@ function rank(project, tags, text) {
     if (re2.test(project.description)) {
       return 2
     }
-    if (re2.test(project.repository)) {
+    if (re2.test(project.full_name)) {
       return 1
     }
     if (re2.test(project.url)) {
