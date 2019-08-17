@@ -13,7 +13,7 @@ export default function(state = {}, action) {
 function getProjectsBySlug(projects) {
   const projectsBySlug = {}
   projects.forEach(project => {
-    const slug = slugify(project.name, { lower: true })
+    const slug = slugify(project.name, { lower: true, remove: /[.']/g })
     projectsBySlug[slug] = {
       slug,
       ...project,
