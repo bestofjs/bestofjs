@@ -1,7 +1,6 @@
 import React from 'react'
 
 import Avatar from '../common/ProjectAvatar'
-import Description from '../common/utils/Description'
 import formatUrl from '../../helpers/formatUrl'
 import ExternalLink from '../common/ExternalLink'
 import TagLabelGroup from '../tags/TagLabelGroup'
@@ -22,7 +21,7 @@ const ProjectHeader = ({ project }) => (
             paddingLeft: '1rem'
           }}
         >
-          <Description text={project.description} showEmojis={true} />{' '}
+          {project.description}{' '}
           {project.url && (
             <ExternalLink url={project.url}>
               {formatUrl(project.url)}

@@ -6,7 +6,6 @@ import styled from 'styled-components'
 import TagLabelGroup from '../tags/TagLabelGroup'
 import StarDelta from '../common/utils/StarDelta'
 import StarTotal from '../common/utils/StarTotal'
-import Description from '../common/utils/Description'
 import NpmCardSection from './NpmCardSection'
 import CardFooter from './CardFooter'
 import Avatar from '../common/ProjectAvatar'
@@ -150,7 +149,7 @@ const ProjectCard = ({
 
         {viewOptions.description && (
           <Section className="description-card-section">
-            <Description text={project.description} showEmojis={false} />
+            {project.description}
           </Section>
         )}
       </BlockLink>
