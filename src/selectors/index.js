@@ -1,7 +1,7 @@
 import { createSelector } from 'reselect'
-import populate from '../helpers/populate'
-import * as helpers from '../helpers/projectHelpers'
-import filterProjects from '../helpers/filter'
+
+import { populateProject } from './project'
+import search from './search'
 
 // return a hash object
 // key: tag code
@@ -58,7 +58,7 @@ export const npmProjects = createSelector(
   projects => projects.filter(project => !!project.packageName)
 )
 
-const sortProjects = fn => projects => helpers.sortBy(projects.slice(0), fn)
+const sortProjects = fn => projects => sortBy(projects.slice(0), fn)
 
 const sortFn = {
   total: project => project.stars,
@@ -134,7 +134,7 @@ export const searchForProjects = text =>
       state => state.auth
     ],
     (projects, allTags, tagsById, auth) =>
-      filterProjects(projects, allTags, text)
+      search(projects, allTags, text)
         .slice(0, 50)
         .map(getFullProject(tagsById, auth))
   )
@@ -160,7 +160,7 @@ export const getMyProjects = createSelector(
 
 export const getFullProject = (tags, auth) => project => {
   const { myProjects, pendingProject } = auth
-  const fullProject = populate(tags)(project)
+  const fullProject = populateProject(tags)(project)
   const pending = project.slug === pendingProject
   const belongsToMyProjects =
     myProjects && myProjects.map(item => item.slug).includes(project.slug)
@@ -170,24 +170,6 @@ export const getFullProject = (tags, auth) => project => {
     pending
   }
 }
-
-export const getProjectsByFullname = createSelector(
-  [state => state.entities.projects],
-  projects => {
-    return Object.keys(projects)
-      .map(key => ({
-        slug: key,
-        full_name: projects[key].full_name
-      }))
-      .reduce((acc, item) => ({ ...acc, [item.full_name]: item.slug }), {})
-  }
-)
-
-export const getProjectSlugFromFullname = fullname =>
-  createSelector(
-    [getProjectsByFullname],
-    projectsByFullname => projectsByFullname[fullname]
-  )
 
 // Return true if fresh data is available from the API,
 // that is to say if the `lastUpdate` date is older than 24 hours
@@ -200,3 +182,24 @@ export const isFreshDataAvailable = date =>
       return hours > 24
     }
   )
+
+/*
+Sort an array of projects, applying the given function to all projects.
+If the function returns `undefined` (meaning that no data is available),
+the project should be displayed at the end, when the descending direction is used (by default).
+CAUTION: it mutates the array
+*/
+export function sortBy(projects, fn, direction = 'DESC') {
+  const getValue = project => {
+    const value = fn(project)
+    return value === undefined ? -10000 : value
+  }
+
+  return projects.sort(function(a, b) {
+    let diff = getValue(a) - getValue(b)
+    if (diff === 0) {
+      diff = a.stars - b.stars
+    }
+    return diff * (direction === 'DESC' ? -1 : 1)
+  })
+}

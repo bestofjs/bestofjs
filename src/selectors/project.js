@@ -1,5 +1,5 @@
 import { createSelector } from 'reselect'
-import populate from '../helpers/populate'
+
 import { npmProjects } from './index'
 
 // Return a full `project` object, including `tags`
@@ -13,12 +13,21 @@ export const findProject = slug =>
       //  e.g. when `/projects/:id` URL is loaded directly in the browser.
       if (!project) return null
       return {
-        ...populate(tags)(project),
+        ...populateProject(tags)(project),
         repository: 'https://github.com/' + project.full_name,
         slug
       }
     }
   )
+
+// Update `tags` populated objects to a `project` object that contains only an array of tag ids
+export function populateProject(tags) {
+  return function(project) {
+    if (!project) throw new Error('populate() called with NO PROJECT!')
+    const populated = { ...project, tags: project.tags.map(id => tags[id]) }
+    return populated
+  }
+}
 
 export const findProjectByNpmName = packageName =>
   createSelector(
