@@ -136,7 +136,7 @@ export const searchForProjects = text =>
       state => state.auth
     ],
     (projects, allTags, tagsById, auth) =>
-      search(projects, allTags, text)
+      search(projects, text)
         .slice(0, 50)
         .map(getFullProject(tagsById, auth))
   )
