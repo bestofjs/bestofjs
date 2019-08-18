@@ -40,6 +40,7 @@ class TagFilterPage extends Component {
         isLoggedin={isLoggedin}
         ui={ui}
         uiActions={uiActions}
+        showTags={false}
       />
     )
   }
