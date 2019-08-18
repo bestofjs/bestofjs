@@ -13,7 +13,6 @@ import createAuthApi from './api/auth/auth-api'
 
 // Old-fashioned stylesheets
 import './stylesheets/balloon.css'
-import '../node_modules/react-select/dist/react-select.css'
 import './stylesheets/base.css'
 import './stylesheets/slideout.css'
 import './stylesheets/github-corner.css'

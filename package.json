@@ -52,7 +52,6 @@
     "react-router": "^5.0.1",
     "react-router-dom": "^4.2.2",
     "react-scripts": "3.0.1",
-    "react-select": "1.0.0-rc.10",
     "react-toggled": "^1.0.2",
     "redux": "4.0.1",
     "redux-thunk": "^1.0.0",
