@@ -14,6 +14,11 @@ const routes = [
 it('Should render the `All projects` page', async () => {
   const { mainNode, history } = renderApp({ route: '/projects' })
   await wait(() => getByText(mainNode, 'All projects'))
+
+  history.push('/projects?page=2')
+  getByText(mainNode, /Popular/i)
+  getByText(mainNode, /Trending/i)
+
   const testPage = route => {
     history.push(route)
     getByText(mainNode, /Popular/i)

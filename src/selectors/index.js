@@ -3,23 +3,25 @@ import { createSelector } from 'reselect'
 import { populateProject } from './project'
 import search from './search'
 
-// return a hash object
-// key: tag code
-// value: number of project for the tag
+// Number of projects under each tag:
+//  {react: 200, vue: 60...}
 export const getTagCounters = createSelector(
-  [state => state.entities.projects],
+  [state => Object.values(state.entities.projects)],
   projects => {
-    const processProjectTags = (acc, id) => ({
-      ...acc,
-      [id]: acc[id] ? acc[id] + 1 : 1
+    const tagCounters = {}
+
+    projects.forEach(({ tags }) => {
+      tags.forEach(tag => {
+        tagCounters[tag] = tagCounters[tag] ? tagCounters[tag] + 1 : 1
+      })
     })
-    const processProjects = (acc, project) =>
-      project.tags.reduce(processProjectTags, acc)
-    return Object.values(projects).reduce(processProjects, {})
+
+    return tagCounters
   }
 )
 
-// Return an array of all tags, including counter about the number of projects by tag
+// All tags including counter data:
+// [{id, description, name, counter}]
 export const getAllTags = createSelector(
   [
     state => state.entities.projects,
