@@ -10,9 +10,6 @@ const Item = styled(NavLink)`
     color: #fff;
     text-decoration: none;
   }
-  &.active {
-    color: #fff;
-  }
 `
 
 const Counter = styled.span`
@@ -20,14 +17,10 @@ const Counter = styled.span`
   color: rgba(255, 255, 255, 0.5);
 `
 
-const TagMenuItem = ({ tag, active }) => {
+const TagMenuItem = ({ tag }) => {
   const url = `/tags/${tag.id}`
   return (
-    <Item
-      to={url}
-      className={'tag-menu-item' + (active ? ' active' : '')}
-      activeClassName="active"
-    >
+    <Item to={url} className={'tag-menu-item'}>
       {tag.name}
       <Counter>{tag.counter}</Counter>
     </Item>

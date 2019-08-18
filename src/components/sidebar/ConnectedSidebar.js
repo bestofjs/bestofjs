@@ -1,6 +1,5 @@
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import { withRouter } from 'react-router-dom'
 import PropTypes from 'prop-types'
 
 import Sidebar from './Sidebar'
@@ -42,13 +41,10 @@ function mapDispatchToProps(dispatch, props) {
   }
 }
 
-// withRouter is needed to handle `activeClassName` property correctly
-const ConnectedSidebar = withRouter(
-  connect(
-    mapStateToProps,
-    mapDispatchToProps
-  )(Sidebar)
-)
+const ConnectedSidebar = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Sidebar)
 
 ConnectedSidebar.propTypes = {
   dependencies: PropTypes.object.isRequired

@@ -11,11 +11,11 @@ const Div = styled.div`
 
 class TagMenu extends React.PureComponent {
   render() {
-    const { tags, selectedTag } = this.props
+    const { tags } = this.props
     return (
       <Div>
         {tags.map(tag => (
-          <TagMenuItem tag={tag} key={tag.id} active={tag.id === selectedTag} />
+          <TagMenuItem tag={tag} key={tag.id} />
         ))}
       </Div>
     )

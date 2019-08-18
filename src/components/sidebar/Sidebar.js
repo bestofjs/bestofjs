@@ -32,14 +32,12 @@ const Item = styled(NavLink)`
   padding: 1em;
   color: rgba(255, 255, 255, 0.95);
   border-bottom: 1px solid rgba(255, 255, 255, 0.15);
-  &.active,
   &:hover {
     background: rgba(255, 255, 255, 0.08);
     color: #fff;
     text-decoration: none;
   }
 `
-const ExternalLink = Item.withComponent('a')
 
 const LoginBlock = styled.div`
   background-color: #9c0042;
@@ -65,8 +63,7 @@ const Sidebar = ({
   authActions,
   projectCount,
   hofCount,
-  requestCount,
-  selectedTag
+  requestCount
 }) => {
   const myProjectsCount = auth && auth.myProjects && auth.myProjects.length
   return (
@@ -87,49 +84,43 @@ const Sidebar = ({
         )}
       </LoginBlock>
       <div className="ui vertical menu">
-        <Item to="/" className="item" exact activeClassName="active">
+        <Item to="/" className="item" exact>
           HOME
         </Item>
-        <Item to="/projects" className="item" activeClassName="active">
+        <Item to="/projects" className="item">
           ALL PROJECTS
           <Counter count={projectCount} />
         </Item>
-        <Item to="/hall-of-fame" className="item" activeClassName="active">
+        <Item to="/hall-of-fame" className="item">
           HALL OF FAME
           <Counter count={hofCount} />
         </Item>
         {auth.username && (
-          <Item to="/myprojects" className="item" activeClassName="active">
+          <Item to="/myprojects" className="item">
             MY PROJECTS
             <Counter count={myProjectsCount} />
           </Item>
         )}
         {auth.username && (
-          <Item to="/requests" className="item" activeClassName="active">
+          <Item to="/requests" className="item">
             MY REQUESTS
             <Counter count={requestCount} />
           </Item>
         )}
         <SubMenu className="item">
           <SubMenuHeader>POPULAR TAGS</SubMenuHeader>
-          <TagMenu tags={popularTags} selectedTag={selectedTag} />
+          <TagMenu tags={popularTags} />
         </SubMenu>
         <SubMenu className="item">
           <SubMenuHeader>ALL TAGS</SubMenuHeader>
-          <TagMenu tags={allTags} selectedTag={selectedTag} />
+          <TagMenu tags={allTags} />
         </SubMenu>
-        <Item to="/about" className="item" activeClassName="active">
+        <Item to="/about" className="item">
           ABOUT
         </Item>
-        <ExternalLink url="https://risingstars.js.org/" className="item">
-          RISING STARS
-        </ExternalLink>
       </div>
     </Nav>
   )
 }
 
 export default Sidebar
-
-// const x = () => <div>side</div>
-// export default x
