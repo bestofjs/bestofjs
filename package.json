@@ -51,7 +51,7 @@
     "react-dom": "16.8.6",
     "react-redux": "6.0.0",
     "react-request": "^3.1.2",
-    "react-router": "^4.2.0",
+    "react-router": "^5.0.1",
     "react-router-dom": "^4.2.2",
     "react-scripts": "3.0.1",
     "react-select": "1.0.0-rc.10",
