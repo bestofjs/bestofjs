@@ -1,7 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { withFormik } from 'formik'
-import classNames from 'classnames'
 
 import FieldRow from '../../common/form/FieldRow'
 import Markdown from '../../common/form/MarkdownField'
@@ -22,10 +21,7 @@ const ReviewForm = ({
 }) => {
   const canSubmit = isValid && !isSubmitting
   return (
-    <form
-      onSubmit={handleSubmit}
-      className={classNames('ui form', { error: !isValid })}
-    >
+    <form onSubmit={handleSubmit}>
       <FieldRow label="Your rating:">
         <RatingBox
           field={{
@@ -49,14 +45,7 @@ const ReviewForm = ({
 
       <ActionBar>
         {auth.username && (
-          <Button
-            loading={isSubmitting}
-            className={classNames({
-              disabled: !canSubmit
-            })}
-            disabled={!canSubmit}
-            type="submit"
-          >
+          <Button loading={isSubmitting} disabled={!canSubmit} type="submit">
             <span className="octicon octicon-cloud-upload" /> SAVE
           </Button>
         )}

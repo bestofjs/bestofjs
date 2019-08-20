@@ -1,7 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { withFormik } from 'formik'
-import classNames from 'classnames'
 import { Link } from 'react-router-dom'
 
 import SelectBox from '../../../containers/ProjectSelectBoxContainer'
@@ -28,10 +27,7 @@ const LinkForm = ({
 }) => {
   const canSubmit = isValid && !isSubmitting
   return (
-    <form
-      onSubmit={handleSubmit}
-      className={classNames('ui form', { error: !isValid })}
-    >
+    <form onSubmit={handleSubmit}>
       <FieldRow label={'URL'} showError={errors.url} errorMessage={errors.url}>
         <Input
           name="url"
@@ -89,14 +85,7 @@ const LinkForm = ({
         >
           CANCEL
         </Link>
-        <Button
-          loading={isSubmitting}
-          className={classNames({
-            disabled: !canSubmit
-          })}
-          disabled={!canSubmit}
-          type="submit"
-        >
+        <Button loading={isSubmitting} disabled={!canSubmit} type="submit">
           <span className="octicon octicon-repo-push" /> SAVE
         </Button>
       </ActionBar>
