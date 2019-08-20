@@ -4,18 +4,7 @@ import MainContent from '../common/MainContent'
 import ProjectList from '../projects/ConnectedProjectList'
 import ProjectFilterTabs from '../ProjectSortFilter'
 import TagViewTitle from './TagViewTitle'
-import withPaginationControls from '../common/pagination/withPaginationControls'
-
-function renderGraph({ projects, ui }) {
-  const filters = ['yearly', 'quarterly', 'monthly', 'weekly', 'daily']
-  console.log('[Disabled]', projects, ui, filters) // eslint-disable-line
-  // if (ui.starFilter === 'total') return (
-  //   <StarsByDateGraph projects={projects} sortOrder={ui.starFilter} />
-  // )
-  // return filters.includes(ui.starFilter) && (
-  //   <DeltaGraph projects={projects} sortOrder={ui.starFilter} />
-  // )
-}
+import PaginationControls from '../common/pagination/PaginationControls'
 
 const TagFilter = ({
   tag,
@@ -29,18 +18,11 @@ const TagFilter = ({
   ui,
   showTags
 }) => {
-  const showGraph = false
   const showStars =
     ui.starFilter === 'total' ||
     ui.starFilter === 'packagequality' ||
     ui.starFilter === 'npms'
-  const PaginatedList = withPaginationControls(ProjectList, {
-    items: projects,
-    total,
-    pageSize: itemPerPage,
-    pageNumber,
-    url
-  })
+
   return (
     <MainContent>
       {tag ? (
@@ -56,17 +38,9 @@ const TagFilter = ({
       <ProjectFilterTabs
         currentValue={ui.starFilter}
         rootUrl={tag ? `/tags/${tag.id}` : '/projects'}
-        withPagination={total > itemPerPage}
       />
-      {showGraph &&
-        renderGraph({
-          projects: graphProjects,
-          ui
-        })}
-      <PaginatedList
-        items={projects}
-        total={total}
-        url={url}
+      <ProjectList
+        projects={projects}
         showDescription
         showURL
         isLoggedin={isLoggedin}
@@ -77,9 +51,16 @@ const TagFilter = ({
         showMetrics={false}
         viewOptions={ui.viewOptions}
       />
+      {total > itemPerPage && (
+        <PaginationControls
+          currentPage={pageNumber}
+          total={total}
+          pageSize={itemPerPage}
+          url={url}
+        />
+      )}
     </MainContent>
   )
 }
 
 export default TagFilter
-// export default () => <p>GO!</p>

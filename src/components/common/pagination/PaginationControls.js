@@ -4,175 +4,101 @@ https://github.com/keystonejs/keystone/blob/bc84c8b5c9d8339b92a415831dbaa1417cf4
 TODO clean what is not really used and make it more "functional programming"
 */
 import React from 'react'
-import classNames from 'classnames'
 import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 
 import PaginationList from './PaginationList'
 
-const Div = styled.div`
-  font-size: inherit;
-  margin-bottom: 1rem;
+const PaginationContainer = styled.div`
+  margin: 2rem 0 1rem;
   align-items: center;
   display: flex;
   justify-content: center;
   text-align: center;
-  .pagination-previous,
-  .pagination-next,
-  .pagination-link,
-  .pagination-ellipsis {
-    color: #ffae63;
-    background-color: #fff;
-    border: 1px solid #ffae63;
-    font-size: 1em;
-    padding: 0.25em 0.5em;
-    justify-content: center;
-    margin: 0.25rem;
-    text-align: center;
-  }
-  .pagination-previous,
-  .pagination-next,
-  .pagination-link {
-    border-color: #ffae63;
-    min-width: 2.25em;
-  }
-  .pagination-previous:hover,
-  .pagination-next:hover,
-  .pagination-link:hover {
-    border-color: $bestofjsOrange;
-    color: $bestofjsOrange;
-  }
-  .pagination-previous:focus,
-  .pagination-next:focus,
-  .pagination-link:focus {
-    border-color: $link-focus-border;
-  }
-  .pagination-previous:active,
-  .pagination-next:active,
-  .pagination-link:active {
-    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.2);
-  }
-  .pagination-previous[disabled],
-  .pagination-next[disabled],
-  .pagination-link[disabled] {
-    background-color: transparent;
-    border-color: #aaa;
-    box-shadow: none;
-    color: #999;
-    opacity: 0.5;
-  }
-  .pagination-previous,
-  .pagination-next {
-    padding-left: 0.75em;
-    padding-right: 0.75em;
-    white-space: nowrap;
-  }
   @media (min-width: 900px) and (max-width: 1000px) {
     .pagination-previous,
     .pagination-next {
       display: none;
     }
   }
-  @media (min-width: 600px) {
-    .pagination-previous .text,
-    .pagination-next .text {
-      display: none;
-    }
-  }
-  .pagination-link.is-current {
-    background-color: #ffae63;
-    border-color: #ffae63;
-    color: #fff;
-  }
-  .pagination-ellipsis {
-    color: $grey-light;
-    pointer-events: none;
-  }
 `
 
-class Page extends React.Component {
-  onSelect() {
-    this.props.onSelect(this.props.page)
-  }
-  render() {
-    const { children, selected, url, page } = this.props
-    const fullUrl = `${url}?page=${page}`
-    const className = classNames('pagination-link', {
-      'is-current': selected
-    })
-    return (
-      <li>
-        <Link className={className} to={fullUrl}>
-          {children}
-        </Link>
-      </li>
-    )
-  }
+const commonStyles = css`
+  font-size: 18px;
+  color: var(--bestofjsOrange);
+  background-color: #fff;
+  border: 1px solid var(--bestofjsOrange);
+  padding: 0.25em 0.5em;
+  justify-content: center;
+  margin: 0.25rem;
+  text-align: center;
+`
+
+const PaginationLink = styled(Link)`
+  ${commonStyles}
+`
+
+const CurrentPageNumber = styled.span`
+  ${commonStyles}
+  background-color: var(--bestofjsOrange);
+  color: #fff;
+`
+
+const DisabledLink = styled.span`
+  ${commonStyles}
+  background-color: transparent;
+  border-color: #aaa;
+  box-shadow: none;
+  color: #999;
+  opacity: 0.5;
+`
+
+const PageNumber = ({ children, selected, url, page }) => {
+  const fullUrl = `${url}?page=${page}`
+
+  return (
+    <li>
+      {selected ? (
+        <CurrentPageNumber>{children}</CurrentPageNumber>
+      ) : (
+        <PaginationLink to={fullUrl}>{children}</PaginationLink>
+      )}
+    </li>
+  )
 }
 
 const PreviousPageLink = ({ isFirstPage, currentPage, url }) => {
   return isFirstPage ? (
-    <div disabled className="pagination-previous">
+    <DisabledLink>
       <span className="octicon octicon-chevron-left" />
-      <span className="text"> Previous</span>
-    </div>
+    </DisabledLink>
   ) : (
-    <Link
+    <PaginationLink
       to={`${url}?page=${currentPage - 1}`}
       className="pagination-previous"
-      data-balloon={`Show the previous page of projects (#${currentPage - 1})`}
     >
       <span className="octicon octicon-chevron-left" />
-      <span className="text"> Previous</span>
-    </Link>
+    </PaginationLink>
   )
 }
 
 const NextPageLink = ({ isLastPage, currentPage, url }) => {
   return isLastPage ? (
-    <div disabled className="pagination-previous">
-      <span className="text">Next </span>
+    <DisabledLink>
       <span className="octicon octicon-chevron-right" />
-    </div>
+    </DisabledLink>
   ) : (
-    <Link
+    <PaginationLink
       to={`${url}?page=${currentPage + 1}`}
       className="pagination-previous"
-      data-balloon={`Show the next page of projects (#${currentPage + 1})`}
     >
-      <span className="text">Next </span>
       <span className="octicon octicon-chevron-right" />
-    </Link>
+    </PaginationLink>
   )
 }
 
 class Pagination extends React.Component {
-  renderCount() {
-    let count = ''
-    let { currentPage, pageSize, plural, singular, total } = this.props
-    if (total <= pageSize) return null
-    if (!total) {
-      count = 'No ' + (plural || 'records')
-    } else if (total > pageSize) {
-      let start = pageSize * (currentPage - 1) + 1
-      let end = Math.min(start + pageSize - 1, total)
-      count = `Showing ${start} to ${end} of ${total}`
-    } else {
-      count = 'Showing ' + total
-      if (total > 1 && plural) {
-        count += ' ' + plural
-      } else if (total === 1 && singular) {
-        count += ' ' + singular
-      }
-    }
-    return <div className="Pagination__count">{count}</div>
-  }
-  onPageSelect(page) {
-    if (this.props.onPageSelect) {
-      this.props.onPageSelect(page)
-    }
-  }
   renderPages() {
     if (this.props.total <= this.props.pageSize) return null
 
@@ -184,7 +110,7 @@ class Pagination extends React.Component {
 
     if (limit && limit < totalPages) {
       let rightLimit = Math.floor(limit / 2)
-      let leftLimit = rightLimit + limit % 2 - 1
+      let leftLimit = rightLimit + (limit % 2) - 1
       minPage = currentPage - leftLimit
       maxPage = currentPage + rightLimit
 
@@ -197,24 +123,24 @@ class Pagination extends React.Component {
         maxPage = totalPages
       }
     }
+
     if (minPage > 1) {
       pages.push(
-        <Page
+        <PageNumber
           key="page_start"
-          onSelect={this.onPageSelect}
           page={1}
           url={this.props.url}
           query={this.props.query}
         >
           ...
-        </Page>
+        </PageNumber>
       )
     }
+
     for (let page = minPage; page <= maxPage; page++) {
       let selected = page === currentPage
-      /* eslint-disable no-loop-func */
       pages.push(
-        <Page
+        <PageNumber
           key={'page_' + page}
           selected={selected}
           onSelect={this.onPageSelect}
@@ -223,61 +149,60 @@ class Pagination extends React.Component {
           query={this.props.query}
         >
           {page}
-        </Page>
+        </PageNumber>
       )
-      /* eslint-enable */
     }
+
     if (maxPage < totalPages) {
       pages.push(
-        <Page
+        <PageNumber
           key="page_end"
           onSelect={this.onPageSelect}
           page={totalPages}
           url={this.props.url}
         >
           ...
-        </Page>
+        </PageNumber>
       )
     }
-    return (
-      // override bulma marginTop (small screens)
-      <PaginationList style={{ marginTop: 0 }}>{pages}</PaginationList>
-    )
+
+    return pages
   }
   render() {
     const { url, total, pageSize, currentPage, style } = this.props
     const totalPages = Math.ceil(total / pageSize)
     const isFirstPage = currentPage === 1
     const isLastPage = currentPage === totalPages
+
     return (
-      <Div style={style}>
-        {false && this.renderCount()}
-        <PreviousPageLink
-          url={url}
-          isFirstPage={isFirstPage}
-          currentPage={currentPage}
-        />
-        <NextPageLink
-          url={url}
-          isLastPage={isLastPage}
-          currentPage={currentPage}
-        />
-        {this.renderPages()}
-      </Div>
+      <PaginationContainer style={style}>
+        <PaginationList style={{ marginTop: 0 }}>
+          <PreviousPageLink
+            url={url}
+            isFirstPage={isFirstPage}
+            currentPage={currentPage}
+          />
+          {this.renderPages()}
+          <NextPageLink
+            url={url}
+            isLastPage={isLastPage}
+            currentPage={currentPage}
+          />
+        </PaginationList>
+      </PaginationContainer>
     )
   }
 }
 
 Pagination.propTypes = {
-  className: PropTypes.string,
   currentPage: PropTypes.number.isRequired,
   limit: PropTypes.number,
-  onPageSelect: PropTypes.func,
   pageSize: PropTypes.number.isRequired,
-  plural: PropTypes.string,
-  singular: PropTypes.string,
-  style: PropTypes.object,
   total: PropTypes.number.isRequired
+}
+Pagination.defaultProps = {
+  limit: 5,
+  pageSize: 20
 }
 
 export default Pagination

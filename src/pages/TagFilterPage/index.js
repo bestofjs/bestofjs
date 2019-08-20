@@ -55,7 +55,7 @@ function mapStateToProps(sortFilter) {
     } = state
     const { location } = props
     const pageNumber = getPageNumber(location) || 1
-    const itemPerPage = 50
+    const itemPerPage = 20
     const start = itemPerPage * (pageNumber - 1)
     const url = location.pathname
 
