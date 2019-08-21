@@ -1,14 +1,11 @@
 /*
 The following code is adapted from KeystoneJS project
 https://github.com/keystonejs/keystone/blob/bc84c8b5c9d8339b92a415831dbaa1417cf43385/admin/client/App/elemental/Pagination/index.js
-TODO clean what is not really used and make it more "functional programming"
 */
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
 import styled, { css } from 'styled-components'
-
-import PaginationList from './PaginationList'
 
 const PaginationContainer = styled.div`
   margin: 2rem 0 1rem;
@@ -16,12 +13,16 @@ const PaginationContainer = styled.div`
   display: flex;
   justify-content: center;
   text-align: center;
-  @media (min-width: 900px) and (max-width: 1000px) {
-    .pagination-previous,
-    .pagination-next {
-      display: none;
-    }
-  }
+`
+
+const PaginationList = styled.ul`
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  flex-wrap: wrap;
+  margin: 0;
+  list-style: none;
 `
 
 const commonStyles = css`
@@ -74,10 +75,7 @@ const PreviousPageLink = ({ isFirstPage, currentPage, url }) => {
       <span className="octicon octicon-chevron-left" />
     </DisabledLink>
   ) : (
-    <PaginationLink
-      to={`${url}?page=${currentPage - 1}`}
-      className="pagination-previous"
-    >
+    <PaginationLink to={`${url}?page=${currentPage - 1}`}>
       <span className="octicon octicon-chevron-left" />
     </PaginationLink>
   )
@@ -89,16 +87,13 @@ const NextPageLink = ({ isLastPage, currentPage, url }) => {
       <span className="octicon octicon-chevron-right" />
     </DisabledLink>
   ) : (
-    <PaginationLink
-      to={`${url}?page=${currentPage + 1}`}
-      className="pagination-previous"
-    >
+    <PaginationLink to={`${url}?page=${currentPage + 1}`}>
       <span className="octicon octicon-chevron-right" />
     </PaginationLink>
   )
 }
 
-class Pagination extends React.Component {
+class PaginationControls extends React.Component {
   renderPages() {
     if (this.props.total <= this.props.pageSize) return null
 
@@ -126,12 +121,7 @@ class Pagination extends React.Component {
 
     if (minPage > 1) {
       pages.push(
-        <PageNumber
-          key="page_start"
-          page={1}
-          url={this.props.url}
-          query={this.props.query}
-        >
+        <PageNumber key="page_start" page={1} url={this.props.url}>
           ...
         </PageNumber>
       )
@@ -146,7 +136,6 @@ class Pagination extends React.Component {
           onSelect={this.onPageSelect}
           page={page}
           url={this.props.url}
-          query={this.props.query}
         >
           {page}
         </PageNumber>
@@ -193,16 +182,15 @@ class Pagination extends React.Component {
     )
   }
 }
-
-Pagination.propTypes = {
+PaginationControls.propTypes = {
   currentPage: PropTypes.number.isRequired,
   limit: PropTypes.number,
   pageSize: PropTypes.number.isRequired,
   total: PropTypes.number.isRequired
 }
-Pagination.defaultProps = {
+PaginationControls.defaultProps = {
   limit: 5,
   pageSize: 20
 }
 
-export default Pagination
+export default PaginationControls
