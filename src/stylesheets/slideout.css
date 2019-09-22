@@ -40,7 +40,7 @@ body {
 
 /* Adjustments for desktop screens: open the sidebar by default
 code from: https://github.com/Mango/slideout/issues/77#issuecomment-104253233 */
-@media screen and (min-width: 900px) {
+/* @media screen and (min-width: 900px) {
   .slideout-panel {
     margin-left: var(--sidebarWidth);
   }
@@ -52,4 +52,4 @@ code from: https://github.com/Mango/slideout/issues/77#issuecomment-104253233 */
   .menu-link {
     display: none;
   }
-}
+} */

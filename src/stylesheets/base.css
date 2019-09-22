@@ -101,7 +101,7 @@ h3 .icon {
   }
 }
 #main {
-  padding-top: var(--topbarHeight);
+  /* padding-top: var(--topbarHeight); */
 }
 #main-content {
   padding-top: 2rem;

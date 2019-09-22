@@ -45,7 +45,7 @@ export const getPopularTags = createSelector(
   }
 )
 
-const allProjects = createSelector(
+export const allProjects = createSelector(
   [state => state.entities.projects],
   projectsById => Object.values(projectsById)
 )

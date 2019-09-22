@@ -3,15 +3,15 @@ import { Route, Switch, Redirect } from 'react-router-dom'
 
 import asyncComponent from './asyncComponent'
 
-import getHomePage from '../pages/HomePage'
+import HomePage from '../pages/HomePage'
 import AllProjectsPage from '../pages/AllProjectsPage'
 import HoFPage from '../pages/HallOfFamePage'
 import TagFilter from '../pages/TagFilterPage'
 import SearchResultsPage from '../pages/SearchResultsPage'
 import items from './sortItems'
 import NoMatch from './NoMatch'
+import { SearchResultsContainer } from '../components/search/SearchResults'
 
-const HomePage = getHomePage(10)
 const AsyncAboutPage = asyncComponent(() =>
   import(/* webpackChunkName: "about" */ '../pages/AboutPage')
 )
@@ -29,17 +29,23 @@ const Routes = props => {
   return (
     <Switch>
       <Route exact path="/" component={HomePage} />
-      {items.map(item => (
-        <Route
-          exact
-          key={item.key}
-          path={`/projects/${item.path}`}
-          component={AllProjectsPage(item.key)}
-        />
-      ))}
-      <Route path="/projects/:id">
+      {false &&
+        items.map(item => (
+          <Route
+            exact
+            key={item.key}
+            path={`/projects/${item.path}`}
+            component={AllProjectsPage(item.key)}
+          />
+        ))}
+      <Route
+        path="/projects/trending/:period"
+        component={SearchResultsContainer}
+      />
+      <Route exact path="/projects/:id">
         <AsyncViewProject {...props} />
       </Route>
+      <Route exact path="/projects" component={SearchResultsContainer} />
       <Route exact path="/search/:text" component={SearchResultsPage} />
       {items.map(item => (
         <Route

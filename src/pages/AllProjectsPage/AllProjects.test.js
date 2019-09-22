@@ -11,7 +11,7 @@ const routes = [
   '/projects/trending/last-12-months'
 ]
 
-it('Should render the `All projects` page', async () => {
+xit('Should render the `All projects` page', async () => {
   const { mainNode, history } = renderApp({ route: '/projects' })
   await wait(() => getByText(mainNode, 'All projects'))
 

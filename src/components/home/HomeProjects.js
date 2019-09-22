@@ -1,6 +1,7 @@
 import React from 'react'
 
-import ProjectList from '../projects/ConnectedProjectList'
+// import ProjectList from '../projects/ConnectedProjectList'
+import ProjectList from '../project-list/ProjectTable'
 
 const viewOptions = {
   description: true,
@@ -18,6 +19,7 @@ const HomeProjects = ({ hotProjects, hotFilter }) => (
     showIndex
     showMetrics={false}
     viewOptions={viewOptions}
+    sortOption={{ id: 'daily' }}
   />
 )
 

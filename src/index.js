@@ -7,7 +7,7 @@ import App from './App'
 import AppUIContainer from './AppUIContainer'
 
 import { fetchProjects } from './actions/entitiesActions'
-import menu from './helpers/menu'
+// import menu from './helpers/menu'
 import { unregister } from './registerServiceWorker'
 import createAuthApi from './api/auth/auth-api'
 
@@ -33,7 +33,7 @@ function start() {
   )
   // STEP 2: Fetch project and tag data from the API (thr static JSON file hosted on Firebase)
   store.dispatch(fetchProjects())
-  menu.start()
+  // menu.start()
 }
 
 start()

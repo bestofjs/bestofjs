@@ -2,7 +2,7 @@
 import { getByText } from 'dom-testing-library'
 import renderApp from '../../test/render-app'
 
-it('Should render the `Search Results` page', async () => {
+xit('Should render the `Search Results` page', async () => {
   const { mainNode } = renderApp({
     route: '/search/axios'
   })

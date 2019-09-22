@@ -2,7 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 
-import SearchForm from '../../containers/SearchFormContainer'
+// import SearchForm from '../../containers/SearchFormContainer'
 import ToggleMenuButton from './ToggleMenuButton'
 
 const sidebarBreakpoint = 900
@@ -10,18 +10,18 @@ const topbarHeight = 60
 const sidebarWidth = 280
 
 const Div = styled.div`
-  position: fixed;
+  /*position: fixed;
   top: 0;
   left: 0;
-  right: 0;
+  right: 0;*/
   background-color: #fff;
   height: ${topbarHeight}px;
   z-index: 10;
   box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2),
     0 1px 5px 0 rgba(0, 0, 0, 0.12);
-  @media screen and (min-width: ${sidebarBreakpoint}px) {
+  /*@media screen and (min-width: ${sidebarBreakpoint}px) {
     left: ${sidebarWidth}px;
-  }
+  }*/
   @media screen and (max-width: ${sidebarBreakpoint - 1}px) {
     padding-left: 60px;
   }
@@ -71,7 +71,7 @@ const Header = ({ searchText, actions, location }) => (
           </LinkLogo>
         </div>
         <div className="col-2">
-          <SearchForm searchText={searchText} location={location} />
+          {/* <SearchForm searchText={searchText} location={location} /> */}
         </div>
       </Row>
     </div>
