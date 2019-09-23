@@ -61,7 +61,8 @@ const Routes = props => {
         render={ownProps => <HoFPage {...props} {...ownProps} />}
       />
       <Redirect from="/hof" to="/hall-of-fame" />
-      <Route path="/myprojects">
+      <Redirect from="/myprojects" to="/bookmarks" />
+      <Route path="/bookmarks">
         <AsyncMyProjects />
       </Route>
       <Route path="/requests">

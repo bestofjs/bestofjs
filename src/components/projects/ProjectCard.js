@@ -185,7 +185,7 @@ const ProjectCard = ({
 
       {isLoggedin && (
         <CardFooter
-          belongsToMyProjects={project.belongsToMyProjects}
+          isBookmark={project.isBookmark}
           onAdd={handleAddToMyProjects}
           onRemove={handleRemoveFromMyProjects}
           pending={project.pending}

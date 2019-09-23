@@ -14,7 +14,7 @@ const HeaderDropdownMenu = withRouter(({ history, authApi }) => {
   const items = [
     {
       label: `Bookmarks (${bookmarkCount})`,
-      onClick: () => history.push('/myprojects'),
+      onClick: () => history.push('/bookmarks'),
       icon: (
         <Octicon>
           <Bookmark />

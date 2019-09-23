@@ -4,7 +4,7 @@ import renderApp from '../../test/render-app'
 
 it('Should render `My projects` page', async () => {
   const { mainNode } = renderApp({
-    route: '/myprojects'
+    route: '/bookmarks'
   })
   await wait(() => getByText(mainNode, /Bookmarked projects/i))
   getByText(mainNode, 'Please sign-in to access this feature!')

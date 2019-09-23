@@ -2,14 +2,14 @@ import React from 'react'
 import Button from '../common/form/Button'
 import ProjectCardSection from './ProjectCardSection'
 
-const CardFooter = ({ belongsToMyProjects, onAdd, onRemove, pending }) => {
+const CardFooter = ({ isBookmark, onAdd, onRemove, pending }) => {
   const extraClassName = pending ? ' ui loading button' : 'button-outline'
   return (
     <ProjectCardSection
       className="project-card-footer card-section"
       style={{ textAlign: 'center' }}
     >
-      {belongsToMyProjects ? (
+      {isBookmark ? (
         <Button
           className={`btn mini light ${extraClassName}`}
           onClick={onRemove}

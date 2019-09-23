@@ -171,11 +171,11 @@ export const getFullProject = (tags, auth) => project => {
   const { myProjects, pendingProject } = auth
   const fullProject = populateProject(tags)(project)
   const pending = project.slug === pendingProject
-  const belongsToMyProjects =
+  const isBookmark =
     myProjects && myProjects.map(item => item.slug).includes(project.slug)
   return {
     ...fullProject,
-    belongsToMyProjects,
+    isBookmark,
     pending
   }
 }

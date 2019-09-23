@@ -61,7 +61,7 @@ const ProjectTableRow = ({
     if (!isLoggedIn) {
       return { label: 'Add bookmark', icon, disabled: true }
     }
-    if (project.belongsToMyProjects) {
+    if (project.isBookmark) {
       return {
         label: 'Remove bookmark',
         icon,
@@ -138,7 +138,7 @@ const ProjectTableRow = ({
       </StarNumberCell>
       {isLoggedIn && (
         <BookmarkCell
-          style={{ color: project.belongsToMyProjects ? '#e65100' : '#ececec' }}
+          style={{ color: project.isBookmark ? '#e65100' : '#ececec' }}
         >
           <Octicon>
             <Bookmark />
