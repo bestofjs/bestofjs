@@ -28,7 +28,6 @@ function createAuthApi({ dispatch }) {
           const path = urlManager.get(true)
           if (path) {
             history.push(path)
-            msgbox(`Hello ${profile.name}!`)
           }
           const action = dispatch(loginSuccess({ profile, token }))
           const { username } = action.payload

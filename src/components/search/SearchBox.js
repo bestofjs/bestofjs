@@ -58,6 +58,7 @@ export const SearchBox = () => {
           options={options}
           isMulti
           noOptionsMessage={() => null}
+          placeholder={'Pick several tags or enter keywords...'}
           onChange={(options, b) => {
             console.log('onChange', options, b)
             const tagIds = (options || []).map(({ value }) => value)
@@ -75,6 +76,16 @@ export const SearchBox = () => {
           }}
           inputValue={inputValue}
           value={selectedOptions}
+          theme={theme => ({
+            ...theme,
+            colors: {
+              ...theme.colors,
+              primary: '#9c0042',
+              primary75: '#f76d42',
+              primary50: '#ffae63',
+              primary25: '#f6fad7'
+            }
+          })}
         />
       </div>
     </div>

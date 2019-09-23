@@ -6,7 +6,7 @@ import { parse, stringify } from 'qs'
 
 import ProjectTable from '../project-list/ProjectTable'
 import searchForProjects from '../../selectors/search'
-import { allProjects, sortBy } from '../../selectors'
+import { allProjects, sortBy, getFullProject } from '../../selectors'
 import { SearchContext } from './SearchProvider'
 import PaginationControls from '../common/pagination/PaginationControls'
 import { paginateItemList } from '../common/pagination/helpers'
@@ -23,12 +23,14 @@ export const SearchResultsContainer = ({
 }) => {
   const { selectedTags, query, page } = useContext(SearchContext)
   const projects = useSelector(allProjects)
+  const tags = useSelector(state => state.entities.tags)
+  const auth = useSelector(state => state.auth)
 
   const sortOption =
     sortOrderOptions.find(item => item.id === period) || sortOrderOptions[0]
   const { selector } = sortOption
 
-  const { results: foundProjects, total } = findProjects(projects, {
+  const { results: foundProjects, total } = findProjects(projects, tags, auth, {
     tags: selectedTags,
     query,
     page,
@@ -103,7 +105,12 @@ SearchResults.propTypes = {}
 
 export default SearchResults
 
-function findProjects(projects, { tags, query, page = 1, selector }) {
+function findProjects(
+  projects,
+  tagsById,
+  auth,
+  { tags, query, page = 1, selector }
+) {
   console.info('Find', tags, query, page)
   const filterByTag = project =>
     tags.every(tagId => project.tags.includes(tagId))
@@ -121,8 +128,12 @@ function findProjects(projects, { tags, query, page = 1, selector }) {
 
   const sortedProjects = sortBy(foundProjects, selector)
 
+  const paginatedProjects = paginateItemList(sortedProjects, page)
+
+  const results = paginatedProjects.map(getFullProject(tagsById, auth))
+
   return {
-    results: paginateItemList(sortedProjects, page),
+    results,
     total: foundProjects.length
   }
 }

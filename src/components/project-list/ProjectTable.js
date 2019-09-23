@@ -7,8 +7,15 @@ import Avatar from '../common/ProjectAvatar'
 import StarDelta from '../common/utils/StarDelta'
 import StarTotal from '../common/utils/StarTotal'
 import { getDeltaByDay } from '../../selectors/project'
+import TagLabelGroup from '../tags/TagLabelGroup'
+import { DropdownMenu } from '../core'
+
+import Octicon, { Bookmark, MarkGithub, Home } from '@primer/octicons-react'
+import { useUser } from '../../api/hooks'
 
 const ProjectTable = ({ projects, from = 1, ...otherProps }) => {
+  const userProps = useUser()
+
   return (
     <Table>
       <tbody>
@@ -17,6 +24,7 @@ const ProjectTable = ({ projects, from = 1, ...otherProps }) => {
             key={project.full_name}
             project={project}
             rank={from + index}
+            {...userProps}
             {...otherProps}
           />
         ))}
@@ -32,6 +40,9 @@ const ProjectTableRow = ({
   project,
   rank,
   sortOption,
+  isLoggedIn,
+  addBookmark,
+  removeBookmark,
   deltaFilter = 'total'
 }) => {
   const path = `/projects/${project.slug}`
@@ -40,6 +51,54 @@ const ProjectTableRow = ({
   const showDelta = ['daily', 'weekly', 'monthly', 'yearly'].includes(
     sortOption.id
   )
+
+  const getBookmarkMenuItem = () => {
+    const icon = (
+      <Octicon>
+        <Bookmark />
+      </Octicon>
+    )
+    if (!isLoggedIn) {
+      return { label: 'Add bookmark', icon, disabled: true }
+    }
+    if (project.belongsToMyProjects) {
+      return {
+        label: 'Remove bookmark',
+        icon,
+        onClick: () => removeBookmark(project)
+      }
+    }
+    return { label: 'Add bookmark', icon, onClick: () => addBookmark(project) }
+  }
+
+  const getHomepageMenuItem = () =>
+    project.url && {
+      icon: (
+        <Octicon>
+          <Home />
+        </Octicon>
+      ),
+      label: 'Homepage',
+      url: project.url,
+      onClick: () => ({})
+    }
+
+  const items = [
+    // { type: 'label', label: 'Links' },
+    {
+      icon: (
+        <Octicon>
+          <MarkGithub />
+        </Octicon>
+      ),
+      label: 'GitHub',
+      url: project.repository,
+      onClick: () => ({})
+    },
+    getHomepageMenuItem(),
+    { type: 'divider' },
+    getBookmarkMenuItem()
+  ]
 
   return (
     <Row>
@@ -56,9 +115,12 @@ const ProjectTableRow = ({
           <Link to={path}>{project.name}</Link>
         </ProjectName>
         <ProjectDescription>{project.description}</ProjectDescription>
+        <div>
+          <TagLabelGroup tags={project.tags} />
+        </div>
       </MainCell>
 
-      <LastCell>
+      <StarNumberCell>
         {showStars && (
           <div className="total">
             <StarTotal value={project.stars} icon />
@@ -73,7 +135,19 @@ const ProjectTableRow = ({
             />
           </div>
         )}
-      </LastCell>
+      </StarNumberCell>
+      {isLoggedIn && (
+        <BookmarkCell
+          style={{ color: project.belongsToMyProjects ? '#e65100' : '#ececec' }}
+        >
+          <Octicon>
+            <Bookmark />
+          </Octicon>
+        </BookmarkCell>
+      )}
+      <ActionCell>
+        <DropdownMenu items={items} alignment="right" />
+      </ActionCell>
     </Row>
   )
 }
@@ -93,7 +167,7 @@ const Row = styled.tr`
 `
 
 const Cell = styled.td`
-  height: 50px;
+  height: 120px;
   padding: 8px 0;
   background-color: white;
 `
@@ -115,18 +189,28 @@ const IconCell = styled(Cell)`
 
 const MainCell = styled(Cell)`
   padding: 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 `
 
-const LastCell = styled(Cell)`
+const StarNumberCell = styled(Cell)`
   text-align: center;
+`
+
+const BookmarkCell = styled(Cell)`
+  padding: 8px;
+`
+
+const ActionCell = styled(Cell)`
+  padding-right: 1rem;
 `
 
 const ProjectName = styled.div`
   font-size: 16px;
-  margin-bottom: 0.25rem;
 `
 
-const ProjectDescription = styled.span`
+const ProjectDescription = styled.div`
   font-size: 14px;
   color: #788080;
 `

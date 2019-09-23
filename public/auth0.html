@@ -1,60 +1,58 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
-
-<head>
-  <meta charset="utf-8">
-  <title>bestofjs.org login with Github</title>
-  <style>
-    body,
-    html {
-      height: 100%;
-    }
-
-    body {
-      background-color: #fa9e59;
-      color: white;
-      text-align: center;
-      font-size: 3em;
-      font-family: sans-serif;
-      display: -webkit-box;
-      display: -webkit-flex;
-      display: -ms-flexbox;
-      display: flex;
-      -webkit-box-align: center;
-      -webkit-align-items: center;
-      -ms-flex-align: center;
-      align-items: center;
-    }
-
-    div {
-      width: 100%;
-    }
-  </style>
-</head>
-
-<body>
-  <div>Github login...</div>
-  <script src="//cdn.auth0.com/w2/auth0-6.js"></script>
-  <script>
-    function init() {
-      auth0 = new Auth0({
-        domain: 'bestofjs.auth0.com',
-        clientID: 'dadmCoaRkXs0IhWwnDmyWaBOjLzJYf4s',
-        callbackURL: '/',
-        callbackOnLocationHash: true
-      });
-      var result = auth0.parseHash(window.location.hash);
-      if (!result) return;
-      var id_token = result.id_token;
-      var access_token = result.access_token;
-      if (id_token) {
-        window.localStorage.setItem('bestofjs_id_token', id_token);
-        window.localStorage.setItem('bestofjs_access_token', access_token);
-        window.location.href = '/'
+  <head>
+    <meta charset="utf-8" />
+    <title>bestofjs.org login with Github</title>
+    <style>
+      body,
+      html {
+        height: 100%;
       }
-    }
-    init();
-  </script>
-</body>
 
+      body {
+        background-color: #fa9e59;
+        color: white;
+        text-align: center;
+        font-size: 3em;
+        font-family: sans-serif;
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-align: center;
+        -webkit-align-items: center;
+        -ms-flex-align: center;
+        align-items: center;
+      }
+
+      div {
+        width: 100%;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div>GitHub login...</div>
+    <script src="//cdn.auth0.com/w2/auth0-6.js"></script>
+    <script>
+      function init() {
+        auth0 = new Auth0({
+          domain: 'bestofjs.auth0.com',
+          clientID: 'dadmCoaRkXs0IhWwnDmyWaBOjLzJYf4s',
+          callbackURL: '/',
+          callbackOnLocationHash: true
+        })
+        var result = auth0.parseHash(window.location.hash)
+        if (!result) return
+        var id_token = result.id_token
+        var access_token = result.access_token
+        if (id_token) {
+          window.localStorage.setItem('bestofjs_id_token', id_token)
+          window.localStorage.setItem('bestofjs_access_token', access_token)
+          window.location.href = '/'
+        }
+      }
+      init()
+    </script>
+  </body>
 </html>

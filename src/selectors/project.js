@@ -14,7 +14,6 @@ export const findProject = slug =>
       if (!project) return null
       return {
         ...populateProject(tags)(project),
-        repository: 'https://github.com/' + project.full_name,
         slug
       }
     }
@@ -24,7 +23,11 @@ export const findProject = slug =>
 export function populateProject(tags) {
   return function(project) {
     if (!project) throw new Error('populate() called with NO PROJECT!')
-    const populated = { ...project, tags: project.tags.map(id => tags[id]) }
+    const populated = {
+      ...project,
+      repository: 'https://github.com/' + project.full_name,
+      tags: project.tags.map(id => tags[id]).filter(tag => !!tag)
+    }
     return populated
   }
 }

@@ -17,7 +17,7 @@ const AppLayout = ({ ...props }) => {
       <div id="layout">
         <Sidebar {...props} />
         <div id="panel" className="slideout-panel">
-          <Header />
+          <Header {...props} />
           <SearchBox />
           <main id="main">
             <Routes {...props} />

@@ -53,6 +53,7 @@ export const SortOrderPicker = ({ value, onChange }) => {
     <div>
       <Select
         options={options}
+        isSearchable={false}
         style={{ width: 200 }}
         value={options.find(item => item.value === value)}
         onChange={({ value }) => onChange(value)}
@@ -63,7 +64,7 @@ export const SortOrderPicker = ({ value, onChange }) => {
             primary: '#9c0042',
             primary75: '#f76d42',
             primary50: '#ffae63',
-            primary25: '#fbe793'
+            primary25: '#f6fad7'
           }
         })}
       />

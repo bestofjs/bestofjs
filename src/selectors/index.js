@@ -160,6 +160,13 @@ export const getMyProjects = createSelector(
   }
 )
 
+export const getBookmarkCount = createSelector(
+  state => state.auth.myProjects,
+  ids => {
+    return ids.length
+  }
+)
+
 export const getFullProject = (tags, auth) => project => {
   const { myProjects, pendingProject } = auth
   const fullProject = populateProject(tags)(project)
@@ -205,3 +212,8 @@ export function sortBy(projects, fn, direction = 'DESC') {
     return diff * (direction === 'DESC' ? -1 : 1)
   })
 }
+
+export const isUserLoggedIn = createSelector(
+  state => state.auth.username,
+  username => !!username
+)

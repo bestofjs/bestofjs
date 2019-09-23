@@ -27,7 +27,7 @@ font-size: 1rem;
 }
 &.button-outline {
   background-color: #fff;
-  border: 2px solid ${bestofjsOrange};
+  border: 1px solid ${bestofjsOrange};
   color: ${bestofjsOrange};
 }
 &.button-outline:hover {

@@ -1,9 +1,12 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
+import { useSelector } from 'react-redux'
 
 // import SearchForm from '../../containers/SearchFormContainer'
-import ToggleMenuButton from './ToggleMenuButton'
+// import ToggleMenuButton from './ToggleMenuButton'
+import Button from '../common/form/Button'
+import UserDropdownMenu from './UserDropdownMenu'
 
 const sidebarBreakpoint = 900
 const topbarHeight = 60
@@ -55,27 +58,45 @@ const LinkLogo = styled(Link)`
   img {
     display: block;
   }
-  @media (max-width: 500px) {
-    display: none;
-  }
 `
 
-const Header = ({ searchText, actions, location }) => (
-  <Div>
-    <ToggleMenuButton actions={actions} />
-    <div className="container">
-      <Row className="header-row">
-        <div className="col-1">
-          <LinkLogo to={'/'}>
-            <img src="/svg/bestofjs.svg" width="160" alt="bestofjs.org" />
-          </LinkLogo>
-        </div>
-        <div className="col-2">
-          {/* <SearchForm searchText={searchText} location={location} /> */}
-        </div>
-      </Row>
-    </div>
-  </Div>
-)
+const Header = props => {
+  return (
+    <Div>
+      {/* <ToggleMenuButton actions={actions} /> */}
+      <div className="container">
+        <Row className="header-row">
+          <div className="col-1">
+            <LinkLogo to={'/'}>
+              <img src="/svg/bestofjs.svg" width="160" alt="bestofjs.org" />
+            </LinkLogo>
+          </div>
+          <div className="col-2">
+            <LoginSection {...props} />
+          </div>
+        </Row>
+      </div>
+    </Div>
+  )
+}
+
+const LoginSection = ({ dependencies: { authApi } }) => {
+  const auth = useSelector(state => state.auth)
+
+  if (auth.pending)
+    return (
+      <div style={{ display: 'flex', alignItems: 'center' }}>Loading...</div>
+    )
+
+  if (!auth.username) {
+    return (
+      <Button className="button-outline" onClick={() => authApi.login()}>
+        <span className="octicon octicon-mark-github" /> Sign in with GitHub
+      </Button>
+    )
+  }
+
+  return <UserDropdownMenu authApi={authApi} />
+}
 
 export default Header
