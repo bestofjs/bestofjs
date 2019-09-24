@@ -1,6 +1,6 @@
 import { wait } from 'react-testing-library'
 import { getByText } from 'dom-testing-library'
-import renderApp from '../../test/render-app'
+import renderApp from '../test/render-app'
 
 it('Should render `My projects` page', async () => {
   const { mainNode } = renderApp({

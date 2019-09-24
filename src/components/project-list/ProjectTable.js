@@ -47,10 +47,10 @@ const ProjectTableRow = ({
 }) => {
   const path = `/projects/${project.slug}`
 
-  const showStars = sortOption.id === 'total'
   const showDelta = ['daily', 'weekly', 'monthly', 'yearly'].includes(
     sortOption.id
   )
+  const showStars = !showDelta
 
   const getBookmarkMenuItem = () => {
     const icon = (

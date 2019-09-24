@@ -11,44 +11,59 @@ import {
   // getRelativeGrowthRate
 } from './project-selectors'
 
-export const sortOrderOptions = [
-  {
-    id: 'total',
-    label: 'Total number of stars',
-    selector: getStarTotal,
-    direction: -1
-  },
-  {
-    id: 'daily',
-    label: 'Stars added yesterday',
-    selector: getStarsAddedYesterday,
-    direction: -1
-  },
-  {
-    id: 'weekly',
-    label: 'Stars added the last 7 days',
-    selector: getStarsAddedThisWeek,
-    direction: -1
-  },
-  {
-    id: 'monthly',
-    label: 'Stars added the last 30 months',
-    selector: getStarsAddedThisMonth,
-    direction: -1
-  },
-  {
-    id: 'yearly',
-    label: 'Stars added the last 12 months',
-    selector: getStarsAddedThisYear,
+// TODO find a better way to include/exclude the sort option related to the bookmarks
+export const getSortOrderOptions = ({ showBookmark = false } = {}) => {
+  const bookmarkDateOption = {
+    id: 'bookmark',
+    label: 'By date of the bookmark',
+    selector: project => project.bookmarked_at,
     direction: -1
   }
-]
 
-export const SortOrderPicker = ({ value, onChange }) => {
+  const options = [
+    showBookmark && bookmarkDateOption,
+    {
+      id: 'total',
+      label: 'By total number of stars',
+      selector: getStarTotal,
+      direction: -1
+    },
+    {
+      id: 'daily',
+      label: 'By stars added yesterday',
+      selector: getStarsAddedYesterday,
+      direction: -1
+    },
+    {
+      id: 'weekly',
+      label: 'By stars added the last 7 days',
+      selector: getStarsAddedThisWeek,
+      direction: -1
+    },
+    {
+      id: 'monthly',
+      label: 'By stars added the last 30 months',
+      selector: getStarsAddedThisMonth,
+      direction: -1
+    },
+    {
+      id: 'yearly',
+      label: 'By stars added the last 12 months',
+      selector: getStarsAddedThisYear,
+      direction: -1
+    }
+  ]
+
+  return options.filter(item => !!item)
+}
+
+export const SortOrderPicker = ({ value, onChange, showBookmark }) => {
+  const sortOrderOptions = getSortOrderOptions({ showBookmark })
   const options = sortOrderOptions.map(({ id, label }) => ({
     value: id,
     label
   }))
+
   return (
     <div>
       <Select

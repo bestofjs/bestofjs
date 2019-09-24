@@ -11,29 +11,39 @@ const HeaderDropdownMenu = withRouter(({ history, authApi }) => {
   const auth = useSelector(state => state.auth)
   const bookmarkCount = useSelector(getBookmarkCount)
 
-  const items = [
-    {
-      label: `Bookmarks (${bookmarkCount})`,
-      onClick: () => history.push('/bookmarks'),
-      icon: (
-        <Octicon>
-          <Bookmark />
-        </Octicon>
-      )
-    },
-    {
-      label: 'Sign out',
-      onClick: () => authApi.logout(),
-      icon: (
-        <Octicon>
-          <SignOut />
-        </Octicon>
-      )
-    }
-  ]
-
   return (
-    <Popover content={({ close }) => <Menu items={items} />} alignment="right">
+    <Popover
+      content={({ close }) => {
+        const items = [
+          {
+            label: `Bookmarks (${bookmarkCount})`,
+            onClick: () => {
+              history.push('/bookmarks')
+              close()
+            },
+            icon: (
+              <Octicon>
+                <Bookmark />
+              </Octicon>
+            )
+          },
+          {
+            label: 'Sign out',
+            onClick: () => {
+              authApi.logout()
+              close()
+            },
+            icon: (
+              <Octicon>
+                <SignOut />
+              </Octicon>
+            )
+          }
+        ]
+        return <Menu items={items} close={close} />
+      }}
+      alignment="right"
+    >
       {({ open }) => (
         <Button onClick={open}>
           {auth.name}{' '}

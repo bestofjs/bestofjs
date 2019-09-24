@@ -70,7 +70,8 @@ const sortFn = {
   quarterly: project => project.trends.quarterly,
   quality: project => project.quality,
   score: project => project.score,
-  yearly: project => project.trends.yearly
+  yearly: project => project.trends.yearly,
+  bookmark: project => new Date(project.bookmarked_at)
 }
 
 // a sub-selector used by both `getProjectsSortedBy` and `getProjectsByTag`
@@ -141,24 +142,25 @@ export const searchForProjects = text =>
         .map(getFullProject(tagsById, auth))
   )
 
-export const getMyProjects = createSelector(
-  [
-    state => state.entities.projects,
-    state => state.auth,
-    state => state.entities.tags
-  ],
-  (projects, auth, tags) => {
-    if (!auth.myProjects) return []
-    const myProjectsSlugs = auth.myProjects
-      .sort((a, b) => (a.bookmarked_at > b.bookmarked_at ? -1 : 1))
-      .map(item => item.slug)
-    const result = myProjectsSlugs
-      .map(slug => projects[slug])
-      .filter(project => !!project)
-      .map(getFullProject(tags, auth))
-    return result
-  }
-)
+export const getBookmarksSortedBy = criteria =>
+  createSelector(
+    [
+      state => {
+        return state.entities.projects
+      },
+      state => state.auth,
+      state => state.entities.tags
+    ],
+    (projects, auth, tags) => {
+      if (!auth.myProjects) return []
+      const myProjectsSlugs = auth.myProjects.map(item => item.slug)
+      const result = myProjectsSlugs
+        .map(slug => projects[slug])
+        .filter(project => !!project)
+        .map(getFullProject(tags, auth))
+      return sortProjects(sortFn[criteria])(result)
+    }
+  )
 
 export const getBookmarkCount = createSelector(
   state => state.auth.myProjects,
@@ -168,14 +170,17 @@ export const getBookmarkCount = createSelector(
 )
 
 export const getFullProject = (tags, auth) => project => {
-  const { myProjects, pendingProject } = auth
+  const { myProjects = [], pendingProject } = auth
   const fullProject = populateProject(tags)(project)
   const pending = project.slug === pendingProject
-  const isBookmark =
-    myProjects && myProjects.map(item => item.slug).includes(project.slug)
+  const bookmark = myProjects.find(({ slug }) => slug === project.slug)
+  const isBookmark = !!bookmark
+
   return {
     ...fullProject,
-    isBookmark,
+    ...(bookmark
+      ? { isBookmark, bookmarked_at: bookmark.bookmarked_at }
+      : undefined),
     pending
   }
 }

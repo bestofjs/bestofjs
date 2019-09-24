@@ -60,7 +60,7 @@ export const SearchBox = () => {
           noOptionsMessage={() => null}
           placeholder={'Pick several tags or enter keywords...'}
           onChange={(options, b) => {
-            console.log('onChange', options, b)
+            // console.log('onChange', options, b)
             const tagIds = (options || []).map(({ value }) => value)
             // setSelectedTags(tagIds) // when removing tags using backspace key, the option is `null`
             setInputValue('')
@@ -68,7 +68,7 @@ export const SearchBox = () => {
             onChange({ query: '', selectedTags: tagIds })
           }}
           onInputChange={(value, { action }) => {
-            console.log('onInputChange', value, action)
+            // console.log('onInputChange', value, action)
             if (action === 'input-change') {
               setInputValue(value)
               debouncedOnChange({ query: value })
