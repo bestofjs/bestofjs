@@ -5,6 +5,7 @@ import { useSelector } from 'react-redux'
 import searchForProjects from '../../selectors/search'
 import { allProjects, sortBy, getFullProject } from '../../selectors'
 import { PaginationProvider, paginateItemList } from '../common/pagination'
+import { PageTitle } from '../core'
 import MainContent from '../common/MainContent'
 import { SearchContext } from './SearchProvider'
 import { ProjectPaginatedList } from './project-paginated-list'
@@ -25,6 +26,8 @@ export const SearchResultsContainer = () => {
     limit
   })
 
+  const isListFiltered = query !== '' || selectedTags.length > 0
+
   return (
     <MainContent>
       <PaginationProvider total={total} currentPageNumber={page} limit={limit}>
@@ -37,9 +40,13 @@ export const SearchResultsContainer = () => {
           sortOption={sortOption}
           showBookmark={false}
         >
-          <h3 className="no-card-container" style={{ marginBottom: '0.25rem' }}>
-            Search results: {showCount(total, 'project')} found.
-          </h3>
+          <PageTitle>
+            {isListFiltered ? (
+              <>Search results: {showCount(total, 'project')} found</>
+            ) : (
+              <>All projects</>
+            )}
+          </PageTitle>
         </ProjectPaginatedList>
       </PaginationProvider>
     </MainContent>
