@@ -14,7 +14,7 @@ export function paginateItemList(itemList, pageNumber, { limit = 10 } = {}) {
 export function generatePageNumbers({
   total,
   currentPageNumber,
-  limit = 10,
+  limit,
   pageNumberCount = 5
 }) {
   const numberOfPages = Math.ceil(total / limit)

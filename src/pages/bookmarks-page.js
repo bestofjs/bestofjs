@@ -3,7 +3,10 @@ import { useSelector } from 'react-redux'
 
 import MainContent from '../components/common/MainContent'
 import { SearchContext } from '../components/search/SearchProvider'
-import { PaginationProvider } from '../components/common/pagination/provider'
+import {
+  PaginationProvider,
+  paginateItemList
+} from '../components/common/pagination'
 import { ProjectPaginatedList } from '../components/search/project-paginated-list'
 // import Octicon, { Bookmark } from '@primer/octicons-react'
 import { getBookmarksSortedBy } from '../selectors'
@@ -13,7 +16,10 @@ const BookmarksPage = () => {
   const { page, sortOption } = useContext(SearchContext)
   const { isLoggedIn } = useUser()
   const projects = useSelector(getBookmarksSortedBy(sortOption.id))
+
   const total = projects.length
+  const limit = 5
+  const paginatedProjects = paginateItemList(projects, page, { limit })
 
   return (
     <MainContent>
@@ -23,15 +29,20 @@ const BookmarksPage = () => {
           style={{ marginRight: '.25rem' }}
         />{' '}
         Bookmarked projects
-        <Counter count={projects.length} />
+        <Counter count={total} />
       </h3>
       {total === 0 && <EmptyList isLoggedin={isLoggedIn} />}
       {total > 0 && (
-        <PaginationProvider total={total} currentPageNumber={page} limit={10}>
+        <PaginationProvider
+          total={total}
+          currentPageNumber={page}
+          limit={limit}
+        >
           <ProjectPaginatedList
-            projects={projects}
+            projects={paginatedProjects}
             page={page}
             total={total}
+            limit={limit}
             sortOption={sortOption}
             showBookmark={true}
           >

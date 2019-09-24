@@ -13,6 +13,7 @@ export const ProjectPaginatedList = ({
   query,
   page,
   total,
+  limit,
   sortOption,
   showBookmark,
   children
@@ -56,7 +57,7 @@ export const ProjectPaginatedList = ({
         from={from}
         sortOption={sortOption}
       />
-      <PaginationControls total={total} currentPage={page} />
+      <PaginationControls total={total} currentPage={page} limit={limit} />
     </div>
   )
 }

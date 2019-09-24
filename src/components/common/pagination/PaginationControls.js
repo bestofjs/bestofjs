@@ -12,13 +12,7 @@ import {
   ChevronRight
 } from './icons'
 
-const PaginationControls = ({
-  total,
-  pageSize,
-  currentPage,
-  style,
-  location
-}) => {
+const PaginationControls = ({ total, limit, currentPage, style, location }) => {
   const {
     pageNumbers,
     hasPreviousPage,
@@ -29,7 +23,7 @@ const PaginationControls = ({
   } = generatePageNumbers({
     total,
     currentPageNumber: currentPage,
-    limit: pageSize
+    limit
   })
 
   if (pageNumbers.length < 2) return null
@@ -57,10 +51,10 @@ const PaginationControls = ({
 PaginationControls.propTypes = {
   currentPage: PropTypes.number.isRequired,
   total: PropTypes.number.isRequired,
-  pageSize: PropTypes.number
+  limit: PropTypes.number
 }
 PaginationControls.defaultProps = {
-  pageSize: 10
+  limit: 10
 }
 
 export default withRouter(PaginationControls)

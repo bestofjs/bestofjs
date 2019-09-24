@@ -55,7 +55,7 @@ const TagFilter = ({
         <PaginationControls
           currentPage={pageNumber}
           total={total}
-          pageSize={itemPerPage}
+          limit={itemPerPage}
           url={url}
         />
       )}
