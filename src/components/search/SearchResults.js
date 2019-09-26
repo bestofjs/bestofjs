@@ -12,7 +12,7 @@ import { ProjectPaginatedList } from './project-paginated-list'
 
 export const SearchResultsContainer = () => {
   const { selectedTags, query, sortOption, page } = useContext(SearchContext)
-  const limit = 5
+  const limit = 10
 
   const projects = useSelector(allProjects)
   const tags = useSelector(state => state.entities.tags)
