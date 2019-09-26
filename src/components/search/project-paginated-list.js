@@ -29,7 +29,21 @@ export const ProjectPaginatedList = ({
   return (
     <div>
       <div style={{ display: 'flex', alignItems: 'center' }}>
-        <div style={{ flex: '0 0 50%' }}>{children}</div>
+        <div style={{ flex: '0 0 50%' }}>
+          {children}
+          {pageNumbers.length > 1 && (
+            <p style={{ color: '#788080' }}>
+              Showing{' '}
+              {from === to ? (
+                `#${from}`
+              ) : (
+                <>
+                  {from} - {to} of {total}
+                </>
+              )}
+            </p>
+          )}
+        </div>
         <div style={{ flex: '0 0 50%' }}>
           <SortOrderPicker
             onChange={handleChange}
@@ -38,18 +52,6 @@ export const ProjectPaginatedList = ({
           />
         </div>
       </div>
-      {pageNumbers.length > 0 && (
-        <p style={{ color: '#788080' }}>
-          Showing{' '}
-          {from === to ? (
-            `#${from}`
-          ) : (
-            <>
-              {from} - {to} of {total}
-            </>
-          )}
-        </p>
-      )}
       <br />
       <ProjectTable
         projects={projects}

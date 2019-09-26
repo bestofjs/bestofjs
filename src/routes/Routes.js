@@ -4,7 +4,6 @@ import { Route, Switch, Redirect } from 'react-router-dom'
 import asyncComponent from './asyncComponent'
 
 import HomePage from '../pages/HomePage'
-// import AllProjectsPage from '../pages/AllProjectsPage'
 import HoFPage from '../pages/HallOfFamePage'
 import TagFilter from '../pages/TagFilterPage'
 import items from './sortItems'
@@ -36,7 +35,7 @@ const Routes = props => {
         <AsyncViewProject {...props} />
       </Route>
       <Route exact path="/projects" component={SearchResultsContainer} />
-      {/* <Route exact path="/search/:text" component={SearchResultsPage} /> */}
+      <Redirect from={`/tags/:id`} to={`/projects?tags=:id`} />
       {items.map(item => (
         <Route
           exact

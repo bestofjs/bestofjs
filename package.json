@@ -42,7 +42,7 @@
     "notie": "^2.1.0",
     "numeral": "^1.5.3",
     "prop-types": "15.5.8",
-    "qs": "^6.5.1",
+    "qs": "^6.9.0",
     "react": "16.8.6",
     "react-async": "^7.0.5",
     "react-calendar-heatmap": "1.4.1",

@@ -1,7 +1,4 @@
-import React, {
-  createContext
-  // useState, useEffect, useCallback
-} from 'react'
+import React, { createContext } from 'react'
 import useReactRouter from 'use-react-router'
 import { queryStringToState, stateToQueryString } from './search-utils'
 import { getSortOrderOptions } from './sort-order'
@@ -23,8 +20,11 @@ export const SearchProvider = ({ children }) => {
       sort,
       ...changes
     })
-    const path = queryString ? `/projects?${queryString}` : '/' // back to the homepage if there is no query
-    history.push(path)
+
+    history.push({
+      pathname: '/projects',
+      search: queryString ? '?' + queryString : '' // show "All Projects" if there is no query string
+    })
   }
 
   const sortOrderOptions = getSortOrderOptions({ showBookmark: true })
