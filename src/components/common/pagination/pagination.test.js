@@ -2,6 +2,7 @@ import { generatePageNumbers, paginateItemList } from './helpers'
 
 const defaultInputParams = {
   total: 100,
+  limit: 10,
   pageNumberCount: 3
 }
 
@@ -9,8 +10,7 @@ const testCases = [
   {
     input: {
       total: 29,
-      currentPageNumber: 1,
-      pageNumberCount: 5
+      currentPageNumber: 1
     },
     output: {
       pageNumbers: [1, 2, 3],
