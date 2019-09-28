@@ -58,33 +58,30 @@ const HeroCard = ({ hero, you, isCurrentUser, showDetails }) => {
           )}
         </div>
       </ExternalLink>
-      {showDetails &&
-        hero.projects.length > 0 && (
-          <CardProjectLabels projects={hero.projects} />
-        )}
+      {showDetails && hero.projects.length > 0 && (
+        <CardProjectLabels projects={hero.projects} />
+      )}
       {showDetails && hero.bio && <div className="inner">{hero.bio}</div>}
-      {showDetails &&
-        hero.blog && (
-          <ExternalLink
-            className="inner card-block"
-            data-balloon={`Open ${hero.username}'s website/blog`}
-            url={hero.blog}
-          >
-            <span className="mega-octicon octicon-globe icon" />
-            <span>{formatUrl(hero.blog)}</span>
-          </ExternalLink>
-        )}
-      {showDetails &&
-        hero.modules > 0 && (
-          <ExternalLink
-            className="inner card-block"
-            data-balloon={`Open ${hero.username}'s profile on npm`}
-            url={`https://www.npmjs.com/~${hero.npm || hero.username}`}
-          >
-            <span className="mega-octicon octicon-package icon" />
-            <span>{hero.modules} modules on npm</span>
-          </ExternalLink>
-        )}
+      {showDetails && hero.blog && (
+        <ExternalLink
+          className="inner card-block"
+          data-balloon={`Open ${hero.username}'s website/blog`}
+          url={hero.blog}
+        >
+          <span className="mega-octicon octicon-globe icon" />
+          <span>{formatUrl(hero.blog)}</span>
+        </ExternalLink>
+      )}
+      {showDetails && hero.modules > 0 && (
+        <ExternalLink
+          className="inner card-block"
+          data-balloon={`Open ${hero.username}'s profile on npm`}
+          url={`https://www.npmjs.com/~${hero.npm || hero.username}`}
+        >
+          <span className="mega-octicon octicon-package icon" />
+          <span>{hero.modules} modules on npm</span>
+        </ExternalLink>
+      )}
     </Card>
   )
 }

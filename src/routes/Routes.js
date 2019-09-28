@@ -5,8 +5,6 @@ import asyncComponent from './asyncComponent'
 
 import HomePage from '../pages/HomePage'
 import HoFPage from '../pages/HallOfFamePage'
-import TagFilter from '../pages/TagFilterPage'
-import items from './sortItems'
 import NoMatch from './NoMatch'
 import { SearchResultsContainer } from '../components/search/SearchResults'
 
@@ -36,14 +34,6 @@ const Routes = props => {
       </Route>
       <Route exact path="/projects" component={SearchResultsContainer} />
       <Redirect from={`/tags/:id`} to={`/projects?tags=:id`} />
-      {items.map(item => (
-        <Route
-          exact
-          key={item.key}
-          path={`/tags/:id/${item.path}`}
-          component={TagFilter(item.key)}
-        />
-      ))}
       <Route
         exact
         path="/hall-of-fame"
