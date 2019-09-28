@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 import { Link } from 'react-router-dom'
 import numeral from 'numeral'
 import Octicon, {
@@ -51,7 +51,8 @@ const ProjectTableRow = ({
   addBookmark,
   removeBookmark,
   deltaFilter = 'total',
-  showDetails = true
+  showDetails = true,
+  showRankingNumber = false
 }) => {
   const path = `/projects/${project.slug}`
 
@@ -110,9 +111,11 @@ const ProjectTableRow = ({
 
   return (
     <Row>
-      <FirstCell>
-        <ProjectRankingNumber>{rank}</ProjectRankingNumber>
-      </FirstCell>
+      {showRankingNumber && (
+        <FirstCell>
+          <ProjectRankingNumber>{rank}</ProjectRankingNumber>
+        </FirstCell>
+      )}
 
       <IconCell>
         <Avatar project={project} size={50} />
@@ -121,6 +124,13 @@ const ProjectTableRow = ({
       <MainCell>
         <ProjectName>
           <Link to={path}>{project.name}</Link>
+          {isLoggedIn && (
+            <BookmarkIconContainer on={project.isBookmark}>
+              <Octicon size={24}>
+                <Bookmark />
+              </Octicon>
+            </BookmarkIconContainer>
+          )}
         </ProjectName>
         <ProjectDescription>{project.description}</ProjectDescription>
         <div>
@@ -160,15 +170,6 @@ const ProjectTableRow = ({
           </div>
         )}
       </StarNumberCell>
-      {isLoggedIn && (
-        <BookmarkCell
-          style={{ color: project.isBookmark ? '#e65100' : '#ececec' }}
-        >
-          <Octicon size={24}>
-            <Bookmark />
-          </Octicon>
-        </BookmarkCell>
-      )}
       <ActionCell>
         <DropdownMenu items={items} alignment="right" />
       </ActionCell>
@@ -191,8 +192,11 @@ const Row = styled.tr`
 `
 
 const Cell = styled.td`
-  padding: 8px;
+  padding: 0.5rem;
   background-color: white;
+  &:first-child {
+    padding-left: 1rem;
+  }
   .icon {
     color: #fa9e59;
     margin-right: 0.25rem;
@@ -200,13 +204,13 @@ const Cell = styled.td`
 `
 
 const ProjectRankingNumber = styled.div`
-  width: 50px;
   font-size: 24px;
   text-align: center;
   color: #788080;
 `
 
 const FirstCell = styled(Cell)`
+  width: 50px;
   @media (max-width: 799px) {
     display: none;
   }
@@ -235,15 +239,21 @@ const ContributorCountCell = styled(Cell)`
 `
 
 const StarNumberCell = styled(Cell)`
+  font-size: 1.25rem;
   text-align: center;
-  width: 65px;
+  width: 80px;
 `
 
-const BookmarkCell = styled(Cell)`
-  padding: 8px;
-  @media (max-width: 799px) {
-    display: none;
-  }
+const BookmarkIconContainer = styled.span`
+  margin-left: 0.5rem;
+  ${({ on }) =>
+    on
+      ? css`
+          color: var(--bestofjsOrange);
+        `
+      : css`
+          color: #ececec;
+        `}
 `
 
 const ActionCell = styled(Cell)`
@@ -252,6 +262,8 @@ const ActionCell = styled(Cell)`
 
 const ProjectName = styled.div`
   font-size: 16px;
+  display: flex;
+  align-items: center;
 `
 
 const ProjectDescription = styled.div`

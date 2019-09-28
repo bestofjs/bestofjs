@@ -1,4 +1,5 @@
 import React, { useContext } from 'react'
+import styled from 'styled-components'
 // import PropTypes from 'prop-types'
 import useReactRouter from 'use-react-router'
 import { parse, stringify } from 'qs'
@@ -15,7 +16,7 @@ export const ProjectPaginatedList = ({
   total,
   limit,
   sortOption,
-  showBookmark,
+  showBookmarkSortOption,
   children
 }) => {
   const { from, to, pageNumbers } = useContext(PaginationContext)
@@ -32,7 +33,7 @@ export const ProjectPaginatedList = ({
         <div style={{ flex: '0 0 50%' }}>
           {children}
           {pageNumbers.length > 1 && (
-            <p style={{ color: '#788080', fontSize: 16 }}>
+            <SubTitle>
               Showing{' '}
               {from === to ? (
                 `#${from}`
@@ -41,14 +42,14 @@ export const ProjectPaginatedList = ({
                   {from} - {to} of {total}
                 </>
               )}
-            </p>
+            </SubTitle>
           )}
         </div>
         <div style={{ flex: '0 0 50%' }}>
           <SortOrderPicker
             onChange={handleChange}
             value={sortOption.id}
-            showBookmark={showBookmark}
+            showBookmark={showBookmarkSortOption}
           />
         </div>
       </div>
@@ -63,6 +64,12 @@ export const ProjectPaginatedList = ({
     </div>
   )
 }
+
+const SubTitle = styled.div`
+  margin-top: 0.5rem;
+  color: #788080;
+  fontsize: 16px;
+`
 
 function resetPage(location, changes) {
   const { search, pathname } = location

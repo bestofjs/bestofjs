@@ -1,7 +1,7 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
-import { stateToQueryString, SearchContext } from '../search'
+import { stateToQueryString, useSearch } from '../search'
 
 const StyledLink = styled(Link)`
   display: inline-block;
@@ -14,7 +14,7 @@ const StyledLink = styled(Link)`
 `
 
 const TagLabel = ({ tag }) => {
-  const { sortOption } = useContext(SearchContext)
+  const { sortOption } = useSearch()
   const queryString = stateToQueryString({
     sort: sortOption.id,
     selectedTags: [tag.id]

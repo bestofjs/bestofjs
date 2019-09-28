@@ -1,8 +1,8 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import { useSelector } from 'react-redux'
 
 import MainContent from '../components/common/MainContent'
-import { SearchContext } from '../components/search/SearchProvider'
+import { useSearch } from '../components/search/SearchProvider'
 import {
   PaginationProvider,
   paginateItemList
@@ -14,7 +14,7 @@ import { useUser } from '../api/hooks'
 import { PageTitle } from '../components/core'
 
 const BookmarksPage = () => {
-  const { page, sortOption } = useContext(SearchContext)
+  const { page, sortOption } = useSearch({ defaultSortOptionId: 'bookmark' })
   const { isLoggedIn } = useUser()
   const projects = useSelector(getBookmarksSortedBy(sortOption.id))
 
@@ -37,7 +37,7 @@ const BookmarksPage = () => {
             total={total}
             limit={limit}
             sortOption={sortOption}
-            showBookmark={true}
+            showBookmarkSortOption={true}
           >
             <PageTitle
               icon={

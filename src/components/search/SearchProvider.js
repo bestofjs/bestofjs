@@ -1,4 +1,4 @@
-import React, { createContext } from 'react'
+import React, { createContext, useContext } from 'react'
 import useReactRouter from 'use-react-router'
 import { queryStringToState, stateToQueryString } from './search-utils'
 import { getSortOrderOptions } from './sort-order'
@@ -27,15 +27,23 @@ export const SearchProvider = ({ children }) => {
     })
   }
 
-  const sortOrderOptions = getSortOrderOptions({ showBookmark: true })
-  const sortOption =
-    sortOrderOptions.find(item => item.id === sort) || sortOrderOptions[0]
-
   return (
     <SearchContext.Provider
-      value={{ selectedTags, query, sort, page, sortOption, history, onChange }}
+      value={{ selectedTags, query, sort, page, history, onChange }}
     >
       {children}
     </SearchContext.Provider>
   )
+}
+
+export const useSearch = ({ defaultSortOptionId = 'total' } = {}) => {
+  const { sort, ...values } = useContext(SearchContext)
+
+  const sortOrderOptions = getSortOrderOptions({ showBookmark: true })
+  const sortOptionId = sort || defaultSortOptionId
+  const sortOption =
+    sortOrderOptions.find(item => item.id === sortOptionId) ||
+    sortOrderOptions[0]
+
+  return { ...values, sortOption }
 }

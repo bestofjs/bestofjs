@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React from 'react'
 // import PropTypes from 'prop-types'
 import { useSelector } from 'react-redux'
 
@@ -7,11 +7,13 @@ import { allProjects, sortBy, getFullProject } from '../../selectors'
 import { PaginationProvider, paginateItemList } from '../common/pagination'
 import { PageTitle } from '../core'
 import MainContent from '../common/MainContent'
-import { SearchContext } from './SearchProvider'
+import { useSearch } from './SearchProvider'
 import { ProjectPaginatedList } from './project-paginated-list'
 
 export const SearchResultsContainer = () => {
-  const { selectedTags, query, sortOption, page } = useContext(SearchContext)
+  const { selectedTags, query, sortOption, page } = useSearch({
+    defaultSortOptionId: 'total'
+  })
   const limit = 10
 
   const projects = useSelector(allProjects)
@@ -38,7 +40,7 @@ export const SearchResultsContainer = () => {
           total={total}
           limit={limit}
           sortOption={sortOption}
-          showBookmark={false}
+          showBookmarkSortOption={false}
         >
           <PageTitle>
             {isListFiltered ? (

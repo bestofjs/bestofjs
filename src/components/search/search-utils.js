@@ -9,7 +9,7 @@ export function queryStringToState(queryString) {
   return {
     selectedTags,
     query: parameters.query || '',
-    sort: parameters.sort || 'total',
+    sort: parameters.sort || '',
     page
   }
 }
@@ -19,7 +19,7 @@ export function stateToQueryString({ query, selectedTags, sort, page }) {
     {
       query: query || null,
       tags: selectedTags.length === 0 ? null : selectedTags,
-      sort: sort === 'total' ? null : sort,
+      sort: sort === '' ? null : sort,
       page: page === 1 ? null : page
     },
     {

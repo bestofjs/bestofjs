@@ -7,6 +7,7 @@ import { useSelector } from 'react-redux'
 // import ToggleMenuButton from './ToggleMenuButton'
 import Button from '../common/form/Button'
 import UserDropdownMenu from './UserDropdownMenu'
+import NavigationDropdownMenu from './NavigationDropdownMenu'
 
 const sidebarBreakpoint = 900
 const topbarHeight = 60
@@ -72,6 +73,7 @@ const Header = props => {
             </LinkLogo>
           </div>
           <div className="col-2">
+            <NavigationDropdownMenu {...props} />
             <LoginSection {...props} />
           </div>
         </Row>
