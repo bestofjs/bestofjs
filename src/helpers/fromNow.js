@@ -5,9 +5,8 @@ import vagueTime from 'vague-time'
 
 export default function(strDate) {
   try {
-    return vagueTime.get({
-      to: new Date(strDate)
-    })
+    const formattedDate = vagueTime.get({ to: new Date(strDate) })
+    return formattedDate.replace('a couple of', '2')
   } catch (e) {
     // avoid throwing "Invalid date" errors
     return '?'

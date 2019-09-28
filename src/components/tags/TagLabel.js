@@ -8,8 +8,8 @@ const StyledLink = styled(Link)`
   padding: 5px 10px;
   border-radius: 12px;
   background-color: white;
-  color: #cc4700;
-  border: solid 1px #cc4700;
+  color: inherit;
+  border: solid 1px #cccccc;
   font-size: 13px;
 `
 

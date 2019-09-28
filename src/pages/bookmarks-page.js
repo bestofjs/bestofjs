@@ -45,6 +45,7 @@ const BookmarksPage = () => {
                   <Bookmark />
                 </Octicon>
               }
+              extra={total === 1 ? '(one project)' : `(${total} projects)`}
             >
               Bookmarks
             </PageTitle>
@@ -56,18 +57,6 @@ const BookmarksPage = () => {
 }
 
 export default BookmarksPage
-
-const Counter = ({ count }) => {
-  if (count === 0) return null
-  return (
-    <span
-      className="counter"
-      style={{ color: '#999', fontSize: '1rem', marginLeft: '.25rem' }}
-    >
-      {count === 1 ? ' (one project)' : ` (${count} projects)`}
-    </span>
-  )
-}
 
 const EmptyList = ({ isLoggedin }) => (
   <div style={{ border: '2px dashed #fa9e59', padding: '2rem' }}>

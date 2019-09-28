@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import Octicon, { KebabHorizontal } from '@primer/octicons-react'
+import Octicon, { KebabVertical } from '@primer/octicons-react'
 
 import { Button } from './button'
 // import { ChevronDownIcon, ChevronUpIcon } from './icons'
@@ -67,10 +67,10 @@ export class DropdownToggleButton extends React.Component {
     const { position, children, style, ...props } = this.props
 
     return (
-      <Button {...props} style={{ width: '100%', ...style, padding: 4 }}>
+      <Button {...props} style={{ width: '100%', color: '#788080', ...style }}>
         {children}
         <Octicon size={'medium'}>
-          <KebabHorizontal />
+          <KebabVertical />
         </Octicon>
       </Button>
     )

@@ -6,16 +6,25 @@ const Heading = styled.h3`
   align-items: center;
 `
 
-const Icon = styled.div`
+export const PageTitle = ({ icon, children, extra }) => {
+  return (
+    <Heading>
+      {icon && <PageTitleIcon>{icon}</PageTitleIcon>}
+      <div>
+        {children}
+        {extra && <PageTitleExtra>{extra}</PageTitleExtra>}
+      </div>
+    </Heading>
+  )
+}
+
+const PageTitleIcon = styled.div`
   margin-right: 0.5rem;
   color: #fa9e59;
 `
 
-export const PageTitle = ({ icon, children }) => {
-  return (
-    <Heading>
-      {icon && <Icon>{icon}</Icon>}
-      {children}
-    </Heading>
-  )
-}
+const PageTitleExtra = styled.span`
+  color: #788080;
+  font-size: 16px;
+  margin-left: 0.25rem;
+`

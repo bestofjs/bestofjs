@@ -20,6 +20,7 @@ const HomeProjects = ({ hotProjects, hotFilter }) => (
     showMetrics={false}
     viewOptions={viewOptions}
     sortOption={{ id: 'daily' }}
+    showDetails={false}
   />
 )
 

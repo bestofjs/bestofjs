@@ -32,7 +32,7 @@ export const ProjectPaginatedList = ({
         <div style={{ flex: '0 0 50%' }}>
           {children}
           {pageNumbers.length > 1 && (
-            <p style={{ color: '#788080' }}>
+            <p style={{ color: '#788080', fontSize: 16 }}>
               Showing{' '}
               {from === to ? (
                 `#${from}`

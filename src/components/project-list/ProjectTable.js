@@ -2,6 +2,14 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import { Link } from 'react-router-dom'
+import numeral from 'numeral'
+import Octicon, {
+  Bookmark,
+  GitCommit,
+  MarkGithub,
+  Home,
+  Organization
+} from '@primer/octicons-react'
 
 import Avatar from '../common/ProjectAvatar'
 import StarDelta from '../common/utils/StarDelta'
@@ -9,9 +17,8 @@ import StarTotal from '../common/utils/StarTotal'
 import { getDeltaByDay } from '../../selectors/project'
 import TagLabelGroup from '../tags/TagLabelGroup'
 import { DropdownMenu } from '../core'
-
-import Octicon, { Bookmark, MarkGithub, Home } from '@primer/octicons-react'
 import { useUser } from '../../api/hooks'
+import fromNow from '../../helpers/fromNow'
 
 const ProjectTable = ({ projects, from = 1, ...otherProps }) => {
   const userProps = useUser()
@@ -43,7 +50,8 @@ const ProjectTableRow = ({
   isLoggedIn,
   addBookmark,
   removeBookmark,
-  deltaFilter = 'total'
+  deltaFilter = 'total',
+  showDetails = true
 }) => {
   const path = `/projects/${project.slug}`
 
@@ -120,6 +128,22 @@ const ProjectTableRow = ({
         </div>
       </MainCell>
 
+      {/* <LastCommitCell>{fromNow(project.pushed_at)}</LastCommitCell> */}
+      {showDetails && (
+        <ContributorCountCell>
+          <div style={{ marginBottom: '0.5rem' }}>
+            <Octicon className="icon">
+              <GitCommit />
+            </Octicon>
+            {fromNow(project.pushed_at)}
+          </div>
+          <Octicon className="icon">
+            <Organization />
+          </Octicon>
+          {formatNumber(project.contributor_count)} contributors
+        </ContributorCountCell>
+      )}
+
       <StarNumberCell>
         {showStars && (
           <div className="total">
@@ -140,7 +164,7 @@ const ProjectTableRow = ({
         <BookmarkCell
           style={{ color: project.isBookmark ? '#e65100' : '#ececec' }}
         >
-          <Octicon>
+          <Octicon size={24}>
             <Bookmark />
           </Octicon>
         </BookmarkCell>
@@ -167,9 +191,12 @@ const Row = styled.tr`
 `
 
 const Cell = styled.td`
-  height: 120px;
-  padding: 8px 0;
+  padding: 8px;
   background-color: white;
+  .icon {
+    color: #fa9e59;
+    margin-right: 0.25rem;
+  }
 `
 
 const ProjectRankingNumber = styled.div`
@@ -180,7 +207,9 @@ const ProjectRankingNumber = styled.div`
 `
 
 const FirstCell = styled(Cell)`
-  width: 50px;
+  @media (max-width: 799px) {
+    display: none;
+  }
 `
 
 const IconCell = styled(Cell)`
@@ -191,15 +220,30 @@ const MainCell = styled(Cell)`
   padding: 16px;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+`
+
+// const LastCommitCell = styled(Cell)`
+//   width: 110px;
+// `
+
+const ContributorCountCell = styled(Cell)`
+  width: 150px;
+  @media (max-width: 799px) {
+    display: none;
+  }
+  /*color: #788080;*/
 `
 
 const StarNumberCell = styled(Cell)`
   text-align: center;
+  width: 65px;
 `
 
 const BookmarkCell = styled(Cell)`
   padding: 8px;
+  @media (max-width: 799px) {
+    display: none;
+  }
 `
 
 const ActionCell = styled(Cell)`
@@ -212,7 +256,9 @@ const ProjectName = styled.div`
 
 const ProjectDescription = styled.div`
   font-size: 14px;
-  color: #788080;
+  margin: 8px 0;
 `
+
+const formatNumber = number => numeral(number).format('a')
 
 export default ProjectTable
