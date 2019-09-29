@@ -31,6 +31,22 @@ export function stateToQueryString({ query, selectedTags, sort, page }) {
   return queryString
 }
 
+export function updateLocation(location, changes) {
+  const { search, pathname } = location
+  const previousParams = queryStringToState(search)
+  const params = { ...previousParams, ...changes }
+
+  // Reset the sort option when the user goes to the "Bookmarks" page
+  // TODO fix that!
+  if (params.sort === 'bookmark' && pathname !== '/bookmarks') {
+    delete params.sort
+  }
+
+  const queryString = stateToQueryString(params)
+  const nextLocation = { ...location, search: '?' + queryString }
+  return nextLocation
+}
+
 const makeArray = value => (Array.isArray(value) ? value : [value])
 
 const toInteger = (input, defaultValue = 1) =>

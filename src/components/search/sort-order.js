@@ -1,60 +1,49 @@
 import React from 'react'
 import Select from 'react-select'
 
-import {
-  getStarTotal,
-  getStarsAddedYesterday,
-  getStarsAddedThisWeek,
-  getStarsAddedThisMonth,
-  getStarsAddedThisYear
-  // getLastCommitDate,
-  // getRelativeGrowthRate
-} from './project-selectors'
+import { getProjectSelectorByKey } from '../../selectors/project'
 
 // TODO find a better way to include/exclude the sort option related to the bookmarks
 export const getSortOrderOptions = ({ showBookmark = false } = {}) => {
   const bookmarkDateOption = {
     id: 'bookmark',
-    label: 'By date of the bookmark',
-    selector: project => project.bookmarked_at,
-    direction: -1
+    label: 'By date of the bookmark'
   }
 
   const options = [
     showBookmark && bookmarkDateOption,
     {
       id: 'total',
-      label: 'By total number of stars',
-      selector: getStarTotal,
-      direction: -1
+      label: 'By total number of stars'
     },
     {
       id: 'daily',
-      label: 'By stars added yesterday',
-      selector: getStarsAddedYesterday,
-      direction: -1
+      label: 'By stars added yesterday'
     },
     {
       id: 'weekly',
-      label: 'By stars added the last 7 days',
-      selector: getStarsAddedThisWeek,
-      direction: -1
+      label: 'By stars added the last 7 days'
     },
     {
       id: 'monthly',
-      label: 'By stars added the last 30 months',
-      selector: getStarsAddedThisMonth,
-      direction: -1
+      label: 'By stars added the last 30 months'
     },
     {
       id: 'yearly',
-      label: 'By stars added the last 12 months',
-      selector: getStarsAddedThisYear,
-      direction: -1
+      label: 'By stars added the last 12 months'
+    },
+    {
+      id: 'last-commit',
+      label: 'By date of the latest commit'
     }
   ]
 
-  return options.filter(item => !!item)
+  return options
+    .filter(option => !!option)
+    .map(option => ({
+      ...option,
+      selector: getProjectSelectorByKey(option.id)
+    }))
 }
 
 export const SortOrderPicker = ({ value, onChange, showBookmark }) => {

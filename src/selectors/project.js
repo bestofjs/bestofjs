@@ -2,6 +2,35 @@ import { createSelector } from 'reselect'
 
 import { npmProjects } from './index'
 
+export const getTotalNumberOfStars = project => project.stars
+
+export const getStarsAddedDaily = ({ trends }) => trends.daily
+
+export const getStarsAddedWeekly = ({ trends }) => trends.weekly
+
+export const getStarsAddedMonthly = ({ trends }) => trends.monthly
+
+export const getStarsAddedYearly = ({ trends }) => trends.yearly
+
+export const getLastCommitDate = project => new Date(project.pushed_at)
+
+export const getBookmarkDate = project => new Date(project.bookmarked_at)
+
+export const getProjectSelectorByKey = key => {
+  const sortFn = {
+    total: getTotalNumberOfStars,
+    daily: getStarsAddedDaily,
+    weekly: getStarsAddedWeekly,
+    monthly: getStarsAddedMonthly,
+    yearly: getStarsAddedYearly,
+    bookmark: getBookmarkDate,
+    'last-commit': getLastCommitDate
+  }
+
+  if (!sortFn[key]) throw new Error(`No selector for the key "${key}"`)
+  return sortFn[key]
+}
+
 // Return a full `project` object, including `tags`
 // to be used by `/projects/:id` pages
 export const findProject = slug =>

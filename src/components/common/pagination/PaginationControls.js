@@ -2,7 +2,6 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { Link, withRouter } from 'react-router-dom'
 import styled, { css } from 'styled-components'
-import { parse, stringify } from 'qs'
 
 import { generatePageNumbers } from './helpers'
 import {
@@ -11,6 +10,7 @@ import {
   ChevronLeft,
   ChevronRight
 } from './icons'
+import { updateLocation } from '../../search'
 
 const PaginationControls = ({ total, limit, currentPage, style, location }) => {
   const {
@@ -96,23 +96,10 @@ const StyledLink = styled(Link)`
 `
 
 const PaginationLink = withRouter(({ pageNumber, children, location }) => {
-  return (
-    <StyledLink to={getLinkTarget({ pageNumber, location })}>
-      {children}
-    </StyledLink>
-  )
+  const nextLocation = updateLocation(location, { page: pageNumber })
+
+  return <StyledLink to={nextLocation}>{children}</StyledLink>
 })
-
-function getLinkTarget({ location, pageNumber }) {
-  const params = parse(location.search, { ignoreQueryPrefix: true })
-  params.page = pageNumber
-  const search = stringify(params, { encode: false })
-
-  return {
-    ...location,
-    search
-  }
-}
 
 const CurrentPageNumber = styled.span`
   ${commonStyles}

@@ -1,6 +1,6 @@
 import { createSelector } from 'reselect'
 
-import { populateProject } from './project'
+import { populateProject, getProjectSelectorByKey } from './project'
 import search from './search'
 
 // Number of projects under each tag:
@@ -62,24 +62,13 @@ export const npmProjects = createSelector(
 
 const sortProjects = fn => projects => sortBy(projects.slice(0), fn)
 
-const sortFn = {
-  total: project => project.stars,
-  daily: project => project.trends.daily,
-  weekly: project => project.trends.weekly,
-  monthly: project => project.trends.monthly,
-  quarterly: project => project.trends.quarterly,
-  quality: project => project.quality,
-  score: project => project.score,
-  yearly: project => project.trends.yearly,
-  bookmark: project => new Date(project.bookmarked_at)
-}
-
 // a sub-selector used by both `getProjectsSortedBy` and `getProjectsByTag`
 const getRawProjectsSortedBy = ({ criteria, start = 0, limit = 10 }) => {
   return createSelector(
     [allProjects],
     projects => {
-      const sliced = sortProjects(sortFn[criteria])(projects).slice(
+      const projectSelector = getProjectSelectorByKey(criteria)
+      const sliced = sortProjects(projectSelector)(projects).slice(
         start,
         start + limit
       )
@@ -105,28 +94,32 @@ export const getHotProjects = count =>
     limit: count
   })
 
-const getAllProjectsByTag = tagId =>
-  createSelector(
-    [allProjects],
-    projects => projects.filter(project => project.tags.includes(tagId))
-  )
+// TODO check if we still need selectors to filter projects by tag
+
+// const getAllProjectsByTag = tagId =>
+//   createSelector(
+//     [allProjects],
+//     projects => projects.filter(project => project.tags.includes(tagId))
+//   )
 
 // Selector used to display the list of projects belonging to a given tag
-export const getProjectsByTag = ({ criteria, tagId, start, limit }) =>
-  createSelector(
-    [
-      // getRawProjectsSortedBy({ criteria, start, limit }),
-      getAllProjectsByTag(tagId),
-      state => state.entities.tags,
-      state => state.auth
-    ],
-    (projects, tags, auth) => {
-      const filteredProjects = sortProjects(sortFn[criteria])(projects)
-        .slice(start, start + limit)
-        .map(getFullProject(tags, auth))
-      return filteredProjects
-    }
-  )
+// export const getProjectsByTag = ({ criteria, tagId, start, limit }) =>
+//   createSelector(
+//     [
+//       // getRawProjectsSortedBy({ criteria, start, limit }),
+//       getAllProjectsByTag(tagId),
+//       state => state.entities.tags,
+//       state => state.auth
+//     ],
+//     (projects, tags, auth) => {
+//       const projectSelector = sortFn[criteria]
+//       if (!projectSelector) throw new Error(`No selector for ${criteria}`)
+//       const filteredProjects = sortProjects(projectSelector)(projects)
+//         .slice(start, start + limit)
+//         .map(getFullProject(tags, auth))
+//       return filteredProjects
+//     }
+//   )
 
 export const searchForProjects = text =>
   createSelector(
@@ -158,7 +151,8 @@ export const getBookmarksSortedBy = criteria =>
         .map(slug => projects[slug])
         .filter(project => !!project)
         .map(getFullProject(tags, auth))
-      return sortProjects(sortFn[criteria])(result)
+      const projectSelector = getProjectSelectorByKey(criteria)
+      return sortProjects(projectSelector)(result)
     }
   )
 

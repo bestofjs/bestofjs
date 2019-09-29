@@ -22,6 +22,13 @@ const NavigationDropdownMenu = withRouter(({ history }) => {
               history.push('/hall-of-fame')
               close()
             }
+          },
+          {
+            label: `About`,
+            onClick: () => {
+              history.push('/about')
+              close()
+            }
           }
         ]
         return <Menu items={items} close={close} />

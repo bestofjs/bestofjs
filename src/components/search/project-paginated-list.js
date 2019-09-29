@@ -2,12 +2,12 @@ import React, { useContext } from 'react'
 import styled from 'styled-components'
 // import PropTypes from 'prop-types'
 import useReactRouter from 'use-react-router'
-import { parse, stringify } from 'qs'
 
 import ProjectTable from '../project-list/ProjectTable'
 import PaginationControls from '../common/pagination/PaginationControls'
 import { PaginationContext } from '../common/pagination/provider'
 import { SortOrderPicker } from './sort-order'
+import { updateLocation } from './search-utils'
 
 export const ProjectPaginatedList = ({
   projects,
@@ -22,9 +22,11 @@ export const ProjectPaginatedList = ({
   const { from, to, pageNumbers } = useContext(PaginationContext)
   const { location, history } = useReactRouter()
 
-  const handleChange = sortId => {
-    const changes = { sort: sortId }
-    history.push({ ...resetPage(location, changes) })
+  const onChangeSortOption = sortId => {
+    const changes = { sort: sortId, page: 1 }
+    const nextLocation = updateLocation(location, changes)
+
+    history.push(nextLocation)
   }
 
   return (
@@ -47,7 +49,7 @@ export const ProjectPaginatedList = ({
         </div>
         <div style={{ flex: '0 0 50%' }}>
           <SortOrderPicker
-            onChange={handleChange}
+            onChange={onChangeSortOption}
             value={sortOption.id}
             showBookmark={showBookmarkSortOption}
           />
@@ -70,15 +72,3 @@ const SubTitle = styled.div`
   color: #788080;
   fontsize: 16px;
 `
-
-function resetPage(location, changes) {
-  const { search, pathname } = location
-  const previousParams = parse(search, { ignoreQueryPrefix: true })
-  const params = { ...previousParams, ...changes }
-  delete params.page
-  if (params.sort === 'bookmark' && pathname !== '/bookmarks') {
-    delete params.sort
-  }
-  const result = { ...location, search: stringify(params, { encode: false }) }
-  return result
-}
