@@ -35,6 +35,10 @@ export const getSortOrderOptions = ({ showBookmark = false } = {}) => {
     {
       id: 'last-commit',
       label: 'By date of the latest commit'
+    },
+    {
+      id: 'contributors',
+      label: 'By number of contributors'
     }
   ]
 

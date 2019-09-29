@@ -14,6 +14,8 @@ export const getStarsAddedYearly = ({ trends }) => trends.yearly
 
 export const getLastCommitDate = project => new Date(project.pushed_at)
 
+export const getContributorCount = project => project.contributor_count
+
 export const getBookmarkDate = project => new Date(project.bookmarked_at)
 
 export const getProjectSelectorByKey = key => {
@@ -24,7 +26,8 @@ export const getProjectSelectorByKey = key => {
     monthly: getStarsAddedMonthly,
     yearly: getStarsAddedYearly,
     bookmark: getBookmarkDate,
-    'last-commit': getLastCommitDate
+    'last-commit': getLastCommitDate,
+    contributors: getContributorCount
   }
 
   if (!sortFn[key]) throw new Error(`No selector for the key "${key}"`)
