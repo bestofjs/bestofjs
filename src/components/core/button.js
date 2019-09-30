@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 
 export const Button = styled.button`
   display: flex;
@@ -6,7 +6,6 @@ export const Button = styled.button`
   background-color: #fff;
   border: 1px solid #dbdbdb;
   color: #363636;
-  cursor: pointer;
   justify-content: center;
   padding-bottom: calc(0.375em - 1px);
   padding-left: 0.75em;
@@ -17,10 +16,21 @@ export const Button = styled.button`
   border-radius: 4px;
   font-size: 14px;
   font-family: inherit;
-  &:hover {
-    border-color: #b5b5b5;
-    color: #363636;
-  }
+  ${props =>
+    props.disabled
+      ? css`
+          background-color: transparent;
+          > * {
+            opacity: 0.5;
+          }
+        `
+      : css`
+          cursor: pointer;
+          &:hover {
+            border-color: #b5b5b5;
+            color: #363636;
+          }
+        `}
   &:active,
   &:focus {
     outline: 0;

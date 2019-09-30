@@ -15,8 +15,16 @@ export const PaginationProvider = ({
     currentPageNumber,
     limit
   })
+
+  const value = {
+    total,
+    currentPageNumber,
+    limit,
+    ...paginationData
+  }
+
   return (
-    <PaginationContext.Provider value={paginationData}>
+    <PaginationContext.Provider value={value}>
       {children}
     </PaginationContext.Provider>
   )
