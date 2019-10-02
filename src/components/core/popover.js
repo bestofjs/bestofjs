@@ -135,7 +135,14 @@ export class Popover extends React.Component {
     }
 
     return (
-      <div style={{ position: 'relative', ...style }}>
+      <div
+        style={{
+          position: 'relative',
+          display: 'flex',
+          justifyContent: alignment === 'right' ? 'flex-end' : 'flex-start',
+          ...style
+        }}
+      >
         {children({
           isOpen,
           open: this.open,

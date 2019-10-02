@@ -11,7 +11,7 @@ import { ProjectPaginatedList } from '../components/search/project-paginated-lis
 import Octicon, { Bookmark } from '@primer/octicons-react'
 import { getBookmarksSortedBy } from '../selectors'
 import { useUser } from '../api/hooks'
-import { PageTitle } from '../components/core'
+import { PageTitle, EmptyContent } from '../components/core'
 
 const BookmarksPage = () => {
   const { page, sortOption } = useSearch({ defaultSortOptionId: 'bookmark' })
@@ -59,7 +59,7 @@ const BookmarksPage = () => {
 export default BookmarksPage
 
 const EmptyList = ({ isLoggedin }) => (
-  <div style={{ border: '2px dashed #fa9e59', padding: '2rem' }}>
+  <EmptyContent>
     {isLoggedin ? (
       <div>
         <p>{"You don't have bookmarked any project."}</p>
@@ -70,5 +70,5 @@ const EmptyList = ({ isLoggedin }) => (
     ) : (
       <span>Please sign-in to access this feature!</span>
     )}
-  </div>
+  </EmptyContent>
 )

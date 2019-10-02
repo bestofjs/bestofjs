@@ -257,6 +257,7 @@ const BookmarkIconContainer = styled.span`
 `
 
 const ActionCell = styled(Cell)`
+  width: 45px;
   padding-right: 1rem;
 `
 

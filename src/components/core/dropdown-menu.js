@@ -28,7 +28,7 @@ export class DropdownMenu extends React.Component {
   }
 
   render() {
-    const { items, position, disabled, children } = this.props
+    const { items, position, disabled, alignment, children } = this.props
 
     const content =
       typeof items === 'function'
@@ -49,7 +49,7 @@ export class DropdownMenu extends React.Component {
           )
 
     return (
-      <Popover {...this.props} content={content}>
+      <Popover {...this.props} content={content} alignment={alignment}>
         {trigger}
       </Popover>
     )
@@ -67,7 +67,7 @@ export class DropdownToggleButton extends React.Component {
     const { position, children, style, ...props } = this.props
 
     return (
-      <Button {...props} style={{ width: '100%', color: '#788080', ...style }}>
+      <Button {...props} style={{ color: '#788080', ...style }}>
         {children}
         <Octicon size={'medium'}>
           <KebabVertical />

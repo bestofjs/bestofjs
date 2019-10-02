@@ -116,5 +116,6 @@ const PaginationButton = styled(Button)`
   border-radius: 50%;
   width: 32px;
   height: 32px;
+  padding: 0;
   margin-right: 0.25rem;
 `

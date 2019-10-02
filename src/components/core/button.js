@@ -7,10 +7,7 @@ export const Button = styled.button`
   border: 1px solid #dbdbdb;
   color: #363636;
   justify-content: center;
-  padding-bottom: calc(0.375em - 1px);
-  padding-left: 0.75em;
-  padding-right: 0.75em;
-  padding-top: calc(0.375em - 1px);
+  padding: 0.5em 1em;
   text-align: center;
   white-space: nowrap;
   border-radius: 4px;

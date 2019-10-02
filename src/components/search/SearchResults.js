@@ -1,11 +1,12 @@
 import React from 'react'
+import { withRouter } from 'react-router-dom'
 // import PropTypes from 'prop-types'
 import { useSelector } from 'react-redux'
 
 import searchForProjects from '../../selectors/search'
 import { allProjects, sortBy, getFullProject } from '../../selectors'
 import { PaginationProvider, paginateItemList } from '../common/pagination'
-import { PageTitle } from '../core'
+import { Button, PageTitle, EmptyContent } from '../core'
 import MainContent from '../common/MainContent'
 import { useSearch } from './SearchProvider'
 import { ProjectPaginatedList } from './project-paginated-list'
@@ -32,25 +33,35 @@ export const SearchResultsContainer = () => {
 
   return (
     <MainContent>
-      <PaginationProvider total={total} currentPageNumber={page} limit={limit}>
-        <ProjectPaginatedList
-          projects={foundProjects}
-          query={query}
-          page={page}
+      {foundProjects.length > 0 ? (
+        <PaginationProvider
           total={total}
+          currentPageNumber={page}
           limit={limit}
-          sortOption={sortOption}
-          showBookmarkSortOption={false}
         >
-          <PageTitle>
-            {isListFiltered ? (
-              <>Search results: {showCount(total, 'project')} found</>
-            ) : (
-              <>All projects</>
-            )}
-          </PageTitle>
-        </ProjectPaginatedList>
-      </PaginationProvider>
+          <ProjectPaginatedList
+            projects={foundProjects}
+            query={query}
+            page={page}
+            total={total}
+            limit={limit}
+            sortOption={sortOption}
+            showBookmarkSortOption={false}
+          >
+            <PageTitle>
+              {isListFiltered ? (
+                <>Search results: {showCount(total, 'project')} found</>
+              ) : (
+                <>All projects</>
+              )}
+            </PageTitle>
+          </ProjectPaginatedList>
+        </PaginationProvider>
+      ) : (
+        <EmptyContent>
+          <NoProjectsFound query={query} selectedTags={selectedTags} />
+        </EmptyContent>
+      )}
     </MainContent>
   )
 }
@@ -92,3 +103,14 @@ const showCount = (total, text) => {
   if (total === 0) return `no ${text}`
   return `${total} ${text}${total > 1 ? 's' : ''}`
 }
+
+const NoProjectsFound = withRouter(({ query, selectedTags, history }) => {
+  return (
+    <>
+      <h3>No projects found</h3>
+      <Button onClick={() => history.push('/projects')}>
+        View all projects
+      </Button>
+    </>
+  )
+})
