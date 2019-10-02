@@ -20,6 +20,12 @@ export const getTagCounters = createSelector(
   }
 )
 
+export const getTagsById = ids =>
+  createSelector(
+    [state => state.entities.tags],
+    allTags => ids.map(id => allTags[id])
+  )
+
 // All tags including counter data:
 // [{id, description, name, counter}]
 export const getAllTags = createSelector(
