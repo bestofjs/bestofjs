@@ -1,8 +1,8 @@
 import React from 'react'
 import { withRouter } from 'react-router-dom'
-import Octicon, { ThreeBars } from '@primer/octicons-react'
 
 import { Button, Popover, Menu } from '../core'
+import { ThreeBarsIcon } from '../core/icons'
 
 const NavigationDropdownMenu = withRouter(({ history }) => {
   return (
@@ -38,9 +38,7 @@ const NavigationDropdownMenu = withRouter(({ history }) => {
     >
       {({ open }) => (
         <Button onClick={open}>
-          <Octicon size={32}>
-            <ThreeBars />
-          </Octicon>
+          <ThreeBarsIcon size={32} />
         </Button>
       )}
     </Popover>

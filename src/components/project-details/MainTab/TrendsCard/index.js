@@ -3,9 +3,9 @@ import styled from 'styled-components'
 
 import Heatmap from './Heatmap'
 import StarDelta from '../../../common/utils/StarDelta'
-import StarIcon from '../../../common/utils/StarIcon'
 import Card from '../../../common/Card'
 import { getDeltaByDay } from '../../../../selectors/project'
+import { StarIcon } from '../../../core/icons'
 
 // New "DAILY TRENDS" block (Sep. 2017, v0.9)
 // Show the heat map only if we have at least 2 daily deltas to show

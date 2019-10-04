@@ -1,10 +1,11 @@
 import React from 'react'
 import numeral from 'numeral'
 
-import StarIcon from '../../common/utils/StarIcon'
+import { StarIcon } from '../../core/icons'
 import fromNow from '../../../helpers/fromNow'
 import ExternalLink from '../../common/ExternalLink'
 import Card from '../../common/Card'
+import StarTotal from '../../common/utils/StarTotal'
 
 const formatNumber = number => numeral(number).format('0,0')
 
@@ -23,7 +24,10 @@ const GitHubCard = ({
     <Card>
       <Card.Header>
         <span className="octicon octicon-mark-github" />
-        <span> GITHUB REPOSITORY</span>
+        <span>
+          {' '}
+          GITHUB REPOSITORY <StarTotal value={stars} />
+        </span>
       </Card.Header>
       <Card.Body>
         <Card.Section>
@@ -31,8 +35,6 @@ const GitHubCard = ({
             <div style={{ flex: '1 1 0%' }}>
               <p>
                 <ExternalLink url={repository}>{full_name}</ExternalLink>{' '}
-                {formatNumber(stars)}
-                <StarIcon />
               </p>
               {created_at && (
                 <p>

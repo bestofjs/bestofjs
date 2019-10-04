@@ -1,11 +1,18 @@
 import React from 'react'
+import styled from 'styled-components'
 
-import StarIcon from './StarIcon'
+import { StarIcon } from '../../core/icons'
 
 const getSign = value => {
   if (value === 0) return ''
   return value > 0 ? '+' : '-'
 }
+
+const StarDeltaContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`
 
 const StarDelta = ({ average, ...props }) =>
   average ? <StarDeltaAverage {...props} /> : <StarDeltaNormal {...props} />
@@ -13,35 +20,46 @@ const StarDelta = ({ average, ...props }) =>
 const StarDeltaNormal = ({ value }) => {
   const sign = getSign(value)
   return (
-    <div className="star-delta">
+    <StarDeltaContainer>
       <span style={{ marginRight: 2 }}>{sign}</span>
       <span>{Math.abs(value)}</span>
       <StarIcon />
-    </div>
+    </StarDeltaContainer>
   )
 }
 
-const StarDeltaAverage = ({ value, inline }) => {
+const StarDeltaAverageContainer = styled.div`
+  text-align: center;
+`
+
+const Number = {}
+
+const StarDeltaAverage = ({ value }) => {
   const integerPart = Math.abs(Math.trunc(value))
   const decimalPart = (Math.abs(value - integerPart) * 10).toFixed().slice(0, 1)
   const sign = getSign(value)
-  const display = inline ? 'inline' : 'block'
+
   if (value === undefined)
     return <div className="star-delta text-secondary text-small">N/A</div>
+
   return (
-    <div className="star-delta">
-      <div style={{ display }}>
+    <StarDeltaAverageContainer>
+      <StarDeltaContainer>
         <span style={{ marginRight: 2 }}>{sign}</span>
         <span>{integerPart}</span>
-        <span className="text-small">.{decimalPart}</span>
-      </div>
-      <div style={{ textAlign: 'center', display }}>
+        <span className="text-smallX">.{decimalPart}</span>
+      </StarDeltaContainer>
+      <div
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center'
+        }}
+      >
         <StarIcon />
-        <span className="text-small" style={{ color: '#fa9e59' }}>
-          /day
-        </span>
+        <div className="text-small"> by day</div>
       </div>
-    </div>
+    </StarDeltaAverageContainer>
   )
 }
 

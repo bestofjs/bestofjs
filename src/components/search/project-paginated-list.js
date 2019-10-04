@@ -2,8 +2,8 @@ import React, { useContext } from 'react'
 import styled from 'styled-components'
 // import PropTypes from 'prop-types'
 import useReactRouter from 'use-react-router'
-import Octicon, { ChevronRight, ChevronLeft } from '@primer/octicons-react'
 
+import { ChevronRightIcon, ChevronLeftIcon } from '../core/icons'
 import ProjectTable from '../project-list/ProjectTable'
 import PaginationControls from '../common/pagination/PaginationControls'
 import { PaginationContext } from '../common/pagination/provider'
@@ -80,7 +80,7 @@ const PaginationTopBar = ({ history, location }) => {
           )
         }
       >
-        <Octicon icon={ChevronLeft} size={24} />
+        <ChevronLeftIcon size={24} />
       </PaginationButton>
       <PaginationButton
         disabled={!hasNextPage}
@@ -90,7 +90,7 @@ const PaginationTopBar = ({ history, location }) => {
           )
         }
       >
-        <Octicon icon={ChevronRight} size={24} />
+        <ChevronRightIcon size={24} />
       </PaginationButton>
       Showing{' '}
       {from === to ? (

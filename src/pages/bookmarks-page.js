@@ -8,10 +8,11 @@ import {
   paginateItemList
 } from '../components/common/pagination'
 import { ProjectPaginatedList } from '../components/search/project-paginated-list'
-import Octicon, { Bookmark } from '@primer/octicons-react'
+
 import { getBookmarksSortedBy } from '../selectors'
 import { useUser } from '../api/hooks'
 import { PageTitle, EmptyContent } from '../components/core'
+import { BookmarkIcon } from '../components/core/icons'
 
 const BookmarksPage = () => {
   const { page, sortOption } = useSearch({ defaultSortOptionId: 'bookmark' })
@@ -40,11 +41,7 @@ const BookmarksPage = () => {
             showBookmarkSortOption={true}
           >
             <PageTitle
-              icon={
-                <Octicon size={32}>
-                  <Bookmark />
-                </Octicon>
-              }
+              icon={<BookmarkIcon size={32} />}
               extra={total === 1 ? '(one project)' : `(${total} projects)`}
             >
               Bookmarks

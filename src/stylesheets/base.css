@@ -164,3 +164,6 @@ hr {
   color: var(--textSecondaryColor);
   font-style: italic;
 }
+.octicon {
+  vertical-align: middle;
+}

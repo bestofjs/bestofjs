@@ -3,13 +3,6 @@ import PropTypes from 'prop-types'
 import styled, { css } from 'styled-components'
 import { Link } from 'react-router-dom'
 import numeral from 'numeral'
-import Octicon, {
-  Bookmark,
-  GitCommit,
-  MarkGithub,
-  Home,
-  Organization
-} from '@primer/octicons-react'
 
 import Avatar from '../common/ProjectAvatar'
 import StarDelta from '../common/utils/StarDelta'
@@ -19,6 +12,7 @@ import TagLabelGroup from '../tags/TagLabelGroup'
 import { DropdownMenu } from '../core'
 import { useUser } from '../../api/hooks'
 import fromNow from '../../helpers/fromNow'
+import { BookmarkIcon, MarkGitHubIcon, HomeIcon } from '../core/icons'
 
 const ProjectTable = ({ projects, from = 1, ...otherProps }) => {
   const userProps = useUser()
@@ -62,31 +56,26 @@ const ProjectTableRow = ({
   const showStars = !showDelta
 
   const getBookmarkMenuItem = () => {
-    const icon = (
-      <Octicon>
-        <Bookmark />
-      </Octicon>
-    )
     if (!isLoggedIn) {
-      return { label: 'Add bookmark', icon, disabled: true }
+      return { label: 'Add bookmark', icon: <BookmarkIcon />, disabled: true }
     }
     if (project.isBookmark) {
       return {
         label: 'Remove bookmark',
-        icon,
+        icon: <BookmarkIcon />,
         onClick: () => removeBookmark(project)
       }
     }
-    return { label: 'Add bookmark', icon, onClick: () => addBookmark(project) }
+    return {
+      label: 'Add bookmark',
+      icon: <BookmarkIcon />,
+      onClick: () => addBookmark(project)
+    }
   }
 
   const getHomepageMenuItem = () =>
     project.url && {
-      icon: (
-        <Octicon>
-          <Home />
-        </Octicon>
-      ),
+      icon: <HomeIcon />,
       label: 'Homepage',
       url: project.url,
       onClick: () => ({})
@@ -95,11 +84,7 @@ const ProjectTableRow = ({
   const items = [
     // { type: 'label', label: 'Links' },
     {
-      icon: (
-        <Octicon>
-          <MarkGithub />
-        </Octicon>
-      ),
+      icon: <MarkGitHubIcon />,
       label: 'GitHub',
       url: project.repository,
       onClick: () => ({})
@@ -126,9 +111,7 @@ const ProjectTableRow = ({
           <Link to={path}>{project.name}</Link>
           {isLoggedIn && (
             <BookmarkIconContainer on={project.isBookmark}>
-              <Octicon size={24}>
-                <Bookmark />
-              </Octicon>
+              <BookmarkIcon size={24} />
             </BookmarkIconContainer>
           )}
         </ProjectName>
@@ -142,24 +125,14 @@ const ProjectTableRow = ({
       {showDetails && (
         <ContributorCountCell>
           <div style={{ marginBottom: '0.5rem' }}>
-            <Octicon className="icon">
-              <GitCommit />
-            </Octicon>
             {fromNow(project.pushed_at)}
           </div>
-          <Octicon className="icon">
-            <Organization />
-          </Octicon>
           {formatNumber(project.contributor_count)} contributors
         </ContributorCountCell>
       )}
 
       <StarNumberCell>
-        {showStars && (
-          <div className="total">
-            <StarTotal value={project.stars} icon />
-          </div>
-        )}
+        {showStars && <StarTotal value={project.stars} size={16} />}
 
         {showDelta && (
           <div className="delta">

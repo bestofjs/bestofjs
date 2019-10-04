@@ -2,10 +2,10 @@ import React from 'react'
 // import PropTypes from 'prop-types'
 import { withRouter } from 'react-router-dom'
 import { useSelector } from 'react-redux'
-import Octicon, { Bookmark, SignOut } from '@primer/octicons-react'
 
 import { getBookmarkCount } from '../../selectors'
 import { Button, Popover, Menu } from '../core'
+import { BookmarkIcon, SignOutIcon } from '../core/icons'
 
 const HeaderDropdownMenu = withRouter(({ history, authApi }) => {
   const auth = useSelector(state => state.auth)
@@ -21,11 +21,7 @@ const HeaderDropdownMenu = withRouter(({ history, authApi }) => {
               history.push('/bookmarks')
               close()
             },
-            icon: (
-              <Octicon>
-                <Bookmark />
-              </Octicon>
-            )
+            icon: <BookmarkIcon />
           },
           {
             label: 'Sign out',
@@ -33,11 +29,7 @@ const HeaderDropdownMenu = withRouter(({ history, authApi }) => {
               authApi.logout()
               close()
             },
-            icon: (
-              <Octicon>
-                <SignOut />
-              </Octicon>
-            )
+            icon: <SignOutIcon />
           }
         ]
         return <Menu items={items} close={close} />
