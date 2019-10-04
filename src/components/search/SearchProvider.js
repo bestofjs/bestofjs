@@ -22,8 +22,8 @@ export const SearchProvider = ({ children }) => {
     })
 
     history.push({
-      pathname: '/projects',
-      search: queryString ? '?' + queryString : '' // show "All Projects" if there is no query string
+      pathname: queryString ? '/projects' : '/', // back to the homepage if there is nothing to search
+      search: queryString ? '?' + queryString : ''
     })
   }
 

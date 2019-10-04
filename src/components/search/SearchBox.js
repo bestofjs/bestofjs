@@ -52,7 +52,7 @@ export const SearchBox = () => {
   )
 
   return (
-    <div style={{ backgroundColor: '#e65100', padding: '18px' }}>
+    <div style={{ backgroundColor: '#e65100', padding: '18px 0' }}>
       <div className="container">
         <Select
           options={options}

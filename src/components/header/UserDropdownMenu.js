@@ -37,7 +37,7 @@ const HeaderDropdownMenu = withRouter(({ history, authApi }) => {
       alignment="right"
     >
       {({ open }) => (
-        <Button onClick={open}>
+        <Button onClick={open} style={{ padding: '0.2rem 1rem' }}>
           {auth.name}{' '}
           <UserAvatar
             avatarURL={auth.avatar}

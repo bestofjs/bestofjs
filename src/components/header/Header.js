@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux'
 
 // import SearchForm from '../../containers/SearchFormContainer'
 // import ToggleMenuButton from './ToggleMenuButton'
-import Button from '../common/form/Button'
+import { Button } from '../core'
 import UserDropdownMenu from './UserDropdownMenu'
 import NavigationDropdownMenu from './NavigationDropdownMenu'
 
@@ -67,13 +67,19 @@ const Header = props => {
       {/* <ToggleMenuButton actions={actions} /> */}
       <div className="container">
         <Row className="header-row">
-          <div className="col-1">
+          <NavigationMenu>
             <LinkLogo to={'/'}>
               <img src="/svg/bestofjs.svg" width="160" alt="bestofjs.org" />
             </LinkLogo>
-          </div>
+            <NavigationMenuItem>
+              <Link to="/projects">All projects</Link>
+            </NavigationMenuItem>
+            <NavigationMenuItem>
+              <Link to="/hall-of-fame">Hall of Fame</Link>
+            </NavigationMenuItem>
+          </NavigationMenu>
           <div className="col-2">
-            <NavigationDropdownMenu {...props} />
+            {/* <NavigationDropdownMenu {...props} /> */}
             <LoginSection {...props} />
           </div>
         </Row>
@@ -81,6 +87,18 @@ const Header = props => {
     </Div>
   )
 }
+
+const NavigationMenu = styled.div`
+  display: flex;
+  align-items: center;
+`
+const NavigationMenuItem = styled.div`
+  font-size: 16px;
+  margin-left: 1rem;
+  @media screen and (max-width: ${sidebarBreakpoint - 1}px) {
+    display: none;
+  }
+`
 
 const LoginSection = ({ dependencies: { authApi } }) => {
   const auth = useSelector(state => state.auth)
@@ -92,8 +110,8 @@ const LoginSection = ({ dependencies: { authApi } }) => {
 
   if (!auth.username) {
     return (
-      <Button className="button-outline" onClick={() => authApi.login()}>
-        <span className="octicon octicon-mark-github" /> Sign in with GitHub
+      <Button className="button-outlineX" onClick={() => authApi.login()}>
+        Sign in with GitHub
       </Button>
     )
   }
