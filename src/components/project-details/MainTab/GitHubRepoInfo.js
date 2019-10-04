@@ -1,7 +1,6 @@
 import React from 'react'
 import numeral from 'numeral'
 
-import { StarIcon } from '../../core/icons'
 import fromNow from '../../../helpers/fromNow'
 import ExternalLink from '../../common/ExternalLink'
 import Card from '../../common/Card'

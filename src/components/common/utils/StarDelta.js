@@ -32,8 +32,6 @@ const StarDeltaAverageContainer = styled.div`
   text-align: center;
 `
 
-const Number = {}
-
 const StarDeltaAverage = ({ value }) => {
   const integerPart = Math.abs(Math.trunc(value))
   const decimalPart = (Math.abs(value - integerPart) * 10).toFixed().slice(0, 1)

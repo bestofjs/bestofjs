@@ -4,15 +4,13 @@ import { Route, Switch, Redirect } from 'react-router-dom'
 import asyncComponent from './asyncComponent'
 
 import HomePage from '../pages/HomePage'
+import BookmarksPage from '../pages/bookmarks-page'
 import HoFPage from '../pages/HallOfFamePage'
 import NoMatch from './NoMatch'
 import { SearchResultsContainer } from '../components/search/SearchResults'
 
 const AsyncAboutPage = asyncComponent(() =>
   import(/* webpackChunkName: "about" */ '../pages/AboutPage')
-)
-const AsyncMyProjects = asyncComponent(() =>
-  import(/* webpackChunkName: "my-projects" */ '../pages/bookmarks-page')
 )
 const AsyncViewProject = asyncComponent(() =>
   import(/* webpackChunkName: "single-project" */ '../pages/ProjectDetails/ProjectDetails')
@@ -41,9 +39,7 @@ const Routes = props => {
       />
       <Redirect from="/hof" to="/hall-of-fame" />
       <Redirect from="/myprojects" to="/bookmarks" />
-      <Route path="/bookmarks">
-        <AsyncMyProjects />
-      </Route>
+      <Route path="/bookmarks" component={BookmarksPage} />
       <Route path="/requests">
         <AsyncRequests />
       </Route>
