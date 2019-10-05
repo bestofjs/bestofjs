@@ -69,7 +69,7 @@ const Row = styled.div`
 `
 const Cell = styled.div`
   flex: 0 0 50%;
-  margin-bottom: 1rem;
+  margin-bottom: 2rem;
 `
 
 const PaginationTopBar = ({ history, location }) => {

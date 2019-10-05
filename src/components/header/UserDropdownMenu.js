@@ -2,6 +2,7 @@ import React from 'react'
 // import PropTypes from 'prop-types'
 import { withRouter } from 'react-router-dom'
 import { useSelector } from 'react-redux'
+import { css } from 'styled-components/macro' // eslint-disable-line no-unused-vars
 
 import { getBookmarkCount } from '../../selectors'
 import { Button, Popover, Menu } from '../core'
@@ -38,7 +39,15 @@ const HeaderDropdownMenu = withRouter(({ history, authApi }) => {
     >
       {({ open }) => (
         <Button onClick={open} style={{ padding: '0.2rem 1rem' }}>
-          {auth.name}{' '}
+          <span
+            css={`
+              @media (max-width: 599px) {
+                display: none;
+              }
+            `}
+          >
+            {auth.name}{' '}
+          </span>
           <UserAvatar
             avatarURL={auth.avatar}
             username={auth.username}
@@ -48,21 +57,6 @@ const HeaderDropdownMenu = withRouter(({ history, authApi }) => {
       )}
     </Popover>
   )
-
-  // return (
-  //   <div>
-  //     <DropdownMenu items={items} alignment="right">
-  //       <>
-  //         {auth.name}{' '}
-  //         <UserAvatar
-  //           avatarURL={auth.avatar}
-  //           username={auth.username}
-  //           style={{ marginLeft: '0.5rem', borderRadius: '50%' }}
-  //         />
-  //       </>
-  //     </DropdownMenu>
-  //   </div>
-  // )
 })
 
 const UserAvatar = ({ username, avatarURL, size = 32, style }) => {

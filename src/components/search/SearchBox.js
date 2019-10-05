@@ -38,7 +38,7 @@ export const SearchBox = () => {
           options={options}
           isMulti
           noOptionsMessage={() => null}
-          placeholder={'Pick several tags or enter keywords...'}
+          placeholder={'Pick tags or enter keywords...'}
           onChange={(options, { action, option }) => {
             // console.log('> onChange', options, action, option)
             const tagIds = (options || []).map(({ id }) => id)

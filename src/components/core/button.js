@@ -5,14 +5,14 @@ export const Button = styled.button`
   align-items: center;
   background-color: #fff;
   border: 1px solid #dbdbdb;
-  color: #363636;
+  color: var(--textPrimaryColor);
   justify-content: center;
   padding: 0.5em 1em;
   text-align: center;
   white-space: nowrap;
   border-radius: 4px;
-  font-size: 14px;
-  font-family: inherit;
+  font-size: 1rem;
+  font-family: sans-serif;
   ${props =>
     props.disabled
       ? css`

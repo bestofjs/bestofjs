@@ -65,6 +65,7 @@ export const MenuItemStyles = css`
   display: flex;
   align-items: center;
   color: inherit;
+  font-family: sans-serif;
   ${props =>
     props.disabled
       ? css`

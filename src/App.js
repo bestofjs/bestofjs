@@ -3,7 +3,7 @@ import { Provider } from 'react-redux'
 
 import Routes from './routes/Routes'
 import Sidebar from './components/sidebar/ConnectedSidebar'
-import Header from './components/header/ConnectedHeader'
+import Header from './components/header/Header'
 import Footer from './components/footer/ConnectedFooter'
 import { SearchBox, SearchProvider } from './components/search'
 

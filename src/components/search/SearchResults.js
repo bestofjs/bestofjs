@@ -39,8 +39,6 @@ export const SearchResultsContainer = () => {
     limit
   })
 
-  const isListFiltered = query !== '' || selectedTags.length > 0
-
   return (
     <MainContent>
       {foundProjects.length > 0 ? (
@@ -59,11 +57,11 @@ export const SearchResultsContainer = () => {
             showBookmarkSortOption={false}
           >
             <PageTitle>
-              {isListFiltered ? (
-                <>Search results: {showCount(total, 'project')} found</>
-              ) : (
-                <>All projects</>
-              )}
+              <SearchResultsTitle
+                query={query}
+                selectedTags={selectedTags}
+                total={total}
+              />
             </PageTitle>
           </ProjectPaginatedList>
         </PaginationProvider>
@@ -74,6 +72,22 @@ export const SearchResultsContainer = () => {
       )}
     </MainContent>
   )
+}
+
+const SearchResultsTitle = ({ query, selectedTags, total }) => {
+  const isListFiltered = query !== '' || selectedTags.length > 0
+  const tags = useSelector(getTagsById(selectedTags))
+
+  if (!isListFiltered) return <>All Projects</>
+
+  if (tags.length === 1 && !query) {
+    return (
+      <>
+        {tags[0].name} tag: {showCount(total, 'project')}
+      </>
+    )
+  }
+  return <>Search results: {showCount(total, 'project')} found</>
 }
 
 function findProjects(
