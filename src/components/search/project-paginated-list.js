@@ -33,22 +33,21 @@ export const ProjectPaginatedList = ({
 
   return (
     <div>
-      <div style={{ display: 'flex', alignItems: 'center' }}>
-        <div style={{ flex: '0 0 50%' }}>
+      <Row>
+        <Cell>
           {children}
           {pageNumbers.length > 1 && (
             <PaginationTopBar history={history} location={location} />
           )}
-        </div>
-        <div style={{ flex: '0 0 50%' }}>
+        </Cell>
+        <Cell style={{ flex: '0 0 50%' }}>
           <SortOrderPicker
             onChange={onChangeSortOption}
             value={sortOption.id}
             showBookmark={showBookmarkSortOption}
           />
-        </div>
-      </div>
-      <br />
+        </Cell>
+      </Row>
       <ProjectTable
         projects={projects}
         showStars={false}
@@ -59,6 +58,19 @@ export const ProjectPaginatedList = ({
     </div>
   )
 }
+
+const Row = styled.div`
+  display: flex;
+  flex-direction: column;
+  @media (min-width: 700px) {
+    align-items: center;
+    flex-direction: row;
+  }
+`
+const Cell = styled.div`
+  flex: 0 0 50%;
+  margin-bottom: 1rem;
+`
 
 const PaginationTopBar = ({ history, location }) => {
   const {
