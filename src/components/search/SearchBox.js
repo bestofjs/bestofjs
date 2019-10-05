@@ -1,48 +1,28 @@
 import React, { useContext, useState, useEffect } from 'react'
 import { useSelector } from 'react-redux'
-// import PropTypes from 'prop-types'
-import Select from 'react-select'
+import Select, { components } from 'react-select'
 import useDebouncedCallback from 'use-debounce/lib/useDebouncedCallback'
 
 import { SearchContext } from './SearchProvider'
 import { getAllTags } from '../../selectors'
 
-// export const useSyncUrl = ({ history, selectedTags, query }) => {
-//   useEffect(
-//     () => {
-//       const queryString = stateToQueryString({ query, selectedTags })
-//       const path = `/projects?${queryString}`
-//       console.log('Push!')
-//       history.push(path)
-//     },
-//     [selectedTags, query, history]
-//   )
-// }
-
 export const SearchBox = () => {
   const tags = useSelector(getAllTags)
   const { query, selectedTags, onChange } = useContext(SearchContext)
   const [inputValue, setInputValue] = useState(query)
-  // const [query, setQuery] = useState(initialQuery)
-  // const [selectedTags, setSelectedTags] = useState(initialTags)
-  // const initialState = {
-  //   query: initialQuery,
-  //   selectedTags: initialTags,
-  //   updated: false
-  // }
-  // const [{ query, selectedTags, updated }] = useReducer(reducer, initialState)
-  const options = tags.map(({ name, code }) => ({ value: code, label: name }))
-  // const selectedOptions = options.filter(({ value }) =>
-  //   selectedTags.includes(value)
-  // )
+  const [debouncedOnChange, cancel] = useDebouncedCallback(onChange, 300)
+
+  const options = [{ id: '', counter: tags.length }, ...tags].map(item => ({
+    ...item,
+    value: item.id,
+    label: item.name
+  }))
+
   const selectedOptions = selectedTags.map(tagId =>
-    options.find(({ value }) => value === tagId)
+    options.find(({ id }) => id === tagId)
   )
-  // .map(({ name, code }) => ({ value: code, label: name }))
 
   console.log('Render search box', selectedTags)
-
-  const [debouncedOnChange, cancel] = useDebouncedCallback(onChange, 300)
 
   useEffect(
     () => {
@@ -59,10 +39,12 @@ export const SearchBox = () => {
           isMulti
           noOptionsMessage={() => null}
           placeholder={'Pick several tags or enter keywords...'}
-          onChange={(options, b) => {
-            // console.log('onChange', options, b)
-            const tagIds = (options || []).map(({ value }) => value)
-            // setSelectedTags(tagIds) // when removing tags using backspace key, the option is `null`
+          onChange={(options, { action, option }) => {
+            // console.log('> onChange', options, action, option)
+            const tagIds = (options || []).map(({ id }) => id)
+            if (action === 'select-option') {
+              if (option.id === '') return
+            }
             setInputValue('')
             cancel()
             onChange({ query: '', selectedTags: tagIds })
@@ -76,6 +58,7 @@ export const SearchBox = () => {
           }}
           inputValue={inputValue}
           value={selectedOptions}
+          components={customComponents}
           theme={theme => ({
             ...theme,
             colors: {
@@ -90,4 +73,29 @@ export const SearchBox = () => {
       </div>
     </div>
   )
+}
+
+// Customize the default `Option` component provided by `react-select`
+const Option = components.Option
+
+const CustomOption = props => {
+  const { id, name, counter } = props.data
+  return (
+    <Option {...props}>
+      {id ? (
+        <>
+          {name} <span className="text-secondary">{counter}</span>
+        </>
+      ) : (
+        <>
+          Pick a tag...{' '}
+          <span className="text-secondary">({counter} tags available)</span>
+        </>
+      )}
+    </Option>
+  )
+}
+
+const customComponents = {
+  Option: CustomOption
 }

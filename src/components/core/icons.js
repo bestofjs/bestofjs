@@ -17,7 +17,7 @@ export const ChevronRightIcon = ({
     >
       <path
         fill={color}
-        fill-rule="evenodd"
+        fillRule="evenodd"
         d="M7.5 8l-5 5L1 11.5 4.75 8 1 4.5 2.5 3l5 5z"
       />
     </svg>
@@ -36,7 +36,7 @@ export const ChevronLeftIcon = ({ size = 16, color, style }) => {
       style={style}
     >
       <path
-        fill-rule="evenodd"
+        fillRule="evenodd"
         d="M5.5 3L7 4.5 3.25 8 7 11.5 5.5 13l-5-5 5-5z"
       />
     </svg>
@@ -80,7 +80,7 @@ export const MarkGitHubIcon = ({
     >
       <path
         fill={color}
-        fill-rule="evenodd"
+        fillRule="evenodd"
         d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"
       />
     </svg>
@@ -100,7 +100,7 @@ export const BookmarkIcon = ({ size = 16, color = 'currentColor', style }) => {
     >
       <path
         fill={color}
-        fill-rule="evenodd"
+        fillRule="evenodd"
         d="M9 0H1C.27 0 0 .27 0 1v15l5-3.09L10 16V1c0-.73-.27-1-1-1zm-.78 4.25L6.36 5.61l.72 2.16c.06.22-.02.28-.2.17L5 6.6 3.12 7.94c-.19.11-.25.05-.2-.17l.72-2.16-1.86-1.36c-.17-.16-.14-.23.09-.23l2.3-.03.7-2.16h.25l.7 2.16 2.3.03c.23 0 .27.08.09.23h.01z"
       />
     </svg>
@@ -119,7 +119,7 @@ export const HomeIcon = ({ size = 16, color = 'currentColor', style }) => {
       style={style}
     >
       <path
-        fill-rule="evenodd"
+        fillRule="evenodd"
         fill={color}
         d="M16 9l-3-3V2h-2v2L8 1 0 9h2l1 5c0 .55.45 1 1 1h8c.55 0 1-.45 1-1l1-5h2zm-4 5H9v-4H7v4H4L2.81 7.69 8 2.5l5.19 5.19L12 14z"
       />
@@ -144,7 +144,7 @@ export const KebabVerticalIcon = ({
     >
       <path
         fill={color}
-        fill-rule="evenodd"
+        fillRule="evenodd"
         d="M0 2.5a1.5 1.5 0 1 0 3 0 1.5 1.5 0 0 0-3 0zm0 5a1.5 1.5 0 1 0 3 0 1.5 1.5 0 0 0-3 0zM1.5 14a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z"
       />
     </svg>
@@ -163,7 +163,7 @@ export const SignOutIcon = ({ size = 16, color = 'currentColor', style }) => {
     >
       <path
         fill={color}
-        fill-rule="evenodd"
+        fillRule="evenodd"
         d="M12 9V7H8V5h4V3l4 3-4 3zm-2 3H6V3L2 1h8v3h1V1c0-.55-.45-1-1-1H1C.45 0 0 .45 0 1v11.38c0 .39.22.73.55.91L6 16.01V13h4c.55 0 1-.45 1-1V8h-1v4z"
       />
     </svg>
@@ -183,7 +183,7 @@ export const ThreeBarsIcon = ({ size = 16, color = 'currentColor', style }) => {
     >
       <path
         fill={color}
-        fill-rule="evenodd"
+        fillRule="evenodd"
         d="M11.41 9H.59C0 9 0 8.59 0 8c0-.59 0-1 .59-1H11.4c.59 0 .59.41.59 1 0 .59 0 1-.59 1h.01zm0-4H.59C0 5 0 4.59 0 4c0-.59 0-1 .59-1H11.4c.59 0 .59.41.59 1 0 .59 0 1-.59 1h.01zM.59 11H11.4c.59 0 .59.41.59 1 0 .59 0 1-.59 1H.59C0 13 0 12.59 0 12c0-.59 0-1 .59-1z"
       />
     </svg>
