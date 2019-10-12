@@ -20,7 +20,7 @@ const BookmarksPage = () => {
   const projects = useSelector(getBookmarksSortedBy(sortOption.id))
 
   const total = projects.length
-  const limit = 5
+  const limit = 10
   const paginatedProjects = paginateItemList(projects, page, { limit })
 
   return (
@@ -38,6 +38,7 @@ const BookmarksPage = () => {
             total={total}
             limit={limit}
             sortOption={sortOption}
+            showSortOptions={true}
             showBookmarkSortOption={true}
           >
             <PageTitle

@@ -2,6 +2,7 @@ import React, { useContext, useState, useEffect } from 'react'
 import { useSelector } from 'react-redux'
 import Select, { components } from 'react-select'
 import useDebouncedCallback from 'use-debounce/lib/useDebouncedCallback'
+import styled from 'styled-components/macro' // eslint-disable-line no-unused-vars
 
 import { SearchContext } from './SearchProvider'
 import { getAllTags } from '../../selectors'
@@ -32,7 +33,7 @@ export const SearchBox = () => {
   )
 
   return (
-    <div style={{ backgroundColor: '#e65100', padding: '18px 0' }}>
+    <div css={{ backgroundColor: 'var(--bestofjsOrange)', padding: '1rem 0' }}>
       <div className="container">
         <Select
           options={options}

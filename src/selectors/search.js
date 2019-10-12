@@ -16,11 +16,16 @@ export default function filterProjects(projects, text) {
 // return how much "relevant" is the project in the search results
 // `tags` is an array of tags that match the text
 function rank(project, text) {
+  const equals = new RegExp('^' + text + '$', 'i')
   const startsWith = new RegExp('^' + text, 'i')
   const contains = new RegExp(text, 'i')
 
+  if (equals.test(project.name)) {
+    // top level relevance: project whose name or package name is what the user entered
+    return 7
+  }
+
   if (startsWith.test(project.name)) {
-    // top level relevance: project whose name or npm package name start by the text
     return 6
   }
 
@@ -29,7 +34,6 @@ function rank(project, text) {
   }
 
   if (text.length > 1) {
-    // next level: check if the project's name contains the text
     if (contains.test(project.name)) {
       return 4
     }

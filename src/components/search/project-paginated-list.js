@@ -18,6 +18,7 @@ export const ProjectPaginatedList = ({
   total,
   limit,
   sortOption,
+  showSortOptions,
   showBookmarkSortOption,
   children
 }) => {
@@ -41,11 +42,13 @@ export const ProjectPaginatedList = ({
           )}
         </Cell>
         <Cell style={{ flex: '0 0 50%' }}>
-          <SortOrderPicker
-            onChange={onChangeSortOption}
-            value={sortOption.id}
-            showBookmark={showBookmarkSortOption}
-          />
+          {showSortOptions && (
+            <SortOrderPicker
+              onChange={onChangeSortOption}
+              value={sortOption.id}
+              showBookmark={showBookmarkSortOption}
+            />
+          )}
         </Cell>
       </Row>
       <ProjectTable

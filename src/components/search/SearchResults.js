@@ -39,6 +39,8 @@ export const SearchResultsContainer = () => {
     limit
   })
 
+  const showSortOptions = query === ''
+
   return (
     <MainContent>
       {foundProjects.length > 0 ? (
@@ -54,6 +56,7 @@ export const SearchResultsContainer = () => {
             total={total}
             limit={limit}
             sortOption={sortOption}
+            showSortOptions={showSortOptions}
             showBookmarkSortOption={false}
           >
             <PageTitle>
@@ -111,7 +114,7 @@ function findProjects(
     ? searchForProjects(filteredProjects, query)
     : filteredProjects
 
-  const sortedProjects = sortBy(foundProjects, selector)
+  const sortedProjects = query ? foundProjects : sortBy(foundProjects, selector)
 
   const paginatedProjects = paginateItemList(sortedProjects, page, { limit })
 
