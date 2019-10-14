@@ -54,7 +54,7 @@ export function filterProjectsByQuery(projects, query) {
 function rank(project, query) {
   const equals = new RegExp('^' + query + '$', 'i')
   const startsWith = new RegExp('^' + query, 'i')
-  const contains = new RegExp(query, 'i')
+  const contains = new RegExp(query.replace(/ /g, '.+'), 'i') // the query is split if it contains spaces
 
   if (equals.test(project.name)) {
     // top level relevance: project whose name or package name is what the user entered
