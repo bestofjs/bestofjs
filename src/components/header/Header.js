@@ -5,6 +5,8 @@ import { useSelector } from 'react-redux'
 
 import { Button } from '../core'
 import UserDropdownMenu from './UserDropdownMenu'
+import { MarkGitHubIcon } from '../core/icons'
+import getStaticContent from '../../staticContent'
 // import NavigationDropdownMenu from './NavigationDropdownMenu'
 
 const sidebarBreakpoint = 900
@@ -27,6 +29,7 @@ const HeaderContainer = styled.header`
 `
 
 const Header = props => {
+  const { repo } = getStaticContent()
   return (
     <HeaderContainer>
       <div className="container">
@@ -44,6 +47,11 @@ const Header = props => {
               </NavigationMenuItem>
               <NavigationMenuItem>
                 <Link to="/hall-of-fame">Hall of Fame</Link>
+              </NavigationMenuItem>
+              <NavigationMenuItem>
+                <a href={repo} target="_blank" rel="noopener noreferrer">
+                  <MarkGitHubIcon size={24} />
+                </a>
               </NavigationMenuItem>
             </NavigationMenu>
           </Col>

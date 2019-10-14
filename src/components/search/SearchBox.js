@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from 'react'
+import React, { useContext, useState, useEffect, useRef } from 'react'
 import { useSelector } from 'react-redux'
 import Select, { components } from 'react-select'
 import useDebouncedCallback from 'use-debounce/lib/useDebouncedCallback'
@@ -23,8 +23,6 @@ export const SearchBox = () => {
     options.find(({ id }) => id === tagId)
   )
 
-  console.log('Render search box', selectedTags)
-
   useEffect(
     () => {
       setInputValue(query)
@@ -32,12 +30,16 @@ export const SearchBox = () => {
     [query]
   )
 
+  const selectRef = useRef()
+
   return (
     <div css={{ backgroundColor: 'var(--bestofjsOrange)', padding: '1rem 0' }}>
       <div className="container">
         <Select
+          ref={selectRef}
           options={options}
           isMulti
+          isClearable
           noOptionsMessage={() => null}
           placeholder={'Pick tags or enter keywords...'}
           onChange={(options, { action, option }) => {
@@ -56,6 +58,23 @@ export const SearchBox = () => {
               setInputValue(value)
               debouncedOnChange({ query: value })
             }
+          }}
+          // This `onKeyDown` event handler is used only for a specific case:
+          // when the user enters text, moves the cursor just after the tag and pushes the Backspace key
+          onKeyDown={event => {
+            if (event.key !== 'Backspace') return
+            if (selectedTags.length === 0) return
+            if (query === '') return
+            const {
+              selectionStart,
+              selectionEnd
+            } = selectRef.current.select.inputRef
+            if (!(selectionStart === 0 && selectionEnd === 0)) return
+            console.info('Remove the last tag')
+            onChange({
+              query,
+              selectedTags: selectedTags.slice(0, selectedTags.length - 1)
+            })
           }}
           inputValue={inputValue}
           value={selectedOptions}
@@ -77,7 +96,7 @@ export const SearchBox = () => {
 }
 
 // Customize the default `Option` component provided by `react-select`
-const Option = components.Option
+const { Option } = components
 
 const CustomOption = props => {
   const { id, name, counter } = props.data
