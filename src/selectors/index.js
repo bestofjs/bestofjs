@@ -1,7 +1,6 @@
 import { createSelector } from 'reselect'
 
 import { populateProject, getProjectSelectorByKey } from './project'
-import search from './search'
 
 // Number of projects under each tag:
 //  {react: 200, vue: 60...}
@@ -126,20 +125,6 @@ export const getHotProjects = count =>
 //       return filteredProjects
 //     }
 //   )
-
-export const searchForProjects = text =>
-  createSelector(
-    [
-      allProjects,
-      getAllTags,
-      state => state.entities.tags,
-      state => state.auth
-    ],
-    (projects, allTags, tagsById, auth) =>
-      search(projects, text)
-        .slice(0, 50)
-        .map(getFullProject(tagsById, auth))
-  )
 
 export const getBookmarksSortedBy = criteria =>
   createSelector(
