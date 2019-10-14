@@ -5,11 +5,12 @@ import styled, { css } from 'styled-components'
 export class Menu extends React.Component {
   static propTypes = {
     items: PropTypes.array.isRequired,
+    value: PropTypes.string, // only needed to set the "active" status
     onClick: PropTypes.func
   }
 
   render() {
-    const { items, onClick: menuOnClick } = this.props
+    const { items, value, onClick: menuOnClick } = this.props
 
     return (
       <MenuRoot>
@@ -17,7 +18,7 @@ export class Menu extends React.Component {
           .filter(item => !!item)
           .map(
             (
-              { type = 'menu-item', label, icon, onClick, url, ...other },
+              { type = 'menu-item', label, id, icon, onClick, url, ...other },
               index
             ) => {
               if (type === 'divider') {
@@ -44,7 +45,12 @@ export class Menu extends React.Component {
               }
 
               return (
-                <MenuItemAction key={index} onClick={handleClick} {...other}>
+                <MenuItemAction
+                  key={index}
+                  onClick={handleClick}
+                  {...other}
+                  isActive={value && id === value}
+                >
                   {icon && <MenuItemIcon>{icon}</MenuItemIcon>}
                   {label}
                 </MenuItemAction>
@@ -66,17 +72,25 @@ export const MenuItemStyles = css`
   align-items: center;
   color: inherit;
   font-family: sans-serif;
-  ${props =>
-    props.disabled
-      ? css`
-          opacity: 0.5;
-        `
-      : css`
-          cursor: pointer;
-          &:hover {
-            background-color: #f6fad7;
-          }
-        `}
+  ${props => {
+    if (props.disabled) {
+      return css`
+        opacity: 0.5;
+      `
+    }
+    if (props.isActive) {
+      return css`
+        background-color: var(--bestofjsOrange);
+        color: white;
+      `
+    }
+    return css`
+      cursor: pointer;
+      &:hover {
+        background-color: #f6fad7;
+      }
+    `
+  }}
 `
 
 const MenuItemLink = styled.a`
@@ -100,19 +114,14 @@ export const MenuLabel = styled.div`
   padding: 8px 12px;
 `
 
-export class MenuDivider extends React.Component {
-  render() {
-    return (
-      <div
-        style={{
-          marginTop: '0.5rem',
-          marginBottom: '0.5rem',
-          borderBottom: '1px solid #cccccc'
-          // borderBottomWidth: s.border.borderWidth,
-          // borderBottomColor: s.border.borderColor,
-          // borderBottomStyle: s.border.borderStyle
-        }}
-      />
-    )
-  }
+const MenuDivider = () => {
+  return (
+    <div
+      style={{
+        marginTop: '0.5rem',
+        marginBottom: '0.5rem',
+        borderBottom: '1px solid #cccccc'
+      }}
+    />
+  )
 }

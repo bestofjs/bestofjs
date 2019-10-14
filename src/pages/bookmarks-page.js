@@ -32,22 +32,19 @@ const BookmarksPage = () => {
           currentPageNumber={page}
           limit={limit}
         >
+          <PageTitle
+            icon={<BookmarkIcon size={32} />}
+            extra={total === 1 ? '(one project)' : `(${total} projects)`}
+          >
+            Bookmarks
+          </PageTitle>
           <ProjectPaginatedList
             projects={paginatedProjects}
             page={page}
             total={total}
             limit={limit}
             sortOption={sortOption}
-            showSortOptions={true}
-            showBookmarkSortOption={true}
-          >
-            <PageTitle
-              icon={<BookmarkIcon size={32} />}
-              extra={total === 1 ? '(one project)' : `(${total} projects)`}
-            >
-              Bookmarks
-            </PageTitle>
-          </ProjectPaginatedList>
+          />
         </PaginationProvider>
       )}
     </MainContent>

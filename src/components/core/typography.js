@@ -7,9 +7,9 @@ const Heading = styled.h2`
   margin: 0;
 `
 
-export const PageTitle = ({ icon, children, extra }) => {
+export const PageTitle = ({ icon, children, extra, style }) => {
   return (
-    <Heading>
+    <Heading style={{ paddingBottom: '1rem', ...style }}>
       {icon && <PageTitleIcon>{icon}</PageTitleIcon>}
       <div>
         {children}

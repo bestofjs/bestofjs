@@ -16,12 +16,12 @@ const Cell = styled.div`
   padding-left: ${gutter};
 `
 
-const TagGroup = ({ tags }) => {
+const TagGroup = ({ tags, ...otherProps }) => {
   return (
     <Grid>
       {tags.map(tag => (
         <Cell key={tag.id}>
-          <TagLabel tag={tag} />
+          <TagLabel tag={tag} {...otherProps} />
         </Cell>
       ))}
     </Grid>

@@ -18,8 +18,6 @@ export const ProjectPaginatedList = ({
   total,
   limit,
   sortOption,
-  showSortOptions,
-  showBookmarkSortOption,
   children
 }) => {
   const { from, pageNumbers } = useContext(PaginationContext)
@@ -34,20 +32,18 @@ export const ProjectPaginatedList = ({
 
   return (
     <div>
-      <Row>
+      <Row style={{ borderTop: '1px dashed #cecece' }}>
         <Cell>
-          {children}
-          {pageNumbers.length > 1 && (
-            <PaginationTopBar history={history} location={location} />
-          )}
-        </Cell>
-        <Cell style={{ flex: '0 0 50%' }}>
-          {showSortOptions && (
+          {projects.length > 1 && (
             <SortOrderPicker
               onChange={onChangeSortOption}
               value={sortOption.id}
-              showBookmark={showBookmarkSortOption}
             />
+          )}
+        </Cell>
+        <Cell>
+          {pageNumbers.length > 1 && (
+            <PaginationTopBar history={history} location={location} />
           )}
         </Cell>
       </Row>
@@ -72,7 +68,11 @@ const Row = styled.div`
 `
 const Cell = styled.div`
   flex: 0 0 50%;
-  margin-bottom: 2rem;
+  padding-top: 1rem;
+  margin-bottom: 1rem;
+  &:last-child {
+    justify-content: flex-end;
+  }
 `
 
 const PaginationTopBar = ({ history, location }) => {
@@ -86,7 +86,24 @@ const PaginationTopBar = ({ history, location }) => {
   } = useContext(PaginationContext)
 
   return (
-    <SubTitle>
+    <div
+      style={{
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'flex-end',
+        padding: '0.5rem 0'
+      }}
+    >
+      <div style={{ marginRight: '1rem' }}>
+        Showing{' '}
+        {from === to ? (
+          `#${from}`
+        ) : (
+          <>
+            {from} - {to} of {total}
+          </>
+        )}
+      </div>
       <PaginationButton
         disabled={!hasPreviousPage}
         onClick={() =>
@@ -107,25 +124,17 @@ const PaginationTopBar = ({ history, location }) => {
       >
         <ChevronRightIcon size={24} />
       </PaginationButton>
-      Showing{' '}
-      {from === to ? (
-        `#${from}`
-      ) : (
-        <>
-          {from} - {to} of {total}
-        </>
-      )}
-    </SubTitle>
+    </div>
   )
 }
 
-const SubTitle = styled.div`
-  margin-top: 0.5rem;
-  color: #788080;
-  fontsize: 16px;
-  display: flex;
-  align-items: center;
-`
+// const SubTitle = styled.div`
+//   margin-top: 0.5rem;
+//   color: #788080;
+//   fontsize: 16px;
+//   display: flex;
+//   align-items: center;
+// `
 
 const PaginationButton = styled(Button)`
   border-radius: 50%;

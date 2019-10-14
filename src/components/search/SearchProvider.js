@@ -29,7 +29,7 @@ export const SearchProvider = ({ children }) => {
 
   return (
     <SearchContext.Provider
-      value={{ selectedTags, query, sort, page, history, onChange }}
+      value={{ selectedTags, query, sort, page, history, location, onChange }}
     >
       {children}
     </SearchContext.Provider>
@@ -39,8 +39,8 @@ export const SearchProvider = ({ children }) => {
 export const useSearch = ({ defaultSortOptionId = 'total' } = {}) => {
   const { sort, ...values } = useContext(SearchContext)
 
-  const sortOrderOptions = getSortOrderOptions({ showBookmark: true })
-  const sortOptionId = sort || defaultSortOptionId
+  const sortOrderOptions = getSortOrderOptions()
+  const sortOptionId = sort || (values.query ? 'match' : defaultSortOptionId)
   const sortOption =
     sortOrderOptions.find(item => item.id === sortOptionId) ||
     sortOrderOptions[0]

@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { KebabVerticalIcon } from '../core/icons'
+import { /* KebabVerticalIcon, */ ChevronDownIcon } from '../core/icons'
 
 import { Button } from './button'
 // import { ChevronDownIcon, ChevronUpIcon } from './icons'
@@ -28,12 +28,12 @@ export class DropdownMenu extends React.Component {
   }
 
   render() {
-    const { items, position, disabled, alignment, children } = this.props
+    const { items, value, position, disabled, alignment, children } = this.props
 
     const content =
       typeof items === 'function'
         ? items
-        : ({ close }) => <Menu items={items} onClick={close} />
+        : ({ close }) => <Menu value={value} items={items} onClick={close} />
 
     const trigger =
       typeof children === 'function'
@@ -67,9 +67,12 @@ export class DropdownToggleButton extends React.Component {
     const { position, children, style, ...props } = this.props
 
     return (
-      <Button {...props} style={{ color: '#788080', ...style }}>
+      <Button {...props} style={{ ...style }}>
         {children}
-        <KebabVerticalIcon size={32} />
+        <ChevronDownIcon
+          size={16}
+          style={{ marginLeft: children ? '0.5rem' : undefined }}
+        />
       </Button>
     )
   }

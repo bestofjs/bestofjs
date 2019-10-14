@@ -24,7 +24,35 @@ export const ChevronRightIcon = ({
   )
 }
 
-export const ChevronLeftIcon = ({ size = 16, color, style }) => {
+export const ChevronDownIcon = ({
+  size = 16,
+  color = 'currentColor',
+  style
+}) => {
+  return (
+    <svg
+      width={size}
+      height={size}
+      className="octicon"
+      viewBox="0 0 10 16"
+      version="1.1"
+      aria-hidden="true"
+      style={style}
+    >
+      <path
+        fill={color}
+        fillRule="evenodd"
+        d="M5 11L0 6l1.5-1.5L5 8.25 8.5 4.5 10 6l-5 5z"
+      />
+    </svg>
+  )
+}
+
+export const ChevronLeftIcon = ({
+  size = 16,
+  color = 'currentColor',
+  style
+}) => {
   return (
     <svg
       width={size}
@@ -36,6 +64,7 @@ export const ChevronLeftIcon = ({ size = 16, color, style }) => {
       style={style}
     >
       <path
+        full={color}
         fillRule="evenodd"
         d="M5.5 3L7 4.5 3.25 8 7 11.5 5.5 13l-5-5 5-5z"
       />
@@ -165,6 +194,26 @@ export const SignOutIcon = ({ size = 16, color = 'currentColor', style }) => {
         fill={color}
         fillRule="evenodd"
         d="M12 9V7H8V5h4V3l4 3-4 3zm-2 3H6V3L2 1h8v3h1V1c0-.55-.45-1-1-1H1C.45 0 0 .45 0 1v11.38c0 .39.22.73.55.91L6 16.01V13h4c.55 0 1-.45 1-1V8h-1v4z"
+      />
+    </svg>
+  )
+}
+
+export const TagIcon = ({ size = 16, color = 'currentColor', style }) => {
+  return (
+    <svg
+      width={size}
+      height={size}
+      className="octicon"
+      viewBox="0 0 14 16"
+      version="1.1"
+      aria-hidden="true"
+      style={style}
+    >
+      <path
+        fill={color}
+        fillRule="evenodd"
+        d="M7.73 1.73C7.26 1.26 6.62 1 5.96 1H3.5C2.13 1 1 2.13 1 3.5v2.47c0 .66.27 1.3.73 1.77l6.06 6.06c.39.39 1.02.39 1.41 0l4.59-4.59a.996.996 0 0 0 0-1.41L7.73 1.73zM2.38 7.09c-.31-.3-.47-.7-.47-1.13V3.5c0-.88.72-1.59 1.59-1.59h2.47c.42 0 .83.16 1.13.47l6.14 6.13-4.73 4.73-6.13-6.15zM3.01 3h2v2H3V3h.01z"
       />
     </svg>
   )

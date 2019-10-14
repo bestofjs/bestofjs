@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
-import { stateToQueryString, useSearch } from '../search'
+import { useSearch, updateLocation } from '../search'
 
 const StyledLink = styled(Link)`
   display: inline-block;
@@ -13,19 +13,24 @@ const StyledLink = styled(Link)`
   font-size: 13px;
 `
 
-const TagLabel = ({ tag }) => {
-  const { sortOption } = useSearch()
-  const queryString = stateToQueryString({
-    sort: sortOption.id,
-    selectedTags: [tag.id]
-  })
+const TagLabel = ({ tag, baseTagIds = [] }) => {
+  const { location } = useSearch()
+
+  const isMultiTagLink = baseTagIds.length > 0
+
+  const nextLocation = updateLocation(
+    { ...location, pathname: '/projects' },
+    {
+      query: '',
+      selectedTags: [...baseTagIds, tag.id],
+      page: 1
+    }
+  )
 
   return (
-    <StyledLink
-      to={{ pathname: '/projects', search: '&' + queryString }}
-      key={tag.id}
-    >
-      <span>{tag.name}</span>
+    <StyledLink to={nextLocation} key={tag.id}>
+      {isMultiTagLink && <span>+ </span>}
+      {tag.name}
     </StyledLink>
   )
 }

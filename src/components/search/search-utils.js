@@ -36,9 +36,12 @@ export function updateLocation(location, changes) {
   const previousParams = queryStringToState(search)
   const params = { ...previousParams, ...changes }
 
-  // Reset the sort option when the user goes to the "Bookmarks" page
-  // TODO fix that!
+  // Remove the `bookmark` sort option, only available on the "Bookmarks" page
   if (params.sort === 'bookmark' && pathname !== '/bookmarks') {
+    delete params.sort
+  }
+  // Remove the `match` sort parameter, only available when there is a query
+  if (!params.query && params.sort === 'match') {
     delete params.sort
   }
 
