@@ -94,7 +94,7 @@ const NavigationMenuItem = styled.div`
   a {
     color: var(--textPrimaryColor);
     font-size: 1rem;
-    font-family: sans-serif;
+    /* font-family: sans-serif; */
   }
 `
 

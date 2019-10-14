@@ -71,7 +71,7 @@ export const MenuItemStyles = css`
   display: flex;
   align-items: center;
   color: inherit;
-  font-family: sans-serif;
+  /* font-family: sans-serif; */
   ${props => {
     if (props.disabled) {
       return css`

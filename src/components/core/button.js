@@ -12,7 +12,7 @@ export const Button = styled.button`
   white-space: nowrap;
   border-radius: 4px;
   font-size: 1rem;
-  font-family: sans-serif;
+  font-family: inherit;
   ${props =>
     props.disabled
       ? css`
