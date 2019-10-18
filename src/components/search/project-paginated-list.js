@@ -1,7 +1,7 @@
 import React, { useContext } from 'react'
 import styled from 'styled-components'
+import { useHistory, useLocation } from 'react-router-dom'
 // import PropTypes from 'prop-types'
-import useReactRouter from 'use-react-router'
 
 import { ChevronRightIcon, ChevronLeftIcon } from '../core/icons'
 import ProjectTable from '../project-list/ProjectTable'
@@ -21,7 +21,8 @@ export const ProjectPaginatedList = ({
   children
 }) => {
   const { from, pageNumbers } = useContext(PaginationContext)
-  const { location, history } = useReactRouter()
+  const location = useLocation()
+  const history = useHistory()
 
   const onChangeSortOption = sortId => {
     const changes = { sort: sortId, page: 1 }

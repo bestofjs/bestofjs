@@ -1,12 +1,14 @@
 import React, { createContext, useContext } from 'react'
-import useReactRouter from 'use-react-router'
+import { useHistory, useLocation } from 'react-router-dom'
+
 import { queryStringToState, stateToQueryString } from './search-utils'
 import { getSortOrderOptions } from './sort-order'
 
 export const SearchContext = createContext({})
 
 export const SearchProvider = ({ children }) => {
-  const { history, location } = useReactRouter()
+  const location = useLocation()
+  const history = useHistory()
 
   const { query, selectedTags, page, sort } = queryStringToState(
     location.search

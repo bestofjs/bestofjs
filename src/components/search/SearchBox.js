@@ -6,6 +6,7 @@ import styled from 'styled-components/macro' // eslint-disable-line no-unused-va
 
 import { SearchContext } from './SearchProvider'
 import { getAllTags } from '../../selectors'
+import { Button } from '../core'
 
 export const SearchBox = () => {
   const tags = useSelector(getAllTags)
@@ -96,7 +97,8 @@ export const SearchBox = () => {
 }
 
 // Customize the default `Option` component provided by `react-select`
-const { Option } = components
+const { Option, IndicatorsContainer } = components
+const { CrossIcon } = components
 
 const CustomOption = props => {
   const { id, name, counter } = props.data
@@ -104,11 +106,11 @@ const CustomOption = props => {
     <Option {...props}>
       {id ? (
         <>
-          {name} <span className="text-secondary">{counter}</span>
+          {name} <span className="text-secondary">({counter})</span>
         </>
       ) : (
         <>
-          Pick a tag...{' '}
+          Pick a tag...{'  '}
           <span className="text-secondary">({counter} tags available)</span>
         </>
       )}
@@ -116,6 +118,37 @@ const CustomOption = props => {
   )
 }
 
+const ResetButton = styled(Button)`
+  padding: 2px 5px;
+  margin-right: '0.5rem';
+  color: #ababab;
+  &:hover {
+    #999999;
+  }
+  border-style: none;
+`
+
 const customComponents = {
-  Option: CustomOption
+  Option: CustomOption,
+  IndicatorsContainer: ({ children, ...props }) => {
+    console.log({ props })
+    const { hasValue } = props // the selected tags
+    const { inputValue } = props.selectProps // the query
+    return (
+      <IndicatorsContainer {...props}>
+        {inputValue && !hasValue && (
+          <ResetButton style={{}} onClick={() => props.setValue()}>
+            <CrossIcon />
+          </ResetButton>
+        )}
+        {children}
+      </IndicatorsContainer>
+    )
+  }
 }
+
+/* 
+
+
+<ClearIndicator {...props} onClick={() => props.setValue()} />
+*/
