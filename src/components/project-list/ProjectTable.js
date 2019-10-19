@@ -18,19 +18,21 @@ const ProjectTable = ({ projects, from = 1, ...otherProps }) => {
   const userProps = useUser()
 
   return (
-    <Table>
-      <tbody>
-        {projects.map((project, index) => (
-          <ProjectTableRow
-            key={project.full_name}
-            project={project}
-            rank={from + index}
-            {...userProps}
-            {...otherProps}
-          />
-        ))}
-      </tbody>
-    </Table>
+    <div className="table-container">
+      <Table>
+        <tbody>
+          {projects.map((project, index) => (
+            <ProjectTableRow
+              key={project.full_name}
+              project={project}
+              rank={from + index}
+              {...userProps}
+              {...otherProps}
+            />
+          ))}
+        </tbody>
+      </Table>
+    </div>
   )
 }
 ProjectTable.propTypes = {
@@ -108,6 +110,9 @@ const ProjectTableRow = ({
 
       <MainCell>
         <ProjectName>
+          <SmallAvatarContainer>
+            <Avatar project={project} size={32} />
+          </SmallAvatarContainer>
           <Link to={path}>{project.name}</Link>
           {isLoggedIn && (
             <BookmarkIconContainer on={project.isBookmark}>
@@ -150,6 +155,8 @@ const ProjectTableRow = ({
   )
 }
 
+const breakpoint = 800
+
 const Table = styled.table`
   border-spacing: 0;
   width: 100%;
@@ -184,13 +191,23 @@ const ProjectRankingNumber = styled.div`
 
 const FirstCell = styled(Cell)`
   width: 50px;
-  @media (max-width: 799px) {
+  @media (max-width: ${breakpoint - 1}px) {
     display: none;
   }
 `
 
 const IconCell = styled(Cell)`
   width: 50px;
+  @media (max-width: ${breakpoint - 1}px) {
+    display: none;
+  }
+`
+
+const SmallAvatarContainer = styled.div`
+  margin-right: 0.5rem;
+  @media (min-width: ${breakpoint}px) {
+    display: none;
+  }
 `
 
 const MainCell = styled(Cell)`
@@ -198,10 +215,6 @@ const MainCell = styled(Cell)`
   display: flex;
   flex-direction: column;
 `
-
-// const LastCommitCell = styled(Cell)`
-//   width: 110px;
-// `
 
 const ContributorCountCell = styled(Cell)`
   width: 150px;
@@ -232,6 +245,9 @@ const BookmarkIconContainer = styled.span`
 const ActionCell = styled(Cell)`
   width: 45px;
   padding-right: 1rem;
+  @media (max-width: ${breakpoint - 1}px) {
+    display: none;
+  }
 `
 
 const ProjectName = styled.div`
@@ -242,7 +258,10 @@ const ProjectName = styled.div`
 
 const ProjectDescription = styled.div`
   font-size: 14px;
-  margin: 8px 0;
+  margin-bottom: 0.5rem;
+  @media (mix-width: ${breakpoint}px) {
+    margin-top: 0.5rem;
+  }
 `
 
 const formatNumber = number => numeral(number).format('a')

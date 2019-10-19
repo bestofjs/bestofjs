@@ -131,7 +131,6 @@ const ResetButton = styled(Button)`
 const customComponents = {
   Option: CustomOption,
   IndicatorsContainer: ({ children, ...props }) => {
-    console.log({ props })
     const { hasValue } = props // the selected tags
     const { inputValue } = props.selectProps // the query
     return (

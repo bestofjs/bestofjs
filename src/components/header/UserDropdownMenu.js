@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux'
 import { css } from 'styled-components/macro' // eslint-disable-line no-unused-vars
 
 import { getBookmarkCount } from '../../selectors'
-import { Button, Popover, Menu } from '../core'
+import { Button, Popover, Menu, DropdownToggleButton } from '../core'
 import { BookmarkIcon, SignOutIcon } from '../core/icons'
 
 const HeaderDropdownMenu = withRouter(({ history, authApi }) => {
@@ -38,22 +38,16 @@ const HeaderDropdownMenu = withRouter(({ history, authApi }) => {
       alignment="right"
     >
       {({ open }) => (
-        <Button onClick={open} style={{ padding: '0.2rem 1rem' }}>
-          <span
-            css={`
-              @media (max-width: 599px) {
-                display: none;
-              }
-            `}
-          >
-            {auth.name}{' '}
-          </span>
+        <DropdownToggleButton
+          onClick={open}
+          style={{ padding: '0.2rem 0.5rem' }}
+        >
           <UserAvatar
             avatarURL={auth.avatar}
             username={auth.username}
-            style={{ marginLeft: '0.5rem', borderRadius: '50%' }}
+            style={{ borderRadius: '50%' }}
           />
-        </Button>
+        </DropdownToggleButton>
       )}
     </Popover>
   )
@@ -66,6 +60,23 @@ const UserAvatar = ({ username, avatarURL, size = 32, style }) => {
   )
 }
 
-// HeaderDropdownMenu.propTypes = {}
+/*
+<Button onClick={open} style={{ padding: '0.2rem 1rem' }}>
+<span
+  css={`
+    @media (max-width: 599px) {
+      display: none;
+    }
+  `}
+>
+  {auth.name}{' '}
+</span>
+<UserAvatar
+  avatarURL={auth.avatar}
+  username={auth.username}
+  style={{ marginLeft: '0.5rem', borderRadius: '50%' }}
+/>
+</Button>
+*/
 
 export default HeaderDropdownMenu

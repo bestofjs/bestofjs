@@ -9,7 +9,7 @@ import { MarkGitHubIcon } from '../core/icons'
 import getStaticContent from '../../staticContent'
 // import NavigationDropdownMenu from './NavigationDropdownMenu'
 
-const sidebarBreakpoint = 900
+const sidebarBreakpoint = 700
 const topbarHeight = 60
 
 const HeaderContainer = styled.header`
@@ -50,7 +50,7 @@ const Header = props => {
               </NavigationMenuItem>
               <NavigationMenuItem>
                 <a href={repo} target="_blank" rel="noopener noreferrer">
-                  <MarkGitHubIcon size={24} />
+                  <MarkGitHubIcon size={32} color={'#e65100'} />
                 </a>
               </NavigationMenuItem>
             </NavigationMenu>
@@ -88,13 +88,12 @@ const NavigationMenu = styled.div`
 `
 const NavigationMenuItem = styled.div`
   margin-right: 1rem;
-  @media screen and (max-width: ${sidebarBreakpoint - 1}px) {
+  @media screen and (max-width: ${sidebarBreakpoint - 7}px) {
     display: none;
   }
   a {
     color: var(--textPrimaryColor);
     font-size: 1rem;
-    /* font-family: sans-serif; */
   }
 `
 
@@ -107,11 +106,7 @@ const LoginSection = ({ dependencies: { authApi } }) => {
     )
 
   if (!auth.username) {
-    return (
-      <Button className="button-outlineX" onClick={() => authApi.login()}>
-        Sign in with GitHub
-      </Button>
-    )
+    return <Button onClick={() => authApi.login()}>Sign in</Button>
   }
 
   return <UserDropdownMenu authApi={authApi} />

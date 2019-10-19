@@ -44,7 +44,7 @@ export const ProjectPaginatedList = ({
         </Cell>
         <Cell>
           {pageNumbers.length > 1 && (
-            <PaginationTopBar history={history} location={location} />
+            <PaginationContainer history={history} location={location} />
           )}
         </Cell>
       </Row>
@@ -62,7 +62,8 @@ export const ProjectPaginatedList = ({
 const Row = styled.div`
   display: flex;
   flex-direction: column;
-  @media (min-width: 700px) {
+  margin-bottom: 1rem;
+  @media (min-width: 600px) {
     align-items: center;
     flex-direction: row;
   }
@@ -70,13 +71,14 @@ const Row = styled.div`
 const Cell = styled.div`
   flex: 0 0 50%;
   padding-top: 1rem;
-  margin-bottom: 1rem;
-  &:last-child {
-    justify-content: flex-end;
+  @media (min-width: 600px) {
+    > div:last-child {
+      justify-content: flex-end;
+    }
   }
 `
 
-const PaginationTopBar = ({ history, location }) => {
+const PaginationContainer = ({ history, location }) => {
   const {
     from,
     to,
@@ -90,9 +92,8 @@ const PaginationTopBar = ({ history, location }) => {
     <div
       style={{
         display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'flex-end',
-        padding: '0.5rem 0'
+        alignItems: 'center'
+        // padding: '0.5rem 0'
       }}
     >
       <div style={{ marginRight: '1rem' }}>
