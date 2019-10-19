@@ -144,7 +144,7 @@ const ProjectTableRow = ({
         <ProjectDescription>
           {project.description}
           <RepoInfo>
-            Last commit: {fromNow(project.pushed_at)},{' '}
+            Updated {fromNow(project.pushed_at)},{' '}
             {formatNumber(project.contributor_count)} contributors
           </RepoInfo>
         </ProjectDescription>

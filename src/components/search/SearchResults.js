@@ -1,6 +1,7 @@
 import React from 'react'
 import { withRouter } from 'react-router-dom'
 import { useSelector } from 'react-redux'
+import styled from 'styled-components'
 
 import { allProjects, getTagsById } from '../../selectors'
 import { PaginationProvider } from '../common/pagination'
@@ -175,10 +176,17 @@ const RelevantTags = ({ tagIds, baseTagIds }) => {
         borderTop: '1px dashed #cecece'
       }}
     >
-      <div style={{ paddingRight: '0.5rem' }}>
+      <Label>
         {baseTagIds.length === 0 ? 'Related tags:' : 'Refine your search:'}
-      </div>
+      </Label>
       <TagLabelGroup tags={tags} baseTagIds={baseTagIds} />
     </div>
   )
 }
+
+const Label = styled.div`
+  padding-right: '0.5rem';
+  @media (max-width: 599px) {
+    display: none;
+  }
+`
