@@ -1,5 +1,3 @@
-import orderBy from 'lodash.orderby'
-
 import { sortBy, getFullProject } from '../../selectors'
 import { paginateItemList } from '../common/pagination'
 
@@ -95,9 +93,12 @@ function getResultRelevantTags(projects, excludedTags = []) {
   const projectCountByTag = getTagsFromProjects(projects, excludedTags)
   return orderBy(
     Array.from(projectCountByTag.entries()),
-    ([tagId, count]) => count,
-    'desc'
+    ([tagId, count]) => count
   )
+}
+
+function orderBy(items, fn) {
+  return items.sort((a, b) => fn(b) - fn(a))
 }
 
 function getTagsFromProjects(projects, excludedTagIds = []) {

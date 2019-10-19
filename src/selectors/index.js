@@ -189,18 +189,21 @@ the project should be displayed at the end, when the descending direction is use
 CAUTION: it mutates the array
 */
 export function sortBy(projects, fn, direction = 'DESC') {
+  // console.time('Sort')
   const getValue = project => {
     const value = fn(project)
-    return value === undefined ? -10000 : value
+    return value === undefined ? -Infinity : value
   }
 
-  return projects.sort(function(a, b) {
+  const sortedProjects = projects.sort(function(a, b) {
     let diff = getValue(a) - getValue(b)
     if (diff === 0) {
       diff = a.stars - b.stars
     }
     return diff * (direction === 'DESC' ? -1 : 1)
   })
+  // console.timeEnd('Sort')
+  return sortedProjects
 }
 
 export const isUserLoggedIn = createSelector(
