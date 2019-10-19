@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import styled, { css } from 'styled-components'
+import styled from 'styled-components'
 import { Link } from 'react-router-dom'
 import numeral from 'numeral'
 
@@ -78,7 +78,7 @@ const ProjectTableRow = ({
   const getHomepageMenuItem = () =>
     project.url && {
       icon: <HomeIcon />,
-      label: 'Homepage',
+      label: 'Go to homepage',
       url: project.url,
       onClick: () => ({})
     }
@@ -87,7 +87,7 @@ const ProjectTableRow = ({
     // { type: 'label', label: 'Links' },
     {
       icon: <MarkGitHubIcon />,
-      label: 'GitHub',
+      label: 'Go to GitHub repository',
       url: project.repository,
       onClick: () => ({})
     },
@@ -115,18 +115,44 @@ const ProjectTableRow = ({
           </SmallAvatarContainer>
           <Link to={path}>{project.name}</Link>
           {isLoggedIn && (
-            <BookmarkIconContainer on={project.isBookmark}>
-              <BookmarkIcon size={24} />
-            </BookmarkIconContainer>
+            <InlineIcon>
+              <BookmarkIcon
+                size={24}
+                color={project.isBookmark ? '#fa9e59' : '#ececec'}
+              />
+            </InlineIcon>
+          )}
+          {
+            <InlineIcon>
+              <a
+                href={project.repository}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <MarkGitHubIcon size={20} />
+              </a>
+            </InlineIcon>
+          }
+          {project.url && (
+            <InlineIcon>
+              <a href={project.url} target="_blank" rel="noopener noreferrer">
+                <HomeIcon size={20} />
+              </a>
+            </InlineIcon>
           )}
         </ProjectName>
-        <ProjectDescription>{project.description}</ProjectDescription>
+        <ProjectDescription>
+          {project.description}
+          <RepoInfo>
+            Last commit: {fromNow(project.pushed_at)},{' '}
+            {formatNumber(project.contributor_count)} contributors
+          </RepoInfo>
+        </ProjectDescription>
         <div>
           <TagLabelGroup tags={project.tags} />
         </div>
       </MainCell>
 
-      {/* <LastCommitCell>{fromNow(project.pushed_at)}</LastCommitCell> */}
       {showDetails && (
         <ContributorCountCell>
           <div style={{ marginBottom: '0.5rem' }}>
@@ -230,16 +256,11 @@ const StarNumberCell = styled(Cell)`
   width: 80px;
 `
 
-const BookmarkIconContainer = styled.span`
+const InlineIcon = styled.span`
   margin-left: 0.5rem;
-  ${({ on }) =>
-    on
-      ? css`
-          color: var(--bestofjsOrange);
-        `
-      : css`
-          color: #ececec;
-        `}
+  a {
+    color: #bbb;
+  }
 `
 
 const ActionCell = styled(Cell)`
@@ -259,8 +280,15 @@ const ProjectName = styled.div`
 const ProjectDescription = styled.div`
   font-size: 14px;
   margin-bottom: 0.5rem;
-  @media (mix-width: ${breakpoint}px) {
+  @media (min-width: ${breakpoint}px) {
     margin-top: 0.5rem;
+  }
+`
+
+const RepoInfo = styled.div`
+  margin-top: 0.5rem;
+  @media (min-width: ${breakpoint}px) {
+    display: none;
   }
 `
 

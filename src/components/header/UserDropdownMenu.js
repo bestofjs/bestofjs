@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux'
 import { css } from 'styled-components/macro' // eslint-disable-line no-unused-vars
 
 import { getBookmarkCount } from '../../selectors'
-import { Button, Popover, Menu, DropdownToggleButton } from '../core'
+import { Popover, Menu, DropdownToggleButton } from '../core'
 import { BookmarkIcon, SignOutIcon } from '../core/icons'
 
 const HeaderDropdownMenu = withRouter(({ history, authApi }) => {
@@ -59,24 +59,5 @@ const UserAvatar = ({ username, avatarURL, size = 32, style }) => {
     <img src={url} width={size} height={size} style={style} alt={username} />
   )
 }
-
-/*
-<Button onClick={open} style={{ padding: '0.2rem 1rem' }}>
-<span
-  css={`
-    @media (max-width: 599px) {
-      display: none;
-    }
-  `}
->
-  {auth.name}{' '}
-</span>
-<UserAvatar
-  avatarURL={auth.avatar}
-  username={auth.username}
-  style={{ marginLeft: '0.5rem', borderRadius: '50%' }}
-/>
-</Button>
-*/
 
 export default HeaderDropdownMenu

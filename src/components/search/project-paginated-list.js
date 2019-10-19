@@ -31,23 +31,28 @@ export const ProjectPaginatedList = ({
     history.push(nextLocation)
   }
 
+  const showPagination = pageNumbers.length > 1
+  const showSortOptions = projects.length > 1
+
   return (
     <div>
-      <Row style={{ borderTop: '1px dashed #cecece' }}>
-        <Cell>
-          {projects.length > 1 && (
-            <SortOrderPicker
-              onChange={onChangeSortOption}
-              value={sortOption.id}
-            />
+      {(showSortOptions || showPagination) && (
+        <Row style={{ borderTop: '1px dashed #cecece' }}>
+          <Cell>
+            {showSortOptions && (
+              <SortOrderPicker
+                onChange={onChangeSortOption}
+                value={sortOption.id}
+              />
+            )}
+          </Cell>
+          {showPagination && (
+            <Cell>
+              <PaginationContainer history={history} location={location} />
+            </Cell>
           )}
-        </Cell>
-        <Cell>
-          {pageNumbers.length > 1 && (
-            <PaginationContainer history={history} location={location} />
-          )}
-        </Cell>
-      </Row>
+        </Row>
+      )}
       <ProjectTable
         projects={projects}
         showStars={false}
