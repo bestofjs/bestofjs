@@ -44,12 +44,6 @@ const Footer = ({
             <div>
               <p>Data updated from GitHub everyday</p>
               <p>Last update: {fromNow(lastUpdate)}</p>
-              {showRefreshButton && (
-                <p>
-                  New data is available!{' '}
-                  <button onClick={fetchProjects}>REFRESH</button>
-                </p>
-              )}
             </div>
             <div>
               <p>

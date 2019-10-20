@@ -25,7 +25,6 @@ const Row = styled.div`
 `
 const Input = styled.input`
   font-size: 1rem;
-  font-family: Roboto Slab, sans-serif;
   border-radius: 3px;
   padding: 10px;
   border: 1px solid #cc4700;
@@ -64,7 +63,8 @@ const Subscribe = () => {
         Check online the latest issue:{' '}
         <a href="https://weekly.bestofjs.org/latest">
           Weekly Best of JavaScript
-        </a>.
+        </a>
+        .
       </Text>
       <form action={action} method="post">
         <Row>

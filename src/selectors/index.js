@@ -1,7 +1,6 @@
 import { createSelector } from 'reselect'
 
-import { populateProject } from './project'
-import search from './search'
+import { populateProject, getProjectSelectorByKey } from './project'
 
 // Number of projects under each tag:
 //  {react: 200, vue: 60...}
@@ -19,6 +18,12 @@ export const getTagCounters = createSelector(
     return tagCounters
   }
 )
+
+export const getTagsById = ids =>
+  createSelector(
+    [state => state.entities.tags],
+    allTags => ids.map(id => allTags[id])
+  )
 
 // All tags including counter data:
 // [{id, description, name, counter}]
@@ -45,7 +50,7 @@ export const getPopularTags = createSelector(
   }
 )
 
-const allProjects = createSelector(
+export const allProjects = createSelector(
   [state => state.entities.projects],
   projectsById => Object.values(projectsById)
 )
@@ -62,23 +67,13 @@ export const npmProjects = createSelector(
 
 const sortProjects = fn => projects => sortBy(projects.slice(0), fn)
 
-const sortFn = {
-  total: project => project.stars,
-  daily: project => project.trends.daily,
-  weekly: project => project.trends.weekly,
-  monthly: project => project.trends.monthly,
-  quarterly: project => project.trends.quarterly,
-  quality: project => project.quality,
-  score: project => project.score,
-  yearly: project => project.trends.yearly
-}
-
 // a sub-selector used by both `getProjectsSortedBy` and `getProjectsByTag`
 const getRawProjectsSortedBy = ({ criteria, start = 0, limit = 10 }) => {
   return createSelector(
     [allProjects],
     projects => {
-      const sliced = sortProjects(sortFn[criteria])(projects).slice(
+      const projectSelector = getProjectSelectorByKey(criteria)
+      const sliced = sortProjects(projectSelector)(projects).slice(
         start,
         start + limit
       )
@@ -104,71 +99,73 @@ export const getHotProjects = count =>
     limit: count
   })
 
-const getAllProjectsByTag = tagId =>
-  createSelector(
-    [allProjects],
-    projects => projects.filter(project => project.tags.includes(tagId))
-  )
+// TODO check if we still need selectors to filter projects by tag
+
+// const getAllProjectsByTag = tagId =>
+//   createSelector(
+//     [allProjects],
+//     projects => projects.filter(project => project.tags.includes(tagId))
+//   )
 
 // Selector used to display the list of projects belonging to a given tag
-export const getProjectsByTag = ({ criteria, tagId, start, limit }) =>
+// export const getProjectsByTag = ({ criteria, tagId, start, limit }) =>
+//   createSelector(
+//     [
+//       // getRawProjectsSortedBy({ criteria, start, limit }),
+//       getAllProjectsByTag(tagId),
+//       state => state.entities.tags,
+//       state => state.auth
+//     ],
+//     (projects, tags, auth) => {
+//       const projectSelector = sortFn[criteria]
+//       if (!projectSelector) throw new Error(`No selector for ${criteria}`)
+//       const filteredProjects = sortProjects(projectSelector)(projects)
+//         .slice(start, start + limit)
+//         .map(getFullProject(tags, auth))
+//       return filteredProjects
+//     }
+//   )
+
+export const getBookmarksSortedBy = criteria =>
   createSelector(
     [
-      // getRawProjectsSortedBy({ criteria, start, limit }),
-      getAllProjectsByTag(tagId),
-      state => state.entities.tags,
-      state => state.auth
+      state => {
+        return state.entities.projects
+      },
+      state => state.auth,
+      state => state.entities.tags
     ],
-    (projects, tags, auth) => {
-      const filteredProjects = sortProjects(sortFn[criteria])(projects)
-        .slice(start, start + limit)
+    (projects, auth, tags) => {
+      if (!auth.myProjects) return []
+      const myProjectsSlugs = auth.myProjects.map(item => item.slug)
+      const result = myProjectsSlugs
+        .map(slug => projects[slug])
+        .filter(project => !!project)
         .map(getFullProject(tags, auth))
-      return filteredProjects
+      const projectSelector = getProjectSelectorByKey(criteria)
+      return sortProjects(projectSelector)(result)
     }
   )
 
-export const searchForProjects = text =>
-  createSelector(
-    [
-      allProjects,
-      getAllTags,
-      state => state.entities.tags,
-      state => state.auth
-    ],
-    (projects, allTags, tagsById, auth) =>
-      search(projects, text)
-        .slice(0, 50)
-        .map(getFullProject(tagsById, auth))
-  )
-
-export const getMyProjects = createSelector(
-  [
-    state => state.entities.projects,
-    state => state.auth,
-    state => state.entities.tags
-  ],
-  (projects, auth, tags) => {
-    if (!auth.myProjects) return []
-    const myProjectsSlugs = auth.myProjects
-      .sort((a, b) => (a.bookmarked_at > b.bookmarked_at ? -1 : 1))
-      .map(item => item.slug)
-    const result = myProjectsSlugs
-      .map(slug => projects[slug])
-      .filter(project => !!project)
-      .map(getFullProject(tags, auth))
-    return result
+export const getBookmarkCount = createSelector(
+  state => state.auth.myProjects,
+  ids => {
+    return ids.length
   }
 )
 
 export const getFullProject = (tags, auth) => project => {
-  const { myProjects, pendingProject } = auth
+  const { myProjects = [], pendingProject } = auth
   const fullProject = populateProject(tags)(project)
   const pending = project.slug === pendingProject
-  const belongsToMyProjects =
-    myProjects && myProjects.map(item => item.slug).includes(project.slug)
+  const bookmark = myProjects.find(({ slug }) => slug === project.slug)
+  const isBookmark = !!bookmark
+
   return {
     ...fullProject,
-    belongsToMyProjects,
+    ...(bookmark
+      ? { isBookmark, bookmarked_at: bookmark.bookmarked_at }
+      : undefined),
     pending
   }
 }
@@ -192,16 +189,24 @@ the project should be displayed at the end, when the descending direction is use
 CAUTION: it mutates the array
 */
 export function sortBy(projects, fn, direction = 'DESC') {
+  // console.time('Sort')
   const getValue = project => {
     const value = fn(project)
-    return value === undefined ? -10000 : value
+    return value === undefined ? -Infinity : value
   }
 
-  return projects.sort(function(a, b) {
+  const sortedProjects = projects.sort(function(a, b) {
     let diff = getValue(a) - getValue(b)
     if (diff === 0) {
       diff = a.stars - b.stars
     }
     return diff * (direction === 'DESC' ? -1 : 1)
   })
+  // console.timeEnd('Sort')
+  return sortedProjects
 }
+
+export const isUserLoggedIn = createSelector(
+  state => state.auth.username,
+  username => !!username
+)

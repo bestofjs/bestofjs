@@ -1,7 +1,6 @@
 import { fetchJSON } from '../../helpers/fetch'
 import { getUserRequests } from '../../actions/repoActions'
 import { APP_URL } from './auth0'
-import msgbox from '../../helpers/msgbox'
 import UrlManager from './urlManager'
 import {
   loginRequest,
@@ -28,7 +27,6 @@ function createAuthApi({ dispatch }) {
           const path = urlManager.get(true)
           if (path) {
             history.push(path)
-            msgbox(`Hello ${profile.name}!`)
           }
           const action = dispatch(loginSuccess({ profile, token }))
           const { username } = action.payload
@@ -54,7 +52,6 @@ function createAuthApi({ dispatch }) {
       // Do not call window.auth0.logout() that will redirect to GitHub sign out page
       resetToken()
       dispatch(logoutSuccess())
-      msgbox('Disconnected. Come back at any time!', { type: 'INFO' })
     }
   }
 }

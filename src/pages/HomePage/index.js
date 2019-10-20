@@ -1,43 +1,46 @@
-import React, { Component } from 'react'
+import React from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
 import Home from '../../components/home/Home'
-import mapStateToProps from './mapStateToProps'
-import log from '../../helpers/log'
 import * as uiActionCreators from '../../actions/uiActions'
+import { getPopularTags, getHotProjects } from '../../selectors'
 
-class HomePage extends Component {
-  render() {
-    log('Render the <HomePage> container')
-    const {
-      hotProjects,
-      auth,
-      uiActions,
-      ui,
-      authActions,
-      popularTags,
-      pending
-    } = this.props
-    return (
-      <Home
-        hotProjects={hotProjects}
-        isLoggedin={auth.username !== ''}
-        pending={auth.pending || pending}
-        uiActions={uiActions}
-        authActions={authActions}
-        hotFilter={ui.hotFilter}
-        showMetrics={ui.showMetrics}
-        viewOptions={ui.viewOptions}
-        popularTags={popularTags}
-      />
-    )
-  }
+const HomePage = ({
+  hotProjects,
+  auth,
+  uiActions,
+  ui,
+  authActions,
+  popularTags,
+  pending
+}) => {
+  return (
+    <Home
+      hotProjects={hotProjects}
+      isLoggedin={auth.username !== ''}
+      pending={auth.pending || pending}
+      uiActions={uiActions}
+      authActions={authActions}
+      hotFilter={ui.hotFilter}
+      showMetrics={ui.showMetrics}
+      viewOptions={ui.viewOptions}
+      popularTags={popularTags}
+    />
+  )
 }
 
-function finalMapStateToProps(count) {
-  return function(state) {
-    return mapStateToProps(state, count)
+function mapStateToProps(state, { count = 5 }) {
+  const { auth, ui } = state
+  const hot = getHotProjects(count)(state)
+  const popularTags = getPopularTags(state)
+  const pending = state.entities.meta.pending
+  return {
+    hotProjects: hot,
+    popularTags,
+    auth,
+    ui,
+    pending
   }
 }
 
@@ -48,9 +51,7 @@ function mapDispatchToProps(dispatch) {
   }
 }
 
-export default function(count = 10) {
-  return connect(
-    finalMapStateToProps(count),
-    mapDispatchToProps
-  )(HomePage)
-}
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(HomePage)

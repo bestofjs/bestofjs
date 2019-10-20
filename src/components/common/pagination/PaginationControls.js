@@ -1,11 +1,63 @@
-/*
-The following code is adapted from KeystoneJS project
-https://github.com/keystonejs/keystone/blob/bc84c8b5c9d8339b92a415831dbaa1417cf43385/admin/client/App/elemental/Pagination/index.js
-*/
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Link } from 'react-router-dom'
+import { Link, withRouter } from 'react-router-dom'
 import styled, { css } from 'styled-components'
+
+import { generatePageNumbers } from './helpers'
+import {
+  DoubleChevronLeft,
+  DoubleChevronRight,
+  ChevronLeft,
+  ChevronRight
+} from './icons'
+import { updateLocation } from '../../search'
+
+const PaginationControls = ({ total, limit, currentPage, style, location }) => {
+  const {
+    pageNumbers,
+    hasPreviousPage,
+    hasNextPage,
+    lastPageNumber,
+    isFirstPageIncluded,
+    isLastPageIncluded
+  } = generatePageNumbers({
+    total,
+    currentPageNumber: currentPage,
+    limit
+  })
+
+  if (pageNumbers.length < 2) return null
+
+  return (
+    <PaginationContainer style={style}>
+      <PaginationList style={{ marginTop: 0 }}>
+        {!isFirstPageIncluded && <FirstPageLink />}
+        {hasPreviousPage && <PreviousPageLink currentPage={currentPage} />}
+        {pageNumbers.map(number => {
+          return (
+            <PageNumber
+              key={number}
+              number={number}
+              selected={number === currentPage}
+            />
+          )
+        })}
+        {hasNextPage && <NextPageLink currentPage={currentPage} />}
+        {!isLastPageIncluded && <LastPageLink number={lastPageNumber} />}
+      </PaginationList>
+    </PaginationContainer>
+  )
+}
+PaginationControls.propTypes = {
+  currentPage: PropTypes.number.isRequired,
+  total: PropTypes.number.isRequired,
+  limit: PropTypes.number
+}
+PaginationControls.defaultProps = {
+  limit: 10
+}
+
+export default withRouter(PaginationControls)
 
 const PaginationContainer = styled.div`
   margin: 2rem 0 1rem;
@@ -30,15 +82,24 @@ const commonStyles = css`
   color: var(--bestofjsOrange);
   background-color: #fff;
   border: 1px solid var(--bestofjsOrange);
-  padding: 0.25em 0.5em;
   justify-content: center;
   margin: 0.25rem;
   text-align: center;
+  display: flex;
+  align-items: center;
+  width: 3rem;
+  height: 3rem;
 `
 
-const PaginationLink = styled(Link)`
+const StyledLink = styled(Link)`
   ${commonStyles}
 `
+
+const PaginationLink = withRouter(({ pageNumber, children, location }) => {
+  const nextLocation = updateLocation(location, { page: pageNumber })
+
+  return <StyledLink to={nextLocation}>{children}</StyledLink>
+})
 
 const CurrentPageNumber = styled.span`
   ${commonStyles}
@@ -55,142 +116,54 @@ const DisabledLink = styled.span`
   opacity: 0.5;
 `
 
-const PageNumber = ({ children, selected, url, page }) => {
-  const fullUrl = `${url}?page=${page}`
-
+const PageNumber = ({ number, selected }) => {
   return (
     <li>
       {selected ? (
-        <CurrentPageNumber>{children}</CurrentPageNumber>
+        <CurrentPageNumber>{number}</CurrentPageNumber>
       ) : (
-        <PaginationLink to={fullUrl}>{children}</PaginationLink>
+        <PaginationLink pageNumber={number}>{number}</PaginationLink>
       )}
     </li>
   )
 }
 
-const PreviousPageLink = ({ isFirstPage, currentPage, url }) => {
-  return isFirstPage ? (
+const PreviousPageLink = ({ disabled, currentPage }) => {
+  return disabled ? (
     <DisabledLink>
-      <span className="octicon octicon-chevron-left" />
+      <ChevronLeft />
     </DisabledLink>
   ) : (
-    <PaginationLink to={`${url}?page=${currentPage - 1}`}>
-      <span className="octicon octicon-chevron-left" />
+    <PaginationLink pageNumber={currentPage - 1}>
+      <ChevronLeft />
     </PaginationLink>
   )
 }
 
-const NextPageLink = ({ isLastPage, currentPage, url }) => {
-  return isLastPage ? (
+const NextPageLink = ({ disabled, currentPage }) => {
+  return disabled ? (
     <DisabledLink>
-      <span className="octicon octicon-chevron-right" />
+      <ChevronRight />
     </DisabledLink>
   ) : (
-    <PaginationLink to={`${url}?page=${currentPage + 1}`}>
-      <span className="octicon octicon-chevron-right" />
+    <PaginationLink pageNumber={currentPage + 1}>
+      <ChevronRight />
     </PaginationLink>
   )
 }
 
-class PaginationControls extends React.Component {
-  renderPages() {
-    if (this.props.total <= this.props.pageSize) return null
-
-    let pages = []
-    let { currentPage, pageSize, total, limit } = this.props
-    let totalPages = Math.ceil(total / pageSize)
-    let minPage = 1
-    let maxPage = totalPages
-
-    if (limit && limit < totalPages) {
-      let rightLimit = Math.floor(limit / 2)
-      let leftLimit = rightLimit + (limit % 2) - 1
-      minPage = currentPage - leftLimit
-      maxPage = currentPage + rightLimit
-
-      if (minPage < 1) {
-        maxPage = limit
-        minPage = 1
-      }
-      if (maxPage > totalPages) {
-        minPage = totalPages - limit + 1
-        maxPage = totalPages
-      }
-    }
-
-    if (minPage > 1) {
-      pages.push(
-        <PageNumber key="page_start" page={1} url={this.props.url}>
-          ...
-        </PageNumber>
-      )
-    }
-
-    for (let page = minPage; page <= maxPage; page++) {
-      let selected = page === currentPage
-      pages.push(
-        <PageNumber
-          key={'page_' + page}
-          selected={selected}
-          onSelect={this.onPageSelect}
-          page={page}
-          url={this.props.url}
-        >
-          {page}
-        </PageNumber>
-      )
-    }
-
-    if (maxPage < totalPages) {
-      pages.push(
-        <PageNumber
-          key="page_end"
-          onSelect={this.onPageSelect}
-          page={totalPages}
-          url={this.props.url}
-        >
-          ...
-        </PageNumber>
-      )
-    }
-
-    return pages
-  }
-  render() {
-    const { url, total, pageSize, currentPage, style } = this.props
-    const totalPages = Math.ceil(total / pageSize)
-    const isFirstPage = currentPage === 1
-    const isLastPage = currentPage === totalPages
-
-    return (
-      <PaginationContainer style={style}>
-        <PaginationList style={{ marginTop: 0 }}>
-          <PreviousPageLink
-            url={url}
-            isFirstPage={isFirstPage}
-            currentPage={currentPage}
-          />
-          {this.renderPages()}
-          <NextPageLink
-            url={url}
-            isLastPage={isLastPage}
-            currentPage={currentPage}
-          />
-        </PaginationList>
-      </PaginationContainer>
-    )
-  }
-}
-PaginationControls.propTypes = {
-  currentPage: PropTypes.number.isRequired,
-  limit: PropTypes.number,
-  pageSize: PropTypes.number.isRequired,
-  total: PropTypes.number.isRequired
-}
-PaginationControls.defaultProps = {
-  limit: 5,
-  pageSize: 20
+const FirstPageLink = () => {
+  return (
+    <PaginationLink pageNumber={1}>
+      <DoubleChevronLeft />
+    </PaginationLink>
+  )
 }
 
-export default PaginationControls
+const LastPageLink = ({ number }) => {
+  return (
+    <PaginationLink pageNumber={number}>
+      <DoubleChevronRight />
+    </PaginationLink>
+  )
+}

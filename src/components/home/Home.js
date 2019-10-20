@@ -1,26 +1,25 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
 
 import log from '../../helpers/log'
 import MainContent from '../common/MainContent'
 import HomeProjects from './HomeProjects'
-import CreateIssueLink from '../user-requests/add-project/CreateIssueLink'
+import { addProjectURL } from '../user-requests/add-project/CreateIssueLink'
 import Intro from './Intro'
-import TagList from './TagList'
 import Spinner from '../common/Spinner'
 import Subscribe from './Subscribe'
 import SectionTitle from './SectionTitle'
 import SectionHeader from '../common/SectionHeader'
+import TagLabelGroup from '../tags/TagLabelGroup'
+import News from './News'
+import ExternalLink from '../common/ExternalLink'
 
 const Home = props => {
   log('Render the <Home> component')
-  const { isLoggedin, pending, authActions, popularTags } = props
+  const { pending, authActions, popularTags } = props
   return (
     <MainContent>
-      <section className="no-card-container">
-        <Intro />
-      </section>
       <section>
+        <Intro />
         <SectionHeader icon="flame">
           <SectionHeader.Title>Today Hot Projects</SectionHeader.Title>
           <SectionHeader.SubTitle>
@@ -29,31 +28,36 @@ const Home = props => {
         </SectionHeader>
         {!pending ? <HomeProjects {...props} /> : <Spinner />}
       </section>
-      <section>
-        <SectionTitle className="no-card-container">
-          Weekly Newsletter
-        </SectionTitle>
-        <Subscribe />
-      </section>
+      {false && (
+        <section>
+          <SectionTitle className="no-card-container">
+            Weekly Newsletter
+          </SectionTitle>
+          <Subscribe />
+        </section>
+      )}
       <section>
         <div className="no-card-container">
-          <SectionTitle>
-            Find the <i className="special">best</i> components to build amazing
-            web applications!
-          </SectionTitle>
-          <p>
-            View <Link to="/projects">ALL PROJECTS</Link> or check one of the
-            popular tags:
-          </p>
-          {!pending > 0 ? <TagList tags={popularTags} /> : <Spinner />}
+          <SectionHeader icon="tag">
+            <SectionHeader.Title>Popular tags</SectionHeader.Title>
+          </SectionHeader>
+          {!pending ? <TagLabelGroup tags={popularTags} /> : <>Loading...</>}
         </div>
       </section>
       <section>
-        <MoreProjects
-          handleClick={authActions.login}
-          isLoggedin={isLoggedin}
-          pending={pending}
-        />
+        <News
+          date={new Date('2019-10-20T13:00:00.000Z')}
+          title={'Best of JavaScript is changing!'}
+        >
+          Check our latest post from{' '}
+          <ExternalLink url="https://weekly.bestofjs.org/">
+            Weekly Best of JavaScript
+          </ExternalLink>{' '}
+          to know more about the new search engine.
+        </News>
+      </section>
+      <section>
+        <MoreProjects handleClick={authActions.login} pending={pending} />
       </section>
     </MainContent>
   )
@@ -62,15 +66,19 @@ const Home = props => {
 const MoreProjects = () => {
   return (
     <div className="no-card-container">
-      <SectionTitle>Do you want more projects ?</SectionTitle>
-      <CreateIssueLink
-        type="ADD_PROJECT"
-        showAsButton
-        className={`button-outline block`}
-      >
-        <span className="octicon octicon-mark-github" /> Recommend a project on
-        GitHub
-      </CreateIssueLink>
+      <SectionHeader icon="plus">
+        <SectionHeader.Title>Do you want more projects?</SectionHeader.Title>
+      </SectionHeader>
+      <p>
+        <i>Best of JavaScript</i> is a curated list of 1500 open-source projects
+        related to the web platform and Node.js.
+      </p>
+      <p>
+        If you want to suggest a new project, please click on the following
+        link:{' '}
+        <ExternalLink url={addProjectURL}>recommend a new project</ExternalLink>
+        .
+      </p>
     </div>
   )
 }

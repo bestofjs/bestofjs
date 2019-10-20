@@ -13,8 +13,8 @@ const News = ({ children, date, title }) => {
         />{' '}
         <span>{title}</span>
         <span
-          className="counter"
-          style={{ fontSize: '1rem', color: '#aaa', marginLeft: '.5rem' }}
+          className="text-secondary"
+          style={{ fontSize: '1rem', marginLeft: '.5rem' }}
         >
           {fromNow(date)}
         </span>

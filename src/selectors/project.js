@@ -2,6 +2,39 @@ import { createSelector } from 'reselect'
 
 import { npmProjects } from './index'
 
+export const getTotalNumberOfStars = project => project.stars
+
+export const getStarsAddedDaily = ({ trends }) => trends.daily
+
+export const getStarsAddedWeekly = ({ trends }) => trends.weekly
+
+export const getStarsAddedMonthly = ({ trends }) => trends.monthly
+
+export const getStarsAddedYearly = ({ trends }) => trends.yearly
+
+export const getLastCommitDate = project => new Date(project.pushed_at)
+
+export const getContributorCount = project => project.contributor_count
+
+export const getBookmarkDate = project => new Date(project.bookmarked_at)
+
+export const getProjectSelectorByKey = key => {
+  const sortFn = {
+    total: getTotalNumberOfStars,
+    daily: getStarsAddedDaily,
+    weekly: getStarsAddedWeekly,
+    monthly: getStarsAddedMonthly,
+    yearly: getStarsAddedYearly,
+    bookmark: getBookmarkDate,
+    'last-commit': getLastCommitDate,
+    contributors: getContributorCount,
+    match: ({ rank }) => rank // only used when a `query` is used to search, a ranking score is assigned to projects
+  }
+
+  if (!sortFn[key]) throw new Error(`No selector for the key "${key}"`)
+  return sortFn[key]
+}
+
 // Return a full `project` object, including `tags`
 // to be used by `/projects/:id` pages
 export const findProject = slug =>
@@ -14,7 +47,6 @@ export const findProject = slug =>
       if (!project) return null
       return {
         ...populateProject(tags)(project),
-        repository: 'https://github.com/' + project.full_name,
         slug
       }
     }
@@ -24,7 +56,11 @@ export const findProject = slug =>
 export function populateProject(tags) {
   return function(project) {
     if (!project) throw new Error('populate() called with NO PROJECT!')
-    const populated = { ...project, tags: project.tags.map(id => tags[id]) }
+    const populated = {
+      ...project,
+      repository: 'https://github.com/' + project.full_name,
+      tags: project.tags.map(id => tags[id]).filter(tag => !!tag)
+    }
     return populated
   }
 }

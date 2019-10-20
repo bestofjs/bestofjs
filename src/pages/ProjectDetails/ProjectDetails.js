@@ -10,8 +10,8 @@ import { findProject } from '../../selectors/project'
 import { useFetchProjectDetails } from '../../api/hooks'
 
 import Spinner from '../../components/common/Spinner'
-import ProjectDetailsMainTab from '../../components/ProjectDetails/MainTab'
-import ProjectHeader from '../../components/ProjectDetails/ProjectHeader'
+import ProjectDetailsMainTab from '../../components/project-details/MainTab'
+import ProjectHeader from '../../components/project-details/ProjectHeader'
 import MainContent from '../../components/common/MainContent'
 
 const ProjectDetailsPageContainer = props => {

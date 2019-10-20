@@ -1,5 +1,4 @@
 import track from './helpers/track'
-import menu from './helpers/menu'
 import { fetchProjectsIfNeeded } from './actions/entitiesActions'
 
 /**
@@ -7,8 +6,6 @@ import { fetchProjectsIfNeeded } from './actions/entitiesActions'
  */
 const onRouterUpdate = ({ dispatch, location }) => {
   if (typeof window === 'undefined') return
-  // Hide the side menu (on mobiles)
-  menu.hide()
   // Scroll to the top if the page
   window.scrollTo(0, 0)
   // Track the page view

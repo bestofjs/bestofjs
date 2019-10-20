@@ -2,7 +2,7 @@ import React from 'react'
 
 import MainContent from '../common/MainContent'
 import log from '../../helpers/log'
-import CreateIssueLink from '../user-requests/add-project/CreateIssueLink'
+import { CreateIssueLink } from '../user-requests/add-project/CreateIssueLink'
 import Card from '../common/Card'
 
 import '../../stylesheets/markdown-body.css'
@@ -14,7 +14,7 @@ const About = ({ staticContent, count }) => {
     <MainContent style={{ paddingTop: '2rem' }}>
       <Card className="card markdown-body" style={{ padding: '2rem' }}>
         <h1>About</h1>
-        <h2>Why {projectName} ?</h2>
+        <h2>Why {projectName}?</h2>
         <p>
           Javascript, HTML and CSS are advancing faster than ever, we are going
           full speed on innovation.
@@ -22,10 +22,10 @@ const About = ({ staticContent, count }) => {
           Amazing open-source projects are released almost everyday.
         </p>
         <ul>
-          <li>How to stay up-to-date about the latest tendencies ?</li>
+          <li>How to stay up-to-date about the latest tendencies?</li>
           <li>
             How to check quickly the projects that really matter,{' '}
-            <i className="special">now</i> and not 6 months ago ?
+            <i className="special">now</i> and not 6 months ago?
           </li>
         </ul>
         <p>{projectName} was created to address these questions.</p>
