@@ -21,7 +21,7 @@ export const getSortOrderOptions = () => {
     },
     {
       id: 'monthly',
-      label: 'By stars added the last 30 months'
+      label: 'By stars added the last month'
     },
     {
       id: 'yearly',
