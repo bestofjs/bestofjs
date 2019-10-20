@@ -11,7 +11,7 @@ const App = ({ store, ...props }) => {
     <Provider store={store}>
       <SearchProvider {...props}>
         <div id="layout">
-          <div id="panel" className="slideout-panel">
+          <div id="panel">
             <Header {...props} />
             <SearchBox />
             <main id="main">
