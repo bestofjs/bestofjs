@@ -29,7 +29,7 @@ const HomeProjects = ({ hotProjects, hotFilter }) => {
       />
       <div style={{ paddingTop: '2rem' }}>
         <Button onClick={showMore} style={{ display: 'block', width: '100%' }}>
-          Show more projects »
+          View full rankings »
         </Button>
       </div>
     </>

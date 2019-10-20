@@ -10,6 +10,8 @@ import Subscribe from './Subscribe'
 import SectionTitle from './SectionTitle'
 import SectionHeader from '../common/SectionHeader'
 import TagLabelGroup from '../tags/TagLabelGroup'
+import News from './News'
+import ExternalLink from '../common/ExternalLink'
 
 const Home = props => {
   log('Render the <Home> component')
@@ -43,6 +45,18 @@ const Home = props => {
         </div>
       </section>
       <section>
+        <News
+          date={new Date('2019-10-20T13:00:00.000Z')}
+          title={'Best of JavaScript is changing!'}
+        >
+          Check our latest post from{' '}
+          <ExternalLink url="https://weekly.bestofjs.org/">
+            Weekly Best of JavaScript
+          </ExternalLink>{' '}
+          to know more about the new search engine.
+        </News>
+      </section>
+      <section>
         <MoreProjects handleClick={authActions.login} pending={pending} />
       </section>
     </MainContent>
@@ -61,7 +75,9 @@ const MoreProjects = () => {
       </p>
       <p>
         If you want to suggest a new project, please click on the following
-        link: <a href={addProjectURL}>recommend a new project</a>.
+        link:{' '}
+        <ExternalLink url={addProjectURL}>recommend a new project</ExternalLink>
+        .
       </p>
     </div>
   )
