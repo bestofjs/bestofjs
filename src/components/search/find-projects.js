@@ -7,7 +7,7 @@ export function findProjects(
   auth,
   { tags, query, page = 1, selector, limit }
 ) {
-  console.info('Find', tags, query, page)
+  // console.info('Find', tags, query, page)
   const filterByTag = project =>
     tags.every(tagId => project.tags.includes(tagId))
 

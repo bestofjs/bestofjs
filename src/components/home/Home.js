@@ -1,12 +1,10 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
 
 import log from '../../helpers/log'
 import MainContent from '../common/MainContent'
 import HomeProjects from './HomeProjects'
-import CreateIssueLink from '../user-requests/add-project/CreateIssueLink'
+import { addProjectURL } from '../user-requests/add-project/CreateIssueLink'
 import Intro from './Intro'
-import TagList from './TagList'
 import Spinner from '../common/Spinner'
 import Subscribe from './Subscribe'
 import SectionTitle from './SectionTitle'
@@ -15,7 +13,7 @@ import TagLabelGroup from '../tags/TagLabelGroup'
 
 const Home = props => {
   log('Render the <Home> component')
-  const { isLoggedin, pending, authActions, popularTags } = props
+  const { pending, authActions, popularTags } = props
   return (
     <MainContent>
       <section>
@@ -41,15 +39,11 @@ const Home = props => {
           <SectionHeader icon="tag">
             <SectionHeader.Title>Popular tags</SectionHeader.Title>
           </SectionHeader>
-          {!pending ? <TagLabelGroup tags={popularTags} /> : <Spinner />}
+          {!pending ? <TagLabelGroup tags={popularTags} /> : <>Loading...</>}
         </div>
       </section>
       <section>
-        <MoreProjects
-          handleClick={authActions.login}
-          isLoggedin={isLoggedin}
-          pending={pending}
-        />
+        <MoreProjects handleClick={authActions.login} pending={pending} />
       </section>
     </MainContent>
   )
@@ -58,15 +52,17 @@ const Home = props => {
 const MoreProjects = () => {
   return (
     <div className="no-card-container">
-      <SectionTitle>Do you want more projects ?</SectionTitle>
-      <CreateIssueLink
-        type="ADD_PROJECT"
-        showAsButton
-        className={`button-outline block`}
-      >
-        <span className="octicon octicon-mark-github" /> Recommend a project on
-        GitHub
-      </CreateIssueLink>
+      <SectionHeader icon="plus">
+        <SectionHeader.Title>Do you want more projects?</SectionHeader.Title>
+      </SectionHeader>
+      <p>
+        <i>Best of JavaScript</i> is a curated list of 1500 open-source projects
+        related to the web platform and Node.js.
+      </p>
+      <p>
+        If you want to suggest a new project, please click on the following
+        link: <a href={addProjectURL}>recommend a new project</a>.
+      </p>
     </div>
   )
 }

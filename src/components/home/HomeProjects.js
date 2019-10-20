@@ -7,9 +7,13 @@ import { Button } from '../core'
 
 const HomeProjects = ({ hotProjects, hotFilter }) => {
   const history = useHistory()
-  const showMore = useCallback(() => {
-    history.push(`/projects?sort=daily`)
-  })
+  const showMore = useCallback(
+    () => {
+      history.push(`/projects?sort=daily`)
+    },
+    [history]
+  )
+
   return (
     <>
       <ProjectList

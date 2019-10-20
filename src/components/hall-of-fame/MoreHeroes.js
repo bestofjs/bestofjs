@@ -1,5 +1,6 @@
 import React from 'react'
-import CreateIssueLink from '../user-requests/add-project/CreateIssueLink'
+
+import { CreateIssueLink } from '../user-requests/add-project/CreateIssueLink'
 
 const MoreHeroes = () => {
   return (
