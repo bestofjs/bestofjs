@@ -1,28 +1,35 @@
-import React from 'react'
+import React, { useCallback } from 'react'
+import { useHistory } from 'react-router-dom'
 
 // import ProjectList from '../projects/ConnectedProjectList'
 import ProjectList from '../project-list/ProjectTable'
+import { Button } from '../core'
 
-const viewOptions = {
-  description: true,
-  npms: false,
-  packagequality: false,
-  commit: false
+const HomeProjects = ({ hotProjects, hotFilter }) => {
+  const history = useHistory()
+  const showMore = useCallback(() => {
+    history.push(`/projects?sort=daily`)
+  })
+  return (
+    <>
+      <ProjectList
+        projects={hotProjects}
+        showDelta
+        deltaFilter={hotFilter}
+        showStars={false}
+        showIndex
+        showMetrics={false}
+        sortOption={{ id: 'daily' }}
+        showDetails={false}
+        showRankingNumber={true}
+      />
+      <div style={{ paddingTop: '2rem' }}>
+        <Button onClick={showMore} style={{ display: 'block', width: '100%' }}>
+          Show more projects »
+        </Button>
+      </div>
+    </>
+  )
 }
-
-const HomeProjects = ({ hotProjects, hotFilter }) => (
-  <ProjectList
-    projects={hotProjects}
-    showDelta
-    deltaFilter={hotFilter}
-    showStars={false}
-    showIndex
-    showMetrics={false}
-    viewOptions={viewOptions}
-    sortOption={{ id: 'daily' }}
-    showDetails={false}
-    showRankingNumber={true}
-  />
-)
 
 export default HomeProjects

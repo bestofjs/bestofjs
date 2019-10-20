@@ -1,7 +1,6 @@
 import React, { useContext } from 'react'
 import styled from 'styled-components'
 import { useHistory, useLocation } from 'react-router-dom'
-// import PropTypes from 'prop-types'
 
 import { ChevronRightIcon, ChevronLeftIcon } from '../core/icons'
 import ProjectTable from '../project-list/ProjectTable'
@@ -32,7 +31,7 @@ export const ProjectPaginatedList = ({
   }
 
   const showPagination = pageNumbers.length > 1
-  const showSortOptions = projects.length > 1
+  const showSortOptions = total > 1
 
   return (
     <div>
@@ -98,7 +97,6 @@ const PaginationContainer = ({ history, location }) => {
       style={{
         display: 'flex',
         alignItems: 'center'
-        // padding: '0.5rem 0'
       }}
     >
       <div style={{ marginRight: '1rem' }}>
@@ -134,14 +132,6 @@ const PaginationContainer = ({ history, location }) => {
     </div>
   )
 }
-
-// const SubTitle = styled.div`
-//   margin-top: 0.5rem;
-//   color: #788080;
-//   fontsize: 16px;
-//   display: flex;
-//   align-items: center;
-// `
 
 const PaginationButton = styled(Button)`
   border-radius: 50%;

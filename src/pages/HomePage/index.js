@@ -30,7 +30,7 @@ const HomePage = ({
   )
 }
 
-function mapStateToProps(state, { count = 10 }) {
+function mapStateToProps(state, { count = 5 }) {
   const { auth, ui } = state
   const hot = getHotProjects(count)(state)
   const popularTags = getPopularTags(state)
