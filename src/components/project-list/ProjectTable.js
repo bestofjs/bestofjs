@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 import { Link } from 'react-router-dom'
 import numeral from 'numeral'
 
@@ -9,7 +9,7 @@ import StarDelta from '../common/utils/StarDelta'
 import StarTotal from '../common/utils/StarTotal'
 import { getDeltaByDay } from '../../selectors/project'
 import TagLabelGroup from '../tags/TagLabelGroup'
-import { DropdownMenu } from '../core'
+import { DropdownMenu, Button } from '../core'
 import { useUser } from '../../api/hooks'
 import fromNow from '../../helpers/fromNow'
 import { BookmarkIcon, MarkGitHubIcon, HomeIcon } from '../core/icons'
@@ -96,6 +96,10 @@ const ProjectTableRow = ({
     getBookmarkMenuItem()
   ]
 
+  const toggleBookmark = () => {
+    project.isBookmark ? removeBookmark(project) : addBookmark(project)
+  }
+
   return (
     <Row>
       {showRankingNumber && (
@@ -114,20 +118,14 @@ const ProjectTableRow = ({
             <Avatar project={project} size={32} />
           </SmallAvatarContainer>
           <Link to={path}>{project.name}</Link>
-          {isLoggedIn && (
-            <InlineIcon>
-              <BookmarkIcon
-                size={24}
-                color={project.isBookmark ? '#fa9e59' : '#ececec'}
-              />
-            </InlineIcon>
-          )}
           {
             <InlineIcon>
               <a
                 href={project.repository}
                 target="_blank"
                 rel="noopener noreferrer"
+                className="hint--top"
+                aria-label="GitHub repository"
               >
                 <MarkGitHubIcon size={20} />
               </a>
@@ -135,11 +133,37 @@ const ProjectTableRow = ({
           }
           {project.url && (
             <InlineIcon>
-              <a href={project.url} target="_blank" rel="noopener noreferrer">
+              <a
+                href={project.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hint--top"
+                aria-label="Project's homepage"
+              >
                 <HomeIcon size={20} />
               </a>
             </InlineIcon>
           )}
+          {isLoggedIn &&
+            (project.isBookmark ? (
+              <IconButton
+                on={project.isBookmark}
+                onClick={toggleBookmark}
+                className="hint--top"
+                aria-label="Remove bookmark"
+              >
+                <BookmarkIcon size={20} />
+              </IconButton>
+            ) : (
+              <IconButton
+                on={project.isBookmark}
+                onClick={toggleBookmark}
+                className="hint--top"
+                aria-label="Add bookmark"
+              >
+                <BookmarkIcon size={20} />
+              </IconButton>
+            ))}
         </ProjectName>
         <ProjectDescription>
           {project.description}
@@ -257,9 +281,25 @@ const StarNumberCell = styled(Cell)`
 `
 
 const InlineIcon = styled.span`
-  margin-left: 0.5rem;
+  margin-left: 1rem;
   a {
     color: #bbb;
+  }
+`
+
+const IconButton = styled(Button)`
+  border-style: none;
+  border-radius: 50%;
+  ${props =>
+    props.on
+      ? css`
+          color: #fa9e59;
+        `
+      : css`
+          color: #bbb;
+        `}
+  &:hover {
+    color: var(--bestofjsPurple);
   }
 `
 
@@ -279,7 +319,7 @@ const ProjectName = styled.div`
 
 const ProjectDescription = styled.div`
   font-size: 14px;
-  margin-bottom: 0.5rem;
+  margin-bottom: 1rem;
   @media (min-width: ${breakpoint}px) {
     margin-top: 0.5rem;
   }
@@ -287,6 +327,7 @@ const ProjectDescription = styled.div`
 
 const RepoInfo = styled.div`
   margin-top: 0.5rem;
+  /*color: #788080;*/
   @media (min-width: ${breakpoint}px) {
     display: none;
   }

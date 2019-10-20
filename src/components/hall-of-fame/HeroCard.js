@@ -21,9 +21,9 @@ const HeroCard = ({ hero, you, isCurrentUser, showDetails }) => {
   return (
     <Card className={`hero-card${isCurrentUser ? ' current-user' : ''}`}>
       <ExternalLink
-        className="header card-block"
+        className="header card-block hint--top"
         url={`https://github.com/${hero.username}`}
-        data-balloon={`Open ${hero.username}'s profile on GitHub`}
+        aria-label={`Open ${hero.username}'s profile on GitHub`}
       >
         <img
           src={`${hero.avatar}&s=150`}
@@ -64,8 +64,8 @@ const HeroCard = ({ hero, you, isCurrentUser, showDetails }) => {
       {showDetails && hero.bio && <div className="inner">{hero.bio}</div>}
       {showDetails && hero.blog && (
         <ExternalLink
-          className="inner card-block"
-          data-balloon={`Open ${hero.username}'s website/blog`}
+          className="inner card-block hint--top"
+          aria-label={`Open ${hero.username}'s website/blog`}
           url={hero.blog}
         >
           <span className="mega-octicon octicon-globe icon" />
@@ -74,8 +74,8 @@ const HeroCard = ({ hero, you, isCurrentUser, showDetails }) => {
       )}
       {showDetails && hero.modules > 0 && (
         <ExternalLink
-          className="inner card-block"
-          data-balloon={`Open ${hero.username}'s profile on npm`}
+          className="inner card-block hint--top"
+          aria-label={`Open ${hero.username}'s profile on npm`}
           url={`https://www.npmjs.com/~${hero.npm || hero.username}`}
         >
           <span className="mega-octicon octicon-package icon" />

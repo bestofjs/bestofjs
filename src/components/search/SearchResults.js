@@ -185,7 +185,7 @@ const RelevantTags = ({ tagIds, baseTagIds }) => {
 }
 
 const Label = styled.div`
-  padding-right: '0.5rem';
+  padding-right: 0.5rem;
   @media (max-width: 599px) {
     display: none;
   }
