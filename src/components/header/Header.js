@@ -88,7 +88,7 @@ const NavigationMenu = styled.div`
 `
 const NavigationMenuItem = styled.div`
   margin-right: 1rem;
-  @media screen and (max-width: ${sidebarBreakpoint - 7}px) {
+  @media screen and (max-width: ${sidebarBreakpoint - 1}px) {
     display: none;
   }
   a {
