@@ -1,4 +1,4 @@
-[![screenshot](https://user-images.githubusercontent.com/5546996/63021437-8c271e80-bedb-11e9-9ff9-497da0388943.png)](https://bestofjs.org/)
+[![screenshot](https://user-images.githubusercontent.com/5546996/67169301-8f5fee80-f3e5-11e9-837b-0c94606d21c1.png)](https://bestofjs.org/)
 
 ## Concept
 
@@ -10,7 +10,7 @@ This is a place where front-end engineers and Node.js developers can find the be
 
 Projects are classified using tags such as:
 
-- [UI Frameworks](https://bestofjs.org/tags/framework): The best frameworks to build web applications that run in the browser: Angular, React, Vue...
+- [UI Frameworks](https://bestofjs.org/tags/framework): Frameworks to build web applications that run in the browser: Angular, React, Vue...
 - [React](https://bestofjs.org/tags/react): The React eco-system
 - [Testing](https://bestofjs.org/tags/test): The best testing tools: Jest, Mocha, Jasmine, AVA...
 - [CSS toolkits](https://bestofjs.org/tags/css-lib): Bootstrap, Semantic UI, Foundation...
@@ -21,8 +21,7 @@ Projects are classified using tags such as:
 
 If you find an interesting project to add, you can suggest it by [creating an issue here](https://github.com/michaelrambeau/bestofjs/issues/new?template=add-a-project-to-best-of-javascript.md).
 
-You can sign-in with your GitHub account to create "bookmarks".
-Later you can find then from "MY PROJECTS" menu entry, in the left sidebar.
+You can sign-in with your GitHub account to bookmark the projects you want to follow closely.
 
 ### The JavaScript Hall of Fame
 
@@ -32,9 +31,9 @@ Click [here](https://bestofjs.org/hall-of-fame) to visit the Hall of Fame!
 
 ## How it works
 
-We maintain a list of projects related to the web platform (JavaScript, HTML and CSS) in a database.
+We maintain a list of projects related to Note.js and the web platform in a database.
 
-Every time we find a new project, or anytime a user submit a new request, we add it to the database.
+Every time we find a new project, or anytime a user submits a new request, we add it to the database.
 
 Everyday a scheduled task checks project data from GitHub and generates data consumed by the web application.
 
