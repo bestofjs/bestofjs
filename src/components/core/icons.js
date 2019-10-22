@@ -1,28 +1,79 @@
 import React from 'react'
 
-export const ChevronRightIcon = ({
-  size = 16,
-  color = 'currentColor',
-  style
-}) => {
+export const DoubleChevronLeftIcon = props => {
+  return (
+    <SVGContainer {...props}>
+      <polyline points="11 17 6 12 11 7" />
+      <polyline points="18 17 13 12 18 7" />
+    </SVGContainer>
+  )
+}
+
+export const DoubleChevronRightIcon = props => {
+  return (
+    <SVGContainer {...props}>
+      <polyline points="13 17 18 12 13 7" />
+      <polyline points="6 17 11 12 6 7" />
+    </SVGContainer>
+  )
+}
+
+export const ChevronLeftIcon = props => {
+  return (
+    <SVGContainer {...props}>
+      <polyline points="15 18 9 12 15 6" />
+    </SVGContainer>
+  )
+}
+
+export const ChevronRightIcon = props => {
+  return (
+    <SVGContainer {...props}>
+      <polyline points="9 18 15 12 9 6" />
+    </SVGContainer>
+  )
+}
+
+const SVGContainer = ({ children, color = 'currentColor', size = 24 }) => {
   return (
     <svg
+      viewBox="0 0 24 24"
       width={size}
       height={size}
-      className="octicon"
-      viewBox="0 0 8 16"
-      version="1.1"
-      aria-hidden="true"
-      style={style}
+      stroke={color}
+      strokeWidth="2"
+      fill="none"
+      strokeLinecap="round"
+      strokeLinejoin="round"
     >
-      <path
-        fill={color}
-        fillRule="evenodd"
-        d="M7.5 8l-5 5L1 11.5 4.75 8 1 4.5 2.5 3l5 5z"
-      />
+      {children}
     </svg>
   )
 }
+
+// export const ChevronRightIcon = ({
+//   size = 16,
+//   color = 'currentColor',
+//   style
+// }) => {
+//   return (
+//     <svg
+//       width={size}
+//       height={size}
+//       className="octicon"
+//       viewBox="0 0 8 16"
+//       version="1.1"
+//       aria-hidden="true"
+//       style={style}
+//     >
+//       <path
+//         fill={color}
+//         fillRule="evenodd"
+//         d="M7.5 8l-5 5L1 11.5 4.75 8 1 4.5 2.5 3l5 5z"
+//       />
+//     </svg>
+//   )
+// }
 
 export const ChevronDownIcon = ({
   size = 16,
@@ -48,29 +99,29 @@ export const ChevronDownIcon = ({
   )
 }
 
-export const ChevronLeftIcon = ({
-  size = 16,
-  color = 'currentColor',
-  style
-}) => {
-  return (
-    <svg
-      width={size}
-      height={size}
-      className="octicon"
-      viewBox="0 0 8 16"
-      version="1.1"
-      aria-hidden="true"
-      style={style}
-    >
-      <path
-        full={color}
-        fillRule="evenodd"
-        d="M5.5 3L7 4.5 3.25 8 7 11.5 5.5 13l-5-5 5-5z"
-      />
-    </svg>
-  )
-}
+// export const ChevronLeftIcon = ({
+//   size = 16,
+//   color = 'currentColor',
+//   style
+// }) => {
+//   return (
+//     <svg
+//       width={size}
+//       height={size}
+//       className="octicon"
+//       viewBox="0 0 8 16"
+//       version="1.1"
+//       aria-hidden="true"
+//       style={style}
+//     >
+//       <path
+//         full={color}
+//         fillRule="evenodd"
+//         d="M5.5 3L7 4.5 3.25 8 7 11.5 5.5 13l-5-5 5-5z"
+//       />
+//     </svg>
+//   )
+// }
 
 export const StarIcon = ({ size = 16, color = 'currentColor', style }) => {
   return (

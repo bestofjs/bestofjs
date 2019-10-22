@@ -2,9 +2,13 @@ import React, { useContext } from 'react'
 import styled from 'styled-components'
 import { useHistory, useLocation } from 'react-router-dom'
 
-import { ChevronRightIcon, ChevronLeftIcon } from '../core/icons'
+import {
+  DoubleChevronLeftIcon,
+  DoubleChevronRightIcon,
+  ChevronRightIcon,
+  ChevronLeftIcon
+} from '../core/icons'
 import ProjectTable from '../project-list/ProjectTable'
-import PaginationControls from '../common/pagination/PaginationControls'
 import { PaginationContext } from '../common/pagination/provider'
 import { Button } from '../core'
 import { SortOrderPicker } from './sort-order'
@@ -47,7 +51,7 @@ export const ProjectPaginatedList = ({
           </Cell>
           {showPagination && (
             <Cell>
-              <PaginationContainer history={history} location={location} />
+              <TopPaginationContainer history={history} location={location} />
             </Cell>
           )}
         </Row>
@@ -58,7 +62,9 @@ export const ProjectPaginatedList = ({
         from={from}
         sortOption={sortOption}
       />
-      <PaginationControls total={total} currentPage={page} limit={limit} />
+      {showPagination && (
+        <BottomPaginationContainer history={history} location={location} />
+      )}
     </div>
   )
 }
@@ -82,7 +88,9 @@ const Cell = styled.div`
   }
 `
 
-const PaginationContainer = ({ history, location }) => {
+const iconSize = 28
+
+const TopPaginationContainer = ({ history, location }) => {
   const {
     from,
     to,
@@ -117,7 +125,7 @@ const PaginationContainer = ({ history, location }) => {
           )
         }
       >
-        <ChevronLeftIcon size={24} />
+        <ChevronLeftIcon size={iconSize} />
       </PaginationButton>
       <PaginationButton
         disabled={!hasNextPage}
@@ -127,16 +135,79 @@ const PaginationContainer = ({ history, location }) => {
           )
         }
       >
-        <ChevronRightIcon size={24} />
+        <ChevronRightIcon size={iconSize} />
       </PaginationButton>
+    </div>
+  )
+}
+
+const BottomPaginationContainer = ({ history, location }) => {
+  const {
+    currentPageNumber,
+    hasPreviousPage,
+    hasNextPage,
+    lastPageNumber,
+    pageNumbers
+  } = useContext(PaginationContext)
+
+  return (
+    <div
+      style={{
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginTop: '2rem'
+      }}
+    >
+      {pageNumbers.length > 2 && (
+        <PaginationButton
+          disabled={currentPageNumber === 1}
+          onClick={() => history.push(updateLocation(location, { page: 1 }))}
+        >
+          <DoubleChevronLeftIcon size={iconSize} />
+        </PaginationButton>
+      )}
+
+      <PaginationButton
+        disabled={!hasPreviousPage}
+        onClick={() =>
+          history.push(
+            updateLocation(location, { page: currentPageNumber - 1 })
+          )
+        }
+      >
+        <ChevronLeftIcon size={iconSize} />
+      </PaginationButton>
+
+      <PaginationButton
+        disabled={!hasNextPage}
+        onClick={() =>
+          history.push(
+            updateLocation(location, { page: currentPageNumber + 1 })
+          )
+        }
+      >
+        <ChevronRightIcon size={iconSize} />
+      </PaginationButton>
+
+      {pageNumbers.length > 2 && (
+        <PaginationButton
+          disabled={currentPageNumber === lastPageNumber}
+          onClick={() =>
+            history.push(updateLocation(location, { page: lastPageNumber }))
+          }
+        >
+          <DoubleChevronRightIcon size={iconSize} />
+        </PaginationButton>
+      )}
     </div>
   )
 }
 
 const PaginationButton = styled(Button)`
   border-radius: 50%;
-  width: 32px;
-  height: 32px;
+  width: 36px;
+  height: 36px;
   padding: 0;
-  margin-right: 0.25rem;
+  margin-right: 0.5rem;
 `
