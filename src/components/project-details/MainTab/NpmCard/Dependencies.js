@@ -3,12 +3,13 @@ import React from 'react'
 import Toggle from 'react-toggled'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
+import { useSelector } from 'react-redux'
 
-import withPackageData from '../../../../containers/withPackageData'
 import StarTotal from '../../../common/utils/StarTotal'
 import ExpandableSection from './ExpandableSection'
 import DependencyTable from './DependencyTable'
 import { ExternalLink } from '../../../core/typography'
+import { npmProjects } from '../../../../selectors'
 
 const DependenciesContainer = styled.div`
   overflow: hidden;
@@ -38,7 +39,7 @@ const DependencyList = ({ dependencies }) => (
         {!on && <DependencyListPreview dependencies={dependencies} />}
         <div>
           {on && (
-            <ConnectedDependencyFullList
+            <DependencyFullList
               togglerProps={getTogglerProps()}
               packageNames={dependencies}
             />
@@ -59,13 +60,26 @@ const DependencyListPreview = ({ dependencies }) => (
   </span>
 )
 
-const DependencyFullList = ({ packages }) => {
+function useFindProjectsByPackageName({ packageNames }) {
+  const projects = useSelector(npmProjects)
+  const packages = packageNames.map(packageName => ({
+    name: packageName,
+    project: projects.find(project => project.packageName === packageName)
+  }))
+  return packages
+}
+
+const DependencyFullList = ({ packageNames }) => {
+  const packages = useFindProjectsByPackageName({ packageNames })
+
   return (
     <DependencyTable className="block-list">
       <thead>
         <tr>
           <td>Package on npm</td>
-          <td>Project on bestofjs.org</td>
+          <td>
+            Project on <i>Best of JavaScript</i>
+          </td>
         </tr>
       </thead>
       <tbody>
@@ -98,7 +112,5 @@ const DependencyFullList = ({ packages }) => {
     </DependencyTable>
   )
 }
-
-const ConnectedDependencyFullList = withPackageData(DependencyFullList)
 
 export default Dependencies

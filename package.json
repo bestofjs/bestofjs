@@ -31,7 +31,6 @@
   "homepage": "https://bestofjs.org",
   "dependencies": {
     "cross-env": "^1.0.7",
-    "formik": "0.11.11",
     "isomorphic-fetch": "^2.2.1",
     "lodash.times": "^4.3.2",
     "marked": "^0.3.5",

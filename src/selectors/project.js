@@ -1,7 +1,5 @@
 import { createSelector } from 'reselect'
 
-import { npmProjects } from './index'
-
 export const getTotalNumberOfStars = project => project.stars
 
 export const getStarsAddedDaily = ({ trends }) => trends.daily
@@ -64,17 +62,6 @@ export function populateProject(tags) {
     return populated
   }
 }
-
-export const findProjectByNpmName = packageName =>
-  createSelector(
-    [npmProjects],
-    projects => {
-      const foundProject = projects.find(
-        project => project.packageName === packageName
-      )
-      return foundProject
-    }
-  )
 
 export const getDeltaByDay = period => ({ trends }) => {
   const periods = {
