@@ -2,7 +2,7 @@ import React from 'react'
 
 import Avatar from '../common/ProjectAvatar'
 import formatUrl from '../../helpers/formatUrl'
-import ExternalLink from '../common/ExternalLink'
+import { ExternalLink } from '../core/typography'
 import TagLabelGroup from '../tags/TagLabelGroup'
 
 const ProjectHeader = ({ project }) => (

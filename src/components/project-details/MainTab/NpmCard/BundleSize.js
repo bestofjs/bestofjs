@@ -5,7 +5,7 @@ import Toggle from 'react-toggled'
 import ExpandableSection from './ExpandableSection'
 import FileSize from './FileSize'
 import List from './SizeDetailsList'
-import ExternalLink from '../../../common/ExternalLink'
+import { ExternalLink } from '../../../core/typography'
 
 const BundleSize = ({ project, ...rest }) => {
   const { bundle, packageSize } = project

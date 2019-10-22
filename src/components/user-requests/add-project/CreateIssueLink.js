@@ -1,8 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 
-import ExternalLink from '../../common/form/Button/ExternalLink'
-
+import { ExternalLink } from '../../core/typography'
 import getApi from '../../../api/config'
 
 const templates = {

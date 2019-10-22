@@ -4,7 +4,7 @@ import numeral from 'numeral'
 import CardProjectLabels from '../common/CardProjectLabels'
 import formatUrl from '../../helpers/formatUrl'
 import Card from './Card'
-import ExternalLink from '../common/ExternalLink'
+import { ExternalLink } from '../core/typography'
 
 const digits = value => (value > 1000 ? '0.0' : '0')
 

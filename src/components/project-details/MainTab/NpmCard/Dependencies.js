@@ -8,7 +8,7 @@ import withPackageData from '../../../../containers/withPackageData'
 import StarTotal from '../../../common/utils/StarTotal'
 import ExpandableSection from './ExpandableSection'
 import DependencyTable from './DependencyTable'
-import ExternalLink from '../../../common/ExternalLink'
+import { ExternalLink } from '../../../core/typography'
 
 const DependenciesContainer = styled.div`
   overflow: hidden;

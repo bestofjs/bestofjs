@@ -11,7 +11,7 @@ import SectionTitle from './SectionTitle'
 import SectionHeader from '../common/SectionHeader'
 import TagLabelGroup from '../tags/TagLabelGroup'
 import News from './News'
-import ExternalLink from '../common/ExternalLink'
+import { ExternalLink } from '../core/typography'
 
 const Home = props => {
   log('Render the <Home> component')

@@ -5,7 +5,7 @@ import styled from 'styled-components'
 import Logo from './Logo'
 import fromNow from '../../../helpers/fromNow'
 import SectionHeader from '../../common/SectionHeader'
-import ExternalLink from '../../common/ExternalLink'
+import { ExternalLink } from '../../core/typography'
 
 const urls = {
   site: 'https://2018.stateofjs.com/'

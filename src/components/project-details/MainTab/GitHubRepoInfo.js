@@ -2,7 +2,7 @@ import React from 'react'
 import numeral from 'numeral'
 
 import fromNow from '../../../helpers/fromNow'
-import ExternalLink from '../../common/ExternalLink'
+import { ExternalLink } from '../../core/typography'
 import Card from '../../common/Card'
 import StarTotal from '../../common/utils/StarTotal'
 

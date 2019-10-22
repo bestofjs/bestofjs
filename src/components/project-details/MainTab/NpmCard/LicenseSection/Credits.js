@@ -2,7 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 
 import fromNow from '../../../../../helpers/fromNow'
-import ExternalLink from '../../../../common/ExternalLink'
+import { ExternalLink } from '../../../../core/typography'
 
 const Div = styled.div`
   margin: 1rem 0px 0px;

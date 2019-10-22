@@ -7,7 +7,7 @@ import Dependencies from './Dependencies'
 import BundleSize from './BundleSize'
 import PackageSize from './PackageSize'
 import License from './LicenseSection'
-import ExternalLink from '../../../common/ExternalLink'
+import { ExternalLink } from '../../../core/typography'
 
 const NpmCard = props => {
   return (

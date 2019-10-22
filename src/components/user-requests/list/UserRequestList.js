@@ -4,7 +4,7 @@ import MainContent from '../../common/MainContent'
 import fromNow from '../../../helpers/fromNow'
 import { CreateIssueLink } from '../add-project/CreateIssueLink'
 import Card from '../../common/Card'
-import ExternalLink from '../../common/ExternalLink'
+import { ExternalLink } from '../../core/typography'
 
 const UserRequestList = ({ requests }) => (
   <MainContent className="small container double-padding">

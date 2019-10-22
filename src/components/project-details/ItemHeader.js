@@ -3,7 +3,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 
 import fromNow from '../../helpers/fromNow'
-import ExternalLink from '../common/ExternalLink'
+import { ExternalLink } from '../core/typography'
 
 const EditButton = ({ url }) => {
   return (

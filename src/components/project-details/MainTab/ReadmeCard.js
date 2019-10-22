@@ -1,13 +1,13 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import styled from 'styled-components'
 
-import Button from '../../common/form/Button'
 import Card from '../../common/Card'
 import Spinner from '../../common/Spinner'
 import { useFetchProjectReadMe } from '../../../api/hooks'
 import '../../../stylesheets/markdown-body.css'
 
-const GithubLink = Button.withComponent('a')
+const GithubLink = styled.a``
 
 const ReadmeCard = ({ project }) => {
   const { data: html, isLoading, error } = useFetchProjectReadMe(project)

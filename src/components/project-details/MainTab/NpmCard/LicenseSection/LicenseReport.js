@@ -7,7 +7,7 @@ import TruncatedList from './TruncatedPackageList'
 import PackageName from './PackageName'
 import Badge from './Badge'
 import Credits from './Credits'
-import ExternalLink from '../../../../common/ExternalLink'
+import { ExternalLink } from '../../../../core/typography'
 
 const isUnlicensed = name => /unlicense/i.test(name)
 

@@ -2,10 +2,10 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import styled, { css } from 'styled-components'
 
-import MarkdownReadonly from '../../common/form/MarkdownReadonly'
+// import MarkdownReadonly from '../../common/form/MarkdownReadonly'
 import fromNow from '../../../helpers/fromNow'
-import Button from '../../common/form/Button/Link'
-import ExternalLink from '../../common/ExternalLink'
+import Button from '../../core/button'
+import { ExternalLink } from '../../core/typography'
 
 const cardSection = css`
   border-top: 1px dashed rgb(203, 203, 203);
