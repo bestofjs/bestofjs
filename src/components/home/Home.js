@@ -1,4 +1,7 @@
 import React from 'react'
+import { useSelector } from 'react-redux'
+import styled from 'styled-components'
+import numeral from 'numeral'
 
 import log from '../../helpers/log'
 import MainContent from '../common/MainContent'
@@ -11,6 +14,9 @@ import { ExternalLink } from '../core/typography'
 import { Section } from '../core/section'
 import fromNow from '../../helpers/fromNow'
 import { useStaticContent } from '../../static-content'
+import { getTotalNumberOfStars } from '../../selectors/project'
+import { StarIcon } from '../core/icons'
+import { Button } from '../core'
 
 const Home = props => {
   log('Render the <Home> component')
@@ -38,7 +44,7 @@ const Home = props => {
         title={'Best of JavaScript is changing!'}
       >
         Check our latest post from{' '}
-        <ExternalLink url="https://weekly.bestofjs.org/">
+        <ExternalLink url="https://weekly.bestofjs.org/issues/73">
           Weekly Best of JavaScript
         </ExternalLink>{' '}
         to know more about the new search engine.
@@ -62,19 +68,67 @@ const News = ({ children, title, date, ...props }) => {
 }
 
 const StarOnGitHub = () => {
-  const { repo } = useStaticContent()
+  const { repo, projectName } = useStaticContent()
+  const Row = styled.div`
+    display: flex;
+    flex-direction: column;
+    @media (min-width: 700px) {
+      align-items: center;
+      flex-direction: row;
+    }
+    > *:last-child {
+      padding-top: 1rem;
+    }
+  `
+
   return (
     <Section>
-      <Section.Header icon="heart">
-        <Section.Title>Do you find Best of JavaScript useful?</Section.Title>
-      </Section.Header>
-      <p>
-        Show your appreciation by starring the project on{' '}
-        <ExternalLink url={repo}>GitHub</ExternalLink>, thank you!
-      </p>
+      <Row>
+        <div style={{ flexGrow: 1 }}>
+          <Section.Header icon="heart">
+            <Section.Title>Do you find {projectName} useful?</Section.Title>
+          </Section.Header>
+          <p>
+            Show your appreciation by starring the project on{' '}
+            <ExternalLink url={repo}>GitHub</ExternalLink>, thank you!
+          </p>
+        </div>
+        <div style={{}}>
+          <StarOnGitHubButton />
+        </div>
+      </Row>
     </Section>
   )
 }
+
+const StarOnGitHubButton = () => {
+  const { repo } = useStaticContent()
+  const project = useSelector(
+    state => state.entities.projects['best-of-javascript']
+  )
+  if (!project) return null
+  const stars = getTotalNumberOfStars(project)
+  return (
+    <Button
+      as={'a'}
+      style={{ fontSize: '1.2rem', display: 'flex' }}
+      href={repo}
+      target="_blank"
+    >
+      <span>Star on GitHub </span>
+      <div
+        style={{ marginLeft: '0.5rem', display: 'flex', alignItems: 'center' }}
+        className="text-secondary"
+      >
+        {' '}
+        {formatNumber(stars)}
+        <StarIcon size={16} />
+      </div>
+    </Button>
+  )
+}
+
+const formatNumber = number => numeral(number).format('')
 
 const MoreProjects = () => {
   return (
