@@ -7,11 +7,7 @@ import TagLabelGroup from '../tags/TagLabelGroup'
 
 const ProjectHeader = ({ project }) => (
   <div style={{ marginBottom: '2rem' }}>
-    <div
-      style={{ display: 'flex', alignItems: 'center', margin: '0 0 1rem' }}
-      className="no-card-container"
-    >
-      {/* <Avatar project={project} size={75} /> */}
+    <div style={{ display: 'flex', alignItems: 'center', margin: '0 0 1rem' }}>
       <div style={{ flex: 1 }}>
         <h1 style={{ paddingLeft: '0rem' }}>{project.name}</h1>
         <div

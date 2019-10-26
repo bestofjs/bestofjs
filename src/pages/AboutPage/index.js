@@ -3,7 +3,6 @@ import { connect } from 'react-redux'
 
 import About from '../../components/about/About'
 import log from '../../helpers/log'
-import getStaticContent from '../../staticContent'
 
 class AboutPage extends Component {
   render() {
@@ -26,7 +25,6 @@ function mapStateToProps(state) {
     ui
   } = state
   return {
-    staticContent: getStaticContent(),
     count: Object.keys(projects).length,
     ui
   }

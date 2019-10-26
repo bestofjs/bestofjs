@@ -6,8 +6,7 @@ import { useSelector } from 'react-redux'
 import { Button } from '../core'
 import UserDropdownMenu from './UserDropdownMenu'
 import { MarkGitHubIcon } from '../core/icons'
-import getStaticContent from '../../staticContent'
-// import NavigationDropdownMenu from './NavigationDropdownMenu'
+import { useStaticContent } from '../../static-content'
 
 const sidebarBreakpoint = 700
 const topbarHeight = 60
@@ -29,7 +28,8 @@ const HeaderContainer = styled.header`
 `
 
 const Header = props => {
-  const { repo } = getStaticContent()
+  const { repo } = useStaticContent()
+
   return (
     <HeaderContainer>
       <div className="container">

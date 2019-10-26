@@ -4,12 +4,13 @@ import MainContent from '../common/MainContent'
 import log from '../../helpers/log'
 import { CreateIssueLink } from '../user-requests/add-project/CreateIssueLink'
 import Card from '../common/Card'
-
 import '../../stylesheets/markdown-body.css'
+import { useStaticContent } from '../../static-content'
 
 const About = ({ staticContent, count }) => {
   log('Render the <About> component')
-  const { repo, projectName } = staticContent
+  const { repo, projectName } = useStaticContent()
+
   return (
     <MainContent style={{ paddingTop: '2rem' }}>
       <Card className="card markdown-body" style={{ padding: '2rem' }}>

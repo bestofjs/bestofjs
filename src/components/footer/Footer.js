@@ -1,6 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import fromNow from '../../helpers/fromNow'
+import { useStaticContent } from '../../static-content'
 
 const StyledFooter = styled.footer`
   margin: 2rem 0;
@@ -35,11 +36,12 @@ const Footer = ({
   showRefreshButton,
   fetchProjects
 }) => {
-  const { repo, projectName, version } = staticContent
+  const { repo, projectName, version } = useStaticContent()
+
   return (
     <StyledFooter id="footer">
       <div id="footer-content" className="container">
-        <section className="no-card-container">
+        <section>
           <div className="grid">
             <div>
               <p>Data updated from GitHub everyday</p>
