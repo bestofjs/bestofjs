@@ -26,7 +26,8 @@ export const getProjectSelectorByKey = key => {
     bookmark: getBookmarkDate,
     'last-commit': getLastCommitDate,
     contributors: getContributorCount,
-    match: ({ rank }) => rank // only used when a `query` is used to search, a ranking score is assigned to projects
+    match: ({ rank }) => rank, // only used when a `query` is used to search, a ranking score is assigned to projects
+    'monthly-downloads': ({ downloads }) => downloads
   }
 
   if (!sortFn[key]) throw new Error(`No selector for the key "${key}"`)

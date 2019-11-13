@@ -21,11 +21,16 @@ export const getSortOrderOptions = () => {
     },
     {
       id: 'monthly',
-      label: 'By stars added the last month'
+      label: 'By stars added the last 30 days'
     },
     {
       id: 'yearly',
       label: 'By stars added the last 12 months'
+    },
+    { type: 'divider' },
+    {
+      id: 'monthly-downloads',
+      label: 'By downloads the last 30 days'
     },
     { type: 'divider' },
     {

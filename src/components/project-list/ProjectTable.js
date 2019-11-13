@@ -7,6 +7,7 @@ import numeral from 'numeral'
 import Avatar from '../common/ProjectAvatar'
 import StarDelta from '../common/utils/StarDelta'
 import StarTotal from '../common/utils/StarTotal'
+import DownloadCount from '../common/utils/DownloadCount'
 import { getDeltaByDay } from '../../selectors/project'
 import TagLabelGroup from '../tags/TagLabelGroup'
 import { DropdownMenu, Button } from '../core'
@@ -55,7 +56,8 @@ const ProjectTableRow = ({
   const showDelta = ['daily', 'weekly', 'monthly', 'yearly'].includes(
     sortOption.id
   )
-  const showStars = !showDelta
+  const showDownloads = sortOption.id === 'monthly-downloads'
+  const showStars = !showDelta && !showDownloads
 
   const getBookmarkMenuItem = () => {
     if (!isLoggedIn) {
@@ -197,6 +199,8 @@ const ProjectTableRow = ({
             />
           </div>
         )}
+
+        {showDownloads && <DownloadCount value={project.downloads} />}
       </StarNumberCell>
       <ActionCell>
         <DropdownMenu items={items} alignment="right" />
