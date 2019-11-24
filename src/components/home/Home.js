@@ -39,16 +39,28 @@ const Home = props => {
         </Section.Header>
         {!pending ? <TagLabelGroup tags={popularTags} /> : <>Loading...</>}
       </Section>
-      <News
-        date={new Date('2019-10-20T13:00:00.000Z')}
-        title={'Best of JavaScript is changing!'}
-      >
-        Check our latest post from{' '}
-        <ExternalLink url="https://weekly.bestofjs.org/issues/73">
+      <Section>
+        <Section.Header icon="mail">
+          <Section.Title>Best of JavaScript Weekly</Section.Title>
+        </Section.Header>
+        Every Monday we publish a post and send a newsletter. Visit{' '}
+        <ExternalLink url="https://weekly.bestofjs.org/">
           Weekly Best of JavaScript
         </ExternalLink>{' '}
-        to know more about the new search engine.
-      </News>
+        to check the latest trends.
+      </Section>
+      {false && (
+        <News
+          date={new Date('2019-10-20T13:00:00.000Z')}
+          title={'Best of JavaScript is changing!'}
+        >
+          Check our latest post from{' '}
+          <ExternalLink url="https://weekly.bestofjs.org/issues/73">
+            Weekly Best of JavaScript
+          </ExternalLink>{' '}
+          to know more about the new search engine.
+        </News>
+      )}
       <StarOnGitHub />
       <MoreProjects handleClick={authActions.login} pending={pending} />
     </MainContent>
