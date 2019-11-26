@@ -7,16 +7,18 @@ import log from '../../helpers/log'
 import MainContent from '../common/MainContent'
 import HomeProjects from './HomeProjects'
 import { addProjectURL } from '../user-requests/add-project/CreateIssueLink'
-import Intro from './Intro'
-import Spinner from '../common/Spinner'
 import TagLabelGroup from '../tags/TagLabelGroup'
 import { ExternalLink } from '../core/typography'
 import { Section } from '../core/section'
-import fromNow from '../../helpers/fromNow'
 import { useStaticContent } from '../../static-content'
 import { getTotalNumberOfStars } from '../../selectors/project'
 import { StarIcon } from '../core/icons'
 import { Button } from '../core'
+
+import Intro from './Intro'
+import News from './News'
+import StateOfJavaScript2019 from './state-of-js-survey'
+import Spinner from '../common/Spinner'
 
 const Home = props => {
   log('Render the <Home> component')
@@ -24,6 +26,7 @@ const Home = props => {
   return (
     <MainContent>
       <Intro />
+      <StateOfJavaScript2019 date={new Date('2019-11-26T13:00:00.000Z')} />
       <Section>
         <Section.Header icon="flame">
           <Section.Title>Today Hot Projects</Section.Title>
@@ -64,18 +67,6 @@ const Home = props => {
       <StarOnGitHub />
       <MoreProjects handleClick={authActions.login} pending={pending} />
     </MainContent>
-  )
-}
-
-const News = ({ children, title, date, ...props }) => {
-  return (
-    <Section {...props}>
-      <Section.Header icon="megaphone">
-        <Section.Title>{title}</Section.Title>
-        <Section.SubTitle>PUBLISHED {fromNow(date)}</Section.SubTitle>
-      </Section.Header>
-      {children}
-    </Section>
   )
 }
 

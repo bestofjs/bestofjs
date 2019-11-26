@@ -1,26 +1,18 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import fromNow from '../../helpers/fromNow'
-import SectionTitle from './SectionTitle'
 
-const News = ({ children, date, title }) => {
+import fromNow from '../../helpers/fromNow'
+import { Section } from '../core/section'
+
+const News = ({ children, title, date, ...props }) => {
   return (
-    <div>
-      <SectionTitle>
-        <span
-          className="mega-octicon octicon-megaphone"
-          style={{ color: '#fa9e59' }}
-        />{' '}
-        <span>{title}</span>
-        <span
-          className="text-secondary"
-          style={{ fontSize: '1rem', marginLeft: '.5rem' }}
-        >
-          {fromNow(date)}
-        </span>
-      </SectionTitle>
-      <p>{children}</p>
-    </div>
+    <Section {...props}>
+      <Section.Header icon="megaphone">
+        <Section.Title>{title}</Section.Title>
+        <Section.SubTitle>PUBLISHED {fromNow(date)}</Section.SubTitle>
+      </Section.Header>
+      {children}
+    </Section>
   )
 }
 
