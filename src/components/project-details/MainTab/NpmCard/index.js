@@ -3,13 +3,16 @@ import PropTypes from 'prop-types'
 
 import Card from '../../../common/Card'
 import Spinner from '../../../common/Spinner'
+import { ExternalLink } from '../../../core/typography'
 import Dependencies from './Dependencies'
 import BundleSize from './BundleSize'
 import PackageSize from './PackageSize'
 import License from './LicenseSection'
-import { ExternalLink } from '../../../core/typography'
+import DownloadCount from '../../../common/utils/DownloadCount'
 
 const NpmCard = props => {
+  const { project } = props
+
   return (
     <Card style={{ marginTop: '2rem' }}>
       <Card.Header>
@@ -19,14 +22,6 @@ const NpmCard = props => {
       <Card.Body>
         <CardBodyContent {...props} />
       </Card.Body>
-      {/* <Card.Footer>
-        <ExternalLink
-          url={`https://www.npmjs.com/package/${props.project.packageName}`}
-          style={{ marginLeft: '.25rem' }}
-        >
-          View on NPM
-        </ExternalLink>
-      </Card.Footer> */}
     </Card>
   )
 }
@@ -48,12 +43,14 @@ const CardBodyContent = ({ project, isLoading, error }) => {
   return (
     <Fragment>
       <Card.Section>
-        <ExternalLink
-          url={`https://www.npmjs.com/package/${packageName}`}
-          style={{ marginLeft: '.25rem' }}
-        >
-          {packageName} {npm.version}
-        </ExternalLink>
+        <p>
+          <ExternalLink url={`https://www.npmjs.com/package/${packageName}`}>
+            {packageName} {npm.version}
+          </ExternalLink>
+        </p>
+        <p>
+          Monthly downloads: <DownloadCount value={project.downloads} />
+        </p>
       </Card.Section>
       <Card.Section>
         <Dependencies project={project} />

@@ -6,7 +6,7 @@ const DownloadCount = ({ value }) => {
     return <div className="star-delta text-secondary text-small">N/A</div>
   }
 
-  return <span> {numeral(value).format('a')}</span>
+  return <span>{numeral(value).format('a')}</span>
 }
 
 export default DownloadCount
