@@ -34,6 +34,7 @@ function createAuthApi({ dispatch }) {
         })
         .catch(error => {
           resetToken()
+          console.error(error)
           return dispatch(loginFailure(error))
         })
     },

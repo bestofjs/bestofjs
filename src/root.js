@@ -1,5 +1,9 @@
 import React, { useEffect } from 'react'
-import { BrowserRouter as Router, useLocation } from 'react-router-dom'
+import {
+  BrowserRouter as Router,
+  useLocation,
+  useHistory
+} from 'react-router-dom'
 
 import configureStore from './store'
 import { fetchProjects } from './actions/entitiesActions'
@@ -15,10 +19,9 @@ export const Root = () => {
 
   useEffect(
     () => {
-      authApi.start()
       store.dispatch(fetchProjects())
     },
-    [authApi, store]
+    [store]
   )
 
   return (
@@ -33,7 +36,19 @@ export const Root = () => {
 // because the Router context has not been created yet
 const AppWithRouter = props => {
   const location = useLocation()
-  const { store } = props
+  const history = useHistory()
+
+  const {
+    dependencies: { authApi },
+    store
+  } = props
+
+  useEffect(
+    () => {
+      authApi.start(history)
+    },
+    [authApi, history]
+  )
 
   useEffect(
     () => {
