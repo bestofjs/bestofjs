@@ -11,8 +11,6 @@ import License from './LicenseSection'
 import DownloadCount from '../../../common/utils/DownloadCount'
 
 const NpmCard = props => {
-  const { project } = props
-
   return (
     <Card style={{ marginTop: '2rem' }}>
       <Card.Header>

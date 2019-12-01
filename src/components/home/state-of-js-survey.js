@@ -1,8 +1,8 @@
 import React from 'react'
 import styled from 'styled-components'
 
-import { Section } from '../core/section'
 import News from './News'
+import { ExternalLink } from '../core/typography'
 
 const urls = {
   site: 'https://survey.stateofjs.com/'
@@ -36,9 +36,9 @@ const StateOfJavaScript2019 = ({ date }) => {
         <News date={date} title={'State of JavaScript 2019'}>
           <p>
             This year too, we need your input for the{' '}
-            <a href={urls.site} target="_blank">
+            <ExternalLink url={urls.site}>
               State of JavaScript 2019
-            </a>
+            </ExternalLink>
             .
           </p>
           <p>
@@ -48,9 +48,9 @@ const StateOfJavaScript2019 = ({ date }) => {
         </News>
       </MainCell>
       <LogoCell>
-        <a href={urls.site} target="_blank">
+        <ExternalLink url={urls.site} target="_blank">
           <Logo />
-        </a>
+        </ExternalLink>
       </LogoCell>
     </Row>
   )
