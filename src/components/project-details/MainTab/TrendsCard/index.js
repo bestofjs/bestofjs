@@ -2,29 +2,41 @@ import React from 'react'
 import styled from 'styled-components'
 
 import Heatmap from './Heatmap'
+import MonthlyTrends from './MonthlyTrends'
 import StarDelta from '../../../common/utils/StarDelta'
 import Card from '../../../common/Card'
 import { getDeltaByDay } from '../../../../selectors/project'
 import { StarIcon } from '../../../core/icons'
 
-// New "DAILY TRENDS" block (Sep. 2017, v0.9)
-// Show the heat map only if we have at least 2 daily deltas to show
-const TrendsCards = ({ project }) => (
-  <Card style={{ marginTop: '2rem' }}>
-    <Card.Header>
-      <span className="octicon octicon-graph" />
-      <span> DAILY TRENDS</span>
-    </Card.Header>
-    <Card.Body>
-      {project.deltas && project.deltas.length > 1 && (
-        <div className="inner">
-          <Heatmap deltas={project.deltas} />
-        </div>
-      )}
-      <MonthlyTrends project={project} />
-    </Card.Body>
-  </Card>
-)
+const TrendsCards = ({ project }) => {
+  const dailyDeltas = project.timeSeries && project.timeSeries.daily
+  const showHeatMap = dailyDeltas && dailyDeltas.length > 1
+
+  const monthlyDeltas = project.timeSeries && project.timeSeries.monthly
+  const showMonthlyChart = monthlyDeltas && monthlyDeltas.length > 1
+
+  return (
+    <Card style={{ marginTop: '2rem' }}>
+      <Card.Header>
+        <span className="octicon octicon-graph" />
+        <span> TRENDS</span>
+      </Card.Header>
+      <Card.Body>
+        {showMonthlyChart && (
+          <Card.Section>
+            <MonthlyTrends deltas={monthlyDeltas} />
+          </Card.Section>
+        )}
+        {showHeatMap && (
+          <Card.Section>
+            <Heatmap deltas={dailyDeltas} />
+          </Card.Section>
+        )}
+        <TrendSummary project={project} />
+      </Card.Body>
+    </Card>
+  )
+}
 
 const MonthlyTrendsItem = ({ item, trends }) => {
   const { label, category } = item
@@ -52,7 +64,7 @@ const Div = styled.div`
   }
 `
 
-const MonthlyTrends = ({ project }) => {
+const TrendSummary = ({ project }) => {
   const { trends } = project
   const items = [
     { label: 'Yesterday', category: 'daily' },

@@ -1,0 +1,58 @@
+/*
+Extracted from Rising Stars project
+TODO: used styled components instead of regular CSS
+*/
+.project-chart {
+  width: 100%;
+  margin: 40px 0 15px 0;
+}
+
+.project-chart-columns {
+  min-height: 150px;
+  display: flex;
+}
+
+.project-chart-column {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  margin-right: 3px;
+}
+.project-chart-column:last-child {
+  margin-right: 0;
+}
+
+.project-chart-bar {
+  background: rgba(0, 0, 0, 0.1);
+  background: rgba(228, 91, 18, 0.15);
+  position: relative;
+}
+
+.project-chart-stars {
+  text-align: center;
+  /* @include secondary-font;
+  color: $lighter-text-color;
+  font-size: $small-font; */
+  position: absolute;
+  top: -22px;
+  width: 100%;
+}
+.project-chart-stars span {
+  margin-left: -100%;
+  margin-right: -100%;
+}
+
+.project-chart-months {
+  display: flex;
+  margin-right: 3px;
+  /* &:last-child {
+    margin-right: 0;
+  } */
+}
+
+.project-chart-month {
+  flex: 1;
+  margin-top: 5px;
+  text-align: center;
+}
