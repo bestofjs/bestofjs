@@ -6,7 +6,7 @@ export const StaticContentProvider = ({ children }) => {
   const content = {
     projectName: 'Best of JavaScript',
     repo: 'https://github.com/bestofjs/bestofjs-webui',
-    version: '0.19.0'
+    version: '0.20.0'
   }
   return (
     <StaticContentContext.Provider value={content}>

@@ -69,12 +69,6 @@ const Heatmap = ({ values, active, selected, onClick }) => {
   const yesterday = new Date(today.setDate(today.getDate() - 1))
   return (
     <div>
-      {false && (
-        <div style={{ marginBottom: '.5rem' }}>
-          <span className="octicon octicon-graph" />
-          Stars added over the last year
-        </div>
-      )}
       <CalendarHeatmap
         endDate={yesterday}
         numDays={365}
@@ -88,7 +82,8 @@ const Heatmap = ({ values, active, selected, onClick }) => {
           <SelectedDate active={active} yesterday={yesterday} />
         ) : (
           <div style={{ color: '#aaa', fontStyle: 'italic' }}>
-            Click on the map to check the number of stars added day by day.
+            Click on any square to check the number of stars added at a given
+            date.
           </div>
         )}
       </div>

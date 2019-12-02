@@ -1,5 +1,14 @@
 # Change log
 
+## Next release
+
+- Add monthly trends graph to project details page
+
+## 0.19.0 - 2019-10-20
+
+- New search engine, the user can combine one or several tags with keywords, in the same search box (#75)
+- Promotion of State of JavaScript 2019 survey
+
 ## 0.18.0 - 2019-08-14
 
 - Remove "links" and "reviews" feature

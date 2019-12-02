@@ -89,13 +89,13 @@ function getProjectWithDetails(project, details) {
     packageSize,
     description,
     github: { contributor_count, commit_count, created_at },
-    dailyTrends
+    timeSeries
   } = details
 
   return {
     ...project,
     description,
-    deltas: dailyTrends,
+    timeSeries,
     commit_count,
     contributor_count,
     created_at,

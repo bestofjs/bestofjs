@@ -22,13 +22,16 @@ class HeatmapContainer extends Component {
     }))
     const { active, selected } = this.state
     return (
-      <Heatmap
-        {...this.props}
-        values={values}
-        active={active}
-        selected={selected}
-        onClick={this.handleClick}
-      />
+      <>
+        <p>Stars added on GitHub, day by day</p>
+        <Heatmap
+          {...this.props}
+          values={values}
+          active={active}
+          selected={selected}
+          onClick={this.handleClick}
+        />
+      </>
     )
   }
 }
