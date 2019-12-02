@@ -4,7 +4,7 @@ TODO: used styled components instead of regular CSS
 */
 .project-chart {
   width: 100%;
-  margin: 40px 0 15px 0;
+  margin-top: 2rem;
 }
 
 .project-chart-columns {
@@ -31,9 +31,7 @@ TODO: used styled components instead of regular CSS
 
 .project-chart-stars {
   text-align: center;
-  /* @include secondary-font;
-  color: $lighter-text-color;
-  font-size: $small-font; */
+  font-size: 13px;
   position: absolute;
   top: -22px;
   width: 100%;
@@ -46,13 +44,11 @@ TODO: used styled components instead of regular CSS
 .project-chart-months {
   display: flex;
   margin-right: 3px;
-  /* &:last-child {
-    margin-right: 0;
-  } */
 }
 
 .project-chart-month {
   flex: 1;
   margin-top: 5px;
   text-align: center;
+  color: var(--textSecondaryColor);
 }

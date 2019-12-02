@@ -95,7 +95,7 @@ const TrendSummary = ({ project }) => {
     <Card.Section>
       {trends.weekly || trends.weekly === 0 ? (
         <div>
-          <p>Stars added on GitHub, per day, on average:</p>
+          <p>Stars added on GitHub, per day, on average</p>
           <Div>
             {items.map((item, i) => (
               <MonthlyTrendsItem item={item} key={i} trends={trends} />

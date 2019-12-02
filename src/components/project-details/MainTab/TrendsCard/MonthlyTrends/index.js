@@ -5,7 +5,7 @@ import MonthlyChart from './MonthlyChart'
 const MonthlyTrends = ({ deltas }) => {
   return (
     <>
-      <p>Stars added on GitHub, by month:</p>
+      <p>Stars added on GitHub, month by month</p>
       <MonthlyChart values={deltas} />
     </>
   )
