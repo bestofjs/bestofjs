@@ -117,7 +117,7 @@ const ProjectTableRow = ({
       <MainCell>
         <ProjectName>
           <SmallAvatarContainer>
-            <Avatar project={project} size={32} />
+            <Avatar project={project} size={40} />
           </SmallAvatarContainer>
           <Link to={path}>{project.name}</Link>
           {
@@ -258,7 +258,7 @@ const IconCell = styled(Cell)`
 `
 
 const SmallAvatarContainer = styled.div`
-  margin-right: 0.5rem;
+  margin-right: 1rem;
   @media (min-width: ${breakpoint}px) {
     display: none;
   }
@@ -275,7 +275,6 @@ const ContributorCountCell = styled(Cell)`
   @media (max-width: 799px) {
     display: none;
   }
-  /*color: #788080;*/
 `
 
 const StarNumberCell = styled(Cell)`
@@ -287,7 +286,7 @@ const StarNumberCell = styled(Cell)`
 const InlineIcon = styled.span`
   margin-left: 1rem;
   a {
-    color: #bbb;
+    color: var(--textSecondaryColor);
   }
 `
 
@@ -316,7 +315,7 @@ const ActionCell = styled(Cell)`
 `
 
 const ProjectName = styled.div`
-  font-size: 16px;
+  font-size: 1.25rem;
   display: flex;
   align-items: center;
 `
@@ -324,8 +323,8 @@ const ProjectName = styled.div`
 const ProjectDescription = styled.div`
   font-size: 14px;
   margin-bottom: 1rem;
+  margin-top: 1rem;
   @media (min-width: ${breakpoint}px) {
-    margin-top: 0.5rem;
   }
 `
 

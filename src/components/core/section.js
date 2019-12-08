@@ -27,7 +27,7 @@ Section.Title = styled.span`
 
 Section.SubTitle = styled.div`
   font-size: 1rem;
-  color: #aaa;
+  color: var(--textSecondaryColor);
   text-transform: uppercase;
 `
 
