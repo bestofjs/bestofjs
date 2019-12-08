@@ -22,7 +22,19 @@ import Spinner from '../common/Spinner'
 
 const Home = props => {
   log('Render the <Home> component')
-  const { pending, authActions, popularTags } = props
+  const { pending, error, authActions, popularTags } = props
+
+  if (error) {
+    return (
+      <MainContent>
+        <p>
+          Sorry, we are unable to fetch <i>Best of JavaScript</i> data.
+        </p>
+        <p>Please reach us on GitHub as soon as possible!</p>
+      </MainContent>
+    )
+  }
+
   return (
     <MainContent>
       <Intro />

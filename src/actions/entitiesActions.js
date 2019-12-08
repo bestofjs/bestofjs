@@ -16,9 +16,14 @@ export function fetchProjectsSuccess(payload) {
 
 // Action to be called to start the app
 export function fetchProjects() {
-  return dispatch => {
+  return async dispatch => {
     dispatch({ type: 'FETCH_PROJECTS' })
-    fetchProjectsFromAPI().then(data => dispatch(fetchProjectsSuccess(data)))
+    try {
+      const data = await fetchProjectsFromAPI()
+      dispatch(fetchProjectsSuccess(data))
+    } catch (error) {
+      dispatch({ type: 'FETCH_PROJECTS_ERROR', error })
+    }
   }
 }
 

@@ -13,7 +13,8 @@ const HomePage = ({
   ui,
   authActions,
   popularTags,
-  pending
+  pending,
+  error
 }) => {
   return (
     <Home
@@ -26,6 +27,7 @@ const HomePage = ({
       showMetrics={ui.showMetrics}
       viewOptions={ui.viewOptions}
       popularTags={popularTags}
+      error={error}
     />
   )
 }
@@ -34,13 +36,14 @@ function mapStateToProps(state, { count = 5 }) {
   const { auth, ui } = state
   const hot = getHotProjects(count)(state)
   const popularTags = getPopularTags(state)
-  const pending = state.entities.meta.pending
+  const { pending, error } = state.entities.meta
   return {
     hotProjects: hot,
     popularTags,
     auth,
     ui,
-    pending
+    pending,
+    error
   }
 }
 

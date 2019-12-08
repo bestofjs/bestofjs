@@ -45,7 +45,7 @@ const Footer = ({
           <div className="grid">
             <div>
               <p>Data updated from GitHub everyday</p>
-              <p>Last update: {fromNow(lastUpdate)}</p>
+              {lastUpdate && <p>Last update: {fromNow(lastUpdate)}</p>}
             </div>
             <div>
               <p>

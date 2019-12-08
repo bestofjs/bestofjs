@@ -10,6 +10,12 @@ export default function(state = { pending: true }, action) {
         pending: false,
         lastUpdate: new Date(action.payload.date)
       }
+    case 'FETCH_PROJECTS_ERROR':
+      return {
+        ...state,
+        error: action.error,
+        pending: false
+      }
     default:
       return state
   }
