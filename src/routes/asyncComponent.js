@@ -15,7 +15,7 @@ export default function asyncComponent(importComponent) {
       this.state = {
         Component: undefined,
         loading: true,
-        error: true
+        error: undefined
       }
     }
     async componentDidMount() {

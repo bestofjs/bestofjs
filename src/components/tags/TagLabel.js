@@ -9,11 +9,14 @@ const StyledLink = styled(Link)`
   border-radius: 12px;
   background-color: white;
   color: inherit;
-  border: solid 1px #cccccc;
+  border: solid 1px #dbdbdb;
   font-size: 13px;
   > .count {
     color: var(--textSecondaryColor);
     margin-left: 0.25rem;
+  }
+  &:hover {
+    border-color: #b5b5b5;
   }
 `
 

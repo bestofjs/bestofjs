@@ -299,7 +299,7 @@ const IconButton = styled(Button)`
           color: #fa9e59;
         `
       : css`
-          color: #bbb;
+          color: var(--textSecondaryColor);
         `}
   &:hover {
     color: var(--bestofjsPurple);
