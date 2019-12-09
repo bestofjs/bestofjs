@@ -293,6 +293,8 @@ const InlineIcon = styled.span`
 const IconButton = styled(Button)`
   border-style: none;
   border-radius: 50%;
+  padding: 0;
+  margin-left: 1rem;
   ${props =>
     props.on
       ? css`

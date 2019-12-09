@@ -38,7 +38,6 @@ const Home = props => {
   return (
     <MainContent>
       <Intro />
-      <StateOfJavaScript2019 date={new Date('2019-11-26T13:00:00.000Z')} />
       <Section>
         <Section.Header icon="flame">
           <Section.Title>Today Hot Projects</Section.Title>
