@@ -17,7 +17,6 @@ import { Button } from '../core'
 
 import Intro from './Intro'
 import News from './News'
-import StateOfJavaScript2019 from './state-of-js-survey'
 import Spinner from '../common/Spinner'
 
 const Home = props => {

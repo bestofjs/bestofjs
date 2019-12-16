@@ -3,9 +3,10 @@ import { Route, Switch, Redirect } from 'react-router-dom'
 
 import asyncComponent from './asyncComponent'
 
-import HomePage from '../pages/HomePage'
+import HomePage from '../pages/home-page'
 import BookmarksPage from '../pages/bookmarks-page'
 import HoFPage from '../pages/HallOfFamePage'
+// import TagsPage from '../pages/tags-page'
 import NoMatch from './NoMatch'
 import { SearchResultsContainer } from '../components/search/SearchResults'
 
@@ -32,6 +33,7 @@ const Routes = props => {
       </Route>
       <Route exact path="/projects" component={SearchResultsContainer} />
       <Redirect from={`/tags/:id`} to={`/projects?tags=:id`} />
+      {/* <Route from={`/tags`} component={TagsPage} /> */}
       <Route
         exact
         path="/hall-of-fame"

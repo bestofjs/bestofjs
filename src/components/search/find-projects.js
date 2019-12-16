@@ -1,4 +1,5 @@
-import { sortBy, getFullProject } from '../../selectors'
+import { getFullProject } from '../../selectors'
+import { sortProjectsByFunction } from '../../selectors/sort-utils'
 import { paginateItemList } from '../common/pagination'
 
 export function findProjects(
@@ -22,7 +23,7 @@ export function findProjects(
     ? filterProjectsByQuery(filteredProjects, query)
     : filteredProjects
 
-  const sortedProjects = false ? foundProjects : sortBy(foundProjects, selector)
+  const sortedProjects = sortProjectsByFunction(foundProjects, selector)
 
   const relevantTags =
     (tags.length > 0 || query) && getResultRelevantTags(sortedProjects, tags)
