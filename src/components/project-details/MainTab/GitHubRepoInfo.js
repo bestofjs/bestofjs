@@ -2,9 +2,8 @@ import React from 'react'
 import numeral from 'numeral'
 
 import fromNow from '../../../helpers/fromNow'
-import { ExternalLink } from '../../core/typography'
-import Card from '../../common/Card'
-import StarTotal from '../../common/utils/StarTotal'
+import { Card, ExternalLink } from '../../core'
+import { StarTotal } from '../../core/project'
 
 const formatNumber = number => numeral(number).format('0,0')
 

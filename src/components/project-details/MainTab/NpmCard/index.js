@@ -1,14 +1,13 @@
 import React, { Fragment } from 'react'
 import PropTypes from 'prop-types'
 
-import Card from '../../../common/Card'
-import Spinner from '../../../common/Spinner'
-import { ExternalLink } from '../../../core/typography'
+import { Card, ExternalLink, Spinner } from '../../../core'
+import { DownloadCount } from '../../../core/project'
+
 import Dependencies from './Dependencies'
 import BundleSize from './BundleSize'
 import PackageSize from './PackageSize'
 import License from './LicenseSection'
-import DownloadCount from '../../../common/utils/DownloadCount'
 
 const NpmCard = props => {
   return (

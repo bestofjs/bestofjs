@@ -4,20 +4,15 @@ import styled from 'styled-components'
 import numeral from 'numeral'
 
 import log from '../../helpers/log'
-import MainContent from '../common/MainContent'
 import HomeProjects from './HomeProjects'
 import { addProjectURL } from '../user-requests/add-project/CreateIssueLink'
 import TagLabelGroup from '../tags/TagLabelGroup'
-import { ExternalLink } from '../core/typography'
-import { Section } from '../core/section'
 import { useStaticContent } from '../../static-content'
 import { getTotalNumberOfStars } from '../../selectors/project'
 import { StarIcon } from '../core/icons'
-import { Button } from '../core'
-
+import { ExternalLink, Button, MainContent, Section, Spinner } from '../core'
 import Intro from './Intro'
 import News from './News'
-import Spinner from '../common/Spinner'
 
 const Home = props => {
   log('Render the <Home> component')

@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
-import MainContent from '../components/common/MainContent'
+import { MainContent } from '../components/core'
 
 const NoMatch = () => (
   <MainContent style={{ textAlign: 'center' }}>

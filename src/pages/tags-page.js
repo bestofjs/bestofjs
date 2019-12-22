@@ -1,11 +1,10 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
 
-import MainContent from '../components/common/MainContent'
 import { getAllTagsSortedBy } from '../selectors/tag-selectors'
 import { PaginatedTagList } from '../components/tags/paginated-tag-list'
 import { TagIcon } from '../components/core/icons'
-import { PageTitle } from '../components/core'
+import { MainContent, PageTitle } from '../components/core'
 import {
   PaginationProvider,
   paginateItemList

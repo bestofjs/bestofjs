@@ -9,10 +9,9 @@ import * as actionCreators from '../../actions'
 import { findProject } from '../../selectors/project'
 import { useFetchProjectDetails } from '../../api/hooks'
 
-import Spinner from '../../components/common/Spinner'
+import { MainContent, Spinner } from '../../components/core'
 import ProjectDetailsMainTab from '../../components/project-details/MainTab'
 import ProjectHeader from '../../components/project-details/ProjectHeader'
-import MainContent from '../../components/common/MainContent'
 
 const ProjectDetailsPageContainer = props => {
   const { project } = props

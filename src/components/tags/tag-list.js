@@ -4,7 +4,7 @@ import styled from 'styled-components'
 import { useSelector } from 'react-redux'
 
 import { getProjectsByTag } from '../../selectors/index'
-import Avatar from '../common/ProjectAvatar'
+import { Avatar } from '../core/project'
 import { Grid, Cell as GridCell } from '../core'
 
 export const TagList = ({ tags }) => {

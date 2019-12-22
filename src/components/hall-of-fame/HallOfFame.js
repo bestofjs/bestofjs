@@ -1,6 +1,6 @@
 import React from 'react'
 
-import MainContent from '../common/MainContent'
+import { MainContent } from '../core'
 import MoreHeroes from './MoreHeroes'
 import HallOfFameMemberList from './HallOfFameMemberList'
 

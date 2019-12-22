@@ -1,10 +1,8 @@
 import React from 'react'
 
-import MainContent from '../../common/MainContent'
 import fromNow from '../../../helpers/fromNow'
 import { CreateIssueLink } from '../add-project/CreateIssueLink'
-import Card from '../../common/Card'
-import { ExternalLink } from '../../core/typography'
+import { Card, ExternalLink, MainContent } from '../../core'
 
 const UserRequestList = ({ requests }) => (
   <MainContent className="small container double-padding">

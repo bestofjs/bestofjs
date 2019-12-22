@@ -1,7 +1,7 @@
 import React from 'react'
 import { Fetch } from 'react-request'
 
-import Spinner from '../../../../common/Spinner'
+import { Spinner } from '../../../../core'
 import LicenseReport from './LicenseReport'
 import getApi from '../../../../../api/config'
 

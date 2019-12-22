@@ -5,8 +5,7 @@ const AsyncAboutPage = asyncComponent(() => import('../containers/AboutPage'))
 https://serverless-stack.com/chapters/code-splitting-in-create-react-app.html
 */
 import React, { Component } from 'react'
-import Spinner from '../components/common/Spinner'
-import MainContent from '../components/common/MainContent'
+import { MainContent, Spinner } from '../components/core'
 
 export default function asyncComponent(importComponent) {
   class AsyncComponent extends Component {

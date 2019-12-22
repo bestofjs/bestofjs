@@ -1,7 +1,7 @@
 import React from 'react'
 import numeral from 'numeral'
 
-import CardProjectLabels from '../common/CardProjectLabels'
+import CardProjectLabels from './CardProjectLabels'
 import formatUrl from '../../helpers/formatUrl'
 import Card from './Card'
 import { ExternalLink } from '../core/typography'

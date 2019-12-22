@@ -3,7 +3,7 @@ import styled from 'styled-components'
 const cardBorderColor = '#cbcbcb'
 const textPrimaryColor = '#333'
 
-const Card = styled.div`
+export const Card = styled.div`
   margin-bottom: 2rem;
   padding: 0;
   background-color: #fff;
@@ -54,5 +54,3 @@ Card.Footer = styled.div`
   text-align: center;
   border-top: 1px solid ${cardBorderColor};
 `
-
-export default Card

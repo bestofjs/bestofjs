@@ -1,9 +1,8 @@
 import React from 'react'
 
-import MainContent from '../common/MainContent'
 import log from '../../helpers/log'
 import { CreateIssueLink } from '../user-requests/add-project/CreateIssueLink'
-import Card from '../common/Card'
+import { Card, MainContent } from '../core'
 import '../../stylesheets/markdown-body.css'
 import { useStaticContent } from '../../static-content'
 
