@@ -1,6 +1,7 @@
 export * from './button'
 export * from './dropdown-menu'
 export * from './empty-content'
+export * from './grid'
 export * from './menu'
 export * from './popover'
 export * from './typography'
