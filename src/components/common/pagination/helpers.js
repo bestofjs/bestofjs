@@ -1,9 +1,9 @@
-import { parse } from 'qs'
+import { parseQueryString } from '../../../helpers/url'
 
 export const getPageNumber = location => {
   if (!location.search) return
-  const query = parse(location.search.substr(1))
-  return query.page && toInteger(query.page)
+  const { page } = parseQueryString(location.search)
+  return page
 }
 
 export function paginateItemList(itemList, pageNumber, { limit = 10 } = {}) {
@@ -54,8 +54,5 @@ export function generatePageNumbers({
     isLastPageIncluded
   }
 }
-
-const toInteger = (input, defaultValue = 1) =>
-  isNaN(input) ? defaultValue : parseInt(input, 0)
 
 const times = n => [...Array(n).keys()].map(i => i + 1)

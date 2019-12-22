@@ -3,10 +3,18 @@ import { parse } from 'qs'
 
 export function useParseURL(defaultValues) {
   const location = useLocation()
-  const parameters = parse(location.search, { ignoreQueryPrefix: true })
+  const parameters = parseQueryString(location.search)
 
   return {
     ...defaultValues,
+    ...parameters
+  }
+}
+
+export function parseQueryString(queryString) {
+  const parameters = parse(queryString, { ignoreQueryPrefix: true })
+
+  return {
     ...parameters,
     page: toInteger(parameters.page)
   }
