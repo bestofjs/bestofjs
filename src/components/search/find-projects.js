@@ -1,6 +1,6 @@
 import { getFullProject } from '../../selectors'
 import { sortProjectsByFunction } from '../../selectors/sort-utils'
-import { paginateItemList } from '../common/pagination'
+import { paginateItemList } from '../core/pagination'
 
 export function findProjects(
   projects,

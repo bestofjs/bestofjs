@@ -9,14 +9,14 @@ import { PageTitle } from '../components/core'
 import {
   PaginationProvider,
   paginateItemList
-} from '../components/common/pagination'
+} from '../components/core/pagination'
 import { useParseURL } from '../helpers/url'
 
 const TagsPage = () => {
   const { sort, page } = useParseURL({ sort: 'project-count' })
   const tags = useSelector(getAllTagsSortedBy(sort))
   const total = tags.length
-  const limit = 10
+  const limit = 20
   const paginatedTags = paginateItemList(tags, page, { limit })
 
   return (

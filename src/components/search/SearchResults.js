@@ -5,7 +5,7 @@ import styled from 'styled-components'
 
 import { allProjects } from '../../selectors'
 import { getTagsById } from '../../selectors/tag-selectors'
-import { PaginationProvider } from '../common/pagination'
+import { PaginationProvider } from '../core/pagination'
 import Spinner from '../common/Spinner'
 import { Button, PageTitle, EmptyContent } from '../core'
 import MainContent from '../common/MainContent'

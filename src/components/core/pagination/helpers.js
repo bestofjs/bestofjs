@@ -1,11 +1,3 @@
-import { parseQueryString } from '../../../helpers/url'
-
-export const getPageNumber = location => {
-  if (!location.search) return
-  const { page } = parseQueryString(location.search)
-  return page
-}
-
 export function paginateItemList(itemList, pageNumber, { limit = 10 } = {}) {
   const start = (pageNumber - 1) * limit
   return itemList.slice(start, start + limit)

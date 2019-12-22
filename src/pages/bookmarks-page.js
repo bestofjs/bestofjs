@@ -6,7 +6,7 @@ import { useSearch } from '../components/search/SearchProvider'
 import {
   PaginationProvider,
   paginateItemList
-} from '../components/common/pagination'
+} from '../components/core/pagination'
 import { ProjectPaginatedList } from '../components/search/project-paginated-list'
 
 import { getBookmarksSortedBy } from '../selectors'
