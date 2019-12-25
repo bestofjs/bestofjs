@@ -2,7 +2,7 @@ import React from 'react'
 import { useSelector } from 'react-redux'
 import styled from 'styled-components'
 import numeral from 'numeral'
-import { Link, useHistory } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 import log from '../../helpers/log'
 import HomeProjects from './HomeProjects'

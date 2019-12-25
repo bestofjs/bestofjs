@@ -1,19 +1,9 @@
-import React, { useCallback } from 'react'
-import { Link, useHistory } from 'react-router-dom'
+import React from 'react'
+import { Link } from 'react-router-dom'
 
-// import ProjectList from '../projects/ConnectedProjectList'
 import ProjectList from '../project-list/ProjectTable'
-import { Button } from '../core'
 
 const HomeProjects = ({ hotProjects, hotFilter }) => {
-  const history = useHistory()
-  const showMore = useCallback(
-    () => {
-      history.push(`/projects?sort=daily`)
-    },
-    [history]
-  )
-
   return (
     <>
       <ProjectList

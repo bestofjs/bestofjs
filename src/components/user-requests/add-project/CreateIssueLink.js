@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 
-import { ExternalLink } from '../../core/typography'
+import { Button, ExternalLink } from '../../core'
 import getApi from '../../../api/config'
 
 const templates = {
@@ -17,20 +17,13 @@ const getCreateIssueURL = template => {
 
 export const addProjectURL = getCreateIssueURL(templates.ADD_PROJECT)
 
-export const CreateIssueLink = ({
-  className,
-  style,
-  children,
-  showAsButton,
-  type
-}) => {
-  const Component = showAsButton ? ExternalLink : styled.a``
+export const CreateIssueLink = ({ className, style, children, type }) => {
   const template = templates[type]
   const url = getCreateIssueURL(template)
 
   return (
-    <Component target="_blank" className={className} style={style} href={url}>
+    <ExternalLink target="_blank" className={className} style={style} url={url}>
       {children}
-    </Component>
+    </ExternalLink>
   )
 }
