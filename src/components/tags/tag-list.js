@@ -1,29 +1,28 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 import styled from 'styled-components'
 import { useSelector } from 'react-redux'
 
 import { getProjectsByTag } from '../../selectors/index'
 import { Avatar } from '../core/project'
-import { Grid, Cell as GridCell } from '../core'
+import { Button, Grid, Cell as GridCell } from '../core'
+import { ChevronRightIcon } from '../core/icons'
 
 export const TagList = ({ tags }) => {
   return (
-    <Table>
-      <tbody>
-        {tags.map(tag => (
-          <TagListRow key={tag.id} tag={tag} />
-        ))}
-      </tbody>
-    </Table>
+    <List>
+      {tags.map(tag => (
+        <TagListRow key={tag.id} tag={tag} />
+      ))}
+    </List>
   )
 }
 
 const TagListRow = ({ tag }) => {
   return (
-    <Row>
-      <Cell>
-        <div style={{ marginBottom: '1rem' }}>
+    <ListRow>
+      <MainListCell>
+        <div>
           <Link
             to={`/projects?tags=${tag.code}`}
             style={{ fontSize: '1.25rem', marginRight: '0.5rem' }}
@@ -33,53 +32,89 @@ const TagListRow = ({ tag }) => {
           ({tag.counter} projects)
         </div>
         {tag.description && (
-          <p style={{ marginBottom: '1rem' }}>{tag.description}</p>
+          <p style={{ marginTop: '1rem' }} className="text-secondary">
+            {tag.description}
+          </p>
         )}
+      </MainListCell>
+      <ProjectIconCell>
         <IconGrid tag={tag} />
-      </Cell>
-    </Row>
+      </ProjectIconCell>
+    </ListRow>
   )
 }
 
-const IconGrid = ({ tag, projectCount = 10 }) => {
+const IconGrid = ({ tag, projectCount = 5 }) => {
+  const history = useHistory()
   const projects = useSelector(
     getProjectsByTag({ tagId: tag.id, criteria: 'total' })
   ).slice(0, projectCount)
+
   return (
     <div>
       <Grid>
         {projects.map(project => (
           <GridCell key={project.slug}>
-            <Avatar project={project} size={32} />
+            <Link
+              to={`/projects/${project.slug}`}
+              className="hint--top"
+              aria-label={project.name}
+            >
+              <Avatar project={project} size={32} />
+            </Link>
           </GridCell>
         ))}
+        <GridCell>
+          <ViewTagButton
+            onClick={() => history.push(`/projects?tags=${tag.code}`)}
+          >
+            <ChevronRightIcon size={16} />
+          </ViewTagButton>
+        </GridCell>
       </Grid>
     </div>
   )
 }
 
-const Table = styled.table`
-  border-spacing: 0;
+const List = styled.div`
   width: 100%;
 `
 
-const Row = styled.tr`
-  td {
-    border-top: 1px dashed #cecece;
-  }
-  &:last-child td {
+const breakPoint = 600
+
+const ListRow = styled.div`
+  display: flex;
+  align-items: center;
+  background-color: white;
+  border-top: 1px dashed #cecece;
+  &:last-child {
     border-bottom: 1px dashed #cecece;
+  }
+  @media (max-width: ${breakPoint - 1}px) {
+    align-items: flex-start;
+    flex-direction: column;
   }
 `
 
-const Cell = styled.td`
+const ListCell = styled.div`
   padding: 1rem;
-  background-color: white;
-  &:first-child {
-    padding-left: 1rem;
+`
+
+const MainListCell = styled(ListCell)`
+  @media (max-width: ${breakPoint - 1}px) {
+    padding-bottom: 0;
   }
-  .icon {
-    color: #fa9e59;
-    margin-right: 0.25rem;
-  }
+`
+
+const ProjectIconCell = styled(ListCell)`
+  min-width: 300px;
+  flex-grow: 1;
+  display: flex;
+  justify-content: flex-end;
+`
+
+const ViewTagButton = styled(Button)`
+  width: 32px;
+  height: 32px;
+  padding: 0;
 `

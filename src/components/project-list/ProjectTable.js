@@ -12,7 +12,7 @@ import { useUser } from '../../api/hooks'
 import fromNow from '../../helpers/fromNow'
 import { BookmarkIcon, MarkGitHubIcon, HomeIcon } from '../core/icons'
 
-const ProjectTable = ({ projects, from = 1, ...otherProps }) => {
+const ProjectTable = ({ projects, footer, from = 1, ...otherProps }) => {
   const userProps = useUser()
 
   return (
@@ -29,6 +29,13 @@ const ProjectTable = ({ projects, from = 1, ...otherProps }) => {
             />
           ))}
         </tbody>
+        {footer && (
+          <tfoot>
+            <FooterRow>
+              <Cell colSpan="5">{footer}</Cell>
+            </FooterRow>
+          </tfoot>
+        )}
       </Table>
     </div>
   )
@@ -222,8 +229,15 @@ const Row = styled.tr`
   }
 `
 
+const FooterRow = styled.tr`
+  td {
+    border-bottom: 1px dashed #cecece;
+    text-align: center;
+  }
+`
+
 const Cell = styled.td`
-  padding: 0.5rem;
+  padding: 1rem;
   background-color: white;
   &:first-child {
     padding-left: 1rem;

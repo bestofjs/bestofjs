@@ -17,7 +17,7 @@ import { findProjects } from './find-projects'
 
 export const SearchResultsContainer = () => {
   const { selectedTags, query, sortOption, page } = useSearch()
-  const limit = 10
+  const limit = 30
 
   const projects = useSelector(allProjects)
   const tags = useSelector(state => state.entities.tags)

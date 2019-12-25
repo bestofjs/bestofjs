@@ -88,11 +88,6 @@ const Span = styled.span`
 `
 
 export const Avatar = ({ project, size = 100 }) => {
-  const { svg } = project
-  if (svg)
-    return (
-      <div style={{ width: size }} dangerouslySetInnerHTML={{ __html: svg }} />
-    )
   const url = getProjectAvatarUrl(project, size)
   return <img src={url} width={size} height={size} alt={project.name} />
 }

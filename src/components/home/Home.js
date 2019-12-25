@@ -2,6 +2,7 @@ import React from 'react'
 import { useSelector } from 'react-redux'
 import styled from 'styled-components'
 import numeral from 'numeral'
+import { Link, useHistory } from 'react-router-dom'
 
 import log from '../../helpers/log'
 import HomeProjects from './HomeProjects'
@@ -41,12 +42,7 @@ const Home = props => {
         </Section.Header>
         {!pending ? <HomeProjects {...props} /> : <Spinner />}
       </Section>
-      <Section>
-        <Section.Header icon="tag">
-          <Section.Title>Popular tags</Section.Title>
-        </Section.Header>
-        {!pending ? <TagLabelGroup tags={popularTags} /> : <>Loading...</>}
-      </Section>
+      <Tags popularTags={popularTags} pending={pending} />
       <Section>
         <Section.Header icon="mail">
           <Section.Title>Best of JavaScript Weekly</Section.Title>
@@ -72,6 +68,20 @@ const Home = props => {
       <StarOnGitHub />
       <MoreProjects handleClick={authActions.login} pending={pending} />
     </MainContent>
+  )
+}
+
+const Tags = ({ popularTags, pending }) => {
+  return (
+    <Section>
+      <Section.Header icon="tag">
+        <Section.Title>Popular tags</Section.Title>
+      </Section.Header>
+      {!pending ? <TagLabelGroup tags={popularTags} /> : <>Loading...</>}
+      <div style={{ paddingTop: '1rem', textAlign: 'center' }}>
+        <Link to={`/tags/`}>View all tags »</Link>
+      </div>
+    </Section>
   )
 }
 
