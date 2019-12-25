@@ -1,7 +1,6 @@
 import React from 'react'
-import styled from 'styled-components'
 
-import { Button, ExternalLink } from '../../core'
+import { ExternalLink } from '../../core'
 import getApi from '../../../api/config'
 
 const templates = {
