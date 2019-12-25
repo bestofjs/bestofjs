@@ -6,8 +6,8 @@
     "node": ">=10.14.2"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
+    "start": "REACT_APP_VERSION=$npm_package_version react-scripts start",
+    "build": "REACT_APP_VERSION=$npm_package_version react-scripts build",
     "clean": "rimraf build",
     "surge": "surge --domain bestofjs.surge.sh --project ./build/",
     "test": "react-scripts test --env=jsdom",

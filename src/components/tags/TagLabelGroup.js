@@ -1,20 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import styled from 'styled-components'
 
+import { Grid, Cell } from '../core'
 import TagLabel from './TagLabel'
-
-const gutter = '1rem'
-
-const Grid = styled.div`
-  margin-top: -${gutter};
-  margin-left: -${gutter};
-`
-const Cell = styled.div`
-  display: inline-block;
-  padding-top: ${gutter};
-  padding-left: ${gutter};
-`
 
 const TagGroup = ({ tags, ...otherProps }) => {
   return (

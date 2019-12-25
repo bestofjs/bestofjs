@@ -43,7 +43,10 @@ const Header = props => {
           <Col>
             <NavigationMenu>
               <NavigationMenuItem>
-                <Link to="/projects">All projects</Link>
+                <Link to="/projects">Projects</Link>
+              </NavigationMenuItem>
+              <NavigationMenuItem>
+                <Link to="/tags">Tags</Link>
               </NavigationMenuItem>
               <NavigationMenuItem>
                 <Link to="/hall-of-fame">Hall of Fame</Link>

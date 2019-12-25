@@ -2,23 +2,23 @@ import React, { useContext } from 'react'
 import styled from 'styled-components'
 import { useHistory, useLocation } from 'react-router-dom'
 
-import ProjectTable from '../project-list/ProjectTable'
 import { PaginationContext } from '../core/pagination/provider'
 import { SortOrderPicker } from './sort-order'
-import { updateLocation } from './search-utils'
+import { updateLocation } from '../search/search-utils'
+
+import { TagList } from './tag-list'
 import {
   TopPaginationControls,
   BottomPaginationControls
 } from '../core/pagination/pagination-controls'
 
-export const ProjectPaginatedList = ({
-  projects,
+export const PaginatedTagList = ({
+  tags,
   query,
   page,
   total,
   limit,
-  sortOption,
-  children
+  sortOptionId
 }) => {
   const { from, pageNumbers } = useContext(PaginationContext)
   const location = useLocation()
@@ -42,7 +42,7 @@ export const ProjectPaginatedList = ({
             {showSortOptions && (
               <SortOrderPicker
                 onChange={onChangeSortOption}
-                value={sortOption.id}
+                value={sortOptionId}
               />
             )}
           </Cell>
@@ -53,12 +53,7 @@ export const ProjectPaginatedList = ({
           )}
         </Row>
       )}
-      <ProjectTable
-        projects={projects}
-        showStars={false}
-        from={from}
-        sortOption={sortOption}
-      />
+      <TagList tags={tags} from={from} />
       {showPagination && (
         <BottomPaginationControls history={history} location={location} />
       )}

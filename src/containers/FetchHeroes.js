@@ -6,7 +6,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 
 import { fetchAllHeroes } from '../actions/hofActions'
-import Spinner from '../components/common/Spinner'
+import { Spinner } from '../components/core'
 
 class FetchHeroes extends React.Component {
   state = {

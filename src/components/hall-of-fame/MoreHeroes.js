@@ -8,7 +8,6 @@ const MoreHeroes = () => {
       <h3>Do you want more members ?</h3>
       <CreateIssueLink
         type="ADD_HALL_OF_FAME_MEMBER"
-        showAsButton
         className={`button-outline block`}
       >
         {' '}

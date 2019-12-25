@@ -1,6 +1,6 @@
 import React from 'react'
 
-import Avatar from '../common/ProjectAvatar'
+import { Avatar } from '../core/project'
 import formatUrl from '../../helpers/formatUrl'
 import { ExternalLink } from '../core/typography'
 import TagLabelGroup from '../tags/TagLabelGroup'

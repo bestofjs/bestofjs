@@ -3,8 +3,8 @@ import styled from 'styled-components'
 
 import Heatmap from './Heatmap'
 import MonthlyTrends from './MonthlyTrends'
-import StarDelta from '../../../common/utils/StarDelta'
-import Card from '../../../common/Card'
+import { StarDelta } from '../../../core/project'
+import { Card } from '../../../core'
 import { getDeltaByDay } from '../../../../selectors/project'
 import { StarIcon } from '../../../core/icons'
 

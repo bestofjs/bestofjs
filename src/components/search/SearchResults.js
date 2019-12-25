@@ -3,11 +3,10 @@ import { withRouter } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import styled from 'styled-components'
 
-import { allProjects, getTagsById } from '../../selectors'
-import { PaginationProvider } from '../common/pagination'
-import Spinner from '../common/Spinner'
-import { Button, PageTitle, EmptyContent } from '../core'
-import MainContent from '../common/MainContent'
+import { allProjects } from '../../selectors'
+import { getTagsById } from '../../selectors/tag-selectors'
+import { PaginationProvider } from '../core/pagination'
+import { Button, PageTitle, EmptyContent, MainContent, Spinner } from '../core'
 import { ProjectPaginatedList } from './project-paginated-list'
 import TagLabelGroup from '../tags/TagLabelGroup'
 import { useSearch } from './SearchProvider'
@@ -18,7 +17,7 @@ import { findProjects } from './find-projects'
 
 export const SearchResultsContainer = () => {
   const { selectedTags, query, sortOption, page } = useSearch()
-  const limit = 10
+  const limit = 30
 
   const projects = useSelector(allProjects)
   const tags = useSelector(state => state.entities.tags)

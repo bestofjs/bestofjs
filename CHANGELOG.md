@@ -1,8 +1,9 @@
 # Change log
 
-## Next release
+## 0.20.0 - 2019-12-26
 
-- Add monthly trends graph to project details page
+- Add monthly trends graph to project details page (#81)
+- Add all tags page (#83)
 
 ## 0.19.0 - 2019-10-20
 

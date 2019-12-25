@@ -4,10 +4,7 @@ import styled, { css } from 'styled-components'
 import { Link } from 'react-router-dom'
 import numeral from 'numeral'
 
-import Avatar from '../common/ProjectAvatar'
-import StarDelta from '../common/utils/StarDelta'
-import StarTotal from '../common/utils/StarTotal'
-import DownloadCount from '../common/utils/DownloadCount'
+import { Avatar, DownloadCount, StarDelta, StarTotal } from '../core/project'
 import { getDeltaByDay } from '../../selectors/project'
 import TagLabelGroup from '../tags/TagLabelGroup'
 import { DropdownMenu, Button } from '../core'
@@ -15,7 +12,7 @@ import { useUser } from '../../api/hooks'
 import fromNow from '../../helpers/fromNow'
 import { BookmarkIcon, MarkGitHubIcon, HomeIcon } from '../core/icons'
 
-const ProjectTable = ({ projects, from = 1, ...otherProps }) => {
+const ProjectTable = ({ projects, footer, from = 1, ...otherProps }) => {
   const userProps = useUser()
 
   return (
@@ -32,6 +29,13 @@ const ProjectTable = ({ projects, from = 1, ...otherProps }) => {
             />
           ))}
         </tbody>
+        {footer && (
+          <tfoot>
+            <FooterRow>
+              <Cell colSpan="5">{footer}</Cell>
+            </FooterRow>
+          </tfoot>
+        )}
       </Table>
     </div>
   )
@@ -225,8 +229,15 @@ const Row = styled.tr`
   }
 `
 
+const FooterRow = styled.tr`
+  td {
+    border-bottom: 1px dashed #cecece;
+    text-align: center;
+  }
+`
+
 const Cell = styled.td`
-  padding: 0.5rem;
+  padding: 1rem;
   background-color: white;
   &:first-child {
     padding-left: 1rem;

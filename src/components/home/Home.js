@@ -2,23 +2,18 @@ import React from 'react'
 import { useSelector } from 'react-redux'
 import styled from 'styled-components'
 import numeral from 'numeral'
+import { Link } from 'react-router-dom'
 
 import log from '../../helpers/log'
-import MainContent from '../common/MainContent'
 import HomeProjects from './HomeProjects'
 import { addProjectURL } from '../user-requests/add-project/CreateIssueLink'
 import TagLabelGroup from '../tags/TagLabelGroup'
-import { ExternalLink } from '../core/typography'
-import { Section } from '../core/section'
 import { useStaticContent } from '../../static-content'
 import { getTotalNumberOfStars } from '../../selectors/project'
 import { StarIcon } from '../core/icons'
-import { Button } from '../core'
-
+import { ExternalLink, Button, MainContent, Section, Spinner } from '../core'
 import Intro from './Intro'
 import News from './News'
-import StateOfJavaScript2019 from './state-of-js-survey'
-import Spinner from '../common/Spinner'
 
 const Home = props => {
   log('Render the <Home> component')
@@ -47,12 +42,7 @@ const Home = props => {
         </Section.Header>
         {!pending ? <HomeProjects {...props} /> : <Spinner />}
       </Section>
-      <Section>
-        <Section.Header icon="tag">
-          <Section.Title>Popular tags</Section.Title>
-        </Section.Header>
-        {!pending ? <TagLabelGroup tags={popularTags} /> : <>Loading...</>}
-      </Section>
+      <Tags popularTags={popularTags} pending={pending} />
       <Section>
         <Section.Header icon="mail">
           <Section.Title>Best of JavaScript Weekly</Section.Title>
@@ -78,6 +68,20 @@ const Home = props => {
       <StarOnGitHub />
       <MoreProjects handleClick={authActions.login} pending={pending} />
     </MainContent>
+  )
+}
+
+const Tags = ({ popularTags, pending }) => {
+  return (
+    <Section>
+      <Section.Header icon="tag">
+        <Section.Title>Popular tags</Section.Title>
+      </Section.Header>
+      {!pending ? <TagLabelGroup tags={popularTags} /> : <>Loading...</>}
+      <div style={{ paddingTop: '1rem', textAlign: 'center' }}>
+        <Link to={`/tags/`}>View all tags »</Link>
+      </div>
+    </Section>
   )
 }
 

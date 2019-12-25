@@ -1,16 +1,16 @@
-import { parse, stringify } from 'qs'
+import { stringify } from 'qs'
+import { parseQueryString } from '../../helpers/url'
 
 export function queryStringToState(queryString) {
-  const parameters = parse(queryString, { ignoreQueryPrefix: true })
+  const parameters = parseQueryString(queryString)
 
   const selectedTags = parameters.tags ? makeArray(parameters.tags) : []
-  const page = toInteger(parameters.page)
 
   return {
     selectedTags,
     query: parameters.query || '',
     sort: parameters.sort || '',
-    page
+    page: parameters.page
   }
 }
 
@@ -51,6 +51,3 @@ export function updateLocation(location, changes) {
 }
 
 const makeArray = value => (Array.isArray(value) ? value : [value])
-
-const toInteger = (input, defaultValue = 1) =>
-  isNaN(input) ? defaultValue : parseInt(input, 0)
