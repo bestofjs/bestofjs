@@ -3,7 +3,7 @@ import api from '../api/config'
 import { isFreshDataAvailable } from '../selectors'
 
 export function fetchProjectsFromAPI() {
-  const url = `${api('GET_PROJECTS')}projects.json`
+  const url = `${api('GET_PROJECTS')}/projects.json`
   return fetchJSON(url)
 }
 

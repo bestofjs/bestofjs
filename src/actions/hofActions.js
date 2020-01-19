@@ -2,7 +2,7 @@ import { fetchJSON } from '../helpers/fetch'
 import api from '../api/config'
 
 function fetchHeroes() {
-  const url = `${api('GET_PROJECTS')}hof.json`
+  const url = `${api('GET_PROJECTS')}/hof.json`
   return dispatch => {
     dispatch(fetchHeroesRequest())
     return fetchJSON(url).then(json => dispatch(fetchHeroesSuccess(json)))
