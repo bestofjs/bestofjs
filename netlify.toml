@@ -6,4 +6,4 @@
 
 # When `now` branch is built, a specific API root URL is setup
 [context.now.environment]
-  REACT_APP_STATIC_API = "https://bestofjs.michaelrambeau.now.sh"
+  REACT_APP_STATIC_API = "https://bestofjs.now.sh"
