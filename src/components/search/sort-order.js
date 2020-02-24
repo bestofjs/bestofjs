@@ -43,6 +43,11 @@ export const getSortOrderOptions = () => {
     },
     { type: 'divider' },
     {
+      id: 'newest',
+      label: 'Newest projects first'
+    },
+    { type: 'divider' },
+    {
       id: 'match',
       label: 'Best matching',
       disabled: ({ query }) => query === ''

@@ -12,10 +12,13 @@ export default function(state = {}, action) {
 
 function getProjectsBySlug(projects) {
   const projectsBySlug = {}
-  projects.forEach(project => {
+  const total = projects.length
+
+  projects.forEach((project, index) => {
     const slug = slugify(project.name, { lower: true, remove: /[.'/]/g })
     projectsBySlug[slug] = {
       slug,
+      addedPosition: total - index,
       ...project,
       packageName: project.npm
     }

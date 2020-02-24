@@ -291,7 +291,7 @@ const ContributorCountCell = styled(Cell)`
 const StarNumberCell = styled(Cell)`
   font-size: 1.25rem;
   text-align: center;
-  width: 80px;
+  width: 85px;
 `
 
 const InlineIcon = styled.span`
