@@ -12,11 +12,9 @@
 .item-exit {
   display: none;
 }
-/* .item-exit-active {
-  padding-left: -300px;
-  transition: padding-left 500ms ease-in;
-} */
-
+.item-exit-active {
+  display: none;
+}
 .progress-bar {
   width: 100%;
   height: 1px;
