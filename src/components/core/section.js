@@ -1,11 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 
-const StyledSection = styled.section``
-
-export const Section = ({ children }) => {
-  return <StyledSection>{children}</StyledSection>
-}
+export const Section = props => <section {...props} />
 
 Section.Header = ({ children, icon }) => {
   return (

@@ -38,7 +38,7 @@ export const Slider = ({ projects, limit }) => {
       <Section.Header icon="star">
         <Section.Title>Featured Projects</Section.Title>
         <Section.SubTitle>
-          Random order <i>{duration === 0 ? 'Paused' : '(Running...)'}</i>
+          Random order <i>{duration === 0 ? '(Paused)' : '(Running...)'}</i>
         </Section.SubTitle>
       </Section.Header>
       <SliderContainer
