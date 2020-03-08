@@ -89,9 +89,14 @@ export const FeaturedProjectGroup = ({
   return (
     <>
       <CountDown pageNumber={pageNumber} duration={duration} />
-      {visibleProjects.map(project => (
+      {visibleProjects.map((project, index) => (
         <ProjectContainer key={project.slug}>
-          <Animate play delay={0.5} start={{ opacity: 0 }} end={{ opacity: 1 }}>
+          <Animate
+            play
+            delay={0.1 + index * 0.05}
+            start={{ opacity: 0 }}
+            end={{ opacity: 1 }}
+          >
             <FeaturedProject
               style={style}
               key={project.slug}
