@@ -1,0 +1,28 @@
+.item-list {
+  width: 300px;
+  overflow: hidden;
+}
+.item-enter {
+  padding-left: 300px;
+}
+.item-enter-active {
+  padding-left: 0;
+  transition: padding-left 500ms ease-in;
+}
+.item-exit {
+  display: none;
+}
+/* .item-exit-active {
+  padding-left: -300px;
+  transition: padding-left 500ms ease-in;
+} */
+
+.progress-bar {
+  width: 100%;
+  height: 1px;
+}
+.progress-bar .progress {
+  height: 1px;
+  background-color: #fa9e59;
+  transition: width 500ms ease-in-out;
+}

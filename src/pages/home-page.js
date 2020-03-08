@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux'
 
 import Home from '../components/home/Home'
 import * as uiActionCreators from '../actions/uiActions'
-import { getHotProjects } from '../selectors'
+import { getHotProjects, getNewestProjects } from '../selectors'
 import { getPopularTags } from '../selectors/tag-selectors'
 
 const HomePage = ({ auth, ui, pending, ...otherProps }) => {
@@ -17,11 +17,14 @@ function mapStateToProps(state) {
   const projectCount = 5
   const hotProjects = getHotProjects(projectCount)(state)
 
-  const tagCount = 15
+  const tagCount = 10
   const popularTags = getPopularTags(tagCount)(state)
 
+  const newestProjectCount = 5
+  const newestProjects = getNewestProjects(newestProjectCount)(state)
+
   const { pending, error } = state.entities.meta
-  return { hotProjects, popularTags, auth, ui, pending, error }
+  return { hotProjects, newestProjects, popularTags, auth, ui, pending, error }
 }
 
 function mapDispatchToProps(dispatch) {

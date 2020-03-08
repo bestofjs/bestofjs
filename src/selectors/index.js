@@ -21,12 +21,18 @@ export const npmProjects = createSelector(
 const sortProjects = fn => projects => sortProjectsByFunction(projects, fn)
 
 // a sub-selector used by both `getProjectsSortedBy` and `getProjectsByTag`
-const getRawProjectsSortedBy = ({ criteria, start = 0, limit = 10 }) => {
+const getRawProjectsSortedBy = ({
+  filterFn,
+  criteria,
+  start = 0,
+  limit = 10
+}) => {
   return createSelector(
     [allProjects],
     projects => {
+      const filteredProjects = filterFn ? projects.filter(filterFn) : projects
       const projectSelector = getProjectSelectorByKey(criteria)
-      const sliced = sortProjects(projectSelector)(projects).slice(
+      const sliced = sortProjects(projectSelector)(filteredProjects).slice(
         start,
         start + limit
       )
@@ -36,19 +42,34 @@ const getRawProjectsSortedBy = ({ criteria, start = 0, limit = 10 }) => {
 }
 
 // Create a selector for a given criteria (`total`, `daily`)
-export const getProjectsSortedBy = ({ criteria, start, limit }) =>
+export const getProjectsSortedBy = ({ filterFn, criteria, start, limit }) =>
   createSelector(
     [
-      getRawProjectsSortedBy({ criteria, start, limit }),
+      getRawProjectsSortedBy({ filterFn, criteria, start, limit }),
       state => state.entities.tags,
       state => state.auth
     ],
     (projects, tags, auth) => projects.map(getFullProject(tags, auth))
   )
 
+const hotProjectsExcludedTags = ['meta', 'learning']
+const isIncluded = project => {
+  const hasExcludedTag = hotProjectsExcludedTags.some(tag =>
+    project.tags.includes(tag)
+  )
+  return !hasExcludedTag
+}
+
 export const getHotProjects = count =>
   getProjectsSortedBy({
+    filterFn: isIncluded,
     criteria: 'daily',
+    limit: count
+  })
+
+export const getNewestProjects = count =>
+  getProjectsSortedBy({
+    criteria: 'newest',
     limit: count
   })
 
@@ -94,6 +115,11 @@ export const getBookmarkCount = createSelector(
   ids => {
     return ids.length
   }
+)
+
+export const getFeaturedProjects = createSelector(
+  [allProjects],
+  projects => projects.filter(project => !!project.icon)
 )
 
 export const getFullProject = (tags, auth) => project => {

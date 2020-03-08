@@ -12,11 +12,11 @@ import { useUser } from '../../api/hooks'
 import fromNow from '../../helpers/fromNow'
 import { BookmarkIcon, MarkGitHubIcon, HomeIcon } from '../core/icons'
 
-const ProjectTable = ({ projects, footer, from = 1, ...otherProps }) => {
+const ProjectTable = ({ projects, footer, from = 1, style, ...otherProps }) => {
   const userProps = useUser()
 
   return (
-    <div className="table-container">
+    <div className="table-container" style={style}>
       <Table>
         <tbody>
           {projects.map((project, index) => (
@@ -53,7 +53,8 @@ const ProjectTableRow = ({
   removeBookmark,
   deltaFilter = 'total',
   showDetails = true,
-  showRankingNumber = false
+  showRankingNumber = false,
+  showActions = true
 }) => {
   const path = `/projects/${project.slug}`
 
@@ -206,9 +207,11 @@ const ProjectTableRow = ({
 
         {showDownloads && <DownloadCount value={project.downloads} />}
       </StarNumberCell>
-      <ActionCell>
-        <DropdownMenu items={items} alignment="right" />
-      </ActionCell>
+      {showActions && (
+        <ActionCell>
+          <DropdownMenu items={items} alignment="right" />
+        </ActionCell>
+      )}
     </Row>
   )
 }
@@ -237,7 +240,7 @@ const FooterRow = styled.tr`
 `
 
 const Cell = styled.td`
-  padding: 1rem;
+  padding: 1rem 0.5rem;
   background-color: white;
   &:first-child {
     padding-left: 1rem;

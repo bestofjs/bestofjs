@@ -10,12 +10,14 @@ export const Section = ({ children }) => {
 Section.Header = ({ children, icon }) => {
   return (
     <Row>
-      <IconCell>
-        <span
-          className={`mega-octicon octicon-${icon}`}
-          style={{ color: '#fa9e59' }}
-        />
-      </IconCell>
+      {icon && (
+        <IconCell>
+          <span
+            className={`mega-octicon octicon-${icon}`}
+            style={{ color: '#fa9e59' }}
+          />
+        </IconCell>
+      )}
       <MainCell>{children}</MainCell>
     </Row>
   )

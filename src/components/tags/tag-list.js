@@ -8,15 +8,47 @@ import { Avatar } from '../core/project'
 import { Button, Grid, Cell as GridCell } from '../core'
 import { ChevronRightIcon } from '../core/icons'
 
-export const TagList = ({ tags }) => {
+export const DetailedTagList = ({ tags }) => {
   return (
-    <List>
+    <TagList>
       {tags.map(tag => (
         <TagListRow key={tag.id} tag={tag} />
       ))}
-    </List>
+    </TagList>
   )
 }
+
+export const CompactTagList = ({ tags, footer }) => {
+  return (
+    <TagList>
+      {tags.map(tag => (
+        <ListRow key={tag.id} tag={tag}>
+          <CompactListItem>
+            <Link
+              to={`/projects?tags=${tag.code}`}
+              style={{ marginRight: '0.25rem' }}
+            >
+              {tag.name}
+            </Link>
+            ({tag.counter})
+          </CompactListItem>
+        </ListRow>
+      ))}
+      {footer && (
+        <ListRow>
+          <CompactListItem style={{ textAlign: 'center' }}>
+            {footer}
+          </CompactListItem>
+        </ListRow>
+      )}
+    </TagList>
+  )
+}
+
+const CompactListItem = styled.div`
+  width: 100%;
+  padding: 1rem;
+`
 
 const TagListRow = ({ tag }) => {
   return (
@@ -76,8 +108,9 @@ const IconGrid = ({ tag, projectCount = 5 }) => {
   )
 }
 
-const List = styled.div`
+const TagList = styled.div`
   width: 100%;
+  margin-bottom: 2rem;
 `
 
 const breakPoint = 600

@@ -6,7 +6,7 @@ import { PaginationContext } from '../core/pagination/provider'
 import { SortOrderPicker } from './sort-order'
 import { updateLocation } from '../search/search-utils'
 
-import { TagList } from './tag-list'
+import { DetailedTagList } from './tag-list'
 import {
   TopPaginationControls,
   BottomPaginationControls
@@ -53,7 +53,7 @@ export const PaginatedTagList = ({
           )}
         </Row>
       )}
-      <TagList tags={tags} from={from} />
+      <DetailedTagList tags={tags} from={from} />
       {showPagination && (
         <BottomPaginationControls history={history} location={location} />
       )}

@@ -30,9 +30,15 @@ const StarDeltaNormal = ({ value }) => {
   const sign = getSign(value)
   return (
     <StarDeltaContainer>
-      <span style={{ marginRight: 2 }}>{sign}</span>
-      <span>{Math.abs(value)}</span>
-      <StarIcon />
+      {value === 0 ? (
+        '='
+      ) : (
+        <>
+          <span style={{ marginRight: 2 }}>{sign}</span>
+          <span>{Math.abs(value)}</span>
+          <StarIcon />
+        </>
+      )}
     </StarDeltaContainer>
   )
 }

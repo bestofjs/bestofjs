@@ -5,15 +5,16 @@ import numeral from 'numeral'
 import { Link } from 'react-router-dom'
 
 import log from '../../helpers/log'
-import HomeProjects from './HomeProjects'
+import { HotProjects, NewestProjects } from './home-projects'
 import { addProjectURL } from '../user-requests/add-project/CreateIssueLink'
 import TagLabelGroup from '../tags/TagLabelGroup'
 import { useStaticContent } from '../../static-content'
 import { getTotalNumberOfStars } from '../../selectors/project'
 import { StarIcon } from '../core/icons'
-import { ExternalLink, Button, MainContent, Section, Spinner } from '../core'
+import { ExternalLink, Button, MainContent, Section } from '../core'
 import Intro from './Intro'
-import News from './News'
+import { CompactTagList } from '../tags/tag-list'
+import { RandomFeaturedProject } from './featured-project'
 
 const Home = props => {
   log('Render the <Home> component')
@@ -34,15 +35,28 @@ const Home = props => {
     <MainContent>
       <Intro />
       <Section>
-        <Section.Header icon="flame">
-          <Section.Title>Today Hot Projects</Section.Title>
-          <Section.SubTitle>
-            by number of stars added yesterday
-          </Section.SubTitle>
-        </Section.Header>
-        {!pending ? <HomeProjects {...props} /> : <Spinner />}
+        <Row>
+          <Col style={{ flexGrow: 1 }}>
+            <HotProjects {...props} />
+            <NewestProjects {...props} />
+          </Col>
+          <RightSideBar>
+            <RandomFeaturedProject />
+            <Section.Header icon="tag">
+              <Section.Title>Popular tags</Section.Title>
+            </Section.Header>
+            <CompactTagList
+              tags={popularTags}
+              footer={
+                <Link to={`/tags/`} style={{ display: 'block' }}>
+                  View all tags »
+                </Link>
+              }
+            />
+          </RightSideBar>
+        </Row>
       </Section>
-      <Tags popularTags={popularTags} pending={pending} />
+      <Tags popularTags={popularTags} isPending={pending} />
       <Section>
         <Section.Header icon="mail">
           <Section.Title>Best of JavaScript Weekly</Section.Title>
@@ -53,27 +67,29 @@ const Home = props => {
         </ExternalLink>{' '}
         to check the latest trends.
       </Section>
-      {false && (
-        <News
-          date={new Date('2019-10-20T13:00:00.000Z')}
-          title={'Best of JavaScript is changing!'}
-        >
-          Check our latest post from{' '}
-          <ExternalLink url="https://weekly.bestofjs.org/issues/73">
-            Weekly Best of JavaScript
-          </ExternalLink>{' '}
-          to know more about the new search engine.
-        </News>
-      )}
       <StarOnGitHub />
       <MoreProjects handleClick={authActions.login} pending={pending} />
     </MainContent>
   )
 }
 
+const Row = styled.div`
+  display: flex;
+`
+
+const Col = styled.div``
+
+const RightSideBar = styled.aside`
+  width: 330px;
+  padding-left: 2rem;
+  @media (max-width: 999px) {
+    display: none;
+  }
+`
+
 const Tags = ({ popularTags, pending }) => {
   return (
-    <Section>
+    <SectionMobileOnly>
       <Section.Header icon="tag">
         <Section.Title>Popular tags</Section.Title>
       </Section.Header>
@@ -81,9 +97,15 @@ const Tags = ({ popularTags, pending }) => {
       <div style={{ paddingTop: '1rem', textAlign: 'center' }}>
         <Link to={`/tags/`}>View all tags »</Link>
       </div>
-    </Section>
+    </SectionMobileOnly>
   )
 }
+
+const SectionMobileOnly = styled(Section)`
+  @media (min-width: 1000px) {
+    display: none;
+  }
+`
 
 const StarOnGitHub = () => {
   const { repo, projectName } = useStaticContent()
