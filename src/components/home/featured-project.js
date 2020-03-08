@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import styled from 'styled-components'
 import { useSelector } from 'react-redux'
 import { useHistory } from 'react-router-dom'
-import { CSSTransition, TransitionGroup } from 'react-transition-group'
+import { Animate, useAnimate } from 'react-simple-animate'
 
 import { Avatar, StarDelta } from '../core/project'
 import { Section } from '../core'
@@ -62,6 +62,7 @@ export const Slider = ({ projects, limit }) => {
 
 const SliderContainer = styled.div`
   margin-bottom: 2rem;
+  background-color: white;
 `
 
 export const FeaturedProjectGroup = ({
@@ -73,24 +74,40 @@ export const FeaturedProjectGroup = ({
 }) => {
   const start = pageNumber * limit
   const visibleProjects = projects.slice(start, start + limit)
+  const { play, style } = useAnimate({
+    start: { opacity: 0 },
+    end: { opacity: 1 }
+  })
+
+  useUpdateEffect(
+    () => {
+      play(true)
+    },
+    [pageNumber]
+  )
 
   return (
     <>
       <CountDown pageNumber={pageNumber} duration={duration} />
-      <TransitionGroup className="item-list">
-        {visibleProjects.map(project => (
-          <CSSTransition timeout={1000} classNames="item" key={project.slug}>
+      {visibleProjects.map(project => (
+        <ProjectContainer key={project.slug}>
+          <Animate play delay={0.5} start={{ opacity: 0 }} end={{ opacity: 1 }}>
             <FeaturedProject
+              style={style}
               key={project.slug}
               project={project}
               {...otherProps}
             />
-          </CSSTransition>
-        ))}
-      </TransitionGroup>
+          </Animate>
+        </ProjectContainer>
+      ))}
     </>
   )
 }
+
+const ProjectContainer = styled.div`
+  border-bottom: 1px dashed #cecece;
+`
 
 export const FeaturedProject = ({
   project,
@@ -104,10 +121,12 @@ export const FeaturedProject = ({
       <Avatar project={project} size={100} />
       <FeaturedProjectName>
         <div className="title">{project.name}</div>
-        <StarDelta
-          value={getDeltaByDay(sortOptionId)(project)}
-          average={sortOptionId !== 'daily'}
-        />
+        <div className="stars">
+          <StarDelta
+            value={getDeltaByDay(sortOptionId)(project)}
+            average={sortOptionId !== 'daily'}
+          />
+        </div>
       </FeaturedProjectName>
     </Box>
   )
@@ -121,9 +140,14 @@ const Box = styled.div`
   cursor: pointer;
   padding-top: 1rem;
   padding-bottom: 1rem;
-  border-bottom: 1px dashed #cecece;
+  :hover {
+    background-color: #f6fad7;
+  }
   .title {
     margin-bottom: 0.5rem;
+  }
+  .stars {
+    font-size: 1.25rem;
   }
 `
 

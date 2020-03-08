@@ -1,20 +1,3 @@
-.item-list {
-  width: 300px;
-  overflow: hidden;
-}
-.item-enter {
-  padding-left: 300px;
-}
-.item-enter-active {
-  padding-left: 0;
-  transition: padding-left 500ms ease-in;
-}
-.item-exit {
-  display: none;
-}
-.item-exit-active {
-  display: none;
-}
 .progress-bar {
   width: 100%;
   height: 1px;
