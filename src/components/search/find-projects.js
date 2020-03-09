@@ -51,9 +51,10 @@ export function filterProjectsByQuery(projects, query) {
 // return how much "relevant" is the project in the search results
 // `tags` is an array of tags that match the text
 function rank(project, query) {
-  const equals = new RegExp('^' + query + '$', 'i')
-  const startsWith = new RegExp('^' + query, 'i')
-  const contains = new RegExp(query.replace(/ /g, '.+'), 'i') // the query is split if it contains spaces
+  const escapedQuery = escapeRegExp(query)
+  const equals = new RegExp('^' + escapedQuery + '$', 'i')
+  const startsWith = new RegExp('^' + escapedQuery, 'i')
+  const contains = new RegExp(escapedQuery.replace(/ /g, '.+'), 'i') // the query is split if it contains spaces
 
   if (equals.test(project.name)) {
     // top level relevance: project whose name or package name is what the user entered
@@ -116,4 +117,9 @@ function getTagsFromProjects(projects, excludedTagIds = []) {
       })
   })
   return result
+}
+
+// From https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions
+function escapeRegExp(string) {
+  return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') // $& means the whole matched string
 }
