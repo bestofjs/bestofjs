@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
 import numeral from 'numeral'
 
@@ -92,11 +92,61 @@ const Span = styled.span`
   display: inline-flex;
   align-items: center;
 `
-
+// TODO: check if the this approach works better? (requires CSS)
+// export const Avatar = ({ project, size = 100 }) => {
+//   const url = getProjectAvatarUrl(project, size)
+//   const [isImageLoaded, setIsImageLoaded] = useState(false)
+//   const onLoad = useCallback(() => setIsImageLoaded(true), [])
+//   return (
+//     <>
+//       <img
+//         src={url}
+//         width={size}
+//         height={size}
+//         alt={project.name}
+//         onLoad={onLoad}
+//         className={isImageLoaded ? 'visible-image' : 'hidden-image'}
+//       />
+//       {!isImageLoaded && <ImagePlaceHolder size={size} />}
+//     </>
+//   )
+// }
 export const Avatar = ({ project, size = 100 }) => {
   const url = getProjectAvatarUrl(project, size)
-  return <img src={url} width={size} height={size} alt={project.name} />
+  const [isImageLoaded, setIsImageLoaded] = useState(false)
+  const isMounted = React.useRef(true)
+
+  useEffect(() => {
+    const image = new Image()
+    image.src = url
+    image.onload = () => {
+      if (isMounted.current) setIsImageLoaded(true)
+    }
+    return () => {
+      isMounted.current = false
+    }
+  }, []) // eslint-disable-line react-hooks/exhaustive-deps
+  return isImageLoaded ? (
+    <img src={url} width={size} height={size} alt={project.name} />
+  ) : (
+    <ImagePlaceHolder size={size} />
+  )
 }
+
+const ImagePlaceHolder = props => {
+  return (
+    <PlaceHolderContainer {...props}>
+      <svg width={props.size} height={props.size} viewBox="0 0 100 100">
+        <circle cx="50" cy="50" r="40" fill="#fbe6db" />
+      </svg>
+    </PlaceHolderContainer>
+  )
+}
+
+const PlaceHolderContainer = styled.div`
+  width: ${props => props.size}px;
+  height: ${props => props.size}px;
+`
 
 /*
 Return the image URL to be displayed inside the project card

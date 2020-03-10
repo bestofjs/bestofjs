@@ -1,10 +1,10 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
 import { useSelector } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 import { Animate, useAnimate } from 'react-simple-animate'
 
-import { Avatar, StarDelta } from '../core/project'
+import { Avatar, StarDelta, getProjectAvatarUrl } from '../core/project'
 import { Section } from '../core'
 import { getFeaturedProjects } from '../../selectors'
 import { getDeltaByDay } from '../../selectors/project'
@@ -20,12 +20,11 @@ export const RandomFeaturedProject = () => {
 
   const projects = shuffle(featuredProjects)
 
-  return <Slider projects={projects} limit={5} />
+  return <Slider projects={projects} duration={5000} limit={5} />
 }
 
-export const Slider = ({ projects, limit }) => {
+export const Slider = ({ projects, duration: defaultDuration, limit }) => {
   const [pageNumber, setPageNumber] = useState(0)
-  const defaultDuration = 5000
   const [duration, setDuration] = useState(defaultDuration)
   const maxPageNumber = parseInt(projects.length / limit, 10) - 1
 
@@ -74,10 +73,19 @@ export const FeaturedProjectGroup = ({
 }) => {
   const start = pageNumber * limit
   const visibleProjects = projects.slice(start, start + limit)
+
   const { play, style } = useAnimate({
     start: { opacity: 0 },
     end: { opacity: 1 }
   })
+
+  useEffect(
+    () => {
+      const nextProjects = projects.slice(start + limit, start + 2 * limit)
+      preloadLogos(nextProjects)
+    },
+    [pageNumber] // eslint-disable-line react-hooks/exhaustive-deps
+  )
 
   useUpdateEffect(
     () => {
@@ -143,8 +151,7 @@ const Box = styled.div`
   display: flex;
   align-items: center;
   cursor: pointer;
-  padding-top: 1rem;
-  padding-bottom: 1rem;
+  padding: 1rem;
   :hover {
     background-color: #f6fad7;
   }
@@ -189,3 +196,13 @@ const ProgressBar = ({ progress }) => (
     <div className="progress" style={{ width: progress + `%` }} />
   </div>
 )
+
+function preloadLogos(projects) {
+  projects.forEach(loadProjectImage)
+}
+
+function loadProjectImage(project) {
+  const url = getProjectAvatarUrl(project)
+  const image = new Image()
+  image.src = url
+}
