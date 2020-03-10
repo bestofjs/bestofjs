@@ -38,22 +38,25 @@ const Home = props => {
         <Row>
           <Col style={{ flexGrow: 1 }}>
             <HotProjects {...props} />
-            <NewestProjects {...props} />
+            {!pending && <NewestProjects {...props} />}
           </Col>
-          <RightSideBar>
-            <RandomFeaturedProject />
-            <Section.Header icon="tag">
-              <Section.Title>Popular tags</Section.Title>
-            </Section.Header>
-            <CompactTagList
-              tags={popularTags}
-              footer={
-                <Link to={`/tags/`} style={{ display: 'block' }}>
-                  View all tags »
-                </Link>
+          {!pending && (
+            <RightSideBar>
+              <RandomFeaturedProject />
+              <Section.Header icon="tag">
+                <Section.Title>Popular tags</Section.Title>
+              </Section.Header>
+              <CompactTagList
+                tags={popularTags}
+                footer={
+                  <Link to={`/tags/`} style={{ display: 'block' }}>
+                    View all tags »
+                  </Link>
+                }
+              />
               }
-            />
-          </RightSideBar>
+            </RightSideBar>
+          )}
         </Row>
       </Section>
       <Tags popularTags={popularTags} isPending={pending} />

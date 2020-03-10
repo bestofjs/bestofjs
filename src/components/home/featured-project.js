@@ -153,7 +153,7 @@ const Box = styled.div`
   cursor: pointer;
   padding: 1rem;
   :hover {
-    background-color: #f6fad7;
+    background-color: #f9f5f2;
   }
   .title {
     margin-bottom: 0.5rem;
