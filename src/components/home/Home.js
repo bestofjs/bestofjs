@@ -54,7 +54,6 @@ const Home = props => {
                   </Link>
                 }
               />
-              }
             </RightSideBar>
           )}
         </Row>

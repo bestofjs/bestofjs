@@ -40,6 +40,7 @@
     "react": "16.8.6",
     "react-async": "^7.0.5",
     "react-calendar-heatmap": "1.4.1",
+    "react-content-loader": "^5.0.2",
     "react-dom": "16.8.6",
     "react-redux": "^7.1.1",
     "react-request": "^3.1.2",

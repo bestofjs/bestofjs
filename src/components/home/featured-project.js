@@ -20,7 +20,7 @@ export const RandomFeaturedProject = () => {
 
   const projects = shuffle(featuredProjects)
 
-  return <Slider projects={projects} duration={5000} limit={5} />
+  return <Slider projects={projects} duration={7000} limit={5} />
 }
 
 export const Slider = ({ projects, duration: defaultDuration, limit }) => {
@@ -96,7 +96,7 @@ export const FeaturedProjectGroup = ({
 
   return (
     <>
-      <CountDown pageNumber={pageNumber} duration={duration} />
+      <CountDown pageNumber={pageNumber} duration={duration} interval={1000} />
       {visibleProjects.map((project, index) => (
         <ProjectContainer key={project.slug}>
           <Animate
@@ -131,7 +131,7 @@ export const FeaturedProject = ({
   const history = useHistory()
   return (
     <Box onClick={() => history.push(`/projects/${project.slug}`)}>
-      <Avatar project={project} size={100} />
+      <Avatar project={project} size={80} />
       <FeaturedProjectName>
         <div className="title">{project.name}</div>
         <div className="stars">
@@ -168,10 +168,10 @@ const FeaturedProjectName = styled.div`
   text-align: center;
 `
 
-const CountDown = ({ pageNumber, duration = 5000, steps = 5 }) => {
+const CountDown = ({ pageNumber, duration, interval }) => {
+  const steps = duration / interval
   const initialProgress = 100 / steps
   const [progress, setProgress] = useState(initialProgress)
-  const delay = duration / steps
 
   useInterval(
     () => {
@@ -179,7 +179,7 @@ const CountDown = ({ pageNumber, duration = 5000, steps = 5 }) => {
         setProgress(val => val + initialProgress)
       }
     },
-    duration ? delay : 0
+    duration ? interval : 0
   )
 
   useUpdateEffect(

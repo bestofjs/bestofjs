@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
 import numeral from 'numeral'
+import ContentLoader from 'react-content-loader'
 
 import { StarIcon } from './icons'
 
@@ -136,9 +137,13 @@ export const Avatar = ({ project, size = 100 }) => {
 const ImagePlaceHolder = props => {
   return (
     <PlaceHolderContainer {...props}>
-      <svg width={props.size} height={props.size} viewBox="0 0 100 100">
-        <circle cx="50" cy="50" r="40" fill="#fbe6db" />
-      </svg>
+      <ContentLoader
+        viewBox="0 0 100 100"
+        backgroundColor="#fbe6db"
+        foregroundColor="#f9dccc"
+      >
+        <circle cx="50" cy="50" r="40" />
+      </ContentLoader>
     </PlaceHolderContainer>
   )
 }
