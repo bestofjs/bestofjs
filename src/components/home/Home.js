@@ -14,7 +14,7 @@ import { StarIcon } from '../core/icons'
 import { ExternalLink, Button, MainContent, Section } from '../core'
 import Intro from './Intro'
 import { CompactTagList } from '../tags/tag-list'
-import { RandomFeaturedProject } from './featured-project'
+import { RandomFeaturedProject } from './featured-projects'
 
 const Home = props => {
   log('Render the <Home> component')

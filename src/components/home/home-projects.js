@@ -39,7 +39,7 @@ export const HotProjects = ({ hotProjects, hotFilter, pending }) => {
 export const NewestProjects = ({ newestProjects, hotFilter }) => {
   return (
     <>
-      <Section.Header>
+      <Section.Header icon="gift">
         <Section.Title>Newest Projects</Section.Title>
         <Section.SubTitle>
           Latest additions to <i>Best of JavaScript</i>
