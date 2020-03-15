@@ -1,48 +1,18 @@
-/*
-Adapted from:
-https://github.com/streamich/react-use/blob/master/src/usePageLeave.ts
-*/
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
 
-export const usePageEvents = ({ onEnter, onLeave }, args = []) => {
-  const isActive = useRef(true)
+export const useIsDocumentVisible = () => {
+  const [isVisible, setIsVisible] = useState(true)
 
   useEffect(() => {
-    const pageLeaveHandler = event => {
-      event = event ? event : window.event
-      const from = event.relatedTarget || event.toElement
-      if (!from || from.nodeName === 'HTML') {
-        isActive.current = false
-        onLeave()
-      }
+    const handler = () => {
+      const isVisible = document.visibilityState === 'visible' // "hidden" or "visible"
+      setIsVisible(isVisible)
     }
-
-    const pageEnterHandler = event => {
-      if (!isActive.current) {
-        onEnter()
-      }
-    }
-
-    document.addEventListener('mouseout', pageLeaveHandler)
-    document.addEventListener('mouseenter', pageEnterHandler)
+    document.addEventListener('visibilitychange', handler)
     return () => {
-      document.removeEventListener('mouseout', pageLeaveHandler)
-      document.removeEventListener('mouseenter', pageEnterHandler)
-    }
-  }, args) //eslint-disable-line react-hooks/exhaustive-deps
-}
-
-export const useIsAway = () => {
-  const [isAway, setIsAway] = useState(false)
-
-  usePageEvents({
-    onEnter: () => {
-      setIsAway(false)
-    },
-    onLeave: () => {
-      setIsAway(true)
+      document.removeEventListener('visibilitychange', handler)
     }
   })
 
-  return isAway
+  return isVisible
 }

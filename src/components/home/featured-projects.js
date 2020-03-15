@@ -12,7 +12,8 @@ import { useInterval } from '../../helpers/use-interval'
 import { shuffle } from '../../helpers/shuffle'
 import { useUpdateEffect } from '../../helpers/lifecycle-hooks'
 import { useViewportSpy } from '../../helpers/use-viewport-spy'
-import { useIsAway } from '../../helpers/use-page-events'
+import { useIsDocumentVisible } from '../../helpers/use-page-events'
+import log from '../../helpers/log'
 
 import './featured-projects.css'
 
@@ -28,12 +29,12 @@ export const RandomFeaturedProject = () => {
 export const Slider = ({ projects, duration, limit }) => {
   const ref = useRef()
   const [pageNumber, setPageNumber] = useState(0)
-  const isVisible = useViewportSpy(ref, { threshold: 0.75 })
+  const isVisible = useViewportSpy(ref)
   const [isHover, setIsHover] = useState(false)
-  const isAway = useIsAway()
+  const isDocumentVisible = useIsDocumentVisible()
   const maxPageNumber = parseInt(projects.length / limit, 10) - 1
 
-  const isPaused = !isVisible || isHover || isAway
+  const isPaused = !isVisible || isHover || !isDocumentVisible
 
   useInterval(
     () => {
@@ -90,6 +91,8 @@ export const FeaturedProjectGroup = ({
   const nextProjects = isLastPage
     ? projects.slice(0, limit)
     : projects.slice(start + limit, start + 2 * limit)
+
+  log(`Slider page ${pageNumber}`, visibleProjects[0].name)
 
   return (
     <ProjectSlider
