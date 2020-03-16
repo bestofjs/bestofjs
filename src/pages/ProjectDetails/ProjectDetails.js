@@ -6,7 +6,7 @@ import { Route, Switch } from 'react-router-dom'
 
 import track from '../../helpers/track'
 import * as actionCreators from '../../actions'
-import { findProject } from '../../selectors/project'
+import { findProjectById } from '../../selectors/project'
 import { useFetchProjectDetails } from '../../api/hooks'
 
 import { MainContent, Spinner } from '../../components/core'
@@ -60,7 +60,7 @@ function mapStateToProps(state, props) {
   const params = props.match.params
   const { id } = params
 
-  const project = findProject(id)(state)
+  const project = findProjectById(id)(state)
 
   return {
     project,

@@ -45,3 +45,12 @@ export function useUser() {
     removeBookmark: project => dispatch(removeBookmark(project))
   }
 }
+
+const loadIssue = () => {
+  const lastestIssueURL = `https://weekly.bestofjs.org/latest/routeInfo.json`
+  return fetchJSON(lastestIssueURL).then(({ data }) => data.issue)
+}
+
+export function useFetchLatestIssue() {
+  return useAsync(loadIssue)
+}

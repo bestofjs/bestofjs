@@ -15,6 +15,8 @@ import { ExternalLink, Button, MainContent, Section } from '../core'
 import Intro from './Intro'
 import { CompactTagList } from '../tags/tag-list'
 import { RandomFeaturedProject } from './featured-projects'
+import { Weekly } from './weekly'
+import { Row, MainColumn, RightSideBar } from './layout'
 
 const Home = props => {
   log('Render the <Home> component')
@@ -36,10 +38,10 @@ const Home = props => {
       <Intro />
       <Section>
         <Row>
-          <Col style={{ flexGrow: 1 }}>
+          <MainColumn>
             <HotProjects {...props} />
             {!pending && <NewestProjects {...props} />}
-          </Col>
+          </MainColumn>
           {!pending && (
             <RightSideBar>
               <RandomFeaturedProject />
@@ -59,35 +61,12 @@ const Home = props => {
         </Row>
       </Section>
       <Tags popularTags={popularTags} isPending={pending} />
-      <Section>
-        <Section.Header icon="mail">
-          <Section.Title>Best of JavaScript Weekly</Section.Title>
-        </Section.Header>
-        Every Monday we publish a post and send a newsletter. Visit{' '}
-        <ExternalLink url="https://weekly.bestofjs.org/">
-          Weekly Best of JavaScript
-        </ExternalLink>{' '}
-        to check the latest trends.
-      </Section>
+      <Weekly />
       <StarOnGitHub />
       <MoreProjects handleClick={authActions.login} pending={pending} />
     </MainContent>
   )
 }
-
-const Row = styled.div`
-  display: flex;
-`
-
-const Col = styled.div``
-
-const RightSideBar = styled.aside`
-  width: 330px;
-  padding-left: 2rem;
-  @media (max-width: 999px) {
-    display: none;
-  }
-`
 
 const Tags = ({ popularTags, pending }) => {
   return (

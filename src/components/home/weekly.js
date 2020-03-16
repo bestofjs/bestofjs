@@ -1,0 +1,91 @@
+import React from 'react'
+import tinytime from 'tinytime'
+import styled from 'styled-components'
+
+import { ExternalLink, Section } from '../core'
+import { useFetchLatestIssue } from '../../api/hooks'
+import { Row, MainColumn, RightSideBar } from './layout'
+import ProjectList from '../project-list/ProjectTable'
+import { getProjectId } from '../core/project'
+import { useSelector } from 'react-redux'
+import { findProjectsByIds } from '../../selectors/project'
+
+export const Weekly = () => {
+  return (
+    <Section>
+      <Row>
+        <MainColumn>
+          <Section.Header icon="mail">
+            <Section.Title>Weekly Newsletter</Section.Title>
+          </Section.Header>
+          Visit{' '}
+          <ExternalLink url="https://weekly.bestofjs.org/">
+            Weekly Best of JavaScript
+          </ExternalLink>{' '}
+          to get the rankings in your inbox every week.
+          <LatestIssue />
+        </MainColumn>
+        <RightSideBar />
+      </Row>
+    </Section>
+  )
+}
+
+export const LatestIssue = () => {
+  const { data, isPending, error } = useFetchLatestIssue()
+  if (isPending) {
+    return <>Loading the latest story</>
+  }
+  if (error) {
+    return <>Unable to load the latest issue</>
+  }
+  const { number, date, growing, story } = data
+  return (
+    <>
+      <IssueSubTitle>
+        Issue #{number}{' '}
+        <span className="hidden-sm">
+          (<IssueDate date={date} />)
+        </span>
+      </IssueSubTitle>
+      <div dangerouslySetInnerHTML={{ __html: story }} />
+      <IssueSubTitle>Growing fast this week</IssueSubTitle>
+      <Rankings projects={growing} />
+    </>
+  )
+}
+
+const IssueSubTitle = styled.h4`
+  margin: 1rem 0;
+  font-size: 1.2rem;
+`
+
+const template = tinytime('{MMMM} {DD}, {YYYY}', { padDays: true })
+
+const IssueDate = ({ date }) => {
+  const dateObject = typeof date === 'string' ? new Date(date) : date
+  return template.render(dateObject)
+}
+
+const Rankings = ({ projects }) => {
+  const ids = projects.map(project => getProjectId(project)).slice(0, 5)
+  const trendingProjects = useSelector(findProjectsByIds(ids))
+
+  return (
+    <ProjectList
+      projects={trendingProjects}
+      showDelta
+      showStars={false}
+      showMetrics={false}
+      sortOption={{ id: 'daily' }}
+      showDetails={false}
+      showRankingNumber={false}
+      showActions={false}
+      footer={
+        <a href={`https://weekly.bestofjs.org/`} style={{ display: 'block' }}>
+          View this week rankings »
+        </a>
+      }
+    />
+  )
+}

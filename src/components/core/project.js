@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
 import numeral from 'numeral'
+import slugify from 'slugify'
 
 import { StarIcon } from './icons'
 
@@ -204,4 +205,8 @@ export function getProjectAvatarUrl(project, size) {
   return project.icon
     ? formatIconUrl(project.icon)
     : formatOwnerAvatar(project.owner_id, size)
+}
+
+export function getProjectId(project) {
+  return slugify(project.name, { lower: true, remove: /[.'/]/g })
 }

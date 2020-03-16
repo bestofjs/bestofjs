@@ -1,4 +1,4 @@
-import slugify from 'slugify'
+import { getProjectId } from '../../components/core/project'
 
 const handlers = {
   FETCH_PROJECTS_SUCCESS: (state, action) =>
@@ -15,7 +15,7 @@ function getProjectsBySlug(projects) {
   const total = projects.length
 
   projects.forEach((project, index) => {
-    const slug = slugify(project.name, { lower: true, remove: /[.'/]/g })
+    const slug = getProjectId(project)
     projectsBySlug[slug] = {
       slug,
       addedPosition: total - index,

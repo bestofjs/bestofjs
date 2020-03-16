@@ -37,7 +37,7 @@ export const getProjectSelectorByKey = key => {
 
 // Return a full `project` object, including `tags`
 // to be used by `/projects/:id` pages
-export const findProject = slug =>
+export const findProjectById = slug =>
   createSelector(
     [state => state.entities.projects, state => state.entities.tags],
     (projects, tags) => {
@@ -49,6 +49,22 @@ export const findProject = slug =>
         ...populateProject(tags)(project),
         slug
       }
+    }
+  )
+
+export const findProjectsByIds = ids =>
+  createSelector(
+    [state => state.entities.projects, state => state.entities.tags],
+    (projects, tags) => {
+      return ids.map(slug => {
+        const project = projects[slug]
+        return project
+          ? {
+              ...populateProject(tags)(project),
+              slug
+            }
+          : null
+      })
     }
   )
 
