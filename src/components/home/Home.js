@@ -61,7 +61,7 @@ const Home = props => {
         </Row>
       </Section>
       <Tags popularTags={popularTags} isPending={pending} />
-      <Weekly />
+      {!pending && <Weekly />}
       <StarOnGitHub />
       <MoreProjects handleClick={authActions.login} pending={pending} />
     </MainContent>
