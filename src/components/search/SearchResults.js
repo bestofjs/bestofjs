@@ -108,7 +108,6 @@ const showCount = (total, text) => {
 const NoProjectsFound = withRouter(
   ({ query, selectedTags, history, location }) => {
     const tags = useSelector(getTagsById(selectedTags)).filter(tag => !!tag)
-    console.log({ query, selectedTags, tags })
     const Title = () => {
       const QueryPart = () => {
         if (!query) return null

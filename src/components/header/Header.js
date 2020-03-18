@@ -36,7 +36,7 @@ const Header = props => {
         <Row className="header-row">
           <Col>
             <LinkLogo to={'/'}>
-              <img src="/svg/bestofjs.svg" width="160" alt="bestofjs.org" />
+              <img src="/svg/bestofjs.svg" width="130" alt="bestofjs.org" />
             </LinkLogo>
           </Col>
           <Col style={{ flexGrow: 1 }} />
