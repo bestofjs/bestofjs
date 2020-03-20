@@ -118,8 +118,9 @@ export const getBookmarkCount = createSelector(
 )
 
 export const getFeaturedProjects = createSelector(
-  [allProjects],
-  projects => projects.filter(project => !!project.icon)
+  [allProjects, state => state.entities.tags, state => state.auth],
+  (projects, tags, auth) =>
+    projects.filter(project => !!project.icon).map(getFullProject(tags, auth))
 )
 
 export const getFullProject = (tags, auth) => project => {

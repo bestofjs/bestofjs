@@ -1,7 +1,7 @@
 import React, { useState, useRef } from 'react'
 import styled from 'styled-components'
 import { useSelector } from 'react-redux'
-import { useHistory } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { Animate } from 'react-simple-animate'
 
 import { Avatar, StarDelta, getProjectAvatarUrl } from '../core/project'
@@ -13,6 +13,7 @@ import { shuffle } from '../../helpers/shuffle'
 import { useUpdateEffect } from '../../helpers/lifecycle-hooks'
 import { useViewportSpy } from '../../helpers/use-viewport-spy'
 import { useIsDocumentVisible } from '../../helpers/use-page-events'
+import TagLabel from '../tags/TagLabel'
 import log from '../../helpers/log'
 
 import './featured-projects.css'
@@ -179,19 +180,20 @@ export const FeaturedProject = ({
   onMouseLeave,
   sortOptionId = 'daily'
 }) => {
-  const history = useHistory()
-
   return (
-    <Box onClick={() => history.push(`/projects/${project.slug}`)}>
+    <Box>
       <Avatar project={project} size={80} />
       <FeaturedProjectName>
-        <div className="title">{project.name}</div>
+        <Link className="title" to={`/projects/${project.slug}`}>
+          {project.name}
+        </Link>
         <div className="stars">
           <StarDelta
             value={getDeltaByDay(sortOptionId)(project)}
             average={sortOptionId !== 'daily'}
           />
         </div>
+        <TagLabel tag={project.tags[0]} />
       </FeaturedProjectName>
     </Box>
   )
@@ -202,16 +204,14 @@ const Box = styled.div`
   margin-bottom: 0rem;
   display: flex;
   align-items: center;
-  cursor: pointer;
   padding: 1rem;
-  :hover {
-    background-color: #f9f5f2;
-  }
   .title {
     margin-bottom: 0.5rem;
+    display: block;
+    width: 100%;
   }
   .stars {
-    font-size: 1.25rem;
+    margin-bottom: 0.5rem;
   }
 `
 
