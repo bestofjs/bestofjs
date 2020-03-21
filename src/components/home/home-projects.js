@@ -1,12 +1,11 @@
-import React from 'react'
-import { Link, useHistory } from 'react-router-dom'
+import React, { useState } from 'react'
+import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 import { useSelector } from 'react-redux'
 
 import { Section, Spinner, DropdownMenu } from '../core'
 import ProjectList from '../project-list/ProjectTable'
 import { getProjectsSortedBy } from '../../selectors'
-import { useSearch } from '../search'
 
 const ranges = {
   daily: 'yesterday',
@@ -25,11 +24,7 @@ const isIncludedInHotProjects = project => {
 }
 
 export const HotProjects = ({ hotFilter, pending }) => {
-  const history = useHistory()
-  const { sortOption } = useSearch()
-  const sortOptionId = Object.keys(ranges).includes(sortOption.id)
-    ? sortOption.id
-    : 'daily'
+  const [sortOptionId, setSortOptionId] = useState('daily')
 
   const projects = useSelector(
     getProjectsSortedBy({
@@ -51,10 +46,7 @@ export const HotProjects = ({ hotFilter, pending }) => {
           </Section.Header>
         </MainCol>
         <Col>
-          <HotProjectsPicker
-            value={sortOptionId}
-            onChange={value => history.push(`/?sort=${value}`)}
-          />
+          <HotProjectsPicker value={sortOptionId} onChange={setSortOptionId} />
         </Col>
       </Row>
       {pending ? (
@@ -137,7 +129,7 @@ export const NewestProjects = ({ newestProjects, hotFilter }) => {
         showActions={false}
         footer={
           <Link to={`/projects?sort=newest`} style={{ display: 'block' }}>
-            View all newest projects »
+            View more recently added projects »
           </Link>
         }
       />
