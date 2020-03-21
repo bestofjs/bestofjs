@@ -63,10 +63,7 @@ export const HotProjects = ({ hotFilter, pending }) => {
           showRankingNumber={false}
           showActions={false}
           footer={
-            <Link
-              to={`/projects?sort=${sortOptionId}`}
-              style={{ display: 'block' }}
-            >
+            <Link to={`/projects?sort=${sortOptionId}`}>
               View full rankings »
             </Link>
           }

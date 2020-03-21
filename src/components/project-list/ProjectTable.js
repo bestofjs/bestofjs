@@ -236,6 +236,9 @@ const FooterRow = styled.tr`
   td {
     border-bottom: 1px dashed #cecece;
     text-align: center;
+    a {
+      display: block;
+    }
   }
 `
 

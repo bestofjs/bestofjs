@@ -19,7 +19,7 @@ import log from '../../helpers/log'
 import './featured-projects.css'
 
 export const RandomFeaturedProject = () => {
-  const featuredProjects = useSelector(getFeaturedProjects)
+  const featuredProjects = useSelector(getFeaturedProjects('total'))
   if (!featuredProjects.length) return null
 
   const projects = shuffle(featuredProjects).slice(0, 200)
@@ -69,13 +69,26 @@ export const Slider = ({ projects, duration, limit }) => {
           isPaused={isPaused}
         />
       </SliderContainer>
+      <Footer>
+        <Link to="/featured">View more »</Link>
+      </Footer>
     </Section>
   )
 }
 
 const SliderContainer = styled.div`
-  margin-bottom: 2rem;
   background-color: white;
+`
+
+const Footer = styled.div`
+  margin-bottom: 2rem;
+  padding: 1rem;
+  background-color: white;
+  border-bottom: 1px dashed #cecece;
+  text-align: center;
+  a {
+    display: block;
+  }
 `
 
 export const FeaturedProjectGroup = ({

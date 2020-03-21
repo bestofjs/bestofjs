@@ -5,6 +5,7 @@ import asyncComponent from './asyncComponent'
 
 import HomePage from '../pages/home-page'
 import BookmarksPage from '../pages/bookmarks-page'
+import { FeaturedPage } from '../pages/featured-page'
 import HallOfFamePage from '../pages/HallOfFamePage'
 import TagsPage from '../pages/tags-page'
 import NoMatch from './NoMatch'
@@ -33,6 +34,7 @@ const Routes = props => {
       <Redirect from="/hof" to="/hall-of-fame" />
       <Redirect from="/myprojects" to="/bookmarks" />
       <Route path="/bookmarks" component={BookmarksPage} />
+      <Route path="/featured" component={FeaturedPage} />
       <Route exact path="/about" component={AsyncAboutPage} />
       <Route component={NoMatch} />
     </Switch>
