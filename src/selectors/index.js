@@ -52,21 +52,6 @@ export const getProjectsSortedBy = ({ filterFn, criteria, start, limit }) =>
     (projects, tags, auth) => projects.map(getFullProject(tags, auth))
   )
 
-const hotProjectsExcludedTags = ['meta', 'learning']
-const isIncluded = project => {
-  const hasExcludedTag = hotProjectsExcludedTags.some(tag =>
-    project.tags.includes(tag)
-  )
-  return !hasExcludedTag
-}
-
-export const getHotProjects = count =>
-  getProjectsSortedBy({
-    filterFn: isIncluded,
-    criteria: 'daily',
-    limit: count
-  })
-
 export const getNewestProjects = count =>
   getProjectsSortedBy({
     criteria: 'newest',
