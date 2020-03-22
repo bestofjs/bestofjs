@@ -5,6 +5,7 @@
 - Add "Newest projects" section to the top page, and sort by date of addition
 - Add "Featured Projects" section to the top page
 - Add story and rankings frm the weekly newsletter to the top page
+- Add `/featured` page
 
 ## 0.20.0 - 2019-12-26
 

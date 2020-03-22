@@ -334,15 +334,15 @@ const ActionCell = styled(Cell)`
 `
 
 const ProjectName = styled.div`
-  font-size: 1.25rem;
   display: flex;
   align-items: center;
+  position: relative;
 `
 
 const ProjectDescription = styled.div`
   font-size: 14px;
-  margin-bottom: 1rem;
-  margin-top: 1rem;
+  margin-bottom: 0.5rem;
+  margin-top: 0.25rem;
   @media (min-width: ${breakpoint}px) {
   }
 `
