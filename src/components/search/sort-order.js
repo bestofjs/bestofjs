@@ -44,7 +44,7 @@ export const getSortOrderOptions = () => {
     { type: 'divider' },
     {
       id: 'newest',
-      label: 'Recently added projects first'
+      label: 'By date of addition'
     },
     { type: 'divider' },
     {

@@ -1,5 +1,6 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
+import styled from 'styled-components'
 
 import { useSearch } from '../components/search/SearchProvider'
 import {
@@ -28,6 +29,9 @@ export const FeaturedPage = () => {
         >
           Featured projects
         </PageTitle>
+        <PageDescription>
+          An arbitrary selection of important projects with distinct logos.
+        </PageDescription>
         <ProjectPaginatedList
           projects={paginatedProjects}
           page={page}
@@ -39,3 +43,9 @@ export const FeaturedPage = () => {
     </MainContent>
   )
 }
+
+const PageDescription = styled.div`
+  padding-left: 1rem;
+  border-left: 2px solid #fa9e59;
+  margin-bottom: 1rem;
+`
