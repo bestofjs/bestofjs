@@ -15,8 +15,7 @@ import { useViewportSpy } from '../../helpers/use-viewport-spy'
 import { useIsDocumentVisible } from '../../helpers/use-page-events'
 import TagLabel from '../tags/TagLabel'
 import log from '../../helpers/log'
-
-import './featured-projects.css'
+import { ProgressBar } from './progress-bar'
 
 export const RandomFeaturedProject = () => {
   const featuredProjects = useSelector(getFeaturedProjects('total'))
@@ -256,9 +255,3 @@ const CountDown = ({ pageNumber, duration, interval }) => {
 
   return <ProgressBar progress={progress} />
 }
-
-const ProgressBar = ({ progress }) => (
-  <div className="progress-bar">
-    <div className="progress" style={{ width: progress + `%` }} />
-  </div>
-)

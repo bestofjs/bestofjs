@@ -5,8 +5,8 @@ except the GitHub link color commented out line 188 */
   -webkit-text-size-adjust: 100%;
   line-height: 1.5;
   color: #333;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica,
-    Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+  /* font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica,
+    Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol'; */
   font-size: 16px;
   line-height: 1.5;
   word-wrap: break-word;
@@ -377,8 +377,8 @@ except the GitHub link color commented out line 188 */
 
 .markdown-body blockquote {
   padding: 0 1em;
-  color: #777;
-  border-left: 0.25em solid #ddd;
+  border-left: 0.25em solid #fa9e59;
+  color: var(--textSecondaryColor);
 }
 
 .markdown-body blockquote > :first-child {

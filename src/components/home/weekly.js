@@ -48,7 +48,7 @@ export const LatestIssue = () => {
           (<IssueDate date={date} />)
         </span>
       </IssueSubTitle>
-      <div dangerouslySetInnerHTML={{ __html: story }} />
+      <Story dangerouslySetInnerHTML={{ __html: story }} />
       <IssueSubTitle>Growing fast this week</IssueSubTitle>
       <Rankings projects={growing} />
     </>
@@ -58,6 +58,24 @@ export const LatestIssue = () => {
 const IssueSubTitle = styled.h4`
   margin: 1rem 0;
   font-size: 1.2rem;
+`
+
+const Story = styled.div`
+  margin-bottom: 2rem;
+  padding 1rem;
+  background-color: white;
+  blockquote {
+    padding: 0 1em;
+    border-left: 0.25em solid #fa9e59;
+    margin-left: 0;
+    color: var(--textSecondaryColor);
+  }
+  pre {
+    padding: 1rem;
+    overflow: auto;
+    line-height: 1.45;
+    background-color: #f7f7f7;
+  }
 `
 
 const template = tinytime('{MMMM} {DD}, {YYYY}', { padDays: true })

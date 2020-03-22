@@ -1,9 +1,0 @@
-.progress-bar {
-  width: 100%;
-  height: 1px;
-}
-.progress-bar .progress {
-  height: 1px;
-  background-color: #fa9e59;
-  transition: width 500ms ease-in-out;
-}
