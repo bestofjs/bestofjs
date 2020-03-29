@@ -2,8 +2,8 @@ const baseSetup = {
   GET_PROJECTS:
     readEnvironmentVariable('STATIC_API') ||
     'https://bestofjs-api-v3.firebaseapp.com',
-  GET_README: 'https://get-github-readme-v2.now.sh',
-  GET_PROJECT_DETAILS: 'https://bestofjs-api-v3.now.sh',
+  GET_README: 'https://bestofjs-serverless.now.sh',
+  GET_PROJECT_DETAILS: 'https://bestofjs-serverless.now.sh',
   ISSUES_REPO: 'michaelrambeau/bestofjs',
   FETCH_LICENSE: 'https://fetch-license.now.sh'
 }
@@ -11,6 +11,10 @@ const baseSetup = {
 const setup = {
   development: {
     ...baseSetup,
+    // GET_README: 'https://bestofjs-serverless-michaelrambeau.bestofjs.now.sh',
+    // GET_PROJECT_DETAILS: 'http://localhost:3000',
+    // GET_PROJECT_DETAILS:
+    //   'https://bestofjs-serverless-michaelrambeau.bestofjs.now.sh',
     ISSUES_REPO: 'michaelrambeau/bestofjs-sandbox'
   },
   production: {

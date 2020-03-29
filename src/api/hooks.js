@@ -15,7 +15,9 @@ export function useFetchProjectReadMe({ full_name, branch }) {
 }
 
 function fetchProjectReadMe({ full_name, branch = 'master' }) {
-  const url = `${getApiRootURL('GET_README')}/${full_name}?branch=${branch}`
+  const url = `${getApiRootURL(
+    'GET_README'
+  )}/api/fetch-readme?fullName=${full_name}&branch=${branch}`
   return fetchHTML(url)
 }
 
@@ -28,7 +30,9 @@ export function useFetchProjectDetails({ full_name }) {
 }
 
 function fetchProjectDetails({ full_name }) {
-  const url = `${getApiRootURL('GET_PROJECT_DETAILS')}/projects/${full_name}`
+  const url = `${getApiRootURL(
+    'GET_PROJECT_DETAILS'
+  )}/api/projects/?fullName=${full_name}`
   return fetchJSON(url)
 }
 
