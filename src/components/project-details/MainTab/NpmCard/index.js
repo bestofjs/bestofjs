@@ -7,7 +7,6 @@ import { DownloadCount } from '../../../core/project'
 import Dependencies from './Dependencies'
 import BundleSize from './BundleSize'
 import PackageSize from './PackageSize'
-import License from './LicenseSection'
 
 const NpmCard = props => {
   return (
@@ -57,9 +56,6 @@ const CardBodyContent = ({ project, isLoading, error }) => {
       </Card.Section>
       <Card.Section>
         <PackageSize project={project} />
-      </Card.Section>
-      <Card.Section>
-        <License project={project} />
       </Card.Section>
     </Fragment>
   )
