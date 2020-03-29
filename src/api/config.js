@@ -11,10 +11,11 @@ const baseSetup = {
 const setup = {
   development: {
     ...baseSetup,
-    // GET_README: 'https://bestofjs-serverless-michaelrambeau.bestofjs.now.sh',
+    // GET_README: 'http://localhost:3000',
+    GET_README: 'https://bestofjs-serverless-michaelrambeau.bestofjs.now.sh',
     // GET_PROJECT_DETAILS: 'http://localhost:3000',
-    // GET_PROJECT_DETAILS:
-    //   'https://bestofjs-serverless-michaelrambeau.bestofjs.now.sh',
+    GET_PROJECT_DETAILS:
+      'https://bestofjs-serverless-michaelrambeau.bestofjs.now.sh',
     ISSUES_REPO: 'michaelrambeau/bestofjs-sandbox'
   },
   production: {
