@@ -1,9 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux'
 
 import Home from '../components/home/Home'
-import * as uiActionCreators from '../actions/uiActions'
 import { getNewestProjects } from '../selectors'
 import { getPopularTags } from '../selectors/tag-selectors'
 
@@ -26,7 +24,6 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    uiActions: bindActionCreators(uiActionCreators, dispatch),
     authActions: {}
   }
 }

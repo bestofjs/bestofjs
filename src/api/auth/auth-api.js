@@ -1,5 +1,4 @@
 import { fetchJSON } from '../../helpers/fetch'
-import { getUserRequests } from '../../actions/repoActions'
 import { APP_URL } from './auth0'
 import UrlManager from './urlManager'
 import {
@@ -28,9 +27,7 @@ function createAuthApi({ dispatch }) {
           if (path) {
             history.push(path)
           }
-          const action = dispatch(loginSuccess({ profile, token }))
-          const { username } = action.payload
-          return dispatch(getUserRequests(username))
+          dispatch(loginSuccess({ profile, token }))
         })
         .catch(error => {
           resetToken()

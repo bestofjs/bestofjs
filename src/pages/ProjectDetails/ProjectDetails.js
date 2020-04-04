@@ -1,11 +1,9 @@
 import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux'
 import { withRouter } from 'react-router-dom'
 import { Route, Switch } from 'react-router-dom'
 
 import track from '../../helpers/track'
-import * as actionCreators from '../../actions'
 import { findProjectById } from '../../selectors/project'
 import { useFetchProjectDetails } from '../../api/hooks'
 
@@ -72,7 +70,6 @@ function mapDispatchToProps(dispatch, props) {
   const { dependencies } = props
   const { authApi } = dependencies
   return {
-    actions: bindActionCreators(actionCreators, dispatch),
     authActions: {
       login: authApi.login
     },
