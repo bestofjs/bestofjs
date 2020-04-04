@@ -94,14 +94,18 @@ const Span = styled.span`
   align-items: center;
 `
 export const Avatar = ({ project, size = 100 }) => {
-  const url = getProjectAvatarUrl(project, size)
+  const { src, srcSet } = getProjectImageProps({ project, size })
   const [isImageLoaded, setIsImageLoaded] = useState(false)
   const isMounted = React.useRef(true)
 
   useEffect(() => {
     const image = new Image()
-    image.src = url
+    image.src = src
+    if (srcSet) {
+      image.srcSet = srcSet
+    }
     image.onload = () => {
+      console.log('loaded', image.current)
       if (isMounted.current) setIsImageLoaded(true)
     }
     return () => {
@@ -109,10 +113,25 @@ export const Avatar = ({ project, size = 100 }) => {
     }
   }, []) // eslint-disable-line react-hooks/exhaustive-deps
   return isImageLoaded ? (
-    <img src={url} width={size} height={size} alt={project.name} />
+    <img
+      src={src}
+      srcSet={srcSet}
+      width={size}
+      height={size}
+      alt={project.name}
+    />
   ) : (
     <ImagePlaceHolder size={size} />
   )
+}
+
+function getProjectImageProps({ project, size }) {
+  const retinaURL = !project.icon && getProjectAvatarUrl(project, size * 2)
+
+  return {
+    src: getProjectAvatarUrl(project, size),
+    srcSet: retinaURL ? `${retinaURL} 2x` : undefined // to display correctly GitHub avatars on Retina screens
+  }
 }
 
 const ImagePlaceHolder = props => {
