@@ -2,11 +2,11 @@ import React, { Fragment } from 'react'
 import PropTypes from 'prop-types'
 
 import { Card, ExternalLink, Spinner } from '../../core'
-import { DownloadCount } from '../../core/project'
 
 import Dependencies from './Dependencies'
 import BundleSize from './BundleSize'
 import PackageSize from './PackageSize'
+import { MonthlyDownloadChart } from './MonthlyDownloadChart'
 
 const NpmCard = props => {
   return (
@@ -44,9 +44,9 @@ const CardBodyContent = ({ project, isLoading, error }) => {
             {packageName} {npm.version}
           </ExternalLink>
         </p>
-        <p>
-          Monthly downloads: <DownloadCount value={project.downloads} />
-        </p>
+      </Card.Section>
+      <Card.Section>
+        <MonthlyDownloadChart project={project} />
       </Card.Section>
       <Card.Section>
         <Dependencies project={project} />

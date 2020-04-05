@@ -58,3 +58,18 @@ const loadIssue = () => {
 export function useFetchLatestIssue() {
   return useAsync(loadIssue)
 }
+
+export function useFetchMonthlyDownloads(packageName) {
+  return useAsync({
+    promiseFn: fetchMonthlyDownloads,
+    watch: packageName,
+    packageName
+  })
+}
+
+const fetchMonthlyDownloads = ({ packageName }) => {
+  const url = `${getApiRootURL(
+    'GET_PACKAGE_DATA'
+  )}/api/package-monthly-downloads?packageName=${packageName}`
+  return fetchJSON(url)
+}

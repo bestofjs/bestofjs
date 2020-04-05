@@ -5,7 +5,7 @@ import './monthly-chart.css'
 
 const monthNames = 'Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec'.split(' ')
 
-const MonthlyChart = ({ values }) => {
+export const MonthlyChart = ({ values, showPlusSymbol }) => {
   if (values.length === 0)
     return (
       <div style={{ fontStyle: 'italic', marginBottom: '.5rem' }}>
@@ -18,37 +18,39 @@ const MonthlyChart = ({ values }) => {
     const foundValue = values.find(
       value => value.year === year && value.month === month
     )
-    return foundValue ? foundValue.delta : undefined
+    return foundValue ? foundValue.value : undefined
   }
 
-  const dataset = last12Months.map(value => ({
-    ...value,
-    delta: findDeltaByMonth(value)
+  const dataset = last12Months.map(item => ({
+    ...item,
+    value: findDeltaByMonth(item)
   }))
 
   const months = dataset.map(({ month }) => monthNames[month - 1])
-  const monthlyDeltas = dataset.map(({ delta }) => delta)
+  const monthlyDeltas = dataset.map(({ value }) => value)
   const monthlyDeltaMax = Math.max(
-    ...monthlyDeltas.filter(delta => delta !== undefined)
+    ...monthlyDeltas.filter(value => value !== undefined)
   )
 
   return (
     <div>
       <div className="project-chart">
         <div className="project-chart-columns">
-          {monthlyDeltas.map((delta, i) => (
+          {monthlyDeltas.map((value, i) => (
             <div key={i} className="project-chart-column">
               <div
                 className="project-chart-bar"
                 style={{
-                  height: `${Math.round((delta * 100) / monthlyDeltaMax)}%`
+                  height: `${Math.round((value * 100) / monthlyDeltaMax)}%`
                 }}
               >
                 <div className="project-chart-stars">
-                  {delta === undefined ? (
+                  {value === undefined ? (
                     <span className="text-secondary">N/A</span>
                   ) : (
-                    <span>{formatDelta(delta, 1)}</span>
+                    <span>
+                      {formatDelta(value, { decimals: 1, showPlusSymbol })}
+                    </span>
                   )}
                 </div>
               </div>
@@ -67,8 +69,6 @@ const MonthlyChart = ({ values }) => {
   )
 }
 
-export default MonthlyChart
-
 function getLas12Months() {
   const date = new Date()
   const months = []
@@ -80,9 +80,9 @@ function getLas12Months() {
   return months
 }
 
-function formatDelta(delta, decimals = 0) {
+function formatDelta(value, { decimals = 0, showPlusSymbol = false }) {
   const numberFormat =
-    decimals === 0 || delta < 1000 ? '0' : `0.${'0'.repeat(decimals)}`
-  const formattedNumber = numeral(delta).format(`${numberFormat}a`)
-  return delta > 0 ? `+${formattedNumber}` : formattedNumber
+    decimals === 0 || value < 1000 ? '0' : `0.${'0'.repeat(decimals)}`
+  const formattedNumber = numeral(value).format(`${numberFormat}a`)
+  return showPlusSymbol && value > 0 ? `+${formattedNumber}` : formattedNumber
 }

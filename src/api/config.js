@@ -4,6 +4,7 @@ const baseSetup = {
     'https://bestofjs-api-v3.firebaseapp.com',
   GET_README: 'https://bestofjs-serverless.now.sh',
   GET_PROJECT_DETAILS: 'https://bestofjs-serverless.now.sh',
+  GET_PACKAGE_DATA: 'https://bestofjs-serverless.now.sh',
   ISSUES_REPO: 'michaelrambeau/bestofjs',
   FETCH_LICENSE: 'https://fetch-license.now.sh'
 }
@@ -15,6 +16,8 @@ const setup = {
     GET_README: 'https://bestofjs-serverless-michaelrambeau.bestofjs.now.sh',
     // GET_PROJECT_DETAILS: 'http://localhost:3000',
     GET_PROJECT_DETAILS:
+      'https://bestofjs-serverless-michaelrambeau.bestofjs.now.sh',
+    GET_PACKAGE_DATA:
       'https://bestofjs-serverless-michaelrambeau.bestofjs.now.sh',
     ISSUES_REPO: 'michaelrambeau/bestofjs-sandbox'
   },

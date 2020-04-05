@@ -2,10 +2,10 @@ import React from 'react'
 import styled from 'styled-components'
 
 import Heatmap from './Heatmap'
-import MonthlyTrends from './MonthlyTrends'
+import MonthlyTrends from './monthly-trends'
+import { getDeltaByDay } from '../../../selectors/project'
 import { StarDelta } from '../../core/project'
 import { Card } from '../../core'
-import { getDeltaByDay } from '../../../selectors/project'
 import { StarIcon } from '../../core/icons'
 
 const TrendsCards = ({ project }) => {
