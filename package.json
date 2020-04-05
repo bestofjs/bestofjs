@@ -1,6 +1,6 @@
 {
   "name": "bestofjs-webui",
-  "version": "0.21.1",
+  "version": "0.21.2",
   "description": "bestofjs.org front-end web application",
   "engines": {
     "node": ">=10.14.2"
@@ -8,8 +8,6 @@
   "scripts": {
     "start": "REACT_APP_VERSION=$npm_package_version react-scripts start",
     "build": "REACT_APP_VERSION=$npm_package_version react-scripts build",
-    "clean": "rimraf build",
-    "surge": "surge --domain bestofjs.surge.sh --project ./build/",
     "test": "react-scripts test --env=jsdom",
     "pretty-quick": "pretty-quick",
     "precommit": "pretty-quick --staged"
@@ -33,7 +31,6 @@
     "cross-env": "^1.0.7",
     "isomorphic-fetch": "^2.2.1",
     "lodash.times": "^4.3.2",
-    "marked": "^0.3.5",
     "numeral": "^1.5.3",
     "prop-types": "15.5.8",
     "qs": "^6.9.0",
@@ -42,7 +39,6 @@
     "react-calendar-heatmap": "1.4.1",
     "react-dom": "16.8.6",
     "react-redux": "^7.1.1",
-    "react-request": "^3.1.2",
     "react-router": "^5.1.2",
     "react-router-dom": "^5.1.2",
     "react-scripts": "3.0.1",
