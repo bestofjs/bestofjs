@@ -1,7 +1,7 @@
 import { wait } from 'react-testing-library'
 import { getByText } from 'dom-testing-library'
 
-import renderApp from '../../test/render-app'
+import renderApp from '../test/render-app'
 
 const routes = ['/project/redux/links', '/project/redux/reviews']
 

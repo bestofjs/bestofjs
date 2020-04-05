@@ -3,13 +3,13 @@ import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
 import { Route, Switch } from 'react-router-dom'
 
-import track from '../../helpers/track'
-import { findProjectById } from '../../selectors/project'
-import { useFetchProjectDetails } from '../../api/hooks'
+import track from '../helpers/track'
+import { findProjectById } from '../selectors/project'
+import { useFetchProjectDetails } from '../api/hooks'
 
-import { MainContent, Spinner } from '../../components/core'
-import ProjectDetails from '../../components/project-details'
-import ProjectHeader from '../../components/project-details/ProjectHeader'
+import { MainContent, Spinner } from '../components/core'
+import ProjectDetails from '../components/project-details'
+import ProjectHeader from '../components/project-details/ProjectHeader'
 
 const ProjectDetailsPageContainer = props => {
   const { project } = props
