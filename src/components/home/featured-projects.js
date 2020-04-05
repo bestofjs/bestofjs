@@ -83,7 +83,7 @@ const Footer = styled.div`
   margin-bottom: 2rem;
   padding: 1rem;
   background-color: white;
-  border-bottom: 1px dashed #cecece;
+  border-bottom: 1px dashed var(--boxBorderColor);
   text-align: center;
   a {
     display: block;
@@ -183,7 +183,7 @@ const Project = ({ project }) => (
 )
 
 const ProjectContainer = styled.div`
-  border-bottom: 1px dashed #cecece;
+  border-bottom: 1px dashed var(--boxBorderColor);
 `
 
 export const FeaturedProject = ({

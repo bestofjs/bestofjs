@@ -119,9 +119,9 @@ const ListRow = styled.div`
   display: flex;
   align-items: center;
   background-color: white;
-  border-top: 1px dashed #cecece;
+  border-top: 1px dashed var(--boxBorderColor);
   &:last-child {
-    border-bottom: 1px dashed #cecece;
+    border-bottom: 1px dashed var(--boxBorderColor);
   }
   @media (max-width: ${breakPoint - 1}px) {
     align-items: flex-start;

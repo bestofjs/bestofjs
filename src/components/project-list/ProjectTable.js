@@ -225,16 +225,16 @@ const Table = styled.table`
 
 const Row = styled.tr`
   td {
-    border-top: 1px dashed #cecece;
+    border-top: 1px dashed var(--boxBorderColor);
   }
   &:last-child td {
-    border-bottom: 1px dashed #cecece;
+    border-bottom: 1px dashed var(--boxBorderColor);
   }
 `
 
 const FooterRow = styled.tr`
   td {
-    border-bottom: 1px dashed #cecece;
+    border-bottom: 1px dashed var(--boxBorderColor);
     text-align: center;
     a {
       display: block;

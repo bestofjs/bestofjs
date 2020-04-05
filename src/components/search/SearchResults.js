@@ -171,7 +171,7 @@ const RelevantTags = ({ tagIds, baseTagIds }) => {
         display: 'flex',
         alignItems: 'center',
         padding: '1rem 0',
-        borderTop: '1px dashed #cecece'
+        borderTop: '1px dashed var(--boxBorderColor)'
       }}
     >
       <Label>
