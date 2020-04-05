@@ -8,8 +8,8 @@ import BookmarksPage from '../pages/bookmarks-page'
 import { FeaturedPage } from '../pages/featured-page'
 import HallOfFamePage from '../pages/HallOfFamePage'
 import TagsPage from '../pages/tags-page'
+import { SearchResultsPage } from '../pages/search-results-page'
 import NoMatch from './NoMatch'
-import { SearchResultsContainer } from '../components/search/SearchResults'
 
 const AsyncAboutPage = asyncComponent(() =>
   import(/* webpackChunkName: "about" */ '../pages/AboutPage')
@@ -25,7 +25,7 @@ const Routes = props => {
       <Route exact path="/projects/:id">
         <AsyncViewProject {...props} />
       </Route>
-      <Route exact path="/projects" component={SearchResultsContainer} />
+      <Route exact path="/projects" component={SearchResultsPage} />
       <Redirect from={`/tags/:id`} to={`/projects?tags=:id`} />
       <Route from={`/tags`} component={TagsPage} />
       <Route exact path="/hall-of-fame">

@@ -4,7 +4,7 @@ import { useHistory, useLocation } from 'react-router-dom'
 
 import ProjectTable from '../project-list/ProjectTable'
 import { PaginationContext } from '../core/pagination/provider'
-import { SortOrderPicker } from './sort-order'
+import { SortOrderPicker } from './sort-order-picker'
 import { updateLocation } from './search-utils'
 import {
   TopPaginationControls,

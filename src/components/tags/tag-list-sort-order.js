@@ -17,7 +17,7 @@ export const getSortOrderOptions = () => {
   return options.filter(option => !!option)
 }
 
-export const SortOrderPicker = ({ value, onChange }) => {
+export const TagListSortOrderPicker = ({ value, onChange }) => {
   const sortOrderOptions = getSortOrderOptions()
 
   const items = sortOrderOptions.map(option => ({

@@ -3,19 +3,27 @@ import { withRouter } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import styled from 'styled-components'
 
-import { allProjects } from '../../selectors'
-import { getTagsById } from '../../selectors/tag-selectors'
-import { PaginationProvider } from '../core/pagination'
-import { Button, PageTitle, EmptyContent, MainContent, Spinner } from '../core'
-import { ProjectPaginatedList } from './project-paginated-list'
-import TagLabelGroup from '../tags/TagLabelGroup'
-import { useSearch } from './SearchProvider'
-import { updateLocation } from './search-utils'
-import { TagIcon } from '../core/icons'
-import { getProjectSelectorByKey } from '../../selectors/project'
-import { findProjects } from './find-projects'
+import { allProjects } from '../selectors'
+import { getTagsById } from '../selectors/tag-selectors'
+import { getProjectSelectorByKey } from '../selectors/project'
+import { PaginationProvider } from '../components/core/pagination'
+import { TagIcon } from '../components/core/icons'
+import {
+  Button,
+  PageTitle,
+  EmptyContent,
+  MainContent,
+  Spinner
+} from '../components/core'
 
-export const SearchResultsContainer = () => {
+// TODO colocate all search components?
+import { ProjectPaginatedList } from '../components/search/project-paginated-list'
+import TagLabelGroup from '../components/tags/TagLabelGroup'
+import { useSearch } from '../components/search/SearchProvider'
+import { updateLocation } from '../components/search/search-utils'
+import { findProjects } from '../components/search/find-projects'
+
+export const SearchResultsPage = () => {
   const { selectedTags, query, sortOption, page } = useSearch()
   const limit = 30
 

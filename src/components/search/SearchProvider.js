@@ -2,7 +2,7 @@ import React, { createContext, useContext } from 'react'
 import { useHistory, useLocation } from 'react-router-dom'
 
 import { queryStringToState, stateToQueryString } from './search-utils'
-import { getSortOrderOptions } from './sort-order'
+import { sortOrderOptions } from './sort-order-options'
 
 export const SearchContext = createContext({})
 
@@ -41,7 +41,6 @@ export const SearchProvider = ({ children }) => {
 export const useSearch = ({ defaultSortOptionId = 'total' } = {}) => {
   const { sort, ...values } = useContext(SearchContext)
 
-  const sortOrderOptions = getSortOrderOptions()
   const sortOptionId = sort || (values.query ? 'match' : defaultSortOptionId)
   const sortOption =
     sortOrderOptions.find(item => item.id === sortOptionId) ||

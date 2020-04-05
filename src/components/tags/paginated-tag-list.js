@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import { useHistory, useLocation } from 'react-router-dom'
 
 import { PaginationContext } from '../core/pagination/provider'
-import { SortOrderPicker } from './sort-order'
+import { TagListSortOrderPicker } from './tag-list-sort-order'
 import { updateLocation } from '../search/search-utils'
 
 import { DetailedTagList } from './tag-list'
@@ -40,7 +40,7 @@ export const PaginatedTagList = ({
         <Row style={{ borderTop: '1px dashed var(--boxBorderColor' }}>
           <Cell>
             {showSortOptions && (
-              <SortOrderPicker
+              <TagListSortOrderPicker
                 onChange={onChangeSortOption}
                 value={sortOptionId}
               />
