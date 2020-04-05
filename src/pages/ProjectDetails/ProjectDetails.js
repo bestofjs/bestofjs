@@ -8,7 +8,7 @@ import { findProjectById } from '../../selectors/project'
 import { useFetchProjectDetails } from '../../api/hooks'
 
 import { MainContent, Spinner } from '../../components/core'
-import ProjectDetailsMainTab from '../../components/project-details/MainTab'
+import ProjectDetails from '../../components/project-details'
 import ProjectHeader from '../../components/project-details/ProjectHeader'
 
 const ProjectDetailsPageContainer = props => {
@@ -38,7 +38,7 @@ const ProjectDetailsPage = props => {
           exact
           path="/projects/:id"
           render={() => (
-            <ProjectDetailsMainTab
+            <ProjectDetails
               {...props}
               project={projectWithDetails}
               isLoading={isLoading}

@@ -1,8 +1,8 @@
 import React, { Fragment } from 'react'
 import PropTypes from 'prop-types'
 
-import { Card, ExternalLink, Spinner } from '../../../core'
-import { DownloadCount } from '../../../core/project'
+import { Card, ExternalLink, Spinner } from '../../core'
+import { DownloadCount } from '../../core/project'
 
 import Dependencies from './Dependencies'
 import BundleSize from './BundleSize'

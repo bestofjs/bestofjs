@@ -5,7 +5,6 @@ import { Button } from '../core/button'
 
 const action = 'https://api.elasticemail.com/contact/add?version=2'
 const name = 'email'
-const breakPoint = 600
 
 const Box = styled.div`
   background-color: white;

@@ -5,9 +5,9 @@ import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 import { useSelector } from 'react-redux'
 
-import { StarTotal } from '../../../core/project'
-import { ExternalLink } from '../../../core/typography'
-import { npmProjects } from '../../../../selectors'
+import { StarTotal } from '../../core/project'
+import { ExternalLink } from '../../core/typography'
+import { npmProjects } from '../../../selectors'
 import ExpandableSection from './ExpandableSection'
 import DependencyTable from './DependencyTable'
 

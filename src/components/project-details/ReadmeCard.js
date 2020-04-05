@@ -2,9 +2,9 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 
-import { Card, Spinner } from '../../core'
-import { useFetchProjectReadMe } from '../../../api/hooks'
-import '../../../stylesheets/markdown-body.css'
+import { Card, Spinner } from '../core'
+import { useFetchProjectReadMe } from '../../api/hooks'
+import '../../stylesheets/markdown-body.css'
 
 const GithubLink = styled.a``
 

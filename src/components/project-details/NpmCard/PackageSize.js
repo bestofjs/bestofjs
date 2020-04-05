@@ -5,15 +5,15 @@ import Toggle from 'react-toggled'
 import ExpandableSection from './ExpandableSection'
 import FileSize from './FileSize'
 import List from './SizeDetailsList'
-import { ExternalLink } from '../../../core/typography'
+import { ExternalLink } from '../../core/typography'
 
-const BundleSize = ({ project, ...rest }) => {
+const PackageSize = ({ project, ...rest }) => {
   const { bundle, packageSize } = project
-  if (!bundle) return <div {...rest}>Loading bundle size...</div>
-  if (bundle.errorMessage)
+  if (!packageSize) return <div {...rest}>Loading package size...</div>
+  if (packageSize.errorMessage)
     return (
       <div {...rest} className="version text-secondary">
-        Bundle size data not available
+        Package size data not available
       </div>
     )
   return (
@@ -21,9 +21,9 @@ const BundleSize = ({ project, ...rest }) => {
       {({ on, getTogglerProps }) => (
         <div {...rest}>
           <ExpandableSection on={on} getTogglerProps={getTogglerProps}>
-            Bundle Size data
+            Package Size data
           </ExpandableSection>
-          {!on && <BundleSizePreview bundle={bundle} />}
+          {!on && <PackageSizePreview packageSize={packageSize} />}
           {on && (
             <BundleSizeDetails
               project={project}
@@ -37,36 +37,40 @@ const BundleSize = ({ project, ...rest }) => {
   )
 }
 
-const BundleSizePreview = ({ bundle }) => {
+const PackageSizePreview = ({ packageSize }) => {
   return (
     <span className="text-secondary" style={{ marginLeft: '.5rem' }}>
-      <FileSize value={bundle.gzip} /> (Minified + Gzipped)
+      <FileSize value={packageSize.installSize} /> on the disk
     </span>
   )
 }
 
-const BundleSizeDetails = ({ project, bundle }) => {
-  const url = `https://bundlephobia.com/result?p=${project.packageName}`
+const BundleSizeDetails = ({ project, packageSize }) => {
+  const url = `https://packagephobia.now.sh/result?p=${project.packageName}`
   return (
     <List>
       <List.Item>
-        <FileSize value={bundle.gzip} /> (Minified + Gzipped)
+        Install size: <FileSize value={packageSize.installSize} />
+        <List.Explanation>
+          Size of the package on the disk, with all its dependencies
+        </List.Explanation>
       </List.Item>
       <List.Item>
-        <FileSize value={bundle.size} /> (Minified)
+        Publish size: <FileSize value={packageSize.publishSize} />
+        <List.Explanation>Size of the package source code</List.Explanation>
       </List.Item>
       <List.Link>
         View details on{' '}
         <ExternalLink url={url}>
-          <i>Bundle Phobia</i>
+          <i>Package Phobia</i>
         </ExternalLink>
       </List.Link>
     </List>
   )
 }
 
-BundleSize.propTypes = {
+PackageSize.propTypes = {
   project: PropTypes.object.isRequired
 }
 
-export default BundleSize
+export default PackageSize
