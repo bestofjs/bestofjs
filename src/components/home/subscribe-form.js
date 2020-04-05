@@ -1,13 +1,15 @@
 import React from 'react'
 import styled from 'styled-components'
 
+import { Button } from '../core/button'
+
 const action = 'https://api.elasticemail.com/contact/add?version=2'
 const name = 'email'
 const breakPoint = 600
 
-const Div = styled.div`
+const Box = styled.div`
   background-color: white;
-  padding: 2rem;
+  padding: 1rem;
 `
 const Title = styled.div`
   font-size: 1.2rem;
@@ -16,45 +18,24 @@ const Text = styled.p`
   margin: 1rem 0;
 `
 
-const Row = styled.div`
-  display: flex;
-  flex-direction: column;
-  @media (min-width: ${breakPoint}px) {
-    flex-direction: row;
-  }
-`
 const Input = styled.input`
   font-size: 1rem;
   border-radius: 3px;
-  padding: 10px;
-  border: 1px solid #cc4700;
-  flex-grow: 1;
-  @media (min-width: ${breakPoint}px) {
-    margin-right: 1rem;
-  }
+  padding: 0.5rem;
+  border: 1px solid var(--boxBorderColor);
+  width: 100%;
 `
 
-const Button = styled.button`
-  background: none;
-  border: 1px solid #788080;
-  border-radius: 3px;
-  padding: 10px 20px;
-  cursor: pointer;
-  color: #cc4700;
-  text-align: center;
-  font-family: Space Mono, monospace;
-  font-weight: 400;
-  white-space: nowrap;
-  font-size: 1rem;
-  @media (max-width: ${breakPoint - 1}px) {
-    margin-top: 0.5rem;
-  }
+const SignUpButton = styled(Button)`
+  display: block;
+  width: 100%;
+  margin-top: 1rem;
 `
 
-const Subscribe = () => {
+export const SubscribeForm = () => {
   return (
-    <Div>
-      <Title>Get the rankings in your inbox every week</Title>
+    <Box>
+      <Title>Get the rankings in your inbox</Title>
       <Text>
         Sign up for and you'll receive exclusive stats about the most popular
         JavaScript projects every week.
@@ -67,15 +48,8 @@ const Subscribe = () => {
         .
       </Text>
       <form action={action} method="post">
-        <Row>
-          <Input
-            name={name}
-            type="email"
-            required
-            placeholder="Email address"
-          />
-          <Button type="submit">Sign Up</Button>
-        </Row>
+        <Input name={name} type="email" required placeholder="Email address" />
+        <SignUpButton type="submit">Sign Up</SignUpButton>
         <input
           name="publiclistid"
           id="CwyOqTgB"
@@ -112,8 +86,6 @@ const Subscribe = () => {
         <input id="ewf_captcha" name="captcha" value="false" type="hidden" />
         <input name="notifyEmail" value="" type="hidden" />
       </form>
-    </Div>
+    </Box>
   )
 }
-
-export default Subscribe

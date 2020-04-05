@@ -9,6 +9,7 @@ import ProjectList from '../project-list/ProjectTable'
 import { getProjectId } from '../core/project'
 import { useSelector } from 'react-redux'
 import { findProjectsByIds } from '../../selectors/project'
+import { SubscribeForm } from './subscribe-form'
 
 export const Weekly = () => {
   return (
@@ -22,10 +23,12 @@ export const Weekly = () => {
           <ExternalLink url="https://weekly.bestofjs.org/">
             Weekly Best of JavaScript
           </ExternalLink>{' '}
-          to get the rankings in your inbox every week.
+          to check our weekly newsletter.
           <LatestIssue />
         </MainColumn>
-        <RightSideBar />
+        <RightSideBar>
+          <SubscribeForm />
+        </RightSideBar>
       </Row>
     </Section>
   )

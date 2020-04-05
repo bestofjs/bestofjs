@@ -15,7 +15,7 @@ import { ExternalLink, Button, MainContent, Section } from '../core'
 import Intro from './Intro'
 import { CompactTagList } from '../tags/tag-list'
 import { RandomFeaturedProject } from './featured-projects'
-import { Weekly } from './weekly'
+import { Weekly } from './weekly-newsletter'
 import { Row, MainColumn, RightSideBar } from './layout'
 
 const Home = props => {
