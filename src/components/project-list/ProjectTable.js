@@ -19,15 +19,18 @@ const ProjectTable = ({ projects, footer, from = 1, style, ...otherProps }) => {
     <div className="table-container" style={style}>
       <Table>
         <tbody>
-          {projects.map((project, index) => (
-            <ProjectTableRow
-              key={project.full_name}
-              project={project}
-              rank={from + index}
-              {...userProps}
-              {...otherProps}
-            />
-          ))}
+          {projects.map((project, index) => {
+            if (!project) return null
+            return (
+              <ProjectTableRow
+                key={project.full_name}
+                project={project}
+                rank={from + index}
+                {...userProps}
+                {...otherProps}
+              />
+            )
+          })}
         </tbody>
         {footer && (
           <tfoot>
