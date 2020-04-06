@@ -4,6 +4,12 @@
   to = "/index.html"
   status = 200
 
+[[redirects]]
+  from = "https://bestofjs.netlify.com/*"
+  to = "https://bestofjs.org/:splat"
+  status = 200
+  force = true # COMMENT: ensure that we always redirect
+
 # When `now` branch is built, a specific API root URL is setup
 [context.now.environment]
   REACT_APP_STATIC_API = "https://bestofjs.now.sh"
