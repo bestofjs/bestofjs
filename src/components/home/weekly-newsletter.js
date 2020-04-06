@@ -46,21 +46,30 @@ export const LatestIssue = () => {
   return (
     <>
       <IssueSubTitle>
-        Issue #{number}{' '}
-        <span className="hidden-sm">
-          (<IssueDate date={date} />)
-        </span>
+        <h4>
+          Issue #{number}{' '}
+          <span className="hidden-sm">
+            (<IssueDate date={date} />)
+          </span>
+        </h4>
       </IssueSubTitle>
       <Story dangerouslySetInnerHTML={{ __html: story }} />
-      <IssueSubTitle>Growing fast this week</IssueSubTitle>
+      <IssueSubTitle>
+        <h4>Growing fast this week</h4>
+        <p className="text-secondary">
+          By % of GitHub stars added (relative growth) this week
+        </p>
+      </IssueSubTitle>
       <Rankings projects={growing} />
     </>
   )
 }
 
-const IssueSubTitle = styled.h4`
+const IssueSubTitle = styled.div`
   margin: 1rem 0;
-  font-size: 1.2rem;
+  h4 {
+    font-size: 1.2rem;
+  }
 `
 
 const Story = styled.div`

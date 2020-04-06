@@ -1,8 +1,13 @@
 # Change log
 
+## 0.22.0 - 2020-04-06
+
+- Add monthly download chart to project details page (#78)
+- Use Zeit serverless function for API dynamic calls
+
 ## 0.21.0 - 2020-03-17
 
-- Add "Newest projects" section to the top page, and sort by date of addition
+- Add "Newest projects" section to the top page, and sort by date of addition (#86)
 - Add "Featured Projects" section to the top page
 - Add story and rankings frm the weekly newsletter to the top page
 - Add `/featured` page
