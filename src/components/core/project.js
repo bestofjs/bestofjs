@@ -105,7 +105,6 @@ export const Avatar = ({ project, size = 100 }) => {
       image.srcSet = srcSet
     }
     image.onload = () => {
-      console.log('loaded', image.current)
       if (isMounted.current) setIsImageLoaded(true)
     }
     return () => {
