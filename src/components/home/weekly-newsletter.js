@@ -1,13 +1,14 @@
-import React from 'react'
+import React, { useState } from 'react'
 import tinytime from 'tinytime'
 import styled from 'styled-components'
+import { useSelector } from 'react-redux'
 
-import { ExternalLink, Section } from '../core'
-import { useFetchLatestIssue } from '../../api/hooks'
+import { ExternalLink, Section, Button } from '../core'
+import { getProjectId } from '../core/project'
+import { ChevronLeftIcon, ChevronRightIcon } from '../core/icons'
+import { useWeeklyNewsletter } from '../../api/hooks'
 import { Row, MainColumn, RightSideBar } from './layout'
 import ProjectList from '../project-list/ProjectTable'
-import { getProjectId } from '../core/project'
-import { useSelector } from 'react-redux'
 import { findProjectsByIds } from '../../selectors/project'
 import { SubscribeForm } from './subscribe-form'
 
@@ -24,7 +25,7 @@ export const Weekly = () => {
             Weekly Best of JavaScript
           </ExternalLink>{' '}
           to check our weekly newsletter.
-          <LatestIssue />
+          <FetchNewsletterIssue />
         </MainColumn>
         <RightSideBar>
           <SubscribeForm />
@@ -34,42 +35,85 @@ export const Weekly = () => {
   )
 }
 
-export const LatestIssue = () => {
-  const { data, isPending, error } = useFetchLatestIssue()
+const FetchNewsletterIssue = () => {
+  const [currentNumber, setCurrentNumber] = useState(0)
+  const { data, isPending, error } = useWeeklyNewsletter(currentNumber)
   if (isPending) {
-    return <>Loading the latest story</>
+    return <Loading>Loading the story...</Loading>
   }
   if (error) {
-    return <>Unable to load the latest issue</>
+    return <div>Unable to load the issue: {error.message}</div>
   }
-  const { number, date, growing, story } = data
+  const { number } = data
+  const goToPrevious = () => setCurrentNumber(number - 1)
+  const goToNext = () => setCurrentNumber(number + 1)
+
+  return (
+    <NewsletterIssue
+      data={data}
+      goToPrevious={goToPrevious}
+      goToNext={goToNext}
+    />
+  )
+}
+
+const Loading = styled.div`
+  margin: 2rem 0;
+`
+
+const NewsletterIssue = ({ data, goToPrevious, goToNext }) => {
+  const { number, isLatest, date, growing, story } = data
   return (
     <>
       <IssueSubTitle>
-        <h4>
+        <NavButton onClick={goToPrevious}>
+          <ChevronLeftIcon size={28} />
+        </NavButton>
+        <StoryTitle>
           Issue #{number}{' '}
           <span className="hidden-sm">
             (<IssueDate date={date} />)
           </span>
-        </h4>
+        </StoryTitle>
+        <NavButton onClick={goToNext} disabled={isLatest}>
+          <ChevronRightIcon />
+        </NavButton>
       </IssueSubTitle>
+
       <Story dangerouslySetInnerHTML={{ __html: story }} />
-      <IssueSubTitle>
-        <h4>Growing fast this week</h4>
-        <p className="text-secondary">
-          By % of GitHub stars added (relative growth) this week
-        </p>
-      </IssueSubTitle>
+
+      <RankingsTitle>Growing fast this week</RankingsTitle>
+      <p className="text-secondary">
+        Rankings by % of GitHub stars added (relative growth)
+      </p>
+
       <Rankings projects={growing} />
     </>
   )
 }
 
+const NavButton = styled(Button)`
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  padding: 0;
+`
+
 const IssueSubTitle = styled.div`
+  display: flex;
+  align-items: center;
   margin: 1rem 0;
-  h4 {
-    font-size: 1.2rem;
-  }
+`
+
+const StoryTitle = styled.h4`
+  font-size: 1.2rem;
+  flex-grow: 1;
+  text-align: center;
+`
+
+const RankingsTitle = styled.h4`
+  font-size: 1.2rem;
 `
 
 const Story = styled.div`
@@ -107,7 +151,7 @@ const Rankings = ({ projects }) => {
       showDelta
       showStars={false}
       showMetrics={false}
-      sortOption={{ id: 'daily' }}
+      sortOption={{ id: 'total' }}
       showDetails={false}
       showRankingNumber={false}
       showActions={false}

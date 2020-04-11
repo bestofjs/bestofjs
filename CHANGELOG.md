@@ -7,9 +7,9 @@
 
 ## 0.21.0 - 2020-03-17
 
-- Add "Newest projects" section to the top page, and sort by date of addition (#86)
+- Add "Recently Added Projects" section to the top page, and sort by date of addition (#86)
 - Add "Featured Projects" section to the top page
-- Add story and rankings frm the weekly newsletter to the top page
+- Add story and rankings from the weekly newsletter to the top page
 - Add `/featured` page
 
 ## 0.20.0 - 2019-12-26

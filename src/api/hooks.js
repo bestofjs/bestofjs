@@ -50,13 +50,23 @@ export function useUser() {
   }
 }
 
-const loadIssue = () => {
-  const lastestIssueURL = `https://weekly.bestofjs.org/latest/routeInfo.json`
-  return fetchJSON(lastestIssueURL).then(({ data }) => data.issue)
+const loadNewsletterIssue = ({ issueNumber: number }) => {
+  const root = 'https://weekly.bestofjs.org'
+  const url = number
+    ? `${root}/issues/${number}/routeInfo.json`
+    : `${root}/latest/routeInfo.json`
+  return fetchJSON(url).then(({ data }) => ({
+    isLatest: data.isLatest,
+    ...data.issue
+  }))
 }
 
-export function useFetchLatestIssue() {
-  return useAsync(loadIssue)
+export function useWeeklyNewsletter(issueNumber) {
+  return useAsync({
+    promiseFn: loadNewsletterIssue,
+    watch: issueNumber,
+    issueNumber
+  })
 }
 
 export function useFetchMonthlyDownloads(packageName) {

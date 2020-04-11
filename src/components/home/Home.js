@@ -46,7 +46,7 @@ const Home = props => {
             <RightSideBar>
               <RandomFeaturedProject />
               <Section.Header icon="tag">
-                <Section.Title>Popular tags</Section.Title>
+                <Section.Title>Popular Tags</Section.Title>
               </Section.Header>
               <CompactTagList
                 tags={popularTags}
