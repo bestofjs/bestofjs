@@ -4,7 +4,7 @@ import { sortByString, sortByNumber } from './sort-utils'
 
 // Number of projects under each tag:
 //  {react: 200, vue: 60...}
-export const getTagCounters = createSelector(
+const getTagCounters = createSelector(
   [state => Object.values(state.entities.projects)],
   projects => {
     const tagCounters = {}

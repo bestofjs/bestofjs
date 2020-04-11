@@ -3,13 +3,13 @@ import tinytime from 'tinytime'
 import styled from 'styled-components'
 import { useSelector } from 'react-redux'
 
+import { findProjectsByIds } from '../../selectors'
 import { ExternalLink, Section, Button } from '../core'
 import { getProjectId } from '../core/project'
 import { ChevronLeftIcon, ChevronRightIcon } from '../core/icons'
 import { useWeeklyNewsletter } from '../../api/hooks'
 import { Row, MainColumn, RightSideBar } from './layout'
 import ProjectList from '../project-list/ProjectTable'
-import { findProjectsByIds } from '../../selectors/project'
 import { SubscribeForm } from './subscribe-form'
 
 export const Weekly = () => {

@@ -4,8 +4,8 @@ import Select, { components } from 'react-select'
 import useDebouncedCallback from 'use-debounce/lib/useDebouncedCallback'
 import styled from 'styled-components/macro' // eslint-disable-line no-unused-vars
 
+import { getAllTags } from '../../selectors'
 import { SearchContext } from './SearchProvider'
-import { getAllTags } from '../../selectors/tag-selectors'
 import { Button } from '../core'
 
 export const SearchBox = () => {

@@ -3,7 +3,7 @@ import { Link, useHistory } from 'react-router-dom'
 import styled from 'styled-components'
 import { useSelector } from 'react-redux'
 
-import { getProjectsByTag } from '../../selectors/index'
+import { getProjectsByTag } from '../../selectors'
 import { Avatar } from '../core/project'
 import { Button, Grid, Cell as GridCell } from '../core'
 import { ChevronRightIcon } from '../core/icons'

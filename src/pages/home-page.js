@@ -1,9 +1,8 @@
 import React from 'react'
 import { connect } from 'react-redux'
 
+import { getNewestProjects, getPopularTags } from '../selectors'
 import Home from '../components/home/Home'
-import { getNewestProjects } from '../selectors'
-import { getPopularTags } from '../selectors/tag-selectors'
 
 const HomePage = ({ auth, ui, pending, ...otherProps }) => {
   return <Home pending={auth.pending || pending} {...otherProps} />

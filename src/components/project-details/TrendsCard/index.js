@@ -1,9 +1,9 @@
 import React from 'react'
 import styled from 'styled-components'
 
+import { getDeltaByDay } from '../../../selectors'
 import Heatmap from './Heatmap'
 import MonthlyTrends from './monthly-trends'
-import { getDeltaByDay } from '../../../selectors/project'
 import { StarDelta } from '../../core/project'
 import { Card } from '../../core'
 import { StarIcon } from '../../core/icons'
