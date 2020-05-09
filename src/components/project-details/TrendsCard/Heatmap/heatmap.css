@@ -8,13 +8,13 @@
   stroke-width: 1px;
 }
 .color-empty {
-  fill: #ececec;
+  fill: #f4f4f4;
 }
 .color-negative {
-  fill: #c7f6f7;
+  fill: #91c6e9;
 }
 .color-0 {
-  fill: #f6fad7;
+  fill: #d8e9f2;
 }
 .color-1 {
   fill: #f6faaa;
