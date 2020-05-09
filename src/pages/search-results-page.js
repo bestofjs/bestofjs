@@ -3,9 +3,7 @@ import { withRouter } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import styled from 'styled-components'
 
-import { allProjects } from '../selectors'
-import { getTagsById } from '../selectors/tag-selectors'
-import { getProjectSelectorByKey } from '../selectors/project'
+import { allProjects, getTagsById, getProjectSelectorByKey } from '../selectors'
 import { PaginationProvider } from '../components/core/pagination'
 import { TagIcon } from '../components/core/icons'
 import {

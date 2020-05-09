@@ -30,12 +30,7 @@ const StyledFooter = styled.footer`
   }
 `
 
-const Footer = ({
-  staticContent,
-  lastUpdate,
-  showRefreshButton,
-  fetchProjects
-}) => {
+const Footer = ({ staticContent, lastUpdate, fetchProjects }) => {
   const { repo, projectName, version } = useStaticContent()
 
   return (
@@ -70,10 +65,24 @@ const Footer = ({
             <a href="https://michaelrambeau.com">Michael Rambeau</a>, made in
             Osaka, Japan.
           </p>
+          <Partner>
+            <span style={{ marginRight: 4 }}>Powered by</span>
+            <a href="https://vercel.com?utm_source=bestofjs ">
+              <img width="80" src="/svg/vercel.svg" alt="Vercel" />
+            </a>
+          </Partner>
         </section>
       </div>
     </StyledFooter>
   )
 }
+
+const Partner = styled.p`
+  display: flex;
+  justify-content: center;
+  span {
+    margin-right: 4px;
+  }
+`
 
 export default Footer

@@ -13,6 +13,6 @@ const Container = styled.div`
 `
 const AnimatedBar = styled.div`
   height: 1px;
-  background-color: #fa9e59;
+  background-color: var(--iconColor);
   transition: width 500ms ease-in-out;
 `

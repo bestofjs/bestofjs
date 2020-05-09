@@ -20,7 +20,7 @@ const StyledLink = styled(Link)`
   }
 `
 
-const TagLabel = ({ tag, baseTagIds = [], showCount = true }) => {
+const TagLabel = ({ tag, baseTagIds = [] }) => {
   const { location } = useSearch()
 
   const isMultiTagLink = baseTagIds.length > 0
@@ -38,7 +38,6 @@ const TagLabel = ({ tag, baseTagIds = [], showCount = true }) => {
     <StyledLink to={nextLocation} key={tag.id}>
       {isMultiTagLink && <span>+ </span>}
       {tag.name}
-      {showCount && <span className="count">{tag.counter}</span>}
     </StyledLink>
   )
 }

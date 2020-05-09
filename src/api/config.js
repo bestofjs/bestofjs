@@ -1,7 +1,7 @@
 const baseSetup = {
   GET_PROJECTS:
     readEnvironmentVariable('STATIC_API') ||
-    'https://bestofjs-api-v3.firebaseapp.com',
+    'https://bestofjs-static-api.now.sh',
   GET_README: 'https://bestofjs-serverless.now.sh',
   GET_PROJECT_DETAILS: 'https://bestofjs-serverless.now.sh',
   GET_PACKAGE_DATA: 'https://bestofjs-serverless.now.sh',

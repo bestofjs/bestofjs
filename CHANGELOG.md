@@ -1,5 +1,10 @@
 # Change log
 
+## 0.23.0 - 2020-05-09
+
+- Fetch static JSON data from Now.sh (`bestofjs-static-api.now.sh`) instead of Firebase
+- Add navigation buttons for the weekly newsletter section
+
 ## 0.22.0 - 2020-04-06
 
 - Add monthly download chart to project details page (#78)

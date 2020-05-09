@@ -4,8 +4,8 @@ import styled, { css } from 'styled-components'
 import { Link } from 'react-router-dom'
 import numeral from 'numeral'
 
+import { getDeltaByDay } from '../../selectors'
 import { Avatar, DownloadCount, StarDelta, StarTotal } from '../core/project'
-import { getDeltaByDay } from '../../selectors/project'
 import TagLabelGroup from '../tags/TagLabelGroup'
 import { DropdownMenu, Button } from '../core'
 import { useUser } from '../../api/hooks'
@@ -251,16 +251,12 @@ const Cell = styled.td`
   &:first-child {
     padding-left: 1rem;
   }
-  .icon {
-    color: #fa9e59;
-    margin-right: 0.25rem;
-  }
 `
 
 const ProjectRankingNumber = styled.div`
   font-size: 24px;
   text-align: center;
-  color: #788080;
+  color: var(--textSecondaryColor);
 `
 
 const FirstCell = styled(Cell)`
@@ -318,7 +314,7 @@ const IconButton = styled(Button)`
   ${props =>
     props.on
       ? css`
-          color: #fa9e59;
+          color: var(--textMutedColor);
         `
       : css`
           color: var(--textSecondaryColor);
@@ -352,7 +348,6 @@ const ProjectDescription = styled.div`
 
 const RepoInfo = styled.div`
   margin-top: 0.5rem;
-  /*color: #788080;*/
   @media (min-width: ${breakpoint}px) {
     display: none;
   }

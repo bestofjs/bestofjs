@@ -3,8 +3,8 @@ import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
 import { Route, Switch } from 'react-router-dom'
 
+import { findProjectById } from '../selectors'
 import track from '../helpers/track'
-import { findProjectById } from '../selectors/project'
 import { useFetchProjectDetails } from '../api/hooks'
 
 import { MainContent, Spinner } from '../components/core'

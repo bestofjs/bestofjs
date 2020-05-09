@@ -1,7 +1,7 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
 
-import { getAllTagsSortedBy } from '../selectors/tag-selectors'
+import { getAllTagsSortedBy } from '../selectors'
 import { PaginatedTagList } from '../components/tags/paginated-tag-list'
 import { TagIcon } from '../components/core/icons'
 import { MainContent, PageTitle } from '../components/core'

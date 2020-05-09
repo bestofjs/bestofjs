@@ -1,9 +1,9 @@
 import React from 'react'
 import { connect } from 'react-redux'
 
+import { getAllHeroes } from '../selectors'
 import FetchHeroes from '../containers/FetchHeroes'
 import HallOfFame from '../components/hall-of-fame/HallOfFame'
-import { getAllHeroes } from '../selectors/hall-of-fame'
 
 const getYou = auth => ({
   name: 'Could be you?',
