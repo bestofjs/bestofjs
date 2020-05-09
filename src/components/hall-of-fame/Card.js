@@ -1,14 +1,10 @@
 import styled from 'styled-components'
 
-const bestofjsOrange = '#e65100'
-const cardBorderColor = '#cbcbcb'
-const textSecondaryColor = '#777'
-
 const Card = styled.div`
   flex: 1;
   padding: 0;
   background-color: #fff;
-  border: 1px solid ${cardBorderColor};
+  border: 1px solid var(--boxBorderColor);
   .card-block {
     display: flex;
     align-items: center;
@@ -28,23 +24,16 @@ const Card = styled.div`
   .header-text {
     padding: 0 1em;
   }
-  .hero-card.current-user .header {
-    background-color: ${bestofjsOrange};
-    color: #fff;
-  }
-  .hero-card.current-user .header .text-secondary {
-    color: rgba(255, 255, 255, 0.6);
-  }
   .name {
     font-size: 1.3em;
   }
   .inner {
     padding: 1rem;
-    border-top: 1px dashed ${cardBorderColor};
-    color: ${textSecondaryColor};
+    border-top: 1px dashed var(--boxBorderColor);
+    color: var(--textSecondaryColor);
   }
   .icon {
-    color: #fa9e59;
+    color: var(--iconColor);
     margin-right: 5px;
   }
   .github-data {

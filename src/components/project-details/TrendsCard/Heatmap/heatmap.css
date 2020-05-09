@@ -1,6 +1,6 @@
 .react-calendar-heatmap text {
   font-size: 10px;
-  fill: #aaa;
+  fill: var(--textSecondaryColor);
 }
 .react-calendar-heatmap rect:hover,
 .react-calendar-heatmap .active {

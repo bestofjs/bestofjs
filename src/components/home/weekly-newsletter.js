@@ -122,7 +122,7 @@ const Story = styled.div`
   background-color: white;
   blockquote {
     padding: 0 1em;
-    border-left: 0.25em solid #fa9e59;
+    border-left: 0.25em solid var(--iconColor);
     margin-left: 0;
     color: var(--textSecondaryColor);
   }

@@ -4,7 +4,7 @@ import styled from 'styled-components'
 const Div = styled.div`
   margin: 1rem 0px 0px;
   padding-left: 1rem;
-  border-left: 1px dashed #cbcbcb;
+  border-left: 1px dashed var(--boxBorderColor);
 `
 
 const SizeDetailsList = ({ children }) => {

@@ -6,10 +6,10 @@ const DependencyTable = styled.table`
   width: 100%;
   border-spacing: 0;
   margin-top: 1rem;
-  border: 1px dashed #cbcbcb;
+  border: 1px dashed var(--boxBorderColor);
   tbody td {
     padding: ${cellPadding};
-    border-top: 1px dashed #cbcbcb;
+    border-top: 1px dashed var(--boxBorderColor);
     &:first-child {
       width: 200px;
     }

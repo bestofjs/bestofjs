@@ -16,7 +16,7 @@ export const MonthlyDownloadChart = ({ project, ...rest }) => {
           <ExpandableSection on={on} getTogglerProps={getTogglerProps}>
             Monthly downloads on NPM
           </ExpandableSection>
-          {!on && (
+          {!on && project.downloads !== undefined && (
             <Preview>
               Last 30 days: <DownloadCount value={project.downloads} />
             </Preview>

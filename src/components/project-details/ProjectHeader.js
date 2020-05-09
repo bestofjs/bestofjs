@@ -13,7 +13,7 @@ const ProjectHeader = ({ project }) => (
         <div
           style={{
             marginTop: '.5rem',
-            borderLeft: '2px solid #fa9e59',
+            borderLeft: '2px solid var(--iconColor)',
             paddingLeft: '1rem'
           }}
         >

@@ -8,10 +8,7 @@ Section.Header = ({ children, icon }) => {
     <Row>
       {icon && (
         <IconCell>
-          <span
-            className={`mega-octicon octicon-${icon}`}
-            style={{ color: '#fa9e59' }}
-          />
+          <span className={`mega-octicon octicon-${icon} icon-color`} />
         </IconCell>
       )}
       <MainCell>{children}</MainCell>

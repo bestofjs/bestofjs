@@ -81,9 +81,11 @@ const Heatmap = ({ values, active, selected, onClick }) => {
         {selected ? (
           <SelectedDate active={active} yesterday={yesterday} />
         ) : (
-          <div style={{ color: '#aaa', fontStyle: 'italic' }}>
-            Click on any square to check the number of stars added at a given
-            date.
+          <div className="text-secondary">
+            <i>
+              Click on any square to check the number of stars added at a given
+              date.
+            </i>
           </div>
         )}
       </div>

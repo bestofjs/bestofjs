@@ -10,10 +10,7 @@ const RisingStars = ({ date }) => (
   <div id="stateofjs-container">
     <div>
       <p>
-        <span
-          className="mega-octicon octicon-megaphone"
-          style={{ color: '#fa9e59' }}
-        />{' '}
+        <span className="mega-octicon octicon-megaphone icon-color" />{' '}
         <span style={{ fontSize: '1.5rem' }}>Rising Stars 2017</span>
         <span
           className="counter"

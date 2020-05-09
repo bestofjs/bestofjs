@@ -38,11 +38,11 @@ export const PageTitle = ({ icon, children, extra, style }) => {
 
 const PageTitleIcon = styled.div`
   margin-right: 0.5rem;
-  color: #fa9e59;
+  color: var(--iconColor);
 `
 
 const PageTitleExtra = styled.span`
-  color: #788080;
+  color: var(--textSecondary);
   font-size: 16px;
   margin-left: 0.25rem;
 `

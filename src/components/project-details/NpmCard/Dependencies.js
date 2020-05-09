@@ -76,7 +76,7 @@ const DependencyFullList = ({ packageNames }) => {
     <DependencyTable className="block-list">
       <thead>
         <tr>
-          <td>Package on npm</td>
+          <td>Package on NPM</td>
           <td>
             Project on <i>Best of JavaScript</i>
           </td>
@@ -93,17 +93,14 @@ const DependencyFullList = ({ packageNames }) => {
             <td>
               {npmPackage.project ? (
                 <span>
-                  <Link
-                    to={`/projects/${npmPackage.project.slug}`}
-                    className="text-secondary"
-                  >
+                  <Link to={`/projects/${npmPackage.project.slug}`}>
                     {npmPackage.project.name}{' '}
-                    <StarTotal value={npmPackage.project.stars} icon />
                   </Link>
+                  <StarTotal value={npmPackage.project.stars} icon />
                   <span className="text-secondary" />
                 </span>
               ) : (
-                <span style={{ color: '#ccc' }}>N/A</span>
+                <span className="text-muted">N/A</span>
               )}
             </td>
           </tr>

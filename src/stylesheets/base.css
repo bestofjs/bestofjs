@@ -3,11 +3,13 @@
   --gutter: 2rem;
   --topbarHeight: 60px;
   --textPrimaryColor: #541600;
-  --textSecondaryColor: #825545;
+  --textSecondaryColor: #87563e;
+  --textMutedColor: #bb967c;
   --linkColor: #cc4700;
   --bestofjsOrange: #e65100;
   --bestofjsPurple: #9c0042;
   --boxBorderColor: #cecece;
+  --iconColor: #fa9e59;
 }
 
 @media (max-width: 599px) {
@@ -46,8 +48,14 @@ body,
 .text-secondary {
   color: var(--textSecondaryColor);
 }
+.text-muted {
+  color: var(--textMutedColor);
+}
 .text-small {
   font-size: 0.75rem;
+}
+.icon-color {
+  color: var(--iconColor);
 }
 a {
   color: #cc4700;
