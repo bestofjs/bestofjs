@@ -10,6 +10,9 @@
 .color-empty {
   fill: #ececec;
 }
+.color-negative {
+  fill: #c7f6f7;
+}
 .color-0 {
   fill: #f6fad7;
 }

@@ -12,14 +12,15 @@ const fulldate = tinytime('{YYYY}/{Mo}/{DD} ({dddd})', {
 
 const dayOfWeek = tinytime('{dddd}')
 
+const values = times(40)
+  .map(i => i + 1)
+  .concat([45, 50, 55, 60, 70, 80, 90, 100, 200, 500])
+const steps = values.length
+const max = values[values.length - 1]
+
 function scale(value) {
-  // const values = [1, 5, 10, 20, 50]
-  const values = times(40)
-    .map(i => i + 1)
-    .concat([45, 50, 55, 60, 70, 80, 90, 100, 200, 500])
-  const steps = values.length
-  const max = values[values.length - 1]
   if (!value) return 0
+  if (value < 0) return `negative`
   if (value >= max) return steps
   const found = values.find(val => value < val)
   return values.indexOf(found)
@@ -58,7 +59,7 @@ const Details = ({ date, delta, yesterday }) => {
       ? `Yesterday (${dayOfWeek.render(date)})`
       : fulldate.render(date)
   return (
-    <div style={{ marginTop: '.5rem' }}>
+    <div className="text-secondary" style={{ marginTop: '.5rem' }}>
       {renderDate()}: {starVariation()}
     </div>
   )
