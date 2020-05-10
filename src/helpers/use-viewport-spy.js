@@ -16,6 +16,10 @@ export const useViewportSpy = (elementRef, options = defaultOptions) => {
 
   useLayoutEffect(
     () => {
+      if (!supportsObserverAPI()) {
+        setIsVisible(true)
+        return () => {}
+      }
       const observer = new IntersectionObserver(
         entries =>
           entries.forEach(item => {
@@ -35,4 +39,8 @@ export const useViewportSpy = (elementRef, options = defaultOptions) => {
   )
 
   return isVisible
+}
+
+function supportsObserverAPI() {
+  return typeof IntersectionObserver === 'function'
 }
