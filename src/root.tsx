@@ -10,19 +10,18 @@ import { fetchProjects } from './actions/entitiesActions'
 import createAuthApi from './api/auth/auth-api'
 import track from './helpers/track'
 import { fetchProjectsIfNeeded } from './actions/entitiesActions'
-import App from './App'
+import { App } from './app'
+import { useAppUpdateChecker } from 'app-update-checker'
 
 export const Root = () => {
+  useAppUpdateChecker({ interval: 5000, isDebugMode: true })
   const store = configureStore({})
   const authApi = createAuthApi({ dispatch: store.dispatch })
   const dependencies = { authApi }
 
-  useEffect(
-    () => {
-      store.dispatch(fetchProjects())
-    },
-    [store]
-  )
+  useEffect(() => {
+    store.dispatch(fetchProjects())
+  }, [store])
 
   return (
     <Router>
@@ -43,25 +42,19 @@ const AppWithRouter = props => {
     store
   } = props
 
-  useEffect(
-    () => {
-      authApi.start(history)
-    },
-    [authApi, history]
-  )
+  useEffect(() => {
+    authApi.start(history)
+  }, [authApi, history])
 
-  useEffect(
-    () => {
-      if (typeof window === 'undefined') return
-      window.scrollTo(0, 0)
-      track(location.pathname)
+  useEffect(() => {
+    if (typeof window === 'undefined') return
+    window.scrollTo(0, 0)
+    track(location.pathname)
 
-      // if the user is on the TOP page, reload data if data is stale
-      if (location.pathname === '/') {
-        store.dispatch(fetchProjectsIfNeeded())
-      }
-    },
-    [location, store]
-  )
+    // if the user is on the TOP page, reload data if data is stale
+    if (location.pathname === '/') {
+      store.dispatch(fetchProjectsIfNeeded())
+    }
+  }, [location, store])
   return <App {...props} />
 }

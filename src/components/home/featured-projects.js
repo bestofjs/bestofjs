@@ -104,8 +104,6 @@ export const FeaturedProjectGroup = ({
     ? projects.slice(0, limit)
     : projects.slice(start + limit, start + 2 * limit)
 
-  log(`Slider page ${pageNumber}`, visibleProjects[0].name)
-
   return (
     <ProjectSlider
       visibleProjects={visibleProjects}
@@ -245,12 +243,9 @@ const CountDown = ({ pageNumber, duration, interval }) => {
     duration ? interval : 0
   )
 
-  useUpdateEffect(
-    () => {
-      setProgress(initialProgress)
-    },
-    [pageNumber, duration]
-  )
+  useUpdateEffect(() => {
+    setProgress(initialProgress)
+  }, [pageNumber, duration])
 
   return <ProgressBar progress={progress} />
 }
