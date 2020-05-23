@@ -13,7 +13,6 @@ import { useUpdateEffect } from '../../helpers/lifecycle-hooks'
 import { useViewportSpy } from '../../helpers/use-viewport-spy'
 import { useIsDocumentVisible } from '../../helpers/use-page-events'
 import TagLabel from '../tags/TagLabel'
-import log from '../../helpers/log'
 import { ProgressBar } from './progress-bar'
 
 export const RandomFeaturedProject = () => {

@@ -88,23 +88,24 @@ const SectionMobileOnly = styled(Section)`
   }
 `
 
+const ResponsiveRow = styled.div`
+  display: flex;
+  flex-direction: column;
+  @media (min-width: 700px) {
+    align-items: center;
+    flex-direction: row;
+  }
+  > *:last-child {
+    padding-top: 1rem;
+  }
+`
+
 const StarOnGitHub = () => {
   const { repo, projectName } = useStaticContent()
-  const Row = styled.div`
-    display: flex;
-    flex-direction: column;
-    @media (min-width: 700px) {
-      align-items: center;
-      flex-direction: row;
-    }
-    > *:last-child {
-      padding-top: 1rem;
-    }
-  `
 
   return (
     <Section>
-      <Row>
+      <ResponsiveRow>
         <div style={{ flexGrow: 1 }}>
           <Section.Header icon="heart">
             <Section.Title>Do you find {projectName} useful?</Section.Title>
@@ -114,10 +115,10 @@ const StarOnGitHub = () => {
             <ExternalLink url={repo}>GitHub</ExternalLink>, thank you!
           </p>
         </div>
-        <div style={{}}>
+        <div>
           <StarOnGitHubButton />
         </div>
-      </Row>
+      </ResponsiveRow>
     </Section>
   )
 }
