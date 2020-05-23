@@ -109,8 +109,8 @@ const AppUpdateToastContent = ({ close, version }) => {
         Application Update <span className="text-muted">{version}</span>
       </h3>
       <p style={{ marginBottom: '1.5rem' }}>
-        The application has been updated, click on "Update" to reload the
-        window.
+        A new version of <i>Best of JavaScript</i> is available, click on
+        "Update" to reload the window.
       </p>
 
       <ButtonGroup>
