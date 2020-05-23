@@ -12,9 +12,9 @@ import track from './helpers/track'
 import { fetchProjectsIfNeeded } from './actions/entitiesActions'
 import { App } from './app'
 import { useAppUpdateChecker } from 'app-update-checker'
+import { ToastContainer } from 'components/core/toast'
 
 export const Root = () => {
-  useAppUpdateChecker({ interval: 5000, isDebugMode: true })
   const store = configureStore({})
   const authApi = createAuthApi({ dispatch: store.dispatch })
   const dependencies = { authApi }
@@ -25,7 +25,9 @@ export const Root = () => {
 
   return (
     <Router>
-      <AppWithRouter store={store} dependencies={dependencies} />
+      <ToastContainer>
+        <AppWithRouter store={store} dependencies={dependencies} />
+      </ToastContainer>
     </Router>
   )
 }
@@ -37,6 +39,8 @@ const AppWithRouter = props => {
   const location = useLocation()
   const history = useHistory()
 
+  useAppUpdateChecker({ interval: 10 * 1000, isSimulationMode: false })
+
   const {
     dependencies: { authApi },
     store
@@ -47,6 +51,7 @@ const AppWithRouter = props => {
   }, [authApi, history])
 
   useEffect(() => {
+    console.log(location.pathname)
     if (typeof window === 'undefined') return
     window.scrollTo(0, 0)
     track(location.pathname)
@@ -55,6 +60,6 @@ const AppWithRouter = props => {
     if (location.pathname === '/') {
       store.dispatch(fetchProjectsIfNeeded())
     }
-  }, [location, store])
+  }, [location.pathname]) // eslint-disable-line react-hooks/exhaustive-deps
   return <App {...props} />
 }

@@ -3,9 +3,12 @@ import styled, { css } from 'styled-components'
 export const Button = styled.button`
   display: flex;
   align-items: center;
-  background-color: #fff;
-  border: 1px solid var(--boxBorderColor);
-  color: var(--textPrimaryColor);
+  background-color: ${props =>
+    props.primary ? 'var(--bestofjsOrange)' : 'white'};
+  color: ${props => (props.primary ? 'white' : 'var(--textPrimaryColor)')};
+  border: 1px solid
+    ${props =>
+      props.primary ? 'var(--bestofjsOrange)' : 'var(--boxBorderColor)'};
   justify-content: center;
   padding: 0.5em 1em;
   text-align: center;
@@ -25,8 +28,10 @@ export const Button = styled.button`
           cursor: pointer;
           &:hover {
             border-color: #b5b5b5;
-            color: #363636;
-          }
+            color: ${props.primary ? 'white' : '#363636'};
+            background-color: ${
+              props.primary ? 'var(--bestofjsPurple)' : 'inherit'
+            };
         `}
   &:active,
   &:focus {
