@@ -2,9 +2,8 @@ import React, { useEffect, useRef } from 'react'
 import styled from 'styled-components'
 
 import { fetchJSON } from 'helpers/fetch'
-import 'react-confirm-alert/src/react-confirm-alert.css'
 import { Button } from 'components/core'
-import { useToast } from 'components/core/toast/toast-container'
+import { useToast } from 'components/core/toast'
 
 type Meta = {
   date: string
@@ -34,6 +33,7 @@ export function useAppUpdateChecker({
 
   function start() {
     if (timerRef.current) return
+    console.log('Start!')
     timerRef.current = window.setInterval(
       checkForUpdateAvailability,
       intervalRef.current
