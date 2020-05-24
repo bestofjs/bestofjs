@@ -53,7 +53,7 @@ const Header = props => {
               </NavigationMenuItem>
               <NavigationMenuItem>
                 <a href={repo} target="_blank" rel="noopener noreferrer">
-                  <MarkGitHubIcon size={32} color={'#e65100'} />
+                  <MarkGitHubIcon size={32} />
                 </a>
               </NavigationMenuItem>
             </NavigationMenu>
@@ -95,8 +95,11 @@ const NavigationMenuItem = styled.div`
     display: none;
   }
   a {
-    color: var(--textPrimaryColor);
+    color: var(--textSecondaryColor);
     font-size: 1rem;
+    &:hover {
+      color: var(--textPrimaryColor);
+    }
   }
 `
 

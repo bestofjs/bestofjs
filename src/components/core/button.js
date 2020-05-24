@@ -13,7 +13,7 @@ export const Button = styled.button`
   border-radius: 4px;
   font-size: 1rem;
   font-family: inherit;
-  &:not(:disabled):hover {
+  &:hover {
     cursor: pointer;
     color: var(--textPrimaryColor);
     border-color: var(--textMutedColor);
@@ -38,25 +38,9 @@ const PrimaryButtonMixin = css`
 const DisabledButtonMixin = css`
   cursor: not-allowed;
   background-color: transparent;
-  > * {
-    opacity: 0.5;
+  color: var(--textMutedColor);
+  &:hover {
+    color: var(--textMutedColor);
+    border-color: var(--boxBorderColor);
   }
 `
-
-// ${props =>
-//   props.disabled
-//     ? css`
-//         background-color: transparent;
-//         > * {
-//           opacity: 0.5;
-//         }
-//       `
-//     : css`
-//         cursor: pointer;
-//         &:hover {
-//           border-color: #b5b5b5;
-//           color: ${props.primary ? 'white' : '#363636'};
-//           background-color: ${
-//             props.primary ? 'var(--bestofjsPurple)' : 'inherit'
-//           };
-//       `}
