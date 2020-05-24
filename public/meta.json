@@ -1,0 +1,5 @@
+{
+  "//comment": "Used only in dev, will be overridden by build script on production",
+  "date": "2020-06-14T13:48:58.189Z",
+  "version": "0.1.0"
+}

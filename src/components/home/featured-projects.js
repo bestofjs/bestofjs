@@ -12,8 +12,7 @@ import { shuffle } from '../../helpers/shuffle'
 import { useUpdateEffect } from '../../helpers/lifecycle-hooks'
 import { useViewportSpy } from '../../helpers/use-viewport-spy'
 import { useIsDocumentVisible } from '../../helpers/use-page-events'
-import TagLabel from '../tags/TagLabel'
-import log from '../../helpers/log'
+import { TagLabel } from '../tags/tag-label'
 import { ProgressBar } from './progress-bar'
 
 export const RandomFeaturedProject = () => {
@@ -103,8 +102,6 @@ export const FeaturedProjectGroup = ({
   const nextProjects = isLastPage
     ? projects.slice(0, limit)
     : projects.slice(start + limit, start + 2 * limit)
-
-  log(`Slider page ${pageNumber}`, visibleProjects[0].name)
 
   return (
     <ProjectSlider
@@ -245,12 +242,9 @@ const CountDown = ({ pageNumber, duration, interval }) => {
     duration ? interval : 0
   )
 
-  useUpdateEffect(
-    () => {
-      setProgress(initialProgress)
-    },
-    [pageNumber, duration]
-  )
+  useUpdateEffect(() => {
+    setProgress(initialProgress)
+  }, [pageNumber, duration])
 
   return <ProgressBar progress={progress} />
 }

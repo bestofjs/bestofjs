@@ -3,7 +3,7 @@ import { Router } from 'react-router-dom'
 import ReactDOM from 'react-dom'
 import { createMemoryHistory } from 'history'
 
-import App from './App'
+import { App } from './app'
 import configureStore from './store'
 import createAuthMockApi from './api/auth/auth-mock-api'
 

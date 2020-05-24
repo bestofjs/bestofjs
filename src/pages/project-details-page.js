@@ -28,7 +28,7 @@ const ProjectDetailsPage = props => {
     if (project) {
       track('View project', project.name)
     }
-  })
+  }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <MainContent>
@@ -102,8 +102,5 @@ function getProjectWithDetails(project, details) {
 }
 
 export default withRouter(
-  connect(
-    mapStateToProps,
-    mapDispatchToProps
-  )(ProjectDetailsPageContainer)
+  connect(mapStateToProps, mapDispatchToProps)(ProjectDetailsPageContainer)
 )

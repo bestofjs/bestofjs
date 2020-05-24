@@ -3,7 +3,7 @@ import React from 'react'
 import { Avatar } from '../core/project'
 import formatUrl from '../../helpers/formatUrl'
 import { ExternalLink } from '../core/typography'
-import TagLabelGroup from '../tags/TagLabelGroup'
+import { TagLabelGroup } from '../tags/tag-label'
 
 const ProjectHeader = ({ project }) => (
   <div style={{ marginBottom: '2rem' }}>

@@ -6,7 +6,7 @@ import numeral from 'numeral'
 
 import { getDeltaByDay } from '../../selectors'
 import { Avatar, DownloadCount, StarDelta, StarTotal } from '../core/project'
-import TagLabelGroup from '../tags/TagLabelGroup'
+import { TagLabelGroup } from '../tags/tag-label'
 import { DropdownMenu, Button } from '../core'
 import { useUser } from '../../api/hooks'
 import fromNow from '../../helpers/fromNow'

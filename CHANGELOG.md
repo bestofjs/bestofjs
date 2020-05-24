@@ -1,5 +1,11 @@
 # Change log
 
+## 0.23.1 - 2020-05-24
+
+- Notify the user when an application update is available
+- Introduce TypeScript
+- Upgrade to `react-scripts@3.4.1`
+
 ## 0.23.0 - 2020-05-09
 
 - Fetch static JSON data from Now.sh (`bestofjs-static-api.now.sh`) instead of Firebase

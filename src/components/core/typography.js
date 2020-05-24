@@ -7,8 +7,9 @@ Link to external websites, that open in a new browser tab
 See https://mathiasbynens.github.io/rel-noopener
 */
 export const ExternalLink = ({ url, children, ...rest }) => {
+  const fullURL = url.startsWith('http') ? url : `http://` + url
   return (
-    <a href={url} target="_blank" rel="noopener noreferrer" {...rest}>
+    <a href={fullURL} target="_blank" rel="noopener noreferrer" {...rest}>
       {children}
     </a>
   )

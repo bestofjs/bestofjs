@@ -1,8 +1,6 @@
 import React from 'react'
-// import PropTypes from 'prop-types'
 import { withRouter } from 'react-router-dom'
 import { useSelector } from 'react-redux'
-import { css } from 'styled-components/macro' // eslint-disable-line no-unused-vars
 
 import { getBookmarkCount } from '../../selectors'
 import { Popover, Menu, DropdownToggleButton } from '../core'

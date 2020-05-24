@@ -7,7 +7,7 @@ import Footer from './components/footer/ConnectedFooter'
 import { SearchBox, SearchProvider } from './components/search'
 import { StaticContentProvider } from './static-content'
 
-const App = ({ store, ...props }) => {
+export const App = ({ store, ...props }) => {
   return (
     <Provider store={store}>
       <StaticContentProvider>
@@ -27,5 +27,3 @@ const App = ({ store, ...props }) => {
     </Provider>
   )
 }
-
-export default App
