@@ -24,12 +24,9 @@ export const SearchBox = () => {
     options.find(({ id }) => id === tagId)
   )
 
-  useEffect(
-    () => {
-      setInputValue(query)
-    },
-    [query]
-  )
+  useEffect(() => {
+    setInputValue(query)
+  }, [query])
 
   const selectRef = useRef()
 
@@ -120,10 +117,10 @@ const CustomOption = props => {
 
 const ResetButton = styled(Button)`
   padding: 2px 5px;
-  margin-right: '0.5rem';
-  color: #ababab;
+  margin-right: 0.5rem;
+  color: #ccc;
   &:hover {
-    #999999;
+    #c6c6c6;
   }
   border-style: none;
 `

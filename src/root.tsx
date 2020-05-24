@@ -39,7 +39,7 @@ const AppWithRouter = props => {
   const location = useLocation()
   const history = useHistory()
 
-  useAppUpdateChecker({ interval: 10 * 1000, isSimulationMode: false })
+  useAppUpdateChecker({ interval: 60 * 1000, isSimulationMode: true })
 
   const {
     dependencies: { authApi },
@@ -51,7 +51,6 @@ const AppWithRouter = props => {
   }, [authApi, history])
 
   useEffect(() => {
-    console.log(location.pathname)
     if (typeof window === 'undefined') return
     window.scrollTo(0, 0)
     track(location.pathname)

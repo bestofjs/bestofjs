@@ -1,0 +1,47 @@
+import React from 'react'
+import { Link } from 'react-router-dom'
+import styled from 'styled-components'
+
+import { Button, Cell, Grid } from 'components/core'
+import { useSearch, updateLocation } from '../search'
+
+export const TagLabelGroup = ({ tags, ...otherProps }) => {
+  return (
+    <Grid>
+      {tags.map(tag => (
+        <Cell key={tag.id}>
+          <TagLabel tag={tag} {...otherProps} />
+        </Cell>
+      ))}
+    </Grid>
+  )
+}
+
+const Tag = styled(Button)`
+  display: inline-block;
+  font-size: 13px;
+  border-radius: 12px;
+  padding: 4px 8px;
+`
+
+export const TagLabel = ({ tag, baseTagIds = [] }) => {
+  const { location } = useSearch() as any // TODO fix types
+
+  const isMultiTagLink = baseTagIds.length > 0
+
+  const nextLocation = updateLocation(
+    { ...location, pathname: '/projects' },
+    {
+      query: '',
+      selectedTags: [...baseTagIds, tag.id],
+      page: 1
+    }
+  )
+
+  return (
+    <Tag key={tag.id} to={nextLocation} as={Link}>
+      {isMultiTagLink && <span>+ </span>}
+      {tag.name}
+    </Tag>
+  )
+}

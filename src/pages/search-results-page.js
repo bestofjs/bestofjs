@@ -16,7 +16,7 @@ import {
 
 // TODO colocate all search components?
 import { ProjectPaginatedList } from '../components/search/project-paginated-list'
-import TagLabelGroup from '../components/tags/TagLabelGroup'
+import { TagLabelGroup } from '../components/tags/tag-label'
 import { useSearch } from '../components/search/SearchProvider'
 import { updateLocation } from '../components/search/search-utils'
 import { findProjects } from '../components/search/find-projects'
