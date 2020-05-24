@@ -39,7 +39,10 @@ const AppWithRouter = props => {
   const location = useLocation()
   const history = useHistory()
 
-  useAppUpdateChecker({ interval: 60 * 1000, isSimulationMode: true })
+  useAppUpdateChecker({
+    interval: 5 * 60 * 1000, // check for updates every 5 minutes
+    isSimulationMode: true
+  })
 
   const {
     dependencies: { authApi },

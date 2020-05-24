@@ -61,8 +61,6 @@ const ToastStackPortal = () => {
     })
   }
 
-  // return <>{renderStack()}</>
-  // return createPortal(renderStack(), toastRef.current)
   return createPortal(
     <div className="toast-container top-right">{renderStack()}</div>,
     document.getElementById(toastRootElementId)!
