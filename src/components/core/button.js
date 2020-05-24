@@ -32,6 +32,7 @@ const PrimaryButtonMixin = css`
   border-color: var(--boxBorderColor);
   &:hover {
     background-color: var(--bestofjsPurple);
+    color: white;
   }
 `
 

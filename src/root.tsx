@@ -41,7 +41,7 @@ const AppWithRouter = props => {
 
   useAppUpdateChecker({
     interval: 5 * 60 * 1000, // check for updates every 5 minutes
-    isSimulationMode: true
+    isSimulationMode: false
   })
 
   const {

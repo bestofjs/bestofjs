@@ -33,7 +33,6 @@ export function useAppUpdateChecker({
 
   function start() {
     if (timerRef.current) return
-    console.log('Start!')
     timerRef.current = window.setInterval(
       checkForUpdateAvailability,
       intervalRef.current
@@ -76,7 +75,11 @@ export function useAppUpdateChecker({
 
   async function fetchMeta(): Promise<Meta | undefined> {
     try {
-      console.log(`Checking app update every ${interval / 1000} seconds`)
+      if (isSimulationMode) {
+        console.log(
+          `Checking app update every ${intervalRef.current / 1000} seconds`
+        )
+      }
       const meta = await fetchJSON(url)
       return meta as Meta
     } catch (error) {
