@@ -2,8 +2,8 @@ import React, { useContext } from 'react'
 import styled from 'styled-components'
 import { useHistory, useLocation } from 'react-router-dom'
 
-import ProjectTable from '../project-list/ProjectTable'
-import { PaginationContext } from '../core/pagination/provider'
+import { ProjectTable } from 'components/project-list/project-table'
+import { PaginationContext } from 'components/core/pagination/provider'
 import { SortOrderPicker } from './sort-order-picker'
 import { updateLocation } from './search-utils'
 import {

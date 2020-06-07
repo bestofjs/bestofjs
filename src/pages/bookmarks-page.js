@@ -1,7 +1,7 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
 
-import { useSearch } from '../components/search/SearchProvider'
+import { useSearch } from '../components/search/search-provider'
 import {
   PaginationProvider,
   paginateItemList

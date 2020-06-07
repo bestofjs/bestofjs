@@ -3,13 +3,13 @@ import tinytime from 'tinytime'
 import styled from 'styled-components'
 import { useSelector } from 'react-redux'
 
-import { findProjectsByIds } from '../../selectors'
-import { ExternalLink, Section, Button } from '../core'
-import { getProjectId } from '../core/project'
-import { ChevronLeftIcon, ChevronRightIcon } from '../core/icons'
-import { useWeeklyNewsletter } from '../../api/hooks'
+import { findProjectsByIds } from 'selectors'
+import { ExternalLink, Section, Button } from 'components/core'
+import { getProjectId } from 'components/core/project'
+import { ChevronLeftIcon, ChevronRightIcon } from 'components/core/icons'
+import { ProjectTable } from 'components/project-list/project-table'
+import { useWeeklyNewsletter } from 'api/hooks'
 import { Row, MainColumn, RightSideBar } from './layout'
-import ProjectList from '../project-list/ProjectTable'
 import { SubscribeForm } from './subscribe-form'
 
 export const Weekly = () => {
@@ -146,7 +146,7 @@ const Rankings = ({ projects }) => {
   const trendingProjects = useSelector(findProjectsByIds(ids))
 
   return (
-    <ProjectList
+    <ProjectTable
       projects={trendingProjects}
       showDelta
       showStars={false}

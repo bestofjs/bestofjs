@@ -12,7 +12,20 @@ import { useUser } from '../../api/hooks'
 import fromNow from '../../helpers/fromNow'
 import { BookmarkIcon, MarkGitHubIcon, HomeIcon } from '../core/icons'
 
-const ProjectTable = ({ projects, footer, from = 1, style, ...otherProps }) => {
+type Props = {
+  projects: BestOfJS.Project[]
+  footer?: React.ReactNode
+  style: CSSRuleList
+  sortOption: any
+}
+export const ProjectTable = ({
+  projects,
+  footer,
+  from = 1,
+  style,
+  sortOption,
+  ...otherProps
+}) => {
   const userProps = useUser()
 
   return (
@@ -26,6 +39,7 @@ const ProjectTable = ({ projects, footer, from = 1, style, ...otherProps }) => {
                 key={project.full_name}
                 project={project}
                 rank={from + index}
+                sortOption={sortOption}
                 {...userProps}
                 {...otherProps}
               />

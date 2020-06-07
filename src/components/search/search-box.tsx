@@ -4,13 +4,13 @@ import Select, { components } from 'react-select'
 import useDebouncedCallback from 'use-debounce/lib/useDebouncedCallback'
 import styled from 'styled-components/macro' // eslint-disable-line no-unused-vars
 
-import { getAllTags } from '../../selectors'
-import { SearchContext } from './SearchProvider'
-import { Button } from '../core'
+import { getAllTags } from 'selectors'
+import { SearchContext } from './search-provider'
+import { Button } from 'components/core'
 
 export const SearchBox = () => {
   const tags = useSelector(getAllTags)
-  const { query, selectedTags, onChange } = useContext(SearchContext)
+  const { query, selectedTags, onChange } = useContext(SearchContext as any)
   const [inputValue, setInputValue] = useState(query)
   const [debouncedOnChange, cancel] = useDebouncedCallback(onChange, 300)
 
@@ -28,10 +28,10 @@ export const SearchBox = () => {
     setInputValue(query)
   }, [query])
 
-  const selectRef = useRef()
+  const selectRef = useRef<any>()
 
   return (
-    <div css={{ backgroundColor: 'var(--bestofjsOrange)', padding: '1rem 0' }}>
+    <Container>
       <div className="container">
         <Select
           ref={selectRef}
@@ -66,7 +66,7 @@ export const SearchBox = () => {
             const {
               selectionStart,
               selectionEnd
-            } = selectRef.current.select.inputRef
+            } = selectRef?.current?.select.inputRef
             if (!(selectionStart === 0 && selectionEnd === 0)) return
             console.info('Remove the last tag')
             onChange({
@@ -89,9 +89,14 @@ export const SearchBox = () => {
           })}
         />
       </div>
-    </div>
+    </Container>
   )
 }
+
+const Container = styled.div`
+  background-color: var(--bestofjsOrange)
+  padding: '1rem 0'
+`
 
 // Customize the default `Option` component provided by `react-select`
 const { Option, IndicatorsContainer } = components

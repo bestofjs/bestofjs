@@ -3,9 +3,9 @@ import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 import { useSelector } from 'react-redux'
 
-import { Section, Spinner, DropdownMenu } from '../core'
-import ProjectList from '../project-list/ProjectTable'
-import { getProjectsSortedBy } from '../../selectors'
+import { Section, Spinner, DropdownMenu } from 'components/core'
+import { ProjectTable } from 'components/project-list/project-table'
+import { getProjectsSortedBy } from 'selectors'
 
 const ranges = {
   daily: 'yesterday',
@@ -52,7 +52,7 @@ export const HotProjects = ({ hotFilter, pending }) => {
       {pending ? (
         <Spinner />
       ) : (
-        <ProjectList
+        <ProjectTable
           projects={projects}
           showDelta
           deltaFilter={sortOptionId}
@@ -114,7 +114,7 @@ export const NewestProjects = ({ newestProjects, hotFilter }) => {
           Latest additions to <i>Best of JavaScript</i>
         </Section.SubTitle>
       </Section.Header>
-      <ProjectList
+      <ProjectTable
         projects={newestProjects}
         showDelta
         deltaFilter={hotFilter}
