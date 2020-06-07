@@ -8,8 +8,8 @@ import { useSelector } from 'react-redux'
 import { StarTotal } from '../../core/project'
 import { ExternalLink } from '../../core/typography'
 import { npmProjects } from '../../../selectors'
-import ExpandableSection from './ExpandableSection'
-import DependencyTable from './DependencyTable'
+import { ExpandableSection } from './expandable-section'
+import { DependencyTable } from './dependency-table'
 
 const DependenciesContainer = styled.div`
   overflow: hidden;
@@ -20,7 +20,7 @@ const DependenciesContainer = styled.div`
   }
 `
 
-const Dependencies = ({ project }) => {
+export const Dependencies = ({ project }) => {
   const { dependencies } = project.npm
   if (!dependencies) return <span>Loading dependencies...</span>
   const count = dependencies.length
@@ -37,14 +37,7 @@ const DependencyList = ({ dependencies }) => (
           {' dependencies'}
         </ExpandableSection>
         {!on && <DependencyListPreview dependencies={dependencies} />}
-        <div>
-          {on && (
-            <DependencyFullList
-              togglerProps={getTogglerProps()}
-              packageNames={dependencies}
-            />
-          )}
-        </div>
+        <div>{on && <DependencyFullList packageNames={dependencies} />}</div>
       </DependenciesContainer>
     )}
   </Toggle>
@@ -96,7 +89,7 @@ const DependencyFullList = ({ packageNames }) => {
                   <Link to={`/projects/${npmPackage.project.slug}`}>
                     {npmPackage.project.name}{' '}
                   </Link>
-                  <StarTotal value={npmPackage.project.stars} icon />
+                  <StarTotal value={npmPackage.project.stars} />
                   <span className="text-secondary" />
                 </span>
               ) : (
@@ -109,5 +102,3 @@ const DependencyFullList = ({ packageNames }) => {
     </DependencyTable>
   )
 }
-
-export default Dependencies

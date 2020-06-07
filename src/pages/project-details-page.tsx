@@ -9,7 +9,7 @@ import { useFetchProjectDetails } from '../api/hooks'
 
 import { MainContent, Spinner } from '../components/core'
 import ProjectDetails from '../components/project-details'
-import ProjectHeader from '../components/project-details/ProjectHeader'
+import { ProjectHeader } from '../components/project-details/project-header'
 
 const ProjectDetailsPageContainer = props => {
   const { project } = props

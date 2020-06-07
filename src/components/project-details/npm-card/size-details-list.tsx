@@ -7,7 +7,7 @@ const Div = styled.div`
   border-left: 1px dashed var(--boxBorderColor);
 `
 
-const SizeDetailsList = ({ children }) => {
+export const SizeDetailsList = ({ children }) => {
   return <Div>{children}</Div>
 }
 
@@ -22,7 +22,3 @@ SizeDetailsList.Link = ({ children }) => {
 SizeDetailsList.Explanation = ({ children }) => {
   return <span className="text-secondary"> ({children})</span>
 }
-
-SizeDetailsList.propTypes = {}
-
-export default SizeDetailsList

@@ -1,11 +1,16 @@
 import React from 'react'
 
-import GitHubRepoInfo from './GitHubRepoInfo'
-import NpmCard from './NpmCard'
-import TrendsCard from './TrendsCard'
-import ReadmeCard from './ReadmeCard'
+import { GitHubRepoInfo } from './github-repo-info'
+import { NpmCard } from './npm-card'
+import { TrendsCard } from './trends-card'
+import { ReadmeCard } from './readme-card'
 
-const ProjectDetailsMainTab = props => {
+type Props = {
+  project: BestOfJS.ProjectDetails
+  isLoading: boolean
+  error: Error
+}
+const ProjectDetailsMainTab = (props: Props) => {
   const { project, isLoading, error } = props
 
   return (

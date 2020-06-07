@@ -1,14 +1,18 @@
 import React, { Fragment } from 'react'
-import PropTypes from 'prop-types'
 
 import { Card, ExternalLink, Spinner } from '../../core'
 
-import Dependencies from './Dependencies'
-import BundleSize from './BundleSize'
-import PackageSize from './PackageSize'
-import { MonthlyDownloadChart } from './MonthlyDownloadChart'
+import { Dependencies } from './dependencies'
+import { BundleSize } from './bundle-size'
+import { PackageSize } from './package-size'
+import { MonthlyDownloadChart } from './monthly-download-chart'
 
-const NpmCard = props => {
+type Props = {
+  project: BestOfJS.ProjectDetails
+  isLoading: boolean
+  error: Error
+}
+export const NpmCard = (props: Props) => {
   return (
     <Card style={{ marginTop: '2rem' }}>
       <Card.Header>
@@ -60,9 +64,3 @@ const CardBodyContent = ({ project, isLoading, error }) => {
     </Fragment>
   )
 }
-
-NpmCard.propTypes = {
-  project: PropTypes.object.isRequired
-}
-
-export default NpmCard

@@ -2,13 +2,13 @@ import React from 'react'
 import styled from 'styled-components'
 
 import { getDeltaByDay } from '../../../selectors'
-import Heatmap from './Heatmap'
-import MonthlyTrends from './monthly-trends'
+import { HeatMapContainer } from './heatmap'
+import { MonthlyTrends } from './monthly-trends'
 import { StarDelta } from '../../core/project'
 import { Card } from '../../core'
 import { StarIcon } from '../../core/icons'
 
-const TrendsCards = ({ project }) => {
+export const TrendsCard = ({ project }) => {
   const dailyDeltas = project.timeSeries && project.timeSeries.daily
   const showHeatMap = dailyDeltas && dailyDeltas.length > 1
 
@@ -29,7 +29,7 @@ const TrendsCards = ({ project }) => {
         )}
         {showHeatMap && (
           <Card.Section>
-            <Heatmap deltas={dailyDeltas} />
+            <HeatMapContainer deltas={dailyDeltas} />
           </Card.Section>
         )}
         <TrendSummary project={project} />
@@ -108,5 +108,3 @@ const TrendSummary = ({ project }) => {
     </Card.Section>
   )
 }
-
-export default TrendsCards

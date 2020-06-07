@@ -2,7 +2,7 @@ import React from 'react'
 import Toggle from 'react-toggled'
 import styled from 'styled-components'
 
-import ExpandableSection from './ExpandableSection'
+import { ExpandableSection } from './expandable-section'
 import { MonthlyChart } from '../monthly-bar-chart'
 import { useFetchMonthlyDownloads } from '../../../api/hooks'
 import { Spinner } from '../../core'
@@ -62,5 +62,5 @@ const FetchDownloadCharts = ({ project }) => {
 }
 
 const Chart = ({ values }) => {
-  return <MonthlyChart values={values} />
+  return <MonthlyChart values={values} showPlusSymbol={false} />
 }

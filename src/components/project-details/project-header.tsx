@@ -5,7 +5,8 @@ import formatUrl from '../../helpers/formatUrl'
 import { ExternalLink } from '../core/typography'
 import { TagLabelGroup } from '../tags/tag-label'
 
-const ProjectHeader = ({ project }) => (
+type Props = { project: BestOfJS.Project }
+export const ProjectHeader = ({ project }: Props) => (
   <div style={{ marginBottom: '2rem' }}>
     <div style={{ display: 'flex', alignItems: 'center', margin: '0 0 1rem' }}>
       <div style={{ flex: 1 }}>
@@ -30,10 +31,7 @@ const ProjectHeader = ({ project }) => (
       </div>
       <div style={{ fontSize: '1.25rem' }}>
         <Avatar project={project} size={75} />
-        {/* <StarTotal value={project.stars} /> */}
       </div>
     </div>
   </div>
 )
-
-export default ProjectHeader

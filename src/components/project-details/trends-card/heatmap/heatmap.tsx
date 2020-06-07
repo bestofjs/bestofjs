@@ -65,7 +65,7 @@ const Details = ({ date, delta, yesterday }) => {
   )
 }
 
-const Heatmap = ({ values, active, selected, onClick }) => {
+export const HeatMap = ({ values, active, selected, onClick }) => {
   const today = new Date()
   const yesterday = new Date(today.setDate(today.getDate() - 1))
   return (
@@ -101,5 +101,3 @@ const SelectedDate = ({ active, yesterday }) => {
     <div>Sorry, no data for this day.</div>
   )
 }
-
-export default Heatmap

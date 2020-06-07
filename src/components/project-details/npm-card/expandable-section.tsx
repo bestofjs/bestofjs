@@ -1,5 +1,4 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import styled from 'styled-components'
 
 const TogglerLink = styled.a`
@@ -17,7 +16,7 @@ const TogglerLink = styled.a`
   }
 `
 
-const ExpandableSection = ({ on, getTogglerProps, children }) => {
+export const ExpandableSection = ({ on, getTogglerProps, children }) => {
   const icon = on
     ? 'octicon octicon-triangle-down'
     : 'octicon octicon-triangle-right'
@@ -27,9 +26,3 @@ const ExpandableSection = ({ on, getTogglerProps, children }) => {
     </TogglerLink>
   )
 }
-
-ExpandableSection.propTypes = {
-  on: PropTypes.bool.isRequired
-}
-
-export default ExpandableSection

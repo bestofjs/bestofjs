@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
-import Heatmap from './Heatmap'
+import { HeatMap } from './heatmap'
 
-class HeatmapContainer extends Component {
+export class HeatMapContainer extends Component {
   constructor() {
     super()
     this.state = { active: null, selected: false }
@@ -24,7 +24,7 @@ class HeatmapContainer extends Component {
     return (
       <>
         <p>Stars added on GitHub, day by day</p>
-        <Heatmap
+        <HeatMap
           {...this.props}
           values={values}
           active={active}
@@ -41,5 +41,3 @@ const reverse = array => {
   reversed.reverse()
   return reversed
 }
-
-export default HeatmapContainer

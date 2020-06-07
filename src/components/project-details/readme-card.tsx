@@ -1,5 +1,4 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import styled from 'styled-components'
 
 import { Card, Spinner } from '../core'
@@ -8,14 +7,8 @@ import '../../stylesheets/markdown-body.css'
 
 const GithubLink = styled.a``
 
-const ReadmeCard = ({ project }) => {
-  const { data: html, isLoading, error } = useFetchProjectReadMe(project)
-  const ReadmeContent = () => {
-    if (isLoading) return <Spinner />
-    if (error) return <div>Unable to fetch README.md content from GitHub</div>
-    return <div dangerouslySetInnerHTML={{ __html: html }} />
-  }
-
+type Props = { project: BestOfJS.Project }
+export const ReadmeCard = ({ project }) => {
   return (
     <Card className="readme">
       <Card.Header>
@@ -23,7 +16,7 @@ const ReadmeCard = ({ project }) => {
       </Card.Header>
       <Card.Body>
         <Card.Section>
-          <ReadmeContent />
+          <ReadmeContent project={project} />
         </Card.Section>
       </Card.Body>
       <Card.Footer>
@@ -33,8 +26,9 @@ const ReadmeCard = ({ project }) => {
   )
 }
 
-ReadmeCard.propTypes = {
-  project: PropTypes.object.isRequired
+const ReadmeContent = ({ project }: Props) => {
+  const { data: html, isLoading, error } = useFetchProjectReadMe(project)
+  if (isLoading) return <Spinner />
+  if (error) return <div>Unable to fetch README.md content from GitHub</div>
+  return <div dangerouslySetInnerHTML={{ __html: html }} />
 }
-
-export default ReadmeCard

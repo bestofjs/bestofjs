@@ -7,7 +7,8 @@ import { StarTotal } from '../core/project'
 
 const formatNumber = number => numeral(number).format('0,0')
 
-const GitHubCard = ({
+type Props = { project: BestOfJS.ProjectDetails }
+export const GitHubRepoInfo = ({
   project: {
     full_name,
     repository,
@@ -59,5 +60,3 @@ const GitHubCard = ({
     </Card>
   )
 }
-
-export default GitHubCard

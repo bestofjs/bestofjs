@@ -2,13 +2,13 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import Toggle from 'react-toggled'
 
-import ExpandableSection from './ExpandableSection'
-import FileSize from './FileSize'
-import List from './SizeDetailsList'
+import { ExpandableSection } from './expandable-section'
+import { FileSize } from './file-size'
+import { SizeDetailsList } from './size-details-list'
 import { ExternalLink } from '../../core/typography'
 
-const PackageSize = ({ project, ...rest }) => {
-  const { bundle, packageSize } = project
+export const PackageSize = ({ project, ...rest }) => {
+  const { packageSize } = project
   if (!packageSize) return <div {...rest}>Loading package size...</div>
   if (packageSize.errorMessage)
     return (
@@ -25,11 +25,7 @@ const PackageSize = ({ project, ...rest }) => {
           </ExpandableSection>
           {!on && <PackageSizePreview packageSize={packageSize} />}
           {on && (
-            <BundleSizeDetails
-              project={project}
-              bundle={bundle}
-              packageSize={packageSize}
-            />
+            <BundleSizeDetails project={project} packageSize={packageSize} />
           )}
         </div>
       )}
@@ -48,29 +44,29 @@ const PackageSizePreview = ({ packageSize }) => {
 const BundleSizeDetails = ({ project, packageSize }) => {
   const url = `https://packagephobia.now.sh/result?p=${project.packageName}`
   return (
-    <List>
-      <List.Item>
+    <SizeDetailsList>
+      <SizeDetailsList.Item>
         Install size: <FileSize value={packageSize.installSize} />
-        <List.Explanation>
+        <SizeDetailsList.Explanation>
           Size of the package on the disk, with all its dependencies
-        </List.Explanation>
-      </List.Item>
-      <List.Item>
+        </SizeDetailsList.Explanation>
+      </SizeDetailsList.Item>
+      <SizeDetailsList.Item>
         Publish size: <FileSize value={packageSize.publishSize} />
-        <List.Explanation>Size of the package source code</List.Explanation>
-      </List.Item>
-      <List.Link>
+        <SizeDetailsList.Explanation>
+          Size of the package source code
+        </SizeDetailsList.Explanation>
+      </SizeDetailsList.Item>
+      <SizeDetailsList.Link>
         View details on{' '}
         <ExternalLink url={url}>
           <i>Package Phobia</i>
         </ExternalLink>
-      </List.Link>
-    </List>
+      </SizeDetailsList.Link>
+    </SizeDetailsList>
   )
 }
 
 PackageSize.propTypes = {
   project: PropTypes.object.isRequired
 }
-
-export default PackageSize

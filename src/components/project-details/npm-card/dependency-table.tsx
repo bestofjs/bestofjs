@@ -2,7 +2,7 @@ import styled from 'styled-components'
 
 const cellPadding = '1rem 1rem'
 
-const DependencyTable = styled.table`
+export const DependencyTable = styled.table`
   width: 100%;
   border-spacing: 0;
   margin-top: 1rem;
@@ -30,12 +30,3 @@ const DependencyTable = styled.table`
     }
   }
 `
-
-// a {
-//   color: inherit;
-// }
-// a:hover {
-//   color: #cc4700;
-// }
-
-export default DependencyTable

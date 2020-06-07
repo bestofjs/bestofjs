@@ -2,7 +2,7 @@ import React from 'react'
 
 import { MonthlyChart } from '../monthly-bar-chart'
 
-const MonthlyTrends = ({ deltas }) => {
+export const MonthlyTrends = ({ deltas }) => {
   const values = deltas.map(({ year, month, delta }) => ({
     year,
     month,
