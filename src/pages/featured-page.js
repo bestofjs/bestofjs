@@ -1,7 +1,7 @@
 import React from 'react'
-import { useSelector } from 'react-redux'
 import styled from 'styled-components'
 
+import { useSelector } from 'containers/project-list-container'
 import { useSearch } from 'components/search/search-provider'
 import {
   PaginationProvider,

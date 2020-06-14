@@ -1,12 +1,12 @@
 import React, { useContext, useState, useEffect, useRef } from 'react'
-import { useSelector } from 'react-redux'
 import Select, { components } from 'react-select'
 import useDebouncedCallback from 'use-debounce/lib/useDebouncedCallback'
 import styled from 'styled-components'
 
+import { useSelector } from 'containers/project-list-container'
 import { getAllTags } from 'selectors'
-import { SearchContext } from './search-provider'
 import { Button } from 'components/core'
+import { SearchContext } from './search-provider'
 
 export const SearchBox = () => {
   const tags = useSelector(getAllTags)

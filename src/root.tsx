@@ -13,6 +13,7 @@ import { fetchProjectsIfNeeded } from './actions/entitiesActions'
 import { App } from './app'
 import { useAppUpdateChecker } from 'app-update-checker'
 import { ToastContainer } from 'components/core/toast'
+import { ProjectDataProvider } from 'containers/project-list-container'
 
 export const Root = () => {
   const store = configureStore({})
@@ -63,5 +64,9 @@ const AppWithRouter = props => {
       store.dispatch(fetchProjectsIfNeeded())
     }
   }, [location.pathname]) // eslint-disable-line react-hooks/exhaustive-deps
-  return <App {...props} />
+  return (
+    <ProjectDataProvider>
+      <App {...props} />
+    </ProjectDataProvider>
+  )
 }

@@ -27,7 +27,7 @@ const HeaderContainer = styled.header`
   }
 `
 
-const Header = props => {
+export const Header = props => {
   const { repo } = useStaticContent()
 
   return (
@@ -117,5 +117,3 @@ const LoginSection = ({ dependencies: { authApi } }) => {
 
   return <UserDropdownMenu authApi={authApi} />
 }
-
-export default Header

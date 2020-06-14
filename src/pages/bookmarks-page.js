@@ -1,16 +1,16 @@
 import React from 'react'
-import { useSelector } from 'react-redux'
 
-import { useSearch } from '../components/search/search-provider'
+import { useSelector } from 'containers/project-list-container'
+import { useSearch } from 'components/search/search-provider'
 import {
   PaginationProvider,
   paginateItemList
-} from '../components/core/pagination'
-import { ProjectPaginatedList } from '../components/search/project-paginated-list'
-import { PageTitle, EmptyContent, MainContent } from '../components/core'
-import { BookmarkIcon } from '../components/core/icons'
-import { getBookmarksSortedBy } from '../selectors'
-import { useUser } from '../api/hooks'
+} from 'components/core/pagination'
+import { ProjectPaginatedList } from 'components/search/project-paginated-list'
+import { PageTitle, EmptyContent, MainContent } from 'components/core'
+import { BookmarkIcon } from 'components/core/icons'
+import { getBookmarksSortedBy } from 'selectors'
+import { useUser } from 'api/hooks'
 
 const BookmarksPage = () => {
   const { page, sortOption } = useSearch({ defaultSortOptionId: 'bookmark' })

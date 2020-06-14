@@ -1,11 +1,11 @@
 import React from 'react'
-import { useSelector } from 'react-redux'
 import styled from 'styled-components'
 import numeral from 'numeral'
 import { Link } from 'react-router-dom'
 
-import { getTotalNumberOfStars } from '../../selectors'
-import log from '../../helpers/log'
+import { useSelector } from 'containers/project-list-container'
+import { getTotalNumberOfStars } from 'selectors'
+import log from 'helpers/log'
 import { HotProjects, NewestProjects } from './home-projects'
 import { addProjectURL } from '../user-requests/add-project/CreateIssueLink'
 import { TagLabelGroup } from '../tags/tag-label'
@@ -18,9 +18,9 @@ import { RandomFeaturedProject } from './featured-projects'
 import { Weekly } from './weekly-newsletter'
 import { Row, MainColumn, RightSideBar } from './layout'
 
-const Home = props => {
+export const Home = props => {
   log('Render the <Home> component')
-  const { pending, error, authActions, popularTags } = props
+  const { pending, error, popularTags } = props
 
   if (error) {
     return (
@@ -63,18 +63,18 @@ const Home = props => {
       <Tags popularTags={popularTags} isPending={pending} />
       {!pending && <Weekly />}
       <StarOnGitHub />
-      <MoreProjects handleClick={authActions.login} pending={pending} />
+      <MoreProjects />
     </MainContent>
   )
 }
 
-const Tags = ({ popularTags, pending }) => {
+const Tags = ({ popularTags, isPending }) => {
   return (
     <SectionMobileOnly>
       <Section.Header icon="tag">
         <Section.Title>Popular tags</Section.Title>
       </Section.Header>
-      {!pending ? <TagLabelGroup tags={popularTags} /> : <>Loading...</>}
+      {!isPending ? <TagLabelGroup tags={popularTags} /> : <>Loading...</>}
       <div style={{ paddingTop: '1rem', textAlign: 'center' }}>
         <Link to={`/tags/`}>View all tags »</Link>
       </div>
@@ -171,5 +171,3 @@ const MoreProjects = () => {
     </Section>
   )
 }
-
-export default Home

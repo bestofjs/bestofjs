@@ -1,6 +1,5 @@
 import React from 'react'
 import { withRouter } from 'react-router-dom'
-import { useSelector } from 'react-redux'
 import styled from 'styled-components'
 
 import { allProjects, getTagsById, getProjectSelectorByKey } from 'selectors'
@@ -15,6 +14,7 @@ import {
 } from 'components/core'
 
 // TODO colocate all search components?
+import { useSelector } from 'containers/project-list-container'
 import { ProjectPaginatedList } from 'components/search/project-paginated-list'
 import { TagLabelGroup } from 'components/tags/tag-label'
 import { useSearch } from 'components/search/search-provider'

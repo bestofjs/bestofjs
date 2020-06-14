@@ -2,6 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import fromNow from '../../helpers/fromNow'
 import { useStaticContent } from '../../static-content'
+import { useSelector } from 'containers/project-list-container'
 
 const StyledFooter = styled.footer`
   margin: 2rem 0;
@@ -30,7 +31,8 @@ const StyledFooter = styled.footer`
   }
 `
 
-const Footer = ({ staticContent, lastUpdate, fetchProjects }) => {
+export const Footer = () => {
+  const lastUpdate = useSelector(state => state.meta.lastUpdate)
   const { repo, projectName, version } = useStaticContent()
 
   return (
@@ -84,5 +86,3 @@ const Partner = styled.p`
     margin-right: 4px;
   }
 `
-
-export default Footer

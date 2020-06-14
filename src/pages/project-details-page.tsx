@@ -1,21 +1,23 @@
 import React, { useEffect } from 'react'
-import { connect } from 'react-redux'
-import { withRouter } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import { Route, Switch } from 'react-router-dom'
 
-import { findProjectById } from '../selectors'
-import track from '../helpers/track'
-import { useFetchProjectDetails } from '../api/hooks'
+import { useSelector } from 'containers/project-list-container'
+import { findProjectById } from 'selectors'
+import track from 'helpers/track'
+import { useFetchProjectDetails } from 'api/hooks'
 
-import { MainContent, Spinner } from '../components/core'
-import ProjectDetails from '../components/project-details'
-import { ProjectHeader } from '../components/project-details/project-header'
+import { MainContent, Spinner } from 'components/core'
+import ProjectDetails from 'components/project-details'
+import { ProjectHeader } from 'components/project-details/project-header'
 
-const ProjectDetailsPageContainer = props => {
-  const { project } = props
+const ProjectDetailsPageContainer = () => {
+  const { id } = useParams()
+
+  const project = useSelector(findProjectById(id))
   // if the user loads directly the `/projects/:id` URL in the browser,
   // the project is not available yet in the Redux store
-  return project ? <ProjectDetailsPage {...props} /> : <Spinner />
+  return project ? <ProjectDetailsPage project={project} /> : <Spinner />
 }
 
 const ProjectDetailsPage = props => {
@@ -51,32 +53,6 @@ const ProjectDetailsPage = props => {
   )
 }
 
-function mapStateToProps(state, props) {
-  const { auth } = state
-
-  // `Route` components get a `match` prop. from react-router
-  const params = props.match.params
-  const { id } = params
-
-  const project = findProjectById(id)(state)
-
-  return {
-    project,
-    auth
-  }
-}
-
-function mapDispatchToProps(dispatch, props) {
-  const { dependencies } = props
-  const { authApi } = dependencies
-  return {
-    authActions: {
-      login: authApi.login
-    },
-    dispatch
-  }
-}
-
 function getProjectWithDetails(project, details) {
   if (!details) return project
   const {
@@ -101,6 +77,4 @@ function getProjectWithDetails(project, details) {
   }
 }
 
-export default withRouter(
-  connect(mapStateToProps, mapDispatchToProps)(ProjectDetailsPageContainer)
-)
+export default ProjectDetailsPageContainer
