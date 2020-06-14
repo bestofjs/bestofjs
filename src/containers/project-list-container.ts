@@ -9,15 +9,7 @@ import { getProjectId } from 'components/core/project'
 
 function useProjectList() {
   const state = useLoadProjects()
-  console.info(state)
   return state
-  // const [{ projects, tags, isLoading }, setData] = useState({
-  //   projects: {},
-  //   tags: {},
-  //   isLoading: true
-  // })
-  // const
-  // return { projects, tags, isLoading }
 }
 
 export const ProjectDataContainer = createContainer(useProjectList)

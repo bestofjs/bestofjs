@@ -20,15 +20,11 @@ const Grid = styled.div`
   }
 `
 
-const HallOfFameMemberList = ({ heroes = [], auth, showDetails }) => (
+const HallOfFameMemberList = ({ heroes = [], showDetails }) => (
   <Grid>
     {heroes.map(hero => (
       <div key={hero.username}>
-        <HeroCard
-          hero={hero}
-          isCurrentUser={hero.username === auth.username}
-          showDetails={showDetails}
-        />
+        <HeroCard hero={hero} showDetails={showDetails} />
       </div>
     ))}
   </Grid>
