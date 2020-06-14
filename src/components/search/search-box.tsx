@@ -2,7 +2,7 @@ import React, { useContext, useState, useEffect, useRef } from 'react'
 import { useSelector } from 'react-redux'
 import Select, { components } from 'react-select'
 import useDebouncedCallback from 'use-debounce/lib/useDebouncedCallback'
-import styled from 'styled-components/macro' // eslint-disable-line no-unused-vars
+import styled from 'styled-components'
 
 import { getAllTags } from 'selectors'
 import { SearchContext } from './search-provider'
@@ -94,8 +94,8 @@ export const SearchBox = () => {
 }
 
 const Container = styled.div`
-  background-color: var(--bestofjsOrange)
-  padding: '1rem 0'
+  background-color: var(--bestofjsOrange);
+  padding: 1rem 0;
 `
 
 // Customize the default `Option` component provided by `react-select`

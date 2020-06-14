@@ -5,7 +5,7 @@ import { render, Simulate, wait, prettyDOM } from 'react-testing-library'
 
 import createAuthMockApi from '../api/auth/auth-mock-api'
 import configureStore from '../store'
-import { App } from './app'
+import { App } from '../app'
 import { fetchProjectsSuccess } from '../actions/entitiesActions'
 import data from './data/projects.json'
 
