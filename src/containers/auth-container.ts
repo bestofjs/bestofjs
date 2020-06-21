@@ -1,7 +1,7 @@
 import { useCallback, useState, useEffect } from 'react'
 import { useHistory } from 'react-router-dom'
 import { createContainer } from 'unstated-next'
-import { useAsync } from 'react-async'
+import useSWR from 'swr'
 import { stringify } from 'querystring'
 
 import { fetchJSON } from 'helpers/fetch'
@@ -60,10 +60,11 @@ export function useAuth() {
     window.location.href = '/'
   }
 
-  const { data, isPending, error } = useAsync(startAuth)
+  const { data, error } = useSWR('auth', startAuth)
   if (error) {
     console.error('Unable to authenticate the user!', error)
   }
+  const isPending = !data
   const profile = data?.profile
   const { bookmarks, addBookmark, removeBookmark } = useBookmarks(profile)
 

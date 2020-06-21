@@ -23,7 +23,7 @@ const ProjectDetailsPageContainer = () => {
 const ProjectDetailsPage = props => {
   const { project } = props
 
-  const { data: details, isLoading, error } = useFetchProjectDetails(project)
+  const { data: details, error } = useFetchProjectDetails(project)
   const projectWithDetails = getProjectWithDetails(project, details)
 
   useEffect(() => {
@@ -43,7 +43,7 @@ const ProjectDetailsPage = props => {
             <ProjectDetails
               {...props}
               project={projectWithDetails}
-              isLoading={isLoading}
+              isLoading={!details}
               error={error}
             />
           )}

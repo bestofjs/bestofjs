@@ -27,8 +27,11 @@ export const ReadmeCard = ({ project }) => {
 }
 
 const ReadmeContent = ({ project }: Props) => {
-  const { data: html, isLoading, error } = useFetchProjectReadMe(project)
-  if (isLoading) return <Spinner />
+  const { data: html, error } = useFetchProjectReadMe(project)
+
   if (error) return <div>Unable to fetch README.md content from GitHub</div>
+
+  if (!html) return <Spinner />
+
   return <div dangerouslySetInnerHTML={{ __html: html }} />
 }

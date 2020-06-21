@@ -14,8 +14,8 @@ import { AuthContainer } from 'containers/auth-container'
 type Props = {
   projects: BestOfJS.Project[]
   footer?: React.ReactNode
-  from: number
-  style: CSSProperties
+  from?: number
+  style?: CSSProperties
   sortOption: any
 }
 export const ProjectTable = ({

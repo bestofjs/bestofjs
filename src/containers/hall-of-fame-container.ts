@@ -1,18 +1,18 @@
 import { createContainer } from 'unstated-next'
-import { useAsync } from 'react-async'
+import useSWR from 'swr'
 
 import api from 'api/config'
 import { fetchJSON } from 'helpers/fetch'
 import { ProjectDataContainer } from './project-data-container'
 
 export function useHallOfFame() {
-  const { data, ...rest } = useAsync({ promiseFn: fetchHeroes })
+  const { data, error } = useSWR('/api/hall-of-fame', fetchHeroes)
   const {
     entities: { projects: projectsById }
   } = ProjectDataContainer.useContainer()
 
   const heroes = data?.map(populateHero(projectsById)) || []
-  return { heroes, ...rest }
+  return { heroes, error, isPending: !data }
 }
 
 export const HallOfFameContainer = createContainer(useHallOfFame)

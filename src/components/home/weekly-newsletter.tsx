@@ -4,11 +4,11 @@ import styled from 'styled-components'
 
 import { useSelector } from 'containers/project-data-container'
 import { findProjectsByIds } from 'selectors'
+import { useWeeklyNewsletter } from 'api/hooks'
 import { ExternalLink, Section, Button } from 'components/core'
 import { getProjectId } from 'components/core/project'
 import { ChevronLeftIcon, ChevronRightIcon } from 'components/core/icons'
 import { ProjectTable } from 'components/project-list/project-table'
-import { useWeeklyNewsletter } from 'api/hooks'
 import { Row, MainColumn, RightSideBar } from './layout'
 import { SubscribeForm } from './subscribe-form'
 
@@ -37,12 +37,12 @@ export const Weekly = () => {
 
 const FetchNewsletterIssue = () => {
   const [currentNumber, setCurrentNumber] = useState(0)
-  const { data, isPending, error } = useWeeklyNewsletter(currentNumber)
-  if (isPending) {
-    return <Loading>Loading the story...</Loading>
-  }
+  const { data, error } = useWeeklyNewsletter(currentNumber)
   if (error) {
     return <div>Unable to load the issue: {error.message}</div>
+  }
+  if (!data) {
+    return <Loading>Loading the story...</Loading>
   }
   const { number } = data
   const goToPrevious = () => setCurrentNumber(number - 1)
@@ -148,13 +148,7 @@ const Rankings = ({ projects }) => {
   return (
     <ProjectTable
       projects={trendingProjects}
-      showDelta
-      showStars={false}
-      showMetrics={false}
       sortOption={{ id: 'total' }}
-      showDetails={false}
-      showRankingNumber={false}
-      showActions={false}
       footer={
         <a href={`https://weekly.bestofjs.org/`} style={{ display: 'block' }}>
           View this week rankings »

@@ -1,15 +1,11 @@
-import { useAsync } from 'react-async'
+import useSWR from 'swr'
 
 import getApiRootURL from './config'
 import { fetchHTML, fetchJSON } from '../helpers/fetch'
 
 export function useFetchProjectReadMe({ full_name, branch }) {
-  return useAsync({
-    promiseFn: fetchProjectReadMe,
-    watch: full_name,
-    full_name,
-    branch
-  })
+  const fetcher = fetchProjectReadMe({ full_name, branch })
+  return useSWR(['/api/projects/readme', full_name], fetcher)
 }
 
 function fetchProjectReadMe({ full_name, branch = 'master' }) {
@@ -20,11 +16,8 @@ function fetchProjectReadMe({ full_name, branch = 'master' }) {
 }
 
 export function useFetchProjectDetails({ full_name }) {
-  return useAsync({
-    promiseFn: fetchProjectDetails,
-    watch: full_name,
-    full_name
-  })
+  const fetcher = () => fetchProjectDetails({ full_name })
+  return useSWR(['/api/projects/details', full_name], fetcher)
 }
 
 function fetchProjectDetails({ full_name }) {
@@ -46,19 +39,13 @@ const loadNewsletterIssue = ({ issueNumber: number }) => {
 }
 
 export function useWeeklyNewsletter(issueNumber) {
-  return useAsync({
-    promiseFn: loadNewsletterIssue,
-    watch: issueNumber,
-    issueNumber
-  })
+  const fetcher = () => loadNewsletterIssue({ issueNumber })
+  return useSWR(['/api/newsletters/issue', issueNumber], fetcher)
 }
 
 export function useFetchMonthlyDownloads(packageName) {
-  return useAsync({
-    promiseFn: fetchMonthlyDownloads,
-    watch: packageName,
-    packageName
-  })
+  const fetcher = () => fetchMonthlyDownloads({ packageName })
+  return useSWR(['/api/projects/downloads', packageName], fetcher)
 }
 
 const fetchMonthlyDownloads = ({ packageName }) => {

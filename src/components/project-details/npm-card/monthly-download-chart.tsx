@@ -35,11 +35,7 @@ const Preview = styled.span`
 
 const FetchDownloadCharts = ({ project }) => {
   const { packageName } = project
-  const { data, isLoading, error } = useFetchMonthlyDownloads(packageName)
-
-  if (isLoading) {
-    return <Spinner />
-  }
+  const { data, error } = useFetchMonthlyDownloads(packageName)
 
   if (error) {
     return (
@@ -48,6 +44,11 @@ const FetchDownloadCharts = ({ project }) => {
       </div>
     )
   }
+
+  if (!data) {
+    return <Spinner />
+  }
+
   const values = data.map(({ year, month, downloads }) => ({
     year,
     month,

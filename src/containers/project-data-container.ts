@@ -1,6 +1,5 @@
-// import React from 'react'
 import { createContainer } from 'unstated-next'
-import { useAsync } from 'react-async'
+import useSWR from 'swr'
 
 import { fetchJSON } from '../helpers/fetch'
 import api from '../api/config'
@@ -16,7 +15,6 @@ function useProjectList() {
 
 export const ProjectDataContainer = createContainer(useProjectList)
 export const ProjectDataProvider = ProjectDataContainer.Provider
-// export const useProjectData = Container.useContainer()
 
 export function useSelector(selector) {
   const state = ProjectDataContainer.useContainer()
@@ -29,15 +27,20 @@ function fetchProjectsFromAPI() {
 }
 
 function useLoadProjects() {
-  const { data, ...rest } = useAsync({ promiseFn: fetchProjectsFromAPI })
+  const { data } = useSWR('/api/all-projects', fetchProjectsFromAPI, {
+    refreshInterval: 1000 * 60 * 30, // every 30 minute
+    compare: (a, b) => {
+      return a?.date === b?.date // only trigger a re-render if the timestamp has changed
+    }
+  })
   if (!data)
     return {
-      ...rest,
+      isPending: true,
       meta: {},
       entities: { projects: {}, tags: {} }
     }
   return {
-    ...rest,
+    isPending: false,
     entities: {
       projects: getProjectsBySlug(data.projects),
       tags: getTagsByCode(data.tags)
