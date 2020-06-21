@@ -7,11 +7,11 @@ import { ProjectDataContainer } from './project-data-container'
 
 export function useHallOfFame() {
   const { data, ...rest } = useAsync({ promiseFn: fetchHeroes })
-  if (!data) return rest
   const {
     entities: { projects: projectsById }
   } = ProjectDataContainer.useContainer()
-  const heroes = data.map(populateHero(projectsById))
+
+  const heroes = data?.map(populateHero(projectsById)) || []
   return { heroes, ...rest }
 }
 
