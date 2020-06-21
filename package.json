@@ -3,7 +3,7 @@
   "version": "0.23.1",
   "description": "bestofjs.org front-end web application",
   "engines": {
-    "node": ">=10.14.2"
+    "node": ">=12.16.1"
   },
   "scripts": {
     "start": "REACT_APP_VERSION=$npm_package_version react-scripts start",
@@ -43,7 +43,7 @@
     "react-dom": "16.8.6",
     "react-router": "^5.1.2",
     "react-router-dom": "^5.1.2",
-    "react-scripts": "^3.4.1",
+    "react-scripts": "3.4.1",
     "react-select": "^3.0.4",
     "react-simple-animate": "^3.3.6",
     "react-toggled": "^1.0.2",
@@ -51,7 +51,7 @@
     "slugify": "^1.3.4",
     "styled-components": "5.1.0",
     "tinytime": "^0.2.6",
-    "typescript": "^3.7.3",
+    "typescript": "3.7.3",
     "unstated-next": "^1.1.0",
     "use-debounce": "^3.0.0",
     "vague-time": "^2.4.1"
