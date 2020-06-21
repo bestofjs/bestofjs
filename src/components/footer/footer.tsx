@@ -1,8 +1,9 @@
 import React from 'react'
 import styled from 'styled-components'
-import fromNow from '../../helpers/fromNow'
-import { useStaticContent } from '../../static-content'
-import { useSelector } from 'containers/project-list-container'
+
+import { useSelector } from 'containers/project-data-container'
+import fromNow from 'helpers/fromNow'
+import { useStaticContent } from 'static-content'
 
 const StyledFooter = styled.footer`
   margin: 2rem 0;

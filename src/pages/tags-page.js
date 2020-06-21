@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { useSelector } from 'containers/project-list-container'
+import { useSelector } from 'containers/project-data-container'
 import { getAllTagsSortedBy } from 'selectors'
 import { PaginatedTagList } from 'components/tags/paginated-tag-list'
 import { TagIcon } from 'components/core/icons'

@@ -1,14 +1,16 @@
 import React from 'react'
-import { withRouter } from 'react-router-dom'
-import { useSelector } from 'react-redux'
+import { useHistory } from 'react-router-dom'
+import styled from 'styled-components'
 
-import { getBookmarkCount } from '../../selectors'
+import { AuthContainer } from 'containers/auth-container'
 import { Popover, Menu, DropdownToggleButton } from '../core'
 import { BookmarkIcon, SignOutIcon } from '../core/icons'
 
-const HeaderDropdownMenu = withRouter(({ history, authApi }) => {
-  const auth = useSelector(state => state.auth)
-  const bookmarkCount = useSelector(getBookmarkCount)
+export const UserDropdownMenu = () => {
+  const history = useHistory()
+  const auth = AuthContainer.useContainer()
+  const { bookmarks, logout } = AuthContainer.useContainer()
+  const bookmarkCount = bookmarks.length
 
   return (
     <Popover
@@ -25,7 +27,7 @@ const HeaderDropdownMenu = withRouter(({ history, authApi }) => {
           {
             label: 'Sign out',
             onClick: () => {
-              authApi.logout()
+              logout()
               close()
             },
             icon: <SignOutIcon />
@@ -41,21 +43,20 @@ const HeaderDropdownMenu = withRouter(({ history, authApi }) => {
           style={{ padding: '0.2rem 0.5rem' }}
         >
           <UserAvatar
-            avatarURL={auth.avatar}
-            username={auth.username}
-            style={{ borderRadius: '50%' }}
+            avatarURL={auth.profile?.picture}
+            username={auth.profile?.name}
           />
         </DropdownToggleButton>
       )}
     </Popover>
   )
-})
-
-const UserAvatar = ({ username, avatarURL, size = 32, style }) => {
-  const url = `${avatarURL}&size=${size}`
-  return (
-    <img src={url} width={size} height={size} style={style} alt={username} />
-  )
 }
 
-export default HeaderDropdownMenu
+const UserAvatar = ({ username, avatarURL, size = 32 }) => {
+  const url = `${avatarURL}&size=${size}`
+  return <Avatar src={url} width={size} height={size} alt={username} />
+}
+
+const Avatar = styled.img`
+  border-radius: 50%;
+`

@@ -1,9 +1,7 @@
 import { useAsync } from 'react-async'
-import { addBookmark, removeBookmark } from '../actions'
 
 import getApiRootURL from './config'
 import { fetchHTML, fetchJSON } from '../helpers/fetch'
-import { useSelector, useDispatch } from 'react-redux'
 
 export function useFetchProjectReadMe({ full_name, branch }) {
   return useAsync({
@@ -34,20 +32,6 @@ function fetchProjectDetails({ full_name }) {
     'GET_PROJECT_DETAILS'
   )}/api/project-details?fullName=${full_name}`
   return fetchJSON(url)
-}
-
-export function useUser() {
-  const { username, name } = useSelector(state => state.auth)
-  const dispatch = useDispatch()
-
-  const isLoggedIn = username !== ''
-  return {
-    isLoggedIn,
-    username,
-    name,
-    addBookmark: project => dispatch(addBookmark(project)),
-    removeBookmark: project => dispatch(removeBookmark(project))
-  }
 }
 
 const loadNewsletterIssue = ({ issueNumber: number }) => {

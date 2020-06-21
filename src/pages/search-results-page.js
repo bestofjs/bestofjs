@@ -2,6 +2,7 @@ import React from 'react'
 import { withRouter } from 'react-router-dom'
 import styled from 'styled-components'
 
+import { useSelector } from 'containers/project-data-container'
 import { allProjects, getTagsById, getProjectSelectorByKey } from 'selectors'
 import { PaginationProvider } from 'components/core/pagination'
 import { TagIcon } from 'components/core/icons'
@@ -12,9 +13,6 @@ import {
   MainContent,
   Spinner
 } from 'components/core'
-
-// TODO colocate all search components?
-import { useSelector } from 'containers/project-list-container'
 import { ProjectPaginatedList } from 'components/search/project-paginated-list'
 import { TagLabelGroup } from 'components/tags/tag-label'
 import { useSearch } from 'components/search/search-provider'

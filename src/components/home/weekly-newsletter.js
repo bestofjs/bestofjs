@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import tinytime from 'tinytime'
 import styled from 'styled-components'
 
-import { useSelector } from 'containers/project-list-container'
+import { useSelector } from 'containers/project-data-container'
 import { findProjectsByIds } from 'selectors'
 import { ExternalLink, Section, Button } from 'components/core'
 import { getProjectId } from 'components/core/project'

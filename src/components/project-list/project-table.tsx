@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import styled, { css } from 'styled-components'
+import styled from 'styled-components'
 import { Link } from 'react-router-dom'
 import numeral from 'numeral'
 
@@ -8,9 +8,10 @@ import { getDeltaByDay } from '../../selectors'
 import { Avatar, DownloadCount, StarDelta, StarTotal } from '../core/project'
 import { TagLabelGroup } from '../tags/tag-label'
 import { DropdownMenu, Button } from '../core'
-import { useUser } from '../../api/hooks'
+// import { useUser } from '../../api/hooks'
 import fromNow from '../../helpers/fromNow'
 import { BookmarkIcon, MarkGitHubIcon, HomeIcon } from '../core/icons'
+import { AuthContainer } from 'containers/auth-container'
 
 type Props = {
   projects: BestOfJS.Project[]
@@ -26,8 +27,6 @@ export const ProjectTable = ({
   sortOption,
   ...otherProps
 }) => {
-  const userProps = useUser()
-
   return (
     <div className="table-container" style={style}>
       <Table>
@@ -40,7 +39,6 @@ export const ProjectTable = ({
                 project={project}
                 rank={from + index}
                 sortOption={sortOption}
-                {...userProps}
                 {...otherProps}
               />
             )
@@ -65,14 +63,16 @@ const ProjectTableRow = ({
   project,
   rank,
   sortOption,
-  isLoggedIn,
-  addBookmark,
-  removeBookmark,
   deltaFilter = 'total',
   showDetails = true,
   showRankingNumber = false,
   showActions = true
 }) => {
+  const {
+    isLoggedIn,
+    addBookmark,
+    removeBookmark
+  } = AuthContainer.useContainer()
   const path = `/projects/${project.slug}`
 
   const showDelta = ['daily', 'weekly', 'monthly', 'yearly'].includes(
@@ -171,7 +171,7 @@ const ProjectTableRow = ({
           {isLoggedIn &&
             (project.isBookmark ? (
               <IconButton
-                on={project.isBookmark}
+                isHighlighted={project.isBookmark}
                 onClick={toggleBookmark}
                 className="hint--top"
                 aria-label="Remove bookmark"
@@ -325,14 +325,10 @@ const IconButton = styled(Button)`
   border-radius: 50%;
   padding: 0;
   margin-left: 1rem;
-  ${props =>
-    props.on
-      ? css`
-          color: var(--textMutedColor);
-        `
-      : css`
-          color: var(--textSecondaryColor);
-        `}
+  color: ${props =>
+    props.isHighlighted
+      ? 'var(--textSecondaryColor);'
+      : 'var(--textMutedColor);'}
   &:hover {
     color: var(--bestofjsPurple);
   }

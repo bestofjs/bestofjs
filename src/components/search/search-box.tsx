@@ -3,7 +3,7 @@ import Select, { components } from 'react-select'
 import useDebouncedCallback from 'use-debounce/lib/useDebouncedCallback'
 import styled from 'styled-components'
 
-import { useSelector } from 'containers/project-list-container'
+import { useSelector } from 'containers/project-data-container'
 import { getAllTags } from 'selectors'
 import { Button } from 'components/core'
 import { SearchContext } from './search-provider'

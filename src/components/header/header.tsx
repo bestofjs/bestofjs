@@ -1,12 +1,12 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
-import { useSelector } from 'react-redux'
 
-import { Button } from '../core'
-import UserDropdownMenu from './UserDropdownMenu'
-import { MarkGitHubIcon } from '../core/icons'
-import { useStaticContent } from '../../static-content'
+import { AuthContainer } from 'containers/auth-container'
+import { Button } from 'components/core'
+import { MarkGitHubIcon } from 'components/core/icons'
+import { useStaticContent } from 'static-content'
+import { UserDropdownMenu } from './user-dropdown-menu'
 
 const sidebarBreakpoint = 700
 const topbarHeight = 60
@@ -59,7 +59,6 @@ export const Header = props => {
             </NavigationMenu>
           </Col>
           <Col>
-            {/* <NavigationDropdownMenu {...props} /> */}
             <LoginSection {...props} />
           </Col>
         </Row>
@@ -103,17 +102,17 @@ const NavigationMenuItem = styled.div`
   }
 `
 
-const LoginSection = ({ dependencies: { authApi } }) => {
-  const auth = useSelector(state => state.auth)
+const LoginSection = () => {
+  const auth = AuthContainer.useContainer()
 
-  if (auth.pending)
+  if (auth.isPending)
     return (
       <div style={{ display: 'flex', alignItems: 'center' }}>Loading...</div>
     )
 
-  if (!auth.username) {
-    return <Button onClick={() => authApi.login()}>Sign in</Button>
+  if (!auth.isLoggedIn) {
+    return <Button onClick={() => auth.login()}>Sign in</Button>
   }
 
-  return <UserDropdownMenu authApi={authApi} />
+  return <UserDropdownMenu />
 }

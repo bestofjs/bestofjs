@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import { Link } from 'react-router-dom'
 import { Animate } from 'react-simple-animate'
 
-import { useSelector } from 'containers/project-list-container'
+import { useSelector } from 'containers/project-data-container'
 import { getFeaturedProjects, getDeltaByDay } from '../../selectors'
 import { Avatar, StarDelta, getProjectAvatarUrl } from '../core/project'
 import { Section } from '../core'

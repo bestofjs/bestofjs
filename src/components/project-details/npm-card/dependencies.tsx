@@ -4,7 +4,7 @@ import Toggle from 'react-toggled'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 
-import { useSelector } from 'containers/project-list-container'
+import { useSelector } from 'containers/project-data-container'
 import { StarTotal } from 'components/core/project'
 import { ExternalLink } from 'components/core/typography'
 import { npmProjects } from 'selectors'

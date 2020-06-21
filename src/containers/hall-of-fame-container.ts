@@ -3,7 +3,7 @@ import { useAsync } from 'react-async'
 
 import api from 'api/config'
 import { fetchJSON } from 'helpers/fetch'
-import { ProjectDataContainer } from './project-list-container'
+import { ProjectDataContainer } from './project-data-container'
 
 export function useHallOfFame() {
   const { data, ...rest } = useAsync({ promiseFn: fetchHeroes })

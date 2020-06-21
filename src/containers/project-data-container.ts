@@ -6,10 +6,12 @@ import { fetchJSON } from '../helpers/fetch'
 import api from '../api/config'
 
 import { getProjectId } from 'components/core/project'
+import { AuthContainer } from './auth-container'
 
 function useProjectList() {
   const state = useLoadProjects()
-  return state
+  const { bookmarks } = AuthContainer.useContainer()
+  return { ...state, auth: { myProjects: bookmarks } }
 }
 
 export const ProjectDataContainer = createContainer(useProjectList)
@@ -32,8 +34,7 @@ function useLoadProjects() {
     return {
       ...rest,
       meta: {},
-      entities: { projects: {}, tags: {} },
-      auth: { myProjects: [] }
+      entities: { projects: {}, tags: {} }
     }
   return {
     ...rest,
@@ -43,8 +44,7 @@ function useLoadProjects() {
     },
     meta: {
       lastUpdate: new Date(data.date)
-    },
-    auth: { myProjects: [] }
+    }
   }
 }
 

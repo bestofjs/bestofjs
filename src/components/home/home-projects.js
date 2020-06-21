@@ -2,10 +2,10 @@ import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 
+import { useSelector } from 'containers/project-data-container'
 import { Section, Spinner, DropdownMenu } from 'components/core'
 import { ProjectTable } from 'components/project-list/project-table'
 import { getProjectsSortedBy } from 'selectors'
-import { useSelector } from 'containers/project-list-container'
 
 const ranges = {
   daily: 'yesterday',

@@ -1,5 +1,4 @@
 import React from 'react'
-import { Provider } from 'react-redux'
 
 import Routes from 'routes/Routes'
 import { Header } from 'components/header/header'
@@ -9,21 +8,19 @@ import { StaticContentProvider } from 'static-content'
 
 export const App = ({ store, ...props }) => {
   return (
-    <Provider store={store}>
-      <StaticContentProvider>
-        <SearchProvider {...props}>
-          <div id="layout">
-            <div id="panel">
-              <Header {...props} />
-              <SearchBox />
-              <main id="main">
-                <Routes {...props} />
-              </main>
-              <Footer />
-            </div>
+    <StaticContentProvider>
+      <SearchProvider {...props}>
+        <div id="layout">
+          <div id="panel">
+            <Header {...props} />
+            <SearchBox />
+            <main id="main">
+              <Routes {...props} />
+            </main>
+            <Footer />
           </div>
-        </SearchProvider>
-      </StaticContentProvider>
-    </Provider>
+        </div>
+      </SearchProvider>
+    </StaticContentProvider>
   )
 }

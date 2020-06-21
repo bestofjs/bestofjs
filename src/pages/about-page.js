@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { useSelector } from 'containers/project-list-container'
+import { useSelector } from 'containers/project-data-container'
 import { CreateIssueLink } from 'components/user-requests/add-project/CreateIssueLink'
 import { Card, MainContent } from 'components/core'
 import 'stylesheets/markdown-body.css'

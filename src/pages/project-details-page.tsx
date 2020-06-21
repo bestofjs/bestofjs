@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import { Route, Switch } from 'react-router-dom'
 
-import { useSelector } from 'containers/project-list-container'
+import { useSelector } from 'containers/project-data-container'
 import { findProjectById } from 'selectors'
 import track from 'helpers/track'
 import { useFetchProjectDetails } from 'api/hooks'
