@@ -1,5 +1,4 @@
-import React from 'react'
-import PropTypes from 'prop-types'
+import React, { CSSProperties } from 'react'
 import styled from 'styled-components'
 import { Link } from 'react-router-dom'
 import numeral from 'numeral'
@@ -16,7 +15,8 @@ import { AuthContainer } from 'containers/auth-container'
 type Props = {
   projects: BestOfJS.Project[]
   footer?: React.ReactNode
-  style: CSSRuleList
+  from: number
+  style: CSSProperties
   sortOption: any
 }
 export const ProjectTable = ({
@@ -26,7 +26,7 @@ export const ProjectTable = ({
   style,
   sortOption,
   ...otherProps
-}) => {
+}: Props) => {
   return (
     <div className="table-container" style={style}>
       <Table>
@@ -54,9 +54,6 @@ export const ProjectTable = ({
       </Table>
     </div>
   )
-}
-ProjectTable.propTypes = {
-  projects: PropTypes.array.isRequired
 }
 
 const ProjectTableRow = ({

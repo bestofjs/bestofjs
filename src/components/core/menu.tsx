@@ -1,14 +1,12 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import styled, { css } from 'styled-components'
 
-export class Menu extends React.Component {
-  static propTypes = {
-    items: PropTypes.array.isRequired,
-    value: PropTypes.string, // only needed to set the "active" status
-    onClick: PropTypes.func
-  }
-
+type Props = {
+  items: any[]
+  value?: string
+  onClick?: (event: React.MouseEventHandler) => void
+}
+export class Menu extends React.Component<Props> {
   render() {
     const { items, value, onClick: menuOnClick } = this.props
 

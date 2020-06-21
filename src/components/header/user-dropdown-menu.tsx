@@ -33,7 +33,7 @@ export const UserDropdownMenu = () => {
             icon: <SignOutIcon />
           }
         ]
-        return <Menu items={items} close={close} />
+        return <Menu items={items} />
       }}
       alignment="right"
     >

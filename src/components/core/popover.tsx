@@ -1,28 +1,41 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 
-export class Popover extends React.Component {
-  static propTypes = {
-    content: PropTypes.oneOfType([PropTypes.func, PropTypes.node]),
-    alignment: PropTypes.oneOf(['left', 'right']),
-    position: PropTypes.oneOf(['bottom', 'top', 'cursor']),
-    style: PropTypes.object,
-    contentStyle: PropTypes.object,
-    children: PropTypes.func.isRequired
-  }
-
+type Position = { x: number; y: number }
+type FnProps = {
+  isOpen: boolean
+  open: (event: any, context: any) => void
+  toggle: (event: any, context: any) => void
+  close: (event: any, context: any) => void
+}
+type OpenFn = (event: any, context: any) => void
+type Props = {
+  content?: React.ReactNode | ((FnProps) => React.ReactNode)
+  alignment: 'left' | 'right'
+  position: 'bottom' | 'top' | 'cursor'
+  style?: React.CSSProperties
+  contentStyle?: React.CSSProperties
+  children: (any) => React.ReactNode
+}
+type State = {
+  isOpen: boolean
+  overlayPosition?: Position
+  context: any
+}
+export class Popover extends React.Component<Props, State> {
   static defaultProps = {
     alignment: 'left',
     position: 'bottom'
   }
-
-  state = {
-    isOpen: false,
-    overlayPosition: undefined, // where to position the overlay when the Popover position is "cursor"
-    context: undefined // data from the customer, to be passed to the context menu
+  constructor(props) {
+    super(props)
+    this.state = {
+      isOpen: false,
+      overlayPosition: undefined, // where to position the overlay when the Popover position is "cursor"
+      context: undefined // data from the customer, to be passed to the context menu
+    }
   }
 
-  contentRef = React.createRef()
+  contentRef = React.createRef<HTMLDivElement>()
 
   componentWillUnmount() {
     this.removeEventListeners()
@@ -38,7 +51,7 @@ export class Popover extends React.Component {
   isOutsideClick = event => {
     const contentNode = this.contentRef.current
 
-    return !contentNode.contains(event.target)
+    return !contentNode!.contains(event.target)
   }
 
   handleBodyKeyDown = event => {
@@ -59,11 +72,11 @@ export class Popover extends React.Component {
     this.removeEventListeners()
   }
 
-  toggle = (...params) => {
+  toggle = (event, context) => {
     if (this.state.isOpen) {
-      this.close(...params)
+      this.close()
     } else {
-      this.open(...params)
+      this.open(event, context)
     }
   }
 
@@ -77,7 +90,7 @@ export class Popover extends React.Component {
     document.body.removeEventListener('keydown', this.handleBodyKeyDown)
   }
 
-  getOverlayPosition = event => {
+  getOverlayPosition = (event): Position => {
     const {
       offsetLeft: containerX,
       offsetTop: containerY
@@ -128,8 +141,8 @@ export class Popover extends React.Component {
         alignmentStyle = {
           ...alignmentStyle,
           bottom: 'auto',
-          left: overlayPosition.x,
-          top: overlayPosition.y
+          left: overlayPosition!.x,
+          top: overlayPosition?.y
         }
       }
     }

@@ -35,7 +35,6 @@
     "isomorphic-fetch": "^2.2.1",
     "lodash.times": "^4.3.2",
     "numeral": "^1.5.3",
-    "prop-types": "15.5.8",
     "qs": "^6.9.0",
     "react": "16.8.6",
     "react-async": "^7.0.5",

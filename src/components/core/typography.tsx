@@ -1,22 +1,24 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import styled from 'styled-components'
 
 /*
 Link to external websites, that open in a new browser tab
 See https://mathiasbynens.github.io/rel-noopener
 */
-export const ExternalLink = ({ url, children, ...rest }) => {
+export const ExternalLink = ({
+  url,
+  children,
+  ...rest
+}: {
+  url: string
+  children: React.ReactNode
+}) => {
   const fullURL = url.startsWith('http') ? url : `http://` + url
   return (
     <a href={fullURL} target="_blank" rel="noopener noreferrer" {...rest}>
       {children}
     </a>
   )
-}
-ExternalLink.propTypes = {
-  url: PropTypes.string.isRequired,
-  children: PropTypes.node.isRequired
 }
 
 const Heading = styled.h2`

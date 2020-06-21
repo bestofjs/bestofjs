@@ -1,5 +1,4 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import Toggle from 'react-toggled'
 
 import { ExpandableSection } from './expandable-section'
@@ -65,8 +64,4 @@ const BundleSizeDetails = ({ project, packageSize }) => {
       </SizeDetailsList.Link>
     </SizeDetailsList>
   )
-}
-
-PackageSize.propTypes = {
-  project: PropTypes.object.isRequired
 }
