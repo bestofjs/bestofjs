@@ -3,19 +3,21 @@ import { Router } from 'react-router-dom'
 import ReactDOM from 'react-dom'
 import { createMemoryHistory } from 'history'
 
+import { AuthProvider } from 'containers/auth-container'
+import { ProjectDataProvider } from 'containers/project-data-container'
 import { App } from './app'
-import configureStore from './store'
-import createAuthMockApi from './api/auth/auth-mock-api'
 
 it('renders without crashing', () => {
   const div = document.createElement('div')
   const history = createMemoryHistory()
-  const store = configureStore({})
-  const authApi = createAuthMockApi({ dispatch: store.dispatch })
-  const dependencies = { authApi }
+
   ReactDOM.render(
     <Router history={history}>
-      <App store={store} dependencies={dependencies} />
+      <AuthProvider>
+        <ProjectDataProvider>
+          <App />
+        </ProjectDataProvider>
+      </AuthProvider>
     </Router>,
     div
   )

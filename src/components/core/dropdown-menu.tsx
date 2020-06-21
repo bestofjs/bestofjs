@@ -11,7 +11,7 @@ type Props = {
   items: any[]
   alignment?: 'left' | 'right'
   position?: 'bottom' | 'top'
-  children: React.ReactNode | ((any) => React.ReactNode)
+  children?: React.ReactNode | ((any) => React.ReactNode)
   disabled?: boolean
   value?: string
 }
