@@ -4,7 +4,7 @@ import getApiRootURL from './config'
 import { fetchHTML, fetchJSON } from '../helpers/fetch'
 
 export function useFetchProjectReadMe({ full_name, branch }) {
-  const fetcher = fetchProjectReadMe({ full_name, branch })
+  const fetcher = () => fetchProjectReadMe({ full_name, branch })
   return useSWR(['/api/projects/readme', full_name], fetcher)
 }
 
