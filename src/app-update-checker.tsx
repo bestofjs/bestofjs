@@ -45,7 +45,7 @@ export function useAppUpdateChecker({
       if (!latestMeta) return false
       if (
         isSimulationMode ||
-        new Date(latestMeta.version) > new Date(initialMetaRef.current!.version)
+        latestMeta.version !== initialMetaRef.current!.version
       ) {
         stop()
         const isUpdateAccepted = await show({
