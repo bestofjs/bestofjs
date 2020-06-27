@@ -123,7 +123,7 @@ export const ChevronDownIcon = ({
 //   )
 // }
 
-export const StarIcon = ({ size = 16, color = 'currentColor', style }) => {
+export const StarIcon = ({ size = 16, color = 'currentColor' }) => {
   return (
     <svg
       width={size}
@@ -132,7 +132,6 @@ export const StarIcon = ({ size = 16, color = 'currentColor', style }) => {
       viewBox="0 0 14 16"
       version="1.1"
       aria-hidden="true"
-      style={style}
     >
       <path
         fill={color}
@@ -143,11 +142,7 @@ export const StarIcon = ({ size = 16, color = 'currentColor', style }) => {
   )
 }
 
-export const MarkGitHubIcon = ({
-  size = 16,
-  color = 'currentColor',
-  style
-}) => {
+export const MarkGitHubIcon = ({ size = 16, color = 'currentColor' }) => {
   return (
     <svg
       width={size}
@@ -156,7 +151,6 @@ export const MarkGitHubIcon = ({
       viewBox="0 0 16 16"
       version="1.1"
       aria-hidden="true"
-      style={style}
     >
       <path
         fill={color}
@@ -167,7 +161,7 @@ export const MarkGitHubIcon = ({
   )
 }
 
-export const BookmarkIcon = ({ size = 16, color = 'currentColor', style }) => {
+export const BookmarkIcon = ({ size = 16, color = 'currentColor' }) => {
   return (
     <svg
       width={size}
@@ -176,7 +170,6 @@ export const BookmarkIcon = ({ size = 16, color = 'currentColor', style }) => {
       viewBox="0 0 10 16"
       version="1.1"
       aria-hidden="true"
-      style={style}
     >
       <path
         fill={color}
@@ -187,7 +180,7 @@ export const BookmarkIcon = ({ size = 16, color = 'currentColor', style }) => {
   )
 }
 
-export const HomeIcon = ({ size = 16, color = 'currentColor', style }) => {
+export const HomeIcon = ({ size = 16, color = 'currentColor' }) => {
   return (
     <svg
       width={size}
@@ -196,7 +189,6 @@ export const HomeIcon = ({ size = 16, color = 'currentColor', style }) => {
       viewBox="0 0 16 16"
       version="1.1"
       aria-hidden="true"
-      style={style}
     >
       <path
         fillRule="evenodd"
@@ -230,7 +222,7 @@ export const KebabVerticalIcon = ({
     </svg>
   )
 }
-export const SignOutIcon = ({ size = 16, color = 'currentColor', style }) => {
+export const SignOutIcon = ({ size = 16, color = 'currentColor' }) => {
   return (
     <svg
       width={size}
@@ -239,7 +231,6 @@ export const SignOutIcon = ({ size = 16, color = 'currentColor', style }) => {
       viewBox="0 0 16 16"
       version="1.1"
       aria-hidden="true"
-      style={style}
     >
       <path
         fill={color}

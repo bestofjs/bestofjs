@@ -45,7 +45,6 @@ This repository contains _Best of JavaScript_ front-end application code, a sing
 
 - [Create React App](https://github.com/facebook/create-react-app)
 - [React](http://facebook.github.io/react/)
-- [Redux](http://redux.js.org/)
 - [React Router](https://reacttraining.com/react-router/)
 - [Styled Components](https://www.styled-components.com/)
 

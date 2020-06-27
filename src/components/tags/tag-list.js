@@ -1,12 +1,12 @@
 import React from 'react'
 import { Link, useHistory } from 'react-router-dom'
 import styled from 'styled-components'
-import { useSelector } from 'react-redux'
 
-import { getProjectsByTag } from '../../selectors'
-import { Avatar } from '../core/project'
-import { Button, Grid, Cell as GridCell } from '../core'
-import { ChevronRightIcon } from '../core/icons'
+import { useSelector } from 'containers/project-data-container'
+import { getProjectsByTag } from 'selectors'
+import { Avatar } from 'components/core/project'
+import { Button, Grid, Cell as GridCell } from 'components/core'
+import { ChevronRightIcon } from 'components/core/icons'
 
 export const DetailedTagList = ({ tags }) => {
   return (

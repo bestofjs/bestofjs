@@ -12,9 +12,8 @@ export const getAllProjectsCount = createSelector(
   projects => projects.length
 )
 
-export const npmProjects = createSelector(
-  [allProjects],
-  projects => projects.filter(project => !!project.packageName)
+export const npmProjects = createSelector([allProjects], projects =>
+  projects.filter(project => !!project.packageName)
 )
 
 const sortProjects = fn => projects => sortProjectsByFunction(projects, fn)
@@ -26,18 +25,15 @@ const getRawProjectsSortedBy = ({
   start = 0,
   limit = 10
 }) => {
-  return createSelector(
-    [allProjects],
-    projects => {
-      const filteredProjects = filterFn ? projects.filter(filterFn) : projects
-      const projectSelector = getProjectSelectorByKey(criteria)
-      const sliced = sortProjects(projectSelector)(filteredProjects).slice(
-        start,
-        start + limit
-      )
-      return sliced
-    }
-  )
+  return createSelector([allProjects], projects => {
+    const filteredProjects = filterFn ? projects.filter(filterFn) : projects
+    const projectSelector = getProjectSelectorByKey(criteria)
+    const sliced = sortProjects(projectSelector)(filteredProjects).slice(
+      start,
+      start + limit
+    )
+    return sliced
+  })
 }
 
 // Create a selector for a given criteria (`total`, `daily`)
@@ -58,9 +54,8 @@ export const getNewestProjects = count =>
   })
 
 export const getAllProjectsByTag = tagId =>
-  createSelector(
-    [allProjects],
-    projects => projects.filter(project => project.tags.includes(tagId))
+  createSelector([allProjects], projects =>
+    projects.filter(project => project.tags.includes(tagId))
   )
 
 // Selector used to display the list of projects belonging to a given tag

@@ -1,25 +1,23 @@
 import React from 'react'
 import { withRouter } from 'react-router-dom'
-import { useSelector } from 'react-redux'
 import styled from 'styled-components'
 
-import { allProjects, getTagsById, getProjectSelectorByKey } from '../selectors'
-import { PaginationProvider } from '../components/core/pagination'
-import { TagIcon } from '../components/core/icons'
+import { useSelector } from 'containers/project-data-container'
+import { allProjects, getTagsById, getProjectSelectorByKey } from 'selectors'
+import { PaginationProvider } from 'components/core/pagination'
+import { TagIcon } from 'components/core/icons'
 import {
   Button,
   PageTitle,
   EmptyContent,
   MainContent,
   Spinner
-} from '../components/core'
-
-// TODO colocate all search components?
-import { ProjectPaginatedList } from '../components/search/project-paginated-list'
-import { TagLabelGroup } from '../components/tags/tag-label'
-import { useSearch } from '../components/search/SearchProvider'
-import { updateLocation } from '../components/search/search-utils'
-import { findProjects } from '../components/search/find-projects'
+} from 'components/core'
+import { ProjectPaginatedList } from 'components/search/project-paginated-list'
+import { TagLabelGroup } from 'components/tags/tag-label'
+import { useSearch } from 'components/search/search-provider'
+import { updateLocation } from 'components/search/search-utils'
+import { findProjects } from 'components/search/find-projects'
 
 export const SearchResultsPage = () => {
   const { selectedTags, query, sortOption, page } = useSearch()

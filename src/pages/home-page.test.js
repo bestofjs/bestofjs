@@ -3,5 +3,5 @@ import renderApp from '../test/render-app'
 
 it('Should render the Homepage', () => {
   const { getByText } = renderApp({ route: '/' })
-  getByText('Today Hot Projects')
+  getByText('Hot Projects')
 })

@@ -5,7 +5,6 @@ import MoreHeroes from './MoreHeroes'
 import HallOfFameMemberList from './HallOfFameMemberList'
 
 const HallOfFame = props => {
-  const { onLogin, auth } = props
   return (
     <MainContent>
       <h1 style={{ marginBottom: '1rem' }}>JavaScript Hall of Fame</h1>
@@ -17,11 +16,7 @@ const HallOfFame = props => {
         activity!
       </div>
       <HallOfFameMemberList {...props} />
-      <MoreHeroes
-        handleClick={onLogin}
-        isLoggedin={auth.username !== ''}
-        pending={auth.pending}
-      />
+      <MoreHeroes />
     </MainContent>
   )
 }

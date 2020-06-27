@@ -2,14 +2,7 @@
 .env
 
 # Build
-www/build/
-www/index.html
-www/hall-of-fame/index.html
-www/tags/**/*.html
-www/projects/**/*.html
-www/rss/**/*.xml
 build
-ssr-temp
 
 # Logs
 logs
@@ -24,7 +17,6 @@ node_modules
 # Users Environment Variables
 .lock-wscript
 .DS_Store
-package-lock.json
 
 # Webpack monitor files
 monitor/

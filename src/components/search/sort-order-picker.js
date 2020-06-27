@@ -1,7 +1,7 @@
 import React from 'react'
 
-import { DropdownMenu } from '../core'
-import { useSearch } from './SearchProvider'
+import { DropdownMenu } from 'components/core'
+import { useSearch } from './search-provider'
 import { sortOrderOptions } from './sort-order-options'
 
 export const SortOrderPicker = ({ value, onChange }) => {

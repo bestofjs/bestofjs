@@ -1,15 +1,15 @@
 import React from 'react'
-import { useSelector } from 'react-redux'
 
-import { getAllTagsSortedBy } from '../selectors'
-import { PaginatedTagList } from '../components/tags/paginated-tag-list'
-import { TagIcon } from '../components/core/icons'
-import { MainContent, PageTitle } from '../components/core'
+import { useSelector } from 'containers/project-data-container'
+import { getAllTagsSortedBy } from 'selectors'
+import { PaginatedTagList } from 'components/tags/paginated-tag-list'
+import { TagIcon } from 'components/core/icons'
+import { MainContent, PageTitle } from 'components/core'
 import {
   PaginationProvider,
   paginateItemList
-} from '../components/core/pagination'
-import { useParseURL } from '../helpers/url'
+} from 'components/core/pagination'
+import { useParseURL } from 'helpers/url'
 
 const TagsPage = () => {
   const { sort, page } = useParseURL({ sort: 'project-count' })

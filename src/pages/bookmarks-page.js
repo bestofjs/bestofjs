@@ -1,20 +1,20 @@
 import React from 'react'
-import { useSelector } from 'react-redux'
 
-import { useSearch } from '../components/search/SearchProvider'
+import { useSelector } from 'containers/project-data-container'
+import { useSearch } from 'components/search/search-provider'
 import {
   PaginationProvider,
   paginateItemList
-} from '../components/core/pagination'
-import { ProjectPaginatedList } from '../components/search/project-paginated-list'
-import { PageTitle, EmptyContent, MainContent } from '../components/core'
-import { BookmarkIcon } from '../components/core/icons'
-import { getBookmarksSortedBy } from '../selectors'
-import { useUser } from '../api/hooks'
+} from 'components/core/pagination'
+import { ProjectPaginatedList } from 'components/search/project-paginated-list'
+import { PageTitle, EmptyContent, MainContent } from 'components/core'
+import { BookmarkIcon } from 'components/core/icons'
+import { getBookmarksSortedBy } from 'selectors'
+import { AuthContainer } from 'containers/auth-container'
 
 const BookmarksPage = () => {
   const { page, sortOption } = useSearch({ defaultSortOptionId: 'bookmark' })
-  const { isLoggedIn } = useUser()
+  const { isLoggedIn } = AuthContainer.useContainer()
   const projects = useSelector(getBookmarksSortedBy(sortOption.id))
 
   const total = projects.length

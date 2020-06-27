@@ -1,16 +1,16 @@
 import React from 'react'
-import { useSelector } from 'react-redux'
 import styled from 'styled-components'
 
-import { useSearch } from '../components/search/SearchProvider'
+import { useSelector } from 'containers/project-data-container'
+import { useSearch } from 'components/search/search-provider'
 import {
   PaginationProvider,
   paginateItemList
-} from '../components/core/pagination'
-import { ProjectPaginatedList } from '../components/search/project-paginated-list'
-import { PageTitle, MainContent } from '../components/core'
-import { StarIcon } from '../components/core/icons'
-import { getFeaturedProjects } from '../selectors'
+} from 'components/core/pagination'
+import { ProjectPaginatedList } from 'components/search/project-paginated-list'
+import { PageTitle, MainContent } from 'components/core'
+import { StarIcon } from 'components/core/icons'
+import { getFeaturedProjects } from 'selectors'
 
 export const FeaturedPage = () => {
   const { page, sortOption } = useSearch({ defaultSortOptionId: 'newest' })
