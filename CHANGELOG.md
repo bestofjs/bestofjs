@@ -1,5 +1,10 @@
 # Change log
 
+## 0.24.0 - 2020-06-27
+
+- Use [Unstated Next](https://github.com/jamiebuilds/unstated-next) instead of Redux to manage the state
+- Use [swr](https://swr.vercel.app/) instead of [React Async](https://github.com/async-library/react-async) to load data
+
 ## 0.23.1 - 2020-05-24
 
 - Notify the user when an application update is available
