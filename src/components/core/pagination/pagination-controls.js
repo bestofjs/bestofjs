@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import styled from 'styled-components'
 
 import {
@@ -8,8 +8,8 @@ import {
   ChevronLeftIcon
 } from '../icons'
 import { Button } from '../button'
-import { PaginationContext } from './provider'
 import { updateLocation } from '../../search/search-utils'
+import { PaginationContainer } from './provider'
 const iconSize = 28
 
 export const TopPaginationControls = ({ history, location }) => {
@@ -20,7 +20,7 @@ export const TopPaginationControls = ({ history, location }) => {
     total,
     hasPreviousPage,
     hasNextPage
-  } = useContext(PaginationContext)
+  } = PaginationContainer.useContainer()
 
   return (
     <div
@@ -70,7 +70,7 @@ export const BottomPaginationControls = ({ history, location }) => {
     hasNextPage,
     lastPageNumber,
     pageNumbers
-  } = useContext(PaginationContext)
+  } = PaginationContainer.useContainer()
 
   return (
     <div

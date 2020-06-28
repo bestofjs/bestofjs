@@ -1,8 +1,8 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import styled from 'styled-components'
 import { useHistory, useLocation } from 'react-router-dom'
 
-import { PaginationContext } from '../core/pagination/provider'
+import { PaginationContainer } from '../core/pagination/provider'
 import { TagListSortOrderPicker } from './tag-list-sort-order'
 import { updateLocation } from '../search/search-utils'
 
@@ -14,13 +14,12 @@ import {
 
 export const PaginatedTagList = ({
   tags,
-  query,
   page,
   total,
   limit,
   sortOptionId
 }) => {
-  const { from, pageNumbers } = useContext(PaginationContext)
+  const { from, pageNumbers } = PaginationContainer.useContainer()
   const location = useLocation()
   const history = useHistory()
 

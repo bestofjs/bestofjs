@@ -1,9 +1,9 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import styled from 'styled-components'
 import { useHistory, useLocation } from 'react-router-dom'
 
 import { ProjectTable } from 'components/project-list/project-table'
-import { PaginationContext } from 'components/core/pagination/provider'
+import { PaginationContainer } from 'components/core/pagination/provider'
 import { SortOrderPicker } from './sort-order-picker'
 import { updateLocation } from './search-utils'
 import {
@@ -13,14 +13,12 @@ import {
 
 export const ProjectPaginatedList = ({
   projects,
-  query,
   page,
   total,
   limit,
-  sortOption,
-  children
+  sortOption
 }) => {
-  const { from, pageNumbers } = useContext(PaginationContext)
+  const { from, pageNumbers } = PaginationContainer.useContainer()
   const location = useLocation()
   const history = useHistory()
 
@@ -53,12 +51,7 @@ export const ProjectPaginatedList = ({
           )}
         </Row>
       )}
-      <ProjectTable
-        projects={projects}
-        showStars={false}
-        from={from}
-        sortOption={sortOption}
-      />
+      <ProjectTable projects={projects} from={from} sortOption={sortOption} />
       {showPagination && (
         <BottomPaginationControls history={history} location={location} />
       )}

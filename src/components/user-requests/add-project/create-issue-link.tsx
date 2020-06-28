@@ -16,12 +16,21 @@ const getCreateIssueURL = template => {
 
 export const addProjectURL = getCreateIssueURL(templates.ADD_PROJECT)
 
-export const CreateIssueLink = ({ className, style, children, type }) => {
+export const CreateIssueLink = ({
+  children,
+  type,
+  ...props
+}: {
+  className?: string
+  style?: any
+  children: any
+  type: string
+}) => {
   const template = templates[type]
   const url = getCreateIssueURL(template)
 
   return (
-    <ExternalLink target="_blank" className={className} style={style} url={url}>
+    <ExternalLink url={url} {...props}>
       {children}
     </ExternalLink>
   )

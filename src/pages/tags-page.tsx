@@ -6,8 +6,8 @@ import { PaginatedTagList } from 'components/tags/paginated-tag-list'
 import { TagIcon } from 'components/core/icons'
 import { MainContent, PageTitle } from 'components/core'
 import {
-  PaginationProvider,
-  paginateItemList
+  paginateItemList,
+  PaginationContainer
 } from 'components/core/pagination'
 import { useParseURL } from 'helpers/url'
 
@@ -20,7 +20,9 @@ const TagsPage = () => {
 
   return (
     <MainContent>
-      <PaginationProvider total={total} currentPageNumber={page} limit={limit}>
+      <PaginationContainer.Provider
+        initialState={{ total, currentPageNumber: page, limit }}
+      >
         <PageTitle icon={<TagIcon size={32} />}>All Tags</PageTitle>
         <PaginatedTagList
           tags={paginatedTags}
@@ -29,7 +31,7 @@ const TagsPage = () => {
           limit={limit}
           sortOptionId={sort}
         />
-      </PaginationProvider>
+      </PaginationContainer.Provider>
     </MainContent>
   )
 }

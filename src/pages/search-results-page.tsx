@@ -4,7 +4,7 @@ import styled from 'styled-components'
 
 import { useSelector } from 'containers/project-data-container'
 import { allProjects, getTagsById, getProjectSelectorByKey } from 'selectors'
-import { PaginationProvider } from 'components/core/pagination'
+import { PaginationContainer } from 'components/core/pagination'
 import { TagIcon } from 'components/core/icons'
 import {
   Button,
@@ -15,7 +15,7 @@ import {
 } from 'components/core'
 import { ProjectPaginatedList } from 'components/search/project-paginated-list'
 import { TagLabelGroup } from 'components/tags/tag-label'
-import { useSearch } from 'components/search/search-provider'
+import { useSearch } from 'components/search/search-container'
 import { updateLocation } from 'components/search/search-utils'
 import { findProjects } from 'components/search/find-projects'
 
@@ -50,10 +50,8 @@ export const SearchResultsPage = () => {
   return (
     <MainContent>
       {foundProjects.length > 0 ? (
-        <PaginationProvider
-          total={total}
-          currentPageNumber={page}
-          limit={limit}
+        <PaginationContainer.Provider
+          initialState={{ total, limit, currentPageNumber: page }}
         >
           <SearchResultsTitle
             query={query}
@@ -65,13 +63,12 @@ export const SearchResultsPage = () => {
           )}
           <ProjectPaginatedList
             projects={foundProjects}
-            query={query}
             page={page}
             total={total}
             limit={limit}
             sortOption={sortOption}
           />
-        </PaginationProvider>
+        </PaginationContainer.Provider>
       ) : (
         <EmptyContent>
           <NoProjectsFound query={query} selectedTags={selectedTags} />

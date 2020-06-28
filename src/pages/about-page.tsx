@@ -1,7 +1,7 @@
 import React from 'react'
 
 import { useSelector } from 'containers/project-data-container'
-import { CreateIssueLink } from 'components/user-requests/add-project/CreateIssueLink'
+import { CreateIssueLink } from 'components/user-requests/add-project/create-issue-link'
 import { Card, MainContent } from 'components/core'
 import 'stylesheets/markdown-body.css'
 import { useStaticContent } from 'static-content'

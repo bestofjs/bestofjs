@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect, useRef } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import Select, { components } from 'react-select'
 import useDebouncedCallback from 'use-debounce/lib/useDebouncedCallback'
 import styled from 'styled-components'
@@ -6,11 +6,11 @@ import styled from 'styled-components'
 import { useSelector } from 'containers/project-data-container'
 import { getAllTags } from 'selectors'
 import { Button } from 'components/core'
-import { SearchContext } from './search-provider'
+import { SearchContainer } from './search-container'
 
 export const SearchBox = () => {
   const tags = useSelector(getAllTags)
-  const { query, selectedTags, onChange } = useContext(SearchContext as any)
+  const { query, selectedTags, onChange } = SearchContainer.useContainer()
   const [inputValue, setInputValue] = useState(query)
   const [debouncedOnChange, cancel] = useDebouncedCallback(onChange, 300)
 

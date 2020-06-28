@@ -2,10 +2,10 @@ import React from 'react'
 import styled from 'styled-components'
 
 import { useSelector } from 'containers/project-data-container'
-import { useSearch } from 'components/search/search-provider'
+import { useSearch } from 'components/search/search-container'
 import {
-  PaginationProvider,
-  paginateItemList
+  paginateItemList,
+  PaginationContainer
 } from 'components/core/pagination'
 import { ProjectPaginatedList } from 'components/search/project-paginated-list'
 import { PageTitle, MainContent } from 'components/core'
@@ -22,7 +22,9 @@ export const FeaturedPage = () => {
 
   return (
     <MainContent>
-      <PaginationProvider total={total} currentPageNumber={page} limit={limit}>
+      <PaginationContainer.Provider
+        initialState={{ total, currentPageNumber: page, limit }}
+      >
         <PageTitle
           icon={<StarIcon size={32} />}
           extra={total === 1 ? '(one project)' : `(${total} projects)`}
@@ -39,7 +41,7 @@ export const FeaturedPage = () => {
           limit={limit}
           sortOption={sortOption}
         />
-      </PaginationProvider>
+      </PaginationContainer.Provider>
     </MainContent>
   )
 }

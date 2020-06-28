@@ -1,10 +1,10 @@
 import React from 'react'
 
 import { useSelector } from 'containers/project-data-container'
-import { useSearch } from 'components/search/search-provider'
+import { useSearch } from 'components/search/search-container'
 import {
-  PaginationProvider,
-  paginateItemList
+  paginateItemList,
+  PaginationContainer
 } from 'components/core/pagination'
 import { ProjectPaginatedList } from 'components/search/project-paginated-list'
 import { PageTitle, EmptyContent, MainContent } from 'components/core'
@@ -25,10 +25,8 @@ const BookmarksPage = () => {
     <MainContent>
       {total === 0 && <EmptyList isLoggedin={isLoggedIn} />}
       {total > 0 && (
-        <PaginationProvider
-          total={total}
-          currentPageNumber={page}
-          limit={limit}
+        <PaginationContainer.Provider
+          initialState={{ total, currentPageNumber: page, limit }}
         >
           <PageTitle
             icon={<BookmarkIcon size={32} />}
@@ -43,7 +41,7 @@ const BookmarksPage = () => {
             limit={limit}
             sortOption={sortOption}
           />
-        </PaginationProvider>
+        </PaginationContainer.Provider>
       )}
     </MainContent>
   )

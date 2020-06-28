@@ -1,7 +1,7 @@
 import React from 'react'
 
-import { getNewestProjects, getPopularTags } from '../selectors'
-import { Home } from '../components/home/home'
+import { getNewestProjects, getPopularTags } from 'selectors'
+import { Home } from 'components/home/home'
 import { ProjectDataContainer } from 'containers/project-data-container'
 
 const HomePage = () => {
