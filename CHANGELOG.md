@@ -4,6 +4,7 @@
 
 - Use [Unstated Next](https://github.com/jamiebuilds/unstated-next) instead of Redux to manage the state
 - Use [swr](https://swr.vercel.app/) instead of [React Async](https://github.com/async-library/react-async) to load data
+- Use React Suspense to do code splitting
 
 ## 0.23.1 - 2020-05-24
 

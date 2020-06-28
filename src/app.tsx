@@ -1,12 +1,12 @@
 import React from 'react'
 
-import Routes from 'routes/Routes'
+import Routes from './pages/routes'
 import { StaticContentContainer } from 'containers/static-content-container'
 import { SearchBox, SearchContainer } from 'components/search'
 import { Header } from 'components/header/header'
 import { Footer } from 'components/footer/footer'
 
-export const App = ({ store, ...props }) => {
+export const App = props => {
   return (
     <StaticContentContainer.Provider>
       <SearchContainer.Provider {...props}>
