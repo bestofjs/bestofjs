@@ -7,7 +7,18 @@ import api from '../api/config'
 import { getProjectId } from 'components/core/project'
 import { AuthContainer } from './auth-container'
 
-function useProjectList() {
+export type State = {
+  isPending: boolean
+  entities: {
+    projects: Record<string, BestOfJS.Project>
+    tags: Record<string, BestOfJS.Tag>
+  }
+  auth: {
+    myProjects: BestOfJS.Bookmark[]
+  }
+}
+
+function useProjectList(): State {
   const state = useLoadProjects()
   const { bookmarks } = AuthContainer.useContainer()
   return { ...state, auth: { myProjects: bookmarks } }

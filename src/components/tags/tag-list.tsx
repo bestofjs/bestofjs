@@ -8,7 +8,7 @@ import { Avatar } from 'components/core/project'
 import { Button, Grid, Cell as GridCell } from 'components/core'
 import { ChevronRightIcon } from 'components/core/icons'
 
-export const DetailedTagList = ({ tags }) => {
+export const DetailedTagList = ({ tags }: { tags: BestOfJS.Tag[] }) => {
   return (
     <TagList>
       {tags.map(tag => (
@@ -18,7 +18,13 @@ export const DetailedTagList = ({ tags }) => {
   )
 }
 
-export const CompactTagList = ({ tags, footer }) => {
+export const CompactTagList = ({
+  tags,
+  footer
+}: {
+  tags: BestOfJS.Tag[]
+  footer?: React.ReactNode
+}) => {
   return (
     <TagList>
       {tags.map(tag => (

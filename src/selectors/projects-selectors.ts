@@ -1,8 +1,9 @@
 import { createSelector } from 'reselect'
 
 import { sortProjectsByFunction } from './sort-utils'
+import { State } from 'containers/project-data-container'
 
-export const allProjects = createSelector(
+export const allProjects = createSelector<State, any, BestOfJS.Project[]>(
   [state => state.entities.projects],
   projectsById => Object.values(projectsById)
 )
@@ -37,7 +38,17 @@ const getRawProjectsSortedBy = ({
 }
 
 // Create a selector for a given criteria (`total`, `daily`)
-export const getProjectsSortedBy = ({ filterFn, criteria, start, limit }) =>
+export const getProjectsSortedBy = ({
+  criteria,
+  filterFn,
+  start,
+  limit
+}: {
+  criteria: any
+  filterFn?: any
+  start?: number
+  limit?: number
+}) =>
   createSelector(
     [
       getRawProjectsSortedBy({ filterFn, criteria, start, limit }),
@@ -69,7 +80,7 @@ export const getProjectsByTag = ({ criteria, tagId }) =>
   )
 
 export const getBookmarksSortedBy = criteria =>
-  createSelector(
+  createSelector<State, any, any, BestOfJS.Project[]>(
     [
       state => {
         return state.entities.projects
@@ -89,7 +100,7 @@ export const getBookmarksSortedBy = criteria =>
     }
   )
 
-export const getBookmarkCount = createSelector(
+export const getBookmarkCount = createSelector<State, any, number>(
   state => state.auth.myProjects,
   ids => {
     return ids.length
@@ -162,7 +173,7 @@ export const getProjectSelectorByKey = key => {
 // Return a full `project` object, including `tags`
 // to be used by `/projects/:id` pages
 export const findProjectById = slug =>
-  createSelector(
+  createSelector<State, BestOfJS.Project[], any, BestOfJS.Project>(
     [state => state.entities.projects, state => state.entities.tags],
     (projects, tags) => {
       const project = projects[slug]
@@ -177,7 +188,7 @@ export const findProjectById = slug =>
   )
 
 export const findProjectsByIds = ids =>
-  createSelector(
+  createSelector<State, any, any, BestOfJS.Project[]>(
     [state => state.entities.projects, state => state.entities.tags],
     (projects, tags) => {
       return ids.map(slug => {

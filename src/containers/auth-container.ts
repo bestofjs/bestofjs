@@ -6,14 +6,12 @@ import { stringify } from 'querystring'
 
 import { fetchJSON } from 'helpers/fetch'
 
-type Bookmark = { slug: string; bookmarked_at: string }
-
 type TokenInfoResponse = {
   user_id: string
   name: string
   nickname: string
   picture: string
-  user_metadata: { projects: Bookmark[] }
+  user_metadata: { projects: BestOfJS.Bookmark[] }
 }
 
 const AUTH0_ROOT_URL = 'https://bestofjs.auth0.com'
@@ -85,7 +83,7 @@ export const AuthContainer = createContainer(useAuth)
 export const AuthProvider = AuthContainer.Provider
 
 function useBookmarks(profile) {
-  const [bookmarks, setBookmarks] = useState<Bookmark[]>([])
+  const [bookmarks, setBookmarks] = useState<BestOfJS.Bookmark[]>([])
 
   useEffect(() => {
     if (!profile) return

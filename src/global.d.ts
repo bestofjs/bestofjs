@@ -21,9 +21,13 @@ declare namespace BestOfJS {
     icon: string
   }
 
-  // type Tag = {
-
-  // }
+  type Tag = {
+    id: string
+    code: string
+    name: string
+    description: string
+    counter: number
+  }
 
   type Project = RawProject & {
     slug: string
@@ -73,6 +77,8 @@ declare namespace BestOfJS {
     bio: string
     blog: string
   }
+
+  type Bookmark = { slug: string; bookmarked_at: string }
 }
 
 interface Window {
