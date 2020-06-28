@@ -21,14 +21,6 @@ declare namespace BestOfJS {
     icon: string
   }
 
-  type Tag = {
-    id: string
-    code: string
-    name: string
-    description: string
-    counter: number
-  }
-
   type Project = RawProject & {
     slug: string
     repository: string
@@ -68,6 +60,14 @@ declare namespace BestOfJS {
         delta: number
       }[]
     }
+  }
+
+  type Tag = {
+    id: string
+    code: string
+    name: string
+    description: string
+    counter: number
   }
 
   type HallOfFameMember = {
