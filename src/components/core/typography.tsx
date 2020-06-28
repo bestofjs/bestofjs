@@ -11,6 +11,8 @@ export const ExternalLink = ({
   ...rest
 }: {
   url: string
+  className?: string
+  style?: any
   children: React.ReactNode
 }) => {
   const fullURL = url.startsWith('http') ? url : `http://` + url
@@ -27,7 +29,17 @@ const Heading = styled.h2`
   margin: 0;
 `
 
-export const PageTitle = ({ icon, children, extra, style }) => {
+export const PageTitle = ({
+  icon,
+  children,
+  extra,
+  style
+}: {
+  children: any
+  icon?: any
+  extra?: any
+  style?: any
+}) => {
   return (
     <Heading style={{ paddingBottom: '1rem', ...style }}>
       {icon && <PageTitleIcon>{icon}</PageTitleIcon>}

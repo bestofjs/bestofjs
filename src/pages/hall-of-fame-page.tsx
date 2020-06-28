@@ -2,8 +2,8 @@ import React from 'react'
 
 import { useHallOfFame } from 'containers/hall-of-fame-container'
 import { MainContent, Spinner } from 'components/core'
-import MoreHeroes from 'components/hall-of-fame/MoreHeroes'
-import HallOfFameMemberList from 'components/hall-of-fame/HallOfFameMemberList'
+import { MoreHeroes } from 'components/hall-of-fame/more-heroes'
+import { HallOfFameMemberList } from 'components/hall-of-fame/hall-of-fame-member-list'
 
 const HallOfFamePage = () => {
   const { heroes, isPending } = useHallOfFame()

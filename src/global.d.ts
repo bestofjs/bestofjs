@@ -21,10 +21,6 @@ declare namespace BestOfJS {
     icon: string
   }
 
-  // type Tag = {
-
-  // }
-
   type Project = RawProject & {
     slug: string
     repository: string
@@ -40,7 +36,7 @@ declare namespace BestOfJS {
       gzip: number
       name: string
       size: number
-      version: '0.19.2'
+      version: string
       errorMessage?: string
     }
     npm: {
@@ -65,4 +61,26 @@ declare namespace BestOfJS {
       }[]
     }
   }
+
+  type Tag = {
+    id: string
+    code: string
+    name: string
+    description: string
+    counter: number
+  }
+
+  type HallOfFameMember = {
+    username: string
+    avatar: string
+    followers: numbers
+    bio: string
+    blog: string
+  }
+
+  type Bookmark = { slug: string; bookmarked_at: string }
+}
+
+interface Window {
+  ga?: any
 }

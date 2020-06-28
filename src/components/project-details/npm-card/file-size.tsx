@@ -1,6 +1,6 @@
 import React from 'react'
 
-import prettyBytes from '../../../helpers/pretty-bytes'
+import { prettyBytes } from 'helpers/pretty-bytes'
 
 type Props = { value: number }
 export const FileSize = ({ value }: Props) => {

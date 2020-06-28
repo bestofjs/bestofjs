@@ -24,8 +24,14 @@ const Tag = styled(Button)`
   padding: 4px 8px;
 `
 
-export const TagLabel = ({ tag, baseTagIds = [] }) => {
-  const { location } = useSearch() as any // TODO fix types
+export const TagLabel = ({
+  tag,
+  baseTagIds = []
+}: {
+  tag: BestOfJS.Tag
+  baseTagIds?: string[]
+}) => {
+  const { location } = useSearch()
 
   const isMultiTagLink = baseTagIds.length > 0
 

@@ -3,13 +3,18 @@ import styled from 'styled-components'
 import { Link } from 'react-router-dom'
 import numeral from 'numeral'
 
-import { getDeltaByDay } from '../../selectors'
-import { Avatar, DownloadCount, StarDelta, StarTotal } from '../core/project'
-import { TagLabelGroup } from '../tags/tag-label'
-import { DropdownMenu, Button } from '../core'
-import fromNow from '../../helpers/fromNow'
-import { BookmarkIcon, MarkGitHubIcon, HomeIcon } from '../core/icons'
+import { getDeltaByDay } from 'selectors'
 import { AuthContainer } from 'containers/auth-container'
+import {
+  Avatar,
+  DownloadCount,
+  StarDelta,
+  StarTotal
+} from 'components/core/project'
+import { TagLabelGroup } from 'components/tags/tag-label'
+import { DropdownMenu, Button } from 'components/core'
+import { fromNow } from 'helpers/from-now'
+import { BookmarkIcon, MarkGitHubIcon, HomeIcon } from 'components/core/icons'
 
 type Props = {
   projects: BestOfJS.Project[]
