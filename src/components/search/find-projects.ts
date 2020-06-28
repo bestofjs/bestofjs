@@ -1,5 +1,5 @@
-import { getFullProject, sortProjectsByFunction } from '../../selectors'
-import { paginateItemList } from '../core/pagination'
+import { getFullProject, sortProjectsByFunction } from 'selectors'
+import { paginateItemList } from 'components/core/pagination'
 
 export function findProjects(
   projects,
@@ -7,7 +7,6 @@ export function findProjects(
   auth,
   { tags, query, page = 1, selector, limit }
 ) {
-  // console.info('Find', tags, query, page)
   const filterByTag = project =>
     tags.every(tagId => project.tags.includes(tagId))
 
@@ -102,7 +101,10 @@ function orderBy(items, fn) {
   return items.sort((a, b) => fn(b) - fn(a))
 }
 
-function getTagsFromProjects(projects, excludedTagIds = []) {
+function getTagsFromProjects(
+  projects: BestOfJS.Project[],
+  excludedTagIds: any[] = []
+) {
   const result = new Map()
   projects.forEach(project => {
     project.tags

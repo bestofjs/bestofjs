@@ -2,15 +2,14 @@ import React from 'react'
 import styled from 'styled-components'
 import { useHistory, useLocation } from 'react-router-dom'
 
-import { PaginationContainer } from '../core/pagination/provider'
-import { TagListSortOrderPicker } from './tag-list-sort-order'
-import { updateLocation } from '../search/search-utils'
-
-import { DetailedTagList } from './tag-list'
+import { PaginationContainer } from 'components/core/pagination/provider'
+import { updateLocation } from 'components/search/search-utils'
 import {
   TopPaginationControls,
   BottomPaginationControls
-} from '../core/pagination/pagination-controls'
+} from 'components/core/pagination/pagination-controls'
+import { TagListSortOrderPicker } from './tag-list-sort-order'
+import { DetailedTagList } from './tag-list'
 
 export const PaginatedTagList = ({
   tags,
@@ -19,7 +18,7 @@ export const PaginatedTagList = ({
   limit,
   sortOptionId
 }) => {
-  const { from, pageNumbers } = PaginationContainer.useContainer()
+  const { pageNumbers } = PaginationContainer.useContainer()
   const location = useLocation()
   const history = useHistory()
 
@@ -52,7 +51,7 @@ export const PaginatedTagList = ({
           )}
         </Row>
       )}
-      <DetailedTagList tags={tags} from={from} />
+      <DetailedTagList tags={tags} />
       {showPagination && (
         <BottomPaginationControls history={history} location={location} />
       )}

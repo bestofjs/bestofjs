@@ -6,7 +6,7 @@ const urls = {
   site: 'https://stateofjs.com'
 }
 
-const Intro = ({ date }) => (
+export const Intro = ({ date }) => (
   <div id="stateofjs-container">
     <div>
       <p>
@@ -43,5 +43,3 @@ const Intro = ({ date }) => (
     </div>
   </div>
 )
-
-export default Intro

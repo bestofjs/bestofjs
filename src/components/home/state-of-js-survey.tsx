@@ -1,8 +1,8 @@
 import React from 'react'
 import styled from 'styled-components'
 
-import News from './News'
-import { ExternalLink } from '../core/typography'
+import { ExternalLink } from 'components/core/typography'
+import { News } from './news'
 
 const urls = {
   site: 'https://survey.stateofjs.com/'
@@ -29,7 +29,7 @@ const LogoCell = styled.div`
   }
 `
 
-const StateOfJavaScript2019 = ({ date }) => {
+export const StateOfJavaScript2019 = ({ date }) => {
   return (
     <Row>
       <MainCell>
@@ -48,7 +48,7 @@ const StateOfJavaScript2019 = ({ date }) => {
         </News>
       </MainCell>
       <LogoCell>
-        <ExternalLink url={urls.site} target="_blank">
+        <ExternalLink url={urls.site}>
           <Logo />
         </ExternalLink>
       </LogoCell>
@@ -72,5 +72,3 @@ const Logo = props => {
     />
   )
 }
-
-export default StateOfJavaScript2019

@@ -3,9 +3,9 @@ import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 
 import { AuthContainer } from 'containers/auth-container'
+import { StaticContentContainer } from 'containers/static-content-container'
 import { Button } from 'components/core'
 import { MarkGitHubIcon } from 'components/core/icons'
-import { useStaticContent } from 'static-content'
 import { UserDropdownMenu } from './user-dropdown-menu'
 
 const sidebarBreakpoint = 700
@@ -28,7 +28,7 @@ const HeaderContainer = styled.header`
 `
 
 export const Header = props => {
-  const { repo } = useStaticContent()
+  const { repo } = StaticContentContainer.useContainer()
 
   return (
     <HeaderContainer>

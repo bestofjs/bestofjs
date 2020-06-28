@@ -4,16 +4,15 @@ import numeral from 'numeral'
 import { Link } from 'react-router-dom'
 
 import { useSelector } from 'containers/project-data-container'
+import { StaticContentContainer } from 'containers/static-content-container'
 import { getTotalNumberOfStars } from 'selectors'
 import log from 'helpers/log'
-import { HotProjects, NewestProjects } from './home-projects'
 import { addProjectURL } from 'components/user-requests/add-project/create-issue-link'
-import { TagLabelGroup } from '../tags/tag-label'
-import { useStaticContent } from '../../static-content'
-import { StarIcon } from '../core/icons'
-import { ExternalLink, Button, MainContent, Section } from '../core'
-import Intro from './Intro'
+import { TagLabelGroup } from 'components/tags/tag-label'
+import { StarIcon } from 'components/core/icons'
+import { ExternalLink, Button, MainContent, Section } from 'components/core'
 import { CompactTagList } from 'components/tags/tag-list'
+import { HotProjects, NewestProjects } from './home-projects'
 import { RandomFeaturedProject } from './featured-projects'
 import { Weekly } from './weekly-newsletter'
 import { Row, MainColumn, RightSideBar } from './layout'
@@ -35,7 +34,9 @@ export const Home = props => {
 
   return (
     <MainContent>
-      <Intro />
+      <h1 style={{ margin: '0 0 1rem' }}>
+        The best of JavaScript, HTML and CSS
+      </h1>
       <Section>
         <Row>
           <MainColumn>
@@ -101,7 +102,7 @@ const ResponsiveRow = styled.div`
 `
 
 const StarOnGitHub = () => {
-  const { repo, projectName } = useStaticContent()
+  const { repo, projectName } = StaticContentContainer.useContainer()
 
   return (
     <Section>
@@ -124,7 +125,7 @@ const StarOnGitHub = () => {
 }
 
 const StarOnGitHubButton = () => {
-  const { repo } = useStaticContent()
+  const { repo } = StaticContentContainer.useContainer()
   const project = useSelector(
     state => state.entities.projects['best-of-javascript']
   )

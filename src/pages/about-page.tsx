@@ -1,16 +1,16 @@
 import React from 'react'
 
 import { useSelector } from 'containers/project-data-container'
+import { StaticContentContainer } from 'containers/static-content-container'
 import { CreateIssueLink } from 'components/user-requests/add-project/create-issue-link'
 import { Card, MainContent } from 'components/core'
 import 'stylesheets/markdown-body.css'
-import { useStaticContent } from 'static-content'
 
 const AboutPage = () => {
   const count = useSelector(
     state => Object.keys(state.entities.projects).length
   )
-  const { repo, projectName } = useStaticContent()
+  const { repo, projectName } = StaticContentContainer.useContainer()
 
   return (
     <MainContent style={{ paddingTop: '2rem' }}>

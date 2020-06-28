@@ -3,7 +3,7 @@ import React from 'react'
 import fromNow from '../../helpers/fromNow'
 import { Section } from '../core/section'
 
-const News = ({ children, title, date, ...props }) => {
+export const News = ({ children, title, date, ...props }) => {
   return (
     <Section {...props}>
       <Section.Header icon="megaphone">

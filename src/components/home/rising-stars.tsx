@@ -6,7 +6,7 @@ const urls = {
   site: 'https://risingstars.js.org'
 }
 
-const RisingStars = ({ date }) => (
+export const RisingStars = ({ date }) => (
   <div id="stateofjs-container">
     <div>
       <p>
@@ -41,5 +41,3 @@ const RisingStars = ({ date }) => (
     </div>
   </div>
 )
-
-export default RisingStars

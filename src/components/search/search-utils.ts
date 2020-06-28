@@ -1,5 +1,6 @@
 import { stringify } from 'qs'
-import { parseQueryString } from '../../helpers/url'
+
+import { parseQueryString } from 'helpers/url'
 
 export function queryStringToState(queryString) {
   const parameters = parseQueryString(queryString)

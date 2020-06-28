@@ -30,7 +30,8 @@ export const HotProjects = ({ hotFilter, pending }) => {
     getProjectsSortedBy({
       filterFn: isIncludedInHotProjects,
       criteria: sortOptionId,
-      limit: 5
+      limit: 5,
+      start: 0
     })
   )
 
@@ -54,14 +55,7 @@ export const HotProjects = ({ hotFilter, pending }) => {
       ) : (
         <ProjectTable
           projects={projects}
-          showDelta
-          deltaFilter={sortOptionId}
-          showStars={false}
-          showMetrics={false}
           sortOption={{ id: sortOptionId }}
-          showDetails={false}
-          showRankingNumber={false}
-          showActions={false}
           footer={
             <Link to={`/projects?sort=${sortOptionId}`}>
               View full rankings »
@@ -97,6 +91,7 @@ const HotProjectsPicker = ({ onChange, value }) => {
     }
   }))
   const currentOption = sortOrderOptions.find(({ id }) => id === value)
+  if (!currentOption) return null
 
   return (
     <DropdownMenu value={value} items={items} alignment="right">
@@ -116,14 +111,7 @@ export const NewestProjects = ({ newestProjects, hotFilter }) => {
       </Section.Header>
       <ProjectTable
         projects={newestProjects}
-        showDelta
-        deltaFilter={hotFilter}
-        showStars={false}
-        showMetrics={false}
         sortOption={{ id: 'daily' }}
-        showDetails={false}
-        showRankingNumber={false}
-        showActions={false}
         footer={
           <Link to={`/projects?sort=newest`} style={{ display: 'block' }}>
             View more recently added projects »

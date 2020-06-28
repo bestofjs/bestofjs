@@ -3,7 +3,7 @@ import styled from 'styled-components'
 
 import { useSelector } from 'containers/project-data-container'
 import fromNow from 'helpers/fromNow'
-import { useStaticContent } from 'static-content'
+import { StaticContentContainer } from 'containers/static-content-container'
 
 const StyledFooter = styled.footer`
   margin: 2rem 0;
@@ -34,7 +34,7 @@ const StyledFooter = styled.footer`
 
 export const Footer = () => {
   const lastUpdate = useSelector(state => state.meta.lastUpdate)
-  const { repo, projectName, version } = useStaticContent()
+  const { repo, projectName, version } = StaticContentContainer.useContainer()
 
   return (
     <StyledFooter id="footer">

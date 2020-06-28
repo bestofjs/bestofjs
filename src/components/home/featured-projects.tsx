@@ -3,16 +3,16 @@ import styled from 'styled-components'
 import { Link } from 'react-router-dom'
 import { Animate } from 'react-simple-animate'
 
+import { shuffle } from 'helpers/shuffle'
+import { useUpdateEffect } from 'helpers/lifecycle-hooks'
+import { useViewportSpy } from 'helpers/use-viewport-spy'
+import { useIsDocumentVisible } from 'helpers/use-page-events'
+import { useInterval } from 'helpers/use-interval'
 import { useSelector } from 'containers/project-data-container'
-import { getFeaturedProjects, getDeltaByDay } from '../../selectors'
-import { Avatar, StarDelta, getProjectAvatarUrl } from '../core/project'
-import { Section } from '../core'
-import { useInterval } from '../../helpers/use-interval'
-import { shuffle } from '../../helpers/shuffle'
-import { useUpdateEffect } from '../../helpers/lifecycle-hooks'
-import { useViewportSpy } from '../../helpers/use-viewport-spy'
-import { useIsDocumentVisible } from '../../helpers/use-page-events'
-import { TagLabel } from '../tags/tag-label'
+import { getFeaturedProjects, getDeltaByDay } from 'selectors'
+import { Avatar, StarDelta, getProjectAvatarUrl } from 'components/core/project'
+import { Section } from 'components/core'
+import { TagLabel } from 'components/tags/tag-label'
 import { ProgressBar } from './progress-bar'
 
 export const RandomFeaturedProject = () => {
@@ -24,13 +24,21 @@ export const RandomFeaturedProject = () => {
   return <Slider projects={projects} duration={7000} limit={5} />
 }
 
-export const Slider = ({ projects, duration, limit }) => {
+export const Slider = ({
+  projects,
+  duration,
+  limit
+}: {
+  projects: BestOfJS.Project[]
+  duration: number
+  limit: number
+}) => {
   const ref = useRef()
   const [pageNumber, setPageNumber] = useState(0)
   const isVisible = useViewportSpy(ref)
   const [isHover, setIsHover] = useState(false)
   const isDocumentVisible = useIsDocumentVisible()
-  const maxPageNumber = parseInt(projects.length / limit, 10) - 1
+  const maxPageNumber = Math.floor(projects.length / limit) - 1
 
   const isPaused = !isVisible || isHover || !isDocumentVisible
 
@@ -182,12 +190,8 @@ const ProjectContainer = styled.div`
   border-bottom: 1px dashed var(--boxBorderColor);
 `
 
-export const FeaturedProject = ({
-  project,
-  onMouseEnter,
-  onMouseLeave,
-  sortOptionId = 'daily'
-}) => {
+export const FeaturedProject = ({ project }) => {
+  const sortOptionId = 'daily'
   return (
     <Box>
       <Avatar project={project} size={80} />
