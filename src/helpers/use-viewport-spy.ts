@@ -32,7 +32,7 @@ export const useViewportSpy = (elementRef, options = defaultOptions) => {
       observer.observe(elementRef.current)
 
       return () => {
-        observer.disconnect(elementRef.current) // eslint-disable-line react-hooks/exhaustive-deps
+        observer.disconnect() // eslint-disable-line react-hooks/exhaustive-deps
       }
     },
     [elementRef] // eslint-disable-line react-hooks/exhaustive-deps

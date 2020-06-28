@@ -2,35 +2,8 @@ import React from 'react'
 import styled from 'styled-components'
 
 import { useSelector } from 'containers/project-data-container'
-import fromNow from 'helpers/fromNow'
+import { fromNow } from 'helpers/from-now'
 import { StaticContentContainer } from 'containers/static-content-container'
-
-const StyledFooter = styled.footer`
-  margin: 2rem 0;
-  .footer-bottom {
-    margin-top: 2rem;
-    padding-top: 2rem;
-    text-align: center;
-  }
-  p:not(:last-child) {
-    margin-bottom: 1rem;
-  }
-  .grid {
-    padding-top: 2rem;
-    display: flex;
-  }
-  .grid > div {
-    flex: 1;
-  }
-  @media (max-width: 900px) {
-    .grid {
-      flex-direction: column;
-    }
-    .grid > div:not(:last-child) {
-      margin-bottom: 1rem;
-    }
-  }
-`
 
 export const Footer = () => {
   const lastUpdate = useSelector(state => state.meta.lastUpdate)
@@ -79,6 +52,33 @@ export const Footer = () => {
     </StyledFooter>
   )
 }
+
+const StyledFooter = styled.footer`
+  margin: 2rem 0;
+  .footer-bottom {
+    margin-top: 2rem;
+    padding-top: 2rem;
+    text-align: center;
+  }
+  p:not(:last-child) {
+    margin-bottom: 1rem;
+  }
+  .grid {
+    padding-top: 2rem;
+    display: flex;
+  }
+  .grid > div {
+    flex: 1;
+  }
+  @media (max-width: 900px) {
+    .grid {
+      flex-direction: column;
+    }
+    .grid > div:not(:last-child) {
+      margin-bottom: 1rem;
+    }
+  }
+`
 
 const Partner = styled.p`
   display: flex;

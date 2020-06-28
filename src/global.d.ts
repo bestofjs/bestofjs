@@ -40,7 +40,7 @@ declare namespace BestOfJS {
       gzip: number
       name: string
       size: number
-      version: '0.19.2'
+      version: string
       errorMessage?: string
     }
     npm: {
@@ -73,4 +73,8 @@ declare namespace BestOfJS {
     bio: string
     blog: string
   }
+}
+
+interface Window {
+  ga?: any
 }

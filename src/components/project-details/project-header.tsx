@@ -1,9 +1,9 @@
 import React from 'react'
 
-import { Avatar } from '../core/project'
-import formatUrl from '../../helpers/formatUrl'
-import { ExternalLink } from '../core/typography'
-import { TagLabelGroup } from '../tags/tag-label'
+import { Avatar } from 'components/core/project'
+import formatUrl from 'helpers/url'
+import { ExternalLink } from 'components/core/typography'
+import { TagLabelGroup } from 'components/tags/tag-label'
 
 type Props = { project: BestOfJS.Project }
 export const ProjectHeader = ({ project }: Props) => (

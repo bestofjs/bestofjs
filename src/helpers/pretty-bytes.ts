@@ -22,7 +22,7 @@ const toLocaleString = (number, locale) => {
   return result
 }
 
-module.exports = (number, options) => {
+export function prettyBytes(number: number, options?: any): string {
   if (!Number.isFinite(number)) {
     throw new TypeError(
       `Expected a finite number, got ${typeof number}: ${number}`

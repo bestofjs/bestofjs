@@ -1,4 +1,4 @@
-export function shuffle(arr) {
+export function shuffle<T>(arr: T[]): T[] {
   if (!Array.isArray(arr)) {
     throw new Error('expected an array')
   }

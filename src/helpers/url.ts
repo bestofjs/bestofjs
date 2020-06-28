@@ -20,5 +20,11 @@ export function parseQueryString(queryString) {
   }
 }
 
+// Format a URL to be displayed, removing `http://` and trailing `/`
+export default function formatUrl(url) {
+  const result = url.replace(/\/$/, '').toLowerCase()
+  return result.replace(/^https?:\/\/(.*)$/, '$1')
+}
+
 const toInteger = (input, defaultValue = 1) =>
   isNaN(input) ? defaultValue : parseInt(input, 0)

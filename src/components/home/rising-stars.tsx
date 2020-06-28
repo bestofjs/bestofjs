@@ -1,6 +1,6 @@
 import React from 'react'
 
-import fromNow from '../../helpers/fromNow'
+import { fromNow } from 'helpers/from-now'
 
 const urls = {
   site: 'https://risingstars.js.org'

@@ -2,7 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import numeral from 'numeral'
 
-import formatUrl from 'helpers/formatUrl'
+import formatUrl from 'helpers/url'
 import { ExternalLink } from 'components/core/typography'
 import { CardProjectLabels } from './card-project-labels'
 

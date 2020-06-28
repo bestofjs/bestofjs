@@ -7,7 +7,7 @@ import { shuffle } from 'helpers/shuffle'
 import { useUpdateEffect } from 'helpers/lifecycle-hooks'
 import { useViewportSpy } from 'helpers/use-viewport-spy'
 import { useIsDocumentVisible } from 'helpers/use-page-events'
-import { useInterval } from 'helpers/use-interval'
+import { useInterval } from 'react-use'
 import { useSelector } from 'containers/project-data-container'
 import { getFeaturedProjects, getDeltaByDay } from 'selectors'
 import { Avatar, StarDelta, getProjectAvatarUrl } from 'components/core/project'
@@ -19,7 +19,7 @@ export const RandomFeaturedProject = () => {
   const featuredProjects = useSelector(getFeaturedProjects('total'))
   if (!featuredProjects.length) return null
 
-  const projects = shuffle(featuredProjects).slice(0, 200)
+  const projects = shuffle<BestOfJS.Project>(featuredProjects).slice(0, 200)
 
   return <Slider projects={projects} duration={7000} limit={5} />
 }
@@ -46,7 +46,7 @@ export const Slider = ({
     () => {
       setPageNumber(page => (page >= maxPageNumber ? 0 : page + 1))
     },
-    isPaused ? 0 : duration
+    isPaused ? null : duration
   )
 
   return (
@@ -135,7 +135,7 @@ const ProjectSlider = ({
     <Container>
       <CountDown
         pageNumber={pageNumber}
-        duration={isPaused ? 0 : duration}
+        duration={isPaused ? null : duration}
         interval={1000}
       />
       <VisibleGroup>
