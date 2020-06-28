@@ -1,7 +1,18 @@
 import React from 'react'
 import styled from 'styled-components'
 
-import HeroCard from './HeroCard'
+import { HeroCard } from './hall-of-fame-member-card'
+
+type Props = { heroes: BestOfJS.HallOfFameMember[] }
+export const HallOfFameMemberList = ({ heroes }: Props) => (
+  <Grid>
+    {heroes.map(hero => (
+      <div key={hero.username}>
+        <HeroCard hero={hero} showDetails />
+      </div>
+    ))}
+  </Grid>
+)
 
 const Grid = styled.div`
   display: flex;
@@ -19,15 +30,3 @@ const Grid = styled.div`
     }
   }
 `
-
-const HallOfFameMemberList = ({ heroes = [] }) => (
-  <Grid>
-    {heroes.map(hero => (
-      <div key={hero.username}>
-        <HeroCard hero={hero} showDetails />
-      </div>
-    ))}
-  </Grid>
-)
-
-export default HallOfFameMemberList

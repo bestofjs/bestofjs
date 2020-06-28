@@ -1,25 +1,16 @@
 import React from 'react'
+import styled from 'styled-components'
 import numeral from 'numeral'
 
-import CardProjectLabels from './CardProjectLabels'
-import formatUrl from '../../helpers/formatUrl'
-import Card from './Card'
-import { ExternalLink } from '../core/typography'
+import formatUrl from 'helpers/formatUrl'
+import { ExternalLink } from 'components/core/typography'
+import { CardProjectLabels } from './card-project-labels'
 
 const digits = value => (value > 1000 ? '0.0' : '0')
 
-function followersComment(value) {
-  if (value === 0) return "You don't need all these followers!"
-  if (value < 10) return "That's better than nothing!"
-  if (value < 100) return "That's not so bad!"
-  if (value < 1000)
-    return "That's pretty good, you could be a hall of famer too!"
-  return "That's a lot of followers, you should be in this hall of fame!"
-}
-
-const HeroCard = ({ hero, you, isCurrentUser, showDetails }) => {
+export const HeroCard = ({ hero, showDetails }) => {
   return (
-    <Card className={`hero-card${isCurrentUser ? ' current-user' : ''}`}>
+    <Card className={`hero-card`}>
       <ExternalLink
         className="header card-block hint--top"
         url={`https://github.com/${hero.username}`}
@@ -32,12 +23,7 @@ const HeroCard = ({ hero, you, isCurrentUser, showDetails }) => {
           alt={hero.username}
         />
         <div className="header-text">
-          <div className="name">
-            {hero.name}
-            {isCurrentUser && (
-              <span style={{ color: 'rgba(255,255,255,.6)' }}> (You)</span>
-            )}
-          </div>
+          <div className="name">{hero.name}</div>
           {hero.username && (
             <div className="github-data">
               <div>
@@ -47,11 +33,6 @@ const HeroCard = ({ hero, you, isCurrentUser, showDetails }) => {
                     `${digits(hero.followers)} a`
                   )}{' '}
                   followers{' '}
-                  {you && (
-                    <span style={{ color: '#aaa', fontSize: 14 }}>
-                      ({followersComment(hero.followers)})
-                    </span>
-                  )}
                 </div>
               </div>
             </div>
@@ -86,4 +67,52 @@ const HeroCard = ({ hero, you, isCurrentUser, showDetails }) => {
   )
 }
 
-export default HeroCard
+const Card = styled.div`
+  flex: 1;
+  padding: 0;
+  background-color: #fff;
+  border: 1px solid var(--boxBorderColor);
+  .card-block {
+    display: flex;
+    align-items: center;
+    color: inherit;
+    flex: 1;
+  }
+  .card-block:hover {
+    text-decoration: none;
+    color: inherited;
+    background-color: #fff7eb;
+    color: #000;
+  }
+  .header {
+    display: flex;
+    align-items: center;
+  }
+  .header-text {
+    padding: 0 1em;
+  }
+  .name {
+    font-size: 1.3em;
+  }
+  .inner {
+    padding: 1rem;
+    border-top: 1px dashed var(--boxBorderColor);
+    color: var(--textSecondaryColor);
+  }
+  .icon {
+    color: var(--iconColor);
+    margin-right: 5px;
+  }
+  .github-data {
+    margin-top: 0.2em;
+  }
+`
+
+// function followersComment(value) {
+//   if (value === 0) return "You don't need all these followers!"
+//   if (value < 10) return "That's better than nothing!"
+//   if (value < 100) return "That's not so bad!"
+//   if (value < 1000)
+//     return "That's pretty good, you could be a hall of famer too!"
+//   return "That's a lot of followers, you should be in this hall of fame!"
+// }

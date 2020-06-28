@@ -2,6 +2,24 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 
+export const CardProjectLabels = ({ projects }) => {
+  const validProjects = projects.filter(p => !!p)
+  if (validProjects.length === 0) return null
+  return (
+    <div className="inner">
+      <Container>
+        {validProjects.map(project => (
+          <div key={project.slug}>
+            <ProjectLink to={`/projects/${project.slug}`}>
+              {project.name}
+            </ProjectLink>
+          </div>
+        ))}
+      </Container>
+    </div>
+  )
+}
+
 const Container = styled.div`
   margin: -0.5em 0 0 -0.5em;
   > div {
@@ -23,21 +41,3 @@ const ProjectLink = styled(Link)`
     border-color: ${bestofjsPurple};
   }
 `
-
-const CardProjectLabels = ({ projects }) => {
-  const validProjects = projects.filter(p => !!p)
-  if (validProjects.length === 0) return null
-  return (
-    <div className="inner">
-      <Container>
-        {validProjects.map(p => (
-          <div key={p.slug}>
-            <ProjectLink to={`/projects/${p.slug}`}>{p.name}</ProjectLink>
-          </div>
-        ))}
-      </Container>
-    </div>
-  )
-}
-
-export default CardProjectLabels

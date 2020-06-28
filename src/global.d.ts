@@ -65,4 +65,12 @@ declare namespace BestOfJS {
       }[]
     }
   }
+
+  type HallOfFameMember = {
+    username: string
+    avatar: string
+    followers: numbers
+    bio: string
+    blog: string
+  }
 }

@@ -2,7 +2,7 @@ import React from 'react'
 
 import { CreateIssueLink } from 'components/user-requests/add-project/create-issue-link'
 
-const MoreHeroes = () => {
+export const MoreHeroes = () => {
   return (
     <div style={{ marginTop: '2rem' }}>
       <h3>Do you want more members ?</h3>
@@ -16,4 +16,3 @@ const MoreHeroes = () => {
     </div>
   )
 }
-export default MoreHeroes
