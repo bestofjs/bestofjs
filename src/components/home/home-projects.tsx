@@ -56,6 +56,8 @@ export const HotProjects = ({ hotFilter, pending }) => {
         <ProjectTable
           projects={projects}
           sortOption={{ id: sortOptionId }}
+          showDetails={false}
+          showActions={false}
           footer={
             <Link to={`/projects?sort=${sortOptionId}`}>
               View full rankings »
@@ -112,6 +114,8 @@ export const NewestProjects = ({ newestProjects, hotFilter }) => {
       <ProjectTable
         projects={newestProjects}
         sortOption={{ id: 'daily' }}
+        showActions={false}
+        showDetails={false}
         footer={
           <Link to={`/projects?sort=newest`} style={{ display: 'block' }}>
             View more recently added projects »

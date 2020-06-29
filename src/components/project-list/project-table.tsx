@@ -22,6 +22,8 @@ type Props = {
   from?: number
   style?: CSSProperties
   sortOption: any
+  showDetails?: boolean
+  showActions?: boolean
 }
 export const ProjectTable = ({
   projects,

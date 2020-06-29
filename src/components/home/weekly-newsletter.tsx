@@ -149,6 +149,8 @@ const Rankings = ({ projects }) => {
     <ProjectTable
       projects={trendingProjects}
       sortOption={{ id: 'total' }}
+      showActions={false}
+      showDetails={false}
       footer={
         <a href={`https://weekly.bestofjs.org/`} style={{ display: 'block' }}>
           View this week rankings »
