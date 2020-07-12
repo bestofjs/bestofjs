@@ -62,6 +62,15 @@ export const ProjectTable = ({
   )
 }
 
+type RowProps = {
+  project: BestOfJS.Project
+  rank: number
+  sortOption: any
+  deltaFilter?: string
+  showDetails?: boolean
+  showRankingNumber?: boolean
+  showActions?: boolean
+}
 const ProjectTableRow = ({
   project,
   rank,
@@ -70,7 +79,7 @@ const ProjectTableRow = ({
   showDetails = true,
   showRankingNumber = false,
   showActions = true
-}) => {
+}: RowProps) => {
   const {
     isLoggedIn,
     addBookmark,
@@ -207,8 +216,10 @@ const ProjectTableRow = ({
       {showDetails && (
         <ContributorCountCell>
           <div>Pushed {fromNow(project.pushed_at)}</div>
-          {project.contributor_count &&
-            `${formatNumber(project.contributor_count)} contributors`}
+          {project.contributor_count && (
+            <div>{formatNumber(project.contributor_count)} contributors</div>
+          )}
+          <>Created {fromNow(project.created_at)}</>
         </ContributorCountCell>
       )}
 

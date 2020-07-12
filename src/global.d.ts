@@ -13,6 +13,7 @@ declare namespace BestOfJS {
     }
     contributor_count: number
     pushed_at: string
+    created_at: string
     owner_id: string
     url: string
     branch: string
@@ -26,6 +27,7 @@ declare namespace BestOfJS {
     repository: string
     packageName: string
     addedPosition: number
+    isBookmark?: boolean
   }
 
   type ProjectDetails = Project & {
