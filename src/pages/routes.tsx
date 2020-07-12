@@ -7,6 +7,7 @@ import { FeaturedPage } from 'pages/featured-page'
 import HallOfFamePage from 'pages/hall-of-fame-page'
 import TagsPage from 'pages/tags-page'
 import { SearchResultsPage } from 'pages/search-results-page'
+import { TimelinePage } from 'pages/timeline-page'
 import { NoMatchPage } from './no-match-page'
 import { Spinner } from 'components/core'
 
@@ -30,6 +31,7 @@ const Routes = props => {
         <Redirect from="/hof" to="/hall-of-fame" />
         <Route path="/bookmarks" component={BookmarksPage} />
         <Route path="/featured" component={FeaturedPage} />
+        <Route path="/timeline" component={TimelinePage} />
         <Route exact path="/about" component={AsyncAboutPage} />
         <Route component={NoMatchPage} />
       </Switch>

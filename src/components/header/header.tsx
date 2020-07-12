@@ -49,6 +49,9 @@ export const Header = props => {
                 <Link to="/tags">Tags</Link>
               </NavigationMenuItem>
               <NavigationMenuItem>
+                <Link to="/timeline">Timeline</Link>
+              </NavigationMenuItem>
+              <NavigationMenuItem>
                 <Link to="/hall-of-fame">Hall of Fame</Link>
               </NavigationMenuItem>
               <NavigationMenuItem>

@@ -32,6 +32,7 @@
     "@types/react": "^16.9.35",
     "@types/react-dom": "^16.9.8",
     "cross-env": "^1.0.7",
+    "lodash": "^4.17.19",
     "lodash.times": "^4.3.2",
     "numeral": "^1.5.3",
     "qs": "^6.9.0",
