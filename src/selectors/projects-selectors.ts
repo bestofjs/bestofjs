@@ -163,7 +163,8 @@ export const getProjectSelectorByKey = key => {
     contributors: getContributorCount,
     match: ({ rank }) => rank, // only used when a `query` is used to search, a ranking score is assigned to projects
     'monthly-downloads': ({ downloads }) => downloads,
-    newest: project => project.addedPosition
+    newest: project => project.addedPosition,
+    created: project => new Date(project.created_at)
   }
 
   if (!sortFn[key]) throw new Error(`No selector for the key "${key}"`)

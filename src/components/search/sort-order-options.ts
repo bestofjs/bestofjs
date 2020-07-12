@@ -36,8 +36,12 @@ export const sortOrderOptions = [
   },
   { type: 'divider' },
   {
+    id: 'created',
+    label: 'By date of creation'
+  },
+  {
     id: 'newest',
-    label: 'By date of addition'
+    label: 'By date of addition on Best of JS'
   },
   { type: 'divider' },
   {

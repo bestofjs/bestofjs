@@ -206,10 +206,9 @@ const ProjectTableRow = ({
 
       {showDetails && (
         <ContributorCountCell>
-          <div style={{ marginBottom: '0.5rem' }}>
-            {fromNow(project.pushed_at)}
-          </div>
-          {formatNumber(project.contributor_count)} contributors
+          <div>Pushed {fromNow(project.pushed_at)}</div>
+          {project.contributor_count &&
+            `${formatNumber(project.contributor_count)} contributors`}
         </ContributorCountCell>
       )}
 
@@ -304,9 +303,12 @@ const MainCell = styled(Cell)`
 `
 
 const ContributorCountCell = styled(Cell)`
-  width: 150px;
+  width: 170px;
   @media (max-width: 799px) {
     display: none;
+  }
+  div {
+    margin-bottom: 0.5rem;
   }
 `
 

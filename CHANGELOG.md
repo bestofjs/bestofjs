@@ -1,5 +1,9 @@
 # Change log
 
+## 0.24.1
+
+- Add creation date sort option
+
 ## 0.24.0 - 2020-06-28
 
 - Use [Unstated Next](https://github.com/jamiebuilds/unstated-next) instead of Redux to manage the state
