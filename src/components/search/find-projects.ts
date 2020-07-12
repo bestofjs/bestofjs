@@ -5,7 +5,7 @@ export function findProjects(
   projects,
   tagsById,
   auth,
-  { tags, query, page = 1, selector, limit }
+  { tags, query, page = 1, selector, direction, limit }
 ) {
   const filterByTag = project =>
     tags.every(tagId => project.tags.includes(tagId))
@@ -21,7 +21,11 @@ export function findProjects(
     ? filterProjectsByQuery(filteredProjects, query)
     : filteredProjects
 
-  const sortedProjects = sortProjectsByFunction(foundProjects, selector)
+  const sortedProjects = sortProjectsByFunction(
+    foundProjects,
+    selector,
+    direction
+  )
 
   const relevantTags =
     (tags.length > 0 || query) && getResultRelevantTags(sortedProjects, tags)

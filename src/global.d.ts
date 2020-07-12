@@ -58,7 +58,7 @@ declare namespace BestOfJS {
         year: number
         month: number
         firstDay: number
-        lastDay: mumber
+        lastDay: number
         delta: number
       }[]
     }
