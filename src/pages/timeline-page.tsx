@@ -5,14 +5,15 @@ import groupBy from 'lodash/groupBy'
 import orderBy from 'lodash/orderBy'
 
 import { MainContent, PageTitle, Spinner } from 'components/core'
-import { getFeaturedProjects } from 'selectors'
-import { useSearch } from 'components/search'
+import { /*getFeaturedProjects,*/ allProjects } from 'selectors'
+// import { useSearch } from 'components/search'
 import { useSelector } from 'containers/project-data-container'
 import { Avatar } from 'components/core/project'
 
 export const TimelinePage = () => {
-  const { sortOption } = useSearch({ defaultSortOptionId: 'newest' })
-  const projects = useSelector(getFeaturedProjects(sortOption.id))
+  // const { sortOption } = useSearch({ defaultSortOptionId: 'newest' })
+  // const projects = useSelector(getFeaturedProjects(sortOption.id))
+  const projects = useSelector(allProjects)
   if (!projects.length) return <Spinner />
   const byYear: Record<string, BestOfJS.Project[]> = groupBy(
     projects,
