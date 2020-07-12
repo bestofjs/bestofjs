@@ -43,8 +43,8 @@ export const getAllTags = createSelector(
 )
 
 const sortFunctions = {
-  'project-count': tags => sortByNumber(tags, 'counter', 'DESC'),
-  alpha: tags => sortByString(tags, 'name', 'ASC')
+  'project-count': tags => sortByNumber(tags, 'counter', 'desc'),
+  alpha: tags => sortByString(tags, 'name', 'asc')
 }
 
 export const getAllTagsSortedBy = (criteria: string, count?: number) =>

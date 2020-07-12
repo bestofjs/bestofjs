@@ -1,19 +1,19 @@
-export function sortByNumber(items, property, direction = 'ASC') {
+export function sortByNumber(items, property, direction = 'asc') {
   const sortedItems = items
     .slice(0) // use `slice(0)` to avoid mutating the array
     .sort((a, b) => {
       let diff = a[property] - b[property]
-      return diff * (direction === 'DESC' ? -1 : 1)
+      return diff * (direction === 'desc' ? -1 : 1)
     })
   return sortedItems
 }
 
-export function sortByString(items, property, direction = 'ASC') {
+export function sortByString(items, property, direction = 'asc') {
   const sortedItems = items
     .slice(0) // use `slice(0)` to avoid mutating the array
     .sort((a, b) => {
       let diff = a[property].localeCompare(b[property])
-      return diff * (direction === 'DESC' ? -1 : 1)
+      return diff * (direction === 'desc' ? -1 : 1)
     })
   return sortedItems
 }
@@ -23,7 +23,7 @@ Sort an array of projects, applying the given function to all projects.
 If the function returns `undefined` (meaning that no data is available),
 the project should be displayed at the end, when the descending direction is used (by default).
 */
-export function sortProjectsByFunction(projects, fn, direction = 'DESC') {
+export function sortProjectsByFunction(projects, fn, direction = 'desc') {
   // console.time('Sort')
   const getValue = project => {
     const value = fn(project)
@@ -37,7 +37,7 @@ export function sortProjectsByFunction(projects, fn, direction = 'DESC') {
       if (diff === 0) {
         diff = a.stars - b.stars
       }
-      return diff * (direction === 'DESC' ? -1 : 1)
+      return diff * (direction === 'desc' ? -1 : 1)
     })
   // console.timeEnd('Sort')
   return sortedProjects

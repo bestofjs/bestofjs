@@ -40,7 +40,8 @@ export const SearchResultsPage = () => {
       query,
       page,
       selector,
-      limit
+      limit,
+      direction: sortOption.direction || 'desc'
     }
   )
 

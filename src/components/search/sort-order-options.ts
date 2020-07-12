@@ -37,7 +37,8 @@ export const sortOrderOptions = [
   { type: 'divider' },
   {
     id: 'created',
-    label: 'By date of creation'
+    label: 'By date of creation (Oldest first)',
+    direction: 'asc'
   },
   {
     id: 'newest',

@@ -32,40 +32,6 @@ function useSearchState() {
 
 export const SearchContainer = createContainer(useSearchState)
 
-// export const SearchContext = createContext({})
-
-// export const SearchProvider = ({ children }) => {
-//   const location = useLocation()
-//   const history = useHistory()
-
-//   const { query, selectedTags, page, sort } = queryStringToState(
-//     location.search
-//   )
-
-//   const onChange = changes => {
-//     const queryString = stateToQueryString({
-//       query,
-//       selectedTags,
-//       page: 1,
-//       sort,
-//       ...changes
-//     })
-
-//     history.push({
-//       pathname: queryString ? '/projects' : '/', // back to the homepage if there is nothing to search
-//       search: queryString ? '?' + queryString : ''
-//     })
-//   }
-
-//   return (
-//     <SearchContext.Provider
-//       value={{ selectedTags, query, sort, page, history, location, onChange }}
-//     >
-//       {children}
-//     </SearchContext.Provider>
-//   )
-// }
-
 export const useSearch = ({ defaultSortOptionId = 'total' } = {}) => {
   const { sort, ...values } = SearchContainer.useContainer()
 
