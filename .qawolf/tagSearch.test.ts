@@ -17,7 +17,7 @@ afterAll(async () => {
 })
 
 test('tagSearch', async () => {
-  await page.goto('https://bestofjs.org/')
+  await page.goto('http://localhost:3000')
   await page.click('#main')
   await page.click('text=Pick tags or enter keywords...')
   await page.fill('#react-select-2-input', 'frame')
