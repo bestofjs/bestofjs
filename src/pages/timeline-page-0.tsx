@@ -9,7 +9,6 @@ import { /*getFeaturedProjects,*/ allProjects } from 'selectors'
 // import { useSearch } from 'components/search'
 import { useSelector } from 'containers/project-data-container'
 import { Avatar } from 'components/core/project'
-import { Timeline } from 'components/timeline/timeline'
 
 export const TimelinePage = () => {
   // const { sortOption } = useSearch({ defaultSortOptionId: 'newest' })
@@ -23,21 +22,18 @@ export const TimelinePage = () => {
   console.log({ byYear })
   return (
     <MainContent>
-      <PageTitle>Timeline: 2006-2020 in 20 projects</PageTitle>
+      <PageTitle>
+        Timeline <i>(Under construction)</i>
+      </PageTitle>
       <PageDescription>
-        From <i>jQuery</i> to <i>Rome</i>, an overview of the most significant
-        projects over the last years, to celebrate the 500th issue of{' '}
-        <a href="https://javascriptweekly.com/issues/499">JavaScript Weekly</a>{' '}
-        newsletter.
+        Some of the most significant projects over the last 12 years, by date of
+        creation on GitHub.
       </PageDescription>
-      <Timeline />
-      {false && (
-        <Wrapper>
-          {Object.keys(byYear).map((year: string) => (
-            <YearRow key={year} year={year} projects={byYear[year]} />
-          ))}
-        </Wrapper>
-      )}
+      <Wrapper>
+        {Object.keys(byYear).map((year: string) => (
+          <YearRow key={year} year={year} projects={byYear[year]} />
+        ))}
+      </Wrapper>
     </MainContent>
   )
 }

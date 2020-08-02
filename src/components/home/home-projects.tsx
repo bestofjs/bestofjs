@@ -16,7 +16,7 @@ const ranges = {
 
 const hotProjectsExcludedTags = ['meta', 'learning']
 
-const isIncludedInHotProjects = project => {
+export const isIncludedInHotProjects = project => {
   const hasExcludedTag = hotProjectsExcludedTags.some(tag =>
     project.tags.includes(tag)
   )
