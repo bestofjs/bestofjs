@@ -145,15 +145,17 @@ const ProjectTableRow = ({
       )}
 
       <IconCell>
-        <Avatar project={project} size={50} />
+        <Link to={path}>
+          <Avatar project={project} size={50} />
+        </Link>
       </IconCell>
 
       <MainCell>
         <ProjectName>
-          <SmallAvatarContainer>
+          <MainLink to={path}>
             <Avatar project={project} size={40} />
-          </SmallAvatarContainer>
-          <Link to={path}>{project.name}</Link>
+            {project.name}
+          </MainLink>
           {
             <InlineIcon>
               <a
@@ -300,10 +302,16 @@ const IconCell = styled(Cell)`
   }
 `
 
-const SmallAvatarContainer = styled.div`
-  margin-right: 1rem;
+const MainLink = styled(Link)`
+  display: flex;
+  align-items: center;
+  img {
+    margin-right: 1rem;
+  }
   @media (min-width: ${breakpoint}px) {
-    display: none;
+    img {
+      display: none;
+    }
   }
 `
 
@@ -366,8 +374,8 @@ const ProjectName = styled.div`
 
 const ProjectDescription = styled.div`
   font-size: 14px;
-  margin-bottom: 0.5rem;
-  margin-top: 0.25rem;
+  margin-bottom: 0.75rem;
+  margin-top: 0.5rem;
   @media (min-width: ${breakpoint}px) {
   }
 `
@@ -380,5 +388,3 @@ const RepoInfo = styled.div`
 `
 
 const formatNumber = number => numeral(number).format('a')
-
-export default ProjectTable
