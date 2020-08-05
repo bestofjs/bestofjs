@@ -20,7 +20,6 @@ export const TimelinePage = () => {
     projects,
     getProjectYear
   )
-  console.log({ byYear })
   return (
     <MainContent>
       <PageTitle>Timeline: 2006-2020 in 20 projects</PageTitle>

@@ -71,7 +71,7 @@ export const Timeline = () => {
       <VerticalTimeline>
         {(projects as Project[]).map(project => (
           <VerticalTimelineElement
-            key={project}
+            key={project.slug}
             date={<b>{template.render(new Date(project.date!))}</b>}
             iconStyle={{
               background: 'white',
@@ -97,4 +97,5 @@ export const Timeline = () => {
 
 const Wrapper = styled.div`
   border: 1px dashed var(--iconColor);
+  overflow-x: hidden;
 `
