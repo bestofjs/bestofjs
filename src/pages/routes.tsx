@@ -7,12 +7,12 @@ import { FeaturedPage } from 'pages/featured-page'
 import HallOfFamePage from 'pages/hall-of-fame-page'
 import TagsPage from 'pages/tags-page'
 import { SearchResultsPage } from 'pages/search-results-page'
-import { TimelinePage } from 'pages/timeline-page'
 import { NoMatchPage } from './no-match-page'
 import { Spinner } from 'components/core'
 
 const AsyncViewProject = lazy(() => import('pages/project-details-page'))
 const AsyncAboutPage = lazy(() => import('pages/about-page'))
+const TimelinePage = lazy(() => import('pages/timeline-page'))
 
 const Routes = props => {
   return (

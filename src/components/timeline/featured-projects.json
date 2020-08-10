@@ -4,9 +4,9 @@
     "date": "2006-08-26",
     "comments": [
       "Created by John Resig and released in 2006, jQuery won the battle of the Ajax frameworks against libraries like Prototype.js, Dojo or YUI.",
-      "Became the de-facto standard library included in almost any web page, even today",
+      "Became the de-facto standard library included in almost any web page, even today.",
       "A beautiful piece of software at the origin of a vast ecosystem of 'plugins'.",
-      "Did a great job providing developers a unified API to handle browser inconsistencies."
+      "Did a great job providing a unified API to handle browser inconsistencies."
     ]
   },
   {
@@ -14,7 +14,7 @@
     "slug": "nodejs",
     "comments": [
       "Created by Ryan Dahl on top of JavaScript V8 engine, Node.js brought JavaScript to the server-side.",
-      "Used to power APIs, command line tools, IoT devices and all the modern web development tooling..."
+      "Power APIs, command line tools, IoT devices and all the modern web development tooling"
     ]
   },
   {
@@ -28,7 +28,7 @@
     "slug": "d3",
     "comments": [
       "The classic library for data visualization created by Mike Bostok, still relevant after almost 10 years.",
-      "A lot of libraries uses its powerful primitives to provide charts that can included in any web page."
+      "A lot of charting libraries are built on top of its powerful primitives.s"
     ]
   },
   {
@@ -70,13 +70,15 @@
   {
     "slug": "react",
     "comments": [
-      "The library open sourced by Facebook to create dynamic applications using JSX as a templating language."
+      "The library open sourced by Facebook to create dynamic and fast UI",
+      "Not a full-framework like Angular as it handles only the view layer.",
+      "Its component approach and the JSX syntax became very popular and inspire a lot of projects"
     ]
   },
   {
     "slug": "vuejs",
     "comments": [
-      "Released only 2 months after React, Vue.js and React are 7 years later the 2 most popular UI frameworks.",
+      "Released only 2 months after React, Vue.js and React are the 2 most popular UI frameworks in 2020",
       "Not backed by a huge company like React with Facebook or Angular with Google but created by Evan You, has a strong community, especially in China."
     ]
   },
@@ -91,7 +93,8 @@
     "slug": "babel",
     "comments": [
       "First called `5to6`, the compiler Babel helped make the ES6 version of JavaScript popular.",
-      "Let developers write code using the latest features of JavaScript without having to worry too much about the browser support."
+      "Let developers write code using the latest features of JavaScript without having to worry too much about the browser support.",
+      "Included as a dependency by a lot of projects"
     ]
   },
   {
@@ -124,7 +127,7 @@
     "comments": [
       "9 years after the release of Node.js, Ryan Dahl strikes again with a new server-side JavaScript run-time.",
       "Aims to solves several issues related to Node.js.",
-      "No centralized package manager, any JavaScript dependency can be loaded from any URL",
+      "No centralized package manager, any JavaScript dependency can be loaded from any URL.",
       "One of the most popular projects in 2020."
     ]
   },

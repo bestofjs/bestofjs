@@ -1,6 +1,5 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-// import d3KitTimeline from 'd3kit-timeline'
 import {
   VerticalTimeline,
   VerticalTimelineElement
@@ -12,19 +11,18 @@ import styled from 'styled-components'
 
 import featuredProjects from './featured-projects.json'
 
-import { allProjects } from 'selectors'
-// import { useSearch } from 'components/search'
+import { findProjectsByIds } from 'selectors'
 import { useSelector } from 'containers/project-data-container'
 import { Avatar } from 'components/core/project'
+import { TagLabelGroup } from 'components/tags/tag-label'
 
 type Project = BestOfJS.Project & { date: Date; comments: string[] }
 
 const template = tinytime('{MMMM} {YYYY}')
 
-function useFeaturedProjects() {
+function useTimelineProjects() {
   const projects: BestOfJS.Project[] = useSelector(
-    allProjects
-    // findProjectsByIds(featuredProjectIds)
+    findProjectsByIds(featuredProjects.map(({ slug }) => slug))
   )
   return featuredProjects.map(({ slug, date, comments }) => {
     const project: BestOfJS.Project | undefined = projects.find(
@@ -41,53 +39,46 @@ function useFeaturedProjects() {
 }
 
 export const Timeline = () => {
-  // const ref = useRef<HTMLDivElement | null>(null)
-  const projects = useFeaturedProjects()
-  // const data = projects.slice(0, 20).map(project => ({
-  //   time: new Date(project.created_at),
-  //   name: project.name
-  // }))
-  // useEffect(() => {
-  //   if (!data.length) return
-  //   console.log('> init', ref.current, data)
-  //   var chart = new d3KitTimeline(
-  //     ref.current,
-  //     {
-  //       direction: 'right',
-  //       initialWidth: 400,
-  //       initialHeight: 250,
-  //       textFn: function(d) {
-  //         return d.time.getFullYear() + ' - ' + d.name
-  //       }
-  //     },
-  //     [data]
-  //   )
-
-  //   chart.data(data).resizeToFit()
-  // })
+  const projects = useTimelineProjects()
 
   return (
     <Wrapper>
       <VerticalTimeline>
-        {(projects as Project[]).map(project => (
+        {(projects as Project[]).map((project, index) => (
           <VerticalTimelineElement
             key={project.slug}
-            date={<b>{template.render(new Date(project.date!))}</b>}
+            date={template.render(new Date(project.date!))}
             iconStyle={{
               background: 'white',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              fontWeight: 'bold'
+              borderRadius: 5
             }}
             icon={<Avatar project={project} size={50} />}
           >
-            <h4>
-              <Link to={`/projects/${project.slug}`}>{project.name}</Link>
+            <h4
+              style={{
+                fontSize: '1.5rem',
+                fontWeight: 'normal',
+                display: 'flex'
+              }}
+            >
+              <div style={{ flexGrow: 1 }}>
+                <Link to={`/projects/${project.slug}`}>{project.name}</Link>
+              </div>
+              <div style={{ color: '#bb967c' }}>#{index + 1}</div>
             </h4>
             {project.comments.map((comment, index) => (
               <p key={index}>{comment}</p>
             ))}
+            <div style={{ paddingTop: '1rem' }}>
+              <span>Trend this month: </span>+{project.trends.monthly}☆ on
+              GitHub
+            </div>
+            <div style={{ paddingTop: '1rem' }}>
+              <TagLabelGroup tags={project.tags.slice(0, 3)} />
+            </div>
           </VerticalTimelineElement>
         ))}
       </VerticalTimeline>
@@ -96,6 +87,7 @@ export const Timeline = () => {
 }
 
 const Wrapper = styled.div`
-  border: 1px dashed var(--iconColor);
+  border: 3px solid white;
+  border-radius: 5px;
   overflow-x: hidden;
 `

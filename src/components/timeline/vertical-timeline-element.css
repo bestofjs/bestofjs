@@ -183,7 +183,7 @@
 
 .vertical-timeline-element-content .vertical-timeline-element-date {
   float: left;
-  padding: 0.8em 0;
+  padding: 0.4em 0.2em;
   opacity: 0.7;
 }
 .vertical-timeline-element-content-arrow {
@@ -211,8 +211,6 @@
   }
   .vertical-timeline-element-content .vertical-timeline-element-date {
     display: none;
-    font-size: 14px;
-    font-size: 0.875rem;
   }
 }
 @media only screen and (min-width: 1170px) {
@@ -221,7 +219,7 @@
   }
   .vertical-timeline--two-columns .vertical-timeline-element-content {
     margin-left: 0;
-    padding: 1.5em;
+    /* padding: 1.5em; */
     width: 44%;
   }
   .vertical-timeline--two-columns .vertical-timeline-element-content-arrow {
@@ -237,8 +235,7 @@
     width: 100%;
     left: 124%;
     top: 6px;
-    font-size: 16px;
-    font-size: 1rem;
+    font-size: 1.5rem;
   }
 
   .vertical-timeline--two-columns

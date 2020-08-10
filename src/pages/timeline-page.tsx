@@ -5,15 +5,12 @@ import groupBy from 'lodash/groupBy'
 import orderBy from 'lodash/orderBy'
 
 import { MainContent, PageTitle, Spinner } from 'components/core'
-import { /*getFeaturedProjects,*/ allProjects } from 'selectors'
-// import { useSearch } from 'components/search'
+import { allProjects } from 'selectors'
 import { useSelector } from 'containers/project-data-container'
 import { Avatar } from 'components/core/project'
 import { Timeline } from 'components/timeline/timeline'
 
 export const TimelinePage = () => {
-  // const { sortOption } = useSearch({ defaultSortOptionId: 'newest' })
-  // const projects = useSelector(getFeaturedProjects(sortOption.id))
   const projects = useSelector(allProjects)
   if (!projects.length) return <Spinner />
   const byYear: Record<string, BestOfJS.Project[]> = groupBy(
@@ -24,10 +21,12 @@ export const TimelinePage = () => {
     <MainContent>
       <PageTitle>Timeline: 2006-2020 in 20 projects</PageTitle>
       <PageDescription>
-        From <i>jQuery</i> to <i>Rome</i>, an overview of the most significant
-        projects over the last years, to celebrate the 500th issue of{' '}
-        <a href="https://javascriptweekly.com/issues/499">JavaScript Weekly</a>{' '}
-        newsletter.
+        The best newsletter about JavaScript{' '}
+        <a href="https://javascriptweekly.com/issues/500">JavaScript Weekly</a>,
+        has just released its 500th issue.
+        <br />
+        Let's celebrate this milestone by picking 20 significant projects, from
+        2006 to 2020. A short story of the web platform from jQuery to Rome.
       </PageDescription>
       <Timeline />
       {false && (
