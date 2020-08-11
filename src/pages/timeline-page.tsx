@@ -26,7 +26,8 @@ export const TimelinePage = () => {
         has just released its 500th issue.
         <br />
         Let's celebrate this milestone by picking 20 significant projects, from
-        2006 to 2020. A short story of the web platform from jQuery to Rome.
+        2006 to 2020.
+        <br />A short story of the web platform from jQuery to Rome.
       </PageDescription>
       <Timeline />
       {false && (
@@ -36,6 +37,20 @@ export const TimelinePage = () => {
           ))}
         </Wrapper>
       )}
+      <Disclaimer>
+        <h3>Disclaimer</h3>
+        We could have mentioned a lot of other projects (Axios, Three.js, Jest,
+        Redux, Storybook...) but we had to make choices to keep this timeline
+        compact.
+        <br /> The 2 main constraints were:
+        <ul>
+          <li>We wanted 20 projects because we are in 2020</li>
+          <li>
+            We wanted at least one project for every year between 2010 and 2020.
+          </li>
+        </ul>
+        <p>Thank you for your understanding!</p>
+      </Disclaimer>
     </MainContent>
   )
 }
@@ -105,4 +120,10 @@ const PageDescription = styled.div`
   padding-left: 1rem;
   border-left: 2px solid #fa9e59;
   margin-bottom: 2rem;
+`
+
+const Disclaimer = styled.div`
+  margin-top: 2rem;
+  padding-top: 1rem;
+  border-top: 1px dashed #fa9e59;
 `
