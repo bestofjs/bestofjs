@@ -28,7 +28,7 @@
     "slug": "d3",
     "comments": [
       "The classic library for data visualization created by Mike Bostok, still relevant after almost 10 years.",
-      "A lot of charting libraries are built on top of its powerful primitives.s"
+      "A lot of charting libraries are built on top of its powerful primitives."
     ]
   },
   {
@@ -41,8 +41,8 @@
   {
     "slug": "bootstrap",
     "comments": [
-      "Open sourced by Twitter in 2011, Bootstrap is a set of JavaScript and CSS elements to add common features to web pages.",
-      "A lot contenders battle in this category but Bootstrap shines thanks to a neat documentation, a consistent developer and user experience and responsive design features smartly designed.",
+      "Open sourced by Twitter in 2011, Bootstrap is a set of JavaScript and CSS elements to add common widgets to web pages.",
+      "Shines thanks to a neat documentation, a consistent developer experience and responsive design features smartly designed.",
       "Helped developers make web pages mobile-friendly just when browsing the web on a smartphone became the norm."
     ]
   },
@@ -50,7 +50,7 @@
     "slug": "webpack",
     "comments": [
       "A key part of the front-end tooling, Webpack is able to generate JavaScript bundles from any kind of asset.",
-      "Still used in 2020 in projects like Create React App or Next.js."
+      "Still used in 2020 in projects like Create React App or Next.js, the 5th major version is coming soon."
     ]
   },
   {
@@ -64,13 +64,14 @@
   {
     "slug": "electron",
     "comments": [
-      "A solution to build desktop applications using web technologies."
+      "A solution to build desktop applications using web technologies.",
+      "Used by popular desktop applications such as VS Code, Slack..."
     ]
   },
   {
     "slug": "react",
     "comments": [
-      "The library open sourced by Facebook to create dynamic and fast UI",
+      "React was open-sourced by Facebook to create dynamic and fast UI.",
       "Not a full-framework like Angular as it handles only the view layer.",
       "Its component approach and the JSX syntax became very popular and inspire a lot of projects"
     ]
@@ -78,8 +79,10 @@
   {
     "slug": "vuejs",
     "comments": [
-      "Released only 2 months after React, Vue.js and React are the 2 most popular UI frameworks in 2020",
-      "Not backed by a huge company like React with Facebook or Angular with Google but created by Evan You, has a strong community, especially in China."
+      "Released only 2 months after React, Vue.js takes a different approach to handle reactivity.",
+      "Often considered as more beginner-friendly",
+      "Not backed by a huge company like React with Facebook or Angular with Google but created by Evan You",
+      "Strong community, especially in China."
     ]
   },
   {
@@ -92,15 +95,16 @@
   {
     "slug": "babel",
     "comments": [
-      "First called `5to6`, the compiler Babel helped make the ES6 version of JavaScript popular.",
+      "First called `5to6`, the compiler Babel helped make the ES6 version of JavaScript popular and was a key part of React success.",
       "Let developers write code using the latest features of JavaScript without having to worry too much about the browser support.",
-      "Included as a dependency by a lot of projects"
+      "Included as a dependency by a lot of projects."
     ]
   },
   {
     "slug": "vs-code",
     "comments": [
-      "The most popular IDE to code JavaScript and TypeScript applications, built on top of Electron."
+      "The most popular IDE to code JavaScript and TypeScript applications, built on top of Electron.",
+      "Shines with its TypeScript support... both projects being from Microsoft"
     ]
   },
   {
@@ -113,13 +117,13 @@
     "slug": "nextjs",
     "comments": [
       "Became the most popular framework to build full-stack JavaScript applications (applications that run on both front and back ends).",
-      "Uses React in the front-end and provides Server-Side Rendering features to deliver the best user-experience"
+      "Uses React in the front-end and provides Server-Side Rendering features to deliver the best user-experience."
     ]
   },
   {
     "slug": "puppeteer",
     "comments": [
-      "A Node.js library to control a headless Chrome browser to to do browser testing or web scrapping."
+      "A Node.js library to control a headless Chrome browser to to do things like browser testing or web scrapping."
     ]
   },
   {
