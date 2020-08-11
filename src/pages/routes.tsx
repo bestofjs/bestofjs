@@ -12,6 +12,7 @@ import { Spinner } from 'components/core'
 
 const AsyncViewProject = lazy(() => import('pages/project-details-page'))
 const AsyncAboutPage = lazy(() => import('pages/about-page'))
+const TimelinePage = lazy(() => import('pages/timeline-page'))
 
 const Routes = props => {
   return (
@@ -30,6 +31,7 @@ const Routes = props => {
         <Redirect from="/hof" to="/hall-of-fame" />
         <Route path="/bookmarks" component={BookmarksPage} />
         <Route path="/featured" component={FeaturedPage} />
+        <Route path="/timeline" component={TimelinePage} />
         <Route exact path="/about" component={AsyncAboutPage} />
         <Route component={NoMatchPage} />
       </Switch>

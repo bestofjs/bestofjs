@@ -1,5 +1,9 @@
 # Change log
 
+## 0.25.0
+
+- Add Timeline page
+
 ## 0.24.1
 
 - Add creation date sort option

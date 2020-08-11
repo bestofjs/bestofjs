@@ -1,7 +1,7 @@
 {
   "name": "bestofjs-webui",
-  "version": "0.24.4",
-  "description": "bestofjs.org front-end web application",
+  "version": "0.25.0",
+  "description": "Best of JS front-end web application",
   "engines": {
     "node": ">=12.16.1"
   },
@@ -32,6 +32,7 @@
     "@types/react": "^16.9.35",
     "@types/react-dom": "^16.9.8",
     "cross-env": "^1.0.7",
+    "lodash": "^4.17.19",
     "lodash.times": "^4.3.2",
     "numeral": "^1.5.3",
     "qs": "^6.9.0",
@@ -45,6 +46,7 @@
     "react-simple-animate": "^3.3.6",
     "react-toggled": "^1.0.2",
     "react-use": "^15.3.0",
+    "react-vertical-timeline-component": "^3.0.2",
     "reselect": "^4.0.0",
     "slugify": "^1.3.4",
     "styled-components": "5.1.0",

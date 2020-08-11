@@ -1,0 +1,39 @@
+/* https://github.com/stephane-monnot/react-vertical-timeline/blob/master/src/VerticalTimeline.css */
+.vertical-timeline * {
+  box-sizing: border-box;
+}
+
+.vertical-timeline {
+  width: 95%;
+  max-width: 1170px;
+  margin: 0 auto;
+  position: relative;
+  padding: 2em 0;
+}
+.vertical-timeline::after {
+  /* clearfix */
+  content: '';
+  display: table;
+  clear: both;
+}
+
+.vertical-timeline::before {
+  /* this is the vertical line */
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 30px;
+  height: 100%;
+  width: 4px;
+  background: white;
+}
+
+@media only screen and (min-width: 1170px) {
+  .vertical-timeline.vertical-timeline--two-columns {
+    width: 90%;
+  }
+  .vertical-timeline.vertical-timeline--two-columns:before {
+    left: 50%;
+    margin-left: -2px;
+  }
+}

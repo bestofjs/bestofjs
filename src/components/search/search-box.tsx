@@ -57,16 +57,19 @@ export const SearchBox = () => {
               debouncedOnChange({ query: value })
             }
           }}
-          // This `onKeyDown` event handler is used only for a specific case:
-          // when the user enters text, moves the cursor just after the tag and pushes the Backspace key
+          // This `onKeyDown` event handler is used only for 2 specific cases:
+          // - Closing the keyboard on mobiles when the user pushes Enter
+          // -  When the user enters text, moves the cursor just after the tag and pushes the Backspace key
           onKeyDown={event => {
+            const input = selectRef?.current?.select.inputRef
+            if (event.key === 'Enter') {
+              input.blur()
+              return
+            }
             if (event.key !== 'Backspace') return
             if (selectedTags.length === 0) return
             if (query === '') return
-            const {
-              selectionStart,
-              selectionEnd
-            } = selectRef?.current?.select.inputRef
+            const { selectionStart, selectionEnd } = input
             if (!(selectionStart === 0 && selectionEnd === 0)) return
             console.info('Remove the last tag')
             onChange({
