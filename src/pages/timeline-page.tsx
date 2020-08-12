@@ -21,13 +21,14 @@ export const TimelinePage = () => {
     <MainContent>
       <PageTitle>Timeline: 2006-2020 in 20 projects</PageTitle>
       <PageDescription>
-        The best newsletter about JavaScript{' '}
+        Our favorite newsletter{' '}
         <a href="https://javascriptweekly.com/issues/500">JavaScript Weekly</a>,
         has just released its 500th issue.
         <br />
         Let's celebrate this milestone by picking 20 significant projects, from
         2006 to 2020.
-        <br />A short story of the web platform from jQuery to Rome.
+        <br />A short story of the web platform from <i>jQuery</i> to{' '}
+        <i>Rome</i>.
       </PageDescription>
       <Timeline />
       {false && (
@@ -39,12 +40,33 @@ export const TimelinePage = () => {
       )}
       <Disclaimer>
         <h3>Disclaimer</h3>
-        We could have mentioned a lot of other projects (Axios, Three.js, Jest,
-        Redux, Storybook...) but we had to make choices to keep this timeline
-        compact.
-        <br /> The 2 main constraints were:
+        <p>We could have mentioned a lot of other projects:</p>
         <ul>
-          <li>We wanted 20 projects because we are in 2020</li>
+          <li>
+            <Link to="/projects/threejs">Three.js</Link> (2010)
+          </li>
+          <li>
+            <Link to="/projects/meteor">Meteor</Link> (2012)
+          </li>
+          <li>
+            <Link to="/projects/jest">Jest</Link> (2013)
+          </li>
+          <li>
+            <Link to="/projects/redux">Redux</Link> (2015)
+          </li>
+          <li>
+            <Link to="/projects/gatsby">Gatsby</Link> (2015)
+          </li>
+          <li>
+            <Link to="/projects/storybook">Storybook</Link> (2016)
+          </li>
+        </ul>
+        <p>...but we had to make choices to keep this timeline compact.</p>
+        <p>The 2 main constraints were:</p>
+        <ul>
+          <li>
+            We wanted <b>20</b> projects because we are in 2020
+          </li>
           <li>
             We wanted at least one project for every year between 2010 and 2020.
           </li>
