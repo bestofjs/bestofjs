@@ -95,7 +95,7 @@
   {
     "slug": "babel",
     "comments": [
-      "First called `5to6`, the compiler Babel helped make the ES6 version of JavaScript popular and was a key part of React success.",
+      "First called `6to5`, the compiler Babel helped make the ES6 version of JavaScript popular and was a key part of React success.",
       "Let developers write code using the latest features of JavaScript without having to worry too much about the browser support.",
       "Included as a dependency by a lot of projects."
     ]
