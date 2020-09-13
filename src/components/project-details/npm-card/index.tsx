@@ -1,4 +1,5 @@
 import React, { Fragment } from 'react'
+import { GoPackage } from 'react-icons/go'
 
 import { Card, ExternalLink, Spinner } from '../../core'
 
@@ -16,8 +17,8 @@ export const NpmCard = (props: Props) => {
   return (
     <Card style={{ marginTop: '2rem' }}>
       <Card.Header>
-        <span className="octicon octicon-package" />
-        <span> PACKAGE</span>
+        <GoPackage className="icon" size={24} />
+        PACKAGE
       </Card.Header>
       <Card.Body>
         <CardBodyContent {...props} />

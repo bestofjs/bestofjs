@@ -1,11 +1,11 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
+import { GoMarkGithub } from 'react-icons/go'
 
 import { AuthContainer } from 'containers/auth-container'
 import { StaticContentContainer } from 'containers/static-content-container'
 import { Button } from 'components/core'
-import { MarkGitHubIcon } from 'components/core/icons'
 import { UserDropdownMenu } from './user-dropdown-menu'
 
 const sidebarBreakpoint = 700
@@ -56,7 +56,7 @@ export const Header = props => {
               </NavigationMenuItem>
               <NavigationMenuItem>
                 <a href={repo} target="_blank" rel="noopener noreferrer">
-                  <MarkGitHubIcon size={32} />
+                  <GoMarkGithub size={32} />
                 </a>
               </NavigationMenuItem>
             </NavigationMenu>

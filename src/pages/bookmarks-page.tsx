@@ -1,4 +1,5 @@
 import React from 'react'
+import { GoBookmark } from 'react-icons/go'
 
 import { useSelector } from 'containers/project-data-container'
 import { useSearch } from 'components/search/search-container'
@@ -8,7 +9,6 @@ import {
 } from 'components/core/pagination'
 import { ProjectPaginatedList } from 'components/search/project-paginated-list'
 import { PageTitle, EmptyContent, MainContent } from 'components/core'
-import { BookmarkIcon } from 'components/core/icons'
 import { getBookmarksSortedBy } from 'selectors'
 import { AuthContainer } from 'containers/auth-container'
 
@@ -29,7 +29,7 @@ const BookmarksPage = () => {
           initialState={{ total, currentPageNumber: page, limit }}
         >
           <PageTitle
-            icon={<BookmarkIcon size={32} />}
+            icon={<GoBookmark size={32} />}
             extra={total === 1 ? '(one project)' : `(${total} projects)`}
           >
             Bookmarks

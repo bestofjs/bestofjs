@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
+import { GoBook } from 'react-icons/go'
 
 import { Card, Spinner } from '../core'
 import { useFetchProjectReadMe } from '../../api/hooks'
@@ -12,7 +13,8 @@ export const ReadmeCard = ({ project }) => {
   return (
     <Card className="readme">
       <Card.Header>
-        <span className="octicon octicon-book" /> README
+        <GoBook className="icon" size={20} />
+        README
       </Card.Header>
       <Card.Body>
         <Card.Section>

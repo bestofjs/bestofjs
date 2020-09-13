@@ -54,6 +54,7 @@ export const PageTitle = ({
 const PageTitleIcon = styled.div`
   margin-right: 0.5rem;
   color: var(--iconColor);
+  display: flex;
 `
 
 const PageTitleExtra = styled.span`

@@ -2,6 +2,7 @@ import React, { CSSProperties } from 'react'
 import styled from 'styled-components'
 import { Link } from 'react-router-dom'
 import numeral from 'numeral'
+import { GoMarkGithub, GoBookmark, GoHome } from 'react-icons/go'
 
 import { getDeltaByDay } from 'selectors'
 import { AuthContainer } from 'containers/auth-container'
@@ -14,7 +15,6 @@ import {
 import { TagLabelGroup } from 'components/tags/tag-label'
 import { DropdownMenu, Button } from 'components/core'
 import { fromNow } from 'helpers/from-now'
-import { BookmarkIcon, MarkGitHubIcon, HomeIcon } from 'components/core/icons'
 
 type Props = {
   projects: BestOfJS.Project[]
@@ -95,25 +95,25 @@ const ProjectTableRow = ({
 
   const getBookmarkMenuItem = () => {
     if (!isLoggedIn) {
-      return { label: 'Add bookmark', icon: <BookmarkIcon />, disabled: true }
+      return { label: 'Add bookmark', icon: <GoBookmark />, disabled: true }
     }
     if (project.isBookmark) {
       return {
         label: 'Remove bookmark',
-        icon: <BookmarkIcon />,
+        icon: <GoBookmark />,
         onClick: () => removeBookmark(project)
       }
     }
     return {
       label: 'Add bookmark',
-      icon: <BookmarkIcon />,
+      icon: <GoBookmark />,
       onClick: () => addBookmark(project)
     }
   }
 
   const getHomepageMenuItem = () =>
     project.url && {
-      icon: <HomeIcon />,
+      icon: <GoHome />,
       label: 'Go to homepage',
       url: project.url,
       onClick: () => ({})
@@ -122,7 +122,7 @@ const ProjectTableRow = ({
   const items = [
     // { type: 'label', label: 'Links' },
     {
-      icon: <MarkGitHubIcon />,
+      icon: <GoMarkGithub />,
       label: 'Go to GitHub repository',
       url: project.repository,
       onClick: () => ({})
@@ -165,7 +165,7 @@ const ProjectTableRow = ({
                 className="hint--top"
                 aria-label="GitHub repository"
               >
-                <MarkGitHubIcon size={20} />
+                <GoMarkGithub size={20} />
               </a>
             </InlineIcon>
           }
@@ -178,7 +178,7 @@ const ProjectTableRow = ({
                 className="hint--top"
                 aria-label="Project's homepage"
               >
-                <HomeIcon size={20} />
+                <GoHome size={20} />
               </a>
             </InlineIcon>
           )}
@@ -190,7 +190,7 @@ const ProjectTableRow = ({
                 className="hint--top"
                 aria-label="Remove bookmark"
               >
-                <BookmarkIcon size={20} />
+                <GoBookmark size={20} />
               </IconButton>
             ) : (
               <IconButton
@@ -199,7 +199,7 @@ const ProjectTableRow = ({
                 className="hint--top"
                 aria-label="Add bookmark"
               >
-                <BookmarkIcon size={20} />
+                <GoBookmark size={20} />
               </IconButton>
             ))}
         </ProjectName>

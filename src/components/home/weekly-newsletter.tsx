@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import tinytime from 'tinytime'
 import styled from 'styled-components'
+import { GoMail } from 'react-icons/go'
 
 import { useSelector } from 'containers/project-data-container'
 import { findProjectsByIds } from 'selectors'
@@ -17,7 +18,7 @@ export const Weekly = () => {
     <Section>
       <Row>
         <MainColumn>
-          <Section.Header icon="mail">
+          <Section.Header icon={<GoMail fontSize={32} />}>
             <Section.Title>Weekly Newsletter</Section.Title>
           </Section.Header>
           Visit{' '}

@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
+import { GoTriangleDown, GoTriangleRight } from 'react-icons/go'
 
 const TogglerLink = styled.a`
   :focus {
@@ -17,12 +18,10 @@ const TogglerLink = styled.a`
 `
 
 export const ExpandableSection = ({ on, getTogglerProps, children }) => {
-  const icon = on
-    ? 'octicon octicon-triangle-down'
-    : 'octicon octicon-triangle-right'
+  const Icon = on ? GoTriangleDown : GoTriangleRight
   return (
     <TogglerLink {...getTogglerProps()}>
-      <span className={`octicon ${icon}`} /> {children}
+      <Icon className="icon" /> {children}
     </TogglerLink>
   )
 }

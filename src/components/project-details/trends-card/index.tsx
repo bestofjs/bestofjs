@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
+import { GoGraph } from 'react-icons/go'
 
 import { getDeltaByDay } from '../../../selectors'
 import { HeatMapContainer } from './heatmap'
@@ -18,8 +19,8 @@ export const TrendsCard = ({ project }) => {
   return (
     <Card style={{ marginTop: '2rem' }}>
       <Card.Header>
-        <span className="octicon octicon-graph" />
-        <span> TRENDS</span>
+        <GoGraph className="icon" size={20} />
+        TRENDS
       </Card.Header>
       <Card.Body>
         {showMonthlyChart && (

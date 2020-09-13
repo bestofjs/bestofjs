@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
+import { GoMarkGithub, GoRss } from 'react-icons/go'
 
 import { useSelector } from 'containers/project-data-container'
 import { fromNow } from 'helpers/from-now'
@@ -15,23 +16,25 @@ export const Footer = () => {
         <section>
           <div className="grid">
             <div>
-              <p>Data updated from GitHub everyday</p>
-              {lastUpdate && <p>Last update: {fromNow(lastUpdate)}</p>}
+              <FooterCell>Data updated from GitHub everyday</FooterCell>
+              {lastUpdate && (
+                <FooterCell>Last update: {fromNow(lastUpdate)}</FooterCell>
+              )}
             </div>
             <div>
-              <p>
+              <FooterCell>
                 <a href={repo}>
-                  <span className="octicon octicon-mark-github" />{' '}
-                  <span>GitHub</span>
-                </a>{' '}
-                (v{version})
-              </p>
-              <p>
-                <a href="https://weekly.bestofjs.org/rss/trends.xml">
-                  <span className="octicon octicon-rss" />{' '}
-                  <span>Weekly feed</span>
+                  <GoMarkGithub className="icon" size={20} />
+                  <div>GitHub</div>
                 </a>
-              </p>
+                <div>v{version}</div>
+              </FooterCell>{' '}
+              <FooterCell>
+                <a href="https://weekly.bestofjs.org/rss/trends.xml">
+                  <GoRss className="icon" size={20} />
+                  Weekly feed
+                </a>
+              </FooterCell>
             </div>
           </div>
         </section>
@@ -60,9 +63,6 @@ const StyledFooter = styled.footer`
     padding-top: 2rem;
     text-align: center;
   }
-  p:not(:last-child) {
-    margin-bottom: 1rem;
-  }
   .grid {
     padding-top: 2rem;
     display: flex;
@@ -85,5 +85,20 @@ const Partner = styled.p`
   justify-content: center;
   span {
     margin-right: 4px;
+  }
+`
+
+const FooterCell = styled.div`
+  &:not(:last-child) {
+    margin-bottom: 1rem;
+  }
+  display: flex;
+  align-items: center;
+  a {
+    display: flex;
+    margin-right: 0.25rem;
+  }
+  .icon {
+    margin-right: 0.25rem;
   }
 `

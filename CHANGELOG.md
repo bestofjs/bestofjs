@@ -1,5 +1,9 @@
 # Change log
 
+## 0.26.0
+
+- Use `react-icons` package for all icons, instead of Octicons CDN link
+
 ## 0.25.0
 
 - Add Timeline page

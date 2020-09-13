@@ -6,11 +6,7 @@ export const Section = props => <section {...props} />
 Section.Header = ({ children, icon }) => {
   return (
     <Row>
-      {icon && (
-        <IconCell>
-          <span className={`mega-octicon octicon-${icon} icon-color`} />
-        </IconCell>
-      )}
+      {icon && <IconCell>{icon}</IconCell>}
       <MainCell>{children}</MainCell>
     </Row>
   )
@@ -34,6 +30,7 @@ const Row = styled.div`
 
 const IconCell = styled.div`
   padding-right: 0.5rem;
+  color: var(--iconColor);
 `
 
 const MainCell = styled.div`

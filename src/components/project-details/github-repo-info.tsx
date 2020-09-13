@@ -1,5 +1,8 @@
 import React from 'react'
 import numeral from 'numeral'
+import styled from 'styled-components'
+import { GoMarkGithub, GoGitCommit } from 'react-icons/go'
+import { MdGroup } from 'react-icons/md'
 
 import { fromNow } from 'helpers/from-now'
 import { Card, ExternalLink } from 'components/core'
@@ -22,11 +25,9 @@ export const GitHubRepoInfo = ({
   return (
     <Card>
       <Card.Header>
-        <span className="octicon octicon-mark-github" />
-        <span>
-          {' '}
-          GITHUB REPOSITORY <StarTotal value={stars} />
-        </span>
+        <GoMarkGithub size={20} className="icon" />
+        <span style={{ marginRight: '0.5rem' }}>GITHUB REPOSITORY</span>
+        <StarTotal value={stars} />
       </Card.Header>
       <Card.Body>
         <Card.Section>
@@ -43,15 +44,15 @@ export const GitHubRepoInfo = ({
               )}
             </div>
             <div>
-              <p>
-                <span className="octicon octicon-organization" />{' '}
+              <Stats>
+                <MdGroup size={20} className="icon" />
                 {formatNumber(contributor_count)} contributors
-              </p>
+              </Stats>
               {commit_count && (
-                <p>
-                  <span className="octicon octicon-history" />
-                  {` ${formatNumber(commit_count)} commits`}
-                </p>
+                <Stats>
+                  <GoGitCommit size={20} className="icon" />
+                  {formatNumber(commit_count)} commits
+                </Stats>
               )}
             </div>
           </div>
@@ -60,3 +61,11 @@ export const GitHubRepoInfo = ({
     </Card>
   )
 }
+
+const Stats = styled.p`
+  display: flex;
+  align-items: center;
+  .icon {
+    margin-right: 0.5rem;
+  }
+`

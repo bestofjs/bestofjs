@@ -1,10 +1,10 @@
 import React from 'react'
 import { useHistory } from 'react-router-dom'
 import styled from 'styled-components'
+import { GoBookmark, GoSignOut } from 'react-icons/go'
 
 import { AuthContainer } from 'containers/auth-container'
 import { Popover, Menu, DropdownToggleButton } from '../core'
-import { BookmarkIcon, SignOutIcon } from '../core/icons'
 
 export const UserDropdownMenu = () => {
   const history = useHistory()
@@ -22,7 +22,7 @@ export const UserDropdownMenu = () => {
               history.push('/bookmarks')
               close()
             },
-            icon: <BookmarkIcon />
+            icon: <GoBookmark />
           },
           {
             label: 'Sign out',
@@ -30,7 +30,7 @@ export const UserDropdownMenu = () => {
               logout()
               close()
             },
-            icon: <SignOutIcon />
+            icon: <GoSignOut />
           }
         ]
         return <Menu items={items} />

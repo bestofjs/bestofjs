@@ -2,6 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import numeral from 'numeral'
 import { Link } from 'react-router-dom'
+import { GoTag, GoHeart, GoPlus } from 'react-icons/go'
 
 import { useSelector } from 'containers/project-data-container'
 import { StaticContentContainer } from 'containers/static-content-container'
@@ -46,7 +47,7 @@ export const Home = props => {
           {!pending && (
             <RightSideBar>
               <RandomFeaturedProject />
-              <Section.Header icon="tag">
+              <Section.Header icon={<GoTag fontSize={32} />}>
                 <Section.Title>Popular Tags</Section.Title>
               </Section.Header>
               <CompactTagList
@@ -72,7 +73,7 @@ export const Home = props => {
 const Tags = ({ popularTags, isPending }) => {
   return (
     <SectionMobileOnly>
-      <Section.Header icon="tag">
+      <Section.Header icon={<GoTag fontSize={32} />}>
         <Section.Title>Popular tags</Section.Title>
       </Section.Header>
       {!isPending ? <TagLabelGroup tags={popularTags} /> : <>Loading...</>}
@@ -108,7 +109,7 @@ const StarOnGitHub = () => {
     <Section>
       <ResponsiveRow>
         <div style={{ flexGrow: 1 }}>
-          <Section.Header icon="heart">
+          <Section.Header icon={<GoHeart fontSize={32} />}>
             <Section.Title>Do you find {projectName} useful?</Section.Title>
           </Section.Header>
           <p>
@@ -156,7 +157,7 @@ const formatNumber = number => numeral(number).format('')
 const MoreProjects = () => {
   return (
     <Section>
-      <Section.Header icon="plus">
+      <Section.Header icon={<GoPlus fontSize={32} />}>
         <Section.Title>Do you want more projects?</Section.Title>
       </Section.Header>
       <p>

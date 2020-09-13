@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
+import { GoFlame, GoGift } from 'react-icons/go'
 
 import { useSelector } from 'containers/project-data-container'
 import { Section, Spinner, DropdownMenu } from 'components/core'
@@ -39,7 +40,7 @@ export const HotProjects = ({ hotFilter, pending }) => {
     <>
       <Row>
         <MainCol>
-          <Section.Header icon="flame">
+          <Section.Header icon={<GoFlame fontSize={32} />}>
             <Section.Title>Hot Projects</Section.Title>
             <Section.SubTitle>
               by number of stars added <b>{ranges[sortOptionId]}</b>
@@ -105,7 +106,7 @@ const HotProjectsPicker = ({ onChange, value }) => {
 export const NewestProjects = ({ newestProjects, hotFilter }) => {
   return (
     <>
-      <Section.Header icon="gift">
+      <Section.Header icon={<GoGift fontSize={32} />}>
         <Section.Title>Recently Added Projects</Section.Title>
         <Section.SubTitle>
           Latest additions to <i>Best of JavaScript</i>

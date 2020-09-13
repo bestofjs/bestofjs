@@ -35,6 +35,11 @@ Card.Header = styled.div`
   .big {
     font-size: 1.5rem;
   }
+  display: flex;
+  align-items: center;
+  .icon {
+    margin-right: 0.5rem;
+  }
 `
 
 Card.Body = styled.div``

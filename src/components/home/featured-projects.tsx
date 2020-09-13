@@ -2,6 +2,7 @@ import React, { useState, useRef } from 'react'
 import styled from 'styled-components'
 import { Link } from 'react-router-dom'
 import { Animate } from 'react-simple-animate'
+import { GoStar } from 'react-icons/go'
 
 import { shuffle } from 'helpers/shuffle'
 import { useUpdateEffect } from 'helpers/lifecycle-hooks'
@@ -51,7 +52,7 @@ export const Slider = ({
 
   return (
     <Section>
-      <Section.Header icon="star">
+      <Section.Header icon={<GoStar fontSize={32} />}>
         <Section.Title>Featured Projects</Section.Title>
         <Section.SubTitle>
           Random order <i>{isPaused ? '(Paused)' : '(Running...)'}</i>

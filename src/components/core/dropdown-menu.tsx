@@ -1,6 +1,6 @@
 // @ts-nocheck TODO fix this file!
 import React from 'react'
-import { ChevronDownIcon } from '../core/icons'
+import { GoChevronDown } from 'react-icons/go'
 
 import { Button } from './button'
 
@@ -57,7 +57,7 @@ export const DropdownToggleButton = ({ onClick, children, ...props }) => {
   return (
     <Button {...props} onClick={onClick}>
       {children}
-      <ChevronDownIcon
+      <GoChevronDown
         size={16}
         style={{ marginLeft: children ? '0.5rem' : undefined }}
       />

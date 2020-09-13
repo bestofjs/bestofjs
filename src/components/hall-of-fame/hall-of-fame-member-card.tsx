@@ -1,6 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import numeral from 'numeral'
+import { GoGlobe, GoPackage } from 'react-icons/go'
 
 import formatUrl from 'helpers/url'
 import { ExternalLink } from 'components/core/typography'
@@ -49,7 +50,7 @@ export const HeroCard = ({ hero, showDetails }) => {
           aria-label={`Open ${hero.username}'s website/blog`}
           url={hero.blog}
         >
-          <span className="mega-octicon octicon-globe icon" />
+          <GoGlobe size={24} className="icon" />
           <span>{formatUrl(hero.blog)}</span>
         </ExternalLink>
       )}
@@ -59,7 +60,7 @@ export const HeroCard = ({ hero, showDetails }) => {
           aria-label={`Open ${hero.username}'s profile on npm`}
           url={`https://www.npmjs.com/~${hero.npm || hero.username}`}
         >
-          <span className="mega-octicon octicon-package icon" />
+          <GoPackage size={24} className="icon" />
           <span>{hero.modules} modules on npm</span>
         </ExternalLink>
       )}
