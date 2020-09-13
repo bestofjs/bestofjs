@@ -146,7 +146,7 @@ const StarOnGitHubButton = () => {
       >
         {' '}
         {formatNumber(stars)}
-        <StarIcon size={16} />
+        <StarIcon size={20} />
       </div>
     </Button>
   )

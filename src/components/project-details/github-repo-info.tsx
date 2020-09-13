@@ -27,7 +27,7 @@ export const GitHubRepoInfo = ({
       <Card.Header>
         <GoMarkGithub size={20} className="icon" />
         <span style={{ marginRight: '0.5rem' }}>GITHUB REPOSITORY</span>
-        <StarTotal value={stars} />
+        <StarTotal value={stars} size={18} />
       </Card.Header>
       <Card.Body>
         <Card.Section>

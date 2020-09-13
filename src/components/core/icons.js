@@ -1,7 +1,8 @@
 import React from 'react'
-import { GoStar, GoTag } from 'react-icons/go'
+import { GoTag } from 'react-icons/go'
+import { MdStarBorder } from 'react-icons/md'
 
-export const StarIcon = props => <GoStar {...props} />
+export const StarIcon = props => <MdStarBorder {...props} />
 
 export const TagIcon = props => <GoTag {...props} />
 

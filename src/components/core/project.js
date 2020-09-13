@@ -27,7 +27,7 @@ const StarDeltaContainer = styled.div`
 export const StarDelta = ({ average, ...props }) =>
   average ? <StarDeltaAverage {...props} /> : <StarDeltaNormal {...props} />
 
-const StarDeltaNormal = ({ value }) => {
+const StarDeltaNormal = ({ value, ...props }) => {
   const sign = getSign(value)
   return (
     <StarDeltaContainer>
@@ -37,7 +37,7 @@ const StarDeltaNormal = ({ value }) => {
         <>
           <span style={{ marginRight: 2 }}>{sign}</span>
           <span>{Math.abs(value)}</span>
-          <StarIcon />
+          <StarIcon {...props} />
         </>
       )}
     </StarDeltaContainer>
@@ -61,18 +61,10 @@ export const StarDeltaAverage = ({ value }) => {
       <StarDeltaContainer>
         <span style={{ marginRight: 2 }}>{sign}</span>
         <span>{integerPart}</span>
-        <span className="text-smallX">.{decimalPart}</span>
-      </StarDeltaContainer>
-      <div
-        style={{
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center'
-        }}
-      >
+        <span className="text-small">.{decimalPart}</span>
         <StarIcon />
-        <div className="text-small"> by day</div>
-      </div>
+        <span> /day</span>
+      </StarDeltaContainer>
     </StarDeltaAverageContainer>
   )
 }
@@ -81,9 +73,7 @@ export const StarTotal = ({ value, size = 14 }) => {
   const digits = value > 1000 && value < 10000 ? '0.0' : '0'
   return (
     <Span>
-      <span style={{ fontSize: size }}>
-        {numeral(value).format(digits + ' a')}
-      </span>
+      <span>{numeral(value).format(digits + ' a')}</span>
       <StarIcon size={size} />
     </Span>
   )

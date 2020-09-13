@@ -81,7 +81,7 @@ const TrendSummary = ({ project }) => {
     const value = trends.daily
     if (value === 0) return <div>No star added on GitHub yesterday</div>
     return value > 0 ? (
-      <div>
+      <div style={{ display: 'flex', alignItems: 'center' }}>
         {value}
         <StarIcon /> added yesterday
       </div>

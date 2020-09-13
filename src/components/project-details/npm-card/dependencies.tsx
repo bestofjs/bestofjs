@@ -33,11 +33,10 @@ const DependencyList = ({ dependencies }) => (
     {({ on, getTogglerProps }) => (
       <DependenciesContainer>
         <ExpandableSection on={on} getTogglerProps={getTogglerProps}>
-          {dependencies.length}
-          {' dependencies'}
+          {`${dependencies.length} dependencies`}
+          {!on && <DependencyListPreview dependencies={dependencies} />}
         </ExpandableSection>
-        {!on && <DependencyListPreview dependencies={dependencies} />}
-        <div>{on && <DependencyFullList packageNames={dependencies} />}</div>
+        {on && <DependencyFullList packageNames={dependencies} />}
       </DependenciesContainer>
     )}
   </Toggle>

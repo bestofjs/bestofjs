@@ -21,8 +21,8 @@ export const PackageSize = ({ project, ...rest }) => {
         <div {...rest}>
           <ExpandableSection on={on} getTogglerProps={getTogglerProps}>
             Package Size data
+            {!on && <PackageSizePreview packageSize={packageSize} />}
           </ExpandableSection>
-          {!on && <PackageSizePreview packageSize={packageSize} />}
           {on && (
             <BundleSizeDetails project={project} packageSize={packageSize} />
           )}

@@ -52,7 +52,7 @@ body,
   color: var(--textMutedColor);
 }
 .text-small {
-  font-size: 0.75rem;
+  font-size: 13px;
 }
 .icon-color {
   color: var(--iconColor);

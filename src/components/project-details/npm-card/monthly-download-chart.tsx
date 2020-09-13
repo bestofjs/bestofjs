@@ -15,12 +15,12 @@ export const MonthlyDownloadChart = ({ project, ...rest }) => {
         <div {...rest}>
           <ExpandableSection on={on} getTogglerProps={getTogglerProps}>
             Monthly downloads on NPM
+            {!on && project.downloads !== undefined && (
+              <Preview>
+                Last 30 days: <DownloadCount value={project.downloads} />
+              </Preview>
+            )}
           </ExpandableSection>
-          {!on && project.downloads !== undefined && (
-            <Preview>
-              Last 30 days: <DownloadCount value={project.downloads} />
-            </Preview>
-          )}
           {on && <FetchDownloadCharts project={project} />}
         </div>
       )}

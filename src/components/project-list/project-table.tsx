@@ -226,13 +226,14 @@ const ProjectTableRow = ({
       )}
 
       <StarNumberCell>
-        {showStars && <StarTotal value={project.stars} size={16} />}
+        {showStars && <StarTotal value={project.stars} size={20} />}
 
         {showDelta && (
           <div className="delta">
             <StarDelta
               value={getDeltaByDay(sortOption.id)(project)}
               average={sortOption.id !== 'daily'}
+              size={20}
             />
           </div>
         )}
