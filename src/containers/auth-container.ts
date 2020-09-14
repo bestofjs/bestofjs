@@ -64,7 +64,10 @@ export function useAuth() {
   }
   const isPending = !data
   const profile = data?.profile
-  const { bookmarks, addBookmark, removeBookmark } = useBookmarks(profile)
+  const { bookmarks, addBookmark, removeBookmark } = useBookmarks(
+    profile,
+    data?.token
+  )
 
   return {
     token: data?.token,
@@ -82,7 +85,7 @@ export function useAuth() {
 export const AuthContainer = createContainer(useAuth)
 export const AuthProvider = AuthContainer.Provider
 
-function useBookmarks(profile) {
+function useBookmarks(profile, token) {
   const [bookmarks, setBookmarks] = useState<BestOfJS.Bookmark[]>([])
 
   useEffect(() => {
@@ -91,7 +94,7 @@ function useBookmarks(profile) {
   }, [profile])
 
   const toggleUpdateMyProjects = add => project => {
-    const { user_id, token } = profile
+    const { user_id } = profile
     const updatedBookmarks = add
       ? addToMyProjectsIfUnique(bookmarks, project.slug)
       : bookmarks.filter(item => item.slug !== project.slug)
