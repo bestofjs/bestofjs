@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react'
+import React from 'react'
 import { GoPackage } from 'react-icons/go'
 
 import { Card, ExternalLink, Spinner } from '../../core'
@@ -28,21 +28,17 @@ export const NpmCard = (props: Props) => {
 }
 
 const CardBodyContent = ({ project, isLoading, error }) => {
-  if (isLoading) return <Spinner />
   if (error)
     return (
       <Card.Section>
-        <div>
-          Unable to find package details:
-          <br />
-          {error.message}
-        </div>
+        Unable to load package details {error.message}
       </Card.Section>
     )
+  if (isLoading) return <Spinner />
 
   const { packageName, npm } = project
   return (
-    <Fragment>
+    <>
       <Card.Section>
         <p>
           <ExternalLink url={`https://www.npmjs.com/package/${packageName}`}>
@@ -62,6 +58,6 @@ const CardBodyContent = ({ project, isLoading, error }) => {
       <Card.Section>
         <PackageSize project={project} />
       </Card.Section>
-    </Fragment>
+    </>
   )
 }

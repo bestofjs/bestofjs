@@ -11,7 +11,9 @@ const baseSetup = {
 const setup = {
   development: {
     ...baseSetup
-    // GET_PROJECTS: 'http://localhost:5000'
+    // GET_PROJECTS: 'http://localhost:5000',
+    // GET_README: 'http://localhost:5000',
+    // GET_PACKAGE_DATA: 'http://localhost:5000'
   },
   production: {
     ...baseSetup
