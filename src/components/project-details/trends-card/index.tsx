@@ -45,7 +45,7 @@ const MonthlyTrendsItem = ({ item, trends }) => {
   return (
     <div>
       <div>{label}</div>
-      <StarDelta value={value} inline average={category !== 'daily'} />
+      <StarDelta value={value} average={category !== 'daily'} />
     </div>
   )
 }

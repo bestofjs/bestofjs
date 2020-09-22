@@ -5,21 +5,13 @@ const baseSetup = {
   GET_README: 'https://bestofjs-serverless.now.sh',
   GET_PROJECT_DETAILS: 'https://bestofjs-serverless.now.sh',
   GET_PACKAGE_DATA: 'https://bestofjs-serverless.now.sh',
-  ISSUES_REPO: 'michaelrambeau/bestofjs',
-  FETCH_LICENSE: 'https://fetch-license.now.sh'
+  ISSUES_REPO: 'michaelrambeau/bestofjs'
 }
 
 const setup = {
   development: {
-    ...baseSetup,
-    // GET_README: 'http://localhost:3000',
-    GET_README: 'https://bestofjs-serverless-michaelrambeau.bestofjs.now.sh',
-    // GET_PROJECT_DETAILS: 'http://localhost:3000',
-    GET_PROJECT_DETAILS:
-      'https://bestofjs-serverless-michaelrambeau.bestofjs.now.sh',
-    GET_PACKAGE_DATA:
-      'https://bestofjs-serverless-michaelrambeau.bestofjs.now.sh',
-    ISSUES_REPO: 'michaelrambeau/bestofjs-sandbox'
+    ...baseSetup
+    // GET_PROJECTS: 'http://localhost:5000'
   },
   production: {
     ...baseSetup

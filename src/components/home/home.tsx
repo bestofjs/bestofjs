@@ -20,18 +20,7 @@ import { Row, MainColumn, RightSideBar } from './layout'
 
 export const Home = props => {
   log('Render the <Home> component')
-  const { pending, error, popularTags } = props
-
-  if (error) {
-    return (
-      <MainContent>
-        <p>
-          Sorry, we are unable to fetch <i>Best of JavaScript</i> data.
-        </p>
-        <p>Please reach us on GitHub as soon as possible!</p>
-      </MainContent>
-    )
-  }
+  const { pending, popularTags } = props
 
   return (
     <MainContent>

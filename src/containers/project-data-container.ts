@@ -8,6 +8,7 @@ import { getProjectId } from 'components/core/project'
 import { AuthContainer } from './auth-container'
 
 export type State = {
+  error?: Error
   isPending: boolean
   entities: {
     projects: Record<string, BestOfJS.Project>
@@ -16,6 +17,14 @@ export type State = {
   auth: {
     myProjects: BestOfJS.Bookmark[]
   }
+  meta: { lastUpdate: any }
+}
+
+const initialState: State = {
+  isPending: false,
+  entities: { projects: {}, tags: {} },
+  auth: { myProjects: [] },
+  meta: { lastUpdate: undefined }
 }
 
 function useProjectList(): State {
@@ -32,24 +41,22 @@ export function useSelector(selector) {
   return selector(state)
 }
 
-function fetchProjectsFromAPI() {
+async function fetchProjectsFromAPI() {
   const url = `${api('GET_PROJECTS')}/projects.json`
-  return fetchJSON(url)
+  return await fetchJSON(url)
 }
 
-function useLoadProjects() {
-  const { data } = useSWR('/api/all-projects', fetchProjectsFromAPI, {
+function useLoadProjects(): Omit<State, 'auth'> {
+  const { data, error } = useSWR('/api/all-projects', fetchProjectsFromAPI, {
     refreshInterval: 1000 * 60 * 30, // every 30 minute
     compare: (a, b) => {
       return a?.date === b?.date // only trigger a re-render if the timestamp has changed
     }
   })
-  if (!data)
-    return {
-      isPending: true,
-      meta: {},
-      entities: { projects: {}, tags: {} }
-    }
+  if (error) {
+    return { ...initialState, error }
+  }
+  if (!data) return { ...initialState, isPending: true }
   return {
     isPending: false,
     entities: {
