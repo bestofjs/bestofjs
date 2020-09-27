@@ -38,6 +38,7 @@
     "qs": "^6.9.0",
     "react": "16.13.1",
     "react-calendar-heatmap": "1.4.1",
+    "react-content-loader": "^5.1.2",
     "react-dom": "16.13.1",
     "react-icons": "^3.10.0",
     "react-router": "^5.1.2",

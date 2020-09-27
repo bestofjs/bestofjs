@@ -153,7 +153,7 @@ const ProjectTableRow = ({
       <MainCell>
         <ProjectName>
           <MainLink to={path}>
-            <Avatar project={project} size={40} />
+            <ProjectIconSmallScreen project={project} size={40} />
             {project.name}
           </MainLink>
           {
@@ -309,10 +309,11 @@ const MainLink = styled(Link)`
   img {
     margin-right: 1rem;
   }
+`
+
+const ProjectIconSmallScreen = styled(Avatar)`
   @media (min-width: ${breakpoint}px) {
-    img {
-      display: none;
-    }
+    display: none;
   }
 `
 
