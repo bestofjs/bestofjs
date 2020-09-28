@@ -39,7 +39,7 @@ export const Footer = () => {
           </div>
         </section>
         <section className="footer-bottom">
-          <p>
+          <p style={{ marginBottom: '1rem' }}>
             <i>{projectName}</i> is a project by{' '}
             <a href="https://michaelrambeau.com">Michael Rambeau</a>, made in
             Osaka, Japan.
