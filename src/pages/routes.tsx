@@ -16,7 +16,6 @@ const AsyncAboutPage = lazy(() => import('pages/about-page'))
 const TimelinePage = lazy(() => import('pages/timeline-page'))
 
 const Routes = props => {
-  return <ErrorFallback />
   return (
     <ErrorBoundary fallback={<ErrorFallback />}>
       <Suspense fallback={<Spinner />}>
