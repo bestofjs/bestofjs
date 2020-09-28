@@ -1,12 +1,17 @@
 # Change log
 
+## 0.26.1 - 2020-09-28
+
+- Use `react-content-loader` for avatar placeholder
+- Improve error handling when fetching data
+
 ## 0.26.0
 
 - Use `react-icons` package for all icons, instead of Octicons CDN link
 
-## 0.25.0
+## 0.25.0 - 2020-08-13
 
-- Add Timeline page
+- Add Timeline page #94
 
 ## 0.24.1
 
