@@ -1,7 +1,7 @@
 import React from 'react'
 import { Router } from 'react-router-dom'
 import { createMemoryHistory } from 'history'
-import { render, Simulate, wait, prettyDOM } from 'react-testing-library'
+import { render } from 'react-testing-library'
 
 import { App } from '../app'
 import { ProjectDataProvider } from 'containers/project-data-container'

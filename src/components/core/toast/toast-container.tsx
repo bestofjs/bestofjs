@@ -48,21 +48,35 @@ export const ToastContainer = ({ children }) => {
 }
 
 const ToastStackPortal = () => {
+  const { stack } = ToastStackContainer.useContainer()
+
   const toastRootElementId = 'toast-main-container'
 
-  const renderStack = () => {
-    const { stack } = ToastStackContainer.useContainer()
-    return stack.map(({ id, close, options }) => {
-      return (
-        <div key={id} className={`toast-item toast-item-animation-bottom`}>
-          {options.render(close)}
-        </div>
-      )
-    })
-  }
-
   return createPortal(
-    <div className="toast-container top-right">{renderStack()}</div>,
+    <div className="toast-container top-right">
+      {stack.map(({ id, close, options }) => {
+        return (
+          <div key={id} className={`toast-item toast-item-animation-bottom`}>
+            {options.render(close)}
+          </div>
+        )
+      })}
+    </div>,
     document.getElementById(toastRootElementId)!
   )
 }
+
+// const ModalStack = () => {
+//   const { stack } = ToastStackContainer.useContainer()
+//   return (
+//     <>
+//       {stack.map(({ id, close, options }) => {
+//         return (
+//           <div key={id} className={`toast-item toast-item-animation-bottom`}>
+//             {options.render(close)}
+//           </div>
+//         )
+//       })}
+//     </>
+//   )
+// }

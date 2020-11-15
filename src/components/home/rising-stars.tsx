@@ -22,7 +22,7 @@ export const RisingStars = ({ date }) => (
       <p>What was the most popular JavaScript project on GitHub in 2017?</p>
       <p>
         We have just published the{' '}
-        <a href={urls.site} target="_blank">
+        <a href={urls.site} rel="noreferrer">
           2017 JavaScript Rising Stars
         </a>
         {'! '}

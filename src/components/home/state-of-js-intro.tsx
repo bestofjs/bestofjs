@@ -23,7 +23,7 @@ export const Intro = ({ date }) => (
       </p>
       <p>
         More than 23,000 developers replied to{' '}
-        <a href={urls.site} target="_blank">
+        <a href={urls.site} target="_blank" rel="noreferrer">
           The State of JavaScript
         </a>{' '}
         survey.

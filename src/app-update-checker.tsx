@@ -10,8 +10,6 @@ type Meta = {
   version: string
 }
 
-type Callback = () => Promise<boolean> // called when the user chooses "Update" (true) or "Ignore" (false)
-
 type Options = {
   url?: string // URL of the JSON file to ping to get app meta data
   interval?: number // the number of milliseconds between each request

@@ -1,13 +1,7 @@
 import React from 'react'
 
 type Position = { x: number; y: number }
-type FnProps = {
-  isOpen: boolean
-  open: (event: any, context: any) => void
-  toggle: (event: any, context: any) => void
-  close: (event: any, context: any) => void
-}
-type OpenFn = (event: any, context: any) => void
+
 type Props = {
   content?: React.ReactNode | ((FnProps) => React.ReactNode)
   alignment: 'left' | 'right'

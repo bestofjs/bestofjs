@@ -21,7 +21,7 @@ export const GitHubRepoInfo = ({
     contributor_count,
     commit_count
   }
-}) => {
+}: Props) => {
   return (
     <Card>
       <Card.Header>
