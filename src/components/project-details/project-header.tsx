@@ -20,7 +20,9 @@ export const ProjectHeader = ({ project }: Props) => {
         </div>
         <div style={{ flex: 1 }}>
           <h1>{project.name}</h1>
-          <div style={{ margin: '0.5rem 0' }}>{project.description}</div>
+          <div style={{ margin: '0.5rem 0 0.75rem' }}>
+            {project.description}
+          </div>
           <div>
             <TagLabelGroup tags={project.tags} />
           </div>
