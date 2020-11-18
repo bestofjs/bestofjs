@@ -1,5 +1,10 @@
 # Change log
 
+## 0.27.0 - 2020-11-18
+
+- Upgrade to Create React App v4.0
+- Add quick links section to Project details page
+
 ## 0.26.1 - 2020-09-28
 
 - Use `react-content-loader` for avatar placeholder
