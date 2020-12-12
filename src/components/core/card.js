@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled from '@emotion/styled'
 
 export const Card = styled.div`
   margin-bottom: 2rem;
@@ -24,7 +24,7 @@ export const Card = styled.div`
   }
 `
 
-Card.Header = styled.div`
+export const CardHeader = styled.div`
   padding: 1rem;
   font-size: 1rem;
   border-bottom: 1px solid var(--boxBorderColor);
@@ -42,16 +42,16 @@ Card.Header = styled.div`
   }
 `
 
-Card.Body = styled.div``
+export const CardBody = styled.div``
 
-Card.Section = styled.div`
+export const CardSection = styled.div`
   padding: 1em;
   &:not(:first-child) {
     border-top: 1px dashed var(--boxBorderColor);
   }
 `
 
-Card.Footer = styled.div`
+export const CardFooter = styled.div`
   padding: 1rem;
   text-align: center;
   border-top: 1px solid var(--boxBorderColor);

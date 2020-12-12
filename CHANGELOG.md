@@ -1,5 +1,9 @@
 # Change log
 
+## 0.28.0 - 2020-12-XX
+
+- Try Emotion instead of Styled Components
+
 ## 0.27.0 - 2020-11-18
 
 - Upgrade to Create React App v4.0

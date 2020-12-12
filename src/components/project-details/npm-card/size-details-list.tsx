@@ -1,5 +1,5 @@
 import React from 'react'
-import styled from 'styled-components'
+import styled from '@emotion/styled'
 
 const Div = styled.div`
   margin: 1rem 0px 0px;

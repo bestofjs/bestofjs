@@ -1,5 +1,5 @@
 import React from 'react'
-import styled from 'styled-components'
+import styled from '@emotion/styled'
 import { useHistory, useLocation } from 'react-router-dom'
 
 import { ProjectTable } from 'components/project-list/project-table'

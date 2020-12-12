@@ -7,7 +7,7 @@ import {
 import './vertical-timeline.css'
 import './vertical-timeline-element.css'
 import tinytime from 'tinytime'
-import styled from 'styled-components'
+import styled from '@emotion/styled'
 
 import featuredProjects from './featured-projects.json'
 

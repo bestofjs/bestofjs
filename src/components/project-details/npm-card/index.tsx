@@ -1,7 +1,14 @@
 import React from 'react'
 import { GoPackage } from 'react-icons/go'
 
-import { Card, ExternalLink, Spinner } from '../../core'
+import {
+  Card,
+  CardBody,
+  CardHeader,
+  CardSection,
+  ExternalLink,
+  Spinner
+} from '../../core'
 
 import { Dependencies } from './dependencies'
 import { BundleSize } from './bundle-size'
@@ -16,13 +23,13 @@ type Props = {
 export const NpmCard = (props: Props) => {
   return (
     <Card style={{ marginTop: '2rem' }}>
-      <Card.Header>
+      <CardHeader>
         <GoPackage className="icon" size={24} />
         PACKAGE
-      </Card.Header>
-      <Card.Body>
+      </CardHeader>
+      <CardBody>
         <CardBodyContent {...props} />
-      </Card.Body>
+      </CardBody>
     </Card>
   )
 }
@@ -30,34 +37,32 @@ export const NpmCard = (props: Props) => {
 const CardBodyContent = ({ project, isLoading, error }) => {
   if (error)
     return (
-      <Card.Section>
-        Unable to load package details {error.message}
-      </Card.Section>
+      <CardSection>Unable to load package details {error.message}</CardSection>
     )
   if (isLoading) return <Spinner />
 
   const { packageName, npm } = project
   return (
     <>
-      <Card.Section>
+      <CardSection>
         <p>
           <ExternalLink url={`https://www.npmjs.com/package/${packageName}`}>
             {packageName} {npm.version}
           </ExternalLink>
         </p>
-      </Card.Section>
-      <Card.Section>
+      </CardSection>
+      <CardSection>
         <MonthlyDownloadChart project={project} />
-      </Card.Section>
-      <Card.Section>
+      </CardSection>
+      <CardSection>
         <Dependencies project={project} />
-      </Card.Section>
-      <Card.Section>
+      </CardSection>
+      <CardSection>
         <BundleSize project={project} />
-      </Card.Section>
-      <Card.Section>
+      </CardSection>
+      <CardSection>
         <PackageSize project={project} />
-      </Card.Section>
+      </CardSection>
     </>
   )
 }

@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import styled from 'styled-components'
+import styled from '@emotion/styled'
 import { GoMarkGithub } from 'react-icons/go'
 
 import { AuthContainer } from 'containers/auth-container'

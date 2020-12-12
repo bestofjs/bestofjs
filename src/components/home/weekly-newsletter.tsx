@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import tinytime from 'tinytime'
-import styled from 'styled-components'
+import styled from '@emotion/styled'
 import { GoMail } from 'react-icons/go'
 
 import { useSelector } from 'containers/project-data-container'

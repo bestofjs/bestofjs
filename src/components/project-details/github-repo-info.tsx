@@ -1,11 +1,17 @@
 import React from 'react'
 import numeral from 'numeral'
-import styled from 'styled-components'
+import styled from '@emotion/styled'
 import { GoMarkGithub, GoGitCommit } from 'react-icons/go'
 import { MdGroup } from 'react-icons/md'
 
 import { fromNow } from 'helpers/from-now'
-import { Card, ExternalLink } from 'components/core'
+import {
+  Card,
+  CardHeader,
+  CardBody,
+  CardSection,
+  ExternalLink
+} from 'components/core'
 import { StarTotal } from 'components/core/project'
 
 const formatNumber = number => numeral(number).format('0,0')
@@ -24,13 +30,13 @@ export const GitHubRepoInfo = ({
 }: Props) => {
   return (
     <Card>
-      <Card.Header>
+      <CardHeader>
         <GoMarkGithub size={20} className="icon" />
         <span style={{ marginRight: '0.5rem' }}>GITHUB REPOSITORY</span>
         <StarTotal value={stars} size={18} />
-      </Card.Header>
-      <Card.Body>
-        <Card.Section>
+      </CardHeader>
+      <CardBody>
+        <CardSection>
           <div style={{ display: 'flex' }}>
             <div style={{ flex: '1 1 0%' }}>
               <p>
@@ -56,8 +62,8 @@ export const GitHubRepoInfo = ({
               )}
             </div>
           </div>
-        </Card.Section>
-      </Card.Body>
+        </CardSection>
+      </CardBody>
     </Card>
   )
 }

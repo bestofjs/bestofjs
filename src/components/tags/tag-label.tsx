@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import styled from 'styled-components'
+import styled from '@emotion/styled'
 
 import { Button, Cell, Grid } from 'components/core'
 import { useSearch, updateLocation } from '../search'
@@ -23,6 +23,7 @@ const Tag = styled(Button)`
   border-radius: 12px;
   padding: 4px 8px;
 `
+const TagLink = Tag.withComponent(Link)
 
 export const TagLabel = ({
   tag,
@@ -45,9 +46,9 @@ export const TagLabel = ({
   )
 
   return (
-    <Tag key={tag.id} to={nextLocation} as={Link}>
+    <TagLink key={tag.id} to={nextLocation} as={Link}>
       {isMultiTagLink && <span>+ </span>}
       {tag.name}
-    </Tag>
+    </TagLink>
   )
 }

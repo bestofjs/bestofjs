@@ -2,7 +2,7 @@ import React from 'react'
 
 import Toggle from 'react-toggled'
 import { Link } from 'react-router-dom'
-import styled from 'styled-components'
+import styled from '@emotion/styled'
 
 import { useSelector } from 'containers/project-data-container'
 import { StarTotal } from 'components/core/project'

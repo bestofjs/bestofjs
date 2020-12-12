@@ -1,12 +1,12 @@
 import React from 'react'
-import styled from 'styled-components'
+import styled from '@emotion/styled'
 import { GoGraph } from 'react-icons/go'
 
 import { getDeltaByDay } from '../../../selectors'
 import { HeatMapContainer } from './heatmap'
 import { MonthlyTrends } from './monthly-trends'
 import { StarDelta } from '../../core/project'
-import { Card } from '../../core'
+import { Card, CardBody, CardHeader, CardSection } from '../../core'
 import { StarIcon } from '../../core/icons'
 
 export const TrendsCard = ({ project }) => {
@@ -18,23 +18,23 @@ export const TrendsCard = ({ project }) => {
 
   return (
     <Card style={{ marginTop: '2rem' }}>
-      <Card.Header>
+      <CardHeader>
         <GoGraph className="icon" size={20} />
         TRENDS
-      </Card.Header>
-      <Card.Body>
+      </CardHeader>
+      <CardBody>
         {showMonthlyChart && (
-          <Card.Section>
+          <CardSection>
             <MonthlyTrends deltas={monthlyDeltas} />
-          </Card.Section>
+          </CardSection>
         )}
         {showHeatMap && (
-          <Card.Section>
+          <CardSection>
             <HeatMapContainer deltas={dailyDeltas} />
-          </Card.Section>
+          </CardSection>
         )}
         <TrendSummary project={project} />
-      </Card.Body>
+      </CardBody>
     </Card>
   )
 }
@@ -93,7 +93,7 @@ const TrendSummary = ({ project }) => {
     )
   }
   return (
-    <Card.Section>
+    <CardSection>
       {trends.weekly || trends.weekly === 0 ? (
         <div>
           <p>Stars added on GitHub, per day, on average</p>
@@ -106,6 +106,6 @@ const TrendSummary = ({ project }) => {
       ) : (
         <OnlyYesterday trends={trends} />
       )}
-    </Card.Section>
+    </CardSection>
   )
 }

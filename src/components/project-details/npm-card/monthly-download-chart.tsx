@@ -1,6 +1,6 @@
 import React from 'react'
 import Toggle from 'react-toggled'
-import styled from 'styled-components'
+import styled from '@emotion/styled'
 
 import { ExpandableSection } from './expandable-section'
 import { MonthlyChart } from '../monthly-bar-chart'

@@ -1,5 +1,5 @@
 import React, { CSSProperties } from 'react'
-import styled from 'styled-components'
+import styled from '@emotion/styled'
 import { Link } from 'react-router-dom'
 import numeral from 'numeral'
 import { GoMarkGithub, GoBookmark, GoHome } from 'react-icons/go'
@@ -53,7 +53,7 @@ export const ProjectTable = ({
         {footer && (
           <tfoot>
             <FooterRow>
-              <Cell colSpan="5">{footer}</Cell>
+              <Cell colSpan={5}>{footer}</Cell>
             </FooterRow>
           </tfoot>
         )}
@@ -346,7 +346,11 @@ const InlineIcon = styled.span`
   }
 `
 
-const IconButton = styled(Button)`
+type IconButtonProps = {
+  on?: boolean
+  isHighlighted?: boolean
+}
+const IconButton = styled(Button)<IconButtonProps>`
   border-style: none;
   border-radius: 50%;
   padding: 0;

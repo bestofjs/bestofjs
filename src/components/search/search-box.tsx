@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react'
 import Select, { components } from 'react-select'
 import useDebouncedCallback from 'use-debounce/lib/useDebouncedCallback'
-import styled from 'styled-components'
+import styled from '@emotion/styled'
 
 import { useSelector } from 'containers/project-data-container'
 import { getAllTags } from 'selectors'

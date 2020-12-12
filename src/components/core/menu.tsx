@@ -1,5 +1,6 @@
 import React from 'react'
-import styled, { css } from 'styled-components'
+import styled from '@emotion/styled'
+import { css } from '@emotion/react'
 
 type Props = {
   items: any[]
@@ -64,40 +65,39 @@ export class Menu extends React.Component<Props> {
 
 export const MenuRoot = styled.div``
 
-export const MenuItemStyles = css`
+export const MenuItemStyles = props => css`
   padding: 8px 12px;
   display: flex;
   align-items: center;
   color: inherit;
-  /* font-family: sans-serif; */
-  ${props => {
-    if (props.disabled) {
-      return css`
-        opacity: 0.5;
-      `
-    }
-    if (props.isActive) {
-      return css`
-        background-color: var(--bestofjsOrange);
-        color: white;
-      `
-    }
-    return css`
-      cursor: pointer;
-      &:hover {
-        background-color: #f6fad7;
-      }
-    `
-  }}
 `
 
-const MenuItemLink = styled.a`
-  ${MenuItemStyles}
+const disabledStyles = props => css`
+  opacity: 0.5;
+`
+const activeStyles = props => css`
+  background-color: var(--bestofjsOrange);
+  color: white;
+`
+const normalStyles = props => css`
+  cursor: pointer;
+  &:hover {
+    background-color: #f6fad7;
+  }
 `
 
-const MenuItemAction = styled.div`
+type MenuProps = {
+  active?: boolean
+  disabled?: boolean
+}
+const MenuItemLink = styled.a<MenuProps>`
   ${MenuItemStyles}
+  ${props => props.disabled && disabledStyles}
+  ${props => props.active && activeStyles}
+  ${props => !props.disabled && !props.active && normalStyles}
 `
+
+const MenuItemAction = props => <MenuItemLink {...props} as="div" />
 
 const MenuItemIcon = styled.div`
   width: 16px;
