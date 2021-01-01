@@ -1,5 +1,9 @@
 # Change log
 
+## 0.27.1 - 2021-01-01
+
+- Fix: handle `null` data returned by the API to show the heat-map about the daily trends, when there is no data available
+
 ## 0.27.0 - 2020-11-18
 
 - Upgrade to Create React App v4.0

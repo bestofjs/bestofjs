@@ -70,14 +70,20 @@ export const MonthlyChart = ({ values, showPlusSymbol }) => {
 }
 
 function getLas12Months() {
-  const date = new Date()
+  const date = getLastDayOfPreviousMonth()
   const months = []
-  for (let i = 0; i < 12; i++) {
-    date.setMonth(date.getMonth() - 1)
+  for (let i = 0; i <= 12; i++) {
     months.push({ year: date.getFullYear(), month: date.getMonth() + 1 })
+    date.setMonth(date.getMonth() - 1)
   }
   months.reverse()
   return months
+}
+
+function getLastDayOfPreviousMonth() {
+  const date = new Date()
+  date.setDate(0)
+  return date
 }
 
 function formatDelta(value, { decimals = 0, showPlusSymbol = false }) {
