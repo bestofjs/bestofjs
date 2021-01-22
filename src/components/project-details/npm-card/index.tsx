@@ -8,6 +8,8 @@ import { BundleSize } from './bundle-size'
 import { PackageSize } from './package-size'
 import { MonthlyDownloadChart } from './monthly-download-chart'
 
+const showStats = false // TODO restore when we have data
+
 type Props = {
   project: BestOfJS.ProjectDetails
   isLoading: boolean
@@ -49,15 +51,19 @@ const CardBodyContent = ({ project, isLoading, error }) => {
       <Card.Section>
         <MonthlyDownloadChart project={project} />
       </Card.Section>
-      <Card.Section>
-        <Dependencies project={project} />
-      </Card.Section>
-      <Card.Section>
-        <BundleSize project={project} />
-      </Card.Section>
-      <Card.Section>
-        <PackageSize project={project} />
-      </Card.Section>
+      {showStats && (
+        <>
+          <Card.Section>
+            <Dependencies project={project} />
+          </Card.Section>
+          <Card.Section>
+            <BundleSize project={project} />
+          </Card.Section>
+          <Card.Section>
+            <PackageSize project={project} />
+          </Card.Section>
+        </>
+      )}
     </>
   )
 }
