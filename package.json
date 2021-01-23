@@ -1,6 +1,6 @@
 {
   "name": "bestofjs-webui",
-  "version": "0.27.2",
+  "version": "0.27.3",
   "description": "Best of JS front-end web application",
   "engines": {
     "node": ">=12.16.1"

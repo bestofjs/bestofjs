@@ -55,7 +55,6 @@ const ProjectDetailsPage = props => {
 
 function getProjectWithDetails(project, details) {
   if (!details?.github) return project
-  debugger
   const {
     npm,
     bundle,

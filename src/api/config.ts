@@ -1,7 +1,7 @@
 const baseSetup = {
   GET_PROJECTS:
     readEnvironmentVariable('STATIC_API') ||
-    'https://bestofjs-static-api-guphmxgtr.vercel.app',
+    'https://bestofjs-static-api.vercel.app',
   GET_README: 'https://bestofjs-serverless.now.sh',
   GET_PROJECT_DETAILS: 'https://bestofjs-serverless.now.sh',
   GET_PACKAGE_DATA: 'https://bestofjs-serverless.now.sh',
@@ -11,9 +11,6 @@ const baseSetup = {
 const setup = {
   development: {
     ...baseSetup
-    // GET_PROJECTS: 'http://localhost:5000',
-    // GET_README: 'http://localhost:5000',
-    // GET_PACKAGE_DATA: 'http://localhost:5000'
   },
   production: {
     ...baseSetup

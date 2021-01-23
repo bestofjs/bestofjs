@@ -11,8 +11,9 @@ import { StarIcon } from '../../core/icons'
 
 export const TrendsCard = ({ project }) => {
   const dailyDeltas = project.timeSeries?.daily || []
-  const numberOfDailyDeltas = dailyDeltas.filter(delta => delta !== null)
-  const showHeatMap = numberOfDailyDeltas.length > 1 // show the heatmap only if we at least 2 numbers
+
+  // Heatmap disabled until we have the real numbers restored.
+  const showHeatMap = false
 
   const monthlyDeltas = project.timeSeries && project.timeSeries.monthly
   const showMonthlyChart = monthlyDeltas && monthlyDeltas.length > 1
