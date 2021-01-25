@@ -36,8 +36,6 @@ export const HotProjects = ({ hotFilter, pending }) => {
     })
   )
 
-  const showPeriodPicker = false // Today/This week/This month choice disabled until we get data back!
-
   return (
     <>
       <Row>
@@ -49,14 +47,9 @@ export const HotProjects = ({ hotFilter, pending }) => {
             </Section.SubTitle>
           </Section.Header>
         </MainCol>
-        {showPeriodPicker && (
-          <Col>
-            <HotProjectsPicker
-              value={sortOptionId}
-              onChange={setSortOptionId}
-            />
-          </Col>
-        )}
+        <Col>
+          <HotProjectsPicker value={sortOptionId} onChange={setSortOptionId} />
+        </Col>
       </Row>
       {pending ? (
         <Spinner />

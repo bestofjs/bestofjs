@@ -8,19 +8,18 @@ export const sortOrderOptions = [
     id: 'daily',
     label: 'By stars added yesterday'
   },
-  // The following options are disabled until we get data back!
-  // {
-  //   id: 'weekly',
-  //   label: 'By stars added the last 7 days'
-  // },
-  // {
-  //   id: 'monthly',
-  //   label: 'By stars added the last 30 days'
-  // },
-  // {
-  //   id: 'yearly',
-  //   label: 'By stars added the last 12 months'
-  // },
+  {
+    id: 'weekly',
+    label: 'By stars added the last 7 days'
+  },
+  {
+    id: 'monthly',
+    label: 'By stars added the last 30 days'
+  },
+  {
+    id: 'yearly',
+    label: 'By stars added the last 12 months'
+  },
   { type: 'divider' },
   {
     id: 'monthly-downloads',
