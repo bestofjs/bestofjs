@@ -10,8 +10,7 @@ import { ExternalLink, Section, Button } from 'components/core'
 import { getProjectId } from 'components/core/project'
 import { ChevronLeftIcon, ChevronRightIcon } from 'components/core/icons'
 import { ProjectTable } from 'components/project-list/project-table'
-import { Row, MainColumn, RightSideBar } from './layout'
-import { SubscribeForm } from './subscribe-form'
+import { Row, MainColumn } from './layout'
 
 export const Weekly = () => {
   return (
@@ -28,9 +27,6 @@ export const Weekly = () => {
           to check our weekly newsletter.
           <FetchNewsletterIssue />
         </MainColumn>
-        <RightSideBar>
-          <SubscribeForm />
-        </RightSideBar>
       </Row>
     </Section>
   )
