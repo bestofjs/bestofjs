@@ -1,8 +1,8 @@
 # Change log
 
-## 0.28.0 - 2020-12-XX
+## 0.28.0 - 2020-03-21
 
-- Try Emotion instead of Styled Components
+- Use `Emotion` instead of `Styled Components` to prepare the potential integration of ChakraUI components
 
 ## 0.27.0 - 2020-11-18
 
