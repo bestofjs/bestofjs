@@ -16,7 +16,7 @@ export class HeatMapContainer extends Component {
     const getDate = i => {
       return new Date(new Date().setDate(today.getDate() - i - 1))
     }
-    const values = reverse(deltas).map((delta, i) => ({
+    const values = deltas.map((delta, i) => ({
       date: getDate(i),
       count: delta
     }))
@@ -34,10 +34,4 @@ export class HeatMapContainer extends Component {
       </>
     )
   }
-}
-
-const reverse = array => {
-  const reversed = array.slice()
-  reversed.reverse()
-  return reversed
 }

@@ -10,8 +10,10 @@ import { Card, CardBody, CardHeader, CardSection } from '../../core'
 import { StarIcon } from '../../core/icons'
 
 export const TrendsCard = ({ project }) => {
-  const dailyDeltas = project.timeSeries && project.timeSeries.daily
-  const showHeatMap = dailyDeltas && dailyDeltas.length > 1
+  const dailyDeltas = project.timeSeries?.daily || []
+
+  // Heatmap disabled until we have the real numbers restored.
+  const showHeatMap = false
 
   const monthlyDeltas = project.timeSeries && project.timeSeries.monthly
   const showMonthlyChart = monthlyDeltas && monthlyDeltas.length > 1

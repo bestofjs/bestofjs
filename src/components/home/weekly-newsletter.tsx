@@ -1,36 +1,27 @@
 import React, { useState } from 'react'
 import tinytime from 'tinytime'
 import styled from '@emotion/styled'
-import { GoMail } from 'react-icons/go'
+import { GoMegaphone } from 'react-icons/go'
 
 import { useSelector } from 'containers/project-data-container'
 import { findProjectsByIds } from 'selectors'
 import { useWeeklyNewsletter } from 'api/hooks'
-import { ExternalLink, Section, Button } from 'components/core'
+import { Section, Button } from 'components/core'
 import { getProjectId } from 'components/core/project'
 import { ChevronLeftIcon, ChevronRightIcon } from 'components/core/icons'
 import { ProjectTable } from 'components/project-list/project-table'
-import { Row, MainColumn, RightSideBar } from './layout'
-import { SubscribeForm } from './subscribe-form'
+import { Row, MainColumn } from './layout'
 
 export const Weekly = () => {
   return (
     <Section>
       <Row>
         <MainColumn>
-          <Section.Header icon={<GoMail fontSize={32} />}>
-            <Section.Title>Weekly Newsletter</Section.Title>
+          <Section.Header icon={<GoMegaphone fontSize={32} />}>
+            <Section.Title>Best of JS News</Section.Title>
           </Section.Header>
-          Visit{' '}
-          <ExternalLink url="https://weekly.bestofjs.org/">
-            Weekly Best of JavaScript
-          </ExternalLink>{' '}
-          to check our weekly newsletter.
           <FetchNewsletterIssue />
         </MainColumn>
-        <RightSideBar>
-          <SubscribeForm />
-        </RightSideBar>
       </Row>
     </Section>
   )
@@ -119,7 +110,7 @@ const RankingsTitle = styled.h4`
 
 const Story = styled.div`
   margin-bottom: 2rem;
-  padding 1rem;
+  padding: 2rem;
   background-color: white;
   blockquote {
     padding: 0 1em;

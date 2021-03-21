@@ -70,14 +70,22 @@ export const MonthlyChart = ({ values, showPlusSymbol }) => {
 }
 
 function getLas12Months() {
-  const date = new Date()
+  const date = getFirstDayOfPreviousMonth()
   const months = []
   for (let i = 0; i < 12; i++) {
-    date.setMonth(date.getMonth() - 1)
     months.push({ year: date.getFullYear(), month: date.getMonth() + 1 })
+    date.setMonth(date.getMonth() - 1)
   }
   months.reverse()
   return months
+}
+
+function getFirstDayOfPreviousMonth() {
+  const today = new Date()
+  // first we need to jump to the last day of the previous month (Dec 31th if we are in January)
+  const date = new Date(today.getFullYear(), today.getMonth(), 0, 0, 0, 0)
+  date.setDate(1)
+  return date
 }
 
 function formatDelta(value, { decimals = 0, showPlusSymbol = false }) {

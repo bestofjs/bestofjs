@@ -54,7 +54,7 @@ const ProjectDetailsPage = props => {
 }
 
 function getProjectWithDetails(project, details) {
-  if (!details) return project
+  if (!details?.github) return project
   const {
     npm,
     bundle,

@@ -35,10 +35,10 @@ const sameDate = (a, b) => {
 const getClassName = active => value =>
   `${
     active && value && sameDate(value.date, active.date) ? 'active ' : ''
-  }color-${value ? scale(value.count) : 'empty'}`
+  }color-${value && value.count !== null ? scale(value.count) : 'empty'}`
 
 const getTitle = value => {
-  if (!value) return 'No data'
+  if (!value || value.count === null) return 'No data'
   const { count, date } = value
   if (count === 0) return `No star added on ${formatDate(date)}`
   return `${count > 0 ? '+' : '-'} ${Math.abs(count)} stars on ${formatDate(
@@ -48,6 +48,7 @@ const getTitle = value => {
 
 const Details = ({ date, delta, yesterday }) => {
   const starVariation = () => {
+    if (delta === null) return 'no data'
     if (!delta) return 'no stars added'
     const starText = Math.abs(delta) === 1 ? 'star' : 'stars'
     return delta > 0
