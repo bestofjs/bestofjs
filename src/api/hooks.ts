@@ -54,3 +54,21 @@ const fetchMonthlyDownloads = ({ packageName }) => {
   )}/api/package-monthly-downloads?packageName=${packageName}`
   return fetchJSON(url)
 }
+
+export function useFetchMonthlyRankings(date) {
+  const fetcher = () => loadMonthlyRankings(date)
+  const key = date ? formatDate(date) : 'latest'
+  return useSWR(['/monthly-rankings', key], fetcher)
+}
+
+function loadMonthlyRankings(date?: MonthlyDate) {
+  const rootURL = getApiRootURL('GET_RANKINGS')
+  const url = `${rootURL}/monthly/${date ? formatDate(date) : 'latest'}`
+  return fetchJSON(url)
+}
+
+function formatDate(date: MonthlyDate) {
+  const year = date.year.toString()
+  const month = date.month.toString().padStart(2, '0')
+  return year + '/' + year + '-' + month + '.json'
+}

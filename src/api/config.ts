@@ -5,12 +5,14 @@ const baseSetup = {
   GET_README: 'https://bestofjs-serverless.now.sh',
   GET_PROJECT_DETAILS: 'https://bestofjs-serverless.now.sh',
   GET_PACKAGE_DATA: 'https://bestofjs-serverless.now.sh',
+  GET_RANKINGS: 'https://bestofjs-rankings.vercel.app',
   ISSUES_REPO: 'michaelrambeau/bestofjs'
 }
 
 const setup = {
   development: {
     ...baseSetup
+    // GET_RANKINGS: 'http://localhost:3000'
   },
   production: {
     ...baseSetup

@@ -11,6 +11,7 @@ declare namespace BestOfJS {
       monthly?: number
       yearly?: number
     }
+    delta?: number // from monthly rankings section
     contributor_count: number
     pushed_at: string
     created_at: string

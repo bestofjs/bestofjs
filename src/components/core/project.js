@@ -37,7 +37,7 @@ const StarDeltaNormal = ({ value, ...props }) => {
       ) : (
         <>
           <span style={{ marginRight: 2 }}>{sign}</span>
-          <span>{Math.abs(value)}</span>
+          <span>{formatBigNumber(Math.abs(value))}</span>
           <StarIcon {...props} />
         </>
       )}
@@ -71,13 +71,19 @@ export const StarDeltaAverage = ({ value }) => {
 }
 
 export const StarTotal = ({ value, size = 14 }) => {
-  const digits = value > 1000 && value < 10000 ? '0.0' : '0'
   return (
     <Span>
-      <span>{numeral(value).format(digits + ' a')}</span>
+      <span>{formatBigNumber(value)}</span>
       <StarIcon size={size} />
     </Span>
   )
+}
+
+// Display a (potentially) big number, either the total number of star or a yearly/monthly delta
+// using the `k` prefix
+function formatBigNumber(value: number): string {
+  const digits = value > 1000 && value < 10000 ? '0.0' : '0'
+  return numeral(value).format(digits + ' a')
 }
 
 const Span = styled.span`

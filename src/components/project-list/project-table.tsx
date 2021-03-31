@@ -21,9 +21,10 @@ type Props = {
   footer?: React.ReactNode
   from?: number
   style?: CSSProperties
-  sortOption: any
+  sortOption?: any
   showDetails?: boolean
   showActions?: boolean
+  metricsCell?: (project: BestOfJS.Project) => React.ReactNode
 }
 export const ProjectTable = ({
   projects,
@@ -70,6 +71,7 @@ type RowProps = {
   showDetails?: boolean
   showRankingNumber?: boolean
   showActions?: boolean
+  metricsCell?: (project: BestOfJS.Project) => React.ReactNode
 }
 const ProjectTableRow = ({
   project,
@@ -78,7 +80,8 @@ const ProjectTableRow = ({
   deltaFilter = 'total',
   showDetails = true,
   showRankingNumber = false,
-  showActions = true
+  showActions = true,
+  metricsCell
 }: RowProps) => {
   const {
     isLoggedIn,
@@ -225,21 +228,26 @@ const ProjectTableRow = ({
         </ContributorCountCell>
       )}
 
-      <StarNumberCell>
-        {showStars && <StarTotal value={project.stars} size={20} />}
+      {metricsCell ? (
+        <StarNumberCell>{metricsCell(project)}</StarNumberCell>
+      ) : (
+        <StarNumberCell>
+          {showStars && <StarTotal value={project.stars} size={20} />}
 
-        {showDelta && (
-          <div className="delta">
-            <StarDelta
-              value={getDeltaByDay(sortOption.id)(project)}
-              average={sortOption.id !== 'daily'}
-              size={20}
-            />
-          </div>
-        )}
+          {showDelta && (
+            <div className="delta">
+              <StarDelta
+                value={getDeltaByDay(sortOption.id)(project)}
+                average={sortOption.id !== 'daily'}
+                size={20}
+              />
+            </div>
+          )}
 
-        {showDownloads && <DownloadCount value={project.downloads} />}
-      </StarNumberCell>
+          {showDownloads && <DownloadCount value={project.downloads} />}
+        </StarNumberCell>
+      )}
+
       {showActions && (
         <ActionCell>
           <DropdownMenu items={items} alignment="right" />
@@ -278,7 +286,7 @@ const FooterRow = styled.tr`
 const Cell = styled.td`
   padding: 1rem 0.5rem;
   background-color: white;
-  &:first-child {
+  &:firstof-type {
     padding-left: 1rem;
   }
 `

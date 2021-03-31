@@ -15,8 +15,8 @@ import { ExternalLink, ButtonLink, MainContent, Section } from 'components/core'
 import { CompactTagList } from 'components/tags/tag-list'
 import { HotProjects, NewestProjects } from './home-projects'
 import { RandomFeaturedProject } from './featured-projects'
-import { Weekly } from './weekly-newsletter'
 import { Row, MainColumn, RightSideBar } from './layout'
+import { HomeMonthlyRankings } from './home-monthly-rankings'
 
 export const Home = props => {
   log('Render the <Home> component')
@@ -52,7 +52,7 @@ export const Home = props => {
         </Row>
       </Section>
       <Tags popularTags={popularTags} isPending={pending} />
-      {!pending && <Weekly />}
+      {!pending && <HomeMonthlyRankings />}
       <StarOnGitHub />
       <MoreProjects />
     </MainContent>
