@@ -1,5 +1,10 @@
 # Change log
 
+## 0.29.0
+
+- Show monthly rankings in the top page #102
+- Add `/rankings/monthly/:year/:month` to show the full monthly rankings
+
 ## 0.28.0 - 2020-03-21
 
 - Use `Emotion` instead of `Styled Components` to prepare the potential integration of ChakraUI components
