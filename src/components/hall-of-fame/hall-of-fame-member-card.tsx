@@ -1,5 +1,5 @@
 import React from 'react'
-import styled from 'styled-components'
+import styled from '@emotion/styled'
 import numeral from 'numeral'
 import { GoGlobe, GoPackage } from 'react-icons/go'
 

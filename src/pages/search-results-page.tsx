@@ -1,6 +1,6 @@
 import React from 'react'
 import { withRouter } from 'react-router-dom'
-import styled from 'styled-components'
+import styled from '@emotion/styled'
 
 import { useSelector } from 'containers/project-data-container'
 import { allProjects, getTagsById, getProjectSelectorByKey } from 'selectors'

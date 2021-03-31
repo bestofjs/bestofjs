@@ -1,5 +1,5 @@
 import React from 'react'
-import styled from 'styled-components'
+import styled from '@emotion/styled'
 
 import { ExternalLink } from 'components/core/typography'
 import { News } from './news'

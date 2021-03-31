@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from 'react'
-import styled from 'styled-components'
+import styled from '@emotion/styled'
 
 import { fetchJSON } from 'helpers/fetch'
 import { Button } from 'components/core'

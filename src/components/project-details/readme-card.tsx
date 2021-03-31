@@ -1,8 +1,15 @@
 import React from 'react'
-import styled from 'styled-components'
+import styled from '@emotion/styled'
 import { GoBook } from 'react-icons/go'
 
-import { Card, Spinner } from '../core'
+import {
+  Card,
+  CardHeader,
+  CardBody,
+  CardFooter,
+  CardSection,
+  Spinner
+} from '../core'
 import { useFetchProjectReadMe } from '../../api/hooks'
 import '../../stylesheets/markdown-body.css'
 
@@ -12,18 +19,18 @@ type Props = { project: BestOfJS.Project }
 export const ReadmeCard = ({ project }) => {
   return (
     <Card className="readme">
-      <Card.Header>
+      <CardHeader>
         <GoBook className="icon" size={20} />
         README
-      </Card.Header>
-      <Card.Body>
-        <Card.Section>
+      </CardHeader>
+      <CardBody>
+        <CardSection>
           <ReadmeContent project={project} />
-        </Card.Section>
-      </Card.Body>
-      <Card.Footer>
+        </CardSection>
+      </CardBody>
+      <CardFooter>
         <GithubLink href={project.repository}>View on GitHub</GithubLink>
-      </Card.Footer>
+      </CardFooter>
     </Card>
   )
 }

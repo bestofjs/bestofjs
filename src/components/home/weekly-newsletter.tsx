@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import tinytime from 'tinytime'
-import styled from 'styled-components'
+import styled from '@emotion/styled'
 import { GoMegaphone } from 'react-icons/go'
 
 import { useSelector } from 'containers/project-data-container'
@@ -110,7 +110,7 @@ const RankingsTitle = styled.h4`
 
 const Story = styled.div`
   margin-bottom: 2rem;
-  padding 1rem;
+  padding: 2rem;
   background-color: white;
   blockquote {
     padding: 0 1em;

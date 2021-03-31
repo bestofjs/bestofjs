@@ -10,6 +10,7 @@ import { SearchResultsPage } from 'pages/search-results-page'
 import { ErrorBoundary, ErrorFallback } from 'pages/error-handling'
 import { NoMatchPage } from './no-match-page'
 import { Spinner } from 'components/core'
+import { MonthlyRankingsPage } from './monthly-rankings-page'
 
 const AsyncViewProject = lazy(() => import('pages/project-details-page'))
 const AsyncAboutPage = lazy(() => import('pages/about-page'))
@@ -34,6 +35,10 @@ const Routes = props => {
           <Route path="/bookmarks" component={BookmarksPage} />
           <Route path="/featured" component={FeaturedPage} />
           <Route path="/timeline" component={TimelinePage} />
+          <Route
+            path="/rankings/monthly/:year/:month"
+            component={MonthlyRankingsPage}
+          />
           <Route exact path="/about" component={AsyncAboutPage} />
           <Route component={NoMatchPage} />
         </Switch>

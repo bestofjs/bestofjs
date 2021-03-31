@@ -1,9 +1,9 @@
 import React from 'react'
-import styled from 'styled-components'
+import styled from '@emotion/styled'
 import { GoHome, GoMarkGithub } from 'react-icons/go'
 import { DiNpm } from 'react-icons/di'
 
-import { Button } from 'components/core'
+import { ButtonLink } from 'components/core'
 import { Avatar } from 'components/core/project'
 import { TagLabelGroup } from 'components/tags/tag-label'
 import formatUrl from 'helpers/url'
@@ -29,25 +29,25 @@ export const ProjectHeader = ({ project }: Props) => {
         </div>
       </Main>
       <QuickLinks>
-        <Button as="a" href={repository}>
+        <ButtonLink href={repository}>
           <GoMarkGithub size={20} className="icon" />
           <span>{full_name}</span>
-        </Button>
+        </ButtonLink>
         {url && (
-          <Button as="a" href={url}>
+          <ButtonLink href={url}>
             <GoHome size={20} className="icon" />
             <span>{formatUrl(url)}</span>
-          </Button>
+          </ButtonLink>
         )}
         {packageName && (
-          <Button as="a" href={`https://www.npmjs.com/package/${packageName}`}>
+          <ButtonLink href={`https://www.npmjs.com/package/${packageName}`}>
             <DiNpm
               size={28}
               className="icon"
               style={{ transform: 'translateY(2px)' }}
             />
             <span>{packageName}</span>
-          </Button>
+          </ButtonLink>
         )}
       </QuickLinks>
     </HeaderLayout>

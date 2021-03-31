@@ -1,5 +1,5 @@
 import React from 'react'
-import styled from 'styled-components'
+import styled from '@emotion/styled'
 import numeral from 'numeral'
 import { Link } from 'react-router-dom'
 import { GoTag, GoHeart, GoPlus } from 'react-icons/go'
@@ -11,12 +11,12 @@ import log from 'helpers/log'
 import { addProjectURL } from 'components/user-requests/add-project/create-issue-link'
 import { TagLabelGroup } from 'components/tags/tag-label'
 import { StarIcon } from 'components/core/icons'
-import { ExternalLink, Button, MainContent, Section } from 'components/core'
+import { ExternalLink, ButtonLink, MainContent, Section } from 'components/core'
 import { CompactTagList } from 'components/tags/tag-list'
 import { HotProjects, NewestProjects } from './home-projects'
 import { RandomFeaturedProject } from './featured-projects'
-import { Weekly } from './weekly-newsletter'
 import { Row, MainColumn, RightSideBar } from './layout'
+import { HomeMonthlyRankings } from './home-monthly-rankings'
 
 export const Home = props => {
   log('Render the <Home> component')
@@ -52,7 +52,7 @@ export const Home = props => {
         </Row>
       </Section>
       <Tags popularTags={popularTags} isPending={pending} />
-      {!pending && <Weekly />}
+      {!pending && <HomeMonthlyRankings />}
       <StarOnGitHub />
       <MoreProjects />
     </MainContent>
@@ -122,8 +122,7 @@ const StarOnGitHubButton = () => {
   if (!project) return null
   const stars = getTotalNumberOfStars(project)
   return (
-    <Button
-      as={'a'}
+    <ButtonLink
       style={{ fontSize: '1.2rem', display: 'flex' }}
       href={repo}
       target="_blank"
@@ -137,7 +136,7 @@ const StarOnGitHubButton = () => {
         {formatNumber(stars)}
         <StarIcon size={20} />
       </div>
-    </Button>
+    </ButtonLink>
   )
 }
 

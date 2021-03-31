@@ -1,5 +1,5 @@
 import React from 'react'
-import styled from 'styled-components'
+import styled from '@emotion/styled'
 import { useHistory, useLocation } from 'react-router-dom'
 
 import { PaginationContainer } from 'components/core/pagination/provider'
