@@ -92,9 +92,20 @@ const NavigatorContainer = styled.div`
   justify-content: space-between;
 `
 
-const monthNames = 'January February Mars April May June July August September October November December'.split(
-  ' '
-)
+const monthNames = [
+  'January',
+  'February',
+  'March',
+  'April',
+  'May',
+  'June',
+  'July',
+  'August',
+  'September',
+  'October',
+  'November',
+  'December'
+]
 
 const RankingsDate = ({ date }: { date: MonthlyDate }) => {
   return (
