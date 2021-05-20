@@ -28,7 +28,7 @@ const HeaderContainer = styled.header`
 `
 
 export const Header = props => {
-  const { repo } = StaticContentContainer.useContainer()
+  const { repoURL } = StaticContentContainer.useContainer()
 
   return (
     <HeaderContainer>
@@ -55,7 +55,7 @@ export const Header = props => {
                 <Link to="/hall-of-fame">Hall of Fame</Link>
               </NavigationMenuItem>
               <NavigationMenuItem>
-                <a href={repo} target="_blank" rel="noopener noreferrer">
+                <a href={repoURL} target="_blank" rel="noopener noreferrer">
                   <GoMarkGithub size={32} />
                 </a>
               </NavigationMenuItem>

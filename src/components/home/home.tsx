@@ -92,7 +92,11 @@ const ResponsiveRow = styled.div`
 `
 
 const StarOnGitHub = () => {
-  const { repo, projectName } = StaticContentContainer.useContainer()
+  const {
+    repoURL,
+    projectName,
+    sponsorURL
+  } = StaticContentContainer.useContainer()
 
   return (
     <Section>
@@ -103,11 +107,15 @@ const StarOnGitHub = () => {
           </Section.Header>
           <p>
             Show your appreciation by starring the project on{' '}
-            <ExternalLink url={repo}>GitHub</ExternalLink>, thank you!
+            <ExternalLink url={repoURL}>GitHub</ExternalLink>, or becoming a{' '}
+            <ExternalLink url={sponsorURL}>sponsor</ExternalLink>.
           </p>
+          <p>Thank you for your support!</p>
         </div>
         <div>
           <StarOnGitHubButton />
+          <br />
+          <SponsorButton />
         </div>
       </ResponsiveRow>
     </Section>
@@ -115,42 +123,59 @@ const StarOnGitHub = () => {
 }
 
 const StarOnGitHubButton = () => {
-  const { repo } = StaticContentContainer.useContainer()
+  const { repoURL } = StaticContentContainer.useContainer()
   const project = useSelector(
     state => state.entities.projects['best-of-javascript']
   )
   if (!project) return null
   const stars = getTotalNumberOfStars(project)
   return (
-    <ButtonLink
-      style={{ fontSize: '1.2rem', display: 'flex' }}
-      href={repo}
-      target="_blank"
-    >
+    <BigButtonLink href={repoURL} target="_blank">
       <span>Star on GitHub </span>
-      <div
-        style={{ marginLeft: '0.5rem', display: 'flex', alignItems: 'center' }}
-        className="text-secondary"
-      >
-        {' '}
+      <div className="add-on text-muted">
         {formatNumber(stars)}
         <StarIcon size={20} />
       </div>
-    </ButtonLink>
+    </BigButtonLink>
   )
 }
+
+const SponsorButton = () => {
+  const { sponsorURL } = StaticContentContainer.useContainer()
+
+  return (
+    <BigButtonLink href={sponsorURL} target="_blank">
+      Sponsor
+      <div className="add-on text-muted">
+        <GoHeart size={20} />
+      </div>
+    </BigButtonLink>
+  )
+}
+
+const BigButtonLink = styled(ButtonLink)`
+  font-size: 1.2rem;
+  display: flex;
+  .add-on {
+    margin-left: 0.5rem;
+    display: flex;
+    align-items: center;
+  }
+`
 
 const formatNumber = number => numeral(number).format('')
 
 const MoreProjects = () => {
+  const { projectName } = StaticContentContainer.useContainer()
+
   return (
     <Section>
       <Section.Header icon={<GoPlus fontSize={32} />}>
         <Section.Title>Do you want more projects?</Section.Title>
       </Section.Header>
       <p>
-        <i>Best of JavaScript</i> is a curated list of 1500 open-source projects
-        related to the web platform and Node.js.
+        <i>{projectName}</i> is a curated list of about 1500 open-source
+        projects related to the web platform and Node.js.
       </p>
       <p>
         If you want to suggest a new project, please click on the following

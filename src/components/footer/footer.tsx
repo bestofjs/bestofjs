@@ -8,7 +8,11 @@ import { StaticContentContainer } from 'containers/static-content-container'
 
 export const Footer = () => {
   const lastUpdate = useSelector(state => state.meta.lastUpdate)
-  const { repo, projectName, version } = StaticContentContainer.useContainer()
+  const {
+    repoURL,
+    projectName,
+    version
+  } = StaticContentContainer.useContainer()
 
   return (
     <StyledFooter id="footer">
@@ -23,7 +27,7 @@ export const Footer = () => {
             </div>
             <div>
               <FooterCell>
-                <a href={repo}>
+                <a href={repoURL}>
                   <GoMarkGithub className="icon" size={20} />
                   <div>GitHub</div>
                 </a>
