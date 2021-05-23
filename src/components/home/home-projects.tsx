@@ -7,6 +7,7 @@ import { useSelector } from 'containers/project-data-container'
 import { Section, Spinner, DropdownMenu } from 'components/core'
 import { ProjectTable } from 'components/project-list/project-table'
 import { getProjectsSortedBy } from 'selectors'
+import { StaticContentContainer } from 'containers/static-content-container'
 
 const ranges = {
   daily: 'yesterday',
@@ -104,12 +105,13 @@ const HotProjectsPicker = ({ onChange, value }) => {
 }
 
 export const NewestProjects = ({ newestProjects, hotFilter }) => {
+  const { projectName } = StaticContentContainer.useContainer()
   return (
     <>
       <Section.Header icon={<GoGift fontSize={32} />}>
         <Section.Title>Recently Added Projects</Section.Title>
         <Section.SubTitle>
-          Latest additions to <i>Best of JavaScript</i>
+          Latest additions to <i>{projectName}</i>
         </Section.SubTitle>
       </Section.Header>
       <ProjectTable

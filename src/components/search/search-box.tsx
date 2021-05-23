@@ -98,6 +98,15 @@ export const SearchBox = () => {
 
 const Container = styled.div`
   background-color: var(--bestofjsOrange);
+  background: linear-gradient(135deg, #ed8518, #e75f16, #b94100);
+  // background-image: linear-gradient(
+  //   135deg,
+  //   #ffe38c 20%,
+  //   #ffae63 20% 40%,
+  //   #f76d42 40% 60%,
+  //   #d63c4a 60% 80%,
+  //   #9c0042 80%
+  // );
   padding: 1rem 0;
 `
 

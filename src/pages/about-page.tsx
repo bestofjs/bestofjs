@@ -10,7 +10,11 @@ const AboutPage = () => {
   const count = useSelector(
     state => Object.keys(state.entities.projects).length
   )
-  const { repo, projectName } = StaticContentContainer.useContainer()
+  const {
+    repoURL,
+    projectName,
+    sponsorURL
+  } = StaticContentContainer.useContainer()
 
   return (
     <MainContent style={{ paddingTop: '2rem' }}>
@@ -73,11 +77,12 @@ const AboutPage = () => {
         </p>
         <h2>Show your support!</h2>
         <p>
-          If you like the application, please star the project on{' '}
-          <a href={repo}>GitHub</a>...
+          If you find the application useful, you star the project's repository
+          on <a href={repoURL}>GitHub</a> or{' '}
+          <a href={sponsorURL}>become a sponsor</a>.
         </p>
         <p>
-          ...we are all made of stars{' '}
+          We are all made of stars{' '}
           <img src="images/star.png" width="16" height="16" alt="star" /> !
         </p>
         <p>Thank you for your support!</p>

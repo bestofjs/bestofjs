@@ -7,6 +7,7 @@ import { AuthContainer } from 'containers/auth-container'
 import { StaticContentContainer } from 'containers/static-content-container'
 import { Button } from 'components/core'
 import { UserDropdownMenu } from './user-dropdown-menu'
+import { NavigationDropdownMenu } from './navigation-dropdown-menu'
 
 const sidebarBreakpoint = 700
 const topbarHeight = 60
@@ -15,8 +16,6 @@ const HeaderContainer = styled.header`
   background-color: #fff;
   height: ${topbarHeight}px;
   z-index: 10;
-  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2),
-    0 1px 5px 0 rgba(0, 0, 0, 0.12);
   .container {
     height: ${topbarHeight}px;
     display: flex;
@@ -42,17 +41,17 @@ export const Header = props => {
           <Col style={{ flexGrow: 1 }} />
           <Col>
             <NavigationMenu>
-              <NavigationMenuItem>
+              {/* <NavigationMenuItem>
                 <Link to="/projects">Projects</Link>
-              </NavigationMenuItem>
-              <NavigationMenuItem>
+              </NavigationMenuItem> */}
+              {/* <NavigationMenuItem>
                 <Link to="/tags">Tags</Link>
+              </NavigationMenuItem> */}
+              <NavigationMenuItem>
+                <NavigationDropdownMenu />
               </NavigationMenuItem>
               <NavigationMenuItem>
-                <Link to="/timeline">Timeline</Link>
-              </NavigationMenuItem>
-              <NavigationMenuItem>
-                <Link to="/hall-of-fame">Hall of Fame</Link>
+                <LoginSection />
               </NavigationMenuItem>
               <NavigationMenuItem>
                 <a href={repoURL} target="_blank" rel="noopener noreferrer">
@@ -60,9 +59,6 @@ export const Header = props => {
                 </a>
               </NavigationMenuItem>
             </NavigationMenu>
-          </Col>
-          <Col>
-            <LoginSection {...props} />
           </Col>
         </Row>
       </div>
