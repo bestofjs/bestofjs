@@ -9,7 +9,7 @@ import { Button } from 'components/core'
 import { UserDropdownMenu } from './user-dropdown-menu'
 import { NavigationDropdownMenu } from './navigation-dropdown-menu'
 
-const sidebarBreakpoint = 700
+const breakpoint = 700
 const topbarHeight = 60
 
 const HeaderContainer = styled.header`
@@ -21,7 +21,7 @@ const HeaderContainer = styled.header`
     display: flex;
     align-items: center;
   }
-  @media screen and (min-width: ${sidebarBreakpoint}px) {
+  @media screen and (min-width: ${breakpoint}px) {
     padding: 0;
   }
 `
@@ -41,16 +41,16 @@ export const Header = props => {
           <Col style={{ flexGrow: 1 }} />
           <Col>
             <NavigationMenu>
-              {/* <NavigationMenuItem>
+              <NavigationMenuItem className="desktop-only">
                 <Link to="/projects">Projects</Link>
-              </NavigationMenuItem> */}
-              {/* <NavigationMenuItem>
+              </NavigationMenuItem>
+              <NavigationMenuItem className="desktop-only">
                 <Link to="/tags">Tags</Link>
-              </NavigationMenuItem> */}
+              </NavigationMenuItem>
               <NavigationMenuItem>
                 <NavigationDropdownMenu />
               </NavigationMenuItem>
-              <NavigationMenuItem>
+              <NavigationMenuItem className="desktop-only">
                 <LoginSection />
               </NavigationMenuItem>
               <NavigationMenuItem>
@@ -88,15 +88,24 @@ const NavigationMenu = styled.div`
   align-items: center;
 `
 const NavigationMenuItem = styled.div`
-  margin-right: 1rem;
-  @media screen and (max-width: ${sidebarBreakpoint - 1}px) {
-    display: none;
-  }
   a {
     color: var(--textSecondaryColor);
     font-size: 1rem;
     &:hover {
       color: var(--textPrimaryColor);
+    }
+  }
+  &:not(:last-child) {
+    margin-right: 1rem;
+  }
+  &.desktop-only {
+    @media screen and (max-width: ${breakpoint - 1}px) {
+      display: none;
+    }
+  }
+  .mobile-only {
+    @media screen and (min-width: ${breakpoint}px) {
+      display: none;
     }
   }
 `

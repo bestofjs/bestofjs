@@ -18,6 +18,8 @@ export const Footer = () => {
   const {
     repoURL,
     projectName,
+    risingStarsURL,
+    // stateOfJSURL,
     version
   } = StaticContentContainer.useContainer()
 
@@ -31,10 +33,11 @@ export const Footer = () => {
                 <List>
                   <ListItem>
                     <DirectLink to="/projects">Projects</DirectLink>
-                    All projects tracked by {projectName}
+                    All projects tracked by <i>{projectName}</i>
                   </ListItem>
                   <ListItem>
                     <DirectLink to="/tags">Tags</DirectLink>
+                    Projects are classified under +160 tags manually picked
                   </ListItem>
                   <ListItem>
                     <DirectLink to="/hall-of-fame">Hall of Fame</DirectLink>
@@ -47,6 +50,7 @@ export const Footer = () => {
                   </ListItem>
                   <ListItem>
                     <DirectLink to="/about">About</DirectLink>
+                    Why do we track the "Best of JS" since 2015
                   </ListItem>
                 </List>
               </LinkGroup>
@@ -55,18 +59,27 @@ export const Footer = () => {
               <LinkGroup title="RELATED PROJECTS">
                 <List>
                   <ListItem>
-                    <ListItemLink as="a" href="https://risingstars.js.org">
+                    <ListItemLink href={risingStarsURL}>
                       JavaScript Rising Stars
                     </ListItemLink>
-                    Our annual round-up about the JavaScript landscape.
-                    <br /> 5 editions available since 2016.
+                    <p style={{ marginBottom: '1rem' }}>
+                      Our annual round-up about the JavaScript landscape
+                    </p>
+                    <img
+                      src="https://risingstars.js.org/img/2020/en/rising-stars.png"
+                      width="100%"
+                      alt="Rising Stars"
+                    />
                   </ListItem>
-                  <ListItem>
-                    <ListItemLink href="https://stateofjs.com">
-                      State of JS
-                    </ListItemLink>
-                    The biggest annual JavaScript-specific survey
-                  </ListItem>
+                  {/* <ListItem>
+                    <ListItemLink href={stateOfJSURL}>State of JS</ListItemLink>
+                    <p>The biggest annual JavaScript-specific survey</p>
+                    <img
+                      src="https://stateofjs.com/images/stateofjs2020.png"
+                      width="100%"
+                      alt="State of JS"
+                    />
+                  </ListItem> */}
                 </List>
               </LinkGroup>
               {false && (
@@ -237,6 +250,7 @@ const ListItem = styled.li`
 
 const ListItemLink = styled.a`
   display: block;
+  font-size: 16px;
 `
 
 const DirectLink = ListItemLink.withComponent(Link)
