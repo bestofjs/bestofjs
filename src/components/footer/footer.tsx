@@ -54,7 +54,7 @@ export const Footer = () => {
                   </ListItem>
                   <ListItem>
                     <DirectLink to="/tags">Tags</DirectLink>
-                    The +180 manually picked to classify the projects we track
+                    The +180 tags manually picked to classify all projects
                   </ListItem>
                   <ListItem>
                     <DirectLink to="/hall-of-fame">Hall of Fame</DirectLink>
