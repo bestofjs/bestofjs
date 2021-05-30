@@ -1,15 +1,14 @@
-import { StaticContentContainer } from 'containers/static-content-container'
 import React from 'react'
-import { GoKebabVertical } from 'react-icons/go'
 import { useHistory } from 'react-router-dom'
+import { GoKebabVertical } from 'react-icons/go'
 
-import { Popover, Menu, Button } from '../core'
+import { StaticContentContainer } from 'containers/static-content-container'
+import { Button, Popover, Menu } from 'components/core'
+import { ExternalLinkIcon } from 'components/core/icons'
 
 export const NavigationDropdownMenu = () => {
   const history = useHistory()
-  const {
-    risingStarsURL /* stateOfJSURL */
-  } = StaticContentContainer.useContainer()
+  const { risingStarsURL, stateOfJSURL } = StaticContentContainer.useContainer()
 
   return (
     <Popover
@@ -53,15 +52,28 @@ export const NavigationDropdownMenu = () => {
             }
           },
           { type: 'divider' },
-          { type: 'label', label: 'RELATED PROJECTS' },
           {
-            label: `Rising Stars`,
+            type: 'label',
+            label: <>Related Projects</>
+          },
+          {
+            label: (
+              <>
+                Rising Stars
+                <ExternalLinkIcon />
+              </>
+            ),
             url: risingStarsURL
+          },
+          {
+            label: (
+              <>
+                State of JS
+                <ExternalLinkIcon />
+              </>
+            ),
+            url: stateOfJSURL
           }
-          // {
-          //   label: `State of JS`,
-          //   url: stateOfJSURL
-          // }
         ]
         return <Menu items={items} />
       }}

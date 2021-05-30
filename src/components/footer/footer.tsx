@@ -1,15 +1,13 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import styled from '@emotion/styled'
-import {
-  GoMarkGithub
-  // GoRss
-} from 'react-icons/go'
+import { GoMarkGithub } from 'react-icons/go'
 import tinytime from 'tinytime'
 
 import { useSelector } from 'containers/project-data-container'
 import { fromNow } from 'helpers/from-now'
 import { StaticContentContainer } from 'containers/static-content-container'
+import { ExternalLinkIcon } from 'components/core/icons'
 
 const template = tinytime('{H}:{mm}', { padHours: true })
 
@@ -19,15 +17,34 @@ export const Footer = () => {
     repoURL,
     projectName,
     risingStarsURL,
-    // stateOfJSURL,
+    stateOfJSURL,
     version
   } = StaticContentContainer.useContainer()
 
   return (
     <StyledFooter id="footer">
-      <div id="footer-content" className="container">
+      <div className="container">
         <Section>
           <div className="grid">
+            <div>
+              <img
+                src="/images/logo.png"
+                alt="Best of JS logo"
+                width="100"
+                height="56"
+              />
+              <br />
+              <br />
+              <div style={{ display: 'flex', alignItems: 'center' }}>
+                <a
+                  href={repoURL}
+                  style={{ display: 'flex', alignItems: 'center' }}
+                >
+                  <GoMarkGithub fontSize="32px" />
+                </a>
+                <span style={{ marginLeft: '.5rem' }}>v{version}</span>
+              </div>
+            </div>
             <div>
               <LinkGroup title="DIRECT LINKS">
                 <List>
@@ -37,7 +54,7 @@ export const Footer = () => {
                   </ListItem>
                   <ListItem>
                     <DirectLink to="/tags">Tags</DirectLink>
-                    Projects are classified under +160 tags manually picked
+                    The +180 manually picked to classify the projects we track
                   </ListItem>
                   <ListItem>
                     <DirectLink to="/hall-of-fame">Hall of Fame</DirectLink>
@@ -50,7 +67,7 @@ export const Footer = () => {
                   </ListItem>
                   <ListItem>
                     <DirectLink to="/about">About</DirectLink>
-                    Why do we track the "Best of JS" since 2015
+                    Why do we track the best of JavaScript since 2015
                   </ListItem>
                 </List>
               </LinkGroup>
@@ -61,73 +78,39 @@ export const Footer = () => {
                   <ListItem>
                     <ListItemLink href={risingStarsURL}>
                       JavaScript Rising Stars
+                      <ExternalLinkIcon />
                     </ListItemLink>
                     <p style={{ marginBottom: '1rem' }}>
                       Our annual round-up about the JavaScript landscape
                     </p>
-                    <img
-                      src="https://risingstars.js.org/img/2020/en/rising-stars.png"
-                      width="100%"
-                      alt="Rising Stars"
-                    />
+                    <a href={risingStarsURL}>
+                      <img
+                        src="https://risingstars.js.org/img/2020/en/rising-stars.png"
+                        width="70%"
+                        alt="Rising Stars"
+                      />
+                    </a>
                   </ListItem>
-                  {/* <ListItem>
-                    <ListItemLink href={stateOfJSURL}>State of JS</ListItemLink>
+                  <ListItem>
+                    <ListItemLink href={stateOfJSURL}>
+                      State of JS
+                      <ExternalLinkIcon />
+                    </ListItemLink>
                     <p>The biggest annual JavaScript-specific survey</p>
-                    <img
-                      src="https://stateofjs.com/images/stateofjs2020.png"
-                      width="100%"
-                      alt="State of JS"
-                    />
-                  </ListItem> */}
+                  </ListItem>
                 </List>
               </LinkGroup>
-              {false && (
-                <LinkGroup title="GITHUB">
-                  <List>
-                    <ListItem>Data update from GitHub last day</ListItem>
-                  </List>
-                </LinkGroup>
-              )}
             </div>
           </div>
         </Section>
-        {false && (
-          <Section>
-            Data is updated from GitHub everyday, the last update was{' '}
-            {fromNow(lastUpdate)} (at {template.render(lastUpdate)})
-          </Section>
-        )}
-        {false && (
-          <Section>
-            <div className="grid">
-              <div>
-                <img src="/images/logo.png" />
-              </div>
-              <div>
-                <FooterCell>Data updated from GitHub everyday</FooterCell>
-                {lastUpdate && (
-                  <FooterCell>
-                    Last update: {fromNow(lastUpdate)} (
-                    {template.render(lastUpdate)})
-                  </FooterCell>
-                )}
-                <FooterCell>
-                  <a href={repoURL}>
-                    <GoMarkGithub className="icon" size={20} />
-                    <div>GitHub</div>
-                  </a>
-                  <div>v{version}</div>
-                </FooterCell>
-              </div>
-            </div>
-          </Section>
-        )}
+        <Separator />
         <Section className="footer-bottom">
-          <p style={{ marginBottom: '1rem' }}>
-            Data is updated from GitHub everyday, the last update was{' '}
-            {fromNow(lastUpdate)} (at {template.render(lastUpdate)}).
-          </p>
+          {lastUpdate && (
+            <p style={{ marginBottom: '1rem' }}>
+              Data is updated from GitHub everyday, the last update was{' '}
+              {fromNow(lastUpdate)} (at {template.render(lastUpdate)}).
+            </p>
+          )}
           <p style={{ marginBottom: '1rem' }}>
             <i>{projectName}</i> is a project by{' '}
             <a href="https://michaelrambeau.com">Michael Rambeau</a>, made in
@@ -145,42 +128,36 @@ export const Footer = () => {
   )
 }
 
+const breakPointColumns = 800
+
 const StyledFooter = styled.footer`
-  background-color: #8f3200;
+  margin-top: 4rem;
   background-color: #541600;
   color: hsla(0, 0%, 100%, 0.7);
+  .container {
+    max-width: 1100px;
+    padding-top: 3rem;
+    padding-bottom: 2rem;
+  }
   a {
     color: #fbf3ef;
   }
   a:hover {
     text-decoration: underline;
   }
-  margin-top: 4rem;
-  padding-top: 2rem;
   .footer-bottom {
     text-align: center;
   }
   .grid {
-    display: flex;
-  }
-  .grid > div {
-    flex: 1;
-  }
-  @media (min-width: 900px) {
-    .grid > div:first-of-type {
-      border-right: 1px dashed rgba(255, 255, 255, 0.3);
-      padding-right: 1rem;
-    }
-    .grid > div:last-child {
-      padding-left: 2rem;
-    }
-  }
-  @media (max-width: 900px) {
-    .grid {
-      flex-direction: column;
-    }
-    .grid > div:not(:last-child) {
-      margin-bottom: 1rem;
+    display: grid;
+    grid-template-columns: 100px 1fr 1fr;
+    grid-gap: 3rem;
+    @media (max-width: ${breakPointColumns - 1}px) {
+      grid-template-columns: none;
+      grid-gap: 2rem;
+      img {
+        max-width: 300px;
+      }
     }
   }
   &::after {
@@ -199,11 +176,10 @@ const StyledFooter = styled.footer`
   }
 `
 
-const Section = styled.section`
-  padding: 2rem 0;
-  &:not(:last-child) {
-    border-bottom: 1px dashed rgba(255, 255, 255, 0.3);
-  }
+const Section = styled.section``
+
+const Separator = styled.hr`
+  border-color: rgba(255, 255, 255, 0.3);
 `
 
 const Partner = styled.p`
@@ -211,20 +187,6 @@ const Partner = styled.p`
   justify-content: center;
   span {
     margin-right: 4px;
-  }
-`
-
-const FooterCell = styled.div`
-  // &:not(:last-child) {
-  //   margin-bottom: 1rem;
-  // }
-  display: flex;
-  a {
-    display: flex;
-    margin-right: 0.25rem;
-  }
-  .icon {
-    margin-right: 0.25rem;
   }
 `
 
@@ -249,7 +211,8 @@ const ListItem = styled.li`
 `
 
 const ListItemLink = styled.a`
-  display: block;
+  display: flex;
+  align-items: center;
   font-size: 16px;
 `
 
