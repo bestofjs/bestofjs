@@ -200,7 +200,8 @@ const LinkGroup = ({ title, children }) => {
 }
 
 const List = styled.ul`
-  padding-left: 1rem;
+  padding: 0;
+  list-style: none;
 `
 
 const ListItem = styled.li`

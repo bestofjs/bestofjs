@@ -132,7 +132,7 @@ const StarOnGitHubButton = () => {
   return (
     <BigButtonLink href={repoURL} target="_blank">
       <span>Star on GitHub </span>
-      <div className="add-on text-muted">
+      <div className="add-on">
         {formatNumber(stars)}
         <StarIcon size={20} />
       </div>
@@ -146,7 +146,7 @@ const SponsorButton = () => {
   return (
     <BigButtonLink href={sponsorURL} target="_blank">
       Sponsor
-      <div className="add-on text-muted">
+      <div className="add-on">
         <GoHeart size={20} />
       </div>
     </BigButtonLink>
@@ -158,8 +158,12 @@ const BigButtonLink = styled(ButtonLink)`
   display: flex;
   .add-on {
     margin-left: 0.5rem;
+    color: var(--textMutedColor);
     display: flex;
     align-items: center;
+  }
+  &:hover .add-on {
+    color: #f76d42;
   }
 `
 
