@@ -1,10 +1,9 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { useParams } from 'react-router-dom'
 import { Route, Switch } from 'react-router-dom'
 
 import { useSelector } from 'containers/project-data-container'
 import { findProjectById } from 'selectors'
-import track from 'helpers/track'
 import { useFetchProjectDetails } from 'api/hooks'
 
 import { MainContent, Spinner } from 'components/core'
@@ -16,7 +15,7 @@ const ProjectDetailsPageContainer = () => {
 
   const project = useSelector(findProjectById(id))
   // if the user loads directly the `/projects/:id` URL in the browser,
-  // the project is not available yet in the Redux store
+  // the project is not available yet in the state container
   return project ? <ProjectDetailsPage project={project} /> : <Spinner />
 }
 
@@ -25,12 +24,6 @@ const ProjectDetailsPage = props => {
 
   const { data: details, error } = useFetchProjectDetails(project)
   const projectWithDetails = getProjectWithDetails(project, details)
-
-  useEffect(() => {
-    if (project) {
-      track('View project', project.name)
-    }
-  }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <MainContent>
