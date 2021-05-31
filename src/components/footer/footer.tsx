@@ -1,87 +1,186 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import styled from '@emotion/styled'
-import { GoMarkGithub, GoRss } from 'react-icons/go'
+import { GoMarkGithub } from 'react-icons/go'
+import tinytime from 'tinytime'
 
 import { useSelector } from 'containers/project-data-container'
 import { fromNow } from 'helpers/from-now'
 import { StaticContentContainer } from 'containers/static-content-container'
+import { ExternalLinkIcon } from 'components/core/icons'
+
+const template = tinytime('{H}:{mm}', { padHours: true })
 
 export const Footer = () => {
   const lastUpdate = useSelector(state => state.meta.lastUpdate)
   const {
     repoURL,
     projectName,
+    risingStarsURL,
+    stateOfJSURL,
     version
   } = StaticContentContainer.useContainer()
 
   return (
     <StyledFooter id="footer">
-      <div id="footer-content" className="container">
-        <section>
+      <div className="container">
+        <Section>
           <div className="grid">
             <div>
-              <FooterCell>Data updated from GitHub everyday</FooterCell>
-              {lastUpdate && (
-                <FooterCell>Last update: {fromNow(lastUpdate)}</FooterCell>
-              )}
+              <Link to="/">
+                <img
+                  src="/images/logo.png"
+                  alt="Best of JS logo"
+                  width="100"
+                  height="56"
+                />
+              </Link>
+              <br />
+              <br />
+              <div className="v-center">
+                <a href={repoURL} className="v-center">
+                  <GoMarkGithub fontSize="32px" />
+                </a>
+                <span className="ml-2">v{version}</span>
+              </div>
             </div>
             <div>
-              <FooterCell>
-                <a href={repoURL}>
-                  <GoMarkGithub className="icon" size={20} />
-                  <div>GitHub</div>
-                </a>
-                <div>v{version}</div>
-              </FooterCell>{' '}
-              <FooterCell>
-                <a href="https://weekly.bestofjs.org/rss/trends.xml">
-                  <GoRss className="icon" size={20} />
-                  Weekly feed
-                </a>
-              </FooterCell>
+              <LinkGroup title="DIRECT LINKS">
+                <List>
+                  <ListItem>
+                    <DirectLink to="/projects">Projects</DirectLink>
+                    All projects tracked by <i>{projectName}</i>
+                  </ListItem>
+                  <ListItem>
+                    <DirectLink to="/tags">Tags</DirectLink>
+                    The +180 tags manually picked to classify all projects
+                  </ListItem>
+                  <ListItem>
+                    <DirectLink to="/hall-of-fame">Hall of Fame</DirectLink>
+                    Some of the most influent members of the community
+                  </ListItem>
+                  <ListItem>
+                    <DirectLink to="/timeline">Timeline</DirectLink>
+                    2006 - 2020 in 20 projects, a short story from jQuery to
+                    Rome
+                  </ListItem>
+                  <ListItem>
+                    <DirectLink to="/about">About</DirectLink>
+                    Why do we track the best of JavaScript since 2015
+                  </ListItem>
+                </List>
+              </LinkGroup>
+            </div>
+            <div>
+              <LinkGroup title="RELATED PROJECTS">
+                <List>
+                  <ListItem>
+                    <ListItemLink href={risingStarsURL}>
+                      JavaScript Rising Stars
+                      <ExternalLinkIcon />
+                    </ListItemLink>
+                    <p>Our annual round-up about the JavaScript landscape</p>
+                    <a href={risingStarsURL}>
+                      <img
+                        src="https://risingstars.js.org/img/2020/en/rising-stars.png"
+                        width="70%"
+                        alt="Rising Stars"
+                      />
+                    </a>
+                  </ListItem>
+                  <ListItem>
+                    <ListItemLink href={stateOfJSURL}>
+                      State of JS
+                      <ExternalLinkIcon />
+                    </ListItemLink>
+                    <p>The biggest annual JavaScript-specific survey</p>
+                  </ListItem>
+                </List>
+              </LinkGroup>
             </div>
           </div>
-        </section>
-        <section className="footer-bottom">
-          <p style={{ marginBottom: '1rem' }}>
+        </Section>
+        <Separator />
+        <Section className="footer-bottom">
+          {lastUpdate && (
+            <p>
+              Data is updated from GitHub everyday, the last update was{' '}
+              {fromNow(lastUpdate)} (at {template.render(lastUpdate)}).
+            </p>
+          )}
+          <p>
             <i>{projectName}</i> is a project by{' '}
             <a href="https://michaelrambeau.com">Michael Rambeau</a>, made in
             Osaka, Japan.
           </p>
           <Partner>
-            <span style={{ marginRight: 4 }}>Powered by</span>
-            <a href="https://vercel.com?utm_source=bestofjs ">
+            <span>Powered by</span>
+            <a href="https://vercel.com?utm_source=bestofjs">
               <img width="80" src="/svg/vercel.svg" alt="Vercel" />
             </a>
           </Partner>
-        </section>
+        </Section>
       </div>
     </StyledFooter>
   )
 }
 
+const breakPointColumns = 800
+
 const StyledFooter = styled.footer`
-  margin: 2rem 0;
+  margin-top: 4rem;
+  background-color: #541600;
+  color: hsla(0, 0%, 100%, 0.7);
+  .container {
+    max-width: 1100px;
+    padding-top: 3rem;
+    padding-bottom: 2rem;
+  }
+  a {
+    color: #fbf3ef;
+  }
+  a:hover {
+    text-decoration: underline;
+  }
   .footer-bottom {
-    margin-top: 2rem;
-    padding-top: 2rem;
     text-align: center;
   }
   .grid {
-    padding-top: 2rem;
-    display: flex;
-  }
-  .grid > div {
-    flex: 1;
-  }
-  @media (max-width: 900px) {
-    .grid {
-      flex-direction: column;
-    }
-    .grid > div:not(:last-child) {
-      margin-bottom: 1rem;
+    display: grid;
+    grid-template-columns: 100px 1fr 1fr;
+    grid-gap: 3rem;
+    @media (max-width: ${breakPointColumns - 1}px) {
+      grid-template-columns: none;
+      grid-gap: 2rem;
+      img {
+        max-width: 300px;
+      }
     }
   }
+  &::after {
+    content: '';
+    display: block;
+    height: 8px;
+    width: 100%;
+    background-image: linear-gradient(
+      135deg,
+      #ffe38c 20%,
+      #ffae63 20% 40%,
+      #f76d42 40% 60%,
+      #d63c4a 60% 80%,
+      #9c0042 80%
+    );
+  }
+`
+
+const Section = styled.section`
+  p {
+    margin-bottom: 1rem;
+  }
+`
+
+const Separator = styled.hr`
+  border-color: rgba(255, 255, 255, 0.3);
 `
 
 const Partner = styled.p`
@@ -92,17 +191,31 @@ const Partner = styled.p`
   }
 `
 
-const FooterCell = styled.div`
-  &:not(:last-child) {
-    margin-bottom: 1rem;
-  }
-  display: flex;
-  align-items: center;
+const LinkGroup = ({ title, children }) => {
+  return (
+    <div>
+      <div>{title}</div>
+      <div>{children}</div>
+    </div>
+  )
+}
+
+const List = styled.ul`
+  padding: 0;
+  list-style: none;
+`
+
+const ListItem = styled.li`
+  margin-bottom: 1rem;
   a {
-    display: flex;
-    margin-right: 0.25rem;
-  }
-  .icon {
-    margin-right: 0.25rem;
+    margin-bottom: 0.5rem;
   }
 `
+
+const ListItemLink = styled.a`
+  display: flex;
+  align-items: center;
+  font-size: 16px;
+`
+
+const DirectLink = ListItemLink.withComponent(Link)

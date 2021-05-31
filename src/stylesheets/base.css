@@ -41,9 +41,9 @@ body {
   line-height: 1.3333;
   color: var(--textPrimaryColor);
 }
-body,
-#panel {
+body {
   background-color: #ececec;
+  overflow-x: hidden;
 }
 .text-secondary {
   color: var(--textSecondaryColor);
@@ -164,13 +164,25 @@ hr {
   padding-bottom: 2rem;
   border-bottom: 1px dashed #ffae63;
 }
-#footer-content > section {
-  border-top: 1px dashed #ffae63;
-}
 .empty-value {
   color: var(--textSecondaryColor);
   font-style: italic;
 }
 .octicon {
   vertical-align: middle;
+}
+
+/* 
+Utils to avoid repeat ourselves too much
+TODO: use a real styled system or TailwindCSS?
+*/
+.v-center {
+  display: flex;
+  align-items: center;
+}
+.ml-1 {
+  margin-left: 0.25rem;
+}
+.ml-2 {
+  margin-left: 0.5rem;
 }

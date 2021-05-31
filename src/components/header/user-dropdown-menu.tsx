@@ -38,19 +38,20 @@ export const UserDropdownMenu = () => {
       alignment="right"
     >
       {({ open }) => (
-        <DropdownToggleButton
-          onClick={open}
-          style={{ padding: '0.2rem 0.5rem' }}
-        >
+        <StyledToggleButton onClick={open}>
           <UserAvatar
             avatarURL={auth.profile?.picture}
             username={auth.profile?.name}
           />
-        </DropdownToggleButton>
+        </StyledToggleButton>
       )}
     </Popover>
   )
 }
+
+const StyledToggleButton = styled(DropdownToggleButton)`
+  padding: 0.2rem 0.5rem;
+`
 
 const UserAvatar = ({ username, avatarURL, size = 32 }) => {
   const url = `${avatarURL}&size=${size}`

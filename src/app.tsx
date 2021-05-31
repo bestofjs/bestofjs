@@ -1,4 +1,5 @@
 import React from 'react'
+import styled from '@emotion/styled'
 
 import Routes from './pages/routes'
 import { StaticContentContainer } from 'containers/static-content-container'
@@ -9,31 +10,37 @@ import { ProjectDataContainer } from 'containers/project-data-container'
 import { MainContent } from 'components/core'
 
 export const App = () => {
-  const { error } = ProjectDataContainer.useContainer()
+  const { error, isPending } = ProjectDataContainer.useContainer()
 
   return (
     <StaticContentContainer.Provider>
       <SearchContainer.Provider>
-        <div id="layout">
-          <div id="panel">
-            <Header />
-            <SearchBox />
-            {error ? (
-              <ErrorMessage message={error.message || 'Network error'} />
-            ) : (
-              <>
-                <main id="main">
-                  <Routes />
-                </main>
-                <Footer />
-              </>
-            )}
-          </div>
-        </div>
+        <Layout>
+          <Header />
+          <SearchBox />
+          {error ? (
+            <ErrorMessage message={error.message || 'Network error'} />
+          ) : (
+            <MainContainer id="main">
+              <Routes />
+            </MainContainer>
+          )}
+          {!isPending && <Footer />}
+        </Layout>
       </SearchContainer.Provider>
     </StaticContentContainer.Provider>
   )
 }
+
+const Layout = styled.div`
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+`
+
+const MainContainer = styled.main`
+  flex: 1 1 auto;
+`
 
 const ErrorMessage = ({ message }: { message: string }) => {
   const { repo } = StaticContentContainer.useContainer()

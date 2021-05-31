@@ -10,7 +10,11 @@ const AboutPage = () => {
   const count = useSelector(
     state => Object.keys(state.entities.projects).length
   )
-  const { repo, projectName } = StaticContentContainer.useContainer()
+  const {
+    repoURL,
+    projectName,
+    sponsorURL
+  } = StaticContentContainer.useContainer()
 
   return (
     <MainContent style={{ paddingTop: '2rem' }}>
@@ -30,7 +34,7 @@ const AboutPage = () => {
             <i className="special">now</i> and not 6 months ago?
           </li>
         </ul>
-        <p>{projectName} was created to address these questions.</p>
+        <p>{projectName} was created in 2015 to address these questions.</p>
 
         <h2>Concept</h2>
         <p>
@@ -45,10 +49,14 @@ const AboutPage = () => {
 
         <h2>How it works</h2>
         <p>
-          First, a list of projects related to the web platform (JavaScript of
-          course but also HTML and CSS) is stored in a database.
+          First, a list of projects related to the web platform and
+          Node.js(JavaScript, Typescript, but also HTML and CSS) is stored in
+          our database.
         </p>
-        <p>Every time we find a new project, we add it to the database.</p>
+        <p>
+          Every time we find a new interesting project, we add it to the
+          database.
+        </p>
         <p>
           Then everyday, an automatic task checks project data from GitHub, for
           every project stored and generates data consumed by the web
@@ -73,11 +81,12 @@ const AboutPage = () => {
         </p>
         <h2>Show your support!</h2>
         <p>
-          If you like the application, please star the project on{' '}
-          <a href={repo}>GitHub</a>...
+          If you find the application useful, you can star the project's
+          repository on <a href={repoURL}>GitHub</a> or{' '}
+          <a href={sponsorURL}>become a sponsor</a>.
         </p>
         <p>
-          ...we are all made of stars{' '}
+          We are all made of stars{' '}
           <img src="images/star.png" width="16" height="16" alt="star" /> !
         </p>
         <p>Thank you for your support!</p>

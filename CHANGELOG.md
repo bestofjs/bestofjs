@@ -1,11 +1,18 @@
 # Change log
 
-## 0.29.0
+## 0.30.0 - 2021-05-31
+
+- Add dropdown navigation menu to the header #103
+- Add "Related projects" and _Best of JS_ logo to the footer #103
+- Use Cloudflare Web Analytics instead of Google Analytics #105
+- Add "Sponsors" button to the home page
+
+## 0.29.0 - 2021-04-01
 
 - Show monthly rankings in the top page #102
-- Add `/rankings/monthly/:year/:month` to show the full monthly rankings
+- Add `/rankings/monthly/:year/:month` to show the monthly "full rankings"
 
-## 0.28.0 - 2020-03-21
+## 0.28.0 - 2021-03-21
 
 - Use `Emotion` instead of `Styled Components` to prepare the potential integration of ChakraUI components
 

@@ -7,22 +7,21 @@ import { AuthContainer } from 'containers/auth-container'
 import { StaticContentContainer } from 'containers/static-content-container'
 import { Button } from 'components/core'
 import { UserDropdownMenu } from './user-dropdown-menu'
+import { NavigationDropdownMenu } from './navigation-dropdown-menu'
 
-const sidebarBreakpoint = 700
+const breakpoint = 700
 const topbarHeight = 60
 
 const HeaderContainer = styled.header`
   background-color: #fff;
   height: ${topbarHeight}px;
   z-index: 10;
-  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2),
-    0 1px 5px 0 rgba(0, 0, 0, 0.12);
   .container {
     height: ${topbarHeight}px;
     display: flex;
     align-items: center;
   }
-  @media screen and (min-width: ${sidebarBreakpoint}px) {
+  @media screen and (min-width: ${breakpoint}px) {
     padding: 0;
   }
 `
@@ -33,26 +32,25 @@ export const Header = props => {
   return (
     <HeaderContainer>
       <div className="container">
-        <Row className="header-row">
+        <Row>
           <Col>
             <LinkLogo to={'/'}>
-              <img src="/svg/bestofjs.svg" width="130" alt="bestofjs.org" />
+              <img src="/svg/bestofjs.svg" width="130" alt="Best of JS" />
             </LinkLogo>
           </Col>
-          <Col style={{ flexGrow: 1 }} />
           <Col>
             <NavigationMenu>
-              <NavigationMenuItem>
+              <NavigationMenuItem className="desktop-only">
                 <Link to="/projects">Projects</Link>
               </NavigationMenuItem>
-              <NavigationMenuItem>
+              <NavigationMenuItem className="desktop-only">
                 <Link to="/tags">Tags</Link>
               </NavigationMenuItem>
               <NavigationMenuItem>
-                <Link to="/timeline">Timeline</Link>
+                <NavigationDropdownMenu />
               </NavigationMenuItem>
-              <NavigationMenuItem>
-                <Link to="/hall-of-fame">Hall of Fame</Link>
+              <NavigationMenuItem className="desktop-only">
+                <LoginSection />
               </NavigationMenuItem>
               <NavigationMenuItem>
                 <a href={repoURL} target="_blank" rel="noopener noreferrer">
@@ -60,9 +58,6 @@ export const Header = props => {
                 </a>
               </NavigationMenuItem>
             </NavigationMenu>
-          </Col>
-          <Col>
-            <LoginSection {...props} />
           </Col>
         </Row>
       </div>
@@ -78,6 +73,9 @@ const Row = styled.div`
 const Col = styled.div`
   display: flex;
   align-items: center;
+  &:first-of-type {
+    flex-grow: 1;
+  }
 `
 
 const LinkLogo = styled(Link)`
@@ -92,10 +90,6 @@ const NavigationMenu = styled.div`
   align-items: center;
 `
 const NavigationMenuItem = styled.div`
-  margin-right: 1rem;
-  @media screen and (max-width: ${sidebarBreakpoint - 1}px) {
-    display: none;
-  }
   a {
     color: var(--textSecondaryColor);
     font-size: 1rem;
@@ -103,15 +97,25 @@ const NavigationMenuItem = styled.div`
       color: var(--textPrimaryColor);
     }
   }
+  &:not(:last-child) {
+    margin-right: 1rem;
+  }
+  &.desktop-only {
+    @media screen and (max-width: ${breakpoint - 1}px) {
+      display: none;
+    }
+  }
+  .mobile-only {
+    @media screen and (min-width: ${breakpoint}px) {
+      display: none;
+    }
+  }
 `
 
 const LoginSection = () => {
   const auth = AuthContainer.useContainer()
 
-  if (auth.isPending)
-    return (
-      <div style={{ display: 'flex', alignItems: 'center' }}>Loading...</div>
-    )
+  if (auth.isPending) return <div className="v-center">Loading...</div>
 
   if (!auth.isLoggedIn) {
     return <Button onClick={() => auth.login()}>Sign in</Button>

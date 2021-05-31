@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react'
 import { BrowserRouter as Router, useLocation } from 'react-router-dom'
 
-import track from './helpers/track'
 import { App } from './app'
 import { useAppUpdateChecker } from 'app-update-checker'
 import { ToastContainer } from 'components/core/toast'
@@ -32,12 +31,6 @@ const AppWithRouter = props => {
   useEffect(() => {
     if (typeof window === 'undefined') return
     window.scrollTo(0, 0)
-    track(location.pathname)
-
-    // if the user is on the TOP page, reload data if data is stale
-    if (location.pathname === '/') {
-      //TODO
-    }
   }, [location.pathname]) // eslint-disable-line react-hooks/exhaustive-deps
   return (
     <AuthProvider>

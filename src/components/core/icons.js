@@ -1,5 +1,5 @@
 import React from 'react'
-import { GoTag } from 'react-icons/go'
+import { GoLinkExternal, GoTag } from 'react-icons/go'
 import { MdStarBorder } from 'react-icons/md'
 
 export const StarIcon = props => <MdStarBorder {...props} />
@@ -55,4 +55,8 @@ const SVGContainer = ({ children, color = 'currentColor', size = 24 }) => {
       {children}
     </svg>
   )
+}
+
+export const ExternalLinkIcon = props => {
+  return <GoLinkExternal style={{ marginLeft: '0.25rem' }} {...props} />
 }
