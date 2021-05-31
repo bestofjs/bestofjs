@@ -27,22 +27,21 @@ export const Footer = () => {
         <Section>
           <div className="grid">
             <div>
-              <img
-                src="/images/logo.png"
-                alt="Best of JS logo"
-                width="100"
-                height="56"
-              />
+              <Link to="/">
+                <img
+                  src="/images/logo.png"
+                  alt="Best of JS logo"
+                  width="100"
+                  height="56"
+                />
+              </Link>
               <br />
               <br />
-              <div style={{ display: 'flex', alignItems: 'center' }}>
-                <a
-                  href={repoURL}
-                  style={{ display: 'flex', alignItems: 'center' }}
-                >
+              <div className="v-center">
+                <a href={repoURL} className="v-center">
                   <GoMarkGithub fontSize="32px" />
                 </a>
-                <span style={{ marginLeft: '.5rem' }}>v{version}</span>
+                <span className="ml-2">v{version}</span>
               </div>
             </div>
             <div>
@@ -80,9 +79,7 @@ export const Footer = () => {
                       JavaScript Rising Stars
                       <ExternalLinkIcon />
                     </ListItemLink>
-                    <p style={{ marginBottom: '1rem' }}>
-                      Our annual round-up about the JavaScript landscape
-                    </p>
+                    <p>Our annual round-up about the JavaScript landscape</p>
                     <a href={risingStarsURL}>
                       <img
                         src="https://risingstars.js.org/img/2020/en/rising-stars.png"
@@ -106,18 +103,18 @@ export const Footer = () => {
         <Separator />
         <Section className="footer-bottom">
           {lastUpdate && (
-            <p style={{ marginBottom: '1rem' }}>
+            <p>
               Data is updated from GitHub everyday, the last update was{' '}
               {fromNow(lastUpdate)} (at {template.render(lastUpdate)}).
             </p>
           )}
-          <p style={{ marginBottom: '1rem' }}>
+          <p>
             <i>{projectName}</i> is a project by{' '}
             <a href="https://michaelrambeau.com">Michael Rambeau</a>, made in
             Osaka, Japan.
           </p>
           <Partner>
-            <span style={{ marginRight: 4 }}>Powered by</span>
+            <span>Powered by</span>
             <a href="https://vercel.com?utm_source=bestofjs">
               <img width="80" src="/svg/vercel.svg" alt="Vercel" />
             </a>
@@ -176,7 +173,11 @@ const StyledFooter = styled.footer`
   }
 `
 
-const Section = styled.section``
+const Section = styled.section`
+  p {
+    margin-bottom: 1rem;
+  }
+`
 
 const Separator = styled.hr`
   border-color: rgba(255, 255, 255, 0.3);

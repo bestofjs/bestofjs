@@ -1,6 +1,7 @@
 import React from 'react'
 import { useHistory } from 'react-router-dom'
 import { GoKebabVertical } from 'react-icons/go'
+import styled from '@emotion/styled'
 
 import { StaticContentContainer } from 'containers/static-content-container'
 import { Button, Popover, Menu } from 'components/core'
@@ -80,13 +81,14 @@ export const NavigationDropdownMenu = () => {
       alignment="right"
     >
       {({ open }) => (
-        <Button
-          onClick={open}
-          style={{ padding: '0.3rem', borderRadius: '99px' }}
-        >
+        <RoundedButton onClick={open}>
           <GoKebabVertical fontSize="24px" />
-        </Button>
+        </RoundedButton>
       )}
     </Popover>
   )
 }
+const RoundedButton = styled(Button)`
+  padding: 0.3rem;
+  border-radius: 99px;
+`

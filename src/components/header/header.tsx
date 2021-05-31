@@ -32,13 +32,12 @@ export const Header = props => {
   return (
     <HeaderContainer>
       <div className="container">
-        <Row className="header-row">
+        <Row>
           <Col>
             <LinkLogo to={'/'}>
-              <img src="/svg/bestofjs.svg" width="130" alt="bestofjs.org" />
+              <img src="/svg/bestofjs.svg" width="130" alt="Best of JS" />
             </LinkLogo>
           </Col>
-          <Col style={{ flexGrow: 1 }} />
           <Col>
             <NavigationMenu>
               <NavigationMenuItem className="desktop-only">
@@ -74,6 +73,9 @@ const Row = styled.div`
 const Col = styled.div`
   display: flex;
   align-items: center;
+  &:first-of-type {
+    flex-grow: 1;
+  }
 `
 
 const LinkLogo = styled(Link)`
@@ -113,10 +115,7 @@ const NavigationMenuItem = styled.div`
 const LoginSection = () => {
   const auth = AuthContainer.useContainer()
 
-  if (auth.isPending)
-    return (
-      <div style={{ display: 'flex', alignItems: 'center' }}>Loading...</div>
-    )
+  if (auth.isPending) return <div className="v-center">Loading...</div>
 
   if (!auth.isLoggedIn) {
     return <Button onClick={() => auth.login()}>Sign in</Button>
