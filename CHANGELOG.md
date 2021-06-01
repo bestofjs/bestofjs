@@ -6,6 +6,7 @@
 - Add "Related projects" and _Best of JS_ logo to the footer #103
 - Use Cloudflare Web Analytics instead of Google Analytics #105
 - Add "Sponsors" button to the home page
+- Add a link to the CHANGELOG document in the "Application Update" notification
 
 ## 0.29.0 - 2021-04-01
 
