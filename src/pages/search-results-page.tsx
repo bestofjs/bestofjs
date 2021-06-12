@@ -8,16 +8,19 @@ import { PaginationContainer } from 'components/core/pagination'
 import { TagIcon } from 'components/core/icons'
 import {
   Button,
-  PageTitle,
   EmptyContent,
   MainContent,
-  Spinner
+  PageTitle,
+  Spinner,
+  Title
 } from 'components/core'
 import { ProjectPaginatedList } from 'components/search/project-paginated-list'
 import { TagLabelGroup } from 'components/tags/tag-label'
 import { useSearch } from 'components/search/search-container'
 import { updateLocation } from 'components/search/search-utils'
 import { findProjects } from 'components/search/find-projects'
+import { defaultHelmetProps } from 'constants/constants'
+import { Helmet } from 'react-helmet'
 
 export const SearchResultsPage = () => {
   const { selectedTags, query, sortOption, page } = useSearch()
@@ -83,22 +86,28 @@ const SearchResultsTitle = ({ query, selectedTags, total }) => {
   const isListFiltered = query !== '' || selectedTags.length > 0
   const tags = useSelector(getTagsById(selectedTags))
 
-  if (!isListFiltered) return <PageTitle>All Projects</PageTitle>
+  if (!isListFiltered) return <Title>All Projects</Title>
 
   if (tags.length > 0 && !query) {
     return (
-      <PageTitle icon={<TagIcon size={32} />}>
-        {tags.map(tag => tag.name).join(' + ')}
-        <span className="text-secondary" style={{ marginLeft: '0.5rem' }}>
-          ({showCount(total, 'project')})
-        </span>
-      </PageTitle>
+      <>
+        {/* Cannot use <Title> as this <PageTitle> has an inner span*/}
+        <Helmet {...defaultHelmetProps}>
+          <title>{tags.map(tag => tag.name).join(' + ')}</title>
+        </Helmet>
+        <PageTitle icon={<TagIcon size={32} />}>
+          {tags.map(tag => tag.name).join(' + ')}
+          <span className="text-secondary" style={{ marginLeft: '0.5rem' }}>
+            ({showCount(total, 'project')})
+          </span>
+        </PageTitle>
+      </>
     )
   }
   return (
-    <PageTitle style={{ paddingBottom: '1rem' }}>
+    <Title style={{ paddingBottom: '1rem' }}>
       Search results: {showCount(total, 'project')} found
-    </PageTitle>
+    </Title>
   )
 }
 

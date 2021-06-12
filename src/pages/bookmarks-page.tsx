@@ -8,7 +8,7 @@ import {
   PaginationContainer
 } from 'components/core/pagination'
 import { ProjectPaginatedList } from 'components/search/project-paginated-list'
-import { PageTitle, EmptyContent, MainContent } from 'components/core'
+import { EmptyContent, MainContent, Title } from 'components/core'
 import { getBookmarksSortedBy } from 'selectors'
 import { AuthContainer } from 'containers/auth-container'
 
@@ -28,12 +28,12 @@ const BookmarksPage = () => {
         <PaginationContainer.Provider
           initialState={{ total, currentPageNumber: page, limit }}
         >
-          <PageTitle
+          <Title
             icon={<GoBookmark size={32} />}
             extra={total === 1 ? '(one project)' : `(${total} projects)`}
           >
             Bookmarks
-          </PageTitle>
+          </Title>
           <ProjectPaginatedList
             projects={paginatedProjects}
             page={page}

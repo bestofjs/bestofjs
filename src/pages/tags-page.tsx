@@ -4,7 +4,7 @@ import { useSelector } from 'containers/project-data-container'
 import { getAllTagsSortedBy } from 'selectors'
 import { PaginatedTagList } from 'components/tags/paginated-tag-list'
 import { TagIcon } from 'components/core/icons'
-import { MainContent, PageTitle } from 'components/core'
+import { MainContent, Title } from 'components/core'
 import {
   paginateItemList,
   PaginationContainer
@@ -23,7 +23,7 @@ const TagsPage = () => {
       <PaginationContainer.Provider
         initialState={{ total, currentPageNumber: page, limit }}
       >
-        <PageTitle icon={<TagIcon size={32} />}>All Tags</PageTitle>
+        <Title icon={<TagIcon size={32} />}>All Tags</Title>
         <PaginatedTagList
           tags={paginatedTags}
           page={page}
