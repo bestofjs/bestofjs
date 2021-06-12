@@ -1,6 +1,7 @@
 import React from 'react'
 import styled from '@emotion/styled'
-import { Helmet } from 'react-helmet'
+
+import { usePageTitle } from './html-head'
 
 /*
 Link to external websites, that open in a new browser tab
@@ -43,17 +44,13 @@ export const PageHeader = ({
   children
 }: PageHeaderProps) => {
   const content = children || title
+  usePageTitle(title)
   return (
-    <>
-      <Helmet titleTemplate="%s | Best of JS">
-        <title>{title}</title>
-      </Helmet>
-      <Heading style={{ paddingBottom: '1rem' }}>
-        {icon && <PageTitleIcon>{icon}</PageTitleIcon>}
-        {content}
-        {subTitle && <PageSubTitle>{subTitle}</PageSubTitle>}
-      </Heading>
-    </>
+    <Heading style={{ paddingBottom: '1rem' }}>
+      {icon && <PageTitleIcon>{icon}</PageTitleIcon>}
+      {content}
+      {subTitle && <PageSubTitle>{subTitle}</PageSubTitle>}
+    </Heading>
   )
 }
 
