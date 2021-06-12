@@ -3,7 +3,7 @@ import { useHistory, useParams } from 'react-router-dom'
 import { GoCalendar } from 'react-icons/go'
 
 import { useFetchMonthlyRankings } from 'api/hooks'
-import { MainContent, Title, Spinner } from 'components/core'
+import { MainContent, PageHeader, Spinner } from 'components/core'
 import {
   getNextMonth,
   getPreviousMonth,
@@ -15,7 +15,7 @@ export const MonthlyRankingsPage = () => {
   const { year, month } = useParams()
   return (
     <MainContent>
-      <Title icon={<GoCalendar size={32} />}>Monthly Rankings</Title>
+      <PageHeader title="Monthly Rankings" icon={<GoCalendar size={32} />} />
       <FetchMonthlyRankings date={{ year, month }} />
     </MainContent>
   )

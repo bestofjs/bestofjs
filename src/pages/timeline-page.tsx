@@ -2,7 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import styled from '@emotion/styled'
 
-import { MainContent, Title, Spinner } from 'components/core'
+import { MainContent, Spinner, PageHeader } from 'components/core'
 import { allProjects } from 'selectors'
 import { useSelector } from 'containers/project-data-container'
 import { Timeline } from 'components/timeline/timeline'
@@ -13,7 +13,7 @@ export const TimelinePage = () => {
 
   return (
     <MainContent>
-      <Title>Timeline: 2006-2020 in 20 projects</Title>
+      <PageHeader title="Timeline: 2006-2020 in 20 projects" />
       <PageDescription>
         Our favorite newsletter{' '}
         <a href="https://javascriptweekly.com/issues/500">JavaScript Weekly</a>{' '}

@@ -3,10 +3,8 @@ import React from 'react'
 import { useSelector } from 'containers/project-data-container'
 import { StaticContentContainer } from 'containers/static-content-container'
 import { CreateIssueLink } from 'components/user-requests/add-project/create-issue-link'
-import { Card, MainContent } from 'components/core'
+import { Card, MainContent, PageHeader } from 'components/core'
 import 'stylesheets/markdown-body.css'
-import { defaultHelmetProps } from 'constants/constants'
-import { Helmet } from 'react-helmet'
 
 const AboutPage = () => {
   const count = useSelector(
@@ -17,15 +15,11 @@ const AboutPage = () => {
     projectName,
     sponsorURL
   } = StaticContentContainer.useContainer()
-  const title = 'About'
 
   return (
     <MainContent style={{ paddingTop: '2rem' }}>
-      <Helmet {...defaultHelmetProps}>
-        <title>{title}</title>
-      </Helmet>
-      <Card className="card markdown-body" style={{ padding: '2rem' }}>
-        <h1>{title}</h1>
+      <PageHeader title="About" />
+      <Card className="card" style={{ padding: '0 2rem 2rem' }}>
         <h2>Why {projectName}?</h2>
         <p>
           Javascript, HTML and CSS are advancing faster than ever, we are going

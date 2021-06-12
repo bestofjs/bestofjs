@@ -1,8 +1,6 @@
 import React from 'react'
 
-import { Button, MainContent } from 'components/core'
-import { defaultHelmetProps } from 'constants/constants'
-import { Helmet } from 'react-helmet'
+import { Button, MainContent, PageHeader } from 'components/core'
 
 // From https://reactjs.org/docs/concurrent-mode-suspense.html#handling-errors
 type Props = { fallback: React.ReactNode }
@@ -23,9 +21,7 @@ export class ErrorBoundary extends React.Component<Props, State> {
 export const ErrorFallback = () => {
   return (
     <MainContent>
-      <Helmet {...defaultHelmetProps}>
-        <title>Error</title>
-      </Helmet>
+      <PageHeader title="Error" />
       <div
         style={{
           border: '2px solid #fa9e59',

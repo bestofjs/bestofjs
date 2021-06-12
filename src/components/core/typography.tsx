@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from '@emotion/styled'
+import { Helmet } from 'react-helmet'
 
 /*
 Link to external websites, that open in a new browser tab
@@ -23,31 +24,36 @@ export const ExternalLink = ({
   )
 }
 
-const Heading = styled.h2`
+const Heading = styled.h1`
   display: flex;
   align-items: center;
   margin: 0;
 `
 
-export const PageTitle = ({
+type PageHeaderProps = {
+  title: string
+  icon?: React.Node
+  subTitle?: React.Node
+  children?: ReactNode
+}
+export const PageHeader = ({
+  title,
   icon,
-  children,
-  extra,
-  style
-}: {
-  children: any
-  icon?: any
-  extra?: any
-  style?: any
-}) => {
+  subTitle,
+  children
+}: PageHeaderProps) => {
+  const content = children || title
   return (
-    <Heading style={{ paddingBottom: '1rem', ...style }}>
-      {icon && <PageTitleIcon>{icon}</PageTitleIcon>}
-      <div>
-        {children}
-        {extra && <PageTitleExtra>{extra}</PageTitleExtra>}
-      </div>
-    </Heading>
+    <>
+      <Helmet titleTemplate="%s | Best of JS">
+        <title>{title}</title>
+      </Helmet>
+      <Heading style={{ paddingBottom: '1rem' }}>
+        {icon && <PageTitleIcon>{icon}</PageTitleIcon>}
+        {content}
+        {subTitle && <PageSubTitle>{subTitle}</PageSubTitle>}
+      </Heading>
+    </>
   )
 }
 
@@ -57,8 +63,8 @@ const PageTitleIcon = styled.div`
   display: flex;
 `
 
-const PageTitleExtra = styled.span`
+const PageSubTitle = styled.span`
   color: var(--textSecondary);
   font-size: 16px;
-  margin-left: 0.25rem;
+  margin-left: 0.5rem;
 `
