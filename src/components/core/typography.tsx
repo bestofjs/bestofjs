@@ -29,6 +29,7 @@ const Heading = styled.h1`
   display: flex;
   align-items: center;
   margin: 0;
+  font-size: 1.5rem;
 `
 
 type PageHeaderProps = {
@@ -61,7 +62,7 @@ const PageTitleIcon = styled.div`
 `
 
 const PageSubTitle = styled.span`
-  color: var(--textSecondary);
-  font-size: 16px;
+  color: var(--textMutedColor);
+  font-size: 0.9em;
   margin-left: 0.5rem;
 `

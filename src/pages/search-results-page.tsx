@@ -95,8 +95,11 @@ const SearchResultsTitle = ({ query, selectedTags, total }) => {
     )
   }
   return (
-    <PageHeader title="Search">
-      Search results: {showCount(total, 'project')} found
+    <PageHeader
+      title="Search"
+      subTitle={`${showCount(total, 'project')} found`}
+    >
+      Search results
     </PageHeader>
   )
 }
