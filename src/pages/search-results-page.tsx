@@ -170,21 +170,18 @@ const NoProjectsFound = withRouter(
 const RelevantTags = ({ tagIds, baseTagIds }) => {
   const tags = useSelector(getTagsById(tagIds))
   return (
-    <div
-      style={{
-        display: 'flex',
-        alignItems: 'center',
-        padding: '1rem 0',
-        borderTop: '1px dashed var(--boxBorderColor)'
-      }}
-    >
+    <Container className="v-center">
       <Label>
         {baseTagIds.length === 0 ? 'Related tags:' : 'Refine your search:'}
       </Label>
       <TagLabelGroup tags={tags} baseTagIds={baseTagIds} />
-    </div>
+    </Container>
   )
 }
+
+const Container = styled.div`
+  padding: 0.25rem 0;
+`
 
 const Label = styled.div`
   padding-right: 0.5rem;

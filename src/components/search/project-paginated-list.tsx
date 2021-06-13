@@ -35,7 +35,7 @@ export const ProjectPaginatedList = ({
   return (
     <div>
       {(showSortOptions || showPagination) && (
-        <Row style={{ borderTop: '1px dashed var(--boxBorderColor)' }}>
+        <Row>
           <Cell>
             {showSortOptions && (
               <SortOrderPicker

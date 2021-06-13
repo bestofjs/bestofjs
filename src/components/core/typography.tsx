@@ -25,13 +25,6 @@ export const ExternalLink = ({
   )
 }
 
-const Heading = styled.h1`
-  display: flex;
-  align-items: center;
-  margin: 0;
-  font-size: 1.5rem;
-`
-
 type PageHeaderProps = {
   title: string
   icon?: React.Node
@@ -47,13 +40,21 @@ export const PageHeader = ({
   const content = children || title
   usePageTitle(title)
   return (
-    <Heading style={{ paddingBottom: '1rem' }}>
+    <Heading>
       {icon && <PageTitleIcon>{icon}</PageTitleIcon>}
       {content}
       {subTitle && <PageSubTitle>{subTitle}</PageSubTitle>}
     </Heading>
   )
 }
+
+const Heading = styled.h1`
+  display: flex;
+  align-items: center;
+  margin: 0;
+  font-size: 1.5rem;
+  padding-bottom: 0.5rem;
+`
 
 const PageTitleIcon = styled.div`
   margin-right: 0.5rem;
