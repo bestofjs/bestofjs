@@ -2,23 +2,20 @@ import React from 'react'
 import styled from '@emotion/styled'
 import { GoHome, GoMarkGithub } from 'react-icons/go'
 import { DiNpm } from 'react-icons/di'
-import { Helmet } from 'react-helmet'
 
-import { ButtonLink } from 'components/core'
+import { ButtonLink, usePageTitle } from 'components/core'
 import { Avatar } from 'components/core/project'
 import { TagLabelGroup } from 'components/tags/tag-label'
 import formatUrl from 'helpers/url'
-import { defaultHelmetProps } from 'constants/constants'
 
 type Props = { project: BestOfJS.Project }
 export const ProjectHeader = ({ project }: Props) => {
   const { full_name, packageName, repository, url } = project
 
+  usePageTitle(project.name)
+
   return (
     <HeaderLayout>
-      <Helmet {...defaultHelmetProps}>
-        <title>{project.name}</title>
-      </Helmet>
       <Main>
         <div style={{ paddingRight: '1rem' }}>
           <Avatar project={project} size={75} />

@@ -1,6 +1,8 @@
 import React from 'react'
 import styled from '@emotion/styled'
 
+import { usePageTitle } from './html-head'
+
 /*
 Link to external websites, that open in a new browser tab
 See https://mathiasbynens.github.io/rel-noopener
@@ -23,33 +25,36 @@ export const ExternalLink = ({
   )
 }
 
-const Heading = styled.h2`
-  display: flex;
-  align-items: center;
-  margin: 0;
-`
-
-export const PageTitle = ({
+type PageHeaderProps = {
+  title: string
+  icon?: React.Node
+  subTitle?: React.Node
+  children?: ReactNode
+}
+export const PageHeader = ({
+  title,
   icon,
-  children,
-  extra,
-  style
-}: {
-  children: any
-  icon?: any
-  extra?: any
-  style?: any
-}) => {
+  subTitle,
+  children
+}: PageHeaderProps) => {
+  const content = children || title
+  usePageTitle(title)
   return (
-    <Heading style={{ paddingBottom: '1rem', ...style }}>
+    <Heading>
       {icon && <PageTitleIcon>{icon}</PageTitleIcon>}
-      <div>
-        {children}
-        {extra && <PageTitleExtra>{extra}</PageTitleExtra>}
-      </div>
+      {content}
+      {subTitle && <PageSubTitle>{subTitle}</PageSubTitle>}
     </Heading>
   )
 }
+
+const Heading = styled.h1`
+  display: flex;
+  align-items: center;
+  margin: 0;
+  font-size: 1.5rem;
+  padding-bottom: 0.5rem;
+`
 
 const PageTitleIcon = styled.div`
   margin-right: 0.5rem;
@@ -57,8 +62,8 @@ const PageTitleIcon = styled.div`
   display: flex;
 `
 
-const PageTitleExtra = styled.span`
-  color: var(--textSecondary);
-  font-size: 16px;
-  margin-left: 0.25rem;
+const PageSubTitle = styled.span`
+  color: var(--textMutedColor);
+  font-size: 0.9em;
+  margin-left: 0.5rem;
 `

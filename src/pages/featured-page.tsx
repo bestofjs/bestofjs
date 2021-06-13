@@ -8,7 +8,7 @@ import {
   PaginationContainer
 } from 'components/core/pagination'
 import { ProjectPaginatedList } from 'components/search/project-paginated-list'
-import { Title, MainContent } from 'components/core'
+import { MainContent, PageHeader } from 'components/core'
 import { StarIcon } from 'components/core/icons'
 import { getFeaturedProjects } from 'selectors'
 
@@ -25,12 +25,11 @@ export const FeaturedPage = () => {
       <PaginationContainer.Provider
         initialState={{ total, currentPageNumber: page, limit }}
       >
-        <Title
+        <PageHeader
+          title="Featured projects"
           icon={<StarIcon size={32} />}
           extra={total === 1 ? '(one project)' : `(${total} projects)`}
-        >
-          Featured projects
-        </Title>
+        />
         <PageDescription>
           An arbitrary selection of important projects with distinct logos.
         </PageDescription>

@@ -10,17 +10,14 @@ import {
   Button,
   EmptyContent,
   MainContent,
-  PageTitle,
-  Spinner,
-  Title
+  PageHeader,
+  Spinner
 } from 'components/core'
 import { ProjectPaginatedList } from 'components/search/project-paginated-list'
 import { TagLabelGroup } from 'components/tags/tag-label'
 import { useSearch } from 'components/search/search-container'
 import { updateLocation } from 'components/search/search-utils'
 import { findProjects } from 'components/search/find-projects'
-import { defaultHelmetProps } from 'constants/constants'
-import { Helmet } from 'react-helmet'
 
 export const SearchResultsPage = () => {
   const { selectedTags, query, sortOption, page } = useSearch()
@@ -86,28 +83,24 @@ const SearchResultsTitle = ({ query, selectedTags, total }) => {
   const isListFiltered = query !== '' || selectedTags.length > 0
   const tags = useSelector(getTagsById(selectedTags))
 
-  if (!isListFiltered) return <Title>All Projects</Title>
+  if (!isListFiltered) return <PageHeader title="All Projects" />
 
   if (tags.length > 0 && !query) {
     return (
-      <>
-        {/* Cannot use <Title> as this <PageTitle> has an inner span*/}
-        <Helmet {...defaultHelmetProps}>
-          <title>{tags.map(tag => tag.name).join(' + ')}</title>
-        </Helmet>
-        <PageTitle icon={<TagIcon size={32} />}>
-          {tags.map(tag => tag.name).join(' + ')}
-          <span className="text-secondary" style={{ marginLeft: '0.5rem' }}>
-            ({showCount(total, 'project')})
-          </span>
-        </PageTitle>
-      </>
+      <PageHeader
+        title={tags.map(tag => tag.name).join(' + ')}
+        icon={<TagIcon size={32} />}
+        subTitle={showCount(total, 'project')}
+      />
     )
   }
   return (
-    <Title style={{ paddingBottom: '1rem' }}>
-      Search results: {showCount(total, 'project')} found
-    </Title>
+    <PageHeader
+      title="Search"
+      subTitle={`${showCount(total, 'project')} found`}
+    >
+      Search results
+    </PageHeader>
   )
 }
 
@@ -177,21 +170,18 @@ const NoProjectsFound = withRouter(
 const RelevantTags = ({ tagIds, baseTagIds }) => {
   const tags = useSelector(getTagsById(tagIds))
   return (
-    <div
-      style={{
-        display: 'flex',
-        alignItems: 'center',
-        padding: '1rem 0',
-        borderTop: '1px dashed var(--boxBorderColor)'
-      }}
-    >
+    <Container className="v-center">
       <Label>
         {baseTagIds.length === 0 ? 'Related tags:' : 'Refine your search:'}
       </Label>
       <TagLabelGroup tags={tags} baseTagIds={baseTagIds} />
-    </div>
+    </Container>
   )
 }
+
+const Container = styled.div`
+  padding: 0.25rem 0;
+`
 
 const Label = styled.div`
   padding-right: 0.5rem;
