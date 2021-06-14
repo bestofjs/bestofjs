@@ -2,8 +2,7 @@ import React, { useEffect, useRef } from 'react'
 import styled from '@emotion/styled'
 
 import { fetchJSON } from 'helpers/fetch'
-import { Button } from 'components/core'
-import { useToast } from 'components/core/toast'
+import { Button, ExternalLink, useToast } from 'components/core'
 import { ExternalLinkIcon } from 'components/core/icons'
 
 type Meta = {
@@ -112,13 +111,13 @@ const AppUpdateToastContent = ({ close, version }) => {
       </h3>
       <p style={{ marginBottom: '1.5rem' }}>
         A new version of <i>Best of JS</i> is available (
-        <a
-          href="https://github.com/bestofjs/bestofjs-webui/blob/master/CHANGELOG.md"
+        <ExternalLink
+          url="https://github.com/bestofjs/bestofjs-webui/blob/master/CHANGELOG.md"
           style={{ display: 'inline-flex', alignItems: 'center' }}
         >
           details
           <ExternalLinkIcon />
-        </a>
+        </ExternalLink>
         ), click on "Update" to reload the window.
       </p>
 

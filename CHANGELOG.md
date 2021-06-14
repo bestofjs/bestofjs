@@ -1,8 +1,8 @@
 # Change log
 
-## 0.31.0 - 2021-06-13
+## 0.31.0 - 2021-06-14
 
-- Change page title #106
+- Change dynamically page title #106
 - Fix CSS warnings
 - Handle `/rankings/monthly` URL (no params) and add link to navigation dropdown button
 
@@ -340,8 +340,8 @@
 
 ## 0.1.3 - 2015-10-10
 
-get-readme service URL setup in config files
-Remove `marked` dependency because get-readme service now returns HTML content
+- `get-readme` service URL setup in config files
+- Remove `marked` dependency because get-readme service now returns HTML content instead of markdown
 
 ## 0.1.2 - 2015-10-09
 
