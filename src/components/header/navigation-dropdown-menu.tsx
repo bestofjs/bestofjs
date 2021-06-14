@@ -32,6 +32,13 @@ export const NavigationDropdownMenu = () => {
             className: 'mobile-only'
           },
           {
+            label: `Monthly Rankings`,
+            onClick: () => {
+              history.push('/rankings/monthly')
+              close()
+            }
+          },
+          {
             label: `Hall of Fame`,
             onClick: () => {
               history.push('/hall-of-fame')

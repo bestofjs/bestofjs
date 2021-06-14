@@ -46,10 +46,10 @@ If you find _Best of JS_ useful, show your appreciation by starring the project 
 
 ### Backers
 
-[Become a backer](https://opencollective.com/bestofjs#contribute)
-
 <a href="https://opencollective.com/bestofjs#contributors" target="_blank">
-  <img src="https://opencollective.com/bestofjs/tiers/backer.svg?avatarHeight=36&button=false">
+  <img src="https://opencollective.com/bestofjs/tiers/backer.svg?avatarHeight=64&button=false">
 </a>
+
+[Become a backer](https://opencollective.com/bestofjs#contribute)
 
 Thank you and don't forget: we are all made of stars ![star](https://bestofjs.org/images/star.png)!

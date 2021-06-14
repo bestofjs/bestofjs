@@ -36,7 +36,7 @@ const Routes = props => {
           <Route path="/featured" component={FeaturedPage} />
           <Route path="/timeline" component={TimelinePage} />
           <Route
-            path="/rankings/monthly/:year/:month"
+            path="/rankings/monthly/:year?/:month?"
             component={MonthlyRankingsPage}
           />
           <Route exact path="/about" component={AsyncAboutPage} />

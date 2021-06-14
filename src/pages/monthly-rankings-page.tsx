@@ -13,10 +13,11 @@ import {
 
 export const MonthlyRankingsPage = () => {
   const { year, month } = useParams()
+  const date = checkDateParams(year, month) ? { year, month } : null
   return (
     <MainContent>
       <PageHeader title="Monthly Rankings" icon={<GoCalendar size={32} />} />
-      <FetchMonthlyRankings date={{ year, month }} />
+      <FetchMonthlyRankings date={date} />
     </MainContent>
   )
 }
@@ -45,7 +46,7 @@ const FetchMonthlyRankings = ({ date }) => {
   return (
     <>
       <MonthlyRankingsNavigator
-        date={date}
+        date={{ year, month }}
         isFirst={isFirst}
         isLatest={isLatest}
         goToPrevious={goToPrevious}
@@ -59,4 +60,18 @@ const FetchMonthlyRankings = ({ date }) => {
       />
     </>
   )
+}
+
+function checkDateParams(year: string, month: string) {
+  return isValidYear(year) && isValidMonth(month)
+}
+function isValidYear(year: string) {
+  if (!year) return false
+  const yearNumber = Number(year)
+  return !isNaN(yearNumber) && yearNumber > 2019 && yearNumber <= 2030
+}
+function isValidMonth(month: string) {
+  if (!month) return false
+  const monthNumber = Number(month)
+  return !isNaN(monthNumber) && monthNumber >= 1 && monthNumber <= 12
 }

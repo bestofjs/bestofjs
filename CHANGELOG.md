@@ -1,5 +1,11 @@
 # Change log
 
+## 0.31.0 - 2021-06-13
+
+- Change page title #106
+- Fix CSS warnings
+- Handle `/rankings/monthly` URL (no params) and add link to navigation dropdown button
+
 ## 0.30.0 - 2021-05-31
 
 - Add dropdown navigation menu to the header #103
