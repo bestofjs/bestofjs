@@ -10,7 +10,7 @@
   display: table;
   clear: both;
 }
-.vertical-timeline-element:first-child {
+.vertical-timeline-element:first-of-type {
   margin-top: 0;
 }
 .vertical-timeline-element:last-child {
@@ -20,7 +20,7 @@
   .vertical-timeline-element {
     margin: 4em 0;
   }
-  .vertical-timeline-element:first-child {
+  .vertical-timeline-element:first-of-type {
     margin-top: 0;
   }
   .vertical-timeline-element:last-child {

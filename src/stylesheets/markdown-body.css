@@ -332,7 +332,7 @@ except the GitHub link color commented out line 188 */
   content: '';
 }
 
-.markdown-body > *:first-child {
+.markdown-body > *:first-of-type {
   margin-top: 0 !important;
 }
 
@@ -381,7 +381,7 @@ except the GitHub link color commented out line 188 */
   color: var(--textSecondaryColor);
 }
 
-.markdown-body blockquote > :first-child {
+.markdown-body blockquote > :first-of-type {
   margin-top: 0;
 }
 

@@ -46,7 +46,7 @@ export const CardBody = styled.div``
 
 export const CardSection = styled.div`
   padding: 1em;
-  &:not(:first-child) {
+  &:not(:first-of-type) {
     border-top: 1px dashed var(--boxBorderColor);
   }
 `

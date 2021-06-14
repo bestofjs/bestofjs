@@ -61,7 +61,7 @@ const Div = styled.div`
   }
   @media (max-width: 600px) {
     flex-direction: column;
-    > div:not(:first-child) {
+    > div:not(:first-of-type) {
       margin-top: 0.5rem;
     }
   }

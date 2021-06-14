@@ -286,7 +286,7 @@ const FooterRow = styled.tr`
 const Cell = styled.td`
   padding: 1rem 0.5rem;
   background-color: white;
-  &:firstof-type {
+  &:first-of-type {
     padding-left: 1rem;
   }
 `

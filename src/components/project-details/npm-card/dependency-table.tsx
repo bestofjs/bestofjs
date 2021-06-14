@@ -10,7 +10,7 @@ export const DependencyTable = styled.table`
   tbody td {
     padding: ${cellPadding};
     border-top: 1px dashed var(--boxBorderColor);
-    &:first-child {
+    &:first-of-type {
       width: 200px;
     }
     vertical-align: top;

@@ -136,8 +136,9 @@ const ProjectSlider = ({
     <Container>
       <CountDown
         pageNumber={pageNumber}
-        duration={isPaused ? null : duration}
+        duration={duration}
         interval={1000}
+        isPaused={isPaused}
       />
       <VisibleGroup>
         {slots
@@ -233,7 +234,7 @@ const FeaturedProjectName = styled.div`
   text-align: center;
 `
 
-const CountDown = ({ pageNumber, duration, interval }) => {
+const CountDown = ({ pageNumber, duration, interval, isPaused }) => {
   const steps = duration / interval
   const initialProgress = 100 / steps
   const [progress, setProgress] = useState(initialProgress)
@@ -244,12 +245,12 @@ const CountDown = ({ pageNumber, duration, interval }) => {
         setProgress(val => val + initialProgress)
       }
     },
-    duration ? interval : 0
+    !isPaused ? interval : null
   )
 
   useUpdateEffect(() => {
     setProgress(initialProgress)
-  }, [pageNumber, duration])
+  }, [pageNumber])
 
   return <ProgressBar progress={progress} />
 }
