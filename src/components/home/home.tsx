@@ -11,7 +11,13 @@ import log from 'helpers/log'
 import { addProjectURL } from 'components/user-requests/add-project/create-issue-link'
 import { TagLabelGroup } from 'components/tags/tag-label'
 import { StarIcon } from 'components/core/icons'
-import { ExternalLink, ButtonLink, MainContent, Section } from 'components/core'
+import {
+  Box,
+  ExternalLink,
+  ButtonLink,
+  MainContent,
+  Section
+} from 'components/core'
 import { CompactTagList } from 'components/tags/tag-list'
 import { HotProjects, NewestProjects } from './home-projects'
 import { RandomFeaturedProject } from './featured-projects'
@@ -27,6 +33,17 @@ export const Home = props => {
       <h1 style={{ margin: '0 0 1rem' }}>
         The best of JavaScript, HTML and CSS
       </h1>
+      <Box
+        as="h1"
+        border="dashed"
+        borderRadius={4}
+        p={2}
+        bg="blue"
+        color="white"
+        mb={4}
+      >
+        Box!
+      </Box>
       <Section>
         <Row>
           <MainColumn>
