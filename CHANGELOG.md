@@ -1,5 +1,9 @@
 # Change log
 
+## 0.31.1 - 2021-07-03
+
+- Scroll to top when navigating through a paginated list of projects
+
 ## 0.31.0 - 2021-06-14
 
 - Change dynamically page title #106
