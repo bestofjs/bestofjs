@@ -1,6 +1,8 @@
 import React from 'react'
 import numeral from 'numeral'
 
+import { BarGraph } from './visx-bar-graph'
+
 import './monthly-chart.css'
 
 const monthNames = 'Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec'.split(' ')
@@ -34,6 +36,7 @@ export const MonthlyChart = ({ values, showPlusSymbol }) => {
 
   return (
     <div>
+      <BarGraph data={dataset} />
       <div className="project-chart">
         <div className="project-chart-columns">
           {monthlyDeltas.map((value, i) => (

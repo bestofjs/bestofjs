@@ -11,6 +11,7 @@ import { ErrorBoundary, ErrorFallback } from 'pages/error-handling'
 import { NoMatchPage } from './no-match-page'
 import { Spinner } from 'components/core'
 import { MonthlyRankingsPage } from './monthly-rankings-page'
+import { CompareProjectsPage } from './compare-projects-page'
 
 const AsyncViewProject = lazy(() => import('pages/project-details-page'))
 const AsyncAboutPage = lazy(() => import('pages/about-page'))
@@ -26,6 +27,7 @@ const Routes = props => {
             <AsyncViewProject {...props} />
           </Route>
           <Route exact path="/projects" component={SearchResultsPage} />
+          <Route exact path="/compare/:ids" component={CompareProjectsPage} />
           <Redirect from={`/tags/:id`} to={`/projects?tags=:id`} />
           <Route from={`/tags`} component={TagsPage} />
           <Route exact path="/hall-of-fame">
