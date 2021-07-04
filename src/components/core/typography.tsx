@@ -43,7 +43,12 @@ export const PageHeader = ({
     <Heading>
       {icon && <PageTitleIcon>{icon}</PageTitleIcon>}
       {content}
-      {subTitle && <PageSubTitle>{subTitle}</PageSubTitle>}
+      {subTitle && (
+        <>
+          <Separator>•</Separator>
+          <PageSubTitle>{subTitle}</PageSubTitle>
+        </>
+      )}
     </Heading>
   )
 }
@@ -62,8 +67,12 @@ const PageTitleIcon = styled.div`
   display: flex;
 `
 
+const Separator = styled.span`
+  margin-left: 0.5rem;
+  color: var(--iconColor);
+`
+
 const PageSubTitle = styled.span`
-  color: var(--textMutedColor);
-  font-size: 0.9em;
+  color: var(--textSecondaryColor);
   margin-left: 0.5rem;
 `
