@@ -35,7 +35,7 @@ export const ReadmeCard = ({ project }) => {
   )
 }
 
-const ReadmeContent = ({ project }: Props) => {
+export const ReadmeContent = ({ project }: Props) => {
   const { data: html, error } = useFetchProjectReadMe(project)
 
   if (error) return <div>Unable to fetch README.md content from GitHub</div>

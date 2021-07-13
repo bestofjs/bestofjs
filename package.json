@@ -10,7 +10,8 @@
     "build": "REACT_APP_VERSION=$npm_package_version react-scripts build && node ./build-meta",
     "test": "react-scripts test --env=jsdom",
     "pretty-quick": "pretty-quick",
-    "precommit": "pretty-quick --staged"
+    "precommit": "pretty-quick --staged",
+    "lint": "eslint \"src/**/*.{js,jsx,ts,tsx}\""
   },
   "repository": {
     "type": "git",
@@ -29,6 +30,9 @@
   "dependencies": {
     "@emotion/react": "^11.1.1",
     "@emotion/styled": "^11.0.0",
+    "@reach/tabs": "^0.15.3",
+    "@styled-system/css": "^5.1.5",
+    "@styled-system/should-forward-prop": "^5.1.5",
     "@visx/axis": "^1.12.0",
     "@visx/group": "^1.7.0",
     "@visx/marker": "^1.12.0",
@@ -37,7 +41,6 @@
     "@visx/scale": "^1.11.1",
     "@visx/shape": "^1.12.0",
     "@visx/text": "^1.10.0",
-    "@styled-system/should-forward-prop": "^5.1.5",
     "cross-env": "^1.0.7",
     "lodash": "^4.17.19",
     "lodash.times": "^4.3.2",

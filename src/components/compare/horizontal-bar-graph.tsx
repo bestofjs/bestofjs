@@ -5,11 +5,10 @@ import { AxisLeft } from '@visx/axis'
 import { scaleLinear, scaleBand } from '@visx/scale'
 import { Text } from '@visx/text'
 import ParentSize from '@visx/responsive/lib/components/ParentSize'
-import numeral from 'numeral'
 
-const margin = { top: 20, bottom: 25, left: 80, right: 50 }
+import { formatNumber } from './utils'
 
-const barHeight = 20
+const margin = { top: 0, bottom: 0, left: 80, right: 50 }
 
 const x = d => d.value
 const y = d => d.project
@@ -18,10 +17,17 @@ type Props = {
   data: { project: string; value: number }[]
   width: number
   width: number
+  formatValue?: (value: number) => string
 }
-function BasicBarGraph({ data, width, height }: Props) {
+function BasicBarGraph({
+  data,
+  width,
+  height,
+  formatValue = defaultFormatter
+}: Props) {
   const xMax = width - margin.left - margin.right
   const yMax = height - margin.top - margin.bottom
+  console.log({ yMax })
 
   const xScale = scaleLinear({
     range: [0, xMax],
@@ -33,7 +39,7 @@ function BasicBarGraph({ data, width, height }: Props) {
     round: true,
     domain: data.map(y),
     paddingOuter: 0,
-    paddingInner: 0.1
+    paddingInner: 0.4
   })
 
   // Compose together the scale and accessor functions to get point functions
@@ -51,59 +57,64 @@ function BasicBarGraph({ data, width, height }: Props) {
       <Group top={margin.top} left={margin.left}>
         {data.map((d, i) => {
           const barWidth = xPoint(d)
+          const barHeight = yScale.bandwidth()
+          const y = yPoint(d)
+
+          console.log({ x: 0, y, barWidth })
 
           return (
             <Group key={`bar-${i}`}>
               <Bar
-                y={yPoint(d)}
+                y={y}
                 x={0}
                 rx={4}
                 height={barHeight}
-                fill="var(--bestofjsOrange)"
                 width={barWidth}
+                fill="var(--bestofjsOrange)"
               />
               <Text
                 x={barWidth + 20}
-                y={yPoint(d)}
+                y={y}
                 dy={15}
                 width={200}
                 textAnchor="middle"
               >
-                {formatDelta(d.value, { decimals: 1, showPlusSymbol: true })}
+                {formatValue(d.value)}
               </Text>
             </Group>
           )
         })}
-        <AxisLeft
-          scale={yScale}
-          hideTicks
-          tickLabelProps={props => ({
-            ...props,
-            fill: 'var(--textPrimaryColor)',
-            // textAnchor: 'left',
-            fontSize: 12,
-            dx: -70
-          })}
-        />
+        {true && (
+          <AxisLeft
+            scale={yScale}
+            hideTicks
+            hideAxisLine
+            tickLabelProps={props => ({
+              ...props,
+              fill: 'var(--textPrimaryColor)',
+              // textAnchor: 'left',
+              fontSize: 12,
+              dx: -70,
+              dy: 5
+            })}
+          />
+        )}
       </Group>
     </svg>
   )
 }
 
-export const HorizontalBarGraph = ({ data }) => {
-  const height = (data.length - 1) * 50
+export const HorizontalBarGraph = ({ data, ...props }) => {
+  const spacing = 50
+  const height = (data.length - 1) * spacing
+
   return (
     <ParentSize>
       {({ width }) => (
-        <BasicBarGraph width={width} height={height} data={data} />
+        <BasicBarGraph width={width} height={height} data={data} {...props} />
       )}
     </ParentSize>
   )
 }
 
-function formatDelta(value, { decimals = 0, showPlusSymbol = false }) {
-  const numberFormat =
-    decimals === 0 || value < 1000 ? '0' : `0.${'0'.repeat(decimals)}`
-  const formattedNumber = numeral(value).format(`${numberFormat}a`)
-  return showPlusSymbol && value > 0 ? `+${formattedNumber}` : formattedNumber
-}
+const defaultFormatter = value => formatNumber(value, { decimals: 1 })

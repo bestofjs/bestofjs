@@ -4,6 +4,7 @@ const baseSetup = {
     'https://bestofjs-static-api.vercel.app',
   GET_README: 'https://bestofjs-serverless.now.sh',
   GET_PROJECT_DETAILS: 'https://bestofjs-serverless.now.sh',
+  COMPARE_PROJECTS: 'https://bestofjs-serverless.now.sh',
   GET_PACKAGE_DATA: 'https://bestofjs-serverless.now.sh',
   GET_RANKINGS: 'https://bestofjs-rankings.vercel.app',
   ISSUES_REPO: 'michaelrambeau/bestofjs'
@@ -11,8 +12,8 @@ const baseSetup = {
 
 const setup = {
   development: {
-    ...baseSetup
-    // GET_RANKINGS: 'http://localhost:3000'
+    ...baseSetup,
+    COMPARE_PROJECTS: 'http://localhost:3000'
   },
   production: {
     ...baseSetup

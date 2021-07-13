@@ -5,7 +5,9 @@ import { fetchHTML, fetchJSON } from '../helpers/fetch'
 
 export function useFetchProjectReadMe({ full_name, branch }) {
   const fetcher = () => fetchProjectReadMe({ full_name, branch })
-  return useSWR(['/api/projects/readme', full_name], fetcher)
+  return useSWR(['/api/projects/readme', full_name], fetcher, {
+    revalidateOnFocus: false
+  })
 }
 
 function fetchProjectReadMe({ full_name, branch = 'master' }) {
@@ -20,10 +22,22 @@ export function useFetchProjectDetails({ full_name }) {
   return useSWR(['/api/projects/details', full_name], fetcher)
 }
 
+export function useFetchCompareProjects({ full_names }) {
+  const fetcher = () => fetchCompareProjects({ full_names })
+  return useSWR(['/api/projects/compare', ...full_names], fetcher)
+}
+
 function fetchProjectDetails({ full_name }) {
   const url = `${getApiRootURL(
     'GET_PROJECT_DETAILS'
   )}/api/project-details?fullName=${full_name}`
+  return fetchJSON(url)
+}
+
+function fetchCompareProjects({ full_names }) {
+  const url = `${getApiRootURL(
+    'COMPARE_PROJECTS'
+  )}/api/compare-projects?fullNames=${full_names.join(',')}`
   return fetchJSON(url)
 }
 

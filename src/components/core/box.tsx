@@ -23,7 +23,8 @@ import {
   layout,
   typography,
   color,
-  flexbox
+  flexbox,
+  grid
 } from 'styled-system'
 import css, { get } from '@styled-system/css'
 import shouldForwardProp from '@styled-system/should-forward-prop'
@@ -45,9 +46,13 @@ export const Box = styled('div', {
   variant,
   sx,
   props => props.css,
-  compose(space, layout, typography, color, flexbox, border)
+  compose(space, layout, typography, color, flexbox, border, grid)
 )
 
 export const Flex = styled(Box)({
   display: 'flex'
+})
+
+export const Grid = styled(Box)({
+  display: 'grid'
 })
