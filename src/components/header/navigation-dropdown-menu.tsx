@@ -1,7 +1,7 @@
 import React from 'react'
 import { useHistory } from 'react-router-dom'
-import { GoKebabVertical } from 'react-icons/go'
 import styled from '@emotion/styled'
+import { FiMenu } from 'react-icons/fi'
 
 import { StaticContentContainer } from 'containers/static-content-container'
 import { Button, Popover, Menu } from 'components/core'
@@ -88,14 +88,32 @@ export const NavigationDropdownMenu = () => {
       alignment="right"
     >
       {({ open }) => (
-        <RoundedButton onClick={open}>
-          <GoKebabVertical fontSize="24px" />
-        </RoundedButton>
+        <ButtonContainer>
+          <MenuButton onClick={open} className="desktop-only">
+            More...
+          </MenuButton>
+          <RoundedButton onClick={open} className="mobile-only">
+            <FiMenu fontSize="28px" />
+          </RoundedButton>
+        </ButtonContainer>
       )}
     </Popover>
   )
 }
+const ButtonContainer = styled.div`
+  padding-left: 0.25rem;
+  padding-right: 0.25rem;
+`
 const RoundedButton = styled(Button)`
   padding: 0.3rem;
-  border-radius: 99px;
+  border-width: 0;
+  color: var(--textMutedColor);
+`
+
+const MenuButton = styled(Button)`
+  border-width: 0;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  // text-transform: uppercase;
+  font-size: 16px;
 `

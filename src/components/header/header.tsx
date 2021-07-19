@@ -1,11 +1,12 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, NavLink } from 'react-router-dom'
 import styled from '@emotion/styled'
 import { GoMarkGithub } from 'react-icons/go'
 
 import { AuthContainer } from 'containers/auth-container'
 import { StaticContentContainer } from 'containers/static-content-container'
 import { Button } from 'components/core'
+import { DiscordIcon } from 'components/core/icons'
 import { UserDropdownMenu } from './user-dropdown-menu'
 import { NavigationDropdownMenu } from './navigation-dropdown-menu'
 
@@ -24,6 +25,16 @@ const HeaderContainer = styled.header`
   @media screen and (min-width: ${breakpoint}px) {
     padding: 0;
   }
+  .desktop-only {
+    @media screen and (max-width: ${breakpoint - 1}px) {
+      display: none;
+    }
+  }
+  .mobile-only {
+    @media screen and (min-width: ${breakpoint}px) {
+      display: none;
+    }
+  }
 `
 
 export const Header = props => {
@@ -37,25 +48,51 @@ export const Header = props => {
             <LinkLogo to={'/'}>
               <img src="/svg/bestofjs.svg" width="130" alt="Best of JS" />
             </LinkLogo>
-          </Col>
-          <Col>
-            <NavigationMenu>
-              <NavigationMenuItem className="desktop-only">
-                <Link to="/projects">Projects</Link>
+
+            <NavigationMenu className="desktop-only">
+              <NavigationMenuItem>
+                <NavLink to="/" exact>
+                  Home
+                </NavLink>
               </NavigationMenuItem>
-              <NavigationMenuItem className="desktop-only">
-                <Link to="/tags">Tags</Link>
+              <NavigationMenuItem>
+                <NavLink to="/projects">Projects</NavLink>
+              </NavigationMenuItem>
+              <NavigationMenuItem>
+                <NavLink to="/tags">Tags</NavLink>
               </NavigationMenuItem>
               <NavigationMenuItem>
                 <NavigationDropdownMenu />
               </NavigationMenuItem>
+            </NavigationMenu>
+          </Col>
+          <Col>
+            <NavigationMenu>
               <NavigationMenuItem className="desktop-only">
                 <LoginSection />
               </NavigationMenuItem>
               <NavigationMenuItem>
-                <a href={repoURL} target="_blank" rel="noopener noreferrer">
-                  <GoMarkGithub size={32} />
+                <a
+                  className="icon"
+                  href="https://discord.gg/8RBMtuuJmn"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <DiscordIcon />
                 </a>
+              </NavigationMenuItem>
+              <NavigationMenuItem>
+                <a
+                  className="icon"
+                  href={repoURL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <GoMarkGithub size={28} />
+                </a>
+              </NavigationMenuItem>
+              <NavigationMenuItem className="mobile-only">
+                <NavigationDropdownMenu />
               </NavigationMenuItem>
             </NavigationMenu>
           </Col>
@@ -68,14 +105,12 @@ export const Header = props => {
 const Row = styled.div`
   display: flex;
   width: 100%;
+  justify-content: space-between;
 `
 
 const Col = styled.div`
   display: flex;
   align-items: center;
-  &:first-of-type {
-    flex-grow: 1;
-  }
 `
 
 const LinkLogo = styled(Link)`
@@ -88,26 +123,30 @@ const LinkLogo = styled(Link)`
 const NavigationMenu = styled.div`
   display: flex;
   align-items: center;
+  margin-left: 1rem;
 `
 const NavigationMenuItem = styled.div`
-  a {
+  > a {
+    display: flex;
+    align-items: center;
+    height: 60px;
     color: var(--textSecondaryColor);
-    font-size: 1rem;
+    font-size: 16px;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
     &:hover {
       color: var(--textPrimaryColor);
     }
+    border: 4px solid transparent;
   }
-  &:not(:last-child) {
-    margin-right: 1rem;
+  a.active {
+    color: #bb4201;
+    border-bottom-color: #bb4201;
   }
-  &.desktop-only {
-    @media screen and (max-width: ${breakpoint - 1}px) {
-      display: none;
-    }
-  }
-  .mobile-only {
-    @media screen and (min-width: ${breakpoint}px) {
-      display: none;
+  a.icon {
+    color: var(--textMutedColor);
+    &:hover {
+      color: var(--textSecondaryColor);
     }
   }
 `
