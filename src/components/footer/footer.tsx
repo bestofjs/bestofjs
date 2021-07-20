@@ -216,6 +216,7 @@ const ListItemLink = styled.a`
   display: flex;
   align-items: center;
   font-size: 16px;
+  font-family: Poppins;
 `
 
 const DirectLink = ListItemLink.withComponent(Link)

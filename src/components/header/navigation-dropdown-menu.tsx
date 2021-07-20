@@ -101,8 +101,8 @@ export const NavigationDropdownMenu = () => {
   )
 }
 const ButtonContainer = styled.div`
-  padding-left: 0.25rem;
-  padding-right: 0.25rem;
+  // padding-left: 0.25rem;
+  // padding-right: 0.25rem;
 `
 const RoundedButton = styled(Button)`
   padding: 0.3rem;
@@ -112,8 +112,8 @@ const RoundedButton = styled(Button)`
 
 const MenuButton = styled(Button)`
   border-width: 0;
-  padding-left: 1rem;
-  padding-right: 1rem;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
   // text-transform: uppercase;
   font-size: 16px;
 `

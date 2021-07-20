@@ -124,16 +124,19 @@ const NavigationMenu = styled.div`
   display: flex;
   align-items: center;
   margin-left: 1rem;
+  font-family: Poppins, Helvetica, sans-serif;
 `
 const NavigationMenuItem = styled.div`
+  > * {
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+  }
   > a {
     display: flex;
     align-items: center;
     height: 60px;
     color: var(--textSecondaryColor);
     font-size: 16px;
-    padding-left: 0.5rem;
-    padding-right: 0.5rem;
     &:hover {
       color: var(--textPrimaryColor);
     }
@@ -157,8 +160,17 @@ const LoginSection = () => {
   if (auth.isPending) return <div className="v-center">Loading...</div>
 
   if (!auth.isLoggedIn) {
-    return <Button onClick={() => auth.login()}>Sign in</Button>
+    return <LoginButton onClick={() => auth.login()}>Sign in</LoginButton>
   }
 
   return <UserDropdownMenu />
 }
+
+const LoginButton = styled(Button)`
+  border-width: 0;
+  // text-transform: uppercase;
+  margin-right: 0rem;
+  font-size: 16px;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+`
