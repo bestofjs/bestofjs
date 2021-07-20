@@ -6,6 +6,7 @@ import { FiMenu } from 'react-icons/fi'
 import { StaticContentContainer } from 'containers/static-content-container'
 import { Button, Popover, Menu } from 'components/core'
 import { ExternalLinkIcon } from 'components/core/icons'
+import { GoChevronDown } from 'react-icons/go'
 
 export const NavigationDropdownMenu = () => {
   const history = useHistory()
@@ -90,7 +91,8 @@ export const NavigationDropdownMenu = () => {
       {({ open }) => (
         <ButtonContainer>
           <MenuButton onClick={open} className="desktop-only">
-            More...
+            More
+            <GoChevronDown />
           </MenuButton>
           <RoundedButton onClick={open} className="mobile-only">
             <FiMenu fontSize="28px" />
@@ -114,6 +116,8 @@ const MenuButton = styled(Button)`
   border-width: 0;
   padding-left: 0.5rem;
   padding-right: 0.5rem;
-  // text-transform: uppercase;
   font-size: 16px;
+  svg {
+    margin-left: 0.25rem;
+  }
 `
