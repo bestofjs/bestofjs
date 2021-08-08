@@ -232,6 +232,9 @@ const Box = styled.div`
 const FeaturedProjectName = styled.div`
   flex-grow: 1;
   text-align: center;
+  a {
+    font-family: var(--buttonFontFamily);
+  }
 `
 
 const CountDown = ({ pageNumber, duration, interval, isPaused }) => {

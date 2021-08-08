@@ -46,7 +46,7 @@ export const TagLabel = ({
   )
 
   return (
-    <TagLink key={tag.id} to={nextLocation} as={Link}>
+    <TagLink key={tag.id} to={nextLocation}>
       {isMultiTagLink && <span>+ </span>}
       {tag.name}
     </TagLink>

@@ -74,7 +74,7 @@ export const Header = props => {
               <NavigationMenuItem>
                 <a
                   className="icon"
-                  href="https://discord.gg/8RBMtuuJmn"
+                  href="https://discord.com/invite/rdctdFX2qR"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
@@ -124,7 +124,6 @@ const NavigationMenu = styled.div`
   display: flex;
   align-items: center;
   margin-left: 1rem;
-  font-family: Poppins, Helvetica, sans-serif;
 `
 const NavigationMenuItem = styled.div`
   > * {
@@ -141,6 +140,7 @@ const NavigationMenuItem = styled.div`
       color: var(--textPrimaryColor);
     }
     border: 4px solid transparent;
+    font-family: var(--headingFontFamily);
   }
   a.active {
     color: #bb4201;

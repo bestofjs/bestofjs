@@ -18,7 +18,7 @@ export const Button = styled.button<ButtonProps>`
   white-space: nowrap;
   border-radius: 4px;
   font-size: 1rem;
-  font-family: inherit;
+  font-family: var(--buttonFontFamily);
   &:hover {
     cursor: pointer;
     color: var(--textPrimaryColor);

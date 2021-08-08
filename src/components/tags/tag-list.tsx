@@ -30,12 +30,9 @@ export const CompactTagList = ({
       {tags.map(tag => (
         <ListRow key={tag.id}>
           <CompactListItem>
-            <Link
-              to={`/projects?tags=${tag.code}`}
-              style={{ marginRight: '0.25rem' }}
-            >
+            <StyledLink to={`/projects?tags=${tag.code}`}>
               {tag.name}
-            </Link>
+            </StyledLink>
             ({tag.counter})
           </CompactListItem>
         </ListRow>
@@ -50,6 +47,11 @@ export const CompactTagList = ({
     </TagList>
   )
 }
+
+const StyledLink = styled(Link)`
+  margin-right: 0.25rem;
+  font-family: var(--buttonFontFamily);
+`
 
 const CompactListItem = styled.div`
   width: 100%;

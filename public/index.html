@@ -33,12 +33,39 @@
       content="Check out the most popular open-source projects and the latest trends about the web platform and Node.js."
     />
     <meta property="og:image" content="/images/logo.png" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Poppins&display=swap"
-      rel="stylesheet"
-    />
+
+    <style>
+      /* open-sans-regular - latin */
+      @font-face {
+        font-family: 'Open Sans';
+        font-style: normal;
+        font-weight: 400;
+        src: local(''),
+          url('/fonts/open-sans-v20-latin-regular.woff2') format('woff2'),
+          url('/fonts/open-sans-v20-latin-regular.woff') format('woff');
+      }
+      /* roboto-slab-regular - latin */
+      @font-face {
+        font-family: 'Roboto Slab';
+        font-style: normal;
+        font-weight: 400;
+        src: local(''),
+          url('/fonts/roboto-slab-v13-latin-regular.woff2') format('woff2'),
+          /* Chrome 26+, Opera 23+, Firefox 39+ */
+            url('/fonts/roboto-slab-v13-latin-regular.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+      }
+
+      /* roboto-slab-700 - latin */
+      @font-face {
+        font-family: 'Roboto Slab';
+        font-style: normal;
+        font-weight: 700;
+        src: local(''),
+          url('/fonts/roboto-slab-v13-latin-700.woff2') format('woff2'),
+          /* Chrome 26+, Opera 23+, Firefox 39+ */
+            url('/fonts/roboto-slab-v13-latin-700.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+      }
+    </style>
   </head>
 
   <body>
@@ -57,7 +84,6 @@
           i.media = n || 'all'
         })
       }
-      loadCSS('https://fonts.googleapis.com/css?family=Roboto+Slab:300,400,700')
       loadCSS(
         'https://cdnjs.cloudflare.com/ajax/libs/hint.css/2.6.0/hint.min.css'
       )

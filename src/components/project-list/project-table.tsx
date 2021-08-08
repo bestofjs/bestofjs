@@ -279,6 +279,7 @@ const FooterRow = styled.tr`
     text-align: center;
     a {
       display: block;
+      font-family: var(--buttonFontFamily);
     }
   }
 `
@@ -317,6 +318,7 @@ const MainLink = styled(Link)`
   img {
     margin-right: 1rem;
   }
+  font-family: var(--buttonFontFamily);
 `
 
 const ProjectIconSmallScreen = styled(Avatar)`
@@ -342,7 +344,7 @@ const ContributorCountCell = styled(Cell)`
 `
 
 const StarNumberCell = styled(Cell)`
-  font-size: 1.25rem;
+  font-size: 16px;
   text-align: center;
   width: 85px;
 `
@@ -384,6 +386,8 @@ const ProjectName = styled.div`
   display: flex;
   align-items: center;
   position: relative;
+  font-family: var(--linkFontFamily);
+  font-size: 16px;
 `
 
 const ProjectDescription = styled.div`
