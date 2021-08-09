@@ -1,7 +1,7 @@
 :root {
   --containerWidth: 980px;
   --gutter: 2rem;
-  --topbarHeight: 60px;
+  --topBarHeight: 60px;
   /* colors */
   --textPrimaryColor: #541600;
   --textSecondaryColor: #87563e;

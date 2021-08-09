@@ -11,14 +11,13 @@ import { UserDropdownMenu } from './user-dropdown-menu'
 import { NavigationDropdownMenu } from './navigation-dropdown-menu'
 
 const breakpoint = 700
-const topbarHeight = 60
 
 const HeaderContainer = styled.header`
   background-color: #fff;
-  height: ${topbarHeight}px;
+  height: var(--topBarHeight);
   z-index: 10;
   .container {
-    height: ${topbarHeight}px;
+    height: var(--topBarHeight);
     display: flex;
     align-items: center;
   }
@@ -133,7 +132,7 @@ const NavigationMenuItem = styled.div`
   > a {
     display: flex;
     align-items: center;
-    height: ${topbarHeight}px;
+    height: var(--topBarHeight);
     color: var(--textSecondaryColor);
     &:hover {
       color: var(--textPrimaryColor);
