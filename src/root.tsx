@@ -31,7 +31,8 @@ const AppWithRouter = props => {
   useEffect(() => {
     if (typeof window === 'undefined') return
     window.scrollTo(0, 0)
-  }, [location.pathname]) // eslint-disable-line react-hooks/exhaustive-deps
+  }, [location.pathname, location.search])
+
   return (
     <AuthProvider>
       <ProjectDataProvider>

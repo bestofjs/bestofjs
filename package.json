@@ -1,6 +1,6 @@
 {
   "name": "bestofjs-webui",
-  "version": "0.31.0",
+  "version": "0.31.1",
   "description": "Best of JS front-end web application",
   "engines": {
     "node": ">=12.16.1"
@@ -34,7 +34,6 @@
     "@types/node": "^14.0.1",
     "@types/react": "^16.9.35",
     "@types/react-dom": "^16.9.8",
-    "@types/react-helmet": "^6.1.1",
     "cross-env": "^1.0.7",
     "framer-motion": "^4.1.17",
     "lodash": "^4.17.19",
