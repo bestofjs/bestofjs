@@ -18,7 +18,7 @@ export const Button = styled.button<ButtonProps>`
   white-space: nowrap;
   border-radius: 4px;
   font-size: 1rem;
-  font-family: inherit;
+  font-family: var(--buttonFontFamily);
   &:hover {
     cursor: pointer;
     color: var(--textPrimaryColor);
@@ -28,6 +28,7 @@ export const Button = styled.button<ButtonProps>`
   &:focus {
     outline: 0;
   }
+  line-height: inherit;
   ${props => props.primary && PrimaryButtonMixin}
   ${props => props.disabled && DisabledButtonMixin}
 `

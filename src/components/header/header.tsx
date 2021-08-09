@@ -1,28 +1,38 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, NavLink } from 'react-router-dom'
 import styled from '@emotion/styled'
 import { GoMarkGithub } from 'react-icons/go'
 
 import { AuthContainer } from 'containers/auth-container'
 import { StaticContentContainer } from 'containers/static-content-container'
 import { Button } from 'components/core'
+import { DiscordIcon } from 'components/core/icons'
 import { UserDropdownMenu } from './user-dropdown-menu'
 import { NavigationDropdownMenu } from './navigation-dropdown-menu'
 
 const breakpoint = 700
-const topbarHeight = 60
 
 const HeaderContainer = styled.header`
   background-color: #fff;
-  height: ${topbarHeight}px;
+  height: var(--topBarHeight);
   z-index: 10;
   .container {
-    height: ${topbarHeight}px;
+    height: var(--topBarHeight);
     display: flex;
     align-items: center;
   }
   @media screen and (min-width: ${breakpoint}px) {
     padding: 0;
+  }
+  .desktop-only {
+    @media screen and (max-width: ${breakpoint - 1}px) {
+      display: none;
+    }
+  }
+  .mobile-only {
+    @media screen and (min-width: ${breakpoint}px) {
+      display: none;
+    }
   }
 `
 
@@ -37,25 +47,53 @@ export const Header = props => {
             <LinkLogo to={'/'}>
               <img src="/svg/bestofjs.svg" width="130" alt="Best of JS" />
             </LinkLogo>
-          </Col>
-          <Col>
-            <NavigationMenu>
-              <NavigationMenuItem className="desktop-only">
-                <Link to="/projects">Projects</Link>
+
+            <NavigationMenu className="desktop-only">
+              <NavigationMenuItem>
+                <NavLink to="/" exact>
+                  Home
+                </NavLink>
               </NavigationMenuItem>
-              <NavigationMenuItem className="desktop-only">
-                <Link to="/tags">Tags</Link>
+              <NavigationMenuItem>
+                <NavLink to="/projects">Projects</NavLink>
+              </NavigationMenuItem>
+              <NavigationMenuItem>
+                <NavLink to="/tags">Tags</NavLink>
               </NavigationMenuItem>
               <NavigationMenuItem>
                 <NavigationDropdownMenu />
               </NavigationMenuItem>
+            </NavigationMenu>
+          </Col>
+          <Col>
+            <NavigationMenu>
               <NavigationMenuItem className="desktop-only">
                 <LoginSection />
               </NavigationMenuItem>
               <NavigationMenuItem>
-                <a href={repoURL} target="_blank" rel="noopener noreferrer">
-                  <GoMarkGithub size={32} />
+                <a
+                  className="icon hint--bottom"
+                  href="https://discord.com/invite/rdctdFX2qR"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Join Discord"
+                >
+                  <DiscordIcon />
                 </a>
+              </NavigationMenuItem>
+              <NavigationMenuItem>
+                <a
+                  className="icon hint--bottom"
+                  href={repoURL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="GitHub"
+                >
+                  <GoMarkGithub size={28} />
+                </a>
+              </NavigationMenuItem>
+              <NavigationMenuItem className="mobile-only">
+                <NavigationDropdownMenu />
               </NavigationMenuItem>
             </NavigationMenu>
           </Col>
@@ -68,14 +106,12 @@ export const Header = props => {
 const Row = styled.div`
   display: flex;
   width: 100%;
+  justify-content: space-between;
 `
 
 const Col = styled.div`
   display: flex;
   align-items: center;
-  &:first-of-type {
-    flex-grow: 1;
-  }
 `
 
 const LinkLogo = styled(Link)`
@@ -88,26 +124,32 @@ const LinkLogo = styled(Link)`
 const NavigationMenu = styled.div`
   display: flex;
   align-items: center;
+  margin-left: 1rem;
 `
 const NavigationMenuItem = styled.div`
-  a {
+  > * {
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+  }
+  > a {
+    display: flex;
+    align-items: center;
+    height: var(--topBarHeight);
     color: var(--textSecondaryColor);
-    font-size: 1rem;
     &:hover {
       color: var(--textPrimaryColor);
     }
+    border: 4px solid transparent;
+    font-family: var(--headingFontFamily);
   }
-  &:not(:last-child) {
-    margin-right: 1rem;
+  a.active {
+    color: #bb4201;
+    border-bottom-color: #bb4201;
   }
-  &.desktop-only {
-    @media screen and (max-width: ${breakpoint - 1}px) {
-      display: none;
-    }
-  }
-  .mobile-only {
-    @media screen and (min-width: ${breakpoint}px) {
-      display: none;
+  a.icon {
+    color: var(--textMutedColor);
+    &:hover {
+      color: var(--textSecondaryColor);
     }
   }
 `
@@ -118,8 +160,15 @@ const LoginSection = () => {
   if (auth.isPending) return <div className="v-center">Loading...</div>
 
   if (!auth.isLoggedIn) {
-    return <Button onClick={() => auth.login()}>Sign in</Button>
+    return <LoginButton onClick={() => auth.login()}>Sign in</LoginButton>
   }
 
   return <UserDropdownMenu />
 }
+
+const LoginButton = styled(Button)`
+  border-width: 0;
+  margin-right: 0rem;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+`

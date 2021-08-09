@@ -70,7 +70,7 @@ const DependencyFullList = ({ packageNames }) => {
         <tr>
           <td>Package on NPM</td>
           <td>
-            Project on <i>Best of JavaScript</i>
+            Project on <i>Best of JS</i>
           </td>
         </tr>
       </thead>

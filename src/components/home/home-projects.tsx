@@ -121,7 +121,7 @@ export const NewestProjects = ({ newestProjects, hotFilter }) => {
         showDetails={false}
         footer={
           <Link to={`/projects?sort=newest`} style={{ display: 'block' }}>
-            View more recently added projects »
+            View more »
           </Link>
         }
       />

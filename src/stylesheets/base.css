@@ -1,7 +1,8 @@
 :root {
   --containerWidth: 980px;
   --gutter: 2rem;
-  --topbarHeight: 60px;
+  --topBarHeight: 60px;
+  /* colors */
   --textPrimaryColor: #541600;
   --textSecondaryColor: #87563e;
   --textMutedColor: #bb967c;
@@ -10,6 +11,11 @@
   --bestofjsPurple: #9c0042;
   --boxBorderColor: #cecece;
   --iconColor: #fa9e59;
+  /* fonts */
+  --bodyFontFamily: 'Roboto Slab', sans-serif;
+  --headingFontFamily: 'Open Sans', sans-serif;
+  --linkFontFamily: var(--bodyFontFamily);
+  --buttonFontFamily: var(--headingFontFamily);
 }
 
 @media (max-width: 599px) {
@@ -30,7 +36,7 @@ html,
 input,
 textarea,
 select {
-  font-family: 'Roboto Slab', sans-serif;
+  font-family: var(--bodyFontFamily);
   box-sizing: border-box;
 }
 html {
@@ -58,7 +64,8 @@ body {
   color: var(--iconColor);
 }
 a {
-  color: #cc4700;
+  color: var(--linkColor);
+  font-family: var(--linkFontFamily);
   text-decoration: none;
   transition: all 0.3s;
 }
@@ -118,9 +125,6 @@ h3 .icon {
     padding-left: var(--gutter);
     padding-right: var(--gutter);
   }
-}
-#main {
-  /* padding-top: var(--topbarHeight); */
 }
 #main-content {
   padding-top: 2rem;

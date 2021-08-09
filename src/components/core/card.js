@@ -28,6 +28,7 @@ export const CardHeader = styled.div`
   padding: 1rem;
   font-size: 1rem;
   border-bottom: 1px solid var(--boxBorderColor);
+  font-family: var(--headingFontFamily);
   .counter,
   .comment {
     color: rgba(255, 255, 255, 0.7);
