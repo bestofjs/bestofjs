@@ -29,4 +29,7 @@ export const DependencyTable = styled.table`
       display: none;
     }
   }
+  a {
+    font-family: var(--buttonFontFamily);
+  }
 `

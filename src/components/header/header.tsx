@@ -72,20 +72,22 @@ export const Header = props => {
               </NavigationMenuItem>
               <NavigationMenuItem>
                 <a
-                  className="icon"
+                  className="icon hint--bottom"
                   href="https://discord.com/invite/rdctdFX2qR"
                   target="_blank"
                   rel="noopener noreferrer"
+                  aria-label="Join Discord"
                 >
                   <DiscordIcon />
                 </a>
               </NavigationMenuItem>
               <NavigationMenuItem>
                 <a
-                  className="icon"
+                  className="icon hint--bottom"
                   href={repoURL}
                   target="_blank"
                   rel="noopener noreferrer"
+                  aria-label="GitHub"
                 >
                   <GoMarkGithub size={28} />
                 </a>

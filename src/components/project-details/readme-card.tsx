@@ -13,10 +13,8 @@ import {
 import { useFetchProjectReadMe } from '../../api/hooks'
 import '../../stylesheets/markdown-body.css'
 
-const GithubLink = styled.a``
-
 type Props = { project: BestOfJS.Project }
-export const ReadmeCard = ({ project }) => {
+export const ReadmeCard = ({ project }: Props) => {
   return (
     <Card className="readme">
       <CardHeader>
@@ -34,6 +32,10 @@ export const ReadmeCard = ({ project }) => {
     </Card>
   )
 }
+
+const GithubLink = styled.a`
+  font-family: var(--buttonFontFamily);
+`
 
 const ReadmeContent = ({ project }: Props) => {
   const { data: html, error } = useFetchProjectReadMe(project)

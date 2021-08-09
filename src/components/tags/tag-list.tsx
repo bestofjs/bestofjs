@@ -39,9 +39,7 @@ export const CompactTagList = ({
       ))}
       {footer && (
         <ListRow>
-          <CompactListItem style={{ textAlign: 'center' }}>
-            {footer}
-          </CompactListItem>
+          <Footer>{footer}</Footer>
         </ListRow>
       )}
     </TagList>
@@ -56,6 +54,13 @@ const StyledLink = styled(Link)`
 const CompactListItem = styled.div`
   width: 100%;
   padding: 1rem;
+`
+
+const Footer = styled.div`
+  width: 100%;
+  padding: 1rem;
+  font-family: var(--buttonFontFamily);
+  text-align: center;
 `
 
 const TagListRow = ({ tag }) => {
