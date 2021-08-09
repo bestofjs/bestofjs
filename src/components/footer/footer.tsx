@@ -138,6 +138,7 @@ const StyledFooter = styled.footer`
   }
   a {
     color: #fbf3ef;
+    font-family: var(--buttonFontFamily);
   }
   a:hover {
     text-decoration: underline;

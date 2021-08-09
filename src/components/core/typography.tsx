@@ -19,11 +19,20 @@ export const ExternalLink = ({
 }) => {
   const fullURL = url.startsWith('http') ? url : `http://` + url
   return (
-    <a href={fullURL} target="_blank" rel="noopener noreferrer" {...rest}>
+    <StyledLink
+      href={fullURL}
+      target="_blank"
+      rel="noopener noreferrer"
+      {...rest}
+    >
       {children}
-    </a>
+    </StyledLink>
   )
 }
+
+const StyledLink = styled.a`
+  font-family: var(--buttonFontFamily);
+`
 
 type PageHeaderProps = {
   title: string

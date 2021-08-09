@@ -13,8 +13,9 @@ import {
   StarTotal
 } from 'components/core/project'
 import { TagLabelGroup } from 'components/tags/tag-label'
-import { DropdownMenu, Button } from 'components/core'
+import { Button } from 'components/core'
 import { fromNow } from 'helpers/from-now'
+import { ProjectDetailsButton } from './project-details-button'
 
 type Props = {
   projects: BestOfJS.Project[]
@@ -95,45 +96,6 @@ const ProjectTableRow = ({
   )
   const showDownloads = sortOption.id === 'monthly-downloads'
   const showStars = !showDelta && !showDownloads
-
-  const getBookmarkMenuItem = () => {
-    if (!isLoggedIn) {
-      return { label: 'Add bookmark', icon: <GoBookmark />, disabled: true }
-    }
-    if (project.isBookmark) {
-      return {
-        label: 'Remove bookmark',
-        icon: <GoBookmark />,
-        onClick: () => removeBookmark(project)
-      }
-    }
-    return {
-      label: 'Add bookmark',
-      icon: <GoBookmark />,
-      onClick: () => addBookmark(project)
-    }
-  }
-
-  const getHomepageMenuItem = () =>
-    project.url && {
-      icon: <GoHome />,
-      label: 'Go to homepage',
-      url: project.url,
-      onClick: () => ({})
-    }
-
-  const items = [
-    // { type: 'label', label: 'Links' },
-    {
-      icon: <GoMarkGithub />,
-      label: 'Go to GitHub repository',
-      url: project.repository,
-      onClick: () => ({})
-    },
-    getHomepageMenuItem(),
-    { type: 'divider' },
-    getBookmarkMenuItem()
-  ]
 
   const toggleBookmark = () => {
     project.isBookmark ? removeBookmark(project) : addBookmark(project)
@@ -250,7 +212,7 @@ const ProjectTableRow = ({
 
       {showActions && (
         <ActionCell>
-          <DropdownMenu items={items} alignment="right" />
+          <ProjectDetailsButton project={project} isLoggedIn={isLoggedIn} />
         </ActionCell>
       )}
     </Row>
@@ -279,6 +241,7 @@ const FooterRow = styled.tr`
     text-align: center;
     a {
       display: block;
+      font-family: var(--buttonFontFamily);
     }
   }
 `
@@ -317,6 +280,7 @@ const MainLink = styled(Link)`
   img {
     margin-right: 1rem;
   }
+  font-family: var(--buttonFontFamily);
 `
 
 const ProjectIconSmallScreen = styled(Avatar)`
@@ -342,7 +306,6 @@ const ContributorCountCell = styled(Cell)`
 `
 
 const StarNumberCell = styled(Cell)`
-  font-size: 1.25rem;
   text-align: center;
   width: 85px;
 `
@@ -384,6 +347,7 @@ const ProjectName = styled.div`
   display: flex;
   align-items: center;
   position: relative;
+  font-family: var(--linkFontFamily);
 `
 
 const ProjectDescription = styled.div`

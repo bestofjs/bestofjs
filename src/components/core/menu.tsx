@@ -70,6 +70,7 @@ export const MenuItemStyles = props => css`
   display: flex;
   align-items: center;
   color: inherit;
+  font-family: var(--headingFontFamily);
 `
 
 const disabledStyles = props => css`

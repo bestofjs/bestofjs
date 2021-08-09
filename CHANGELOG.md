@@ -1,5 +1,10 @@
 # Change log
 
+## 0.32.0 - 2021-08-09
+
+- Add Discord server link and improve the header #110
+- Self host fonts instead of using Google fonts
+
 ## 0.31.1 - 2021-07-03
 
 - Scroll to top when navigating through a paginated list of projects
