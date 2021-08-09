@@ -126,9 +126,6 @@ h3 .icon {
     padding-right: var(--gutter);
   }
 }
-#main {
-  /* padding-top: var(--topbarHeight); */
-}
 #main-content {
   padding-top: 2rem;
 }

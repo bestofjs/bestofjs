@@ -387,7 +387,6 @@ const ProjectName = styled.div`
   align-items: center;
   position: relative;
   font-family: var(--linkFontFamily);
-  font-size: 16px;
 `
 
 const ProjectDescription = styled.div`

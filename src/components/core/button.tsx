@@ -28,6 +28,7 @@ export const Button = styled.button<ButtonProps>`
   &:focus {
     outline: 0;
   }
+  line-height: inherit;
   ${props => props.primary && PrimaryButtonMixin}
   ${props => props.disabled && DisabledButtonMixin}
 `

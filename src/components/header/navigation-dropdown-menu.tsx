@@ -89,7 +89,7 @@ export const NavigationDropdownMenu = () => {
       alignment="right"
     >
       {({ open }) => (
-        <ButtonContainer>
+        <div>
           <MenuButton onClick={open} className="desktop-only">
             More
             <GoChevronDown />
@@ -97,15 +97,12 @@ export const NavigationDropdownMenu = () => {
           <RoundedButton onClick={open} className="mobile-only">
             <FiMenu fontSize="28px" />
           </RoundedButton>
-        </ButtonContainer>
+        </div>
       )}
     </Popover>
   )
 }
-const ButtonContainer = styled.div`
-  // padding-left: 0.25rem;
-  // padding-right: 0.25rem;
-`
+
 const RoundedButton = styled(Button)`
   padding: 0.3rem;
   border-width: 0;
@@ -116,7 +113,6 @@ const MenuButton = styled(Button)`
   border-width: 0;
   padding-left: 0.5rem;
   padding-right: 0.5rem;
-  font-size: 16px;
   svg {
     margin-left: 0.25rem;
   }

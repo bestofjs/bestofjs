@@ -133,9 +133,8 @@ const NavigationMenuItem = styled.div`
   > a {
     display: flex;
     align-items: center;
-    height: 60px;
+    height: ${topbarHeight}px;
     color: var(--textSecondaryColor);
-    font-size: 16px;
     &:hover {
       color: var(--textPrimaryColor);
     }
@@ -168,9 +167,7 @@ const LoginSection = () => {
 
 const LoginButton = styled(Button)`
   border-width: 0;
-  // text-transform: uppercase;
   margin-right: 0rem;
-  font-size: 16px;
   padding-left: 0.5rem;
   padding-right: 0.5rem;
 `
