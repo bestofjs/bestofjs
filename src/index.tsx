@@ -7,7 +7,7 @@ import { unregister } from './registerServiceWorker'
 import { Root } from './root'
 
 // Old-fashioned stylesheets
-// import './stylesheets/base.css'
+import './stylesheets/base.css'
 
 const config = {
   useSystemColorMode: false,
@@ -20,9 +20,14 @@ const customTheme = extendTheme({
   styles: {
     global: props => ({
       body: {
-        bg: mode('gray.100', 'gray.700')(props)
+        bg: mode('#ececec', 'gray.700')(props),
+        color: mode('var(--textPrimaryColor)', 'gray.200')(props),
+        lineHeight: 1.3333
       }
     })
+  },
+  fonts: {
+    body: 'Roboto Slab'
   }
 })
 
@@ -30,7 +35,7 @@ console.log(customTheme)
 
 function start() {
   render(
-    <ChakraProvider theme={customTheme}>
+    <ChakraProvider theme={customTheme} resetCSS={false}>
       <Root />
     </ChakraProvider>,
     document.getElementById('root')
