@@ -13,7 +13,7 @@
   --iconColor: #fa9e59;
   /* fonts */
   --bodyFontFamily: 'Roboto Slab', sans-serif;
-  --headingFontFamily: 'Open Sans', 'Source Sans Pro';
+  --headingFontFamily: 'Open Sans', sans-serif;
   --linkFontFamily: var(--bodyFontFamily);
   --buttonFontFamily: var(--headingFontFamily);
 }
