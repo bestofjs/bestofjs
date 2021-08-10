@@ -35,7 +35,7 @@ export const PaginatedTagList = ({
   return (
     <div>
       {(showSortOptions || showPagination) && (
-        <Row style={{ borderTop: '1px dashed var(--boxBorderColor' }}>
+        <Row>
           <Cell>
             {showSortOptions && (
               <TagListSortOrderPicker
@@ -70,7 +70,6 @@ const Row = styled.div`
 `
 const Cell = styled.div`
   flex: 0 0 50%;
-  padding-top: 1rem;
   @media (min-width: 600px) {
     > div:last-child {
       justify-content: flex-end;

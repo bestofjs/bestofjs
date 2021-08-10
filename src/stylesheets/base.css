@@ -65,7 +65,6 @@ body {
 }
 a {
   color: var(--linkColor);
-  font-family: var(--linkFontFamily);
   text-decoration: none;
   transition: all 0.3s;
 }
