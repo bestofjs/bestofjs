@@ -180,7 +180,7 @@ const RelevantTags = ({ tagIds, baseTagIds }) => {
 }
 
 const Container = styled.div`
-  padding: 0.25rem 0;
+  margin-bottom: 1rem;
 `
 
 const Label = styled.div`
