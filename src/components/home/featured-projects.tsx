@@ -94,6 +94,7 @@ const Footer = styled.div`
   text-align: center;
   a {
     display: block;
+    font-family: var(--buttonFontFamily);
   }
 `
 
