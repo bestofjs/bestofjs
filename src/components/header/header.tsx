@@ -34,6 +34,10 @@ const HeaderContainer = styled.header`
       display: none;
     }
   }
+  a,
+  button {
+    font-size: 1.14286rem;
+  }
 `
 
 export const Header = props => {
