@@ -34,7 +34,6 @@ const HeaderContainer = styled.header`
       display: none;
     }
   }
-  a,
   button {
     font-size: 1.14286rem;
   }
@@ -155,6 +154,10 @@ const NavigationMenuItem = styled.div`
     &:hover {
       color: var(--textSecondaryColor);
     }
+  }
+  > a,
+  button {
+    font-size: 1.14286rem;
   }
 `
 

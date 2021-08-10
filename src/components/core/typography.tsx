@@ -65,9 +65,8 @@ export const PageHeader = ({
 const Heading = styled.h1`
   display: flex;
   align-items: center;
-  margin: 0;
+  margin: 0 0 1rem;
   font-size: 1.5rem;
-  padding-bottom: 0.5rem;
 `
 
 const PageTitleIcon = styled.div`
