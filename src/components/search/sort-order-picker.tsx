@@ -1,30 +1,50 @@
 import React from 'react'
+import {
+  Box,
+  Button,
+  Menu,
+  MenuButton,
+  MenuList,
+  MenuItem,
+  MenuDivider
+} from '@chakra-ui/react'
+import { GoChevronDown } from 'react-icons/go'
 
-import { DropdownMenu } from 'components/core'
 import { useSearch } from './search-container'
 import { sortOrderOptions } from './sort-order-options'
 
 export const SortOrderPicker = ({ value, onChange }) => {
   const searchContext = useSearch()
-  const items = sortOrderOptions.map(option => ({
-    ...option,
-    onClick: () => {
-      onChange(option.id)
-    },
-    disabled: option.disabled ? option.disabled(searchContext) : false
-  }))
   const currentOption = sortOrderOptions.find(({ id }) => id === value)
 
   return (
-    <DropdownMenu value={value} items={items} alignment="left">
-      {currentOption ? (
-        <>
-          <span style={{ marginRight: '0.5rem' }}>Sort:</span>
-          <span>{currentOption.label}</span>
-        </>
-      ) : (
-        'Sort...'
-      )}
-    </DropdownMenu>
+    <Menu>
+      <MenuButton as={Button} rightIcon={<GoChevronDown />}>
+        {currentOption ? (
+          <>
+            <Box as="span" mr={2}>
+              Sort:
+            </Box>
+            <span>{currentOption.label}</span>
+          </>
+        ) : (
+          'Sort...'
+        )}
+      </MenuButton>
+      <MenuList>
+        {sortOrderOptions.map((item, index) => {
+          if (item.type === 'divider') return <MenuDivider key={index} />
+          return (
+            <MenuItem
+              key={item.id}
+              onClick={() => onChange(item.id)}
+              isDisabled={item.disabled ? item.disabled(searchContext) : false}
+            >
+              {item.label}
+            </MenuItem>
+          )
+        })}
+      </MenuList>
+    </Menu>
   )
 }

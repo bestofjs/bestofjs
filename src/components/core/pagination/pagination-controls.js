@@ -1,5 +1,5 @@
 import React from 'react'
-import styled from '@emotion/styled'
+import { Box, ButtonGroup, Flex, IconButton } from '@chakra-ui/react'
 
 import {
   DoubleChevronLeftIcon,
@@ -7,9 +7,9 @@ import {
   ChevronRightIcon,
   ChevronLeftIcon
 } from '../icons'
-import { Button } from '../button'
 import { updateLocation } from '../../search/search-utils'
 import { PaginationContainer } from './provider'
+
 const iconSize = 28
 
 export const TopPaginationControls = ({ history, location }) => {
@@ -23,13 +23,8 @@ export const TopPaginationControls = ({ history, location }) => {
   } = PaginationContainer.useContainer()
 
   return (
-    <div
-      style={{
-        display: 'flex',
-        alignItems: 'center'
-      }}
-    >
-      <div style={{ marginRight: '1rem' }}>
+    <Flex alignItems="center">
+      <Box mr={4}>
         Showing{' '}
         {from === to ? (
           `#${from}`
@@ -38,28 +33,30 @@ export const TopPaginationControls = ({ history, location }) => {
             {from} - {to} of {total}
           </>
         )}
-      </div>
-      <PaginationButton
-        disabled={!hasPreviousPage}
-        onClick={() =>
-          history.push(
-            updateLocation(location, { page: currentPageNumber - 1 })
-          )
-        }
-      >
-        <ChevronLeftIcon size={iconSize} />
-      </PaginationButton>
-      <PaginationButton
-        disabled={!hasNextPage}
-        onClick={() =>
-          history.push(
-            updateLocation(location, { page: currentPageNumber + 1 })
-          )
-        }
-      >
-        <ChevronRightIcon size={iconSize} />
-      </PaginationButton>
-    </div>
+      </Box>
+      <ButtonGroup>
+        <PaginationButton
+          isDisabled={!hasPreviousPage}
+          onClick={() =>
+            history.push(
+              updateLocation(location, { page: currentPageNumber - 1 })
+            )
+          }
+        >
+          <ChevronLeftIcon size={iconSize} />
+        </PaginationButton>
+        <PaginationButton
+          isDisabled={!hasNextPage}
+          onClick={() =>
+            history.push(
+              updateLocation(location, { page: currentPageNumber + 1 })
+            )
+          }
+        >
+          <ChevronRightIcon size={iconSize} />
+        </PaginationButton>
+      </ButtonGroup>
+    </Flex>
   )
 }
 
@@ -73,14 +70,7 @@ export const BottomPaginationControls = ({ history, location }) => {
   } = PaginationContainer.useContainer()
 
   return (
-    <div
-      style={{
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        marginTop: '2rem'
-      }}
-    >
+    <ButtonGroup mt={8} w="100%" justifyContent="flex-end">
       {pageNumbers.length > 2 && (
         <PaginationButton
           disabled={currentPageNumber === 1}
@@ -122,14 +112,10 @@ export const BottomPaginationControls = ({ history, location }) => {
           <DoubleChevronRightIcon size={iconSize} />
         </PaginationButton>
       )}
-    </div>
+    </ButtonGroup>
   )
 }
 
-const PaginationButton = styled(Button)`
-  border-radius: 50%;
-  width: 36px;
-  height: 36px;
-  padding: 0;
-  margin-right: 0.5rem;
-`
+const PaginationButton = (props: IconProps) => (
+  <IconButton variant="outline" isRound {...props} />
+)

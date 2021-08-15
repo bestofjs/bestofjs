@@ -24,8 +24,7 @@ TODO: used styled components instead of regular CSS
 }
 
 .project-chart-bar {
-  background: rgba(0, 0, 0, 0.1);
-  background: rgba(228, 91, 18, 0.15);
+  background-color: var(--iconColor);
   position: relative;
 }
 

@@ -71,7 +71,7 @@ export const HeroCard = ({ hero, showDetails }) => {
 const Card = styled.div`
   flex: 1;
   padding: 0;
-  background-color: #fff;
+  background-color: var(--cardBackgroundColor);
   border: 1px solid var(--boxBorderColor);
   .card-block {
     display: flex;
@@ -79,12 +79,12 @@ const Card = styled.div`
     color: inherit;
     flex: 1;
   }
-  .card-block:hover {
-    text-decoration: none;
-    color: inherited;
-    background-color: #fff7eb;
-    color: #000;
-  }
+  // .card-block:hover {
+  //   text-decoration: none;
+  //   color: inherited;
+  //   background-color: #fff7eb;
+  //   color: #000;
+  // }
   .header {
     display: flex;
     align-items: center;

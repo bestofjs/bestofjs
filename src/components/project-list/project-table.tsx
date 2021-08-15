@@ -248,7 +248,7 @@ const FooterRow = styled.tr`
 
 const Cell = styled.td`
   padding: 1rem 0.5rem;
-  background-color: white;
+  background-color: var(--cardBackgroundColor);
   &:first-of-type {
     padding-left: 1rem;
   }
@@ -284,6 +284,7 @@ const MainLink = styled(Link)`
 `
 
 const ProjectIconSmallScreen = styled(Avatar)`
+  margin-right: 1rem;
   @media (min-width: ${breakpoint}px) {
     display: none;
   }

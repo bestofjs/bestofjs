@@ -1,5 +1,13 @@
 import React from 'react'
-import styled from '@emotion/styled'
+import {
+  Link,
+  Menu,
+  MenuButton,
+  MenuList,
+  MenuItem,
+  MenuDivider,
+  IconButton
+} from '@chakra-ui/react'
 import {
   GoBookmark,
   GoHome,
@@ -7,73 +15,43 @@ import {
   GoMarkGithub
 } from 'react-icons/go'
 
-import { Button, Menu, Popover } from 'components/core'
-
 type Props = {
   Project: BestOfJS.Project
   isLoggedIn: boolean
 }
 export const ProjectDetailsButton = ({ project, isLoggedIn }: Props) => {
-  const getBookmarkMenuItem = () => {
-    if (!isLoggedIn) {
-      return { label: 'Add bookmark', icon: <GoBookmark />, disabled: true }
-    }
-    if (project.isBookmark) {
-      return {
-        label: 'Remove bookmark',
-        icon: <GoBookmark />,
-        onClick: () => removeBookmark(project)
-      }
-    }
-    return {
-      label: 'Add bookmark',
-      icon: <GoBookmark />,
-      onClick: () => addBookmark(project)
-    }
-  }
-
-  const getHomepageMenuItem = () =>
-    project.url && {
-      icon: <GoHome />,
-      label: 'Go to homepage',
-      url: project.url,
-      onClick: () => ({})
-    }
-
-  const items = [
-    // { type: 'label', label: 'Links' },
-    {
-      icon: <GoMarkGithub />,
-      label: 'Go to GitHub repository',
-      url: project.repository,
-      onClick: () => ({})
-    },
-    getHomepageMenuItem(),
-    { type: 'divider' },
-    getBookmarkMenuItem()
-  ]
-
   return (
-    <Popover
-      alignment="right"
-      content={({ close }) => {
-        return <Menu items={items} />
-      }}
-    >
-      {({ open }) => {
-        return (
-          <RoundedButton onClick={open}>
-            <GoKebabVertical fontSize="20px" />
-          </RoundedButton>
-        )
-      }}
-    </Popover>
+    <Menu>
+      <MenuButton
+        as={IconButton}
+        icon={<GoKebabVertical fontSize="20px" />}
+        variant="outline"
+        isRound
+      />
+      <MenuList>
+        <MenuItem icon={<GoMarkGithub fontSize="16px" />}>
+          <Link href={project.repository} isExternal>
+            Go to GitHub repository
+          </Link>
+        </MenuItem>
+        {project.url && (
+          <MenuItem icon={<GoHome fontSize="16px" />}>
+            <Link href={project.url} isExternal>
+              Go to homepage
+            </Link>
+          </MenuItem>
+        )}
+        <MenuDivider />
+        <MenuItem
+          icon={<GoBookmark fontSize="16px" />}
+          isDisabled={!isLoggedIn}
+          onClick={() => {
+            project.isBookmark ? removeBookmark(project) : addBookmark(project)
+          }}
+        >
+          {project.isBookmark ? 'Remove bookmark' : 'Add bookmark'}
+        </MenuItem>
+      </MenuList>
+    </Menu>
   )
 }
-
-const RoundedButton = styled(Button)`
-  padding: 0;
-  border-radius: 99px;
-  width: 36px;
-  height: 36px;
-`

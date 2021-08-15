@@ -58,7 +58,7 @@ export const Slider = ({
           Random order <i>{isPaused ? '(Paused)' : '(Running...)'}</i>
         </Section.SubTitle>
       </Section.Header>
-      <SliderContainer
+      <div
         ref={ref as any}
         onMouseEnter={() => {
           setIsHover(true)
@@ -74,7 +74,7 @@ export const Slider = ({
           duration={duration}
           isPaused={isPaused}
         />
-      </SliderContainer>
+      </div>
       <Footer>
         <Link to="/featured">View more »</Link>
       </Footer>
@@ -82,14 +82,10 @@ export const Slider = ({
   )
 }
 
-const SliderContainer = styled.div`
-  background-color: white;
-`
-
 const Footer = styled.div`
   margin-bottom: 2rem;
   padding: 1rem;
-  background-color: white;
+  background-color: var(--cardBackgroundColor);
   border-bottom: 1px dashed var(--boxBorderColor);
   text-align: center;
   a {
@@ -215,7 +211,7 @@ export const FeaturedProject = ({ project }) => {
 }
 
 const Box = styled.div`
-  background-color: white;
+  background-color: var(--cardBackgroundColor);
   margin-bottom: 0rem;
   display: flex;
   align-items: center;

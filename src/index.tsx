@@ -1,6 +1,6 @@
 import React from 'react'
 import { render } from 'react-dom'
-import { ChakraProvider, extendTheme } from '@chakra-ui/react'
+import { ChakraProvider, ColorModeScript, extendTheme } from '@chakra-ui/react'
 import { mode } from '@chakra-ui/theme-tools'
 
 import { unregister } from './registerServiceWorker'
@@ -16,7 +16,39 @@ const config = {
 
 // 3. extend the theme
 const customTheme = extendTheme({
+  components: {
+    Button: {
+      baseStyle: {
+        fontWeight: 'normal',
+        fontFamily: 'Open Sans'
+      },
+      variants: {
+        outline: {
+          bg: 'var(--cardBackgroundColor)'
+        }
+      }
+    },
+    Link: {
+      baseStyle: {
+        fontFamily: 'Open Sans'
+      }
+    },
+    Menu: {
+      baseStyle: {
+        groupTitle: {
+          fontFamily: 'Open Sans'
+        }
+      }
+    }
+  },
   config,
+  fonts: {
+    heading: 'Roboto Slab',
+    body: 'Roboto Slab'
+  },
+  shadows: {
+    outline: '0 0 0 3px rgba(250, 158, 59, 0.6)'
+  },
   styles: {
     global: props => ({
       body: {
@@ -25,9 +57,6 @@ const customTheme = extendTheme({
         lineHeight: 1.3333
       }
     })
-  },
-  fonts: {
-    body: 'Roboto Slab'
   }
 })
 
@@ -35,9 +64,12 @@ console.log(customTheme)
 
 function start() {
   render(
-    <ChakraProvider theme={customTheme} resetCSS={false}>
-      <Root />
-    </ChakraProvider>,
+    <>
+      <ColorModeScript initialColorMode={customTheme.config.initialColorMode} />
+      <ChakraProvider theme={customTheme} resetCSS={true}>
+        <Root />
+      </ChakraProvider>
+    </>,
     document.getElementById('root')
   )
 }

@@ -1,7 +1,7 @@
 :root {
   --containerWidth: 980px;
   --gutter: 2rem;
-  --topBarHeight: 60px;
+  --topBarHeight: 64px;
   /* colors */
   --textPrimaryColor: #541600;
   --textSecondaryColor: #87563e;
@@ -11,11 +11,22 @@
   --bestofjsPurple: #9c0042;
   --boxBorderColor: #cecece;
   --iconColor: #fa9e59;
+  --cardBackgroundColor: white;
   /* fonts */
   --bodyFontFamily: 'Roboto Slab', sans-serif;
   --headingFontFamily: 'Open Sans', sans-serif;
   --linkFontFamily: var(--bodyFontFamily);
   --buttonFontFamily: var(--headingFontFamily);
+}
+
+.chakra-ui-dark {
+  --textPrimaryColor: #eee;
+  --textSecondaryColor: #bbb;
+  --linkColor: var(--chakra-colors-orange-300);
+  --iconColor: var(--chakra-colors-orange-600);
+  --cardBackgroundColor: var(--chakra-colors-gray-900);
+  --boxBorderColor: var(--chakra-colors-gray-600);
+  --bestofjsOrange: var(--chakra-colors-orange-300);
 }
 
 @media (max-width: 599px) {
@@ -63,7 +74,12 @@ body {
 .icon-color {
   color: var(--iconColor);
 }
-a {
+/* 
+=====
+TODO: customize link color
+=====
+*/
+/* a {
   color: var(--linkColor);
   text-decoration: none;
   transition: all 0.3s;
@@ -73,7 +89,7 @@ a:hover {
 }
 a.link:hover {
   text-decoration: underline;
-}
+} */
 *,
 :after,
 :before {
@@ -188,4 +204,10 @@ TODO: use a real styled system or TailwindCSS?
 }
 .ml-2 {
   margin-left: 0.5rem;
+}
+
+/* Override the behavior provided by ChakraUI "reset CSS" */
+.markdown-body img,
+.markdown-body svg {
+  display: inherit;
 }

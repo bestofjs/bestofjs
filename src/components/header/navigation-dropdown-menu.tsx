@@ -1,119 +1,84 @@
 import React from 'react'
-import { useHistory } from 'react-router-dom'
-import styled from '@emotion/styled'
+import { Link as RouterLink } from 'react-router-dom'
+import {
+  Button,
+  Icon,
+  Link,
+  Menu,
+  MenuButton,
+  MenuList,
+  MenuItem,
+  MenuGroup,
+  MenuDivider,
+  Box
+} from '@chakra-ui/react'
 import { FiMenu } from 'react-icons/fi'
-
-import { StaticContentContainer } from 'containers/static-content-container'
-import { Button, Popover, Menu } from 'components/core'
-import { ExternalLinkIcon } from 'components/core/icons'
 import { GoChevronDown } from 'react-icons/go'
 
+import { StaticContentContainer } from 'containers/static-content-container'
+import { ExternalLinkIcon } from 'components/core/icons'
+
 export const NavigationDropdownMenu = () => {
-  const history = useHistory()
   const { risingStarsURL, stateOfJSURL } = StaticContentContainer.useContainer()
 
   return (
-    <Popover
-      content={({ close }) => {
-        const items = [
-          {
-            label: `All Projects`,
-            onClick: () => {
-              history.push('/projects')
-              close()
-            },
-            className: 'mobile-only'
-          },
-          {
-            label: `Tags`,
-            onClick: () => {
-              history.push('/tags')
-              close()
-            },
-            className: 'mobile-only'
-          },
-          {
-            label: `Monthly Rankings`,
-            onClick: () => {
-              history.push('/rankings/monthly')
-              close()
-            }
-          },
-          {
-            label: `Hall of Fame`,
-            onClick: () => {
-              history.push('/hall-of-fame')
-              close()
-            }
-          },
-          {
-            label: `Timeline 2010 ~ 2020`,
-            onClick: () => {
-              history.push('/timeline')
-              close()
-            }
-          },
-          {
-            label: `About Best of JS`,
-            onClick: () => {
-              history.push('/about')
-              close()
-            }
-          },
-          { type: 'divider' },
-          {
-            type: 'label',
-            label: <>Related Projects</>
-          },
-          {
-            label: (
-              <>
-                Rising Stars
-                <ExternalLinkIcon />
-              </>
-            ),
-            url: risingStarsURL
-          },
-          {
-            label: (
-              <>
-                State of JS
-                <ExternalLinkIcon />
-              </>
-            ),
-            url: stateOfJSURL
-          }
-        ]
-        return <Menu items={items} />
-      }}
-      alignment="right"
-    >
-      {({ open }) => (
-        <div>
-          <MenuButton onClick={open} className="desktop-only">
-            More
-            <GoChevronDown />
-          </MenuButton>
-          <RoundedButton onClick={open} className="mobile-only">
-            <FiMenu fontSize="28px" />
-          </RoundedButton>
-        </div>
-      )}
-    </Popover>
+    <Menu>
+      <MenuButton as={Button} variant="ghost">
+        <Box className="desktop-only">
+          More <Icon as={GoChevronDown} />
+        </Box>
+        <Box className="mobile-only" py={2}>
+          <FiMenu fontSize="24px" />
+        </Box>
+      </MenuButton>
+      <MenuList>
+        <MenuItem className="mobile-only">
+          <Link as={RouterLink} to="/projects">
+            All projects
+          </Link>
+        </MenuItem>
+        <MenuItem className="mobile-only">
+          <Link as={RouterLink} to="/tags">
+            Tags
+          </Link>
+        </MenuItem>
+        <MenuItem>
+          <Link as={RouterLink} to="/rankings/monthly">
+            Monthly rankings
+          </Link>
+        </MenuItem>
+
+        <MenuItem>
+          <Link as={RouterLink} to="/hall-of-fame">
+            Hall of Fame
+          </Link>
+        </MenuItem>
+        <MenuItem>
+          <Link as={RouterLink} to="/timeline">
+            Timeline 2010 ~ 2020
+          </Link>
+        </MenuItem>
+        <MenuItem>
+          <Link as={RouterLink} to="/about">
+            About Best of JS
+          </Link>
+        </MenuItem>
+        <MenuDivider />
+        <MenuGroup title="Related projects">
+          <MenuItem>
+            <Link href={risingStarsURL} isExternal>
+              Rising Stars
+              <Icon as={ExternalLinkIcon} />
+            </Link>
+          </MenuItem>
+          <MenuItem>
+            <Link href={stateOfJSURL} isExternal>
+              State of JS
+              <Icon as={ExternalLinkIcon} />
+            </Link>
+          </MenuItem>
+        </MenuGroup>
+      </MenuList>
+    </Menu>
   )
 }
-
-const RoundedButton = styled(Button)`
-  padding: 0.3rem;
-  border-width: 0;
-  color: var(--textMutedColor);
-`
-
-const MenuButton = styled(Button)`
-  border-width: 0;
-  padding-left: 0.5rem;
-  padding-right: 0.5rem;
-  svg {
-    margin-left: 0.25rem;
-  }
-`

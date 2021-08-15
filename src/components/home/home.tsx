@@ -3,6 +3,7 @@ import styled from '@emotion/styled'
 import numeral from 'numeral'
 import { Link } from 'react-router-dom'
 import { GoTag, GoHeart, GoPlus } from 'react-icons/go'
+import { Button as ChakraButton, Box, Heading } from '@chakra-ui/react'
 
 import { useSelector } from 'containers/project-data-container'
 import { StaticContentContainer } from 'containers/static-content-container'
@@ -11,7 +12,7 @@ import log from 'helpers/log'
 import { addProjectURL } from 'components/user-requests/add-project/create-issue-link'
 import { TagLabelGroup } from 'components/tags/tag-label'
 import { StarIcon } from 'components/core/icons'
-import { ExternalLink, ButtonLink, MainContent, Section } from 'components/core'
+import { ExternalLink, MainContent, Section } from 'components/core'
 import { CompactTagList } from 'components/tags/tag-list'
 import { HotProjects, NewestProjects } from './home-projects'
 import { RandomFeaturedProject } from './featured-projects'
@@ -24,9 +25,9 @@ export const Home = props => {
 
   return (
     <MainContent>
-      <h1 style={{ margin: '0 0 1rem' }}>
+      <Heading as="h1" mb={4} fontWeight="normal">
         The best of JavaScript, HTML and CSS
-      </h1>
+      </Heading>
       <Section>
         <Row>
           <MainColumn>
@@ -130,12 +131,16 @@ const StarOnGitHubButton = () => {
   if (!project) return null
   const stars = getTotalNumberOfStars(project)
   return (
-    <BigButtonLink href={repoURL} target="_blank">
-      <span>Star on GitHub </span>
-      <div className="add-on">
-        {formatNumber(stars)}
-        <StarIcon size={20} />
-      </div>
+    <BigButtonLink
+      href={repoURL}
+      target="_blank"
+      addOn={
+        <>
+          {formatNumber(stars)} <StarIcon size={20} />
+        </>
+      }
+    >
+      Star on GitHub
     </BigButtonLink>
   )
 }
@@ -144,28 +149,38 @@ const SponsorButton = () => {
   const { sponsorURL } = StaticContentContainer.useContainer()
 
   return (
-    <BigButtonLink href={sponsorURL} target="_blank">
+    <BigButtonLink
+      href={sponsorURL}
+      target="_blank"
+      addOn={<GoHeart size={20} />}
+    >
       Sponsor
-      <div className="add-on">
-        <GoHeart size={20} />
-      </div>
     </BigButtonLink>
   )
 }
 
-const BigButtonLink = styled(ButtonLink)`
-  font-size: 1.2rem;
-  display: flex;
-  .add-on {
-    margin-left: 0.5rem;
-    color: var(--textMutedColor);
-    display: flex;
-    align-items: center;
-  }
-  &:hover .add-on {
-    color: #f76d42;
-  }
-`
+const BigButtonLink = ({ addOn, children, ...props }: { addOn: React.JSX }) => (
+  <ChakraButton
+    as="a"
+    display="flex"
+    fontSize="1.2rem"
+    variant="outline"
+    className="button-link"
+    {...props}
+  >
+    {children}
+    <Box
+      ml={2}
+      sx={{
+        '.button-link:hover &': {
+          color: 'var(--bestofjsOrange)'
+        }
+      }}
+    >
+      {addOn}
+    </Box>
+  </ChakraButton>
+)
 
 const formatNumber = number => numeral(number).format('')
 

@@ -1,8 +1,9 @@
+import { Icon } from '@chakra-ui/react'
 import React from 'react'
 import { GoLinkExternal, GoTag } from 'react-icons/go'
 import { MdStarBorder } from 'react-icons/md'
 
-export const StarIcon = props => <MdStarBorder {...props} />
+export const StarIcon = props => <Icon as={MdStarBorder} {...props} />
 
 export const TagIcon = props => <GoTag {...props} />
 

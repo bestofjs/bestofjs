@@ -131,7 +131,7 @@ const breakPoint = 600
 const ListRow = styled.div`
   display: flex;
   align-items: center;
-  background-color: white;
+  background-color: var(--cardBackgroundColor);
   border-top: 1px dashed var(--boxBorderColor);
   &:last-child {
     border-bottom: 1px dashed var(--boxBorderColor);

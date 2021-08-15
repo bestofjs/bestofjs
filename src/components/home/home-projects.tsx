@@ -1,10 +1,11 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import styled from '@emotion/styled'
-import { GoFlame, GoGift } from 'react-icons/go'
+import { GoChevronDown, GoFlame, GoGift } from 'react-icons/go'
+import { Button, Menu, MenuButton, MenuList, MenuItem } from '@chakra-ui/react'
 
 import { useSelector } from 'containers/project-data-container'
-import { Section, Spinner, DropdownMenu } from 'components/core'
+import { Section, Spinner } from 'components/core'
 import { ProjectTable } from 'components/project-list/project-table'
 import { getProjectsSortedBy } from 'selectors'
 import { StaticContentContainer } from 'containers/static-content-container'
@@ -88,19 +89,28 @@ const HotProjectsPicker = ({ onChange, value }) => {
     { id: 'monthly', label: 'This month' },
     { id: 'yearly', label: 'This year' }
   ]
-  const items = sortOrderOptions.map(option => ({
-    ...option,
-    onClick: () => {
-      onChange(option.id)
-    }
-  }))
+
   const currentOption = sortOrderOptions.find(({ id }) => id === value)
   if (!currentOption) return null
 
   return (
-    <DropdownMenu value={value} items={items} alignment="right">
-      {currentOption.label}
-    </DropdownMenu>
+    <Menu>
+      <MenuButton as={Button} variant="outline" rightIcon={<GoChevronDown />}>
+        {currentOption.label}
+      </MenuButton>
+      <MenuList>
+        {sortOrderOptions.map(item => (
+          <MenuItem
+            key={item.id}
+            onClick={() => {
+              onChange(item.id)
+            }}
+          >
+            {item.label}
+          </MenuItem>
+        ))}
+      </MenuList>
+    </Menu>
   )
 }
 

@@ -5,6 +5,7 @@ import slugify from 'slugify'
 import ContentLoader from 'react-content-loader'
 
 import { StarIcon } from './icons'
+import { Box, Image as ChakraImage } from '@chakra-ui/react'
 
 export const DownloadCount = ({ value }) => {
   if (value === undefined) {
@@ -93,6 +94,7 @@ const Span = styled.span`
 
 export const Avatar = ({ project, size = 100, ...props }) => {
   const { src, srcSet } = getProjectImageProps({ project, size })
+
   const [isImageLoaded, setIsImageLoaded] = useState(false)
   const isMounted = React.useRef(true)
 
@@ -111,19 +113,19 @@ export const Avatar = ({ project, size = 100, ...props }) => {
   }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
-    <span {...props}>
+    <Box {...props} boxSize={`${size}px`} bg="transparent">
       {isImageLoaded ? (
-        <img
+        <ChakraImage
           src={src}
           srcSet={srcSet}
-          width={size}
-          height={size}
+          width={`${size}px`}
+          height={`${size}px`}
           alt={project.name}
         />
       ) : (
         <ImagePlaceHolder size={size} />
       )}
-    </span>
+    </Box>
   )
 }
 

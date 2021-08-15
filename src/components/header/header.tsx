@@ -2,10 +2,11 @@ import React from 'react'
 import { Link, NavLink } from 'react-router-dom'
 import styled from '@emotion/styled'
 import { GoMarkGithub } from 'react-icons/go'
+import { Button, Link as ChakraLink } from '@chakra-ui/react'
 
+import { ReactComponent as Logo } from './bestofjs-logo.svg'
 import { AuthContainer } from 'containers/auth-container'
 import { StaticContentContainer } from 'containers/static-content-container'
-import { Button } from 'components/core'
 import { DiscordIcon } from 'components/core/icons'
 import { UserDropdownMenu } from './user-dropdown-menu'
 import { NavigationDropdownMenu } from './navigation-dropdown-menu'
@@ -13,7 +14,7 @@ import { NavigationDropdownMenu } from './navigation-dropdown-menu'
 const breakpoint = 700
 
 const HeaderContainer = styled.header`
-  background-color: #fff;
+  background-color: var(--cardBackgroundColor);
   height: var(--topBarHeight);
   z-index: 10;
   .container {
@@ -47,9 +48,14 @@ export const Header = props => {
       <div className="container">
         <Row>
           <Col>
-            <LinkLogo to={'/'}>
-              <img src="/svg/bestofjs.svg" width="130" alt="Best of JS" />
-            </LinkLogo>
+            <ChakraLink
+              as={Link}
+              to={'/'}
+              color="var(--bestofjsOrange)"
+              display="block"
+            >
+              <Logo alt="Best of JS" width="130" height="37.15" />
+            </ChakraLink>
 
             <NavigationMenu className="desktop-only">
               <NavigationMenuItem>
@@ -117,13 +123,6 @@ const Col = styled.div`
   align-items: center;
 `
 
-const LinkLogo = styled(Link)`
-  display: block;
-  img {
-    display: block;
-  }
-`
-
 const NavigationMenu = styled.div`
   display: flex;
   align-items: center;
@@ -146,8 +145,8 @@ const NavigationMenuItem = styled.div`
     font-family: var(--headingFontFamily);
   }
   a.active {
-    color: #bb4201;
-    border-bottom-color: #bb4201;
+    color: var(--bestofjsOrange);
+    border-bottom-color: var(--bestofjsOrange);
   }
   a.icon {
     color: var(--textMutedColor);
@@ -167,15 +166,12 @@ const LoginSection = () => {
   if (auth.isPending) return <div className="v-center">Loading...</div>
 
   if (!auth.isLoggedIn) {
-    return <LoginButton onClick={() => auth.login()}>Sign in</LoginButton>
+    return (
+      <Button variant="ghost" onClick={() => auth.login()}>
+        Sign in
+      </Button>
+    )
   }
 
   return <UserDropdownMenu />
 }
-
-const LoginButton = styled(Button)`
-  border-width: 0;
-  margin-right: 0rem;
-  padding-left: 0.5rem;
-  padding-right: 0.5rem;
-`

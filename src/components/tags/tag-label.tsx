@@ -1,6 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import styled from '@emotion/styled'
+import { Tag as ChakraTag } from '@chakra-ui/react'
 
 import { Button, Cell, Grid } from 'components/core'
 import { useSearch, updateLocation } from '../search'
@@ -25,7 +26,7 @@ const Tag = styled(Button)`
 `
 const TagLink = Tag.withComponent(Link)
 
-export const TagLabel = ({
+export const TagLabel0 = ({
   tag,
   baseTagIds = []
 }: {
@@ -50,5 +51,28 @@ export const TagLabel = ({
       {isMultiTagLink && <span>+ </span>}
       {tag.name}
     </TagLink>
+  )
+}
+
+export const TagLabel = ({ tag, baseTagIds = [] }) => {
+  const { location } = useSearch()
+
+  const isMultiTagLink = baseTagIds.length > 0
+
+  const nextLocation = updateLocation(
+    { ...location, pathname: '/projects' },
+    {
+      query: '',
+      selectedTags: [...baseTagIds, tag.id],
+      page: 1
+    }
+  )
+  return (
+    <ChakraTag fontFamily="heading">
+      <Link to={nextLocation}>
+        {isMultiTagLink && <span>+ </span>}
+        {tag.name}
+      </Link>
+    </ChakraTag>
   )
 }

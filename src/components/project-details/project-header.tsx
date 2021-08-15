@@ -1,9 +1,10 @@
 import React from 'react'
 import styled from '@emotion/styled'
+import { Button } from '@chakra-ui/react'
 import { GoHome, GoMarkGithub } from 'react-icons/go'
 import { DiNpm } from 'react-icons/di'
 
-import { ButtonLink, usePageTitle } from 'components/core'
+import { usePageTitle } from 'components/core'
 import { Avatar } from 'components/core/project'
 import { TagLabelGroup } from 'components/tags/tag-label'
 import formatUrl from 'helpers/url'
@@ -108,3 +109,7 @@ const QuickLinks = styled.aside`
     position: absolute;
   }
 `
+
+const ButtonLink = (props: ButtonProps) => (
+  <Button as="a" variant="outline" w="100%" {...props} />
+)
