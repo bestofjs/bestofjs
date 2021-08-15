@@ -1,9 +1,17 @@
+import {
+  Box,
+  Heading,
+  Image,
+  ListItem,
+  Text,
+  UnorderedList
+} from '@chakra-ui/react'
 import React from 'react'
 
 import { useSelector } from 'containers/project-data-container'
 import { StaticContentContainer } from 'containers/static-content-container'
 import { CreateIssueLink } from 'components/user-requests/add-project/create-issue-link'
-import { Card, MainContent, PageHeader } from 'components/core'
+import { MainContent, PageHeader } from 'components/core'
 import 'stylesheets/markdown-body.css'
 
 const AboutPage = () => {
@@ -17,80 +25,98 @@ const AboutPage = () => {
   } = StaticContentContainer.useContainer()
 
   return (
-    <MainContent style={{ paddingTop: '2rem' }}>
+    <MainContent>
       <PageHeader title="About" />
-      <Card className="card" style={{ padding: '0 2rem 2rem' }}>
-        <h2>Why {projectName}?</h2>
-        <p>
+      <Box p={8} bg="var(--cardBackgroundColor)">
+        <Heading size="md">Why {projectName}?</Heading>
+        <Text mt={2}>
           Javascript, HTML and CSS are advancing faster than ever, we are going
           full speed on innovation.
           <br />
           Amazing open-source projects are released almost everyday.
-        </p>
-        <ul>
-          <li>How to stay up-to-date about the latest tendencies?</li>
-          <li>
+        </Text>
+        <UnorderedList mt={2}>
+          <ListItem>
+            How to stay up-to-date about the latest tendencies?
+          </ListItem>
+          <ListItem>
             How to check quickly the projects that really matter,{' '}
-            <i className="special">now</i> and not 6 months ago?
-          </li>
-        </ul>
-        <p>{projectName} was created in 2015 to address these questions.</p>
+            <strong>now</strong> and not 6 months ago?
+          </ListItem>
+        </UnorderedList>
+        <Text mt={2}>
+          {projectName} was created in 2015 to address these questions.
+        </Text>
 
-        <h2>Concept</h2>
-        <p>
+        <Heading size="md" mt={4}>
+          Concept
+        </Heading>
+        <Text mt={2}>
           Checking the number of stars on GitHub is a good way to check project
           popularity but it does not tell you when the stars have been added.{' '}
-        </p>
-        <p>
+        </Text>
+        <Text mt={2}>
           {projectName} takes &quot;snapshot&quot; of GitHub stars every day,
           for a curated list of {count} projects, to detect the trends over the
           last months.
-        </p>
+        </Text>
 
-        <h2>How it works</h2>
-        <p>
+        <Heading size="md" mt={4}>
+          How it works
+        </Heading>
+        <Text mt={2}>
           First, a list of projects related to the web platform and
           Node.js(JavaScript, Typescript, but also HTML and CSS) is stored in
           our database.
-        </p>
-        <p>
+        </Text>
+        <Text mt={2}>
           Every time we find a new interesting project, we add it to the
           database.
-        </p>
-        <p>
+        </Text>
+        <Text mt={2}>
           Then everyday, an automatic task checks project data from GitHub, for
           every project stored and generates data consumed by the web
           application.
-        </p>
-        <p>
+        </Text>
+        <Text mt={2}>
           The web application displays the total number of stars and their
           variation over the last days.
-        </p>
+        </Text>
 
-        <h2>Do you want more projects?</h2>
-        <p>
+        <Heading size="md" mt={4}>
+          Do you want more projects?
+        </Heading>
+        <Text mt={2}>
           Rather than scanning all existing projects on GitHub, we focus on a
           curated list of projects we find &quot;interesting&quot;, based on our
           experience and on things we read on the internet.
-        </p>
-        <p>As a result, some great projects must be missing!</p>
-        <p>
+        </Text>
+        <Text mt={2}>As a result, some great projects must be missing!</Text>
+        <Text mt={2}>
           Create a GitHub issue{' '}
           <CreateIssueLink type="ADD_PROJECT">here</CreateIssueLink> to suggest
           a new project to add.
-        </p>
-        <h2>Show your support!</h2>
-        <p>
+        </Text>
+        <Heading size="md" mt={4}>
+          Show your support!
+        </Heading>
+        <Text mt={2}>
           If you find the application useful, you can star the project's
           repository on <a href={repoURL}>GitHub</a> or{' '}
           <a href={sponsorURL}>become a sponsor</a>.
-        </p>
-        <p>
-          We are all made of stars{' '}
-          <img src="images/star.png" width="16" height="16" alt="star" /> !
-        </p>
-        <p>Thank you for your support!</p>
-      </Card>
+        </Text>
+        <Text mt={2}>
+          Thank you for your support, We are all made of stars{' '}
+          <Image
+            display="inline"
+            src="images/star.png"
+            width="16px"
+            height="16px"
+            alt="star"
+          />{' '}
+          !
+        </Text>
+      </Box>
     </MainContent>
   )
 }

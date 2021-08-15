@@ -39,6 +39,11 @@
   }
 }
 
+/* "On most non-retina displays, this will give the sharpest text." according to MDN */
+html .chakra-ui-dark {
+  -webkit-font-smoothing: subpixel-antialiased;
+}
+
 html,
 body {
   margin: 0;
@@ -95,7 +100,7 @@ a.link:hover {
 :before {
   box-sizing: inherit;
 }
-body,
+/* body,
 h1,
 h2,
 h3,
@@ -125,7 +130,7 @@ h3.with-comment {
 }
 h3 .icon {
   color: #fa9e59;
-}
+} */
 .explanation {
   margin: 0 0 10px;
   text-align: center;
@@ -155,10 +160,6 @@ p {
 }
 p:last-child {
   margin: 0;
-}
-i.special {
-  color: #d53e4f;
-  font-weight: bold;
 }
 .divider {
   margin: 1.5em 0;

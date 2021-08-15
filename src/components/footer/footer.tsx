@@ -8,6 +8,7 @@ import { useSelector } from 'containers/project-data-container'
 import { fromNow } from 'helpers/from-now'
 import { StaticContentContainer } from 'containers/static-content-container'
 import { ExternalLinkIcon } from 'components/core/icons'
+import { Box } from '@chakra-ui/react'
 
 const template = tinytime('{H}:{mm}', { padHours: true })
 
@@ -181,6 +182,7 @@ const Section = styled.section`
 `
 
 const Separator = styled.hr`
+  margin: 2rem 0;
   border-color: rgba(255, 255, 255, 0.3);
 `
 
@@ -194,10 +196,10 @@ const Partner = styled.p`
 
 const LinkGroup = ({ title, children }) => {
   return (
-    <div>
-      <div>{title}</div>
-      <div>{children}</div>
-    </div>
+    <Box>
+      <Box mb={4}>{title}</Box>
+      <Box>{children}</Box>
+    </Box>
   )
 }
 

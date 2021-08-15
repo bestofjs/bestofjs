@@ -1,4 +1,5 @@
 import React from 'react'
+import { Heading } from '@chakra-ui/react'
 import styled from '@emotion/styled'
 
 import { usePageTitle } from './html-head'
@@ -48,8 +49,16 @@ export const PageHeader = ({
 }: PageHeaderProps) => {
   const content = children || title
   usePageTitle(title)
+
   return (
-    <Heading>
+    <Heading
+      as="h1"
+      size="xl"
+      fontWeight="normal"
+      mb={4}
+      display="flex"
+      alignItems="center"
+    >
       {icon && <PageTitleIcon>{icon}</PageTitleIcon>}
       {content}
       {subTitle && (
@@ -61,13 +70,6 @@ export const PageHeader = ({
     </Heading>
   )
 }
-
-const Heading = styled.h1`
-  display: flex;
-  align-items: center;
-  margin: 0 0 1rem;
-  font-size: 1.5rem;
-`
 
 const PageTitleIcon = styled.div`
   margin-right: 0.5rem;
