@@ -94,7 +94,7 @@ const HotProjectsPicker = ({ onChange, value }) => {
   if (!currentOption) return null
 
   return (
-    <Menu>
+    <Menu placement="bottom-end">
       <MenuButton as={Button} variant="outline" rightIcon={<ChevronDownIcon />}>
         {currentOption.label}
       </MenuButton>

@@ -1,8 +1,8 @@
 import React from 'react'
-import { Link, NavLink } from 'react-router-dom'
+import { Link as RouterLink, NavLink } from 'react-router-dom'
+import { Box, Button, Center, Divider, Flex, Link } from '@chakra-ui/react'
 import styled from '@emotion/styled'
 import { GoMarkGithub } from 'react-icons/go'
-import { Button, Link as ChakraLink } from '@chakra-ui/react'
 
 import { ReactComponent as Logo } from './bestofjs-logo.svg'
 import { AuthContainer } from 'containers/auth-container'
@@ -10,6 +10,7 @@ import { StaticContentContainer } from 'containers/static-content-container'
 import { DiscordIcon } from 'components/core/icons'
 import { UserDropdownMenu } from './user-dropdown-menu'
 import { NavigationDropdownMenu } from './navigation-dropdown-menu'
+import { ColorModePicker } from './color-mode-picker'
 
 const breakpoint = 700
 
@@ -46,16 +47,16 @@ export const Header = props => {
   return (
     <HeaderContainer>
       <div className="container">
-        <Row>
-          <Col>
-            <ChakraLink
-              as={Link}
+        <Flex w="100%" justifyContent="space-between">
+          <Center>
+            <Link
+              as={RouterLink}
               to={'/'}
               color="var(--bestofjsOrange)"
               display="block"
             >
               <Logo alt="Best of JS" width="130" height="37.15" />
-            </ChakraLink>
+            </Link>
 
             <NavigationMenu className="desktop-only">
               <NavigationMenuItem>
@@ -73,12 +74,22 @@ export const Header = props => {
                 <NavigationDropdownMenu />
               </NavigationMenuItem>
             </NavigationMenu>
-          </Col>
-          <Col>
+          </Center>
+          <Center>
             <NavigationMenu>
               <NavigationMenuItem className="desktop-only">
                 <LoginSection />
               </NavigationMenuItem>
+              <NavigationMenuItem>
+                <ColorModePicker ml={2} />
+              </NavigationMenuItem>
+              <Box px={3}>
+                <Divider
+                  orientation="vertical"
+                  height="30px"
+                  borderColor="var(--boxBorderColor)"
+                />
+              </Box>
               <NavigationMenuItem>
                 <a
                   className="icon hint--bottom"
@@ -105,23 +116,12 @@ export const Header = props => {
                 <NavigationDropdownMenu />
               </NavigationMenuItem>
             </NavigationMenu>
-          </Col>
-        </Row>
+          </Center>
+        </Flex>
       </div>
     </HeaderContainer>
   )
 }
-
-const Row = styled.div`
-  display: flex;
-  width: 100%;
-  justify-content: space-between;
-`
-
-const Col = styled.div`
-  display: flex;
-  align-items: center;
-`
 
 const NavigationMenu = styled.div`
   display: flex;
@@ -163,7 +163,7 @@ const NavigationMenuItem = styled.div`
 const LoginSection = () => {
   const auth = AuthContainer.useContainer()
 
-  if (auth.isPending) return <div className="v-center">Loading...</div>
+  if (auth.isPending) return <Center>Loading...</Center>
 
   if (!auth.isLoggedIn) {
     return (
