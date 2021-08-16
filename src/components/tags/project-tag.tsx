@@ -33,7 +33,7 @@ export const ProjectTag = ({ tag, baseTagIds = [] }) => {
   return (
     <Tag fontFamily="heading">
       <Link to={nextLocation}>
-        {isMultiTagLink && <TagLeftIcon as={MdAdd} />}
+        {isMultiTagLink && <TagLeftIcon as={MdAdd} fontSize="16px" />}
         <TagLabel fontSize="14px">{tag.name}</TagLabel>
       </Link>
     </Tag>

@@ -1,14 +1,15 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import styled from '@emotion/styled'
-import { GoChevronDown, GoFlame, GoGift } from 'react-icons/go'
 import { Button, Menu, MenuButton, MenuList, MenuItem } from '@chakra-ui/react'
+import { GoFlame, GoGift } from 'react-icons/go'
 
 import { useSelector } from 'containers/project-data-container'
 import { Section, Spinner } from 'components/core'
 import { ProjectTable } from 'components/project-list/project-table'
 import { getProjectsSortedBy } from 'selectors'
 import { StaticContentContainer } from 'containers/static-content-container'
+import { ChevronDownIcon } from 'components/core/icons'
 
 const ranges = {
   daily: 'yesterday',
@@ -95,7 +96,7 @@ const HotProjectsPicker = ({ onChange, value }) => {
 
   return (
     <Menu>
-      <MenuButton as={Button} variant="outline" rightIcon={<GoChevronDown />}>
+      <MenuButton as={Button} variant="outline" rightIcon={<ChevronDownIcon />}>
         {currentOption.label}
       </MenuButton>
       <MenuList>

@@ -8,8 +8,8 @@ import {
   MenuItem,
   MenuDivider
 } from '@chakra-ui/react'
-import { GoChevronDown } from 'react-icons/go'
 
+import { ChevronDownIcon } from 'components/core/icons'
 import { useSearch } from './search-container'
 import { sortOrderOptions } from './sort-order-options'
 
@@ -19,7 +19,7 @@ export const SortOrderPicker = ({ value, onChange }) => {
 
   return (
     <Menu>
-      <MenuButton as={Button} rightIcon={<GoChevronDown />}>
+      <MenuButton as={Button} rightIcon={<ChevronDownIcon />}>
         {currentOption ? (
           <>
             <Box as="span" mr={2}>
