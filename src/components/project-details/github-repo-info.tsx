@@ -1,6 +1,7 @@
 import React from 'react'
 import numeral from 'numeral'
 import styled from '@emotion/styled'
+import { Box, SimpleGrid } from '@chakra-ui/react'
 import { GoMarkGithub, GoGitCommit } from 'react-icons/go'
 import { MdGroup } from 'react-icons/md'
 
@@ -37,31 +38,33 @@ export const GitHubRepoInfo = ({
       </CardHeader>
       <CardBody>
         <CardSection>
-          <div style={{ display: 'flex' }}>
-            <div style={{ flex: '1 1 0%' }}>
-              <p>
-                <ExternalLink url={repository}>{full_name}</ExternalLink>{' '}
-              </p>
+          <SimpleGrid gap={4} templateColumns="1fr 1fr">
+            <Box>
+              <ExternalLink url={repository}>{full_name}</ExternalLink>{' '}
+            </Box>
+            <Box>
               {created_at && (
-                <p>
+                <>
                   Created {fromNow(created_at)}, last commit{' '}
                   {fromNow(pushed_at)}
-                </p>
+                </>
               )}
-            </div>
-            <div>
+            </Box>
+            <Box>
               <Stats>
                 <MdGroup size={20} className="icon" />
                 {formatNumber(contributor_count)} contributors
               </Stats>
+            </Box>
+            <Box>
               {commit_count && (
                 <Stats>
                   <GoGitCommit size={20} className="icon" />
                   {formatNumber(commit_count)} commits
                 </Stats>
               )}
-            </div>
-          </div>
+            </Box>
+          </SimpleGrid>
         </CardSection>
       </CardBody>
     </Card>

@@ -3,7 +3,9 @@ import React from 'react'
 import { GoChevronDown, GoLinkExternal, GoTag } from 'react-icons/go'
 import { MdStarBorder } from 'react-icons/md'
 
-export const StarIcon = props => <Icon as={MdStarBorder} {...props} />
+export const StarIcon = (props: IconProps) => (
+  <Icon as={MdStarBorder} fontSize="16px" {...props} />
+)
 
 export const TagIcon = props => <GoTag {...props} />
 

@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from '@emotion/styled'
-import { Button } from '@chakra-ui/react'
+import { Box, Button, Heading, VStack } from '@chakra-ui/react'
 import { GoHome, GoMarkGithub } from 'react-icons/go'
 import { DiNpm } from 'react-icons/di'
 
@@ -18,18 +18,16 @@ export const ProjectHeader = ({ project }: Props) => {
   return (
     <HeaderLayout>
       <Main>
-        <div style={{ paddingRight: '1rem' }}>
+        <Box pr={4}>
           <Avatar project={project} size={75} />
-        </div>
-        <div style={{ flex: 1 }}>
-          <h1>{project.name}</h1>
-          <div style={{ margin: '0.5rem 0 0.75rem' }}>
-            {project.description}
-          </div>
-          <div>
+        </Box>
+        <VStack spacing={4} alignItems="flex-start">
+          <Heading>{project.name}</Heading>
+          <Box>{project.description}</Box>
+          <Box>
             <ProjectTagGroup tags={project.tags} />
-          </div>
-        </div>
+          </Box>
+        </VStack>
       </Main>
       <QuickLinks>
         <ButtonLink href={repository}>

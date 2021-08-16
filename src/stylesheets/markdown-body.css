@@ -993,7 +993,8 @@
   /* background-color: #0d1117; */
 }
 .chakra-ui-dark .markdown-body a {
-  color: #58a6ff;
+  /* color: #58a6ff; */
+  color: var(--bestofjsOrange);
 }
 .chakra-ui-dark .markdown-body hr {
   border-bottom: 1px solid #21262d;

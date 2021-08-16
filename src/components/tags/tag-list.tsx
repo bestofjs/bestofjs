@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link as RouterLink, useHistory } from 'react-router-dom'
-import { Box, Button, Link, HStack, Flex } from '@chakra-ui/react'
+import { Box, Button, Link, HStack, Flex, Center } from '@chakra-ui/react'
 import styled from '@emotion/styled'
 
 import { useSelector } from 'containers/project-data-container'
@@ -63,15 +63,12 @@ const TagListRow = ({ tag }) => {
   return (
     <ListRow>
       <MainListCell>
-        <div>
-          <Link
-            to={`/projects?tags=${tag.code}`}
-            style={{ fontSize: '1.25rem', marginRight: '0.5rem' }}
-          >
+        <Center>
+          <Link as={RouterLink} to={`/projects?tags=${tag.code}`} fontSize="xl">
             {tag.name}
-          </Link>{' '}
-          ({tag.counter} projects)
-        </div>
+          </Link>
+          <Box ml={2}>({tag.counter} projects)</Box>
+        </Center>
         {tag.description && (
           <p style={{ marginTop: '1rem' }} className="text-secondary">
             {tag.description}
@@ -98,6 +95,7 @@ const IconGrid = ({ tag, projectCount = 5 }) => {
           <Box key={project.slug}>
             <Link
               to={`/projects/${project.slug}`}
+              as={RouterLink}
               className="hint--top"
               aria-label={project.name}
             >
@@ -144,7 +142,6 @@ const MainListCell = styled(ListCell)`
 `
 
 const ProjectIconCell = styled(ListCell)`
-  min-width: 300px;
   flex-grow: 1;
   display: flex;
   justify-content: flex-end;
