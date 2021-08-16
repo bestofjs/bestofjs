@@ -5,8 +5,9 @@ import styled from '@emotion/styled'
 import { useSelector } from 'containers/project-data-container'
 import { getProjectsByTag } from 'selectors'
 import { Avatar } from 'components/core/project'
-import { Button, Grid, Cell as GridCell } from 'components/core'
+import { Grid, Cell as GridCell } from 'components/core'
 import { ChevronRightIcon } from 'components/core/icons'
+import { Button } from '@chakra-ui/react'
 
 export const DetailedTagList = ({ tags }: { tags: BestOfJS.Tag[] }) => {
   return (

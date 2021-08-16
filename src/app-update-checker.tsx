@@ -1,8 +1,9 @@
 import React, { useEffect, useRef } from 'react'
+import { Button } from '@chakra-ui/react'
 import styled from '@emotion/styled'
 
 import { fetchJSON } from 'helpers/fetch'
-import { Button, ExternalLink, useToast } from 'components/core'
+import { ExternalLink, useToast } from 'components/core'
 import { ExternalLinkIcon } from 'components/core/icons'
 
 type Meta = {

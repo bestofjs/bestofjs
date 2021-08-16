@@ -1,6 +1,7 @@
 import React from 'react'
+import { Button } from '@chakra-ui/react'
 
-import { Button, MainContent, PageHeader } from 'components/core'
+import { MainContent, PageHeader } from 'components/core'
 
 // From https://reactjs.org/docs/concurrent-mode-suspense.html#handling-errors
 type Props = { fallback: React.ReactNode }

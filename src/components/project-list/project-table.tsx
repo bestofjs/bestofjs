@@ -13,9 +13,9 @@ import {
   StarTotal
 } from 'components/core/project'
 import { TagLabelGroup } from 'components/tags/tag-label'
-import { Button } from 'components/core'
 import { fromNow } from 'helpers/from-now'
 import { ProjectDetailsButton } from './project-details-button'
+import { Button } from '@chakra-ui/react'
 
 type Props = {
   projects: BestOfJS.Project[]

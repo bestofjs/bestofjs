@@ -1,57 +1,53 @@
 import React from 'react'
-import { useHistory } from 'react-router-dom'
+import { Link as RouterLink } from 'react-router-dom'
+import {
+  Button,
+  Link,
+  Menu,
+  MenuButton,
+  MenuList,
+  MenuItem,
+  MenuDivider
+} from '@chakra-ui/react'
 import styled from '@emotion/styled'
 import { GoBookmark, GoSignOut } from 'react-icons/go'
 
 import { AuthContainer } from 'containers/auth-container'
-import { Popover, Menu, DropdownToggleButton } from '../core'
+import { ChevronDownIcon } from 'components/core/icons'
 
 export const UserDropdownMenu = () => {
-  const history = useHistory()
   const auth = AuthContainer.useContainer()
   const { bookmarks, logout } = AuthContainer.useContainer()
   const bookmarkCount = bookmarks.length
 
   return (
-    <Popover
-      content={({ close }) => {
-        const items = [
-          {
-            label: `Bookmarks (${bookmarkCount})`,
-            onClick: () => {
-              history.push('/bookmarks')
-              close()
-            },
-            icon: <GoBookmark />
-          },
-          {
-            label: 'Sign out',
-            onClick: () => {
-              logout()
-              close()
-            },
-            icon: <GoSignOut />
-          }
-        ]
-        return <Menu items={items} />
-      }}
-      alignment="right"
-    >
-      {({ open }) => (
-        <StyledToggleButton onClick={open}>
-          <UserAvatar
-            avatarURL={auth.profile?.picture}
-            username={auth.profile?.name}
-          />
-        </StyledToggleButton>
-      )}
-    </Popover>
+    <Menu placement="bottom-end">
+      <MenuButton
+        as={Button}
+        rightIcon={<ChevronDownIcon />}
+        py={1}
+        pl={2}
+        height="auto"
+      >
+        <UserAvatar
+          avatarURL={auth.profile?.picture}
+          username={auth.profile?.name}
+        />
+      </MenuButton>
+      <MenuList>
+        <MenuItem icon={<GoBookmark />}>
+          <Link as={RouterLink} to="/bookmarks">
+            Bookmarks ({bookmarkCount})
+          </Link>
+        </MenuItem>
+        <MenuDivider />
+        <MenuItem onClick={() => logout()} icon={<GoSignOut />}>
+          Sign out
+        </MenuItem>
+      </MenuList>
+    </Menu>
   )
 }
-
-const StyledToggleButton = styled(DropdownToggleButton)`
-  padding: 0.2rem 0.5rem;
-`
 
 const UserAvatar = ({ username, avatarURL, size = 32 }) => {
   const url = `${avatarURL}&size=${size}`

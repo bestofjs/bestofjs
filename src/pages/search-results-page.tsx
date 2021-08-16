@@ -6,18 +6,13 @@ import { useSelector } from 'containers/project-data-container'
 import { allProjects, getTagsById, getProjectSelectorByKey } from 'selectors'
 import { PaginationContainer } from 'components/core/pagination'
 import { TagIcon } from 'components/core/icons'
-import {
-  Button,
-  EmptyContent,
-  MainContent,
-  PageHeader,
-  Spinner
-} from 'components/core'
+import { EmptyContent, MainContent, PageHeader, Spinner } from 'components/core'
 import { ProjectPaginatedList } from 'components/search/project-paginated-list'
 import { TagLabelGroup } from 'components/tags/tag-label'
 import { useSearch } from 'components/search/search-container'
 import { updateLocation } from 'components/search/search-utils'
 import { findProjects } from 'components/search/find-projects'
+import { Button } from '@chakra-ui/react'
 
 export const SearchResultsPage = () => {
   const { selectedTags, query, sortOption, page } = useSearch()

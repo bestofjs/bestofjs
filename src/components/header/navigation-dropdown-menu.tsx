@@ -13,7 +13,6 @@ import {
   Box
 } from '@chakra-ui/react'
 import { FiMenu } from 'react-icons/fi'
-import { GoChevronDown } from 'react-icons/go'
 
 import { StaticContentContainer } from 'containers/static-content-container'
 import { ChevronDownIcon, ExternalLinkIcon } from 'components/core/icons'
