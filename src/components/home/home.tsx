@@ -10,7 +10,7 @@ import { StaticContentContainer } from 'containers/static-content-container'
 import { getTotalNumberOfStars } from 'selectors'
 import log from 'helpers/log'
 import { addProjectURL } from 'components/user-requests/add-project/create-issue-link'
-import { TagLabelGroup } from 'components/tags/tag-label'
+import { ProjectTagGroup } from 'components/tags/project-tag'
 import { StarIcon } from 'components/core/icons'
 import { ExternalLink, MainContent, Section } from 'components/core'
 import { CompactTagList } from 'components/tags/tag-list'
@@ -66,7 +66,7 @@ const Tags = ({ popularTags, isPending }) => {
       <Section.Header icon={<GoTag fontSize={32} />}>
         <Section.Title>Popular tags</Section.Title>
       </Section.Header>
-      {!isPending ? <TagLabelGroup tags={popularTags} /> : <>Loading...</>}
+      {!isPending ? <ProjectTagGroup tags={popularTags} /> : <>Loading...</>}
       <div style={{ paddingTop: '1rem', textAlign: 'center' }}>
         <Link to={`/tags/`}>View all tags »</Link>
       </div>

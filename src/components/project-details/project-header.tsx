@@ -6,7 +6,7 @@ import { DiNpm } from 'react-icons/di'
 
 import { usePageTitle } from 'components/core'
 import { Avatar } from 'components/core/project'
-import { TagLabelGroup } from 'components/tags/tag-label'
+import { ProjectTagGroup } from 'components/tags/project-tag'
 import formatUrl from 'helpers/url'
 
 type Props = { project: BestOfJS.Project }
@@ -27,7 +27,7 @@ export const ProjectHeader = ({ project }: Props) => {
             {project.description}
           </div>
           <div>
-            <TagLabelGroup tags={project.tags} />
+            <ProjectTagGroup tags={project.tags} />
           </div>
         </div>
       </Main>

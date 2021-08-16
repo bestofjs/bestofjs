@@ -1,6 +1,7 @@
 import React from 'react'
 import { withRouter } from 'react-router-dom'
 import styled from '@emotion/styled'
+import { Button } from '@chakra-ui/react'
 
 import { useSelector } from 'containers/project-data-container'
 import { allProjects, getTagsById, getProjectSelectorByKey } from 'selectors'
@@ -8,11 +9,10 @@ import { PaginationContainer } from 'components/core/pagination'
 import { TagIcon } from 'components/core/icons'
 import { EmptyContent, MainContent, PageHeader, Spinner } from 'components/core'
 import { ProjectPaginatedList } from 'components/search/project-paginated-list'
-import { TagLabelGroup } from 'components/tags/tag-label'
+import { ProjectTagGroup } from 'components/tags/project-tag'
 import { useSearch } from 'components/search/search-container'
 import { updateLocation } from 'components/search/search-utils'
 import { findProjects } from 'components/search/find-projects'
-import { Button } from '@chakra-ui/react'
 
 export const SearchResultsPage = () => {
   const { selectedTags, query, sortOption, page } = useSearch()
@@ -154,7 +154,7 @@ const NoProjectsFound = withRouter(
             <div style={{ marginBottom: '1rem' }}>
               Or select only <b>one</b> tag:
             </div>
-            <TagLabelGroup tags={tags} />
+            <ProjectTagGroup tags={tags} />
           </div>
         )}
       </>
@@ -169,7 +169,7 @@ const RelevantTags = ({ tagIds, baseTagIds }) => {
       <Label>
         {baseTagIds.length === 0 ? 'Related tags:' : 'Refine your search:'}
       </Label>
-      <TagLabelGroup tags={tags} baseTagIds={baseTagIds} />
+      <ProjectTagGroup tags={tags} baseTagIds={baseTagIds} />
     </Container>
   )
 }

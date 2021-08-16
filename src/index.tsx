@@ -53,7 +53,8 @@ const customTheme = extendTheme({
   config,
   fonts: {
     heading: 'Roboto Slab',
-    body: 'Roboto Slab'
+    body: 'Roboto Slab',
+    button: 'Open Sans'
   },
   shadows: {
     outline: '0 0 0 3px rgba(250, 158, 59, 0.6)'

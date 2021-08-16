@@ -13,7 +13,7 @@ import { useSelector } from 'containers/project-data-container'
 import { getFeaturedProjects, getDeltaByDay } from 'selectors'
 import { Avatar, StarDelta, getProjectAvatarUrl } from 'components/core/project'
 import { Section } from 'components/core'
-import { TagLabel } from 'components/tags/tag-label'
+import { ProjectTag } from 'components/tags/project-tag'
 import { ProgressBar } from './progress-bar'
 
 export const RandomFeaturedProject = () => {
@@ -204,7 +204,7 @@ export const FeaturedProject = ({ project }) => {
             average={sortOptionId !== 'daily'}
           />
         </div>
-        <TagLabel tag={project.tags[0]} />
+        <ProjectTag tag={project.tags[0]} />
       </FeaturedProjectName>
     </Box>
   )

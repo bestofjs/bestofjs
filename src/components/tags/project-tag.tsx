@@ -1,22 +1,23 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { Tag as ChakraTag, Wrap, WrapItem } from '@chakra-ui/react'
+import { Tag, TagLabel, TagLeftIcon, Wrap, WrapItem } from '@chakra-ui/react'
+import { MdAdd } from 'react-icons/md'
 
 import { useSearch, updateLocation } from '../search'
 
-export const TagLabelGroup = ({ tags, ...otherProps }) => {
+export const ProjectTagGroup = ({ tags, ...otherProps }) => {
   return (
     <Wrap>
       {tags.map(tag => (
         <WrapItem key={tag.id}>
-          <TagLabel tag={tag} {...otherProps} />
+          <ProjectTag tag={tag} {...otherProps} />
         </WrapItem>
       ))}
     </Wrap>
   )
 }
 
-export const TagLabel = ({ tag, baseTagIds = [] }) => {
+export const ProjectTag = ({ tag, baseTagIds = [] }) => {
   const { location } = useSearch()
 
   const isMultiTagLink = baseTagIds.length > 0
@@ -30,11 +31,11 @@ export const TagLabel = ({ tag, baseTagIds = [] }) => {
     }
   )
   return (
-    <ChakraTag fontFamily="heading">
+    <Tag fontFamily="heading">
       <Link to={nextLocation}>
-        {isMultiTagLink && <span>+ </span>}
-        {tag.name}
+        {isMultiTagLink && <TagLeftIcon as={MdAdd} />}
+        <TagLabel fontSize="14px">{tag.name}</TagLabel>
       </Link>
-    </ChakraTag>
+    </Tag>
   )
 }

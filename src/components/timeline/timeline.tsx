@@ -14,7 +14,7 @@ import featuredProjects from './featured-projects.json'
 import { findProjectsByIds } from 'selectors'
 import { useSelector } from 'containers/project-data-container'
 import { Avatar } from 'components/core/project'
-import { TagLabelGroup } from 'components/tags/tag-label'
+import { ProjectTagGroup } from 'components/tags/project-tag'
 
 type Project = BestOfJS.Project & { date: Date; comments: string[] }
 
@@ -77,7 +77,7 @@ export const Timeline = () => {
               GitHub
             </div>
             <div style={{ paddingTop: '1rem' }}>
-              <TagLabelGroup tags={project.tags.slice(0, 3)} />
+              <ProjectTagGroup tags={project.tags.slice(0, 3)} />
             </div>
           </VerticalTimelineElement>
         ))}

@@ -12,7 +12,7 @@ import {
   StarDelta,
   StarTotal
 } from 'components/core/project'
-import { TagLabelGroup } from 'components/tags/tag-label'
+import { ProjectTagGroup } from 'components/tags/project-tag'
 import { fromNow } from 'helpers/from-now'
 import { ProjectDetailsButton } from './project-details-button'
 import { Button } from '@chakra-ui/react'
@@ -176,7 +176,7 @@ const ProjectTableRow = ({
           </RepoInfo>
         </ProjectDescription>
         <div>
-          <TagLabelGroup tags={project.tags} />
+          <ProjectTagGroup tags={project.tags} />
         </div>
       </MainCell>
 
