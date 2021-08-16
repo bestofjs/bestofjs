@@ -1,9 +1,9 @@
 import React from 'react'
 import styled from '@emotion/styled'
 import numeral from 'numeral'
-import { Link } from 'react-router-dom'
+import { Link as RouterLink } from 'react-router-dom'
+import { Button, Box, Link, Heading, Center } from '@chakra-ui/react'
 import { GoTag, GoHeart, GoPlus } from 'react-icons/go'
-import { Button as ChakraButton, Box, Heading } from '@chakra-ui/react'
 
 import { useSelector } from 'containers/project-data-container'
 import { StaticContentContainer } from 'containers/static-content-container'
@@ -67,9 +67,11 @@ const Tags = ({ popularTags, isPending }) => {
         <Section.Title>Popular tags</Section.Title>
       </Section.Header>
       {!isPending ? <ProjectTagGroup tags={popularTags} /> : <>Loading...</>}
-      <div style={{ paddingTop: '1rem', textAlign: 'center' }}>
-        <Link to={`/tags/`}>View all tags »</Link>
-      </div>
+      <Box pt={4} textAlign="center">
+        <Link as={RouterLink} to={`/tags/`}>
+          View all tags »
+        </Link>
+      </Box>
     </SectionMobileOnly>
   )
 }
@@ -135,9 +137,9 @@ const StarOnGitHubButton = () => {
       href={repoURL}
       target="_blank"
       addOn={
-        <>
-          {formatNumber(stars)} <StarIcon size={20} />
-        </>
+        <Center>
+          {formatNumber(stars)} <StarIcon size={24} />
+        </Center>
       }
     >
       Star on GitHub
@@ -160,7 +162,7 @@ const SponsorButton = () => {
 }
 
 const BigButtonLink = ({ addOn, children, ...props }: { addOn: React.JSX }) => (
-  <ChakraButton
+  <Button
     as="a"
     display="flex"
     fontSize="1.2rem"
@@ -179,7 +181,7 @@ const BigButtonLink = ({ addOn, children, ...props }: { addOn: React.JSX }) => (
     >
       {addOn}
     </Box>
-  </ChakraButton>
+  </Button>
 )
 
 const formatNumber = number => numeral(number).format('')

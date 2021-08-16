@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link as RouterLink } from 'react-router-dom'
+import { Link } from '@chakra-ui/react'
 import { GoCalendar } from 'react-icons/go'
 
 import { useFetchMonthlyRankings } from 'api/hooks'
@@ -59,7 +60,7 @@ const FetchMonthlyRankings = ({ date, setDate }) => {
         year={year}
         month={month}
         footer={
-          <Link to={`/rankings/monthly/${year}/${month}`}>
+          <Link as={RouterLink} to={`/rankings/monthly/${year}/${month}`}>
             View full rankings »
           </Link>
         }

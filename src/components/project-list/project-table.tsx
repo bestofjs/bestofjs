@@ -1,6 +1,7 @@
 import React, { CSSProperties } from 'react'
 import styled from '@emotion/styled'
-import { Link } from 'react-router-dom'
+import { Button, Link } from '@chakra-ui/react'
+import { Link as RouterLink } from 'react-router-dom'
 import numeral from 'numeral'
 import { GoMarkGithub, GoBookmark, GoHome } from 'react-icons/go'
 
@@ -15,7 +16,6 @@ import {
 import { ProjectTagGroup } from 'components/tags/project-tag'
 import { fromNow } from 'helpers/from-now'
 import { ProjectDetailsButton } from './project-details-button'
-import { Button } from '@chakra-ui/react'
 
 type Props = {
   projects: BestOfJS.Project[]
@@ -110,14 +110,14 @@ const ProjectTableRow = ({
       )}
 
       <IconCell>
-        <Link to={path}>
+        <Link as={RouterLink} to={path}>
           <Avatar project={project} size={50} />
         </Link>
       </IconCell>
 
       <MainCell>
         <ProjectName>
-          <MainLink to={path}>
+          <MainLink as={RouterLink} to={path}>
             <ProjectIconSmallScreen project={project} size={40} />
             {project.name}
           </MainLink>

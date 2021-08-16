@@ -24,7 +24,8 @@ export const customTheme = extendTheme({
     },
     Link: {
       baseStyle: {
-        fontFamily: 'Open Sans'
+        fontFamily: 'Open Sans',
+        color: 'var(--bestofjsOrange)'
       }
     },
     Menu: {

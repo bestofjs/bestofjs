@@ -2,7 +2,6 @@ import React from 'react'
 import { Link as RouterLink } from 'react-router-dom'
 import {
   Button,
-  Link,
   Menu,
   MenuButton,
   MenuList,
@@ -14,6 +13,7 @@ import { GoBookmark, GoSignOut } from 'react-icons/go'
 
 import { AuthContainer } from 'containers/auth-container'
 import { ChevronDownIcon } from 'components/core/icons'
+import { MenuItemLink } from 'components/core'
 
 export const UserDropdownMenu = () => {
   const auth = AuthContainer.useContainer()
@@ -36,9 +36,9 @@ export const UserDropdownMenu = () => {
       </MenuButton>
       <MenuList>
         <MenuItem icon={<GoBookmark />}>
-          <Link as={RouterLink} to="/bookmarks">
+          <MenuItemLink as={RouterLink} to="/bookmarks">
             Bookmarks ({bookmarkCount})
-          </Link>
+          </MenuItemLink>
         </MenuItem>
         <MenuDivider />
         <MenuItem onClick={() => logout()} icon={<GoSignOut />}>

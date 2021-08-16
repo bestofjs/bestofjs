@@ -1,14 +1,15 @@
 import React, { useState, useRef } from 'react'
+import { Link as RouterLink } from 'react-router-dom'
 import styled from '@emotion/styled'
-import { Link } from 'react-router-dom'
+import { Box, Link } from '@chakra-ui/react'
 import { Animate } from 'react-simple-animate'
+import { useInterval } from 'react-use'
 import { GoStar } from 'react-icons/go'
 
 import { shuffle } from 'helpers/shuffle'
 import { useUpdateEffect } from 'helpers/lifecycle-hooks'
 import { useViewportSpy } from 'helpers/use-viewport-spy'
 import { useIsDocumentVisible } from 'helpers/use-page-events'
-import { useInterval } from 'react-use'
 import { useSelector } from 'containers/project-data-container'
 import { getFeaturedProjects, getDeltaByDay } from 'selectors'
 import { Avatar, StarDelta, getProjectAvatarUrl } from 'components/core/project'
@@ -76,7 +77,9 @@ export const Slider = ({
         />
       </div>
       <Footer>
-        <Link to="/featured">View more »</Link>
+        <Link as={RouterLink} to="/featured">
+          View more »
+        </Link>
       </Footer>
     </Section>
   )
@@ -130,14 +133,14 @@ const ProjectSlider = ({
   const slots = Array.from(new Array(visibleProjects.length))
 
   return (
-    <Container>
+    <Box position="relative">
       <CountDown
         pageNumber={pageNumber}
         duration={duration}
         interval={1000}
         isPaused={isPaused}
       />
-      <VisibleGroup>
+      <Box>
         {slots
           .map((_, i) => visibleProjects[i])
           .map((project, i) => (
@@ -151,7 +154,7 @@ const ProjectSlider = ({
               <Project key={`visible-${i}`} project={project} />
             </Animate>
           ))}
-      </VisibleGroup>
+      </Box>
       <HiddenGroup>
         {slots
           .map((_, i) => nextProjects[i])
@@ -163,15 +166,9 @@ const ProjectSlider = ({
             />
           ))}
       </HiddenGroup>
-    </Container>
+    </Box>
   )
 }
-
-const Container = styled.div`
-  position: relative;
-`
-
-const VisibleGroup = styled.div``
 
 const HiddenGroup = styled.div`
   visibility: hidden;
@@ -192,7 +189,7 @@ const ProjectContainer = styled.div`
 export const FeaturedProject = ({ project }) => {
   const sortOptionId = 'daily'
   return (
-    <Box>
+    <ProjectBox>
       <Avatar project={project} size={80} />
       <FeaturedProjectName>
         <Link className="title" to={`/projects/${project.slug}`}>
@@ -206,11 +203,11 @@ export const FeaturedProject = ({ project }) => {
         </div>
         <ProjectTag tag={project.tags[0]} />
       </FeaturedProjectName>
-    </Box>
+    </ProjectBox>
   )
 }
 
-const Box = styled.div`
+const ProjectBox = styled.div`
   background-color: var(--cardBackgroundColor);
   margin-bottom: 0rem;
   display: flex;

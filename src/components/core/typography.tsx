@@ -1,5 +1,5 @@
 import React from 'react'
-import { Heading } from '@chakra-ui/react'
+import { Heading, Link } from '@chakra-ui/react'
 import styled from '@emotion/styled'
 
 import { usePageTitle } from './html-head'
@@ -20,20 +20,23 @@ export const ExternalLink = ({
 }) => {
   const fullURL = url.startsWith('http') ? url : `http://` + url
   return (
-    <StyledLink
-      href={fullURL}
-      target="_blank"
-      rel="noopener noreferrer"
-      {...rest}
-    >
+    <Link href={fullURL} target="_blank" rel="noopener noreferrer" {...rest}>
       {children}
-    </StyledLink>
+    </Link>
   )
 }
 
-const StyledLink = styled.a`
-  font-family: var(--buttonFontFamily);
-`
+export const MenuItemLink = props => (
+  <Link
+    {...props}
+    sx={{
+      color: 'inherit',
+      ':hover': {
+        'text-decoration': 'none'
+      }
+    }}
+  />
+)
 
 type PageHeaderProps = {
   title: string

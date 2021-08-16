@@ -3,7 +3,6 @@ import { Link as RouterLink } from 'react-router-dom'
 import {
   Button,
   Icon,
-  Link,
   Menu,
   MenuButton,
   MenuList,
@@ -16,6 +15,7 @@ import { FiMenu } from 'react-icons/fi'
 
 import { StaticContentContainer } from 'containers/static-content-container'
 import { ChevronDownIcon, ExternalLinkIcon } from 'components/core/icons'
+import { MenuItemLink } from 'components/core'
 
 export const NavigationDropdownMenu = () => {
   const { risingStarsURL, stateOfJSURL } = StaticContentContainer.useContainer()
@@ -32,52 +32,68 @@ export const NavigationDropdownMenu = () => {
       </MenuButton>
       <MenuList>
         <MenuItem className="mobile-only">
-          <Link as={RouterLink} to="/projects">
+          <MenuItemLink as={RouterLink} to="/projects">
             All projects
-          </Link>
+          </MenuItemLink>
         </MenuItem>
         <MenuItem className="mobile-only">
-          <Link as={RouterLink} to="/tags">
+          <MenuItemLink as={RouterLink} to="/tags">
             Tags
-          </Link>
+          </MenuItemLink>
         </MenuItem>
         <MenuItem>
-          <Link as={RouterLink} to="/rankings/monthly">
+          <MenuItemLink as={RouterLink} to="/rankings/monthly">
             Monthly rankings
-          </Link>
+          </MenuItemLink>
         </MenuItem>
 
         <MenuItem>
-          <Link as={RouterLink} to="/hall-of-fame">
+          <MenuItemLink as={RouterLink} to="/hall-of-fame">
             Hall of Fame
-          </Link>
+          </MenuItemLink>
         </MenuItem>
         <MenuItem>
-          <Link as={RouterLink} to="/timeline">
+          <MenuItemLink as={RouterLink} to="/timeline">
             Timeline 2010 ~ 2020
-          </Link>
+          </MenuItemLink>
         </MenuItem>
         <MenuItem>
-          <Link as={RouterLink} to="/about">
+          <MenuItemLink as={RouterLink} to="/about">
             About Best of JS
-          </Link>
+          </MenuItemLink>
         </MenuItem>
         <MenuDivider />
         <MenuGroup title="Related projects">
           <MenuItem>
-            <Link href={risingStarsURL} isExternal>
+            <MenuItemLink href={risingStarsURL} isExternal>
               Rising Stars
               <Icon as={ExternalLinkIcon} />
-            </Link>
+            </MenuItemLink>
           </MenuItem>
           <MenuItem>
-            <Link href={stateOfJSURL} isExternal>
+            <MenuItemLink href={stateOfJSURL} isExternal>
               State of JS
               <Icon as={ExternalLinkIcon} />
-            </Link>
+            </MenuItemLink>
           </MenuItem>
         </MenuGroup>
       </MenuList>
     </Menu>
   )
 }
+
+// const MenuItemLink = styled(MenuItem)`
+//   a {
+//     color: inherit;
+//     &:hover {
+//       text-decoration: none;
+//     }
+//   }
+// `
+
+// const MenuItemLink = styled(Link)`
+//   color: inherit;
+//   &:hover {
+//     text-decoration: none;
+//   }
+// `

@@ -1,7 +1,15 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
-import styled from '@emotion/styled'
-import { Button, Menu, MenuButton, MenuList, MenuItem } from '@chakra-ui/react'
+import { Link as RouterLink } from 'react-router-dom'
+import {
+  Box,
+  Button,
+  Flex,
+  MenuItem,
+  Link,
+  Menu,
+  MenuButton,
+  MenuList
+} from '@chakra-ui/react'
 import { GoFlame, GoGift } from 'react-icons/go'
 
 import { useSelector } from 'containers/project-data-container'
@@ -41,19 +49,19 @@ export const HotProjects = ({ hotFilter, pending }) => {
 
   return (
     <>
-      <Row>
-        <MainCol>
+      <Flex alignItems="center">
+        <Box flexGrow={1}>
           <Section.Header icon={<GoFlame fontSize={32} />}>
             <Section.Title>Hot Projects</Section.Title>
             <Section.SubTitle>
               by number of stars added <b>{ranges[sortOptionId]}</b>
             </Section.SubTitle>
           </Section.Header>
-        </MainCol>
-        <Col>
+        </Box>
+        <Box>
           <HotProjectsPicker value={sortOptionId} onChange={setSortOptionId} />
-        </Col>
-      </Row>
+        </Box>
+      </Flex>
       {pending ? (
         <Spinner />
       ) : (
@@ -73,15 +81,6 @@ export const HotProjects = ({ hotFilter, pending }) => {
     </>
   )
 }
-
-const Row = styled.div`
-  display: flex;
-  align-items: center;
-`
-const MainCol = styled.div`
-  flex-grow: 1;
-`
-const Col = styled.div``
 
 const HotProjectsPicker = ({ onChange, value }) => {
   const sortOrderOptions = [
@@ -131,7 +130,11 @@ export const NewestProjects = ({ newestProjects, hotFilter }) => {
         showActions={false}
         showDetails={false}
         footer={
-          <Link to={`/projects?sort=newest`} style={{ display: 'block' }}>
+          <Link
+            as={RouterLink}
+            to={`/projects?sort=newest`}
+            style={{ display: 'block' }}
+          >
             View more »
           </Link>
         }
