@@ -63,7 +63,7 @@ export const HotProjects = ({ hotFilter, pending }) => {
         </Box>
       </Flex>
       {pending ? (
-        <Spinner />
+        <Spinner bg="var(--cardBackgroundColor)" borderWidth="1px" mb={4} />
       ) : (
         <ProjectTable
           projects={projects}

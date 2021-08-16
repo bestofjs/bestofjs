@@ -4,6 +4,7 @@
   --topBarHeight: 60px;
   /* colors */
   --backgroundColor: #ececec;
+  --backgroundColor: var(--chakra-colors-gray-100);
   --textPrimaryColor: #541600;
   --textSecondaryColor: #87563e;
   --textMutedColor: #bb967c;
