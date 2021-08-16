@@ -1,6 +1,6 @@
-import { Icon } from '@chakra-ui/react'
+import { Icon, IconProps } from '@chakra-ui/react'
 import React from 'react'
-import { GoLinkExternal, GoTag } from 'react-icons/go'
+import { GoChevronDown, GoLinkExternal, GoTag } from 'react-icons/go'
 import { MdStarBorder } from 'react-icons/md'
 
 export const StarIcon = props => <Icon as={MdStarBorder} {...props} />
@@ -40,6 +40,10 @@ export const ChevronRightIcon = props => {
     </SVGContainer>
   )
 }
+
+export const ChevronDownIcon = (props: IconProps) => (
+  <Icon as={GoChevronDown} {...props} />
+)
 
 const SVGContainer = ({ children, color = 'currentColor', size = 24 }) => {
   return (

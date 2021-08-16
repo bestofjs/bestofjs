@@ -17,10 +17,19 @@ const config = {
 // 3. extend the theme
 const customTheme = extendTheme({
   components: {
+    Tag: {
+      defaultProps: {
+        // variant: 'outline',
+        // size: 'xl'
+      }
+    },
     Button: {
       baseStyle: {
         fontWeight: 'normal',
         fontFamily: 'Open Sans'
+      },
+      defaultProps: {
+        variant: 'outline'
       },
       variants: {
         outline: {
@@ -52,7 +61,8 @@ const customTheme = extendTheme({
   styles: {
     global: props => ({
       body: {
-        bg: mode('#ececec', 'gray.700')(props),
+        bg: 'var(--backgroundColor)',
+        // bg: mode('#ececec', 'gray.700')(props),
         color: mode('var(--textPrimaryColor)', 'gray.200')(props),
         lineHeight: 1.3333
       }

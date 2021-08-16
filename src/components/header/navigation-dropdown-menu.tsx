@@ -16,16 +16,16 @@ import { FiMenu } from 'react-icons/fi'
 import { GoChevronDown } from 'react-icons/go'
 
 import { StaticContentContainer } from 'containers/static-content-container'
-import { ExternalLinkIcon } from 'components/core/icons'
+import { ChevronDownIcon, ExternalLinkIcon } from 'components/core/icons'
 
 export const NavigationDropdownMenu = () => {
   const { risingStarsURL, stateOfJSURL } = StaticContentContainer.useContainer()
 
   return (
     <Menu>
-      <MenuButton as={Button} variant="ghost">
-        <Box className="desktop-only">
-          More <Icon as={GoChevronDown} />
+      <MenuButton as={Button} variant="ghost" color="var(--textPrimaryColor)">
+        <Box className="desktop-only" color="var(--textSecondaryColor)">
+          More <ChevronDownIcon />
         </Box>
         <Box className="mobile-only" py={2}>
           <FiMenu fontSize="24px" />

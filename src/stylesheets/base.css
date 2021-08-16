@@ -3,15 +3,18 @@
   --gutter: 2rem;
   --topBarHeight: 64px;
   /* colors */
+  --backgroundColor: #ececec;
   --textPrimaryColor: #541600;
   --textSecondaryColor: #87563e;
   --textMutedColor: #bb967c;
   --linkColor: #cc4700;
   --bestofjsOrange: #e65100;
   --bestofjsPurple: #9c0042;
-  --boxBorderColor: #cecece;
+  /* --boxBorderColor: #cecece; */
+  --boxBorderColor: var(--chakra-colors-gray-200);
   --iconColor: #fa9e59;
   --cardBackgroundColor: white;
+  --menuHoverColor: var(--chakra-colors-yellow-200);
   /* fonts */
   --bodyFontFamily: 'Roboto Slab', sans-serif;
   --headingFontFamily: 'Open Sans', sans-serif;
@@ -20,13 +23,15 @@
 }
 
 .chakra-ui-dark {
+  --backgroundColor: var(--chakra-colors-gray-700);
   --textPrimaryColor: #eee;
   --textSecondaryColor: #bbb;
   --linkColor: var(--chakra-colors-orange-300);
   --iconColor: var(--chakra-colors-orange-600);
   --cardBackgroundColor: var(--chakra-colors-gray-900);
-  --boxBorderColor: var(--chakra-colors-gray-600);
   --bestofjsOrange: var(--chakra-colors-orange-300);
+  --boxBorderColor: var(--chakra-colors-whiteAlpha-300);
+  --menuHoverColor: var(--chakra-colors-yellow-800);
 }
 
 @media (max-width: 599px) {

@@ -2,11 +2,20 @@ import React, { useState, useEffect, useRef } from 'react'
 import Select, { components } from 'react-select'
 import useDebouncedCallback from 'use-debounce/lib/useDebouncedCallback'
 import styled from '@emotion/styled'
+import {
+  CloseButton,
+  IconButton,
+  Tag,
+  TagCloseButton,
+  TagLabel
+} from '@chakra-ui/react'
 
 import { useSelector } from 'containers/project-data-container'
 import { getAllTags } from 'selectors'
-import { Button } from 'components/core'
+import { ChevronDownIcon } from 'components/core/icons'
 import { SearchContainer } from './search-container'
+
+// see https://github.com/JedWatson/react-select/issues/3692 for theming and dark theme
 
 export const SearchBox = () => {
   const tags = useSelector(getAllTags)
@@ -39,7 +48,7 @@ export const SearchBox = () => {
           isMulti
           isClearable
           noOptionsMessage={() => null}
-          placeholder={'Pick tags or enter keywords...'}
+          placeholder={'Pick tags or enter keywords'}
           onChange={(options, { action, option }) => {
             // console.log('> onChange', options, action, option)
             const tagIds = (options || []).map(({ id }) => id)
@@ -84,10 +93,15 @@ export const SearchBox = () => {
             ...theme,
             colors: {
               ...theme.colors,
-              primary: '#9c0042',
-              primary75: '#f76d42',
-              primary50: '#ffae63',
-              primary25: '#f6fad7'
+              neutral0: 'var(--cardBackgroundColor)',
+              neutral20: 'var(--boxBorderColor)',
+              neutral30: 'var(--boxBorderColor)',
+              neutral50: 'var(--textSecondaryColor)', // placeholder color
+              neutral80: 'var(--textPrimaryColor)', // input color
+              primary: 'var(--bestofjsOrange)',
+              primary75: 'var(--menuHoverColor)',
+              primary50: 'var(--menuHoverColor)',
+              primary25: 'var(--menuHoverColor)'
             }
           })}
         />
@@ -97,7 +111,6 @@ export const SearchBox = () => {
 }
 
 const Container = styled.div`
-  background-color: var(--bestofjsOrange);
   background: linear-gradient(135deg, #ed8518, #e75f16, #b94100);
   padding: 1rem 0;
   font-family: var(--buttonFontFamily);
@@ -105,56 +118,62 @@ const Container = styled.div`
 
 // Customize the default `Option` component provided by `react-select`
 const { Option, IndicatorsContainer } = components
-const { CrossIcon } = components
-
-const CustomOption = props => {
-  const { id, name, counter } = props.data
-  return (
-    <Option {...props}>
-      {id ? (
-        <>
-          {name} <span className="text-secondary">({counter})</span>
-        </>
-      ) : (
-        <>
-          Pick a tag...{'  '}
-          <span className="text-secondary">({counter} tags available)</span>
-        </>
-      )}
-    </Option>
-  )
-}
-
-const ResetButton = styled(Button)`
-  padding: 2px 5px;
-  margin-right: 0.5rem;
-  color: #ccc;
-  &:hover {
-    #c6c6c6;
-  }
-  border-style: none;
-`
 
 const customComponents = {
-  Option: CustomOption,
+  ClearIndicator: props => {
+    return <CloseButton size="sm" mx={2} />
+  },
+  DropdownIndicator: props => {
+    return (
+      <IconButton
+        icon={<ChevronDownIcon fontSize="16px" />}
+        variant="ghost"
+        mx={2}
+        size="sm"
+        borderRadius="md"
+        boxSize="24px"
+      />
+    )
+  },
+  Option: props => {
+    const { id, name, counter } = props.data
+    return (
+      <Option {...props}>
+        {id ? (
+          <>
+            {name} <span className="text-secondary">({counter})</span>
+          </>
+        ) : (
+          <>
+            Pick a tag...{'  '}
+            <span className="text-secondary">({counter} tags available)</span>
+          </>
+        )}
+      </Option>
+    )
+  },
   IndicatorsContainer: ({ children, ...props }) => {
     const { hasValue } = props // the selected tags
     const { inputValue } = props.selectProps // the query
     return (
       <IndicatorsContainer {...props}>
         {inputValue && !hasValue && (
-          <ResetButton style={{}} onClick={() => props.setValue()}>
-            <CrossIcon />
-          </ResetButton>
+          <CloseButton onClick={() => props.setValue()} size="sm" mr={2} />
         )}
         {children}
       </IndicatorsContainer>
     )
+  },
+  MultiValue: props => {
+    const {
+      data: { label },
+      removeProps
+    } = props
+    return (
+      <Tag mr={2}>
+        <TagLabel>{label}</TagLabel>
+        <TagCloseButton {...removeProps} />
+      </Tag>
+    )
   }
 }
-
-/* 
-
-
-<ClearIndicator {...props} onClick={() => props.setValue()} />
-*/

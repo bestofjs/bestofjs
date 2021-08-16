@@ -53,7 +53,7 @@ export const PageHeader = ({
   return (
     <Heading
       as="h1"
-      size="xl"
+      fontSize="2rem"
       fontWeight="normal"
       mb={4}
       display="flex"

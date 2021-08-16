@@ -149,7 +149,7 @@ const NavigationMenuItem = styled.div`
     border-bottom-color: var(--bestofjsOrange);
   }
   a.icon {
-    color: var(--textMutedColor);
+    color: var(--textSecondaryColor);
     &:hover {
       color: var(--textSecondaryColor);
     }
@@ -167,7 +167,11 @@ const LoginSection = () => {
 
   if (!auth.isLoggedIn) {
     return (
-      <Button variant="ghost" onClick={() => auth.login()}>
+      <Button
+        variant="ghost"
+        color="var(--textSecondaryColor)"
+        onClick={() => auth.login()}
+      >
         Sign in
       </Button>
     )
