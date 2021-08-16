@@ -1,5 +1,12 @@
 import React from 'react'
-import { Box, Menu, MenuButton, MenuList, MenuItem } from '@chakra-ui/react'
+import {
+  Box,
+  Button,
+  Menu,
+  MenuButton,
+  MenuList,
+  MenuItem
+} from '@chakra-ui/react'
 
 import { ChevronDownIcon } from 'components/core/icons'
 

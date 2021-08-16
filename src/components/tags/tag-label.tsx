@@ -1,19 +1,18 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { Tag as ChakraTag } from '@chakra-ui/react'
+import { Tag as ChakraTag, Wrap, WrapItem } from '@chakra-ui/react'
 
-import { Cell, Grid } from 'components/core'
 import { useSearch, updateLocation } from '../search'
 
 export const TagLabelGroup = ({ tags, ...otherProps }) => {
   return (
-    <Grid>
+    <Wrap>
       {tags.map(tag => (
-        <Cell key={tag.id}>
+        <WrapItem key={tag.id}>
           <TagLabel tag={tag} {...otherProps} />
-        </Cell>
+        </WrapItem>
       ))}
-    </Grid>
+    </Wrap>
   )
 }
 

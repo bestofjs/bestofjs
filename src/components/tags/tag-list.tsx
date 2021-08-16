@@ -1,21 +1,20 @@
 import React from 'react'
 import { Link, useHistory } from 'react-router-dom'
+import { Box, Button, HStack } from '@chakra-ui/react'
 import styled from '@emotion/styled'
 
 import { useSelector } from 'containers/project-data-container'
 import { getProjectsByTag } from 'selectors'
 import { Avatar } from 'components/core/project'
-import { Grid, Cell as GridCell } from 'components/core'
 import { ChevronRightIcon } from 'components/core/icons'
-import { Button } from '@chakra-ui/react'
 
 export const DetailedTagList = ({ tags }: { tags: BestOfJS.Tag[] }) => {
   return (
-    <TagList>
+    <Box w="100%">
       {tags.map(tag => (
         <TagListRow key={tag.id} tag={tag} />
       ))}
-    </TagList>
+    </Box>
   )
 }
 
@@ -27,7 +26,7 @@ export const CompactTagList = ({
   footer?: React.ReactNode
 }) => {
   return (
-    <TagList>
+    <Box w="100%">
       {tags.map(tag => (
         <ListRow key={tag.id}>
           <CompactListItem>
@@ -43,7 +42,7 @@ export const CompactTagList = ({
           <Footer>{footer}</Footer>
         </ListRow>
       )}
-    </TagList>
+    </Box>
   )
 }
 
@@ -98,9 +97,9 @@ const IconGrid = ({ tag, projectCount = 5 }) => {
 
   return (
     <div>
-      <Grid>
+      <HStack>
         {projects.map(project => (
-          <GridCell key={project.slug}>
+          <Box key={project.slug}>
             <Link
               to={`/projects/${project.slug}`}
               className="hint--top"
@@ -108,24 +107,19 @@ const IconGrid = ({ tag, projectCount = 5 }) => {
             >
               <Avatar project={project} size={32} />
             </Link>
-          </GridCell>
+          </Box>
         ))}
-        <GridCell>
+        <Box>
           <ViewTagButton
             onClick={() => history.push(`/projects?tags=${tag.code}`)}
           >
             <ChevronRightIcon size={16} />
           </ViewTagButton>
-        </GridCell>
-      </Grid>
+        </Box>
+      </HStack>
     </div>
   )
 }
-
-const TagList = styled.div`
-  width: 100%;
-  margin-bottom: 2rem;
-`
 
 const breakPoint = 600
 
