@@ -7,6 +7,20 @@ const config = {
 }
 
 export const customTheme = extendTheme({
+  colors: {
+    gray: {
+      '50': '#F2F2F0',
+      '100': '#f2f2f2',
+      '200': '#e8e8e8',
+      '300': '#ADADAD',
+      '400': '#969696',
+      '500': '#808080',
+      '600': '#666666',
+      '700': '#4D4D4D',
+      '800': '#333333',
+      '900': '#1A1A1A'
+    }
+  },
   components: {
     Button: {
       baseStyle: {
@@ -40,6 +54,15 @@ export const customTheme = extendTheme({
         label: {
           fontFamily: 'Open Sans'
         }
+      },
+      variants: {
+        outline: () => ({
+          container: {
+            color: 'var(--textSecondaryColor)',
+            backgroundColor: 'var(--cardBackgroundColor)',
+            boxShadow: 'inset 0 0 0px 1px var(--boxBorderColor)'
+          }
+        })
       }
     }
   },

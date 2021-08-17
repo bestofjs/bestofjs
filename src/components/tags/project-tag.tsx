@@ -1,6 +1,13 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { Tag, TagLabel, TagLeftIcon, Wrap, WrapItem } from '@chakra-ui/react'
+import {
+  Tag,
+  TagLabel,
+  TagLeftIcon,
+  Wrap,
+  WrapItem,
+  useColorMode
+} from '@chakra-ui/react'
 import { MdAdd } from 'react-icons/md'
 
 import { useSearch, updateLocation } from '../search'
@@ -19,6 +26,7 @@ export const ProjectTagGroup = ({ tags, ...otherProps }) => {
 
 export const ProjectTag = ({ tag, baseTagIds = [] }) => {
   const { location } = useSearch()
+  const { colorMode } = useColorMode()
 
   const isMultiTagLink = baseTagIds.length > 0
 
@@ -32,7 +40,11 @@ export const ProjectTag = ({ tag, baseTagIds = [] }) => {
   )
   return (
     <Link to={nextLocation}>
-      <Tag fontFamily="heading" size="lg">
+      <Tag
+        fontFamily="heading"
+        size="lg"
+        variant={colorMode === 'dark' ? 'subtle' : 'outline'}
+      >
         {isMultiTagLink && <TagLeftIcon as={MdAdd} fontSize="16px" />}
         <TagLabel>{tag.name}</TagLabel>
       </Tag>

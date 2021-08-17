@@ -3,8 +3,9 @@
   --gutter: 2rem;
   --topBarHeight: 60px;
   /* colors */
-  --backgroundColor: #ececec;
-  --backgroundColor: var(--chakra-colors-gray-100);
+  /* --backgroundColor: #ececec;
+  --backgroundColor: #f7f2ed; */
+  --backgroundColor: var(--chakra-colors-gray-50);
   --textPrimaryColor: #541600;
   --textSecondaryColor: #87563e;
   --textMutedColor: #bb967c;
@@ -24,7 +25,7 @@
 }
 
 .chakra-ui-dark {
-  --backgroundColor: var(--chakra-colors-gray-700);
+  --backgroundColor: var(--chakra-colors-gray-800);
   --textPrimaryColor: #eee;
   --textSecondaryColor: #bbb;
   --linkColor: var(--chakra-colors-orange-300);

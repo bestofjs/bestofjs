@@ -192,7 +192,11 @@ export const FeaturedProject = ({ project }) => {
     <ProjectBox>
       <Avatar project={project} size={80} />
       <FeaturedProjectName>
-        <Link className="title" to={`/projects/${project.slug}`}>
+        <Link
+          as={RouterLink}
+          className="title"
+          to={`/projects/${project.slug}`}
+        >
           {project.name}
         </Link>
         <div className="stars">

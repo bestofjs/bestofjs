@@ -12,7 +12,7 @@ Section.Header = ({ children, icon }) => {
   )
 }
 
-Section.Title = styled.span`
+Section.Title = styled.h2`
   font-size: 1.5rem;
 `
 
