@@ -26,18 +26,6 @@ export const ExternalLink = ({
   )
 }
 
-export const MenuItemLink = props => (
-  <Link
-    {...props}
-    sx={{
-      color: 'inherit',
-      ':hover': {
-        'text-decoration': 'none'
-      }
-    }}
-  />
-)
-
 type PageHeaderProps = {
   title: string
   icon?: React.Node

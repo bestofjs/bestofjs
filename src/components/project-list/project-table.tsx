@@ -1,6 +1,6 @@
 import React, { CSSProperties } from 'react'
 import styled from '@emotion/styled'
-import { Button, Link } from '@chakra-ui/react'
+import { IconButton, Link } from '@chakra-ui/react'
 import { Link as RouterLink } from 'react-router-dom'
 import numeral from 'numeral'
 import { GoMarkGithub, GoBookmark, GoHome } from 'react-icons/go'
@@ -117,56 +117,47 @@ const ProjectTableRow = ({
 
       <MainCell>
         <ProjectName>
-          <MainLink as={RouterLink} to={path}>
+          <MainLink as={RouterLink} to={path} mr={2}>
             <ProjectIconSmallScreen project={project} size={40} />
             {project.name}
           </MainLink>
-          {
-            <InlineIcon>
-              <a
-                href={project.repository}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="hint--top"
-                aria-label="GitHub repository"
-              >
-                <GoMarkGithub size={20} />
-              </a>
-            </InlineIcon>
-          }
+          <IconButton
+            as="a"
+            href={project.repository}
+            rel="noopener noreferrer"
+            icon={<GoMarkGithub size={20} />}
+            aria-label="GitHub repository"
+            variant="ghost"
+            isRound
+            color="var(--textSecondaryColor)"
+          />
           {project.url && (
-            <InlineIcon>
-              <a
-                href={project.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="hint--top"
-                aria-label="Project's homepage"
-              >
-                <GoHome size={20} />
-              </a>
-            </InlineIcon>
+            <IconButton
+              as="a"
+              href={project.url}
+              icon={<GoHome size={20} />}
+              aria-label="Project's homepage"
+              variant="ghost"
+              isRound
+              color="var(--textSecondaryColor)"
+            />
           )}
-          {isLoggedIn &&
-            (project.isBookmark ? (
-              <IconButton
-                isHighlighted={project.isBookmark}
-                onClick={toggleBookmark}
-                className="hint--top"
-                aria-label="Remove bookmark"
-              >
-                <GoBookmark size={20} />
-              </IconButton>
-            ) : (
-              <IconButton
-                on={project.isBookmark}
-                onClick={toggleBookmark}
-                className="hint--top"
-                aria-label="Add bookmark"
-              >
-                <GoBookmark size={20} />
-              </IconButton>
-            ))}
+          {isLoggedIn && (
+            <IconButton
+              onClick={toggleBookmark}
+              icon={<GoBookmark size={20} />}
+              aria-label={
+                project.isBookmark ? 'Remove bookmark' : 'Add bookmark'
+              }
+              variant="ghost"
+              isRound
+              color={
+                project.isBookmark
+                  ? 'var(--iconColor)'
+                  : 'var(--textSecondaryColor)'
+              }
+            />
+          )}
         </ProjectName>
         <ProjectDescription>
           {project.description}
@@ -309,31 +300,6 @@ const ContributorCountCell = styled(Cell)`
 const StarNumberCell = styled(Cell)`
   text-align: center;
   width: 85px;
-`
-
-const InlineIcon = styled.span`
-  margin-left: 1rem;
-  a {
-    color: var(--textSecondaryColor);
-  }
-`
-
-type IconButtonProps = {
-  on?: boolean
-  isHighlighted?: boolean
-}
-const IconButton = styled(Button)<IconButtonProps>`
-  border-style: none;
-  border-radius: 50%;
-  padding: 0;
-  margin-left: 1rem;
-  color: ${props =>
-    props.isHighlighted
-      ? 'var(--textSecondaryColor);'
-      : 'var(--textMutedColor);'}
-  &:hover {
-    color: var(--bestofjsPurple);
-  }
 `
 
 const ActionCell = styled(Cell)`

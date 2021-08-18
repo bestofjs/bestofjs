@@ -13,7 +13,6 @@ import {
   GoKebabVertical,
   GoMarkGithub
 } from 'react-icons/go'
-import { MenuItemLink } from 'components/core'
 
 type Props = {
   Project: BestOfJS.Project
@@ -29,16 +28,16 @@ export const ProjectDetailsButton = ({ project, isLoggedIn }: Props) => {
         isRound
       />
       <MenuList>
-        <MenuItem icon={<GoMarkGithub fontSize="16px" />}>
-          <MenuItemLink href={project.repository} isExternal>
-            Go to GitHub repository
-          </MenuItemLink>
+        <MenuItem
+          as="a"
+          href={project.repository}
+          icon={<GoMarkGithub fontSize="16px" />}
+        >
+          Go to GitHub repository
         </MenuItem>
         {project.url && (
-          <MenuItem icon={<GoHome fontSize="16px" />}>
-            <MenuItemLink href={project.url} isExternal>
-              Go to homepage
-            </MenuItemLink>
+          <MenuItem as="a" href={project.url} icon={<GoHome fontSize="16px" />}>
+            Go to homepage
           </MenuItem>
         )}
         <MenuDivider />

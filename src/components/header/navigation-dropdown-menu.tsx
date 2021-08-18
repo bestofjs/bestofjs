@@ -15,7 +15,6 @@ import { FiMenu } from 'react-icons/fi'
 
 import { StaticContentContainer } from 'containers/static-content-container'
 import { ChevronDownIcon, ExternalLinkIcon } from 'components/core/icons'
-import { MenuItemLink } from 'components/core'
 
 export const NavigationDropdownMenu = () => {
   const { risingStarsURL, stateOfJSURL } = StaticContentContainer.useContainer()
@@ -31,50 +30,34 @@ export const NavigationDropdownMenu = () => {
         </Box>
       </MenuButton>
       <MenuList>
-        <MenuItem className="mobile-only">
-          <MenuItemLink as={RouterLink} to="/projects">
-            All projects
-          </MenuItemLink>
+        <MenuItem as={RouterLink} to="/projects" className="mobile-only">
+          All projects
         </MenuItem>
-        <MenuItem className="mobile-only">
-          <MenuItemLink as={RouterLink} to="/tags">
-            Tags
-          </MenuItemLink>
+        <MenuItem as={RouterLink} to="/tags" className="mobile-only">
+          Tags
         </MenuItem>
-        <MenuItem>
-          <MenuItemLink as={RouterLink} to="/rankings/monthly">
-            Monthly rankings
-          </MenuItemLink>
+        <MenuItem as={RouterLink} to="/rankings/monthly">
+          Monthly rankings
         </MenuItem>
 
-        <MenuItem>
-          <MenuItemLink as={RouterLink} to="/hall-of-fame">
-            Hall of Fame
-          </MenuItemLink>
+        <MenuItem as={RouterLink} to="/hall-of-fame">
+          Hall of Fame
         </MenuItem>
-        <MenuItem>
-          <MenuItemLink as={RouterLink} to="/timeline">
-            Timeline 2010 ~ 2020
-          </MenuItemLink>
+        <MenuItem as={RouterLink} to="/timeline">
+          Timeline 2010 ~ 2020
         </MenuItem>
-        <MenuItem>
-          <MenuItemLink as={RouterLink} to="/about">
-            About Best of JS
-          </MenuItemLink>
+        <MenuItem as={RouterLink} to="/about">
+          About Best of JS
         </MenuItem>
         <MenuDivider />
         <MenuGroup title="Related projects">
-          <MenuItem>
-            <MenuItemLink href={risingStarsURL} isExternal>
-              Rising Stars
-              <Icon as={ExternalLinkIcon} />
-            </MenuItemLink>
+          <MenuItem as="a" href={risingStarsURL}>
+            Rising Stars
+            <Icon as={ExternalLinkIcon} />
           </MenuItem>
-          <MenuItem>
-            <MenuItemLink href={stateOfJSURL} isExternal>
-              State of JS
-              <Icon as={ExternalLinkIcon} />
-            </MenuItemLink>
+          <MenuItem as="a" href={stateOfJSURL}>
+            State of JS
+            <Icon as={ExternalLinkIcon} />
           </MenuItem>
         </MenuGroup>
       </MenuList>

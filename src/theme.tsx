@@ -2,7 +2,7 @@ import { extendTheme } from '@chakra-ui/react'
 import { mode } from '@chakra-ui/theme-tools'
 
 const config = {
-  useSystemColorMode: false,
+  useSystemColorMode: true,
   initialColorMode: 'light'
 }
 
@@ -45,6 +45,9 @@ export const customTheme = extendTheme({
     Menu: {
       baseStyle: {
         groupTitle: {
+          fontFamily: 'Open Sans'
+        },
+        item: {
           fontFamily: 'Open Sans'
         }
       }
