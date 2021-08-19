@@ -1,12 +1,8 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<svg width="256px" height="256px" viewBox="0 0 256 256" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" preserveAspectRatio="xMidYMid">
-	<g>
-		<polygon fill="#5FB4CB" points="128 135.022029 7.02282105 256 248.977971 256"/>
-		<polygon fill="#EEA400" points="202.332313 195.311075 256 248.979554 256 141.643388"/>
-		<polygon fill="#596277" points="120.977971 128 0 7.02202921 0 248.979554"/>
-		<polygon fill="#5FB4CB" points="256 113.806284 256 0 142.192924 0"/>
-		<polygon fill="#8CD636" points="195.583504 67.4342159 255.872312 127.723024 195.308589 188.286748 135.01978 127.99794"/>
-		<polygon fill="#8CD636" points="7.02123737 0 62.7461228 55.7256772 183.875335 55.7256772 128.149658 0"/>
-		<polygon fill="#EEA400" points="128 120.978763 183.321839 65.6561315 72.6773689 65.6561315"/>
-	</g>
+<svg viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid">
+  <path fill="#5FB4CB" d="M128 135.022 7.023 256h241.955z"/>
+  <path fill="#EEA400" d="M202.332 195.311 256 248.98V141.643z"/>
+  <path fill="#596277" d="M120.978 128 0 7.022V248.98z"/>
+  <path fill="#5FB4CB" d="M256 113.806V0H142.193z"/>
+  <path fill="#8CD636" d="m195.584 67.434 60.288 60.289-60.563 60.564-60.29-60.29zM7.021 0l55.725 55.726h121.13L128.15 0z"/>
+  <path fill="#EEA400" d="m128 120.979 55.322-55.323H72.677z"/>
 </svg>
