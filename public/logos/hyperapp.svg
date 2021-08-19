@@ -1,12 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
-<svg width="100%" height="100%" viewBox="0 0 630 630" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
-    <g transform="matrix(1,0,0,1,-1345,-949)">
-        <g id="Logo" transform="matrix(0.627529,0,0,0.969818,1345,949)">
-            <rect x="0" y="0" width="1003.94" height="649.606" style="fill:rgb(0,128,255);"/>
-            <g transform="matrix(23.093,0,0,14.9425,-22543.6,-8717.72)">
-                <path d="M1001.16,606.545L994.025,606.545L994.025,613.698L991.242,613.698L991.242,606.545L984.089,606.545L984.089,603.762L991.242,603.762L991.242,596.609L994.025,596.609L994.025,603.762L999.804,603.762L1001.16,606.545ZM1003.47,596.609L1000.18,596.609L1008.52,613.698L1011.8,613.698L1003.47,596.609Z" style="fill:white;fill-rule:nonzero;"/>
-            </g>
-        </g>
-    </g>
+<svg viewBox="0 0 630 630" xmlns="http://www.w3.org/2000/svg" xml:space="preserve" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2">
+  <path style="fill:#0080ff" d="M0 0h1003.94v649.606H0z" transform="scale(.62753 .96982)"/>
+  <path d="M1001.16 606.545h-7.135v7.153h-2.783v-7.153h-7.153v-2.783h7.153v-7.153h2.783v7.153h5.779l1.356 2.783zm2.31-9.936h-3.29l8.34 17.089h3.28l-8.33-17.089z" style="fill:#fff;fill-rule:nonzero" transform="matrix(14.49153 0 0 14.4915 -14146.763 -8454.602)"/>
 </svg>
