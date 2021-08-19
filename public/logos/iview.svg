@@ -1,13 +1,9 @@
-<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-	 viewBox="0 0 72 72" style="enable-background:new 0 0 72 72;" xml:space="preserve">
-<style type="text/css">
-	.st0{fill:#3399FF;}
-	.st1{fill:#00CC99;}
-</style>
-<polygon class="st0" points="59.1,12.3 19.2,12.3 25.4,21.4 53,21.4 49.5,26.6 39.2,41.9 44.7,50.1 60.6,26.6 
-	64.1,21.4 70.3,12.3 "/>
-<g id="XMLID_36_">
-	<polygon class="st1" points="41.5,54.9 36,46.6 36,46.6 22.4,26.6 11.3,26.6 30.4,54.9 30.4,54.9 36,63.1 	"/>
-	<polygon class="st1" points="12.8,12.3 1.7,12.3 7.8,21.4 19,21.4 	"/>
-</g>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 72 72" style="enable-background:new 0 0 72 72" xml:space="preserve">
+  <style>
+    .st1{fill:#0c9}
+  </style>
+  <path style="fill:#39f" d="M59.1 12.3H19.2l6.2 9.1H53l-3.5 5.2-10.3 15.3 5.5 8.2 15.9-23.5 3.5-5.2 6.2-9.1z"/>
+  <g id="XMLID_36_">
+    <path class="st1" d="M41.5 54.9 36 46.6l-13.6-20H11.3l19.1 28.3 5.6 8.2zM12.8 12.3H1.7l6.1 9.1H19z"/>
+  </g>
 </svg>
