@@ -1,0 +1,19 @@
+<svg viewBox="0 0 76 76" xmlns="http://www.w3.org/2000/svg">
+  <g fill="none" fill-rule="evenodd">
+    <path fill="#FF0006" fill-opacity=".1" d="M30.7 71 .2 53.5 30.7 36l30.6 17.5z"/>
+    <path fill="#FF0006" fill-opacity=".1" d="m.2 47.1 30.5-17.5 30.6 17.5-30.6 17.5z"/>
+    <path fill="#FF0006" fill-opacity=".6" d="M.2 40.8 5.7 44v6.3l25 14.3 30.6-17.5v6.4L30.7 71 .2 53.5v-6.4z"/>
+    <path fill="#FF0006" fill-opacity=".6" d="M61.3 53.5v-6.4L30.7 29.6V36z"/>
+    <path fill="#FF0006" fill-opacity=".1" d="M.2 47.1 5.7 44l5.6 3.1v-6.3l-5.6-3.2-5.5 3.2z"/>
+    <path fill="#FF0006" fill-opacity=".1" d="m5.7 50.3 5.6-3.2v-6.3l-5.6-3.2-5.5 3.2L5.7 44zM.2 47.1 5.7 44"/>
+    <path fill="#FF0006" fill-opacity=".1" d="M30.7 29.6.2 47.1v6.4L30.7 36z"/>
+    <path fill="#005AFF" fill-opacity=".6" d="M.2 24.9v-6.4L30.7 1l30.6 17.5v12.7L55.7 28v-6.3l-25-14.3z"/>
+    <path fill="#005AFF" fill-opacity=".7" d="M.2 18.5 30.7 36v6.4L.2 24.9z"/>
+    <path fill="#005AFF" fill-opacity=".1" d="M.2 18.5 30.7 36l30.6-17.5L30.7 1z"/>
+    <path fill="#005AFF" fill-opacity=".1" d="M61.3 24.9 30.7 7.4.2 24.9l30.5 17.5z"/>
+    <path fill="#005AFF" fill-opacity=".1" d="m55.7 34.4-5.5-3.2 5.5-3.2 5.6 3.2z"/>
+    <path fill="#005AFF" fill-opacity=".1" d="m55.7 28-5.5 3.2V25l5.5-3.2z"/>
+    <path fill="#005AFF" fill-opacity=".1" d="M55.7 34.4V28l-5.5-3v6.3zm0 0 5.6-3.2V25l-5.6 3z"/>
+    <path fill="#005AFF" fill-opacity=".1" d="m30.7 42.4 30.6-17.5v-6.4L30.7 36z"/>
+  </g>
+</svg>

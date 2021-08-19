@@ -1,0 +1,7 @@
+<svg viewBox="0 0 112 112" xmlns="http://www.w3.org/2000/svg">
+  <g transform="translate(-4 -4)" fill="none" fill-rule="evenodd">
+    <rect stroke="#3d3d3d" stroke-width="5" x="18.5" y="18.5" width="83" height="83" rx="5"/>
+    <path d="M29 24h62c3 0 5 2 5 5v62c0 3-2 5-5 5H29c-3 0-5-2-5-5V29c0-3 2-5 5-5zm7 10h19l2 2v19l-2 2H36l-2-2V36l2-2zm0 30h6l2 2v19l-2 2h-6l-2-2V66l2-2zm13 0h6l2 2v19l-2 2h-6l-2-2V66l2-2zm16-30h19l2 2v19l-2 2H65l-2-2V36l2-2zm0 30h6l2 2v19l-2 2h-6l-2-2V66l2-2zm13 0h6l2 2v19l-2 2h-6l-2-2V66l2-2z" fill="#3d3d3d"/>
+    <path d="M36 16h4V9a2 2 0 0 0-4 0v7zm33 0h4V9a2 2 0 0 0-4 0v7zm-11 0h4V9a2 2 0 0 0-4 0v7zm-11 0h4V9a2 2 0 0 0-4 0v7zm33 0h5v-6a2 2 0 0 0-5 0v6zM84 104h-4v7a2 2 0 0 0 4 0v-7zm-33 0h-4v7a2 2 0 0 0 4 0v-7zm11 0h-4v7a2 2 0 0 0 4 0v-7zm11 0h-4v7a2 2 0 0 0 4 0v-7zm-33 0h-4v6a2 2 0 0 0 4 0v-6zM104 36v4h7a2 2 0 0 0 0-4h-7zm0 33v4h7a2 2 0 0 0 0-4h-7zm0-11v4h7a2 2 0 0 0 0-4h-7zm0-11v4h7a2 2 0 0 0 0-4h-7zm0 33v5l6-1a2 2 0 0 0 0-4h-6zM16 84v-4H9a2 2 0 0 0 0 4h7zm0-33v-4H9a2 2 0 0 0 0 4h7zm0 11v-4H9a2 2 0 0 0 0 4h7zm0 11v-4H9a2 2 0 0 0 0 4h7zm0-33v-4h-6a2 2 0 0 0 0 4h6z" fill="#3d3d3d" stroke="#3d3d3d"/>
+  </g>
+</svg>

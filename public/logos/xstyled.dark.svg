@@ -1,0 +1,31 @@
+<svg viewBox="0 0 104 104" xmlns="http://www.w3.org/2000/svg">
+  <linearGradient id="a" x1="50%" x2="27.7%" y1="61%" y2="89.4%">
+    <stop offset="0" stop-color="#e87fd0"/>
+    <stop offset="1" stop-color="#da3180"/>
+  </linearGradient>
+  <radialGradient id="b" cx="73.8%" cy="72.4%" gradientTransform="matrix(-.97965 .16926 -.20071 -.82613 1.6 1.2)" r="75.3%">
+    <stop offset="0" stop-color="#e64ab6"/>
+    <stop offset="1" stop-color="#9a377c"/>
+  </radialGradient>
+  <radialGradient id="c" cx="81%" cy="50%" gradientTransform="matrix(-.3404 0 0 -1 1 1)" r="233.8%">
+    <stop offset="0" stop-color="#fff"/>
+    <stop offset="1" stop-color="#ffb0fa"/>
+  </radialGradient>
+  <linearGradient id="d" x1="64.2%" x2="57.7%" y1="35.1%" y2="65.5%">
+    <stop offset="0" stop-color="#a22d7b"/>
+    <stop offset="1" stop-color="#d95ab2"/>
+  </linearGradient>
+  <linearGradient id="e" x1="90.1%" x2="8.2%" y1="34.7%" y2="53.5%">
+    <stop offset="0" stop-color="#fff1fa"/>
+    <stop offset="1" stop-color="#ff7dd7"/>
+  </linearGradient>
+  <g fill="none" fill-rule="evenodd">
+    <path d="M44 0c10.8 0 12.2 21 21.6 37.3C74.9 53.7 92.3 65.4 87 74.6c-5.5 9.6-23.2.4-43 0-17.6-.3-37.5 9.3-42.9 0-5.7-10 11.8-21 21.5-37.3C32.1 21.5 33.6 0 44.1 0z" fill="url(#a)" transform="translate(0 10)"/>
+    <path d="M44.1 10c10.7 0 12.1 21 21.5 37.3 3.4 6 8 11.3 12 16.2C83.6 76 55.4 77.9 50 75.1c-5.4-2.9-8.7-7.3-8.7-10.7 0-3.3 2.7-8.1 8.7-8.1 7.8 0-1.4-3-27.4-9C32.1 31.4 33.6 10 44.1 10z" fill="#c43197"/>
+    <path d="M44.1 0c10.7 0 12.1 21 21.5 37.3 3.4 6 8 11.3 12 16.2C83.6 66 55.4 67.9 50 65.1c-5.4-2.9-8.6-6.9-8.6-10.3 0-3.3 2.6-8.2 8.6-8.2 7.8 0-1.4-3.1-27.4-9.3C32.1 21.4 33.6 0 44.1 0z" fill="url(#b)" transform="translate(0 10)"/>
+    <path d="M37.7 70c9 2.2 18.4 8 28 17.5-6.5-1.2-13.8-3.2-21.6-3.3-6.3-.1-13.3 1.1-19.4 2.2-9.4-.3-14.1-3.4-14.1-9.4 0-8.9 13.6-10.2 27.1-7z" fill="#dd4191"/>
+    <path d="M37.6 60.5c9 2.1 18.4 7.8 28.1 17-6.5-1.2-14-2.7-21.7-2.8-6.4-.1-13 1-19.1 2.1-9.5-.6-14.3-3.8-14.3-9.7 0-8.9 13.4-9.9 27-6.6z" fill="url(#c)" transform="translate(0 10)"/>
+    <path d="M37.8 42.1c-6.5-1.7-16.2 2.6-29 12.8 4.5-5.2 9.8-11 13.7-17.6a29 29 0 0 1 18.6-7.8c12-1.2 26.4 10.1 21 16.3-5.4 6.2-14.4-1.1-24.3-3.7z" fill="url(#d)" transform="translate(0 10)"/>
+    <path d="M38.9 42.1c-7.7-2.3-17.8 2-30 12.8 4.4-5.2 9.7-11 13.6-17.6 4.7-7.5 11-11.6 19.1-12.4 12.1-1.3 25.9 14.7 20.4 21-5.4 6.1-11.5-.5-23-3.9z" fill="url(#e)" transform="translate(0 10)"/>
+  </g>
+</svg>
