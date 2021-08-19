@@ -1,0 +1,14 @@
+<svg id="Livello_1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32.2 32.4">
+  <style>
+    .st0{fill:#000}
+  </style>
+  <g id="_x31_fe32591-0605-4616-a5e6-482ad8154a98">
+    <g id="acb1241c-e519-4eba-a89e-b136536c6d55">
+      <circle class="st0" cx="5.5" cy="5.5" r="5.5"/>
+      <circle class="st0" cx="26.6" cy="5.5" r="5.5"/>
+      <circle class="st0" cx="5.5" cy="26.9" r="5.5"/>
+      <circle class="st0" cx="26.6" cy="26.9" r="5.5"/>
+      <path transform="rotate(-45.361 16.087 16.23)" class="st0" d="M1.1 15.1h30v2.3h-30z"/>
+    </g>
+  </g>
+</svg>

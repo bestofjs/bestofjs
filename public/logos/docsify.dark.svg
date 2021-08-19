@@ -1,0 +1,24 @@
+<svg viewBox="0 0 122 94" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <defs>
+    <filter x="-50%" y="-50%" width="200%" height="200%" filterUnits="objectBoundingBox" id="b">
+      <feOffset dx="7" dy="-10" in="SourceAlpha" result="shadowOffsetInner1"/>
+      <feComposite in="shadowOffsetInner1" in2="SourceAlpha" operator="arithmetic" k2="-1" k3="1" result="shadowInnerInner1"/>
+      <feColorMatrix values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.1 0" in="shadowInnerInner1"/>
+    </filter>
+    <path d="M144.45 104a59 59 0 0 0 0-118c-32.58 0-29.85 27.68-29.85 60.26 0 32.59-2.73 57.74 29.85 57.74z" id="a"/>
+  </defs>
+  <g transform="translate(-98 2)" fill="none" fill-rule="evenodd">
+    <g transform="rotate(-90 159 45)">
+      <use fill="#2ECE53" xlink:href="#a"/>
+      <use fill="#000" filter="url(#b)" xlink:href="#a"/>
+      <use stroke="#0E1320" stroke-width="4" xlink:href="#a"/>
+    </g>
+    <circle fill="#000" cx="139" cy="38" r="7"/>
+    <circle fill="#000" cx="183" cy="38" r="7"/>
+    <g transform="translate(112 10)" fill="#FFF">
+      <circle cx="2" cy="28" r="2"/>
+      <path d="M27.73 5.24c.48-.25.58-.78.2-1.2l-1.32-1.47a1.38 1.38 0 0 0-1.57-.3s-3.85 1.9-7.12 4.2c-3.27 2.3-3.25 2.37-4.52 3.52-3.54 3.18-9.2 11.1-9.2 11.1-.3.44-.27 1.13.11 1.55l1.33 1.47c.37.42.91.38 1.22-.08 0 0 2.34-3.68 5.13-6.92 2.8-3.24 1.77-2.06 3.77-4.2 2.96-3.16 11.97-7.67 11.97-7.67z"/>
+    </g>
+    <path d="M159.5 78.3A17.5 17.5 0 0 0 177 60.8c0-9.66-7.31-4.34-16.98-4.34-9.66 0-18.02-5.32-18.02 4.35a17.5 17.5 0 0 0 17.5 17.5z" fill="#000"/>
+  </g>
+</svg>

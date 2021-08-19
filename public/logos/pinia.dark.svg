@@ -1,0 +1,36 @@
+<svg viewBox="0 0 319 477" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <linearGradient id="a">
+    <stop offset="0" stop-color="#52ce63"/>
+    <stop offset="1" stop-color="#51a256"/>
+  </linearGradient>
+  <linearGradient id="b" x1="55.3%" x2="42.8%" xlink:href="#a" y1="0%" y2="42.9%"/>
+  <linearGradient id="c" x1="55.3%" x2="42.8%" xlink:href="#a" y1="0%" y2="42.9%"/>
+  <linearGradient id="d" x1="50%" x2="50%" y1="0%" y2="58.8%">
+    <stop offset="0" stop-color="#8ae99c"/>
+    <stop offset="1" stop-color="#52ce63"/>
+  </linearGradient>
+  <linearGradient id="e" x1="51.4%" x2="44.6%" y1="17.5%" y2="100%">
+    <stop offset="0" stop-color="#ffe56c"/>
+    <stop offset="1" stop-color="#ffc63a"/>
+  </linearGradient>
+  <g fill="none" fill-rule="evenodd" transform="translate(-34 -24)">
+    <path d="M104 258c44-4 60-40 65-94S138 60 123 62c-15 1-63 59-68 113s5 88 49 83z" fill="url(#b)" transform="rotate(-38 138 147)"/>
+    <path d="M276 258c44 5 53-29 48-83-6-55-52-112-67-113-16-2-53 47-48 101s23 91 67 95z" fill="url(#c)" transform="rotate(52 240 189)"/>
+    <path d="M188 217c40 0 51-38 51-98S202 1 188 1s-52 58-52 118 12 98 52 98z" fill="url(#d)" transform="rotate(7 9 278)"/>
+    <path d="M184 501c84 0 151-24 151-134s-67-199-151-199c-83 0-150 90-150 199s67 134 150 134z" fill="url(#e)"/>
+    <ellipse cx="260.5" cy="335" fill="#eaadcc" rx="21.5" ry="10"/>
+    <ellipse cx="102.5" cy="329" fill="#eaadcc" rx="21.5" ry="10" transform="rotate(7 103 329)"/>
+    <path d="M198 331c-6 6-14 8-22 7-9-1-15-5-19-11" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="6"/>
+    <path d="M115 279a21 21 0 0 1 16 37 21 21 0 0 1-37-14 21 21 0 0 1 21-23z" fill="#000"/>
+    <path d="M116 297a7 7 0 1 0-14 1 7 7 0 0 0 14-1z" fill="#fff"/>
+    <path d="M245 285a21 21 0 0 1 17 36 21 21 0 0 1-37-14 21 21 0 0 1 20-22z" fill="#000"/>
+    <g fill="#fff">
+      <path d="M134 300a19 19 0 1 1-37 2 19 19 0 0 1 37-2zm6 0a24 24 0 1 0-49 2 24 24 0 0 0 49-2zm124 6a18 18 0 1 1-36 1 18 18 0 0 1 36-1zm6 0a24 24 0 1 0-48 1 24 24 0 0 0 48-1z" fill-rule="nonzero" stroke="#fff" stroke-width="3"/>
+      <path d="M246 303a7 7 0 1 0-14 0 7 7 0 0 0 14 0z"/>
+    </g>
+    <g stroke-linecap="round" stroke-width="11">
+      <path d="m71 378 74 77m-10-68-47 50M298 378l-74 77m10-68 47 50" stroke="#ecb732"/>
+      <path d="m215 208-49 49m39 0-49-49" stroke="#ffc73b"/>
+    </g>
+  </g>
+</svg>

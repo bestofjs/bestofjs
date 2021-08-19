@@ -1,0 +1,29 @@
+<svg viewBox="0 0 256 425" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid">
+  <defs>
+    <radialGradient cx="16.423%" cy="143%" fx="16.423%" fy="143%" r="295.571%" id="c">
+      <stop stop-color="#00BC85" offset="0%"/>
+      <stop stop-color="#149D91" offset="100%"/>
+    </radialGradient>
+    <radialGradient cx="16.423%" cy="-43%" fx="16.423%" fy="-43%" r="357.004%" id="d">
+      <stop stop-color="#00BC85" offset="0%"/>
+      <stop stop-color="#149D91" offset="100%"/>
+    </radialGradient>
+    <radialGradient cx="11.467%" cy="-40.458%" fx="11.467%" fy="-40.458%" r="343.189%" id="e">
+      <stop stop-color="#004473" offset="0%"/>
+      <stop stop-color="#00345F" offset="100%"/>
+    </radialGradient>
+    <linearGradient x1="50%" y1="-352.926%" x2="50%" y2="96.718%" id="a">
+      <stop stop-color="#002E3B" offset="0%"/>
+      <stop stop-color="#002639" offset="100%"/>
+    </linearGradient>
+    <linearGradient x1="50%" y1="-2.808%" x2="50%" y2="428.759%" id="b">
+      <stop stop-color="#002E3B" offset="0%"/>
+      <stop stop-color="#002639" offset="100%"/>
+    </linearGradient>
+  </defs>
+  <path d="M65.7 330.3.107 362.385l127.292 62 127.64-62.194-65.76-32.539-61.928 30.754L65.699 330.3z" fill="url(#a)"/>
+  <path d="M57.602 98.175v-.02l69.93-34.107 69.934 34.106L255.004 62.2 127.484 0 0 62.18v.055l57.554 35.964.048-.024z" fill="url(#b)"/>
+  <path d="m.156 298.428 62.915-30.803 64.714 32.042L.156 362.462v-64.034z" fill="url(#c)"/>
+  <path d="M196.678 99.41v100.768l-70.342 34.424 64.686 32.339 62.979-30.797V62.19l-57.323 35.976v1.243z" fill="url(#d)"/>
+  <path d="m255.004 298.216-197.415-98.25V98.182L0 62.23v173.702l255.004 126.321v-64.037z" fill="url(#e)"/>
+</svg>
