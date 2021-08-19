@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react'
+import { Box, Image as ChakraImage, useColorMode } from '@chakra-ui/react'
 import styled from '@emotion/styled'
 import numeral from 'numeral'
 import slugify from 'slugify'
 import ContentLoader from 'react-content-loader'
 
 import { StarIcon } from './icons'
-import { Box, Image as ChakraImage } from '@chakra-ui/react'
 
 export const DownloadCount = ({ value }) => {
   if (value === undefined) {
@@ -93,7 +93,8 @@ const Span = styled.span`
 `
 
 export const Avatar = ({ project, size = 100, ...props }) => {
-  const { src, srcSet } = getProjectImageProps({ project, size })
+  const { colorMode } = useColorMode()
+  const { src, srcSet } = getProjectImageProps({ project, size, colorMode })
 
   const [isImageLoaded, setIsImageLoaded] = useState(false)
   const isMounted = React.useRef(true)
@@ -129,11 +130,12 @@ export const Avatar = ({ project, size = 100, ...props }) => {
   )
 }
 
-function getProjectImageProps({ project, size }) {
-  const retinaURL = !project.icon && getProjectAvatarUrl(project, size * 2)
+function getProjectImageProps({ project, size, colorMode }) {
+  const retinaURL =
+    !project.icon && getProjectAvatarUrl(project, size * 2, colorMode)
 
   return {
-    src: getProjectAvatarUrl(project, size),
+    src: getProjectAvatarUrl(project, size, colorMode),
     srcSet: retinaURL ? `${retinaURL} 2x` : undefined // to display correctly GitHub avatars on Retina screens
   }
 }
@@ -165,17 +167,20 @@ Can be either :
 The SVG can be stored locally (inside `www/logos` folder) or in the cloud.
 */
 
-const isUrl = input => input.startsWith('http')
+function getProjectLogoURL(input, colorMode) {
+  const [main, extension] = input.split('.')
+  const filename = colorMode === 'dark' ? `${main}.dark.${extension}` : input
+  return `/logos/${filename}`
+}
 
-const formatIconUrl = input => (isUrl(input) ? input : `/logos/${input}`)
+function getGitHubOwnerAvatarURL(owner_id, size) {
+  return `https://avatars.githubusercontent.com/u/${owner_id}?v=3&s=${size}`
+}
 
-const formatOwnerAvatar = (owner_id, size) =>
-  `https://avatars.githubusercontent.com/u/${owner_id}?v=3&s=${size}`
-
-export function getProjectAvatarUrl(project, size) {
+export function getProjectAvatarUrl(project, size, colorMode) {
   return project.icon
-    ? formatIconUrl(project.icon)
-    : formatOwnerAvatar(project.owner_id, size)
+    ? getProjectLogoURL(project.icon, colorMode)
+    : getGitHubOwnerAvatarURL(project.owner_id, size)
 }
 
 export function getProjectId(project) {
