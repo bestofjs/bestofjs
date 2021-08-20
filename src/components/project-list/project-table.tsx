@@ -1,6 +1,6 @@
 import React, { CSSProperties } from 'react'
 import styled from '@emotion/styled'
-import { IconButton, Link } from '@chakra-ui/react'
+import { Box, IconButton, Link } from '@chakra-ui/react'
 import { Link as RouterLink } from 'react-router-dom'
 import numeral from 'numeral'
 import { GoMarkGithub, GoBookmark, GoHome } from 'react-icons/go'
@@ -103,22 +103,18 @@ const ProjectTableRow = ({
 
   return (
     <Row>
-      {showRankingNumber && (
-        <FirstCell>
-          <ProjectRankingNumber>{rank}</ProjectRankingNumber>
-        </FirstCell>
-      )}
-
-      <IconCell>
+      <Cell width="50px" display={{ base: 'none', md: 'table-cell' }}>
         <Link as={RouterLink} to={path}>
           <Avatar project={project} size={50} />
         </Link>
-      </IconCell>
+      </Cell>
 
-      <MainCell>
+      <Cell pl={{ base: 4, md: 2 }}>
         <ProjectName>
           <MainLink as={RouterLink} to={path} mr={2}>
-            <ProjectIconSmallScreen project={project} size={40} />
+            <Box display={{ md: 'none' }} mr={4}>
+              <Avatar project={project} size={40} />
+            </Box>
             {project.name}
           </MainLink>
           <IconButton
@@ -169,7 +165,7 @@ const ProjectTableRow = ({
         <div>
           <ProjectTagGroup tags={project.tags} />
         </div>
-      </MainCell>
+      </Cell>
 
       {showDetails && (
         <ContributorCountCell>
@@ -237,33 +233,9 @@ const FooterRow = styled.tr`
   }
 `
 
-const Cell = styled.td`
-  padding: 1rem 0.5rem;
-  background-color: var(--cardBackgroundColor);
-  &:first-of-type {
-    padding-left: 1rem;
-  }
-`
-
-const ProjectRankingNumber = styled.div`
-  font-size: 24px;
-  text-align: center;
-  color: var(--textSecondaryColor);
-`
-
-const FirstCell = styled(Cell)`
-  width: 50px;
-  @media (max-width: ${breakpoint - 1}px) {
-    display: none;
-  }
-`
-
-const IconCell = styled(Cell)`
-  width: 50px;
-  @media (max-width: ${breakpoint - 1}px) {
-    display: none;
-  }
-`
+const Cell = props => (
+  <Box as="td" py={4} px={4} bg="var(--cardBackgroundColor)" {...props} />
+)
 
 const MainLink = styled(Link)`
   display: flex;
@@ -272,19 +244,6 @@ const MainLink = styled(Link)`
     margin-right: 1rem;
   }
   font-family: var(--buttonFontFamily);
-`
-
-const ProjectIconSmallScreen = styled(Avatar)`
-  margin-right: 1rem;
-  @media (min-width: ${breakpoint}px) {
-    display: none;
-  }
-`
-
-const MainCell = styled(Cell)`
-  padding: 16px;
-  display: flex;
-  flex-direction: column;
 `
 
 const ContributorCountCell = styled(Cell)`
