@@ -1,4 +1,6 @@
-<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="currentColor" fill-rule="evenodd" clip-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="2">
-  <path d="M23.97 18.1v5.87l-11.5-11.99L23.96 0v5.86l-6.09 6.12 6.09 6.12z"/>
-  <path d="M18.1 23.97h5.87L11.98 12.46 0 23.97h5.86l6.12-6.08 6.12 6.08zM0 5.87V0l11.49 12L0 23.97v-5.86l6.08-6.12L0 5.87zM5.86 0H0l11.98 11.5L23.97 0H18.1l-6.12 6.08L5.86 0z"/>
+<svg viewBox="0 0 36 36" xmlns="http://www.w3.org/2000/svg" fill="currentColor" fill-rule="evenodd" clip-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="2">
+  <rect width="36" height="36" rx="8" fill="#ff1231"/>
+  <path d="M 29.97 24.1 v 5.87 l -11.5 -11.99 L 29.96 6 v 5.86 l -6.09 6.12 l 6.09 6.12 z" fill="white" />
+  <path d="M 24.1 29.97 h 5.87 L 17.98 18.46 L 6 29.97 h 5.86 l 6.12 -6.08 l 6.12 6.08 z M 6 11.87 V 6 L 17.49 18 L 6 29.97 v -5.86 l 6.08 -6.12 L 6 11.87 z M 11.86 6 H 6 l 11.98 11.5 L 29.97 6 H 24.1 l -6.12 6.08 L 11.86 6 z" fill="white"/>
 </svg>
+
