@@ -71,7 +71,7 @@ export const HotProjects = ({ hotFilter, pending }) => {
           showDetails={false}
           showActions={false}
           footer={
-            <Link to={`/projects?sort=${sortOptionId}`}>
+            <Link as={RouterLink} to={`/projects?sort=${sortOptionId}`}>
               View full rankings »
             </Link>
           }

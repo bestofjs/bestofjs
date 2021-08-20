@@ -43,7 +43,7 @@ export const Home = props => {
               <CompactTagList
                 tags={popularTags}
                 footer={
-                  <Link to={`/tags/`} style={{ display: 'block' }}>
+                  <Link as={RouterLink} to={`/tags/`} display="block">
                     View all tags »
                   </Link>
                 }

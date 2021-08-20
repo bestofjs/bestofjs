@@ -101,7 +101,7 @@ export function useAppUpdateChecker({
 const Toast = styled.div`
   width: 400px;
   padding: 2rem;
-  background-color: white;
+  background-color: var(--cardBackgroundColor);
 `
 
 const AppUpdateToastContent = ({ close, version }) => {
@@ -127,7 +127,7 @@ const AppUpdateToastContent = ({ close, version }) => {
           <Button onClick={() => close(false)}>Ignore</Button>
         </div>
         <div>
-          <Button primary onClick={() => close(true)}>
+          <Button colorScheme="orange" onClick={() => close(true)}>
             Update
           </Button>
         </div>
