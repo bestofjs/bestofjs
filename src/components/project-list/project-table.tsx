@@ -234,7 +234,7 @@ const FooterRow = styled.tr`
 `
 
 const Cell = props => (
-  <Box as="td" py={4} px={4} bg="var(--cardBackgroundColor)" {...props} />
+  <Box as="td" py={4} px={2} bg="var(--cardBackgroundColor)" {...props} />
 )
 
 const MainLink = styled(Link)`

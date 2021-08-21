@@ -1,6 +1,7 @@
 import React from 'react'
 import styled from '@emotion/styled'
 import { GoGraph } from 'react-icons/go'
+import { Box } from '@chakra-ui/react'
 
 import { getDeltaByDay } from '../../../selectors'
 import { HeatMapContainer } from './heatmap'
@@ -98,7 +99,7 @@ const TrendSummary = ({ project }) => {
     <CardSection>
       {trends.weekly || trends.weekly === 0 ? (
         <div>
-          <p>Stars added on GitHub, per day, on average</p>
+          <Box mb={4}>Stars added on GitHub, per day, on average</Box>
           <Div>
             {items.map((item, i) => (
               <MonthlyTrendsItem item={item} key={i} trends={trends} />

@@ -33,12 +33,12 @@ export const GitHubRepoInfo = ({
     <Card>
       <CardHeader>
         <GoMarkGithub size={20} className="icon" />
-        <span style={{ marginRight: '0.5rem' }}>GITHUB REPOSITORY</span>
+        <Box mr={2}>GITHUB REPOSITORY</Box>
         <StarTotal value={stars} size={18} />
       </CardHeader>
       <CardBody>
         <CardSection>
-          <SimpleGrid gap={4} templateColumns="1fr 1fr">
+          <SimpleGrid gap={4} templateColumns={{ sm: '1fr', md: '1fr 1fr' }}>
             <Box>
               <ExternalLink url={repository}>{full_name}</ExternalLink>{' '}
             </Box>

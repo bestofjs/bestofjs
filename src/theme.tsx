@@ -45,7 +45,11 @@ export const customTheme = extendTheme({
     Menu: {
       baseStyle: {
         groupTitle: {
-          fontFamily: 'Open Sans'
+          fontFamily: 'Open Sans',
+          fontSize: '1rem',
+          fontWeight: 'normal',
+          color: 'var(--textMutedColor)',
+          mx: '0.8rem'
         },
         item: {
           fontFamily: 'Open Sans'

@@ -21,7 +21,7 @@
 .markdown-body h4 .octicon-link,
 .markdown-body h5 .octicon-link,
 .markdown-body h6 .octicon-link {
-  color: #1b1f23;
+  /* color: #1b1f23; */
   vertical-align: middle;
   visibility: hidden;
 }
@@ -60,7 +60,7 @@
   -ms-text-size-adjust: 100%;
   -webkit-text-size-adjust: 100%;
   line-height: 1.5;
-  color: #24292e;
+  /* color: #24292e; */
   /* background-color: #ffffff; */
   /* font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial,
     sans-serif, Apple Color Emoji, Segoe UI Emoji; */
@@ -138,7 +138,7 @@
 }
 
 .markdown-body a {
-  color: #0366d6;
+  color: var(--linkColor);
   text-decoration: none;
 }
 
@@ -989,7 +989,7 @@
 
 /* Dark mode */
 .chakra-ui-dark .markdown-body {
-  color: #c9d1d9;
+  /* color: #c9d1d9; */
   /* background-color: #0d1117; */
 }
 .chakra-ui-dark .markdown-body a {
@@ -1135,7 +1135,7 @@
   border-top: 1px solid #272c32;
 }
 .chakra-ui-dark .markdown-body table tr:nth-child(2n) {
-  background-color: #161b22;
+  background-color: var(--backgroundColor);
 }
 .chakra-ui-dark .markdown-body img {
   background-color: #0d1117;
@@ -1145,7 +1145,7 @@
 }
 .chakra-ui-dark .markdown-body .highlight pre,
 .chakra-ui-dark .markdown-body pre {
-  background-color: #161b22;
+  background-color: var(--backgroundColor);
 }
 .chakra-ui-dark .markdown-body .commit-tease-sha {
   color: #b1bac4;

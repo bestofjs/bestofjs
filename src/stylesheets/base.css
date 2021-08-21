@@ -16,7 +16,8 @@
   --boxBorderColor: var(--chakra-colors-gray-200);
   --iconColor: #fa9e59;
   --cardBackgroundColor: white;
-  --menuHoverColor: var(--chakra-colors-yellow-200);
+  --graphBackgroundColor: #fbe6db;
+  --menuHoverColor: var(--chakra-colors-yellow-100);
   /* fonts */
   --bodyFontFamily: 'Roboto Slab', sans-serif;
   --headingFontFamily: 'Open Sans', sans-serif;
@@ -33,6 +34,7 @@
   --cardBackgroundColor: var(--chakra-colors-gray-900);
   --bestofjsOrange: var(--chakra-colors-orange-300);
   --boxBorderColor: var(--chakra-colors-whiteAlpha-300);
+  --graphBackgroundColor: var(--chakra-colors-yellow-700);
   --menuHoverColor: var(--chakra-colors-yellow-800);
 }
 

@@ -24,7 +24,7 @@ TODO: used styled components instead of regular CSS
 }
 
 .project-chart-bar {
-  background-color: var(--iconColor);
+  background-color: var(--graphBackgroundColor);
   position: relative;
 }
 
