@@ -64,8 +64,8 @@ const SVGContainer = ({ children, color = 'currentColor', size = 24 }) => {
   )
 }
 
-export const ExternalLinkIcon = props => {
-  return <GoLinkExternal style={{ marginLeft: '0.25rem' }} {...props} />
+export const ExternalLinkIcon = (props: IconProps) => {
+  return <Icon as={GoLinkExternal} ml={1} {...props} />
 }
 
 export const DiscordIcon = ({ size = 24 }) => {

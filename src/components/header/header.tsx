@@ -87,7 +87,7 @@ export const Header = props => {
                 <Divider
                   orientation="vertical"
                   height="30px"
-                  borderColor="var(--iconColor)"
+                  borderColor="var(--boxBorderColor)"
                 />
               </Box>
               <NavigationMenuItem>

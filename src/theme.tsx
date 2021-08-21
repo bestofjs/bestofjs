@@ -10,7 +10,7 @@ export const customTheme = extendTheme({
   colors: {
     gray: {
       '50': '#F2F2F0',
-      '100': '#f2f2f2',
+      '100': '#ececec',
       '200': '#e8e8e8',
       '300': '#ADADAD',
       '400': '#969696',
@@ -31,9 +31,18 @@ export const customTheme = extendTheme({
         variant: 'outline'
       },
       variants: {
-        outline: {
-          bg: 'var(--cardBackgroundColor)'
-        }
+        outline: props => ({
+          bg: 'var(--cardBackgroundColor)',
+          borderColor: 'var(--boxBorderColor)',
+          _hover: {
+            borderColor: mode(`gray.300`, `whiteAlpha.300`)(props),
+            bg: mode(`white`, `whiteAlpha.300`)(props)
+          },
+          _active: {
+            borderColor: mode(`gray.300`, `whiteAlpha.300`)(props),
+            bg: mode(`white`, `whiteAlpha.300`)(props)
+          }
+        })
       }
     },
     Link: {

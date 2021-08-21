@@ -5,7 +5,7 @@
   /* colors */
   /* --backgroundColor: #ececec;
   --backgroundColor: #f7f2ed; */
-  --backgroundColor: var(--chakra-colors-gray-50);
+  --backgroundColor: var(--chakra-colors-gray-100);
   --textPrimaryColor: #541600;
   --textSecondaryColor: #87563e;
   --textMutedColor: #bb967c;
@@ -13,7 +13,7 @@
   --bestofjsOrange: #e65100;
   --bestofjsPurple: #9c0042;
   /* --boxBorderColor: #cecece; */
-  --boxBorderColor: var(--chakra-colors-gray-200);
+  --boxBorderColor: #cecece;
   --iconColor: #fa9e59;
   --cardBackgroundColor: white;
   --graphBackgroundColor: #fbe6db;
@@ -29,11 +29,12 @@
   --backgroundColor: var(--chakra-colors-gray-800);
   --textPrimaryColor: #eee;
   --textSecondaryColor: #bbb;
+  --textMutedColor: var(--chakra-colors-whiteAlpha-700);
   --linkColor: var(--chakra-colors-orange-300);
   --iconColor: var(--chakra-colors-yellow-500);
   --cardBackgroundColor: var(--chakra-colors-gray-900);
   --bestofjsOrange: var(--chakra-colors-orange-300);
-  --boxBorderColor: var(--chakra-colors-whiteAlpha-300);
+  --boxBorderColor: var(--chakra-colors-whiteAlpha-500);
   --graphBackgroundColor: var(--chakra-colors-yellow-700);
   --menuHoverColor: var(--chakra-colors-yellow-800);
 }

@@ -14,6 +14,7 @@ import {
   ExternalLink
 } from 'components/core'
 import { StarTotal } from 'components/core/project'
+import { ExternalLinkIcon } from 'components/core/icons'
 
 const formatNumber = number => numeral(number).format('0,0')
 
@@ -40,7 +41,10 @@ export const GitHubRepoInfo = ({
         <CardSection>
           <SimpleGrid gap={4} templateColumns={{ sm: '1fr', md: '1fr 1fr' }}>
             <Box>
-              <ExternalLink url={repository}>{full_name}</ExternalLink>{' '}
+              <ExternalLink url={repository}>
+                {full_name}
+                <ExternalLinkIcon />
+              </ExternalLink>
             </Box>
             <Box>
               {created_at && (

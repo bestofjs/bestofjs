@@ -1,12 +1,13 @@
 import React from 'react'
-
 import Toggle from 'react-toggled'
-import { Link } from 'react-router-dom'
+import { Link } from '@chakra-ui/react'
+import { Link as RouterLink } from 'react-router-dom'
 import styled from '@emotion/styled'
 
 import { useSelector } from 'containers/project-data-container'
 import { StarTotal } from 'components/core/project'
 import { ExternalLink } from 'components/core/typography'
+import { ExternalLinkIcon } from 'components/core/icons'
 import { npmProjects } from 'selectors'
 import { ExpandableSection } from './expandable-section'
 import { DependencyTable } from './dependency-table'
@@ -80,12 +81,16 @@ const DependencyFullList = ({ packageNames }) => {
             <td>
               <ExternalLink url={`https://npm.im/${npmPackage.name}`}>
                 {npmPackage.name}
+                <ExternalLinkIcon />
               </ExternalLink>
             </td>
             <td>
               {npmPackage.project ? (
                 <span>
-                  <Link to={`/projects/${npmPackage.project.slug}`}>
+                  <Link
+                    as={RouterLink}
+                    to={`/projects/${npmPackage.project.slug}`}
+                  >
                     {npmPackage.project.name}{' '}
                   </Link>
                   <StarTotal value={npmPackage.project.stars} />
