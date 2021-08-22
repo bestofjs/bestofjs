@@ -19,9 +19,12 @@ import { ProgressBar } from './progress-bar'
 
 export const RandomFeaturedProject = () => {
   const featuredProjects = useSelector(getFeaturedProjects('total'))
-  if (!featuredProjects.length) return null
 
-  const projects = shuffle<BestOfJS.Project>(featuredProjects).slice(0, 200)
+  // don't shuffle projects when the component updates after color mode switch
+  const projects = React.useMemo(
+    () => shuffle<BestOfJS.Project>(featuredProjects).slice(0, 200),
+    [] // eslint-disable-line react-hooks/exhaustive-deps
+  )
 
   return <Slider projects={projects} duration={7000} limit={5} />
 }
