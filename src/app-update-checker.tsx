@@ -1,150 +1,207 @@
-import React, { useEffect, useRef } from 'react'
-import { Button } from '@chakra-ui/react'
-import styled from '@emotion/styled'
+import React from 'react'
+import { useLifecycles } from 'react-use'
+import { Box, Button, LightMode, Stack, useToast } from '@chakra-ui/react'
 
 import { fetchJSON } from 'helpers/fetch'
-import { ExternalLink, useToast } from 'components/core'
+import { ExternalLink } from 'components/core'
 import { ExternalLinkIcon } from 'components/core/icons'
+
+const TOAST_ID = 'app-update-checker'
+
+export function useAppUpdateChecker(options?: Options) {
+  const toast = useToast()
+
+  const updateChecker = new AppUpdateChecker(async meta => {
+    if (toast.isActive(TOAST_ID)) return
+    const result = await notifyUpdate({ ...meta, toast })
+    return result
+  }, options)
+
+  useLifecycles(
+    () => {
+      updateChecker.start()
+    },
+    () => {
+      updateChecker.stop()
+    }
+  )
+}
 
 type Meta = {
   date: string
   version: string
 }
 
-type Options = {
-  url?: string // URL of the JSON file to ping to get app meta data
-  interval?: number // the number of milliseconds between each request
-  nextIntervalRatio?: number // by how much the interval changes, when the notification is ignored
-  isSimulationMode?: boolean
+type Callback = (Meta) => Promise<boolean> // called when the user chooses "Update" (true) or "Ignore" (false)
+
+type Settings = {
+  url: string // URL of the JSON file to ping to get app meta data
+  interval: number // the number of milliseconds between each request
+  nextIntervalRatio: number // by how much the interval changes, when the notification is ignored
+  isSimulationMode: boolean // used to skip the date comparison, to be able to check the notification in dev mode
 }
+type Options = Partial<Settings>
 
-export function useAppUpdateChecker({
-  url = '/meta.json',
-  interval = 60 * 1000, // 1 minute by default
-  nextIntervalRatio = 2, // the interval between consecutive notifications doubles every time the user "ignores"
-  isSimulationMode = false
-}: Options = {}) {
-  const timerRef = useRef<number | undefined>(undefined)
-  const initialMetaRef = useRef<Meta | undefined>(undefined)
-  const intervalRef = useRef<number>(interval)
+export class AppUpdateChecker implements Settings {
+  onUpdateAvailable: Callback
+  url: string
+  interval: number
+  nextIntervalRatio: number
+  isSimulationMode: boolean
+  initialMeta: Meta | undefined
+  timer: number | undefined
 
-  const { show } = useToast()
+  constructor(
+    onUpdateAvailable: Callback,
+    {
+      url = '/meta.json',
+      interval = 60 * 1000, // 1 minute by default
+      nextIntervalRatio = 2, // the interval between consecutive notifications doubles every time the user "ignores"
+      isSimulationMode = false // skip the data comparison test and always show the notification
+    }: Options = {}
+  ) {
+    this.onUpdateAvailable = onUpdateAvailable
+    this.url = url
+    this.interval = interval
+    this.nextIntervalRatio = nextIntervalRatio
+    this.isSimulationMode = isSimulationMode
 
-  function start() {
-    if (timerRef.current) return
-    timerRef.current = window.setInterval(
-      checkForUpdateAvailability,
-      intervalRef.current
-    )
+    this.initialize()
   }
 
-  async function checkForUpdateAvailability() {
-    try {
-      const latestMeta = await fetchMeta()
-      if (!latestMeta) return false
-      if (
-        isSimulationMode ||
-        latestMeta.version !== initialMetaRef.current!.version
-      ) {
-        stop()
-        const isUpdateAccepted = await show({
-          render: close => (
-            <AppUpdateToastContent close={close} version={latestMeta.version} />
-          )
-        })
-        if (isUpdateAccepted) {
-          window.location.reload()
-        } else {
-          intervalRef.current *= nextIntervalRatio
-          start()
-        }
-      }
-    } catch (error) {
-      console.error(`Unable to check for app update: ${error.message}`)
+  initialize = async () => {
+    this.initialMeta = await this.fetchMeta()
+    if (!this.initialMeta) {
+      this.stop()
     }
   }
 
-  function stop() {
-    const timer = timerRef.current
-    if (timer) {
-      clearInterval(timer)
-      timerRef.current = undefined
+  start = () => {
+    if (!this.timer) {
+      this.timer = window.setInterval(
+        this.checkForUpdateAvailability,
+        this.interval
+      )
     }
   }
 
-  async function fetchMeta(): Promise<Meta | undefined> {
+  stop = () => {
+    if (this.timer) {
+      clearInterval(this.timer)
+      this.timer = undefined
+    }
+  }
+
+  async fetchMeta(): Promise<Meta | undefined> {
     try {
-      if (isSimulationMode) {
-        console.log(
-          `Checking app update every ${intervalRef.current / 1000} seconds`
-        )
-      }
-      const meta = await fetchJSON(url)
-      return meta as Meta
+      console.log(`Checking app update every ${this.interval / 1000} seconds`)
+      const meta = await fetchJSON(this.url)
+      return meta
     } catch (error) {
       console.error('Unable to fetch meta data', error.message)
       return undefined
     }
   }
 
-  useEffect(() => {
-    async function fetchInitialMeta() {
-      const initialMeta = await fetchMeta()
-      if (!initialMeta) return
-      initialMetaRef.current = initialMeta
-      start()
+  checkForUpdateAvailability = async () => {
+    try {
+      const latestMeta = await this.fetchMeta()
+      if (!latestMeta) return false
+
+      if (
+        this.isSimulationMode ||
+        new Date(latestMeta.date) > new Date(this.initialMeta!.date)
+      ) {
+        this.stop()
+        const isUpdateAccepted = await this.onUpdateAvailable(latestMeta)
+        if (isUpdateAccepted) {
+          window.location.reload()
+        } else {
+          this.interval *= this.nextIntervalRatio
+          this.start()
+        }
+      }
+    } catch (error) {
+      console.error(`Unable to check for app update: ${error.message}`)
     }
-    fetchInitialMeta()
-  }, []) //eslint-disable-line
+  }
 }
 
-const Toast = styled.div`
-  width: 400px;
-  padding: 2rem;
-  background-color: var(--cardBackgroundColor);
-`
+function notifyUpdate({ version, toast }): Promise<boolean> {
+  return new Promise(resolve => {
+    toast({
+      id: TOAST_ID, // to prevent a possible duplication of toasts on the screen
+      position: 'top-right',
+      duration: null,
+      render: ({ onClose }) => (
+        <AppUpdateNotification
+          version={version}
+          onClose={value => {
+            onClose()
+            resolve(value)
+          }}
+        />
+      )
+    })
+  })
+}
 
-const AppUpdateToastContent = ({ close, version }) => {
+type Props = {
+  onClose: (boolean) => void
+  version: string
+}
+export const AppUpdateNotification = ({ version, onClose }: Props) => {
+  // `colorMode` returns `system` instead of the current color mode in the context of the toast,
+  // which causes problems when styling buttons.
+  // We force the "Light Mode" and hard-code the colors, as a quick fix
   return (
-    <Toast>
-      <h3 style={{ margin: '0 0 1rem' }}>
-        Application Update <span className="text-muted">{version}</span>
-      </h3>
-      <p style={{ marginBottom: '1.5rem' }}>
-        A new version of <i>Best of JS</i> is available (
-        <ExternalLink
-          url="https://github.com/bestofjs/bestofjs-webui/blob/master/CHANGELOG.md"
-          style={{ display: 'inline-flex', alignItems: 'center' }}
-        >
-          details
-          <ExternalLinkIcon />
-        </ExternalLink>
-        ), click on "Update" to reload the window.
-      </p>
+    <LightMode>
+      <Box
+        m={4}
+        p={4}
+        width={400}
+        borderWidth="1px"
+        bg="white"
+        color="gray.800"
+        boxShadow="rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;"
+      >
+        <Box fontSize="xl" mb={2}>
+          Application Update{' '}
+          <Box as="span" color="gray.400">
+            {version}
+          </Box>
+        </Box>
 
-      <ButtonGroup>
-        <div>
-          <Button onClick={() => close(false)}>Ignore</Button>
-        </div>
-        <div>
-          <Button colorScheme="orange" onClick={() => close(true)}>
-            Update
-          </Button>
-        </div>
-      </ButtonGroup>
-    </Toast>
+        <Box>
+          A new version of <i>Best of JS</i> is available (
+          <ExternalLink
+            url="https://github.com/bestofjs/bestofjs-webui/blob/master/CHANGELOG.md"
+            color="orange.500"
+          >
+            details
+            <ExternalLinkIcon />
+          </ExternalLink>
+          ), click on "Update" to reload the window.
+        </Box>
+
+        <Stack mt={4} spacing={4} isInline>
+          <Box flexBasis="50%">
+            <Button variant="solid" onClick={() => onClose(false)} width="100%">
+              Ignore
+            </Button>
+          </Box>
+          <Box flexBasis="50%">
+            <Button
+              variant="solid"
+              colorScheme="orange"
+              onClick={() => onClose(true)}
+              width="100%"
+            >
+              Update
+            </Button>
+          </Box>
+        </Stack>
+      </Box>
+    </LightMode>
   )
 }
-
-const ButtonGroup = styled.div`
-  display: flex;
-  margin: 0 -0.5rem;
-  > div {
-    flex-basis: 50%;
-    padding: 0 0.5rem;
-  }
-  button {
-    width: 100%;
-    font-size: 16px;
-  }
-`
