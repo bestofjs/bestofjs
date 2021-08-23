@@ -88,10 +88,12 @@
         'https://cdnjs.cloudflare.com/ajax/libs/hint.css/2.6.0/hint.min.css'
       )
     </script>
+    <% if (process.env.VERCEL_ENV === 'production') { %>
     <script
       defer
       src="https://static.cloudflareinsights.com/beacon.min.js"
       data-cf-beacon='{"token": "17e6802f238e43c689b7b6ac5ab233c4"}'
     ></script>
+    <% } %>
   </body>
 </html>
