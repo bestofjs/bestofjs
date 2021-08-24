@@ -21,6 +21,7 @@ export const MonthlyRankingsNavigator = ({
     <NavigatorContainer>
       <IconButton
         onClick={goToPrevious}
+        aria-label="Previous month"
         isDisabled={isFirst}
         icon={<GoChevronLeft fontSize="28px" />}
         variant="outline"
@@ -31,6 +32,7 @@ export const MonthlyRankingsNavigator = ({
       </RankingsTitle>
       <IconButton
         onClick={goToNext}
+        aria-label="Next month"
         isDisabled={isLatest}
         icon={<GoChevronRight fontSize="28px" />}
         variant="outline"
@@ -81,7 +83,7 @@ export function getNextMonth(date: MonthlyDate): MonthlyDate {
     : { year, month: month + 1 }
 }
 
-const RankingsTitle = styled.h4`
+const RankingsTitle = styled.h3`
   font-size: 1.25rem;
   font-weight: 400;
 `

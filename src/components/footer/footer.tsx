@@ -1,6 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import styled from '@emotion/styled'
+import { Box, Center } from '@chakra-ui/react'
 import { GoMarkGithub } from 'react-icons/go'
 import tinytime from 'tinytime'
 
@@ -8,7 +9,6 @@ import { useSelector } from 'containers/project-data-container'
 import { fromNow } from 'helpers/from-now'
 import { StaticContentContainer } from 'containers/static-content-container'
 import { ExternalLinkIcon } from 'components/core/icons'
-import { Box } from '@chakra-ui/react'
 
 const template = tinytime('{H}:{mm}', { padHours: true })
 
@@ -36,14 +36,12 @@ export const Footer = () => {
                   height="56"
                 />
               </Link>
-              <br />
-              <br />
-              <div className="v-center">
-                <a href={repoURL} className="v-center">
+              <Center mt={8}>
+                <a href={repoURL} aria-label="GitHub">
                   <GoMarkGithub fontSize="32px" />
                 </a>
-                <span className="ml-2">v{version}</span>
-              </div>
+                <Box ml={2}>v{version}</Box>
+              </Center>
             </div>
             <div>
               <LinkGroup title="DIRECT LINKS">

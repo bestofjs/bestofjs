@@ -10,15 +10,16 @@ const TOAST_ID = 'app-update-checker'
 
 export function useAppUpdateChecker(options?: Options) {
   const toast = useToast()
-
-  const updateChecker = new AppUpdateChecker(async meta => {
-    if (toast.isActive(TOAST_ID)) return
-    const result = await notifyUpdate({ ...meta, toast })
-    return result
-  }, options)
+  let updateChecker: AppUpdateChecker
 
   useLifecycles(
     () => {
+      const onUpdateAvailable = async meta => {
+        if (toast.isActive(TOAST_ID)) return
+        const result = await notifyUpdate({ ...meta, toast })
+        return result
+      }
+      updateChecker = new AppUpdateChecker(onUpdateAvailable, options)
       updateChecker.start()
     },
     () => {

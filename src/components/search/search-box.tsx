@@ -89,6 +89,7 @@ export const SearchBox = () => {
           inputValue={inputValue}
           value={selectedOptions}
           components={customComponents}
+          aria-label="Search by tag or keyword"
           theme={theme => ({
             ...theme,
             colors: {
@@ -127,6 +128,7 @@ const customComponents = {
     return (
       <IconButton
         icon={<ChevronDownIcon fontSize="16px" />}
+        aria-label="View tags"
         variant="ghost"
         mx={2}
         size="sm"

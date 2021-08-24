@@ -136,6 +136,7 @@ const StarOnGitHubButton = () => {
     <BigButtonLink
       href={repoURL}
       target="_blank"
+      rel="noopener noreferrer"
       addOn={
         <Center>
           {formatNumber(stars)} <StarIcon size={24} />
@@ -154,6 +155,7 @@ const SponsorButton = () => {
     <BigButtonLink
       href={sponsorURL}
       target="_blank"
+      rel="noopener noreferrer"
       addOn={<GoHeart size={20} />}
     >
       Sponsor

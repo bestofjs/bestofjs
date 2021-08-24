@@ -16,6 +16,7 @@ export const ColorModePicker = (props: IconButtonProps) => {
           <IoMdMoon fontSize="24px" color="var(--textSecondaryColor)" />
         )
       }
+      aria-label={colorMode === 'dark' ? 'Light mode' : 'Dark mode'}
       variant="ghost"
       {...props}
     />

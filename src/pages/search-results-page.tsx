@@ -1,7 +1,7 @@
 import React from 'react'
 import { withRouter } from 'react-router-dom'
 import styled from '@emotion/styled'
-import { Button } from '@chakra-ui/react'
+import { Button, Flex } from '@chakra-ui/react'
 
 import { useSelector } from 'containers/project-data-container'
 import { allProjects, getTagsById, getProjectSelectorByKey } from 'selectors'
@@ -165,11 +165,13 @@ const NoProjectsFound = withRouter(
 const RelevantTags = ({ tagIds, baseTagIds }) => {
   const tags = useSelector(getTagsById(tagIds))
   return (
-    <Container className="v-center">
-      <Label>
-        {baseTagIds.length === 0 ? 'Related tags:' : 'Refine your search:'}
-      </Label>
-      <ProjectTagGroup tags={tags} baseTagIds={baseTagIds} />
+    <Container>
+      <Flex alignItems="center">
+        <Label>
+          {baseTagIds.length === 0 ? 'Related tags:' : 'Refine your search:'}
+        </Label>
+        <ProjectTagGroup tags={tags} baseTagIds={baseTagIds} />
+      </Flex>
     </Container>
   )
 }

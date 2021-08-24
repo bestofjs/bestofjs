@@ -54,6 +54,7 @@ export const Header = props => {
               to={'/'}
               color="var(--bestofjsOrange)"
               display="block"
+              aria-label="Home"
             >
               <Logo alt="Best of JS" width="130" height="37.15" />
             </Link>

@@ -24,6 +24,7 @@ export const ProjectDetailsButton = ({ project, isLoggedIn }: Props) => {
       <MenuButton
         as={IconButton}
         icon={<GoKebabVertical fontSize="20px" />}
+        aria-label="Actions"
         variant="outline"
         isRound
       />
