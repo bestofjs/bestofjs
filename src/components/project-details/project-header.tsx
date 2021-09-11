@@ -1,6 +1,13 @@
 import React from 'react'
 import styled from '@emotion/styled'
-import { Box, Button, Heading, VStack } from '@chakra-ui/react'
+import {
+  Box,
+  Button,
+  LinkProps,
+  ButtonProps,
+  Heading,
+  VStack
+} from '@chakra-ui/react'
 import { GoHome, GoMarkGithub } from 'react-icons/go'
 import { DiNpm } from 'react-icons/di'
 
@@ -108,6 +115,6 @@ const QuickLinks = styled.aside`
   }
 `
 
-const ButtonLink = (props: ButtonProps) => (
+const ButtonLink = (props: ButtonProps & LinkProps) => (
   <Button as="a" variant="outline" w="100%" {...props} />
 )

@@ -13,6 +13,11 @@ import {
 } from 'components/monthly-rankings/rankings'
 import { MainColumn, Row } from './layout'
 
+type MonthlyDate = {
+  year: number
+  month: number
+}
+
 export const HomeMonthlyRankings = () => {
   const [date, setDate] = useState<MonthlyDate | null>(null)
 

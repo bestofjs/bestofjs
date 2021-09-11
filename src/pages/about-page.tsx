@@ -12,7 +12,6 @@ import { useSelector } from 'containers/project-data-container'
 import { StaticContentContainer } from 'containers/static-content-container'
 import { CreateIssueLink } from 'components/user-requests/add-project/create-issue-link'
 import { MainContent, PageHeader } from 'components/core'
-import 'stylesheets/markdown-body.css'
 
 const AboutPage = () => {
   const count = useSelector(

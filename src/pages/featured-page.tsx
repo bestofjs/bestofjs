@@ -25,11 +25,7 @@ export const FeaturedPage = () => {
       <PaginationContainer.Provider
         initialState={{ total, currentPageNumber: page, limit }}
       >
-        <PageHeader
-          title="Featured projects"
-          icon={<GoStar fontSize={32} />}
-          extra={total === 1 ? '(one project)' : `(${total} projects)`}
-        />
+        <PageHeader title="Featured projects" icon={<GoStar fontSize={32} />} />
         <PageDescription>
           An arbitrary selection of important projects with distinct logos.
         </PageDescription>

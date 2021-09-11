@@ -13,12 +13,14 @@ import {
   GoKebabVertical,
   GoMarkGithub
 } from 'react-icons/go'
+import { AuthContainer } from 'containers/auth-container'
 
 type Props = {
-  Project: BestOfJS.Project
+  project: BestOfJS.Project
   isLoggedIn: boolean
 }
 export const ProjectDetailsButton = ({ project, isLoggedIn }: Props) => {
+  const { addBookmark, removeBookmark } = AuthContainer.useContainer()
   return (
     <Menu>
       <MenuButton

@@ -1,5 +1,5 @@
 import React from 'react'
-import { Heading, Link } from '@chakra-ui/react'
+import { Heading, Link, LinkProps } from '@chakra-ui/react'
 import styled from '@emotion/styled'
 
 import { usePageTitle } from './html-head'
@@ -14,10 +14,7 @@ export const ExternalLink = ({
   ...rest
 }: {
   url: string
-  className?: string
-  style?: any
-  children: React.ReactNode
-}) => {
+} & LinkProps) => {
   const fullURL = url.startsWith('http') ? url : `http://` + url
   return (
     <Link href={fullURL} target="_blank" rel="noopener noreferrer" {...rest}>
@@ -28,9 +25,9 @@ export const ExternalLink = ({
 
 type PageHeaderProps = {
   title: string
-  icon?: React.Node
-  subTitle?: React.Node
-  children?: ReactNode
+  icon?: React.ReactNode
+  subTitle?: React.ReactNode
+  children?: React.ReactNode
 }
 export const PageHeader = ({
   title,

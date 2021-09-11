@@ -116,6 +116,6 @@ export const BottomPaginationControls = ({ history, location }) => {
   )
 }
 
-const PaginationButton = (props: IconProps) => (
+const PaginationButton = props => (
   <IconButton variant="outline" isRound {...props} />
 )

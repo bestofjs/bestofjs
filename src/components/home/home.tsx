@@ -2,7 +2,15 @@ import React from 'react'
 import styled from '@emotion/styled'
 import numeral from 'numeral'
 import { Link as RouterLink } from 'react-router-dom'
-import { Button, Box, Link, Heading, Center } from '@chakra-ui/react'
+import {
+  Button,
+  ButtonProps,
+  Box,
+  Link,
+  LinkProps,
+  Heading,
+  Center
+} from '@chakra-ui/react'
 import { GoTag, GoHeart, GoPlus } from 'react-icons/go'
 
 import { useSelector } from 'containers/project-data-container'
@@ -139,7 +147,7 @@ const StarOnGitHubButton = () => {
       rel="noopener noreferrer"
       addOn={
         <Center>
-          {formatNumber(stars)} <StarIcon size={24} />
+          {formatNumber(stars)} <StarIcon fontSize="24px" />
         </Center>
       }
     >
@@ -163,7 +171,11 @@ const SponsorButton = () => {
   )
 }
 
-const BigButtonLink = ({ addOn, children, ...props }: { addOn: React.JSX }) => (
+const BigButtonLink = ({
+  addOn,
+  children,
+  ...props
+}: ButtonProps & LinkProps & { addOn: React.ReactNode }) => (
   <Button
     as="a"
     display="flex"

@@ -19,6 +19,7 @@ export function useAppUpdateChecker(options?: Options) {
         const result = await notifyUpdate({ ...meta, toast })
         return result
       }
+      // @ts-ignore
       updateChecker = new AppUpdateChecker(onUpdateAvailable, options)
       updateChecker.start()
     },

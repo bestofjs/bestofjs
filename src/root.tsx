@@ -1,5 +1,8 @@
 import React, { useEffect } from 'react'
 import { BrowserRouter as Router, useLocation } from 'react-router-dom'
+import { ChakraProvider } from '@chakra-ui/react'
+
+import { customTheme } from 'theme'
 
 import { App } from './app'
 import { useAppUpdateChecker } from 'app-update-checker'
@@ -8,9 +11,11 @@ import { AuthProvider } from 'containers/auth-container'
 
 export const Root = () => {
   return (
-    <Router>
-      <AppWithRouter />
-    </Router>
+    <ChakraProvider theme={customTheme} resetCSS={true}>
+      <Router>
+        <AppWithRouter />
+      </Router>
+    </ChakraProvider>
   )
 }
 

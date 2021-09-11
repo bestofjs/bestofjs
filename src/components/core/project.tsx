@@ -27,6 +27,7 @@ const StarDeltaContainer = styled.div`
 `
 
 export const StarDelta = ({ average, ...props }) =>
+  // @ts-ignore
   average ? <StarDeltaAverage {...props} /> : <StarDeltaNormal {...props} />
 
 const StarDeltaNormal = ({ value, ...props }) => {
@@ -75,6 +76,7 @@ export const StarTotal = ({ value, size = 14 }) => {
   return (
     <Span>
       <span>{formatBigNumber(value)}</span>
+      {/* @ts-ignore */}
       <StarIcon size={size} />
     </Span>
   )
@@ -103,7 +105,7 @@ export const Avatar = ({ project, size = 100, ...props }) => {
     const image = new Image()
     image.src = src
     if (srcSet) {
-      image.srcSet = srcSet
+      image.srcset = srcSet
     }
     image.onload = () => {
       if (isMounted.current) setIsImageLoaded(true)
@@ -140,9 +142,9 @@ function getProjectImageProps({ project, size, colorMode }) {
   }
 }
 
-const ImagePlaceHolder = props => {
+const ImagePlaceHolder = ({ size }) => {
   return (
-    <PlaceHolderContainer {...props}>
+    <Box boxSize={size}>
       <ContentLoader
         viewBox="0 0 100 100"
         backgroundColor="#fbe6db"
@@ -150,14 +152,9 @@ const ImagePlaceHolder = props => {
       >
         <circle cx="50" cy="50" r="40" />
       </ContentLoader>
-    </PlaceHolderContainer>
+    </Box>
   )
 }
-
-const PlaceHolderContainer = styled.div`
-  width: ${props => props.size}px;
-  height: ${props => props.size}px;
-`
 
 /*
 Return the image URL to be displayed inside the project card

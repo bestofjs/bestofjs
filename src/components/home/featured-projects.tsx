@@ -1,7 +1,7 @@
 import React, { useState, useRef } from 'react'
 import { Link as RouterLink } from 'react-router-dom'
 import styled from '@emotion/styled'
-import { Box, Link } from '@chakra-ui/react'
+import { Box, Link, useColorMode } from '@chakra-ui/react'
 import { Animate } from 'react-simple-animate'
 import { useInterval } from 'react-use'
 import { GoStar } from 'react-icons/go'
@@ -134,6 +134,7 @@ const ProjectSlider = ({
   isPaused
 }) => {
   const slots = Array.from(new Array(visibleProjects.length))
+  const { colorMode } = useColorMode()
 
   return (
     <Box position="relative">
@@ -164,7 +165,7 @@ const ProjectSlider = ({
           .map((project, i) => (
             <img
               key={`next-${i}`}
-              src={getProjectAvatarUrl(project)}
+              src={getProjectAvatarUrl(project, 80, colorMode)}
               alt="preload"
             />
           ))}

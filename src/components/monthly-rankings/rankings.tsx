@@ -48,6 +48,12 @@ export const MonthlyRankingsProjects = ({
   month,
   limit,
   footer
+}: {
+  projects: BestOfJS.Project[]
+  year: number
+  month: number
+  limit: number
+  footer?: React.ReactNode
 }) => {
   const ids = projects.map(project => getProjectId(project)).slice(0, limit)
   const trendingProjects = useSelector(findProjectsByIds(ids))

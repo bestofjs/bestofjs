@@ -3,7 +3,7 @@ import { IconButton, IconButtonProps, useColorMode } from '@chakra-ui/react'
 import { MdWbSunny } from 'react-icons/md'
 import { IoMdMoon } from 'react-icons/io'
 
-export const ColorModePicker = (props: IconButtonProps) => {
+export const ColorModePicker = (props: Partial<IconButtonProps>) => {
   const { colorMode, toggleColorMode } = useColorMode()
 
   return (
