@@ -30,7 +30,6 @@ function useTimelineProjects() {
     )
     if (!project) return null
     return {
-      slug,
       comments: comments || [],
       date: date || new Date(project.created_at),
       ...project

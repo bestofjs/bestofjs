@@ -56,7 +56,7 @@ export const Header = props => {
               display="block"
               aria-label="Home"
             >
-              <Logo alt="Best of JS" width="130" height="37.15" />
+              <Logo width="130" height="37.15" />
             </Link>
 
             <NavigationMenu className="desktop-only">

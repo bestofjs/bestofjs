@@ -12,7 +12,7 @@ const defaultOptions = {
  * viewport.
  */
 export const useViewportSpy = (elementRef, options = defaultOptions) => {
-  const [isVisible, setIsVisible] = useState()
+  const [isVisible, setIsVisible] = useState<boolean>()
 
   useLayoutEffect(
     () => {

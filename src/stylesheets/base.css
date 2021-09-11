@@ -26,13 +26,13 @@
 }
 
 .chakra-ui-dark {
-  --backgroundColor: var(--chakra-colors-gray-800);
+  --backgroundColor: var(--chakra-colors-gray-900);
   --textPrimaryColor: #eee;
   --textSecondaryColor: #bbb;
   --textMutedColor: var(--chakra-colors-whiteAlpha-700);
   --linkColor: var(--chakra-colors-orange-300);
   --iconColor: var(--chakra-colors-yellow-500);
-  --cardBackgroundColor: var(--chakra-colors-gray-900);
+  --cardBackgroundColor: var(--chakra-colors-gray-800);
   --bestofjsOrange: var(--chakra-colors-orange-300);
   --boxBorderColor: var(--chakra-colors-whiteAlpha-500);
   --graphBackgroundColor: var(--chakra-colors-yellow-700);
