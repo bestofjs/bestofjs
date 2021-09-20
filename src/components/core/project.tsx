@@ -144,7 +144,7 @@ function getProjectImageProps({ project, size, colorMode }) {
 
 const ImagePlaceHolder = ({ size }) => {
   return (
-    <Box boxSize={size}>
+    <Box boxSize={`${size}px`}>
       <ContentLoader
         viewBox="0 0 100 100"
         backgroundColor="#fbe6db"

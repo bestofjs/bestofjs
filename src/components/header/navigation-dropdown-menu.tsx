@@ -1,82 +1,70 @@
 import React from 'react'
 import { Link as RouterLink } from 'react-router-dom'
-import {
-  Button,
-  Icon,
-  Menu,
-  MenuButton,
-  MenuList,
-  MenuItem,
-  MenuGroup,
-  MenuDivider,
-  Box
-} from '@chakra-ui/react'
+import { Button, IconButton, useMediaQuery } from '@chakra-ui/react'
 import { FiMenu } from 'react-icons/fi'
+// import { GoChevronDown } from 'react-icons/go'
 
 import { StaticContentContainer } from 'containers/static-content-container'
 import { ChevronDownIcon, ExternalLinkIcon } from 'components/core/icons'
+import { DropdownMenu, Menu, MenuGroup, MenuItem } from 'components/core/menu'
 
 export const NavigationDropdownMenu = () => {
   const { risingStarsURL, stateOfJSURL } = StaticContentContainer.useContainer()
+  const [isDesktop] = useMediaQuery(['(min-width: 700px)'])
 
-  return (
+  const menu = (
     <Menu>
-      <MenuButton as={Button} variant="ghost" color="var(--textPrimaryColor)">
-        <Box className="desktop-only" color="var(--textSecondaryColor)">
-          More <ChevronDownIcon />
-        </Box>
-        <Box className="mobile-only" py={2}>
-          <FiMenu fontSize="24px" />
-        </Box>
-      </MenuButton>
-      <MenuList>
-        <MenuItem as={RouterLink} to="/projects" className="mobile-only">
-          All projects
-        </MenuItem>
-        <MenuItem as={RouterLink} to="/tags" className="mobile-only">
-          Tags
-        </MenuItem>
-        <MenuItem as={RouterLink} to="/rankings/monthly">
+      <MenuGroup>
+        {!isDesktop && (
+          <MenuItem as={RouterLink} to="/projects">
+            Projects
+          </MenuItem>
+        )}
+        {!isDesktop && (
+          <MenuItem as={RouterLink} to="/tags">
+            Tags
+          </MenuItem>
+        )}
+        <MenuItem as={RouterLink} to="/monthly-rankings">
           Monthly rankings
         </MenuItem>
-
         <MenuItem as={RouterLink} to="/hall-of-fame">
-          Hall of Fame
+          Hall of fame
         </MenuItem>
         <MenuItem as={RouterLink} to="/timeline">
-          Timeline 2010 ~ 2020
+          Timeline
         </MenuItem>
         <MenuItem as={RouterLink} to="/about">
-          About Best of JS
+          About
         </MenuItem>
-        <MenuDivider />
-        <MenuGroup title="Related projects">
-          <MenuItem as="a" href={risingStarsURL}>
-            Rising Stars
-            <Icon as={ExternalLinkIcon} />
-          </MenuItem>
-          <MenuItem as="a" href={stateOfJSURL}>
-            State of JS
-            <Icon as={ExternalLinkIcon} />
-          </MenuItem>
-        </MenuGroup>
-      </MenuList>
+      </MenuGroup>
+
+      <MenuGroup>
+        <MenuItem as="a" href={risingStarsURL} target="_blank">
+          Rising Stars
+          <ExternalLinkIcon />
+        </MenuItem>
+        <MenuItem as="a" href={stateOfJSURL} target="_blank">
+          State of JS
+          <ExternalLinkIcon />
+        </MenuItem>
+      </MenuGroup>
     </Menu>
   )
+
+  return (
+    <DropdownMenu menu={menu}>
+      {isDesktop ? (
+        <Button variant="ghost" rightIcon={<ChevronDownIcon />}>
+          More
+        </Button>
+      ) : (
+        <IconButton
+          icon={<FiMenu fontSize="28px" />}
+          variant="ghost"
+          aria-label="Menu"
+        />
+      )}
+    </DropdownMenu>
+  )
 }
-
-// const MenuItemLink = styled(MenuItem)`
-//   a {
-//     color: inherit;
-//     &:hover {
-//       text-decoration: none;
-//     }
-//   }
-// `
-
-// const MenuItemLink = styled(Link)`
-//   color: inherit;
-//   &:hover {
-//     text-decoration: none;
-//   }
-// `

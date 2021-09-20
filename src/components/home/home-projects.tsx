@@ -1,15 +1,6 @@
 import React, { useState } from 'react'
 import { Link as RouterLink } from 'react-router-dom'
-import {
-  Box,
-  Button,
-  Flex,
-  MenuItem,
-  Link,
-  Menu,
-  MenuButton,
-  MenuList
-} from '@chakra-ui/react'
+import { Box, Button, Flex, Link } from '@chakra-ui/react'
 import { GoFlame, GoGift } from 'react-icons/go'
 
 import { useSelector } from 'containers/project-data-container'
@@ -18,6 +9,7 @@ import { ProjectTable } from 'components/project-list/project-table'
 import { getProjectsSortedBy } from 'selectors'
 import { StaticContentContainer } from 'containers/static-content-container'
 import { ChevronDownIcon } from 'components/core/icons'
+import { DropdownMenu, Menu, MenuGroup, MenuItem } from 'components/core/menu'
 
 const ranges = {
   daily: 'yesterday',
@@ -93,14 +85,12 @@ const HotProjectsPicker = ({ onChange, value }) => {
   const currentOption = sortOrderOptions.find(({ id }) => id === value)
   if (!currentOption) return null
 
-  return (
-    <Menu placement="bottom-end">
-      <MenuButton as={Button} variant="outline" rightIcon={<ChevronDownIcon />}>
-        {currentOption.label}
-      </MenuButton>
-      <MenuList>
+  const menu = (
+    <Menu>
+      <MenuGroup>
         {sortOrderOptions.map(item => (
           <MenuItem
+            as="button"
             key={item.id}
             onClick={() => {
               onChange(item.id)
@@ -109,8 +99,16 @@ const HotProjectsPicker = ({ onChange, value }) => {
             {item.label}
           </MenuItem>
         ))}
-      </MenuList>
+      </MenuGroup>
     </Menu>
+  )
+
+  return (
+    <DropdownMenu menu={menu}>
+      <Button variant="outline" rightIcon={<ChevronDownIcon />}>
+        {currentOption.label}
+      </Button>
+    </DropdownMenu>
   )
 }
 

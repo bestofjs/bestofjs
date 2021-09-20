@@ -1,27 +1,36 @@
 import React from 'react'
 import { Link as RouterLink } from 'react-router-dom'
-import {
-  Button,
-  Menu,
-  MenuButton,
-  MenuList,
-  MenuItem,
-  MenuDivider
-} from '@chakra-ui/react'
+import { Button } from '@chakra-ui/react'
 import styled from '@emotion/styled'
 import { GoBookmark, GoSignOut } from 'react-icons/go'
 
 import { AuthContainer } from 'containers/auth-container'
 import { ChevronDownIcon } from 'components/core/icons'
+import { DropdownMenu, Menu, MenuGroup, MenuItem } from 'components/core/menu'
 
 export const UserDropdownMenu = () => {
   const auth = AuthContainer.useContainer()
   const { bookmarks, logout } = AuthContainer.useContainer()
   const bookmarkCount = bookmarks.length
 
+  const menu = (
+    <Menu>
+      <MenuGroup>
+        <MenuItem as={RouterLink} to="/bookmarks" icon={<GoBookmark />}>
+          Bookmarks ({bookmarkCount})
+        </MenuItem>
+      </MenuGroup>
+      <MenuGroup>
+        <MenuItem as="button" onClick={() => logout()} icon={<GoSignOut />}>
+          Sign out
+        </MenuItem>
+      </MenuGroup>
+    </Menu>
+  )
+
   return (
-    <Menu placement="bottom-end">
-      <MenuButton
+    <DropdownMenu menu={menu}>
+      <Button
         as={Button}
         rightIcon={<ChevronDownIcon />}
         py={1}
@@ -32,17 +41,8 @@ export const UserDropdownMenu = () => {
           avatarURL={auth.profile?.picture}
           username={auth.profile?.name}
         />
-      </MenuButton>
-      <MenuList>
-        <MenuItem as={RouterLink} to="/bookmarks" icon={<GoBookmark />}>
-          Bookmarks ({bookmarkCount})
-        </MenuItem>
-        <MenuDivider />
-        <MenuItem onClick={() => logout()} icon={<GoSignOut />}>
-          Sign out
-        </MenuItem>
-      </MenuList>
-    </Menu>
+      </Button>
+    </DropdownMenu>
   )
 }
 

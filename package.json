@@ -27,9 +27,10 @@
   },
   "homepage": "https://bestofjs.org",
   "dependencies": {
-    "@chakra-ui/react": "^1.6.6",
+    "@chakra-ui/react": "^1.6.7",
     "@emotion/react": "^11.1.1",
     "@emotion/styled": "^11.0.0",
+    "@headlessui/react": "^1.4.0",
     "@types/jest": "^25.2.2",
     "@types/node": "^14.0.1",
     "@types/react": "^16.9.35",

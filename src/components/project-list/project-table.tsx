@@ -15,7 +15,6 @@ import {
 } from 'components/core/project'
 import { ProjectTagGroup } from 'components/tags/project-tag'
 import { fromNow } from 'helpers/from-now'
-import { ProjectDetailsButton } from './project-details-button'
 
 type Props = {
   projects: BestOfJS.Project[]
@@ -196,12 +195,6 @@ const ProjectTableRow = ({
           {showDownloads && <DownloadCount value={project.downloads} />}
         </StarNumberCell>
       )}
-
-      {showActions && (
-        <ActionCell>
-          <ProjectDetailsButton project={project} isLoggedIn={isLoggedIn} />
-        </ActionCell>
-      )}
     </Row>
   )
 }
@@ -259,14 +252,6 @@ const ContributorCountCell = styled(Cell)`
 const StarNumberCell = styled(Cell)`
   text-align: center;
   width: 85px;
-`
-
-const ActionCell = styled(Cell)`
-  width: 45px;
-  padding-right: 1rem;
-  @media (max-width: ${breakpoint - 1}px) {
-    display: none;
-  }
 `
 
 const ProjectName = styled.div`
