@@ -25,7 +25,7 @@ export const NavigationDropdownMenu = () => {
             Tags
           </MenuItem>
         )}
-        <MenuItem as={RouterLink} to="/monthly-rankings">
+        <MenuItem as={RouterLink} to="/rankings/monthly">
           Monthly rankings
         </MenuItem>
         <MenuItem as={RouterLink} to="/hall-of-fame">

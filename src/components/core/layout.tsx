@@ -14,6 +14,7 @@ export {
   Center,
   Heading,
   Icon,
+  Image,
   IconButton,
   Link,
   Flex,
@@ -23,8 +24,11 @@ export {
   TagCloseButton,
   TagLabel,
   TagLeftIcon,
+  Text,
   Wrap,
   WrapItem,
+  UnorderedList,
+  ListItem,
   VStack,
   chakra
 } from '@chakra-ui/react'

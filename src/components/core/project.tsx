@@ -143,8 +143,8 @@ const ImagePlaceHolder = ({ size }) => {
     <Box w={`${size}px`} h={`${size}px`}>
       <ContentLoader
         viewBox="0 0 100 100"
-        backgroundColor="#fbe6db"
-        foregroundColor="#f9dccc"
+        backgroundColor="var(--graphBackgroundColor)"
+        foregroundColor="var(--iconColor)"
       >
         <circle cx="50" cy="50" r="40" />
       </ContentLoader>

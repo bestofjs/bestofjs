@@ -1,8 +1,18 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link as RouterLink } from 'react-router-dom'
 import styled from '@emotion/styled'
 
-import { MainContent, Spinner, PageHeader } from 'components/core'
+import {
+  MainContent,
+  Heading,
+  Link,
+  ListItem,
+  Spinner,
+  PageHeader,
+  Text,
+  UnorderedList,
+  VStack
+} from 'components/core'
 import { allProjects } from 'selectors'
 import { useSelector } from 'containers/project-data-container'
 import { Timeline } from 'components/timeline/timeline'
@@ -10,6 +20,18 @@ import { Timeline } from 'components/timeline/timeline'
 export const TimelinePage = () => {
   const projects = useSelector(allProjects)
   if (!projects.length) return <Spinner />
+
+  const extraProjects = [
+    { id: 'threejs', name: 'Three.js', year: 2010 },
+    { id: 'backbone', name: 'Backbone', year: 2010 },
+    { id: 'meteor', name: 'Meteor', year: 2012 },
+    { id: 'jest', name: 'Jest', year: 2013 },
+    { id: 'redux', name: 'Redux', year: 2015 },
+    { id: 'rollup', name: 'Rollup', year: 2015 },
+    { id: 'gatsby', name: 'Gastby', year: 2015 },
+    { id: 'storybook', name: 'Storybook', year: 2016 },
+    { id: 'parcel', name: 'Parcel', year: 2017 }
+  ]
 
   return (
     <MainContent>
@@ -28,53 +50,43 @@ export const TimelinePage = () => {
       </PageDescription>
       <Timeline />
       <Disclaimer>
-        <h3>About this timeline / Disclaimer</h3>
-        <p>We could have mentioned a lot of other projects:</p>
-        <ul>
-          <li>
-            <Link to="/projects/threejs">Three.js</Link> (2010)
-          </li>
-          <li>
-            <Link to="/projects/backbone">Backbone</Link> (2010)
-          </li>
-          <li>
-            <Link to="/projects/meteor">Meteor</Link> (2012)
-          </li>
-          <li>
-            <Link to="/projects/jest">Jest</Link> (2013)
-          </li>
-          <li>
-            <Link to="/projects/redux">Redux</Link> (2015)
-          </li>
-          <li>
-            <Link to="/projects/rollup">Rollup</Link> (2015)
-          </li>
-          <li>
-            <Link to="/projects/gatsby">Gatsby</Link> (2015)
-          </li>
-          <li>
-            <Link to="/projects/storybook">Storybook</Link> (2016)
-          </li>
-          <li>
-            <Link to="/projects/parcel">Parcel</Link> (2017)
-          </li>
-        </ul>
-        <p>...but we had to make choices to keep this timeline compact.</p>
-        <p>The 2 main constraints were:</p>
-        <ul>
-          <li>
-            We wanted <b>20</b> projects because we are in 2020
-          </li>
-          <li>
-            We wanted at least one project for every year between 2010 and 2020.
-          </li>
-        </ul>
-        <p>
-          The date displayed for each project is the date of the creation of the
-          repository on GitHub, except for the following projects: jQuery,
-          Node.js, and TypeScript.
-        </p>
-        <p>Thank you for your understanding!</p>
+        <VStack alignItems="flex-start">
+          <Heading size="md">About this timeline / Disclaimer</Heading>
+          <Text>We could have mentioned a lot of other projects:</Text>
+          <UnorderedList pl={6}>
+            {extraProjects.map((project) => (
+              <ListItem key={project.id} mb={1}>
+                <Link
+                  as={RouterLink}
+                  to={`/projects/${project.id}`}
+                  color="var(--linkColor)"
+                >
+                  {project.name}
+                </Link>{' '}
+                ({project.year})
+              </ListItem>
+            ))}
+          </UnorderedList>
+          <Text>
+            ...but we had to make choices to keep this timeline compact.
+          </Text>
+          <Text>The 2 main constraints were:</Text>
+          <UnorderedList pl={6}>
+            <ListItem>
+              We wanted <b>20</b> projects because we are in 2020
+            </ListItem>
+            <ListItem>
+              We wanted at least one project for every year between 2010 and
+              2020.
+            </ListItem>
+          </UnorderedList>
+          <Text>
+            The date displayed for each project is the date of the creation of
+            the repository on GitHub, except for the following projects: jQuery,
+            Node.js, and TypeScript.
+          </Text>
+          <Text>Thank you for your understanding!</Text>
+        </VStack>
       </Disclaimer>
     </MainContent>
   )

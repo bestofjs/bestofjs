@@ -48,7 +48,7 @@ export const Timeline = () => {
             key={project.slug}
             date={template.render(new Date(project.date!))}
             iconStyle={{
-              background: 'white',
+              background: 'var(--cardBackgroundColor)',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',

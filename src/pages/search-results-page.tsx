@@ -1,13 +1,19 @@
 import React from 'react'
 import { withRouter } from 'react-router-dom'
 import styled from '@emotion/styled'
-import { Button, Flex } from '@chakra-ui/react'
 
 import { useSelector } from 'containers/project-data-container'
 import { allProjects, getTagsById, getProjectSelectorByKey } from 'selectors'
 import { PaginationContainer } from 'components/core/pagination'
 import { TagIcon } from 'components/core/icons'
-import { EmptyContent, MainContent, PageHeader, Spinner } from 'components/core'
+import {
+  Button,
+  EmptyContent,
+  Flex,
+  MainContent,
+  PageHeader,
+  Spinner
+} from 'components/core'
 import { ProjectPaginatedList } from 'components/search/project-paginated-list'
 import { ProjectTagGroup } from 'components/tags/project-tag'
 import { useSearch } from 'components/search/search-container'

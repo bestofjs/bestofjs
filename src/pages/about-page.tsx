@@ -1,17 +1,18 @@
+import React from 'react'
+
 import {
   Box,
   Heading,
   Image,
   ListItem,
   Text,
-  UnorderedList
-} from '@chakra-ui/react'
-import React from 'react'
-
+  UnorderedList,
+  MainContent,
+  PageHeader
+} from 'components/core'
 import { useSelector } from 'containers/project-data-container'
 import { StaticContentContainer } from 'containers/static-content-container'
 import { CreateIssueLink } from 'components/user-requests/add-project/create-issue-link'
-import { MainContent, PageHeader } from 'components/core'
 
 const AboutPage = () => {
   const count = useSelector(
