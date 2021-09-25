@@ -44,6 +44,11 @@ export const customTheme = extendTheme({
         })
       }
     },
+    Heading: {
+      baseStyle: {
+        fontWeight: 'normal'
+      }
+    },
     Link: {
       baseStyle: {
         fontFamily: 'Open Sans',
@@ -71,13 +76,14 @@ export const customTheme = extendTheme({
         }
       },
       variants: {
-        outline: () => ({
-          container: {
-            color: 'var(--textSecondaryColor)',
-            backgroundColor: 'var(--cardBackgroundColor)',
-            boxShadow: 'inset 0 0 0px 1px var(--boxBorderColor)'
+        outline: (props) =>
+          props.colorScheme === 'gray' && {
+            container: {
+              color: 'var(--textSecondaryColor)',
+              backgroundColor: 'var(--cardBackgroundColor)',
+              boxShadow: 'inset 0 0 0px 1px var(--boxBorderColor)'
+            }
           }
-        })
       }
     }
   },

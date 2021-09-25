@@ -2,9 +2,6 @@
   --containerWidth: 980px;
   --gutter: 2rem;
   --topBarHeight: 60px;
-  /* colors */
-  /* --backgroundColor: #ececec;
-  --backgroundColor: #f7f2ed; */
   --backgroundColor: var(--chakra-colors-gray-100);
   --textPrimaryColor: #541600;
   --textSecondaryColor: #87563e;
@@ -12,7 +9,6 @@
   --linkColor: #cc4700;
   --bestofjsOrange: #e65100;
   --bestofjsPurple: #9c0042;
-  /* --boxBorderColor: #cecece; */
   --boxBorderColor: #cecece;
   --iconColor: #fa9e59;
   --cardBackgroundColor: white;
@@ -200,21 +196,6 @@ hr {
 }
 .octicon {
   vertical-align: middle;
-}
-
-/* 
-Utils to avoid repeat ourselves too much
-TODO: use a real styled system or TailwindCSS?
-*/
-.v-center {
-  display: flex;
-  align-items: center;
-}
-.ml-1 {
-  margin-left: 0.25rem;
-}
-.ml-2 {
-  margin-left: 0.5rem;
 }
 
 /* Override the behavior provided by ChakraUI "reset CSS" */

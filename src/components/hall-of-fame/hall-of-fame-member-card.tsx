@@ -98,7 +98,6 @@ const Card = styled.div`
   .inner {
     padding: 1rem;
     border-top: 1px dashed var(--boxBorderColor);
-    color: var(--textSecondaryColor);
   }
   .icon {
     color: var(--iconColor);

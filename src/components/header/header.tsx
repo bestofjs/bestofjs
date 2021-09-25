@@ -131,30 +131,21 @@ const NavigationMenu = styled.div`
   margin-left: 1rem;
 `
 const NavigationMenuItem = styled.div`
-  > * {
-    padding-left: 0.5rem;
-    padding-right: 0.5rem;
-  }
   > a {
     display: flex;
     align-items: center;
     height: var(--topBarHeight);
-    color: var(--textSecondaryColor);
     &:hover {
       color: var(--textPrimaryColor);
     }
     border: 4px solid transparent;
     font-family: var(--headingFontFamily);
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
   }
   a.active {
     color: var(--bestofjsOrange);
     border-bottom-color: var(--bestofjsOrange);
-  }
-  a.icon {
-    color: var(--textSecondaryColor);
-    &:hover {
-      color: var(--textSecondaryColor);
-    }
   }
   > a,
   button {
