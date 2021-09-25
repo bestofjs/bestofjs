@@ -1,9 +1,9 @@
 {
   "name": "bestofjs-webui",
-  "version": "0.33.0-rc5",
+  "version": "0.33.0-rc6",
   "description": "Best of JS front-end web application",
   "engines": {
-    "node": ">=12.16.1"
+    "node": "14.x"
   },
   "scripts": {
     "start": "REACT_APP_VERSION=$npm_package_version react-scripts start",
