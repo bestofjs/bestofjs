@@ -51,4 +51,4 @@ export function updateLocation(location, changes) {
   return nextLocation
 }
 
-const makeArray = value => (Array.isArray(value) ? value : [value])
+const makeArray = (value) => (Array.isArray(value) ? value : [value])

@@ -19,7 +19,7 @@ const ProjectDetailsPageContainer = () => {
   return project ? <ProjectDetailsPage project={project} /> : <Spinner />
 }
 
-const ProjectDetailsPage = props => {
+const ProjectDetailsPage = (props) => {
   const { project } = props
 
   const { data: details, error } = useFetchProjectDetails(project)

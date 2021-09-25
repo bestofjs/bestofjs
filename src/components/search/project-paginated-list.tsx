@@ -22,7 +22,7 @@ export const ProjectPaginatedList = ({
   const location = useLocation()
   const history = useHistory()
 
-  const onChangeSortOption = sortId => {
+  const onChangeSortOption = (sortId) => {
     const changes = { sort: sortId, page: 1 }
     const nextLocation = updateLocation(location, changes)
 

@@ -82,9 +82,9 @@ export const TimelinePage = () => {
 
 export default TimelinePage
 
-export const isIncludedInHotProjects = project => {
+export const isIncludedInHotProjects = (project) => {
   const hotProjectsExcludedTags = ['meta', 'learning']
-  const hasExcludedTag = hotProjectsExcludedTags.some(tag =>
+  const hasExcludedTag = hotProjectsExcludedTags.some((tag) =>
     project.tags.includes(tag)
   )
   return !hasExcludedTag

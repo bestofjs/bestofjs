@@ -13,7 +13,7 @@ export class HeatMapContainer extends Component {
   render() {
     const { deltas } = this.props
     const today = new Date()
-    const getDate = i => {
+    const getDate = (i) => {
       return new Date(new Date().setDate(today.getDate() - i - 1))
     }
     const values = deltas.map((delta, i) => ({

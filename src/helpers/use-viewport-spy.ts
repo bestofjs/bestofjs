@@ -21,8 +21,8 @@ export const useViewportSpy = (elementRef, options = defaultOptions) => {
         return () => {}
       }
       const observer = new IntersectionObserver(
-        entries =>
-          entries.forEach(item => {
+        (entries) =>
+          entries.forEach((item) => {
             const nextValue = item.isIntersecting
             setIsVisible(nextValue)
           }),

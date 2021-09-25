@@ -13,7 +13,7 @@ const fulldate = tinytime('{YYYY}/{Mo}/{DD} ({dddd})', {
 const dayOfWeek = tinytime('{dddd}')
 
 const values = times(40)
-  .map(i => i + 1)
+  .map((i) => i + 1)
   .concat([45, 50, 55, 60, 70, 80, 90, 100, 200, 500])
 const steps = values.length
 const max = values[values.length - 1]
@@ -22,22 +22,22 @@ function scale(value) {
   if (!value) return 0
   if (value < 0) return `negative`
   if (value >= max) return steps
-  const found = values.find(val => value < val)
+  const found = values.find((val) => value < val)
   return values.indexOf(found)
 }
 
-const formatDate = date => date.toISOString().slice(0, 10)
+const formatDate = (date) => date.toISOString().slice(0, 10)
 
 const sameDate = (a, b) => {
   return a.toISOString().slice(0, 10) === b.toISOString().slice(0, 10)
 }
 
-const getClassName = active => value =>
+const getClassName = (active) => (value) =>
   `${
     active && value && sameDate(value.date, active.date) ? 'active ' : ''
   }color-${value && value.count !== null ? scale(value.count) : 'empty'}`
 
-const getTitle = value => {
+const getTitle = (value) => {
   if (!value || value.count === null) return 'No data'
   const { count, date } = value
   if (count === 0) return `No star added on ${formatDate(date)}`

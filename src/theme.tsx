@@ -30,7 +30,7 @@ export const customTheme = extendTheme({
         variant: 'outline'
       },
       variants: {
-        outline: props => ({
+        outline: (props) => ({
           bg: 'var(--cardBackgroundColor)',
           borderColor: 'var(--boxBorderColor)',
           _hover: {
@@ -91,7 +91,7 @@ export const customTheme = extendTheme({
     outline: '0 0 0 3px rgba(250, 158, 59, 0.6)'
   },
   styles: {
-    global: props => ({
+    global: (props) => ({
       body: {
         bg: 'var(--backgroundColor)',
         // bg: mode('#ececec', 'gray.700')(props),

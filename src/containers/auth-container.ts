@@ -93,11 +93,11 @@ function useBookmarks(profile, token) {
     setBookmarks(profile?.user_metadata?.projects || [])
   }, [profile])
 
-  const toggleUpdateMyProjects = add => project => {
+  const toggleUpdateMyProjects = (add) => (project) => {
     const { user_id } = profile
     const updatedBookmarks = add
       ? addToMyProjectsIfUnique(bookmarks, project.slug)
-      : bookmarks.filter(item => item.slug !== project.slug)
+      : bookmarks.filter((item) => item.slug !== project.slug)
     setBookmarks(updatedBookmarks)
     saveUserProfile({ user_id, token, projects: updatedBookmarks })
   }
@@ -131,7 +131,9 @@ function resetToken() {
 
 // Add the project to user's list only if it has not already bookmarked before
 function addToMyProjectsIfUnique(myProjects, slug) {
-  const found = myProjects.map(item => item.slug).find(item => item === slug)
+  const found = myProjects
+    .map((item) => item.slug)
+    .find((item) => item === slug)
   return found
     ? myProjects
     : myProjects.concat({ bookmarked_at: new Date(), slug })

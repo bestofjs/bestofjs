@@ -3,12 +3,12 @@ import { Link } from 'react-router-dom'
 import styled from '@emotion/styled'
 
 export const CardProjectLabels = ({ projects }) => {
-  const validProjects = projects.filter(p => !!p)
+  const validProjects = projects.filter((p) => !!p)
   if (validProjects.length === 0) return null
   return (
     <div className="inner">
       <Container>
-        {validProjects.map(project => (
+        {validProjects.map((project) => (
           <div key={project.slug}>
             <ProjectLink to={`/projects/${project.slug}`}>
               {project.name}

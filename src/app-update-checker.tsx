@@ -14,7 +14,7 @@ export function useAppUpdateChecker(options?: Options) {
 
   useLifecycles(
     () => {
-      const onUpdateAvailable = async meta => {
+      const onUpdateAvailable = async (meta) => {
         if (toast.isActive(TOAST_ID)) return
         const result = await notifyUpdate({ ...meta, toast })
         return result
@@ -130,7 +130,7 @@ export class AppUpdateChecker implements Settings {
 }
 
 function notifyUpdate({ version, toast }): Promise<boolean> {
-  return new Promise(resolve => {
+  return new Promise((resolve) => {
     toast({
       id: TOAST_ID, // to prevent a possible duplication of toasts on the screen
       position: 'top-right',
@@ -138,7 +138,7 @@ function notifyUpdate({ version, toast }): Promise<boolean> {
       render: ({ onClose }) => (
         <AppUpdateNotification
           version={version}
-          onClose={value => {
+          onClose={(value) => {
             onClose()
             resolve(value)
           }}

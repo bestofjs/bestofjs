@@ -6,7 +6,7 @@ import { HeroCard } from './hall-of-fame-member-card'
 type Props = { heroes: BestOfJS.HallOfFameMember[] }
 export const HallOfFameMemberList = ({ heroes }: Props) => (
   <Grid>
-    {heroes.map(hero => (
+    {heroes.map((hero) => (
       <div key={hero.username}>
         <HeroCard hero={hero} showDetails />
       </div>

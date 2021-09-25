@@ -15,13 +15,10 @@ import { MainContent, PageHeader } from 'components/core'
 
 const AboutPage = () => {
   const count = useSelector(
-    state => Object.keys(state.entities.projects).length
+    (state) => Object.keys(state.entities.projects).length
   )
-  const {
-    repoURL,
-    projectName,
-    sponsorURL
-  } = StaticContentContainer.useContainer()
+  const { repoURL, projectName, sponsorURL } =
+    StaticContentContainer.useContainer()
 
   return (
     <MainContent>

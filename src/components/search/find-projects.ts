@@ -7,10 +7,10 @@ export function findProjects(
   auth,
   { tags, query, page = 1, selector, direction, limit }
 ) {
-  const filterByTag = project =>
-    tags.every(tagId => project.tags.includes(tagId))
+  const filterByTag = (project) =>
+    tags.every((tagId) => project.tags.includes(tagId))
 
-  const filteredProjects = projects.filter(project => {
+  const filteredProjects = projects.filter((project) => {
     if (tags.length > 0) {
       if (!filterByTag(project)) return false
     }
@@ -45,8 +45,8 @@ export function findProjects(
 // Search results are sorted by "relevance"
 export function filterProjectsByQuery(projects, query) {
   return projects
-    .map(project => ({ ...project, rank: rank(project, query) }))
-    .filter(project => project.rank > 0)
+    .map((project) => ({ ...project, rank: rank(project, query) }))
+    .filter((project) => project.rank > 0)
 }
 
 // for a given project and a query,
@@ -110,10 +110,10 @@ function getTagsFromProjects(
   excludedTagIds: any[] = []
 ) {
   const result = new Map()
-  projects.forEach(project => {
+  projects.forEach((project) => {
     project.tags
-      .filter(tagId => !excludedTagIds.includes(tagId))
-      .forEach(tagId => {
+      .filter((tagId) => !excludedTagIds.includes(tagId))
+      .forEach((tagId) => {
         if (result.has(tagId)) {
           result.set(tagId, result.get(tagId) + 1)
         } else {

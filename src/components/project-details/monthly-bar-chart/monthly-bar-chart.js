@@ -16,12 +16,12 @@ export const MonthlyChart = ({ values, showPlusSymbol }) => {
   const last12Months = getLas12Months()
   const findDeltaByMonth = ({ year, month }) => {
     const foundValue = values.find(
-      value => value.year === year && value.month === month
+      (value) => value.year === year && value.month === month
     )
     return foundValue ? foundValue.value : undefined
   }
 
-  const dataset = last12Months.map(item => ({
+  const dataset = last12Months.map((item) => ({
     ...item,
     value: findDeltaByMonth(item)
   }))
@@ -29,7 +29,7 @@ export const MonthlyChart = ({ values, showPlusSymbol }) => {
   const months = dataset.map(({ month }) => monthNames[month - 1])
   const monthlyDeltas = dataset.map(({ value }) => value)
   const monthlyDeltaMax = Math.max(
-    ...monthlyDeltas.filter(value => value !== undefined)
+    ...monthlyDeltas.filter((value) => value !== undefined)
   )
 
   return (

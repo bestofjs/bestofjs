@@ -7,7 +7,7 @@ import formatUrl from 'helpers/url'
 import { ExternalLink } from 'components/core/typography'
 import { CardProjectLabels } from './card-project-labels'
 
-const digits = value => (value > 1000 ? '0.0' : '0')
+const digits = (value) => (value > 1000 ? '0.0' : '0')
 
 export const HeroCard = ({ hero, showDetails }) => {
   return (

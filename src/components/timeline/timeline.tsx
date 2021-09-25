@@ -26,7 +26,7 @@ function useTimelineProjects() {
   )
   return featuredProjects.map(({ slug, date, comments }) => {
     const project: BestOfJS.Project | undefined = projects.find(
-      project => project.slug === slug
+      (project) => project.slug === slug
     )
     if (!project) return null
     return {

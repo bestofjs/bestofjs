@@ -19,26 +19,25 @@ export const SearchResultsPage = () => {
   const limit = 30
 
   const projects = useSelector(allProjects)
-  const tags = useSelector(state => state.entities.tags)
-  const auth = useSelector(state => state.auth)
+  const tags = useSelector((state) => state.entities.tags)
+  const auth = useSelector((state) => state.auth)
 
   if (projects.length === 0) return <Spinner />
 
   const selector = getProjectSelectorByKey(sortOption.id)
 
-  const { results: foundProjects, total, relevantTags } = findProjects(
-    projects,
-    tags,
-    auth,
-    {
-      tags: selectedTags,
-      query,
-      page,
-      selector,
-      limit,
-      direction: sortOption.direction || 'desc'
-    }
-  )
+  const {
+    results: foundProjects,
+    total,
+    relevantTags
+  } = findProjects(projects, tags, auth, {
+    tags: selectedTags,
+    query,
+    page,
+    selector,
+    limit,
+    direction: sortOption.direction || 'desc'
+  })
 
   const includedTags =
     relevantTags && relevantTags.slice(0, 5).map(([tagId, count]) => tagId)
@@ -83,7 +82,7 @@ const SearchResultsTitle = ({ query, selectedTags, total }) => {
   if (tags.length > 0 && !query) {
     return (
       <PageHeader
-        title={tags.map(tag => tag.name).join(' + ')}
+        title={tags.map((tag) => tag.name).join(' + ')}
         icon={<TagIcon size={32} />}
         subTitle={showCount(total, 'project')}
       />
@@ -106,7 +105,7 @@ const showCount = (total, text) => {
 
 const NoProjectsFound = withRouter(
   ({ query, selectedTags, history, location }) => {
-    const tags = useSelector(getTagsById(selectedTags)).filter(tag => !!tag)
+    const tags = useSelector(getTagsById(selectedTags)).filter((tag) => !!tag)
     const Title = () => {
       const QueryPart = () => {
         if (!query) return null
@@ -116,7 +115,7 @@ const NoProjectsFound = withRouter(
         if (!tags.length) return null
         if (tags.length === 1) return <> with the tag "{tags[0].name}"</>
         return (
-          <> with the tags {tags.map(tag => `"${tag.name}"`).join(' and ')}</>
+          <> with the tags {tags.map((tag) => `"${tag.name}"`).join(' and ')}</>
         )
       }
 

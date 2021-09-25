@@ -25,14 +25,14 @@ the project should be displayed at the end, when the descending direction is use
 */
 export function sortProjectsByFunction(projects, fn, direction = 'desc') {
   // console.time('Sort')
-  const getValue = project => {
+  const getValue = (project) => {
     const value = fn(project)
     return value === undefined ? -Infinity : value
   }
 
   const sortedProjects = projects
     .slice(0) // use `slice(0)` to avoid mutating the array
-    .sort(function(a, b) {
+    .sort(function (a, b) {
       let diff = getValue(a) - getValue(b)
       if (diff === 0) {
         diff = a.stars - b.stars

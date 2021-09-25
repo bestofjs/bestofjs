@@ -9,7 +9,7 @@ it('Should render the `Redux` project page', async () => {
   const { mainNode, history } = renderApp({ route: '/projects/redux' })
   await wait(() => getByText(mainNode, 'Redux'))
   getByText(mainNode, /Predictable state container for JavaScript apps/i)
-  const testPage = route => {
+  const testPage = (route) => {
     history.push(route)
   }
   routes.forEach(testPage)
