@@ -1,9 +1,10 @@
 import React from 'react'
 import { Link as RouterLink, NavLink } from 'react-router-dom'
-import { Box, Button, Center, Divider, Flex, Link } from '@chakra-ui/react'
+
 import styled from '@emotion/styled'
 import { GoMarkGithub } from 'react-icons/go'
 
+import { Box, Button, Center, Divider, Flex } from 'components/core'
 import { ReactComponent as Logo } from './bestofjs-logo.svg'
 import { AuthContainer } from 'containers/auth-container'
 import { StaticContentContainer } from 'containers/static-content-container'
@@ -41,7 +42,7 @@ const HeaderContainer = styled.header`
   }
 `
 
-export const Header = props => {
+export const Header = (props) => {
   const { repoURL } = StaticContentContainer.useContainer()
 
   return (
@@ -49,7 +50,7 @@ export const Header = props => {
       <div className="container">
         <Flex w="100%" justifyContent="space-between">
           <Center>
-            <Link
+            <Box
               as={RouterLink}
               to={'/'}
               color="var(--bestofjsOrange)"
@@ -57,7 +58,7 @@ export const Header = props => {
               aria-label="Home"
             >
               <Logo width="130" height="37.15" />
-            </Link>
+            </Box>
 
             <NavigationMenu className="desktop-only">
               <NavigationMenuItem>

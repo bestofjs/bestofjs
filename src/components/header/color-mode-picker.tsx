@@ -1,7 +1,8 @@
 import React from 'react'
-import { IconButton, IconButtonProps, useColorMode } from '@chakra-ui/react'
 import { MdWbSunny } from 'react-icons/md'
 import { IoMdMoon } from 'react-icons/io'
+
+import { IconButton, IconButtonProps, useColorMode } from 'components/core'
 
 export const ColorModePicker = (props: Partial<IconButtonProps>) => {
   const { colorMode, toggleColorMode } = useColorMode()

@@ -1,10 +1,10 @@
 import React, { CSSProperties } from 'react'
 import styled from '@emotion/styled'
-import { Box, IconButton, Link } from '@chakra-ui/react'
 import { Link as RouterLink } from 'react-router-dom'
 import numeral from 'numeral'
 import { GoMarkGithub, GoBookmark, GoHome } from 'react-icons/go'
 
+import { Box, IconButton, Link } from 'components/core'
 import { getDeltaByDay } from 'selectors'
 import { AuthContainer } from 'containers/auth-container'
 import {
@@ -83,11 +83,8 @@ const ProjectTableRow = ({
   showActions = true,
   metricsCell
 }: RowProps) => {
-  const {
-    isLoggedIn,
-    addBookmark,
-    removeBookmark
-  } = AuthContainer.useContainer()
+  const { isLoggedIn, addBookmark, removeBookmark } =
+    AuthContainer.useContainer()
   const path = `/projects/${project.slug}`
 
   const showDelta = ['daily', 'weekly', 'monthly', 'yearly'].includes(
@@ -226,7 +223,7 @@ const FooterRow = styled.tr`
   }
 `
 
-const Cell = props => (
+const Cell = (props) => (
   <Box as="td" py={4} px={2} bg="var(--cardBackgroundColor)" {...props} />
 )
 
@@ -264,7 +261,7 @@ const ProjectName = styled.div`
 const ProjectDescription = styled.div`
   font-size: 14px;
   margin-bottom: 0.75rem;
-  margin-top: 0.5rem;
+  margin-top: 0.125rem;
   @media (min-width: ${breakpoint}px) {
   }
 `
@@ -276,4 +273,4 @@ const RepoInfo = styled.div`
   }
 `
 
-const formatNumber = number => numeral(number).format('a')
+const formatNumber = (number) => numeral(number).format('a')

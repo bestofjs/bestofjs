@@ -1,5 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import { MdAdd } from 'react-icons/md'
+
 import {
   Tag,
   TagLabel,
@@ -7,15 +9,13 @@ import {
   Wrap,
   WrapItem,
   useColorMode
-} from '@chakra-ui/react'
-import { MdAdd } from 'react-icons/md'
-
+} from 'components/core'
 import { useSearch, updateLocation } from '../search'
 
 export const ProjectTagGroup = ({ tags, ...otherProps }) => {
   return (
     <Wrap>
-      {tags.map(tag => (
+      {tags.map((tag) => (
         <WrapItem key={tag.id}>
           <ProjectTag tag={tag} {...otherProps} />
         </WrapItem>

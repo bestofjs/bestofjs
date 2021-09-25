@@ -1,5 +1,8 @@
 import React from 'react'
 import styled from '@emotion/styled'
+import { GoHome, GoMarkGithub } from 'react-icons/go'
+import { DiNpm } from 'react-icons/di'
+
 import {
   Box,
   Button,
@@ -7,10 +10,7 @@ import {
   ButtonProps,
   Heading,
   VStack
-} from '@chakra-ui/react'
-import { GoHome, GoMarkGithub } from 'react-icons/go'
-import { DiNpm } from 'react-icons/di'
-
+} from 'components/core'
 import { usePageTitle } from 'components/core'
 import { Avatar } from 'components/core/project'
 import { ProjectTagGroup } from 'components/tags/project-tag'

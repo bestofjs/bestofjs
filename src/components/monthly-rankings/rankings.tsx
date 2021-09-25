@@ -1,11 +1,11 @@
 import React from 'react'
 import styled from '@emotion/styled'
-import { IconButton } from '@chakra-ui/react'
 import { GoChevronLeft, GoChevronRight } from 'react-icons/go'
 
 import { findProjectsByIds } from 'selectors'
 import { ProjectTable } from 'components/project-list/project-table'
 import { getProjectId, StarDelta } from 'components/core/project'
+import { IconButton } from 'components/core'
 import { useSelector } from 'containers/project-data-container'
 
 export type MonthlyDate = { year: number; month: number }
@@ -55,7 +55,7 @@ export const MonthlyRankingsProjects = ({
   limit: number
   footer?: React.ReactNode
 }) => {
-  const ids = projects.map(project => getProjectId(project)).slice(0, limit)
+  const ids = projects.map((project) => getProjectId(project)).slice(0, limit)
   const trendingProjects = useSelector(findProjectsByIds(ids))
 
   return (
@@ -64,7 +64,7 @@ export const MonthlyRankingsProjects = ({
       showActions={true}
       showDetails={true}
       sortOption={{ id: 'monthly' }}
-      metricsCell={project => {
+      metricsCell={(project) => {
         const value = projects.find(findBySlug(project.slug))?.delta
         return <StarDelta value={value} average={false} />
       }}
@@ -73,7 +73,7 @@ export const MonthlyRankingsProjects = ({
   )
 }
 
-const findBySlug = slug => project => getProjectId(project) === slug
+const findBySlug = (slug) => (project) => getProjectId(project) === slug
 
 export function getPreviousMonth(date: MonthlyDate): MonthlyDate {
   const { year, month } = date

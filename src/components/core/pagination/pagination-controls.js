@@ -1,5 +1,6 @@
 import React from 'react'
-import { Box, ButtonGroup, Flex, IconButton } from '@chakra-ui/react'
+
+import { Box, HStack, Flex, IconButton } from 'components/core'
 
 import {
   DoubleChevronLeftIcon,
@@ -13,14 +14,8 @@ import { PaginationContainer } from './provider'
 const iconSize = 28
 
 export const TopPaginationControls = ({ history, location }) => {
-  const {
-    from,
-    to,
-    currentPageNumber,
-    total,
-    hasPreviousPage,
-    hasNextPage
-  } = PaginationContainer.useContainer()
+  const { from, to, currentPageNumber, total, hasPreviousPage, hasNextPage } =
+    PaginationContainer.useContainer()
 
   return (
     <Flex alignItems="center">
@@ -34,7 +29,7 @@ export const TopPaginationControls = ({ history, location }) => {
           </>
         )}
       </Box>
-      <ButtonGroup>
+      <HStack>
         <PaginationButton
           isDisabled={!hasPreviousPage}
           onClick={() =>
@@ -55,7 +50,7 @@ export const TopPaginationControls = ({ history, location }) => {
         >
           <ChevronRightIcon size={iconSize} />
         </PaginationButton>
-      </ButtonGroup>
+      </HStack>
     </Flex>
   )
 }
@@ -70,7 +65,7 @@ export const BottomPaginationControls = ({ history, location }) => {
   } = PaginationContainer.useContainer()
 
   return (
-    <ButtonGroup mt={8} w="100%" justifyContent="flex-end">
+    <HStack mt={8} w="100%" justifyContent="flex-end">
       {pageNumbers.length > 2 && (
         <PaginationButton
           disabled={currentPageNumber === 1}
@@ -112,10 +107,10 @@ export const BottomPaginationControls = ({ history, location }) => {
           <DoubleChevronRightIcon size={iconSize} />
         </PaginationButton>
       )}
-    </ButtonGroup>
+    </HStack>
   )
 }
 
-const PaginationButton = props => (
+const PaginationButton = (props) => (
   <IconButton variant="outline" isRound {...props} />
 )

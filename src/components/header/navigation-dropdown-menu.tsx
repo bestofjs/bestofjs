@@ -1,16 +1,16 @@
 import React from 'react'
 import { Link as RouterLink } from 'react-router-dom'
-import { Button, IconButton, useMediaQuery } from '@chakra-ui/react'
+import { useMedia } from 'react-use'
 import { FiMenu } from 'react-icons/fi'
-// import { GoChevronDown } from 'react-icons/go'
 
+import { Button, IconButton } from 'components/core'
 import { StaticContentContainer } from 'containers/static-content-container'
 import { ChevronDownIcon, ExternalLinkIcon } from 'components/core/icons'
 import { DropdownMenu, Menu, MenuGroup, MenuItem } from 'components/core/menu'
 
 export const NavigationDropdownMenu = () => {
   const { risingStarsURL, stateOfJSURL } = StaticContentContainer.useContainer()
-  const [isDesktop] = useMediaQuery(['(min-width: 700px)'])
+  const isDesktop = useMedia('(min-width: 700px)')
 
   const menu = (
     <Menu>

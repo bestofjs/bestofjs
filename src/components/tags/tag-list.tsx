@@ -1,8 +1,8 @@
 import React from 'react'
 import { Link as RouterLink, useHistory } from 'react-router-dom'
-import { Box, Button, Link, HStack, Flex, Center } from '@chakra-ui/react'
 import styled from '@emotion/styled'
 
+import { Box, Button, Link, HStack, Flex, Center } from 'components/core'
 import { useSelector } from 'containers/project-data-container'
 import { getProjectsByTag } from 'selectors'
 import { Avatar } from 'components/core/project'
@@ -11,7 +11,7 @@ import { ChevronRightIcon } from 'components/core/icons'
 export const DetailedTagList = ({ tags }: { tags: BestOfJS.Tag[] }) => {
   return (
     <Box w="100%">
-      {tags.map(tag => (
+      {tags.map((tag) => (
         <TagListRow key={tag.id} tag={tag} />
       ))}
     </Box>
@@ -27,7 +27,7 @@ export const CompactTagList = ({
 }) => {
   return (
     <Box w="100%">
-      {tags.map(tag => (
+      {tags.map((tag) => (
         <ListRow key={tag.id}>
           <Flex w="100%" p={4}>
             <Link
@@ -91,7 +91,7 @@ const IconGrid = ({ tag, projectCount = 5 }) => {
   return (
     <div>
       <HStack>
-        {projects.map(project => (
+        {projects.map((project) => (
           <Box key={project.slug}>
             <Link
               to={`/projects/${project.slug}`}

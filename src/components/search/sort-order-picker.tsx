@@ -1,6 +1,6 @@
 import React from 'react'
-import { Box, Button } from '@chakra-ui/react'
 
+import { Box, Button } from 'components/core'
 import { ChevronDownIcon } from 'components/core/icons'
 import { useSearch } from './search-container'
 import { sortOrderOptions } from './sort-order-options'
@@ -85,10 +85,10 @@ export const SortOrderPicker = ({ value, onChange }) => {
 
   const menu = (
     <Menu>
-      {groups.map(group => {
+      {groups.map((group, index) => {
         return (
-          <MenuGroup>
-            {group.map(item => (
+          <MenuGroup key={index}>
+            {group.map((item) => (
               <MenuItem
                 as="button"
                 key={item.id}

@@ -22,7 +22,7 @@ export const Root = () => {
 // Routing side effects
 // We cannot call `useLocation` from the previous component
 // because the Router context has not been created yet
-const AppWithRouter = props => {
+const AppWithRouter = (props) => {
   const location = useLocation()
 
   // useAppUpdateChecker({

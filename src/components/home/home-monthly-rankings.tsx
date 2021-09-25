@@ -1,10 +1,9 @@
 import React, { useState } from 'react'
 import { Link as RouterLink } from 'react-router-dom'
-import { Link } from '@chakra-ui/react'
 import { GoCalendar } from 'react-icons/go'
 
 import { useFetchMonthlyRankings } from 'api/hooks'
-import { Section, Spinner } from 'components/core'
+import { Link, Section, Spinner } from 'components/core'
 import {
   getNextMonth,
   getPreviousMonth,

@@ -1,7 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import styled from '@emotion/styled'
-import { Box, Center } from '@chakra-ui/react'
 import { GoMarkGithub } from 'react-icons/go'
 import tinytime from 'tinytime'
 
@@ -9,18 +8,14 @@ import { useSelector } from 'containers/project-data-container'
 import { fromNow } from 'helpers/from-now'
 import { StaticContentContainer } from 'containers/static-content-container'
 import { ExternalLinkIcon } from 'components/core/icons'
+import { Box, Center } from 'components/core'
 
 const template = tinytime('{H}:{mm}', { padHours: true })
 
 export const Footer = () => {
-  const lastUpdate = useSelector(state => state.meta.lastUpdate)
-  const {
-    repoURL,
-    projectName,
-    risingStarsURL,
-    stateOfJSURL,
-    version
-  } = StaticContentContainer.useContainer()
+  const lastUpdate = useSelector((state) => state.meta.lastUpdate)
+  const { repoURL, projectName, risingStarsURL, stateOfJSURL, version } =
+    StaticContentContainer.useContainer()
 
   return (
     <StyledFooter id="footer">

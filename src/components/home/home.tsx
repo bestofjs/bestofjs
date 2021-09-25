@@ -2,17 +2,17 @@ import React from 'react'
 import styled from '@emotion/styled'
 import numeral from 'numeral'
 import { Link as RouterLink } from 'react-router-dom'
+import { GoTag, GoHeart, GoPlus } from 'react-icons/go'
+
 import {
   Button,
   ButtonProps,
   Box,
+  Heading,
   Link,
   LinkProps,
-  Heading,
   Center
-} from '@chakra-ui/react'
-import { GoTag, GoHeart, GoPlus } from 'react-icons/go'
-
+} from 'components/core'
 import { useSelector } from 'containers/project-data-container'
 import { StaticContentContainer } from 'containers/static-content-container'
 import { getTotalNumberOfStars } from 'selectors'
@@ -27,7 +27,7 @@ import { RandomFeaturedProject } from './featured-projects'
 import { Row, MainColumn, RightSideBar } from './layout'
 import { HomeMonthlyRankings } from './home-monthly-rankings'
 
-export const Home = props => {
+export const Home = (props) => {
   log('Render the <Home> component')
   const { pending, popularTags } = props
 
@@ -103,11 +103,8 @@ const ResponsiveRow = styled.div`
 `
 
 const StarOnGitHub = () => {
-  const {
-    repoURL,
-    projectName,
-    sponsorURL
-  } = StaticContentContainer.useContainer()
+  const { repoURL, projectName, sponsorURL } =
+    StaticContentContainer.useContainer()
 
   return (
     <Section>
@@ -136,7 +133,7 @@ const StarOnGitHub = () => {
 const StarOnGitHubButton = () => {
   const { repoURL } = StaticContentContainer.useContainer()
   const project = useSelector(
-    state => state.entities.projects['best-of-javascript']
+    (state) => state.entities.projects['best-of-javascript']
   )
   if (!project) return null
   const stars = getTotalNumberOfStars(project)
@@ -198,7 +195,7 @@ const BigButtonLink = ({
   </Button>
 )
 
-const formatNumber = number => numeral(number).format('')
+const formatNumber = (number) => numeral(number).format('')
 
 const MoreProjects = () => {
   const { projectName } = StaticContentContainer.useContainer()

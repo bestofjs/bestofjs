@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react'
-import { Box, Image as ChakraImage, useColorMode } from '@chakra-ui/react'
 import styled from '@emotion/styled'
 import numeral from 'numeral'
 import slugify from 'slugify'
 import ContentLoader from 'react-content-loader'
 
+import { Box, useColorMode, chakra } from 'components/core'
 import { StarIcon } from './icons'
 
 export const DownloadCount = ({ value }) => {
@@ -15,7 +15,7 @@ export const DownloadCount = ({ value }) => {
   return <span>{numeral(value).format('a')}</span>
 }
 
-const getSign = value => {
+const getSign = (value) => {
   if (value === 0) return ''
   return value > 0 ? '+' : '-'
 }
@@ -115,20 +115,16 @@ export const Avatar = ({ project, size = 100, ...props }) => {
     }
   }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
-  return (
-    <Box {...props} boxSize={`${size}px`} bg="transparent">
-      {isImageLoaded ? (
-        <ChakraImage
-          src={src}
-          srcSet={srcSet}
-          width={`${size}px`}
-          height={`${size}px`}
-          alt={project.name}
-        />
-      ) : (
-        <ImagePlaceHolder size={size} />
-      )}
-    </Box>
+  return isImageLoaded ? (
+    <chakra.img
+      src={src}
+      srcSet={srcSet}
+      boxSize={`${size}px`}
+      alt={project.name}
+      maxW="unset"
+    />
+  ) : (
+    <ImagePlaceHolder size={size} />
   )
 }
 
@@ -144,7 +140,7 @@ function getProjectImageProps({ project, size, colorMode }) {
 
 const ImagePlaceHolder = ({ size }) => {
   return (
-    <Box boxSize={`${size}px`}>
+    <Box w={`${size}px`} h={`${size}px`}>
       <ContentLoader
         viewBox="0 0 100 100"
         backgroundColor="#fbe6db"

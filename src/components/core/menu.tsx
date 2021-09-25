@@ -1,10 +1,8 @@
-// import { SystemStyleFunction } from '@chakra-ui/theme-tools'
 import React from 'react'
 import { Menu as HeadlessMenu } from '@headlessui/react'
-import { Box, chakra, useColorModeValue } from '@chakra-ui/react'
 import styled from '@emotion/styled'
 
-const MenuItems = chakra(HeadlessMenu.Items)
+import { Box, useColorModeValue } from 'components/core'
 
 export const DropdownMenu = ({ children, menu, ...props }) => {
   return (
@@ -13,7 +11,8 @@ export const DropdownMenu = ({ children, menu, ...props }) => {
       style={{ position: 'relative', display: 'inline-block' }}
     >
       <HeadlessMenu.Button as={React.Fragment}>{children}</HeadlessMenu.Button>
-      <MenuItems
+      <Box
+        as={HeadlessMenu.Items}
         position="absolute"
         right={0}
         marginTop={2}
@@ -30,7 +29,7 @@ export const DropdownMenu = ({ children, menu, ...props }) => {
         {...props}
       >
         {menu}
-      </MenuItems>
+      </Box>
     </HeadlessMenu>
   )
 }
@@ -44,7 +43,7 @@ export const Menu = styled(Box)`
 export const MenuGroup = ({ children }) => {
   return (
     <Box py={2}>
-      {React.Children.map(children, child => {
+      {React.Children.map(children, (child) => {
         if (!child) return null // filter empty elements caused by media queries
         return (
           <HeadlessMenu.Item disabled={child.props.disabled}>

@@ -1,15 +1,16 @@
-import { Icon, IconProps } from '@chakra-ui/react'
 import React from 'react'
 import { GoChevronDown, GoLinkExternal, GoTag } from 'react-icons/go'
 import { MdStarBorder } from 'react-icons/md'
+
+import { Icon, IconProps } from 'components/core'
 
 export const StarIcon = (props: IconProps) => (
   <Icon as={MdStarBorder} fontSize="16px" {...props} />
 )
 
-export const TagIcon = props => <GoTag {...props} />
+export const TagIcon = (props) => <GoTag {...props} />
 
-export const DoubleChevronLeftIcon = props => {
+export const DoubleChevronLeftIcon = (props) => {
   return (
     <SVGContainer {...props}>
       <polyline points="11 17 6 12 11 7" />
@@ -18,7 +19,7 @@ export const DoubleChevronLeftIcon = props => {
   )
 }
 
-export const DoubleChevronRightIcon = props => {
+export const DoubleChevronRightIcon = (props) => {
   return (
     <SVGContainer {...props}>
       <polyline points="13 17 18 12 13 7" />
@@ -27,7 +28,7 @@ export const DoubleChevronRightIcon = props => {
   )
 }
 
-export const ChevronLeftIcon = props => {
+export const ChevronLeftIcon = (props) => {
   return (
     <SVGContainer {...props}>
       <polyline points="15 18 9 12 15 6" />
@@ -35,7 +36,7 @@ export const ChevronLeftIcon = props => {
   )
 }
 
-export const ChevronRightIcon = props => {
+export const ChevronRightIcon = (props) => {
   return (
     <SVGContainer {...props}>
       <polyline points="9 18 15 12 9 6" />

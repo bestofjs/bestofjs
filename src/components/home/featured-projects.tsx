@@ -1,11 +1,11 @@
 import React, { useState, useRef } from 'react'
 import { Link as RouterLink } from 'react-router-dom'
 import styled from '@emotion/styled'
-import { Box, Link, useColorMode } from '@chakra-ui/react'
 import { Animate } from 'react-simple-animate'
 import { useInterval } from 'react-use'
 import { GoStar } from 'react-icons/go'
 
+import { Box } from 'components/core'
 import { shuffle } from 'helpers/shuffle'
 import { useUpdateEffect } from 'helpers/lifecycle-hooks'
 import { useViewportSpy } from 'helpers/use-viewport-spy'
@@ -13,7 +13,7 @@ import { useIsDocumentVisible } from 'helpers/use-page-events'
 import { useSelector } from 'containers/project-data-container'
 import { getFeaturedProjects, getDeltaByDay } from 'selectors'
 import { Avatar, StarDelta, getProjectAvatarUrl } from 'components/core/project'
-import { Section } from 'components/core'
+import { Section, useColorMode } from 'components/core'
 import { ProjectTag } from 'components/tags/project-tag'
 import { ProgressBar } from './progress-bar'
 
@@ -49,7 +49,7 @@ export const Slider = ({
 
   useInterval(
     () => {
-      setPageNumber(page => (page >= maxPageNumber ? 0 : page + 1))
+      setPageNumber((page) => (page >= maxPageNumber ? 0 : page + 1))
     },
     isPaused ? null : duration
   )
@@ -80,9 +80,9 @@ export const Slider = ({
         />
       </div>
       <Footer>
-        <Link as={RouterLink} to="/featured">
+        <Box as={RouterLink} to="/featured">
           View more »
-        </Link>
+        </Box>
       </Footer>
     </Section>
   )
@@ -196,13 +196,9 @@ export const FeaturedProject = ({ project }) => {
     <ProjectBox>
       <Avatar project={project} size={80} />
       <FeaturedProjectName>
-        <Link
-          as={RouterLink}
-          className="title"
-          to={`/projects/${project.slug}`}
-        >
+        <Box as={RouterLink} className="title" to={`/projects/${project.slug}`}>
           {project.name}
-        </Link>
+        </Box>
         <div className="stars">
           <StarDelta
             value={getDeltaByDay(sortOptionId)(project)}
@@ -247,7 +243,7 @@ const CountDown = ({ pageNumber, duration, interval, isPaused }) => {
   useInterval(
     () => {
       if (progress < 100) {
-        setProgress(val => val + initialProgress)
+        setProgress((val) => val + initialProgress)
       }
     },
     !isPaused ? interval : null

@@ -1,5 +1,8 @@
 import { ColorMode } from '@chakra-ui/react'
 
+export { useColorMode, useColorModeValue } from '@chakra-ui/react'
+export type { ColorMode }
+
 type Mode = ColorMode | 'system' | undefined
 
 // Code from https://github.com/chakra-ui/chakra-ui/blob/75edcf41e7ff4acc2569f2169949063c164d8f6e/packages/color-mode/src/color-mode-script.tsx

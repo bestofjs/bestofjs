@@ -1,13 +1,12 @@
 import React from 'react'
 import styled from '@emotion/styled'
 import { GoGraph } from 'react-icons/go'
-import { Box } from '@chakra-ui/react'
 
 import { getDeltaByDay } from '../../../selectors'
 import { HeatMapContainer } from './heatmap'
 import { MonthlyTrends } from './monthly-trends'
 import { StarDelta } from '../../core/project'
-import { Card, CardBody, CardHeader, CardSection } from '../../core'
+import { Box, Card, CardBody, CardHeader, CardSection } from 'components/core'
 import { StarIcon } from '../../core/icons'
 
 export const TrendsCard = ({ project }) => {

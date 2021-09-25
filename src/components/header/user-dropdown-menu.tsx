@@ -1,12 +1,12 @@
 import React from 'react'
 import { Link as RouterLink } from 'react-router-dom'
-import { Button } from '@chakra-ui/react'
 import styled from '@emotion/styled'
 import { GoBookmark, GoSignOut } from 'react-icons/go'
 
 import { AuthContainer } from 'containers/auth-container'
 import { ChevronDownIcon } from 'components/core/icons'
 import { DropdownMenu, Menu, MenuGroup, MenuItem } from 'components/core/menu'
+import { Button } from 'components/core'
 
 export const UserDropdownMenu = () => {
   const auth = AuthContainer.useContainer()

@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 import { Link as RouterLink } from 'react-router-dom'
-import { Box, Button, Flex, Link } from '@chakra-ui/react'
 import { GoFlame, GoGift } from 'react-icons/go'
 
+import { Box, Button, Flex } from 'components/core'
 import { useSelector } from 'containers/project-data-container'
 import { Section, Spinner } from 'components/core'
 import { ProjectTable } from 'components/project-list/project-table'
@@ -20,8 +20,8 @@ const ranges = {
 
 const hotProjectsExcludedTags = ['meta', 'learning']
 
-export const isIncludedInHotProjects = project => {
-  const hasExcludedTag = hotProjectsExcludedTags.some(tag =>
+export const isIncludedInHotProjects = (project) => {
+  const hasExcludedTag = hotProjectsExcludedTags.some((tag) =>
     project.tags.includes(tag)
   )
   return !hasExcludedTag
@@ -63,9 +63,9 @@ export const HotProjects = ({ hotFilter, pending }) => {
           showDetails={false}
           showActions={false}
           footer={
-            <Link as={RouterLink} to={`/projects?sort=${sortOptionId}`}>
+            <Box as={RouterLink} to={`/projects?sort=${sortOptionId}`}>
               View full rankings »
-            </Link>
+            </Box>
           }
           style={{ marginBottom: '2rem' }}
         />
@@ -88,7 +88,7 @@ const HotProjectsPicker = ({ onChange, value }) => {
   const menu = (
     <Menu>
       <MenuGroup>
-        {sortOrderOptions.map(item => (
+        {sortOrderOptions.map((item) => (
           <MenuItem
             as="button"
             key={item.id}
@@ -128,13 +128,13 @@ export const NewestProjects = ({ newestProjects, hotFilter }) => {
         showActions={false}
         showDetails={false}
         footer={
-          <Link
+          <Box
             as={RouterLink}
             to={`/projects?sort=newest`}
             style={{ display: 'block' }}
           >
             View more »
-          </Link>
+          </Box>
         }
       />
     </>

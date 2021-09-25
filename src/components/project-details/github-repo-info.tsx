@@ -1,10 +1,10 @@
 import React from 'react'
 import numeral from 'numeral'
 import styled from '@emotion/styled'
-import { Box, SimpleGrid } from '@chakra-ui/react'
 import { GoMarkGithub, GoGitCommit } from 'react-icons/go'
 import { MdGroup } from 'react-icons/md'
 
+import { Box, SimpleGrid } from 'components/core'
 import { fromNow } from 'helpers/from-now'
 import {
   Card,
@@ -16,7 +16,7 @@ import {
 import { StarTotal } from 'components/core/project'
 import { ExternalLinkIcon } from 'components/core/icons'
 
-const formatNumber = number => numeral(number).format('0,0')
+const formatNumber = (number) => numeral(number).format('0,0')
 
 type Props = { project: BestOfJS.ProjectDetails }
 export const GitHubRepoInfo = ({

@@ -3,7 +3,7 @@ import { render } from 'react-dom'
 
 import { unregister } from './registerServiceWorker'
 import { Root } from './root'
-import { initializeColorMode } from 'color-mode'
+import { initializeColorMode } from 'components/core/color-mode'
 
 // Old-fashioned stylesheets
 import './stylesheets/base.css'

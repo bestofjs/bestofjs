@@ -1,8 +1,8 @@
 import React from 'react'
-import { Heading, Link, LinkProps } from '@chakra-ui/react'
 import styled from '@emotion/styled'
 
 import { usePageTitle } from './html-head'
+import { Heading, Link, LinkProps } from './layout'
 
 /*
 Link to external websites, that open in a new browser tab

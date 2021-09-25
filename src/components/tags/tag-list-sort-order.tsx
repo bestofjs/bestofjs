@@ -1,32 +1,27 @@
 import React from 'react'
-import { Box, Button } from '@chakra-ui/react'
 
+import { Box, Button } from 'components/core'
 import { DropdownMenu, Menu, MenuGroup, MenuItem } from 'components/core/menu'
 import { ChevronDownIcon } from 'components/core/icons'
 
-export const getSortOrderOptions = () => {
-  const options = [
-    {
-      id: 'project-count',
-      label: 'by number of project'
-    },
-    {
-      id: 'alpha',
-      label: 'alphabetical order'
-    }
-  ]
-
-  return options.filter(option => !!option)
-}
+const sortOrderOptions = [
+  {
+    id: 'project-count',
+    label: 'by number of project'
+  },
+  {
+    id: 'alpha',
+    label: 'alphabetical order'
+  }
+]
 
 export const TagListSortOrderPicker = ({ value, onChange }) => {
-  const sortOrderOptions = getSortOrderOptions()
   const currentOption = sortOrderOptions.find(({ id }) => id === value)
 
   const menu = (
     <Menu>
       <MenuGroup>
-        {sortOrderOptions.map(item => (
+        {sortOrderOptions.map((item) => (
           <MenuItem
             key={item.id}
             onClick={() => {

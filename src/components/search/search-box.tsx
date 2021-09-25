@@ -2,14 +2,14 @@ import React, { useState, useEffect, useRef } from 'react'
 import Select, { components } from 'react-select'
 import useDebouncedCallback from 'use-debounce/lib/useDebouncedCallback'
 import styled from '@emotion/styled'
+
 import {
   CloseButton,
   IconButton,
   Tag,
   TagCloseButton,
   TagLabel
-} from '@chakra-ui/react'
-
+} from 'components/core'
 import { useSelector } from 'containers/project-data-container'
 import { getAllTags } from 'selectors'
 import { ChevronDownIcon } from 'components/core/icons'
@@ -23,13 +23,13 @@ export const SearchBox = () => {
   const [inputValue, setInputValue] = useState(query)
   const [debouncedOnChange, cancel] = useDebouncedCallback(onChange, 300)
 
-  const options = [{ id: '', counter: tags.length }, ...tags].map(item => ({
+  const options = [{ id: '', counter: tags.length }, ...tags].map((item) => ({
     ...item,
     value: item.id,
     label: item.name
   }))
 
-  const selectedOptions = selectedTags.map(tagId =>
+  const selectedOptions = selectedTags.map((tagId) =>
     options.find(({ id }) => id === tagId)
   )
 
@@ -69,7 +69,7 @@ export const SearchBox = () => {
           // This `onKeyDown` event handler is used only for 2 specific cases:
           // - Closing the keyboard on mobiles when the user pushes Enter
           // -  When the user enters text, moves the cursor just after the tag and pushes the Backspace key
-          onKeyDown={event => {
+          onKeyDown={(event) => {
             const input = selectRef?.current?.select.inputRef
             if (event.key === 'Enter') {
               input.blur()
@@ -90,7 +90,7 @@ export const SearchBox = () => {
           value={selectedOptions}
           components={customComponents}
           aria-label="Search by tag or keyword"
-          theme={theme => ({
+          theme={(theme) => ({
             ...theme,
             colors: {
               ...theme.colors,
@@ -121,10 +121,10 @@ const Container = styled.div`
 const { Option, IndicatorsContainer } = components
 
 const customComponents = {
-  ClearIndicator: props => {
+  ClearIndicator: (props) => {
     return <CloseButton size="sm" mx={2} />
   },
-  DropdownIndicator: props => {
+  DropdownIndicator: (props) => {
     return (
       <IconButton
         icon={<ChevronDownIcon fontSize="16px" />}
@@ -137,7 +137,7 @@ const customComponents = {
       />
     )
   },
-  Option: props => {
+  Option: (props) => {
     const { id, name, counter } = props.data
     return (
       <Option {...props}>
@@ -166,7 +166,7 @@ const customComponents = {
       </IndicatorsContainer>
     )
   },
-  MultiValue: props => {
+  MultiValue: (props) => {
     const {
       data: { label },
       removeProps
