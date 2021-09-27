@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
-import { Tag, TagLabel, Wrap, WrapItem } from 'components/core'
+import { Button, Wrap, WrapItem } from 'components/core'
 
 export const CardProjectLabels = ({ projects }) => {
   const validProjects = projects.filter((project) => !!project)
@@ -12,11 +12,15 @@ export const CardProjectLabels = ({ projects }) => {
       <Wrap>
         {validProjects.map((project) => (
           <WrapItem key={project.slug}>
-            <Link to={`/projects/${project.slug}`}>
-              <Tag variant="outline" colorScheme="orange" size="lg">
-                <TagLabel>{project.name}</TagLabel>
-              </Tag>
-            </Link>
+            <Button
+              as={Link}
+              to={`/projects/${project.slug}`}
+              variant="outline"
+              colorScheme="orange"
+              size="sm"
+            >
+              {project.name}
+            </Button>
           </WrapItem>
         ))}
       </Wrap>

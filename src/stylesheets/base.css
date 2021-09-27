@@ -2,7 +2,7 @@
   --containerWidth: 980px;
   --gutter: 2rem;
   --topBarHeight: 60px;
-  --backgroundColor: var(--chakra-colors-gray-100);
+  --backgroundColor: var(--chakra-colors-gray-50);
   --textPrimaryColor: #541600;
   --textSecondaryColor: #87563e;
   --textMutedColor: #bb967c;
@@ -80,11 +80,6 @@ body {
 :before {
   box-sizing: inherit;
 }
-.explanation {
-  margin: 0 0 10px;
-  text-align: center;
-  color: var(--textSecondaryColor);
-}
 .container {
   max-width: var(--containerWidth);
   margin: 0 auto;
@@ -98,35 +93,10 @@ body {
 #main-content {
   padding-top: 2rem;
 }
-#main-content.double-padding {
-  padding-top: 2em;
-}
-#main-content.small {
-  max-width: 600px;
-}
-p {
-  margin: 0 0 0.5em;
-}
-p:last-child {
-  margin: 0;
-}
-.divider {
-  margin: 1.5em 0;
-  width: 100%;
-  height: 1px;
-  background-color: #ccc;
-}
 @media (max-width: 500px) {
   .hidden-mobile {
     display: none;
   }
-}
-hr {
-  margin: 2rem 0;
-  border-width: 0;
-  border-color: #ffae63;
-  border-style: dashed;
-  border-top-width: 1px;
 }
 #main-content > section:not(:last-child) {
   margin-bottom: 2rem;
@@ -136,9 +106,6 @@ hr {
 .empty-value {
   color: var(--textSecondaryColor);
   font-style: italic;
-}
-.octicon {
-  vertical-align: middle;
 }
 
 /* Override the behavior provided by ChakraUI "reset CSS" */

@@ -16,6 +16,9 @@ export const HeroCard = ({ hero, showDetails }) => {
         className="header card-block hint--top"
         url={`https://github.com/${hero.username}`}
         aria-label={`Open ${hero.username}'s profile on GitHub`}
+        _hover={{
+          textDecoration: 'none'
+        }}
       >
         <img
           src={`${hero.avatar}&s=150`}

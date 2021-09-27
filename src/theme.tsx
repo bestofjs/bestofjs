@@ -11,6 +11,7 @@ export const customTheme = extendTheme({
       '50': '#F2F2F0',
       '100': '#ececec',
       '200': '#e8e8e8',
+      '250': '#cccccc', // token added to handle button border color when hovering
       '300': '#ADADAD',
       '400': '#969696',
       '500': '#808080',
@@ -30,18 +31,16 @@ export const customTheme = extendTheme({
         variant: 'outline'
       },
       variants: {
-        outline: (props) => ({
-          bg: 'var(--cardBackgroundColor)',
-          borderColor: 'var(--boxBorderColor)',
-          _hover: {
-            borderColor: mode(`gray.300`, `whiteAlpha.300`)(props),
-            bg: mode(`white`, `whiteAlpha.300`)(props)
-          },
-          _active: {
-            borderColor: mode(`gray.300`, `whiteAlpha.300`)(props),
-            bg: mode(`white`, `whiteAlpha.300`)(props)
+        outline: (props) =>
+          props.colorScheme === 'gray' && {
+            color: 'var(--textSecondaryColor)',
+            bg: 'var(--cardBackgroundColor)',
+            _hover: {
+              borderColor: mode(`gray.250`, `whiteAlpha.300`)(props),
+              bg: mode(`white`, `whiteAlpha.300`)(props),
+              color: 'var(--textPrimaryColor)'
+            }
           }
-        })
       }
     },
     Heading: {
@@ -74,16 +73,6 @@ export const customTheme = extendTheme({
         label: {
           fontFamily: 'Open Sans'
         }
-      },
-      variants: {
-        outline: (props) =>
-          props.colorScheme === 'gray' && {
-            container: {
-              color: 'var(--textSecondaryColor)',
-              backgroundColor: 'var(--cardBackgroundColor)',
-              boxShadow: 'inset 0 0 0px 1px var(--boxBorderColor)'
-            }
-          }
       }
     }
   },
@@ -100,7 +89,6 @@ export const customTheme = extendTheme({
     global: (props) => ({
       body: {
         bg: 'var(--backgroundColor)',
-        // bg: mode('#ececec', 'gray.700')(props),
         color: mode('var(--textPrimaryColor)', 'gray.200')(props),
         lineHeight: 1.3333
       }
