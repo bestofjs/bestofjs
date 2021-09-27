@@ -238,6 +238,7 @@ const MainLink = styled(Link)`
 
 const ContributorCountCell = styled(Cell)`
   width: 170px;
+  font-size: 0.875rem;
   @media (max-width: 799px) {
     display: none;
   }
@@ -259,14 +260,13 @@ const ProjectName = styled.div`
 `
 
 const ProjectDescription = styled.div`
-  font-size: 14px;
-  margin-bottom: 0.75rem;
+  font-size: 0.875rem;
   margin-top: 0.125rem;
-  @media (min-width: ${breakpoint}px) {
-  }
+  margin-bottom: 0.75rem;
 `
 
 const RepoInfo = styled.div`
+  font-size: 0.875rem;
   margin-top: 0.5rem;
   @media (min-width: ${breakpoint}px) {
     display: none;

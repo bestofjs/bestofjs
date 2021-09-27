@@ -55,7 +55,7 @@ export const NavigationDropdownMenu = () => {
   return (
     <DropdownMenu menu={menu}>
       {isDesktop ? (
-        <Button variant="ghost" rightIcon={<ChevronDownIcon />}>
+        <Button variant="ghost" size="md" rightIcon={<ChevronDownIcon />}>
           More
         </Button>
       ) : (

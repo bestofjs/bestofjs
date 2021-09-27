@@ -4,7 +4,15 @@ import { Link as RouterLink, NavLink } from 'react-router-dom'
 import styled from '@emotion/styled'
 import { GoMarkGithub } from 'react-icons/go'
 
-import { Box, Button, Center, Divider, Flex } from 'components/core'
+import {
+  Box,
+  Button,
+  IconButton,
+  Center,
+  Divider,
+  Flex,
+  HStack
+} from 'components/core'
 import { ReactComponent as Logo } from './bestofjs-logo.svg'
 import { AuthContainer } from 'containers/auth-container'
 import { StaticContentContainer } from 'containers/static-content-container'
@@ -36,9 +44,6 @@ const HeaderContainer = styled.header`
     @media screen and (min-width: ${breakpoint}px) {
       display: none;
     }
-  }
-  button {
-    font-size: 1.14286rem;
   }
 `
 
@@ -92,31 +97,32 @@ export const Header = (props) => {
                   borderColor="var(--boxBorderColor)"
                 />
               </Box>
-              <NavigationMenuItem>
-                <a
-                  className="icon hint--bottom"
+              <HStack>
+                <IconButton
+                  as="a"
                   href="https://discord.com/invite/rdctdFX2qR"
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label="Join Discord"
-                >
-                  <DiscordIcon />
-                </a>
-              </NavigationMenuItem>
-              <NavigationMenuItem>
-                <a
-                  className="icon hint--bottom"
+                  icon={<DiscordIcon />}
+                  variant="ghost"
+                  color="var(--textSecondaryColor)"
+                />
+
+                <IconButton
+                  as="a"
                   href={repoURL}
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label="GitHub"
-                >
-                  <GoMarkGithub size={28} />
-                </a>
-              </NavigationMenuItem>
-              <NavigationMenuItem className="mobile-only">
-                <NavigationDropdownMenu />
-              </NavigationMenuItem>
+                  icon={<GoMarkGithub size={28} />}
+                  variant="ghost"
+                  color="var(--textSecondaryColor)"
+                />
+                <Box className="mobile-only">
+                  <NavigationDropdownMenu />
+                </Box>
+              </HStack>
             </NavigationMenu>
           </Center>
         </Flex>
@@ -147,10 +153,6 @@ const NavigationMenuItem = styled.div`
     color: var(--bestofjsOrange);
     border-bottom-color: var(--bestofjsOrange);
   }
-  > a,
-  button {
-    font-size: 1.14286rem;
-  }
 `
 
 const LoginSection = () => {
@@ -161,9 +163,10 @@ const LoginSection = () => {
   if (!auth.isLoggedIn) {
     return (
       <Button
+        onClick={() => auth.login()}
         variant="ghost"
         color="var(--textSecondaryColor)"
-        onClick={() => auth.login()}
+        size="md"
       >
         Sign in
       </Button>

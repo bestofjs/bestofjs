@@ -37,7 +37,7 @@ export const TagListSortOrderPicker = ({ value, onChange }) => {
 
   return (
     <DropdownMenu menu={menu}>
-      <Button rightIcon={<ChevronDownIcon />}>
+      <Button rightIcon={<ChevronDownIcon />} size="md">
         {currentOption ? (
           <>
             <Box as="span" mr={2}>

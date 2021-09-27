@@ -123,7 +123,7 @@ const breakPointColumns = 800
 
 const StyledFooter = styled.footer`
   margin-top: 4rem;
-  background-color: #541600;
+  background-color: var(--chakra-colors-orange-900);
   color: hsla(0, 0%, 100%, 0.7);
   .container {
     max-width: 1100px;

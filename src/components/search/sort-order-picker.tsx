@@ -108,7 +108,7 @@ export const SortOrderPicker = ({ value, onChange }) => {
 
   return (
     <DropdownMenu menu={menu} w="300px" left={0} right={'inherit'}>
-      <Button variant="outline" rightIcon={<ChevronDownIcon />}>
+      <Button variant="outline" rightIcon={<ChevronDownIcon />} size="md">
         {currentOption ? (
           <>
             <Box as="span" mr={2}>

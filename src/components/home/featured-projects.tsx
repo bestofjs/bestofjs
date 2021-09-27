@@ -5,7 +5,7 @@ import { Animate } from 'react-simple-animate'
 import { useInterval } from 'react-use'
 import { GoStar } from 'react-icons/go'
 
-import { Box } from 'components/core'
+import { Box, Button, Link } from 'components/core'
 import { shuffle } from 'helpers/shuffle'
 import { useUpdateEffect } from 'helpers/lifecycle-hooks'
 import { useViewportSpy } from 'helpers/use-viewport-spy'
@@ -80,9 +80,9 @@ export const Slider = ({
         />
       </div>
       <Footer>
-        <Box as={RouterLink} to="/featured">
+        <Button as={RouterLink} to="/featured" variant="link">
           View more »
-        </Box>
+        </Button>
       </Footer>
     </Section>
   )
@@ -196,9 +196,13 @@ export const FeaturedProject = ({ project }) => {
     <ProjectBox>
       <Avatar project={project} size={80} />
       <FeaturedProjectName>
-        <Box as={RouterLink} className="title" to={`/projects/${project.slug}`}>
+        <Link
+          as={RouterLink}
+          className="title"
+          to={`/projects/${project.slug}`}
+        >
           {project.name}
-        </Box>
+        </Link>
         <div className="stars">
           <StarDelta
             value={getDeltaByDay(sortOptionId)(project)}

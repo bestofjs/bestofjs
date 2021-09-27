@@ -3,7 +3,7 @@ import { Link as RouterLink } from 'react-router-dom'
 import { GoCalendar } from 'react-icons/go'
 
 import { useFetchMonthlyRankings } from 'api/hooks'
-import { Link, Section, Spinner } from 'components/core'
+import { Button, Section, Spinner } from 'components/core'
 import {
   getNextMonth,
   getPreviousMonth,
@@ -64,9 +64,13 @@ const FetchMonthlyRankings = ({ date, setDate }) => {
         year={year}
         month={month}
         footer={
-          <Link as={RouterLink} to={`/rankings/monthly/${year}/${month}`}>
+          <Button
+            as={RouterLink}
+            to={`/rankings/monthly/${year}/${month}`}
+            variant="link"
+          >
             View full rankings »
-          </Link>
+          </Button>
         }
       />
     </>

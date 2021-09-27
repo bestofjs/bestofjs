@@ -21,7 +21,7 @@ export const DropdownMenu = ({ children, menu, ...props }) => {
         borderRadius="md"
         borderWidth="1px"
         bg={useColorModeValue('white', 'gray.700')}
-        boxShadow={useColorModeValue('sm', 'dark-lg')}
+        boxShadow={useColorModeValue('md', 'dark-lg')}
         fontFamily="var(--buttonFontFamily)"
         _focusVisible={{
           outline: 'none'
@@ -56,7 +56,7 @@ export const MenuGroup = ({ children }) => {
 }
 
 export const MenuItem = ({ active, ...props }: any) => {
-  const activeBg = useColorModeValue('gray.200', 'whiteAlpha.200')
+  const activeBg = useColorModeValue('orange.100', 'whiteAlpha.200')
   return (
     <Box
       w="100%"

@@ -64,7 +64,7 @@ const TagListRow = ({ tag }) => {
     <ListRow>
       <MainListCell>
         <Center>
-          <Link as={RouterLink} to={`/projects?tags=${tag.code}`} fontSize="xl">
+          <Link as={RouterLink} to={`/projects?tags=${tag.code}`}>
             {tag.name}
           </Link>
           <Box ml={2}>({tag.counter} projects)</Box>

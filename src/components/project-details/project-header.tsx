@@ -29,7 +29,9 @@ export const ProjectHeader = ({ project }: Props) => {
           <Avatar project={project} size={75} />
         </Box>
         <VStack spacing={4} alignItems="flex-start">
-          <Heading>{project.name}</Heading>
+          <Heading fontSize="2rem" lineHeight="1">
+            {project.name}
+          </Heading>
           <Box>{project.description}</Box>
           <Box>
             <ProjectTagGroup tags={project.tags} />

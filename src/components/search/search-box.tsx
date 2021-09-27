@@ -1,14 +1,15 @@
 import React, { useState, useEffect, useRef } from 'react'
 import Select, { components } from 'react-select'
 import useDebouncedCallback from 'use-debounce/lib/useDebouncedCallback'
-import styled from '@emotion/styled'
 
 import {
+  Box,
   CloseButton,
   IconButton,
   Tag,
   TagCloseButton,
-  TagLabel
+  TagLabel,
+  useColorModeValue
 } from 'components/core'
 import { useSelector } from 'containers/project-data-container'
 import { getAllTags } from 'selectors'
@@ -40,7 +41,14 @@ export const SearchBox = () => {
   const selectRef = useRef<any>()
 
   return (
-    <Container>
+    <Box
+      bgGradient={useColorModeValue(
+        'linear(to-r, orange.400, orange.600)',
+        'linear(to-r, orange.500, orange.800)'
+      )}
+      py={4}
+      fontFamily="var(--buttonFontFamily)"
+    >
       <div className="container">
         <Select
           ref={selectRef}
@@ -107,22 +115,16 @@ export const SearchBox = () => {
           })}
         />
       </div>
-    </Container>
+    </Box>
   )
 }
-
-const Container = styled.div`
-  background: linear-gradient(135deg, #ed8518, #e75f16, #b94100);
-  padding: 1rem 0;
-  font-family: var(--buttonFontFamily);
-`
 
 // Customize the default `Option` component provided by `react-select`
 const { Option, IndicatorsContainer } = components
 
 const customComponents = {
   ClearIndicator: (props) => {
-    return <CloseButton size="sm" mx={2} />
+    return <CloseButton size="sm" mx={2} onClick={() => props.clearValue()} />
   },
   DropdownIndicator: (props) => {
     return (
@@ -160,7 +162,7 @@ const customComponents = {
     return (
       <IndicatorsContainer {...props}>
         {inputValue && !hasValue && (
-          <CloseButton onClick={() => props.setValue()} size="sm" mr={2} />
+          <CloseButton onClick={() => props.clearValue()} size="sm" mr={2} />
         )}
         {children}
       </IndicatorsContainer>

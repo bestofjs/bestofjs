@@ -8,10 +8,10 @@ import {
   Button,
   ButtonProps,
   Box,
-  Heading,
   Link,
   LinkProps,
-  Center
+  Center,
+  PageHeader
 } from 'components/core'
 import { useSelector } from 'containers/project-data-container'
 import { StaticContentContainer } from 'containers/static-content-container'
@@ -33,9 +33,7 @@ export const Home = (props) => {
 
   return (
     <MainContent>
-      <Heading as="h1" mb={4} fontWeight="normal">
-        The best of JavaScript, HTML and CSS
-      </Heading>
+      <PageHeader title="The best of JavaScript, HTML and CSS" />
       <Section>
         <Row>
           <MainColumn>
@@ -51,9 +49,9 @@ export const Home = (props) => {
               <CompactTagList
                 tags={popularTags}
                 footer={
-                  <Link as={RouterLink} to={`/tags/`} display="block">
+                  <Button as={RouterLink} to={`/tags/`} variant="link">
                     View all tags »
-                  </Link>
+                  </Button>
                 }
               />
             </RightSideBar>
@@ -176,7 +174,6 @@ const BigButtonLink = ({
   <Button
     as="a"
     display="flex"
-    fontSize="1.2rem"
     variant="outline"
     className="button-link"
     {...props}
@@ -186,7 +183,8 @@ const BigButtonLink = ({
       ml={2}
       sx={{
         '.button-link:hover &': {
-          color: 'var(--bestofjsOrange)'
+          color: 'var(--bestofjsOrange)',
+          transition: '0.5s'
         }
       }}
     >

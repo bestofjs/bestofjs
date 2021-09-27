@@ -8,8 +8,8 @@ import {
   CardSection,
   ExternalLink,
   Spinner
-} from '../../core'
-
+} from 'components/core'
+import { ExternalLinkIcon } from 'components/core/icons'
 import { Dependencies } from './dependencies'
 import { BundleSize } from './bundle-size'
 import { PackageSize } from './package-size'
@@ -25,7 +25,7 @@ export const NpmCard = (props: Props) => {
     <Card style={{ marginTop: '2rem' }}>
       <CardHeader>
         <GoPackage className="icon" size={24} />
-        PACKAGE
+        NPM PACKAGE
       </CardHeader>
       <CardBody>
         <CardBodyContent {...props} />
@@ -48,6 +48,7 @@ const CardBodyContent = ({ project, isLoading, error }) => {
         <p>
           <ExternalLink url={`https://www.npmjs.com/package/${packageName}`}>
             {packageName} {npm.version}
+            <ExternalLinkIcon />
           </ExternalLink>
         </p>
       </CardSection>

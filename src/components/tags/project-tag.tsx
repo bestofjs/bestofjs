@@ -2,14 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import { MdAdd } from 'react-icons/md'
 
-import {
-  Tag,
-  TagLabel,
-  TagLeftIcon,
-  Wrap,
-  WrapItem,
-  useColorMode
-} from 'components/core'
+import { Button, Wrap, WrapItem, useColorMode } from 'components/core'
 import { useSearch, updateLocation } from '../search'
 
 export const ProjectTagGroup = ({ tags, ...otherProps }) => {
@@ -39,15 +32,15 @@ export const ProjectTag = ({ tag, baseTagIds = [] }) => {
     }
   )
   return (
-    <Link to={nextLocation}>
-      <Tag
-        fontFamily="heading"
-        size="lg"
-        variant={colorMode === 'dark' ? 'subtle' : 'outline'}
-      >
-        {isMultiTagLink && <TagLeftIcon as={MdAdd} fontSize="16px" />}
-        <TagLabel>{tag.name}</TagLabel>
-      </Tag>
-    </Link>
+    <Button
+      as={Link}
+      to={nextLocation}
+      variant={colorMode === 'dark' ? 'solid' : 'outline'}
+      size="sm"
+      fontSize="0.875rem"
+      rightIcon={isMultiTagLink ? <MdAdd /> : undefined}
+    >
+      {tag.name}
+    </Button>
   )
 }

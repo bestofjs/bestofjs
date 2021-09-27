@@ -63,9 +63,13 @@ export const HotProjects = ({ hotFilter, pending }) => {
           showDetails={false}
           showActions={false}
           footer={
-            <Box as={RouterLink} to={`/projects?sort=${sortOptionId}`}>
+            <Button
+              variant="link"
+              as={RouterLink}
+              to={`/projects?sort=${sortOptionId}`}
+            >
               View full rankings »
-            </Box>
+            </Button>
           }
           style={{ marginBottom: '2rem' }}
         />
@@ -105,7 +109,7 @@ const HotProjectsPicker = ({ onChange, value }) => {
 
   return (
     <DropdownMenu menu={menu}>
-      <Button variant="outline" rightIcon={<ChevronDownIcon />}>
+      <Button variant="outline" rightIcon={<ChevronDownIcon />} size="md">
         {currentOption.label}
       </Button>
     </DropdownMenu>
@@ -128,13 +132,9 @@ export const NewestProjects = ({ newestProjects, hotFilter }) => {
         showActions={false}
         showDetails={false}
         footer={
-          <Box
-            as={RouterLink}
-            to={`/projects?sort=newest`}
-            style={{ display: 'block' }}
-          >
+          <Button as={RouterLink} to="/projects?sort=newest" variant="link">
             View more »
-          </Box>
+          </Button>
         }
       />
     </>
