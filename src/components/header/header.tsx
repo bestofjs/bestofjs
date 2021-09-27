@@ -21,7 +21,7 @@ import { UserDropdownMenu } from './user-dropdown-menu'
 import { NavigationDropdownMenu } from './navigation-dropdown-menu'
 import { ColorModePicker } from './color-mode-picker'
 
-const breakpoint = 700
+const breakpoint = 750
 
 const HeaderContainer = styled.header`
   background-color: var(--cardBackgroundColor);

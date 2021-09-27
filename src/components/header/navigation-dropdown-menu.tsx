@@ -10,7 +10,7 @@ import { DropdownMenu, Menu, MenuGroup, MenuItem } from 'components/core/menu'
 
 export const NavigationDropdownMenu = () => {
   const { risingStarsURL, stateOfJSURL } = StaticContentContainer.useContainer()
-  const isDesktop = useMedia('(min-width: 700px)')
+  const isDesktop = useMedia('(min-width: 750px)')
 
   const menu = (
     <Menu>

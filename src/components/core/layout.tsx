@@ -29,6 +29,7 @@ export {
   WrapItem,
   UnorderedList,
   ListItem,
+  Stack,
   VStack,
   chakra
 } from '@chakra-ui/react'

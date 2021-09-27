@@ -38,9 +38,11 @@ const StarDeltaNormal = ({ value, ...props }) => {
         '='
       ) : (
         <>
-          <span style={{ marginRight: 2 }}>{sign}</span>
+          <Box as="span" mr="2px">
+            {sign}
+          </Box>
           <span>{formatBigNumber(Math.abs(value))}</span>
-          <StarIcon {...props} />
+          <StarIcon fontSize="20px" {...props} />
         </>
       )}
     </StarDeltaContainer>
@@ -64,20 +66,19 @@ export const StarDeltaAverage = ({ value }) => {
       <StarDeltaContainer>
         <span style={{ marginRight: 2 }}>{sign}</span>
         <span>{integerPart}</span>
-        <span className="text-small">.{decimalPart}</span>
-        <StarIcon />
+        <span className="text-muted">.{decimalPart}</span>
+        <StarIcon fontSize="20px" />
         <span> /day</span>
       </StarDeltaContainer>
     </StarDeltaAverageContainer>
   )
 }
 
-export const StarTotal = ({ value, size = 14 }) => {
+export const StarTotal = ({ value }) => {
   return (
     <Span>
       <span>{formatBigNumber(value)}</span>
-      {/* @ts-ignore */}
-      <StarIcon size={size} />
+      <StarIcon fontSize="20px" />
     </Span>
   )
 }
@@ -91,7 +92,6 @@ function formatBigNumber(value: number): string {
 
 const Span = styled.span`
   display: inline-flex;
-  align-items: center;
 `
 
 export const Avatar = ({ project, size = 100, ...props }) => {

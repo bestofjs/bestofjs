@@ -99,7 +99,7 @@ const ProjectTableRow = ({
 
   return (
     <Row>
-      <Cell width="50px" display={{ base: 'none', md: 'table-cell' }}>
+      <Cell width="50px">
         <Link as={RouterLink} to={path}>
           <Avatar project={project} size={50} />
         </Link>
@@ -108,9 +108,6 @@ const ProjectTableRow = ({
       <Cell pl={{ base: 4, md: 2 }}>
         <ProjectName>
           <MainLink as={RouterLink} to={path} mr={2}>
-            <Box display={{ md: 'none' }} mr={4}>
-              <Avatar project={project} size={40} />
-            </Box>
             {project.name}
           </MainLink>
           <IconButton
@@ -177,7 +174,7 @@ const ProjectTableRow = ({
         <StarNumberCell>{metricsCell(project)}</StarNumberCell>
       ) : (
         <StarNumberCell>
-          {showStars && <StarTotal value={project.stars} size={20} />}
+          {showStars && <StarTotal value={project.stars} />}
 
           {showDelta && (
             <div className="delta">

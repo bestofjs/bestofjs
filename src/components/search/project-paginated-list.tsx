@@ -1,15 +1,15 @@
 import React from 'react'
-import styled from '@emotion/styled'
 import { useHistory, useLocation } from 'react-router-dom'
 
 import { ProjectTable } from 'components/project-list/project-table'
 import { PaginationContainer } from 'components/core/pagination/provider'
-import { SortOrderPicker } from './sort-order-picker'
-import { updateLocation } from './search-utils'
 import {
   TopPaginationControls,
   BottomPaginationControls
-} from '../core/pagination/pagination-controls'
+} from 'components/core/pagination/pagination-controls'
+import { Box, Stack } from 'components/core'
+import { SortOrderPicker } from './sort-order-picker'
+import { updateLocation } from './search-utils'
 
 export const ProjectPaginatedList = ({
   projects,
@@ -35,21 +35,25 @@ export const ProjectPaginatedList = ({
   return (
     <div>
       {(showSortOptions || showPagination) && (
-        <Row>
-          <Cell>
+        <Stack
+          direction={{ base: 'column', md: 'row' }}
+          mb={4}
+          justifyContent="space-between"
+        >
+          <Box>
             {showSortOptions && (
               <SortOrderPicker
                 onChange={onChangeSortOption}
                 value={sortOption.id}
               />
             )}
-          </Cell>
+          </Box>
           {showPagination && (
-            <Cell>
+            <Box>
               <TopPaginationControls history={history} location={location} />
-            </Cell>
+            </Box>
           )}
-        </Row>
+        </Stack>
       )}
       <ProjectTable projects={projects} from={from} sortOption={sortOption} />
       {showPagination && (
@@ -58,21 +62,3 @@ export const ProjectPaginatedList = ({
     </div>
   )
 }
-
-const Row = styled.div`
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 1rem;
-  @media (min-width: 600px) {
-    align-items: center;
-    flex-direction: row;
-  }
-`
-const Cell = styled.div`
-  flex: 0 0 50%;
-  @media (min-width: 600px) {
-    > div:last-child {
-      justify-content: flex-end;
-    }
-  }
-`

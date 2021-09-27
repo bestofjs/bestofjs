@@ -12,7 +12,7 @@ import { ChevronDownIcon } from 'components/core/icons'
 import { DropdownMenu, Menu, MenuGroup, MenuItem } from 'components/core/menu'
 
 const ranges = {
-  daily: 'yesterday',
+  daily: 'the last 24 hours',
   weekly: 'the last 7 days',
   monthly: 'the last 30 days',
   yearly: 'the last 12 months'
