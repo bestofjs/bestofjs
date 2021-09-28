@@ -3,7 +3,7 @@ import React from 'react'
 import { useSelector } from 'containers/project-data-container'
 import { StaticContentContainer } from 'containers/static-content-container'
 import { CreateIssueLink } from 'components/user-requests/add-project/create-issue-link'
-import { Card, MainContent, PageHeader } from 'components/core'
+import { Card, ExternalLink, MainContent, PageHeader } from 'components/core'
 import 'stylesheets/markdown-body.css'
 
 const AboutPage = () => {
@@ -82,8 +82,8 @@ const AboutPage = () => {
         <h2>Show your support!</h2>
         <p>
           If you find the application useful, you can star the project's
-          repository on <a href={repoURL}>GitHub</a> or{' '}
-          <a href={sponsorURL}>become a sponsor</a>.
+          repository on <ExternalLink url={repoURL}>GitHub</ExternalLink> or{' '}
+          <ExternalLink url={sponsorURL}>become a sponsor</ExternalLink>.
         </p>
         <p>
           We are all made of stars{' '}
