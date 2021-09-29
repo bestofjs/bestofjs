@@ -66,7 +66,7 @@ export const StarDeltaAverage = ({ value }) => {
       <StarDeltaContainer>
         <span style={{ marginRight: 2 }}>{sign}</span>
         <span>{integerPart}</span>
-        <span className="text-muted">.{decimalPart}</span>
+        <span className="text-secondary">.{decimalPart}</span>
         <StarIcon fontSize="20px" />
         <span> /day</span>
       </StarDeltaContainer>

@@ -24,7 +24,7 @@ import { ColorModePicker } from './color-mode-picker'
 const breakpoint = 750
 
 const HeaderContainer = styled.header`
-  background-color: var(--cardBackgroundColor);
+  background-color: var(--headerBackgroundColor);
   height: var(--topBarHeight);
   z-index: 10;
   .container {
@@ -141,6 +141,7 @@ const NavigationMenuItem = styled.div`
     display: flex;
     align-items: center;
     height: var(--topBarHeight);
+    color: var(--textSecondaryColor);
     &:hover {
       color: var(--textPrimaryColor);
     }

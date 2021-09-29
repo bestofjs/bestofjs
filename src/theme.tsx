@@ -10,7 +10,7 @@ export const customTheme = extendTheme({
     gray: {
       '50': '#F2F2F0',
       '100': '#ececec',
-      '200': '#e8e8e8',
+      '200': '#e1e1e1',
       '250': '#cccccc', // token added to handle button border color when hovering
       '300': '#ADADAD',
       '400': '#969696',

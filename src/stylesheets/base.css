@@ -9,9 +9,10 @@
   --linkColor: #cc4700;
   --bestofjsOrange: #e65100;
   --bestofjsPurple: #9c0042;
-  --boxBorderColor: #cecece;
+  --boxBorderColor: var(--chakra-colors-gray-200);
   --iconColor: #fa9e59;
   --cardBackgroundColor: white;
+  --headerBackgroundColor: var(--cardBackgroundColor);
   --graphBackgroundColor: #fbe6db;
   --menuHoverColor: var(--chakra-colors-orange-100);
   /* fonts */
@@ -29,6 +30,7 @@
   --linkColor: var(--chakra-colors-orange-300);
   --iconColor: var(--chakra-colors-yellow-500);
   --cardBackgroundColor: var(--chakra-colors-gray-800);
+  --headerBackgroundColor: var(--backgroundColor);
   --bestofjsOrange: var(--chakra-colors-orange-300);
   --boxBorderColor: var(--chakra-colors-whiteAlpha-500);
   --graphBackgroundColor: var(--chakra-colors-yellow-700);
@@ -53,7 +55,7 @@ html,
 input,
 textarea,
 select {
-  font-family: var(--bodyFontFamily);
+  /* font-family: var(--bodyFontFamily); */
   box-sizing: border-box;
 }
 body {
