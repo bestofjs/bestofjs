@@ -2,6 +2,7 @@ import React from 'react'
 
 import {
   Box,
+  ExternalLink,
   Heading,
   Image,
   ListItem,
@@ -112,8 +113,8 @@ const AboutPage = () => {
           </Heading>
           <Text mt={2}>
             If you find the application useful, you can star the project's
-            repository on <a href={repoURL}>GitHub</a> or{' '}
-            <a href={sponsorURL}>become a sponsor</a>.
+            repository on <ExternalLink url={repoURL}>GitHub</ExternalLink> or{' '}
+            <ExternalLink url={sponsorURL}>become a sponsor</ExternalLink>.
           </Text>
           <Text mt={2}>
             Thank you for your support, We are all made of stars{' '}
