@@ -12,7 +12,7 @@ function useSearchState() {
     location.search
   )
 
-  const onChange = changes => {
+  const onChange = (changes) => {
     const queryString = stateToQueryString({
       query,
       selectedTags,
@@ -37,7 +37,7 @@ export const useSearch = ({ defaultSortOptionId = 'total' } = {}) => {
 
   const sortOptionId = sort || (values.query ? 'match' : defaultSortOptionId)
   const sortOption =
-    sortOrderOptions.find(item => item.id === sortOptionId) ||
+    sortOrderOptions.find((item) => item.id === sortOptionId) ||
     sortOrderOptions[0]
 
   return { ...values, sortOption }

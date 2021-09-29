@@ -1,12 +1,13 @@
 import React from 'react'
-
 import Toggle from 'react-toggled'
-import { Link } from 'react-router-dom'
+import { Link as RouterLink } from 'react-router-dom'
 import styled from '@emotion/styled'
 
 import { useSelector } from 'containers/project-data-container'
 import { StarTotal } from 'components/core/project'
+import { Link } from 'components/core'
 import { ExternalLink } from 'components/core/typography'
+import { ExternalLinkIcon } from 'components/core/icons'
 import { npmProjects } from 'selectors'
 import { ExpandableSection } from './expandable-section'
 import { DependencyTable } from './dependency-table'
@@ -44,7 +45,7 @@ const DependencyList = ({ dependencies }) => (
 
 const DependencyListPreview = ({ dependencies }) => (
   <span className="inline-list" style={{ marginLeft: '.5rem' }}>
-    {dependencies.map(packageName => (
+    {dependencies.map((packageName) => (
       <span className="text-secondary" key={packageName}>
         {packageName}
       </span>
@@ -54,9 +55,9 @@ const DependencyListPreview = ({ dependencies }) => (
 
 function useFindProjectsByPackageName({ packageNames }) {
   const projects = useSelector(npmProjects)
-  const packages = packageNames.map(packageName => ({
+  const packages = packageNames.map((packageName) => ({
     name: packageName,
-    project: projects.find(project => project.packageName === packageName)
+    project: projects.find((project) => project.packageName === packageName)
   }))
   return packages
 }
@@ -75,17 +76,21 @@ const DependencyFullList = ({ packageNames }) => {
         </tr>
       </thead>
       <tbody>
-        {packages.map(npmPackage => (
+        {packages.map((npmPackage) => (
           <tr key={npmPackage.name}>
             <td>
               <ExternalLink url={`https://npm.im/${npmPackage.name}`}>
                 {npmPackage.name}
+                <ExternalLinkIcon />
               </ExternalLink>
             </td>
             <td>
               {npmPackage.project ? (
                 <span>
-                  <Link to={`/projects/${npmPackage.project.slug}`}>
+                  <Link
+                    as={RouterLink}
+                    to={`/projects/${npmPackage.project.slug}`}
+                  >
                     {npmPackage.project.name}{' '}
                   </Link>
                   <StarTotal value={npmPackage.project.stars} />

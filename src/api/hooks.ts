@@ -61,6 +61,11 @@ export function useFetchMonthlyRankings(date) {
   return useSWR(['/monthly-rankings', key], fetcher)
 }
 
+type MonthlyDate = {
+  year: number
+  month: number
+}
+
 function loadMonthlyRankings(date?: MonthlyDate) {
   const rootURL = getApiRootURL('GET_RANKINGS')
   const url = `${rootURL}/monthly/${date ? formatDate(date) : 'latest'}`

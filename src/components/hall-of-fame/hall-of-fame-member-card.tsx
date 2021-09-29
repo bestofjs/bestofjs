@@ -7,7 +7,7 @@ import formatUrl from 'helpers/url'
 import { ExternalLink } from 'components/core/typography'
 import { CardProjectLabels } from './card-project-labels'
 
-const digits = value => (value > 1000 ? '0.0' : '0')
+const digits = (value) => (value > 1000 ? '0.0' : '0')
 
 export const HeroCard = ({ hero, showDetails }) => {
   return (
@@ -16,6 +16,9 @@ export const HeroCard = ({ hero, showDetails }) => {
         className="header card-block hint--top"
         url={`https://github.com/${hero.username}`}
         aria-label={`Open ${hero.username}'s profile on GitHub`}
+        _hover={{
+          textDecoration: 'none'
+        }}
       >
         <img
           src={`${hero.avatar}&s=150`}
@@ -71,7 +74,7 @@ export const HeroCard = ({ hero, showDetails }) => {
 const Card = styled.div`
   flex: 1;
   padding: 0;
-  background-color: #fff;
+  background-color: var(--cardBackgroundColor);
   border: 1px solid var(--boxBorderColor);
   .card-block {
     display: flex;
@@ -79,12 +82,12 @@ const Card = styled.div`
     color: inherit;
     flex: 1;
   }
-  .card-block:hover {
-    text-decoration: none;
-    color: inherited;
-    background-color: #fff7eb;
-    color: #000;
-  }
+  // .card-block:hover {
+  //   text-decoration: none;
+  //   color: inherited;
+  //   background-color: #fff7eb;
+  //   color: #000;
+  // }
   .header {
     display: flex;
     align-items: center;
@@ -98,7 +101,6 @@ const Card = styled.div`
   .inner {
     padding: 1rem;
     border-top: 1px dashed var(--boxBorderColor);
-    color: var(--textSecondaryColor);
   }
   .icon {
     color: var(--iconColor);

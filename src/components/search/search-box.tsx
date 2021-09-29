@@ -1,12 +1,22 @@
 import React, { useState, useEffect, useRef } from 'react'
 import Select, { components } from 'react-select'
 import useDebouncedCallback from 'use-debounce/lib/useDebouncedCallback'
-import styled from '@emotion/styled'
 
+import {
+  Box,
+  CloseButton,
+  IconButton,
+  Tag,
+  TagCloseButton,
+  TagLabel,
+  useColorModeValue
+} from 'components/core'
 import { useSelector } from 'containers/project-data-container'
 import { getAllTags } from 'selectors'
-import { Button } from 'components/core'
+import { ChevronDownIcon } from 'components/core/icons'
 import { SearchContainer } from './search-container'
+
+// see https://github.com/JedWatson/react-select/issues/3692 for theming and dark theme
 
 export const SearchBox = () => {
   const tags = useSelector(getAllTags)
@@ -14,13 +24,13 @@ export const SearchBox = () => {
   const [inputValue, setInputValue] = useState(query)
   const [debouncedOnChange, cancel] = useDebouncedCallback(onChange, 300)
 
-  const options = [{ id: '', counter: tags.length }, ...tags].map(item => ({
+  const options = [{ id: '', counter: tags.length }, ...tags].map((item) => ({
     ...item,
     value: item.id,
     label: item.name
   }))
 
-  const selectedOptions = selectedTags.map(tagId =>
+  const selectedOptions = selectedTags.map((tagId) =>
     options.find(({ id }) => id === tagId)
   )
 
@@ -31,7 +41,14 @@ export const SearchBox = () => {
   const selectRef = useRef<any>()
 
   return (
-    <Container>
+    <Box
+      bgGradient={useColorModeValue(
+        'linear(to-r, orange.400, orange.600)',
+        'linear(to-r, orange.500, orange.800)'
+      )}
+      py={4}
+      fontFamily="var(--buttonFontFamily)"
+    >
       <div className="container">
         <Select
           ref={selectRef}
@@ -39,7 +56,7 @@ export const SearchBox = () => {
           isMulti
           isClearable
           noOptionsMessage={() => null}
-          placeholder={'Pick tags or enter keywords...'}
+          placeholder={'Pick tags or enter keywords'}
           onChange={(options, { action, option }) => {
             // console.log('> onChange', options, action, option)
             const tagIds = (options || []).map(({ id }) => id)
@@ -60,7 +77,7 @@ export const SearchBox = () => {
           // This `onKeyDown` event handler is used only for 2 specific cases:
           // - Closing the keyboard on mobiles when the user pushes Enter
           // -  When the user enters text, moves the cursor just after the tag and pushes the Backspace key
-          onKeyDown={event => {
+          onKeyDown={(event) => {
             const input = selectRef?.current?.select.inputRef
             if (event.key === 'Enter') {
               input.blur()
@@ -80,81 +97,87 @@ export const SearchBox = () => {
           inputValue={inputValue}
           value={selectedOptions}
           components={customComponents}
-          theme={theme => ({
+          aria-label="Search by tag or keyword"
+          theme={(theme) => ({
             ...theme,
             colors: {
               ...theme.colors,
-              primary: '#9c0042',
-              primary75: '#f76d42',
-              primary50: '#ffae63',
-              primary25: '#f6fad7'
+              neutral0: 'var(--cardBackgroundColor)',
+              neutral20: 'var(--boxBorderColor)',
+              neutral30: 'var(--boxBorderColor)',
+              neutral50: 'var(--textSecondaryColor)', // placeholder color
+              neutral80: 'var(--textPrimaryColor)', // input color
+              primary: 'var(--bestofjsOrange)',
+              primary75: 'var(--menuHoverColor)',
+              primary50: 'var(--menuHoverColor)',
+              primary25: 'var(--menuHoverColor)'
             }
           })}
         />
       </div>
-    </Container>
+    </Box>
   )
 }
-
-const Container = styled.div`
-  background-color: var(--bestofjsOrange);
-  background: linear-gradient(135deg, #ed8518, #e75f16, #b94100);
-  padding: 1rem 0;
-  font-family: var(--buttonFontFamily);
-`
 
 // Customize the default `Option` component provided by `react-select`
 const { Option, IndicatorsContainer } = components
-const { CrossIcon } = components
-
-const CustomOption = props => {
-  const { id, name, counter } = props.data
-  return (
-    <Option {...props}>
-      {id ? (
-        <>
-          {name} <span className="text-secondary">({counter})</span>
-        </>
-      ) : (
-        <>
-          Pick a tag...{'  '}
-          <span className="text-secondary">({counter} tags available)</span>
-        </>
-      )}
-    </Option>
-  )
-}
-
-const ResetButton = styled(Button)`
-  padding: 2px 5px;
-  margin-right: 0.5rem;
-  color: #ccc;
-  &:hover {
-    #c6c6c6;
-  }
-  border-style: none;
-`
 
 const customComponents = {
-  Option: CustomOption,
+  ClearIndicator: (props) => {
+    return <CloseButton size="sm" mx={2} onClick={() => props.clearValue()} />
+  },
+  DropdownIndicator: (props) => {
+    return (
+      <IconButton
+        icon={<ChevronDownIcon fontSize="16px" />}
+        aria-label="View tags"
+        variant="ghost"
+        mx={2}
+        size="sm"
+        borderRadius="md"
+        boxSize="24px"
+      />
+    )
+  },
+  Option: (props) => {
+    const { id, name, counter } = props.data
+    return (
+      <Option {...props}>
+        {id ? (
+          <>
+            {name} <span className="text-secondary">({counter})</span>
+          </>
+        ) : (
+          <>
+            Pick a tag...{'  '}
+            <span className="text-secondary">({counter} tags available)</span>
+          </>
+        )}
+      </Option>
+    )
+  },
   IndicatorsContainer: ({ children, ...props }) => {
     const { hasValue } = props // the selected tags
     const { inputValue } = props.selectProps // the query
     return (
       <IndicatorsContainer {...props}>
         {inputValue && !hasValue && (
-          <ResetButton style={{}} onClick={() => props.setValue()}>
-            <CrossIcon />
-          </ResetButton>
+          <CloseButton onClick={() => props.clearValue()} size="sm" mr={2} />
         )}
         {children}
       </IndicatorsContainer>
     )
+  },
+  MultiValue: (props) => {
+    const {
+      data: { label },
+      removeProps
+    } = props
+    return (
+      <Tag mr={2}>
+        <TagLabel>{label}</TagLabel>
+        <TagCloseButton {...removeProps} />
+      </Tag>
+    )
   }
 }
-
-/* 
-
-
-<ClearIndicator {...props} onClick={() => props.setValue()} />
-*/

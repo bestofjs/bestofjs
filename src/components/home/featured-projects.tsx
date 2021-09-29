@@ -1,26 +1,30 @@
 import React, { useState, useRef } from 'react'
+import { Link as RouterLink } from 'react-router-dom'
 import styled from '@emotion/styled'
-import { Link } from 'react-router-dom'
 import { Animate } from 'react-simple-animate'
+import { useInterval } from 'react-use'
 import { GoStar } from 'react-icons/go'
 
+import { Box, Button, Link } from 'components/core'
 import { shuffle } from 'helpers/shuffle'
 import { useUpdateEffect } from 'helpers/lifecycle-hooks'
 import { useViewportSpy } from 'helpers/use-viewport-spy'
 import { useIsDocumentVisible } from 'helpers/use-page-events'
-import { useInterval } from 'react-use'
 import { useSelector } from 'containers/project-data-container'
 import { getFeaturedProjects, getDeltaByDay } from 'selectors'
 import { Avatar, StarDelta, getProjectAvatarUrl } from 'components/core/project'
-import { Section } from 'components/core'
-import { TagLabel } from 'components/tags/tag-label'
+import { Section, useColorMode } from 'components/core'
+import { ProjectTag } from 'components/tags/project-tag'
 import { ProgressBar } from './progress-bar'
 
 export const RandomFeaturedProject = () => {
   const featuredProjects = useSelector(getFeaturedProjects('total'))
-  if (!featuredProjects.length) return null
 
-  const projects = shuffle<BestOfJS.Project>(featuredProjects).slice(0, 200)
+  // don't shuffle projects when the component updates after color mode switch
+  const projects = React.useMemo(
+    () => shuffle<BestOfJS.Project>(featuredProjects).slice(0, 200),
+    [] // eslint-disable-line react-hooks/exhaustive-deps
+  )
 
   return <Slider projects={projects} duration={7000} limit={5} />
 }
@@ -45,7 +49,7 @@ export const Slider = ({
 
   useInterval(
     () => {
-      setPageNumber(page => (page >= maxPageNumber ? 0 : page + 1))
+      setPageNumber((page) => (page >= maxPageNumber ? 0 : page + 1))
     },
     isPaused ? null : duration
   )
@@ -58,7 +62,7 @@ export const Slider = ({
           Random order <i>{isPaused ? '(Paused)' : '(Running...)'}</i>
         </Section.SubTitle>
       </Section.Header>
-      <SliderContainer
+      <div
         ref={ref as any}
         onMouseEnter={() => {
           setIsHover(true)
@@ -74,22 +78,20 @@ export const Slider = ({
           duration={duration}
           isPaused={isPaused}
         />
-      </SliderContainer>
+      </div>
       <Footer>
-        <Link to="/featured">View more »</Link>
+        <Button as={RouterLink} to="/featured" variant="link">
+          View more »
+        </Button>
       </Footer>
     </Section>
   )
 }
 
-const SliderContainer = styled.div`
-  background-color: white;
-`
-
 const Footer = styled.div`
   margin-bottom: 2rem;
   padding: 1rem;
-  background-color: white;
+  background-color: var(--cardBackgroundColor);
   border-bottom: 1px dashed var(--boxBorderColor);
   text-align: center;
   a {
@@ -132,16 +134,17 @@ const ProjectSlider = ({
   isPaused
 }) => {
   const slots = Array.from(new Array(visibleProjects.length))
+  const { colorMode } = useColorMode()
 
   return (
-    <Container>
+    <Box position="relative">
       <CountDown
         pageNumber={pageNumber}
         duration={duration}
         interval={1000}
         isPaused={isPaused}
       />
-      <VisibleGroup>
+      <Box>
         {slots
           .map((_, i) => visibleProjects[i])
           .map((project, i) => (
@@ -155,27 +158,21 @@ const ProjectSlider = ({
               <Project key={`visible-${i}`} project={project} />
             </Animate>
           ))}
-      </VisibleGroup>
+      </Box>
       <HiddenGroup>
         {slots
           .map((_, i) => nextProjects[i])
           .map((project, i) => (
             <img
               key={`next-${i}`}
-              src={getProjectAvatarUrl(project)}
+              src={getProjectAvatarUrl(project, 80, colorMode)}
               alt="preload"
             />
           ))}
       </HiddenGroup>
-    </Container>
+    </Box>
   )
 }
-
-const Container = styled.div`
-  position: relative;
-`
-
-const VisibleGroup = styled.div``
 
 const HiddenGroup = styled.div`
   visibility: hidden;
@@ -196,10 +193,14 @@ const ProjectContainer = styled.div`
 export const FeaturedProject = ({ project }) => {
   const sortOptionId = 'daily'
   return (
-    <Box>
+    <ProjectBox>
       <Avatar project={project} size={80} />
       <FeaturedProjectName>
-        <Link className="title" to={`/projects/${project.slug}`}>
+        <Link
+          as={RouterLink}
+          className="title"
+          to={`/projects/${project.slug}`}
+        >
           {project.name}
         </Link>
         <div className="stars">
@@ -208,14 +209,14 @@ export const FeaturedProject = ({ project }) => {
             average={sortOptionId !== 'daily'}
           />
         </div>
-        <TagLabel tag={project.tags[0]} />
+        <ProjectTag tag={project.tags[0]} />
       </FeaturedProjectName>
-    </Box>
+    </ProjectBox>
   )
 }
 
-const Box = styled.div`
-  background-color: white;
+const ProjectBox = styled.div`
+  background-color: var(--cardBackgroundColor);
   margin-bottom: 0rem;
   display: flex;
   align-items: center;
@@ -246,7 +247,7 @@ const CountDown = ({ pageNumber, duration, interval, isPaused }) => {
   useInterval(
     () => {
       if (progress < 100) {
-        setProgress(val => val + initialProgress)
+        setProgress((val) => val + initialProgress)
       }
     },
     !isPaused ? interval : null

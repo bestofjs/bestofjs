@@ -47,4 +47,4 @@ export function generatePageNumbers({
   }
 }
 
-const times = n => [...Array(n).keys()].map(i => i + 1)
+const times = (n) => [...Array(n).keys()].map((i) => i + 1)

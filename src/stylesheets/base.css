@@ -2,20 +2,39 @@
   --containerWidth: 980px;
   --gutter: 2rem;
   --topBarHeight: 60px;
-  /* colors */
+  --backgroundColor: var(--chakra-colors-gray-50);
   --textPrimaryColor: #541600;
   --textSecondaryColor: #87563e;
   --textMutedColor: #bb967c;
   --linkColor: #cc4700;
   --bestofjsOrange: #e65100;
   --bestofjsPurple: #9c0042;
-  --boxBorderColor: #cecece;
+  --boxBorderColor: var(--chakra-colors-gray-200);
   --iconColor: #fa9e59;
+  --cardBackgroundColor: white;
+  --headerBackgroundColor: var(--cardBackgroundColor);
+  --graphBackgroundColor: #fbe6db;
+  --menuHoverColor: var(--chakra-colors-orange-100);
   /* fonts */
   --bodyFontFamily: 'Roboto Slab', sans-serif;
   --headingFontFamily: 'Open Sans', sans-serif;
   --linkFontFamily: var(--bodyFontFamily);
   --buttonFontFamily: var(--headingFontFamily);
+}
+
+.chakra-ui-dark {
+  --backgroundColor: var(--chakra-colors-gray-900);
+  --textPrimaryColor: #eee;
+  --textSecondaryColor: #bbb;
+  --textMutedColor: var(--chakra-colors-whiteAlpha-700);
+  --linkColor: var(--chakra-colors-orange-300);
+  --iconColor: var(--chakra-colors-yellow-500);
+  --cardBackgroundColor: var(--chakra-colors-gray-800);
+  --headerBackgroundColor: var(--backgroundColor);
+  --bestofjsOrange: var(--chakra-colors-orange-300);
+  --boxBorderColor: var(--chakra-colors-whiteAlpha-500);
+  --graphBackgroundColor: var(--chakra-colors-yellow-700);
+  --menuHoverColor: var(--chakra-colors-whiteAlpha-200);
 }
 
 @media (max-width: 599px) {
@@ -36,18 +55,13 @@ html,
 input,
 textarea,
 select {
-  font-family: var(--bodyFontFamily);
+  /* font-family: var(--bodyFontFamily); */
   box-sizing: border-box;
-}
-html {
-  font-size: 14px;
 }
 body {
   font-size: 1rem;
   line-height: 1.3333;
   color: var(--textPrimaryColor);
-}
-body {
   background-color: #ececec;
   overflow-x: hidden;
 }
@@ -63,57 +77,10 @@ body {
 .icon-color {
   color: var(--iconColor);
 }
-a {
-  color: var(--linkColor);
-  text-decoration: none;
-  transition: all 0.3s;
-}
-a:hover {
-  color: #9e0142;
-}
-a.link:hover {
-  text-decoration: underline;
-}
 *,
 :after,
 :before {
   box-sizing: inherit;
-}
-body,
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  margin: 0;
-}
-h1,
-h2,
-h3 {
-  font-weight: normal;
-}
-h1 {
-  font-size: 2em;
-}
-h2 {
-  margin: 1em 0 0.8em;
-}
-h3 {
-  font-size: 1.5em;
-  margin-bottom: 0.8em;
-}
-h3.with-comment {
-  font-size: 1.3em;
-  margin-bottom: 0;
-}
-h3 .icon {
-  color: #fa9e59;
-}
-.explanation {
-  margin: 0 0 10px;
-  text-align: center;
-  color: var(--textSecondaryColor);
 }
 .container {
   max-width: var(--containerWidth);
@@ -128,39 +95,10 @@ h3 .icon {
 #main-content {
   padding-top: 2rem;
 }
-#main-content.double-padding {
-  padding-top: 2em;
-}
-#main-content.small {
-  max-width: 600px;
-}
-p {
-  margin: 0 0 0.5em;
-}
-p:last-child {
-  margin: 0;
-}
-i.special {
-  color: #d53e4f;
-  font-weight: bold;
-}
-.divider {
-  margin: 1.5em 0;
-  width: 100%;
-  height: 1px;
-  background-color: #ccc;
-}
 @media (max-width: 500px) {
   .hidden-mobile {
     display: none;
   }
-}
-hr {
-  margin: 2rem 0;
-  border-width: 0;
-  border-color: #ffae63;
-  border-style: dashed;
-  border-top-width: 1px;
 }
 #main-content > section:not(:last-child) {
   margin-bottom: 2rem;
@@ -171,21 +109,9 @@ hr {
   color: var(--textSecondaryColor);
   font-style: italic;
 }
-.octicon {
-  vertical-align: middle;
-}
 
-/* 
-Utils to avoid repeat ourselves too much
-TODO: use a real styled system or TailwindCSS?
-*/
-.v-center {
-  display: flex;
-  align-items: center;
-}
-.ml-1 {
-  margin-left: 0.25rem;
-}
-.ml-2 {
-  margin-left: 0.5rem;
+/* Override the behavior provided by ChakraUI "reset CSS" */
+.markdown-body img,
+.markdown-body svg {
+  display: inherit;
 }

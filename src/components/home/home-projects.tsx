@@ -1,16 +1,18 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
-import styled from '@emotion/styled'
+import { Link as RouterLink } from 'react-router-dom'
 import { GoFlame, GoGift } from 'react-icons/go'
 
+import { Box, Button, Flex } from 'components/core'
 import { useSelector } from 'containers/project-data-container'
-import { Section, Spinner, DropdownMenu } from 'components/core'
+import { Section, Spinner } from 'components/core'
 import { ProjectTable } from 'components/project-list/project-table'
 import { getProjectsSortedBy } from 'selectors'
 import { StaticContentContainer } from 'containers/static-content-container'
+import { ChevronDownIcon } from 'components/core/icons'
+import { DropdownMenu, Menu, MenuGroup, MenuItem } from 'components/core/menu'
 
 const ranges = {
-  daily: 'yesterday',
+  daily: 'the last 24 hours',
   weekly: 'the last 7 days',
   monthly: 'the last 30 days',
   yearly: 'the last 12 months'
@@ -18,8 +20,8 @@ const ranges = {
 
 const hotProjectsExcludedTags = ['meta', 'learning']
 
-export const isIncludedInHotProjects = project => {
-  const hasExcludedTag = hotProjectsExcludedTags.some(tag =>
+export const isIncludedInHotProjects = (project) => {
+  const hasExcludedTag = hotProjectsExcludedTags.some((tag) =>
     project.tags.includes(tag)
   )
   return !hasExcludedTag
@@ -39,21 +41,21 @@ export const HotProjects = ({ hotFilter, pending }) => {
 
   return (
     <>
-      <Row>
-        <MainCol>
+      <Flex alignItems="center">
+        <Box flexGrow={1}>
           <Section.Header icon={<GoFlame fontSize={32} />}>
             <Section.Title>Hot Projects</Section.Title>
             <Section.SubTitle>
               by number of stars added <b>{ranges[sortOptionId]}</b>
             </Section.SubTitle>
           </Section.Header>
-        </MainCol>
-        <Col>
+        </Box>
+        <Box>
           <HotProjectsPicker value={sortOptionId} onChange={setSortOptionId} />
-        </Col>
-      </Row>
+        </Box>
+      </Flex>
       {pending ? (
-        <Spinner />
+        <Spinner bg="var(--cardBackgroundColor)" borderWidth="1px" mb={4} />
       ) : (
         <ProjectTable
           projects={projects}
@@ -61,9 +63,13 @@ export const HotProjects = ({ hotFilter, pending }) => {
           showDetails={false}
           showActions={false}
           footer={
-            <Link to={`/projects?sort=${sortOptionId}`}>
+            <Button
+              variant="link"
+              as={RouterLink}
+              to={`/projects?sort=${sortOptionId}`}
+            >
               View full rankings »
-            </Link>
+            </Button>
           }
           style={{ marginBottom: '2rem' }}
         />
@@ -72,15 +78,6 @@ export const HotProjects = ({ hotFilter, pending }) => {
   )
 }
 
-const Row = styled.div`
-  display: flex;
-  align-items: center;
-`
-const MainCol = styled.div`
-  flex-grow: 1;
-`
-const Col = styled.div``
-
 const HotProjectsPicker = ({ onChange, value }) => {
   const sortOrderOptions = [
     { id: 'daily', label: 'Today' },
@@ -88,18 +85,33 @@ const HotProjectsPicker = ({ onChange, value }) => {
     { id: 'monthly', label: 'This month' },
     { id: 'yearly', label: 'This year' }
   ]
-  const items = sortOrderOptions.map(option => ({
-    ...option,
-    onClick: () => {
-      onChange(option.id)
-    }
-  }))
+
   const currentOption = sortOrderOptions.find(({ id }) => id === value)
   if (!currentOption) return null
 
+  const menu = (
+    <Menu>
+      <MenuGroup>
+        {sortOrderOptions.map((item) => (
+          <MenuItem
+            as="button"
+            key={item.id}
+            onClick={() => {
+              onChange(item.id)
+            }}
+          >
+            {item.label}
+          </MenuItem>
+        ))}
+      </MenuGroup>
+    </Menu>
+  )
+
   return (
-    <DropdownMenu value={value} items={items} alignment="right">
-      {currentOption.label}
+    <DropdownMenu menu={menu}>
+      <Button variant="outline" rightIcon={<ChevronDownIcon />} size="md">
+        {currentOption.label}
+      </Button>
     </DropdownMenu>
   )
 }
@@ -120,9 +132,9 @@ export const NewestProjects = ({ newestProjects, hotFilter }) => {
         showActions={false}
         showDetails={false}
         footer={
-          <Link to={`/projects?sort=newest`} style={{ display: 'block' }}>
+          <Button as={RouterLink} to="/projects?sort=newest" variant="link">
             View more »
-          </Link>
+          </Button>
         }
       />
     </>

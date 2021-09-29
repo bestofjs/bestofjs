@@ -25,7 +25,7 @@
   left: 30px;
   height: 100%;
   width: 4px;
-  background: white;
+  background: var(--cardBackgroundColor);
 }
 
 @media only screen and (min-width: 1170px) {

@@ -19,10 +19,10 @@ export const HallOfFameContainer = createContainer(useHallOfFame)
 
 function fetchHeroes() {
   const url = `${api('GET_PROJECTS')}/hof.json`
-  return fetchJSON(url).then(data => data.heroes)
+  return fetchJSON(url).then((data) => data.heroes)
 }
 
-export const populateHero = projectsById => hero => {
-  const projects = hero.projects.map(projectId => projectsById[projectId])
+export const populateHero = (projectsById) => (hero) => {
+  const projects = hero.projects.map((projectId) => projectsById[projectId])
   return { ...hero, projects }
 }

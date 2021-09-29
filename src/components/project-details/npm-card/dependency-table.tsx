@@ -11,13 +11,12 @@ export const DependencyTable = styled.table`
     padding: ${cellPadding};
     border-top: 1px dashed var(--boxBorderColor);
     &:first-of-type {
-      width: 200px;
+      width: 220px;
     }
     vertical-align: top;
   }
   thead td {
     padding: ${cellPadding};
-    background-color: #ececec;
     font-style: normal;
     text-align: left;
   }

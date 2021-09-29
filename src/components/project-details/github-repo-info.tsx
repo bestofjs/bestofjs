@@ -4,6 +4,7 @@ import styled from '@emotion/styled'
 import { GoMarkGithub, GoGitCommit } from 'react-icons/go'
 import { MdGroup } from 'react-icons/md'
 
+import { Box, SimpleGrid } from 'components/core'
 import { fromNow } from 'helpers/from-now'
 import {
   Card,
@@ -13,8 +14,9 @@ import {
   ExternalLink
 } from 'components/core'
 import { StarTotal } from 'components/core/project'
+import { ExternalLinkIcon } from 'components/core/icons'
 
-const formatNumber = number => numeral(number).format('0,0')
+const formatNumber = (number) => numeral(number).format('0,0')
 
 type Props = { project: BestOfJS.ProjectDetails }
 export const GitHubRepoInfo = ({
@@ -32,36 +34,41 @@ export const GitHubRepoInfo = ({
     <Card>
       <CardHeader>
         <GoMarkGithub size={20} className="icon" />
-        <span style={{ marginRight: '0.5rem' }}>GITHUB REPOSITORY</span>
-        <StarTotal value={stars} size={18} />
+        <Box mr={2}>GITHUB REPOSITORY</Box>
+        <StarTotal value={stars} />
       </CardHeader>
       <CardBody>
         <CardSection>
-          <div style={{ display: 'flex' }}>
-            <div style={{ flex: '1 1 0%' }}>
-              <p>
-                <ExternalLink url={repository}>{full_name}</ExternalLink>{' '}
-              </p>
+          <SimpleGrid gap={4} templateColumns={{ sm: '1fr', md: '1fr 1fr' }}>
+            <Box>
+              <ExternalLink url={repository}>
+                {full_name}
+                <ExternalLinkIcon />
+              </ExternalLink>
+            </Box>
+            <Box>
               {created_at && (
-                <p>
+                <>
                   Created {fromNow(created_at)}, last commit{' '}
                   {fromNow(pushed_at)}
-                </p>
+                </>
               )}
-            </div>
-            <div>
+            </Box>
+            <Box>
               <Stats>
                 <MdGroup size={20} className="icon" />
                 {formatNumber(contributor_count)} contributors
               </Stats>
+            </Box>
+            <Box>
               {commit_count && (
                 <Stats>
                   <GoGitCommit size={20} className="icon" />
                   {formatNumber(commit_count)} commits
                 </Stats>
               )}
-            </div>
-          </div>
+            </Box>
+          </SimpleGrid>
         </CardSection>
       </CardBody>
     </Card>

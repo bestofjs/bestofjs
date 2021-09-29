@@ -1,20 +1,20 @@
 import React from 'react'
-import { Link, useHistory } from 'react-router-dom'
+import { Link as RouterLink, useHistory } from 'react-router-dom'
 import styled from '@emotion/styled'
 
+import { Box, Button, Link, HStack, Flex, Center } from 'components/core'
 import { useSelector } from 'containers/project-data-container'
 import { getProjectsByTag } from 'selectors'
 import { Avatar } from 'components/core/project'
-import { Button, Grid, Cell as GridCell } from 'components/core'
 import { ChevronRightIcon } from 'components/core/icons'
 
 export const DetailedTagList = ({ tags }: { tags: BestOfJS.Tag[] }) => {
   return (
-    <TagList>
-      {tags.map(tag => (
+    <Box w="100%">
+      {tags.map((tag) => (
         <TagListRow key={tag.id} tag={tag} />
       ))}
-    </TagList>
+    </Box>
   )
 }
 
@@ -26,15 +26,21 @@ export const CompactTagList = ({
   footer?: React.ReactNode
 }) => {
   return (
-    <TagList>
-      {tags.map(tag => (
+    <Box w="100%">
+      {tags.map((tag) => (
         <ListRow key={tag.id}>
-          <CompactListItem>
-            <StyledLink to={`/projects?tags=${tag.code}`}>
+          <Flex w="100%" p={4}>
+            <Link
+              as={RouterLink}
+              fontFamily="button"
+              to={`/projects?tags=${tag.code}`}
+            >
               {tag.name}
-            </StyledLink>
-            ({tag.counter})
-          </CompactListItem>
+            </Link>
+            <Box ml={2} color="var(--textSecondaryColor)">
+              ({tag.counter})
+            </Box>
+          </Flex>
         </ListRow>
       ))}
       {footer && (
@@ -42,19 +48,9 @@ export const CompactTagList = ({
           <Footer>{footer}</Footer>
         </ListRow>
       )}
-    </TagList>
+    </Box>
   )
 }
-
-const StyledLink = styled(Link)`
-  margin-right: 0.25rem;
-  font-family: var(--buttonFontFamily);
-`
-
-const CompactListItem = styled.div`
-  width: 100%;
-  padding: 1rem;
-`
 
 const Footer = styled.div`
   width: 100%;
@@ -67,15 +63,12 @@ const TagListRow = ({ tag }) => {
   return (
     <ListRow>
       <MainListCell>
-        <div>
-          <Link
-            to={`/projects?tags=${tag.code}`}
-            style={{ fontSize: '1.25rem', marginRight: '0.5rem' }}
-          >
+        <Center>
+          <Link as={RouterLink} to={`/projects?tags=${tag.code}`}>
             {tag.name}
-          </Link>{' '}
-          ({tag.counter} projects)
-        </div>
+          </Link>
+          <Box ml={2}>({tag.counter} projects)</Box>
+        </Center>
         {tag.description && (
           <p style={{ marginTop: '1rem' }} className="text-secondary">
             {tag.description}
@@ -97,41 +90,37 @@ const IconGrid = ({ tag, projectCount = 5 }) => {
 
   return (
     <div>
-      <Grid>
-        {projects.map(project => (
-          <GridCell key={project.slug}>
+      <HStack>
+        {projects.map((project) => (
+          <Box key={project.slug}>
             <Link
               to={`/projects/${project.slug}`}
+              as={RouterLink}
               className="hint--top"
               aria-label={project.name}
             >
               <Avatar project={project} size={32} />
             </Link>
-          </GridCell>
+          </Box>
         ))}
-        <GridCell>
+        <Box>
           <ViewTagButton
             onClick={() => history.push(`/projects?tags=${tag.code}`)}
           >
             <ChevronRightIcon size={16} />
           </ViewTagButton>
-        </GridCell>
-      </Grid>
+        </Box>
+      </HStack>
     </div>
   )
 }
-
-const TagList = styled.div`
-  width: 100%;
-  margin-bottom: 2rem;
-`
 
 const breakPoint = 600
 
 const ListRow = styled.div`
   display: flex;
   align-items: center;
-  background-color: white;
+  background-color: var(--cardBackgroundColor);
   border-top: 1px dashed var(--boxBorderColor);
   &:last-child {
     border-bottom: 1px dashed var(--boxBorderColor);
@@ -153,7 +142,6 @@ const MainListCell = styled(ListCell)`
 `
 
 const ProjectIconCell = styled(ListCell)`
-  min-width: 300px;
   flex-grow: 1;
   display: flex;
   justify-content: flex-end;

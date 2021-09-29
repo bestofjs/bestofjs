@@ -3,7 +3,7 @@ import styled from '@emotion/styled'
 export const Card = styled.div`
   margin-bottom: 2rem;
   padding: 0;
-  background-color: #fff;
+  background-color: var(--cardBackgroundColor);
   vertical-align: top;
   border: 1px solid var(--boxBorderColor);
   .inner {

@@ -1,32 +1,39 @@
 import React from 'react'
 import styled from '@emotion/styled'
 import numeral from 'numeral'
-import { Link } from 'react-router-dom'
+import { Link as RouterLink } from 'react-router-dom'
 import { GoTag, GoHeart, GoPlus } from 'react-icons/go'
 
+import {
+  Button,
+  ButtonProps,
+  Box,
+  Link,
+  LinkProps,
+  Center,
+  PageHeader
+} from 'components/core'
 import { useSelector } from 'containers/project-data-container'
 import { StaticContentContainer } from 'containers/static-content-container'
 import { getTotalNumberOfStars } from 'selectors'
 import log from 'helpers/log'
 import { addProjectURL } from 'components/user-requests/add-project/create-issue-link'
-import { TagLabelGroup } from 'components/tags/tag-label'
+import { ProjectTagGroup } from 'components/tags/project-tag'
 import { StarIcon } from 'components/core/icons'
-import { ExternalLink, ButtonLink, MainContent, Section } from 'components/core'
+import { ExternalLink, MainContent, Section } from 'components/core'
 import { CompactTagList } from 'components/tags/tag-list'
 import { HotProjects, NewestProjects } from './home-projects'
 import { RandomFeaturedProject } from './featured-projects'
 import { Row, MainColumn, RightSideBar } from './layout'
 import { HomeMonthlyRankings } from './home-monthly-rankings'
 
-export const Home = props => {
+export const Home = (props) => {
   log('Render the <Home> component')
   const { pending, popularTags } = props
 
   return (
     <MainContent>
-      <h1 style={{ margin: '0 0 1rem' }}>
-        The best of JavaScript, HTML and CSS
-      </h1>
+      <PageHeader title="The best of JavaScript, HTML and CSS" />
       <Section>
         <Row>
           <MainColumn>
@@ -42,9 +49,9 @@ export const Home = props => {
               <CompactTagList
                 tags={popularTags}
                 footer={
-                  <Link to={`/tags/`} style={{ display: 'block' }}>
+                  <Button as={RouterLink} to={`/tags/`} variant="link">
                     View all tags »
-                  </Link>
+                  </Button>
                 }
               />
             </RightSideBar>
@@ -65,10 +72,12 @@ const Tags = ({ popularTags, isPending }) => {
       <Section.Header icon={<GoTag fontSize={32} />}>
         <Section.Title>Popular tags</Section.Title>
       </Section.Header>
-      {!isPending ? <TagLabelGroup tags={popularTags} /> : <>Loading...</>}
-      <div style={{ paddingTop: '1rem', textAlign: 'center' }}>
-        <Link to={`/tags/`}>View all tags »</Link>
-      </div>
+      {!isPending ? <ProjectTagGroup tags={popularTags} /> : <>Loading...</>}
+      <Box pt={4} textAlign="center">
+        <Link as={RouterLink} to={`/tags/`}>
+          View all tags »
+        </Link>
+      </Box>
     </SectionMobileOnly>
   )
 }
@@ -92,11 +101,8 @@ const ResponsiveRow = styled.div`
 `
 
 const StarOnGitHub = () => {
-  const {
-    repoURL,
-    projectName,
-    sponsorURL
-  } = StaticContentContainer.useContainer()
+  const { repoURL, projectName, sponsorURL } =
+    StaticContentContainer.useContainer()
 
   return (
     <Section>
@@ -125,17 +131,22 @@ const StarOnGitHub = () => {
 const StarOnGitHubButton = () => {
   const { repoURL } = StaticContentContainer.useContainer()
   const project = useSelector(
-    state => state.entities.projects['best-of-javascript']
+    (state) => state.entities.projects['best-of-javascript']
   )
   if (!project) return null
   const stars = getTotalNumberOfStars(project)
   return (
-    <BigButtonLink href={repoURL} target="_blank">
-      <span>Star on GitHub </span>
-      <div className="add-on">
-        {formatNumber(stars)}
-        <StarIcon size={20} />
-      </div>
+    <BigButtonLink
+      href={repoURL}
+      target="_blank"
+      rel="noopener noreferrer"
+      addOn={
+        <Center>
+          {formatNumber(stars)} <StarIcon fontSize="24px" />
+        </Center>
+      }
+    >
+      Star on GitHub
     </BigButtonLink>
   )
 }
@@ -144,30 +155,45 @@ const SponsorButton = () => {
   const { sponsorURL } = StaticContentContainer.useContainer()
 
   return (
-    <BigButtonLink href={sponsorURL} target="_blank">
+    <BigButtonLink
+      href={sponsorURL}
+      target="_blank"
+      rel="noopener noreferrer"
+      addOn={<GoHeart size={20} />}
+    >
       Sponsor
-      <div className="add-on">
-        <GoHeart size={20} />
-      </div>
     </BigButtonLink>
   )
 }
 
-const BigButtonLink = styled(ButtonLink)`
-  font-size: 1.2rem;
-  display: flex;
-  .add-on {
-    margin-left: 0.5rem;
-    color: var(--textMutedColor);
-    display: flex;
-    align-items: center;
-  }
-  &:hover .add-on {
-    color: #f76d42;
-  }
-`
+const BigButtonLink = ({
+  addOn,
+  children,
+  ...props
+}: ButtonProps & LinkProps & { addOn: React.ReactNode }) => (
+  <Button
+    as="a"
+    display="flex"
+    variant="outline"
+    className="button-link"
+    {...props}
+  >
+    {children}
+    <Box
+      ml={2}
+      sx={{
+        '.button-link:hover &': {
+          color: 'var(--bestofjsOrange)',
+          transition: '0.5s'
+        }
+      }}
+    >
+      {addOn}
+    </Box>
+  </Button>
+)
 
-const formatNumber = number => numeral(number).format('')
+const formatNumber = (number) => numeral(number).format('')
 
 const MoreProjects = () => {
   const { projectName } = StaticContentContainer.useContainer()

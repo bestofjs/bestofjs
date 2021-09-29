@@ -1,11 +1,11 @@
 import React from 'react'
 import styled from '@emotion/styled'
+import { GoChevronLeft, GoChevronRight } from 'react-icons/go'
 
 import { findProjectsByIds } from 'selectors'
-import { Button } from 'components/core'
-import { ChevronLeftIcon, ChevronRightIcon } from 'components/core/icons'
 import { ProjectTable } from 'components/project-list/project-table'
 import { getProjectId, StarDelta } from 'components/core/project'
+import { IconButton } from 'components/core'
 import { useSelector } from 'containers/project-data-container'
 
 export type MonthlyDate = { year: number; month: number }
@@ -19,15 +19,25 @@ export const MonthlyRankingsNavigator = ({
 }) => {
   return (
     <NavigatorContainer>
-      <NavButton onClick={goToPrevious} disabled={isFirst}>
-        <ChevronLeftIcon size={28} />
-      </NavButton>
+      <IconButton
+        onClick={goToPrevious}
+        aria-label="Previous month"
+        isDisabled={isFirst}
+        icon={<GoChevronLeft fontSize="28px" />}
+        variant="outline"
+        isRound
+      />
       <RankingsTitle>
         <RankingsDate date={date} />
       </RankingsTitle>
-      <NavButton onClick={goToNext} disabled={isLatest}>
-        <ChevronRightIcon />
-      </NavButton>
+      <IconButton
+        onClick={goToNext}
+        aria-label="Next month"
+        isDisabled={isLatest}
+        icon={<GoChevronRight fontSize="28px" />}
+        variant="outline"
+        isRound
+      />
     </NavigatorContainer>
   )
 }
@@ -38,8 +48,14 @@ export const MonthlyRankingsProjects = ({
   month,
   limit,
   footer
+}: {
+  projects: BestOfJS.Project[]
+  year: number
+  month: number
+  limit: number
+  footer?: React.ReactNode
 }) => {
-  const ids = projects.map(project => getProjectId(project)).slice(0, limit)
+  const ids = projects.map((project) => getProjectId(project)).slice(0, limit)
   const trendingProjects = useSelector(findProjectsByIds(ids))
 
   return (
@@ -48,7 +64,7 @@ export const MonthlyRankingsProjects = ({
       showActions={true}
       showDetails={true}
       sortOption={{ id: 'monthly' }}
-      metricsCell={project => {
+      metricsCell={(project) => {
         const value = projects.find(findBySlug(project.slug))?.delta
         return <StarDelta value={value} average={false} />
       }}
@@ -57,7 +73,7 @@ export const MonthlyRankingsProjects = ({
   )
 }
 
-const findBySlug = slug => project => getProjectId(project) === slug
+const findBySlug = (slug) => (project) => getProjectId(project) === slug
 
 export function getPreviousMonth(date: MonthlyDate): MonthlyDate {
   const { year, month } = date
@@ -73,14 +89,7 @@ export function getNextMonth(date: MonthlyDate): MonthlyDate {
     : { year, month: month + 1 }
 }
 
-const NavButton = styled(Button)`
-  border-radius: 50%;
-  width: 36px;
-  height: 36px;
-  padding: 0;
-  padding: 0;
-`
-const RankingsTitle = styled.h4`
+const RankingsTitle = styled.h3`
   font-size: 1.25rem;
   font-weight: 400;
 `

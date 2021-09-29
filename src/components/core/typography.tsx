@@ -2,6 +2,7 @@ import React from 'react'
 import styled from '@emotion/styled'
 
 import { usePageTitle } from './html-head'
+import { Heading, Link, LinkProps } from './layout'
 
 /*
 Link to external websites, that open in a new browser tab
@@ -13,32 +14,20 @@ export const ExternalLink = ({
   ...rest
 }: {
   url: string
-  className?: string
-  style?: any
-  children: React.ReactNode
-}) => {
+} & LinkProps) => {
   const fullURL = url.startsWith('http') ? url : `http://` + url
   return (
-    <StyledLink
-      href={fullURL}
-      target="_blank"
-      rel="noopener noreferrer"
-      {...rest}
-    >
+    <Link href={fullURL} target="_blank" rel="noopener noreferrer" {...rest}>
       {children}
-    </StyledLink>
+    </Link>
   )
 }
 
-const StyledLink = styled.a`
-  font-family: var(--buttonFontFamily);
-`
-
 type PageHeaderProps = {
   title: string
-  icon?: React.Node
-  subTitle?: React.Node
-  children?: ReactNode
+  icon?: React.ReactNode
+  subTitle?: React.ReactNode
+  children?: React.ReactNode
 }
 export const PageHeader = ({
   title,
@@ -48,8 +37,16 @@ export const PageHeader = ({
 }: PageHeaderProps) => {
   const content = children || title
   usePageTitle(title)
+
   return (
-    <Heading>
+    <Heading
+      as="h1"
+      fontSize="2rem"
+      fontWeight="normal"
+      mb={4}
+      display="flex"
+      alignItems="center"
+    >
       {icon && <PageTitleIcon>{icon}</PageTitleIcon>}
       {content}
       {subTitle && (
@@ -61,13 +58,6 @@ export const PageHeader = ({
     </Heading>
   )
 }
-
-const Heading = styled.h1`
-  display: flex;
-  align-items: center;
-  margin: 0 0 1rem;
-  font-size: 1.5rem;
-`
 
 const PageTitleIcon = styled.div`
   margin-right: 0.5rem;

@@ -14,7 +14,7 @@ import featuredProjects from './featured-projects.json'
 import { findProjectsByIds } from 'selectors'
 import { useSelector } from 'containers/project-data-container'
 import { Avatar } from 'components/core/project'
-import { TagLabelGroup } from 'components/tags/tag-label'
+import { ProjectTagGroup } from 'components/tags/project-tag'
 
 type Project = BestOfJS.Project & { date: Date; comments: string[] }
 
@@ -26,11 +26,10 @@ function useTimelineProjects() {
   )
   return featuredProjects.map(({ slug, date, comments }) => {
     const project: BestOfJS.Project | undefined = projects.find(
-      project => project.slug === slug
+      (project) => project.slug === slug
     )
     if (!project) return null
     return {
-      slug,
       comments: comments || [],
       date: date || new Date(project.created_at),
       ...project
@@ -49,7 +48,7 @@ export const Timeline = () => {
             key={project.slug}
             date={template.render(new Date(project.date!))}
             iconStyle={{
-              background: 'white',
+              background: 'var(--cardBackgroundColor)',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
@@ -77,7 +76,7 @@ export const Timeline = () => {
               GitHub
             </div>
             <div style={{ paddingTop: '1rem' }}>
-              <TagLabelGroup tags={project.tags.slice(0, 3)} />
+              <ProjectTagGroup tags={project.tags.slice(0, 3)} />
             </div>
           </VerticalTimelineElement>
         ))}

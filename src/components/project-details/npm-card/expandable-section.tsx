@@ -11,7 +11,7 @@ const TogglerLink = styled.a`
   color: inherit;
   cursor: pointer;
   :hover {
-    color: #cc4700;
+    color: var(--linkColor);
   }
   .icon {
     width: 20px;

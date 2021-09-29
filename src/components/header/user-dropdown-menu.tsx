@@ -1,57 +1,50 @@
 import React from 'react'
-import { useHistory } from 'react-router-dom'
+import { Link as RouterLink } from 'react-router-dom'
 import styled from '@emotion/styled'
 import { GoBookmark, GoSignOut } from 'react-icons/go'
 
 import { AuthContainer } from 'containers/auth-container'
-import { Popover, Menu, DropdownToggleButton } from '../core'
+import { ChevronDownIcon } from 'components/core/icons'
+import { DropdownMenu, Menu, MenuGroup, MenuItem } from 'components/core/menu'
+import { Button } from 'components/core'
 
 export const UserDropdownMenu = () => {
-  const history = useHistory()
   const auth = AuthContainer.useContainer()
   const { bookmarks, logout } = AuthContainer.useContainer()
   const bookmarkCount = bookmarks.length
 
+  const menu = (
+    <Menu>
+      <MenuGroup>
+        <MenuItem as={RouterLink} to="/bookmarks" icon={<GoBookmark />}>
+          Bookmarks ({bookmarkCount})
+        </MenuItem>
+      </MenuGroup>
+      <MenuGroup>
+        <MenuItem as="button" onClick={() => logout()} icon={<GoSignOut />}>
+          Sign out
+        </MenuItem>
+      </MenuGroup>
+    </Menu>
+  )
+
   return (
-    <Popover
-      content={({ close }) => {
-        const items = [
-          {
-            label: `Bookmarks (${bookmarkCount})`,
-            onClick: () => {
-              history.push('/bookmarks')
-              close()
-            },
-            icon: <GoBookmark />
-          },
-          {
-            label: 'Sign out',
-            onClick: () => {
-              logout()
-              close()
-            },
-            icon: <GoSignOut />
-          }
-        ]
-        return <Menu items={items} />
-      }}
-      alignment="right"
-    >
-      {({ open }) => (
-        <StyledToggleButton onClick={open}>
-          <UserAvatar
-            avatarURL={auth.profile?.picture}
-            username={auth.profile?.name}
-          />
-        </StyledToggleButton>
-      )}
-    </Popover>
+    <DropdownMenu menu={menu}>
+      <Button
+        as={Button}
+        rightIcon={<ChevronDownIcon />}
+        py={1}
+        pl={2}
+        height="auto"
+      >
+        <UserAvatar
+          avatarURL={auth.profile?.picture}
+          username={auth.profile?.name}
+        />
+      </Button>
+    </DropdownMenu>
   )
 }
-
-const StyledToggleButton = styled(DropdownToggleButton)`
-  padding: 0.2rem 0.5rem;
-`
 
 const UserAvatar = ({ username, avatarURL, size = 32 }) => {
   const url = `${avatarURL}&size=${size}`

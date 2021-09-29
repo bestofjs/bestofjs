@@ -12,7 +12,7 @@ const defaultOptions = {
  * viewport.
  */
 export const useViewportSpy = (elementRef, options = defaultOptions) => {
-  const [isVisible, setIsVisible] = useState()
+  const [isVisible, setIsVisible] = useState<boolean>()
 
   useLayoutEffect(
     () => {
@@ -21,8 +21,8 @@ export const useViewportSpy = (elementRef, options = defaultOptions) => {
         return () => {}
       }
       const observer = new IntersectionObserver(
-        entries =>
-          entries.forEach(item => {
+        (entries) =>
+          entries.forEach((item) => {
             const nextValue = item.isIntersecting
             setIsVisible(nextValue)
           }),

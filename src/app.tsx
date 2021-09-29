@@ -43,7 +43,7 @@ const MainContainer = styled.main`
 `
 
 const ErrorMessage = ({ message }: { message: string }) => {
-  const { repo } = StaticContentContainer.useContainer()
+  const { repoURL } = StaticContentContainer.useContainer()
 
   return (
     <MainContent>
@@ -61,7 +61,7 @@ const ErrorMessage = ({ message }: { message: string }) => {
         <pre>{message}</pre>
         <p>
           Try to <a href="/">reload</a> the window and please reach us on{' '}
-          <a href={repo}>GitHub</a> if the problem persists.
+          <a href={repoURL}>GitHub</a> if the problem persists.
         </p>
       </div>
     </MainContent>

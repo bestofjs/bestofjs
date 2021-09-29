@@ -1,43 +1,54 @@
 import React from 'react'
 
-import { DropdownMenu } from '../core'
+import { Box, Button } from 'components/core'
+import { DropdownMenu, Menu, MenuGroup, MenuItem } from 'components/core/menu'
+import { ChevronDownIcon } from 'components/core/icons'
 
-export const getSortOrderOptions = () => {
-  const options = [
-    {
-      id: 'project-count',
-      label: 'by number of project'
-    },
-    {
-      id: 'alpha',
-      label: 'alphabetical order'
-    }
-  ]
-
-  return options.filter(option => !!option)
-}
+const sortOrderOptions = [
+  {
+    id: 'project-count',
+    label: 'by number of project'
+  },
+  {
+    id: 'alpha',
+    label: 'alphabetical order'
+  }
+]
 
 export const TagListSortOrderPicker = ({ value, onChange }) => {
-  const sortOrderOptions = getSortOrderOptions()
-
-  const items = sortOrderOptions.map(option => ({
-    ...option,
-    onClick: () => {
-      onChange(option.id)
-    }
-  }))
   const currentOption = sortOrderOptions.find(({ id }) => id === value)
 
+  const menu = (
+    <Menu>
+      <MenuGroup>
+        {sortOrderOptions.map((item) => (
+          <MenuItem
+            key={item.id}
+            onClick={() => {
+              onChange(item.id)
+            }}
+          >
+            {item.label}
+          </MenuItem>
+        ))}
+      </MenuGroup>
+    </Menu>
+  )
+
   return (
-    <DropdownMenu value={value} items={items} alignment="left">
-      {currentOption ? (
-        <>
-          <span style={{ marginRight: '0.5rem' }}>Sort:</span>
-          <span>{currentOption.label}</span>
-        </>
-      ) : (
-        'Sort...'
-      )}
+    <DropdownMenu menu={menu}>
+      <Button rightIcon={<ChevronDownIcon />} size="md">
+        {currentOption ? (
+          <>
+            <Box as="span" mr={2}>
+              Sort:
+            </Box>
+            <span>{currentOption.label}</span>
+          </>
+        ) : (
+          'Sort...'
+        )}
+      </Button>
     </DropdownMenu>
   )
 }

@@ -8,7 +8,7 @@ const templates = {
   ADD_HALL_OF_FAME_MEMBER: 'add-a-member-to-the-hall-of-fame.md'
 }
 
-const getCreateIssueURL = template => {
+const getCreateIssueURL = (template) => {
   const repo = getApi('ISSUES_REPO')
 
   return `https://github.com/${repo}/issues/new?template=${template}`

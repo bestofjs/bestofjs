@@ -1,9 +1,10 @@
 import React, { CSSProperties } from 'react'
 import styled from '@emotion/styled'
-import { Link } from 'react-router-dom'
+import { Link as RouterLink } from 'react-router-dom'
 import numeral from 'numeral'
 import { GoMarkGithub, GoBookmark, GoHome } from 'react-icons/go'
 
+import { Box, IconButton, Link } from 'components/core'
 import { getDeltaByDay } from 'selectors'
 import { AuthContainer } from 'containers/auth-container'
 import {
@@ -12,10 +13,8 @@ import {
   StarDelta,
   StarTotal
 } from 'components/core/project'
-import { TagLabelGroup } from 'components/tags/tag-label'
-import { Button } from 'components/core'
+import { ProjectTagGroup } from 'components/tags/project-tag'
 import { fromNow } from 'helpers/from-now'
-import { ProjectDetailsButton } from './project-details-button'
 
 type Props = {
   projects: BestOfJS.Project[]
@@ -84,11 +83,8 @@ const ProjectTableRow = ({
   showActions = true,
   metricsCell
 }: RowProps) => {
-  const {
-    isLoggedIn,
-    addBookmark,
-    removeBookmark
-  } = AuthContainer.useContainer()
+  const { isLoggedIn, addBookmark, removeBookmark } =
+    AuthContainer.useContainer()
   const path = `/projects/${project.slug}`
 
   const showDelta = ['daily', 'weekly', 'monthly', 'yearly'].includes(
@@ -103,70 +99,54 @@ const ProjectTableRow = ({
 
   return (
     <Row>
-      {showRankingNumber && (
-        <FirstCell>
-          <ProjectRankingNumber>{rank}</ProjectRankingNumber>
-        </FirstCell>
-      )}
-
-      <IconCell>
-        <Link to={path}>
+      <Cell width="50px">
+        <Link as={RouterLink} to={path}>
           <Avatar project={project} size={50} />
         </Link>
-      </IconCell>
+      </Cell>
 
-      <MainCell>
+      <Cell pl={{ base: 4, md: 2 }}>
         <ProjectName>
-          <MainLink to={path}>
-            <ProjectIconSmallScreen project={project} size={40} />
+          <MainLink as={RouterLink} to={path} mr={2}>
             {project.name}
           </MainLink>
-          {
-            <InlineIcon>
-              <a
-                href={project.repository}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="hint--top"
-                aria-label="GitHub repository"
-              >
-                <GoMarkGithub size={20} />
-              </a>
-            </InlineIcon>
-          }
+          <IconButton
+            as="a"
+            href={project.repository}
+            rel="noopener noreferrer"
+            icon={<GoMarkGithub size={20} />}
+            aria-label="GitHub repository"
+            variant="ghost"
+            isRound
+            color="var(--textSecondaryColor)"
+          />
           {project.url && (
-            <InlineIcon>
-              <a
-                href={project.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="hint--top"
-                aria-label="Project's homepage"
-              >
-                <GoHome size={20} />
-              </a>
-            </InlineIcon>
+            <IconButton
+              as="a"
+              href={project.url}
+              icon={<GoHome size={20} />}
+              aria-label="Project's homepage"
+              variant="ghost"
+              isRound
+              color="var(--textSecondaryColor)"
+            />
           )}
-          {isLoggedIn &&
-            (project.isBookmark ? (
-              <IconButton
-                isHighlighted={project.isBookmark}
-                onClick={toggleBookmark}
-                className="hint--top"
-                aria-label="Remove bookmark"
-              >
-                <GoBookmark size={20} />
-              </IconButton>
-            ) : (
-              <IconButton
-                on={project.isBookmark}
-                onClick={toggleBookmark}
-                className="hint--top"
-                aria-label="Add bookmark"
-              >
-                <GoBookmark size={20} />
-              </IconButton>
-            ))}
+          {isLoggedIn && (
+            <IconButton
+              onClick={toggleBookmark}
+              icon={<GoBookmark size={20} />}
+              aria-label={
+                project.isBookmark ? 'Remove bookmark' : 'Add bookmark'
+              }
+              variant="ghost"
+              isRound
+              color={
+                project.isBookmark
+                  ? 'var(--iconColor)'
+                  : 'var(--textSecondaryColor)'
+              }
+            />
+          )}
         </ProjectName>
         <ProjectDescription>
           {project.description}
@@ -176,9 +156,9 @@ const ProjectTableRow = ({
           </RepoInfo>
         </ProjectDescription>
         <div>
-          <TagLabelGroup tags={project.tags} />
+          <ProjectTagGroup tags={project.tags} />
         </div>
-      </MainCell>
+      </Cell>
 
       {showDetails && (
         <ContributorCountCell>
@@ -194,7 +174,7 @@ const ProjectTableRow = ({
         <StarNumberCell>{metricsCell(project)}</StarNumberCell>
       ) : (
         <StarNumberCell>
-          {showStars && <StarTotal value={project.stars} size={20} />}
+          {showStars && <StarTotal value={project.stars} />}
 
           {showDelta && (
             <div className="delta">
@@ -208,12 +188,6 @@ const ProjectTableRow = ({
 
           {showDownloads && <DownloadCount value={project.downloads} />}
         </StarNumberCell>
-      )}
-
-      {showActions && (
-        <ActionCell>
-          <ProjectDetailsButton project={project} isLoggedIn={isLoggedIn} />
-        </ActionCell>
       )}
     </Row>
   )
@@ -246,33 +220,9 @@ const FooterRow = styled.tr`
   }
 `
 
-const Cell = styled.td`
-  padding: 1rem 0.5rem;
-  background-color: white;
-  &:first-of-type {
-    padding-left: 1rem;
-  }
-`
-
-const ProjectRankingNumber = styled.div`
-  font-size: 24px;
-  text-align: center;
-  color: var(--textSecondaryColor);
-`
-
-const FirstCell = styled(Cell)`
-  width: 50px;
-  @media (max-width: ${breakpoint - 1}px) {
-    display: none;
-  }
-`
-
-const IconCell = styled(Cell)`
-  width: 50px;
-  @media (max-width: ${breakpoint - 1}px) {
-    display: none;
-  }
-`
+const Cell = (props) => (
+  <Box as="td" py={4} px={2} bg="var(--cardBackgroundColor)" {...props} />
+)
 
 const MainLink = styled(Link)`
   display: flex;
@@ -283,20 +233,9 @@ const MainLink = styled(Link)`
   font-family: var(--buttonFontFamily);
 `
 
-const ProjectIconSmallScreen = styled(Avatar)`
-  @media (min-width: ${breakpoint}px) {
-    display: none;
-  }
-`
-
-const MainCell = styled(Cell)`
-  padding: 16px;
-  display: flex;
-  flex-direction: column;
-`
-
 const ContributorCountCell = styled(Cell)`
   width: 170px;
+  font-size: 0.875rem;
   @media (max-width: 799px) {
     display: none;
   }
@@ -310,39 +249,6 @@ const StarNumberCell = styled(Cell)`
   width: 85px;
 `
 
-const InlineIcon = styled.span`
-  margin-left: 1rem;
-  a {
-    color: var(--textSecondaryColor);
-  }
-`
-
-type IconButtonProps = {
-  on?: boolean
-  isHighlighted?: boolean
-}
-const IconButton = styled(Button)<IconButtonProps>`
-  border-style: none;
-  border-radius: 50%;
-  padding: 0;
-  margin-left: 1rem;
-  color: ${props =>
-    props.isHighlighted
-      ? 'var(--textSecondaryColor);'
-      : 'var(--textMutedColor);'}
-  &:hover {
-    color: var(--bestofjsPurple);
-  }
-`
-
-const ActionCell = styled(Cell)`
-  width: 45px;
-  padding-right: 1rem;
-  @media (max-width: ${breakpoint - 1}px) {
-    display: none;
-  }
-`
-
 const ProjectName = styled.div`
   display: flex;
   align-items: center;
@@ -351,18 +257,17 @@ const ProjectName = styled.div`
 `
 
 const ProjectDescription = styled.div`
-  font-size: 14px;
+  font-size: 0.875rem;
+  margin-top: 0.125rem;
   margin-bottom: 0.75rem;
-  margin-top: 0.5rem;
-  @media (min-width: ${breakpoint}px) {
-  }
 `
 
 const RepoInfo = styled.div`
+  font-size: 0.875rem;
   margin-top: 0.5rem;
   @media (min-width: ${breakpoint}px) {
     display: none;
   }
 `
 
-const formatNumber = number => numeral(number).format('a')
+const formatNumber = (number) => numeral(number).format('a')

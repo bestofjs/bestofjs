@@ -4,20 +4,20 @@ import { sortProjectsByFunction } from './sort-utils'
 import { State } from 'containers/project-data-container'
 
 export const allProjects = createSelector<State, any, BestOfJS.Project[]>(
-  [state => state.entities.projects],
-  projectsById => Object.values(projectsById)
+  [(state) => state.entities.projects],
+  (projectsById) => Object.values(projectsById)
 )
 
 export const getAllProjectsCount = createSelector(
   [allProjects],
-  projects => projects.length
+  (projects) => projects.length
 )
 
-export const npmProjects = createSelector([allProjects], projects =>
-  projects.filter(project => !!project.packageName)
+export const npmProjects = createSelector([allProjects], (projects) =>
+  projects.filter((project) => !!project.packageName)
 )
 
-const sortProjects = fn => projects => sortProjectsByFunction(projects, fn)
+const sortProjects = (fn) => (projects) => sortProjectsByFunction(projects, fn)
 
 // a sub-selector used by both `getProjectsSortedBy` and `getProjectsByTag`
 const getRawProjectsSortedBy = ({
@@ -26,7 +26,7 @@ const getRawProjectsSortedBy = ({
   start = 0,
   limit = 10
 }) => {
-  return createSelector([allProjects], projects => {
+  return createSelector([allProjects], (projects) => {
     const filteredProjects = filterFn ? projects.filter(filterFn) : projects
     const projectSelector = getProjectSelectorByKey(criteria)
     const sliced = sortProjects(projectSelector)(filteredProjects).slice(
@@ -52,48 +52,48 @@ export const getProjectsSortedBy = ({
   createSelector(
     [
       getRawProjectsSortedBy({ filterFn, criteria, start, limit }),
-      state => state.entities.tags,
-      state => state.auth
+      (state) => state.entities.tags,
+      (state) => state.auth
     ],
     (projects, tags, auth) => projects.map(getFullProject(tags, auth))
   )
 
-export const getNewestProjects = count =>
+export const getNewestProjects = (count) =>
   getProjectsSortedBy({
     criteria: 'newest',
     limit: count
   })
 
-export const getAllProjectsByTag = tagId =>
-  createSelector([allProjects], projects =>
-    projects.filter(project => project.tags.includes(tagId))
+export const getAllProjectsByTag = (tagId) =>
+  createSelector([allProjects], (projects) =>
+    projects.filter((project) => project.tags.includes(tagId))
   )
 
 // Selector used to display the list of projects belonging to a given tag
 export const getProjectsByTag = ({ criteria, tagId }) =>
   createSelector(
-    [getAllProjectsByTag(tagId), state => state.entities.tags],
+    [getAllProjectsByTag(tagId), (state) => state.entities.tags],
     (projects, tags) => {
       const projectSelector = getProjectSelectorByKey(criteria)
       return sortProjects(projectSelector)(projects)
     }
   )
 
-export const getBookmarksSortedBy = criteria =>
+export const getBookmarksSortedBy = (criteria) =>
   createSelector<State, any, any, BestOfJS.Project[]>(
     [
-      state => {
+      (state) => {
         return state.entities.projects
       },
-      state => state.auth,
-      state => state.entities.tags
+      (state) => state.auth,
+      (state) => state.entities.tags
     ],
     (projects, auth, tags) => {
       if (!auth.myProjects) return []
-      const myProjectsSlugs = auth.myProjects.map(item => item.slug)
+      const myProjectsSlugs = auth.myProjects.map((item) => item.slug)
       const result = myProjectsSlugs
-        .map(slug => projects[slug])
-        .filter(project => !!project)
+        .map((slug) => projects[slug])
+        .filter((project) => !!project)
         .map(getFullProject(tags, auth))
       const projectSelector = getProjectSelectorByKey(criteria)
       return sortProjects(projectSelector)(result)
@@ -101,26 +101,26 @@ export const getBookmarksSortedBy = criteria =>
   )
 
 export const getBookmarkCount = createSelector<State, any, number>(
-  state => state.auth.myProjects,
-  ids => {
+  (state) => state.auth.myProjects,
+  (ids) => {
     return ids.length
   }
 )
 
-export const getFeaturedProjects = criteria =>
+export const getFeaturedProjects = (criteria) =>
   createSelector(
-    [allProjects, state => state.entities.tags, state => state.auth],
+    [allProjects, (state) => state.entities.tags, (state) => state.auth],
     (projects, tags, auth) => {
       const featured = projects
-        .filter(project => !!project.icon)
-        .filter(project => project.stars > 1000)
+        .filter((project) => !!project.icon)
+        .filter((project) => project.stars > 1000)
         .map(getFullProject(tags, auth))
       const projectSelector = getProjectSelectorByKey(criteria)
       return sortProjects(projectSelector)(featured)
     }
   )
 
-export const getFullProject = (tags, auth) => project => {
+export const getFullProject = (tags, auth) => (project) => {
   const { myProjects = [], pendingProject } = auth
   const fullProject = populateProject(tags)(project)
   const pending = project.slug === pendingProject
@@ -136,7 +136,7 @@ export const getFullProject = (tags, auth) => project => {
   }
 }
 
-export const getTotalNumberOfStars = project => project.stars
+export const getTotalNumberOfStars = (project) => project.stars
 
 export const getStarsAddedDaily = ({ trends }) => trends.daily
 
@@ -146,13 +146,13 @@ export const getStarsAddedMonthly = ({ trends }) => trends.monthly
 
 export const getStarsAddedYearly = ({ trends }) => trends.yearly
 
-export const getLastCommitDate = project => new Date(project.pushed_at)
+export const getLastCommitDate = (project) => new Date(project.pushed_at)
 
-export const getContributorCount = project => project.contributor_count
+export const getContributorCount = (project) => project.contributor_count
 
-export const getBookmarkDate = project => new Date(project.bookmarked_at)
+export const getBookmarkDate = (project) => new Date(project.bookmarked_at)
 
-export const getProjectSelectorByKey = key => {
+export const getProjectSelectorByKey = (key) => {
   const sortFn = {
     total: getTotalNumberOfStars,
     daily: getStarsAddedDaily,
@@ -164,8 +164,8 @@ export const getProjectSelectorByKey = key => {
     contributors: getContributorCount,
     match: ({ rank }) => rank, // only used when a `query` is used to search, a ranking score is assigned to projects
     'monthly-downloads': ({ downloads }) => downloads,
-    newest: project => project.addedPosition,
-    created: project => new Date(project.created_at)
+    newest: (project) => project.addedPosition,
+    created: (project) => new Date(project.created_at)
   }
 
   if (!sortFn[key]) throw new Error(`No selector for the key "${key}"`)
@@ -174,9 +174,9 @@ export const getProjectSelectorByKey = key => {
 
 // Return a full `project` object, including `tags`
 // to be used by `/projects/:id` pages
-export const findProjectById = slug =>
+export const findProjectById = (slug) =>
   createSelector<State, BestOfJS.Project[], any, BestOfJS.Project>(
-    [state => state.entities.projects, state => state.entities.tags],
+    [(state) => state.entities.projects, (state) => state.entities.tags],
     (projects, tags) => {
       const project = projects[slug]
       // `project` can be not found if the entities have not been loaded yet,
@@ -189,11 +189,11 @@ export const findProjectById = slug =>
     }
   )
 
-export const findProjectsByIds = ids =>
+export const findProjectsByIds = (ids) =>
   createSelector<State, any, any, BestOfJS.Project[]>(
-    [state => state.entities.projects, state => state.entities.tags],
+    [(state) => state.entities.projects, (state) => state.entities.tags],
     (projects, tags) => {
-      return ids.map(slug => {
+      return ids.map((slug) => {
         const project = projects[slug]
         return project
           ? {
@@ -207,30 +207,32 @@ export const findProjectsByIds = ids =>
 
 // Update `tags` populated objects to a `project` object that contains only an array of tag ids
 export function populateProject(tags) {
-  return function(project) {
+  return function (project) {
     if (!project) throw new Error('populate() called with NO PROJECT!')
     const populated = {
       ...project,
       repository: 'https://github.com/' + project.full_name,
-      tags: project.tags.map(id => tags[id]).filter(tag => !!tag)
+      tags: project.tags.map((id) => tags[id]).filter((tag) => !!tag)
     }
     return populated
   }
 }
 
-export const getDeltaByDay = period => ({ trends }) => {
-  const periods = {
-    daily: 1,
-    weekly: 7,
-    monthly: 30,
-    quarterly: 90,
-    yearly: 365
-  }
+export const getDeltaByDay =
+  (period) =>
+  ({ trends }) => {
+    const periods = {
+      daily: 1,
+      weekly: 7,
+      monthly: 30,
+      quarterly: 90,
+      yearly: 365
+    }
 
-  const delta = trends[period]
-  const numberOfDays = periods[period]
-  return average(delta, numberOfDays)
-}
+    const delta = trends[period]
+    const numberOfDays = periods[period]
+    return average(delta, numberOfDays)
+  }
 
 function average(delta, numberOfDays) {
   if (delta === undefined) return undefined // handle recently added projects, without `yearly`, `monthly` data available

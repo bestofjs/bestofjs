@@ -63,7 +63,7 @@ const Img = styled.img`
     max-width: 100%;
   }
 `
-const Logo = props => {
+const Logo = (props) => {
   return (
     <Img
       width={300}

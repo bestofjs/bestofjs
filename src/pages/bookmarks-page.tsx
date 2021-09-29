@@ -31,7 +31,7 @@ const BookmarksPage = () => {
           <PageHeader
             title="Bookmarks"
             icon={<GoBookmark size={32} />}
-            subTitle={total === 1 ? '(one project)' : `(${total} projects)`}
+            subTitle={total === 1 ? 'one project' : `${total} projects`}
           />
           <ProjectPaginatedList
             projects={paginatedProjects}

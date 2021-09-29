@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from '@emotion/styled'
+import { GoStar } from 'react-icons/go'
 
 import { useSelector } from 'containers/project-data-container'
 import { useSearch } from 'components/search/search-container'
@@ -9,7 +10,6 @@ import {
 } from 'components/core/pagination'
 import { ProjectPaginatedList } from 'components/search/project-paginated-list'
 import { MainContent, PageHeader } from 'components/core'
-import { StarIcon } from 'components/core/icons'
 import { getFeaturedProjects } from 'selectors'
 
 export const FeaturedPage = () => {
@@ -25,11 +25,7 @@ export const FeaturedPage = () => {
       <PaginationContainer.Provider
         initialState={{ total, currentPageNumber: page, limit }}
       >
-        <PageHeader
-          title="Featured projects"
-          icon={<StarIcon size={32} />}
-          extra={total === 1 ? '(one project)' : `(${total} projects)`}
-        />
+        <PageHeader title="Featured projects" icon={<GoStar fontSize={32} />} />
         <PageDescription>
           An arbitrary selection of important projects with distinct logos.
         </PageDescription>

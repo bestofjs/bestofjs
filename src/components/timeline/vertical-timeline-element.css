@@ -141,7 +141,7 @@
 .vertical-timeline-element-content {
   position: relative;
   margin-left: 90px;
-  background: white;
+  background: var(--cardBackgroundColor);
   border-radius: 0.25em;
   padding: 1em;
   box-shadow: 0 3px 0 #ddd;
@@ -194,7 +194,7 @@
   height: 0;
   width: 0;
   border: 7px solid transparent;
-  border-right: 7px solid white;
+  border-right: 7px solid var(--cardBackgroundColor);
 }
 .vertical-timeline-element--no-children
   .vertical-timeline-element-content-arrow {

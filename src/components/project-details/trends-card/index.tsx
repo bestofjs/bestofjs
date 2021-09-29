@@ -6,7 +6,7 @@ import { getDeltaByDay } from '../../../selectors'
 import { HeatMapContainer } from './heatmap'
 import { MonthlyTrends } from './monthly-trends'
 import { StarDelta } from '../../core/project'
-import { Card, CardBody, CardHeader, CardSection } from '../../core'
+import { Box, Card, CardBody, CardHeader, CardSection } from 'components/core'
 import { StarIcon } from '../../core/icons'
 
 export const TrendsCard = ({ project }) => {
@@ -98,7 +98,7 @@ const TrendSummary = ({ project }) => {
     <CardSection>
       {trends.weekly || trends.weekly === 0 ? (
         <div>
-          <p>Stars added on GitHub, per day, on average</p>
+          <Box mb={4}>Stars added on GitHub, per day, on average</Box>
           <Div>
             {items.map((item, i) => (
               <MonthlyTrendsItem item={item} key={i} trends={trends} />

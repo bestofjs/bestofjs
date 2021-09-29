@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link as RouterLink } from 'react-router-dom'
 import { GoCalendar } from 'react-icons/go'
 
 import { useFetchMonthlyRankings } from 'api/hooks'
-import { Section, Spinner } from 'components/core'
+import { Button, Section, Spinner } from 'components/core'
 import {
   getNextMonth,
   getPreviousMonth,
@@ -11,6 +11,11 @@ import {
   MonthlyRankingsProjects
 } from 'components/monthly-rankings/rankings'
 import { MainColumn, Row } from './layout'
+
+type MonthlyDate = {
+  year: number
+  month: number
+}
 
 export const HomeMonthlyRankings = () => {
   const [date, setDate] = useState<MonthlyDate | null>(null)
@@ -59,9 +64,13 @@ const FetchMonthlyRankings = ({ date, setDate }) => {
         year={year}
         month={month}
         footer={
-          <Link to={`/rankings/monthly/${year}/${month}`}>
+          <Button
+            as={RouterLink}
+            to={`/rankings/monthly/${year}/${month}`}
+            variant="link"
+          >
             View full rankings »
-          </Link>
+          </Button>
         }
       />
     </>

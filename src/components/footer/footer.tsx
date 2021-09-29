@@ -8,18 +8,14 @@ import { useSelector } from 'containers/project-data-container'
 import { fromNow } from 'helpers/from-now'
 import { StaticContentContainer } from 'containers/static-content-container'
 import { ExternalLinkIcon } from 'components/core/icons'
+import { Box } from 'components/core'
 
 const template = tinytime('{H}:{mm}', { padHours: true })
 
 export const Footer = () => {
-  const lastUpdate = useSelector(state => state.meta.lastUpdate)
-  const {
-    repoURL,
-    projectName,
-    risingStarsURL,
-    stateOfJSURL,
-    version
-  } = StaticContentContainer.useContainer()
+  const lastUpdate = useSelector((state) => state.meta.lastUpdate)
+  const { repoURL, projectName, risingStarsURL, stateOfJSURL, version } =
+    StaticContentContainer.useContainer()
 
   return (
     <StyledFooter id="footer">
@@ -35,14 +31,12 @@ export const Footer = () => {
                   height="56"
                 />
               </Link>
-              <br />
-              <br />
-              <div className="v-center">
-                <a href={repoURL} className="v-center">
+              <Box mt={8}>
+                <a href={repoURL} aria-label="GitHub">
                   <GoMarkGithub fontSize="32px" />
                 </a>
-                <span className="ml-2">v{version}</span>
-              </div>
+                <Box ml={2}>v{version}</Box>
+              </Box>
             </div>
             <div>
               <LinkGroup title="DIRECT LINKS">
@@ -129,7 +123,7 @@ const breakPointColumns = 800
 
 const StyledFooter = styled.footer`
   margin-top: 4rem;
-  background-color: #541600;
+  background-color: var(--chakra-colors-orange-900);
   color: hsla(0, 0%, 100%, 0.7);
   .container {
     max-width: 1100px;
@@ -181,6 +175,7 @@ const Section = styled.section`
 `
 
 const Separator = styled.hr`
+  margin: 2rem 0;
   border-color: rgba(255, 255, 255, 0.3);
 `
 
@@ -194,10 +189,10 @@ const Partner = styled.p`
 
 const LinkGroup = ({ title, children }) => {
   return (
-    <div>
-      <div>{title}</div>
-      <div>{children}</div>
-    </div>
+    <Box>
+      <Box mb={4}>{title}</Box>
+      <Box>{children}</Box>
+    </Box>
   )
 }
 

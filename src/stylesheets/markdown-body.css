@@ -1,125 +1,84 @@
-/* Code from https://github.com/sindresorhus/github-markdown-css/blob/gh-pages/github-markdown.css
-except the GitHub link color commented out line 188 */
+.markdown-body .octicon {
+  display: inline-block;
+  fill: currentColor;
+  vertical-align: text-bottom;
+}
+
+.markdown-body .anchor {
+  float: left;
+  line-height: 1;
+  margin-left: -20px;
+  padding-right: 4px;
+}
+
+.markdown-body .anchor:focus {
+  outline: none;
+}
+
+.markdown-body h1 .octicon-link,
+.markdown-body h2 .octicon-link,
+.markdown-body h3 .octicon-link,
+.markdown-body h4 .octicon-link,
+.markdown-body h5 .octicon-link,
+.markdown-body h6 .octicon-link {
+  /* color: #1b1f23; */
+  vertical-align: middle;
+  visibility: hidden;
+}
+
+.markdown-body h1:hover .anchor,
+.markdown-body h2:hover .anchor,
+.markdown-body h3:hover .anchor,
+.markdown-body h4:hover .anchor,
+.markdown-body h5:hover .anchor,
+.markdown-body h6:hover .anchor {
+  text-decoration: none;
+}
+
+.markdown-body h1:hover .anchor .octicon-link,
+.markdown-body h2:hover .anchor .octicon-link,
+.markdown-body h3:hover .anchor .octicon-link,
+.markdown-body h4:hover .anchor .octicon-link,
+.markdown-body h5:hover .anchor .octicon-link,
+.markdown-body h6:hover .anchor .octicon-link {
+  visibility: visible;
+}
+
+.markdown-body h1:hover .anchor .octicon-link:before,
+.markdown-body h2:hover .anchor .octicon-link:before,
+.markdown-body h3:hover .anchor .octicon-link:before,
+.markdown-body h4:hover .anchor .octicon-link:before,
+.markdown-body h5:hover .anchor .octicon-link:before,
+.markdown-body h6:hover .anchor .octicon-link:before {
+  width: 16px;
+  height: 16px;
+  content: ' ';
+  display: inline-block;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' version='1.1' width='16' height='16' aria-hidden='true'%3E%3Cpath fill-rule='evenodd' d='M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z'%3E%3C/path%3E%3C/svg%3E");
+}
 .markdown-body {
   -ms-text-size-adjust: 100%;
   -webkit-text-size-adjust: 100%;
   line-height: 1.5;
-  /* color: #333; */
-  /* font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica,
-    Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol'; */
+  /* color: #24292e; */
+  /* background-color: #ffffff; */
+  /* font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial,
+    sans-serif, Apple Color Emoji, Segoe UI Emoji; */
   font-size: 16px;
   line-height: 1.5;
   word-wrap: break-word;
 }
 
-.markdown-body .pl-c {
-  color: #969896;
+.markdown-body details {
+  display: block;
 }
 
-.markdown-body .pl-c1,
-.markdown-body .pl-s .pl-v {
-  color: #0086b3;
-}
-
-.markdown-body .pl-e,
-.markdown-body .pl-en {
-  color: #795da3;
-}
-
-.markdown-body .pl-smi,
-.markdown-body .pl-s .pl-s1 {
-  color: #333;
-}
-
-.markdown-body .pl-ent {
-  color: #63a35c;
-}
-
-.markdown-body .pl-k {
-  color: #a71d5d;
-}
-
-.markdown-body .pl-s,
-.markdown-body .pl-pds,
-.markdown-body .pl-s .pl-pse .pl-s1,
-.markdown-body .pl-sr,
-.markdown-body .pl-sr .pl-cce,
-.markdown-body .pl-sr .pl-sre,
-.markdown-body .pl-sr .pl-sra {
-  color: #183691;
-}
-
-.markdown-body .pl-v {
-  color: #ed6a43;
-}
-
-.markdown-body .pl-id {
-  color: #b52a1d;
-}
-
-.markdown-body .pl-ii {
-  color: #f8f8f8;
-  background-color: #b52a1d;
-}
-
-.markdown-body .pl-sr .pl-cce {
-  font-weight: bold;
-  color: #63a35c;
-}
-
-.markdown-body .pl-ml {
-  color: #693a17;
-}
-
-.markdown-body .pl-mh,
-.markdown-body .pl-mh .pl-en,
-.markdown-body .pl-ms {
-  font-weight: bold;
-  color: #1d3e81;
-}
-
-.markdown-body .pl-mq {
-  color: #008080;
-}
-
-.markdown-body .pl-mi {
-  font-style: italic;
-  color: #333;
-}
-
-.markdown-body .pl-mb {
-  font-weight: bold;
-  color: #333;
-}
-
-.markdown-body .pl-md {
-  color: #bd2c00;
-  background-color: #ffecec;
-}
-
-.markdown-body .pl-mi1 {
-  color: #55a532;
-  background-color: #eaffea;
-}
-
-.markdown-body .pl-mdr {
-  font-weight: bold;
-  color: #795da3;
-}
-
-.markdown-body .pl-mo {
-  color: #1d3e81;
-}
-
-.markdown-body .octicon {
-  display: inline-block;
-  vertical-align: text-top;
-  fill: currentColor;
+.markdown-body summary {
+  display: list-item;
 }
 
 .markdown-body a {
-  background-color: transparent;
-  -webkit-text-decoration-skip: objects;
+  background-color: initial;
 }
 
 .markdown-body a:active,
@@ -129,9 +88,6 @@ except the GitHub link color commented out line 188 */
 
 .markdown-body strong {
   font-weight: inherit;
-}
-
-.markdown-body strong {
   font-weight: bolder;
 }
 
@@ -144,10 +100,6 @@ except the GitHub link color commented out line 188 */
   border-style: none;
 }
 
-.markdown-body svg:not(:root) {
-  overflow: hidden;
-}
-
 .markdown-body code,
 .markdown-body kbd,
 .markdown-body pre {
@@ -156,7 +108,7 @@ except the GitHub link color commented out line 188 */
 }
 
 .markdown-body hr {
-  box-sizing: content-box;
+  box-sizing: initial;
   height: 0;
   overflow: visible;
 }
@@ -186,12 +138,11 @@ except the GitHub link color commented out line 188 */
 }
 
 .markdown-body a {
-  /* color: #4078c0; Remove GitHub link color */
+  color: var(--linkColor);
   text-decoration: none;
 }
 
-.markdown-body a:hover,
-.markdown-body a:active {
+.markdown-body a:hover {
   text-decoration: underline;
 }
 
@@ -205,18 +156,17 @@ except the GitHub link color commented out line 188 */
   overflow: hidden;
   background: transparent;
   border: 0;
-  border-bottom: 1px solid #ddd;
+  border-bottom: 1px solid #dfe2e5;
 }
 
-.markdown-body hr::before {
+.markdown-body hr:after,
+.markdown-body hr:before {
   display: table;
   content: '';
 }
 
-.markdown-body hr::after {
-  display: table;
+.markdown-body hr:after {
   clear: both;
-  content: '';
 }
 
 .markdown-body table {
@@ -227,6 +177,23 @@ except the GitHub link color commented out line 188 */
 .markdown-body td,
 .markdown-body th {
   padding: 0;
+}
+
+.markdown-body details summary {
+  cursor: pointer;
+}
+
+.markdown-body kbd {
+  display: inline-block;
+  padding: 3px 5px;
+  font: 11px SFMono-Regular, Consolas, Liberation Mono, Menlo, monospace;
+  line-height: 10px;
+  color: #444d56;
+  vertical-align: middle;
+  background-color: #fafbfc;
+  border: 1px solid #d1d5da;
+  border-radius: 3px;
+  box-shadow: inset 0 -1px 0 #d1d5da;
 }
 
 .markdown-body h1,
@@ -241,32 +208,41 @@ except the GitHub link color commented out line 188 */
 
 .markdown-body h1 {
   font-size: 32px;
+}
+
+.markdown-body h1,
+.markdown-body h2 {
   font-weight: 600;
 }
 
 .markdown-body h2 {
   font-size: 24px;
-  font-weight: 600;
 }
 
 .markdown-body h3 {
   font-size: 20px;
+}
+
+.markdown-body h3,
+.markdown-body h4 {
   font-weight: 600;
 }
 
 .markdown-body h4 {
   font-size: 16px;
-  font-weight: 600;
 }
 
 .markdown-body h5 {
   font-size: 14px;
+}
+
+.markdown-body h5,
+.markdown-body h6 {
   font-weight: 600;
 }
 
 .markdown-body h6 {
   font-size: 12px;
-  font-weight: 600;
 }
 
 .markdown-body p {
@@ -278,8 +254,8 @@ except the GitHub link color commented out line 188 */
   margin: 0;
 }
 
-.markdown-body ul,
-.markdown-body ol {
+.markdown-body ol,
+.markdown-body ul {
   padding-left: 0;
   margin-top: 0;
   margin-bottom: 0;
@@ -290,10 +266,10 @@ except the GitHub link color commented out line 188 */
   list-style-type: lower-roman;
 }
 
-.markdown-body ul ul ol,
-.markdown-body ul ol ol,
+.markdown-body ol ol ol,
 .markdown-body ol ul ol,
-.markdown-body ol ol ol {
+.markdown-body ul ol ol,
+.markdown-body ul ul ol {
   list-style-type: lower-alpha;
 }
 
@@ -301,42 +277,352 @@ except the GitHub link color commented out line 188 */
   margin-left: 0;
 }
 
-.markdown-body code {
-  font-family: Consolas, 'Liberation Mono', Menlo, Courier, monospace;
+.markdown-body code,
+.markdown-body pre {
+  font-family: SFMono-Regular, Consolas, Liberation Mono, Menlo, monospace;
   font-size: 12px;
 }
 
 .markdown-body pre {
   margin-top: 0;
   margin-bottom: 0;
-  font: 12px Consolas, 'Liberation Mono', Menlo, Courier, monospace;
 }
 
-.markdown-body .octicon {
-  vertical-align: text-bottom;
+.markdown-body input::-webkit-inner-spin-button,
+.markdown-body input::-webkit-outer-spin-button {
+  margin: 0;
+  -webkit-appearance: none;
+  appearance: none;
 }
 
-.markdown-body input {
-  -webkit-font-feature-settings: 'liga' 0;
-  font-feature-settings: 'liga' 0;
+.markdown-body :checked + .radio-label {
+  position: relative;
+  z-index: 1;
+  border-color: #0366d6;
 }
 
-.markdown-body::before {
+.markdown-body .border {
+  border: 1px solid #e1e4e8 !important;
+}
+
+.markdown-body .border-0 {
+  border: 0 !important;
+}
+
+.markdown-body .border-bottom {
+  border-bottom: 1px solid #e1e4e8 !important;
+}
+
+.markdown-body .rounded-1 {
+  border-radius: 3px !important;
+}
+
+.markdown-body .bg-white {
+  background-color: #fff !important;
+}
+
+.markdown-body .bg-gray-light {
+  background-color: #fafbfc !important;
+}
+
+.markdown-body .text-gray-light {
+  color: #6a737d !important;
+}
+
+.markdown-body .mb-0 {
+  margin-bottom: 0 !important;
+}
+
+.markdown-body .my-2 {
+  margin-top: 8px !important;
+  margin-bottom: 8px !important;
+}
+
+.markdown-body .pl-0 {
+  padding-left: 0 !important;
+}
+
+.markdown-body .py-0 {
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+}
+
+.markdown-body .pl-1 {
+  padding-left: 4px !important;
+}
+
+.markdown-body .pl-2 {
+  padding-left: 8px !important;
+}
+
+.markdown-body .py-2 {
+  padding-top: 8px !important;
+  padding-bottom: 8px !important;
+}
+
+.markdown-body .pl-3,
+.markdown-body .px-3 {
+  padding-left: 16px !important;
+}
+
+.markdown-body .px-3 {
+  padding-right: 16px !important;
+}
+
+.markdown-body .pl-4 {
+  padding-left: 24px !important;
+}
+
+.markdown-body .pl-5 {
+  padding-left: 32px !important;
+}
+
+.markdown-body .pl-6 {
+  padding-left: 40px !important;
+}
+
+.markdown-body .f6 {
+  font-size: 12px !important;
+}
+
+.markdown-body .lh-condensed {
+  line-height: 1.25 !important;
+}
+
+.markdown-body .text-bold {
+  font-weight: 600 !important;
+}
+
+.markdown-body .pl-c {
+  color: #6a737d;
+}
+
+.markdown-body .pl-c1,
+.markdown-body .pl-s .pl-v {
+  color: #005cc5;
+}
+
+.markdown-body .pl-e,
+.markdown-body .pl-en {
+  color: #6f42c1;
+}
+
+.markdown-body .pl-s .pl-s1,
+.markdown-body .pl-smi {
+  color: #24292e;
+}
+
+.markdown-body .pl-ent {
+  color: #22863a;
+}
+
+.markdown-body .pl-k {
+  color: #d73a49;
+}
+
+.markdown-body .pl-pds,
+.markdown-body .pl-s,
+.markdown-body .pl-s .pl-pse .pl-s1,
+.markdown-body .pl-sr,
+.markdown-body .pl-sr .pl-cce,
+.markdown-body .pl-sr .pl-sra,
+.markdown-body .pl-sr .pl-sre {
+  color: #032f62;
+}
+
+.markdown-body .pl-smw,
+.markdown-body .pl-v {
+  color: #e36209;
+}
+
+.markdown-body .pl-bu {
+  color: #b31d28;
+}
+
+.markdown-body .pl-ii {
+  color: #fafbfc;
+  background-color: #b31d28;
+}
+
+.markdown-body .pl-c2 {
+  color: #fafbfc;
+  background-color: #d73a49;
+}
+
+.markdown-body .pl-c2:before {
+  content: '^M';
+}
+
+.markdown-body .pl-sr .pl-cce {
+  font-weight: 700;
+  color: #22863a;
+}
+
+.markdown-body .pl-ml {
+  color: #735c0f;
+}
+
+.markdown-body .pl-mh,
+.markdown-body .pl-mh .pl-en,
+.markdown-body .pl-ms {
+  font-weight: 700;
+  color: #005cc5;
+}
+
+.markdown-body .pl-mi {
+  font-style: italic;
+  color: #24292e;
+}
+
+.markdown-body .pl-mb {
+  font-weight: 700;
+  color: #24292e;
+}
+
+.markdown-body .pl-md {
+  color: #b31d28;
+  background-color: #ffeef0;
+}
+
+.markdown-body .pl-mi1 {
+  color: #22863a;
+  background-color: #f0fff4;
+}
+
+.markdown-body .pl-mc {
+  color: #e36209;
+  background-color: #ffebda;
+}
+
+.markdown-body .pl-mi2 {
+  color: #f6f8fa;
+  background-color: #005cc5;
+}
+
+.markdown-body .pl-mdr {
+  font-weight: 700;
+  color: #6f42c1;
+}
+
+.markdown-body .pl-ba {
+  color: #586069;
+}
+
+.markdown-body .pl-sg {
+  color: #959da5;
+}
+
+.markdown-body .pl-corl {
+  text-decoration: underline;
+  color: #032f62;
+}
+
+.markdown-body .mb-0 {
+  margin-bottom: 0 !important;
+}
+
+.markdown-body .my-2 {
+  margin-bottom: 8px !important;
+}
+
+.markdown-body .my-2 {
+  margin-top: 8px !important;
+}
+
+.markdown-body .pl-0 {
+  padding-left: 0 !important;
+}
+
+.markdown-body .py-0 {
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+}
+
+.markdown-body .pl-1 {
+  padding-left: 4px !important;
+}
+
+.markdown-body .pl-2 {
+  padding-left: 8px !important;
+}
+
+.markdown-body .py-2 {
+  padding-top: 8px !important;
+  padding-bottom: 8px !important;
+}
+
+.markdown-body .pl-3 {
+  padding-left: 16px !important;
+}
+
+.markdown-body .pl-4 {
+  padding-left: 24px !important;
+}
+
+.markdown-body .pl-5 {
+  padding-left: 32px !important;
+}
+
+.markdown-body .pl-6 {
+  padding-left: 40px !important;
+}
+
+.markdown-body .pl-7 {
+  padding-left: 48px !important;
+}
+
+.markdown-body .pl-8 {
+  padding-left: 64px !important;
+}
+
+.markdown-body .pl-9 {
+  padding-left: 80px !important;
+}
+
+.markdown-body .pl-10 {
+  padding-left: 96px !important;
+}
+
+.markdown-body .pl-11 {
+  padding-left: 112px !important;
+}
+
+.markdown-body .pl-12 {
+  padding-left: 128px !important;
+}
+
+.markdown-body hr {
+  border-bottom-color: #eee;
+}
+
+.markdown-body kbd {
+  display: inline-block;
+  padding: 3px 5px;
+  font: 11px SFMono-Regular, Consolas, Liberation Mono, Menlo, monospace;
+  line-height: 10px;
+  color: #444d56;
+  vertical-align: middle;
+  background-color: #fafbfc;
+  border: 1px solid #d1d5da;
+  border-radius: 3px;
+  box-shadow: inset 0 -1px 0 #d1d5da;
+}
+
+.markdown-body:after,
+.markdown-body:before {
   display: table;
   content: '';
 }
 
-.markdown-body::after {
-  display: table;
+.markdown-body:after {
   clear: both;
-  content: '';
 }
 
-.markdown-body > *:first-of-type {
+.markdown-body > :first-child {
   margin-top: 0 !important;
 }
 
-.markdown-body > *:last-child {
+.markdown-body > :last-child {
   margin-bottom: 0 !important;
 }
 
@@ -345,24 +631,14 @@ except the GitHub link color commented out line 188 */
   text-decoration: none;
 }
 
-.markdown-body .anchor {
-  float: left;
-  padding-right: 4px;
-  margin-left: -20px;
-  line-height: 1;
-}
-
-.markdown-body .anchor:focus {
-  outline: none;
-}
-
-.markdown-body p,
 .markdown-body blockquote,
-.markdown-body ul,
-.markdown-body ol,
+.markdown-body details,
 .markdown-body dl,
+.markdown-body ol,
+.markdown-body p,
+.markdown-body pre,
 .markdown-body table,
-.markdown-body pre {
+.markdown-body ul {
   margin-top: 0;
   margin-bottom: 16px;
 }
@@ -371,36 +647,22 @@ except the GitHub link color commented out line 188 */
   height: 0.25em;
   padding: 0;
   margin: 24px 0;
-  background-color: #e7e7e7;
+  background-color: #e1e4e8;
   border: 0;
 }
 
 .markdown-body blockquote {
   padding: 0 1em;
-  border-left: 0.25em solid #fa9e59;
-  color: var(--textSecondaryColor);
+  color: #6a737d;
+  border-left: 0.25em solid #dfe2e5;
 }
 
-.markdown-body blockquote > :first-of-type {
+.markdown-body blockquote > :first-child {
   margin-top: 0;
 }
 
 .markdown-body blockquote > :last-child {
   margin-bottom: 0;
-}
-
-.markdown-body kbd {
-  display: inline-block;
-  padding: 3px 5px;
-  font-size: 11px;
-  line-height: 10px;
-  color: #555;
-  vertical-align: middle;
-  background-color: #fcfcfc;
-  border: solid 1px #ccc;
-  border-bottom-color: #bbb;
-  border-radius: 3px;
-  box-shadow: inset 0 -1px 0 #bbb;
 }
 
 .markdown-body h1,
@@ -415,45 +677,18 @@ except the GitHub link color commented out line 188 */
   line-height: 1.25;
 }
 
-.markdown-body h1 .octicon-link,
-.markdown-body h2 .octicon-link,
-.markdown-body h3 .octicon-link,
-.markdown-body h4 .octicon-link,
-.markdown-body h5 .octicon-link,
-.markdown-body h6 .octicon-link {
-  color: #000;
-  vertical-align: middle;
-  visibility: hidden;
-}
-
-.markdown-body h1:hover .anchor,
-.markdown-body h2:hover .anchor,
-.markdown-body h3:hover .anchor,
-.markdown-body h4:hover .anchor,
-.markdown-body h5:hover .anchor,
-.markdown-body h6:hover .anchor {
-  text-decoration: none;
-}
-
-.markdown-body h1:hover .anchor .octicon-link,
-.markdown-body h2:hover .anchor .octicon-link,
-.markdown-body h3:hover .anchor .octicon-link,
-.markdown-body h4:hover .anchor .octicon-link,
-.markdown-body h5:hover .anchor .octicon-link,
-.markdown-body h6:hover .anchor .octicon-link {
-  visibility: visible;
-}
-
 .markdown-body h1 {
-  padding-bottom: 0.3em;
   font-size: 2em;
-  border-bottom: 1px solid #eee;
+}
+
+.markdown-body h1,
+.markdown-body h2 {
+  padding-bottom: 0.3em;
+  border-bottom: 1px solid #eaecef;
 }
 
 .markdown-body h2 {
-  padding-bottom: 0.3em;
   font-size: 1.5em;
-  border-bottom: 1px solid #eee;
 }
 
 .markdown-body h3 {
@@ -470,20 +705,24 @@ except the GitHub link color commented out line 188 */
 
 .markdown-body h6 {
   font-size: 0.85em;
-  color: #777;
+  color: #6a737d;
 }
 
-.markdown-body ul,
-.markdown-body ol {
+.markdown-body ol,
+.markdown-body ul {
   padding-left: 2em;
 }
 
-.markdown-body ul ul,
-.markdown-body ul ol,
 .markdown-body ol ol,
-.markdown-body ol ul {
+.markdown-body ol ul,
+.markdown-body ul ol,
+.markdown-body ul ul {
   margin-top: 0;
   margin-bottom: 0;
+}
+
+.markdown-body li {
+  word-wrap: break-all;
 }
 
 .markdown-body li > p {
@@ -503,7 +742,7 @@ except the GitHub link color commented out line 188 */
   margin-top: 16px;
   font-size: 1em;
   font-style: italic;
-  font-weight: bold;
+  font-weight: 600;
 }
 
 .markdown-body dl dd {
@@ -518,44 +757,44 @@ except the GitHub link color commented out line 188 */
 }
 
 .markdown-body table th {
-  font-weight: bold;
+  font-weight: 600;
 }
 
-.markdown-body table th,
-.markdown-body table td {
+.markdown-body table td,
+.markdown-body table th {
   padding: 6px 13px;
-  border: 1px solid #ddd;
+  border: 1px solid #dfe2e5;
 }
 
 .markdown-body table tr {
   background-color: #fff;
-  border-top: 1px solid #ccc;
+  border-top: 1px solid #c6cbd1;
 }
 
 .markdown-body table tr:nth-child(2n) {
-  background-color: #f8f8f8;
+  background-color: #f6f8fa;
 }
 
 .markdown-body img {
   max-width: 100%;
-  box-sizing: content-box;
+  box-sizing: initial;
   background-color: #fff;
 }
 
-.markdown-body code {
-  padding: 0;
-  padding-top: 0.2em;
-  padding-bottom: 0.2em;
-  margin: 0;
-  font-size: 85%;
-  background-color: rgba(0, 0, 0, 0.04);
-  border-radius: 3px;
+.markdown-body img[align='right'] {
+  padding-left: 20px;
 }
 
-.markdown-body code::before,
-.markdown-body code::after {
-  letter-spacing: -0.2em;
-  content: '\00a0';
+.markdown-body img[align='left'] {
+  padding-right: 20px;
+}
+
+.markdown-body code {
+  padding: 0.2em 0.4em;
+  margin: 0;
+  font-size: 85%;
+  background-color: rgba(27, 31, 35, 0.05);
+  border-radius: 3px;
 }
 
 .markdown-body pre {
@@ -587,7 +826,7 @@ except the GitHub link color commented out line 188 */
   overflow: auto;
   font-size: 85%;
   line-height: 1.45;
-  background-color: #f7f7f7;
+  background-color: #f6f8fa;
   border-radius: 3px;
 }
 
@@ -599,66 +838,140 @@ except the GitHub link color commented out line 188 */
   overflow: visible;
   line-height: inherit;
   word-wrap: normal;
-  background-color: transparent;
+  background-color: initial;
   border: 0;
 }
 
-.markdown-body pre code::before,
-.markdown-body pre code::after {
-  content: normal;
-}
-
-.markdown-body .pl-0 {
-  padding-left: 0 !important;
-}
-
-.markdown-body .pl-1 {
-  padding-left: 3px !important;
-}
-
-.markdown-body .pl-2 {
-  padding-left: 6px !important;
-}
-
-.markdown-body .pl-3 {
-  padding-left: 12px !important;
-}
-
-.markdown-body .pl-4 {
-  padding-left: 24px !important;
-}
-
-.markdown-body .pl-5 {
-  padding-left: 36px !important;
-}
-
-.markdown-body .pl-6 {
-  padding-left: 48px !important;
+.markdown-body .commit-tease-sha {
+  display: inline-block;
+  font-family: SFMono-Regular, Consolas, Liberation Mono, Menlo, monospace;
+  font-size: 90%;
+  color: #444d56;
 }
 
 .markdown-body .full-commit .btn-outline:not(:disabled):hover {
-  color: #4078c0;
-  border: 1px solid #4078c0;
+  color: #005cc5;
+  border-color: #005cc5;
 }
 
-.markdown-body kbd {
-  display: inline-block;
-  padding: 3px 5px;
-  font: 11px Consolas, 'Liberation Mono', Menlo, Courier, monospace;
-  line-height: 10px;
-  color: #555;
-  vertical-align: middle;
-  background-color: #fcfcfc;
-  border: solid 1px #ccc;
-  border-bottom-color: #bbb;
-  border-radius: 3px;
-  box-shadow: inset 0 -1px 0 #bbb;
+.markdown-body .blob-wrapper {
+  overflow-x: auto;
+  overflow-y: hidden;
 }
 
-.markdown-body :checked + .radio-label {
+.markdown-body .blob-wrapper-embedded {
+  max-height: 240px;
+  overflow-y: auto;
+}
+
+.markdown-body .blob-num {
+  width: 1%;
+  min-width: 50px;
+  padding-right: 10px;
+  padding-left: 10px;
+  font-family: SFMono-Regular, Consolas, Liberation Mono, Menlo, monospace;
+  font-size: 12px;
+  line-height: 20px;
+  color: rgba(27, 31, 35, 0.3);
+  text-align: right;
+  white-space: nowrap;
+  vertical-align: top;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.markdown-body .blob-num:hover {
+  color: rgba(27, 31, 35, 0.6);
+}
+
+.markdown-body .blob-num:before {
+  content: attr(data-line-number);
+}
+
+.markdown-body .blob-code {
   position: relative;
-  z-index: 1;
-  border-color: #4078c0;
+  padding-right: 10px;
+  padding-left: 10px;
+  line-height: 20px;
+  vertical-align: top;
+}
+
+.markdown-body .blob-code-inner {
+  overflow: visible;
+  font-family: SFMono-Regular, Consolas, Liberation Mono, Menlo, monospace;
+  font-size: 12px;
+  color: #24292e;
+  word-wrap: normal;
+  white-space: pre;
+}
+
+.markdown-body .pl-token.active,
+.markdown-body .pl-token:hover {
+  cursor: pointer;
+  background: #ffea7f;
+}
+
+.markdown-body .tab-size[data-tab-size='1'] {
+  -moz-tab-size: 1;
+  tab-size: 1;
+}
+
+.markdown-body .tab-size[data-tab-size='2'] {
+  -moz-tab-size: 2;
+  tab-size: 2;
+}
+
+.markdown-body .tab-size[data-tab-size='3'] {
+  -moz-tab-size: 3;
+  tab-size: 3;
+}
+
+.markdown-body .tab-size[data-tab-size='4'] {
+  -moz-tab-size: 4;
+  tab-size: 4;
+}
+
+.markdown-body .tab-size[data-tab-size='5'] {
+  -moz-tab-size: 5;
+  tab-size: 5;
+}
+
+.markdown-body .tab-size[data-tab-size='6'] {
+  -moz-tab-size: 6;
+  tab-size: 6;
+}
+
+.markdown-body .tab-size[data-tab-size='7'] {
+  -moz-tab-size: 7;
+  tab-size: 7;
+}
+
+.markdown-body .tab-size[data-tab-size='8'] {
+  -moz-tab-size: 8;
+  tab-size: 8;
+}
+
+.markdown-body .tab-size[data-tab-size='9'] {
+  -moz-tab-size: 9;
+  tab-size: 9;
+}
+
+.markdown-body .tab-size[data-tab-size='10'] {
+  -moz-tab-size: 10;
+  tab-size: 10;
+}
+
+.markdown-body .tab-size[data-tab-size='11'] {
+  -moz-tab-size: 11;
+  tab-size: 11;
+}
+
+.markdown-body .tab-size[data-tab-size='12'] {
+  -moz-tab-size: 12;
+  tab-size: 12;
 }
 
 .markdown-body .task-list-item {
@@ -674,6 +987,175 @@ except the GitHub link color commented out line 188 */
   vertical-align: middle;
 }
 
-.markdown-body hr {
-  border-bottom-color: #eee;
+/* Dark mode */
+.chakra-ui-dark .markdown-body {
+  /* color: #c9d1d9; */
+  /* background-color: #0d1117; */
+}
+.chakra-ui-dark .markdown-body a {
+  /* color: #58a6ff; */
+  color: var(--bestofjsOrange);
+}
+.chakra-ui-dark .markdown-body hr {
+  border-bottom: 1px solid #21262d;
+  border-bottom-color: #21262d;
+  background-color: #30363d;
+}
+.chakra-ui-dark .markdown-body kbd {
+  color: #b1bac4;
+  background-color: #0d1117;
+  border: 1px solid #6e7681;
+  box-shadow: inset 0 -1px 0 #6e7681;
+}
+.chakra-ui-dark .markdown-body :checked + .radio-label {
+  border-color: rgba(56, 139, 253, 0.4);
+}
+.chakra-ui-dark .markdown-body .border {
+  border: 1px solid #30363d !important;
+}
+.chakra-ui-dark .markdown-body .border-bottom {
+  border-bottom: 1px solid #30363d !important;
+}
+.chakra-ui-dark .markdown-body .bg-white {
+  background-color: #0d1117 !important;
+}
+.chakra-ui-dark .markdown-body .bg-gray-light {
+  background-color: #0d1117 !important;
+}
+.chakra-ui-dark .markdown-body .text-gray-light {
+  color: #8b949e !important;
+}
+.chakra-ui-dark .markdown-body .pl-c {
+  color: #8b949e;
+}
+.chakra-ui-dark .markdown-body .pl-c1,
+.chakra-ui-dark .markdown-body .pl-s .pl-v {
+  color: #79c0ff;
+}
+.chakra-ui-dark .markdown-body .pl-e,
+.chakra-ui-dark .markdown-body .pl-en {
+  color: #d2a8ff;
+}
+.chakra-ui-dark .markdown-body .pl-s .pl-s1,
+.chakra-ui-dark .markdown-body .pl-smi {
+  color: #c9d1d9;
+}
+.chakra-ui-dark .markdown-body .pl-ent {
+  color: #7ee787;
+}
+.chakra-ui-dark .markdown-body .pl-k {
+  color: #ff7b72;
+}
+.chakra-ui-dark .markdown-body .pl-pds,
+.chakra-ui-dark .markdown-body .pl-s,
+.chakra-ui-dark .markdown-body .pl-s .pl-pse .pl-s1,
+.chakra-ui-dark .markdown-body .pl-sr,
+.chakra-ui-dark .markdown-body .pl-sr .pl-cce,
+.chakra-ui-dark .markdown-body .pl-sr .pl-sra,
+.chakra-ui-dark .markdown-body .pl-sr .pl-sre {
+  color: #a5d6ff;
+}
+.chakra-ui-dark .markdown-body .pl-smw,
+.chakra-ui-dark .markdown-body .pl-v {
+  color: #ffa657;
+}
+.chakra-ui-dark .markdown-body .pl-bu {
+  color: #f85149;
+}
+.chakra-ui-dark .markdown-body .pl-ii {
+  color: #f0f6fc;
+  background-color: #8e1519;
+}
+.chakra-ui-dark .markdown-body .pl-c2 {
+  color: #f0f6fc;
+  background-color: #b62324;
+}
+.chakra-ui-dark .markdown-body .pl-sr .pl-cce {
+  color: #7ee787;
+}
+.chakra-ui-dark .markdown-body .pl-ml {
+  color: #f2cc60;
+}
+.chakra-ui-dark .markdown-body .pl-mh,
+.chakra-ui-dark .markdown-body .pl-mh .pl-en,
+.chakra-ui-dark .markdown-body .pl-ms {
+  color: #1f6feb;
+}
+.chakra-ui-dark .markdown-body .pl-mi {
+  color: #c9d1d9;
+}
+.chakra-ui-dark .markdown-body .pl-mb {
+  color: #c9d1d9;
+}
+.chakra-ui-dark .markdown-body .pl-md {
+  color: #ffdcd7;
+  background-color: #67060c;
+}
+.chakra-ui-dark .markdown-body .pl-mi1 {
+  color: #aff5b4;
+  background-color: #033a16;
+}
+.chakra-ui-dark .markdown-body .pl-mc {
+  color: #ffdfb6;
+  background-color: #5a1e02;
+}
+.chakra-ui-dark .markdown-body .pl-mi2 {
+  color: #c9d1d9;
+  background-color: #1158c7;
+}
+.chakra-ui-dark .markdown-body .pl-mdr {
+  color: #d2a8ff;
+}
+.chakra-ui-dark .markdown-body .pl-ba {
+  color: #8b949e;
+}
+.chakra-ui-dark .markdown-body .pl-sg {
+  color: #484f58;
+}
+.chakra-ui-dark .markdown-body .pl-corl {
+  color: #a5d6ff;
+}
+.chakra-ui-dark .markdown-body blockquote {
+  color: #8b949e;
+  border-left: 0.25em solid #3b434b;
+}
+.chakra-ui-dark .markdown-body h1,
+.chakra-ui-dark .markdown-body h2 {
+  border-bottom: 1px solid #21262d;
+}
+.chakra-ui-dark .markdown-body h6 {
+  color: #8b949e;
+}
+.chakra-ui-dark .markdown-body table td,
+.chakra-ui-dark .markdown-body table th {
+  border: 1px solid #3b434b;
+}
+.chakra-ui-dark .markdown-body table tr {
+  background-color: #0d1117;
+  border-top: 1px solid #272c32;
+}
+.chakra-ui-dark .markdown-body table tr:nth-child(2n) {
+  background-color: var(--backgroundColor);
+}
+.chakra-ui-dark .markdown-body img {
+  background-color: #0d1117;
+}
+.chakra-ui-dark .markdown-body code {
+  background-color: rgba(240, 246, 252, 0.15);
+}
+.chakra-ui-dark .markdown-body .highlight pre,
+.chakra-ui-dark .markdown-body pre {
+  background-color: var(--backgroundColor);
+}
+.chakra-ui-dark .markdown-body .commit-tease-sha {
+  color: #b1bac4;
+}
+.chakra-ui-dark .markdown-body .blob-num {
+  color: rgba(240, 246, 252, 0.3);
+}
+.chakra-ui-dark .markdown-body .blob-num:hover {
+  color: rgba(240, 246, 252, 0.6);
+}
+.chakra-ui-dark .markdown-body .blob-code-inner {
+  color: #c9d1d9;
 }

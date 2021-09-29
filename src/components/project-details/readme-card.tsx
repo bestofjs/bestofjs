@@ -1,17 +1,18 @@
 import React from 'react'
-import styled from '@emotion/styled'
 import { GoBook } from 'react-icons/go'
 
 import {
+  Button,
   Card,
   CardHeader,
   CardBody,
   CardFooter,
   CardSection,
   Spinner
-} from '../core'
-import { useFetchProjectReadMe } from '../../api/hooks'
-import '../../stylesheets/markdown-body.css'
+} from 'components/core'
+import { useFetchProjectReadMe } from 'api/hooks'
+
+import 'stylesheets/markdown-body.css'
 
 type Props = { project: BestOfJS.Project }
 export const ReadmeCard = ({ project }: Props) => {
@@ -27,15 +28,13 @@ export const ReadmeCard = ({ project }: Props) => {
         </CardSection>
       </CardBody>
       <CardFooter>
-        <GithubLink href={project.repository}>View on GitHub</GithubLink>
+        <Button as="a" href={project.repository} variant="link">
+          View on GitHub
+        </Button>
       </CardFooter>
     </Card>
   )
 }
-
-const GithubLink = styled.a`
-  font-family: var(--buttonFontFamily);
-`
 
 const ReadmeContent = ({ project }: Props) => {
   const { data: html, error } = useFetchProjectReadMe(project)

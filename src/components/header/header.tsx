@@ -1,19 +1,30 @@
 import React from 'react'
-import { Link, NavLink } from 'react-router-dom'
+import { Link as RouterLink, NavLink } from 'react-router-dom'
+
 import styled from '@emotion/styled'
 import { GoMarkGithub } from 'react-icons/go'
 
+import {
+  Box,
+  Button,
+  IconButton,
+  Center,
+  Divider,
+  Flex,
+  HStack
+} from 'components/core'
+import { ReactComponent as Logo } from './bestofjs-logo.svg'
 import { AuthContainer } from 'containers/auth-container'
 import { StaticContentContainer } from 'containers/static-content-container'
-import { Button } from 'components/core'
 import { DiscordIcon } from 'components/core/icons'
 import { UserDropdownMenu } from './user-dropdown-menu'
 import { NavigationDropdownMenu } from './navigation-dropdown-menu'
+import { ColorModePicker } from './color-mode-picker'
 
-const breakpoint = 700
+const breakpoint = 750
 
 const HeaderContainer = styled.header`
-  background-color: #fff;
+  background-color: var(--headerBackgroundColor);
   height: var(--topBarHeight);
   z-index: 10;
   .container {
@@ -34,22 +45,25 @@ const HeaderContainer = styled.header`
       display: none;
     }
   }
-  button {
-    font-size: 1.14286rem;
-  }
 `
 
-export const Header = props => {
+export const Header = (props) => {
   const { repoURL } = StaticContentContainer.useContainer()
 
   return (
     <HeaderContainer>
       <div className="container">
-        <Row>
-          <Col>
-            <LinkLogo to={'/'}>
-              <img src="/svg/bestofjs.svg" width="130" alt="Best of JS" />
-            </LinkLogo>
+        <Flex w="100%" justifyContent="space-between">
+          <Center>
+            <Box
+              as={RouterLink}
+              to={'/'}
+              color="var(--bestofjsOrange)"
+              display="block"
+              aria-label="Home"
+            >
+              <Logo width="130" height="37.15" />
+            </Box>
 
             <NavigationMenu className="desktop-only">
               <NavigationMenuItem>
@@ -67,62 +81,55 @@ export const Header = props => {
                 <NavigationDropdownMenu />
               </NavigationMenuItem>
             </NavigationMenu>
-          </Col>
-          <Col>
+          </Center>
+          <Center>
             <NavigationMenu>
               <NavigationMenuItem className="desktop-only">
                 <LoginSection />
               </NavigationMenuItem>
               <NavigationMenuItem>
-                <a
-                  className="icon hint--bottom"
+                <ColorModePicker ml={2} />
+              </NavigationMenuItem>
+              <Box px={3}>
+                <Divider
+                  orientation="vertical"
+                  height="30px"
+                  borderColor="var(--boxBorderColor)"
+                />
+              </Box>
+              <HStack>
+                <IconButton
+                  as="a"
                   href="https://discord.com/invite/rdctdFX2qR"
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label="Join Discord"
-                >
-                  <DiscordIcon />
-                </a>
-              </NavigationMenuItem>
-              <NavigationMenuItem>
-                <a
-                  className="icon hint--bottom"
+                  icon={<DiscordIcon />}
+                  variant="ghost"
+                  color="var(--textSecondaryColor)"
+                />
+
+                <IconButton
+                  as="a"
                   href={repoURL}
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label="GitHub"
-                >
-                  <GoMarkGithub size={28} />
-                </a>
-              </NavigationMenuItem>
-              <NavigationMenuItem className="mobile-only">
-                <NavigationDropdownMenu />
-              </NavigationMenuItem>
+                  icon={<GoMarkGithub size={28} />}
+                  variant="ghost"
+                  color="var(--textSecondaryColor)"
+                />
+                <Box className="mobile-only">
+                  <NavigationDropdownMenu />
+                </Box>
+              </HStack>
             </NavigationMenu>
-          </Col>
-        </Row>
+          </Center>
+        </Flex>
       </div>
     </HeaderContainer>
   )
 }
-
-const Row = styled.div`
-  display: flex;
-  width: 100%;
-  justify-content: space-between;
-`
-
-const Col = styled.div`
-  display: flex;
-  align-items: center;
-`
-
-const LinkLogo = styled(Link)`
-  display: block;
-  img {
-    display: block;
-  }
-`
 
 const NavigationMenu = styled.div`
   display: flex;
@@ -130,10 +137,6 @@ const NavigationMenu = styled.div`
   margin-left: 1rem;
 `
 const NavigationMenuItem = styled.div`
-  > * {
-    padding-left: 0.5rem;
-    padding-right: 0.5rem;
-  }
   > a {
     display: flex;
     align-items: center;
@@ -144,38 +147,32 @@ const NavigationMenuItem = styled.div`
     }
     border: 4px solid transparent;
     font-family: var(--headingFontFamily);
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
   }
   a.active {
-    color: #bb4201;
-    border-bottom-color: #bb4201;
-  }
-  a.icon {
-    color: var(--textMutedColor);
-    &:hover {
-      color: var(--textSecondaryColor);
-    }
-  }
-  > a,
-  button {
-    font-size: 1.14286rem;
+    color: var(--bestofjsOrange);
+    border-bottom-color: var(--bestofjsOrange);
   }
 `
 
 const LoginSection = () => {
   const auth = AuthContainer.useContainer()
 
-  if (auth.isPending) return <div className="v-center">Loading...</div>
+  if (auth.isPending) return <Center>Loading...</Center>
 
   if (!auth.isLoggedIn) {
-    return <LoginButton onClick={() => auth.login()}>Sign in</LoginButton>
+    return (
+      <Button
+        onClick={() => auth.login()}
+        variant="ghost"
+        color="var(--textSecondaryColor)"
+        size="md"
+      >
+        Sign in
+      </Button>
+    )
   }
 
   return <UserDropdownMenu />
 }
-
-const LoginButton = styled(Button)`
-  border-width: 0;
-  margin-right: 0rem;
-  padding-left: 0.5rem;
-  padding-right: 0.5rem;
-`

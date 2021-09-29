@@ -3,9 +3,17 @@ import styled from '@emotion/styled'
 import { GoHome, GoMarkGithub } from 'react-icons/go'
 import { DiNpm } from 'react-icons/di'
 
-import { ButtonLink, usePageTitle } from 'components/core'
+import {
+  Box,
+  Button,
+  LinkProps,
+  ButtonProps,
+  Heading,
+  VStack
+} from 'components/core'
+import { usePageTitle } from 'components/core'
 import { Avatar } from 'components/core/project'
-import { TagLabelGroup } from 'components/tags/tag-label'
+import { ProjectTagGroup } from 'components/tags/project-tag'
 import formatUrl from 'helpers/url'
 
 type Props = { project: BestOfJS.Project }
@@ -17,18 +25,18 @@ export const ProjectHeader = ({ project }: Props) => {
   return (
     <HeaderLayout>
       <Main>
-        <div style={{ paddingRight: '1rem' }}>
+        <Box pr={4}>
           <Avatar project={project} size={75} />
-        </div>
-        <div style={{ flex: 1 }}>
-          <h1>{project.name}</h1>
-          <div style={{ margin: '0.5rem 0 0.75rem' }}>
-            {project.description}
-          </div>
-          <div>
-            <TagLabelGroup tags={project.tags} />
-          </div>
-        </div>
+        </Box>
+        <VStack spacing={4} alignItems="flex-start">
+          <Heading fontSize="2rem" lineHeight="1">
+            {project.name}
+          </Heading>
+          <Box>{project.description}</Box>
+          <Box>
+            <ProjectTagGroup tags={project.tags} />
+          </Box>
+        </VStack>
       </Main>
       <QuickLinks>
         <ButtonLink href={repository}>
@@ -108,3 +116,7 @@ const QuickLinks = styled.aside`
     position: absolute;
   }
 `
+
+const ButtonLink = (props: ButtonProps & LinkProps) => (
+  <Button as="a" variant="outline" w="100%" {...props} />
+)
