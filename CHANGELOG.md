@@ -1,5 +1,12 @@
 # Change log
 
+## 0.33.0 - 2021-09-30
+
+- Dark mode #112
+- Project logos have both a light `logos/*.svg` and a dark version `logos/*.dark.svg`
+- Introduction of [ChakraUI](https://chakra-ui.com/) for core components (buttons, layout primitives...) and "styled system"
+- Dropdown menu redone using [Headless UI](https://headlessui.dev/) to avoid `framer-motion` dependency
+
 ## 0.32.1 - 2021-08-10
 
 - Font and spacing adjustments #111

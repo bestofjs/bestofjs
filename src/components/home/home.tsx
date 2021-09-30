@@ -26,6 +26,7 @@ import { HotProjects, NewestProjects } from './home-projects'
 import { RandomFeaturedProject } from './featured-projects'
 import { Row, MainColumn, RightSideBar } from './layout'
 import { HomeMonthlyRankings } from './home-monthly-rankings'
+import { DarkModeNews } from './dark-mode-news'
 
 export const Home = (props) => {
   log('Render the <Home> component')
@@ -33,15 +34,16 @@ export const Home = (props) => {
 
   return (
     <MainContent>
-      <PageHeader title="The best of JavaScript, HTML and CSS" />
       <Section>
         <Row>
           <MainColumn>
+            <PageHeader title="The best of JavaScript, HTML and CSS" />
             <HotProjects {...props} />
             {!pending && <NewestProjects {...props} />}
           </MainColumn>
           {!pending && (
             <RightSideBar>
+              <DarkModeNews />
               <RandomFeaturedProject />
               <Section.Header icon={<GoTag fontSize={32} />}>
                 <Section.Title>Popular Tags</Section.Title>
