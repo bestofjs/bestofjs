@@ -8,7 +8,7 @@ import { useSelector } from 'containers/project-data-container'
 import { fromNow } from 'helpers/from-now'
 import { StaticContentContainer } from 'containers/static-content-container'
 import { ExternalLinkIcon } from 'components/core/icons'
-import { Box } from 'components/core'
+import { Box, Flex } from 'components/core'
 
 const template = tinytime('{H}:{mm}', { padHours: true })
 
@@ -31,12 +31,12 @@ export const Footer = () => {
                   height="56"
                 />
               </Link>
-              <Box mt={8}>
+              <Flex mt={8} alignItems="center">
                 <a href={repoURL} aria-label="GitHub">
                   <GoMarkGithub fontSize="32px" />
                 </a>
                 <Box ml={2}>v{version}</Box>
-              </Box>
+              </Flex>
             </div>
             <div>
               <LinkGroup title="DIRECT LINKS">
