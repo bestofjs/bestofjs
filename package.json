@@ -71,10 +71,8 @@
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-prettier": "^4.0.0",
     "husky": "^0.14.3",
-    "playwright": "1.2.0",
     "prettier": "^2.4.1",
     "pretty-quick": "^1.4.1",
-    "qawolf": "1.2.0",
     "react-testing-library": "^4.1.2",
     "ts-jest": "^26.1.2"
   },
