@@ -6,8 +6,8 @@
     "node": "14.x"
   },
   "scripts": {
-    "start": "REACT_APP_VERSION=$npm_package_version react-scripts start",
-    "build": "REACT_APP_VERSION=$npm_package_version react-scripts build && node ./build-meta",
+    "start": "cross-env REACT_APP_VERSION=$npm_package_version react-scripts start",
+    "build": "cross-env REACT_APP_VERSION=$npm_package_version react-scripts build && node ./build-meta",
     "test": "react-scripts test --env=jsdom",
     "pretty-quick": "pretty-quick",
     "precommit": "pretty-quick --staged"
@@ -35,7 +35,7 @@
     "@types/node": "^14.0.1",
     "@types/react": "^16.9.35",
     "@types/react-dom": "^16.9.8",
-    "cross-env": "^1.0.7",
+    "cross-env": "^7.0.3",
     "framer-motion": "^4.1.17",
     "lodash": "^4.17.19",
     "lodash.times": "^4.3.2",
