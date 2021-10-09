@@ -4,12 +4,11 @@ import { useMedia } from 'react-use'
 import { FiMenu } from 'react-icons/fi'
 
 import { Button, IconButton } from 'components/core'
-import { StaticContentContainer } from 'containers/static-content-container'
 import { ChevronDownIcon, ExternalLinkIcon } from 'components/core/icons'
 import { DropdownMenu, Menu, MenuGroup, MenuItem } from 'components/core/menu'
+import { RISING_STARS_URL, STATE_OF_JS_URL } from 'config'
 
 export const NavigationDropdownMenu = () => {
-  const { risingStarsURL, stateOfJSURL } = StaticContentContainer.useContainer()
   const isDesktop = useMedia('(min-width: 750px)')
 
   const menu = (
@@ -40,11 +39,11 @@ export const NavigationDropdownMenu = () => {
       </MenuGroup>
 
       <MenuGroup>
-        <MenuItem as="a" href={risingStarsURL} target="_blank">
+        <MenuItem as="a" href={RISING_STARS_URL} target="_blank">
           Rising Stars
           <ExternalLinkIcon />
         </MenuItem>
-        <MenuItem as="a" href={stateOfJSURL} target="_blank">
+        <MenuItem as="a" href={STATE_OF_JS_URL} target="_blank">
           State of JS
           <ExternalLinkIcon />
         </MenuItem>

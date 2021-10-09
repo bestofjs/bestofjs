@@ -3,11 +3,11 @@ import { Link as RouterLink } from 'react-router-dom'
 import { GoFlame, GoGift } from 'react-icons/go'
 
 import { Box, Button, Flex } from 'components/core'
+import { APP_DISPLAY_NAME } from 'config'
 import { useSelector } from 'containers/project-data-container'
 import { Section, Spinner } from 'components/core'
 import { ProjectTable } from 'components/project-list/project-table'
 import { getProjectsSortedBy } from 'selectors'
-import { StaticContentContainer } from 'containers/static-content-container'
 import { ChevronDownIcon } from 'components/core/icons'
 import { DropdownMenu, Menu, MenuGroup, MenuItem } from 'components/core/menu'
 
@@ -117,13 +117,12 @@ const HotProjectsPicker = ({ onChange, value }) => {
 }
 
 export const NewestProjects = ({ newestProjects, hotFilter }) => {
-  const { projectName } = StaticContentContainer.useContainer()
   return (
     <>
       <Section.Header icon={<GoGift fontSize={32} />}>
         <Section.Title>Recently Added Projects</Section.Title>
         <Section.SubTitle>
-          Latest additions to <i>{projectName}</i>
+          Latest additions to <i>{APP_DISPLAY_NAME}</i>
         </Section.SubTitle>
       </Section.Header>
       <ProjectTable

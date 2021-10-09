@@ -6,16 +6,20 @@ import tinytime from 'tinytime'
 
 import { useSelector } from 'containers/project-data-container'
 import { fromNow } from 'helpers/from-now'
-import { StaticContentContainer } from 'containers/static-content-container'
 import { ExternalLinkIcon } from 'components/core/icons'
 import { Box, Flex } from 'components/core'
+import {
+  APP_REPO_URL,
+  APP_DISPLAY_NAME,
+  RISING_STARS_URL,
+  STATE_OF_JS_URL,
+  APP_VERSION
+} from 'config'
 
 const template = tinytime('{H}:{mm}', { padHours: true })
 
 export const Footer = () => {
   const lastUpdate = useSelector((state) => state.meta.lastUpdate)
-  const { repoURL, projectName, risingStarsURL, stateOfJSURL, version } =
-    StaticContentContainer.useContainer()
 
   return (
     <StyledFooter id="footer">
@@ -32,10 +36,10 @@ export const Footer = () => {
                 />
               </Link>
               <Flex mt={8} alignItems="center">
-                <a href={repoURL} aria-label="GitHub">
+                <a href={APP_REPO_URL} aria-label="GitHub">
                   <GoMarkGithub fontSize="32px" />
                 </a>
-                <Box ml={2}>v{version}</Box>
+                <Box ml={2}>v{APP_VERSION}</Box>
               </Flex>
             </div>
             <div>
@@ -43,7 +47,7 @@ export const Footer = () => {
                 <List>
                   <ListItem>
                     <DirectLink to="/projects">Projects</DirectLink>
-                    All projects tracked by <i>{projectName}</i>
+                    All projects tracked by <i>{APP_DISPLAY_NAME}</i>
                   </ListItem>
                   <ListItem>
                     <DirectLink to="/tags">Tags</DirectLink>
@@ -69,12 +73,12 @@ export const Footer = () => {
               <LinkGroup title="RELATED PROJECTS">
                 <List>
                   <ListItem>
-                    <ListItemLink href={risingStarsURL}>
+                    <ListItemLink href={RISING_STARS_URL}>
                       JavaScript Rising Stars
                       <ExternalLinkIcon />
                     </ListItemLink>
                     <p>Our annual round-up about the JavaScript landscape</p>
-                    <a href={risingStarsURL}>
+                    <a href={RISING_STARS_URL}>
                       <img
                         src="https://risingstars.js.org/img/2020/en/rising-stars.png"
                         width="70%"
@@ -83,7 +87,7 @@ export const Footer = () => {
                     </a>
                   </ListItem>
                   <ListItem>
-                    <ListItemLink href={stateOfJSURL}>
+                    <ListItemLink href={STATE_OF_JS_URL}>
                       State of JS
                       <ExternalLinkIcon />
                     </ListItemLink>
@@ -103,7 +107,7 @@ export const Footer = () => {
             </p>
           )}
           <p>
-            <i>{projectName}</i> is a project by{' '}
+            <i>{APP_DISPLAY_NAME}</i> is a project by{' '}
             <a href="https://michaelrambeau.com">Michael Rambeau</a>, made in
             Osaka, Japan.
           </p>

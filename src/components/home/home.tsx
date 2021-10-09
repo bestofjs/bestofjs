@@ -13,8 +13,8 @@ import {
   Center,
   PageHeader
 } from 'components/core'
+import { APP_REPO_URL, APP_DISPLAY_NAME, SPONSOR_URL } from 'config'
 import { useSelector } from 'containers/project-data-container'
-import { StaticContentContainer } from 'containers/static-content-container'
 import { getTotalNumberOfStars } from 'selectors'
 import log from 'helpers/log'
 import { addProjectURL } from 'components/user-requests/add-project/create-issue-link'
@@ -103,20 +103,19 @@ const ResponsiveRow = styled.div`
 `
 
 const StarOnGitHub = () => {
-  const { repoURL, projectName, sponsorURL } =
-    StaticContentContainer.useContainer()
-
   return (
     <Section>
       <ResponsiveRow>
         <div style={{ flexGrow: 1 }}>
           <Section.Header icon={<GoHeart fontSize={32} />}>
-            <Section.Title>Do you find {projectName} useful?</Section.Title>
+            <Section.Title>
+              Do you find {APP_DISPLAY_NAME} useful?
+            </Section.Title>
           </Section.Header>
           <p>
             Show your appreciation by starring the project on{' '}
-            <ExternalLink url={repoURL}>GitHub</ExternalLink>, or becoming a{' '}
-            <ExternalLink url={sponsorURL}>sponsor</ExternalLink>.
+            <ExternalLink url={APP_REPO_URL}>GitHub</ExternalLink>, or becoming
+            a <ExternalLink url={SPONSOR_URL}>sponsor</ExternalLink>.
           </p>
           <p>Thank you for your support!</p>
         </div>
@@ -131,7 +130,6 @@ const StarOnGitHub = () => {
 }
 
 const StarOnGitHubButton = () => {
-  const { repoURL } = StaticContentContainer.useContainer()
   const project = useSelector(
     (state) => state.entities.projects['best-of-javascript']
   )
@@ -139,7 +137,7 @@ const StarOnGitHubButton = () => {
   const stars = getTotalNumberOfStars(project)
   return (
     <BigButtonLink
-      href={repoURL}
+      href={APP_REPO_URL}
       target="_blank"
       rel="noopener noreferrer"
       addOn={
@@ -154,11 +152,9 @@ const StarOnGitHubButton = () => {
 }
 
 const SponsorButton = () => {
-  const { sponsorURL } = StaticContentContainer.useContainer()
-
   return (
     <BigButtonLink
-      href={sponsorURL}
+      href={SPONSOR_URL}
       target="_blank"
       rel="noopener noreferrer"
       addOn={<GoHeart size={20} />}
@@ -198,15 +194,13 @@ const BigButtonLink = ({
 const formatNumber = (number) => numeral(number).format('')
 
 const MoreProjects = () => {
-  const { projectName } = StaticContentContainer.useContainer()
-
   return (
     <Section>
       <Section.Header icon={<GoPlus fontSize={32} />}>
         <Section.Title>Do you want more projects?</Section.Title>
       </Section.Header>
       <p>
-        <i>{projectName}</i> is a curated list of about 1500 open-source
+        <i>{APP_DISPLAY_NAME}</i> is a curated list of about 1500 open-source
         projects related to the web platform and Node.js.
       </p>
       <p>

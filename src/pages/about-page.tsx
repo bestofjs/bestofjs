@@ -13,16 +13,13 @@ import {
   VStack
 } from 'components/core'
 import { useSelector } from 'containers/project-data-container'
-import { StaticContentContainer } from 'containers/static-content-container'
 import { CreateIssueLink } from 'components/user-requests/add-project/create-issue-link'
+import { APP_REPO_URL, APP_DISPLAY_NAME, SPONSOR_URL } from 'config'
 
 const AboutPage = () => {
   const count = useSelector(
     (state) => Object.keys(state.entities.projects).length
   )
-  const { repoURL, projectName, sponsorURL } =
-    StaticContentContainer.useContainer()
-
   return (
     <MainContent>
       <PageHeader title="About" />
@@ -33,7 +30,7 @@ const AboutPage = () => {
         alignItems="flex-start"
       >
         <Box>
-          <Heading size="md">Why {projectName}?</Heading>
+          <Heading size="md">Why {APP_DISPLAY_NAME}?</Heading>
           <Text mt={2}>
             Javascript, HTML and CSS are advancing faster than ever, we are
             going full speed on innovation.
@@ -50,7 +47,7 @@ const AboutPage = () => {
             </ListItem>
           </UnorderedList>
           <Text mt={2}>
-            {projectName} was created in 2015 to address these questions.
+            {APP_DISPLAY_NAME} was created in 2015 to address these questions.
           </Text>
         </Box>
 
@@ -62,9 +59,9 @@ const AboutPage = () => {
             added.{' '}
           </Text>
           <Text mt={2}>
-            {projectName} takes &quot;snapshot&quot; of GitHub stars every day,
-            for a curated list of {count} projects, to detect the trends over
-            the last months.
+            {APP_DISPLAY_NAME} takes &quot;snapshot&quot; of GitHub stars every
+            day, for a curated list of {count} projects, to detect the trends
+            over the last months.
           </Text>
         </Box>
 
@@ -113,8 +110,8 @@ const AboutPage = () => {
           </Heading>
           <Text mt={2}>
             If you find the application useful, you can star the project's
-            repository on <ExternalLink url={repoURL}>GitHub</ExternalLink> or{' '}
-            <ExternalLink url={sponsorURL}>become a sponsor</ExternalLink>.
+            repository on <ExternalLink url={APP_REPO_URL}>GitHub</ExternalLink>{' '}
+            or <ExternalLink url={SPONSOR_URL}>become a sponsor</ExternalLink>.
           </Text>
           <Text mt={2}>
             Thank you for your support, We are all made of stars{' '}

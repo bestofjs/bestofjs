@@ -8,10 +8,9 @@ import {
   Icon,
   useColorModeValue
 } from 'components/core'
-import { StaticContentContainer } from 'containers/static-content-container'
+import { APP_REPO_URL } from 'config'
 
 export const DarkModeNews = () => {
-  const { repoURL } = StaticContentContainer.useContainer()
   return (
     <Box
       mb={6}
@@ -31,7 +30,7 @@ export const DarkModeNews = () => {
         <br />
         Issues? Feedback? <br />
         Reach us on{' '}
-        <ExternalLink url={repoURL} color="var(--textPrimaryColor)">
+        <ExternalLink url={APP_REPO_URL} color="var(--textPrimaryColor)">
           GitHub
         </ExternalLink>
         , thank you!

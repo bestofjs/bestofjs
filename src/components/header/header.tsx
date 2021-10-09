@@ -1,6 +1,5 @@
 import React from 'react'
 import { Link as RouterLink, NavLink } from 'react-router-dom'
-
 import styled from '@emotion/styled'
 import { GoMarkGithub } from 'react-icons/go'
 
@@ -13,13 +12,13 @@ import {
   Flex,
   HStack
 } from 'components/core'
-import { ReactComponent as Logo } from './bestofjs-logo.svg'
+import { APP_REPO_URL } from 'config'
 import { AuthContainer } from 'containers/auth-container'
-import { StaticContentContainer } from 'containers/static-content-container'
 import { DiscordIcon } from 'components/core/icons'
 import { UserDropdownMenu } from './user-dropdown-menu'
 import { NavigationDropdownMenu } from './navigation-dropdown-menu'
 import { ColorModePicker } from './color-mode-picker'
+import { ReactComponent as Logo } from './bestofjs-logo.svg'
 
 const breakpoint = 750
 
@@ -48,8 +47,6 @@ const HeaderContainer = styled.header`
 `
 
 export const Header = (props) => {
-  const { repoURL } = StaticContentContainer.useContainer()
-
   return (
     <HeaderContainer>
       <div className="container">
@@ -111,7 +108,7 @@ export const Header = (props) => {
 
                 <IconButton
                   as="a"
-                  href={repoURL}
+                  href={APP_REPO_URL}
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label="GitHub"
