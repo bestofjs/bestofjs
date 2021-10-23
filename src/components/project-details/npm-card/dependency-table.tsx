@@ -1,6 +1,6 @@
-import styled from '@emotion/styled'
+import styled from "@emotion/styled";
 
-const cellPadding = '1rem 1rem'
+const cellPadding = "1rem 1rem";
 
 export const DependencyTable = styled.table`
   width: 100%;
@@ -31,4 +31,4 @@ export const DependencyTable = styled.table`
   a {
     font-family: var(--buttonFontFamily);
   }
-`
+`;

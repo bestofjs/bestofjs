@@ -1,7 +1,7 @@
-import React from 'react'
-import styled from '@emotion/styled'
-import { GoHome, GoMarkGithub } from 'react-icons/go'
-import { DiNpm } from 'react-icons/di'
+import React from "react";
+import styled from "@emotion/styled";
+import { GoHome, GoMarkGithub } from "react-icons/go";
+import { DiNpm } from "react-icons/di";
 
 import {
   Box,
@@ -9,18 +9,18 @@ import {
   LinkProps,
   ButtonProps,
   Heading,
-  VStack
-} from 'components/core'
-import { usePageTitle } from 'components/core'
-import { Avatar } from 'components/core/project'
-import { ProjectTagGroup } from 'components/tags/project-tag'
-import formatUrl from 'helpers/url'
+  VStack,
+} from "components/core";
+import { usePageTitle } from "components/core";
+import { Avatar } from "components/core/project";
+import { ProjectTagGroup } from "components/tags/project-tag";
+import formatUrl from "helpers/url";
 
-type Props = { project: BestOfJS.Project }
+type Props = { project: BestOfJS.Project };
 export const ProjectHeader = ({ project }: Props) => {
-  const { full_name, packageName, repository, url } = project
+  const { full_name, packageName, repository, url } = project;
 
-  usePageTitle(project.name)
+  usePageTitle(project.name);
 
   return (
     <HeaderLayout>
@@ -54,17 +54,17 @@ export const ProjectHeader = ({ project }: Props) => {
             <DiNpm
               size={28}
               className="icon"
-              style={{ transform: 'translateY(2px)' }}
+              style={{ transform: "translateY(2px)" }}
             />
             <span>{packageName}</span>
           </ButtonLink>
         )}
       </QuickLinks>
     </HeaderLayout>
-  )
-}
+  );
+};
 
-const breakpoint = 800
+const breakpoint = 800;
 
 const HeaderLayout = styled.div`
   display: flex;
@@ -75,7 +75,7 @@ const HeaderLayout = styled.div`
     flex-direction: row;
     align-items: center;
   }
-`
+`;
 
 const Main = styled.div`
   display: flex;
@@ -86,7 +86,7 @@ const Main = styled.div`
     padding-right: 1rem;
     border-right: 1px dashed var(--iconColor);
   }
-`
+`;
 
 const QuickLinks = styled.aside`
   position: relative;
@@ -115,8 +115,8 @@ const QuickLinks = styled.aside`
   .icon {
     position: absolute;
   }
-`
+`;
 
 const ButtonLink = (props: ButtonProps & LinkProps) => (
   <Button as="a" variant="outline" w="100%" {...props} />
-)
+);

@@ -1,7 +1,7 @@
-import React from 'react'
+import React from "react";
 
-import { fromNow } from 'helpers/from-now'
-import { Section } from 'components/core/section'
+import { fromNow } from "helpers/from-now";
+import { Section } from "components/core/section";
 
 export const News = ({ children, title, date, ...props }) => {
   return (
@@ -12,7 +12,7 @@ export const News = ({ children, title, date, ...props }) => {
       </Section.Header>
       {children}
     </Section>
-  )
-}
+  );
+};
 
-export default News
+export default News;

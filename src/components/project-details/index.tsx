@@ -1,17 +1,17 @@
-import React from 'react'
+import React from "react";
 
-import { GitHubRepoInfo } from './github-repo-info'
-import { NpmCard } from './npm-card'
-import { TrendsCard } from './trends-card'
-import { ReadmeCard } from './readme-card'
+import { GitHubRepoInfo } from "./github-repo-info";
+import { NpmCard } from "./npm-card";
+import { TrendsCard } from "./trends-card";
+import { ReadmeCard } from "./readme-card";
 
 type Props = {
-  project: BestOfJS.ProjectDetails
-  isLoading: boolean
-  error: Error
-}
+  project: BestOfJS.ProjectDetails;
+  isLoading: boolean;
+  error: Error;
+};
 const ProjectDetailsMainTab = (props: Props) => {
-  const { project, isLoading, error } = props
+  const { project, isLoading, error } = props;
 
   return (
     <>
@@ -22,7 +22,7 @@ const ProjectDetailsMainTab = (props: Props) => {
       <TrendsCard {...props} />
       <ReadmeCard {...props} />
     </>
-  )
-}
+  );
+};
 
-export default ProjectDetailsMainTab
+export default ProjectDetailsMainTab;

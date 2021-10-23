@@ -1,25 +1,25 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
-import styled from '@emotion/styled'
-import { GoMarkGithub } from 'react-icons/go'
-import tinytime from 'tinytime'
+import React from "react";
+import { Link } from "react-router-dom";
+import styled from "@emotion/styled";
+import { GoMarkGithub } from "react-icons/go";
+import tinytime from "tinytime";
 
-import { useSelector } from 'containers/project-data-container'
-import { fromNow } from 'helpers/from-now'
-import { ExternalLinkIcon } from 'components/core/icons'
-import { Box, Flex } from 'components/core'
+import { useSelector } from "containers/project-data-container";
+import { fromNow } from "helpers/from-now";
+import { ExternalLinkIcon } from "components/core/icons";
+import { Box, Flex } from "components/core";
 import {
   APP_REPO_URL,
   APP_DISPLAY_NAME,
   RISING_STARS_URL,
   STATE_OF_JS_URL,
-  APP_VERSION
-} from 'config'
+  APP_VERSION,
+} from "config";
 
-const template = tinytime('{H}:{mm}', { padHours: true })
+const template = tinytime("{H}:{mm}", { padHours: true });
 
 export const Footer = () => {
-  const lastUpdate = useSelector((state) => state.meta.lastUpdate)
+  const lastUpdate = useSelector((state) => state.meta.lastUpdate);
 
   return (
     <StyledFooter id="footer">
@@ -102,12 +102,12 @@ export const Footer = () => {
         <Section className="footer-bottom">
           {lastUpdate && (
             <p>
-              Data is updated from GitHub everyday, the last update was{' '}
+              Data is updated from GitHub everyday, the last update was{" "}
               {fromNow(lastUpdate)} (at {template.render(lastUpdate)}).
             </p>
           )}
           <p>
-            <i>{APP_DISPLAY_NAME}</i> is a project by{' '}
+            <i>{APP_DISPLAY_NAME}</i> is a project by{" "}
             <a href="https://michaelrambeau.com">Michael Rambeau</a>, made in
             Osaka, Japan.
           </p>
@@ -120,10 +120,10 @@ export const Footer = () => {
         </Section>
       </div>
     </StyledFooter>
-  )
-}
+  );
+};
 
-const breakPointColumns = 800
+const breakPointColumns = 800;
 
 const StyledFooter = styled.footer`
   margin-top: 4rem;
@@ -157,7 +157,7 @@ const StyledFooter = styled.footer`
     }
   }
   &::after {
-    content: '';
+    content: "";
     display: block;
     height: 8px;
     width: 100%;
@@ -170,18 +170,18 @@ const StyledFooter = styled.footer`
       #9c0042 80%
     );
   }
-`
+`;
 
 const Section = styled.section`
   p {
     margin-bottom: 1rem;
   }
-`
+`;
 
 const Separator = styled.hr`
   margin: 2rem 0;
   border-color: rgba(255, 255, 255, 0.3);
-`
+`;
 
 const Partner = styled.p`
   display: flex;
@@ -189,7 +189,7 @@ const Partner = styled.p`
   span {
     margin-right: 4px;
   }
-`
+`;
 
 const LinkGroup = ({ title, children }) => {
   return (
@@ -197,25 +197,25 @@ const LinkGroup = ({ title, children }) => {
       <Box mb={4}>{title}</Box>
       <Box>{children}</Box>
     </Box>
-  )
-}
+  );
+};
 
 const List = styled.ul`
   padding: 0;
   list-style: none;
-`
+`;
 
 const ListItem = styled.li`
   margin-bottom: 1rem;
   a {
     margin-bottom: 0.5rem;
   }
-`
+`;
 
 const ListItemLink = styled.a`
   display: flex;
   align-items: center;
   font-size: 16px;
-`
+`;
 
-const DirectLink = ListItemLink.withComponent(Link)
+const DirectLink = ListItemLink.withComponent(Link);

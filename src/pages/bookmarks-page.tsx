@@ -1,25 +1,25 @@
-import React from 'react'
-import { GoBookmark } from 'react-icons/go'
+import React from "react";
+import { GoBookmark } from "react-icons/go";
 
-import { useSelector } from 'containers/project-data-container'
-import { useSearch } from 'components/search/search-container'
+import { useSelector } from "containers/project-data-container";
+import { useSearch } from "components/search/search-container";
 import {
   paginateItemList,
-  PaginationContainer
-} from 'components/core/pagination'
-import { ProjectPaginatedList } from 'components/search/project-paginated-list'
-import { EmptyContent, MainContent, PageHeader } from 'components/core'
-import { getBookmarksSortedBy } from 'selectors'
-import { AuthContainer } from 'containers/auth-container'
+  PaginationContainer,
+} from "components/core/pagination";
+import { ProjectPaginatedList } from "components/search/project-paginated-list";
+import { EmptyContent, MainContent, PageHeader } from "components/core";
+import { getBookmarksSortedBy } from "selectors";
+import { AuthContainer } from "containers/auth-container";
 
 const BookmarksPage = () => {
-  const { page, sortOption } = useSearch({ defaultSortOptionId: 'bookmark' })
-  const { isLoggedIn } = AuthContainer.useContainer()
-  const projects = useSelector(getBookmarksSortedBy(sortOption.id))
+  const { page, sortOption } = useSearch({ defaultSortOptionId: "bookmark" });
+  const { isLoggedIn } = AuthContainer.useContainer();
+  const projects = useSelector(getBookmarksSortedBy(sortOption.id));
 
-  const total = projects.length
-  const limit = 10
-  const paginatedProjects = paginateItemList(projects, page, { limit })
+  const total = projects.length;
+  const limit = 10;
+  const paginatedProjects = paginateItemList(projects, page, { limit });
 
   return (
     <MainContent>
@@ -31,7 +31,7 @@ const BookmarksPage = () => {
           <PageHeader
             title="Bookmarks"
             icon={<GoBookmark size={32} />}
-            subTitle={total === 1 ? 'one project' : `${total} projects`}
+            subTitle={total === 1 ? "one project" : `${total} projects`}
           />
           <ProjectPaginatedList
             projects={paginatedProjects}
@@ -43,10 +43,10 @@ const BookmarksPage = () => {
         </PaginationContainer.Provider>
       )}
     </MainContent>
-  )
-}
+  );
+};
 
-export default BookmarksPage
+export default BookmarksPage;
 
 const EmptyList = ({ isLoggedin }) => (
   <EmptyContent>
@@ -61,4 +61,4 @@ const EmptyList = ({ isLoggedin }) => (
       <span>Please sign-in to access this feature!</span>
     )}
   </EmptyContent>
-)
+);

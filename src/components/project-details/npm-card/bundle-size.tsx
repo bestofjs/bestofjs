@@ -1,21 +1,21 @@
-import React from 'react'
-import Toggle from 'react-toggled'
+import React from "react";
+import Toggle from "react-toggled";
 
-import { ExpandableSection } from './expandable-section'
-import { FileSize } from './file-size'
-import { SizeDetailsList } from './size-details-list'
-import { ExternalLink } from '../../core/typography'
+import { ExpandableSection } from "./expandable-section";
+import { FileSize } from "./file-size";
+import { SizeDetailsList } from "./size-details-list";
+import { ExternalLink } from "../../core/typography";
 
-type Props = { project: BestOfJS.ProjectDetails }
+type Props = { project: BestOfJS.ProjectDetails };
 export const BundleSize = ({ project }: Props) => {
-  const { bundle } = project
-  if (!bundle) return <div>Loading bundle size...</div>
+  const { bundle } = project;
+  if (!bundle) return <div>Loading bundle size...</div>;
   if (bundle.errorMessage)
     return (
       <div className="version text-secondary">
         Bundle size data not available
       </div>
-    )
+    );
   return (
     <Toggle>
       {({ on, getTogglerProps }) => (
@@ -28,23 +28,23 @@ export const BundleSize = ({ project }: Props) => {
         </div>
       )}
     </Toggle>
-  )
-}
+  );
+};
 
 const BundleSizePreview = ({
-  bundle
+  bundle,
 }: {
-  bundle: BestOfJS.ProjectDetails['bundle']
+  bundle: BestOfJS.ProjectDetails["bundle"];
 }) => {
   return (
-    <span className="text-secondary" style={{ marginLeft: '.5rem' }}>
+    <span className="text-secondary" style={{ marginLeft: ".5rem" }}>
       <FileSize value={bundle.gzip} /> (Minified + Gzipped)
     </span>
-  )
-}
+  );
+};
 
 const BundleSizeDetails = ({ project, bundle }) => {
-  const url = `https://bundlephobia.com/result?p=${project.packageName}`
+  const url = `https://bundlephobia.com/result?p=${project.packageName}`;
   return (
     <SizeDetailsList>
       <SizeDetailsList.Item>
@@ -54,11 +54,11 @@ const BundleSizeDetails = ({ project, bundle }) => {
         <FileSize value={bundle.size} /> (Minified)
       </SizeDetailsList.Item>
       <SizeDetailsList.Link>
-        View details on{' '}
+        View details on{" "}
         <ExternalLink url={url}>
           <i>Bundle Phobia</i>
         </ExternalLink>
       </SizeDetailsList.Link>
     </SizeDetailsList>
-  )
-}
+  );
+};

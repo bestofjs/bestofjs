@@ -16,8 +16,8 @@
   --graphBackgroundColor: #fbe6db;
   --menuHoverColor: var(--chakra-colors-orange-100);
   /* fonts */
-  --bodyFontFamily: 'Roboto Slab', sans-serif;
-  --headingFontFamily: 'Open Sans', sans-serif;
+  --bodyFontFamily: "Roboto Slab", sans-serif;
+  --headingFontFamily: "Open Sans", sans-serif;
   --linkFontFamily: var(--bodyFontFamily);
   --buttonFontFamily: var(--headingFontFamily);
 }

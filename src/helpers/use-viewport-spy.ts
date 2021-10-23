@@ -1,46 +1,46 @@
 // From https://github.com/beautifulinteractions/beautiful-react-hooks/blob/master/src/useViewportSpy.js
-import { useLayoutEffect, useState } from 'react'
+import { useLayoutEffect, useState } from "react";
 
 const defaultOptions = {
   root: undefined,
-  rootMargin: '0px',
-  threshold: 0
-}
+  rootMargin: "0px",
+  threshold: 0,
+};
 
 /**
  * Uses the IntersectionObserverMock API to tell whether the given DOM Element (from useRef) is visible within the
  * viewport.
  */
 export const useViewportSpy = (elementRef, options = defaultOptions) => {
-  const [isVisible, setIsVisible] = useState<boolean>()
+  const [isVisible, setIsVisible] = useState<boolean>();
 
   useLayoutEffect(
     () => {
       if (!supportsObserverAPI()) {
-        setIsVisible(true)
-        return () => {}
+        setIsVisible(true);
+        return () => {};
       }
       const observer = new IntersectionObserver(
         (entries) =>
           entries.forEach((item) => {
-            const nextValue = item.isIntersecting
-            setIsVisible(nextValue)
+            const nextValue = item.isIntersecting;
+            setIsVisible(nextValue);
           }),
         options
-      )
+      );
 
-      observer.observe(elementRef.current)
+      observer.observe(elementRef.current);
 
       return () => {
-        observer.disconnect() // eslint-disable-line react-hooks/exhaustive-deps
-      }
+        observer.disconnect(); // eslint-disable-line react-hooks/exhaustive-deps
+      };
     },
     [elementRef] // eslint-disable-line react-hooks/exhaustive-deps
-  )
+  );
 
-  return isVisible
-}
+  return isVisible;
+};
 
 function supportsObserverAPI() {
-  return typeof IntersectionObserver === 'function'
+  return typeof IntersectionObserver === "function";
 }

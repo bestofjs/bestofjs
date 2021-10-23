@@ -1,24 +1,24 @@
-import React from 'react'
-import numeral from 'numeral'
-import styled from '@emotion/styled'
-import { GoMarkGithub, GoGitCommit } from 'react-icons/go'
-import { MdGroup } from 'react-icons/md'
+import React from "react";
+import numeral from "numeral";
+import styled from "@emotion/styled";
+import { GoMarkGithub, GoGitCommit } from "react-icons/go";
+import { MdGroup } from "react-icons/md";
 
-import { Box, SimpleGrid } from 'components/core'
-import { fromNow } from 'helpers/from-now'
+import { Box, SimpleGrid } from "components/core";
+import { fromNow } from "helpers/from-now";
 import {
   Card,
   CardHeader,
   CardBody,
   CardSection,
-  ExternalLink
-} from 'components/core'
-import { StarTotal } from 'components/core/project'
-import { ExternalLinkIcon } from 'components/core/icons'
+  ExternalLink,
+} from "components/core";
+import { StarTotal } from "components/core/project";
+import { ExternalLinkIcon } from "components/core/icons";
 
-const formatNumber = (number) => numeral(number).format('0,0')
+const formatNumber = (number) => numeral(number).format("0,0");
 
-type Props = { project: BestOfJS.ProjectDetails }
+type Props = { project: BestOfJS.ProjectDetails };
 export const GitHubRepoInfo = ({
   project: {
     full_name,
@@ -27,8 +27,8 @@ export const GitHubRepoInfo = ({
     created_at,
     pushed_at,
     contributor_count,
-    commit_count
-  }
+    commit_count,
+  },
 }: Props) => {
   return (
     <Card>
@@ -39,7 +39,7 @@ export const GitHubRepoInfo = ({
       </CardHeader>
       <CardBody>
         <CardSection>
-          <SimpleGrid gap={4} templateColumns={{ sm: '1fr', md: '1fr 1fr' }}>
+          <SimpleGrid gap={4} templateColumns={{ sm: "1fr", md: "1fr 1fr" }}>
             <Box>
               <ExternalLink url={repository}>
                 {full_name}
@@ -49,7 +49,7 @@ export const GitHubRepoInfo = ({
             <Box>
               {created_at && (
                 <>
-                  Created {fromNow(created_at)}, last commit{' '}
+                  Created {fromNow(created_at)}, last commit{" "}
                   {fromNow(pushed_at)}
                 </>
               )}
@@ -72,8 +72,8 @@ export const GitHubRepoInfo = ({
         </CardSection>
       </CardBody>
     </Card>
-  )
-}
+  );
+};
 
 const Stats = styled.p`
   display: flex;
@@ -81,4 +81,4 @@ const Stats = styled.p`
   .icon {
     margin-right: 0.5rem;
   }
-`
+`;

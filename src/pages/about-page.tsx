@@ -1,4 +1,4 @@
-import React from 'react'
+import React from "react";
 
 import {
   Box,
@@ -10,16 +10,16 @@ import {
   PageHeader,
   Text,
   UnorderedList,
-  VStack
-} from 'components/core'
-import { useSelector } from 'containers/project-data-container'
-import { CreateIssueLink } from 'components/user-requests/add-project/create-issue-link'
-import { APP_REPO_URL, APP_DISPLAY_NAME, SPONSOR_URL } from 'config'
+  VStack,
+} from "components/core";
+import { useSelector } from "containers/project-data-container";
+import { CreateIssueLink } from "components/user-requests/add-project/create-issue-link";
+import { APP_REPO_URL, APP_DISPLAY_NAME, SPONSOR_URL } from "config";
 
 const AboutPage = () => {
   const count = useSelector(
     (state) => Object.keys(state.entities.projects).length
-  )
+  );
   return (
     <MainContent>
       <PageHeader title="About" />
@@ -42,7 +42,7 @@ const AboutPage = () => {
               How to stay up-to-date about the latest tendencies?
             </ListItem>
             <ListItem>
-              How to check quickly the projects that really matter,{' '}
+              How to check quickly the projects that really matter,{" "}
               <strong>now</strong> and not 6 months ago?
             </ListItem>
           </UnorderedList>
@@ -56,7 +56,7 @@ const AboutPage = () => {
           <Text mt={2}>
             Checking the number of stars on GitHub is a good way to check
             project popularity but it does not tell you when the stars have been
-            added.{' '}
+            added.{" "}
           </Text>
           <Text mt={2}>
             {APP_DISPLAY_NAME} takes &quot;snapshot&quot; of GitHub stars every
@@ -98,7 +98,7 @@ const AboutPage = () => {
           </Text>
           <Text mt={2}>As a result, some great projects must be missing!</Text>
           <Text mt={2}>
-            Create a GitHub issue{' '}
+            Create a GitHub issue{" "}
             <CreateIssueLink type="ADD_PROJECT">here</CreateIssueLink> to
             suggest a new project to add.
           </Text>
@@ -110,24 +110,24 @@ const AboutPage = () => {
           </Heading>
           <Text mt={2}>
             If you find the application useful, you can star the project's
-            repository on <ExternalLink url={APP_REPO_URL}>GitHub</ExternalLink>{' '}
+            repository on <ExternalLink url={APP_REPO_URL}>GitHub</ExternalLink>{" "}
             or <ExternalLink url={SPONSOR_URL}>become a sponsor</ExternalLink>.
           </Text>
           <Text mt={2}>
-            Thank you for your support, We are all made of stars{' '}
+            Thank you for your support, We are all made of stars{" "}
             <Image
               display="inline"
               src="images/star.png"
               width="16px"
               height="16px"
               alt="star"
-            />{' '}
+            />{" "}
             !
           </Text>
         </Box>
       </VStack>
     </MainContent>
-  )
-}
+  );
+};
 
-export default AboutPage
+export default AboutPage;

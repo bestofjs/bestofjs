@@ -1,20 +1,20 @@
-import React from 'react'
+import React from "react";
 
-import { Button, MainContent, PageHeader } from 'components/core'
+import { Button, MainContent, PageHeader } from "components/core";
 
 // From https://reactjs.org/docs/concurrent-mode-suspense.html#handling-errors
-type Props = { fallback: React.ReactNode }
-type State = { error: Error | null }
+type Props = { fallback: React.ReactNode };
+type State = { error: Error | null };
 export class ErrorBoundary extends React.Component<Props, State> {
-  state = { error: null }
+  state = { error: null };
   static getDerivedStateFromError(error) {
-    return { error }
+    return { error };
   }
   render() {
     if (!!this.state.error) {
-      return this.props.fallback
+      return this.props.fallback;
     }
-    return this.props.children
+    return this.props.children;
   }
 }
 
@@ -24,14 +24,14 @@ export const ErrorFallback = () => {
       <PageHeader title="Error" />
       <div
         style={{
-          border: '2px solid #fa9e59',
-          padding: '4rem 1rem',
-          textAlign: 'center',
-          fontSize: 16
+          border: "2px solid #fa9e59",
+          padding: "4rem 1rem",
+          textAlign: "center",
+          fontSize: 16,
         }}
       >
         <p>
-          The site has been updated, reload the browser or{' '}
+          The site has been updated, reload the browser or{" "}
           <a href="/">click here</a> to go the home page.
         </p>
         <p>
@@ -40,15 +40,15 @@ export const ErrorFallback = () => {
         <Button
           onClick={() => window.location.reload()}
           style={{
-            fontSize: '1.2rem',
-            marginTop: '1rem',
+            fontSize: "1.2rem",
+            marginTop: "1rem",
             width: 300,
-            display: 'inline'
+            display: "inline",
           }}
         >
           Reload
         </Button>
       </div>
     </MainContent>
-  )
-}
+  );
+};

@@ -1,47 +1,47 @@
-import React from 'react'
-import { useHistory, useParams } from 'react-router-dom'
-import { GoCalendar } from 'react-icons/go'
+import React from "react";
+import { useHistory, useParams } from "react-router-dom";
+import { GoCalendar } from "react-icons/go";
 
-import { useFetchMonthlyRankings } from 'api/hooks'
-import { MainContent, PageHeader, Spinner } from 'components/core'
+import { useFetchMonthlyRankings } from "api/hooks";
+import { MainContent, PageHeader, Spinner } from "components/core";
 import {
   getNextMonth,
   getPreviousMonth,
   MonthlyRankingsNavigator,
-  MonthlyRankingsProjects
-} from 'components/monthly-rankings/rankings'
+  MonthlyRankingsProjects,
+} from "components/monthly-rankings/rankings";
 
 export const MonthlyRankingsPage = () => {
-  const { year, month } = useParams()
-  const date = checkDateParams(year, month) ? { year, month } : null
+  const { year, month } = useParams();
+  const date = checkDateParams(year, month) ? { year, month } : null;
   return (
     <MainContent>
       <PageHeader title="Monthly Rankings" icon={<GoCalendar size={32} />} />
       <FetchMonthlyRankings date={date} />
     </MainContent>
-  )
-}
+  );
+};
 
 const FetchMonthlyRankings = ({ date }) => {
-  const history = useHistory()
-  const { data, error } = useFetchMonthlyRankings(date)
+  const history = useHistory();
+  const { data, error } = useFetchMonthlyRankings(date);
 
   if (error) {
-    return <div>Unable to load the rankings</div>
+    return <div>Unable to load the rankings</div>;
   }
   if (!data) {
-    return <Spinner />
+    return <Spinner />;
   }
-  const { year, month, isFirst, isLatest } = data as any
+  const { year, month, isFirst, isLatest } = data as any;
 
   const goToPrevious = () => {
-    const target = getPreviousMonth({ year, month })
-    history.push(`/rankings/monthly/${target.year}/${target.month}`)
-  }
+    const target = getPreviousMonth({ year, month });
+    history.push(`/rankings/monthly/${target.year}/${target.month}`);
+  };
   const goToNext = () => {
-    const target = getNextMonth({ year, month })
-    history.push(`/rankings/monthly/${target.year}/${target.month}`)
-  }
+    const target = getNextMonth({ year, month });
+    history.push(`/rankings/monthly/${target.year}/${target.month}`);
+  };
 
   return (
     <>
@@ -59,19 +59,19 @@ const FetchMonthlyRankings = ({ date }) => {
         month={month}
       />
     </>
-  )
-}
+  );
+};
 
 function checkDateParams(year: string, month: string) {
-  return isValidYear(year) && isValidMonth(month)
+  return isValidYear(year) && isValidMonth(month);
 }
 function isValidYear(year: string) {
-  if (!year) return false
-  const yearNumber = Number(year)
-  return !isNaN(yearNumber) && yearNumber > 2019 && yearNumber <= 2030
+  if (!year) return false;
+  const yearNumber = Number(year);
+  return !isNaN(yearNumber) && yearNumber > 2019 && yearNumber <= 2030;
 }
 function isValidMonth(month: string) {
-  if (!month) return false
-  const monthNumber = Number(month)
-  return !isNaN(monthNumber) && monthNumber >= 1 && monthNumber <= 12
+  if (!month) return false;
+  const monthNumber = Number(month);
+  return !isNaN(monthNumber) && monthNumber >= 1 && monthNumber <= 12;
 }

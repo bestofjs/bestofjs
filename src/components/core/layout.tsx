@@ -3,8 +3,8 @@ import {
   ButtonProps,
   IconProps,
   IconButtonProps,
-  LinkProps
-} from '@chakra-ui/react'
+  LinkProps,
+} from "@chakra-ui/react";
 
 export {
   Box,
@@ -32,7 +32,7 @@ export {
   ListItem,
   Stack,
   VStack,
-  chakra
-} from '@chakra-ui/react'
+  chakra,
+} from "@chakra-ui/react";
 
-export type { BoxProps, IconProps, IconButtonProps, LinkProps, ButtonProps }
+export type { BoxProps, IconProps, IconButtonProps, LinkProps, ButtonProps };

@@ -1,6 +1,6 @@
-import React, { useState, useEffect, useRef } from 'react'
-import Select, { components } from 'react-select'
-import useDebouncedCallback from 'use-debounce/lib/useDebouncedCallback'
+import React, { useState, useEffect, useRef } from "react";
+import Select, { components } from "react-select";
+import useDebouncedCallback from "use-debounce/lib/useDebouncedCallback";
 
 import {
   Box,
@@ -9,42 +9,42 @@ import {
   Tag,
   TagCloseButton,
   TagLabel,
-  useColorModeValue
-} from 'components/core'
-import { useSelector } from 'containers/project-data-container'
-import { getAllTags } from 'selectors'
-import { ChevronDownIcon } from 'components/core/icons'
-import { SearchContainer } from './search-container'
+  useColorModeValue,
+} from "components/core";
+import { useSelector } from "containers/project-data-container";
+import { getAllTags } from "selectors";
+import { ChevronDownIcon } from "components/core/icons";
+import { SearchContainer } from "./search-container";
 
 // see https://github.com/JedWatson/react-select/issues/3692 for theming and dark theme
 
 export const SearchBox = () => {
-  const tags = useSelector(getAllTags)
-  const { query, selectedTags, onChange } = SearchContainer.useContainer()
-  const [inputValue, setInputValue] = useState(query)
-  const [debouncedOnChange, cancel] = useDebouncedCallback(onChange, 300)
+  const tags = useSelector(getAllTags);
+  const { query, selectedTags, onChange } = SearchContainer.useContainer();
+  const [inputValue, setInputValue] = useState(query);
+  const [debouncedOnChange, cancel] = useDebouncedCallback(onChange, 300);
 
-  const options = [{ id: '', counter: tags.length }, ...tags].map((item) => ({
+  const options = [{ id: "", counter: tags.length }, ...tags].map((item) => ({
     ...item,
     value: item.id,
-    label: item.name
-  }))
+    label: item.name,
+  }));
 
   const selectedOptions = selectedTags.map((tagId) =>
     options.find(({ id }) => id === tagId)
-  )
+  );
 
   useEffect(() => {
-    setInputValue(query)
-  }, [query])
+    setInputValue(query);
+  }, [query]);
 
-  const selectRef = useRef<any>()
+  const selectRef = useRef<any>();
 
   return (
     <Box
       bgGradient={useColorModeValue(
-        'linear(to-r, orange.400, orange.600)',
-        'linear(to-r, orange.500, orange.800)'
+        "linear(to-r, orange.400, orange.600)",
+        "linear(to-r, orange.500, orange.800)"
       )}
       py={4}
       fontFamily="var(--buttonFontFamily)"
@@ -56,43 +56,43 @@ export const SearchBox = () => {
           isMulti
           isClearable
           noOptionsMessage={() => null}
-          placeholder={'Pick tags or enter keywords'}
+          placeholder={"Pick tags or enter keywords"}
           onChange={(options, { action, option }) => {
             // console.log('> onChange', options, action, option)
-            const tagIds = (options || []).map(({ id }) => id)
-            if (action === 'select-option') {
-              if (option.id === '') return
+            const tagIds = (options || []).map(({ id }) => id);
+            if (action === "select-option") {
+              if (option.id === "") return;
             }
-            setInputValue('')
-            cancel()
-            onChange({ query: '', selectedTags: tagIds })
+            setInputValue("");
+            cancel();
+            onChange({ query: "", selectedTags: tagIds });
           }}
           onInputChange={(value, { action }) => {
             // console.log('onInputChange', value, action)
-            if (action === 'input-change') {
-              setInputValue(value)
-              debouncedOnChange({ query: value })
+            if (action === "input-change") {
+              setInputValue(value);
+              debouncedOnChange({ query: value });
             }
           }}
           // This `onKeyDown` event handler is used only for 2 specific cases:
           // - Closing the keyboard on mobiles when the user pushes Enter
           // -  When the user enters text, moves the cursor just after the tag and pushes the Backspace key
           onKeyDown={(event) => {
-            const input = selectRef?.current?.select.inputRef
-            if (event.key === 'Enter') {
-              input.blur()
-              return
+            const input = selectRef?.current?.select.inputRef;
+            if (event.key === "Enter") {
+              input.blur();
+              return;
             }
-            if (event.key !== 'Backspace') return
-            if (selectedTags.length === 0) return
-            if (query === '') return
-            const { selectionStart, selectionEnd } = input
-            if (!(selectionStart === 0 && selectionEnd === 0)) return
-            console.info('Remove the last tag')
+            if (event.key !== "Backspace") return;
+            if (selectedTags.length === 0) return;
+            if (query === "") return;
+            const { selectionStart, selectionEnd } = input;
+            if (!(selectionStart === 0 && selectionEnd === 0)) return;
+            console.info("Remove the last tag");
             onChange({
               query,
-              selectedTags: selectedTags.slice(0, selectedTags.length - 1)
-            })
+              selectedTags: selectedTags.slice(0, selectedTags.length - 1),
+            });
           }}
           inputValue={inputValue}
           value={selectedOptions}
@@ -102,29 +102,29 @@ export const SearchBox = () => {
             ...theme,
             colors: {
               ...theme.colors,
-              neutral0: 'var(--cardBackgroundColor)',
-              neutral20: 'var(--boxBorderColor)',
-              neutral30: 'var(--boxBorderColor)',
-              neutral50: 'var(--textSecondaryColor)', // placeholder color
-              neutral80: 'var(--textPrimaryColor)', // input color
-              primary: 'var(--bestofjsOrange)',
-              primary75: 'var(--menuHoverColor)',
-              primary50: 'var(--menuHoverColor)',
-              primary25: 'var(--menuHoverColor)'
-            }
+              neutral0: "var(--cardBackgroundColor)",
+              neutral20: "var(--boxBorderColor)",
+              neutral30: "var(--boxBorderColor)",
+              neutral50: "var(--textSecondaryColor)", // placeholder color
+              neutral80: "var(--textPrimaryColor)", // input color
+              primary: "var(--bestofjsOrange)",
+              primary75: "var(--menuHoverColor)",
+              primary50: "var(--menuHoverColor)",
+              primary25: "var(--menuHoverColor)",
+            },
           })}
         />
       </div>
     </Box>
-  )
-}
+  );
+};
 
 // Customize the default `Option` component provided by `react-select`
-const { Option, IndicatorsContainer } = components
+const { Option, IndicatorsContainer } = components;
 
 const customComponents = {
   ClearIndicator: (props) => {
-    return <CloseButton size="sm" mx={2} onClick={() => props.clearValue()} />
+    return <CloseButton size="sm" mx={2} onClick={() => props.clearValue()} />;
   },
   DropdownIndicator: (props) => {
     return (
@@ -137,10 +137,10 @@ const customComponents = {
         borderRadius="md"
         boxSize="24px"
       />
-    )
+    );
   },
   Option: (props) => {
-    const { id, name, counter } = props.data
+    const { id, name, counter } = props.data;
     return (
       <Option {...props}>
         {id ? (
@@ -149,16 +149,16 @@ const customComponents = {
           </>
         ) : (
           <>
-            Pick a tag...{'  '}
+            Pick a tag...{"  "}
             <span className="text-secondary">({counter} tags available)</span>
           </>
         )}
       </Option>
-    )
+    );
   },
   IndicatorsContainer: ({ children, ...props }) => {
-    const { hasValue } = props // the selected tags
-    const { inputValue } = props.selectProps // the query
+    const { hasValue } = props; // the selected tags
+    const { inputValue } = props.selectProps; // the query
     return (
       <IndicatorsContainer {...props}>
         {inputValue && !hasValue && (
@@ -166,18 +166,18 @@ const customComponents = {
         )}
         {children}
       </IndicatorsContainer>
-    )
+    );
   },
   MultiValue: (props) => {
     const {
       data: { label },
-      removeProps
-    } = props
+      removeProps,
+    } = props;
     return (
       <Tag mr={2}>
         <TagLabel>{label}</TagLabel>
         <TagCloseButton {...removeProps} />
       </Tag>
-    )
-  }
-}
+    );
+  },
+};

@@ -6,7 +6,7 @@
   min-height: 1px;
 }
 .vertical-timeline-element:after {
-  content: '';
+  content: "";
   display: table;
   clear: both;
 }
@@ -151,7 +151,7 @@
   box-shadow: none;
 }
 .vertical-timeline-element-content:after {
-  content: '';
+  content: "";
   display: table;
   clear: both;
 }
@@ -187,7 +187,7 @@
   opacity: 0.7;
 }
 .vertical-timeline-element-content-arrow {
-  content: '';
+  content: "";
   position: absolute;
   top: 16px;
   right: 100%;

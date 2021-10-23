@@ -1,16 +1,16 @@
-import React from 'react'
-import Toggle from 'react-toggled'
-import { Link as RouterLink } from 'react-router-dom'
-import styled from '@emotion/styled'
+import React from "react";
+import Toggle from "react-toggled";
+import { Link as RouterLink } from "react-router-dom";
+import styled from "@emotion/styled";
 
-import { useSelector } from 'containers/project-data-container'
-import { StarTotal } from 'components/core/project'
-import { Link } from 'components/core'
-import { ExternalLink } from 'components/core/typography'
-import { ExternalLinkIcon } from 'components/core/icons'
-import { npmProjects } from 'selectors'
-import { ExpandableSection } from './expandable-section'
-import { DependencyTable } from './dependency-table'
+import { useSelector } from "containers/project-data-container";
+import { StarTotal } from "components/core/project";
+import { Link } from "components/core";
+import { ExternalLink } from "components/core/typography";
+import { ExternalLinkIcon } from "components/core/icons";
+import { npmProjects } from "selectors";
+import { ExpandableSection } from "./expandable-section";
+import { DependencyTable } from "./dependency-table";
 
 const DependenciesContainer = styled.div`
   overflow: hidden;
@@ -19,15 +19,15 @@ const DependenciesContainer = styled.div`
   .inline-list > *:not(:last-child) {
     margin-right: 0.5rem;
   }
-`
+`;
 
 export const Dependencies = ({ project }) => {
-  const { dependencies } = project.npm
-  if (!dependencies) return <span>Loading dependencies...</span>
-  const count = dependencies.length
-  if (count === 0) return <span>No dependencies</span>
-  return <DependencyList dependencies={dependencies} />
-}
+  const { dependencies } = project.npm;
+  if (!dependencies) return <span>Loading dependencies...</span>;
+  const count = dependencies.length;
+  if (count === 0) return <span>No dependencies</span>;
+  return <DependencyList dependencies={dependencies} />;
+};
 
 const DependencyList = ({ dependencies }) => (
   <Toggle>
@@ -41,29 +41,29 @@ const DependencyList = ({ dependencies }) => (
       </DependenciesContainer>
     )}
   </Toggle>
-)
+);
 
 const DependencyListPreview = ({ dependencies }) => (
-  <span className="inline-list" style={{ marginLeft: '.5rem' }}>
+  <span className="inline-list" style={{ marginLeft: ".5rem" }}>
     {dependencies.map((packageName) => (
       <span className="text-secondary" key={packageName}>
         {packageName}
       </span>
     ))}
   </span>
-)
+);
 
 function useFindProjectsByPackageName({ packageNames }) {
-  const projects = useSelector(npmProjects)
+  const projects = useSelector(npmProjects);
   const packages = packageNames.map((packageName) => ({
     name: packageName,
-    project: projects.find((project) => project.packageName === packageName)
-  }))
-  return packages
+    project: projects.find((project) => project.packageName === packageName),
+  }));
+  return packages;
 }
 
 const DependencyFullList = ({ packageNames }) => {
-  const packages = useFindProjectsByPackageName({ packageNames })
+  const packages = useFindProjectsByPackageName({ packageNames });
 
   return (
     <DependencyTable className="block-list">
@@ -91,7 +91,7 @@ const DependencyFullList = ({ packageNames }) => {
                     as={RouterLink}
                     to={`/projects/${npmPackage.project.slug}`}
                   >
-                    {npmPackage.project.name}{' '}
+                    {npmPackage.project.name}{" "}
                   </Link>
                   <StarTotal value={npmPackage.project.stars} />
                   <span className="text-secondary" />
@@ -104,5 +104,5 @@ const DependencyFullList = ({ packageNames }) => {
         ))}
       </tbody>
     </DependencyTable>
-  )
-}
+  );
+};

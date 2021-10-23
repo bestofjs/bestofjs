@@ -1,6 +1,6 @@
-import React from 'react'
-import { Link as RouterLink } from 'react-router-dom'
-import styled from '@emotion/styled'
+import React from "react";
+import { Link as RouterLink } from "react-router-dom";
+import styled from "@emotion/styled";
 
 import {
   MainContent,
@@ -11,41 +11,41 @@ import {
   PageHeader,
   Text,
   UnorderedList,
-  VStack
-} from 'components/core'
-import { allProjects } from 'selectors'
-import { useSelector } from 'containers/project-data-container'
-import { Timeline } from 'components/timeline/timeline'
+  VStack,
+} from "components/core";
+import { allProjects } from "selectors";
+import { useSelector } from "containers/project-data-container";
+import { Timeline } from "components/timeline/timeline";
 
 export const TimelinePage = () => {
-  const projects = useSelector(allProjects)
-  if (!projects.length) return <Spinner />
+  const projects = useSelector(allProjects);
+  if (!projects.length) return <Spinner />;
 
   const extraProjects = [
-    { id: 'threejs', name: 'Three.js', year: 2010 },
-    { id: 'backbone', name: 'Backbone', year: 2010 },
-    { id: 'meteor', name: 'Meteor', year: 2012 },
-    { id: 'jest', name: 'Jest', year: 2013 },
-    { id: 'redux', name: 'Redux', year: 2015 },
-    { id: 'rollup', name: 'Rollup', year: 2015 },
-    { id: 'gatsby', name: 'Gastby', year: 2015 },
-    { id: 'storybook', name: 'Storybook', year: 2016 },
-    { id: 'parcel', name: 'Parcel', year: 2017 }
-  ]
+    { id: "threejs", name: "Three.js", year: 2010 },
+    { id: "backbone", name: "Backbone", year: 2010 },
+    { id: "meteor", name: "Meteor", year: 2012 },
+    { id: "jest", name: "Jest", year: 2013 },
+    { id: "redux", name: "Redux", year: 2015 },
+    { id: "rollup", name: "Rollup", year: 2015 },
+    { id: "gatsby", name: "Gastby", year: 2015 },
+    { id: "storybook", name: "Storybook", year: 2016 },
+    { id: "parcel", name: "Parcel", year: 2017 },
+  ];
 
   return (
     <MainContent>
       <PageHeader title="Timeline: 2006-2020 in 20 projects" />
       <PageDescription>
-        Our favorite newsletter{' '}
-        <a href="https://javascriptweekly.com/issues/500">JavaScript Weekly</a>{' '}
+        Our favorite newsletter{" "}
+        <a href="https://javascriptweekly.com/issues/500">JavaScript Weekly</a>{" "}
         has just released its 500th issue.
         <br />
         Let's celebrate this milestone by picking 20 significant projects, from
         2006 to 2020.
-        <br />A short story of the web platform from <i>jQuery</i> to{' '}
+        <br />A short story of the web platform from <i>jQuery</i> to{" "}
         <i>Rome</i>.<br />
-        Click on the links to see the project details and the trends on{' '}
+        Click on the links to see the project details and the trends on{" "}
         <i>Best of JS</i>.
       </PageDescription>
       <Timeline />
@@ -62,7 +62,7 @@ export const TimelinePage = () => {
                   color="var(--linkColor)"
                 >
                   {project.name}
-                </Link>{' '}
+                </Link>{" "}
                 ({project.year})
               </ListItem>
             ))}
@@ -89,27 +89,27 @@ export const TimelinePage = () => {
         </VStack>
       </Disclaimer>
     </MainContent>
-  )
-}
+  );
+};
 
-export default TimelinePage
+export default TimelinePage;
 
 export const isIncludedInHotProjects = (project) => {
-  const hotProjectsExcludedTags = ['meta', 'learning']
+  const hotProjectsExcludedTags = ["meta", "learning"];
   const hasExcludedTag = hotProjectsExcludedTags.some((tag) =>
     project.tags.includes(tag)
-  )
-  return !hasExcludedTag
-}
+  );
+  return !hasExcludedTag;
+};
 
 const PageDescription = styled.div`
   padding-left: 1rem;
   border-left: 2px solid #fa9e59;
   margin-bottom: 2rem;
-`
+`;
 
 const Disclaimer = styled.div`
   margin-top: 2rem;
   padding-top: 1rem;
   border-top: 1px dashed #fa9e59;
-`
+`;

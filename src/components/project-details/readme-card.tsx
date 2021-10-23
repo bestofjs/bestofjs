@@ -1,5 +1,5 @@
-import React from 'react'
-import { GoBook } from 'react-icons/go'
+import React from "react";
+import { GoBook } from "react-icons/go";
 
 import {
   Button,
@@ -8,13 +8,13 @@ import {
   CardBody,
   CardFooter,
   CardSection,
-  Spinner
-} from 'components/core'
-import { useFetchProjectReadMe } from 'api/hooks'
+  Spinner,
+} from "components/core";
+import { useFetchProjectReadMe } from "api/hooks";
 
-import 'stylesheets/markdown-body.css'
+import "stylesheets/markdown-body.css";
 
-type Props = { project: BestOfJS.Project }
+type Props = { project: BestOfJS.Project };
 export const ReadmeCard = ({ project }: Props) => {
   return (
     <Card className="readme">
@@ -33,15 +33,15 @@ export const ReadmeCard = ({ project }: Props) => {
         </Button>
       </CardFooter>
     </Card>
-  )
-}
+  );
+};
 
 const ReadmeContent = ({ project }: Props) => {
-  const { data: html, error } = useFetchProjectReadMe(project)
+  const { data: html, error } = useFetchProjectReadMe(project);
 
-  if (error) return <div>Unable to fetch README.md content from GitHub</div>
+  if (error) return <div>Unable to fetch README.md content from GitHub</div>;
 
-  if (!html) return <Spinner />
+  if (!html) return <Spinner />;
 
-  return <div dangerouslySetInnerHTML={{ __html: html }} />
-}
+  return <div dangerouslySetInnerHTML={{ __html: html }} />;
+};
