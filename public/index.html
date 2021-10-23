@@ -79,7 +79,7 @@
         i.href = e
         i.media = 'only x'
         o.parentNode.insertBefore(i, o)
-        setTimeout(function() {
+        setTimeout(function () {
           i.media = n || 'all'
         })
       }
@@ -87,7 +87,7 @@
         'https://cdnjs.cloudflare.com/ajax/libs/hint.css/2.6.0/hint.min.css'
       )
     </script>
-    <% if (process.env.VERCEL_ENV === 'production') { %>
+    <% if (process.env.REACT_APP_ENV === 'production') { %>
     <script
       defer
       src="https://static.cloudflareinsights.com/beacon.min.js"

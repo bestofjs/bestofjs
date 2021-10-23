@@ -18,7 +18,6 @@ export const DarkModeNews = () => {
       borderWidth="1px"
       bg={useColorModeValue('orange.50', 'yellow.900')}
       borderColor={useColorModeValue('yellow.300', 'yellow.600')}
-      bgX="var(--cardBackgroundColor)"
       borderRadius="md"
     >
       <Flex mb={3} fontSize="xl" alignItems="center">
