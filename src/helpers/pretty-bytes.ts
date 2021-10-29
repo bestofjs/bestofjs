@@ -3,7 +3,7 @@ Code from https://github.com/sindresorhus/pretty-bytes/blob/master/index.js
 We can't use `pretty-bytes` with `create-react-app` v1.x, a compile error occurs at build time.
 because node_modules are not compiled with Babel
 */
-const UNITS = ['B', 'kB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB']
+const UNITS = ["B", "kB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB"];
 
 /*
 Formats the given number using `Number#toLocaleString`.
@@ -12,49 +12,49 @@ Formats the given number using `Number#toLocaleString`.
 - If no value for locale is specified, the number is returned unmodified.
 */
 const toLocaleString = (number, locale) => {
-  let result = number
-  if (typeof locale === 'string') {
-    result = number.toLocaleString(locale)
+  let result = number;
+  if (typeof locale === "string") {
+    result = number.toLocaleString(locale);
   } else if (locale === true) {
-    result = number.toLocaleString()
+    result = number.toLocaleString();
   }
 
-  return result
-}
+  return result;
+};
 
 export function prettyBytes(number: number, options?: any): string {
   if (!Number.isFinite(number)) {
     throw new TypeError(
       `Expected a finite number, got ${typeof number}: ${number}`
-    )
+    );
   }
 
-  options = Object.assign({}, options)
+  options = Object.assign({}, options);
 
   if (options.signed && number === 0) {
-    return ' 0 B'
+    return " 0 B";
   }
 
-  const isNegative = number < 0
-  const prefix = isNegative ? '-' : options.signed ? '+' : ''
+  const isNegative = number < 0;
+  const prefix = isNegative ? "-" : options.signed ? "+" : "";
 
   if (isNegative) {
-    number = -number
+    number = -number;
   }
 
   if (number < 1) {
-    const numberString = toLocaleString(number, options.locale)
-    return prefix + numberString + ' B'
+    const numberString = toLocaleString(number, options.locale);
+    return prefix + numberString + " B";
   }
 
   const exponent = Math.min(
     Math.floor(Math.log10(number) / 3),
     UNITS.length - 1
-  )
-  number = Number((number / Math.pow(1000, exponent)).toPrecision(3))
-  const numberString = toLocaleString(number, options.locale)
+  );
+  number = Number((number / Math.pow(1000, exponent)).toPrecision(3));
+  const numberString = toLocaleString(number, options.locale);
 
-  const unit = UNITS[exponent]
+  const unit = UNITS[exponent];
 
-  return prefix + numberString + ' ' + unit
+  return prefix + numberString + " " + unit;
 }

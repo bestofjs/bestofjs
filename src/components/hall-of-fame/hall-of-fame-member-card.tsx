@@ -1,13 +1,13 @@
-import React from 'react'
-import styled from '@emotion/styled'
-import numeral from 'numeral'
-import { GoGlobe, GoPackage } from 'react-icons/go'
+import React from "react";
+import styled from "@emotion/styled";
+import numeral from "numeral";
+import { GoGlobe, GoPackage } from "react-icons/go";
 
-import formatUrl from 'helpers/url'
-import { ExternalLink } from 'components/core/typography'
-import { CardProjectLabels } from './card-project-labels'
+import formatUrl from "helpers/url";
+import { ExternalLink } from "components/core/typography";
+import { CardProjectLabels } from "./card-project-labels";
 
-const digits = (value) => (value > 1000 ? '0.0' : '0')
+const digits = (value) => (value > 1000 ? "0.0" : "0");
 
 export const HeroCard = ({ hero, showDetails }) => {
   return (
@@ -17,7 +17,7 @@ export const HeroCard = ({ hero, showDetails }) => {
         url={`https://github.com/${hero.username}`}
         aria-label={`Open ${hero.username}'s profile on GitHub`}
         _hover={{
-          textDecoration: 'none'
+          textDecoration: "none",
         }}
       >
         <img
@@ -35,8 +35,8 @@ export const HeroCard = ({ hero, showDetails }) => {
                 <div className="text-secondary">
                   {numeral(hero.followers).format(
                     `${digits(hero.followers)} a`
-                  )}{' '}
-                  followers{' '}
+                  )}{" "}
+                  followers{" "}
                 </div>
               </div>
             </div>
@@ -68,8 +68,8 @@ export const HeroCard = ({ hero, showDetails }) => {
         </ExternalLink>
       )}
     </Card>
-  )
-}
+  );
+};
 
 const Card = styled.div`
   flex: 1;
@@ -109,7 +109,7 @@ const Card = styled.div`
   .github-data {
     margin-top: 0.2em;
   }
-`
+`;
 
 // function followersComment(value) {
 //   if (value === 0) return "You don't need all these followers!"

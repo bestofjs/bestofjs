@@ -1,73 +1,76 @@
-import { useCallback, useState, useEffect } from 'react'
-import { useHistory } from 'react-router-dom'
-import { createContainer } from 'unstated-next'
-import useSWR from 'swr'
-import { stringify } from 'querystring'
+import { useCallback, useState, useEffect } from "react";
+import { useHistory } from "react-router-dom";
+import { createContainer } from "unstated-next";
+import useSWR from "swr";
+import { stringify } from "querystring";
 
-import { fetchJSON } from 'helpers/fetch'
+import { fetchJSON } from "helpers/fetch";
 
 type TokenInfoResponse = {
-  user_id: string
-  name: string
-  nickname: string
-  picture: string
-  user_metadata: { projects: BestOfJS.Bookmark[] }
-}
+  user_id: string;
+  name: string;
+  nickname: string;
+  picture: string;
+  user_metadata: { projects: BestOfJS.Bookmark[] };
+};
 
-const AUTH0_ROOT_URL = 'https://bestofjs.auth0.com'
-const tokenStorageKey = 'bestofjs_id_token'
+const AUTH0_ROOT_URL = "https://bestofjs.auth0.com";
+const tokenStorageKey = "bestofjs_id_token";
 
 export function useAuth() {
-  const { saveCurrentPath, restorePreviousPath } = usePersistPath()
+  const { saveCurrentPath, restorePreviousPath } = usePersistPath();
 
   const startAuth = useCallback(async () => {
     try {
-      const token = window.localStorage[tokenStorageKey]
+      const token = window.localStorage[tokenStorageKey];
       if (!token) {
         // No token found in the local storage => nothing to do
-        return { token: undefined, profile: undefined }
+        return { token: undefined, profile: undefined };
       }
-      const profile = await fetchUserProfile(token)
-      restorePreviousPath()
-      return { token, profile } as { token: string; profile: TokenInfoResponse }
+      const profile = await fetchUserProfile(token);
+      restorePreviousPath();
+      return { token, profile } as {
+        token: string;
+        profile: TokenInfoResponse;
+      };
     } catch (error) {
-      resetToken()
-      console.error(error)
+      resetToken();
+      console.error(error);
     }
-  }, []) //eslint-disable-line
+  }, []); //eslint-disable-line
 
   const login = () => {
     // Save the current URL so that we can redirect the user when we are back
-    saveCurrentPath()
+    saveCurrentPath();
     const options = {
-      client_id: 'dadmCoaRkXs0IhWwnDmyWaBOjLzJYf4s',
+      client_id: "dadmCoaRkXs0IhWwnDmyWaBOjLzJYf4s",
       redirect_uri: `${window.location.origin}/auth0.html`,
-      scope: 'openid',
-      response_type: 'token',
-      connection: 'github',
-      sso: 'true'
-    }
-    const queryString = stringify(options)
-    const url = `${AUTH0_ROOT_URL}/authorize?&${queryString}`
-    window.location.href = url // Go to Auth0 authentication page
-  }
+      scope: "openid",
+      response_type: "token",
+      connection: "github",
+      sso: "true",
+    };
+    const queryString = stringify(options);
+    const url = `${AUTH0_ROOT_URL}/authorize?&${queryString}`;
+    window.location.href = url; // Go to Auth0 authentication page
+  };
 
   const logout = () => {
     // Do not call window.auth0.logout() that will redirect to GitHub sign out page
-    resetToken()
-    window.location.href = '/'
-  }
+    resetToken();
+    window.location.href = "/";
+  };
 
-  const { data, error } = useSWR('auth', startAuth)
+  const { data, error } = useSWR("auth", startAuth);
   if (error) {
-    console.error('Unable to authenticate the user!', error)
+    console.error("Unable to authenticate the user!", error);
   }
-  const isPending = !data
-  const profile = data?.profile
+  const isPending = !data;
+  const profile = data?.profile;
   const { bookmarks, addBookmark, removeBookmark } = useBookmarks(
     profile,
     data?.token
-  )
+  );
 
   return {
     token: data?.token,
@@ -78,101 +81,101 @@ export function useAuth() {
     logout,
     bookmarks,
     addBookmark,
-    removeBookmark
-  }
+    removeBookmark,
+  };
 }
 
-export const AuthContainer = createContainer(useAuth)
-export const AuthProvider = AuthContainer.Provider
+export const AuthContainer = createContainer(useAuth);
+export const AuthProvider = AuthContainer.Provider;
 
 function useBookmarks(profile, token) {
-  const [bookmarks, setBookmarks] = useState<BestOfJS.Bookmark[]>([])
+  const [bookmarks, setBookmarks] = useState<BestOfJS.Bookmark[]>([]);
 
   useEffect(() => {
-    if (!profile) return
-    setBookmarks(profile?.user_metadata?.projects || [])
-  }, [profile])
+    if (!profile) return;
+    setBookmarks(profile?.user_metadata?.projects || []);
+  }, [profile]);
 
   const toggleUpdateMyProjects = (add) => (project) => {
-    const { user_id } = profile
+    const { user_id } = profile;
     const updatedBookmarks = add
       ? addToMyProjectsIfUnique(bookmarks, project.slug)
-      : bookmarks.filter((item) => item.slug !== project.slug)
-    setBookmarks(updatedBookmarks)
-    saveUserProfile({ user_id, token, projects: updatedBookmarks })
-  }
-  const addBookmark = toggleUpdateMyProjects(true)
-  const removeBookmark = toggleUpdateMyProjects(false)
+      : bookmarks.filter((item) => item.slug !== project.slug);
+    setBookmarks(updatedBookmarks);
+    saveUserProfile({ user_id, token, projects: updatedBookmarks });
+  };
+  const addBookmark = toggleUpdateMyProjects(true);
+  const removeBookmark = toggleUpdateMyProjects(false);
 
   return {
     bookmarks,
     addBookmark,
-    removeBookmark
-  }
+    removeBookmark,
+  };
 }
 
 function fetchUserProfile(token: string): Promise<TokenInfoResponse> {
   const options = {
     body: `id_token=${token}`,
-    method: 'POST',
+    method: "POST",
     headers: {
-      Accept: 'application/json',
+      Accept: "application/json",
       // do not use Content-Type: 'application/json' to avoid extra 'OPTIONS' requests (#9)
-      'Content-Type': 'application/x-www-form-urlencoded'
-    }
-  }
-  const url = `${AUTH0_ROOT_URL}/tokeninfo`
-  return fetchJSON(url, options)
+      "Content-Type": "application/x-www-form-urlencoded",
+    },
+  };
+  const url = `${AUTH0_ROOT_URL}/tokeninfo`;
+  return fetchJSON(url, options);
 }
 
 function resetToken() {
-  window.localStorage.removeItem(tokenStorageKey)
+  window.localStorage.removeItem(tokenStorageKey);
 }
 
 // Add the project to user's list only if it has not already bookmarked before
 function addToMyProjectsIfUnique(myProjects, slug) {
   const found = myProjects
     .map((item) => item.slug)
-    .find((item) => item === slug)
+    .find((item) => item === slug);
   return found
     ? myProjects
-    : myProjects.concat({ bookmarked_at: new Date(), slug })
+    : myProjects.concat({ bookmarked_at: new Date(), slug });
 }
 
 function saveUserProfile({ user_id, token, projects }) {
-  const url = `${AUTH0_ROOT_URL}/api/v2/users/${user_id}`
+  const url = `${AUTH0_ROOT_URL}/api/v2/users/${user_id}`;
   const body = {
     user_metadata: {
-      projects
-    }
-  }
-  const options = {
-    method: 'PATCH',
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${token}`
+      projects,
     },
-    body: JSON.stringify(body)
-  }
-  return fetchJSON(url, options)
+  };
+  const options = {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify(body),
+  };
+  return fetchJSON(url, options);
 }
 
 function usePersistPath() {
-  const pathStorageKey = 'bestofjs_url'
-  const history = useHistory()
+  const pathStorageKey = "bestofjs_url";
+  const history = useHistory();
 
   const saveCurrentPath = () => {
-    const url = window.location.pathname
-    window.localStorage.setItem(pathStorageKey, url)
-  }
+    const url = window.location.pathname;
+    window.localStorage.setItem(pathStorageKey, url);
+  };
 
   const restorePreviousPath = () => {
-    const previousPath = window.localStorage[pathStorageKey]
-    if (!previousPath) return
+    const previousPath = window.localStorage[pathStorageKey];
+    if (!previousPath) return;
 
-    window.localStorage.removeItem(pathStorageKey)
-    history.push(previousPath)
-  }
+    window.localStorage.removeItem(pathStorageKey);
+    history.push(previousPath);
+  };
 
-  return { saveCurrentPath, restorePreviousPath }
+  return { saveCurrentPath, restorePreviousPath };
 }

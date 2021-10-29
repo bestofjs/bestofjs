@@ -1,20 +1,20 @@
-import React from 'react'
-import Toggle from 'react-toggled'
+import React from "react";
+import Toggle from "react-toggled";
 
-import { ExpandableSection } from './expandable-section'
-import { FileSize } from './file-size'
-import { SizeDetailsList } from './size-details-list'
-import { ExternalLink } from '../../core/typography'
+import { ExpandableSection } from "./expandable-section";
+import { FileSize } from "./file-size";
+import { SizeDetailsList } from "./size-details-list";
+import { ExternalLink } from "../../core/typography";
 
 export const PackageSize = ({ project, ...rest }) => {
-  const { packageSize } = project
-  if (!packageSize) return <div {...rest}>Loading package size...</div>
+  const { packageSize } = project;
+  if (!packageSize) return <div {...rest}>Loading package size...</div>;
   if (packageSize.errorMessage)
     return (
       <div {...rest} className="version text-secondary">
         Package size data not available
       </div>
-    )
+    );
   return (
     <Toggle>
       {({ on, getTogglerProps }) => (
@@ -29,19 +29,19 @@ export const PackageSize = ({ project, ...rest }) => {
         </div>
       )}
     </Toggle>
-  )
-}
+  );
+};
 
 const PackageSizePreview = ({ packageSize }) => {
   return (
-    <span className="text-secondary" style={{ marginLeft: '.5rem' }}>
+    <span className="text-secondary" style={{ marginLeft: ".5rem" }}>
       <FileSize value={packageSize.installSize} /> on the disk
     </span>
-  )
-}
+  );
+};
 
 const BundleSizeDetails = ({ project, packageSize }) => {
-  const url = `https://packagephobia.com/result?p=${project.packageName}`
+  const url = `https://packagephobia.com/result?p=${project.packageName}`;
   return (
     <SizeDetailsList>
       <SizeDetailsList.Item>
@@ -57,11 +57,11 @@ const BundleSizeDetails = ({ project, packageSize }) => {
         </SizeDetailsList.Explanation>
       </SizeDetailsList.Item>
       <SizeDetailsList.Link>
-        View details on{' '}
+        View details on{" "}
         <ExternalLink url={url}>
           <i>Package Phobia</i>
         </ExternalLink>
       </SizeDetailsList.Link>
     </SizeDetailsList>
-  )
-}
+  );
+};

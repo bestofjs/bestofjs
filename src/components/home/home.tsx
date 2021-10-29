@@ -1,8 +1,8 @@
-import React from 'react'
-import styled from '@emotion/styled'
-import numeral from 'numeral'
-import { Link as RouterLink } from 'react-router-dom'
-import { GoTag, GoHeart, GoPlus } from 'react-icons/go'
+import React from "react";
+import styled from "@emotion/styled";
+import numeral from "numeral";
+import { Link as RouterLink } from "react-router-dom";
+import { GoTag, GoHeart, GoPlus } from "react-icons/go";
 
 import {
   Button,
@@ -11,26 +11,26 @@ import {
   Link,
   LinkProps,
   Center,
-  PageHeader
-} from 'components/core'
-import { APP_REPO_URL, APP_DISPLAY_NAME, SPONSOR_URL } from 'config'
-import { useSelector } from 'containers/project-data-container'
-import { getTotalNumberOfStars } from 'selectors'
-import log from 'helpers/log'
-import { addProjectURL } from 'components/user-requests/add-project/create-issue-link'
-import { ProjectTagGroup } from 'components/tags/project-tag'
-import { StarIcon } from 'components/core/icons'
-import { ExternalLink, MainContent, Section } from 'components/core'
-import { CompactTagList } from 'components/tags/tag-list'
-import { HotProjects, NewestProjects } from './home-projects'
-import { RandomFeaturedProject } from './featured-projects'
-import { Row, MainColumn, RightSideBar } from './layout'
-import { HomeMonthlyRankings } from './home-monthly-rankings'
-import { DarkModeNews } from './dark-mode-news'
+  PageHeader,
+} from "components/core";
+import { APP_REPO_URL, APP_DISPLAY_NAME, SPONSOR_URL } from "config";
+import { useSelector } from "containers/project-data-container";
+import { getTotalNumberOfStars } from "selectors";
+import log from "helpers/log";
+import { addProjectURL } from "components/user-requests/add-project/create-issue-link";
+import { ProjectTagGroup } from "components/tags/project-tag";
+import { StarIcon } from "components/core/icons";
+import { ExternalLink, MainContent, Section } from "components/core";
+import { CompactTagList } from "components/tags/tag-list";
+import { HotProjects, NewestProjects } from "./home-projects";
+import { RandomFeaturedProject } from "./featured-projects";
+import { Row, MainColumn, RightSideBar } from "./layout";
+import { HomeMonthlyRankings } from "./home-monthly-rankings";
+import { DarkModeNews } from "./dark-mode-news";
 
 export const Home = (props) => {
-  log('Render the <Home> component')
-  const { pending, popularTags } = props
+  log("Render the <Home> component");
+  const { pending, popularTags } = props;
 
   return (
     <MainContent>
@@ -65,8 +65,8 @@ export const Home = (props) => {
       <StarOnGitHub />
       <MoreProjects />
     </MainContent>
-  )
-}
+  );
+};
 
 const Tags = ({ popularTags, isPending }) => {
   return (
@@ -81,14 +81,14 @@ const Tags = ({ popularTags, isPending }) => {
         </Link>
       </Box>
     </SectionMobileOnly>
-  )
-}
+  );
+};
 
 const SectionMobileOnly = styled(Section)`
   @media (min-width: 1000px) {
     display: none;
   }
-`
+`;
 
 const ResponsiveRow = styled.div`
   display: flex;
@@ -100,7 +100,7 @@ const ResponsiveRow = styled.div`
   > *:last-child {
     padding-top: 1rem;
   }
-`
+`;
 
 const StarOnGitHub = () => {
   return (
@@ -113,7 +113,7 @@ const StarOnGitHub = () => {
             </Section.Title>
           </Section.Header>
           <p>
-            Show your appreciation by starring the project on{' '}
+            Show your appreciation by starring the project on{" "}
             <ExternalLink url={APP_REPO_URL}>GitHub</ExternalLink>, or becoming
             a <ExternalLink url={SPONSOR_URL}>sponsor</ExternalLink>.
           </p>
@@ -126,15 +126,15 @@ const StarOnGitHub = () => {
         </div>
       </ResponsiveRow>
     </Section>
-  )
-}
+  );
+};
 
 const StarOnGitHubButton = () => {
   const project = useSelector(
-    (state) => state.entities.projects['best-of-javascript']
-  )
-  if (!project) return null
-  const stars = getTotalNumberOfStars(project)
+    (state) => state.entities.projects["best-of-javascript"]
+  );
+  if (!project) return null;
+  const stars = getTotalNumberOfStars(project);
   return (
     <BigButtonLink
       href={APP_REPO_URL}
@@ -148,8 +148,8 @@ const StarOnGitHubButton = () => {
     >
       Star on GitHub
     </BigButtonLink>
-  )
-}
+  );
+};
 
 const SponsorButton = () => {
   return (
@@ -161,8 +161,8 @@ const SponsorButton = () => {
     >
       Sponsor
     </BigButtonLink>
-  )
-}
+  );
+};
 
 const BigButtonLink = ({
   addOn,
@@ -180,18 +180,18 @@ const BigButtonLink = ({
     <Box
       ml={2}
       sx={{
-        '.button-link:hover &': {
-          color: 'var(--bestofjsOrange)',
-          transition: '0.5s'
-        }
+        ".button-link:hover &": {
+          color: "var(--bestofjsOrange)",
+          transition: "0.5s",
+        },
       }}
     >
       {addOn}
     </Box>
   </Button>
-)
+);
 
-const formatNumber = (number) => numeral(number).format('')
+const formatNumber = (number) => numeral(number).format("");
 
 const MoreProjects = () => {
   return (
@@ -205,10 +205,10 @@ const MoreProjects = () => {
       </p>
       <p>
         If you want to suggest a new project, please click on the following
-        link:{' '}
+        link:{" "}
         <ExternalLink url={addProjectURL}>recommend a new project</ExternalLink>
         .
       </p>
     </Section>
-  )
-}
+  );
+};

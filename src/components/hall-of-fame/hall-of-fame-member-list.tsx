@@ -1,9 +1,9 @@
-import React from 'react'
-import styled from '@emotion/styled'
+import React from "react";
+import styled from "@emotion/styled";
 
-import { HeroCard } from './hall-of-fame-member-card'
+import { HeroCard } from "./hall-of-fame-member-card";
 
-type Props = { heroes: BestOfJS.HallOfFameMember[] }
+type Props = { heroes: BestOfJS.HallOfFameMember[] };
 export const HallOfFameMemberList = ({ heroes }: Props) => (
   <Grid>
     {heroes.map((hero) => (
@@ -12,7 +12,7 @@ export const HallOfFameMemberList = ({ heroes }: Props) => (
       </div>
     ))}
   </Grid>
-)
+);
 
 const Grid = styled.div`
   display: flex;
@@ -29,4 +29,4 @@ const Grid = styled.div`
       flex: 0 0 auto;
     }
   }
-`
+`;

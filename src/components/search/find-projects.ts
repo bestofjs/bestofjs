@@ -1,5 +1,5 @@
-import { getFullProject, sortProjectsByFunction } from 'selectors'
-import { paginateItemList } from 'components/core/pagination'
+import { getFullProject, sortProjectsByFunction } from "selectors";
+import { paginateItemList } from "components/core/pagination";
 
 export function findProjects(
   projects,
@@ -8,37 +8,37 @@ export function findProjects(
   { tags, query, page = 1, selector, direction, limit }
 ) {
   const filterByTag = (project) =>
-    tags.every((tagId) => project.tags.includes(tagId))
+    tags.every((tagId) => project.tags.includes(tagId));
 
   const filteredProjects = projects.filter((project) => {
     if (tags.length > 0) {
-      if (!filterByTag(project)) return false
+      if (!filterByTag(project)) return false;
     }
-    return true
-  })
+    return true;
+  });
 
   const foundProjects = query
     ? filterProjectsByQuery(filteredProjects, query)
-    : filteredProjects
+    : filteredProjects;
 
   const sortedProjects = sortProjectsByFunction(
     foundProjects,
     selector,
     direction
-  )
+  );
 
   const relevantTags =
-    (tags.length > 0 || query) && getResultRelevantTags(sortedProjects, tags)
+    (tags.length > 0 || query) && getResultRelevantTags(sortedProjects, tags);
 
-  const paginatedProjects = paginateItemList(sortedProjects, page, { limit })
+  const paginatedProjects = paginateItemList(sortedProjects, page, { limit });
 
-  const results = paginatedProjects.map(getFullProject(tagsById, auth))
+  const results = paginatedProjects.map(getFullProject(tagsById, auth));
 
   return {
     results,
     relevantTags,
-    total: foundProjects.length
-  }
+    total: foundProjects.length,
+  };
 }
 
 // Used to filter projects when the user enters text in the search box
@@ -46,85 +46,85 @@ export function findProjects(
 export function filterProjectsByQuery(projects, query) {
   return projects
     .map((project) => ({ ...project, rank: rank(project, query) }))
-    .filter((project) => project.rank > 0)
+    .filter((project) => project.rank > 0);
 }
 
 // for a given project and a query,
 // return how much "relevant" is the project in the search results
 // `tags` is an array of tags that match the text
 function rank(project, query) {
-  const escapedQuery = escapeRegExp(query)
-  const equals = new RegExp('^' + escapedQuery + '$', 'i')
-  const startsWith = new RegExp('^' + escapedQuery, 'i')
-  const contains = new RegExp(escapedQuery.replace(/ /g, '.+'), 'i') // the query is split if it contains spaces
+  const escapedQuery = escapeRegExp(query);
+  const equals = new RegExp("^" + escapedQuery + "$", "i");
+  const startsWith = new RegExp("^" + escapedQuery, "i");
+  const contains = new RegExp(escapedQuery.replace(/ /g, ".+"), "i"); // the query is split if it contains spaces
 
   if (equals.test(project.name)) {
     // top level relevance: project whose name or package name is what the user entered
-    return 7
+    return 7;
   }
 
   if (startsWith.test(project.name)) {
-    return 6
+    return 6;
   }
 
   if (project.packageName && startsWith.test(project.packageName)) {
-    return 5
+    return 5;
   }
 
   if (query.length > 1) {
     if (contains.test(project.name)) {
-      return 4
+      return 4;
     }
   }
 
   if (query.length > 2) {
     if (contains.test(project.description)) {
-      return 3
+      return 3;
     }
     if (contains.test(project.full_name)) {
-      return 2
+      return 2;
     }
     if (contains.test(project.url)) {
-      return 1
+      return 1;
     }
   }
 
   // by default: the project is not included in search results
-  return 0
+  return 0;
 }
 
 function getResultRelevantTags(projects, excludedTags = []) {
-  const projectCountByTag = getTagsFromProjects(projects, excludedTags)
+  const projectCountByTag = getTagsFromProjects(projects, excludedTags);
   return orderBy(
     Array.from(projectCountByTag.entries()),
     ([tagId, count]) => count
-  )
+  );
 }
 
 function orderBy(items, fn) {
-  return items.sort((a, b) => fn(b) - fn(a))
+  return items.sort((a, b) => fn(b) - fn(a));
 }
 
 function getTagsFromProjects(
   projects: BestOfJS.Project[],
   excludedTagIds: any[] = []
 ) {
-  const result = new Map()
+  const result = new Map();
   projects.forEach((project) => {
     project.tags
       .filter((tagId) => !excludedTagIds.includes(tagId))
       .forEach((tagId) => {
         if (result.has(tagId)) {
-          result.set(tagId, result.get(tagId) + 1)
+          result.set(tagId, result.get(tagId) + 1);
         } else {
-          result.set(tagId, 1)
+          result.set(tagId, 1);
         }
-      })
-  })
-  return result
+      });
+  });
+  return result;
 }
 
 // From https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions
 function escapeRegExp(string) {
-  return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') // $& means the whole matched string
+  return string.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"); // $& means the whole matched string
 }

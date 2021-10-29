@@ -1,59 +1,59 @@
 export const sortOrderOptions = [
   {
-    id: 'total',
-    label: 'By total number of stars'
+    id: "total",
+    label: "By total number of stars",
   },
-  { type: 'divider' },
+  { type: "divider" },
   {
-    id: 'daily',
-    label: 'By stars added yesterday'
-  },
-  {
-    id: 'weekly',
-    label: 'By stars added the last 7 days'
+    id: "daily",
+    label: "By stars added yesterday",
   },
   {
-    id: 'monthly',
-    label: 'By stars added the last 30 days'
+    id: "weekly",
+    label: "By stars added the last 7 days",
   },
   {
-    id: 'yearly',
-    label: 'By stars added the last 12 months'
-  },
-  { type: 'divider' },
-  {
-    id: 'monthly-downloads',
-    label: 'By downloads the last 30 days'
-  },
-  { type: 'divider' },
-  {
-    id: 'last-commit',
-    label: 'By date of the latest commit'
+    id: "monthly",
+    label: "By stars added the last 30 days",
   },
   {
-    id: 'contributors',
-    label: 'By number of contributors'
+    id: "yearly",
+    label: "By stars added the last 12 months",
   },
-  { type: 'divider' },
+  { type: "divider" },
   {
-    id: 'created',
-    label: 'By date of creation (Oldest first)',
-    direction: 'asc'
+    id: "monthly-downloads",
+    label: "By downloads the last 30 days",
+  },
+  { type: "divider" },
+  {
+    id: "last-commit",
+    label: "By date of the latest commit",
   },
   {
-    id: 'newest',
-    label: 'By date of addition on Best of JS'
+    id: "contributors",
+    label: "By number of contributors",
   },
-  { type: 'divider' },
+  { type: "divider" },
   {
-    id: 'match',
-    label: 'Best matching',
-    disabled: ({ query }) => query === ''
+    id: "created",
+    label: "By date of creation (Oldest first)",
+    direction: "asc",
   },
-  { type: 'divider' },
   {
-    id: 'bookmark',
-    label: 'By date of the bookmark',
-    disabled: ({ location }) => location.pathname !== '/bookmarks'
-  }
-]
+    id: "newest",
+    label: "By date of addition on Best of JS",
+  },
+  { type: "divider" },
+  {
+    id: "match",
+    label: "Best matching",
+    disabled: ({ query }) => query === "",
+  },
+  { type: "divider" },
+  {
+    id: "bookmark",
+    label: "By date of the bookmark",
+    disabled: ({ location }) => location.pathname !== "/bookmarks",
+  },
+];

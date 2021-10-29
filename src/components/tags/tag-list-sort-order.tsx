@@ -1,22 +1,22 @@
-import React from 'react'
+import React from "react";
 
-import { Box, Button } from 'components/core'
-import { DropdownMenu, Menu, MenuGroup, MenuItem } from 'components/core/menu'
-import { ChevronDownIcon } from 'components/core/icons'
+import { Box, Button } from "components/core";
+import { DropdownMenu, Menu, MenuGroup, MenuItem } from "components/core/menu";
+import { ChevronDownIcon } from "components/core/icons";
 
 const sortOrderOptions = [
   {
-    id: 'project-count',
-    label: 'by number of project'
+    id: "project-count",
+    label: "by number of project",
   },
   {
-    id: 'alpha',
-    label: 'alphabetical order'
-  }
-]
+    id: "alpha",
+    label: "alphabetical order",
+  },
+];
 
 export const TagListSortOrderPicker = ({ value, onChange }) => {
-  const currentOption = sortOrderOptions.find(({ id }) => id === value)
+  const currentOption = sortOrderOptions.find(({ id }) => id === value);
 
   const menu = (
     <Menu>
@@ -25,7 +25,7 @@ export const TagListSortOrderPicker = ({ value, onChange }) => {
           <MenuItem
             key={item.id}
             onClick={() => {
-              onChange(item.id)
+              onChange(item.id);
             }}
           >
             {item.label}
@@ -33,7 +33,7 @@ export const TagListSortOrderPicker = ({ value, onChange }) => {
         ))}
       </MenuGroup>
     </Menu>
-  )
+  );
 
   return (
     <DropdownMenu menu={menu}>
@@ -46,9 +46,9 @@ export const TagListSortOrderPicker = ({ value, onChange }) => {
             <span>{currentOption.label}</span>
           </>
         ) : (
-          'Sort...'
+          "Sort..."
         )}
       </Button>
     </DropdownMenu>
-  )
-}
+  );
+};

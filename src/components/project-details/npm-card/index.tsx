@@ -1,5 +1,5 @@
-import React from 'react'
-import { GoPackage } from 'react-icons/go'
+import React from "react";
+import { GoPackage } from "react-icons/go";
 
 import {
   Card,
@@ -7,22 +7,22 @@ import {
   CardHeader,
   CardSection,
   ExternalLink,
-  Spinner
-} from 'components/core'
-import { ExternalLinkIcon } from 'components/core/icons'
-import { Dependencies } from './dependencies'
-import { BundleSize } from './bundle-size'
-import { PackageSize } from './package-size'
-import { MonthlyDownloadChart } from './monthly-download-chart'
+  Spinner,
+} from "components/core";
+import { ExternalLinkIcon } from "components/core/icons";
+import { Dependencies } from "./dependencies";
+import { BundleSize } from "./bundle-size";
+import { PackageSize } from "./package-size";
+import { MonthlyDownloadChart } from "./monthly-download-chart";
 
 type Props = {
-  project: BestOfJS.ProjectDetails
-  isLoading: boolean
-  error: Error
-}
+  project: BestOfJS.ProjectDetails;
+  isLoading: boolean;
+  error: Error;
+};
 export const NpmCard = (props: Props) => {
   return (
-    <Card style={{ marginTop: '2rem' }}>
+    <Card style={{ marginTop: "2rem" }}>
       <CardHeader>
         <GoPackage className="icon" size={24} />
         NPM PACKAGE
@@ -31,17 +31,17 @@ export const NpmCard = (props: Props) => {
         <CardBodyContent {...props} />
       </CardBody>
     </Card>
-  )
-}
+  );
+};
 
 const CardBodyContent = ({ project, isLoading, error }) => {
   if (error)
     return (
       <CardSection>Unable to load package details {error.message}</CardSection>
-    )
-  if (isLoading) return <Spinner />
+    );
+  if (isLoading) return <Spinner />;
 
-  const { packageName, npm } = project
+  const { packageName, npm } = project;
   return (
     <>
       <CardSection>
@@ -65,5 +65,5 @@ const CardBodyContent = ({ project, isLoading, error }) => {
         <PackageSize project={project} />
       </CardSection>
     </>
-  )
-}
+  );
+};

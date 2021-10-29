@@ -1,1 +1,1 @@
-export * from './monthly-bar-chart'
+export * from "./monthly-bar-chart";

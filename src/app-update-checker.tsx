@@ -1,157 +1,157 @@
-import React from 'react'
-import { useLifecycles } from 'react-use'
-import { Box, Button, LightMode, Stack, useToast } from '@chakra-ui/react'
+import React from "react";
+import { useLifecycles } from "react-use";
+import { Box, Button, LightMode, Stack, useToast } from "@chakra-ui/react";
 
-import { fetchJSON } from 'helpers/fetch'
-import { ExternalLink } from 'components/core'
-import { ExternalLinkIcon } from 'components/core/icons'
+import { fetchJSON } from "helpers/fetch";
+import { ExternalLink } from "components/core";
+import { ExternalLinkIcon } from "components/core/icons";
 
-const TOAST_ID = 'app-update-checker'
+const TOAST_ID = "app-update-checker";
 
 export function useAppUpdateChecker(options?: Options) {
-  const toast = useToast()
-  let updateChecker: AppUpdateChecker
+  const toast = useToast();
+  let updateChecker: AppUpdateChecker;
 
   useLifecycles(
     () => {
       const onUpdateAvailable = async (meta) => {
-        if (toast.isActive(TOAST_ID)) return
-        const result = await notifyUpdate({ ...meta, toast })
-        return result
-      }
+        if (toast.isActive(TOAST_ID)) return;
+        const result = await notifyUpdate({ ...meta, toast });
+        return result;
+      };
       // @ts-ignore
-      updateChecker = new AppUpdateChecker(onUpdateAvailable, options)
-      updateChecker.start()
+      updateChecker = new AppUpdateChecker(onUpdateAvailable, options);
+      updateChecker.start();
     },
     () => {
-      updateChecker.stop()
+      updateChecker.stop();
     }
-  )
+  );
 }
 
 type Meta = {
-  date: string
-  version: string
-}
+  date: string;
+  version: string;
+};
 
-type Callback = (Meta) => Promise<boolean> // called when the user chooses "Update" (true) or "Ignore" (false)
+type Callback = (Meta) => Promise<boolean>; // called when the user chooses "Update" (true) or "Ignore" (false)
 
 type Settings = {
-  url: string // URL of the JSON file to ping to get app meta data
-  interval: number // the number of milliseconds between each request
-  nextIntervalRatio: number // by how much the interval changes, when the notification is ignored
-  isSimulationMode: boolean // used to skip the date comparison, to be able to check the notification in dev mode
-}
-type Options = Partial<Settings>
+  url: string; // URL of the JSON file to ping to get app meta data
+  interval: number; // the number of milliseconds between each request
+  nextIntervalRatio: number; // by how much the interval changes, when the notification is ignored
+  isSimulationMode: boolean; // used to skip the date comparison, to be able to check the notification in dev mode
+};
+type Options = Partial<Settings>;
 
 export class AppUpdateChecker implements Settings {
-  onUpdateAvailable: Callback
-  url: string
-  interval: number
-  nextIntervalRatio: number
-  isSimulationMode: boolean
-  initialMeta: Meta | undefined
-  timer: number | undefined
+  onUpdateAvailable: Callback;
+  url: string;
+  interval: number;
+  nextIntervalRatio: number;
+  isSimulationMode: boolean;
+  initialMeta: Meta | undefined;
+  timer: number | undefined;
 
   constructor(
     onUpdateAvailable: Callback,
     {
-      url = '/meta.json',
+      url = "/meta.json",
       interval = 60 * 1000, // 1 minute by default
       nextIntervalRatio = 2, // the interval between consecutive notifications doubles every time the user "ignores"
-      isSimulationMode = false // skip the data comparison test and always show the notification
+      isSimulationMode = false, // skip the data comparison test and always show the notification
     }: Options = {}
   ) {
-    this.onUpdateAvailable = onUpdateAvailable
-    this.url = url
-    this.interval = interval
-    this.nextIntervalRatio = nextIntervalRatio
-    this.isSimulationMode = isSimulationMode
+    this.onUpdateAvailable = onUpdateAvailable;
+    this.url = url;
+    this.interval = interval;
+    this.nextIntervalRatio = nextIntervalRatio;
+    this.isSimulationMode = isSimulationMode;
 
-    this.initialize()
+    this.initialize();
   }
 
   initialize = async () => {
-    this.initialMeta = await this.fetchMeta()
+    this.initialMeta = await this.fetchMeta();
     if (!this.initialMeta) {
-      this.stop()
+      this.stop();
     }
-  }
+  };
 
   start = () => {
     if (!this.timer) {
       this.timer = window.setInterval(
         this.checkForUpdateAvailability,
         this.interval
-      )
+      );
     }
-  }
+  };
 
   stop = () => {
     if (this.timer) {
-      clearInterval(this.timer)
-      this.timer = undefined
+      clearInterval(this.timer);
+      this.timer = undefined;
     }
-  }
+  };
 
   async fetchMeta(): Promise<Meta | undefined> {
     try {
-      console.log(`Checking app update every ${this.interval / 1000} seconds`)
-      const meta = await fetchJSON(this.url)
-      return meta
+      console.log(`Checking app update every ${this.interval / 1000} seconds`);
+      const meta = await fetchJSON(this.url);
+      return meta;
     } catch (error) {
-      console.error('Unable to fetch meta data', error.message)
-      return undefined
+      console.error("Unable to fetch meta data", error.message);
+      return undefined;
     }
   }
 
   checkForUpdateAvailability = async () => {
     try {
-      const latestMeta = await this.fetchMeta()
-      if (!latestMeta) return false
+      const latestMeta = await this.fetchMeta();
+      if (!latestMeta) return false;
 
       if (
         this.isSimulationMode ||
         new Date(latestMeta.date) > new Date(this.initialMeta!.date)
       ) {
-        this.stop()
-        const isUpdateAccepted = await this.onUpdateAvailable(latestMeta)
+        this.stop();
+        const isUpdateAccepted = await this.onUpdateAvailable(latestMeta);
         if (isUpdateAccepted) {
-          window.location.reload()
+          window.location.reload();
         } else {
-          this.interval *= this.nextIntervalRatio
-          this.start()
+          this.interval *= this.nextIntervalRatio;
+          this.start();
         }
       }
     } catch (error) {
-      console.error(`Unable to check for app update: ${error.message}`)
+      console.error(`Unable to check for app update: ${error.message}`);
     }
-  }
+  };
 }
 
 function notifyUpdate({ version, toast }): Promise<boolean> {
   return new Promise((resolve) => {
     toast({
       id: TOAST_ID, // to prevent a possible duplication of toasts on the screen
-      position: 'top-right',
+      position: "top-right",
       duration: null,
       render: ({ onClose }) => (
         <AppUpdateNotification
           version={version}
           onClose={(value) => {
-            onClose()
-            resolve(value)
+            onClose();
+            resolve(value);
           }}
         />
-      )
-    })
-  })
+      ),
+    });
+  });
 }
 
 type Props = {
-  onClose: (boolean) => void
-  version: string
-}
+  onClose: (boolean) => void;
+  version: string;
+};
 export const AppUpdateNotification = ({ version, onClose }: Props) => {
   // `colorMode` returns `system` instead of the current color mode in the context of the toast,
   // which causes problems when styling buttons.
@@ -168,7 +168,7 @@ export const AppUpdateNotification = ({ version, onClose }: Props) => {
         boxShadow="rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;"
       >
         <Box fontSize="xl" mb={2}>
-          Application Update{' '}
+          Application Update{" "}
           <Box as="span" color="gray.400">
             {version}
           </Box>
@@ -205,5 +205,5 @@ export const AppUpdateNotification = ({ version, onClose }: Props) => {
         </Stack>
       </Box>
     </LightMode>
-  )
-}
+  );
+};

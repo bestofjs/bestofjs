@@ -1,5 +1,5 @@
-import { useTitle } from 'react-use'
+import { useTitle } from "react-use";
 
 export function usePageTitle(title: string) {
-  return useTitle(title + ' | Best of JS')
+  return useTitle(title + " | Best of JS");
 }

@@ -1,12 +1,12 @@
-import React from 'react'
-import { Link as RouterLink, useHistory } from 'react-router-dom'
-import styled from '@emotion/styled'
+import React from "react";
+import { Link as RouterLink, useHistory } from "react-router-dom";
+import styled from "@emotion/styled";
 
-import { Box, Button, Link, HStack, Flex, Center } from 'components/core'
-import { useSelector } from 'containers/project-data-container'
-import { getProjectsByTag } from 'selectors'
-import { Avatar } from 'components/core/project'
-import { ChevronRightIcon } from 'components/core/icons'
+import { Box, Button, Link, HStack, Flex, Center } from "components/core";
+import { useSelector } from "containers/project-data-container";
+import { getProjectsByTag } from "selectors";
+import { Avatar } from "components/core/project";
+import { ChevronRightIcon } from "components/core/icons";
 
 export const DetailedTagList = ({ tags }: { tags: BestOfJS.Tag[] }) => {
   return (
@@ -15,15 +15,15 @@ export const DetailedTagList = ({ tags }: { tags: BestOfJS.Tag[] }) => {
         <TagListRow key={tag.id} tag={tag} />
       ))}
     </Box>
-  )
-}
+  );
+};
 
 export const CompactTagList = ({
   tags,
-  footer
+  footer,
 }: {
-  tags: BestOfJS.Tag[]
-  footer?: React.ReactNode
+  tags: BestOfJS.Tag[];
+  footer?: React.ReactNode;
 }) => {
   return (
     <Box w="100%">
@@ -49,15 +49,15 @@ export const CompactTagList = ({
         </ListRow>
       )}
     </Box>
-  )
-}
+  );
+};
 
 const Footer = styled.div`
   width: 100%;
   padding: 1rem;
   font-family: var(--buttonFontFamily);
   text-align: center;
-`
+`;
 
 const TagListRow = ({ tag }) => {
   return (
@@ -70,7 +70,7 @@ const TagListRow = ({ tag }) => {
           <Box ml={2}>({tag.counter} projects)</Box>
         </Center>
         {tag.description && (
-          <p style={{ marginTop: '1rem' }} className="text-secondary">
+          <p style={{ marginTop: "1rem" }} className="text-secondary">
             {tag.description}
           </p>
         )}
@@ -79,14 +79,14 @@ const TagListRow = ({ tag }) => {
         <IconGrid tag={tag} />
       </ProjectIconCell>
     </ListRow>
-  )
-}
+  );
+};
 
 const IconGrid = ({ tag, projectCount = 5 }) => {
-  const history = useHistory()
+  const history = useHistory();
   const projects = useSelector(
-    getProjectsByTag({ tagId: tag.id, criteria: 'total' })
-  ).slice(0, projectCount)
+    getProjectsByTag({ tagId: tag.id, criteria: "total" })
+  ).slice(0, projectCount);
 
   return (
     <div>
@@ -112,10 +112,10 @@ const IconGrid = ({ tag, projectCount = 5 }) => {
         </Box>
       </HStack>
     </div>
-  )
-}
+  );
+};
 
-const breakPoint = 600
+const breakPoint = 600;
 
 const ListRow = styled.div`
   display: flex;
@@ -129,26 +129,26 @@ const ListRow = styled.div`
     align-items: flex-start;
     flex-direction: column;
   }
-`
+`;
 
 const ListCell = styled.div`
   padding: 1rem;
-`
+`;
 
 const MainListCell = styled(ListCell)`
   @media (max-width: ${breakPoint - 1}px) {
     padding-bottom: 0;
   }
-`
+`;
 
 const ProjectIconCell = styled(ListCell)`
   flex-grow: 1;
   display: flex;
   justify-content: flex-end;
-`
+`;
 
 const ViewTagButton = styled(Button)`
   width: 32px;
   height: 32px;
   padding: 0;
-`
+`;

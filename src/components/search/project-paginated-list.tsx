@@ -1,42 +1,42 @@
-import React from 'react'
-import { useHistory, useLocation } from 'react-router-dom'
+import React from "react";
+import { useHistory, useLocation } from "react-router-dom";
 
-import { ProjectTable } from 'components/project-list/project-table'
-import { PaginationContainer } from 'components/core/pagination/provider'
+import { ProjectTable } from "components/project-list/project-table";
+import { PaginationContainer } from "components/core/pagination/provider";
 import {
   TopPaginationControls,
-  BottomPaginationControls
-} from 'components/core/pagination/pagination-controls'
-import { Box, Stack } from 'components/core'
-import { SortOrderPicker } from './sort-order-picker'
-import { updateLocation } from './search-utils'
+  BottomPaginationControls,
+} from "components/core/pagination/pagination-controls";
+import { Box, Stack } from "components/core";
+import { SortOrderPicker } from "./sort-order-picker";
+import { updateLocation } from "./search-utils";
 
 export const ProjectPaginatedList = ({
   projects,
   page,
   total,
   limit,
-  sortOption
+  sortOption,
 }) => {
-  const { from, pageNumbers } = PaginationContainer.useContainer()
-  const location = useLocation()
-  const history = useHistory()
+  const { from, pageNumbers } = PaginationContainer.useContainer();
+  const location = useLocation();
+  const history = useHistory();
 
   const onChangeSortOption = (sortId) => {
-    const changes = { sort: sortId, page: 1 }
-    const nextLocation = updateLocation(location, changes)
+    const changes = { sort: sortId, page: 1 };
+    const nextLocation = updateLocation(location, changes);
 
-    history.push(nextLocation)
-  }
+    history.push(nextLocation);
+  };
 
-  const showPagination = pageNumbers.length > 1
-  const showSortOptions = total > 1
+  const showPagination = pageNumbers.length > 1;
+  const showSortOptions = total > 1;
 
   return (
     <div>
       {(showSortOptions || showPagination) && (
         <Stack
-          direction={{ base: 'column', md: 'row' }}
+          direction={{ base: "column", md: "row" }}
           mb={4}
           justifyContent="space-between"
         >
@@ -60,5 +60,5 @@ export const ProjectPaginatedList = ({
         <BottomPaginationControls history={history} location={location} />
       )}
     </div>
-  )
-}
+  );
+};

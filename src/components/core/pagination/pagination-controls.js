@@ -1,26 +1,26 @@
-import React from 'react'
+import React from "react";
 
-import { Box, HStack, Flex, IconButton } from 'components/core'
+import { Box, HStack, Flex, IconButton } from "components/core";
 
 import {
   DoubleChevronLeftIcon,
   DoubleChevronRightIcon,
   ChevronRightIcon,
-  ChevronLeftIcon
-} from '../icons'
-import { updateLocation } from '../../search/search-utils'
-import { PaginationContainer } from './provider'
+  ChevronLeftIcon,
+} from "../icons";
+import { updateLocation } from "../../search/search-utils";
+import { PaginationContainer } from "./provider";
 
-const iconSize = 28
+const iconSize = 28;
 
 export const TopPaginationControls = ({ history, location }) => {
   const { from, to, currentPageNumber, total, hasPreviousPage, hasNextPage } =
-    PaginationContainer.useContainer()
+    PaginationContainer.useContainer();
 
   return (
     <Flex alignItems="center">
       <Box mr={4}>
-        Showing{' '}
+        Showing{" "}
         {from === to ? (
           `#${from}`
         ) : (
@@ -52,8 +52,8 @@ export const TopPaginationControls = ({ history, location }) => {
         </PaginationButton>
       </HStack>
     </Flex>
-  )
-}
+  );
+};
 
 export const BottomPaginationControls = ({ history, location }) => {
   const {
@@ -61,8 +61,8 @@ export const BottomPaginationControls = ({ history, location }) => {
     hasPreviousPage,
     hasNextPage,
     lastPageNumber,
-    pageNumbers
-  } = PaginationContainer.useContainer()
+    pageNumbers,
+  } = PaginationContainer.useContainer();
 
   return (
     <HStack mt={8} w="100%" justifyContent="flex-end">
@@ -108,9 +108,9 @@ export const BottomPaginationControls = ({ history, location }) => {
         </PaginationButton>
       )}
     </HStack>
-  )
-}
+  );
+};
 
 const PaginationButton = (props) => (
   <IconButton variant="outline" isRound {...props} />
-)
+);

@@ -1,23 +1,23 @@
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef } from "react";
 
 export function useFirstMountState(): boolean {
-  const isFirst = useRef(true)
+  const isFirst = useRef(true);
 
   if (isFirst.current) {
-    isFirst.current = false
+    isFirst.current = false;
 
-    return true
+    return true;
   }
 
-  return isFirst.current
+  return isFirst.current;
 }
 
 export const useUpdateEffect = (effect, deps) => {
-  const isFirstMount = useFirstMountState()
+  const isFirstMount = useFirstMountState();
 
   useEffect(() => {
     if (!isFirstMount) {
-      return effect()
+      return effect();
     }
-  }, deps) // eslint-disable-line react-hooks/exhaustive-deps
-}
+  }, deps); // eslint-disable-line react-hooks/exhaustive-deps
+};

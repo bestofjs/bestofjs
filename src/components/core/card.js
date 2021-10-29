@@ -1,4 +1,4 @@
-import styled from '@emotion/styled'
+import styled from "@emotion/styled";
 
 export const Card = styled.div`
   margin-bottom: 2rem;
@@ -22,7 +22,7 @@ export const Card = styled.div`
     background-color: #fff7eb;
     color: #000;
   }
-`
+`;
 
 export const CardHeader = styled.div`
   padding: 1rem;
@@ -41,19 +41,19 @@ export const CardHeader = styled.div`
   .icon {
     margin-right: 0.5rem;
   }
-`
+`;
 
-export const CardBody = styled.div``
+export const CardBody = styled.div``;
 
 export const CardSection = styled.div`
   padding: 1em;
   &:not(:first-of-type) {
     border-top: 1px dashed var(--boxBorderColor);
   }
-`
+`;
 
 export const CardFooter = styled.div`
   padding: 1rem;
   text-align: center;
   border-top: 1px solid var(--boxBorderColor);
-`
+`;

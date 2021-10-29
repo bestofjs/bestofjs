@@ -12,14 +12,14 @@
 }
 .vertical-timeline::after {
   /* clearfix */
-  content: '';
+  content: "";
   display: table;
   clear: both;
 }
 
 .vertical-timeline::before {
   /* this is the vertical line */
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: 30px;

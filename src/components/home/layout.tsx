@@ -1,12 +1,12 @@
-import styled from '@emotion/styled'
+import styled from "@emotion/styled";
 
 export const Row = styled.div`
   display: flex;
-`
+`;
 
 export const MainColumn = styled.div`
   flex: 1 1 0%;
-`
+`;
 
 export const RightSideBar = styled.aside`
   flex-basis: 330px;
@@ -14,4 +14,4 @@ export const RightSideBar = styled.aside`
   @media (max-width: 999px) {
     display: none;
   }
-`
+`;

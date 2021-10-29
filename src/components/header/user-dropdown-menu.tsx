@@ -1,17 +1,17 @@
-import React from 'react'
-import { Link as RouterLink } from 'react-router-dom'
-import styled from '@emotion/styled'
-import { GoBookmark, GoSignOut } from 'react-icons/go'
+import React from "react";
+import { Link as RouterLink } from "react-router-dom";
+import styled from "@emotion/styled";
+import { GoBookmark, GoSignOut } from "react-icons/go";
 
-import { AuthContainer } from 'containers/auth-container'
-import { ChevronDownIcon } from 'components/core/icons'
-import { DropdownMenu, Menu, MenuGroup, MenuItem } from 'components/core/menu'
-import { Button } from 'components/core'
+import { AuthContainer } from "containers/auth-container";
+import { ChevronDownIcon } from "components/core/icons";
+import { DropdownMenu, Menu, MenuGroup, MenuItem } from "components/core/menu";
+import { Button } from "components/core";
 
 export const UserDropdownMenu = () => {
-  const auth = AuthContainer.useContainer()
-  const { bookmarks, logout } = AuthContainer.useContainer()
-  const bookmarkCount = bookmarks.length
+  const auth = AuthContainer.useContainer();
+  const { bookmarks, logout } = AuthContainer.useContainer();
+  const bookmarkCount = bookmarks.length;
 
   const menu = (
     <Menu>
@@ -26,7 +26,7 @@ export const UserDropdownMenu = () => {
         </MenuItem>
       </MenuGroup>
     </Menu>
-  )
+  );
 
   return (
     <DropdownMenu menu={menu}>
@@ -43,14 +43,14 @@ export const UserDropdownMenu = () => {
         />
       </Button>
     </DropdownMenu>
-  )
-}
+  );
+};
 
 const UserAvatar = ({ username, avatarURL, size = 32 }) => {
-  const url = `${avatarURL}&size=${size}`
-  return <Avatar src={url} width={size} height={size} alt={username} />
-}
+  const url = `${avatarURL}&size=${size}`;
+  return <Avatar src={url} width={size} height={size} alt={username} />;
+};
 
 const Avatar = styled.img`
   border-radius: 50%;
-`
+`;

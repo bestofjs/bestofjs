@@ -1,12 +1,12 @@
-import React from 'react'
-import { BoxProps, Center } from './layout'
-import styled from '@emotion/styled'
+import React from "react";
+import { BoxProps, Center } from "./layout";
+import styled from "@emotion/styled";
 
 export const Spinner = (props: BoxProps) => (
   <Center h={200} {...props}>
     <StyledDiv />
   </Center>
-)
+);
 
 const StyledDiv = styled.div`
   margin: 60px auto;
@@ -40,4 +40,4 @@ const StyledDiv = styled.div`
       transform: rotate(360deg);
     }
   }
-`
+`;

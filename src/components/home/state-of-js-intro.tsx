@@ -1,31 +1,31 @@
-import React from 'react'
+import React from "react";
 
-import { fromNow } from 'helpers/from-now'
+import { fromNow } from "helpers/from-now";
 
 const urls = {
-  site: 'https://stateofjs.com'
-}
+  site: "https://stateofjs.com",
+};
 
 export const Intro = ({ date }) => (
   <div id="stateofjs-container">
     <div>
       <p>
-        <span className="mega-octicon octicon-megaphone icon-color" />{' '}
-        <span style={{ fontSize: '1.5rem' }}>
+        <span className="mega-octicon octicon-megaphone icon-color" />{" "}
+        <span style={{ fontSize: "1.5rem" }}>
           State of JavaScript 2017 Results
         </span>
         <span
           className="counter"
-          style={{ fontSize: '1rem', color: '#aaa', marginLeft: '.5rem' }}
+          style={{ fontSize: "1rem", color: "#aaa", marginLeft: ".5rem" }}
         >
           {fromNow(date)}
         </span>
       </p>
       <p>
-        More than 23,000 developers replied to{' '}
+        More than 23,000 developers replied to{" "}
         <a href={urls.site} target="_blank" rel="noreferrer">
           The State of JavaScript
-        </a>{' '}
+        </a>{" "}
         survey.
       </p>
       <p>
@@ -42,4 +42,4 @@ export const Intro = ({ date }) => (
       </a>
     </div>
   </div>
-)
+);

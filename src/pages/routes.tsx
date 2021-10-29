@@ -1,20 +1,20 @@
-import React, { Suspense, lazy } from 'react'
-import { Route, Switch, Redirect } from 'react-router-dom'
+import React, { Suspense, lazy } from "react";
+import { Route, Switch, Redirect } from "react-router-dom";
 
-import HomePage from 'pages/home-page'
-import BookmarksPage from 'pages/bookmarks-page'
-import { FeaturedPage } from 'pages/featured-page'
-import HallOfFamePage from 'pages/hall-of-fame-page'
-import TagsPage from 'pages/tags-page'
-import { SearchResultsPage } from 'pages/search-results-page'
-import { ErrorBoundary, ErrorFallback } from 'pages/error-handling'
-import { NoMatchPage } from './no-match-page'
-import { Spinner } from 'components/core'
-import { MonthlyRankingsPage } from './monthly-rankings-page'
+import HomePage from "pages/home-page";
+import BookmarksPage from "pages/bookmarks-page";
+import { FeaturedPage } from "pages/featured-page";
+import HallOfFamePage from "pages/hall-of-fame-page";
+import TagsPage from "pages/tags-page";
+import { SearchResultsPage } from "pages/search-results-page";
+import { ErrorBoundary, ErrorFallback } from "pages/error-handling";
+import { NoMatchPage } from "./no-match-page";
+import { Spinner } from "components/core";
+import { MonthlyRankingsPage } from "./monthly-rankings-page";
 
-const AsyncViewProject = lazy(() => import('pages/project-details-page'))
-const AsyncAboutPage = lazy(() => import('pages/about-page'))
-const TimelinePage = lazy(() => import('pages/timeline-page'))
+const AsyncViewProject = lazy(() => import("pages/project-details-page"));
+const AsyncAboutPage = lazy(() => import("pages/about-page"));
+const TimelinePage = lazy(() => import("pages/timeline-page"));
 
 const Routes = (props) => {
   return (
@@ -44,7 +44,7 @@ const Routes = (props) => {
         </Switch>
       </Suspense>
     </ErrorBoundary>
-  )
-}
+  );
+};
 
-export default Routes
+export default Routes;

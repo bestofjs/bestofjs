@@ -1,8 +1,8 @@
-import React from 'react'
-import styled from '@emotion/styled'
+import React from "react";
+import styled from "@emotion/styled";
 
-import { usePageTitle } from './html-head'
-import { Heading, Link, LinkProps } from './layout'
+import { usePageTitle } from "./html-head";
+import { Heading, Link, LinkProps } from "./layout";
 
 /*
 Link to external websites, that open in a new browser tab
@@ -13,30 +13,30 @@ export const ExternalLink = ({
   children,
   ...rest
 }: {
-  url: string
+  url: string;
 } & LinkProps) => {
-  const fullURL = url.startsWith('http') ? url : `http://` + url
+  const fullURL = url.startsWith("http") ? url : `http://` + url;
   return (
     <Link href={fullURL} target="_blank" rel="noopener noreferrer" {...rest}>
       {children}
     </Link>
-  )
-}
+  );
+};
 
 type PageHeaderProps = {
-  title: string
-  icon?: React.ReactNode
-  subTitle?: React.ReactNode
-  children?: React.ReactNode
-}
+  title: string;
+  icon?: React.ReactNode;
+  subTitle?: React.ReactNode;
+  children?: React.ReactNode;
+};
 export const PageHeader = ({
   title,
   icon,
   subTitle,
-  children
+  children,
 }: PageHeaderProps) => {
-  const content = children || title
-  usePageTitle(title)
+  const content = children || title;
+  usePageTitle(title);
 
   return (
     <Heading
@@ -56,21 +56,21 @@ export const PageHeader = ({
         </>
       )}
     </Heading>
-  )
-}
+  );
+};
 
 const PageTitleIcon = styled.div`
   margin-right: 0.5rem;
   color: var(--iconColor);
   display: flex;
-`
+`;
 
 const Separator = styled.span`
   margin-left: 0.5rem;
   color: var(--iconColor);
-`
+`;
 
 const PageSubTitle = styled.span`
   color: var(--textSecondaryColor);
   margin-left: 0.5rem;
-`
+`;

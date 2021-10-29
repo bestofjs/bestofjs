@@ -1,24 +1,24 @@
-import React, { useState } from 'react'
-import { Link as RouterLink } from 'react-router-dom'
-import { GoCalendar } from 'react-icons/go'
+import React, { useState } from "react";
+import { Link as RouterLink } from "react-router-dom";
+import { GoCalendar } from "react-icons/go";
 
-import { useFetchMonthlyRankings } from 'api/hooks'
-import { Button, Section, Spinner } from 'components/core'
+import { useFetchMonthlyRankings } from "api/hooks";
+import { Button, Section, Spinner } from "components/core";
 import {
   getNextMonth,
   getPreviousMonth,
   MonthlyRankingsNavigator,
-  MonthlyRankingsProjects
-} from 'components/monthly-rankings/rankings'
-import { MainColumn, Row } from './layout'
+  MonthlyRankingsProjects,
+} from "components/monthly-rankings/rankings";
+import { MainColumn, Row } from "./layout";
 
 type MonthlyDate = {
-  year: number
-  month: number
-}
+  year: number;
+  month: number;
+};
 
 export const HomeMonthlyRankings = () => {
-  const [date, setDate] = useState<MonthlyDate | null>(null)
+  const [date, setDate] = useState<MonthlyDate | null>(null);
 
   return (
     <Section>
@@ -31,23 +31,23 @@ export const HomeMonthlyRankings = () => {
         </MainColumn>
       </Row>
     </Section>
-  )
-}
+  );
+};
 
 const FetchMonthlyRankings = ({ date, setDate }) => {
-  const { data, error } = useFetchMonthlyRankings(date)
+  const { data, error } = useFetchMonthlyRankings(date);
 
   if (error) {
-    return <div>Unable to load the rankings</div>
+    return <div>Unable to load the rankings</div>;
   }
   if (!data) {
-    return <Spinner />
+    return <Spinner />;
   }
-  const { year, month, isFirst, isLatest } = data as any
+  const { year, month, isFirst, isLatest } = data as any;
 
-  const goToPrevious = () => setDate(getPreviousMonth({ year, month }))
+  const goToPrevious = () => setDate(getPreviousMonth({ year, month }));
 
-  const goToNext = () => setDate(getNextMonth({ year, month }))
+  const goToNext = () => setDate(getNextMonth({ year, month }));
 
   return (
     <>
@@ -74,5 +74,5 @@ const FetchMonthlyRankings = ({ date, setDate }) => {
         }
       />
     </>
-  )
-}
+  );
+};

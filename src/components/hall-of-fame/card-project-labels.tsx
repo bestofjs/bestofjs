@@ -1,11 +1,11 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import React from "react";
+import { Link } from "react-router-dom";
 
-import { Button, Wrap, WrapItem } from 'components/core'
+import { Button, Wrap, WrapItem } from "components/core";
 
 export const CardProjectLabels = ({ projects }) => {
-  const validProjects = projects.filter((project) => !!project)
-  if (validProjects.length === 0) return null
+  const validProjects = projects.filter((project) => !!project);
+  if (validProjects.length === 0) return null;
 
   return (
     <div className="inner">
@@ -25,5 +25,5 @@ export const CardProjectLabels = ({ projects }) => {
         ))}
       </Wrap>
     </div>
-  )
-}
+  );
+};

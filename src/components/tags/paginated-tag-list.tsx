@@ -1,36 +1,36 @@
-import React from 'react'
-import styled from '@emotion/styled'
-import { useHistory, useLocation } from 'react-router-dom'
+import React from "react";
+import styled from "@emotion/styled";
+import { useHistory, useLocation } from "react-router-dom";
 
-import { PaginationContainer } from 'components/core/pagination/provider'
-import { updateLocation } from 'components/search/search-utils'
+import { PaginationContainer } from "components/core/pagination/provider";
+import { updateLocation } from "components/search/search-utils";
 import {
   TopPaginationControls,
-  BottomPaginationControls
-} from 'components/core/pagination/pagination-controls'
-import { TagListSortOrderPicker } from './tag-list-sort-order'
-import { DetailedTagList } from './tag-list'
+  BottomPaginationControls,
+} from "components/core/pagination/pagination-controls";
+import { TagListSortOrderPicker } from "./tag-list-sort-order";
+import { DetailedTagList } from "./tag-list";
 
 export const PaginatedTagList = ({
   tags,
   page,
   total,
   limit,
-  sortOptionId
+  sortOptionId,
 }) => {
-  const { pageNumbers } = PaginationContainer.useContainer()
-  const location = useLocation()
-  const history = useHistory()
+  const { pageNumbers } = PaginationContainer.useContainer();
+  const location = useLocation();
+  const history = useHistory();
 
   const onChangeSortOption = (sortId) => {
-    const changes = { sort: sortId, page: 1 }
-    const nextLocation = updateLocation(location, changes)
+    const changes = { sort: sortId, page: 1 };
+    const nextLocation = updateLocation(location, changes);
 
-    history.push(nextLocation)
-  }
+    history.push(nextLocation);
+  };
 
-  const showPagination = pageNumbers.length > 1
-  const showSortOptions = total > 1
+  const showPagination = pageNumbers.length > 1;
+  const showSortOptions = total > 1;
 
   return (
     <div>
@@ -56,8 +56,8 @@ export const PaginatedTagList = ({
         <BottomPaginationControls history={history} location={location} />
       )}
     </div>
-  )
-}
+  );
+};
 
 const Row = styled.div`
   display: flex;
@@ -67,7 +67,7 @@ const Row = styled.div`
     align-items: center;
     flex-direction: row;
   }
-`
+`;
 const Cell = styled.div`
   flex: 0 0 50%;
   @media (min-width: 600px) {
@@ -75,4 +75,4 @@ const Cell = styled.div`
       justify-content: flex-end;
     }
   }
-`
+`;

@@ -1,7 +1,7 @@
-import React from 'react'
-import { Link as RouterLink, NavLink } from 'react-router-dom'
-import styled from '@emotion/styled'
-import { GoMarkGithub } from 'react-icons/go'
+import React from "react";
+import { Link as RouterLink, NavLink } from "react-router-dom";
+import styled from "@emotion/styled";
+import { GoMarkGithub } from "react-icons/go";
 
 import {
   Box,
@@ -10,17 +10,17 @@ import {
   Center,
   Divider,
   Flex,
-  HStack
-} from 'components/core'
-import { APP_REPO_URL } from 'config'
-import { AuthContainer } from 'containers/auth-container'
-import { DiscordIcon } from 'components/core/icons'
-import { UserDropdownMenu } from './user-dropdown-menu'
-import { NavigationDropdownMenu } from './navigation-dropdown-menu'
-import { ColorModePicker } from './color-mode-picker'
-import { ReactComponent as Logo } from './bestofjs-logo.svg'
+  HStack,
+} from "components/core";
+import { APP_REPO_URL } from "config";
+import { AuthContainer } from "containers/auth-container";
+import { DiscordIcon } from "components/core/icons";
+import { UserDropdownMenu } from "./user-dropdown-menu";
+import { NavigationDropdownMenu } from "./navigation-dropdown-menu";
+import { ColorModePicker } from "./color-mode-picker";
+import { ReactComponent as Logo } from "./bestofjs-logo.svg";
 
-const breakpoint = 750
+const breakpoint = 750;
 
 const HeaderContainer = styled.header`
   background-color: var(--headerBackgroundColor);
@@ -44,7 +44,7 @@ const HeaderContainer = styled.header`
       display: none;
     }
   }
-`
+`;
 
 export const Header = (props) => {
   return (
@@ -54,7 +54,7 @@ export const Header = (props) => {
           <Center>
             <Box
               as={RouterLink}
-              to={'/'}
+              to={"/"}
               color="var(--bestofjsOrange)"
               display="block"
               aria-label="Home"
@@ -125,14 +125,14 @@ export const Header = (props) => {
         </Flex>
       </div>
     </HeaderContainer>
-  )
-}
+  );
+};
 
 const NavigationMenu = styled.div`
   display: flex;
   align-items: center;
   margin-left: 1rem;
-`
+`;
 const NavigationMenuItem = styled.div`
   > a {
     display: flex;
@@ -151,12 +151,12 @@ const NavigationMenuItem = styled.div`
     color: var(--bestofjsOrange);
     border-bottom-color: var(--bestofjsOrange);
   }
-`
+`;
 
 const LoginSection = () => {
-  const auth = AuthContainer.useContainer()
+  const auth = AuthContainer.useContainer();
 
-  if (auth.isPending) return <Center>Loading...</Center>
+  if (auth.isPending) return <Center>Loading...</Center>;
 
   if (!auth.isLoggedIn) {
     return (
@@ -168,8 +168,8 @@ const LoginSection = () => {
       >
         Sign in
       </Button>
-    )
+    );
   }
 
-  return <UserDropdownMenu />
-}
+  return <UserDropdownMenu />;
+};

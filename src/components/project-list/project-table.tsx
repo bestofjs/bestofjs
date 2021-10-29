@@ -1,31 +1,31 @@
-import React, { CSSProperties } from 'react'
-import styled from '@emotion/styled'
-import { Link as RouterLink } from 'react-router-dom'
-import numeral from 'numeral'
-import { GoMarkGithub, GoBookmark, GoHome } from 'react-icons/go'
+import React, { CSSProperties } from "react";
+import styled from "@emotion/styled";
+import { Link as RouterLink } from "react-router-dom";
+import numeral from "numeral";
+import { GoMarkGithub, GoBookmark, GoHome } from "react-icons/go";
 
-import { Box, IconButton, Link } from 'components/core'
-import { getDeltaByDay } from 'selectors'
-import { AuthContainer } from 'containers/auth-container'
+import { Box, IconButton, Link } from "components/core";
+import { getDeltaByDay } from "selectors";
+import { AuthContainer } from "containers/auth-container";
 import {
   Avatar,
   DownloadCount,
   StarDelta,
-  StarTotal
-} from 'components/core/project'
-import { ProjectTagGroup } from 'components/tags/project-tag'
-import { fromNow } from 'helpers/from-now'
+  StarTotal,
+} from "components/core/project";
+import { ProjectTagGroup } from "components/tags/project-tag";
+import { fromNow } from "helpers/from-now";
 
 type Props = {
-  projects: BestOfJS.Project[]
-  footer?: React.ReactNode
-  from?: number
-  style?: CSSProperties
-  sortOption?: any
-  showDetails?: boolean
-  showActions?: boolean
-  metricsCell?: (project: BestOfJS.Project) => React.ReactNode
-}
+  projects: BestOfJS.Project[];
+  footer?: React.ReactNode;
+  from?: number;
+  style?: CSSProperties;
+  sortOption?: any;
+  showDetails?: boolean;
+  showActions?: boolean;
+  metricsCell?: (project: BestOfJS.Project) => React.ReactNode;
+};
 export const ProjectTable = ({
   projects,
   footer,
@@ -39,7 +39,7 @@ export const ProjectTable = ({
       <Table>
         <tbody>
           {projects.map((project, index) => {
-            if (!project) return null
+            if (!project) return null;
             return (
               <ProjectTableRow
                 key={project.full_name}
@@ -48,7 +48,7 @@ export const ProjectTable = ({
                 sortOption={sortOption}
                 {...otherProps}
               />
-            )
+            );
           })}
         </tbody>
         {footer && (
@@ -60,42 +60,42 @@ export const ProjectTable = ({
         )}
       </Table>
     </div>
-  )
-}
+  );
+};
 
 type RowProps = {
-  project: BestOfJS.Project
-  rank: number
-  sortOption: any
-  deltaFilter?: string
-  showDetails?: boolean
-  showRankingNumber?: boolean
-  showActions?: boolean
-  metricsCell?: (project: BestOfJS.Project) => React.ReactNode
-}
+  project: BestOfJS.Project;
+  rank: number;
+  sortOption: any;
+  deltaFilter?: string;
+  showDetails?: boolean;
+  showRankingNumber?: boolean;
+  showActions?: boolean;
+  metricsCell?: (project: BestOfJS.Project) => React.ReactNode;
+};
 const ProjectTableRow = ({
   project,
   rank,
   sortOption,
-  deltaFilter = 'total',
+  deltaFilter = "total",
   showDetails = true,
   showRankingNumber = false,
   showActions = true,
-  metricsCell
+  metricsCell,
 }: RowProps) => {
   const { isLoggedIn, addBookmark, removeBookmark } =
-    AuthContainer.useContainer()
-  const path = `/projects/${project.slug}`
+    AuthContainer.useContainer();
+  const path = `/projects/${project.slug}`;
 
-  const showDelta = ['daily', 'weekly', 'monthly', 'yearly'].includes(
+  const showDelta = ["daily", "weekly", "monthly", "yearly"].includes(
     sortOption.id
-  )
-  const showDownloads = sortOption.id === 'monthly-downloads'
-  const showStars = !showDelta && !showDownloads
+  );
+  const showDownloads = sortOption.id === "monthly-downloads";
+  const showStars = !showDelta && !showDownloads;
 
   const toggleBookmark = () => {
-    project.isBookmark ? removeBookmark(project) : addBookmark(project)
-  }
+    project.isBookmark ? removeBookmark(project) : addBookmark(project);
+  };
 
   return (
     <Row>
@@ -136,14 +136,14 @@ const ProjectTableRow = ({
               onClick={toggleBookmark}
               icon={<GoBookmark size={20} />}
               aria-label={
-                project.isBookmark ? 'Remove bookmark' : 'Add bookmark'
+                project.isBookmark ? "Remove bookmark" : "Add bookmark"
               }
               variant="ghost"
               isRound
               color={
                 project.isBookmark
-                  ? 'var(--iconColor)'
-                  : 'var(--textSecondaryColor)'
+                  ? "var(--iconColor)"
+                  : "var(--textSecondaryColor)"
               }
             />
           )}
@@ -151,7 +151,7 @@ const ProjectTableRow = ({
         <ProjectDescription>
           {project.description}
           <RepoInfo>
-            Updated {fromNow(project.pushed_at)},{' '}
+            Updated {fromNow(project.pushed_at)},{" "}
             {formatNumber(project.contributor_count)} contributors
           </RepoInfo>
         </ProjectDescription>
@@ -180,7 +180,7 @@ const ProjectTableRow = ({
             <div className="delta">
               <StarDelta
                 value={getDeltaByDay(sortOption.id)(project)}
-                average={sortOption.id !== 'daily'}
+                average={sortOption.id !== "daily"}
                 size={20}
               />
             </div>
@@ -190,15 +190,15 @@ const ProjectTableRow = ({
         </StarNumberCell>
       )}
     </Row>
-  )
-}
+  );
+};
 
-const breakpoint = 800
+const breakpoint = 800;
 
 const Table = styled.table`
   border-spacing: 0;
   width: 100%;
-`
+`;
 
 const Row = styled.tr`
   td {
@@ -207,7 +207,7 @@ const Row = styled.tr`
   &:last-child td {
     border-bottom: 1px dashed var(--boxBorderColor);
   }
-`
+`;
 
 const FooterRow = styled.tr`
   td {
@@ -218,11 +218,11 @@ const FooterRow = styled.tr`
       font-family: var(--buttonFontFamily);
     }
   }
-`
+`;
 
 const Cell = (props) => (
   <Box as="td" py={4} px={2} bg="var(--cardBackgroundColor)" {...props} />
-)
+);
 
 const MainLink = styled(Link)`
   display: flex;
@@ -231,7 +231,7 @@ const MainLink = styled(Link)`
     margin-right: 1rem;
   }
   font-family: var(--buttonFontFamily);
-`
+`;
 
 const ContributorCountCell = styled(Cell)`
   width: 170px;
@@ -242,25 +242,25 @@ const ContributorCountCell = styled(Cell)`
   div {
     margin-bottom: 0.5rem;
   }
-`
+`;
 
 const StarNumberCell = styled(Cell)`
   text-align: center;
   width: 85px;
-`
+`;
 
 const ProjectName = styled.div`
   display: flex;
   align-items: center;
   position: relative;
   font-family: var(--linkFontFamily);
-`
+`;
 
 const ProjectDescription = styled.div`
   font-size: 0.875rem;
   margin-top: 0.125rem;
   margin-bottom: 0.75rem;
-`
+`;
 
 const RepoInfo = styled.div`
   font-size: 0.875rem;
@@ -268,6 +268,6 @@ const RepoInfo = styled.div`
   @media (min-width: ${breakpoint}px) {
     display: none;
   }
-`
+`;
 
-const formatNumber = (number) => numeral(number).format('a')
+const formatNumber = (number) => numeral(number).format("a");

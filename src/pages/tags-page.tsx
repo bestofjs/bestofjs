@@ -1,22 +1,22 @@
-import React from 'react'
+import React from "react";
 
-import { useSelector } from 'containers/project-data-container'
-import { getAllTagsSortedBy } from 'selectors'
-import { PaginatedTagList } from 'components/tags/paginated-tag-list'
-import { TagIcon } from 'components/core/icons'
-import { MainContent, PageHeader } from 'components/core'
+import { useSelector } from "containers/project-data-container";
+import { getAllTagsSortedBy } from "selectors";
+import { PaginatedTagList } from "components/tags/paginated-tag-list";
+import { TagIcon } from "components/core/icons";
+import { MainContent, PageHeader } from "components/core";
 import {
   paginateItemList,
-  PaginationContainer
-} from 'components/core/pagination'
-import { useParseURL } from 'helpers/url'
+  PaginationContainer,
+} from "components/core/pagination";
+import { useParseURL } from "helpers/url";
 
 const TagsPage = () => {
-  const { sort, page } = useParseURL({ sort: 'project-count' })
-  const tags = useSelector(getAllTagsSortedBy(sort))
-  const total = tags.length
-  const limit = 20
-  const paginatedTags = paginateItemList(tags, page, { limit })
+  const { sort, page } = useParseURL({ sort: "project-count" });
+  const tags = useSelector(getAllTagsSortedBy(sort));
+  const total = tags.length;
+  const limit = 20;
+  const paginatedTags = paginateItemList(tags, page, { limit });
 
   return (
     <MainContent>
@@ -33,7 +33,7 @@ const TagsPage = () => {
         />
       </PaginationContainer.Provider>
     </MainContent>
-  )
-}
+  );
+};
 
-export default TagsPage
+export default TagsPage;

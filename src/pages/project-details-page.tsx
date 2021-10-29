@@ -1,29 +1,29 @@
-import React from 'react'
-import { useParams } from 'react-router-dom'
-import { Route, Switch } from 'react-router-dom'
+import React from "react";
+import { useParams } from "react-router-dom";
+import { Route, Switch } from "react-router-dom";
 
-import { useSelector } from 'containers/project-data-container'
-import { findProjectById } from 'selectors'
-import { useFetchProjectDetails } from 'api/hooks'
+import { useSelector } from "containers/project-data-container";
+import { findProjectById } from "selectors";
+import { useFetchProjectDetails } from "api/hooks";
 
-import { MainContent, Spinner } from 'components/core'
-import ProjectDetails from 'components/project-details'
-import { ProjectHeader } from 'components/project-details/project-header'
+import { MainContent, Spinner } from "components/core";
+import ProjectDetails from "components/project-details";
+import { ProjectHeader } from "components/project-details/project-header";
 
 const ProjectDetailsPageContainer = () => {
-  const { id } = useParams()
+  const { id } = useParams();
 
-  const project = useSelector(findProjectById(id))
+  const project = useSelector(findProjectById(id));
   // if the user loads directly the `/projects/:id` URL in the browser,
   // the project is not available yet in the state container
-  return project ? <ProjectDetailsPage project={project} /> : <Spinner />
-}
+  return project ? <ProjectDetailsPage project={project} /> : <Spinner />;
+};
 
 const ProjectDetailsPage = (props) => {
-  const { project } = props
+  const { project } = props;
 
-  const { data: details, error } = useFetchProjectDetails(project)
-  const projectWithDetails = getProjectWithDetails(project, details)
+  const { data: details, error } = useFetchProjectDetails(project);
+  const projectWithDetails = getProjectWithDetails(project, details);
 
   return (
     <MainContent>
@@ -43,19 +43,19 @@ const ProjectDetailsPage = (props) => {
         />
       </Switch>
     </MainContent>
-  )
-}
+  );
+};
 
 function getProjectWithDetails(project, details) {
-  if (!details?.github) return project
+  if (!details?.github) return project;
   const {
     npm,
     bundle,
     packageSize,
     description,
     github: { contributor_count, commit_count, created_at },
-    timeSeries
-  } = details
+    timeSeries,
+  } = details;
 
   return {
     ...project,
@@ -66,8 +66,8 @@ function getProjectWithDetails(project, details) {
     created_at,
     npm,
     bundle,
-    packageSize
-  }
+    packageSize,
+  };
 }
 
-export default ProjectDetailsPageContainer
+export default ProjectDetailsPageContainer;

@@ -1,7 +1,7 @@
 // import React, { createContext } from 'react'
 
-import { generatePageNumbers } from './helpers'
-import { createContainer } from 'unstated-next'
+import { generatePageNumbers } from "./helpers";
+import { createContainer } from "unstated-next";
 
 // export const PaginationContext = createContext({})
 
@@ -9,15 +9,15 @@ function usePaginationState({ currentPageNumber, limit, total }) {
   const paginationData = generatePageNumbers({
     total,
     currentPageNumber,
-    limit
-  })
+    limit,
+  });
 
   return {
     total,
     currentPageNumber,
     limit,
-    ...paginationData
-  }
+    ...paginationData,
+  };
 }
 
-export const PaginationContainer = createContainer(usePaginationState)
+export const PaginationContainer = createContainer(usePaginationState);

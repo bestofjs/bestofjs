@@ -1,29 +1,29 @@
-import React from 'react'
-import { Router } from 'react-router-dom'
-import { createMemoryHistory } from 'history'
-import { render } from 'react-testing-library'
+import React from "react";
+import { Router } from "react-router-dom";
+import { createMemoryHistory } from "history";
+import { render } from "react-testing-library";
 
-import { App } from '../app'
-import { ProjectDataProvider } from 'containers/project-data-container'
-import { AuthProvider } from 'containers/auth-container'
+import { App } from "../app";
+import { ProjectDataProvider } from "containers/project-data-container";
+import { AuthProvider } from "containers/auth-container";
 
 function renderWithContext(
   ui,
   {
-    route = '/',
+    route = "/",
     history = createMemoryHistory({ initialEntries: [route] }),
-    store
+    store,
   } = {}
 ) {
   return {
     ...render(<Router history={history}>{ui}</Router>),
     // adding `history` to the returned utilities to allow us to reference it in our tests
     history,
-    store
-  }
+    store,
+  };
 }
 
-export default function renderApp({ route, locale = 'en' }) {
+export default function renderApp({ route, locale = "en" }) {
   const result = renderWithContext(
     <AuthProvider>
       <ProjectDataProvider>
@@ -31,11 +31,11 @@ export default function renderApp({ route, locale = 'en' }) {
       </ProjectDataProvider>
     </AuthProvider>,
     { route }
-  )
-  const { container } = result
-  const mainNode = container.querySelector('#main')
+  );
+  const { container } = result;
+  const mainNode = container.querySelector("#main");
   return {
     ...result,
-    mainNode
-  }
+    mainNode,
+  };
 }
