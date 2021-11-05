@@ -4,15 +4,10 @@ import { Link as RouterLink } from "react-router-dom";
 import numeral from "numeral";
 import { GoMarkGithub, GoBookmark, GoHome } from "react-icons/go";
 
-import { Box, IconButton, Link } from "components/core";
+import { Box, IconButton, Link, ProjectAvatar } from "components/core";
 import { getDeltaByDay } from "selectors";
 import { AuthContainer } from "containers/auth-container";
-import {
-  Avatar,
-  DownloadCount,
-  StarDelta,
-  StarTotal,
-} from "components/core/project";
+import { DownloadCount, StarDelta, StarTotal } from "components/core/project";
 import { ProjectTagGroup } from "components/tags/project-tag";
 import { fromNow } from "helpers/from-now";
 
@@ -72,7 +67,7 @@ const ProjectTableRow = ({
     <Row>
       <Cell width="50px">
         <Link as={RouterLink} to={path}>
-          <Avatar project={project} size={50} />
+          <ProjectAvatar project={project} size={50} />
         </Link>
       </Cell>
 

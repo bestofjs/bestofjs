@@ -4,6 +4,7 @@ export * from "./empty-content";
 export * from "./html-head";
 export * from "./layout";
 export * from "./main-content";
+export * from "./project-avatar";
 export * from "./section";
 export * from "./spinner";
 export * from "./typography";

@@ -2,10 +2,17 @@ import React from "react";
 import { Link as RouterLink, useHistory } from "react-router-dom";
 import styled from "@emotion/styled";
 
-import { Box, Button, Link, HStack, Flex, Center } from "components/core";
+import {
+  Box,
+  Button,
+  Link,
+  HStack,
+  Flex,
+  Center,
+  ProjectAvatar,
+} from "components/core";
 import { useSelector } from "containers/project-data-container";
 import { getProjectsByTag } from "selectors";
-import { Avatar } from "components/core/project";
 import { ChevronRightIcon } from "components/core/icons";
 
 export const DetailedTagList = ({ tags }: { tags: BestOfJS.Tag[] }) => {
@@ -99,7 +106,7 @@ const IconGrid = ({ tag, projectCount = 5 }) => {
               className="hint--top"
               aria-label={project.name}
             >
-              <Avatar project={project} size={32} />
+              <ProjectAvatar project={project} size={32} />
             </Link>
           </Box>
         ))}

@@ -13,8 +13,8 @@ import featuredProjects from "./featured-projects.json";
 
 import { findProjectsByIds } from "selectors";
 import { useSelector } from "containers/project-data-container";
-import { Avatar } from "components/core/project";
 import { ProjectTagGroup } from "components/tags/project-tag";
+import { ProjectAvatar } from "components/core";
 
 type Project = BestOfJS.Project & { date: Date; comments: string[] };
 
@@ -54,7 +54,7 @@ export const Timeline = () => {
               justifyContent: "center",
               borderRadius: 5,
             }}
-            icon={<Avatar project={project} size={50} />}
+            icon={<ProjectAvatar project={project} size={50} />}
           >
             <h4
               style={{

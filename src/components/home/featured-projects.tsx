@@ -5,18 +5,20 @@ import { Animate } from "react-simple-animate";
 import { useInterval } from "react-use";
 import { GoStar } from "react-icons/go";
 
-import { Box, Button, Link } from "components/core";
+import {
+  Box,
+  Button,
+  Link,
+  ProjectAvatar,
+  getProjectAvatarUrl,
+} from "components/core";
 import { shuffle } from "helpers/shuffle";
 import { useUpdateEffect } from "helpers/lifecycle-hooks";
 import { useViewportSpy } from "helpers/use-viewport-spy";
 import { useIsDocumentVisible } from "helpers/use-page-events";
 import { useSelector } from "containers/project-data-container";
 import { getFeaturedProjects, getDeltaByDay } from "selectors";
-import {
-  Avatar,
-  StarDelta,
-  getProjectAvatarUrl,
-} from "components/core/project";
+import { StarDelta } from "components/core/project";
 import { Section, useColorMode } from "components/core";
 import { ProjectTag } from "components/tags/project-tag";
 import { ProgressBar } from "./progress-bar";
@@ -198,7 +200,7 @@ export const FeaturedProject = ({ project }) => {
   const sortOptionId = "daily";
   return (
     <ProjectBox>
-      <Avatar project={project} size={80} />
+      <ProjectAvatar project={project} size={80} />
       <FeaturedProjectName>
         <Link
           as={RouterLink}
