@@ -1,9 +1,8 @@
 import { createContainer } from "unstated-next";
 import useSWR from "swr";
 
-import { fetchJSON } from "../helpers/fetch";
-import api from "../api/config";
-
+import { FETCH_ALL_PROJECTS_URL } from "config";
+import { fetchJSON } from "helpers/fetch";
 import { getProjectId } from "components/core/project";
 import { AuthContainer } from "./auth-container";
 
@@ -42,7 +41,7 @@ export function useSelector(selector) {
 }
 
 async function fetchProjectsFromAPI() {
-  const url = `${api("GET_PROJECTS")}/projects.json`;
+  const url = `${FETCH_ALL_PROJECTS_URL}/projects.json`;
   return await fetchJSON(url);
 }
 

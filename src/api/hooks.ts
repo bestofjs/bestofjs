@@ -1,7 +1,12 @@
 import useSWR from "swr";
 
-import getApiRootURL from "./config";
-import { fetchHTML, fetchJSON } from "../helpers/fetch";
+import {
+  FETCH_DETAILS_URL,
+  FETCH_PACKAGE_DATA_URL,
+  FETCH_RANKINGS_URL,
+  FETCH_README_URL,
+} from "config";
+import { fetchHTML, fetchJSON } from "helpers/fetch";
 
 export function useFetchProjectReadMe({ full_name, branch }) {
   const fetcher = () => fetchProjectReadMe({ full_name, branch });
@@ -9,9 +14,7 @@ export function useFetchProjectReadMe({ full_name, branch }) {
 }
 
 function fetchProjectReadMe({ full_name, branch = "master" }) {
-  const url = `${getApiRootURL(
-    "GET_README"
-  )}/api/project-readme?fullName=${full_name}&branch=${branch}`;
+  const url = `${FETCH_README_URL}/api/project-readme?fullName=${full_name}&branch=${branch}`;
   return fetchHTML(url);
 }
 
@@ -21,26 +24,8 @@ export function useFetchProjectDetails({ full_name }) {
 }
 
 function fetchProjectDetails({ full_name }) {
-  const url = `${getApiRootURL(
-    "GET_PROJECT_DETAILS"
-  )}/api/project-details?fullName=${full_name}`;
+  const url = `${FETCH_DETAILS_URL}/api/project-details?fullName=${full_name}`;
   return fetchJSON(url);
-}
-
-const loadNewsletterIssue = ({ issueNumber: number }) => {
-  const root = "https://weekly.bestofjs.org";
-  const url = number
-    ? `${root}/issues/${number}/routeInfo.json`
-    : `${root}/latest/routeInfo.json`;
-  return fetchJSON(url).then(({ data }) => ({
-    isLatest: data.isLatest,
-    ...data.issue,
-  }));
-};
-
-export function useWeeklyNewsletter(issueNumber) {
-  const fetcher = () => loadNewsletterIssue({ issueNumber });
-  return useSWR(["/api/newsletters/issue", issueNumber], fetcher);
 }
 
 export function useFetchMonthlyDownloads(packageName) {
@@ -49,9 +34,7 @@ export function useFetchMonthlyDownloads(packageName) {
 }
 
 const fetchMonthlyDownloads = ({ packageName }) => {
-  const url = `${getApiRootURL(
-    "GET_PACKAGE_DATA"
-  )}/api/package-monthly-downloads?packageName=${packageName}`;
+  const url = `${FETCH_PACKAGE_DATA_URL}/api/package-monthly-downloads?packageName=${packageName}`;
   return fetchJSON(url);
 };
 
@@ -67,8 +50,9 @@ type MonthlyDate = {
 };
 
 function loadMonthlyRankings(date?: MonthlyDate) {
-  const rootURL = getApiRootURL("GET_RANKINGS");
-  const url = `${rootURL}/monthly/${date ? formatDate(date) : "latest"}`;
+  const url = `${FETCH_RANKINGS_URL}/monthly/${
+    date ? formatDate(date) : "latest"
+  }`;
   return fetchJSON(url);
 }
 
