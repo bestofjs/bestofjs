@@ -6,7 +6,10 @@ import { Box, Button, Flex } from "components/core";
 import { APP_DISPLAY_NAME } from "config";
 import { useSelector } from "containers/project-data-container";
 import { Section, Spinner } from "components/core";
-import { ProjectTable } from "components/project-list/project-table";
+import {
+  ProjectScore,
+  ProjectTable,
+} from "components/project-list/project-table";
 import { getProjectsSortedBy } from "selectors";
 import { ChevronDownIcon } from "components/core/icons";
 import { DropdownMenu, Menu, MenuGroup, MenuItem } from "components/core/menu";
@@ -40,7 +43,7 @@ export const HotProjects = ({ hotFilter, pending }) => {
   );
 
   return (
-    <>
+    <Box mb={8}>
       <Flex alignItems="center">
         <Box flexGrow={1}>
           <Section.Header icon={<GoFlame fontSize={32} />}>
@@ -59,9 +62,10 @@ export const HotProjects = ({ hotFilter, pending }) => {
       ) : (
         <ProjectTable
           projects={projects}
-          sortOption={{ id: sortOptionId }}
           showDetails={false}
-          showActions={false}
+          metricsCell={(project) => (
+            <ProjectScore project={project} sortOptionId={sortOptionId} />
+          )}
           footer={
             <Button
               variant="link"
@@ -71,10 +75,9 @@ export const HotProjects = ({ hotFilter, pending }) => {
               View full rankings »
             </Button>
           }
-          style={{ marginBottom: "2rem" }}
         />
       )}
-    </>
+    </Box>
   );
 };
 
@@ -127,9 +130,9 @@ export const NewestProjects = ({ newestProjects, hotFilter }) => {
       </Section.Header>
       <ProjectTable
         projects={newestProjects}
-        sortOption={{ id: "daily" }}
-        showActions={false}
-        showDetails={false}
+        metricsCell={(project) => (
+          <ProjectScore project={project} sortOptionId={"daily"} />
+        )}
         footer={
           <Button as={RouterLink} to="/projects?sort=newest" variant="link">
             View more »

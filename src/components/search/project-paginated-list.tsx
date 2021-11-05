@@ -1,7 +1,10 @@
 import React from "react";
 import { useHistory, useLocation } from "react-router-dom";
 
-import { ProjectTable } from "components/project-list/project-table";
+import {
+  ProjectScore,
+  ProjectTable,
+} from "components/project-list/project-table";
 import { PaginationContainer } from "components/core/pagination/provider";
 import {
   TopPaginationControls,
@@ -18,7 +21,7 @@ export const ProjectPaginatedList = ({
   limit,
   sortOption,
 }) => {
-  const { from, pageNumbers } = PaginationContainer.useContainer();
+  const { pageNumbers } = PaginationContainer.useContainer();
   const location = useLocation();
   const history = useHistory();
 
@@ -55,7 +58,12 @@ export const ProjectPaginatedList = ({
           )}
         </Stack>
       )}
-      <ProjectTable projects={projects} from={from} sortOption={sortOption} />
+      <ProjectTable
+        projects={projects}
+        metricsCell={(project) => (
+          <ProjectScore project={project} sortOptionId={sortOption.id} />
+        )}
+      />
       {showPagination && (
         <BottomPaginationControls history={history} location={location} />
       )}
