@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { MdAdd } from "react-icons/md";
 
 import { Button, Wrap, WrapItem, useColorMode } from "components/core";
-import { useUpdateLocationState } from "../search";
+import { useUpdateNavigationState } from "../search";
 
 type Props = {
   tags: BestOfJS.Tag[];
@@ -13,7 +13,7 @@ export const ProjectTagGroup = ({ tags, ...otherProps }: Props) => {
   return (
     <Wrap>
       {tags.map((tag) => (
-        <WrapItem key={tag.id}>
+        <WrapItem key={tag.code}>
           <ProjectTag tag={tag} {...otherProps} />
         </WrapItem>
       ))}
@@ -29,11 +29,14 @@ export const ProjectTag = ({
   appendTag?: boolean;
 }) => {
   const { colorMode } = useColorMode();
-  const updateLocationState = useUpdateLocationState();
-  const nextLocation = updateLocationState((state) => ({
-    ...state,
-    selectedTags: appendTag ? [...state.selectedTags, tag.id] : [tag.id],
-  }));
+  const updateLocation = useUpdateNavigationState();
+  const nextLocation = {
+    ...updateLocation((state) => ({
+      ...state,
+      selectedTags: appendTag ? [...state.selectedTags, tag.code] : [tag.code],
+    })),
+    pathname: "/projects",
+  };
 
   return (
     <Button

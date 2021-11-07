@@ -21,10 +21,10 @@ const getTagCounters = createSelector<
   return tagCounters;
 });
 
-export const getTagsById = (ids) =>
+export const getTagsByCode = (codes: string[]) =>
   createSelector<State, any, BestOfJS.Tag[]>(
     [(state) => state.entities.tags],
-    (allTags) => ids.map((id) => allTags[id])
+    (allTags) => codes.map((code) => allTags[code])
   );
 
 // All tags including counter data:

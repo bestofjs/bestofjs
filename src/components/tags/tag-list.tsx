@@ -19,7 +19,7 @@ export const DetailedTagList = ({ tags }: { tags: BestOfJS.Tag[] }) => {
   return (
     <Box w="100%">
       {tags.map((tag) => (
-        <TagListRow key={tag.id} tag={tag} />
+        <TagListRow key={tag.code} tag={tag} />
       ))}
     </Box>
   );
@@ -35,7 +35,7 @@ export const CompactTagList = ({
   return (
     <Box w="100%">
       {tags.map((tag) => (
-        <ListRow key={tag.id}>
+        <ListRow key={tag.code}>
           <Flex w="100%" p={4}>
             <Link
               as={RouterLink}

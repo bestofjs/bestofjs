@@ -73,13 +73,15 @@ declare namespace BestOfJS {
     };
   }
 
-  type Tag = {
-    id: string;
+  interface RawTag {
     code: string;
     name: string;
-    description: string;
-    counter: number;
-  };
+    description?: string;
+  }
+
+  interface Tag extends RawTag {
+    counter?: number;
+  }
 
   type HallOfFameMember = {
     username: string;

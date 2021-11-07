@@ -3,7 +3,7 @@ import { withRouter } from "react-router-dom";
 import styled from "@emotion/styled";
 
 import { useSelector } from "containers/project-data-container";
-import { allProjects, getTagsById, getProjectSelectorByKey } from "selectors";
+import { allProjects, getTagsByCode, getProjectSelectorByKey } from "selectors";
 import { PaginationContainer } from "components/core/pagination";
 import { TagIcon } from "components/core/icons";
 import {
@@ -79,7 +79,7 @@ export const SearchResultsPage = () => {
 
 const SearchResultsTitle = ({ query, selectedTags, total }) => {
   const isListFiltered = query !== "" || selectedTags.length > 0;
-  const tags = useSelector(getTagsById(selectedTags));
+  const tags = useSelector(getTagsByCode(selectedTags));
 
   if (!isListFiltered) return <PageHeader title="All Projects" />;
 
@@ -109,7 +109,9 @@ const showCount = (total, text) => {
 
 const NoProjectsFound = withRouter(
   ({ query, selectedTags, history, location }) => {
-    const tags = useSelector(getTagsById(selectedTags)).filter((tag) => !!tag);
+    const tags = useSelector(getTagsByCode(selectedTags)).filter(
+      (tag) => !!tag
+    );
     const Title = () => {
       const QueryPart = () => {
         if (!query) return null;
@@ -166,7 +168,7 @@ const NoProjectsFound = withRouter(
 );
 
 const RelevantTags = ({ tagIds }) => {
-  const tags = useSelector(getTagsById(tagIds));
+  const tags = useSelector(getTagsByCode(tagIds));
   const { selectedTags } = useSearch();
 
   return (

@@ -19,19 +19,22 @@ import { SearchContainer } from "./search-container";
 // see https://github.com/JedWatson/react-select/issues/3692 for theming and dark theme
 
 export const SearchBox = () => {
-  const tags = useSelector(getAllTags);
+  const tags: BestOfJS.Tag[] = useSelector(getAllTags);
   const { query, selectedTags, onChange } = SearchContainer.useContainer();
   const [inputValue, setInputValue] = useState(query);
   const [debouncedOnChange, cancel] = useDebouncedCallback(onChange, 300);
 
-  const options = [{ id: "", counter: tags.length }, ...tags].map((item) => ({
-    ...item,
-    value: item.id,
-    label: item.name,
-  }));
+  const options = [
+    { value: "", label: "", counter: tags.length },
+    ...tags.map((item) => ({
+      ...item,
+      value: item.code,
+      label: item.name,
+    })),
+  ];
 
-  const selectedOptions = selectedTags.map((tagId) =>
-    options.find(({ id }) => id === tagId)
+  const selectedOptions = selectedTags.map((tagCode) =>
+    options.find(({ value }) => value === tagCode)
   );
 
   useEffect(() => {
@@ -59,13 +62,13 @@ export const SearchBox = () => {
           placeholder={"Pick tags or enter keywords"}
           onChange={(options, { action, option }) => {
             // console.log('> onChange', options, action, option)
-            const tagIds = (options || []).map(({ id }) => id);
+            const tagCodes = (options || []).map(({ code }) => code);
             if (action === "select-option") {
-              if (option.id === "") return;
+              if (option.value === "") return;
             }
             setInputValue("");
             cancel();
-            onChange({ query: "", selectedTags: tagIds });
+            onChange({ query: "", selectedTags: tagCodes });
           }}
           onInputChange={(value, { action }) => {
             // console.log('onInputChange', value, action)
@@ -140,10 +143,10 @@ const customComponents = {
     );
   },
   Option: (props) => {
-    const { id, name, counter } = props.data;
+    const { value, name, counter } = props.data;
     return (
       <Option {...props}>
-        {id ? (
+        {value ? (
           <>
             {name} <span className="text-secondary">({counter})</span>
           </>

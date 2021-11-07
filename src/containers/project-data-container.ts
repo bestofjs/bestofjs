@@ -84,9 +84,10 @@ function getProjectsBySlug(projects) {
   return projectsBySlug;
 }
 
-function getTagsByCode(tags) {
-  const tagsByCode = tags.reduce((acc, tag) => {
-    return { ...acc, [tag.code]: { ...tag, id: tag.code } };
-  }, {});
+function getTagsByCode(tags: BestOfJS.RawTag[]) {
+  const tagsByCode: State["entities"]["tags"] = {};
+  tags.forEach((tag) => {
+    tagsByCode[tag.code] = tag;
+  });
   return tagsByCode;
 }

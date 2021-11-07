@@ -66,14 +66,17 @@ export function updateLocation(location, changes) {
 
 type StateUpdater = (state: NavigationState) => NavigationState;
 
-export function useUpdateLocationState() {
+export function useUpdateNavigationState() {
   const location = useLocation();
   const { search } = location;
   const state = queryStringToState(search);
   return (updater: StateUpdater) => {
     const nextState = updater(state);
     const queryString = stateToQueryString(nextState);
-    const nextLocation = { ...location, search: "?" + queryString };
+    const nextLocation = {
+      ...location,
+      search: "?" + queryString,
+    };
     return nextLocation;
   };
 }
