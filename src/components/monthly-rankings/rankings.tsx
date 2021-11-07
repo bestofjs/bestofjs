@@ -64,7 +64,9 @@ export const MonthlyRankingsProjects = ({
       showDetails={true}
       metricsCell={(project) => {
         const value = projects.find(findBySlug(project.slug))?.delta;
-        return <StarDelta value={value} average={false} />;
+        return value === undefined ? null : (
+          <StarDelta value={value} average={false} />
+        );
       }}
       footer={footer}
     />

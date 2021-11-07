@@ -1,8 +1,16 @@
 import { stringify } from "qs";
+import { useLocation } from "react-router-dom";
 
 import { parseQueryString } from "helpers/url";
 
-export function queryStringToState(queryString) {
+type NavigationState = {
+  selectedTags: string[];
+  query: string;
+  sort: string;
+  page: number;
+};
+
+export function queryStringToState(queryString: string): NavigationState {
   const parameters = parseQueryString(queryString);
 
   const selectedTags = parameters.tags ? makeArray(parameters.tags) : [];
@@ -15,7 +23,12 @@ export function queryStringToState(queryString) {
   };
 }
 
-export function stateToQueryString({ query, selectedTags, sort, page }) {
+export function stateToQueryString({
+  query,
+  selectedTags,
+  sort,
+  page,
+}: NavigationState) {
   const queryString = stringify(
     {
       query: query || null,
@@ -49,6 +62,20 @@ export function updateLocation(location, changes) {
   const queryString = stateToQueryString(params);
   const nextLocation = { ...location, search: "?" + queryString };
   return nextLocation;
+}
+
+type StateUpdater = (state: NavigationState) => NavigationState;
+
+export function useUpdateLocationState() {
+  const location = useLocation();
+  const { search } = location;
+  const state = queryStringToState(search);
+  return (updater: StateUpdater) => {
+    const nextState = updater(state);
+    const queryString = stateToQueryString(nextState);
+    const nextLocation = { ...location, search: "?" + queryString };
+    return nextLocation;
+  };
 }
 
 const makeArray = (value) => (Array.isArray(value) ? value : [value]);

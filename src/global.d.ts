@@ -1,5 +1,6 @@
 declare namespace BestOfJS {
-  type RawProject = {
+  // Project raw data from the JSON API
+  interface RawProject {
     name: string;
     full_name: string;
     description: string;
@@ -21,17 +22,24 @@ declare namespace BestOfJS {
     npm: string;
     downloads: number;
     icon: string;
-  };
+  }
 
-  type Project = RawProject & {
+  // Project handled in the state container
+  interface StateProject extends RawProject {
     slug: string;
     repository: string;
     packageName: string;
     addedPosition: number;
     isBookmark?: boolean;
-  };
+  }
 
-  type ProjectDetails = Project & {
+  // Project with the `tags` property populated "react" => {id: "react". name: "React"... }
+  interface Project extends Omit<StateProject, "tags"> {
+    tags: Tag[];
+  }
+
+  // Project with extra data coming from the dynamic API
+  interface ProjectDetails extends Project {
     commit_count: number;
     created_at: string;
     bundle: {
@@ -63,7 +71,7 @@ declare namespace BestOfJS {
         delta: number;
       }[];
     };
-  };
+  }
 
   type Tag = {
     id: string;

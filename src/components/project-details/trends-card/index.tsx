@@ -2,12 +2,11 @@ import React from "react";
 import styled from "@emotion/styled";
 import { GoGraph } from "react-icons/go";
 
-import { getDeltaByDay } from "../../../selectors";
 import { HeatMapContainer } from "./heatmap";
 import { MonthlyTrends } from "./monthly-trends";
-import { StarDelta } from "../../core/project";
+import { StarDelta, getDeltaByDay } from "../../core/project";
 import { Box, Card, CardBody, CardHeader, CardSection } from "components/core";
-import { StarIcon } from "../../core/icons";
+import { StarIcon } from "components/core/icons";
 
 export const TrendsCard = ({ project }) => {
   const dailyDeltas = project.timeSeries?.daily || [];
@@ -44,6 +43,7 @@ export const TrendsCard = ({ project }) => {
 const MonthlyTrendsItem = ({ item, trends }) => {
   const { label, category } = item;
   const value = getDeltaByDay(category)({ trends });
+  if (value === undefined) return null;
   return (
     <div>
       <div>{label}</div>

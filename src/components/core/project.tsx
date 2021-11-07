@@ -1,12 +1,15 @@
 import React from "react";
-import styled from "@emotion/styled";
 import numeral from "numeral";
 import slugify from "slugify";
 
-import { Box } from "components/core";
+import { Box, Center } from "components/core";
 import { StarIcon } from "./icons";
 
-export const DownloadCount = ({ value }) => {
+type Props = {
+  value: number;
+};
+
+export const DownloadCount = ({ value }: Props) => {
   if (value === undefined) {
     return <div className="star-delta text-secondary text-small">N/A</div>;
   }
@@ -14,25 +17,21 @@ export const DownloadCount = ({ value }) => {
   return <span>{numeral(value).format("a")}</span>;
 };
 
-const getSign = (value) => {
+const getSign = (value: number) => {
   if (value === 0) return "";
   return value > 0 ? "+" : "-";
 };
 
-const StarDeltaContainer = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-`;
-
-export const StarDelta = ({ average, ...props }) =>
-  // @ts-ignore
+export const StarDelta = ({
+  average,
+  ...props
+}: Props & { average?: boolean }) =>
   average ? <StarDeltaAverage {...props} /> : <StarDeltaNormal {...props} />;
 
-const StarDeltaNormal = ({ value, ...props }) => {
+const StarDeltaNormal = ({ value, ...props }: Props) => {
   const sign = getSign(value);
   return (
-    <StarDeltaContainer>
+    <Center>
       {value === 0 ? (
         "="
       ) : (
@@ -44,15 +43,11 @@ const StarDeltaNormal = ({ value, ...props }) => {
           <StarIcon fontSize="20px" {...props} />
         </>
       )}
-    </StarDeltaContainer>
+    </Center>
   );
 };
 
-const StarDeltaAverageContainer = styled.div`
-  text-align: center;
-`;
-
-export const StarDeltaAverage = ({ value }) => {
+export const StarDeltaAverage = ({ value }: Props) => {
   const integerPart = Math.abs(Math.trunc(value));
   const decimalPart = (Math.abs(value - integerPart) * 10)
     .toFixed()
@@ -63,24 +58,22 @@ export const StarDeltaAverage = ({ value }) => {
     return <div className="star-delta text-secondary text-small">N/A</div>;
 
   return (
-    <StarDeltaAverageContainer>
-      <StarDeltaContainer>
-        <span style={{ marginRight: 2 }}>{sign}</span>
-        <span>{integerPart}</span>
-        <span className="text-secondary">.{decimalPart}</span>
-        <StarIcon fontSize="20px" />
-        <span> /day</span>
-      </StarDeltaContainer>
-    </StarDeltaAverageContainer>
+    <Center>
+      <span>{sign}</span>
+      <span>{integerPart}</span>
+      <span className="text-secondary">.{decimalPart}</span>
+      <StarIcon fontSize="20px" />
+      <span> /day</span>
+    </Center>
   );
 };
 
-export const StarTotal = ({ value }) => {
+export const StarTotal = ({ value }: Props) => {
   return (
-    <Span>
+    <Box display="inline-flex">
       <span>{formatBigNumber(value)}</span>
       <StarIcon fontSize="20px" />
-    </Span>
+    </Box>
   );
 };
 
@@ -91,10 +84,32 @@ function formatBigNumber(value: number): string {
   return numeral(value).format(digits + " a");
 }
 
-const Span = styled.span`
-  display: inline-flex;
-`;
-
-export function getProjectId(project) {
+export function getProjectId(project: BestOfJS.Project) {
   return slugify(project.name, { lower: true, remove: /[.'/]/g });
+}
+
+export const getDeltaByDay =
+  (period: string) =>
+  ({ trends }: { trends: BestOfJS.Project["trends"] }) => {
+    const periods = {
+      daily: 1,
+      weekly: 7,
+      monthly: 30,
+      quarterly: 90,
+      yearly: 365,
+    };
+
+    const delta = trends[period];
+    const numberOfDays = periods[period];
+    return average(delta, numberOfDays);
+  };
+
+function average(delta: number | undefined, numberOfDays: number) {
+  if (delta === undefined) return undefined; // handle recently added projects, without `yearly`, `monthly` data available
+  return round(delta / numberOfDays);
+}
+
+function round(number: number, decimals = 1) {
+  const i = Math.pow(10, decimals);
+  return Math.round(number * i) / i;
 }

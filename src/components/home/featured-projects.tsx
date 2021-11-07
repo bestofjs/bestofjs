@@ -11,13 +11,14 @@ import {
   Link,
   ProjectAvatar,
   getProjectAvatarUrl,
+  getDeltaByDay,
 } from "components/core";
 import { shuffle } from "helpers/shuffle";
 import { useUpdateEffect } from "helpers/lifecycle-hooks";
 import { useViewportSpy } from "helpers/use-viewport-spy";
 import { useIsDocumentVisible } from "helpers/use-page-events";
 import { useSelector } from "containers/project-data-container";
-import { getFeaturedProjects, getDeltaByDay } from "selectors";
+import { getFeaturedProjects } from "selectors";
 import { StarDelta } from "components/core/project";
 import { Section, useColorMode } from "components/core";
 import { ProjectTag } from "components/tags/project-tag";
@@ -196,8 +197,9 @@ const ProjectContainer = styled.div`
   border-bottom: 1px dashed var(--boxBorderColor);
 `;
 
-export const FeaturedProject = ({ project }) => {
+export const FeaturedProject = ({ project }: { project: BestOfJS.Project }) => {
   const sortOptionId = "daily";
+  const delta = getDeltaByDay(sortOptionId)(project);
   return (
     <ProjectBox>
       <ProjectAvatar project={project} size={80} />
@@ -209,12 +211,11 @@ export const FeaturedProject = ({ project }) => {
         >
           {project.name}
         </Link>
-        <div className="stars">
-          <StarDelta
-            value={getDeltaByDay(sortOptionId)(project)}
-            average={sortOptionId !== "daily"}
-          />
-        </div>
+        {delta !== undefined && (
+          <div className="stars">
+            <StarDelta value={delta} average={sortOptionId !== "daily"} />
+          </div>
+        )}
         <ProjectTag tag={project.tags[0]} />
       </FeaturedProjectName>
     </ProjectBox>

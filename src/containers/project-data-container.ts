@@ -10,7 +10,7 @@ export type State = {
   error?: Error;
   isPending: boolean;
   entities: {
-    projects: Record<string, BestOfJS.Project>;
+    projects: Record<string, BestOfJS.StateProject>;
     tags: Record<string, BestOfJS.Tag>;
   };
   auth: {

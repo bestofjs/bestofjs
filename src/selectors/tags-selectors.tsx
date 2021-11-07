@@ -7,7 +7,7 @@ import { sortByString, sortByNumber } from "./sort-utils";
 //  {react: 200, vue: 60...}
 const getTagCounters = createSelector<
   State,
-  BestOfJS.Project[],
+  BestOfJS.StateProject[],
   Record<string, number>
 >([(state) => Object.values(state.entities.projects)], (projects) => {
   const tagCounters = {};

@@ -3,9 +3,13 @@ import { Link } from "react-router-dom";
 import { MdAdd } from "react-icons/md";
 
 import { Button, Wrap, WrapItem, useColorMode } from "components/core";
-import { useSearch, updateLocation } from "../search";
+import { useUpdateLocationState } from "../search";
 
-export const ProjectTagGroup = ({ tags, ...otherProps }) => {
+type Props = {
+  tags: BestOfJS.Tag[];
+  appendTag?: boolean;
+};
+export const ProjectTagGroup = ({ tags, ...otherProps }: Props) => {
   return (
     <Wrap>
       {tags.map((tag) => (
@@ -17,20 +21,20 @@ export const ProjectTagGroup = ({ tags, ...otherProps }) => {
   );
 };
 
-export const ProjectTag = ({ tag, baseTagIds = [] }) => {
-  const { location } = useSearch();
+export const ProjectTag = ({
+  tag,
+  appendTag,
+}: {
+  tag: BestOfJS.Tag;
+  appendTag?: boolean;
+}) => {
   const { colorMode } = useColorMode();
+  const updateLocationState = useUpdateLocationState();
+  const nextLocation = updateLocationState((state) => ({
+    ...state,
+    selectedTags: appendTag ? [...state.selectedTags, tag.id] : [tag.id],
+  }));
 
-  const isMultiTagLink = baseTagIds.length > 0;
-
-  const nextLocation = updateLocation(
-    { ...location, pathname: "/projects" },
-    {
-      query: "",
-      selectedTags: [...baseTagIds, tag.id],
-      page: 1,
-    }
-  );
   return (
     <Button
       as={Link}
@@ -38,7 +42,7 @@ export const ProjectTag = ({ tag, baseTagIds = [] }) => {
       variant={colorMode === "dark" ? "solid" : "outline"}
       size="sm"
       fontSize="0.875rem"
-      rightIcon={isMultiTagLink ? <MdAdd /> : undefined}
+      rightIcon={appendTag ? <MdAdd /> : undefined}
     >
       {tag.name}
     </Button>

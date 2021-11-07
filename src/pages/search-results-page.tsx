@@ -59,9 +59,7 @@ export const SearchResultsPage = () => {
             selectedTags={selectedTags}
             total={total}
           />
-          {includedTags.length > 0 && (
-            <RelevantTags tagIds={includedTags} baseTagIds={selectedTags} />
-          )}
+          {includedTags.length > 0 && <RelevantTags tagIds={includedTags} />}
           <ProjectPaginatedList
             projects={foundProjects}
             page={page}
@@ -167,15 +165,17 @@ const NoProjectsFound = withRouter(
   }
 );
 
-const RelevantTags = ({ tagIds, baseTagIds }) => {
+const RelevantTags = ({ tagIds }) => {
   const tags = useSelector(getTagsById(tagIds));
+  const { selectedTags } = useSearch();
+
   return (
     <Container>
       <Flex alignItems="center">
         <Label>
-          {baseTagIds.length === 0 ? "Related tags:" : "Refine your search:"}
+          {selectedTags.length === 0 ? "Related tags:" : "Refine your search:"}
         </Label>
-        <ProjectTagGroup tags={tags} baseTagIds={baseTagIds} />
+        <ProjectTagGroup tags={tags} appendTag={selectedTags.length > 0} />
       </Flex>
     </Container>
   );

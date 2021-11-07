@@ -4,8 +4,13 @@ import { Link as RouterLink } from "react-router-dom";
 import numeral from "numeral";
 import { GoMarkGithub, GoBookmark, GoHome } from "react-icons/go";
 
-import { Box, IconButton, Link, ProjectAvatar } from "components/core";
-import { getDeltaByDay } from "selectors";
+import {
+  Box,
+  IconButton,
+  Link,
+  ProjectAvatar,
+  getDeltaByDay,
+} from "components/core";
 import { AuthContainer } from "containers/auth-container";
 import { DownloadCount, StarDelta, StarTotal } from "components/core/project";
 import { ProjectTagGroup } from "components/tags/project-tag";
@@ -154,13 +159,9 @@ export const ProjectScore = ({
   const showDownloads = sortOptionId === "monthly-downloads";
 
   if (showDelta) {
-    return (
-      <StarDelta
-        value={getDeltaByDay(sortOptionId)(project)}
-        average={sortOptionId !== "daily"}
-        size={20}
-      />
-    );
+    const value = getDeltaByDay(sortOptionId)(project);
+    if (value === undefined) return null;
+    return <StarDelta value={value} average={sortOptionId !== "daily"} />;
   }
 
   if (showDownloads) {

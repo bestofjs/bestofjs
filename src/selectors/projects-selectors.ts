@@ -217,29 +217,3 @@ export function populateProject(tags) {
     return populated;
   };
 }
-
-export const getDeltaByDay =
-  (period) =>
-  ({ trends }) => {
-    const periods = {
-      daily: 1,
-      weekly: 7,
-      monthly: 30,
-      quarterly: 90,
-      yearly: 365,
-    };
-
-    const delta = trends[period];
-    const numberOfDays = periods[period];
-    return average(delta, numberOfDays);
-  };
-
-function average(delta, numberOfDays) {
-  if (delta === undefined) return undefined; // handle recently added projects, without `yearly`, `monthly` data available
-  return round(delta / numberOfDays);
-}
-
-function round(number, decimals = 1) {
-  const i = Math.pow(10, decimals);
-  return Math.round(number * i) / i;
-}

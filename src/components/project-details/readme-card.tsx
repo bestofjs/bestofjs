@@ -14,7 +14,7 @@ import { useFetchProjectReadMe } from "api/hooks";
 
 import "stylesheets/markdown-body.css";
 
-type Props = { project: BestOfJS.Project };
+type Props = { project: BestOfJS.ProjectDetails };
 export const ReadmeCard = ({ project }: Props) => {
   return (
     <Card className="readme">
