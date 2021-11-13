@@ -1,13 +1,13 @@
 import { stringify } from "qs";
-import { useLocation } from "react-router-dom";
+import { useHistory, useLocation } from "react-router";
 
 import { parseQueryString } from "helpers/url";
 
 type NavigationState = {
   selectedTags: string[];
   query: string;
-  sort: string;
   page: number;
+  sort?: string;
 };
 
 export function queryStringToState(queryString: string): NavigationState {
@@ -45,33 +45,20 @@ export function stateToQueryString({
   return queryString;
 }
 
-export function updateLocation(location, changes) {
-  const { search, pathname } = location;
-  const previousParams = queryStringToState(search);
-  const params = { ...previousParams, ...changes };
-
-  // Remove the `bookmark` sort option, only available on the "Bookmarks" page
-  if (params.sort === "bookmark" && pathname !== "/bookmarks") {
-    delete params.sort;
-  }
-  // Remove the `match` sort parameter, only available when there is a query
-  if (!params.query && params.sort === "match") {
-    delete params.sort;
-  }
-
-  const queryString = stateToQueryString(params);
-  const nextLocation = { ...location, search: "?" + queryString };
-  return nextLocation;
-}
-
+type StateChanges = Partial<NavigationState>;
 type StateUpdater = (state: NavigationState) => NavigationState;
 
-export function useUpdateNavigationState() {
+export function useNextLocation() {
   const location = useLocation();
-  const { search } = location;
-  const state = queryStringToState(search);
-  return (updater: StateUpdater) => {
-    const nextState = updater(state);
+  const history = useHistory();
+  const state = queryStringToState(location.search);
+
+  // Accepts either a function to generate the next location from the previous one,
+  // or an object that describes the changes to apply
+  const updateLocation = (changes: StateUpdater | StateChanges) => {
+    const nextState =
+      typeof changes === "function" ? changes(state) : { ...state, ...changes };
+    cleanNavigationState(nextState, location.pathname);
     const queryString = stateToQueryString(nextState);
     const nextLocation = {
       ...location,
@@ -79,6 +66,24 @@ export function useUpdateNavigationState() {
     };
     return nextLocation;
   };
+
+  const navigate = (changes: StateUpdater | StateChanges) => {
+    const nextLocation = updateLocation(changes);
+    history.push(nextLocation);
+  };
+
+  return { navigate, updateLocation };
+}
+
+function cleanNavigationState(state: NavigationState, pathname: string) {
+  // Remove the `bookmark` sort option, only available on the "Bookmarks" page
+  if (state.sort === "bookmark" && pathname !== "/bookmarks") {
+    delete state.sort;
+  }
+  // Remove the `match` sort parameter, only available when there is a query
+  if (!state.query && state.sort === "match") {
+    delete state.sort;
+  }
 }
 
 const makeArray = (value) => (Array.isArray(value) ? value : [value]);

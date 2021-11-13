@@ -1,5 +1,4 @@
 import React from "react";
-import { useHistory, useLocation } from "react-router-dom";
 
 import {
   ProjectScore,
@@ -12,7 +11,7 @@ import {
 } from "components/core/pagination/pagination-controls";
 import { Box, Stack } from "components/core";
 import { SortOrderPicker } from "./sort-order-picker";
-import { updateLocation } from "./search-utils";
+import { useNextLocation } from "./search-utils";
 
 export const ProjectPaginatedList = ({
   projects,
@@ -22,15 +21,7 @@ export const ProjectPaginatedList = ({
   sortOption,
 }) => {
   const { pageNumbers } = PaginationContainer.useContainer();
-  const location = useLocation();
-  const history = useHistory();
-
-  const onChangeSortOption = (sortId) => {
-    const changes = { sort: sortId, page: 1 };
-    const nextLocation = updateLocation(location, changes);
-
-    history.push(nextLocation);
-  };
+  const { navigate } = useNextLocation();
 
   const showPagination = pageNumbers.length > 1;
   const showSortOptions = total > 1;
@@ -46,14 +37,14 @@ export const ProjectPaginatedList = ({
           <Box>
             {showSortOptions && (
               <SortOrderPicker
-                onChange={onChangeSortOption}
+                onChange={(sortId) => navigate({ sort: sortId, page: 1 })}
                 value={sortOption.id}
               />
             )}
           </Box>
           {showPagination && (
             <Box>
-              <TopPaginationControls history={history} location={location} />
+              <TopPaginationControls />
             </Box>
           )}
         </Stack>
@@ -64,9 +55,7 @@ export const ProjectPaginatedList = ({
           <ProjectScore project={project} sortOptionId={sortOption.id} />
         )}
       />
-      {showPagination && (
-        <BottomPaginationControls history={history} location={location} />
-      )}
+      {showPagination && <BottomPaginationControls />}
     </div>
   );
 };

@@ -1,5 +1,5 @@
 import React from "react";
-import { withRouter } from "react-router-dom";
+import { Link } from "react-router-dom";
 import styled from "@emotion/styled";
 
 import { useSelector } from "containers/project-data-container";
@@ -17,7 +17,7 @@ import {
 import { ProjectPaginatedList } from "components/search/project-paginated-list";
 import { ProjectTagGroup } from "components/tags/project-tag";
 import { useSearch } from "components/search/search-container";
-import { updateLocation } from "components/search/search-utils";
+import { useNextLocation } from "components/search/search-utils";
 import { findProjects } from "components/search/find-projects";
 
 export const SearchResultsPage = () => {
@@ -107,65 +107,58 @@ const showCount = (total, text) => {
   return `${total} ${text}${total > 1 ? "s" : ""}`;
 };
 
-const NoProjectsFound = withRouter(
-  ({ query, selectedTags, history, location }) => {
-    const tags = useSelector(getTagsByCode(selectedTags)).filter(
-      (tag) => !!tag
-    );
-    const Title = () => {
-      const QueryPart = () => {
-        if (!query) return null;
-        return <> "{query}" </>;
-      };
-      const TagPart = () => {
-        if (!tags.length) return null;
-        if (tags.length === 1) return <> with the tag "{tags[0].name}"</>;
-        return (
-          <> with the tags {tags.map((tag) => `"${tag.name}"`).join(" and ")}</>
-        );
-      };
-
+const NoProjectsFound = ({ query, selectedTags }) => {
+  const { navigate } = useNextLocation();
+  const tags = useSelector(getTagsByCode(selectedTags)).filter((tag) => !!tag);
+  const Title = () => {
+    const QueryPart = () => {
+      if (!query) return null;
+      return <> "{query}" </>;
+    };
+    const TagPart = () => {
+      if (!tags.length) return null;
+      if (tags.length === 1) return <> with the tag "{tags[0].name}"</>;
       return (
-        <div style={{ marginBottom: "1rem" }}>
-          No project
-          <QueryPart /> was found
-          <TagPart />.
-        </div>
+        <> with the tags {tags.map((tag) => `"${tag.name}"`).join(" and ")}</>
       );
     };
 
-    const resetQuery = () => {
-      const nextLocation = updateLocation(location, { query: "" });
-      history.push(nextLocation);
-    };
     return (
-      <>
-        <Title />
-        <Button onClick={() => history.push("/projects")}>
-          View all projects
-        </Button>
-
-        {tags.length > 0 && query && (
-          <div style={{ marginTop: "1rem" }}>
-            <div style={{ marginBottom: "1rem" }}>Reset the query:</div>
-            <Button onClick={resetQuery}>
-              <span style={{ textDecoration: "line-through" }}>{query}</span>
-            </Button>
-          </div>
-        )}
-
-        {tags.length > 1 && (
-          <div style={{ marginTop: "1rem" }}>
-            <div style={{ marginBottom: "1rem" }}>
-              Or select only <b>one</b> tag:
-            </div>
-            <ProjectTagGroup tags={tags} />
-          </div>
-        )}
-      </>
+      <div style={{ marginBottom: "1rem" }}>
+        No project
+        <QueryPart /> was found
+        <TagPart />.
+      </div>
     );
-  }
-);
+  };
+
+  return (
+    <>
+      <Title />
+      <Button as={Link} to="/projects">
+        View all projects
+      </Button>
+
+      {tags.length > 0 && query && (
+        <div style={{ marginTop: "1rem" }}>
+          <div style={{ marginBottom: "1rem" }}>Reset the query:</div>
+          <Button onClick={() => navigate({ query: "" })}>
+            <span style={{ textDecoration: "line-through" }}>{query}</span>
+          </Button>
+        </div>
+      )}
+
+      {tags.length > 1 && (
+        <div style={{ marginTop: "1rem" }}>
+          <div style={{ marginBottom: "1rem" }}>
+            Or select only <b>one</b> tag:
+          </div>
+          <ProjectTagGroup tags={tags} />
+        </div>
+      )}
+    </>
+  );
+};
 
 const RelevantTags = ({ tagIds }) => {
   const tags = useSelector(getTagsByCode(tagIds));

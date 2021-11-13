@@ -8,14 +8,15 @@ import {
   ChevronRightIcon,
   ChevronLeftIcon,
 } from "../icons";
-import { updateLocation } from "../../search/search-utils";
+import { useNextLocation } from "components/search/search-utils";
 import { PaginationContainer } from "./provider";
 
 const iconSize = 28;
 
-export const TopPaginationControls = ({ history, location }) => {
+export const TopPaginationControls = () => {
   const { from, to, currentPageNumber, total, hasPreviousPage, hasNextPage } =
     PaginationContainer.useContainer();
+  const { navigate } = useNextLocation();
 
   return (
     <Flex alignItems="center">
@@ -32,21 +33,13 @@ export const TopPaginationControls = ({ history, location }) => {
       <HStack>
         <PaginationButton
           isDisabled={!hasPreviousPage}
-          onClick={() =>
-            history.push(
-              updateLocation(location, { page: currentPageNumber - 1 })
-            )
-          }
+          onClick={() => navigate({ page: currentPageNumber - 1 })}
         >
           <ChevronLeftIcon size={iconSize} />
         </PaginationButton>
         <PaginationButton
           isDisabled={!hasNextPage}
-          onClick={() =>
-            history.push(
-              updateLocation(location, { page: currentPageNumber + 1 })
-            )
-          }
+          onClick={() => navigate({ page: currentPageNumber + 1 })}
         >
           <ChevronRightIcon size={iconSize} />
         </PaginationButton>
@@ -55,7 +48,7 @@ export const TopPaginationControls = ({ history, location }) => {
   );
 };
 
-export const BottomPaginationControls = ({ history, location }) => {
+export const BottomPaginationControls = () => {
   const {
     currentPageNumber,
     hasPreviousPage,
@@ -63,13 +56,14 @@ export const BottomPaginationControls = ({ history, location }) => {
     lastPageNumber,
     pageNumbers,
   } = PaginationContainer.useContainer();
+  const { navigate } = useNextLocation();
 
   return (
     <HStack mt={8} w="100%" justifyContent="flex-end">
       {pageNumbers.length > 2 && (
         <PaginationButton
           disabled={currentPageNumber === 1}
-          onClick={() => history.push(updateLocation(location, { page: 1 }))}
+          onClick={() => navigate({ page: 1 })}
         >
           <DoubleChevronLeftIcon size={iconSize} />
         </PaginationButton>
@@ -77,22 +71,14 @@ export const BottomPaginationControls = ({ history, location }) => {
 
       <PaginationButton
         disabled={!hasPreviousPage}
-        onClick={() =>
-          history.push(
-            updateLocation(location, { page: currentPageNumber - 1 })
-          )
-        }
+        onClick={() => navigate({ page: currentPageNumber - 1 })}
       >
         <ChevronLeftIcon size={iconSize} />
       </PaginationButton>
 
       <PaginationButton
         disabled={!hasNextPage}
-        onClick={() =>
-          history.push(
-            updateLocation(location, { page: currentPageNumber + 1 })
-          )
-        }
+        onClick={() => navigate({ page: currentPageNumber + 1 })}
       >
         <ChevronRightIcon size={iconSize} />
       </PaginationButton>
@@ -100,9 +86,7 @@ export const BottomPaginationControls = ({ history, location }) => {
       {pageNumbers.length > 2 && (
         <PaginationButton
           disabled={currentPageNumber === lastPageNumber}
-          onClick={() =>
-            history.push(updateLocation(location, { page: lastPageNumber }))
-          }
+          onClick={() => navigate({ page: lastPageNumber })}
         >
           <DoubleChevronRightIcon size={iconSize} />
         </PaginationButton>
