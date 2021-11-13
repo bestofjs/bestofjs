@@ -35,6 +35,7 @@ export const ProjectAvatar = ({ project, size = 100 }: Props) => {
       boxSize={`${size}px`}
       alt={project.name}
       maxW="unset"
+      borderRadius="5px"
     />
   ) : (
     <ImagePlaceHolder size={size} />

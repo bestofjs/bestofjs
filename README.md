@@ -37,6 +37,19 @@ This repository contains _Best of JS_ front-end application code.
 
 The application is a single-page application built with [Create React App](https://github.com/facebook/create-react-app) and hosted on [Vercel](https://vercel.com).
 
+To run it locally:
+
+```
+npm install
+npm start
+```
+
+To specify the port:
+
+```
+PORT=8080 npm start
+```
+
 ## Show your support!
 
 If you find _Best of JS_ useful, show your appreciation by starring the project or becoming a sponsor:
