@@ -8,6 +8,7 @@ type NavigationState = {
   query: string;
   page: number;
   sort?: string;
+  direction?: "desc" | "asc";
 };
 
 export function queryStringToState(queryString: string): NavigationState {
@@ -20,13 +21,19 @@ export function queryStringToState(queryString: string): NavigationState {
     query: parameters.query || "",
     sort: parameters.sort || "",
     page: parameters.page,
+    direction: parseSortDirection(parameters.direction),
   };
+}
+
+function parseSortDirection(input: string) {
+  return input === "asc" || input === "desc" ? input : undefined;
 }
 
 export function stateToQueryString({
   query,
   selectedTags,
   sort,
+  direction,
   page,
 }: NavigationState) {
   const queryString = stringify(
@@ -35,6 +42,7 @@ export function stateToQueryString({
       tags: selectedTags.length === 0 ? null : selectedTags,
       sort: sort === "" ? null : sort,
       page: page === 1 ? null : page,
+      direction,
     },
     {
       encode: false,

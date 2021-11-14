@@ -3,103 +3,46 @@ import React from "react";
 import { Box, Button } from "components/core";
 import { ChevronDownIcon } from "components/core/icons";
 import { useSearch } from "./search-container";
-import { sortOrderOptions } from "./sort-order-options";
 import { DropdownMenu, Menu, MenuGroup, MenuItem } from "components/core/menu";
+import { SortOptionKey, sortOrderOptions } from "./sort-order-options";
 
-type Option = {
-  id: string;
-  label: string;
-  disabled?: (params: { query: string; location: any }) => boolean;
-};
-
-const groups: Array<Option[]> = [
-  [
-    {
-      id: "total",
-      label: "By total number of stars",
-    },
-  ],
-  [
-    {
-      id: "daily",
-      label: "By stars added yesterday",
-    },
-    {
-      id: "weekly",
-      label: "By stars added the last 7 days",
-    },
-    {
-      id: "monthly",
-      label: "By stars added the last 30 days",
-    },
-    {
-      id: "yearly",
-      label: "By stars added the last 12 months",
-    },
-  ],
-  [
-    {
-      id: "monthly-downloads",
-      label: "By downloads the last 30 days",
-    },
-  ],
-  [
-    {
-      id: "last-commit",
-      label: "By date of the latest commit",
-    },
-    {
-      id: "contributors",
-      label: "By number of contributors",
-    },
-  ],
-  [
-    {
-      id: "created",
-      label: "By date of creation (Oldest first)",
-    },
-    {
-      id: "newest",
-      label: "By date of addition on Best of JS",
-    },
-  ],
-  [
-    {
-      id: "match",
-      label: "Best matching",
-      disabled: ({ query }) => query === "",
-    },
-  ],
-  [
-    {
-      id: "bookmark",
-      label: "By date of the bookmark",
-      disabled: ({ location }) => location.pathname !== "/bookmarks",
-    },
-  ],
+const sortOptionGroups: SortOptionKey[][] = [
+  ["total"],
+  ["daily", "weekly", "monthly", "yearly"],
+  ["monthly-downloads"],
+  ["last-commit", "contributors"],
+  ["created", "newest"],
+  ["match"],
+  ["bookmark"],
 ];
 
-export const SortOrderPicker = ({ value, onChange }) => {
+type Props = { value: SortOptionKey; onChange: (value: SortOptionKey) => void };
+export const SortOrderPicker = ({ value, onChange }: Props) => {
   const searchContext = useSearch();
-  const currentOption = sortOrderOptions.find(({ id }) => id === value);
+  const currentOption = sortOrderOptions[value];
 
   const menu = (
     <Menu>
-      {groups.map((group, index) => {
+      {sortOptionGroups.map((group, index) => {
         return (
           <MenuGroup key={index}>
-            {group.map((item) => (
-              <MenuItem
-                as="button"
-                key={item.id}
-                onClick={() => {
-                  onChange(item.id);
-                }}
-                disabled={item.disabled ? item.disabled(searchContext) : false}
-              >
-                {item.label}
-              </MenuItem>
-            ))}
+            {group.map((id) => {
+              const item = sortOrderOptions[id];
+              return (
+                <MenuItem
+                  as="button"
+                  key={id}
+                  onClick={() => {
+                    onChange(id);
+                  }}
+                  disabled={
+                    item.disabled ? item.disabled(searchContext) : false
+                  }
+                >
+                  {item.label}
+                </MenuItem>
+              );
+            })}
           </MenuGroup>
         );
       })}

@@ -18,7 +18,7 @@ export const ProjectPaginatedList = ({
   page,
   total,
   limit,
-  sortOption,
+  sortOptionId,
 }) => {
   const { pageNumbers } = PaginationContainer.useContainer();
   const { navigate } = useNextLocation();
@@ -37,8 +37,10 @@ export const ProjectPaginatedList = ({
           <Box>
             {showSortOptions && (
               <SortOrderPicker
-                onChange={(sortId) => navigate({ sort: sortId, page: 1 })}
-                value={sortOption.id}
+                onChange={(sortId) =>
+                  navigate({ sort: sortId, page: 1, direction: undefined })
+                }
+                value={sortOptionId}
               />
             )}
           </Box>
@@ -52,7 +54,7 @@ export const ProjectPaginatedList = ({
       <ProjectTable
         projects={projects}
         metricsCell={(project) => (
-          <ProjectScore project={project} sortOptionId={sortOption.id} />
+          <ProjectScore project={project} sortOptionId={sortOptionId} />
         )}
       />
       {showPagination && <BottomPaginationControls />}

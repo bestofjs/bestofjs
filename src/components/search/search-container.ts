@@ -1,14 +1,14 @@
 import { useHistory, useLocation } from "react-router-dom";
+import { createContainer } from "unstated-next";
 
 import { queryStringToState, stateToQueryString } from "./search-utils";
-import { sortOrderOptions } from "./sort-order-options";
-import { createContainer } from "unstated-next";
+import { SortOption, sortOrderOptions } from "./sort-order-options";
 
 function useSearchState() {
   const location = useLocation();
   const history = useHistory();
 
-  const { query, selectedTags, page, sort } = queryStringToState(
+  const { query, selectedTags, page, sort, direction } = queryStringToState(
     location.search
   );
 
@@ -27,18 +27,21 @@ function useSearchState() {
     });
   };
 
-  return { selectedTags, query, sort, page, history, location, onChange };
+  return { selectedTags, query, sort, direction, page, location, onChange };
 }
 
 export const SearchContainer = createContainer(useSearchState);
 
 export const useSearch = ({ defaultSortOptionId = "total" } = {}) => {
-  const { sort, ...values } = SearchContainer.useContainer();
+  const { sort, direction, ...values } = SearchContainer.useContainer();
 
   const sortOptionId = sort || (values.query ? "match" : defaultSortOptionId);
-  const sortOption =
-    sortOrderOptions.find((item) => item.id === sortOptionId) ||
-    sortOrderOptions[0];
+  const currentSortOption: SortOption =
+    sortOrderOptions[sortOptionId] || sortOrderOptions[defaultSortOptionId];
 
-  return { ...values, sortOption };
+  return {
+    ...values,
+    direction: direction || currentSortOption.direction,
+    sortOptionId,
+  };
 };

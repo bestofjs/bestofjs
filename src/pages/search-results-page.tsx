@@ -21,7 +21,7 @@ import { useNextLocation } from "components/search/search-utils";
 import { findProjects } from "components/search/find-projects";
 
 export const SearchResultsPage = () => {
-  const { selectedTags, query, sortOption, page } = useSearch();
+  const { selectedTags, query, sortOptionId, direction, page } = useSearch();
   const limit = 30;
 
   const projects = useSelector(allProjects);
@@ -30,7 +30,7 @@ export const SearchResultsPage = () => {
 
   if (projects.length === 0) return <Spinner />;
 
-  const selector = getProjectSelectorByKey(sortOption.id);
+  const selector = getProjectSelectorByKey(sortOptionId);
 
   const {
     results: foundProjects,
@@ -42,7 +42,7 @@ export const SearchResultsPage = () => {
     page,
     selector,
     limit,
-    direction: sortOption.direction || "desc",
+    direction: direction || "desc",
   });
 
   const includedTags =
@@ -65,7 +65,7 @@ export const SearchResultsPage = () => {
             page={page}
             total={total}
             limit={limit}
-            sortOption={sortOption}
+            sortOptionId={sortOptionId}
           />
         </PaginationContainer.Provider>
       ) : (

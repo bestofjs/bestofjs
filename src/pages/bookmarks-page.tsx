@@ -13,9 +13,9 @@ import { getBookmarksSortedBy } from "selectors";
 import { AuthContainer } from "containers/auth-container";
 
 const BookmarksPage = () => {
-  const { page, sortOption } = useSearch({ defaultSortOptionId: "bookmark" });
+  const { page, sortOptionId } = useSearch({ defaultSortOptionId: "bookmark" });
   const { isLoggedIn } = AuthContainer.useContainer();
-  const projects = useSelector(getBookmarksSortedBy(sortOption.id));
+  const projects = useSelector(getBookmarksSortedBy(sortOptionId));
 
   const total = projects.length;
   const limit = 10;
@@ -38,7 +38,7 @@ const BookmarksPage = () => {
             page={page}
             total={total}
             limit={limit}
-            sortOption={sortOption}
+            sortOptionId={sortOptionId}
           />
         </PaginationContainer.Provider>
       )}

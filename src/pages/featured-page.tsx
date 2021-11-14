@@ -13,8 +13,8 @@ import { MainContent, PageHeader } from "components/core";
 import { getFeaturedProjects } from "selectors";
 
 export const FeaturedPage = () => {
-  const { page, sortOption } = useSearch({ defaultSortOptionId: "newest" });
-  const projects = useSelector(getFeaturedProjects(sortOption.id));
+  const { page, sortOptionId } = useSearch({ defaultSortOptionId: "newest" });
+  const projects = useSelector(getFeaturedProjects(sortOptionId));
 
   const total = projects.length;
   const limit = 30;
@@ -34,7 +34,7 @@ export const FeaturedPage = () => {
           page={page}
           total={total}
           limit={limit}
-          sortOption={sortOption}
+          sortOptionId={sortOptionId}
         />
       </PaginationContainer.Provider>
     </MainContent>
