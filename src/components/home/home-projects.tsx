@@ -2,10 +2,9 @@ import React, { useState } from "react";
 import { Link as RouterLink } from "react-router-dom";
 import { GoFlame, GoGift } from "react-icons/go";
 
-import { Box, Button, Flex } from "components/core";
+import { Box, Button, Flex, SectionHeading, Spinner } from "components/core";
 import { APP_DISPLAY_NAME } from "config";
 import { useSelector } from "containers/project-data-container";
-import { Section, Spinner } from "components/core";
 import {
   ProjectScore,
   ProjectTable,
@@ -46,12 +45,15 @@ export const HotProjects = ({ hotFilter, pending }) => {
     <Box mb={8}>
       <Flex alignItems="center">
         <Box flexGrow={1}>
-          <Section.Header icon={<GoFlame fontSize={32} />}>
-            <Section.Title>Hot Projects</Section.Title>
-            <Section.SubTitle>
-              by number of stars added <b>{ranges[sortOptionId]}</b>
-            </Section.SubTitle>
-          </Section.Header>
+          <SectionHeading
+            icon={<GoFlame fontSize={32} />}
+            title="Hot Projects"
+            subtitle={
+              <>
+                by number of stars added <b>{ranges[sortOptionId]}</b>
+              </>
+            }
+          />
         </Box>
         <Box>
           <HotProjectsPicker value={sortOptionId} onChange={setSortOptionId} />
@@ -122,12 +124,15 @@ const HotProjectsPicker = ({ onChange, value }) => {
 export const NewestProjects = ({ newestProjects, hotFilter }) => {
   return (
     <>
-      <Section.Header icon={<GoGift fontSize={32} />}>
-        <Section.Title>Recently Added Projects</Section.Title>
-        <Section.SubTitle>
-          Latest additions to <i>{APP_DISPLAY_NAME}</i>
-        </Section.SubTitle>
-      </Section.Header>
+      <SectionHeading
+        icon={<GoGift fontSize={32} />}
+        title="Recently Added Projects"
+        subtitle={
+          <>
+            Latest additions to <i>{APP_DISPLAY_NAME}</i>
+          </>
+        }
+      />
       <ProjectTable
         projects={newestProjects}
         metricsCell={(project) => (

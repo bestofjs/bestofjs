@@ -8,10 +8,12 @@ import {
   Button,
   ButtonProps,
   Box,
+  Flex,
   Link,
   LinkProps,
   Center,
   PageHeader,
+  SectionHeading,
 } from "components/core";
 import { APP_REPO_URL, APP_DISPLAY_NAME, SPONSOR_URL } from "config";
 import { useSelector } from "containers/project-data-container";
@@ -24,7 +26,6 @@ import { ExternalLink, MainContent, Section } from "components/core";
 import { CompactTagList } from "components/tags/tag-list";
 import { HotProjects, NewestProjects } from "./home-projects";
 import { RandomFeaturedProject } from "./featured-projects";
-import { Row, MainColumn, RightSideBar } from "./layout";
 import { HomeMonthlyRankings } from "./home-monthly-rankings";
 
 export const Home = (props) => {
@@ -35,17 +36,23 @@ export const Home = (props) => {
     <MainContent>
       <PageHeader title="The best of JavaScript, HTML and CSS" />
       <Section>
-        <Row>
-          <MainColumn>
+        <Flex>
+          <Box flex="1 1 0%">
             <HotProjects {...props} />
             {!pending && <NewestProjects {...props} />}
-          </MainColumn>
+          </Box>
           {!pending && (
-            <RightSideBar>
+            <Box
+              as="aside"
+              pl={8}
+              flexBasis={330}
+              display={{ base: "none", lg: "block" }}
+            >
               <RandomFeaturedProject />
-              <Section.Header icon={<GoTag fontSize={32} />}>
-                <Section.Title>Popular Tags</Section.Title>
-              </Section.Header>
+              <SectionHeading
+                icon={<GoTag fontSize={32} />}
+                title="Popular Tags"
+              />
               <CompactTagList
                 tags={popularTags}
                 footer={
@@ -54,9 +61,9 @@ export const Home = (props) => {
                   </Button>
                 }
               />
-            </RightSideBar>
+            </Box>
           )}
-        </Row>
+        </Flex>
       </Section>
       <Tags popularTags={popularTags} isPending={pending} />
       {!pending && <HomeMonthlyRankings />}
@@ -66,27 +73,20 @@ export const Home = (props) => {
   );
 };
 
+// Section displayed for mobile only (because the right bar is hidden on mobiles)
 const Tags = ({ popularTags, isPending }) => {
   return (
-    <SectionMobileOnly>
-      <Section.Header icon={<GoTag fontSize={32} />}>
-        <Section.Title>Popular tags</Section.Title>
-      </Section.Header>
+    <Section display={{ lg: "none" }}>
+      <SectionHeading icon={<GoTag fontSize={32} />} title="Popular tags" />
       {!isPending ? <ProjectTagGroup tags={popularTags} /> : <>Loading...</>}
       <Box pt={4} textAlign="center">
         <Link as={RouterLink} to={`/tags/`}>
           View all tags »
         </Link>
       </Box>
-    </SectionMobileOnly>
+    </Section>
   );
 };
-
-const SectionMobileOnly = styled(Section)`
-  @media (min-width: 1000px) {
-    display: none;
-  }
-`;
 
 const ResponsiveRow = styled.div`
   display: flex;
@@ -105,11 +105,10 @@ const StarOnGitHub = () => {
     <Section>
       <ResponsiveRow>
         <div style={{ flexGrow: 1 }}>
-          <Section.Header icon={<GoHeart fontSize={32} />}>
-            <Section.Title>
-              Do you find {APP_DISPLAY_NAME} useful?
-            </Section.Title>
-          </Section.Header>
+          <SectionHeading
+            icon={<GoHeart fontSize={32} />}
+            title={<>Do you find {APP_DISPLAY_NAME} useful?</>}
+          />
           <p>
             Show your appreciation by starring the project on{" "}
             <ExternalLink url={APP_REPO_URL}>GitHub</ExternalLink>, or becoming
@@ -194,9 +193,10 @@ const formatNumber = (number) => numeral(number).format("");
 const MoreProjects = () => {
   return (
     <Section>
-      <Section.Header icon={<GoPlus fontSize={32} />}>
-        <Section.Title>Do you want more projects?</Section.Title>
-      </Section.Header>
+      <SectionHeading
+        icon={<GoPlus fontSize={32} />}
+        title="Do you want more projects?"
+      />
       <p>
         <i>{APP_DISPLAY_NAME}</i> is a curated list of about 1500 open-source
         projects related to the web platform and Node.js.

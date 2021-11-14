@@ -3,14 +3,13 @@ import { Link as RouterLink } from "react-router-dom";
 import { GoCalendar } from "react-icons/go";
 
 import { useFetchMonthlyRankings } from "api/hooks";
-import { Button, Section, Spinner } from "components/core";
+import { Button, Section, SectionHeading, Spinner } from "components/core";
 import {
   getNextMonth,
   getPreviousMonth,
   MonthlyRankingsNavigator,
   MonthlyRankingsProjects,
 } from "components/monthly-rankings/rankings";
-import { MainColumn, Row } from "./layout";
 
 type MonthlyDate = {
   year: number;
@@ -22,14 +21,11 @@ export const HomeMonthlyRankings = () => {
 
   return (
     <Section>
-      <Row>
-        <MainColumn>
-          <Section.Header icon={<GoCalendar fontSize={32} />}>
-            <Section.Title>Monthly Rankings</Section.Title>
-          </Section.Header>
-          <FetchMonthlyRankings date={date} setDate={setDate} />
-        </MainColumn>
-      </Row>
+      <SectionHeading
+        icon={<GoCalendar fontSize={32} />}
+        title="Monthly Rankings"
+      />
+      <FetchMonthlyRankings date={date} setDate={setDate} />
     </Section>
   );
 };

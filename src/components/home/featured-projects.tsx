@@ -12,6 +12,7 @@ import {
   ProjectAvatar,
   getProjectAvatarUrl,
   getDeltaByDay,
+  SectionHeading,
 } from "components/core";
 import { shuffle } from "helpers/shuffle";
 import { useUpdateEffect } from "helpers/lifecycle-hooks";
@@ -63,12 +64,15 @@ export const Slider = ({
 
   return (
     <Section>
-      <Section.Header icon={<GoStar fontSize={32} />}>
-        <Section.Title>Featured Projects</Section.Title>
-        <Section.SubTitle>
-          Random order <i>{isPaused ? "(Paused)" : "(Running...)"}</i>
-        </Section.SubTitle>
-      </Section.Header>
+      <SectionHeading
+        icon={<GoStar fontSize={32} />}
+        title="Featured Projects"
+        subtitle={
+          <>
+            Random order <i>{isPaused ? "(Paused)" : "(Running...)"}</i>
+          </>
+        }
+      />
       <div
         ref={ref as any}
         onMouseEnter={() => {
