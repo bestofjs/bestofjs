@@ -1,17 +1,16 @@
-import React, { useState } from "react";
+import React from "react";
 import { Link as RouterLink } from "react-router-dom";
 import { GoFlame, GoGift } from "react-icons/go";
 
 import { Box, Button, Flex, SectionHeading, Spinner } from "components/core";
 import { APP_DISPLAY_NAME } from "config";
-import { useSelector } from "containers/project-data-container";
 import {
   ProjectScore,
   ProjectTable,
 } from "components/project-list/project-table";
-import { getProjectsSortedBy } from "selectors";
 import { ChevronDownIcon } from "components/core/icons";
 import { DropdownMenu, Menu, MenuGroup, MenuItem } from "components/core/menu";
+import { SortOptionKey } from "components/search/sort-order-options";
 
 const ranges = {
   daily: "the last 24 hours",
@@ -20,27 +19,17 @@ const ranges = {
   yearly: "the last 12 months",
 };
 
-const hotProjectsExcludedTags = ["meta", "learning"];
-
-export const isIncludedInHotProjects = (project) => {
-  const hasExcludedTag = hotProjectsExcludedTags.some((tag) =>
-    project.tags.includes(tag)
-  );
-  return !hasExcludedTag;
-};
-
-export const HotProjects = ({ pending }: { pending: boolean }) => {
-  const [sortOptionId, setSortOptionId] = useState("daily");
-
-  const projects = useSelector(
-    getProjectsSortedBy({
-      filterFn: isIncludedInHotProjects,
-      criteria: sortOptionId,
-      limit: 5,
-      start: 0,
-    })
-  );
-
+export const HotProjects = ({
+  projects,
+  sort,
+  onChangeSort,
+  pending,
+}: {
+  projects: BestOfJS.Project[];
+  sort: SortOptionKey;
+  onChangeSort: (value: SortOptionKey) => void;
+  pending: boolean;
+}) => {
   return (
     <Box mb={8}>
       <Flex alignItems="center">
@@ -50,13 +39,13 @@ export const HotProjects = ({ pending }: { pending: boolean }) => {
             title="Hot Projects"
             subtitle={
               <>
-                by number of stars added <b>{ranges[sortOptionId]}</b>
+                by number of stars added <b>{ranges[sort]}</b>
               </>
             }
           />
         </Box>
         <Box>
-          <HotProjectsPicker value={sortOptionId} onChange={setSortOptionId} />
+          <HotProjectsPicker value={sort} onChange={onChangeSort} />
         </Box>
       </Flex>
       {pending ? (
@@ -66,13 +55,13 @@ export const HotProjects = ({ pending }: { pending: boolean }) => {
           projects={projects}
           showDetails={false}
           metricsCell={(project) => (
-            <ProjectScore project={project} sortOptionId={sortOptionId} />
+            <ProjectScore project={project} sortOptionId={sort} />
           )}
           footer={
             <Button
               variant="link"
               as={RouterLink}
-              to={`/projects?sort=${sortOptionId}`}
+              to={`/projects?sort=${sort}`}
             >
               View full rankings »
             </Button>

@@ -27,13 +27,24 @@ import { CompactTagList } from "components/tags/tag-list";
 import { HotProjects, NewestProjects } from "./home-projects";
 import { RandomFeaturedProject } from "./featured-projects";
 import { HomeMonthlyRankings } from "./home-monthly-rankings";
+import { SortOptionKey } from "components/search/sort-order-options";
 
 type Props = {
   pending: boolean;
   newestProjects: BestOfJS.Project[];
+  hotProjects: BestOfJS.Project[];
   popularTags: BestOfJS.Tag[];
+  sort: SortOptionKey;
+  onChangeSort: (value: SortOptionKey) => void;
 };
-export const Home = ({ pending, newestProjects, popularTags }: Props) => {
+export const Home = ({
+  pending,
+  hotProjects,
+  newestProjects,
+  popularTags,
+  sort,
+  onChangeSort,
+}: Props) => {
   log("Render the <Home> component");
 
   return (
@@ -42,7 +53,12 @@ export const Home = ({ pending, newestProjects, popularTags }: Props) => {
       <Section>
         <Flex>
           <Box flex="1 1 0%">
-            <HotProjects pending={pending} />
+            <HotProjects
+              projects={hotProjects}
+              sort={sort}
+              onChangeSort={onChangeSort}
+              pending={pending}
+            />
             {!pending && <NewestProjects projects={newestProjects} />}
           </Box>
           {!pending && (
@@ -52,7 +68,7 @@ export const Home = ({ pending, newestProjects, popularTags }: Props) => {
               flexBasis={330}
               display={{ base: "none", lg: "block" }}
             >
-              <RandomFeaturedProject />
+              <RandomFeaturedProject metrics={sort} />
               <SectionHeading
                 icon={<GoTag fontSize={32} />}
                 title="Popular Tags"
