@@ -13,6 +13,7 @@ const HomePage = () => {
   const newestProjectCount = 5;
   const newestProjects = getNewestProjects(newestProjectCount)(state);
 
+  // return <Home pending={true} popularTags={[]} newestProjects={[]} />;
   return (
     <Home
       pending={state.isPending}

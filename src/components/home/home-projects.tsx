@@ -29,7 +29,7 @@ export const isIncludedInHotProjects = (project) => {
   return !hasExcludedTag;
 };
 
-export const HotProjects = ({ hotFilter, pending }) => {
+export const HotProjects = ({ pending }: { pending: boolean }) => {
   const [sortOptionId, setSortOptionId] = useState("daily");
 
   const projects = useSelector(
@@ -121,7 +121,11 @@ const HotProjectsPicker = ({ onChange, value }) => {
   );
 };
 
-export const NewestProjects = ({ newestProjects, hotFilter }) => {
+export const NewestProjects = ({
+  projects,
+}: {
+  projects: BestOfJS.Project[];
+}) => {
   return (
     <>
       <SectionHeading
@@ -134,7 +138,7 @@ export const NewestProjects = ({ newestProjects, hotFilter }) => {
         }
       />
       <ProjectTable
-        projects={newestProjects}
+        projects={projects}
         metricsCell={(project) => (
           <ProjectScore project={project} sortOptionId={"daily"} />
         )}

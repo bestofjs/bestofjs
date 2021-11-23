@@ -28,9 +28,13 @@ import { HotProjects, NewestProjects } from "./home-projects";
 import { RandomFeaturedProject } from "./featured-projects";
 import { HomeMonthlyRankings } from "./home-monthly-rankings";
 
-export const Home = (props) => {
+type Props = {
+  pending: boolean;
+  newestProjects: BestOfJS.Project[];
+  popularTags: BestOfJS.Tag[];
+};
+export const Home = ({ pending, newestProjects, popularTags }: Props) => {
   log("Render the <Home> component");
-  const { pending, popularTags } = props;
 
   return (
     <MainContent>
@@ -38,8 +42,8 @@ export const Home = (props) => {
       <Section>
         <Flex>
           <Box flex="1 1 0%">
-            <HotProjects {...props} />
-            {!pending && <NewestProjects {...props} />}
+            <HotProjects pending={pending} />
+            {!pending && <NewestProjects projects={newestProjects} />}
           </Box>
           {!pending && (
             <Box
@@ -65,7 +69,7 @@ export const Home = (props) => {
           )}
         </Flex>
       </Section>
-      <Tags popularTags={popularTags} isPending={pending} />
+      {!pending && <PopularTags tags={popularTags} />}
       {!pending && <HomeMonthlyRankings />}
       <StarOnGitHub />
       <MoreProjects />
@@ -74,11 +78,11 @@ export const Home = (props) => {
 };
 
 // Section displayed for mobile only (because the right bar is hidden on mobiles)
-const Tags = ({ popularTags, isPending }) => {
+const PopularTags = ({ tags }: { tags: BestOfJS.Tag[] }) => {
   return (
     <Section display={{ lg: "none" }}>
       <SectionHeading icon={<GoTag fontSize={32} />} title="Popular tags" />
-      {!isPending ? <ProjectTagGroup tags={popularTags} /> : <>Loading...</>}
+      <ProjectTagGroup tags={tags} />
       <Box pt={4} textAlign="center">
         <Link as={RouterLink} to={`/tags/`}>
           View all tags »
