@@ -37,7 +37,7 @@
     "@types/react-dom": "^16.9.8",
     "cross-env": "^7.0.3",
     "framer-motion": "^4.1.17",
-    "lodash": "^4.17.19",
+    "lodash": "^4.17.21",
     "lodash.times": "^4.3.2",
     "numeral": "^1.5.3",
     "qs": "^6.9.0",
