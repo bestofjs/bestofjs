@@ -61,7 +61,6 @@ export const SearchBox = () => {
           noOptionsMessage={() => null}
           placeholder={"Pick tags or enter keywords"}
           onChange={(options, { action, option }) => {
-            // console.log('> onChange', options, action, option)
             const tagCodes = (options || []).map(({ code }) => code);
             if (action === "select-option") {
               if (option.value === "") return;
@@ -71,7 +70,6 @@ export const SearchBox = () => {
             onChange({ query: "", selectedTags: tagCodes });
           }}
           onInputChange={(value, { action }) => {
-            // console.log('onInputChange', value, action)
             if (action === "input-change") {
               setInputValue(value);
               debouncedOnChange({ query: value });
@@ -91,7 +89,6 @@ export const SearchBox = () => {
             if (query === "") return;
             const { selectionStart, selectionEnd } = input;
             if (!(selectionStart === 0 && selectionEnd === 0)) return;
-            console.info("Remove the last tag");
             onChange({
               query,
               selectedTags: selectedTags.slice(0, selectedTags.length - 1),
