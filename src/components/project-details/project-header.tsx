@@ -10,9 +10,9 @@ import {
   ButtonProps,
   Heading,
   VStack,
+  ProjectAvatar,
 } from "components/core";
 import { usePageTitle } from "components/core";
-import { Avatar } from "components/core/project";
 import { ProjectTagGroup } from "components/tags/project-tag";
 import formatUrl from "helpers/url";
 
@@ -26,7 +26,7 @@ export const ProjectHeader = ({ project }: Props) => {
     <HeaderLayout>
       <Main>
         <Box pr={4}>
-          <Avatar project={project} size={75} />
+          <ProjectAvatar project={project} size={75} />
         </Box>
         <VStack spacing={4} alignItems="flex-start">
           <Heading fontSize="2rem" lineHeight="1">

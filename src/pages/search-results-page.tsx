@@ -1,9 +1,9 @@
 import React from "react";
-import { withRouter } from "react-router-dom";
+import { Link } from "react-router-dom";
 import styled from "@emotion/styled";
 
 import { useSelector } from "containers/project-data-container";
-import { allProjects, getTagsById, getProjectSelectorByKey } from "selectors";
+import { allProjects, getTagsByCode, getProjectSelectorByKey } from "selectors";
 import { PaginationContainer } from "components/core/pagination";
 import { TagIcon } from "components/core/icons";
 import {
@@ -17,11 +17,11 @@ import {
 import { ProjectPaginatedList } from "components/search/project-paginated-list";
 import { ProjectTagGroup } from "components/tags/project-tag";
 import { useSearch } from "components/search/search-container";
-import { updateLocation } from "components/search/search-utils";
+import { useNextLocation } from "components/search/search-utils";
 import { findProjects } from "components/search/find-projects";
 
 export const SearchResultsPage = () => {
-  const { selectedTags, query, sortOption, page } = useSearch();
+  const { selectedTags, query, sortOptionId, direction, page } = useSearch();
   const limit = 30;
 
   const projects = useSelector(allProjects);
@@ -30,7 +30,7 @@ export const SearchResultsPage = () => {
 
   if (projects.length === 0) return <Spinner />;
 
-  const selector = getProjectSelectorByKey(sortOption.id);
+  const selector = getProjectSelectorByKey(sortOptionId);
 
   const {
     results: foundProjects,
@@ -42,7 +42,7 @@ export const SearchResultsPage = () => {
     page,
     selector,
     limit,
-    direction: sortOption.direction || "desc",
+    direction: direction || "desc",
   });
 
   const includedTags =
@@ -59,15 +59,13 @@ export const SearchResultsPage = () => {
             selectedTags={selectedTags}
             total={total}
           />
-          {includedTags.length > 0 && (
-            <RelevantTags tagIds={includedTags} baseTagIds={selectedTags} />
-          )}
+          {includedTags.length > 0 && <RelevantTags tagIds={includedTags} />}
           <ProjectPaginatedList
             projects={foundProjects}
             page={page}
             total={total}
             limit={limit}
-            sortOption={sortOption}
+            sortOptionId={sortOptionId}
           />
         </PaginationContainer.Provider>
       ) : (
@@ -81,7 +79,7 @@ export const SearchResultsPage = () => {
 
 const SearchResultsTitle = ({ query, selectedTags, total }) => {
   const isListFiltered = query !== "" || selectedTags.length > 0;
-  const tags = useSelector(getTagsById(selectedTags));
+  const tags = useSelector(getTagsByCode(selectedTags));
 
   if (!isListFiltered) return <PageHeader title="All Projects" />;
 
@@ -109,73 +107,70 @@ const showCount = (total, text) => {
   return `${total} ${text}${total > 1 ? "s" : ""}`;
 };
 
-const NoProjectsFound = withRouter(
-  ({ query, selectedTags, history, location }) => {
-    const tags = useSelector(getTagsById(selectedTags)).filter((tag) => !!tag);
-    const Title = () => {
-      const QueryPart = () => {
-        if (!query) return null;
-        return <> "{query}" </>;
-      };
-      const TagPart = () => {
-        if (!tags.length) return null;
-        if (tags.length === 1) return <> with the tag "{tags[0].name}"</>;
-        return (
-          <> with the tags {tags.map((tag) => `"${tag.name}"`).join(" and ")}</>
-        );
-      };
-
+const NoProjectsFound = ({ query, selectedTags }) => {
+  const { navigate } = useNextLocation();
+  const tags = useSelector(getTagsByCode(selectedTags)).filter((tag) => !!tag);
+  const Title = () => {
+    const QueryPart = () => {
+      if (!query) return null;
+      return <> "{query}" </>;
+    };
+    const TagPart = () => {
+      if (!tags.length) return null;
+      if (tags.length === 1) return <> with the tag "{tags[0].name}"</>;
       return (
-        <div style={{ marginBottom: "1rem" }}>
-          No project
-          <QueryPart /> was found
-          <TagPart />.
-        </div>
+        <> with the tags {tags.map((tag) => `"${tag.name}"`).join(" and ")}</>
       );
     };
 
-    const resetQuery = () => {
-      const nextLocation = updateLocation(location, { query: "" });
-      history.push(nextLocation);
-    };
     return (
-      <>
-        <Title />
-        <Button onClick={() => history.push("/projects")}>
-          View all projects
-        </Button>
-
-        {tags.length > 0 && query && (
-          <div style={{ marginTop: "1rem" }}>
-            <div style={{ marginBottom: "1rem" }}>Reset the query:</div>
-            <Button onClick={resetQuery}>
-              <span style={{ textDecoration: "line-through" }}>{query}</span>
-            </Button>
-          </div>
-        )}
-
-        {tags.length > 1 && (
-          <div style={{ marginTop: "1rem" }}>
-            <div style={{ marginBottom: "1rem" }}>
-              Or select only <b>one</b> tag:
-            </div>
-            <ProjectTagGroup tags={tags} />
-          </div>
-        )}
-      </>
+      <div style={{ marginBottom: "1rem" }}>
+        No project
+        <QueryPart /> was found
+        <TagPart />.
+      </div>
     );
-  }
-);
+  };
 
-const RelevantTags = ({ tagIds, baseTagIds }) => {
-  const tags = useSelector(getTagsById(tagIds));
+  return (
+    <>
+      <Title />
+      <Button as={Link} to="/projects">
+        View all projects
+      </Button>
+
+      {tags.length > 0 && query && (
+        <div style={{ marginTop: "1rem" }}>
+          <div style={{ marginBottom: "1rem" }}>Reset the query:</div>
+          <Button onClick={() => navigate({ query: "" })}>
+            <span style={{ textDecoration: "line-through" }}>{query}</span>
+          </Button>
+        </div>
+      )}
+
+      {tags.length > 1 && (
+        <div style={{ marginTop: "1rem" }}>
+          <div style={{ marginBottom: "1rem" }}>
+            Or select only <b>one</b> tag:
+          </div>
+          <ProjectTagGroup tags={tags} />
+        </div>
+      )}
+    </>
+  );
+};
+
+const RelevantTags = ({ tagIds }) => {
+  const tags = useSelector(getTagsByCode(tagIds));
+  const { selectedTags } = useSearch();
+
   return (
     <Container>
       <Flex alignItems="center">
         <Label>
-          {baseTagIds.length === 0 ? "Related tags:" : "Refine your search:"}
+          {selectedTags.length === 0 ? "Related tags:" : "Refine your search:"}
         </Label>
-        <ProjectTagGroup tags={tags} baseTagIds={baseTagIds} />
+        <ProjectTagGroup tags={tags} appendTag={selectedTags.length > 0} />
       </Flex>
     </Container>
   );

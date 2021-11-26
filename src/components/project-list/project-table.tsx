@@ -1,41 +1,30 @@
-import React, { CSSProperties } from "react";
+import React from "react";
 import styled from "@emotion/styled";
 import { Link as RouterLink } from "react-router-dom";
 import numeral from "numeral";
 import { GoMarkGithub, GoBookmark, GoHome } from "react-icons/go";
 
-import { Box, IconButton, Link } from "components/core";
-import { getDeltaByDay } from "selectors";
-import { AuthContainer } from "containers/auth-container";
 import {
-  Avatar,
-  DownloadCount,
-  StarDelta,
-  StarTotal,
-} from "components/core/project";
+  Box,
+  IconButton,
+  Link,
+  ProjectAvatar,
+  getDeltaByDay,
+} from "components/core";
+import { AuthContainer } from "containers/auth-container";
+import { DownloadCount, StarDelta, StarTotal } from "components/core/project";
 import { ProjectTagGroup } from "components/tags/project-tag";
 import { fromNow } from "helpers/from-now";
 
 type Props = {
   projects: BestOfJS.Project[];
   footer?: React.ReactNode;
-  from?: number;
-  style?: CSSProperties;
-  sortOption?: any;
   showDetails?: boolean;
-  showActions?: boolean;
   metricsCell?: (project: BestOfJS.Project) => React.ReactNode;
 };
-export const ProjectTable = ({
-  projects,
-  footer,
-  from = 1,
-  style,
-  sortOption,
-  ...otherProps
-}: Props) => {
+export const ProjectTable = ({ projects, footer, ...otherProps }: Props) => {
   return (
-    <div className="table-container" style={style}>
+    <div className="table-container">
       <Table>
         <tbody>
           {projects.map((project, index) => {
@@ -44,8 +33,6 @@ export const ProjectTable = ({
               <ProjectTableRow
                 key={project.full_name}
                 project={project}
-                rank={from + index}
-                sortOption={sortOption}
                 {...otherProps}
               />
             );
@@ -65,33 +52,17 @@ export const ProjectTable = ({
 
 type RowProps = {
   project: BestOfJS.Project;
-  rank: number;
-  sortOption: any;
-  deltaFilter?: string;
   showDetails?: boolean;
-  showRankingNumber?: boolean;
-  showActions?: boolean;
   metricsCell?: (project: BestOfJS.Project) => React.ReactNode;
 };
 const ProjectTableRow = ({
   project,
-  rank,
-  sortOption,
-  deltaFilter = "total",
   showDetails = true,
-  showRankingNumber = false,
-  showActions = true,
   metricsCell,
 }: RowProps) => {
   const { isLoggedIn, addBookmark, removeBookmark } =
     AuthContainer.useContainer();
   const path = `/projects/${project.slug}`;
-
-  const showDelta = ["daily", "weekly", "monthly", "yearly"].includes(
-    sortOption.id
-  );
-  const showDownloads = sortOption.id === "monthly-downloads";
-  const showStars = !showDelta && !showDownloads;
 
   const toggleBookmark = () => {
     project.isBookmark ? removeBookmark(project) : addBookmark(project);
@@ -101,7 +72,7 @@ const ProjectTableRow = ({
     <Row>
       <Cell width="50px">
         <Link as={RouterLink} to={path}>
-          <Avatar project={project} size={50} />
+          <ProjectAvatar project={project} size={50} />
         </Link>
       </Cell>
 
@@ -170,27 +141,34 @@ const ProjectTableRow = ({
         </ContributorCountCell>
       )}
 
-      {metricsCell ? (
-        <StarNumberCell>{metricsCell(project)}</StarNumberCell>
-      ) : (
-        <StarNumberCell>
-          {showStars && <StarTotal value={project.stars} />}
-
-          {showDelta && (
-            <div className="delta">
-              <StarDelta
-                value={getDeltaByDay(sortOption.id)(project)}
-                average={sortOption.id !== "daily"}
-                size={20}
-              />
-            </div>
-          )}
-
-          {showDownloads && <DownloadCount value={project.downloads} />}
-        </StarNumberCell>
-      )}
+      {metricsCell && <StarNumberCell>{metricsCell(project)}</StarNumberCell>}
     </Row>
   );
+};
+
+export const ProjectScore = ({
+  project,
+  sortOptionId,
+}: {
+  project: BestOfJS.Project;
+  sortOptionId: string;
+}) => {
+  const showDelta = ["daily", "weekly", "monthly", "yearly"].includes(
+    sortOptionId
+  );
+  const showDownloads = sortOptionId === "monthly-downloads";
+
+  if (showDelta) {
+    const value = getDeltaByDay(sortOptionId)(project);
+    if (value === undefined) return null;
+    return <StarDelta value={value} average={sortOptionId !== "daily"} />;
+  }
+
+  if (showDownloads) {
+    return <DownloadCount value={project.downloads} />;
+  }
+
+  return <StarTotal value={project.stars} />;
 };
 
 const breakpoint = 800;

@@ -1,15 +1,16 @@
-import React, { useState } from "react";
+import React from "react";
 import { Link as RouterLink } from "react-router-dom";
 import { GoFlame, GoGift } from "react-icons/go";
 
-import { Box, Button, Flex } from "components/core";
+import { Box, Button, Flex, SectionHeading, Spinner } from "components/core";
 import { APP_DISPLAY_NAME } from "config";
-import { useSelector } from "containers/project-data-container";
-import { Section, Spinner } from "components/core";
-import { ProjectTable } from "components/project-list/project-table";
-import { getProjectsSortedBy } from "selectors";
+import {
+  ProjectScore,
+  ProjectTable,
+} from "components/project-list/project-table";
 import { ChevronDownIcon } from "components/core/icons";
 import { DropdownMenu, Menu, MenuGroup, MenuItem } from "components/core/menu";
+import { SortOptionKey } from "components/search/sort-order-options";
 
 const ranges = {
   daily: "the last 24 hours",
@@ -18,40 +19,33 @@ const ranges = {
   yearly: "the last 12 months",
 };
 
-const hotProjectsExcludedTags = ["meta", "learning"];
-
-export const isIncludedInHotProjects = (project) => {
-  const hasExcludedTag = hotProjectsExcludedTags.some((tag) =>
-    project.tags.includes(tag)
-  );
-  return !hasExcludedTag;
-};
-
-export const HotProjects = ({ hotFilter, pending }) => {
-  const [sortOptionId, setSortOptionId] = useState("daily");
-
-  const projects = useSelector(
-    getProjectsSortedBy({
-      filterFn: isIncludedInHotProjects,
-      criteria: sortOptionId,
-      limit: 5,
-      start: 0,
-    })
-  );
-
+export const HotProjects = ({
+  projects,
+  sort,
+  onChangeSort,
+  pending,
+}: {
+  projects: BestOfJS.Project[];
+  sort: SortOptionKey;
+  onChangeSort: (value: SortOptionKey) => void;
+  pending: boolean;
+}) => {
   return (
-    <>
+    <Box mb={8}>
       <Flex alignItems="center">
         <Box flexGrow={1}>
-          <Section.Header icon={<GoFlame fontSize={32} />}>
-            <Section.Title>Hot Projects</Section.Title>
-            <Section.SubTitle>
-              by number of stars added <b>{ranges[sortOptionId]}</b>
-            </Section.SubTitle>
-          </Section.Header>
+          <SectionHeading
+            icon={<GoFlame fontSize={32} />}
+            title="Hot Projects"
+            subtitle={
+              <>
+                by number of stars added <b>{ranges[sort]}</b>
+              </>
+            }
+          />
         </Box>
         <Box>
-          <HotProjectsPicker value={sortOptionId} onChange={setSortOptionId} />
+          <HotProjectsPicker value={sort} onChange={onChangeSort} />
         </Box>
       </Flex>
       {pending ? (
@@ -59,22 +53,22 @@ export const HotProjects = ({ hotFilter, pending }) => {
       ) : (
         <ProjectTable
           projects={projects}
-          sortOption={{ id: sortOptionId }}
           showDetails={false}
-          showActions={false}
+          metricsCell={(project) => (
+            <ProjectScore project={project} sortOptionId={sort} />
+          )}
           footer={
             <Button
               variant="link"
               as={RouterLink}
-              to={`/projects?sort=${sortOptionId}`}
+              to={`/projects?sort=${sort}`}
             >
               View full rankings »
             </Button>
           }
-          style={{ marginBottom: "2rem" }}
         />
       )}
-    </>
+    </Box>
   );
 };
 
@@ -116,20 +110,27 @@ const HotProjectsPicker = ({ onChange, value }) => {
   );
 };
 
-export const NewestProjects = ({ newestProjects, hotFilter }) => {
+export const NewestProjects = ({
+  projects,
+}: {
+  projects: BestOfJS.Project[];
+}) => {
   return (
     <>
-      <Section.Header icon={<GoGift fontSize={32} />}>
-        <Section.Title>Recently Added Projects</Section.Title>
-        <Section.SubTitle>
-          Latest additions to <i>{APP_DISPLAY_NAME}</i>
-        </Section.SubTitle>
-      </Section.Header>
+      <SectionHeading
+        icon={<GoGift fontSize={32} />}
+        title="Recently Added Projects"
+        subtitle={
+          <>
+            Latest additions to <i>{APP_DISPLAY_NAME}</i>
+          </>
+        }
+      />
       <ProjectTable
-        projects={newestProjects}
-        sortOption={{ id: "daily" }}
-        showActions={false}
-        showDetails={false}
+        projects={projects}
+        metricsCell={(project) => (
+          <ProjectScore project={project} sortOptionId={"daily"} />
+        )}
         footer={
           <Button as={RouterLink} to="/projects?sort=newest" variant="link">
             View more »

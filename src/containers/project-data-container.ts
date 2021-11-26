@@ -1,9 +1,8 @@
 import { createContainer } from "unstated-next";
 import useSWR from "swr";
 
-import { fetchJSON } from "../helpers/fetch";
-import api from "../api/config";
-
+import { FETCH_ALL_PROJECTS_URL } from "config";
+import { fetchJSON } from "helpers/fetch";
 import { getProjectId } from "components/core/project";
 import { AuthContainer } from "./auth-container";
 
@@ -11,7 +10,7 @@ export type State = {
   error?: Error;
   isPending: boolean;
   entities: {
-    projects: Record<string, BestOfJS.Project>;
+    projects: Record<string, BestOfJS.StateProject>;
     tags: Record<string, BestOfJS.Tag>;
   };
   auth: {
@@ -42,7 +41,7 @@ export function useSelector(selector) {
 }
 
 async function fetchProjectsFromAPI() {
-  const url = `${api("GET_PROJECTS")}/projects.json`;
+  const url = `${FETCH_ALL_PROJECTS_URL}/projects.json`;
   return await fetchJSON(url);
 }
 
@@ -85,9 +84,10 @@ function getProjectsBySlug(projects) {
   return projectsBySlug;
 }
 
-function getTagsByCode(tags) {
-  const tagsByCode = tags.reduce((acc, tag) => {
-    return { ...acc, [tag.code]: { ...tag, id: tag.code } };
-  }, {});
+function getTagsByCode(tags: BestOfJS.RawTag[]) {
+  const tagsByCode: State["entities"]["tags"] = {};
+  tags.forEach((tag) => {
+    tagsByCode[tag.code] = tag;
+  });
   return tagsByCode;
 }

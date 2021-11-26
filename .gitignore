@@ -1,5 +1,5 @@
-# Secret
-.env
+# Override values from .env files (used to run the API in local)
+.env.local
 
 # Build
 build

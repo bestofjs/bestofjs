@@ -1,7 +1,7 @@
 import React from "react";
 
 import { ExternalLink } from "../../core";
-import getApi from "../../../api/config";
+import { ISSUE_TRACKER_URL } from "config";
 
 const templates = {
   ADD_PROJECT: "add-a-project-to-best-of-javascript.md",
@@ -9,9 +9,7 @@ const templates = {
 };
 
 const getCreateIssueURL = (template) => {
-  const repo = getApi("ISSUES_REPO");
-
-  return `https://github.com/${repo}/issues/new?template=${template}`;
+  return `${ISSUE_TRACKER_URL}/issues/new?template=${template}`;
 };
 
 export const addProjectURL = getCreateIssueURL(templates.ADD_PROJECT);

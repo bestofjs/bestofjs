@@ -1,59 +1,61 @@
-export const sortOrderOptions = [
-  {
-    id: "total",
+export type SortOptionKey =
+  | "total"
+  | "daily"
+  | "weekly"
+  | "monthly"
+  | "yearly"
+  | "monthly-downloads"
+  | "contributors"
+  | "created"
+  | "last-commit"
+  | "newest"
+  | "match"
+  | "bookmark";
+
+export type SortOption = {
+  label: string;
+  disabled?: (params: { query: string; location: any }) => boolean;
+  direction?: "desc" | "asc";
+};
+
+export const sortOrderOptions: Record<SortOptionKey, SortOption> = {
+  total: {
     label: "By total number of stars",
   },
-  { type: "divider" },
-  {
-    id: "daily",
+  daily: {
     label: "By stars added yesterday",
   },
-  {
-    id: "weekly",
+  weekly: {
     label: "By stars added the last 7 days",
   },
-  {
-    id: "monthly",
+  monthly: {
     label: "By stars added the last 30 days",
   },
-  {
-    id: "yearly",
+  yearly: {
     label: "By stars added the last 12 months",
   },
-  { type: "divider" },
-  {
-    id: "monthly-downloads",
+  "monthly-downloads": {
     label: "By downloads the last 30 days",
   },
-  { type: "divider" },
-  {
-    id: "last-commit",
+  "last-commit": {
     label: "By date of the latest commit",
   },
-  {
-    id: "contributors",
+  contributors: {
     label: "By number of contributors",
   },
-  { type: "divider" },
-  {
-    id: "created",
+  created: {
     label: "By date of creation (Oldest first)",
     direction: "asc",
   },
-  {
-    id: "newest",
+  newest: {
     label: "By date of addition on Best of JS",
   },
-  { type: "divider" },
-  {
-    id: "match",
+  match: {
     label: "Best matching",
     disabled: ({ query }) => query === "",
   },
-  { type: "divider" },
-  {
-    id: "bookmark",
+  bookmark: {
     label: "By date of the bookmark",
     disabled: ({ location }) => location.pathname !== "/bookmarks",
   },
-];
+};

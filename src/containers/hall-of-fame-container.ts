@@ -1,7 +1,7 @@
 import { createContainer } from "unstated-next";
 import useSWR from "swr";
 
-import api from "api/config";
+import { FETCH_HALL_OF_FAME_URL } from "config";
 import { fetchJSON } from "helpers/fetch";
 import { ProjectDataContainer } from "./project-data-container";
 
@@ -18,7 +18,7 @@ export function useHallOfFame() {
 export const HallOfFameContainer = createContainer(useHallOfFame);
 
 function fetchHeroes() {
-  const url = `${api("GET_PROJECTS")}/hof.json`;
+  const url = `${FETCH_HALL_OF_FAME_URL}/hof.json`;
   return fetchJSON(url).then((data) => data.heroes);
 }
 

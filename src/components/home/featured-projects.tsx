@@ -5,24 +5,33 @@ import { Animate } from "react-simple-animate";
 import { useInterval } from "react-use";
 import { GoStar } from "react-icons/go";
 
-import { Box, Button, Link } from "components/core";
+import {
+  Box,
+  Button,
+  Link,
+  ProjectAvatar,
+  getProjectAvatarUrl,
+  getDeltaByDay,
+  SectionHeading,
+} from "components/core";
 import { shuffle } from "helpers/shuffle";
 import { useUpdateEffect } from "helpers/lifecycle-hooks";
 import { useViewportSpy } from "helpers/use-viewport-spy";
 import { useIsDocumentVisible } from "helpers/use-page-events";
 import { useSelector } from "containers/project-data-container";
-import { getFeaturedProjects, getDeltaByDay } from "selectors";
-import {
-  Avatar,
-  StarDelta,
-  getProjectAvatarUrl,
-} from "components/core/project";
+import { getFeaturedProjects } from "selectors";
+import { StarDelta } from "components/core/project";
 import { Section, useColorMode } from "components/core";
 import { ProjectTag } from "components/tags/project-tag";
+import { SortOptionKey } from "components/search/sort-order-options";
 import { ProgressBar } from "./progress-bar";
 
-export const RandomFeaturedProject = () => {
-  const featuredProjects = useSelector(getFeaturedProjects("total"));
+export const RandomFeaturedProject = ({
+  metrics,
+}: {
+  metrics: SortOptionKey;
+}) => {
+  const featuredProjects = useSelector(getFeaturedProjects("newest"));
 
   // don't shuffle projects when the component updates after color mode switch
   const projects = React.useMemo(
@@ -30,17 +39,21 @@ export const RandomFeaturedProject = () => {
     [] // eslint-disable-line react-hooks/exhaustive-deps
   );
 
-  return <Slider projects={projects} duration={7000} limit={5} />;
+  return (
+    <Slider projects={projects} metrics={metrics} duration={7000} limit={5} />
+  );
 };
 
 export const Slider = ({
   projects,
   duration,
   limit,
+  metrics,
 }: {
   projects: BestOfJS.Project[];
   duration: number;
   limit: number;
+  metrics: SortOptionKey;
 }) => {
   const ref = useRef();
   const [pageNumber, setPageNumber] = useState(0);
@@ -60,12 +73,15 @@ export const Slider = ({
 
   return (
     <Section>
-      <Section.Header icon={<GoStar fontSize={32} />}>
-        <Section.Title>Featured Projects</Section.Title>
-        <Section.SubTitle>
-          Random order <i>{isPaused ? "(Paused)" : "(Running...)"}</i>
-        </Section.SubTitle>
-      </Section.Header>
+      <SectionHeading
+        icon={<GoStar fontSize={32} />}
+        title="Featured Projects"
+        subtitle={
+          <>
+            Random order <i>{isPaused ? "(Paused)" : "(Running...)"}</i>
+          </>
+        }
+      />
       <div
         ref={ref as any}
         onMouseEnter={() => {
@@ -81,6 +97,7 @@ export const Slider = ({
           limit={limit}
           duration={duration}
           isPaused={isPaused}
+          metrics={metrics}
         />
       </div>
       <Footer>
@@ -110,6 +127,7 @@ export const FeaturedProjectGroup = ({
   limit,
   duration,
   isPaused,
+  metrics,
   ...otherProps
 }) => {
   const start = pageNumber * limit;
@@ -126,6 +144,7 @@ export const FeaturedProjectGroup = ({
       pageNumber={pageNumber}
       duration={duration}
       isPaused={isPaused}
+      metrics={metrics}
     />
   );
 };
@@ -136,6 +155,7 @@ const ProjectSlider = ({
   nextProjects,
   duration,
   isPaused,
+  metrics,
 }) => {
   const slots = Array.from(new Array(visibleProjects.length));
   const { colorMode } = useColorMode();
@@ -159,7 +179,11 @@ const ProjectSlider = ({
               start={{ opacity: 0 }}
               end={{ opacity: 1 }}
             >
-              <Project key={`visible-${i}`} project={project} />
+              <FeaturedProject
+                key={`visible-${i}`}
+                project={project}
+                metrics={metrics}
+              />
             </Animate>
           ))}
       </Box>
@@ -184,21 +208,17 @@ const HiddenGroup = styled.div`
   z-index: -1;
 `;
 
-const Project = ({ project }) => (
-  <ProjectContainer>
-    <FeaturedProject project={project} />
-  </ProjectContainer>
-);
-
-const ProjectContainer = styled.div`
-  border-bottom: 1px dashed var(--boxBorderColor);
-`;
-
-export const FeaturedProject = ({ project }) => {
-  const sortOptionId = "daily";
+export const FeaturedProject = ({
+  project,
+  metrics,
+}: {
+  project: BestOfJS.Project;
+  metrics: SortOptionKey;
+}) => {
+  const delta = getDeltaByDay(metrics)(project);
   return (
     <ProjectBox>
-      <Avatar project={project} size={80} />
+      <ProjectAvatar project={project} size={80} />
       <FeaturedProjectName>
         <Link
           as={RouterLink}
@@ -207,12 +227,11 @@ export const FeaturedProject = ({ project }) => {
         >
           {project.name}
         </Link>
-        <div className="stars">
-          <StarDelta
-            value={getDeltaByDay(sortOptionId)(project)}
-            average={sortOptionId !== "daily"}
-          />
-        </div>
+        {delta !== undefined && (
+          <div className="stars">
+            <StarDelta value={delta} average={metrics !== "daily"} />
+          </div>
+        )}
         <ProjectTag tag={project.tags[0]} />
       </FeaturedProjectName>
     </ProjectBox>
@@ -225,6 +244,7 @@ const ProjectBox = styled.div`
   display: flex;
   align-items: center;
   padding: 1rem;
+  border-bottom: 1px dashed var(--boxBorderColor);
   .title {
     margin-bottom: 0.5rem;
     display: block;

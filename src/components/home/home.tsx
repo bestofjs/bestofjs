@@ -8,10 +8,12 @@ import {
   Button,
   ButtonProps,
   Box,
+  Flex,
   Link,
   LinkProps,
   Center,
   PageHeader,
+  SectionHeading,
 } from "components/core";
 import { APP_REPO_URL, APP_DISPLAY_NAME, SPONSOR_URL } from "config";
 import { useSelector } from "containers/project-data-container";
@@ -24,28 +26,53 @@ import { ExternalLink, MainContent, Section } from "components/core";
 import { CompactTagList } from "components/tags/tag-list";
 import { HotProjects, NewestProjects } from "./home-projects";
 import { RandomFeaturedProject } from "./featured-projects";
-import { Row, MainColumn, RightSideBar } from "./layout";
 import { HomeMonthlyRankings } from "./home-monthly-rankings";
+import { SortOptionKey } from "components/search/sort-order-options";
 
-export const Home = (props) => {
+type Props = {
+  pending: boolean;
+  newestProjects: BestOfJS.Project[];
+  hotProjects: BestOfJS.Project[];
+  popularTags: BestOfJS.Tag[];
+  sort: SortOptionKey;
+  onChangeSort: (value: SortOptionKey) => void;
+};
+export const Home = ({
+  pending,
+  hotProjects,
+  newestProjects,
+  popularTags,
+  sort,
+  onChangeSort,
+}: Props) => {
   log("Render the <Home> component");
-  const { pending, popularTags } = props;
 
   return (
     <MainContent>
       <PageHeader title="The best of JavaScript, HTML and CSS" />
       <Section>
-        <Row>
-          <MainColumn>
-            <HotProjects {...props} />
-            {!pending && <NewestProjects {...props} />}
-          </MainColumn>
+        <Flex>
+          <Box flex="1 1 0%">
+            <HotProjects
+              projects={hotProjects}
+              sort={sort}
+              onChangeSort={onChangeSort}
+              pending={pending}
+            />
+            {!pending && <NewestProjects projects={newestProjects} />}
+          </Box>
           {!pending && (
-            <RightSideBar>
-              <RandomFeaturedProject />
-              <Section.Header icon={<GoTag fontSize={32} />}>
-                <Section.Title>Popular Tags</Section.Title>
-              </Section.Header>
+            <Box
+              as="aside"
+              pl={8}
+              flexBasis={330}
+              display={{ base: "none", lg: "block" }}
+            >
+              <RandomFeaturedProject metrics={sort} />
+              <SectionHeading
+                icon={<GoTag fontSize={32} />}
+                title="Popular Tags"
+              />
               <CompactTagList
                 tags={popularTags}
                 footer={
@@ -54,11 +81,11 @@ export const Home = (props) => {
                   </Button>
                 }
               />
-            </RightSideBar>
+            </Box>
           )}
-        </Row>
+        </Flex>
       </Section>
-      <Tags popularTags={popularTags} isPending={pending} />
+      {!pending && <PopularTags tags={popularTags} />}
       {!pending && <HomeMonthlyRankings />}
       <StarOnGitHub />
       <MoreProjects />
@@ -66,27 +93,20 @@ export const Home = (props) => {
   );
 };
 
-const Tags = ({ popularTags, isPending }) => {
+// Section displayed for mobile only (because the right bar is hidden on mobiles)
+const PopularTags = ({ tags }: { tags: BestOfJS.Tag[] }) => {
   return (
-    <SectionMobileOnly>
-      <Section.Header icon={<GoTag fontSize={32} />}>
-        <Section.Title>Popular tags</Section.Title>
-      </Section.Header>
-      {!isPending ? <ProjectTagGroup tags={popularTags} /> : <>Loading...</>}
+    <Section display={{ lg: "none" }}>
+      <SectionHeading icon={<GoTag fontSize={32} />} title="Popular tags" />
+      <ProjectTagGroup tags={tags} />
       <Box pt={4} textAlign="center">
         <Link as={RouterLink} to={`/tags/`}>
           View all tags »
         </Link>
       </Box>
-    </SectionMobileOnly>
+    </Section>
   );
 };
-
-const SectionMobileOnly = styled(Section)`
-  @media (min-width: 1000px) {
-    display: none;
-  }
-`;
 
 const ResponsiveRow = styled.div`
   display: flex;
@@ -105,11 +125,10 @@ const StarOnGitHub = () => {
     <Section>
       <ResponsiveRow>
         <div style={{ flexGrow: 1 }}>
-          <Section.Header icon={<GoHeart fontSize={32} />}>
-            <Section.Title>
-              Do you find {APP_DISPLAY_NAME} useful?
-            </Section.Title>
-          </Section.Header>
+          <SectionHeading
+            icon={<GoHeart fontSize={32} />}
+            title={<>Do you find {APP_DISPLAY_NAME} useful?</>}
+          />
           <p>
             Show your appreciation by starring the project on{" "}
             <ExternalLink url={APP_REPO_URL}>GitHub</ExternalLink>, or becoming
@@ -194,9 +213,10 @@ const formatNumber = (number) => numeral(number).format("");
 const MoreProjects = () => {
   return (
     <Section>
-      <Section.Header icon={<GoPlus fontSize={32} />}>
-        <Section.Title>Do you want more projects?</Section.Title>
-      </Section.Header>
+      <SectionHeading
+        icon={<GoPlus fontSize={32} />}
+        title="Do you want more projects?"
+      />
       <p>
         <i>{APP_DISPLAY_NAME}</i> is a curated list of about 1500 open-source
         projects related to the web platform and Node.js.
