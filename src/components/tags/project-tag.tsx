@@ -33,6 +33,7 @@ export const ProjectTag = ({
   const nextLocation = updateLocation((state) => ({
     ...state,
     selectedTags: appendTag ? [...state.selectedTags, tag.code] : [tag.code],
+    query: "",
   }));
 
   return (
