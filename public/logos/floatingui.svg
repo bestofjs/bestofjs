@@ -1,0 +1,12 @@
+<svg viewBox="0 0 271 320" fill="none" xmlns="http://www.w3.org/2000/svg" class="mx-auto" aria-label="Floating UI logo">
+  <rect width="271" height="228" rx="50" fill="#333"/>
+  <circle cx="75" cy="110" r="20" fill="#fff"/>
+  <circle cx="196" cy="110" r="20" fill="#fff"/>
+  <mask id="b" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="75" y="76" width="121" height="121">
+    <circle cx="135.5" cy="136.5" r="60.5" fill="#333"/>
+  </mask>
+  <g mask="url(#b)">
+    <path fill="#fff" d="M0 152h263v89H0z"/>
+  </g>
+  <path d="m135.5 274-52.4-54.8H188L135.5 274z" fill="#333"/>
+</svg>
