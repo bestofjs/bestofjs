@@ -66,7 +66,7 @@ const Footer = styled.div`
   text-align: center;
 `;
 
-const TagListRow = ({ tag }) => {
+const TagListRow = ({ tag }: { tag: BestOfJS.Tag }) => {
   return (
     <ListRow>
       <MainListCell>
@@ -83,16 +83,22 @@ const TagListRow = ({ tag }) => {
         )}
       </MainListCell>
       <ProjectIconCell>
-        <IconGrid tag={tag} />
+        <IconGrid tag={tag} projectCount={5} />
       </ProjectIconCell>
     </ListRow>
   );
 };
 
-const IconGrid = ({ tag, projectCount = 5 }) => {
+const IconGrid = ({
+  tag,
+  projectCount,
+}: {
+  tag: BestOfJS.Tag;
+  projectCount: number;
+}) => {
   const history = useHistory();
   const projects = useSelector(
-    getProjectsByTag({ tagId: tag.id, criteria: "total" })
+    getProjectsByTag({ tagId: tag.code, criteria: "total" })
   ).slice(0, projectCount);
 
   return (
