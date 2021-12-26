@@ -147,9 +147,7 @@ const StarOnGitHub = () => {
 };
 
 const StarOnGitHubButton = () => {
-  const project = useSelector(
-    (state) => state.entities.projects["best-of-javascript"]
-  );
+  const project = useSelector((state) => state.entities.projects["best-of-js"]);
   if (!project) return null;
   const stars = getTotalNumberOfStars(project);
   return (
