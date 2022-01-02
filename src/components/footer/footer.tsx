@@ -80,7 +80,7 @@ export const Footer = () => {
                     <p>Our annual round-up about the JavaScript landscape</p>
                     <a href={RISING_STARS_URL}>
                       <img
-                        src="https://risingstars.js.org/img/2020/en/rising-stars.png"
+                        src="https://risingstars.js.org/img/2021/en/rising-stars.png"
                         width="70%"
                         alt="Rising Stars"
                       />
