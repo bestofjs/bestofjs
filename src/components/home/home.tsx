@@ -28,6 +28,7 @@ import { HotProjects, NewestProjects } from "./home-projects";
 import { RandomFeaturedProject } from "./featured-projects";
 import { HomeMonthlyRankings } from "./home-monthly-rankings";
 import { SortOptionKey } from "components/search/sort-order-options";
+import { RisingStarsNews } from "./rising-stars-news";
 
 type Props = {
   pending: boolean;
@@ -49,10 +50,10 @@ export const Home = ({
 
   return (
     <MainContent>
-      <PageHeader title="The best of JavaScript, HTML and CSS" />
       <Section>
         <Flex>
           <Box flex="1 1 0%">
+            <PageHeader title="The best of JavaScript, HTML and CSS" />
             <HotProjects
               projects={hotProjects}
               sort={sort}
@@ -68,6 +69,7 @@ export const Home = ({
               flexBasis={330}
               display={{ base: "none", lg: "block" }}
             >
+              <RisingStarsNews />
               <RandomFeaturedProject metrics={sort} />
               <SectionHeading
                 icon={<GoTag fontSize={32} />}
