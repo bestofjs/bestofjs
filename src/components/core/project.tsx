@@ -1,6 +1,5 @@
 import React from "react";
 import numeral from "numeral";
-import slugify from "slugify";
 
 import { Box, Center } from "components/core";
 import { StarIcon } from "./icons";
@@ -85,8 +84,27 @@ function formatBigNumber(value: number): string {
 }
 
 export function getProjectId(project: BestOfJS.Project) {
-  return slugify(project.name, { lower: true, remove: /[.'/]/g });
+  return slugify(project.name);
 }
+
+export function slugify(source: string) {
+  return source
+    .trim()
+    .replace(/\W/g, replaceSpecialChar)
+    .replace(/^-+|-+$/g, "")
+    .toLowerCase();
+}
+
+function replaceSpecialChar(char: string) {
+  return charMap.has(char) ? (charMap.get(char) as string) : "-";
+}
+
+const charMap = new Map([
+  [".", ""],
+  ["'", ""],
+  ["&", "and"],
+  ["$", "$"], // keep `$` characters (for `$mol` project)
+]);
 
 export const getDeltaByDay =
   (period: string) =>
