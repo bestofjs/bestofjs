@@ -25,6 +25,15 @@ TODO: used styled components instead of regular CSS
 
 .project-chart-bar {
   background-color: var(--graphBackgroundColor);
+  /* border-top: 1px solid orangered; */
+  background: linear-gradient(
+    180deg,
+    var(--graphBackgroundColor1),
+    var(--graphBackgroundColor2)
+  );
+  /* background-color: #33bcdf;
+  background-color: #2ea44f;
+  background-color: #a8f7bf; */
   position: relative;
 }
 

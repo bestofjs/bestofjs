@@ -4,23 +4,19 @@ import styled from "@emotion/styled";
 import { GoMarkGithub, GoGitCommit } from "react-icons/go";
 import { MdGroup } from "react-icons/md";
 
-import { Box, SimpleGrid } from "components/core";
+import { Box, Icon, HStack, SimpleGrid } from "components/core";
 import { fromNow } from "helpers/from-now";
-import {
-  Card,
-  CardHeader,
-  CardBody,
-  CardSection,
-  ExternalLink,
-} from "components/core";
+import { Card, CardBody, CardSection, ExternalLink } from "components/core";
 import { StarTotal } from "components/core/project";
 import { ExternalLinkIcon } from "components/core/icons";
+import MonthlyTrends from "./trends-card/monthly-trends";
+import { TrendSummary } from "./trends-card";
 
 const formatNumber = (number) => numeral(number).format("0,0");
 
 type Props = { project: BestOfJS.ProjectDetails };
-export const GitHubRepoInfo = ({
-  project: {
+export const GitHubRepoInfo = ({ project }: Props) => {
+  const {
     full_name,
     repository,
     stars,
@@ -28,15 +24,23 @@ export const GitHubRepoInfo = ({
     pushed_at,
     contributor_count,
     commit_count,
-  },
-}: Props) => {
+    timeSeries,
+  } = project;
+  const monthlyDeltas = timeSeries?.monthly;
+
   return (
     <Card>
-      <CardHeader>
-        <GoMarkGithub size={20} className="icon" />
-        <Box mr={2}>GITHUB REPOSITORY</Box>
+      <HStack
+        alignItems="center"
+        py={2}
+        px={4}
+        borderBottomWidth="1px"
+        backgroundX="linear-gradient(120deg, var(--chakra-colors-orange-100) 5%, transparent 5% 95%)"
+      >
+        <Icon as={GoMarkGithub} fontSize="32px" className="icon" />
+        <Box mr={2}>GitHub</Box>
         <StarTotal value={stars} />
-      </CardHeader>
+      </HStack>
       <CardBody>
         <CardSection>
           <SimpleGrid gap={4} templateColumns={{ sm: "1fr", md: "1fr 1fr" }}>
@@ -70,6 +74,12 @@ export const GitHubRepoInfo = ({
             </Box>
           </SimpleGrid>
         </CardSection>
+        {monthlyDeltas?.length > 1 && (
+          <CardSection>
+            <MonthlyTrends deltas={monthlyDeltas} />
+          </CardSection>
+        )}
+        <TrendSummary project={project} />
       </CardBody>
     </Card>
   );

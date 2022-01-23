@@ -67,7 +67,7 @@ const Div = styled.div`
   }
 `;
 
-const TrendSummary = ({ project }) => {
+export const TrendSummary = ({ project }) => {
   const { trends } = project;
   const items = [
     { label: "Yesterday", category: "daily" },
