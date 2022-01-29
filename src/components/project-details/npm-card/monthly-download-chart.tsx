@@ -1,37 +1,24 @@
 import React from "react";
-import Toggle from "react-toggled";
-import styled from "@emotion/styled";
 
-import { ExpandableSection } from "./expandable-section";
-import { MonthlyChart } from "../monthly-bar-chart";
+import { MonthlyTrendsChart } from "components/project-details/monthly-trends-chart";
 import { useFetchMonthlyDownloads } from "../../../api/hooks";
-import { Spinner } from "../../core";
-import { DownloadCount } from "../../core/project";
+import { Box, Spinner, useColorModeValue } from "../../core";
 
-export const MonthlyDownloadChart = ({ project, ...rest }) => {
+export const PackageMonthlyDownloadChart = ({ project, ...rest }) => {
+  const color1 = useColorModeValue("colors.red.200", "colors.red.700");
+  const color2 = useColorModeValue("colors.red.100", "colors.red.800");
   return (
-    <Toggle>
-      {({ on, getTogglerProps }) => (
-        <div {...rest}>
-          <ExpandableSection on={on} getTogglerProps={getTogglerProps}>
-            Monthly downloads on NPM
-            {!on && project.downloads !== undefined && (
-              <Preview>
-                Last 30 days: <DownloadCount value={project.downloads} />
-              </Preview>
-            )}
-          </ExpandableSection>
-          {on && <FetchDownloadCharts project={project} />}
-        </div>
-      )}
-    </Toggle>
+    <Box
+      sx={{
+        "--graphBackgroundColor1": color1,
+        "--graphBackgroundColor2": color2,
+      }}
+    >
+      <p>Monthly downloads on NPM</p>
+      <FetchDownloadCharts project={project} />
+    </Box>
   );
 };
-
-const Preview = styled.span`
-  color: var(--textSecondaryColor);
-  margin-left: 0.5rem;
-`;
 
 const FetchDownloadCharts = ({ project }) => {
   const { packageName } = project;
@@ -49,7 +36,7 @@ const FetchDownloadCharts = ({ project }) => {
     return <Spinner />;
   }
 
-  const values = data.map(({ year, month, downloads }) => ({
+  const results = data.map(({ year, month, downloads }) => ({
     year,
     month,
     value: downloads,
@@ -57,11 +44,7 @@ const FetchDownloadCharts = ({ project }) => {
 
   return (
     <div>
-      <Chart values={values} />
+      <MonthlyTrendsChart results={results} showPlusSymbol={false} />
     </div>
   );
-};
-
-const Chart = ({ values }) => {
-  return <MonthlyChart values={values} showPlusSymbol={false} />;
 };

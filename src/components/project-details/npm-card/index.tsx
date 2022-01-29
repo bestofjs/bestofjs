@@ -1,10 +1,12 @@
 import React from "react";
-import { GoPackage } from "react-icons/go";
+import { IoLogoNpm } from "react-icons/io";
 
 import {
+  Box,
   Card,
   CardBody,
-  CardHeader,
+  HStack,
+  Icon,
   CardSection,
   ExternalLink,
   Spinner,
@@ -13,7 +15,7 @@ import { ExternalLinkIcon } from "components/core/icons";
 import { Dependencies } from "./dependencies";
 import { BundleSize } from "./bundle-size";
 import { PackageSize } from "./package-size";
-import { MonthlyDownloadChart } from "./monthly-download-chart";
+import { PackageMonthlyDownloadChart } from "./monthly-download-chart";
 
 type Props = {
   project: BestOfJS.ProjectDetails;
@@ -23,10 +25,22 @@ type Props = {
 export const NpmCard = (props: Props) => {
   return (
     <Card style={{ marginTop: "2rem" }}>
-      <CardHeader>
-        <GoPackage className="icon" size={24} />
-        NPM PACKAGE
-      </CardHeader>
+      <HStack
+        alignItems="center"
+        py={1}
+        px={4}
+        borderBottomWidth="1px"
+        backgroundX="linear-gradient(120deg, var(--chakra-colors-red-100) 5%, transparent 5% 95%)"
+      >
+        <Icon
+          as={IoLogoNpm}
+          className="icon"
+          fontSize="44px"
+          color="red.500"
+          transform="translateY(3px)"
+        />
+        <Box>Package on NPM</Box>
+      </HStack>
       <CardBody>
         <CardBodyContent {...props} />
       </CardBody>
@@ -53,7 +67,7 @@ const CardBodyContent = ({ project, isLoading, error }) => {
         </p>
       </CardSection>
       <CardSection>
-        <MonthlyDownloadChart project={project} />
+        <PackageMonthlyDownloadChart project={project} />
       </CardSection>
       <CardSection>
         <Dependencies project={project} />

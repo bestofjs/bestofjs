@@ -2,7 +2,6 @@ import React from "react";
 
 import { GitHubRepoInfo } from "./github-repo-info";
 import { NpmCard } from "./npm-card";
-import { TrendsCard } from "./trends-card";
 import { ReadmeCard } from "./readme-card";
 
 type Props = {
@@ -19,7 +18,6 @@ const ProjectDetailsMainTab = (props: Props) => {
       {project.packageName && (
         <NpmCard {...props} isLoading={isLoading} error={error} />
       )}
-      <TrendsCard {...props} />
       <ReadmeCard {...props} />
     </>
   );

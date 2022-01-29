@@ -2,6 +2,7 @@ import styled from "@emotion/styled";
 
 export const Card = styled.div`
   margin-bottom: 2rem;
+  border-radius: 4px;
   padding: 0;
   background-color: var(--cardBackgroundColor);
   vertical-align: top;

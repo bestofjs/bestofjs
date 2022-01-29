@@ -1,6 +1,6 @@
 {
   "name": "bestofjs-webui",
-  "version": "0.33.2",
+  "version": "0.33.3",
   "description": "Best of JS front-end web application",
   "engines": {
     "node": "14.x"
@@ -42,7 +42,6 @@
     "numeral": "^1.5.3",
     "qs": "^6.9.0",
     "react": "16.13.1",
-    "react-calendar-heatmap": "1.4.1",
     "react-content-loader": "^5.1.2",
     "react-dom": "16.13.1",
     "react-icons": "^3.10.0",
