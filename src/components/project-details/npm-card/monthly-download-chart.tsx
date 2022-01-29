@@ -1,10 +1,10 @@
 import React from "react";
 
-import { MonthlyChart } from "../monthly-bar-chart";
+import { MonthlyTrendsChart } from "components/project-details/monthly-trends-chart";
 import { useFetchMonthlyDownloads } from "../../../api/hooks";
 import { Box, Spinner, useColorModeValue } from "../../core";
 
-export const MonthlyDownloadChart = ({ project, ...rest }) => {
+export const PackageMonthlyDownloadChart = ({ project, ...rest }) => {
   const color1 = useColorModeValue("colors.red.200", "colors.red.700");
   const color2 = useColorModeValue("colors.red.100", "colors.red.800");
   return (
@@ -36,7 +36,7 @@ const FetchDownloadCharts = ({ project }) => {
     return <Spinner />;
   }
 
-  const values = data.map(({ year, month, downloads }) => ({
+  const results = data.map(({ year, month, downloads }) => ({
     year,
     month,
     value: downloads,
@@ -44,11 +44,7 @@ const FetchDownloadCharts = ({ project }) => {
 
   return (
     <div>
-      <Chart values={values} />
+      <MonthlyTrendsChart results={results} showPlusSymbol={false} />
     </div>
   );
-};
-
-const Chart = ({ values }) => {
-  return <MonthlyChart values={values} showPlusSymbol={false} />;
 };

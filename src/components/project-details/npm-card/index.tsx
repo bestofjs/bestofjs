@@ -15,7 +15,7 @@ import { ExternalLinkIcon } from "components/core/icons";
 import { Dependencies } from "./dependencies";
 import { BundleSize } from "./bundle-size";
 import { PackageSize } from "./package-size";
-import { MonthlyDownloadChart } from "./monthly-download-chart";
+import { PackageMonthlyDownloadChart } from "./monthly-download-chart";
 
 type Props = {
   project: BestOfJS.ProjectDetails;
@@ -67,7 +67,7 @@ const CardBodyContent = ({ project, isLoading, error }) => {
         </p>
       </CardSection>
       <CardSection>
-        <MonthlyDownloadChart project={project} />
+        <PackageMonthlyDownloadChart project={project} />
       </CardSection>
       <CardSection>
         <Dependencies project={project} />
