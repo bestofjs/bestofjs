@@ -100,7 +100,7 @@ export class AppUpdateChecker implements Settings {
       const meta = await fetchJSON(this.url);
       return meta;
     } catch (error) {
-      console.error("Unable to fetch meta data", error.message);
+      console.error("Unable to fetch meta data", (error as Error).message);
       return undefined;
     }
   }
@@ -124,7 +124,9 @@ export class AppUpdateChecker implements Settings {
         }
       }
     } catch (error) {
-      console.error(`Unable to check for app update: ${error.message}`);
+      console.error(
+        `Unable to check for app update: ${(error as Error).message}`
+      );
     }
   };
 }

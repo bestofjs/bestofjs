@@ -2,7 +2,7 @@ import { useCallback, useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { createContainer } from "unstated-next";
 import useSWR from "swr";
-import { stringify } from "querystring";
+import { stringify } from "qs";
 
 import { fetchJSON } from "helpers/fetch";
 

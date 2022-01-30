@@ -20,12 +20,12 @@ export function queryStringToState(queryString: string): NavigationState {
     selectedTags,
     query: parameters.query || "",
     sort: parameters.sort || "",
-    page: parameters.page,
+    page: parameters.page || 1,
     direction: parseSortDirection(parameters.direction),
   };
 }
 
-function parseSortDirection(input: string) {
+function parseSortDirection(input?: string) {
   return input === "asc" || input === "desc" ? input : undefined;
 }
 

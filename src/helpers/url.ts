@@ -11,7 +11,13 @@ export function useParseURL(defaultValues) {
   };
 }
 
-export function parseQueryString(queryString) {
+export function parseQueryString(queryString): Partial<{
+  query: string;
+  tags: string[];
+  sort: string;
+  page: number;
+  direction: string;
+}> {
   const parameters = parse(queryString, { ignoreQueryPrefix: true });
 
   return {

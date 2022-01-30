@@ -1,5 +1,12 @@
 # Change log
 
+## 0.34 - 2022-01-30
+
+- Improve project details page, show NPM download graph right away #123
+- Allow `$` character in project slugs, removing `slugify` package #122
+- Upgrade React 17 and TypeScript 4.4 dependencies
+- Fix Windows dev setup
+
 ## 0.33.0 - 2021-09-30
 
 - Dark mode #112
