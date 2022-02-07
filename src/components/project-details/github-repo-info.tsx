@@ -8,7 +8,7 @@ import {
   Card,
   CardBody,
   CardSection,
-  ExternalLink,
+  Link,
   Box,
   Flex,
   Icon,
@@ -36,13 +36,7 @@ export const GitHubRepoInfo = ({ project }: Props) => {
 
   return (
     <Card>
-      <HStack
-        alignItems="center"
-        py={2}
-        px={4}
-        borderBottomWidth="1px"
-        backgroundX="linear-gradient(120deg, var(--chakra-colors-orange-100) 5%, transparent 5% 95%)"
-      >
+      <HStack alignItems="center" py={2} px={4} borderBottomWidth="1px">
         <Icon as={GoMarkGithub} fontSize="32px" className="icon" />
         <Box mr={2}>GitHub</Box>
         <StarTotal value={stars} />
@@ -50,12 +44,16 @@ export const GitHubRepoInfo = ({ project }: Props) => {
       <CardBody>
         <CardSection>
           <SimpleGrid gap={4} templateColumns={{ sm: "1fr", md: "1fr 1fr" }}>
-            <Box>
-              <ExternalLink url={repository}>
-                {full_name}
-                <ExternalLinkIcon />
-              </ExternalLink>
-            </Box>
+            <Link
+              url={repository}
+              isExternal
+              display="flex"
+              alignItems="center"
+              fontFamily="button"
+            >
+              {full_name}
+              <ExternalLinkIcon />
+            </Link>
             <Box>
               {created_at && (
                 <>

@@ -7,6 +7,7 @@ import {
 } from "@chakra-ui/react";
 
 export {
+  Badge,
   Box,
   Button,
   CloseButton,
