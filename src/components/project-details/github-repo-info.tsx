@@ -36,13 +36,7 @@ export const GitHubRepoInfo = ({ project }: Props) => {
 
   return (
     <Card>
-      <HStack
-        alignItems="center"
-        py={2}
-        px={4}
-        borderBottomWidth="1px"
-        backgroundX="linear-gradient(120deg, var(--chakra-colors-orange-100) 5%, transparent 5% 95%)"
-      >
+      <HStack alignItems="center" py={2} px={4} borderBottomWidth="1px">
         <Icon as={GoMarkGithub} fontSize="32px" className="icon" />
         <Box mr={2}>GitHub</Box>
         <StarTotal value={stars} />

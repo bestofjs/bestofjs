@@ -25,13 +25,7 @@ type Props = {
 export const NpmCard = (props: Props) => {
   return (
     <Card style={{ marginTop: "2rem" }}>
-      <HStack
-        alignItems="center"
-        py={1}
-        px={4}
-        borderBottomWidth="1px"
-        backgroundX="linear-gradient(120deg, var(--chakra-colors-red-100) 5%, transparent 5% 95%)"
-      >
+      <HStack alignItems="center" py={1} px={4} borderBottomWidth="1px">
         <Icon
           as={IoLogoNpm}
           className="icon"
