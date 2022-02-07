@@ -778,7 +778,6 @@
 .markdown-body img {
   max-width: 100%;
   box-sizing: initial;
-  background-color: #fff;
 }
 
 .markdown-body img[align="right"] {
@@ -1137,9 +1136,6 @@
 .chakra-ui-dark .markdown-body table tr:nth-child(2n) {
   background-color: var(--backgroundColor);
 }
-.chakra-ui-dark .markdown-body img {
-  background-color: #0d1117;
-}
 .chakra-ui-dark .markdown-body code {
   background-color: rgba(240, 246, 252, 0.15);
 }
@@ -1158,4 +1154,16 @@
 }
 .chakra-ui-dark .markdown-body .blob-code-inner {
   color: #c9d1d9;
+}
+
+/* 
+Images can target light/dark modes
+https://github.blog/changelog/2021-11-24-specify-theme-context-for-images-in-markdown/ 
+E.g. TailwindCSS
+*/
+.chakra-ui-light .markdown-body [href$="#gh-dark-mode-only"] {
+  display: none;
+}
+.chakra-ui-dark .markdown-body [href$="#gh-light-mode-only"] {
+  display: none;
 }
