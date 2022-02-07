@@ -2,13 +2,15 @@ import React from "react";
 import { IoLogoNpm } from "react-icons/io";
 
 import {
+  Badge,
   Box,
   Card,
   CardBody,
+  CardSection,
+  Flex,
   HStack,
   Icon,
-  CardSection,
-  ExternalLink,
+  Link,
   Spinner,
 } from "components/core";
 import { ExternalLinkIcon } from "components/core/icons";
@@ -53,12 +55,19 @@ const CardBodyContent = ({ project, isLoading, error }) => {
   return (
     <>
       <CardSection>
-        <p>
-          <ExternalLink url={`https://www.npmjs.com/package/${packageName}`}>
-            {packageName} {npm.version}
+        <Flex alignItems="center">
+          <Link
+            url={`https://www.npmjs.com/package/${packageName}`}
+            isExternal
+            fontFamily="button"
+          >
+            {packageName}
             <ExternalLinkIcon />
-          </ExternalLink>
-        </p>
+          </Link>
+          <Badge fontSize="1rem" ml={2}>
+            {npm.version}
+          </Badge>
+        </Flex>
       </CardSection>
       <CardSection>
         <PackageMonthlyDownloadChart project={project} />

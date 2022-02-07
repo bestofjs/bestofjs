@@ -1,5 +1,5 @@
 import React from "react";
-import { GoChevronDown, GoLinkExternal, GoTag } from "react-icons/go";
+import { GoChevronDown, GoTag } from "react-icons/go";
 import { MdStarBorder } from "react-icons/md";
 
 import { Icon, IconProps } from "components/core";
@@ -65,8 +65,22 @@ const SVGContainer = ({ children, color = "currentColor", size = 24 }) => {
   );
 };
 
+// Stealing the icon from https://chakra-ui.com/docs/media-and-icons/icon#all-icons
 export const ExternalLinkIcon = (props: IconProps) => {
-  return <Icon as={GoLinkExternal} ml={1} {...props} />;
+  return (
+    <Icon viewBox="0 0 24 24" ml={1} {...props}>
+      <g
+        fill="none"
+        stroke="currentColor"
+        strokeLinecap="round"
+        strokeWidth="2"
+      >
+        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+        <path d="M15 3h6v6"></path>
+        <path d="M10 14L21 3"></path>
+      </g>
+    </Icon>
+  );
 };
 
 export const DiscordIcon = ({ size = 24 }) => {
