@@ -57,7 +57,7 @@ const CardBodyContent = ({ project, isLoading, error }) => {
       <CardSection>
         <Flex alignItems="center">
           <Link
-            url={`https://www.npmjs.com/package/${packageName}`}
+            href={`https://www.npmjs.com/package/${packageName}`}
             isExternal
             fontFamily="button"
           >

@@ -45,7 +45,7 @@ export const GitHubRepoInfo = ({ project }: Props) => {
         <CardSection>
           <SimpleGrid gap={4} templateColumns={{ sm: "1fr", md: "1fr 1fr" }}>
             <Link
-              url={repository}
+              href={repository}
               isExternal
               display="flex"
               alignItems="center"
