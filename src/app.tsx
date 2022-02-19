@@ -6,7 +6,7 @@ import { SearchBox, SearchContainer } from "components/search";
 import { Header } from "components/header/header";
 import { Footer } from "components/footer/footer";
 import { ProjectDataContainer } from "containers/project-data-container";
-import { MainContent } from "components/core";
+import { Box, MainContent } from "components/core";
 import { APP_REPO_URL } from "config";
 
 export const App = () => {
@@ -17,13 +17,13 @@ export const App = () => {
       <Layout>
         <Header />
         <SearchBox />
-        {error ? (
-          <ErrorMessage message={error.message || "Network error"} />
-        ) : (
-          <MainContainer id="main">
+        <MainContainer id="main">
+          {error ? (
+            <ErrorMessage message={error.message || "Network error"} />
+          ) : (
             <Routes />
-          </MainContainer>
-        )}
+          )}
+        </MainContainer>
         {!isPending && <Footer />}
       </Layout>
     </SearchContainer.Provider>
@@ -43,23 +43,23 @@ const MainContainer = styled.main`
 const ErrorMessage = ({ message }: { message: string }) => {
   return (
     <MainContent>
-      <div
-        style={{
-          border: "2px solid #fa9e59",
-          padding: "4rem 1rem",
-          textAlign: "center",
-          fontSize: 16,
-        }}
+      <Box
+        borderColor="var(--boxBorderColor)"
+        bg="var(--cardBackgroundColor)"
+        textAlign="center"
+        p="4rem 1rem"
       >
-        <p style={{ fontSize: "1.4rem" }}>
+        <Box fontSize="xl">
           Sorry, an error happened while fetching <i>Best of JS</i> data.
-        </p>
-        <pre>{message}</pre>
-        <p>
+        </Box>
+        <Box my={4}>
+          <pre>{message}</pre>
+        </Box>
+        <Box>
           Try to <a href="/">reload</a> the window and please reach us on{" "}
           <a href={APP_REPO_URL}>GitHub</a> if the problem persists.
-        </p>
-      </div>
+        </Box>
+      </Box>
     </MainContent>
   );
 };
