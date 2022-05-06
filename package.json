@@ -3,7 +3,7 @@
   "version": "0.34.0",
   "description": "Best of JS front-end web application",
   "engines": {
-    "node": "16.x"
+    "node": "14.x"
   },
   "scripts": {
     "start": "cross-env REACT_APP_VERSION=$npm_package_version react-scripts start",
