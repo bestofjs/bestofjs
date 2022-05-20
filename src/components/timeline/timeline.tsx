@@ -22,18 +22,20 @@ const template = tinytime("{MMMM} {YYYY}");
 function useTimelineProjects() {
   const projects: BestOfJS.Project[] = useSelector(
     findProjectsByIds(featuredProjects.map(({ slug }) => slug))
-  );
-  return featuredProjects.map(({ slug, date, comments }) => {
-    const project: BestOfJS.Project | undefined = projects.find(
-      (project) => project.slug === slug
-    );
-    if (!project) return null;
-    return {
-      comments: comments || [],
-      date: date || new Date(project.created_at),
-      ...project,
-    };
-  });
+  ).filter(Boolean);
+  return featuredProjects
+    .map(({ slug, date, comments }) => {
+      const project: BestOfJS.Project | undefined = projects.find(
+        (project) => project.slug === slug
+      );
+      if (!project) return null;
+      return {
+        comments: comments || [],
+        date: date || new Date(project.created_at),
+        ...project,
+      };
+    })
+    .filter(Boolean);
 }
 
 export const Timeline = () => {
