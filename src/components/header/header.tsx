@@ -17,7 +17,7 @@ import { DiscordIcon } from "components/core/icons";
 import { UserDropdownMenu } from "./user-dropdown-menu";
 import { NavigationDropdownMenu } from "./navigation-dropdown-menu";
 import { ColorModePicker } from "./color-mode-picker";
-import { ReactComponent as Logo } from "./bestofjs-logo.svg";
+import logo from "./bestofjs-logo.svg";
 
 const breakpoint = 750;
 
@@ -58,7 +58,7 @@ export const Header = (props) => {
               display="block"
               aria-label="Home"
             >
-              <Logo width="130" height="37.15" />
+              <img src={logo} alt="Best of JS" width="130" height="37.15"/>
             </Box>
 
             <NavigationMenu className="desktop-only">
