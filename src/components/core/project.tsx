@@ -1,4 +1,3 @@
-import React from "react";
 import numeral from "numeral";
 
 import { Box, Center } from "components/core";

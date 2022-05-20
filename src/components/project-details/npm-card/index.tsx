@@ -1,4 +1,3 @@
-import React from "react";
 import { IoLogoNpm } from "react-icons/io";
 
 import {

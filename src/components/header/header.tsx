@@ -1,4 +1,3 @@
-import React from "react";
 import { Link as RouterLink, NavLink } from "react-router-dom";
 import styled from "@emotion/styled";
 import { GoMarkGithub } from "react-icons/go";

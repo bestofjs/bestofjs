@@ -1,5 +1,3 @@
-import React from "react";
-
 import { ExternalLink } from "../../core";
 import { ISSUE_TRACKER_URL } from "config";
 

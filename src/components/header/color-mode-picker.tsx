@@ -1,4 +1,3 @@
-import React from "react";
 import { MdWbSunny } from "react-icons/md";
 import { IoMdMoon } from "react-icons/io";
 

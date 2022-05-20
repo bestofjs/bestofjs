@@ -1,5 +1,3 @@
-import React from "react";
-
 import { Box, Flex, Heading, chakra } from "./layout";
 
 export const Section = chakra.section;

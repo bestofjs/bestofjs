@@ -1,5 +1,3 @@
-import React from "react";
-
 import { CreateIssueLink } from "components/user-requests/add-project/create-issue-link";
 
 export const MoreHeroes = () => {

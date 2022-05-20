@@ -1,5 +1,3 @@
-import React from "react";
-
 import { Box, HStack, Flex, IconButton } from "components/core";
 
 import {

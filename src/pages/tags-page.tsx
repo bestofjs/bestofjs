@@ -1,5 +1,3 @@
-import React from "react";
-
 import { useSelector } from "containers/project-data-container";
 import { getAllTagsSortedBy } from "selectors";
 import { PaginatedTagList } from "components/tags/paginated-tag-list";

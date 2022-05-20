@@ -1,4 +1,3 @@
-import React from "react";
 import styled from "@emotion/styled";
 
 import { HeroCard } from "./hall-of-fame-member-card";

@@ -1,4 +1,3 @@
-import React from "react";
 import { GoBookmark } from "react-icons/go";
 
 import { useSelector } from "containers/project-data-container";

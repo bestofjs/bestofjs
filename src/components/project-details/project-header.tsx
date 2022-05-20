@@ -1,4 +1,3 @@
-import React from "react";
 import styled from "@emotion/styled";
 import { GoHome, GoMarkGithub } from "react-icons/go";
 import { DiNpm } from "react-icons/di";

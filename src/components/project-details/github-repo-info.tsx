@@ -1,4 +1,3 @@
-import React from "react";
 import numeral from "numeral";
 import styled from "@emotion/styled";
 import { GoMarkGithub, GoGitCommit } from "react-icons/go";

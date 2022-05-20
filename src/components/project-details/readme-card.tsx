@@ -1,4 +1,3 @@
-import React from "react";
 import { GoBook } from "react-icons/go";
 
 import {

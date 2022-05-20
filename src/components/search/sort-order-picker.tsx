@@ -1,5 +1,3 @@
-import React from "react";
-
 import { Box, Button } from "components/core";
 import { ChevronDownIcon } from "components/core/icons";
 import { useSearch } from "./search-container";
