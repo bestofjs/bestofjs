@@ -5,7 +5,8 @@ import {
 } from "react-vertical-timeline-component";
 import "./vertical-timeline.css";
 import "./vertical-timeline-element.css";
-import tinytime from "tinytime";
+import { format } from "date-fns";
+
 import styled from "@emotion/styled";
 
 import featuredProjects from "./featured-projects.json";
@@ -16,8 +17,6 @@ import { ProjectTagGroup } from "components/tags/project-tag";
 import { ProjectAvatar } from "components/core";
 
 type Project = BestOfJS.Project & { date: Date; comments: string[] };
-
-const template = tinytime("{MMMM} {YYYY}");
 
 function useTimelineProjects() {
   const projects: BestOfJS.Project[] = useSelector(
@@ -47,7 +46,7 @@ export const Timeline = () => {
         {(projects as Project[]).map((project, index) => (
           <VerticalTimelineElement
             key={project.slug}
-            date={template.render(new Date(project.date!))}
+            date={format(new Date(project.date!), "MMMM yyyy")}
             iconStyle={{
               background: "var(--cardBackgroundColor)",
               display: "flex",
