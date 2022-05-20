@@ -60,6 +60,7 @@
     "vague-time": "^2.4.1",
     "vite": "^2.9.9",
     "vite-plugin-checker": "^0.4.6",
+    "vite-plugin-html": "^3.2.0",
     "vite-tsconfig-paths": "^3.4.1"
   },
   "devDependencies": {

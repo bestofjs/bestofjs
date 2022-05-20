@@ -2,6 +2,7 @@ import { defineConfig, loadEnv } from "vite";
 import react from "@vitejs/plugin-react";
 import tsconfigPaths from "vite-tsconfig-paths";
 import checker from "vite-plugin-checker";
+import { createHtmlPlugin } from "vite-plugin-html";
 
 // https://vitejs.dev/config/
 export default defineConfig((props) => {
@@ -16,6 +17,14 @@ export default defineConfig((props) => {
       checker({ typescript: true, enableBuild: false }),
       react(),
       tsconfigPaths(),
+      createHtmlPlugin({
+        inject: {
+          data: {
+            env,
+          },
+        },
+        minify: true,
+      }),
     ].filter(Boolean),
     build: {
       outDir: "./build",
