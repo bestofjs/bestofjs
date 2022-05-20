@@ -27,7 +27,7 @@ const Routes = (props) => {
           </Route>
           <Route exact path="/projects" component={SearchResultsPage} />
           <Redirect from={`/tags/:id`} to={`/projects?tags=:id`} />
-          <Route from={`/tags`} component={TagsPage} />
+          <Route path={`/tags`} component={TagsPage} />
           <Route exact path="/hall-of-fame">
             <HallOfFamePage {...props} />
           </Route>

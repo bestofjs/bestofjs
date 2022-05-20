@@ -13,7 +13,7 @@ export default defineConfig((props) => {
   };
   return {
     plugins: [
-      // checker({ typescript: true, enableBuild: false }),
+      checker({ typescript: true, enableBuild: false }),
       react(),
       tsconfigPaths(),
     ].filter(Boolean),
