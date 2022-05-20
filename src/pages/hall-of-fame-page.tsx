@@ -1,5 +1,3 @@
-import React from "react";
-
 import { useHallOfFame } from "containers/hall-of-fame-container";
 import { MainContent, PageHeader, Spinner } from "components/core";
 import { MoreHeroes } from "components/hall-of-fame/more-heroes";

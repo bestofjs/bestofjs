@@ -1,4 +1,3 @@
-import React from "react";
 import { GoChevronDown, GoTag } from "react-icons/go";
 import { MdStarBorder } from "react-icons/md";
 

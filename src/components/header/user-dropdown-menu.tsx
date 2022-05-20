@@ -1,4 +1,3 @@
-import React from "react";
 import { Link as RouterLink } from "react-router-dom";
 import styled from "@emotion/styled";
 import { GoBookmark, GoSignOut } from "react-icons/go";

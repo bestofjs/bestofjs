@@ -1,5 +1,3 @@
-import React from "react";
-
 import { Box, Button } from "components/core";
 import { DropdownMenu, Menu, MenuGroup, MenuItem } from "components/core/menu";
 import { ChevronDownIcon } from "components/core/icons";

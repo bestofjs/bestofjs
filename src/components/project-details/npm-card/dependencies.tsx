@@ -1,4 +1,3 @@
-import React from "react";
 import Toggle from "react-toggled";
 import { Link as RouterLink } from "react-router-dom";
 import styled from "@emotion/styled";

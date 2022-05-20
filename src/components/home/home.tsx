@@ -1,4 +1,3 @@
-import React from "react";
 import styled from "@emotion/styled";
 import numeral from "numeral";
 import { Link as RouterLink } from "react-router-dom";

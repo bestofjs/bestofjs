@@ -1,4 +1,3 @@
-import React from "react";
 import { useLifecycles } from "react-use";
 import { Box, Button, LightMode, Stack, useToast } from "@chakra-ui/react";
 

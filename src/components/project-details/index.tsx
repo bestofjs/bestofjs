@@ -1,5 +1,3 @@
-import React from "react";
-
 import { GitHubRepoInfo } from "./github-repo-info";
 import { NpmCard } from "./npm-card";
 import { ReadmeCard } from "./readme-card";

@@ -1,5 +1,3 @@
-import React from "react";
-
 import { prettyBytes } from "helpers/pretty-bytes";
 
 type Props = { value: number };

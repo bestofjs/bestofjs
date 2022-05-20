@@ -1,4 +1,3 @@
-import React from "react";
 import { GoMegaphone } from "react-icons/go";
 
 import {

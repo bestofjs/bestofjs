@@ -1,5 +1,3 @@
-import React from "react";
-
 import { MonthlyTrendsChart } from "components/project-details/monthly-trends-chart";
 import { useFetchMonthlyDownloads } from "../../../api/hooks";
 import { Box, Spinner, useColorModeValue } from "../../core";

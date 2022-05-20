@@ -1,4 +1,3 @@
-import React from "react";
 import { Link as RouterLink } from "react-router-dom";
 import { useMedia } from "react-use";
 import { FiMenu } from "react-icons/fi";

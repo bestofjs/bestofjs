@@ -1,4 +1,3 @@
-import React from "react";
 import { Box, BoxProps, Flex } from "@chakra-ui/react";
 import numeral from "numeral";
 
