@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import styled from "@emotion/styled";
 import { GoMarkGithub } from "react-icons/go";
-import tinytime from "tinytime";
+import { format } from "date-fns";
 
 import { useSelector } from "containers/project-data-container";
 import { fromNow } from "helpers/from-now";
@@ -14,8 +14,6 @@ import {
   STATE_OF_JS_URL,
   APP_VERSION,
 } from "config";
-
-const template = tinytime("{H}:{mm}", { padHours: true });
 
 export const Footer = () => {
   const lastUpdate = useSelector((state) => state.meta.lastUpdate);
@@ -102,7 +100,7 @@ export const Footer = () => {
           {lastUpdate && (
             <p>
               Data is updated from GitHub everyday, the last update was{" "}
-              {fromNow(lastUpdate)} (at {template.render(lastUpdate)}).
+              {fromNow(lastUpdate)} (at {format(lastUpdate, "H:mm")}).
             </p>
           )}
           <p>

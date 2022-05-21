@@ -11,7 +11,7 @@ import {
 } from "components/monthly-rankings/rankings";
 
 export const MonthlyRankingsPage = () => {
-  const { year, month } = useParams();
+  const { year, month } = useParams<{ year: string; month: string }>();
   const date = checkDateParams(year, month) ? { year, month } : null;
   return (
     <MainContent>

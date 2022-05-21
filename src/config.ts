@@ -3,7 +3,7 @@ export const APP_REPO_URL = "https://github.com/bestofjs/bestofjs-webui";
 export const RISING_STARS_URL = "https://risingstars.js.org";
 export const SPONSOR_URL = `https://github.com/sponsors/michaelrambeau`;
 export const STATE_OF_JS_URL = `https://stateofjs.com`;
-export const APP_VERSION = process.env.REACT_APP_VERSION || "0.0.0";
+export const APP_VERSION = process.env.VITE_APP_VERSION || "0.0.0";
 export const ISSUE_TRACKER_URL = `https://github.com/michaelrambeau/bestofjs`;
 
 // Root URLs of the static JSON files generated everyday
@@ -19,7 +19,7 @@ export const FETCH_PACKAGE_DATA_URL = readEnvironmentVariable("DYNAMIC_API");
 export const FETCH_RANKINGS_URL = readEnvironmentVariable("FETCH_RANKINGS");
 
 function readEnvironmentVariable(key: string) {
-  const variableFullName = `REACT_APP_${key}`;
+  const variableFullName = `VITE_APP_${key}`;
   const value = process.env[variableFullName];
   if (!value) throw new Error(`No env. value setup for "${variableFullName}"`);
   return value;
