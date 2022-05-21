@@ -88,7 +88,7 @@
     ]
   },
   {
-    "slug": "vuejs",
+    "slug": "vuejs-2",
     "comments": [
       "Released only 2 months after React, Vue.js takes a different approach to handle reactivity.",
       "Often considered as more beginner-friendly.",
