@@ -14,10 +14,13 @@ import {
 import { APP_REPO_URL } from "config";
 import { AuthContainer } from "containers/auth-container";
 import { DiscordIcon } from "components/core/icons";
+import { useColorMode } from "components/core";
+
 import { UserDropdownMenu } from "./user-dropdown-menu";
 import { NavigationDropdownMenu } from "./navigation-dropdown-menu";
 import { ColorModePicker } from "./color-mode-picker";
-import logo from "./bestofjs-logo.svg";
+import logoLight from "./bestofjs-logo-light.svg";
+import logoDark from "./bestofjs-logo-dark.svg";
 
 const breakpoint = 750;
 
@@ -45,7 +48,9 @@ const HeaderContainer = styled.header`
   }
 `;
 
-export const Header = (props) => {
+export const Header = () => {
+  const { colorMode } = useColorMode();
+
   return (
     <HeaderContainer>
       <div className="container">
@@ -58,7 +63,12 @@ export const Header = (props) => {
               display="block"
               aria-label="Home"
             >
-              <img src={logo} alt="Best of JS" width="130" height="37.15"/>
+              <img
+                src={colorMode === "light" ? logoLight : logoDark}
+                alt="Best of JS"
+                width="130"
+                height="37.15"
+              />
             </Box>
 
             <NavigationMenu className="desktop-only">
