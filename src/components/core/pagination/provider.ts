@@ -1,9 +1,5 @@
-// import React, { createContext } from 'react'
-
 import { generatePageNumbers } from "./helpers";
 import { createContainer } from "unstated-next";
-
-// export const PaginationContext = createContext({})
 
 interface usePagingStateType {
   currentPageNumber: number;
