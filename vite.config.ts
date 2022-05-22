@@ -18,11 +18,6 @@ export default defineConfig((props) => {
       react(),
       tsconfigPaths(),
       createHtmlPlugin({
-        inject: {
-          data: {
-            env,
-          },
-        },
         minify: true,
       }),
     ].filter(Boolean),
