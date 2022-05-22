@@ -84,7 +84,7 @@ export const Timeline = () => {
 
 const dateFormat = new Intl.DateTimeFormat("default", {
   year: "numeric",
-  month: "numeric",
+  month: "long",
 }); // E.g. "May 2022"
 
 const Wrapper = styled.div`
