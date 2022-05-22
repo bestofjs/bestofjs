@@ -10,10 +10,10 @@ This is a place where front-end engineers and Node.js developers can find the be
 
 Projects are carefully classified under tags such as:
 
-- [UI frameworks](https://bestofjs.org/tags/framework): solutions to build front-end applications that run in the browser: Angular, React, Vue...
-- [Node.js framework](https://bestofjs.org/projects?tags=nodejs-framework): solutions to build server-side applications with Node.js
-- [Testing](https://bestofjs.org/tags/test): testing frameworks and tools: Jest, Mocha, Jasmine, AVA...
-- [Charting](https://bestofjs.org/tags/chart): data visualization and chart libraries: D3, ChartJS, echarts...
+- [UI frameworks](https://bestofjs.org/tags/framework): solutions to build front-end applications that run in the browser: React, Vue.js, Angular...
+- [Node.js framework](https://bestofjs.org/projects?tags=nodejs-framework): solutions to build server-side applications with Node.js: Express, Nest, Fastify...
+- [Testing](https://bestofjs.org/tags/test): testing frameworks and tools: Jest, Mocha, Cypress...
+- [Charting](https://bestofjs.org/tags/chart): data visualization and chart libraries: D3, ChartJS, ECharts...
 - [And many more!](https://bestofjs.org/tags/)
 
 ## Community-driven
@@ -35,7 +35,9 @@ The web application displays the variations over the last days, weeks and months
 
 This repository contains _Best of JS_ front-end application code.
 
-The application is a single-page application built with [Create React App](https://github.com/facebook/create-react-app) and hosted on [Vercel](https://vercel.com).
+The application is a single-page application built with [Vite](http://vitejs.dev/) and hosted on [Vercel](https://vercel.com).
+
+Requirement: Node.js version 16
 
 To run it locally:
 
@@ -44,11 +46,13 @@ npm install
 npm start
 ```
 
-To specify the port:
+Unit tests:
 
 ```
-PORT=8080 npm start
+npm test
 ```
+
+Special thanks to [Hung Viet Nguyen](https://github.com/nvh95) who set up the application with Vite to provide a great Developer eXperience!
 
 ## Show your support!
 

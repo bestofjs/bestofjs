@@ -1,5 +1,13 @@
 # Change log
 
+## 0.35 - 2022-05-22
+
+- Use [Vite](http://vitejs.dev/) instead of Create React App to speed up dev server and build times! (#138)
+- Add GitHub actions to run tests automatically
+- All files converted to `ts` and `tsx` files
+- Fix issue related to missing projects on the Timeline page
+- Use Node.js 16 to build the project
+
 ## 0.34 - 2022-01-30
 
 - Improve project details page, show NPM download graph right away #123

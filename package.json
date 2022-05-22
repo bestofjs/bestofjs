@@ -1,13 +1,13 @@
 {
   "name": "bestofjs-webui",
-  "version": "0.34.0",
+  "version": "0.35.0",
   "description": "Best of JS front-end web application",
   "engines": {
-    "node": "14.x"
+    "node": "16.x"
   },
   "scripts": {
     "start": "cross-env VITE_APP_VERSION=$npm_package_version vite",
-    "build": "cross-env VITE_APP_VERSION=$npm_package_version vite build && node ./build-meta",
+    "build": "cross-env VITE_APP_VERSION=$npm_package_version vite build",
     "preview": "vite preview",
     "test": "NODE_ENV=test jest --watch",
     "test:ci": "NODE_ENV=test jest --coverage --watchAll=false --runInBand --forceExit",
@@ -21,7 +21,7 @@
   },
   "keywords": [
     "react",
-    "create-react-app"
+    "vite"
   ],
   "author": "Michael Rambeau",
   "license": "MIT",
@@ -37,7 +37,6 @@
     "@vitejs/plugin-react": "^1.3.0",
     "cross-env": "^7.0.3",
     "framer-motion": "^4.1.17",
-    "fs-extra": "^10.1.0",
     "numeral": "^1.5.3",
     "qs": "^6.9.0",
     "react": "^17.0.2",
