@@ -1,7 +1,6 @@
 import { Link } from "react-router-dom";
 import styled from "@emotion/styled";
 import { GoMarkGithub } from "react-icons/go";
-import { format } from "date-fns";
 
 import { useSelector } from "containers/project-data-container";
 import { fromNow } from "helpers/from-now";
@@ -100,7 +99,8 @@ export const Footer = () => {
           {lastUpdate && (
             <p>
               Data is updated from GitHub everyday, the last update was{" "}
-              {fromNow(lastUpdate)} (at {format(lastUpdate, "H:mm")}).
+              {fromNow(lastUpdate)} (at {timeOnlyFormat.format(lastUpdate)}
+              ).
             </p>
           )}
           <p>
@@ -119,6 +119,11 @@ export const Footer = () => {
     </StyledFooter>
   );
 };
+
+const timeOnlyFormat = new Intl.DateTimeFormat("default", {
+  hour: "numeric",
+  minute: "numeric",
+});
 
 const breakPointColumns = 800;
 
