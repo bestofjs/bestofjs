@@ -14,7 +14,9 @@ export function useFetchProjectReadMe({ full_name, branch }) {
 }
 
 function fetchProjectReadMe({ full_name, branch = "master" }) {
-  const url = `${FETCH_README_URL}/api/project-readme?fullName=${full_name}&branch=${branch}`;
+  const url = `${FETCH_README_URL}/api/project-readme?fullName=${encodeURIComponent(
+    full_name
+  )}&branch=${encodeURIComponent(branch)}`;
   return fetchHTML(url);
 }
 
@@ -24,7 +26,9 @@ export function useFetchProjectDetails({ full_name }) {
 }
 
 function fetchProjectDetails({ full_name }) {
-  const url = `${FETCH_DETAILS_URL}/api/project-details?fullName=${full_name}`;
+  const url = `${FETCH_DETAILS_URL}/api/project-details?fullName=${encodeURIComponent(
+    full_name
+  )}`;
   return fetchJSON(url);
 }
 
@@ -34,12 +38,14 @@ export function useFetchMonthlyDownloads(packageName) {
 }
 
 const fetchMonthlyDownloads = ({ packageName }) => {
-  const url = `${FETCH_PACKAGE_DATA_URL}/api/package-monthly-downloads?packageName=${packageName}`;
+  const url = `${FETCH_PACKAGE_DATA_URL}/api/package-monthly-downloads?packageName=${encodeURIComponent(
+    packageName
+  )}`;
   return fetchJSON(url);
 };
 
 export function useFetchMonthlyRankings(date) {
-  const fetcher = () => loadMonthlyRankings(date);
+  const fetcher = () => fetchMonthlyRankings(date);
   const key = date ? formatDate(date) : "latest";
   return useSWR(["/monthly-rankings", key], fetcher);
 }
@@ -49,7 +55,7 @@ type MonthlyDate = {
   month: number;
 };
 
-function loadMonthlyRankings(date?: MonthlyDate) {
+function fetchMonthlyRankings(date?: MonthlyDate) {
   const url = `${FETCH_RANKINGS_URL}/monthly/${
     date ? formatDate(date) : "latest"
   }`;
