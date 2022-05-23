@@ -35,6 +35,7 @@ afterAll(() => {
   server.close();
 });
 
+// This will set to dark mode and desktop mode
 let matches = true;
 
 // Set true if you want `useMedia` return false. Default: true
