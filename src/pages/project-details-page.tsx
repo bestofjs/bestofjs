@@ -10,7 +10,7 @@ import ProjectDetails from "components/project-details";
 import { ProjectHeader } from "components/project-details/project-header";
 
 const ProjectDetailsPageContainer = () => {
-  const { id } = useParams();
+  const { id } = useParams<{ id: string }>();
 
   const project = useSelector(findProjectById(id));
   // if the user loads directly the `/projects/:id` URL in the browser,

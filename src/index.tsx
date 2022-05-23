@@ -1,6 +1,5 @@
 import { render } from "react-dom";
 
-import { unregister } from "./registerServiceWorker";
 import { Root } from "./root";
 import { initializeColorMode } from "components/core/color-mode";
 
@@ -13,4 +12,3 @@ function start() {
 }
 
 start();
-unregister();

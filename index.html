@@ -11,17 +11,8 @@
       manifest.json provides metadata used when your web app is added to the
       homescreen on Android. See https://developers.google.com/web/fundamentals/engage-and-retain/web-app-manifest/
     -->
-    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
-    <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico" />
-    <!--
-      Notice the use of %PUBLIC_URL% in the tags above.
-      It will be replaced with the URL of the `public` folder during the build.
-      Only files inside the `public` folder can be referenced from the HTML.
-
-      Unlike "/favicon.ico" or "favicon.ico", "%PUBLIC_URL%/favicon.ico" will
-      work correctly both with client-side routing and a non-root public URL.
-      Learn how to configure a non-root public URL by running `npm run build`.
-    -->
+    <link rel="manifest" href="/manifest.json" />
+    <link rel="shortcut icon" href="/favicon.ico" />
     <title>Best of JS</title>
     <meta
       name="description"
@@ -37,57 +28,58 @@
     <style>
       /* open-sans-regular - latin */
       @font-face {
-        font-family: 'Open Sans';
+        font-family: "Open Sans";
         font-style: normal;
         font-weight: 400;
-        src: local(''),
-          url('/fonts/open-sans-v20-latin-regular.woff2') format('woff2'),
-          url('/fonts/open-sans-v20-latin-regular.woff') format('woff');
+        src: local(""),
+          url("/fonts/open-sans-v20-latin-regular.woff2") format("woff2"),
+          url("/fonts/open-sans-v20-latin-regular.woff") format("woff");
       }
       /* roboto-slab-regular - latin */
       @font-face {
-        font-family: 'Roboto Slab';
+        font-family: "Roboto Slab";
         font-style: normal;
         font-weight: 400;
-        src: local(''),
-          url('/fonts/roboto-slab-v13-latin-regular.woff2') format('woff2'),
+        src: local(""),
+          url("/fonts/roboto-slab-v13-latin-regular.woff2") format("woff2"),
           /* Chrome 26+, Opera 23+, Firefox 39+ */
-            url('/fonts/roboto-slab-v13-latin-regular.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+            url("/fonts/roboto-slab-v13-latin-regular.woff") format("woff"); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
       }
 
       /* roboto-slab-700 - latin */
       @font-face {
-        font-family: 'Roboto Slab';
+        font-family: "Roboto Slab";
         font-style: normal;
         font-weight: 700;
-        src: local(''),
-          url('/fonts/roboto-slab-v13-latin-700.woff2') format('woff2'),
+        src: local(""),
+          url("/fonts/roboto-slab-v13-latin-700.woff2") format("woff2"),
           /* Chrome 26+, Opera 23+, Firefox 39+ */
-            url('/fonts/roboto-slab-v13-latin-700.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+            url("/fonts/roboto-slab-v13-latin-700.woff") format("woff"); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
       }
     </style>
   </head>
 
   <body>
     <div id="root"></div>
+    <script type="module" src="/src/index.tsx"></script>
     <script>
       function loadCSS(e, t, n) {
-        'use strict'
-        var i = window.document.createElement('link')
-        var o = t || window.document.getElementsByTagName('script')[0]
-        i.rel = 'stylesheet'
-        i.href = e
-        i.media = 'only x'
-        o.parentNode.insertBefore(i, o)
+        "use strict";
+        var i = window.document.createElement("link");
+        var o = t || window.document.getElementsByTagName("script")[0];
+        i.rel = "stylesheet";
+        i.href = e;
+        i.media = "only x";
+        o.parentNode.insertBefore(i, o);
         setTimeout(function () {
-          i.media = n || 'all'
-        })
+          i.media = n || "all";
+        });
       }
       loadCSS(
-        'https://cdnjs.cloudflare.com/ajax/libs/hint.css/2.6.0/hint.min.css'
-      )
+        "https://cdnjs.cloudflare.com/ajax/libs/hint.css/2.6.0/hint.min.css"
+      );
     </script>
-    <% if (process.env.REACT_APP_ENV === 'production') { %>
+    <% if (process.env.VERCEL_ENV === 'production') { %>
     <script
       defer
       src="https://static.cloudflareinsights.com/beacon.min.js"

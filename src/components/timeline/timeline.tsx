@@ -3,21 +3,17 @@ import {
   VerticalTimeline,
   VerticalTimelineElement,
 } from "react-vertical-timeline-component";
-import "./vertical-timeline.css";
-import "./vertical-timeline-element.css";
-import tinytime from "tinytime";
 import styled from "@emotion/styled";
 
 import featuredProjects from "./featured-projects.json";
-
+import "./vertical-timeline.css";
+import "./vertical-timeline-element.css";
 import { findProjectsByIds } from "selectors";
 import { useSelector } from "containers/project-data-container";
 import { ProjectTagGroup } from "components/tags/project-tag";
 import { ProjectAvatar } from "components/core";
 
 type Project = BestOfJS.Project & { date: Date; comments: string[] };
-
-const template = tinytime("{MMMM} {YYYY}");
 
 function useTimelineProjects() {
   const projects: BestOfJS.Project[] = useSelector(
@@ -47,7 +43,7 @@ export const Timeline = () => {
         {(projects as Project[]).map((project, index) => (
           <VerticalTimelineElement
             key={project.slug}
-            date={template.render(new Date(project.date!))}
+            date={dateFormat.format(new Date(project.date!))}
             iconStyle={{
               background: "var(--cardBackgroundColor)",
               display: "flex",
@@ -85,6 +81,11 @@ export const Timeline = () => {
     </Wrapper>
   );
 };
+
+const dateFormat = new Intl.DateTimeFormat("default", {
+  year: "numeric",
+  month: "long",
+}); // E.g. "May 2022"
 
 const Wrapper = styled.div`
   border: 3px solid white;
