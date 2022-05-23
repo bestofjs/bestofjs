@@ -5,7 +5,7 @@ import { ChevronDownIcon } from "components/core/icons";
 const sortOrderOptions = [
   {
     id: "project-count",
-    label: "by number of project",
+    label: "by number of projects",
   },
   {
     id: "alpha",
