@@ -73,15 +73,19 @@ export const Header = () => {
 
             <NavigationMenu className="desktop-only">
               <NavigationMenuItem>
-                <NavLink to="/" exact>
+                <NavLink to="/" exact data-testid="menu-home">
                   Home
                 </NavLink>
               </NavigationMenuItem>
               <NavigationMenuItem>
-                <NavLink to="/projects">Projects</NavLink>
+                <NavLink to="/projects" data-testid="menu-projects">
+                  Projects
+                </NavLink>
               </NavigationMenuItem>
               <NavigationMenuItem>
-                <NavLink to="/tags">Tags</NavLink>
+                <NavLink to="/tags" data-testid="menu-tags">
+                  Tags
+                </NavLink>
               </NavigationMenuItem>
               <NavigationMenuItem>
                 <NavigationDropdownMenu />

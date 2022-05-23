@@ -34,7 +34,7 @@ export const CompactTagList = ({
   return (
     <Box w="100%">
       {tags.map((tag) => (
-        <ListRow key={tag.code}>
+        <ListRow key={tag.code} data-testid="compact-tag-item">
           <Flex w="100%" p={4}>
             <Link
               as={RouterLink}

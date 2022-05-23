@@ -217,7 +217,7 @@ export const FeaturedProject = ({
 }) => {
   const delta = getDeltaByDay(metrics)(project);
   return (
-    <ProjectBox>
+    <ProjectBox data-testid="feature-project">
       <ProjectAvatar project={project} size={80} />
       <FeaturedProjectName>
         <Link
