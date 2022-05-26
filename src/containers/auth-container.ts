@@ -56,6 +56,7 @@ export function useAuth() {
   };
 
   const logout = () => {
+    // TODO: Should not refresh the app. User should be logged out successfully without refreshing the page
     // Do not call window.auth0.logout() that will redirect to GitHub sign out page
     resetToken();
     window.location.href = "/";

@@ -30,6 +30,7 @@ export const UserDropdownMenu = () => {
   return (
     <DropdownMenu menu={menu}>
       <Button
+        data-testid="user-dropdown-menu"
         as={Button}
         rightIcon={<ChevronDownIcon />}
         py={1}

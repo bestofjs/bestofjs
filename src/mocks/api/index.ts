@@ -71,7 +71,7 @@ export const mockFetchUserProfile = (
   callback = (response) => response,
   statusCode = 200
 ) =>
-  rest.get("*/tokeninfo", (req, res, ctx) => {
+  rest.post("*/tokeninfo", (req, res, ctx) => {
     return res(
       ctx.status(statusCode),
       ctx.json(callback(fetchUserProfileDefaultResponse))
