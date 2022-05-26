@@ -32,6 +32,8 @@ describe("Home page", () => {
     const hotProjectsThisWeek = await within(
       await screen.findByTestId("hot-projects-table")
     ).findAllByTestId("project-card");
+    // Should have 5 projects
+    expect(hotProjectsThisWeek).toHaveLength(5);
     await within(hotProjectsThisWeek.at(0) as HTMLElement).findByText("Solid");
 
     // This month Hot Projects
@@ -43,6 +45,8 @@ describe("Home page", () => {
     const hotProjectsThisMonth = await within(
       await screen.findByTestId("hot-projects-section")
     ).findAllByTestId("project-card");
+    // Should have 5 projects
+    expect(hotProjectsThisMonth).toHaveLength(5);
     await within(hotProjectsThisMonth.at(0) as HTMLElement).findByText("Tauri");
 
     // This year Hot Projects
@@ -54,6 +58,8 @@ describe("Home page", () => {
     const hotProjectsThisYear = await within(
       await screen.findByTestId("hot-projects-section")
     ).findAllByTestId("project-card");
+    // Should have 5 projects
+    expect(hotProjectsThisYear).toHaveLength(5);
     await within(hotProjectsThisYear.at(1) as HTMLElement).findByText("Slidev");
 
     // FEATURED PROJECTS
