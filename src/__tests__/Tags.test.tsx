@@ -55,6 +55,24 @@ describe("Tags", () => {
     // "Browser storage" should be at the bottom of the list
     expect(allTags.at(19)?.innerHTML).toContain("Browser storage");
 
+    // OPEN A TAG
+    // Assert this bug https://github.com/bestofjs/bestofjs-webui/pull/142
+    // Sort by number of projects
+    userEvent.click(screen.getByTestId("tag-list-sort-order-picker"));
+    userEvent.click(screen.getByText("by number of projects"));
+    // Select Component Toolkit
+    userEvent.click(screen.getByText("Component Toolkit"));
+    // Go to Next Page
+    userEvent.click(screen.getByTestId("next-page-top"));
+    // Select Design System tag
+    userEvent.click(screen.getAllByText("Design System").at(1) as HTMLElement); // The first one is "Refine your search"
+    // Should see Design System, 23 projects
+    await screen.findByText("23 projects");
+    const allProjects = await screen.findAllByTestId("project-card");
+    expect(allProjects).toHaveLength(23);
+    // "Ant Design" should be at the top of the list
+    expect(allProjects.at(0)?.innerHTML).toContain("Ant Design");
+
     // If you update this file, uncomment to preview UI real time in Chrome
     // debug();
   });
