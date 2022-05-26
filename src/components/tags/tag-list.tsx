@@ -67,7 +67,7 @@ const Footer = styled.div`
 
 const TagListRow = ({ tag }: { tag: BestOfJS.Tag }) => {
   return (
-    <ListRow>
+    <ListRow data-testid="tag-card">
       <MainListCell>
         <Center>
           <Link as={RouterLink} to={`/projects?tags=${tag.code}`}>
