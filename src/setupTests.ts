@@ -9,6 +9,9 @@ configure({
   asyncUtilTimeout: 2500,
 });
 
+// Set timeout 10s for a test
+jest.setTimeout(10000);
+
 jestPreviewConfigure({
   externalCss: ["src/stylesheets/base.css"],
   autoPreview: true,
