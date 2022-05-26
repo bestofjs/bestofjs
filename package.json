@@ -86,12 +86,10 @@
     "eslint-plugin-react-hooks": "^4.5.0",
     "eslint-plugin-testing-library": "^5.5.0",
     "husky": "^0.14.3",
-    "i": "^0.3.7",
     "jest": "^27.5.1",
     "jest-preview": "^0.2.1",
     "jest-watch-typeahead": "^1.1.0",
     "msw": "^0.41.0",
-    "npm": "^8.10.0",
     "prettier": "^2.4.1",
     "pretty-quick": "^1.4.1",
     "whatwg-fetch": "^3.6.2"
