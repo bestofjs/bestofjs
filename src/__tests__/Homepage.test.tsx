@@ -19,7 +19,7 @@ describe("Home page", () => {
     // Today Hot Projects
     await screen.findByText("the last 24 hours");
     const hotProjects = await within(
-      await screen.findByTestId("hot-projects-table")
+      await screen.findByTestId("hot-projects-section")
     ).findAllByTestId("project-card");
     expect(hotProjects).toHaveLength(5);
 
@@ -30,7 +30,7 @@ describe("Home page", () => {
 
     // Should see project Solid in the list
     const hotProjectsThisWeek = await within(
-      await screen.findByTestId("hot-projects-table")
+      await screen.findByTestId("hot-projects-section")
     ).findAllByTestId("project-card");
     // Should have 5 projects
     expect(hotProjectsThisWeek).toHaveLength(5);

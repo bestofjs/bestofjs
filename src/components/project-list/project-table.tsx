@@ -20,17 +20,11 @@ type Props = {
   footer?: React.ReactNode;
   showDetails?: boolean;
   metricsCell?: (project: BestOfJS.Project) => React.ReactNode;
-  testid?: string;
 };
 
-export const ProjectTable = ({
-  projects,
-  footer,
-  testid,
-  ...otherProps
-}: Props) => {
+export const ProjectTable = ({ projects, footer, ...otherProps }: Props) => {
   return (
-    <div className="table-container" data-testid={testid}>
+    <div className="table-container">
       <Table>
         <tbody>
           {projects.map((project, index) => {

@@ -51,7 +51,6 @@ export const HotProjects = ({
         <Spinner bg="var(--cardBackgroundColor)" borderWidth="1px" mb={4} />
       ) : (
         <ProjectTable
-          testid="hot-projects-table"
           projects={projects}
           showDetails={false}
           metricsCell={(project) => (
