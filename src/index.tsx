@@ -13,7 +13,6 @@ function start() {
 
 const prepare = async (): Promise<void> => {
   if (process.env.VITE_APP_MOCK === "1") {
-    console.log("a");
     const { worker } = await import("./mocks/browser");
     worker.start({
       onUnhandledRequest: "bypass",

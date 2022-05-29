@@ -1,14 +1,16 @@
 import { rest } from "msw";
-import {
-  fetchMonthlyDownloadsDefaultResponse,
-  fetchMonthlyRankingPreviousMonthDefaultResponse,
-  fetchMonthlyRankingsLatestDefaultResponse,
-  fetchProjectDetailsDefaultResponse,
-  fetchProjectReadMeDefaultResponse,
-  fetchUserProfileDefaultResponse,
-} from "mocks/data";
-import fetchAllProjectsDefaultResponse from "../data/project.json";
+import fs from "fs";
+import path from "path";
+import monthlyDownloadsReactResponse from "../data/monthly-downloads-react.json";
+import monthlyRankings202203Response from "../data/monthly-rankings-2022-03.json";
+import monthlyRankings202204Response from "../data/monthly-rankings-2022-04.json";
+import projectDetailsReactResponse from "../data/project-details-react.json";
+import userProfileResponse from "../data/user-profile.json";
+
+import fetchAllProjectsDefaultResponse from "../data/projects.json";
 import fetchHeroesDefaultResponse from "../data/hof.json";
+
+import projectReadMeReactResponse from "../data/project-readme-react.html";
 
 export const mockFetchProjectReadMe = (
   callback = (response) => response,
@@ -18,7 +20,7 @@ export const mockFetchProjectReadMe = (
     return res(
       ctx.status(statusCode),
       ctx.set("Content-Type", "text/html; charset=utf-8"),
-      ctx.body(callback(fetchProjectReadMeDefaultResponse))
+      ctx.body(callback(projectReadMeReactResponse))
     );
   });
 
@@ -29,7 +31,7 @@ export const mockFetchProjectDetails = (
   rest.get("*/api/project-details", (req, res, ctx) => {
     return res(
       ctx.status(statusCode),
-      ctx.json(callback(fetchProjectDetailsDefaultResponse))
+      ctx.json(callback(projectDetailsReactResponse))
     );
   });
 
@@ -40,7 +42,7 @@ export const mockFetchMonthlyDownloads = (
   rest.get("*/api/package-monthly-downloads", (req, res, ctx) => {
     return res(
       ctx.status(statusCode),
-      ctx.json(callback(fetchMonthlyDownloadsDefaultResponse))
+      ctx.json(callback(monthlyDownloadsReactResponse))
     );
   });
 
@@ -51,7 +53,7 @@ export const mockFetchMonthlyRankingsLatest = (
   rest.get("*/monthly/latest", (req, res, ctx) => {
     return res(
       ctx.status(statusCode),
-      ctx.json(callback(fetchMonthlyRankingsLatestDefaultResponse))
+      ctx.json(callback(monthlyRankings202204Response))
     );
   });
 
@@ -62,7 +64,7 @@ export const mockFetchMonthlyRankingsPreviousMonth = (
   rest.get("*/monthly/2022/:year-:month.json", (req, res, ctx) => {
     return res(
       ctx.status(statusCode),
-      ctx.json(callback(fetchMonthlyRankingPreviousMonthDefaultResponse))
+      ctx.json(callback(monthlyRankings202203Response))
     );
   });
 
@@ -72,10 +74,7 @@ export const mockFetchUserProfile = (
   statusCode = 200
 ) =>
   rest.post("*/tokeninfo", (req, res, ctx) => {
-    return res(
-      ctx.status(statusCode),
-      ctx.json(callback(fetchUserProfileDefaultResponse))
-    );
+    return res(ctx.status(statusCode), ctx.json(callback(userProfileResponse)));
   });
 
 export const mockFetchAllProjects = (
