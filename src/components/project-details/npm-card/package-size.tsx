@@ -1,9 +1,10 @@
 import Toggle from "react-toggled";
 
+import { ExternalLink } from "components/core/typography";
+import { ExternalLinkIcon } from "components/core/icons";
 import { ExpandableSection } from "./expandable-section";
 import { FileSize } from "./file-size";
 import { SizeDetailsList } from "./size-details-list";
-import { ExternalLink } from "../../core/typography";
 
 export const PackageSize = ({ project, ...rest }) => {
   const { packageSize } = project;
@@ -59,6 +60,7 @@ const BundleSizeDetails = ({ project, packageSize }) => {
         View details on{" "}
         <ExternalLink url={url}>
           <i>Package Phobia</i>
+          <ExternalLinkIcon />
         </ExternalLink>
       </SizeDetailsList.Link>
     </SizeDetailsList>

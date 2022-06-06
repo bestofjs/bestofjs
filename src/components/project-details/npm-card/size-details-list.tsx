@@ -1,21 +1,19 @@
-import styled from "@emotion/styled";
-
-const Div = styled.div`
-  margin: 1rem 0px 0px;
-  padding-left: 1rem;
-  border-left: 1px dashed var(--boxBorderColor);
-`;
+import { Box } from "components/core";
 
 export const SizeDetailsList = ({ children }) => {
-  return <Div>{children}</Div>;
+  return (
+    <Box mt={4} pl={4} borderLeft="1px dashed var(--boxBorderColor)">
+      {children}
+    </Box>
+  );
 };
 
 SizeDetailsList.Item = ({ children }) => {
-  return <p>{children}</p>;
+  return <Box mb={2}>{children}</Box>;
 };
 
 SizeDetailsList.Link = ({ children }) => {
-  return <p>{children}</p>;
+  return <Box>{children}</Box>;
 };
 
 SizeDetailsList.Explanation = ({ children }) => {
