@@ -1,6 +1,13 @@
 import React from "react";
 
-import { Button, MainContent, PageHeader } from "components/core";
+import {
+  Box,
+  Button,
+  Card,
+  CardSection,
+  MainContent,
+  PageHeader,
+} from "components/core";
 
 // From https://reactjs.org/docs/concurrent-mode-suspense.html#handling-errors
 type Props = { fallback: React.ReactNode };
@@ -50,5 +57,16 @@ export const ErrorFallback = () => {
         </Button>
       </div>
     </MainContent>
+  );
+};
+
+export const ErrorCard = ({ children }: { children: React.ReactNode }) => {
+  return (
+    <Card>
+      <CardSection>
+        ⚠ Unexpected error, please contact us on GitHub!
+        <Box mt={2}>{children}</Box>
+      </CardSection>
+    </Card>
   );
 };

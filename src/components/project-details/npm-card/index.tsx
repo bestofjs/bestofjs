@@ -57,7 +57,9 @@ const CardBodyContent = ({
 
   if (error) {
     return (
-      <CardSection>Unable to load package details {error.message}</CardSection>
+      <CardSection>
+        Unable to load package details {(error as Error).message}
+      </CardSection>
     );
   }
   if (isLoading) return <Spinner />;
