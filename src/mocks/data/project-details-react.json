@@ -1,0 +1,65 @@
+{
+  "name": "React",
+  "description": "A declarative, efficient, and flexible JavaScript library for building user interfaces.",
+  "github": {
+    "topics": [
+      "javascript",
+      "react",
+      "frontend",
+      "declarative",
+      "ui",
+      "library"
+    ],
+    "name": "react",
+    "full_name": "facebook/react",
+    "description": "A declarative, efficient, and flexible JavaScript library for building user interfaces.",
+    "homepage": "https://reactjs.org",
+    "stargazers_count": 188250,
+    "pushed_at": "2022-05-21T21:13:48.000Z",
+    "last_commit": "2022-05-20T17:10:43.000Z",
+    "branch": "main",
+    "packageJson": null,
+    "owner_id": 69631,
+    "commit_count": 14981,
+    "contributor_count": 1557,
+    "created_at": "2013-05-24T16:15:54.000Z",
+    "archived": false,
+    "updatedAt": "2022-05-21T21:16:29.013Z"
+  },
+  "npm": {
+    "dependencies": ["loose-envify"],
+    "name": "react",
+    "version": "18.1.0",
+    "deprecated": false
+  },
+  "icon": "react.svg",
+  "bundle": {
+    "name": "react",
+    "dependencyCount": 1,
+    "gzip": 2565,
+    "size": 6587,
+    "version": "18.1.0"
+  },
+  "packageSize": {
+    "installSize": 339128,
+    "publishSize": 316203,
+    "version": "18.1.0"
+  },
+  "tags": ["framework", "vdom", "react"],
+  "timeSeries": {
+    "monthly": [
+      { "year": 2021, "month": 5, "delta": 1434 },
+      { "year": 2021, "month": 6, "delta": 1529 },
+      { "year": 2021, "month": 7, "delta": 1538 },
+      { "year": 2021, "month": 8, "delta": 1683 },
+      { "year": 2021, "month": 9, "delta": 1595 },
+      { "year": 2021, "month": 10, "delta": 1501 },
+      { "year": 2021, "month": 11, "delta": 1397 },
+      { "year": 2021, "month": 12, "delta": 1571 },
+      { "year": 2022, "month": 1, "delta": 1694 },
+      { "year": 2022, "month": 2, "delta": 1440 },
+      { "year": 2022, "month": 3, "delta": 2409 },
+      { "year": 2022, "month": 4, "delta": 1709 }
+    ]
+  }
+}

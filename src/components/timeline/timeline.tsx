@@ -63,7 +63,10 @@ export const Timeline = () => {
               <div style={{ flexGrow: 1 }}>
                 <Link to={`/projects/${project.slug}`}>{project.name}</Link>
               </div>
-              <div style={{ color: "#bb967c" }}>#{index + 1}</div>
+              <div
+                data-testid="timeline-project-index"
+                style={{ color: "#bb967c" }}
+              >{`#${index + 1}`}</div>
             </h4>
             {project.comments.map((comment, index) => (
               <p key={index}>{comment}</p>

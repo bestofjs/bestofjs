@@ -23,16 +23,20 @@ export const NavigationDropdownMenu = () => {
             Tags
           </MenuItem>
         )}
-        <MenuItem as={RouterLink} to="/rankings/monthly">
+        <MenuItem
+          as={RouterLink}
+          to="/rankings/monthly"
+          data-testid="menu-monthly"
+        >
           Monthly rankings
         </MenuItem>
-        <MenuItem as={RouterLink} to="/hall-of-fame">
+        <MenuItem as={RouterLink} to="/hall-of-fame" data-testid="menu-hof">
           Hall of fame
         </MenuItem>
-        <MenuItem as={RouterLink} to="/timeline">
+        <MenuItem as={RouterLink} to="/timeline" data-testid="menu-timeline">
           Timeline
         </MenuItem>
-        <MenuItem as={RouterLink} to="/about">
+        <MenuItem as={RouterLink} to="/about" data-testid="menu-about">
           About
         </MenuItem>
       </MenuGroup>
@@ -58,6 +62,7 @@ export const NavigationDropdownMenu = () => {
           size="md"
           color="var(--textSecondaryColor)"
           rightIcon={<ChevronDownIcon />}
+          data-testid="menu-more"
         >
           More
         </Button>

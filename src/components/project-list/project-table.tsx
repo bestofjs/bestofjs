@@ -21,6 +21,7 @@ type Props = {
   showDetails?: boolean;
   metricsCell?: (project: BestOfJS.Project) => React.ReactNode;
 };
+
 export const ProjectTable = ({ projects, footer, ...otherProps }: Props) => {
   return (
     <div className="table-container">
@@ -68,7 +69,7 @@ const ProjectTableRow = ({
   };
 
   return (
-    <Row>
+    <Row data-testid="project-card">
       <Cell width="50px">
         <Link as={RouterLink} to={path}>
           <ProjectAvatar project={project} size={50} />
