@@ -1,6 +1,7 @@
 export * from "./card";
 export * from "./color-mode";
 export * from "./empty-content";
+export * from "./error-handling";
 export * from "./html-head";
 export * from "./layout";
 export * from "./main-content";

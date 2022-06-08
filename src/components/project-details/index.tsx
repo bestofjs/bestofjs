@@ -1,4 +1,4 @@
-import { ErrorBoundary, ErrorCard } from "pages/error-handling";
+import { ErrorBoundary, ErrorCard } from "components/core";
 import { GitHubRepoInfo } from "./github-repo-info";
 import { NpmCard } from "./npm-card";
 import { ReadmeCard } from "./readme-card";
