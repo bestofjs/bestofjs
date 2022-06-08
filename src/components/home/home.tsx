@@ -68,18 +68,20 @@ export const Home = ({
               display={{ base: "none", lg: "block" }}
             >
               <RandomFeaturedProject metrics={sort} />
-              <SectionHeading
-                icon={<GoTag fontSize={32} />}
-                title="Popular Tags"
-              />
-              <CompactTagList
-                tags={popularTags}
-                footer={
-                  <Button as={RouterLink} to={`/tags/`} variant="link">
-                    View all tags »
-                  </Button>
-                }
-              />
+              <div data-testid="popular-tags-section-desktop">
+                <SectionHeading
+                  icon={<GoTag fontSize={32} />}
+                  title="Popular Tags"
+                />
+                <CompactTagList
+                  tags={popularTags}
+                  footer={
+                    <Button as={RouterLink} to={`/tags/`} variant="link">
+                      View all tags »
+                    </Button>
+                  }
+                />
+              </div>
             </Box>
           )}
         </Flex>

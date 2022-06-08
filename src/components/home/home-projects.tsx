@@ -30,7 +30,7 @@ export const HotProjects = ({
   pending: boolean;
 }) => {
   return (
-    <Box mb={8}>
+    <Box mb={8} data-testid="hot-projects-section">
       <Flex alignItems="center">
         <Box flexGrow={1}>
           <SectionHeading
@@ -102,7 +102,12 @@ const HotProjectsPicker = ({ onChange, value }) => {
 
   return (
     <DropdownMenu menu={menu}>
-      <Button variant="outline" rightIcon={<ChevronDownIcon />} size="md">
+      <Button
+        data-testid="hot-projects-button"
+        variant="outline"
+        rightIcon={<ChevronDownIcon />}
+        size="md"
+      >
         {currentOption.label}
       </Button>
     </DropdownMenu>
@@ -115,7 +120,7 @@ export const NewestProjects = ({
   projects: BestOfJS.Project[];
 }) => {
   return (
-    <>
+    <div data-testid="newest-section">
       <SectionHeading
         icon={<GoGift fontSize={32} />}
         title="Recently Added Projects"
@@ -136,6 +141,6 @@ export const NewestProjects = ({
           </Button>
         }
       />
-    </>
+    </div>
   );
 };

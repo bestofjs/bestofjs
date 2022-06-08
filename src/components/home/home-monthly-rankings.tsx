@@ -20,7 +20,7 @@ export const HomeMonthlyRankings = () => {
   const [date, setDate] = useState<MonthlyDate | null>(null);
 
   return (
-    <Section>
+    <Section data-testid="home-monthly-ranking-section">
       <SectionHeading
         icon={<GoCalendar fontSize={32} />}
         title="Monthly Rankings"

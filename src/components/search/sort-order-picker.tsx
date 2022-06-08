@@ -49,7 +49,12 @@ export const SortOrderPicker = ({ value, onChange }: Props) => {
 
   return (
     <DropdownMenu menu={menu} w="300px" left={0} right={"inherit"}>
-      <Button variant="outline" rightIcon={<ChevronDownIcon />} size="md">
+      <Button
+        data-testid="sort-order-picker"
+        variant="outline"
+        rightIcon={<ChevronDownIcon />}
+        size="md"
+      >
         {currentOption ? (
           <>
             <Box as="span" mr={2}>

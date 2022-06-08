@@ -11,4 +11,15 @@ function start() {
   render(<Root />, document.getElementById("root"));
 }
 
-start();
+const prepare = async (): Promise<void> => {
+  if (process.env.VITE_APP_MOCK === "1") {
+    const { worker } = await import("./mocks/browser");
+    worker.start({
+      onUnhandledRequest: "bypass",
+    });
+  }
+};
+
+prepare().then(() => {
+  start();
+});

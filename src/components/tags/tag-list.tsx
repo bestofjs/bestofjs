@@ -34,7 +34,7 @@ export const CompactTagList = ({
   return (
     <Box w="100%">
       {tags.map((tag) => (
-        <ListRow key={tag.code}>
+        <ListRow key={tag.code} data-testid="compact-tag-item">
           <Flex w="100%" p={4}>
             <Link
               as={RouterLink}
@@ -67,7 +67,7 @@ const Footer = styled.div`
 
 const TagListRow = ({ tag }: { tag: BestOfJS.Tag }) => {
   return (
-    <ListRow>
+    <ListRow data-testid="tag-card">
       <MainListCell>
         <Center>
           <Link as={RouterLink} to={`/projects?tags=${tag.code}`}>

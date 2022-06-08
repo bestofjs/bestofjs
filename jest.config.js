@@ -5,6 +5,7 @@ module.exports = {
     "!src/**/*.d.ts",
     "!src/mocks/**",
     "!src/test-utils/**",
+    "!src/index.tsx",
   ],
   coveragePathIgnorePatterns: [],
   setupFilesAfterEnv: ["<rootDir>/src/setupTests.ts"],
