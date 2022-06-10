@@ -43,11 +43,25 @@ export const NpmCard = (props: Props) => {
   );
 };
 
-const CardBodyContent = ({ project, isLoading, error }) => {
-  if (error)
+const CardBodyContent = ({
+  project,
+  isLoading,
+  error,
+}: {
+  project: BestOfJS.ProjectDetails;
+  isLoading: boolean;
+  error?: Error;
+}) => {
+  const hasPackageSizeData = !!project.packageSize?.installSize;
+  const hasBundleSizeData = !!project.bundle?.size;
+
+  if (error) {
     return (
-      <CardSection>Unable to load package details {error.message}</CardSection>
+      <CardSection>
+        Unable to load package details {(error as Error).message}
+      </CardSection>
     );
+  }
   if (isLoading) return <Spinner />;
 
   const { packageName, npm } = project;
@@ -74,12 +88,16 @@ const CardBodyContent = ({ project, isLoading, error }) => {
       <CardSection>
         <Dependencies project={project} />
       </CardSection>
-      <CardSection>
-        <BundleSize project={project} />
-      </CardSection>
-      <CardSection>
-        <PackageSize project={project} />
-      </CardSection>
+      {hasBundleSizeData && (
+        <CardSection>
+          <BundleSize project={project} />
+        </CardSection>
+      )}
+      {hasPackageSizeData && (
+        <CardSection>
+          <PackageSize project={project} />
+        </CardSection>
+      )}
     </>
   );
 };

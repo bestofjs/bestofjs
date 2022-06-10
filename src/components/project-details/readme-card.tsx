@@ -42,5 +42,5 @@ const ReadmeContent = ({ project }: Props) => {
 
   if (!html) return <Spinner />;
 
-  return <div dangerouslySetInnerHTML={{ __html: html }} />;
+  return <div dangerouslySetInnerHTML={{ __html: html as string }} />;
 };

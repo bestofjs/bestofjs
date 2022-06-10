@@ -1,3 +1,4 @@
+import { ErrorBoundary, ErrorCard } from "components/core";
 import { GitHubRepoInfo } from "./github-repo-info";
 import { NpmCard } from "./npm-card";
 import { ReadmeCard } from "./readme-card";
@@ -12,11 +13,23 @@ const ProjectDetailsMainTab = (props: Props) => {
 
   return (
     <>
-      <GitHubRepoInfo {...props} />
+      <ErrorBoundary
+        fallback={<ErrorCard>Unable to display GitHub data</ErrorCard>}
+      >
+        <GitHubRepoInfo {...props} />
+      </ErrorBoundary>
       {project.packageName && (
-        <NpmCard {...props} isLoading={isLoading} error={error} />
+        <ErrorBoundary
+          fallback={<ErrorCard>Unable to display package data</ErrorCard>}
+        >
+          <NpmCard {...props} isLoading={isLoading} error={error} />
+        </ErrorBoundary>
       )}
-      <ReadmeCard {...props} />
+      <ErrorBoundary
+        fallback={<ErrorCard>Unable to display project's README</ErrorCard>}
+      >
+        <ReadmeCard {...props} />
+      </ErrorBoundary>
     </>
   );
 };
