@@ -1,3 +1,4 @@
+import DOMPurify from "dompurify";
 import { GoBook } from "react-icons/go";
 
 import {
@@ -42,5 +43,5 @@ const ReadmeContent = ({ project }: Props) => {
 
   if (!html) return <Spinner />;
 
-  return <div dangerouslySetInnerHTML={{ __html: html as string }} />;
+  return <div dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(html) }} />;
 };
