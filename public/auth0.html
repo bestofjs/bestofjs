@@ -37,20 +37,20 @@
     <script>
       function init() {
         auth0 = new Auth0({
-          domain: 'bestofjs.auth0.com',
-          clientID: 'dadmCoaRkXs0IhWwnDmyWaBOjLzJYf4s',
-          callbackURL: '/',
-          callbackOnLocationHash: true
-        })
-        var result = auth0.parseHash(window.location.hash)
-        if (!result) return
-        const { id_token } = result // we don't need the `access_token`
+          domain: "bestofjs.auth0.com",
+          clientID: "dadmCoaRkXs0IhWwnDmyWaBOjLzJYf4s",
+          callbackURL: "/",
+          callbackOnLocationHash: true,
+        });
+        var result = auth0.parseHash(window.location.hash);
+        if (!result) return;
+        const { id_token } = result; // we don't need the `access_token`
         if (id_token) {
-          window.localStorage.setItem('bestofjs_id_token', id_token)
-          window.location.href = '/'
+          window.localStorage.setItem("bestofjs_id_token", id_token);
+          window.location.href = "/";
         }
       }
-      init()
+      init();
     </script>
   </body>
 </html>
