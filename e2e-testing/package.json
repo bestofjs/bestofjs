@@ -1,0 +1,14 @@
+{
+  "name": "bestofjs-cypress-test",
+  "version": "0.0.1",
+  "description": "e2e test for bestofjs website",
+  "main": "index.js",
+  "scripts": {
+    "cypress-test": "cypress open"
+  },
+  "author": "huyenuet",
+  "license": "MIT",
+  "devDependencies": {
+    "cypress": "^10.3.0"
+  }
+}
