@@ -1,3 +1,38 @@
 {
-  "routes": [{ "src": "/[^.]+", "dest": "/", "status": 200 }]
+  "routes": [{ "src": "/[^.]+", "dest": "/", "status": 200 }],
+  "headers": [
+		{
+      "source": "/(.*?)",
+      "headers": [
+        {
+          "key": "x-content-type-options",
+          "value": "nosniff"
+        },
+        {
+          "key": "x-frame-options",
+          "value": "DENY"
+        },
+        {
+          "key": "x-xss-protection",
+          "value": "1; mode=block"
+        },
+        {
+          "key": "content-security-policy",
+          "value": "object-src 'none'"
+        },
+        {
+          "key": "strict-transport-security",
+          "value": "max-age=63072000; includeSubdomains; preload"
+        },
+        {
+          "key": "referrer-policy",
+          "value": "strict-origin"
+        },
+        {
+          "key": "permissions-policy",
+          "value": "fullscreen=*"
+        }
+      ]
+    }
+  ]
 }
