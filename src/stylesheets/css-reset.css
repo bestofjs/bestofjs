@@ -221,12 +221,12 @@ embed,
 object {
   display: block;
 }
-/* Removed because of projects logos in README sections
-/* img,
+img,
 video {
   max-width: 100%;
-  height: auto;
-} */
+  /* The following rule was removed because of projects logos in README sections #152 */
+  /* height: auto; */
+}
 [data-js-focus-visible] :focus:not([data-focus-visible-added]) {
   outline: none;
   box-shadow: none;
