@@ -4,6 +4,7 @@ import { Root } from "./root";
 import { initializeColorMode } from "components/core/color-mode";
 
 // Old-fashioned stylesheets
+import "./stylesheets/css-reset.css";
 import "./stylesheets/base.css";
 
 function start() {
