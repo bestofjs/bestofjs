@@ -11,7 +11,7 @@ import { AuthProvider } from "containers/auth-container";
 
 export const Root = () => {
   return (
-    <ChakraProvider theme={customTheme} resetCSS={true}>
+    <ChakraProvider theme={customTheme} resetCSS={false}>
       <Router>
         <AppWithRouter />
       </Router>
