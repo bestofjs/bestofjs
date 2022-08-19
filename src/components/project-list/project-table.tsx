@@ -85,6 +85,7 @@ const ProjectTableRow = ({
             as="a"
             href={project.repository}
             rel="noopener noreferrer"
+            target="_blank"
             icon={<GoMarkGithub size={20} />}
             aria-label="GitHub repository"
             variant="ghost"
@@ -95,6 +96,8 @@ const ProjectTableRow = ({
             <IconButton
               as="a"
               href={project.url}
+              rel="noopener noreferrer"
+              target="_blank"
               icon={<GoHome size={20} />}
               aria-label="Project's homepage"
               variant="ghost"
