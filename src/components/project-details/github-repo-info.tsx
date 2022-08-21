@@ -17,7 +17,7 @@ import {
 import { getDeltaByDay, StarDelta, StarTotal } from "components/core/project";
 import { ExternalLinkIcon, StarIcon } from "components/core/icons";
 import { fromNow } from "helpers/from-now";
-import { MonthlyTrendsChart } from "./monthly-trends-chart";
+import { MonthlyTrendsChart } from "./monthly-trends-graph/monthly-trends-chart";
 
 type Props = { project: BestOfJS.ProjectDetails };
 export const GitHubRepoInfo = ({ project }: Props) => {
@@ -110,8 +110,8 @@ export const MonthlyTrends = ({
   }));
   return (
     <>
-      <p>Stars added on GitHub, month by month</p>
-      <MonthlyTrendsChart results={results} showPlusSymbol />
+      <Box mb={1}>Stars added on GitHub, month by month</Box>
+      <MonthlyTrendsChart results={results} unit="stars" />
     </>
   );
 };
