@@ -56,7 +56,12 @@ const BarGraph = ({ items, unit }: BarGraphProps) => {
     <Box w="100%">
       <Stack direction="row" minHeight={150} pt={{ md: 6 }} spacing={1}>
         {items.map(({ year, month, value }) => (
-          <Flex key={`${year}/${month}`} flex={1} flexDirection="column">
+          <Flex
+            key={`${year}/${month}`}
+            flex={1}
+            flexDirection="column"
+            justifyContent="flex-end"
+          >
             <GraphBar
               value={value}
               year={year}
