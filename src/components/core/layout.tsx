@@ -18,6 +18,7 @@ export {
   Image,
   IconButton,
   Grid,
+  GridItem,
   Link,
   Flex,
   SimpleGrid,

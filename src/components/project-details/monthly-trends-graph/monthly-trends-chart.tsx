@@ -1,13 +1,5 @@
-import {
-  Box,
-  BoxProps,
-  Flex,
-  Grid,
-  GridItem,
-  Stack,
-  useColorModeValue,
-} from "@chakra-ui/react";
 import numeral from "numeral";
+import { Box, BoxProps, Flex, Grid, GridItem, Stack } from "components/core";
 
 const monthNames = "Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec".split(" ");
 
@@ -61,16 +53,11 @@ const BarGraph = ({ items, unit }: BarGraphProps) => {
   const maxValue = Math.max(...(values as number[]));
 
   return (
-    <Box w="100%" mt={0}>
+    <Box w="100%">
       <Stack direction="row" minHeight={150} pt={{ md: 6 }} spacing={1}>
         {items.map(({ year, month, value }) => (
-          <Flex
-            key={`${year}/${month}`}
-            flex={1}
-            flexDirection="column"
-            justifyContent="flex-end"
-          >
-            <Bar
+          <Flex key={`${year}/${month}`} flex={1} flexDirection="column">
+            <GraphBar
               value={value}
               year={year}
               month={month}
@@ -80,96 +67,13 @@ const BarGraph = ({ items, unit }: BarGraphProps) => {
           </Flex>
         ))}
       </Stack>
-      <GraphBottomCaptions items={items} />
-      <YearIndicator items={items} />
-      {/* <GraphSummary items={items} /> */}
+      <MonthLabelGroup items={items} />
+      <YearLabelGroup items={items} />
     </Box>
   );
 };
 
-// On mobile we can't display the number at the top of each bar
-// Instead we show a summary of the numbers
-const GraphSummary = ({ items }: BarGraphProps) => {
-  const total = items.reduce((acc, item) => (item.value || 0) + acc, 0);
-  const max = Math.max(...items.map((item) => item.value || 0));
-  const average = total / items.length;
-  return (
-    <Box mt={2} mb={0} display={{ md: "block" }}>
-      <Grid templateColumns="100px 1fr" w="full" gap={1}>
-        <GridItem>Average:</GridItem>
-        <GridItem>{formatValue(average, { decimals: 1 })} /month</GridItem>
-        <GridItem>Max:</GridItem>
-        <GridItem>{formatValue(max, { decimals: 1 })}</GridItem>
-      </Grid>
-    </Box>
-  );
-};
-
-const GraphBottomCaptions = ({ items }: { items: BarGraphItem[] }) => {
-  const bg = useColorModeValue("gray.100", "gray.700");
-  return (
-    <Grid templateColumns="repeat(12, 1fr)" gap={1} mt={1}>
-      {items.map(({ year, month }) => {
-        const monthName = monthNames[month - 1];
-        const shortMonthName = month; //month < 10 ? `0` + month : month;
-        return (
-          <GridItem
-            key={`${year}/${month}`}
-            textAlign="center"
-            mt={0}
-            borderLeftWidth="1px"
-            borderRightWidth="1px"
-            borderBottomWidth="1px"
-            py={1}
-          >
-            {/* <Box display={{ base: "none", md: "block" }}>
-              {`'`}
-              {year.toString().slice(2)}
-            </Box> */}
-            <Box display={{ base: "none", md: "block" }}>{monthName}</Box>
-            <Box display={{ base: "block", md: "none" }} fontSize="md">
-              {shortMonthName}
-            </Box>
-          </GridItem>
-        );
-      })}
-    </Grid>
-  );
-};
-
-const YearIndicator = ({ items }: { items: BarGraphItem[] }) => {
-  const yearDataItems = getYearData(items);
-
-  return (
-    <Grid templateColumns="repeat(12, 1fr)" gap={1} mt={1}>
-      {yearDataItems.map((item) => {
-        const colSpan = item.months.length;
-        return (
-          <GridItem key={item.year} colSpan={colSpan}>
-            <YearBar>{item.year}</YearBar>
-          </GridItem>
-        );
-      })}
-    </Grid>
-  );
-};
-
-const YearBar = ({ children }) => {
-  const bg = useColorModeValue("gray.100", "gray.700");
-  return (
-    <Box
-      textAlign="center"
-      borderLeftWidth="1px"
-      borderRightWidth="1px"
-      borderBottomWidth="1px"
-      py={1}
-    >
-      {children}
-    </Box>
-  );
-};
-
-const Bar = ({
+const GraphBar = ({
   value,
   year,
   month,
@@ -182,27 +86,13 @@ const Bar = ({
   month: number;
   unit: string;
 }) => {
+  if (!value) {
+    return <EmptyGraphBar value={value} />;
+  }
+
   const height = maxValue
     ? `${Math.round(((value || 0) * 100) / maxValue)}%`
     : "0px";
-
-  if (!value) {
-    return (
-      <Box
-        position="relative"
-        borderBottom="1px dashed var(--graphBackgroundColor)"
-        h="1px"
-      >
-        <BarLabel color="gray.400">
-          {value === undefined ? (
-            <span className="text-secondary">N/A</span>
-          ) : (
-            0
-          )}
-        </BarLabel>
-      </Box>
-    );
-  }
 
   const formattedValue = formatValue(value, { decimals: 1 });
   const formattedDate = year + "/" + month;
@@ -220,18 +110,28 @@ const Bar = ({
       var(--graphBackgroundColor2)
     )"
     >
-      <BarLabel>
-        {value === undefined ? (
-          <span className="text-secondary">N/A</span>
-        ) : (
-          <span>{formattedValue}</span>
-        )}
-      </BarLabel>
+      <BarTopLabel>
+        <span>{formattedValue}</span>
+      </BarTopLabel>
     </Box>
   );
 };
 
-const BarLabel = (props: BoxProps) => {
+const EmptyGraphBar = ({ value }: { value: number | undefined }) => {
+  return (
+    <Box
+      position="relative"
+      borderBottom="1px dashed var(--graphBackgroundColor)"
+      h="1px"
+    >
+      <BarTopLabel color="gray.400">
+        {value === undefined ? <span className="text-secondary">N/A</span> : 0}
+      </BarTopLabel>
+    </Box>
+  );
+};
+
+const BarTopLabel = (props: BoxProps) => {
   return (
     <Box
       display={{ base: "none", md: "block" }}
@@ -240,6 +140,64 @@ const BarLabel = (props: BoxProps) => {
       position="absolute"
       top={-22}
       width="100%"
+      {...props}
+    />
+  );
+};
+
+const MonthLabelGroup = ({ items }: { items: BarGraphItem[] }) => {
+  return (
+    <Grid templateColumns="repeat(12, 1fr)" gap={1} mt={1}>
+      {items.map(({ year, month }) => {
+        const monthName = monthNames[month - 1];
+        const shortMonthName = month; // Show the month number (from 1 to 12) on small screens
+
+        return (
+          <GridItem
+            key={`${year}/${month}`}
+            textAlign="center"
+            mt={0}
+            borderLeftWidth="1px"
+            borderRightWidth="1px"
+            borderBottomWidth="1px"
+            py={1}
+          >
+            <Box display={{ base: "none", md: "block" }}>{monthName}</Box>
+            <Box display={{ base: "block", md: "none" }} fontSize="md">
+              {shortMonthName}
+            </Box>
+          </GridItem>
+        );
+      })}
+    </Grid>
+  );
+};
+
+const YearLabelGroup = ({ items }: { items: BarGraphItem[] }) => {
+  const yearDataItems = getYearData(items);
+
+  return (
+    <Grid templateColumns="repeat(12, 1fr)" gap={1} mt={1}>
+      {yearDataItems.map((item) => {
+        const colSpan = item.months.length;
+        return (
+          <GridItem key={item.year} colSpan={colSpan}>
+            <YearLabel>{item.year}</YearLabel>
+          </GridItem>
+        );
+      })}
+    </Grid>
+  );
+};
+
+const YearLabel = (props: BoxProps) => {
+  return (
+    <Box
+      textAlign="center"
+      borderLeftWidth="1px"
+      borderRightWidth="1px"
+      borderBottomWidth="1px"
+      py={1}
       {...props}
     />
   );
@@ -264,7 +222,7 @@ function getFirstDayOfPreviousMonth() {
   return date;
 }
 
-function formatValue(value, { decimals = 0 }) {
+function formatValue(value: number, { decimals = 0 }) {
   const numberFormat =
     decimals === 0 || value < 1000 ? "0" : `0.${"0".repeat(decimals)}`;
   return numeral(value).format(`${numberFormat}a`);
