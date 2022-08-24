@@ -16,7 +16,7 @@ export const PackageMonthlyDownloadChart = ({
         "--graphBackgroundColor2": color2,
       }}
     >
-      <Box mb={1}>Monthly downloads on NPM</Box>
+      <Box mb={2}>Monthly downloads on NPM</Box>
       <FetchDownloadCharts project={project} />
     </Box>
   );

@@ -1,5 +1,5 @@
 import numeral from "numeral";
-import { Box, BoxProps, Flex, Grid, GridItem, Stack } from "components/core";
+import { Box, BoxProps, Grid, GridItem } from "components/core";
 
 const monthNames = "Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec".split(" ");
 
@@ -54,12 +54,14 @@ const BarGraph = ({ items, unit }: BarGraphProps) => {
 
   return (
     <Box w="100%">
-      <Stack direction="row" minHeight={150} pt={{ md: 6 }} spacing={1}>
+      <Grid templateColumns="repeat(12, 1fr)" minHeight={150}>
         {items.map(({ year, month, value }) => (
-          <Flex
+          <GridItem
             key={`${year}/${month}`}
+            display="flex"
             flex={1}
             flexDirection="column"
+            alignItems="center"
             justifyContent="flex-end"
           >
             <GraphBar
@@ -69,9 +71,9 @@ const BarGraph = ({ items, unit }: BarGraphProps) => {
               maxValue={maxValue}
               unit={unit}
             />
-          </Flex>
+          </GridItem>
         ))}
-      </Stack>
+      </Grid>
       <MonthLabelGroup items={items} />
       <YearLabelGroup items={items} />
     </Box>
@@ -104,21 +106,22 @@ const GraphBar = ({
   const tooltipLabel = formattedDate + ": " + formattedValue + " " + unit;
 
   return (
-    <Box
-      position="relative"
-      h={height}
-      className="hint--top"
-      aria-label={tooltipLabel}
-      bg="linear-gradient(
-      180deg,
-      var(--graphBackgroundColor1),
-      var(--graphBackgroundColor2)
-    )"
-    >
-      <BarTopLabel>
-        <span>{formattedValue}</span>
-      </BarTopLabel>
-    </Box>
+    <>
+      <BarTopLabel>{formattedValue}</BarTopLabel>
+      <Box
+        h={height}
+        w="75%"
+        maxWidth={8}
+        mt={1}
+        className="hint--top"
+        aria-label={tooltipLabel}
+        bg="linear-gradient(
+        180deg,
+        var(--graphBackgroundColor1),
+        var(--graphBackgroundColor2)
+        )"
+      ></Box>
+    </>
   );
 };
 
@@ -126,7 +129,7 @@ const EmptyGraphBar = ({ value }: { value: number | undefined }) => {
   return (
     <Box
       position="relative"
-      borderBottom="1px dashed var(--graphBackgroundColor)"
+      borderBottom="1px dashed var(--graphBackgroundColor1)"
       h="1px"
     >
       <BarTopLabel color="gray.400">
@@ -141,10 +144,9 @@ const BarTopLabel = (props: BoxProps) => {
     <Box
       display={{ base: "none", md: "block" }}
       textAlign="center"
-      fontSize={13}
-      position="absolute"
-      top={-22}
+      fontSize={14}
       width="100%"
+      fontFamily="var(--buttonFontFamily)"
       {...props}
     />
   );
@@ -152,7 +154,15 @@ const BarTopLabel = (props: BoxProps) => {
 
 const MonthLabelGroup = ({ items }: { items: BarGraphItem[] }) => {
   return (
-    <Grid templateColumns="repeat(12, 1fr)" gap={1} mt={1}>
+    <Grid
+      templateColumns="repeat(12, 1fr)"
+      gap={"1px"}
+      mt={1}
+      borderLeftWidth="1px"
+      borderRightWidth="1px"
+      borderColor="var(--graphBackgroundColor1)"
+      bg="var(--graphBackgroundColor1)"
+    >
       {items.map(({ year, month }) => {
         const monthName = monthNames[month - 1];
         const shortMonthName = month; // Show the month number (from 1 to 12) on small screens
@@ -161,11 +171,18 @@ const MonthLabelGroup = ({ items }: { items: BarGraphItem[] }) => {
           <GridItem
             key={`${year}/${month}`}
             textAlign="center"
-            mt={0}
-            borderLeftWidth="1px"
-            borderRightWidth="1px"
-            borderBottomWidth="1px"
+            borderColor="var(--graphBackgroundColor1)"
             py={1}
+            sx={{
+              ":not([hidden]) ~ :not([hidden])": {
+                borderLeftWidth: "0px",
+              },
+              backgroundColor: "var(--cardBackgroundColor)",
+            }}
+            bg="var(--cardBackgroundColor)"
+            fontFamily="var(--buttonFontFamily)"
+            textTransform="uppercase"
+            fontSize="14px"
           >
             <Box display={{ base: "none", md: "block" }}>{monthName}</Box>
             <Box display={{ base: "block", md: "none" }} fontSize="md">
@@ -182,11 +199,22 @@ const YearLabelGroup = ({ items }: { items: BarGraphItem[] }) => {
   const yearDataItems = getYearData(items);
 
   return (
-    <Grid templateColumns="repeat(12, 1fr)" gap={1} mt={1}>
+    <Grid
+      templateColumns="repeat(12, 1fr)"
+      gap={"1px"}
+      bg="var(--graphBackgroundColor1)"
+      borderLeftWidth="1px"
+      borderRightWidth="1px"
+      borderColor="var(--graphBackgroundColor1)"
+    >
       {yearDataItems.map((item) => {
         const colSpan = item.months.length;
         return (
-          <GridItem key={item.year} colSpan={colSpan}>
+          <GridItem
+            key={item.year}
+            colSpan={colSpan}
+            bg="var(--cardBackgroundColor)"
+          >
             <YearLabel>{item.year}</YearLabel>
           </GridItem>
         );
@@ -199,9 +227,12 @@ const YearLabel = (props: BoxProps) => {
   return (
     <Box
       textAlign="center"
-      borderLeftWidth="1px"
-      borderRightWidth="1px"
+      borderLeftWidth="0px"
+      borderRightWidth="0px"
       borderBottomWidth="1px"
+      borderColor="var(--graphBackgroundColor1)"
+      fontFamily="var(--buttonFontFamily)"
+      fontSize="14px"
       py={1}
       {...props}
     />
