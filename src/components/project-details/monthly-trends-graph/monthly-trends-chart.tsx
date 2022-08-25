@@ -1,5 +1,7 @@
 import numeral from "numeral";
 import { Box, BoxProps, Grid, GridItem } from "components/core";
+import { useState } from "react";
+import { Alert, AlertDescription, AlertIcon } from "@chakra-ui/react";
 
 const monthNames = "Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec".split(" ");
 
@@ -52,30 +54,79 @@ const BarGraph = ({ items, unit }: BarGraphProps) => {
     .filter((value) => value !== undefined);
   const maxValue = Math.max(...(values as number[]));
 
+  const [selectedItem, setSelectedItem] = useState<BarGraphItem | undefined>(undefined);
+
   return (
     <Box w="100%">
+      <ViewDetailsOnSmallScreens selectedItem={selectedItem} unit={unit} />
       <Grid templateColumns="repeat(12, 1fr)" minHeight={150}>
-        {items.map(({ year, month, value }) => (
-          <GridItem
-            key={`${year}/${month}`}
-            display="flex"
-            flex={1}
-            flexDirection="column"
-            alignItems="center"
-            justifyContent="flex-end"
-          >
-            <GraphBar
-              value={value}
-              year={year}
-              month={month}
-              maxValue={maxValue}
-              unit={unit}
-            />
-          </GridItem>
-        ))}
+        {items.map((item) => {
+          const { year, month, value } = item;
+          return (
+            <GridItem
+              key={`${year}/${month}`}
+              display="flex"
+              flex={1}
+              flexDirection="column"
+              alignItems="center"
+              justifyContent="flex-end"
+            >
+              <GraphBar
+                value={value}
+                year={year}
+                month={month}
+                maxValue={maxValue}
+                unit={unit}
+                onClick={() => setSelectedItem(item)}
+              />
+            </GridItem>
+          );
+        })}
       </Grid>
       <MonthLabelGroup items={items} />
       <YearLabelGroup items={items} />
+    </Box>
+  );
+};
+
+// On small screens, we don't show numbers of the graph bars
+// Instead we show an area that displays the details when clicking on the bar.
+const ViewDetailsOnSmallScreens = ({
+  selectedItem,
+  unit,
+}: {
+  selectedItem: BarGraphItem | undefined;
+  unit: string;
+}) => {
+  return (
+    <Alert
+      display={{ base: "flex", md: "none" }}
+      mb={2}
+      status="info"
+      fontSize="sm"
+      fontFamily="var(--buttonFontFamily)"
+      colorScheme="orange"
+      p={2}
+    >
+      <AlertIcon />
+      <AlertDescription>
+        {selectedItem ? (
+          <MonthSummary item={selectedItem} unit={unit} />
+        ) : (
+          <Box>Click on the bars to view the numbers</Box>
+        )}
+      </AlertDescription>
+    </Alert>
+  );
+};
+
+const MonthSummary = ({ item, unit }: { item: BarGraphItem; unit: string }) => {
+  const { year, month, value } = item;
+  const formattedValue =
+    value === undefined ? "N/A" : formatValue(value, { decimals: 1 });
+  return (
+    <Box>
+      {year} {monthNames[month - 1]}: {formattedValue} {unit}
     </Box>
   );
 };
@@ -86,12 +137,14 @@ const GraphBar = ({
   month,
   maxValue,
   unit,
+  onClick,
 }: {
   value: number | undefined;
   maxValue: number;
   year: number;
   month: number;
   unit: string;
+  onClick?: () => void;
 }) => {
   if (!value) {
     return <EmptyGraphBar value={value} />;
@@ -113,13 +166,13 @@ const GraphBar = ({
         w="75%"
         maxWidth={8}
         mt={1}
-        className="hint--top"
         aria-label={tooltipLabel}
         bg="linear-gradient(
         180deg,
         var(--graphBackgroundColor1),
         var(--graphBackgroundColor2)
         )"
+        onClick={onClick}
       ></Box>
     </>
   );
@@ -127,15 +180,18 @@ const GraphBar = ({
 
 const EmptyGraphBar = ({ value }: { value: number | undefined }) => {
   return (
-    <Box
-      position="relative"
-      borderBottom="1px dashed var(--graphBackgroundColor1)"
-      h="1px"
-    >
+    <>
       <BarTopLabel color="gray.400">
         {value === undefined ? <span className="text-secondary">N/A</span> : 0}
       </BarTopLabel>
-    </Box>
+      <Box
+        borderBottom="1px dashed var(--graphBackgroundColor1)"
+        h="1px"
+        w="75%"
+        maxWidth={8}
+        mt={1}
+      />
+    </>
   );
 };
 
