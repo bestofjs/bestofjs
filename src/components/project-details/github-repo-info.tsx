@@ -111,7 +111,7 @@ export const MonthlyTrends = ({
   return (
     <>
       <Box mb={2}>Stars added on GitHub, month by month</Box>
-      <MonthlyTrendsChart results={results} unit="stars" />
+      <MonthlyTrendsChart results={results} unit="stars" showPlusSymbol />
     </>
   );
 };

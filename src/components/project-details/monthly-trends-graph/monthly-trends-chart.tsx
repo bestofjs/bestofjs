@@ -1,7 +1,14 @@
-import numeral from "numeral";
-import { Box, BoxProps, Grid, GridItem } from "components/core";
 import { useState } from "react";
-import { Alert, AlertDescription, AlertIcon } from "@chakra-ui/react";
+import numeral from "numeral";
+import {
+  Alert,
+  AlertDescription,
+  AlertIcon,
+  Box,
+  BoxProps,
+  Grid,
+  GridItem,
+} from "components/core";
 
 const monthNames = "Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec".split(" ");
 
@@ -14,15 +21,16 @@ export type BarGraphItem = Month & { value: number | undefined };
 
 type YearData = { year: number; months: number[] };
 
+type FormattingOptions = { unit: string; showPlusSymbol?: boolean };
+
 type Props = {
   results: ResultItem[];
   numberOfMonths?: number;
-  unit: string;
-};
+} & FormattingOptions;
 export const MonthlyTrendsChart = ({
   results,
   numberOfMonths = 12,
-  unit,
+  ...rest
 }: Props) => {
   if (results.length === 0)
     return (
@@ -41,24 +49,25 @@ export const MonthlyTrendsChart = ({
     return { year, month, value };
   });
 
-  return <BarGraph items={items} unit={unit} />;
+  return <BarGraph items={items} {...rest} />;
 };
 
 type BarGraphProps = {
   items: BarGraphItem[];
-  unit: string;
-};
-const BarGraph = ({ items, unit }: BarGraphProps) => {
+} & FormattingOptions;
+const BarGraph = ({ items, ...rest }: BarGraphProps) => {
   const values = items
     .map(({ value }) => value)
     .filter((value) => value !== undefined);
   const maxValue = Math.max(...(values as number[]));
 
-  const [selectedItem, setSelectedItem] = useState<BarGraphItem | undefined>(undefined);
+  const [selectedItem, setSelectedItem] = useState<BarGraphItem | undefined>(
+    undefined
+  );
 
   return (
     <Box w="100%">
-      <ViewDetailsOnSmallScreens selectedItem={selectedItem} unit={unit} />
+      <ViewDetailsOnSmallScreens selectedItem={selectedItem} {...rest} />
       <Grid templateColumns="repeat(12, 1fr)" minHeight={150}>
         {items.map((item) => {
           const { year, month, value } = item;
@@ -76,8 +85,8 @@ const BarGraph = ({ items, unit }: BarGraphProps) => {
                 year={year}
                 month={month}
                 maxValue={maxValue}
-                unit={unit}
                 onClick={() => setSelectedItem(item)}
+                {...rest}
               />
             </GridItem>
           );
@@ -89,15 +98,14 @@ const BarGraph = ({ items, unit }: BarGraphProps) => {
   );
 };
 
-// On small screens, we don't show numbers of the graph bars
+// On small screens, we don't show numbers at the top of the graph bars
 // Instead we show an area that displays the details when clicking on the bar.
 const ViewDetailsOnSmallScreens = ({
   selectedItem,
-  unit,
+  ...rest
 }: {
   selectedItem: BarGraphItem | undefined;
-  unit: string;
-}) => {
+} & FormattingOptions) => {
   return (
     <Alert
       display={{ base: "flex", md: "none" }}
@@ -111,7 +119,7 @@ const ViewDetailsOnSmallScreens = ({
       <AlertIcon />
       <AlertDescription>
         {selectedItem ? (
-          <MonthSummary item={selectedItem} unit={unit} />
+          <MonthSummary item={selectedItem} {...rest} />
         ) : (
           <Box>Click on the bars to view the numbers</Box>
         )}
@@ -120,10 +128,18 @@ const ViewDetailsOnSmallScreens = ({
   );
 };
 
-const MonthSummary = ({ item, unit }: { item: BarGraphItem; unit: string }) => {
+const MonthSummary = ({
+  item,
+  unit,
+  showPlusSymbol,
+}: {
+  item: BarGraphItem;
+} & FormattingOptions) => {
   const { year, month, value } = item;
   const formattedValue =
-    value === undefined ? "N/A" : formatValue(value, { decimals: 1 });
+    value === undefined
+      ? "N/A"
+      : formatValue(value, { decimals: 1, showPlusSymbol });
   return (
     <Box>
       {year} {monthNames[month - 1]}: {formattedValue} {unit}
@@ -137,15 +153,15 @@ const GraphBar = ({
   month,
   maxValue,
   unit,
+  showPlusSymbol,
   onClick,
 }: {
   value: number | undefined;
   maxValue: number;
   year: number;
   month: number;
-  unit: string;
   onClick?: () => void;
-}) => {
+} & FormattingOptions) => {
   if (!value) {
     return <EmptyGraphBar value={value} />;
   }
@@ -154,7 +170,7 @@ const GraphBar = ({
     ? `${Math.round(((value || 0) * 100) / maxValue)}%`
     : "0px";
 
-  const formattedValue = formatValue(value, { decimals: 1 });
+  const formattedValue = formatValue(value, { decimals: 1, showPlusSymbol });
   const formattedDate = year + "/" + month;
   const tooltipLabel = formattedDate + ": " + formattedValue + " " + unit;
 
@@ -314,10 +330,11 @@ function getFirstDayOfPreviousMonth() {
   return date;
 }
 
-function formatValue(value: number, { decimals = 0 }) {
+function formatValue(value, { decimals = 0, showPlusSymbol = false }) {
   const numberFormat =
     decimals === 0 || value < 1000 ? "0" : `0.${"0".repeat(decimals)}`;
-  return numeral(value).format(`${numberFormat}a`);
+  const formattedNumber = numeral(value).format(`${numberFormat}a`);
+  return showPlusSymbol && value > 0 ? `+${formattedNumber}` : formattedNumber;
 }
 
 // Generate data used to display the year indicator at the bottom of the chart
