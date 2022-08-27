@@ -1,8 +1,12 @@
-import { MonthlyTrendsChart } from "components/project-details/monthly-trends-chart";
-import { useFetchMonthlyDownloads } from "../../../api/hooks";
-import { Box, Spinner, useColorModeValue } from "../../core";
+import { MonthlyTrendsChart } from "components/project-details/monthly-trends-graph/monthly-trends-chart";
+import { useFetchMonthlyDownloads } from "api/hooks";
+import { Box, Spinner, useColorModeValue } from "components/core";
 
-export const PackageMonthlyDownloadChart = ({ project, ...rest }) => {
+export const PackageMonthlyDownloadChart = ({
+  project,
+}: {
+  project: BestOfJS.ProjectDetails;
+}) => {
   const color1 = useColorModeValue("colors.red.200", "colors.red.700");
   const color2 = useColorModeValue("colors.red.100", "colors.red.800");
   return (
@@ -12,7 +16,7 @@ export const PackageMonthlyDownloadChart = ({ project, ...rest }) => {
         "--graphBackgroundColor2": color2,
       }}
     >
-      <p>Monthly downloads on NPM</p>
+      <Box mb={2}>Monthly downloads on NPM</Box>
       <FetchDownloadCharts project={project} />
     </Box>
   );
@@ -40,9 +44,5 @@ const FetchDownloadCharts = ({ project }) => {
     value: downloads,
   }));
 
-  return (
-    <div>
-      <MonthlyTrendsChart results={results} showPlusSymbol={false} />
-    </div>
-  );
+  return <MonthlyTrendsChart results={results} unit="downloads" />;
 };

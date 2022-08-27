@@ -7,6 +7,9 @@ import {
 } from "@chakra-ui/react";
 
 export {
+  Alert,
+  AlertDescription,
+  AlertIcon,
   Badge,
   Box,
   Button,
@@ -18,6 +21,7 @@ export {
   Image,
   IconButton,
   Grid,
+  GridItem,
   Link,
   Flex,
   SimpleGrid,
