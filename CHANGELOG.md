@@ -1,5 +1,12 @@
 # Change log
 
+## 0.36 - 2022-08-28
+
+- Open GitHub and home page links in a new tab #153
+- Upgrade to Vite 3 #148
+- Improve monthly trends graph #154
+- Fix size of project logo in README sections #152
+
 ## 0.35 - 2022-05-22
 
 - Use [Vite](http://vitejs.dev/) instead of Create React App to speed up dev server and build times! (#138)
