@@ -73,7 +73,7 @@ export const getAllProjectsByTag = (tagId) =>
 export const getProjectsByTag = ({ criteria, tagId }) =>
   createSelector(
     [getAllProjectsByTag(tagId), (state) => state.entities.tags],
-    (projects, tags) => {
+    (projects) => {
       const projectSelector = getProjectSelectorByKey(criteria);
       return sortProjects(projectSelector)(projects);
     }

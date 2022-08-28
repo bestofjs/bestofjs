@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Box, Card, CardSection, Link } from "components/core";
+import { Box, Card, CardSection } from "components/core";
 import { APP_REPO_URL } from "config";
 import { ExternalLink } from "./typography";
 

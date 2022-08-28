@@ -128,7 +128,6 @@ export const FeaturedProjectGroup = ({
   duration,
   isPaused,
   metrics,
-  ...otherProps
 }) => {
   const start = pageNumber * limit;
   const visibleProjects = projects.slice(start, start + limit);

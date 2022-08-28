@@ -30,9 +30,7 @@ export const FeaturedPage = () => {
         </PageDescription>
         <ProjectPaginatedList
           projects={paginatedProjects}
-          page={page}
           total={total}
-          limit={limit}
           sortOptionId={sortOptionId}
         />
       </PaginationContainer.Provider>

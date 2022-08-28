@@ -1,4 +1,4 @@
-import { screen, renderApp, debug } from "test-utils";
+import { screen, renderApp /*, debug*/ } from "test-utils";
 import userEvent from "@testing-library/user-event";
 
 describe("Tags", () => {

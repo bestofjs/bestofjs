@@ -27,7 +27,7 @@ export const ProjectTable = ({ projects, footer, ...otherProps }: Props) => {
     <div className="table-container">
       <Table>
         <tbody>
-          {projects.map((project, index) => {
+          {projects.map((project) => {
             if (!project) return null;
             return (
               <ProjectTableRow
