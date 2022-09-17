@@ -12,7 +12,7 @@ export function generatePageNumbers({
   const numberOfPages = Math.ceil(total / limit);
   const allPageNumbers = times(numberOfPages);
   const lastPageNumber = allPageNumbers[allPageNumbers.length - 1];
-  let delta = Math.floor(pageNumberCount / 2);
+  const delta = Math.floor(pageNumberCount / 2);
 
   let minPageNumber = currentPageNumber - delta;
   let maxPageNumber = currentPageNumber + delta;

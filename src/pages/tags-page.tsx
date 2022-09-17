@@ -24,9 +24,7 @@ const TagsPage = () => {
         <PageHeader title="All Tags" icon={<TagIcon size={32} />} />
         <PaginatedTagList
           tags={paginatedTags}
-          page={page}
           total={total}
-          limit={limit}
           sortOptionId={sort}
         />
       </PaginationContainer.Provider>

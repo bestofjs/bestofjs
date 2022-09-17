@@ -28,7 +28,8 @@ export function findProjects(
   );
 
   const relevantTags =
-    (tags.length > 0 || query) && getResultRelevantTags(sortedProjects, tags);
+    (tags.length > 0 || query) &&
+    getResultRelevantTags(sortedProjects as BestOfJS.StateProject[], tags);
 
   const paginatedProjects = paginateItemList(sortedProjects, page, { limit });
 
@@ -93,29 +94,29 @@ function rank(project, query) {
   return 0;
 }
 
-function getResultRelevantTags(projects, excludedTags = []) {
+function getResultRelevantTags(
+  projects: BestOfJS.StateProject[],
+  excludedTags = []
+) {
   const projectCountByTag = getTagsFromProjects(projects, excludedTags);
-  return orderBy(
-    Array.from(projectCountByTag.entries()),
-    ([tagId, count]) => count
-  );
+  return orderBy(Array.from(projectCountByTag.entries()), ([, count]) => count);
 }
 
-function orderBy(items, fn) {
+function orderBy<T>(items: T[], fn: (element: T) => number) {
   return items.sort((a, b) => fn(b) - fn(a));
 }
 
 function getTagsFromProjects(
-  projects: BestOfJS.Project[],
-  excludedTagIds: any[] = []
+  projects: BestOfJS.StateProject[],
+  excludedTagIds: string[] = []
 ) {
-  const result = new Map();
+  const result = new Map<string, number>();
   projects.forEach((project) => {
     project.tags
       .filter((tagId) => !excludedTagIds.includes(tagId))
       .forEach((tagId) => {
         if (result.has(tagId)) {
-          result.set(tagId, result.get(tagId) + 1);
+          result.set(tagId, result.get(tagId)! + 1); // eslint-disable-line @typescript-eslint/no-non-null-assertion
         } else {
           result.set(tagId, 1);
         }

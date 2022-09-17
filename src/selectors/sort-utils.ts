@@ -2,7 +2,7 @@ export function sortByNumber(items, property, direction = "asc") {
   const sortedItems = items
     .slice(0) // use `slice(0)` to avoid mutating the array
     .sort((a, b) => {
-      let diff = a[property] - b[property];
+      const diff = a[property] - b[property];
       return diff * (direction === "desc" ? -1 : 1);
     });
   return sortedItems;
@@ -12,7 +12,7 @@ export function sortByString(items, property, direction = "asc") {
   const sortedItems = items
     .slice(0) // use `slice(0)` to avoid mutating the array
     .sort((a, b) => {
-      let diff = a[property].localeCompare(b[property]);
+      const diff = a[property].localeCompare(b[property]);
       return diff * (direction === "desc" ? -1 : 1);
     });
   return sortedItems;

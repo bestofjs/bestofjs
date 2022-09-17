@@ -7,11 +7,10 @@ module.exports = {
     "/scripts",
   ],
   parser: "@typescript-eslint/parser",
-  plugins: ["@typescript-eslint", "testing-library"],
+  plugins: ["@typescript-eslint"],
   extends: [
     "plugin:@typescript-eslint/recommended",
     "prettier",
-    "plugin:testing-library/react",
     "plugin:react-hooks/recommended",
   ],
   parserOptions: {

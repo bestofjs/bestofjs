@@ -88,7 +88,7 @@ export const GitHubRepoInfo = ({ project }: Props) => {
   );
 };
 
-const formatNumber = (number: Number) => numeral(number).format("0,0");
+const formatNumber = (number: number) => numeral(number).format("0,0");
 
 const Stats = styled.p`
   display: flex;

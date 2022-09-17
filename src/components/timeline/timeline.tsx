@@ -43,7 +43,7 @@ export const Timeline = () => {
         {(projects as Project[]).map((project, index) => (
           <VerticalTimelineElement
             key={project.slug}
-            date={dateFormat.format(new Date(project.date!))}
+            date={dateFormat.format(new Date(project.date))}
             iconStyle={{
               background: "var(--cardBackgroundColor)",
               display: "flex",

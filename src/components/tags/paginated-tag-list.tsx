@@ -9,13 +9,7 @@ import { TagListSortOrderPicker } from "./tag-list-sort-order";
 import { DetailedTagList } from "./tag-list";
 import { useNextLocation } from "components/search";
 
-export const PaginatedTagList = ({
-  tags,
-  page,
-  total,
-  limit,
-  sortOptionId,
-}) => {
+export const PaginatedTagList = ({ tags, total, sortOptionId }) => {
   const { pageNumbers } = PaginationContainer.useContainer();
   const { navigate } = useNextLocation();
 

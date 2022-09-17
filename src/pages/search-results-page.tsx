@@ -45,7 +45,7 @@ export const SearchResultsPage = () => {
   });
 
   const includedTags =
-    relevantTags && relevantTags.slice(0, 5).map(([tagId, count]) => tagId);
+    relevantTags && relevantTags.slice(0, 5).map(([tagId]) => tagId);
 
   return (
     <MainContent>
@@ -61,9 +61,7 @@ export const SearchResultsPage = () => {
           {includedTags.length > 0 && <RelevantTags tagIds={includedTags} />}
           <ProjectPaginatedList
             projects={foundProjects}
-            page={page}
             total={total}
-            limit={limit}
             sortOptionId={sortOptionId}
           />
         </PaginationContainer.Provider>

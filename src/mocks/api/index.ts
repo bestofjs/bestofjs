@@ -1,6 +1,4 @@
 import { rest } from "msw";
-import fs from "fs";
-import path from "path";
 import monthlyDownloadsReactResponse from "../data/monthly-downloads-react.json";
 import monthlyRankings202203Response from "../data/monthly-rankings-2022-03.json";
 import monthlyRankings202204Response from "../data/monthly-rankings-2022-04.json";

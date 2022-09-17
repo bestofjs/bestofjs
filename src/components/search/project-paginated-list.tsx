@@ -11,13 +11,7 @@ import { Box, Stack } from "components/core";
 import { SortOrderPicker } from "./sort-order-picker";
 import { useNextLocation } from "./search-utils";
 
-export const ProjectPaginatedList = ({
-  projects,
-  page,
-  total,
-  limit,
-  sortOptionId,
-}) => {
+export const ProjectPaginatedList = ({ projects, total, sortOptionId }) => {
   const { pageNumbers } = PaginationContainer.useContainer();
   const { navigate } = useNextLocation();
 

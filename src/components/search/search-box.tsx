@@ -126,7 +126,7 @@ const customComponents = {
   ClearIndicator: (props) => {
     return <CloseButton size="sm" mx={2} onClick={() => props.clearValue()} />;
   },
-  DropdownIndicator: (props) => {
+  DropdownIndicator: () => {
     return (
       <IconButton
         icon={<ChevronDownIcon fontSize="16px" />}

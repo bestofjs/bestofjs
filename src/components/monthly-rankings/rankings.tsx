@@ -43,8 +43,6 @@ export const MonthlyRankingsNavigator = ({
 
 export const MonthlyRankingsProjects = ({
   projects,
-  year,
-  month,
   limit,
   footer,
 }: {
