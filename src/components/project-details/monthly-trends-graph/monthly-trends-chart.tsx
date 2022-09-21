@@ -68,9 +68,12 @@ const BarGraph = ({ items, ...rest }: BarGraphProps) => {
   return (
     <Box w="100%">
       <ViewDetailsOnSmallScreens selectedItem={selectedItem} {...rest} />
-      <Grid templateColumns="repeat(12, 1fr)" minHeight={150}>
+      <Grid templateColumns="repeat(12, 1fr)">
         {items.map((item) => {
           const { year, month, value } = item;
+          const maxHeight = 120;
+          const height = Math.round(((value || 0) / maxValue) * maxHeight);
+
           return (
             <GridItem
               key={`${year}/${month}`}
@@ -81,10 +84,10 @@ const BarGraph = ({ items, ...rest }: BarGraphProps) => {
               justifyContent="flex-end"
             >
               <GraphBar
+                height={height}
                 value={value}
                 year={year}
                 month={month}
-                maxValue={maxValue}
                 onClick={() => setSelectedItem(item)}
                 {...rest}
               />
@@ -148,16 +151,16 @@ const MonthSummary = ({
 };
 
 const GraphBar = ({
+  height,
   value,
   year,
   month,
-  maxValue,
   unit,
   showPlusSymbol,
   onClick,
 }: {
+  height: number;
   value: number | undefined;
-  maxValue: number;
   year: number;
   month: number;
   onClick?: () => void;
@@ -165,10 +168,6 @@ const GraphBar = ({
   if (!value) {
     return <EmptyGraphBar value={value} />;
   }
-
-  const height = maxValue
-    ? `${Math.round(((value || 0) * 100) / maxValue)}%`
-    : "0px";
 
   const formattedValue = formatValue(value, { decimals: 1, showPlusSymbol });
   const formattedDate = year + "/" + month;
@@ -178,16 +177,12 @@ const GraphBar = ({
     <>
       <BarTopLabel>{formattedValue}</BarTopLabel>
       <Box
-        h={height}
+        style={{ height }}
         w="75%"
         maxWidth={8}
         mt={1}
         aria-label={tooltipLabel}
-        bg="linear-gradient(
-        180deg,
-        var(--graphBackgroundColor1),
-        var(--graphBackgroundColor2)
-        )"
+        bg="linear-gradient(180deg,var(--graphBackgroundColor1),var(--graphBackgroundColor2))"
         onClick={onClick}
       ></Box>
     </>
