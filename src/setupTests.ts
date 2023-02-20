@@ -1,8 +1,10 @@
 import "@testing-library/jest-dom/extend-expect";
-import { configure } from "@testing-library/dom";
+import { configure } from "@testing-library/react";
 import "whatwg-fetch";
 import { server } from "mocks/server";
 import { jestPreviewConfigure } from "jest-preview";
+
+import "./stylesheets/base.css";
 
 // Set default timeout for waitFor, findBy... 2500ms
 configure({
@@ -13,7 +15,6 @@ configure({
 jest.setTimeout(10000);
 
 jestPreviewConfigure({
-  externalCss: ["src/stylesheets/base.css"],
   autoPreview: true,
 });
 

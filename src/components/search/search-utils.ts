@@ -1,5 +1,5 @@
 import { stringify } from "qs";
-import { useHistory, useLocation } from "react-router";
+import { useHistory, useLocation } from "react-router-dom";
 
 import { parseQueryString } from "helpers/url";
 
