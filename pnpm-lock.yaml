@@ -22,7 +22,7 @@ dependencies:
     version: 1.7.11(react-dom@17.0.2)(react@17.0.2)
   '@vitejs/plugin-react':
     specifier: ^2.0.0
-    version: 2.2.0(vite@3.2.5)
+    version: 2.2.0(vite@3.2.7)
   cross-env:
     specifier: ^7.0.3
     version: 7.0.3
@@ -93,17 +93,17 @@ dependencies:
     specifier: ^2.4.1
     version: 2.4.2
   vite:
-    specifier: ^3.2.5
-    version: 3.2.5(@types/node@14.18.36)
+    specifier: ^3.2.7
+    version: 3.2.7(@types/node@14.18.36)
   vite-plugin-checker:
     specifier: ^0.4.9
-    version: 0.4.9(vite@3.2.5)
+    version: 0.4.9(vite@3.2.7)
   vite-plugin-html:
     specifier: ^3.2.0
-    version: 3.2.0(vite@3.2.5)
+    version: 3.2.0(vite@3.2.7)
   vite-tsconfig-paths:
     specifier: ^3.4.1
-    version: 3.6.0(vite@3.2.5)
+    version: 3.6.0(vite@3.2.7)
 
 devDependencies:
   '@swc/jest':
@@ -2652,7 +2652,7 @@ packages:
       eslint-visitor-keys: 3.3.0
     dev: true
 
-  /@vitejs/plugin-react@2.2.0(vite@3.2.5):
+  /@vitejs/plugin-react@2.2.0(vite@3.2.7):
     resolution: {integrity: sha512-FFpefhvExd1toVRlokZgxgy2JtnBOdp4ZDsq7ldCWaqGSGn9UhWMAVm/1lxPL14JfNS5yGz+s9yFrQY6shoStA==}
     engines: {node: ^14.18.0 || >=16.0.0}
     peerDependencies:
@@ -2665,7 +2665,7 @@ packages:
       '@babel/plugin-transform-react-jsx-source': 7.19.6(@babel/core@7.20.12)
       magic-string: 0.26.7
       react-refresh: 0.14.0
-      vite: 3.2.5(@types/node@14.18.36)
+      vite: 3.2.7(@types/node@14.18.36)
     transitivePeerDependencies:
       - supports-color
     dev: false
@@ -8140,7 +8140,7 @@ packages:
     engines: {node: '>= 0.8'}
     dev: false
 
-  /vite-plugin-checker@0.4.9(vite@3.2.5):
+  /vite-plugin-checker@0.4.9(vite@3.2.7):
     resolution: {integrity: sha512-Oii9mTum8bqZovWejcR739kCqST32oG6LdB/XMdwcLVzmcjq0gf1iVDIedVzJJ7t6GLQAYgjNwvB0fuMiT3tlg==}
     hasBin: true
     peerDependencies:
@@ -8157,14 +8157,14 @@ packages:
       npm-run-path: 4.0.1
       strip-ansi: 6.0.1
       tiny-invariant: 1.3.1
-      vite: 3.2.5(@types/node@14.18.36)
+      vite: 3.2.7(@types/node@14.18.36)
       vscode-languageclient: 7.0.0
       vscode-languageserver: 7.0.0
       vscode-languageserver-textdocument: 1.0.8
       vscode-uri: 3.0.7
     dev: false
 
-  /vite-plugin-html@3.2.0(vite@3.2.5):
+  /vite-plugin-html@3.2.0(vite@3.2.7):
     resolution: {integrity: sha512-2VLCeDiHmV/BqqNn5h2V+4280KRgQzCFN47cst3WiNK848klESPQnzuC3okH5XHtgwHH/6s1Ho/YV6yIO0pgoQ==}
     peerDependencies:
       vite: '>=2.0.0'
@@ -8181,10 +8181,10 @@ packages:
       html-minifier-terser: 6.1.0
       node-html-parser: 5.4.2
       pathe: 0.2.0
-      vite: 3.2.5(@types/node@14.18.36)
+      vite: 3.2.7(@types/node@14.18.36)
     dev: false
 
-  /vite-tsconfig-paths@3.6.0(vite@3.2.5):
+  /vite-tsconfig-paths@3.6.0(vite@3.2.7):
     resolution: {integrity: sha512-UfsPYonxLqPD633X8cWcPFVuYzx/CMNHAjZTasYwX69sXpa4gNmQkR0XCjj82h7zhLGdTWagMjC1qfb9S+zv0A==}
     peerDependencies:
       vite: '>2.0.0-0'
@@ -8193,13 +8193,13 @@ packages:
       globrex: 0.1.2
       recrawl-sync: 2.2.3
       tsconfig-paths: 4.1.2
-      vite: 3.2.5(@types/node@14.18.36)
+      vite: 3.2.7(@types/node@14.18.36)
     transitivePeerDependencies:
       - supports-color
     dev: false
 
-  /vite@3.2.5(@types/node@14.18.36):
-    resolution: {integrity: sha512-4mVEpXpSOgrssFZAOmGIr85wPHKvaDAcXqxVxVRZhljkJOMZi1ibLibzjLHzJvcok8BMguLc7g1W6W/GqZbLdQ==}
+  /vite@3.2.7(@types/node@14.18.36):
+    resolution: {integrity: sha512-29pdXjk49xAP0QBr0xXqu2s5jiQIXNvE/xwd0vUizYT2Hzqe4BksNNoWllFVXJf4eLZ+UlVQmXfB4lWrc+t18g==}
     engines: {node: ^14.18.0 || >=16.0.0}
     hasBin: true
     peerDependencies:
