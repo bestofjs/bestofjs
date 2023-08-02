@@ -17,9 +17,3 @@ node_modules
 # Users Environment Variables
 .lock-wscript
 .DS_Store
-
-# Webpack monitor files
-monitor/
-
-# Private notes
-memo/
