@@ -1,0 +1,10 @@
+{
+  "name": "bestofjs",
+  "version": "1.0.0",
+  "description": "Best of JS monorepo",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Michael Rambeau",
+  "license": "MIT"
+}
