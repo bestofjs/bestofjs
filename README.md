@@ -14,7 +14,7 @@ This is a place where full-stack developers can find the best components to buil
 
 Projects are carefully classified under tags such as:
 
-- [Component Toolkits](<(https://bestofjs.org/tags/component)>): sets of UI components for your favorite framework
+- [Component Toolkits](https://bestofjs.org/tags/component)): Sets of UI components for your favorite framework (React, Vue.js, Angular...)
 - [UI frameworks](https://bestofjs.org/tags/framework): solutions to build front-end applications that run in the browser: React, Vue.js, Angular...
 - [Node.js frameworks](https://bestofjs.org/projects?tags=nodejs-framework): solutions to build server-side applications with Node.js: Express, Nest, Fastify...
 - [Charting](https://bestofjs.org/tags/chart): data visualization and chart libraries: D3, ChartJS, ECharts...
@@ -41,12 +41,6 @@ If you find _Best of JS_ useful, show your appreciation by starring the project 
 
 - [GitHub sponsors](https://github.com/sponsors/michaelrambeau)
 - [Open Collective](https://opencollective.com/bestofjs)
-
-### Backers
-
-<a href="https://opencollective.com/bestofjs#contributors" target="_blank">
-  <img src="https://opencollective.com/bestofjs/tiers/backer.svg?avatarHeight=64&button=false">
-</a>
 
 [Become a backer](https://opencollective.com/bestofjs#contribute)
 
