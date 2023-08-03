@@ -1,5 +1,10 @@
 # Change log
 
+## 0.37 - 2023-08-04
+
+- Monorepo setup #174
+- Use PNPM instead of NPM
+
 ## 0.36 - 2022-08-28
 
 - Open GitHub and home page links in a new tab #153

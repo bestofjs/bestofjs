@@ -2,7 +2,7 @@
 
 This is the monorepo for _Best of JS_ application, setup in August 2023.
 
-[![image](https://user-images.githubusercontent.com/5546996/136642215-0954411d-274c-4ae8-8106-75ed69108d15.png)](https://bestofjs.org/)
+[![image](https://github.com/bestofjs/bestofjs/assets/5546996/6415339d-d004-4498-b5d1-0757a26d5ab6)](https://bestofjs.org/)
 
 ## Concept
 
@@ -14,7 +14,7 @@ This is a place where full-stack developers can find the best components to buil
 
 Projects are carefully classified under tags such as:
 
-- [Component Toolkits](https://bestofjs.org/tags/component)): Sets of UI components for your favorite framework (React, Vue.js, Angular...)
+- [Component Toolkits](https://bestofjs.org/tags/component): Sets of UI components for your favorite framework
 - [UI frameworks](https://bestofjs.org/tags/framework): solutions to build front-end applications that run in the browser: React, Vue.js, Angular...
 - [Node.js frameworks](https://bestofjs.org/projects?tags=nodejs-framework): solutions to build server-side applications with Node.js: Express, Nest, Fastify...
 - [Charting](https://bestofjs.org/tags/chart): data visualization and chart libraries: D3, ChartJS, ECharts...
@@ -45,3 +45,5 @@ If you find _Best of JS_ useful, show your appreciation by starring the project 
 [Become a backer](https://opencollective.com/bestofjs#contribute)
 
 Thank you and don't forget: we are all made of stars ![star](https://bestofjs.org/images/star.png)!
+
+_Best of JS_ is a project created and maintained by [Michael Rambeau](https://michaelrambeau/com), in Osaka, Japan.
