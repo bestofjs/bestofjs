@@ -1,25 +1,2 @@
-# Override values from .env files (used to run the API in local)
-.env.local
-
-# Build
-build
-
-# Logs
-logs
-*.log
-
-# Coverage directory used by tools like istanbul
-coverage
-
-# Dependency directory
 node_modules
-
-# Users Environment Variables
-.lock-wscript
 .DS_Store
-
-# Webpack monitor files
-monitor/
-
-# Private notes
-memo/

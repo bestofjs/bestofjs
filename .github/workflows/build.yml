@@ -1,16 +1,19 @@
-name: Jest tests
+name: Jest tests for bestofjs-webui
 
 on:
   push:
+    paths:
+      - "apps/bestofjs-webui/src/**"
   pull_request:
-
+    paths:
+      - "apps/bestofjs-webui/src/**"
 jobs:
   build:
     runs-on: ubuntu-latest
 
     strategy:
       matrix:
-        node-version: [16.x]
+        node-version: [18.x]
 
     steps:
       - uses: actions/checkout@v2
@@ -24,6 +27,6 @@ jobs:
           node-version: ${{ matrix.node-version }}
           cache: "pnpm"
       - name: Install dependencies
-        run: pnpm install
+        run: cd apps/bestofjs-webui && pnpm install
       - name: Run Jest tests
-        run: pnpm run test:ci
+        run: cd apps/bestofjs-webui && pnpm run test:ci

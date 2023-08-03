@@ -1,18 +1,22 @@
+# Best of JS monorepo
+
+This is the monorepo for _Best of JS_ application, setup in August 2023.
+
 [![image](https://user-images.githubusercontent.com/5546996/136642215-0954411d-274c-4ae8-8106-75ed69108d15.png)](https://bestofjs.org/)
 
 ## Concept
 
-[Best of JS](https://bestofjs.org/) gathers the latest trends about open source projects related to Node.js and the web platform: JavaScript of course (client and server side) but also HTML, CSS, and languages that compile to JavaScript, alternative runtimes such as Deno and Bun...
+[Best of JS](https://bestofjs.org/) gathers the latest trends about open source projects related to the web platform and Node.js: JavaScript and TypeScript of course (client and server side) but also HTML, CSS, languages that compile to JavaScript, alternative runtimes such as Deno and Bun...
 
-This is a place where front-end engineers and Node.js developers can find the best components to build amazing web applications.
+This is a place where full-stack developers can find the best components to build amazing web applications.
 
 ## Tags
 
 Projects are carefully classified under tags such as:
 
+- [Component Toolkits](<(https://bestofjs.org/tags/component)>): sets of UI components for your favorite framework
 - [UI frameworks](https://bestofjs.org/tags/framework): solutions to build front-end applications that run in the browser: React, Vue.js, Angular...
 - [Node.js frameworks](https://bestofjs.org/projects?tags=nodejs-framework): solutions to build server-side applications with Node.js: Express, Nest, Fastify...
-- [Testing](https://bestofjs.org/tags/test): testing frameworks and tools: Jest, Mocha, Cypress...
 - [Charting](https://bestofjs.org/tags/chart): data visualization and chart libraries: D3, ChartJS, ECharts...
 - [And many more!](https://bestofjs.org/tags/)
 
@@ -30,32 +34,6 @@ Everyday a scheduled task checks project data from GitHub and generates data con
 Basically _Best of JS_ tracks the number of stars of a curated list of about 2000 projects.
 
 The web application displays the variations over the last days, weeks and months in order to show the trends about the JavaScript landscape.
-
-## Technology
-
-This repository contains _Best of JS_ front-end application code.
-
-The application is a single-page application built with [Vite](http://vitejs.dev/) and hosted on [Vercel](https://vercel.com).
-
-Requirement:
-
-- Node.js 16
-- [PNPM](https://pnpm.io/)
-
-To run the application locally:
-
-```
-pnpm install
-pnpm start
-```
-
-Unit tests:
-
-```
-pnpm test
-```
-
-Special thanks to [Hung Viet Nguyen](https://github.com/nvh95) who set up the application with Vite to provide a great Developer eXperience!
 
 ## Show your support!
 
