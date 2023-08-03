@@ -2,8 +2,11 @@ name: Jest tests for bestofjs-webui
 
 on:
   push:
+    paths:
+      - "apps/bestofjs-webui/src/**"
   pull_request:
-
+    paths:
+      - "apps/bestofjs-webui/src/**"
 jobs:
   build:
     runs-on: ubuntu-latest
