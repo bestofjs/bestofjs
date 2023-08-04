@@ -6,8 +6,9 @@
     "node": "18.x"
   },
   "scripts": {
+    "build-project-data": "node ./scripts/build-project-data.mjs",
     "dev": "next dev",
-    "build": "node ./scripts/build-project-data.mjs && next build",
+    "build": "pnpm build-project-data && next build",
     "start": "next start",
     "lint": "next lint",
     "lint:fix": "next lint --fix",
