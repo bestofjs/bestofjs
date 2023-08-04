@@ -1,7 +1,7 @@
 import { Suspense } from "react";
 import Link from "next/link";
 
-import { siteConfig } from "@/config/site";
+import { APP_REPO_URL, DISCORD_URL } from "@/config/site";
 import { buttonVariants } from "@/components/ui/button";
 import { MainNav } from "@/components/header/desktop-nav";
 import { Icons } from "@/components/icons";
@@ -10,7 +10,7 @@ import { SearchContainer } from "@/app/search-container";
 
 export function SiteHeader() {
   return (
-    <header className="sticky top-0 z-40 w-full border-b bg-background">
+    <header className="bg-background sticky top-0 z-40 w-full border-b">
       <div className="container flex h-16 items-center space-x-4 sm:justify-between sm:space-x-0">
         <MainNav />
         <div className="flex flex-1 items-center justify-end space-x-4">
@@ -20,7 +20,7 @@ export function SiteHeader() {
           */}
           <Suspense
             fallback={
-              <div className="text-sm text-muted-foreground">
+              <div className="text-muted-foreground text-sm">
                 Loading search...
               </div>
             }
@@ -28,11 +28,7 @@ export function SiteHeader() {
             <SearchContainer />
           </Suspense>
           <nav className="flex items-center space-x-1">
-            <Link
-              href={siteConfig.links.github}
-              target="_blank"
-              rel="noreferrer"
-            >
+            <Link href={APP_REPO_URL} target="_blank" rel="noreferrer">
               <div
                 className={buttonVariants({
                   size: "sm",
@@ -40,6 +36,17 @@ export function SiteHeader() {
                 })}
               >
                 <Icons.gitHub className="h-5 w-5" width={20} height={20} />
+                <span className="sr-only">GitHub</span>
+              </div>
+            </Link>
+            <Link href={DISCORD_URL} target="_blank" rel="noreferrer">
+              <div
+                className={buttonVariants({
+                  size: "sm",
+                  variant: "ghost",
+                })}
+              >
+                <Icons.discord className="h-5 w-5" width={20} height={20} />
                 <span className="sr-only">GitHub</span>
               </div>
             </Link>

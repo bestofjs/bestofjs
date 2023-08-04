@@ -1,16 +1,6 @@
-export type SiteConfig = typeof siteConfig;
-
-export const siteConfig = {
-  name: "Best of JS",
-  description:
-    "Check out the most popular open-source projects and the latest trends about the web platform: React, Bue.js, Node.js, Bun, Deno...",
-  links: {
-    github: "https://github.com/bestofjs/bestofjs-webui",
-  },
-};
-
 export const APP_DISPLAY_NAME = "Best of JS";
-export const APP_REPO_URL = "https://github.com/bestofjs/bestofjs-webui";
+export const APP_REPO_URL = "https://github.com/bestofjs/bestofjs";
+export const DISCORD_URL = "https://discord.com/invite/rdctdFX2qR";
 export const RISING_STARS_URL = "https://risingstars.js.org";
 export const SPONSOR_URL = `https://github.com/sponsors/michaelrambeau`;
 export const STATE_OF_JS_URL = `https://stateofjs.com`;
