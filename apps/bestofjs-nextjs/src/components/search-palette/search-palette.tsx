@@ -149,9 +149,9 @@ export function SearchPalette({ allProjects, allTags }: SearchProps) {
     });
   };
 
-  const isEmptyProjects = filteredProjects.length == 0,
-    isEmptyTags = filteredTags.length == 0,
-    isEmptySearchResults = isEmptyProjects && isEmptyTags;
+  const isEmptyProjects = filteredProjects.length == 0;
+  const isEmptyTags = filteredTags.length == 0;
+  const isEmptySearchResults = isEmptyProjects && isEmptyTags;
 
   return (
     <>
