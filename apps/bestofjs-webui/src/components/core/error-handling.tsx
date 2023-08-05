@@ -16,9 +16,11 @@ export class ErrorBoundary extends React.Component<Props, State> {
 
   render() {
     if (!!this.state.error) {
-      return this.props.fallback;
+      return <>{this.props.fallback}</>;
     }
-    return this.props.children;
+    // TODO it seems TS does not pick the right type after migration to PNPM workspace
+    // and we need to wrap with a React Fragment
+    return <>{this.props.children}</>;
   }
 }
 
