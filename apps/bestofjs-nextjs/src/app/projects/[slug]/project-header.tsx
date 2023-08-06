@@ -79,8 +79,6 @@ const ButtonLink = ({
     )}
   >
     <span className="absolute left-4">{icon}</span>
-    <span className="overflow-hidden text-ellipsis whitespace-nowrap pl-[36px] text-base">
-      {children}
-    </span>
+    <span className="truncate pl-[36px] text-base">{children}</span>
   </a>
 );

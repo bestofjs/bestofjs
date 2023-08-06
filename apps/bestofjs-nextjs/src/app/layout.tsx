@@ -38,14 +38,14 @@ export default function RootLayout({ children }: RootLayoutProps) {
         <head />
         <body
           className={cn(
-            "bg-background min-h-screen font-sans antialiased",
+            "min-h-screen bg-background font-sans antialiased",
             fontSans.variable
           )}
         >
           <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
             <div className="relative flex min-h-screen flex-col">
               <SiteHeader />
-              <div className="bg-muted dark:bg-background flex-1">
+              <div className="flex-1 bg-muted dark:bg-background">
                 <div className="container pb-8 pt-6 md:py-10">{children}</div>
               </div>
               <Footer />
