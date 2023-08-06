@@ -51,7 +51,7 @@ export const Home = ({
     <MainContent>
       <Section>
         <Flex>
-          <Box flex="1 1 0%">
+          <Box flex={1}>
             <PageHeader title="The best of JavaScript, HTML and CSS" />
             <HotProjects
               projects={hotProjects}
@@ -65,7 +65,7 @@ export const Home = ({
             <Box
               as="aside"
               pl={8}
-              flexBasis={330}
+              w={330}
               display={{ base: "none", lg: "block" }}
             >
               <BetaVersionNews />
