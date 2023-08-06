@@ -149,6 +149,10 @@ export function SearchPalette({ allProjects, allTags }: SearchProps) {
     });
   };
 
+  const isEmptyProjects = filteredProjects.length == 0;
+  const isEmptyTags = filteredTags.length == 0;
+  const isEmptySearchResults = isEmptyProjects && isEmptyTags;
+
   return (
     <>
       <Button
@@ -192,8 +196,10 @@ export function SearchPalette({ allProjects, allTags }: SearchProps) {
               </div>
             )}
             <CommandList>
-              <CommandEmpty>No results found.</CommandEmpty>
-              {searchQuery.length > 0 && (
+              {isEmptySearchResults && (
+                <CommandEmpty>No results found.</CommandEmpty>
+              )}
+              {searchQuery.length > 0 && !isEmptyProjects && (
                 <CommandGroup heading="Projects">
                   {filteredProjects.slice(0, 10).map((project) => (
                     <div
@@ -272,9 +278,9 @@ export function SearchPalette({ allProjects, allTags }: SearchProps) {
                   )}
                 </CommandGroup>
               )}
-              <CommandGroup heading="Tags">
-                {filteredTags.length > 0 ? (
-                  filteredTags.slice(0, 20).map((tag) => (
+              {!isEmptyTags && (
+                <CommandGroup heading="Tags">
+                  {filteredTags.slice(0, 20).map((tag) => (
                     <CommandItem
                       key={tag.code}
                       value={"tag/" + tag.code}
@@ -290,11 +296,9 @@ export function SearchPalette({ allProjects, allTags }: SearchProps) {
                         </div>
                       </div>
                     </CommandItem>
-                  ))
-                ) : (
-                  <div className="py-6 text-center text-sm">No tag found</div>
-                )}
-              </CommandGroup>
+                  ))}
+                </CommandGroup>
+              )}
             </CommandList>
           </>
         )}
