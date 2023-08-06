@@ -15,7 +15,7 @@ export const metadata: Metadata = {
     template: `${APP_DISPLAY_NAME} • %s`,
   },
   description:
-    "Check out the most popular open-source projects and the latest trends about the web platform: React, Bue.js, Node.js, Bun, Deno...",
+    "Check out the most popular open-source projects and the latest trends about the web platform: React, Vue.js, Node.js, Deno, Bun... The best of JavaScript, TypeScript and friends!",
   themeColor: [
     { media: "(prefers-color-scheme: light)", color: "white" },
     { media: "(prefers-color-scheme: dark)", color: "black" },
@@ -38,14 +38,14 @@ export default function RootLayout({ children }: RootLayoutProps) {
         <head />
         <body
           className={cn(
-            "min-h-screen bg-background font-sans antialiased",
+            "bg-background min-h-screen font-sans antialiased",
             fontSans.variable
           )}
         >
           <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
             <div className="relative flex min-h-screen flex-col">
               <SiteHeader />
-              <div className="flex-1 bg-muted dark:bg-background">
+              <div className="bg-muted dark:bg-background flex-1">
                 <div className="container pb-8 pt-6 md:py-10">{children}</div>
               </div>
               <Footer />
