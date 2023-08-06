@@ -21,7 +21,9 @@
   "include": ["src/vite-env.d.ts", "vite/client", "src"],
   "references": [
     {
-      "path": "./tsconfig.node.json"
+      "path": "./tsconfig.node.json",
+      "react": ["./node_modules/@types/react"],
+      "react-dom": ["./node_modules/@types/react-dom"]
     }
   ]
 }
