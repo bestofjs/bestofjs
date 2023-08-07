@@ -1,6 +1,13 @@
 # Best of JS monorepo
 
-This is the monorepo for _Best of JS_ application, setup in August 2023.
+Monorepo for _Best of JS_ application, setup in August 2023.
+Made of two applications:
+
+```shell
+./apps
+├── bestofjs-nextjs # the beta version:    https://beta.bestofjs.org
+└── bestofjs-webui  # the current version: https://bestofjs.org
+```
 
 [![image](https://github.com/bestofjs/bestofjs/assets/5546996/6415339d-d004-4498-b5d1-0757a26d5ab6)](https://bestofjs.org/)
 
@@ -46,4 +53,4 @@ If you find _Best of JS_ useful, show your appreciation by starring the project 
 
 Thank you and don't forget: we are all made of stars ![star](https://bestofjs.org/images/star.png)!
 
-_Best of JS_ is a project created and maintained by [Michael Rambeau](https://michaelrambeau/com), in Osaka, Japan.
+_Best of JS_ is a project created and maintained by [Michael Rambeau](https://michaelrambeau.com), in Osaka, Japan.

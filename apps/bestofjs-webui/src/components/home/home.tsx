@@ -24,6 +24,7 @@ import { StarIcon } from "components/core/icons";
 import { ExternalLink, MainContent, Section } from "components/core";
 import { CompactTagList } from "components/tags/tag-list";
 import { HotProjects, NewestProjects } from "./home-projects";
+import { BetaVersionNews } from "./beta-version-news";
 import { RandomFeaturedProject } from "./featured-projects";
 import { HomeMonthlyRankings } from "./home-monthly-rankings";
 import { SortOptionKey } from "components/search/sort-order-options";
@@ -49,9 +50,9 @@ export const Home = ({
   return (
     <MainContent>
       <Section>
-        <PageHeader title="The best of JavaScript, HTML and CSS" />
         <Flex>
-          <Box flex="1 1 0%">
+          <Box flex={1}>
+            <PageHeader title="The best of JavaScript, HTML and CSS" />
             <HotProjects
               projects={hotProjects}
               sort={sort}
@@ -64,9 +65,10 @@ export const Home = ({
             <Box
               as="aside"
               pl={8}
-              flexBasis={330}
+              w={330}
               display={{ base: "none", lg: "block" }}
             >
+              <BetaVersionNews />
               <RandomFeaturedProject metrics={sort} />
               <div data-testid="popular-tags-section-desktop">
                 <SectionHeading
