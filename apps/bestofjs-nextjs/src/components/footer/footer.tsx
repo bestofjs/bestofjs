@@ -25,7 +25,7 @@ export const Footer = () => {
             />
           </div>
           <div className="space-y-2">
-            <div className="text-muted-foreground text-sm">Direct links</div>
+            <div className="text-sm text-muted-foreground">Direct links</div>
             <div className="flex flex-col gap-2">
               <NextLink href="/projects" className="hover:underline">
                 Projects
@@ -42,7 +42,7 @@ export const Footer = () => {
             </div>
           </div>
           <div className="space-y-2">
-            <div className="text-muted-foreground text-sm">
+            <div className="text-sm text-muted-foreground">
               Related projects
             </div>
             <div className="flex flex-col gap-2">
@@ -66,7 +66,7 @@ export const Footer = () => {
           </div>
         </div>
         <Separator />
-        <div className="flex gap-4 py-8 flex-col">
+        <div className="flex flex-col gap-4 py-8">
           <div className="flex items-center justify-center">
             <p>
               <i>{APP_DISPLAY_NAME}</i> is a project by{" "}
