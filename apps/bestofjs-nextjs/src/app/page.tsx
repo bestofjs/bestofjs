@@ -5,6 +5,7 @@ import { GoFlame, GoGift, GoHeart, GoPlus } from "react-icons/go";
 import {
   ADD_PROJECT_REQUEST_URL,
   APP_DISPLAY_NAME,
+  APP_REPO_FULL_NAME,
   APP_REPO_URL,
   SPONSOR_URL,
 } from "@/config/site";
@@ -261,7 +262,7 @@ async function getData() {
     getLatestProjects()
   );
   const bestOfJSProject = await searchClient.findOne({
-    full_name: "bestofjs/bestofjs-webui",
+    full_name: APP_REPO_FULL_NAME,
   });
   const { tags: popularTags } = await searchClient.findTags({
     sort: { counter: -1 },

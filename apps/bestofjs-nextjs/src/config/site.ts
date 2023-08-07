@@ -1,5 +1,6 @@
 export const APP_DISPLAY_NAME = "Best of JS";
-export const APP_REPO_URL = "https://github.com/bestofjs/bestofjs";
+export const APP_REPO_FULL_NAME = "bestofjs/bestofjs";
+export const APP_REPO_URL = "https://github.com/" + APP_REPO_FULL_NAME;
 export const DISCORD_URL = "https://discord.com/invite/rdctdFX2qR";
 export const RISING_STARS_URL = "https://risingstars.js.org";
 export const SPONSOR_URL = `https://github.com/sponsors/michaelrambeau`;
