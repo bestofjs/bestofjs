@@ -1,7 +1,8 @@
 import "@/app/globals.css";
 import { Metadata } from "next";
+import { Analytics } from "@vercel/analytics/react";
 
-import { siteConfig } from "@/config/site";
+import { APP_DISPLAY_NAME } from "@/config/site";
 import { fontSans } from "@/lib/fonts";
 import { cn } from "@/lib/utils";
 import { Footer } from "@/components/footer/footer";
@@ -11,10 +12,11 @@ import { ThemeProvider } from "@/components/theme-provider";
 
 export const metadata: Metadata = {
   title: {
-    default: siteConfig.name,
-    template: `${siteConfig.name} • %s`,
+    default: APP_DISPLAY_NAME,
+    template: `${APP_DISPLAY_NAME} • %s`,
   },
-  description: siteConfig.description,
+  description:
+    "Check out the most popular open-source projects and the latest trends about the web platform: React, Vue.js, Node.js, Deno, Bun... The best of JavaScript, TypeScript and friends!",
   themeColor: [
     { media: "(prefers-color-scheme: light)", color: "white" },
     { media: "(prefers-color-scheme: dark)", color: "black" },
@@ -51,6 +53,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
             </div>
             <TailwindIndicator />
           </ThemeProvider>
+          <Analytics />
         </body>
       </html>
     </>

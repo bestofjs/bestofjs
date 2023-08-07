@@ -4,7 +4,8 @@ import { ProjectSearchQuery } from "@/app/projects/types";
 
 import { SortOptionKey } from "./sort-order-options";
 
-const DEFAULT_SEARCH_ORDER = "total";
+const DEFAULT_NUMBER_OF_PROJECTS_BY_PAGE = 30;
+const DEFAULT_SEARCH_ORDER: SortOptionKey = "total";
 
 // Raw params values from URLSearchParams.get() and .getAll() methods, before any parsing
 export type ProjectPageSearchParams = {
@@ -41,7 +42,7 @@ export function parseSearchParams(
     query: params.query || "", // TODO clean input?
     tags: toArray(params.tags),
     page: toInteger(params.page, 1),
-    limit: toInteger(params.limit, 10),
+    limit: toInteger(params.limit, DEFAULT_NUMBER_OF_PROJECTS_BY_PAGE),
     sort: (params.sort || DEFAULT_SEARCH_ORDER) as SortOptionKey,
   };
 }

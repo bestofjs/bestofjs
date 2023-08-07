@@ -6,8 +6,9 @@
     "node": "18.x"
   },
   "scripts": {
+    "build-project-data": "node ./scripts/build-project-data.mjs",
     "dev": "next dev",
-    "build": "node ./scripts/build-project-data.mjs && next build",
+    "build": "pnpm build-project-data && next build",
     "start": "next start",
     "lint": "next lint",
     "lint:fix": "next lint --fix",
@@ -29,6 +30,7 @@
     "@types/fs-extra": "^11.0.1",
     "@types/lodash": "^4.14.195",
     "@types/numeral": "^2.0.2",
+    "@vercel/analytics": "^1.0.1",
     "class-variance-authority": "^0.4.0",
     "clsx": "^1.2.1",
     "cmdk": "^0.2.0",
