@@ -1,7 +1,15 @@
 import Image from "next/image";
 import NextLink from "next/link";
 
-import { RISING_STARS_URL, STATE_OF_JS_URL } from "@/config/site";
+import {
+  APP_DISPLAY_NAME,
+  RISING_STARS_URL,
+  STATE_OF_JS_URL,
+} from "@/config/site";
+import { Separator } from "@/components/ui/separator";
+
+import { ExternalLink } from "../core/typography";
+import { Icons } from "../icons";
 
 export const Footer = () => {
   return (
@@ -55,6 +63,24 @@ export const Footer = () => {
                 State of JS
               </a>
             </div>
+          </div>
+        </div>
+        <Separator />
+        <div className="flex flex-col gap-4 py-8">
+          <div className="flex items-center justify-center">
+            <p>
+              <i>{APP_DISPLAY_NAME}</i> is a project by{" "}
+              <ExternalLink url="https://michaelrambeau.com/">
+                Michael Rambeau
+              </ExternalLink>
+              , made in Osaka, Japan.
+            </p>
+          </div>
+          <div className="flex items-center justify-center gap-1">
+            <div>Powered by</div>
+            <a href="https://vercel.com?utm_source=bestofjs">
+              <Icons.vercel width={80} height={18.1} />
+            </a>
           </div>
         </div>
       </div>
