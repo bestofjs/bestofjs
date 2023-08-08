@@ -75,7 +75,7 @@ const ProjectTableRow = ({
 
       <Cell className="w-auto py-4 pl-4 md:pl-2">
         <div className="relative flex items-center space-x-2">
-          <NextLink href={path} className="hover:underline">
+          <NextLink href={path} className="hover:underline font-mono">
             {project.name}
           </NextLink>
           <div className="flex space-x-1">
@@ -114,7 +114,7 @@ const ProjectTableRow = ({
           </div>
         </div>
 
-        <div className="mb-3 mt-2 space-y-2 text-sm">
+        <div className="mb-4 mt-2 space-y-2 text-sm">
           <div>{project.description}</div>
           {showDetails && (
             <>
