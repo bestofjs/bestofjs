@@ -45,13 +45,14 @@
     --background: 240 10% 3.9%;
     --foreground: 0 0% 98%;
 
-    --card: 240 10% 3.9%;
+    /* Less dark cards to make them stand up from the black bg (original: 240 10% 3.9%) */
+    --card: 240 10% 15%;
     --card-foreground: 0 0% 98%;
 
     --popover: 240 10% 3.9%;
     --popover-foreground: 0 0% 98%;
 
-    /* --primary: 0 0% 98%; */
+    /* Setup orange as the primary color instead of 0 0% 98% */
     --primary: 25 100% 70%;
     --primary-foreground: 240 5.9% 10%;
 
@@ -61,13 +62,15 @@
     --muted: 240 3.7% 15.9%;
     --muted-foreground: 240 5% 64.9%;
 
-    --accent: 240 3.7% 15.9%;
+    /* Increase contrast when tags are hovered (original L=15.9%) */
+    --accent: 240 3.7% 20%;
     --accent-foreground: 0 0% 98%;
 
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 0 85.7% 97.3%;
 
-    --border: 240 3.7% 15.9%;
+    /* Increase the contrast of border as we use a less dark bg for cards (original L=15.9%) */
+    --border: 240 3.7% 25%;
     --input: 240 3.7% 15.9%;
     --ring: 240 4.9% 83.9%;
 

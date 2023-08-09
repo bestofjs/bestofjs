@@ -43,7 +43,10 @@ export const ProjectTag = ({
   return (
     <NextLink
       href={url}
-      className={cn(badgeVariants({ variant: "secondary" }), "text-sm")}
+      className={cn(
+        badgeVariants({ variant: "outline" }),
+        "px-3 py-1 text-sm rounded-sm font-normal hover:bg-accent"
+      )}
     >
       {tag.name}
     </NextLink>
