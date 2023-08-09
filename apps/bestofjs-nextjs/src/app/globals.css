@@ -42,38 +42,37 @@
   }
 
   .dark {
-    --background: 224 71% 4%;
-    --foreground: 213 31% 91%;
+    --background: 240 10% 3.9%;
+    --foreground: 0 0% 98%;
 
-    --muted: 223 47% 11%;
-    --muted-foreground: 215.4 16.3% 56.9%;
+    /* Less dark cards to make them stand up from the black bg (original: 240 10% 3.9%) */
+    --card: 240 10% 15%;
+    --card-foreground: 0 0% 98%;
 
-    --accent: 216 34% 17%;
-    --accent-foreground: 210 40% 98%;
+    --popover: 240 10% 3.9%;
+    --popover-foreground: 0 0% 98%;
 
-    --popover: 224 71% 4%;
-    --popover-foreground: 215 20.2% 65.1%;
+    /* Setup orange as the primary color instead of 0 0% 98% */
+    --primary: 25 100% 70%;
+    --primary-foreground: 240 5.9% 10%;
 
-    --border: 216 34% 27%;
-    --input: 216 34% 17%;
+    --secondary: 240 3.7% 15.9%;
+    --secondary-foreground: 0 0% 98%;
 
-    --card: 224 71% 4%;
-    --card-foreground: 213 31% 91%;
+    --muted: 240 3.7% 15.9%;
+    --muted-foreground: 240 5% 64.9%;
 
-    /* --primary: 210 40% 98%; */
-    /* orange6 from Radix instead of "SeaSalt" light gray */
-    --primary: 25 100% 82.8%;
-    --primary-foreground: 222.2 47.4% 1.2%;
+    /* Increase contrast when tags are hovered (original L=15.9%) */
+    --accent: 240 3.7% 20%;
+    --accent-foreground: 0 0% 98%;
 
-    --secondary: 222.2 47.4% 11.2%;
-    --secondary-foreground: 210 40% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 85.7% 97.3%;
 
-    --destructive: 0 63% 31%;
-    --destructive-foreground: 210 40% 98%;
-
-    --ring: 216 34% 17%;
-
-    --radius: 0.5rem;
+    /* Increase the contrast of border as we use a less dark bg for cards (original L=15.9%) */
+    --border: 240 3.7% 25%;
+    --input: 240 3.7% 15.9%;
+    --ring: 240 4.9% 83.9%;
 
     --graphBackgroundColor1: #9c4221;
     --graphBackgroundColor2: #7b341e;

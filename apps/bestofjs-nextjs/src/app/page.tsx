@@ -51,7 +51,7 @@ export default async function IndexPage() {
       </div>
 
       <div className="flex flex-col gap-8 lg:flex-row">
-        <div className="grow space-y-6">
+        <div className="grow space-y-8">
           <HotProjectList projects={hotProjects} />
 
           <NewestProjectList projects={newestProjects} />

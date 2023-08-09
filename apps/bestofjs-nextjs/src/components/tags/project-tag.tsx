@@ -1,6 +1,7 @@
 import React from "react";
 import NextLink from "next/link";
 
+import { cn } from "@/lib/utils";
 import { badgeVariants } from "@/components/ui/badge";
 // import { MdAdd } from "react-icons/md";
 import { ProjectSearchQuery, SearchUrlBuilder } from "@/app/projects/types";
@@ -40,7 +41,13 @@ export const ProjectTag = ({
     : `/projects?tags=${tag.code}`;
 
   return (
-    <NextLink href={url} className={badgeVariants({ variant: "secondary" })}>
+    <NextLink
+      href={url}
+      className={cn(
+        badgeVariants({ variant: "outline" }),
+        "px-3 py-1 text-sm rounded-sm font-normal hover:bg-accent"
+      )}
+    >
       {tag.name}
     </NextLink>
   );

@@ -29,7 +29,7 @@ export function MainNav() {
           <Icons.logo
             width={130}
             height={37.15}
-            className="h-[37.15px] w-[130px] text-orange-600 dark:text-yellow-400"
+            className="h-[37.15px] w-[130px] text-primary"
           />
         </Link>
         <nav className="flex gap-6">
