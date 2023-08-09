@@ -9,7 +9,7 @@ module.exports = {
       center: true,
       padding: "2rem",
       screens: {
-        "2xl": "1064px", // set 1000px as the mas content width (taking into account the spacing 2 x 32px)
+        "2xl": "1064px", // set 1000px as the max content width (taking into account the spacing 2 x 32px)
       },
     },
     extend: {
