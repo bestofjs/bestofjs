@@ -10,12 +10,8 @@ export const PageHeading = ({ icon, subtitle, title }: Props) => {
     <div className="mb-6 flex items-center">
       {icon && <div className="pr-2 text-yellow-500">{icon}</div>}
       <div className="grow">
-        <h1 className="text-3xl">{title}</h1>
-        {subtitle && (
-          <div className="uppercase text-[var(--textSecondaryColor)]">
-            {subtitle}
-          </div>
-        )}
+        <h1 className="font-mono text-3xl">{title}</h1>
+        {subtitle && <div className="text-muted-foreground">{subtitle}</div>}
       </div>
     </div>
   );

@@ -36,14 +36,17 @@ export function stateToQueryString({
 }
 
 export function parseSearchParams(
-  params: ProjectPageSearchParams
+  params: ProjectPageSearchParams,
+  defaultParams?: Partial<ProjectSearchQuery>
 ): ProjectSearchQuery {
   return {
     query: params.query || "", // TODO clean input?
     tags: toArray(params.tags),
     page: toInteger(params.page, 1),
     limit: toInteger(params.limit, DEFAULT_NUMBER_OF_PROJECTS_BY_PAGE),
-    sort: (params.sort || DEFAULT_SEARCH_ORDER) as SortOptionKey,
+    sort: (params.sort ||
+      defaultParams?.sort ||
+      DEFAULT_SEARCH_ORDER) as SortOptionKey,
   };
 }
 

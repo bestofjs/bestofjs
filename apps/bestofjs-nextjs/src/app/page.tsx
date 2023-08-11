@@ -27,6 +27,7 @@ import {
   getHotProjectsRequest,
   getLatestProjects,
 } from "./backend-search-requests";
+import { FeaturedProjects } from "./home-featured-projects";
 import { LatestMonthlyRankings } from "./latest-monthly-rankings";
 
 // Try to revalidate the home page every hour to take into account changes from the API
@@ -44,9 +45,11 @@ export default async function IndexPage() {
         <h1 className="text-3xl font-extrabold leading-tight tracking-tighter md:text-4xl">
           The best of JS and friends
         </h1>
-        <p className="max-w-[700px] text-lg text-muted-foreground">
+        <p className="text-lg text-muted-foreground">
           A place to find the best open source projects related to the web
-          platform: JS, HTML, CSS, but also TypeScript, Node.js, Deno, Bun...
+          platform:
+          <br />
+          JS, HTML, CSS, but also TypeScript, Node.js, Deno, Bun...
         </p>
       </div>
 
@@ -56,7 +59,9 @@ export default async function IndexPage() {
 
           <NewestProjectList projects={newestProjects} />
         </div>
-        <div className="min-w-[300px]">
+        <div className="w-[300px] space-y-8">
+          {/* @ts-expect-error Server Component */}
+          <FeaturedProjects />
           <PopularTagsList tags={popularTags} />
         </div>
       </div>
@@ -84,7 +89,7 @@ function HotProjectList({ projects }: { projects: BestOfJS.Project[] }) {
           title="Hot Projects"
           subtitle={
             <>
-              by number of stars added <b>the last 24 hours</b>
+              By number of stars added <b>the last 24 hours</b>
             </>
           }
         />
@@ -156,7 +161,7 @@ function PopularTagsList({ tags }: { tags: BestOfJS.Tag[] }) {
         <SectionHeading
           icon={<TagIcon fontSize={32} />}
           title="Popular Tags"
-          subtitle={<>by number of projects</>}
+          subtitle={<>By number of projects</>}
         />
       </CardHeader>
       <CompactTagList tags={tags} />

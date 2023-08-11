@@ -77,7 +77,7 @@ const ProjectTableRow = ({
         <div className="relative flex items-center space-x-2">
           <NextLink
             href={path}
-            className="hover:underline font-mono text-primary"
+            className="font-mono text-primary hover:underline"
           >
             {project.name}
           </NextLink>

@@ -25,3 +25,7 @@ export function getBestOfJSProject() {
     limit: 1,
   };
 }
+
+export function getFeaturedProjectsRequest() {
+  return { criteria: { isFeatured: true } };
+}
