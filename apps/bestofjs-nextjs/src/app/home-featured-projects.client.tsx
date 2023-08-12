@@ -14,10 +14,10 @@ import { SectionHeading } from "@/components/core/section";
 import { FeaturedProjectList } from "@/components/home/featured-project-list";
 
 const numberOfProjectPerPage = 5;
-const totalNumberOfProjects = 200;
+const totalNumberOfProjects = 200; // TODO get the value from the API
 const lastPageNumber = totalNumberOfProjects / numberOfProjectPerPage - 1;
 
-type Props = { initialContent: React.ReactNode; header: React.ReactNode };
+type Props = { initialContent: React.ReactNode };
 export function FeaturedProjectsClient({ initialContent }: Props) {
   const [pageNumber, setPageNumber] = useState<number>(0);
   const increment = () => {
