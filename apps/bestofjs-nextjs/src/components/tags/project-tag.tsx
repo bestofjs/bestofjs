@@ -27,10 +27,12 @@ export const ProjectTag = ({
   tag,
   buildPageURL,
   appendTag,
+  className,
 }: {
   tag: BestOfJS.Tag;
   buildPageURL?: Props["buildPageURL"];
   appendTag?: boolean;
+  className?: string;
 }) => {
   const url = buildPageURL
     ? buildPageURL((state) => ({
@@ -45,7 +47,8 @@ export const ProjectTag = ({
       href={url}
       className={cn(
         badgeVariants({ variant: "outline" }),
-        "rounded-sm px-3 py-1 text-sm font-normal hover:bg-accent"
+        "rounded-sm px-3 py-1 text-sm font-normal hover:bg-accent",
+        className
       )}
     >
       {tag.name}
