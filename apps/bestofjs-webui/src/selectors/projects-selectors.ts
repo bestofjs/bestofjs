@@ -112,8 +112,7 @@ export const getFeaturedProjects = (criteria) =>
     [allProjects, (state) => state.entities.tags, (state) => state.auth],
     (projects, tags, auth) => {
       const featured = projects
-        .filter((project) => !!project.icon)
-        .filter((project) => project.stars > 1000)
+        .filter((project) => project.isFeatured)
         .map(getFullProject(tags, auth));
       const projectSelector = getProjectSelectorByKey(criteria);
       return sortProjects(projectSelector)(featured);
