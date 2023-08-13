@@ -16,6 +16,8 @@ import { Separator } from "@/components/ui/separator";
 import { CardHeader, StarIcon, TagIcon } from "@/components/core";
 import { SectionHeading } from "@/components/core/section";
 import { ExternalLink } from "@/components/core/typography";
+import { FeaturedProjects } from "@/components/home/home-featured-projects";
+import { LatestMonthlyRankings } from "@/components/home/latest-monthly-rankings";
 import {
   ProjectScore,
   ProjectTable,
@@ -27,8 +29,6 @@ import {
   getHotProjectsRequest,
   getLatestProjects,
 } from "./backend-search-requests";
-import { FeaturedProjects } from "./home-featured-projects";
-import { LatestMonthlyRankings } from "./latest-monthly-rankings";
 
 // Try to revalidate the home page every hour to take into account changes from the API
 // as `revalidate` param used in `fetch` request to get data does not seem to work

@@ -4,8 +4,8 @@ import { cn } from "@/lib/utils";
 import { buttonVariants } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { FeaturedProjectList } from "@/components/home/featured-project-list";
+import { searchClient } from "@/app/backend";
 
-import { searchClient } from "./backend";
 import { FeaturedProjectsClient } from "./home-featured-projects.client";
 
 type Props = {
