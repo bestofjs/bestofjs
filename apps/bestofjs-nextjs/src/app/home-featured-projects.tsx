@@ -8,12 +8,19 @@ import { FeaturedProjectList } from "@/components/home/featured-project-list";
 import { searchClient } from "./backend";
 import { FeaturedProjectsClient } from "./home-featured-projects.client";
 
-export async function FeaturedProjects() {
-  const projects = await fetchFeaturedProjects();
+type Props = {
+  numberOfProjectPerPage: number;
+};
+export async function FeaturedProjects({ numberOfProjectPerPage = 5 }: Props) {
+  const { projects, total } = await fetchFeaturedProjects(
+    numberOfProjectPerPage
+  );
   return (
     <Card>
       <FeaturedProjectsClient
         initialContent={<FeaturedProjectList projects={projects} />}
+        totalNumberOfProjects={total}
+        numberOfProjectPerPage={numberOfProjectPerPage}
       />
       <div className="border-t p-4">
         <NextLink
@@ -31,7 +38,10 @@ export async function FeaturedProjects() {
   );
 }
 
-async function fetchFeaturedProjects() {
-  const { projects } = await searchClient.findRandomFeaturedProjects(0, 5);
-  return projects;
+async function fetchFeaturedProjects(numberOfProjectPerPage: number) {
+  const { projects, total } = await searchClient.findRandomFeaturedProjects({
+    skip: 0,
+    limit: numberOfProjectPerPage,
+  });
+  return { projects, total };
 }

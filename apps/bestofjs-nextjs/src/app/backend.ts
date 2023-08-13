@@ -220,11 +220,15 @@ export function createSearchClient() {
       return projects.length ? populate(projects[0]) : null;
     },
 
-    async findRandomFeaturedProjects(skip = 0, limit = 5) {
+    async findRandomFeaturedProjects({
+      skip = 0,
+      limit = 5,
+    }: Pick<QueryParams, "skip" | "limit">) {
       const { populate, projectsBySlug } = await getData();
-      const slugs = data.featuredProjectIds.slice(skip, limit);
+      const { featuredProjectIds } = data;
+      const slugs = featuredProjectIds.slice(skip, skip + limit);
       const projects = slugs.map((slug) => populate(projectsBySlug[slug]));
-      return { projects };
+      return { projects, total: featuredProjectIds.length };
     },
 
     async getProjectBySlug(slug: string) {
@@ -335,6 +339,7 @@ function getFeaturedRandomList(projects: BestOfJS.RawProject[]) {
   const slugs = projects
     .filter((project) => project.isFeatured)
     .map((project) => getProjectId(project));
+
   return shuffle(slugs);
 }
 

@@ -6,12 +6,11 @@ export const runtime = "nodejs";
 
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
-  const offsetParam = searchParams.get("offset");
-  const offsetNumber = offsetParam ? parseInt(offsetParam) : 0;
-  const output = await searchClient.findRandomFeaturedProjects(
-    offsetNumber,
-    offsetNumber + 5
-  );
+  const skipParam = searchParams.get("skip");
+  const limitParam = searchParams.get("limit");
+  const skip = skipParam ? parseInt(skipParam) : 0;
+  const limit = limitParam ? parseInt(limitParam) : 0;
+  const output = await searchClient.findRandomFeaturedProjects({ skip, limit });
 
   // await setTimeout(2000);
 

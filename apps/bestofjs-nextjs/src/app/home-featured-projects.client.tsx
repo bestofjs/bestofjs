@@ -16,13 +16,18 @@ import {
   ProjectListSkeleton,
 } from "@/components/home/featured-project-list";
 
-const numberOfProjectPerPage = 5;
-const totalNumberOfProjects = 200; // TODO get the value from the API
-const lastPageNumber = totalNumberOfProjects / numberOfProjectPerPage - 1;
 const forceLoadingState = false; // for debugging
 
-type Props = { initialContent: React.ReactNode };
-export function FeaturedProjectsClient({ initialContent }: Props) {
+type Props = {
+  initialContent: React.ReactNode;
+  numberOfProjectPerPage: number;
+  totalNumberOfProjects: number;
+};
+export function FeaturedProjectsClient({
+  initialContent,
+  numberOfProjectPerPage,
+  totalNumberOfProjects,
+}: Props) {
   const [pageNumber, setPageNumber] = useState<number>(0);
   const increment = () => {
     setPageNumber((state) => state + 1);
@@ -30,6 +35,10 @@ export function FeaturedProjectsClient({ initialContent }: Props) {
   const decrement = () => {
     setPageNumber((state) => state - 1);
   };
+
+  const lastPageNumber = Math.ceil(
+    totalNumberOfProjects / numberOfProjectPerPage - 1
+  );
 
   return (
     <>
@@ -70,21 +79,34 @@ export function FeaturedProjectsClient({ initialContent }: Props) {
       {pageNumber === 0 ? (
         <>{initialContent}</>
       ) : (
-        <DynamicFeaturedProjectList pageNumber={pageNumber} />
+        <DynamicFeaturedProjectList
+          pageNumber={pageNumber}
+          numberOfProjectPerPage={numberOfProjectPerPage}
+        />
       )}
     </>
   );
 }
 
-function DynamicFeaturedProjectList({ pageNumber }: { pageNumber: number }) {
+function DynamicFeaturedProjectList({
+  pageNumber,
+  numberOfProjectPerPage,
+}: {
+  pageNumber: number;
+  numberOfProjectPerPage: number;
+}) {
   const {
     data: projects,
     isValidating,
     error,
-  } = useSWR(`random-projects`, () => fetchRandomProjects(pageNumber), {
-    revalidateOnFocus: false,
-    revalidateOnReconnect: false,
-  });
+  } = useSWR(
+    `random-projects`,
+    () => fetchRandomProjects(pageNumber, numberOfProjectPerPage),
+    {
+      revalidateOnFocus: false,
+      revalidateOnReconnect: false,
+    }
+  );
   const { mutate } = useSWRConfig();
   useEffect(() => {
     if (pageNumber > 1) {
@@ -104,9 +126,13 @@ function DynamicFeaturedProjectList({ pageNumber }: { pageNumber: number }) {
   return <FeaturedProjectList projects={projects as BestOfJS.Project[]} />;
 }
 
-async function fetchRandomProjects(pageNumber: number) {
+async function fetchRandomProjects(
+  pageNumber: number,
+  numberOfProjectPerPage: number
+) {
   const params = new URLSearchParams();
-  params.set("offset", (pageNumber * numberOfProjectPerPage).toString());
+  params.set("skip", (pageNumber * numberOfProjectPerPage).toString());
+  params.set("limit", numberOfProjectPerPage.toString());
   const url = "/api/featured-projects?" + params.toString();
   const data = await fetch(url).then((res) => res.json());
   return data.projects as BestOfJS.Project[];
