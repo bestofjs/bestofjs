@@ -11,11 +11,15 @@ import {
   StarIcon,
 } from "@/components/core";
 import { SectionHeading } from "@/components/core/section";
-import { FeaturedProjectList } from "@/components/home/featured-project-list";
+import {
+  FeaturedProjectList,
+  ProjectListSkeleton,
+} from "@/components/home/featured-project-list";
 
 const numberOfProjectPerPage = 5;
 const totalNumberOfProjects = 200; // TODO get the value from the API
 const lastPageNumber = totalNumberOfProjects / numberOfProjectPerPage - 1;
+const forceLoadingState = false; // for debugging
 
 type Props = { initialContent: React.ReactNode };
 export function FeaturedProjectsClient({ initialContent }: Props) {
@@ -36,25 +40,27 @@ export function FeaturedProjectsClient({ initialContent }: Props) {
           subtitle={
             <>
               <div className="flex items-center justify-between pt-0">
-                <Button
-                  onClick={decrement}
-                  variant="outline"
-                  size="icon"
-                  className="h-5 w-8"
-                  disabled={pageNumber === 0}
-                >
-                  <ChevronLeftIcon size={16} />
-                </Button>
                 <div>Random order</div>
-                <Button
-                  onClick={increment}
-                  variant="outline"
-                  size="icon"
-                  className="h-5 w-8"
-                  disabled={pageNumber === lastPageNumber}
-                >
-                  <ChevronRightIcon size={16} />
-                </Button>
+                <div className="flex items-center">
+                  <Button
+                    onClick={decrement}
+                    variant="ghost"
+                    size="icon"
+                    className="h-6 w-10"
+                    disabled={pageNumber === 0}
+                  >
+                    <ChevronLeftIcon size={24} />
+                  </Button>
+                  <Button
+                    onClick={increment}
+                    variant="ghost"
+                    size="icon"
+                    className="h-6 w-10"
+                    disabled={pageNumber === lastPageNumber}
+                  >
+                    <ChevronRightIcon size={24} />
+                  </Button>
+                </div>
               </div>
             </>
           }
@@ -73,7 +79,7 @@ export function FeaturedProjectsClient({ initialContent }: Props) {
 function DynamicFeaturedProjectList({ pageNumber }: { pageNumber: number }) {
   const {
     data: projects,
-    isLoading,
+    isValidating,
     error,
   } = useSWR(`random-projects`, () => fetchRandomProjects(pageNumber), {
     revalidateOnFocus: false,
@@ -86,8 +92,15 @@ function DynamicFeaturedProjectList({ pageNumber }: { pageNumber: number }) {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pageNumber]);
-  if (isLoading) return <>Loading</>;
-  if (error) return <>Error!</>;
+
+  if (error) {
+    return <>Error when loading Featured projects</>;
+  }
+
+  if (forceLoadingState || isValidating) {
+    return <ProjectListSkeleton numberOfItems={numberOfProjectPerPage} />;
+  }
+
   return <FeaturedProjectList projects={projects as BestOfJS.Project[]} />;
 }
 

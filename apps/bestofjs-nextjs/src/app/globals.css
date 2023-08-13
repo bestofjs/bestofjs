@@ -59,7 +59,8 @@
     --secondary: 240 3.7% 15.9%;
     --secondary-foreground: 0 0% 98%;
 
-    --muted: 240 3.7% 15.9%;
+    /* Make skeleton more visible (default L=15.9%) */
+    --muted: 240 3.7% 25%;
     --muted-foreground: 240 5% 64.9%;
 
     /* Increase contrast when tags are hovered (original L=15.9%) */
