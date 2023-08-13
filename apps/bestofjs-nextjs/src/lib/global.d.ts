@@ -104,13 +104,19 @@ declare namespace BestOfJS {
     projects: BestOfJS.Project[];
   }
 
-  type HallOfFameMember = {
-    username: string;
+  interface RawHallOfFameMember {
     avatar: string;
-    followers: numbers;
     bio: string;
     blog: string;
-  };
+    followers: numbers;
+    name: string;
+    projects: string[];
+    username: string;
+  }
+
+  interface HallOfFameMember extends RawHallOfFameMember {
+    projects: BestOfJS.Project[];
+  }
 
   type Bookmark = { slug: string; bookmarked_at: string };
 

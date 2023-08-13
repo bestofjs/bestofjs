@@ -36,6 +36,9 @@ export const Footer = () => {
               <NextLink href="/rankings/monthly" className="hover:underline">
                 Monthly Rankings
               </NextLink>
+              <NextLink href="/hall-of-fame" className="hover:underline">
+                JavaScript Hall of Fame
+              </NextLink>
               <NextLink href="/about" className="hover:underline">
                 About
               </NextLink>

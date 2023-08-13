@@ -259,6 +259,33 @@ export function createSearchClient() {
         slug: getProjectId(project),
       })) as BestOfJS.SearchIndexProject[];
     },
+
+    async findHallOfFameMembers() {
+      const { populate, projectsBySlug } = await getData();
+      const { heroes } = await fetchHallOfFameData();
+
+      const populateMemberProjects = (member: BestOfJS.RawHallOfFameMember) => {
+        const projects: BestOfJS.Project[] = member.projects
+          .map((projectSlug) => projectsBySlug[projectSlug])
+          .filter(Boolean) // needed as some members are linked to deprecated projects. TODO fix Hall fo fame data?
+          .map(populate);
+        return {
+          ...member,
+          projects,
+        } as BestOfJS.HallOfFameMember;
+      };
+
+      // Include only members who have active projects on Best of JS
+      // or a custom "bio" (used to describe book authors and speakers for example)
+      const filterMember = (member: BestOfJS.HallOfFameMember) => {
+        return (
+          member.followers > 100 && (member.projects.length > 0 || member.bio)
+        );
+      };
+
+      const members = heroes.map(populateMemberProjects).filter(filterMember);
+      return { members };
+    },
   };
 }
 
@@ -333,6 +360,14 @@ function fetchDataFromFileSystem() {
   console.log("Fetch from the file system");
   const filepath = path.join(process.cwd(), "public", "data/projects.json");
   return fs.readJSON(filepath);
+}
+
+function fetchHallOfFameData() {
+  const url = FETCH_ALL_PROJECTS_URL + `/hof.json`;
+  console.log(`Fetching Hall of Fame data from ${url}`);
+  return fetch(url).then((res) => res.json()) as Promise<{
+    heroes: BestOfJS.RawHallOfFameMember[];
+  }>;
 }
 
 function getFeaturedRandomList(projects: BestOfJS.RawProject[]) {
