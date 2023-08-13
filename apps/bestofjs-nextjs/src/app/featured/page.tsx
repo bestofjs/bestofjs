@@ -13,7 +13,6 @@ import {
 } from "@/components/project-list/sort-order-options";
 
 import { searchClient } from "../backend";
-import { getFeaturedProjectsRequest } from "../backend-search-requests";
 import { ProjectSearchQuery, SearchQueryUpdater } from "../projects/types";
 
 type PageProps = {
@@ -38,9 +37,7 @@ export default async function FeaturedProjectsPage({
       <PageHeading
         icon={<StarIcon size={36} />}
         title={<>Featured Projects</>}
-        subtitle={
-          <>An arbitrary selection of important projects with distinct logos.</>
-        }
+        subtitle={<>A collection of awesome projects chosen by our team!</>}
       />
 
       <ProjectPaginatedList
@@ -65,7 +62,7 @@ async function fetchFeaturedProjects({
   const sortOption = getSortOption(sort);
 
   const { projects, total } = await searchClient.findProjects({
-    criteria: getFeaturedProjectsRequest().criteria,
+    criteria: { isFeatured: true },
     sort: sortOption.sort,
     skip: limit * (page - 1),
     limit,

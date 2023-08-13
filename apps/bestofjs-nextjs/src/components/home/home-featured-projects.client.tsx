@@ -29,10 +29,10 @@ export function FeaturedProjectsClient({
   totalNumberOfProjects,
 }: Props) {
   const [pageNumber, setPageNumber] = useState<number>(0);
-  const increment = () => {
+  const setNextPageNumber = () => {
     setPageNumber((state) => state + 1);
   };
-  const decrement = () => {
+  const setPreviousPageNumber = () => {
     setPageNumber((state) => state - 1);
   };
 
@@ -52,7 +52,7 @@ export function FeaturedProjectsClient({
                 <div>Random order</div>
                 <div className="flex items-center">
                   <Button
-                    onClick={decrement}
+                    onClick={setPreviousPageNumber}
                     variant="ghost"
                     size="icon"
                     className="h-6 w-10"
@@ -61,7 +61,7 @@ export function FeaturedProjectsClient({
                     <ChevronLeftIcon size={24} />
                   </Button>
                   <Button
-                    onClick={increment}
+                    onClick={setNextPageNumber}
                     variant="ghost"
                     size="icon"
                     className="h-6 w-10"

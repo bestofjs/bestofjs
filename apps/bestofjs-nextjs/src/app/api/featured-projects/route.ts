@@ -1,5 +1,3 @@
-// import { setTimeout } from "node:timers/promises";
-
 import { searchClient } from "@/app/backend";
 
 export const runtime = "nodejs";
@@ -11,8 +9,6 @@ export async function GET(request: Request) {
   const skip = skipParam ? parseInt(skipParam) : 0;
   const limit = limitParam ? parseInt(limitParam) : 0;
   const output = await searchClient.findRandomFeaturedProjects({ skip, limit });
-
-  // await setTimeout(2000);
 
   return new Response(JSON.stringify(output), {
     status: 200,
