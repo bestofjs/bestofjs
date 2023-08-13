@@ -20,6 +20,7 @@ type Props = {
   sortOptionId: string;
   searchState: any;
   buildPageURL: any;
+  path?: string;
 };
 export const ProjectPaginatedList = ({
   projects,
@@ -29,6 +30,7 @@ export const ProjectPaginatedList = ({
   sortOptionId,
   buildPageURL,
   searchState,
+  path,
 }: Props) => {
   const showPagination = total > limit;
   const showSortOptions = total > 1;
@@ -55,6 +57,7 @@ export const ProjectPaginatedList = ({
               <ProjectSortOrderPicker
                 value={sortOptionId as SortOptionKey}
                 searchState={searchState}
+                path={path}
               />
             )}
             {showPagination && (

@@ -16,6 +16,8 @@ import { Separator } from "@/components/ui/separator";
 import { CardHeader, StarIcon, TagIcon } from "@/components/core";
 import { SectionHeading } from "@/components/core/section";
 import { ExternalLink } from "@/components/core/typography";
+import { FeaturedProjects } from "@/components/home/home-featured-projects";
+import { LatestMonthlyRankings } from "@/components/home/latest-monthly-rankings";
 import {
   ProjectScore,
   ProjectTable,
@@ -27,7 +29,6 @@ import {
   getHotProjectsRequest,
   getLatestProjects,
 } from "./backend-search-requests";
-import { LatestMonthlyRankings } from "./latest-monthly-rankings";
 
 // Try to revalidate the home page every hour to take into account changes from the API
 // as `revalidate` param used in `fetch` request to get data does not seem to work
@@ -44,19 +45,23 @@ export default async function IndexPage() {
         <h1 className="text-3xl font-extrabold leading-tight tracking-tighter md:text-4xl">
           The best of JS and friends
         </h1>
-        <p className="max-w-[700px] text-lg text-muted-foreground">
+        <p className="text-lg text-muted-foreground">
           A place to find the best open source projects related to the web
-          platform: JS, HTML, CSS, but also TypeScript, Node.js, Deno, Bun...
+          platform:
+          <br />
+          JS, HTML, CSS, but also TypeScript, Node.js, Deno, Bun...
         </p>
       </div>
 
       <div className="flex flex-col gap-8 lg:flex-row">
-        <div className="grow space-y-8">
+        <div className="flex-1 space-y-8">
           <HotProjectList projects={hotProjects} />
 
           <NewestProjectList projects={newestProjects} />
         </div>
-        <div className="min-w-[300px]">
+        <div className="w-[300px] space-y-8">
+          {/* @ts-expect-error Server Component */}
+          <FeaturedProjects />
           <PopularTagsList tags={popularTags} />
         </div>
       </div>
@@ -84,7 +89,7 @@ function HotProjectList({ projects }: { projects: BestOfJS.Project[] }) {
           title="Hot Projects"
           subtitle={
             <>
-              by number of stars added <b>the last 24 hours</b>
+              By number of stars added <b>the last 24 hours</b>
             </>
           }
         />
@@ -156,7 +161,7 @@ function PopularTagsList({ tags }: { tags: BestOfJS.Tag[] }) {
         <SectionHeading
           icon={<TagIcon fontSize={32} />}
           title="Popular Tags"
-          subtitle={<>by number of projects</>}
+          subtitle={<>By number of projects</>}
         />
       </CardHeader>
       <CompactTagList tags={tags} />

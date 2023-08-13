@@ -9,6 +9,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { ProjectSearchQuery } from "@/app/projects/types";
 
 import { stateToQueryString } from "./navigation-state";
 import { SortOptionKey, sortOrderOptionsByKey } from "./sort-order-options";
@@ -22,8 +23,16 @@ const sortOptionGroups: SortOptionKey[][] = [
   // ["bookmark"],
 ];
 
-type Props = { value: SortOptionKey; searchState: any };
-export function ProjectSortOrderPicker({ value, searchState }: Props) {
+type Props = {
+  value: SortOptionKey;
+  searchState: ProjectSearchQuery;
+  path?: string;
+};
+export function ProjectSortOrderPicker({
+  value,
+  searchState,
+  path = "/projects",
+}: Props) {
   const currentOption = sortOrderOptionsByKey[value];
 
   return (
@@ -42,7 +51,7 @@ export function ProjectSortOrderPicker({ value, searchState }: Props) {
                 const item = sortOrderOptionsByKey[id];
                 const nextState = { ...searchState, page: 1, sort: item.key };
                 const queryString = stateToQueryString(nextState);
-                const url = `/projects?` + queryString;
+                const url = path + `?` + queryString;
 
                 return (
                   <DropdownMenuItem key={id} asChild>

@@ -7,8 +7,7 @@ import { Card, CardHeader } from "@/components/ui/card";
 import { StarDelta } from "@/components/core";
 import { SectionHeading } from "@/components/core/section";
 import { ProjectTable } from "@/components/project-list/project-table";
-
-import { fetchMonthlyRankings } from "./rankings/monthly/monthly-rankings-data";
+import { fetchMonthlyRankings } from "@/app/rankings/monthly/monthly-rankings-data";
 
 export async function LatestMonthlyRankings() {
   const { year, month, projects } = await fetchMonthlyRankings({ limit: 5 });

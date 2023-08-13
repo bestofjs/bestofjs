@@ -1,4 +1,5 @@
 import path from "node:path";
+import { shuffle } from "@/helpers/shuffle";
 import debugModule from "debug";
 import fs from "fs-extra";
 import * as mingo from "mingo";
@@ -12,8 +13,15 @@ const FETCH_ALL_PROJECTS_URL = "https://bestofjs-static-api.vercel.app";
 
 const debug = debugModule("bestofjs");
 
+type RawData = {
+  projects: BestOfJS.RawProject[];
+  tags: BestOfJS.RawTag[];
+  date: Date;
+};
+
 type Data = {
   projectCollection: BestOfJS.RawProject[];
+  featuredProjectIds: BestOfJS.Project["slug"][];
   tagCollection: BestOfJS.RawTag[];
   tagsByKey: { [key: string]: BestOfJS.Tag };
   populate: (project: BestOfJS.RawProject) => BestOfJS.Project;
@@ -52,9 +60,11 @@ export function createSearchClient() {
     projects.forEach((project) => {
       projectsBySlug[getProjectId(project)] = project;
     });
+    const featuredProjectIds = getFeaturedRandomList(projects);
 
     data = {
       projectCollection: projects,
+      featuredProjectIds,
       tagCollection: Object.values(tagsByKey),
       populate: populateProject(tagsByKey),
       tagsByKey,
@@ -210,6 +220,17 @@ export function createSearchClient() {
       return projects.length ? populate(projects[0]) : null;
     },
 
+    async findRandomFeaturedProjects({
+      skip = 0,
+      limit = 5,
+    }: Pick<QueryParams, "skip" | "limit">) {
+      const { populate, projectsBySlug } = await getData();
+      const { featuredProjectIds } = data;
+      const slugs = featuredProjectIds.slice(skip, skip + limit);
+      const projects = slugs.map((slug) => populate(projectsBySlug[slug]));
+      return { projects, total: featuredProjectIds.length };
+    },
+
     async getProjectBySlug(slug: string) {
       const { populate, projectsBySlug } = await getData();
       return populate(projectsBySlug[slug]);
@@ -294,11 +315,7 @@ async function fetchProjectData(): Promise<{
       ? await fetchDataFromFileSystem()
       : await fetchDataFromRemoteJSON();
 
-    return data as {
-      projects: BestOfJS.RawProject[];
-      tags: BestOfJS.RawTag[];
-      date: Date;
-    };
+    return data as RawData;
   } catch (error) {
     console.error("Unable to fetch data!", (error as Error).message);
     throw error;
@@ -316,6 +333,14 @@ function fetchDataFromFileSystem() {
   console.log("Fetch from the file system");
   const filepath = path.join(process.cwd(), "public", "data/projects.json");
   return fs.readJSON(filepath);
+}
+
+function getFeaturedRandomList(projects: BestOfJS.RawProject[]) {
+  const slugs = projects
+    .filter((project) => project.isFeatured)
+    .map((project) => getProjectId(project));
+
+  return shuffle(slugs);
 }
 
 // TODO add types: => [[ 'nodejs-framework', 6 ], [...], ...]

@@ -15,10 +15,8 @@ export const SectionHeading = ({ className, icon, title, subtitle }: Props) => {
         <div className="pr-2 text-yellow-500 dark:text-yellow-600">{icon}</div>
       )}
       <div className="grow">
-        <h2 className="text-2xl font-mono">{title}</h2>
-        {subtitle && (
-          <div className="uppercase text-muted-foreground">{subtitle}</div>
-        )}
+        <h2 className="font-mono text-2xl">{title}</h2>
+        {subtitle && <div className="text-muted-foreground">{subtitle}</div>}
       </div>
     </div>
   );
