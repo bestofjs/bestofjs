@@ -51,7 +51,8 @@ function HallOfFameMember({ member }: { member: BestOfJS.HallOfFameMember }) {
                   badgeVariants({ variant: "outline" }),
                   "text-md",
                   "rounded-sm",
-                  "hover:bg-accent"
+                  "hover:bg-accent",
+                  "font-normal"
                 )}
               >
                 {project.name}

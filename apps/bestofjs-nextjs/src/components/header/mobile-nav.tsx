@@ -5,7 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Bars3Icon } from "@heroicons/react/20/solid";
 
-import { mainNavItems } from "@/config/site";
+import { extraNavItems, mainNavItems } from "@/config/site";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
@@ -34,6 +34,7 @@ function SidebarContent({
   onOpenChange: (open: boolean) => void;
 }) {
   const pathname = usePathname();
+  const allNavItems = [...mainNavItems, ...extraNavItems];
 
   return (
     <>
@@ -45,11 +46,11 @@ function SidebarContent({
         <Icons.logo
           width={130}
           height={37.15}
-          className="h-[37.15px] w-[130px] text-orange-600 dark:text-yellow-400"
+          className="h-[37.15px] w-[130px] text-primary"
         />
       </Link>
       <div className="w-full space-y-2">
-        {mainNavItems?.map(
+        {allNavItems.map(
           (item, index) =>
             item.href && (
               <Link
