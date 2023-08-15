@@ -81,7 +81,10 @@ export const Footer = () => {
           </div>
           <div className="flex items-center justify-center gap-1">
             <div>Powered by</div>
-            <a href="https://vercel.com?utm_source=bestofjs">
+            <a
+              href="https://vercel.com?utm_source=bestofjs"
+              aria-label="Vercel"
+            >
               <Icons.vercel width={80} height={18.1} />
             </a>
           </div>

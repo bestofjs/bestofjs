@@ -17,7 +17,7 @@ export function MobileMenuButton() {
   return (
     <Sheet open={isOpen} onOpenChange={setIsOpen}>
       <SheetTrigger asChild>
-        <Button variant="outline" size="icon">
+        <Button variant="outline" size="icon" aria-label="Menu">
           <Bars3Icon className="h-5 w-5" />
         </Button>
       </SheetTrigger>
