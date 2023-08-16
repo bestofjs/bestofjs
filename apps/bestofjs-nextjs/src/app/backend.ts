@@ -267,7 +267,7 @@ export function createSearchClient() {
       const populateMemberProjects = (member: BestOfJS.RawHallOfFameMember) => {
         const projects: BestOfJS.Project[] = member.projects
           .map((projectSlug) => projectsBySlug[projectSlug])
-          .filter(Boolean) // needed as some members are linked to deprecated projects. TODO fix Hall fo fame data?
+          .filter(Boolean) // needed as some members are linked to deprecated projects. TODO fix Hall of fame data?
           .map(populate);
         return {
           ...member,
