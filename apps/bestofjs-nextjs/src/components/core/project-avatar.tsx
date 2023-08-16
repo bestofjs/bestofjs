@@ -5,8 +5,9 @@ import { useTheme } from "next-themes";
 type Props = {
   project: Pick<BestOfJS.Project, "name" | "owner_id" | "icon">;
   size: number;
+  className?: string;
 };
-export const ProjectAvatar = ({ project, size = 100 }: Props) => {
+export const ProjectAvatar = ({ project, size = 100, className }: Props) => {
   const { resolvedTheme } = useTheme();
 
   const { src, srcSet } = getProjectImageProps({
@@ -26,6 +27,7 @@ export const ProjectAvatar = ({ project, size = 100 }: Props) => {
         width: `${size}px`,
       }}
       alt={project.name}
+      className={className}
     />
   );
 };
