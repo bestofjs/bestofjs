@@ -1,6 +1,7 @@
 import { Metadata } from "next";
 
-import { PageHeading } from "@/components/core/typography";
+import { APP_REPO_URL } from "@/config/site";
+import { ExternalLink, PageHeading } from "@/components/core/typography";
 
 import { searchClient } from "../backend";
 import { HallOfFameMemberList } from "./hall-of-member-list";
@@ -12,7 +13,7 @@ export async function generateMetadata(): Promise<Metadata> {
   return {
     title: "Hall of Fame",
     description:
-      "The greatest developers, authors and speakers of the JavaScript community",
+      "Some of the greatest developers, authors and speakers of the JavaScript community. Meet Evan, Dan, Sindre, TJ and friends!",
   };
 }
 
@@ -29,7 +30,14 @@ export default async function HallOfFamePage() {
             Here are some of the greatest developers, authors and speakers of
             the JavaScript community.
             <br />
-            Contact us on GitHub to add more members!
+            They are sorted by number of followers,{" "}
+            <ExternalLink
+              url={APP_REPO_URL}
+              className="underline hover:no-underline color-primary"
+            >
+              contact us
+            </ExternalLink>{" "}
+            to add more members!
           </>
         }
       />
