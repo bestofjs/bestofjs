@@ -11,7 +11,7 @@ export const ADD_PROJECT_REQUEST_URL = `${ISSUE_TRACKER_URL}/issues/new?template
 
 export interface NavItem {
   title: string;
-  href?: string;
+  href: string;
   disabled?: boolean;
   external?: boolean;
   isActive: (pathname: string) => boolean;
@@ -38,10 +38,17 @@ export const mainNavItems: NavItem[] = [
     href: "/rankings/monthly",
     isActive: (pathname: string) => pathname.startsWith("/rankings"),
   },
-  // TODO: add a "More" button to reveal more links from the top nav bar?
-  // {
-  //   title: "About",
-  //   href: "/about",
-  //   isActive: (pathname: string) => pathname.startsWith("/about"),
-  // },
+];
+
+export const extraNavItems: NavItem[] = [
+  {
+    title: "Hall of Fame",
+    href: "/hall-of-fame",
+    isActive: (pathname: string) => pathname.startsWith("/hall-of-fame"),
+  },
+  {
+    title: "About",
+    href: "/about",
+    isActive: (pathname: string) => pathname.startsWith("/about"),
+  },
 ];

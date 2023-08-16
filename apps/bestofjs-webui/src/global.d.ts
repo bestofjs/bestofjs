@@ -85,6 +85,7 @@ declare namespace BestOfJS {
   }
 
   type HallOfFameMember = {
+    name: string;
     username: string;
     avatar: string;
     followers: numbers;

@@ -36,6 +36,9 @@ export const Footer = () => {
               <NextLink href="/rankings/monthly" className="hover:underline">
                 Monthly Rankings
               </NextLink>
+              <NextLink href="/hall-of-fame" className="hover:underline">
+                JavaScript Hall of Fame
+              </NextLink>
               <NextLink href="/about" className="hover:underline">
                 About
               </NextLink>
@@ -78,7 +81,10 @@ export const Footer = () => {
           </div>
           <div className="flex items-center justify-center gap-1">
             <div>Powered by</div>
-            <a href="https://vercel.com?utm_source=bestofjs">
+            <a
+              href="https://vercel.com?utm_source=bestofjs"
+              aria-label="Vercel"
+            >
               <Icons.vercel width={80} height={18.1} />
             </a>
           </div>

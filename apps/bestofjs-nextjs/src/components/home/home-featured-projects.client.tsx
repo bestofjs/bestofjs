@@ -48,10 +48,11 @@ export function FeaturedProjectsClient({
           title="Featured"
           subtitle={
             <>
-              <div className="flex items-center justify-between pt-0">
+              <div className="flex items-center justify-between">
                 <div>Random order</div>
                 <div className="flex items-center">
                   <Button
+                    aria-label="Previous"
                     onClick={setPreviousPageNumber}
                     variant="ghost"
                     size="icon"
@@ -61,6 +62,7 @@ export function FeaturedProjectsClient({
                     <ChevronLeftIcon size={24} />
                   </Button>
                   <Button
+                    aria-label="Next"
                     onClick={setNextPageNumber}
                     variant="ghost"
                     size="icon"
