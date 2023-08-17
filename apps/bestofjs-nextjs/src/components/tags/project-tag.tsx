@@ -47,7 +47,7 @@ export const ProjectTag = ({
       href={url}
       className={cn(
         badgeVariants({ variant: "outline" }),
-        "rounded-sm px-3 py-1 text-sm font-normal hover:bg-accent",
+        "rounded-sm px-3 py-1 text-sm font-normal hover:bg-accent font-sans",
         className
       )}
     >

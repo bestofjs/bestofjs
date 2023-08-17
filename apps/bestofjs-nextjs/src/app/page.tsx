@@ -42,10 +42,10 @@ export default async function IndexPage() {
   return (
     <div className="flex flex-col gap-8">
       <div className="flex flex-col items-start gap-2">
-        <h1 className="text-3xl font-extrabold leading-tight tracking-tighter md:text-4xl">
-          The best of JS and friends
+        <h1 className="text-3xl leading-tight tracking-tighter md:text-4xl font-serif">
+          The best of JS, HTML and CSS
         </h1>
-        <p className="text-lg text-muted-foreground">
+        <p className="text-lg text-muted-foreground font-serif">
           A place to find the best open source projects related to the web
           platform:
           <br />
@@ -190,7 +190,7 @@ function BestOfJSSection({ project }: { project: BestOfJS.Project | null }) {
           icon={<GoHeart fontSize={32} />}
           title={<>Do you find {APP_DISPLAY_NAME} useful?</>}
         />
-        <div className="pl-10">
+        <div className="pl-10 font-serif">
           <p>
             Show your appreciation by starring the project on{" "}
             <ExternalLink url={APP_REPO_URL}>GitHub</ExternalLink>, or becoming
@@ -239,7 +239,7 @@ function MoreProjectsSection() {
         icon={<GoPlus fontSize={32} />}
         title="Do you want more projects?"
       />
-      <div className="pl-10">
+      <div className="pl-10 font-serif">
         <p>
           <i>{APP_DISPLAY_NAME}</i> is a curated list of about 1500 open-source
           projects related to the web platform and Node.js.

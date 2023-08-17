@@ -21,7 +21,7 @@ export function ProjectHeader({ project }: Props) {
           <ProjectAvatar project={project} size={75} />
         </div>
         <div className="flex flex-col space-y-4 pl-4">
-          <h2 className="text-4xl">{project.name}</h2>
+          <h2 className="text-4xl font-serif">{project.name}</h2>
           <div>
             <Suspense fallback={project.description}>
               {/* @ts-expect-error Server Component */}

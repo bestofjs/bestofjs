@@ -69,7 +69,7 @@ export const Footer = () => {
           </div>
         </div>
         <Separator />
-        <div className="flex flex-col gap-4 py-8">
+        <div className="flex flex-col gap-4 py-8 font-serif">
           <div className="flex items-center justify-center">
             <p>
               <i>{APP_DISPLAY_NAME}</i> is a project by{" "}
