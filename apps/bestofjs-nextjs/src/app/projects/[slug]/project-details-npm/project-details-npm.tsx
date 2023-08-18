@@ -26,7 +26,7 @@ export function ProjectDetailsNpmCard({
           <div className="flex items-center gap-2">
             <a
               href={`https://www.npmjs.com/package/${packageName}`}
-              className="font-mono hover:underline"
+              className="font-sans text-primary hover:underline"
             >
               {packageName}
               {/* <ExternalLinkIcon /> */}

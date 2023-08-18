@@ -33,7 +33,7 @@ export function ProjectHeader({ project }: Props) {
           </div>
         </div>
       </div>
-      <aside className="flex flex-col justify-center space-y-2 sm:w-[280px] sm:pl-4">
+      <aside className="flex flex-col justify-center space-y-2 sm:w-[280px] sm:pl-4 font-sans">
         <ButtonLink href={repository} icon={<GoMarkGithub size={20} />}>
           {full_name}
         </ButtonLink>

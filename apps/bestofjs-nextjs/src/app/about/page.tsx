@@ -19,7 +19,7 @@ export default function AboutPage() {
   return (
     <>
       <PageHeading title="About Best of JS" />
-      <Card className="space-y-4 p-4">
+      <Card className="space-y-4 p-4 font-serif">
         <div>
           <h2 className="text-xl">Why {APP_DISPLAY_NAME}?</h2>
           <p className="mt-2">
