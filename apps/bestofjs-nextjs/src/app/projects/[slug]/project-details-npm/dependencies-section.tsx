@@ -75,7 +75,7 @@ export async function DependenciesSection({
                   <TableRow key={dependency}>
                     <TableCell>
                       <a
-                        className="font-mono hover:underline"
+                        className="font-sans hover:underline"
                         href={`https://npmjs.org/package/${dependency}`}
                       >
                         {dependency}
