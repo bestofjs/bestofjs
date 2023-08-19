@@ -27,15 +27,17 @@ export async function ReadmeCard({ project }: { project: BestOfJS.Project }) {
 
 async function ReadmeContent({ project }: { project: BestOfJS.Project }) {
   const html = await getData(project.full_name, project.branch);
-  // if (error) return <div>Unable to fetch README.md content from GitHub</div>;
-
-  // if (!html) return <Spinner />;
-
   return <div dangerouslySetInnerHTML={{ __html: html }} />;
 }
 
 async function getData(fullName: string, branch: string) {
   const url = `https://bestofjs-serverless.vercel.app/api/project-readme?fullName=${fullName}&branch=${branch}`;
-  const html = await fetch(url).then((r) => r.text());
+  const options = {
+    next: {
+      revalidate: 60 * 60 * 24, // Revalidate every day as we assume a README file can change frequently
+      tags: ["readme", fullName], // to be able to revalidate via API calls, on-demand
+    },
+  };
+  const html = await fetch(url, options).then((res) => res.text());
   return html;
 }

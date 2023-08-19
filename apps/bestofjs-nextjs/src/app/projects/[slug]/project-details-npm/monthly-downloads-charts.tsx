@@ -28,6 +28,12 @@ export async function MonthlyDownloadsChart({
 
 async function fetchDownloadData(packageName: string) {
   const url = `https://bestofjs-serverless.vercel.app/api/package-monthly-downloads?packageName=${packageName}`;
-  const data = await fetch(url).then((r) => r.json());
+  const options = {
+    next: {
+      revalidate: 60 * 60 * 24, // Revalidate every day to avoid showing stale data
+      tags: ["package-downloads", packageName], // to be able to revalidate via API calls, on-demand
+    },
+  };
+  const data = await fetch(url, options).then((res) => res.json());
   return data as DataItem[];
 }
