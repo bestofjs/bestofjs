@@ -115,7 +115,7 @@ const ProjectTableRow = ({
         </div>
 
         <div className="mb-4 mt-2 space-y-2 text-sm">
-          <div className="truncate font-serif">{project.description}</div>
+          <div className="font-serif">{project.description}</div>
           {showDetails && (
             <>
               <div className="md:hidden">
