@@ -21,10 +21,16 @@ export async function fetchMonthlyRankings({
   limit: number;
 }) {
   const rootURL = "https://bestofjs-rankings.vercel.app";
-  const url = date
-    ? `${rootURL}/monthly/${formatDate(date)}`
-    : `${rootURL}/monthly/latest`;
-  const data = (await fetch(url).then((res) => res.json())) as RankingsData;
+  const key = date ? formatDate(date) : `latest`;
+  const url = `${rootURL}/monthly/${key}`;
+  const options = {
+    next: {
+      tags: ["monthly", key], // to be able to revalidate via API calls, on-demand
+    },
+  };
+  const data = (await fetch(url, options).then((res) =>
+    res.json()
+  )) as RankingsData;
   const { isFirst, isLatest, month, year } = data;
   const projects = data.trending.slice(0, limit);
   const fullNames = projects.map((project) => project.full_name);
