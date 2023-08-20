@@ -66,7 +66,7 @@ const ProjectTableRow = ({
   const path = `/projects/${project.slug}`;
 
   return (
-    <tr data-testid="project-card" className="border-b hover:bg-muted/50">
+    <tr data-testid="project-card" className="border-b">
       <Cell className="w-[50px] pl-4 sm:p-4">
         <NextLink href={path}>
           <ProjectAvatar project={project} size={48} />
@@ -75,10 +75,7 @@ const ProjectTableRow = ({
 
       <Cell className="w-auto py-4 pl-4 md:pl-2">
         <div className="relative flex items-center space-x-2">
-          <NextLink
-            href={path}
-            className="font-mono text-primary hover:underline"
-          >
+          <NextLink href={path} className="text-primary hover:underline">
             {project.name}
           </NextLink>
           <div className="flex space-x-1">
@@ -118,7 +115,7 @@ const ProjectTableRow = ({
         </div>
 
         <div className="mb-4 mt-2 space-y-2 text-sm">
-          <div>{project.description}</div>
+          <div className="font-serif">{project.description}</div>
           {showDetails && (
             <>
               <div className="md:hidden">

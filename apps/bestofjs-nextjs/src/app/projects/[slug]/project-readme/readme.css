@@ -723,6 +723,7 @@
 
 .markdown-body li {
   word-wrap: break-all;
+  list-style: disc; /* override reset CSS applied by TailwindCSS */
 }
 
 .markdown-body li > p {
@@ -1131,17 +1132,17 @@
   border-top: 1px solid #272c32;
 }
 .dark .markdown-body table tr:nth-child(2n) {
-  background-color: var(--backgroundColor);
+  background-color: var(--background);
 }
 .dark .markdown-body img {
   background-color: transparent;
 }
 .dark .markdown-body code {
-  background-color: rgba(240, 246, 252, 0.15);
+  background-color: hsl(var(--card-element));
 }
 .dark .markdown-body .highlight pre,
 .dark .markdown-body pre {
-  background-color: var(--backgroundColor);
+  background-color: hsl(var(--card-element));
 }
 .dark .markdown-body .commit-tease-sha {
   color: #b1bac4;

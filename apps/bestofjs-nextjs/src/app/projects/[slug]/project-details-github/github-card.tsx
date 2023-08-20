@@ -65,7 +65,7 @@ const GitHubData = ({ project }: { project: BestOfJS.ProjectDetails }) => {
           href={repository}
           target="_blank"
           rel="noreferrer"
-          className="font-mono hover:underline"
+          className="font-sans text-primary hover:underline"
         >
           {full_name}
         </a>

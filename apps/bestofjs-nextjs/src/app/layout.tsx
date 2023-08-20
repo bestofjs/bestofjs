@@ -3,7 +3,7 @@ import { Metadata } from "next";
 import { Analytics } from "@vercel/analytics/react";
 
 import { APP_DISPLAY_NAME } from "@/config/site";
-import { fontSans } from "@/lib/fonts";
+import { fontSans, fontSerif } from "@/lib/fonts";
 import { cn } from "@/lib/utils";
 import { Footer } from "@/components/footer/footer";
 import { SiteHeader } from "@/components/header/site-header";
@@ -40,7 +40,8 @@ export default function RootLayout({ children }: RootLayoutProps) {
         <body
           className={cn(
             "min-h-screen bg-background font-sans antialiased",
-            fontSans.variable
+            fontSans.variable,
+            fontSerif.variable
           )}
         >
           <ThemeProvider attribute="class" defaultTheme="system" enableSystem>

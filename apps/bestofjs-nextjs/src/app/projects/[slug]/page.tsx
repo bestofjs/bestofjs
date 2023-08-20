@@ -35,7 +35,7 @@ export default async function ProjectDetailsPage({ params }: PageProps) {
   const project = await getData(slug);
 
   return (
-    <div className="flex flex-col space-y-8">
+    <div className="flex flex-col space-y-8 font-serif">
       <ProjectHeader project={project} />
       <Suspense
         fallback={

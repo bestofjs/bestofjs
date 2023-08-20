@@ -4,6 +4,7 @@ import { PlusIcon, XMarkIcon } from "@heroicons/react/20/solid";
 
 import { cn } from "@/lib/utils";
 import { badgeVariants } from "@/components/ui/badge";
+import { Separator } from "@/components/ui/separator";
 import { TagIcon } from "@/components/core";
 import { PageHeading } from "@/components/core/typography";
 import {
@@ -90,6 +91,7 @@ export default async function Projects({ searchParams }: PageProps) {
   if (showLoadingPage) return <ProjectListLoading />;
 
   const searchState = parseSearchParams(searchParams);
+  const { query } = searchState;
 
   const buildPageURL = (updater: SearchQueryUpdater<ProjectSearchQuery>) => {
     const nextState = updater(searchState);
@@ -104,12 +106,12 @@ export default async function Projects({ searchParams }: PageProps) {
         tags={selectedTags}
         total={total}
       />
-      {selectedTags.length > 0 && (
+      {(selectedTags.length > 0 || query) && (
         <CurrentTags
           tags={selectedTags}
           buildPageURL={buildPageURL}
           allTags={allTags}
-          textQuery={searchState.query}
+          textQuery={query}
         />
       )}
       {relevantTags.length > 0 && (
@@ -144,7 +146,8 @@ function ProjectPageHeader({
       <PageHeading
         title={
           <>
-            All Projects <ShowNumberOfProject count={total} />
+            All Projects
+            <ShowNumberOfProject count={total} />
           </>
         }
       />
@@ -155,7 +158,7 @@ function ProjectPageHeader({
       <PageHeading
         title={
           <>
-            {tags.map((tag) => tag.name).join(" + ")}{" "}
+            {tags.map((tag) => tag.name).join(" + ")}
             <ShowNumberOfProject count={total} />
           </>
         }
@@ -163,14 +166,25 @@ function ProjectPageHeader({
       />
     );
   }
-  return <PageHeading title="Search results" />;
+  return (
+    <PageHeading
+      title={
+        <>
+          Search results
+          <ShowNumberOfProject count={total} />
+        </>
+      }
+    />
+  );
 }
 
 function ShowNumberOfProject({ count }: { count: number }) {
   return (
     <>
-      <span className="px-1 text-yellow-500">•</span>
-      {count === 1 ? "One project" : `${count} projects`}
+      <span className="px-2 text-yellow-500">•</span>
+      <span className="text-muted-foreground">
+        {count === 1 ? "One project" : `${count} projects`}
+      </span>
     </>
   );
 }
@@ -184,7 +198,6 @@ function RelevantTags({
 }) {
   return (
     <div className="mb-4 flex flex-wrap gap-2">
-      <span>Refine your search:</span>
       {tags.map((tag) => {
         const url = buildPageURL((state) => ({
           ...state,
@@ -232,7 +245,6 @@ function CurrentTags({
           ...state,
           page: 1,
           tags: state.tags.filter((tagCode) => tagCode !== tag.code),
-          query: "",
         }));
         return (
           <NextLink

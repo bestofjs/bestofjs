@@ -21,7 +21,7 @@ export function ProjectHeader({ project }: Props) {
           <ProjectAvatar project={project} size={75} />
         </div>
         <div className="flex flex-col space-y-4 pl-4">
-          <h2 className="text-4xl">{project.name}</h2>
+          <h2 className="font-serif text-4xl">{project.name}</h2>
           <div>
             <Suspense fallback={project.description}>
               {/* @ts-expect-error Server Component */}
@@ -33,7 +33,7 @@ export function ProjectHeader({ project }: Props) {
           </div>
         </div>
       </div>
-      <aside className="flex flex-col justify-center space-y-2 sm:w-[280px] sm:pl-4">
+      <aside className="flex flex-col justify-center space-y-2 sm:w-[280px] sm:pl-4 font-sans">
         <ButtonLink href={repository} icon={<GoMarkGithub size={20} />}>
           {full_name}
         </ButtonLink>

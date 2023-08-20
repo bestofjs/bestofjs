@@ -33,7 +33,7 @@ export default async function HallOfFamePage() {
             They are sorted by number of followers,{" "}
             <ExternalLink
               url={APP_REPO_URL}
-              className="underline hover:no-underline color-primary"
+              className="color-primary underline hover:no-underline"
             >
               contact us
             </ExternalLink>{" "}

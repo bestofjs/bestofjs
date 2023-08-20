@@ -33,12 +33,12 @@ function HallOfFameMember({ member }: { member: BestOfJS.HallOfFameMember }) {
         />
         <div className="flex flex-1 flex-col justify-center gap-2 px-4">
           <div className="flex items-center">
-            <span className="text-xl">{member.name}</span>
+            <span className="font-serif text-xl">{member.name}</span>
           </div>
           <div className="text-muted-foreground">
             <a
               href={`https://github.com/${member.username}`}
-              className="font-mono text-primary hover:underline"
+              className="text-primary hover:underline"
             >
               {member.username}
             </a>{" "}

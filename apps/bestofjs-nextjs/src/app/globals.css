@@ -49,7 +49,11 @@
     --card: 240 10% 15%;
     --card-foreground: 0 0% 98%;
 
-    --popover: 240 10% 3.9%;
+    /* Add a lighter background for elements displayed inside a card (E.g. code block inside README) */
+    --card-element: 240 10% 25%;
+
+    /* Make popover less dark to match the card bg (original L=3.9%;) */
+    --popover: 240 10% 15%;
     --popover-foreground: 0 0% 98%;
 
     /* Setup orange as the primary color instead of 0 0% 98% */
