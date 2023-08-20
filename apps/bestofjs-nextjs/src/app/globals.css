@@ -49,6 +49,9 @@
     --card: 240 10% 15%;
     --card-foreground: 0 0% 98%;
 
+    /* Add a lighter background for elements displayed inside a card (E.g. code block inside README) */
+    --card-element: 240 10% 25%;
+
     --popover: 240 10% 3.9%;
     --popover-foreground: 0 0% 98%;
 
