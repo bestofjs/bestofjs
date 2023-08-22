@@ -308,10 +308,12 @@ export function SearchPalette({ allProjects, allTags }: SearchProps) {
 }
 
 function filterTagsByQuery(tags: BestOfJS.Tag[], searchQuery: string) {
+  const normalizedQuery = searchQuery.toLowerCase();
+
   return tags.filter(
     (tag) =>
-      tag.code.includes(searchQuery) ||
-      tag.name.toLowerCase().includes(searchQuery)
+      tag.code.includes(normalizedQuery) ||
+      tag.name.toLowerCase().includes(normalizedQuery)
   );
 }
 
