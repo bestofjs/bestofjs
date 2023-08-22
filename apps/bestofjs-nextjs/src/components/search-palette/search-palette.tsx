@@ -215,7 +215,12 @@ export function SearchPalette({ allProjects, allTags }: SearchProps) {
                           <div className="items-center justify-center">
                             <ProjectAvatar project={project} size={32} />
                           </div>
-                          <div className="">{project.name}</div>
+                          <div>
+                            {project.name}
+                            <div className="truncate pt-2 text-xs text-muted-foreground">
+                              {project.description}
+                            </div>
+                          </div>
                           <div className="text-right">
                             <StarTotal value={project.stars} />
                           </div>
