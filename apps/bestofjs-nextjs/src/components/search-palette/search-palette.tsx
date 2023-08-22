@@ -292,10 +292,10 @@ export function SearchPalette({ allProjects, allTags }: SearchProps) {
                       onSelect={onSelectTag}
                     >
                       <div className="flex">
-                        <div className="items-center justify-center">
+                        <div className="w-8 flex justify-center items-center justify-center">
                           <TagIcon />
                         </div>
-                        <span className="mx-2">{tag.name}</span>
+                        <span className="pl-4 pr-2">{tag.name}</span>
                         <div className="text-muted-foreground">
                           ({tag.counter})
                         </div>
