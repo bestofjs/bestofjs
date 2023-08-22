@@ -292,7 +292,7 @@ export function SearchPalette({ allProjects, allTags }: SearchProps) {
                       onSelect={onSelectTag}
                     >
                       <div className="flex">
-                        <div className="w-8 flex justify-center items-center justify-center">
+                        <div className="flex w-8 items-center justify-center">
                           <TagIcon />
                         </div>
                         <span className="pl-4 pr-2">{tag.name}</span>
