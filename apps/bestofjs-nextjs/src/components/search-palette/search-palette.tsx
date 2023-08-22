@@ -215,7 +215,12 @@ export function SearchPalette({ allProjects, allTags }: SearchProps) {
                           <div className="items-center justify-center">
                             <ProjectAvatar project={project} size={32} />
                           </div>
-                          <div className="">{project.name}</div>
+                          <div>
+                            {project.name}
+                            <div className="truncate pt-2 text-xs text-muted-foreground">
+                              {project.description}
+                            </div>
+                          </div>
                           <div className="text-right">
                             <StarTotal value={project.stars} />
                           </div>
@@ -286,13 +291,13 @@ export function SearchPalette({ allProjects, allTags }: SearchProps) {
                       value={"tag/" + tag.code}
                       onSelect={onSelectTag}
                     >
-                      <div className="grid w-full grid-cols-[32px_1fr_100px] items-center gap-4">
-                        <div className="flex w-full items-center justify-center">
+                      <div className="flex">
+                        <div className="flex w-8 items-center justify-center">
                           <TagIcon />
                         </div>
-                        <span className="">{tag.name}</span>
-                        <div className="text-right text-muted-foreground">
-                          {tag.counter}
+                        <span className="pl-4 pr-2">{tag.name}</span>
+                        <div className="text-muted-foreground">
+                          ({tag.counter})
                         </div>
                       </div>
                     </CommandItem>
