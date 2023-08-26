@@ -2,7 +2,7 @@
 
 import { useTheme } from "next-themes";
 
-import { getProjectAvatarUrl } from "./project-avatar-utils";
+import { getProjectAvatarUrl } from "./project-utils";
 
 type Props = {
   project: Pick<BestOfJS.Project, "name" | "owner_id" | "icon">;

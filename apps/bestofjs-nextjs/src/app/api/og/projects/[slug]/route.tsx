@@ -1,7 +1,9 @@
 import { ImageResponse } from "next/server";
 
-import { formatBigNumber } from "@/components/core/project";
-import { getProjectAvatarUrl } from "@/components/core/project-avatar-utils";
+import {
+  formatBigNumber,
+  getProjectAvatarUrl,
+} from "@/components/core/project-utils";
 import { Box, ImageLayout } from "@/app/api/og/og-utils";
 import { searchClient } from "@/app/backend";
 

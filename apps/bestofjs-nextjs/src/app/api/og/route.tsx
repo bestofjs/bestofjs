@@ -21,7 +21,7 @@ export async function GET() {
         </div>
         <Box style={{ flexDirection: "column", gap: 8 }}>
           {projects.slice(0, 3).map((project, index) => (
-            <ProjectRow project={project} rank={index + 1} />
+            <ProjectRow key={project.slug} project={project} rank={index + 1} />
           ))}
         </Box>
       </ImageLayout>

@@ -1,10 +1,21 @@
-/*
-Return the image URL to be displayed inside the project card
-Can be either :
-* the GitHub owner avatar (by default if no `icon` property is specified)
-* A custom SVG file if project's `icon`property is specified.
-The SVG can be stored locally (inside `www/logos` folder) or in the cloud.
-*/
+import numeral from "numeral";
+
+/**
+ *
+ * Format a (potentially) big number, either the total number of star or a yearly/monthly delta
+ * using the `k` prefix
+ */
+export function formatBigNumber(value: number): string {
+  const digits = value > 1000 && value < 10000 ? "0.0" : "0";
+  return numeral(value).format(digits + " a");
+}
+
+/**
+ * Return the image URL to be displayed inside the project card
+ *  Can be either :
+ * - the GitHub owner avatar (by default if no `icon` property is specified)
+ * - A custom SVG file if project's `icon`property is specified.
+ */
 export function getProjectAvatarUrl(
   project: Pick<BestOfJS.Project, "name" | "owner_id" | "icon">,
   size: number,
