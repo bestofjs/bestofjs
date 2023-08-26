@@ -231,7 +231,7 @@ export function createSearchClient() {
 
     async getProjectBySlug(slug: string) {
       const { populate, projectsBySlug } = await getData();
-      return populate(projectsBySlug[slug]);
+      return projectsBySlug[slug] ? populate(projectsBySlug[slug]) : undefined;
     },
 
     async getSearchIndex() {
@@ -346,8 +346,8 @@ async function fetchProjectData(): Promise<{
 function fetchDataFromRemoteJSON() {
   const url = FETCH_ALL_PROJECTS_URL + `/projects.json`;
   console.log(`Fetching JSON data from ${url}`);
-  const options = { next: { revalidate: 60 * 60 } }; // Revalidate in one hour
-  return fetch(url, options).then((res) => res.json());
+  // const options = { next: { revalidate: 60 * 60 } }; // Revalidate in one hour
+  return fetch(url).then((res) => res.json());
 }
 
 function fetchHallOfFameData() {

@@ -76,7 +76,7 @@ export const StarTotal = ({ value }: Props) => {
 
 // Display a (potentially) big number, either the total number of star or a yearly/monthly delta
 // using the `k` prefix
-function formatBigNumber(value: number): string {
+export function formatBigNumber(value: number): string {
   const digits = value > 1000 && value < 10000 ? "0.0" : "0";
   return numeral(value).format(digits + " a");
 }

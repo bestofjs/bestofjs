@@ -24,6 +24,7 @@ export async function generateMetadata({
 }: PageProps): Promise<Metadata> {
   const { slug } = params;
   const project = await getData(slug);
+  if (!project) return { title: "Project not found" };
 
   return {
     title: project.name,
@@ -34,6 +35,10 @@ export async function generateMetadata({
 export default async function ProjectDetailsPage({ params }: PageProps) {
   const { slug } = params;
   const project = await getData(slug);
+  if (!project) {
+    // TODO show a better page when an invalid slug is provided
+    return <>Project not found!</>;
+  }
 
   return (
     <div className="flex flex-col space-y-8 font-serif">
