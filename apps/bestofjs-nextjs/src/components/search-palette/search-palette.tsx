@@ -183,7 +183,7 @@ export function SearchPalette({ allProjects, allTags }: SearchProps) {
             {false && <LoadingProject project={allProjects[1000]} />}
             {false && <LoadingTag tags={[allTags[10]]} />}
             {currentTags.length > 0 && (
-              <div className="flex flex-wrap gap-2 border-b p-4">
+              <div className="flex cursor-pointer flex-wrap gap-2 border-b p-4">
                 {currentTags.map((tag) => {
                   if (!tag) return null;
                   return (
