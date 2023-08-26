@@ -29,6 +29,9 @@ export async function generateMetadata({
   return {
     title: project.name,
     description: project.description,
+    openGraph: {
+      images: [`/api/og/projects/${slug}`],
+    },
   };
 }
 
