@@ -1,8 +1,8 @@
-import React from "react";
 import numeral from "numeral";
 import slugify from "slugify";
 
 import { StarIcon } from "./icons";
+import { formatBigNumber } from "./project-utils";
 
 type Props = {
   value: number;
@@ -73,13 +73,6 @@ export const StarTotal = ({ value }: Props) => {
     </div>
   );
 };
-
-// Display a (potentially) big number, either the total number of star or a yearly/monthly delta
-// using the `k` prefix
-function formatBigNumber(value: number): string {
-  const digits = value > 1000 && value < 10000 ? "0.0" : "0";
-  return numeral(value).format(digits + " a");
-}
 
 export function getProjectId(project: BestOfJS.RawProject) {
   return slugify(project.name, { lower: true, remove: /[.'/]/g });

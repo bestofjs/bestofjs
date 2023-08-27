@@ -1,7 +1,5 @@
-import path from "node:path";
 import { shuffle } from "@/helpers/shuffle";
 import debugModule from "debug";
-import fs from "fs-extra";
 import * as mingo from "mingo";
 import { RawObject } from "mingo/types";
 import slugify from "slugify";
@@ -233,7 +231,7 @@ export function createSearchClient() {
 
     async getProjectBySlug(slug: string) {
       const { populate, projectsBySlug } = await getData();
-      return populate(projectsBySlug[slug]);
+      return projectsBySlug[slug] ? populate(projectsBySlug[slug]) : undefined;
     },
 
     async getSearchIndex() {
@@ -337,11 +335,7 @@ async function fetchProjectData(): Promise<{
   date: Date;
 }> {
   try {
-    const useFileSystem = true;
-    const data = useFileSystem
-      ? await fetchDataFromFileSystem()
-      : await fetchDataFromRemoteJSON();
-
+    const data = await fetchDataFromRemoteJSON();
     return data as RawData;
   } catch (error) {
     console.error("Unable to fetch data!", (error as Error).message);
@@ -352,14 +346,8 @@ async function fetchProjectData(): Promise<{
 function fetchDataFromRemoteJSON() {
   const url = FETCH_ALL_PROJECTS_URL + `/projects.json`;
   console.log(`Fetching JSON data from ${url}`);
-  const options = { next: { revalidate: 60 * 60 } }; // Revalidate in one hour
-  return fetch(url, options).then((res) => res.json());
-}
-
-function fetchDataFromFileSystem() {
-  console.log("Fetch from the file system");
-  const filepath = path.join(process.cwd(), "public", "data/projects.json");
-  return fs.readJSON(filepath);
+  // const options = { next: { revalidate: 60 * 60 } }; // Revalidate in one hour
+  return fetch(url).then((res) => res.json());
 }
 
 function fetchHallOfFameData() {

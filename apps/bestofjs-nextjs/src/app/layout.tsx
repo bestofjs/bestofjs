@@ -26,6 +26,10 @@ export const metadata: Metadata = {
     shortcut: "/favicon-16x16.png",
     apple: "/apple-touch-icon.png",
   },
+  metadataBase: new URL(`https://${process.env.VERCEL_URL}`), // to avoid warnings at build time
+  openGraph: {
+    images: ["/api/og"],
+  },
 };
 
 interface RootLayoutProps {

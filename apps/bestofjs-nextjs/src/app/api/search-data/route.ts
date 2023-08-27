@@ -1,6 +1,6 @@
 import { searchClient } from "@/app/backend";
 
-export const runtime = "nodejs";
+export const runtime = "edge";
 
 export async function GET(req: Request) {
   const projects = await searchClient.getSearchIndex();

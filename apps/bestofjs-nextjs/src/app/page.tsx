@@ -30,11 +30,6 @@ import {
   getLatestProjects,
 } from "./backend-search-requests";
 
-// Try to revalidate the home page every hour to take into account changes from the API
-// as `revalidate` param used in `fetch` request to get data does not seem to work
-// TODO remove when page rebuilt is triggered automatically
-export const revalidate = 60 * 60;
-
 export default async function IndexPage() {
   const { hotProjects, newestProjects, bestOfJSProject, popularTags } =
     await getData();

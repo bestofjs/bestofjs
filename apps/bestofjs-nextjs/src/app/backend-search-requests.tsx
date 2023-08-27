@@ -1,4 +1,4 @@
-export function getHotProjectsRequest() {
+export function getHotProjectsRequest(count = 5) {
   return {
     criteria: {
       tags: { $nin: ["meta", "learning"] },
@@ -6,7 +6,7 @@ export function getHotProjectsRequest() {
     sort: {
       "trends.daily": -1,
     },
-    limit: 5,
+    limit: count,
   };
 }
 
