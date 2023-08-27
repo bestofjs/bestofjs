@@ -21,7 +21,7 @@ export async function GET() {
   return generateImageResponse(
     <ImageLayout>
       <Box style={{ gap: 16 }}>
-        <div>Hottest project today</div>
+        <div>Hottest projects today</div>
         <div style={{ color: mutedColor }}>
           {"(" + formatDate(new Date()) + ")"}
         </div>
