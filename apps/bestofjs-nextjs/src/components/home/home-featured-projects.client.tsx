@@ -111,7 +111,7 @@ function DynamicFeaturedProjectList({
   );
   const { mutate } = useSWRConfig();
   useEffect(() => {
-    if (pageNumber > 1) {
+    if (pageNumber > 0) {
       mutate("random-projects");
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
