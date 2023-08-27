@@ -194,24 +194,24 @@ export function SearchPalette({ allProjects, allTags }: SearchProps) {
                   {filteredProjects.slice(0, 10).map((project) => (
                     <div
                       key={project.slug}
-                      className="grid gap-2 md:grid-cols-[1fr_40px_40px]"
+                      className="gap-2 md:grid md:grid-cols-[1fr_40px_40px]"
                     >
                       <CommandItem
                         key={project.slug}
                         value={`project/` + project.slug}
                         onSelect={onSelectProject}
                       >
-                        <div className="grid w-full grid-cols-[32px_1fr_100px] items-center gap-4">
+                        <div className="flex w-full min-w-0 items-center gap-4">
                           <div className="items-center justify-center">
                             <ProjectAvatar project={project} size={32} />
                           </div>
-                          <div>
+                          <div className="flex-1 truncate">
                             {project.name}
-                            <div className="truncate pt-2 text-xs text-muted-foreground">
+                            <div className="truncate pt-2 text-muted-foreground">
                               {project.description}
                             </div>
                           </div>
-                          <div className="text-right">
+                          <div className="hidden text-right md:block">
                             <StarTotal value={project.stars} />
                           </div>
                         </div>
