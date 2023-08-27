@@ -1,4 +1,7 @@
+/* eslint-disable @next/next/no-img-element */
 import { ImageResponse } from "next/server";
+
+import { getProjectAvatarUrl } from "@/components/core/project-utils";
 
 export const mutedColor = "#a1a1aa";
 
@@ -17,6 +20,17 @@ export function generateImageResponse(
 export function Box(props: React.HTMLAttributes<HTMLDivElement>) {
   const { style, ...rest } = props;
   return <div style={{ display: "flex", ...style }} {...rest} />;
+}
+
+export function ProjectLogo({
+  project,
+  size,
+}: {
+  project: BestOfJS.Project;
+  size: number;
+}) {
+  const imageURL = getProjectAvatarUrl(project, 100, "dark");
+  return <img src={imageURL} width={size} height={size} alt={project.name} />;
 }
 
 export function StarIcon() {

@@ -2,7 +2,13 @@ import { searchClient } from "@/app/backend";
 import { getHotProjectsRequest } from "@/app/backend-search-requests";
 
 import { ImageLayout } from "./og-image-layout";
-import { Box, StarIcon, generateImageResponse, mutedColor } from "./og-utils";
+import {
+  Box,
+  ProjectLogo,
+  StarIcon,
+  generateImageResponse,
+  mutedColor,
+} from "./og-utils";
 
 export const runtime = "edge";
 
@@ -20,7 +26,7 @@ export async function GET() {
           {"(" + formatDate(new Date()) + ")"}
         </div>
       </Box>
-      <Box style={{ flexDirection: "column", gap: 8 }}>
+      <Box style={{ flexDirection: "column" }}>
         {projects.map((project, index) => (
           <ProjectRow key={project.slug} project={project} rank={index + 1} />
         ))}
@@ -37,11 +43,32 @@ function ProjectRow({
   rank: number;
 }) {
   return (
-    <Box style={{ color: "white", gap: 24 }}>
+    <Box
+      style={{
+        color: "white",
+        gap: 24,
+        alignItems: "center",
+        borderBottom: "1px",
+        borderColor: "#3d3d42",
+        borderStyle: "dashed",
+        borderTopWidth: rank === 1 ? 1 : 0,
+        padding: "8px 0",
+      }}
+    >
       <Box style={{ color: mutedColor }}>#{rank}</Box>
-      <div>{project.name}</div>
       <Box>
-        <ShowStars project={project} />
+        <ProjectLogo project={project} size={80} />
+      </Box>
+      <Box
+        style={{
+          justifyContent: "space-between",
+          flex: 1,
+        }}
+      >
+        <div>{project.name}</div>
+        <Box>
+          <ShowStars project={project} />
+        </Box>
       </Box>
     </Box>
   );

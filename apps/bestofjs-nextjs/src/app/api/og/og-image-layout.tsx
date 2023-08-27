@@ -6,7 +6,7 @@ export function ImageLayout({ children }: Props) {
     <div
       style={{
         display: "flex",
-        fontSize: 48,
+        fontSize: 40,
         color: "white",
         background: "#09090b",
         width: "100%",
@@ -27,7 +27,7 @@ export function ImageLayout({ children }: Props) {
         style={{
           display: "flex",
           flexDirection: "column",
-          gap: 64,
+          gap: 32,
           padding: 64,
         }}
       >

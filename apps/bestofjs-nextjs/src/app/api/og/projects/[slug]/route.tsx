@@ -1,12 +1,7 @@
-/* eslint-disable @next/next/no-img-element */
-import { ImageResponse } from "next/server";
-
-import {
-  formatBigNumber,
-  getProjectAvatarUrl,
-} from "@/components/core/project-utils";
+import { formatBigNumber } from "@/components/core/project-utils";
 import {
   Box,
+  ProjectLogo,
   StarIcon,
   generateImageResponse,
   mutedColor,
@@ -39,17 +34,6 @@ export async function GET(_req: Request, { params: { slug } }: Context) {
       </Box>
     </ImageLayout>
   );
-}
-
-function ProjectLogo({
-  project,
-  size,
-}: {
-  project: BestOfJS.Project;
-  size: number;
-}) {
-  const imageURL = getProjectAvatarUrl(project, 100, "dark");
-  return <img src={imageURL} width={size} height={size} alt={project.name} />;
 }
 
 function ShowStarsTotal({ value }: { value: number }) {
