@@ -1,4 +1,15 @@
+import { ImageResponse } from "next/server";
+
 export const mutedColor = "#a1a1aa";
+
+export function generateImageResponse(
+  content: ConstructorParameters<typeof ImageResponse>[0]
+) {
+  return new ImageResponse(content, {
+    width: 1200,
+    height: 630,
+  });
+}
 
 /**
  * Just a basic flex wrapper as we need to specify "display: flex" everywhere

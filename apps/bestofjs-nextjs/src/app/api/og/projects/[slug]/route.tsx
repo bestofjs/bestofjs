@@ -5,7 +5,12 @@ import {
   formatBigNumber,
   getProjectAvatarUrl,
 } from "@/components/core/project-utils";
-import { Box, StarIcon, mutedColor } from "@/app/api/og/og-utils";
+import {
+  Box,
+  StarIcon,
+  generateImageResponse,
+  mutedColor,
+} from "@/app/api/og/og-utils";
 import { searchClient } from "@/app/backend";
 
 import { ImageLayout } from "../../og-image-layout";
@@ -15,25 +20,24 @@ export const runtime = "edge";
 type Context = { params: { slug: string } };
 export async function GET(_req: Request, { params: { slug } }: Context) {
   const project = await searchClient.getProjectBySlug(slug);
-  if (!project) return <div style={{ color: "white" }}>Not found</div>;
-
-  return new ImageResponse(
-    (
+  if (!project)
+    return generateImageResponse(
       <ImageLayout>
-        <Box style={{ alignItems: "center", gap: 64 }}>
-          <ProjectLogo project={project} size={200} />
-          <Box style={{ flex: 1, flexDirection: "column", gap: 32 }}>
-            <Box style={{ gap: 32, fontSize: 80 }}>{project.name}</Box>
-            <div style={{ color: mutedColor }}>{project.description}</div>
-            <Trend project={project} />
-          </Box>
-        </Box>
+        <div>Project not found!</div>
       </ImageLayout>
-    ),
-    {
-      width: 1280,
-      height: 640,
-    }
+    );
+
+  return generateImageResponse(
+    <ImageLayout>
+      <Box style={{ alignItems: "center", gap: 64 }}>
+        <ProjectLogo project={project} size={200} />
+        <Box style={{ flex: 1, flexDirection: "column", gap: 32 }}>
+          <Box style={{ gap: 32, fontSize: 80 }}>{project.name}</Box>
+          <div style={{ color: mutedColor }}>{project.description}</div>
+          <Trend project={project} />
+        </Box>
+      </Box>
+    </ImageLayout>
   );
 }
 

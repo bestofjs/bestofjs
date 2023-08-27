@@ -1,10 +1,8 @@
-import { ImageResponse } from "next/server";
-
 import { searchClient } from "@/app/backend";
 import { getHotProjectsRequest } from "@/app/backend-search-requests";
 
 import { ImageLayout } from "./og-image-layout";
-import { Box, StarIcon, mutedColor } from "./og-utils";
+import { Box, StarIcon, generateImageResponse, mutedColor } from "./og-utils";
 
 export const runtime = "edge";
 
@@ -14,26 +12,20 @@ export async function GET() {
     getHotProjectsRequest(NUMBER_OF_PROJECTS)
   );
 
-  return new ImageResponse(
-    (
-      <ImageLayout>
-        <Box style={{ gap: 16 }}>
-          <div>Hottest project today</div>
-          <div style={{ color: mutedColor }}>
-            {"(" + formatDate(new Date()) + ")"}
-          </div>
-        </Box>
-        <Box style={{ flexDirection: "column", gap: 8 }}>
-          {projects.map((project, index) => (
-            <ProjectRow key={project.slug} project={project} rank={index + 1} />
-          ))}
-        </Box>
-      </ImageLayout>
-    ),
-    {
-      width: 1280,
-      height: 640,
-    }
+  return generateImageResponse(
+    <ImageLayout>
+      <Box style={{ gap: 16 }}>
+        <div>Hottest project today</div>
+        <div style={{ color: mutedColor }}>
+          {"(" + formatDate(new Date()) + ")"}
+        </div>
+      </Box>
+      <Box style={{ flexDirection: "column", gap: 8 }}>
+        {projects.map((project, index) => (
+          <ProjectRow key={project.slug} project={project} rank={index + 1} />
+        ))}
+      </Box>
+    </ImageLayout>
   );
 }
 

@@ -11,13 +11,12 @@ export function ImageLayout({ children }: Props) {
         background: "#09090b",
         width: "100%",
         height: "100%",
-        // justifyContent: "center",
         flexDirection: "column",
       }}
     >
       <div
         style={{
-          borderBottom: "3px solid #3d3d42",
+          borderBottom: "2px solid #3d3d42",
           display: "flex",
           padding: `24px 64px 16px`,
         }}
