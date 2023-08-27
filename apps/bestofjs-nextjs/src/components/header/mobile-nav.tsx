@@ -5,9 +5,15 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Bars3Icon } from "@heroicons/react/20/solid";
 
-import { extraNavItems, mainNavItems } from "@/config/site";
+import {
+  APP_REPO_URL,
+  DISCORD_URL,
+  extraNavItems,
+  mainNavItems,
+} from "@/config/site";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
+import { Separator } from "@/components/ui/separator";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Icons } from "@/components/icons";
 
@@ -60,7 +66,7 @@ function SidebarContent({
                   "flex items-center",
                   item.isActive(pathname)
                     ? "text-foreground"
-                    : "text-foreground/60",
+                    : "text-foreground/70",
                   item.disabled && "cursor-not-allowed opacity-80"
                 )}
                 onClick={() => onOpenChange(false)}
@@ -69,6 +75,25 @@ function SidebarContent({
               </Link>
             )
         )}
+        <Separator />
+        <div className="space-y-2">
+          <a
+            href={DISCORD_URL}
+            target="_blank"
+            rel="noreferrer"
+            className="block text-foreground/70"
+          >
+            Discord
+          </a>
+          <a
+            href={APP_REPO_URL}
+            target="_blank"
+            rel="noreferrer"
+            className="block text-foreground/70"
+          >
+            GitHub
+          </a>
+        </div>
       </div>
     </>
   );
