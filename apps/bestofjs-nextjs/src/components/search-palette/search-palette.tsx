@@ -2,12 +2,12 @@
 
 import * as React from "react";
 import { useRouter } from "next/navigation";
-import { MagnifyingGlassIcon, XMarkIcon } from "@heroicons/react/20/solid";
+import { XMarkIcon } from "@heroicons/react/20/solid";
 import { GoHome, GoMarkGithub } from "react-icons/go";
 
 import { cn } from "@/lib/utils";
 import { Badge } from "@/components/ui/badge";
-import { Button, buttonVariants } from "@/components/ui/button";
+import { buttonVariants } from "@/components/ui/button";
 import {
   CommandDialog,
   CommandEmpty,
@@ -16,12 +16,14 @@ import {
   CommandItem,
   CommandList,
 } from "@/components/ui/command";
+import { Skeleton } from "@/components/ui/skeleton";
 
 import { ProjectAvatar, StarTotal, TagIcon } from "../core";
+import { Icons } from "../icons";
 import { stateToQueryString } from "../project-list/navigation-state";
 import { useSearchState } from "../project-list/search-state";
-import { Skeleton } from "../ui/skeleton";
 import { filterProjectsByTagsAndQuery } from "./find-projects";
+import { SearchTrigger } from "./search-trigger";
 
 export type SearchProps = {
   allProjects: BestOfJS.SearchIndexProject[];
@@ -155,19 +157,7 @@ export function SearchPalette({ allProjects, allTags }: SearchProps) {
 
   return (
     <>
-      <Button
-        variant="outline"
-        className={cn(
-          "relative ml-4 h-9 w-full justify-start rounded-[0.5rem] text-sm text-muted-foreground sm:pr-12 md:w-40 lg:w-64"
-        )}
-        onClick={() => setOpen(true)}
-      >
-        <span className="hidden lg:inline-flex">Search in projects...</span>
-        <span className="inline-flex lg:hidden">Search...</span>
-        <kbd className="pointer-events-none absolute right-1.5 top-2 hidden h-5 select-none items-center gap-1 rounded border bg-muted px-1.5 text-[10px] font-medium opacity-100 sm:flex">
-          <span className="text-xs">⌘</span>K
-        </kbd>
-      </Button>
+      <SearchTrigger onClick={() => setOpen(true)} />
       <CommandDialog open={open} onOpenChange={onOpenChange}>
         {isPending ? (
           <div className="flex h-[300px] items-center justify-center">
@@ -271,7 +261,7 @@ export function SearchPalette({ allProjects, allTags }: SearchProps) {
                       className="grid w-full grid-cols-[32px_1fr] items-center gap-4"
                     >
                       <div className="flex justify-center">
-                        <MagnifyingGlassIcon className="" />
+                        <Icons.search />
                       </div>
                       <div>
                         Search for
