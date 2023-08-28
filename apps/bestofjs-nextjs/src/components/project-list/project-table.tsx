@@ -78,7 +78,7 @@ const ProjectTableRow = ({
           <NextLink href={path} className="text-primary hover:underline">
             {project.name}
           </NextLink>
-          <div className="flex space-x-1">
+          <div className="flex w-full space-x-1">
             <a
               href={project.repository}
               aria-label="GitHub repository"
@@ -112,6 +112,11 @@ const ProjectTableRow = ({
               </a>
             )}
           </div>
+          {metricsCell && (
+            <div className="flex w-[100px] justify-end pr-4 text-right md:hidden">
+              {metricsCell(project)}
+            </div>
+          )}
         </div>
 
         <div className="mb-4 mt-2 space-y-2 text-sm">
@@ -143,7 +148,9 @@ const ProjectTableRow = ({
       )}
 
       {metricsCell && (
-        <Cell className="w-[100px] p-4 text-right">{metricsCell(project)}</Cell>
+        <Cell className="hidden w-[100px] p-4 text-right md:table-cell">
+          {metricsCell(project)}
+        </Cell>
       )}
     </tr>
   );
