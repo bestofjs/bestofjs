@@ -116,14 +116,14 @@ const ProjectTableRow = ({
             )}
           </div>
           {metricsCell && (
-            <div className="flex w-[100px] justify-end pr-4 text-right md:hidden">
+            <div className="flex w-full justify-end pr-4 text-right md:hidden">
               {metricsCell(project)}
             </div>
           )}
         </div>
 
         <div className="mb-4 mt-2 space-y-2 text-sm">
-          <div className="font-serif">{project.description}</div>
+          <div className="pr-4 font-serif sm:pr-0">{project.description}</div>
           {showDetails && (
             <>
               <div className="md:hidden">
