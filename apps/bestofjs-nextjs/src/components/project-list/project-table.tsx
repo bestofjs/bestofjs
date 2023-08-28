@@ -75,10 +75,13 @@ const ProjectTableRow = ({
 
       <Cell className="w-auto py-4 pl-4 md:pl-2">
         <div className="relative flex items-center space-x-2">
-          <NextLink href={path} className="text-primary hover:underline">
+          <NextLink
+            href={path}
+            className="whitespace-nowrap text-primary hover:underline"
+          >
             {project.name}
           </NextLink>
-          <div className="flex space-x-1">
+          <div className="hidden w-full space-x-1 md:flex">
             <a
               href={project.repository}
               aria-label="GitHub repository"
@@ -112,20 +115,15 @@ const ProjectTableRow = ({
               </a>
             )}
           </div>
+          {metricsCell && (
+            <div className="flex w-full justify-end pr-4 text-right md:hidden">
+              {metricsCell(project)}
+            </div>
+          )}
         </div>
 
         <div className="mb-4 mt-2 space-y-2 text-sm">
-          <div className="font-serif">{project.description}</div>
-          {showDetails && (
-            <>
-              <div className="md:hidden">
-                Updated {fromNow(project.pushed_at)}
-              </div>
-              <div className="md:hidden">
-                {formatNumber(project.contributor_count)} contributors
-              </div>
-            </>
-          )}
+          <div className="pr-4 font-serif sm:pr-0">{project.description}</div>
         </div>
         <div>
           <ProjectTagGroup tags={project.tags} buildPageURL={buildPageURL} />
@@ -143,7 +141,9 @@ const ProjectTableRow = ({
       )}
 
       {metricsCell && (
-        <Cell className="w-[100px] p-4 text-right">{metricsCell(project)}</Cell>
+        <Cell className="hidden w-[100px] p-4 text-right md:table-cell">
+          {metricsCell(project)}
+        </Cell>
       )}
     </tr>
   );
