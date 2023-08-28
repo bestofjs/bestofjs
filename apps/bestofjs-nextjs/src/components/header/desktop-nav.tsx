@@ -28,10 +28,10 @@ export function MainNav() {
 
   return (
     <>
-      <div className="md:hidden">
+      <div className="mr-4 lg:hidden">
         <MobileMenuButton />
       </div>
-      <div className="hidden gap-6 md:flex md:gap-8">
+      <div className="flex gap-6 lg:gap-8">
         <Link
           href="/"
           className="flex items-center space-x-2"
@@ -43,7 +43,7 @@ export function MainNav() {
             className="h-[37.15px] w-[130px] text-primary"
           />
         </Link>
-        <div className="flex gap-4">
+        <div className="hidden gap-4 lg:flex">
           <nav className="flex gap-6">
             {mainNavItems?.map(
               (item, index) =>

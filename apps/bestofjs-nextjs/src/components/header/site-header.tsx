@@ -27,8 +27,13 @@ export function SiteHeader() {
           >
             <SearchContainer />
           </Suspense>
-          <nav className="flex items-center space-x-1">
-            <Link href={APP_REPO_URL} target="_blank" rel="noreferrer">
+          <nav className="flex items-center gap-1">
+            <Link
+              href={APP_REPO_URL}
+              target="_blank"
+              rel="noreferrer"
+              className="hidden sm:inline"
+            >
               <div
                 className={buttonVariants({
                   size: "sm",
@@ -39,7 +44,12 @@ export function SiteHeader() {
                 <span className="sr-only">GitHub</span>
               </div>
             </Link>
-            <Link href={DISCORD_URL} target="_blank" rel="noreferrer">
+            <Link
+              href={DISCORD_URL}
+              target="_blank"
+              rel="noreferrer"
+              className="hidden sm:inline"
+            >
               <div
                 className={buttonVariants({
                   size: "sm",
