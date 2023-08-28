@@ -81,7 +81,7 @@ const ProjectTableRow = ({
           >
             {project.name}
           </NextLink>
-          <div className="flex w-full space-x-1">
+          <div className="hidden w-full space-x-1 md:flex">
             <a
               href={project.repository}
               aria-label="GitHub repository"
