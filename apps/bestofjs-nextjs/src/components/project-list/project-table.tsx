@@ -75,7 +75,10 @@ const ProjectTableRow = ({
 
       <Cell className="w-auto py-4 pl-4 md:pl-2">
         <div className="relative flex items-center space-x-2">
-          <NextLink href={path} className="text-primary hover:underline">
+          <NextLink
+            href={path}
+            className="whitespace-nowrap text-primary hover:underline"
+          >
             {project.name}
           </NextLink>
           <div className="flex w-full space-x-1">
