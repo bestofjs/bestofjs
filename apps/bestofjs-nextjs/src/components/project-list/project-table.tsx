@@ -124,16 +124,6 @@ const ProjectTableRow = ({
 
         <div className="mb-4 mt-2 space-y-2 text-sm">
           <div className="pr-4 font-serif sm:pr-0">{project.description}</div>
-          {showDetails && (
-            <>
-              <div className="md:hidden">
-                Updated {fromNow(project.pushed_at)}
-              </div>
-              <div className="md:hidden">
-                {formatNumber(project.contributor_count)} contributors
-              </div>
-            </>
-          )}
         </div>
         <div>
           <ProjectTagGroup tags={project.tags} buildPageURL={buildPageURL} />
