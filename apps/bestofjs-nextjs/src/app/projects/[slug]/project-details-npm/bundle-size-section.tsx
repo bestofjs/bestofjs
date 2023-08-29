@@ -1,4 +1,4 @@
-import { prettyBytes } from "@/helpers/pretty-bytes";
+import prettyBytes from "pretty-bytes";
 
 import {
   Collapsible,
