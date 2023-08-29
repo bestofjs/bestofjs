@@ -1,4 +1,6 @@
+import { ChevronRightIcon } from "@heroicons/react/20/solid";
 import {
+  ExternalLinkIcon,
   LucideProps,
   Moon,
   Search,
@@ -9,6 +11,8 @@ import {
 export type Icon = LucideIcon;
 
 export const Icons = {
+  chevronRightIcon: ChevronRightIcon,
+  externalLink: ExternalLinkIcon,
   sun: SunMedium,
   moon: Moon,
   search: Search,
