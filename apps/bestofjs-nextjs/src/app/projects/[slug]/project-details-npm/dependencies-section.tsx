@@ -1,22 +1,13 @@
-import { ChevronRightIcon } from "@heroicons/react/20/solid";
-
 import { Badge } from "@/components/ui/badge";
-import { Card, CardContent } from "@/components/ui/card";
+import { Card } from "@/components/ui/card";
 import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
 } from "@/components/ui/collapsible";
-import {
-  Table,
-  TableBody,
-  TableCaption,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
+import { Table, TableBody, TableCell, TableRow } from "@/components/ui/table";
 import { CardHeader } from "@/components/core";
+import { Icons } from "@/components/icons";
 import { ProjectTable } from "@/components/project-list/project-table";
 import { searchClient } from "@/app/backend";
 
@@ -40,7 +31,7 @@ export async function DependenciesSection({
   return (
     <Collapsible>
       <CollapsibleTrigger className="group flex items-center">
-        <ChevronRightIcon className="h-6 w-6 group-data-[state=open]:rotate-90" />
+        <Icons.chevronRightIcon className="h-6 w-6 group-data-[state=open]:rotate-90" />
         Dependencies
         <Badge variant={"secondary"} className="ml-2">
           {dependencies.length}
@@ -69,16 +60,17 @@ export async function DependenciesSection({
               </CardHeader>
             )}
 
-            <Table className="">
+            <Table className="text-md">
               <TableBody>
                 {dependenciesNotOnBestOfJS.map((dependency) => (
                   <TableRow key={dependency}>
-                    <TableCell>
+                    <TableCell className="p-0">
                       <a
-                        className="font-sans hover:underline"
+                        className="flex w-full items-center gap-2 px-4 py-2 font-sans"
                         href={`https://npmjs.org/package/${dependency}`}
                       >
                         {dependency}
+                        <Icons.externalLink className="h-4 w-4" />
                       </a>
                     </TableCell>
                   </TableRow>
