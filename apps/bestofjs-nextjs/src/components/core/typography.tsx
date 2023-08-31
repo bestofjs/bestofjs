@@ -1,3 +1,5 @@
+import { cn } from "@/lib/utils";
+
 import { linkVariants } from "../ui/link";
 
 type Props = {
@@ -33,7 +35,7 @@ export const ExternalLink = ({
   const fullURL = url.startsWith("http") ? url : `http://` + url;
   return (
     <a
-      className={linkVariants()}
+      className={cn(linkVariants(), "inline-flex items-center gap-2")}
       href={fullURL}
       target="_blank"
       rel="noopener noreferrer"

@@ -31,8 +31,8 @@ function mergeProjectData(project: BestOfJS.Project, details: any) {
     commit_count,
     contributor_count,
     created_at,
-    npm,
     bundle,
+    packageData: npm,
     packageSize,
-  } as BestOfJS.ProjectDetails;
+  } as BestOfJS.ProjectWithPackageDetails;
 }

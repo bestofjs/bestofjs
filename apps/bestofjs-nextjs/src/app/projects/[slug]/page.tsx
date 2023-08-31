@@ -69,7 +69,9 @@ async function ProjectDetailsCards({ project }: { project: BestOfJS.Project }) {
     <>
       <ProjectDetailsGitHubCard project={projectWithDetails} />
       {project.packageName && (
-        <ProjectDetailsNpmCard project={projectWithDetails} />
+        <ProjectDetailsNpmCard
+          project={projectWithDetails as BestOfJS.ProjectWithPackageDetails}
+        />
       )}
     </>
   );

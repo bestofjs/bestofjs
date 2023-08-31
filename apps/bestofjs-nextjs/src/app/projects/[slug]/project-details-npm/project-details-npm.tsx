@@ -4,15 +4,16 @@ import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { CardBody, CardSection } from "@/components/core";
 
+import { BundleSizeSection } from "./bundle-size-section";
 import { DependenciesSection } from "./dependencies-section";
 import { MonthlyDownloadsChart } from "./monthly-downloads-charts";
 
 export function ProjectDetailsNpmCard({
   project,
 }: {
-  project: BestOfJS.ProjectDetails;
+  project: BestOfJS.ProjectWithPackageDetails;
 }) {
-  const { packageName, npm } = project;
+  const { packageName, packageData } = project;
   return (
     <Card>
       <CardHeader className="border-b">
@@ -31,7 +32,7 @@ export function ProjectDetailsNpmCard({
               {packageName}
               {/* <ExternalLinkIcon /> */}
             </a>
-            <Badge className="">{npm.version}</Badge>
+            <Badge className="">{packageData.version}</Badge>
           </div>
         </CardSection>
         <CardSection>
@@ -41,6 +42,9 @@ export function ProjectDetailsNpmCard({
         <CardSection>
           {/* @ts-expect-error Server Component */}
           <DependenciesSection project={project} />
+        </CardSection>
+        <CardSection>
+          <BundleSizeSection project={project} />
         </CardSection>
       </CardBody>
     </Card>

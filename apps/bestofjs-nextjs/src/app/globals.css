@@ -60,7 +60,8 @@
     --primary: 25 100% 70%;
     --primary-foreground: 240 5.9% 10%;
 
-    --secondary: 240 3.7% 15.9%;
+    /* Make secondary badges more visible when used in cards (default L=15.9%) */
+    --secondary: 240 3.7% 25%;
     --secondary-foreground: 0 0% 98%;
 
     /* Make skeleton more visible (default L=15.9%) */
