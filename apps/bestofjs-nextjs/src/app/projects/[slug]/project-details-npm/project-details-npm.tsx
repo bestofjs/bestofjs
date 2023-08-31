@@ -11,9 +11,9 @@ import { MonthlyDownloadsChart } from "./monthly-downloads-charts";
 export function ProjectDetailsNpmCard({
   project,
 }: {
-  project: BestOfJS.ProjectDetails;
+  project: BestOfJS.ProjectWithPackageDetails;
 }) {
-  const { packageName, npm } = project;
+  const { packageName, packageData } = project;
   return (
     <Card>
       <CardHeader className="border-b">
@@ -32,7 +32,7 @@ export function ProjectDetailsNpmCard({
               {packageName}
               {/* <ExternalLinkIcon /> */}
             </a>
-            <Badge className="">{npm.version}</Badge>
+            <Badge className="">{packageData.version}</Badge>
           </div>
         </CardSection>
         <CardSection>

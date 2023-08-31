@@ -55,29 +55,25 @@ declare namespace BestOfJS {
     | "url"
   > & { slug: string };
 
+  type BundleData = {
+    gzip?: number;
+    name: string;
+    size?: number;
+    version: string;
+    errorMessage?: string;
+  };
+
+  type PackageData = {
+    dependencies: string[];
+    deprecated: boolean;
+    name: string;
+    version: string;
+  };
+
   // Project with extra data coming from the dynamic API
   interface ProjectDetails extends Project {
     commit_count: number;
     created_at: string;
-    bundle: {
-      dependencyCount: number;
-      gzip: number;
-      name: string;
-      size: number;
-      version: string;
-      errorMessage?: string;
-    };
-    npm: {
-      dependencies: string[];
-      deprecated: boolean;
-      name: string;
-      version: string;
-    };
-    packageSize: {
-      installSize: number;
-      publishSize: number;
-      version: string;
-    };
     timeSeries: {
       daily: number[];
       monthly: {
@@ -88,6 +84,11 @@ declare namespace BestOfJS {
         delta: number;
       }[];
     };
+  }
+
+  interface ProjectWithPackageDetails extends ProjectDetails {
+    bundle: BundleData;
+    packageData: PackageData;
   }
 
   interface RawTag {

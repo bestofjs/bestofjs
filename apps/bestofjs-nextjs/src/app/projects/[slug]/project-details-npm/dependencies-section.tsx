@@ -14,9 +14,9 @@ import { searchClient } from "@/app/backend";
 export async function DependenciesSection({
   project,
 }: {
-  project: BestOfJS.ProjectDetails;
+  project: BestOfJS.ProjectWithPackageDetails;
 }) {
-  const dependencies = project.npm.dependencies;
+  const dependencies = project.packageData.dependencies;
   if (dependencies.length === 0) {
     return <div>No dependencies</div>;
   }
