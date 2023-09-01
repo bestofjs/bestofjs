@@ -334,11 +334,7 @@ const populateProject =
     return populated;
   };
 
-async function fetchProjectData(): Promise<{
-  projects: BestOfJS.RawProject[];
-  tags: BestOfJS.RawTag[];
-  date: Date;
-}> {
+async function fetchProjectData(): Promise<RawData> {
   try {
     const data = await fetchDataFromRemoteJSON();
     return data as RawData;
