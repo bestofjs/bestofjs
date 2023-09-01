@@ -14,7 +14,7 @@ const debug = debugModule("bestofjs");
 type RawData = {
   projects: BestOfJS.RawProject[];
   tags: BestOfJS.RawTag[];
-  date: Date;
+  date: string;
 };
 
 type Data = {
@@ -67,7 +67,7 @@ export function createSearchClient() {
       populate: populateProject(tagsByKey),
       tagsByKey,
       projectsBySlug,
-      lastUpdateDate: date,
+      lastUpdateDate: new Date(date),
     };
     return data;
   }
@@ -258,6 +258,11 @@ export function createSearchClient() {
       })) as BestOfJS.SearchIndexProject[];
     },
 
+    async getMetaData() {
+      const { lastUpdateDate } = await getData();
+      return lastUpdateDate;
+    },
+
     async findHallOfFameMembers() {
       const { populate, projectsBySlug } = await getData();
       const { heroes } = await fetchHallOfFameData();
@@ -346,8 +351,8 @@ async function fetchProjectData(): Promise<{
 function fetchDataFromRemoteJSON() {
   const url = FETCH_ALL_PROJECTS_URL + `/projects.json`;
   console.log(`Fetching JSON data from ${url}`);
-  // const options = { next: { revalidate: 60 * 60 } }; // Revalidate in one hour
-  return fetch(url).then((res) => res.json());
+  const options = { next: { tags: ["all-projects"] } };
+  return fetch(url, options).then((res) => res.json());
 }
 
 function fetchHallOfFameData() {
