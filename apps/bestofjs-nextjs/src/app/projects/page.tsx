@@ -3,6 +3,7 @@ import NextLink from "next/link";
 import { PlusIcon, XMarkIcon } from "@heroicons/react/20/solid";
 
 import { cn } from "@/lib/utils";
+import { formatNumber } from "@/helpers/numbers";
 import { badgeVariants } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { TagIcon } from "@/components/core";
@@ -183,7 +184,9 @@ function ShowNumberOfProject({ count }: { count: number }) {
     <>
       <span className="px-2 text-yellow-500">•</span>
       <span className="text-muted-foreground">
-        {count === 1 ? "One project" : `${count} projects`}
+        {count === 1
+          ? "One project"
+          : `${formatNumber(count, "full")} projects`}
       </span>
     </>
   );
