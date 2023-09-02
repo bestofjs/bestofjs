@@ -77,7 +77,7 @@ The SVG can be stored locally (inside `www/logos` folder) or in the cloud.
 function getProjectLogoURL(input, colorMode) {
   const [main, extension] = input.split(".");
   const filename = colorMode === "dark" ? `${main}.dark.${extension}` : input;
-  return `/logos/${filename}`;
+  return `https://bestofjs.org/logos/${filename}`;
 }
 
 function getGitHubOwnerAvatarURL(owner_id, size) {
