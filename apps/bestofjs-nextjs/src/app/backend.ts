@@ -145,8 +145,6 @@ export function createSearchClient() {
         .map((tag) => tagsByKey[tag])
         .filter(Boolean);
 
-      throw new Error("bug");
-
       return {
         projects,
         total,
