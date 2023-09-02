@@ -46,9 +46,8 @@ const defaultTagSearchQuery = {
 };
 
 export function createSearchClient() {
-  let data: Data;
   async function getData() {
-    return data || (await fetchData());
+    return await fetchData();
   }
 
   async function fetchData() {
@@ -60,7 +59,7 @@ export function createSearchClient() {
     });
     const featuredProjectIds = getFeaturedRandomList(projects);
 
-    data = {
+    return {
       projectCollection: projects,
       featuredProjectIds,
       tagCollection: Object.values(tagsByKey),
@@ -69,7 +68,6 @@ export function createSearchClient() {
       projectsBySlug,
       lastUpdateDate: new Date(date),
     };
-    return data;
   }
 
   function findRawProjects(
@@ -222,8 +220,7 @@ export function createSearchClient() {
       skip = 0,
       limit = 5,
     }: Pick<QueryParams, "skip" | "limit">) {
-      const { populate, projectsBySlug } = await getData();
-      const { featuredProjectIds } = data;
+      const { featuredProjectIds, populate, projectsBySlug } = await getData();
       const slugs = featuredProjectIds.slice(skip, skip + limit);
       const projects = slugs.map((slug) => populate(projectsBySlug[slug]));
       return { projects, total: featuredProjectIds.length };
