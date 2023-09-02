@@ -46,9 +46,8 @@ const defaultTagSearchQuery = {
 };
 
 export function createSearchClient() {
-  let data: Data;
   async function getData() {
-    return data || (await fetchData());
+    return await fetchData();
   }
 
   async function fetchData() {
@@ -60,7 +59,7 @@ export function createSearchClient() {
     });
     const featuredProjectIds = getFeaturedRandomList(projects);
 
-    data = {
+    return {
       projectCollection: projects,
       featuredProjectIds,
       tagCollection: Object.values(tagsByKey),
@@ -69,7 +68,6 @@ export function createSearchClient() {
       projectsBySlug,
       lastUpdateDate: new Date(date),
     };
-    return data;
   }
 
   function findRawProjects(
@@ -139,9 +137,13 @@ export function createSearchClient() {
       const projects = rawProjects.map(populate);
 
       const selectedTagIds: string[] = (criteria?.tags as any)?.$all || [];
-      const selectedTags = selectedTagIds.map((tag) => tagsByKey[tag]);
+      const selectedTags = selectedTagIds
+        .map((tag) => tagsByKey[tag])
+        .filter(Boolean);
 
-      const relevantTags = relevantTagIds.map((tag) => tagsByKey[tag]);
+      const relevantTags = relevantTagIds
+        .map((tag) => tagsByKey[tag])
+        .filter(Boolean);
 
       return {
         projects,
@@ -222,8 +224,7 @@ export function createSearchClient() {
       skip = 0,
       limit = 5,
     }: Pick<QueryParams, "skip" | "limit">) {
-      const { populate, projectsBySlug } = await getData();
-      const { featuredProjectIds } = data;
+      const { featuredProjectIds, populate, projectsBySlug } = await getData();
       const slugs = featuredProjectIds.slice(skip, skip + limit);
       const projects = slugs.map((slug) => populate(projectsBySlug[slug]));
       return { projects, total: featuredProjectIds.length };
@@ -342,7 +343,12 @@ async function fetchProjectData(): Promise<RawData> {
 function fetchDataFromRemoteJSON() {
   const url = FETCH_ALL_PROJECTS_URL + `/projects.json`;
   console.log(`Fetching JSON data from ${url}`);
-  const options = { next: { tags: ["all-projects"] } };
+  const options = {
+    next: {
+      revalidate: 60 * 60 * 24, // Revalidate every day
+      tags: ["all-projects"],
+    },
+  };
   return fetch(url, options).then((res) => res.json());
 }
 
