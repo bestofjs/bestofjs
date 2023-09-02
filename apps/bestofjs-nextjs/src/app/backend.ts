@@ -137,9 +137,13 @@ export function createSearchClient() {
       const projects = rawProjects.map(populate);
 
       const selectedTagIds: string[] = (criteria?.tags as any)?.$all || [];
-      const selectedTags = selectedTagIds.map((tag) => tagsByKey[tag]);
+      const selectedTags = selectedTagIds
+        .map((tag) => tagsByKey[tag])
+        .filter(Boolean);
 
-      const relevantTags = relevantTagIds.map((tag) => tagsByKey[tag]);
+      const relevantTags = relevantTagIds
+        .map((tag) => tagsByKey[tag])
+        .filter(Boolean);
 
       return {
         projects,
