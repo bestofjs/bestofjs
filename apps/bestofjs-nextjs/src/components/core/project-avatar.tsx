@@ -28,6 +28,7 @@ export const ProjectAvatar = ({ project, size = 100, className }: Props) => {
       height={size}
       alt={project.name}
       className={cn(className, `w-[${size}px] h-[${size}px max-w-none`)}
+      placeholder="blur"
     />
   );
 };
