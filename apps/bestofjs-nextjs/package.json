@@ -42,7 +42,6 @@
     "mingo": "^6.4.1",
     "next": "13.4.19",
     "next-themes": "^0.2.1",
-    "numeral": "^2.0.6",
     "pretty-bytes": "^6.1.1",
     "qss": "^3.0.0",
     "react": "^18.2.0",
