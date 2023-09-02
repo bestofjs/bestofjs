@@ -1,5 +1,4 @@
 import NextLink from "next/link";
-import numeral from "numeral";
 
 import { cn } from "@/lib/utils";
 import { badgeVariants } from "@/components/ui/badge";
@@ -73,9 +72,4 @@ function HallOfFameMember({ member }: { member: BestOfJS.HallOfFameMember }) {
       </div>
     </Card>
   );
-}
-
-function formatNumber(value: number) {
-  const digitsFormat = value > 1000 ? "0.0 a" : "0 a";
-  return numeral(value).format(digitsFormat);
 }

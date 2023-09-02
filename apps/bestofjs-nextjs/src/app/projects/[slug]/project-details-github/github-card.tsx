@@ -1,8 +1,8 @@
-import { fromNow } from "@/helpers/from-now";
-import numeral from "numeral";
 import { GoGitCommit, GoMarkGithub } from "react-icons/go";
 import { MdGroup } from "react-icons/md";
 
+import { fromNow } from "@/helpers/from-now";
+import { formatNumber } from "@/helpers/numbers";
 import { Card, CardHeader } from "@/components/ui/card";
 import {
   CardBody,
@@ -79,21 +79,19 @@ const GitHubData = ({ project }: { project: BestOfJS.ProjectDetails }) => {
       </div>
       <div className="flex gap-2">
         <MdGroup size={20} className="icon" />
-        {formatNumber(contributor_count)} contributors
+        {formatNumber(contributor_count, "compact")} contributors
       </div>
       <div className="flex gap-2">
         {commit_count && (
           <>
             <GoGitCommit size={20} className="icon" />
-            {formatNumber(commit_count)} commits
+            {formatNumber(commit_count, "compact")} commits
           </>
         )}
       </div>
     </div>
   );
 };
-
-const formatNumber = (number: number) => numeral(number).format("0,0");
 
 export const GitHubMonthlyTrends = ({
   project,

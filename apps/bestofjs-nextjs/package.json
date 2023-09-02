@@ -16,7 +16,8 @@
     "typecheck": "tsc --noEmit",
     "typecheck:watch": "tsc --noEmit --incremental --watch",
     "format:write": "prettier --write \"**/*.{ts,tsx,mdx}\" --cache",
-    "format:check": "prettier --check \"**/*.{ts,tsx,mdx}\" --cache"
+    "format:check": "prettier --check \"**/*.{ts,tsx,mdx}\" --cache",
+    "test": "vitest"
   },
   "dependencies": {
     "@heroicons/react": "^2.0.18",
@@ -42,7 +43,6 @@
     "mingo": "^6.4.1",
     "next": "13.4.19",
     "next-themes": "^0.2.1",
-    "numeral": "^2.0.6",
     "pretty-bytes": "^6.1.1",
     "qss": "^3.0.0",
     "react": "^18.2.0",
@@ -53,7 +53,8 @@
     "swr": "^2.2.0",
     "tailwind-merge": "^1.12.0",
     "tailwindcss-animate": "^1.0.5",
-    "vague-time": "^2.4.2"
+    "vague-time": "^2.4.2",
+    "vitest": "^0.34.3"
   },
   "devDependencies": {
     "@ianvs/prettier-plugin-sort-imports": "^3.7.2",

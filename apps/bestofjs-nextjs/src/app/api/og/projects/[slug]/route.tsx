@@ -1,4 +1,4 @@
-import { formatBigNumber } from "@/components/core/project-utils";
+import { formatNumber } from "@/helpers/numbers";
 import {
   Box,
   ProjectLogo,
@@ -41,7 +41,7 @@ function ShowStarsTotal({ value }: { value: number }) {
     <Box
       style={{ flexDirection: "row", alignItems: "center", color: mutedColor }}
     >
-      <Box>{formatBigNumber(value)}</Box>
+      <Box>{formatNumber(value, "compact")}</Box>
       <StarIcon />
     </Box>
   );
@@ -55,7 +55,7 @@ function Trend({ project }: { project: BestOfJS.Project }) {
       <div>This week</div>
       <Box style={{ alignItems: "center" }}>
         {sign}
-        {formatBigNumber(value)}
+        {formatNumber(value, "compact")}
         <StarIcon />
       </Box>
       <div style={{ color: mutedColor }}>•</div>

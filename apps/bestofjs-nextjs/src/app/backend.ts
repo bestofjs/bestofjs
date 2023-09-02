@@ -1,9 +1,9 @@
-import { shuffle } from "@/helpers/shuffle";
 import debugModule from "debug";
 import * as mingo from "mingo";
 import { RawObject } from "mingo/types";
 import slugify from "slugify";
 
+import { shuffle } from "@/helpers/shuffle";
 import { filterProjectsByQuery } from "@/components/search-palette/find-projects";
 
 // const FETCH_ALL_PROJECTS_URL = process.env.JSON_API;
@@ -14,7 +14,7 @@ const debug = debugModule("bestofjs");
 type RawData = {
   projects: BestOfJS.RawProject[];
   tags: BestOfJS.RawTag[];
-  date: Date;
+  date: string;
 };
 
 type Data = {
@@ -67,7 +67,7 @@ export function createSearchClient() {
       populate: populateProject(tagsByKey),
       tagsByKey,
       projectsBySlug,
-      lastUpdateDate: date,
+      lastUpdateDate: new Date(date),
     };
     return data;
   }
@@ -329,11 +329,7 @@ const populateProject =
     return populated;
   };
 
-async function fetchProjectData(): Promise<{
-  projects: BestOfJS.RawProject[];
-  tags: BestOfJS.RawTag[];
-  date: Date;
-}> {
+async function fetchProjectData(): Promise<RawData> {
   try {
     const data = await fetchDataFromRemoteJSON();
     return data as RawData;
@@ -346,8 +342,8 @@ async function fetchProjectData(): Promise<{
 function fetchDataFromRemoteJSON() {
   const url = FETCH_ALL_PROJECTS_URL + `/projects.json`;
   console.log(`Fetching JSON data from ${url}`);
-  // const options = { next: { revalidate: 60 * 60 } }; // Revalidate in one hour
-  return fetch(url).then((res) => res.json());
+  const options = { next: { tags: ["all-projects"] } };
+  return fetch(url, options).then((res) => res.json());
 }
 
 function fetchHallOfFameData() {

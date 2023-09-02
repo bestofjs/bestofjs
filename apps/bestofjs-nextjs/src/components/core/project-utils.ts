@@ -1,15 +1,3 @@
-import numeral from "numeral";
-
-/**
- *
- * Format a (potentially) big number, either the total number of star or a yearly/monthly delta
- * using the `k` prefix
- */
-export function formatBigNumber(value: number): string {
-  const digits = value > 1000 && value < 10000 ? "0.0" : "0";
-  return numeral(value).format(digits + " a");
-}
-
 /**
  * Return the image URL to be displayed inside the project card
  *  Can be either :

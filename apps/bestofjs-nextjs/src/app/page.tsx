@@ -1,5 +1,6 @@
 import NextLink from "next/link";
-import numeral from "numeral";
+import { fromNow } from "@/helpers/from-now";
+import { formatNumber } from "@/helpers/numbers";
 import { GoFlame, GoGift, GoHeart, GoPlus } from "react-icons/go";
 
 import {
@@ -31,8 +32,14 @@ import {
 } from "./backend-search-requests";
 
 export default async function IndexPage() {
-  const { hotProjects, newestProjects, bestOfJSProject, popularTags } =
-    await getData();
+  const {
+    hotProjects,
+    newestProjects,
+    bestOfJSProject,
+    popularTags,
+    lastUpdateDate,
+    total,
+  } = await getData();
 
   return (
     <div className="flex flex-col gap-8">
@@ -70,7 +77,7 @@ export default async function IndexPage() {
 
       <Separator className="-mx-4 w-auto sm:mx-0" />
 
-      <MoreProjectsSection />
+      <MoreProjectsSection lastUpdateDate={lastUpdateDate} total={total} />
     </div>
   );
 }
@@ -205,7 +212,7 @@ function BestOfJSSection({ project }: { project: BestOfJS.Project | null }) {
           >
             Star on GitHub
             <span className="align-center ml-4 inline-flex">
-              {formatNumber(project.stars)} <StarIcon size={24} />
+              {formatNumber(project.stars, "full")} <StarIcon size={24} />
             </span>
           </a>
         )}
@@ -226,7 +233,18 @@ function BestOfJSSection({ project }: { project: BestOfJS.Project | null }) {
   );
 }
 
-function MoreProjectsSection() {
+function MoreProjectsSection({
+  lastUpdateDate,
+  total,
+}: {
+  lastUpdateDate: Date;
+  total: number;
+}) {
+  const timeOnlyFormat = new Intl.DateTimeFormat("default", {
+    hour: "numeric",
+    minute: "numeric",
+  });
+
   return (
     <div className="sm:px-4">
       <SectionHeading
@@ -234,12 +252,11 @@ function MoreProjectsSection() {
         icon={<GoPlus fontSize={32} />}
         title="Do you want more projects?"
       />
-      <div className="pl-10 font-serif">
+      <div className="space-y-4 pl-10 font-serif">
         <p>
-          <i>{APP_DISPLAY_NAME}</i> is a curated list of about 1500 open-source
-          projects related to the web platform and Node.js.
-        </p>
-        <p>
+          {APP_DISPLAY_NAME} is a curated list of {formatNumber(total, "full")}{" "}
+          open-source projects related to the web platform and Node.js.
+          <br />
           If you want to suggest a new project, please click on the following
           link:{" "}
           <ExternalLink url={ADD_PROJECT_REQUEST_URL}>
@@ -247,17 +264,23 @@ function MoreProjectsSection() {
           </ExternalLink>
           .
         </p>
+        <p>
+          Data is updated from GitHub everyday, the last update was{" "}
+          <b>{fromNow(lastUpdateDate)}</b> (at{" "}
+          {timeOnlyFormat.format(lastUpdateDate)}
+          ).
+        </p>
       </div>
     </div>
   );
 }
 
-const formatNumber = (number: number) => numeral(number).format("");
-
 async function getData() {
-  const { projects: hotProjects } = await searchClient.findProjects(
-    getHotProjectsRequest()
-  );
+  const {
+    projects: hotProjects,
+    lastUpdateDate,
+    total,
+  } = await searchClient.findProjects(getHotProjectsRequest());
   const { projects: newestProjects } = await searchClient.findProjects(
     getLatestProjects()
   );
@@ -268,5 +291,12 @@ async function getData() {
     sort: { counter: -1 },
     limit: 10,
   });
-  return { hotProjects, newestProjects, bestOfJSProject, popularTags };
+  return {
+    bestOfJSProject,
+    hotProjects,
+    lastUpdateDate,
+    newestProjects,
+    popularTags,
+    total,
+  };
 }
