@@ -14,6 +14,7 @@ import { PageHeading } from "@/components/core/typography";
 import { ProjectTable } from "@/components/project-list/project-table";
 
 import { MonthlyDate, fetchMonthlyRankings } from "../../monthly-rankings-data";
+import { formatMonthlyDate } from "../../monthly-rankings-utils";
 
 type PageProps = {
   params: {
@@ -161,24 +162,6 @@ function getNextMonth(date: MonthlyDate): MonthlyDate {
     ? { year: year + 1, month: 1 }
     : { year, month: month + 1 };
 }
-
-const formatMonthlyDate = (date: MonthlyDate) => {
-  const monthNames = [
-    "January",
-    "February",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-    "August",
-    "September",
-    "October",
-    "November",
-    "December",
-  ];
-  return monthNames[date.month - 1] + " " + date.year.toString();
-};
 
 function parsePageParams(params: PageProps["params"]) {
   const { year, month } = params;

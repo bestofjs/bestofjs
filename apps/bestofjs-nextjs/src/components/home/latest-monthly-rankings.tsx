@@ -8,6 +8,7 @@ import { StarDelta } from "@/components/core";
 import { SectionHeading } from "@/components/core/section";
 import { ProjectTable } from "@/components/project-list/project-table";
 import { fetchMonthlyRankings } from "@/app/rankings/monthly/monthly-rankings-data";
+import { formatMonthlyDate } from "@/app/rankings/monthly/monthly-rankings-utils";
 
 export async function LatestMonthlyRankings() {
   const { year, month, projects } = await fetchMonthlyRankings({ limit: 5 });
@@ -16,8 +17,8 @@ export async function LatestMonthlyRankings() {
       <CardHeader className="border-b">
         <SectionHeading
           icon={<GoCalendar fontSize={32} />}
-          title="Monthly Rankings"
-          subtitle="By number of stars added"
+          title={`Rankings ${formatMonthlyDate({ year, month })}`}
+          subtitle="By number of stars added last month"
         />
       </CardHeader>
       <ProjectTable
@@ -35,7 +36,7 @@ export async function LatestMonthlyRankings() {
               "text-md w-full text-secondary-foreground"
             )}
           >
-            Full rankings »
+            View monthly rankings »
           </NextLink>
         }
       />
