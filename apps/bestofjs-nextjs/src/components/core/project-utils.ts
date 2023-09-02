@@ -30,7 +30,7 @@ export function getProjectAvatarUrl(
 function getProjectLogoURL(input: string, colorMode: string) {
   const [main, extension] = input.split(".");
   const filename = colorMode === "dark" ? `${main}.dark.${extension}` : input;
-  return `https://bestofjs.org/logos/${filename}`;
+  return `/logos/${filename}`;
 }
 
 function getGitHubOwnerAvatarURL(owner_id: string, size: number) {

@@ -1,6 +1,9 @@
 "use client";
 
+import Image from "next/image";
 import { useTheme } from "next-themes";
+
+import { cn } from "@/lib/utils";
 
 import { getProjectAvatarUrl } from "./project-utils";
 
@@ -12,24 +15,19 @@ type Props = {
 export const ProjectAvatar = ({ project, size = 100, className }: Props) => {
   const { resolvedTheme } = useTheme();
 
-  const { src, srcSet } = getProjectImageProps({
+  const { src } = getProjectImageProps({
     project,
     size,
     colorMode: (resolvedTheme || "dark") as "dark" | "light",
   });
 
   return (
-    // eslint-disable-next-line @next/next/no-img-element
-    <img
+    <Image
       src={src}
-      srcSet={srcSet}
-      style={{
-        height: `${size}px`,
-        maxWidth: "unset",
-        width: `${size}px`,
-      }}
+      width={size}
+      height={size}
       alt={project.name}
-      className={className}
+      className={cn(className, `w-[${size}px] h-[${size}px max-w-none`)}
     />
   );
 };
