@@ -1,8 +1,8 @@
-import numeral from "numeral";
 import slugify from "slugify";
 
+import { formatNumber } from "@/helpers/numbers";
+
 import { StarIcon } from "./icons";
-import { formatBigNumber } from "./project-utils";
 
 type Props = {
   value: number;
@@ -13,7 +13,7 @@ export const DownloadCount = ({ value }: Props) => {
     return <div className="star-delta text-sm">N/A</div>;
   }
 
-  return <span>{numeral(value).format("a")}</span>;
+  return <span>{formatNumber(value, "compact")}</span>;
 };
 
 const getSign = (value: number) => {
@@ -36,7 +36,7 @@ const StarDeltaNormal = ({ value }: Props) => {
       ) : (
         <>
           <span className="mr-0.5">{sign}</span>
-          <span>{formatBigNumber(Math.abs(value))}</span>
+          <span>{formatNumber(Math.abs(value), "compact")}</span>
           <StarIcon />
         </>
       )}
@@ -68,7 +68,7 @@ export const StarDeltaAverage = ({ value }: Props) => {
 export const StarTotal = ({ value }: Props) => {
   return (
     <div className="inline-flex items-center">
-      <span>{formatBigNumber(value)}</span>
+      <span>{formatNumber(value, "compact")}</span>
       <StarIcon />
     </div>
   );

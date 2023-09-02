@@ -1,8 +1,8 @@
 import NextLink from "next/link";
-import numeral from "numeral";
 import { GoHome, GoMarkGithub } from "react-icons/go";
 
 import { cn } from "@/lib/utils";
+import { formatNumber } from "@/helpers/numbers";
 import { ProjectSearchQuery, SearchUrlBuilder } from "@/app/projects/types";
 
 import { fromNow } from "../../helpers/from-now";
@@ -134,7 +134,9 @@ const ProjectTableRow = ({
         <Cell className="hidden w-[180px] space-y-2 p-4 text-sm md:table-cell">
           <div>Pushed {fromNow(project.pushed_at)}</div>
           {project.contributor_count && (
-            <div>{formatNumber(project.contributor_count)} contributors</div>
+            <div>
+              {formatNumber(project.contributor_count, "compact")} contributors
+            </div>
           )}
           <div>Created {fromNow(project.created_at)}</div>
         </Cell>
@@ -177,5 +179,3 @@ export const ProjectScore = ({
 const Cell = ({ className, ...props }: { className: string } & any) => (
   <td className={cn(className)} {...props} />
 );
-
-const formatNumber = (number: number) => numeral(number).format("a");

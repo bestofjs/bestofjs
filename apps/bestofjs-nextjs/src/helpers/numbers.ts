@@ -1,8 +1,25 @@
-import numeral from "numeral";
+export function formatNumber(value: number, formatType: "compact" | "full") {
+  switch (formatType) {
+    case "full":
+      return formatNumberFull(value);
+    default:
+      return formatNumberCompact(value);
+  }
+}
 
 /**
- * Format numbers with the thousand separator but no `k` prefix
+ * Format numbers with the thousand separator but no `K` prefix
  */
-export function formatNumberFull(value: number) {
-  return numeral(value).format();
+function formatNumberFull(value: number) {
+  return new Intl.NumberFormat("en-US").format(value);
+}
+
+/**
+ * Format using the `K` prefix total (used for number of stars)
+ */
+function formatNumberCompact(value: number) {
+  return new Intl.NumberFormat("en-US", {
+    maximumSignificantDigits: 2,
+    notation: "compact",
+  }).format(value);
 }

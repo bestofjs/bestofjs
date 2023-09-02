@@ -1,7 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import numeral from "numeral";
+
+import { formatNumber } from "@/helpers/numbers";
 
 const monthNames = "Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec".split(" ");
 
@@ -126,9 +127,7 @@ const MonthSummary = ({
 } & FormattingOptions) => {
   const { year, month, value } = item;
   const formattedValue =
-    value === undefined
-      ? "N/A"
-      : formatValue(value, { decimals: 1, showPlusSymbol });
+    value === undefined ? "N/A" : formatValue(value, { showPlusSymbol });
   return (
     <div>
       {year} {monthNames[month - 1]}: {formattedValue} {unit}
@@ -155,7 +154,7 @@ const GraphBar = ({
     return <EmptyGraphBar value={value} />;
   }
 
-  const formattedValue = formatValue(value, { decimals: 1, showPlusSymbol });
+  const formattedValue = formatValue(value, { showPlusSymbol });
   const formattedDate = year + "/" + month;
   const tooltipLabel = formattedDate + ": " + formattedValue + " " + unit;
 
@@ -250,10 +249,8 @@ function getFirstDayOfPreviousMonth() {
   return date;
 }
 
-function formatValue(value: number, { decimals = 0, showPlusSymbol = false }) {
-  const numberFormat =
-    decimals === 0 || value < 1000 ? "0" : `0.${"0".repeat(decimals)}`;
-  const formattedNumber = numeral(value).format(`${numberFormat}a`);
+function formatValue(value: number, { showPlusSymbol = false }) {
+  const formattedNumber = formatNumber(value, "compact");
   return showPlusSymbol && value > 0 ? `+${formattedNumber}` : formattedNumber;
 }
 

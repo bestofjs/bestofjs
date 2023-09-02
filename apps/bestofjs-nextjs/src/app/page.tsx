@@ -1,6 +1,6 @@
 import NextLink from "next/link";
 import { fromNow } from "@/helpers/from-now";
-import { formatNumberFull } from "@/helpers/numbers";
+import { formatNumber } from "@/helpers/numbers";
 import { GoFlame, GoGift, GoHeart, GoPlus } from "react-icons/go";
 
 import {
@@ -212,7 +212,7 @@ function BestOfJSSection({ project }: { project: BestOfJS.Project | null }) {
           >
             Star on GitHub
             <span className="align-center ml-4 inline-flex">
-              {formatNumberFull(project.stars)} <StarIcon size={24} />
+              {formatNumber(project.stars, "full")} <StarIcon size={24} />
             </span>
           </a>
         )}
@@ -254,7 +254,7 @@ function MoreProjectsSection({
       />
       <div className="space-y-4 pl-10 font-serif">
         <p>
-          {APP_DISPLAY_NAME} is a curated list of {formatNumberFull(total)}{" "}
+          {APP_DISPLAY_NAME} is a curated list of {formatNumber(total, "full")}{" "}
           open-source projects related to the web platform and Node.js.
           <br />
           If you want to suggest a new project, please click on the following
