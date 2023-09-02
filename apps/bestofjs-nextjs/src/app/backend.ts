@@ -1,9 +1,9 @@
-import { shuffle } from "@/helpers/shuffle";
 import debugModule from "debug";
 import * as mingo from "mingo";
 import { RawObject } from "mingo/types";
 import slugify from "slugify";
 
+import { shuffle } from "@/helpers/shuffle";
 import { filterProjectsByQuery } from "@/components/search-palette/find-projects";
 
 // const FETCH_ALL_PROJECTS_URL = process.env.JSON_API;
@@ -256,11 +256,6 @@ export function createSearchClient() {
         ...project,
         slug: getProjectId(project),
       })) as BestOfJS.SearchIndexProject[];
-    },
-
-    async getMetaData() {
-      const { lastUpdateDate } = await getData();
-      return lastUpdateDate;
     },
 
     async findHallOfFameMembers() {
