@@ -343,7 +343,12 @@ async function fetchProjectData(): Promise<RawData> {
 function fetchDataFromRemoteJSON() {
   const url = FETCH_ALL_PROJECTS_URL + `/projects.json`;
   console.log(`Fetching JSON data from ${url}`);
-  const options = { next: { tags: ["all-projects"] } };
+  const options = {
+    next: {
+      revalidate: 60 * 60 * 24, // Revalidate every day
+      tags: ["all-projects"],
+    },
+  };
   return fetch(url, options).then((res) => res.json());
 }
 
