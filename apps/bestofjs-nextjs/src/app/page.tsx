@@ -1,6 +1,4 @@
 import NextLink from "next/link";
-import { fromNow } from "@/helpers/from-now";
-import { formatNumber } from "@/helpers/numbers";
 import { GoFlame, GoGift, GoHeart, GoPlus } from "react-icons/go";
 
 import {
@@ -11,6 +9,8 @@ import {
   SPONSOR_URL,
 } from "@/config/site";
 import { cn } from "@/lib/utils";
+import { fromNow } from "@/helpers/from-now";
+import { formatNumber } from "@/helpers/numbers";
 import { buttonVariants } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
@@ -265,10 +265,8 @@ function MoreProjectsSection({
           .
         </p>
         <p>
-          Data is updated from GitHub everyday, the last update was{" "}
-          <b>{fromNow(lastUpdateDate)}</b> (at{" "}
-          {timeOnlyFormat.format(lastUpdateDate)}
-          ).
+          Data is updated from GitHub every 24 hours, the last update was
+          <b>{fromNow(lastUpdateDate)}</b>.
         </p>
       </div>
     </div>
