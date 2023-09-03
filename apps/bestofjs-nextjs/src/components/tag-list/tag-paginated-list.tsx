@@ -1,13 +1,12 @@
-import { SearchQueryUpdater } from "@/app/projects/types";
-import { TagSearchQuery } from "@/app/tags/tag-list-shared";
-
-import { CardHeader } from "../core";
+import { Card, CardHeader } from "@/components/ui/card";
 import {
   BottomPaginationControls,
   TopPaginationControls,
-} from "../core/pagination/pagination-controls";
-import { computePaginationState } from "../core/pagination/pagination-state";
-import { Card } from "../ui/card";
+} from "@/components/core/pagination/pagination-controls";
+import { computePaginationState } from "@/components/core/pagination/pagination-state";
+import { SearchQueryUpdater } from "@/app/projects/types";
+import { TagSearchQuery } from "@/app/tags/tag-list-shared";
+
 import { TagList } from "./tag-list";
 import { TagSortOrderPicker } from "./tag-sort-order-picker.client";
 

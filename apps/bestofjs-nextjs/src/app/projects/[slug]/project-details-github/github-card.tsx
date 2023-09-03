@@ -3,15 +3,14 @@ import { MdGroup } from "react-icons/md";
 
 import { fromNow } from "@/helpers/from-now";
 import { formatNumber } from "@/helpers/numbers";
-import { Card, CardHeader } from "@/components/ui/card";
+import { Card, CardBody, CardContent, CardHeader } from "@/components/ui/card";
 import {
-  CardBody,
-  CardSection,
   StarDelta,
   StarIcon,
   StarTotal,
   getDeltaByDay,
 } from "@/components/core";
+import { Icons } from "@/components/icons";
 
 import { MonthlyTrendsChart } from "./monthly-trends-chart";
 
@@ -33,17 +32,17 @@ export const ProjectDetailsGitHubCard = ({ project }: Props) => {
         </div>
       </CardHeader>
       <CardBody>
-        <CardSection>
+        <CardContent>
           <GitHubData project={project} />
-        </CardSection>
+        </CardContent>
         {timeSeries?.monthly?.length > 1 && (
-          <CardSection>
+          <CardContent>
             <GitHubMonthlyTrends project={project} />
-          </CardSection>
+          </CardContent>
         )}
-        <CardSection>
+        <CardContent>
           <GitHubTrendsSummary project={project} />
-        </CardSection>
+        </CardContent>
       </CardBody>
     </Card>
   );
@@ -65,9 +64,10 @@ const GitHubData = ({ project }: { project: BestOfJS.ProjectDetails }) => {
           href={repository}
           target="_blank"
           rel="noreferrer"
-          className="font-sans text-primary hover:underline"
+          className="flex items-center gap-1 font-sans text-primary hover:underline"
         >
           {full_name}
+          <Icons.externalLink className="h-4 w-4" />
         </a>
       </div>
       <div>
@@ -79,7 +79,13 @@ const GitHubData = ({ project }: { project: BestOfJS.ProjectDetails }) => {
       </div>
       <div className="flex gap-2">
         <MdGroup size={20} className="icon" />
-        {formatNumber(contributor_count, "compact")} contributors
+        {contributor_count ? (
+          <>{formatNumber(contributor_count, "compact")} contributors</>
+        ) : (
+          <span className="text-muted-foreground">
+            Number of contributors not available
+          </span>
+        )}
       </div>
       <div className="flex gap-2">
         {commit_count && (
