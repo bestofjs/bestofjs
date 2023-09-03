@@ -23,7 +23,7 @@ const CardHeader = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <div
     ref={ref}
-    className={cn("flex flex-col space-y-1.5 p-4", className)}
+    className={cn("flex flex-col space-y-1.5 border-b p-4", className)}
     {...props}
   />
 ));
@@ -76,11 +76,21 @@ const CardFooter = React.forwardRef<
 ));
 CardFooter.displayName = "CardFooter";
 
+//A basic container for multiple `CardContent` components with no spacing
+const CardBody = React.forwardRef<
+  HTMLDivElement,
+  React.HTMLAttributes<HTMLDivElement>
+>(({ className, ...props }, ref) => (
+  <div ref={ref} className={cn("divide-y", className)} {...props} />
+));
+CardBody.displayName = "CardBody";
+
 export {
   Card,
   CardHeader,
   CardFooter,
   CardTitle,
   CardDescription,
+  CardBody,
   CardContent,
 };

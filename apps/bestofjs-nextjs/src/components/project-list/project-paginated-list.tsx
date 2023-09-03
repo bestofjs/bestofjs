@@ -1,8 +1,5 @@
-import React from "react";
+import { Card, CardHeader } from "@/components/ui/card";
 
-import { Card } from "@/components/ui/card";
-
-import { CardHeader } from "../core";
 import {
   BottomPaginationControls,
   TopPaginationControls,

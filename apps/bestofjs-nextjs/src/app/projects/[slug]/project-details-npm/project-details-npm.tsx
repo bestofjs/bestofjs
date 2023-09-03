@@ -1,8 +1,8 @@
 import { ImNpm } from "react-icons/im";
 
 import { Badge } from "@/components/ui/badge";
-import { Card, CardContent, CardHeader } from "@/components/ui/card";
-import { CardBody, CardSection } from "@/components/core";
+import { Card, CardBody, CardContent, CardHeader } from "@/components/ui/card";
+import { Icons } from "@/components/icons";
 
 import { BundleSizeSection } from "./bundle-size-section";
 import { DependenciesSection } from "./dependencies-section";
@@ -23,29 +23,31 @@ export function ProjectDetailsNpmCard({
         </div>
       </CardHeader>
       <CardBody>
-        <CardSection>
+        <CardContent>
           <div className="flex items-center gap-2">
             <a
               href={`https://www.npmjs.com/package/${packageName}`}
-              className="font-sans text-primary hover:underline"
+              className="flex items-center gap-1 font-sans text-primary hover:underline"
             >
               {packageName}
-              {/* <ExternalLinkIcon /> */}
+              <Icons.externalLink className="h-4 w-4" />
             </a>
             <Badge className="">{packageData.version}</Badge>
           </div>
-        </CardSection>
-        <CardSection>
+        </CardContent>
+        <CardContent>
           {/* @ts-expect-error Server Component */}
           <MonthlyDownloadsChart project={project} />
-        </CardSection>
-        <CardSection>
+        </CardContent>
+        <CardContent>
           {/* @ts-expect-error Server Component */}
           <DependenciesSection project={project} />
-        </CardSection>
-        <CardSection>
-          <BundleSizeSection project={project} />
-        </CardSection>
+        </CardContent>
+        {project.bundle?.gzip && (
+          <CardContent>
+            <BundleSizeSection project={project} />
+          </CardContent>
+        )}
       </CardBody>
     </Card>
   );

@@ -4,12 +4,8 @@ import { useEffect, useState } from "react";
 import useSWR, { useSWRConfig } from "swr";
 
 import { Button } from "@/components/ui/button";
-import {
-  CardHeader,
-  ChevronLeftIcon,
-  ChevronRightIcon,
-  StarIcon,
-} from "@/components/core";
+import { CardHeader } from "@/components/ui/card";
+import { ChevronLeftIcon, ChevronRightIcon, StarIcon } from "@/components/core";
 import { SectionHeading } from "@/components/core/section";
 import {
   FeaturedProjectList,

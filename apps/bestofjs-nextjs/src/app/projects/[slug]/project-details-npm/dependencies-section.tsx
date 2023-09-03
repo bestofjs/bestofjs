@@ -1,12 +1,11 @@
 import { Badge } from "@/components/ui/badge";
-import { Card } from "@/components/ui/card";
+import { Card, CardHeader } from "@/components/ui/card";
 import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
 } from "@/components/ui/collapsible";
 import { Table, TableBody, TableCell, TableRow } from "@/components/ui/table";
-import { CardHeader } from "@/components/core";
 import { Icons } from "@/components/icons";
 import { ProjectTable } from "@/components/project-list/project-table";
 import { searchClient } from "@/app/backend";
