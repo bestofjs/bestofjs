@@ -27,7 +27,7 @@ export const ProjectAvatar = ({ project, size = 100, className }: Props) => {
       width={size}
       height={size}
       alt={project.name}
-      className={cn(className, `w-[${size}px] h-[${size}px max-w-none`)}
+      className={cn(className, `w-[${size}px] h-[${size}px] max-w-none`)}
     />
   );
 };
