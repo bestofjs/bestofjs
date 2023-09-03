@@ -265,7 +265,7 @@ function MoreProjectsSection({
           .
         </p>
         <p>
-          Data is updated from GitHub every 24 hours, the last update was
+          Data is updated from GitHub every 24 hours, the last update was{" "}
           <b>{fromNow(lastUpdateDate)}</b>.
         </p>
       </div>
