@@ -1,4 +1,4 @@
-import { searchClient } from "@/app/backend";
+import { api } from "@/server/api";
 
 type RankingsData = {
   year: number;
@@ -35,7 +35,7 @@ export async function fetchMonthlyRankings({
   const projects = data.trending.slice(0, limit);
   const fullNames = projects.map((project) => project.full_name);
 
-  const { projects: foundProjects } = await searchClient.findProjects({
+  const { projects: foundProjects } = await api.projects.findProjects({
     criteria: { full_name: { $in: fullNames } },
     limit,
   });

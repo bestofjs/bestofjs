@@ -1,7 +1,6 @@
 import { Suspense } from "react";
 import { Metadata, ResolvingMetadata } from "next";
 
-import { searchClient } from "@/app/backend";
 import { getHotProjectsRequest } from "@/app/backend-search-requests";
 
 import { ProjectDetailsGitHubCard } from "./project-details-github/github-card";
@@ -9,6 +8,7 @@ import { ProjectHeader } from "./project-header";
 import { ReadmeCard } from "./project-readme/project-readme";
 import "./project-readme/readme.css";
 import { Card, CardContent } from "@/components/ui/card";
+import { api } from "@/server/api";
 
 import { getProjectDetails } from "./get-project-details";
 import { ProjectDetailsNpmCard } from "./project-details-npm/project-details-npm";
@@ -78,12 +78,12 @@ async function ProjectDetailsCards({ project }: { project: BestOfJS.Project }) {
 }
 
 async function getData(projectSlug: string) {
-  const project = await searchClient.getProjectBySlug(projectSlug);
+  const project = await api.projects.getProjectBySlug(projectSlug);
   return project;
 }
 
 export async function generateStaticParams() {
-  const { projects: hotProjects } = await searchClient.findProjects(
+  const { projects: hotProjects } = await api.projects.findProjects(
     getHotProjectsRequest()
   );
 

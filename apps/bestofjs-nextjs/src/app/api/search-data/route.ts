@@ -1,10 +1,10 @@
-import { searchClient } from "@/app/backend";
+import { api } from "@/server/api";
 
 export const runtime = "edge";
 
 export async function GET(req: Request) {
-  const projects = await searchClient.getSearchIndex();
-  const { tags } = await searchClient.findTags({
+  const projects = await api.projects.getSearchIndex();
+  const { tags } = await api.tags.findTags({
     sort: { counter: -1 },
     limit: 0, // grab all tags
   });

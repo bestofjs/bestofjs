@@ -20,10 +20,10 @@ import {
   sortOrderOptionsByKey,
 } from "@/components/project-list/sort-order-options";
 import { SearchPageTagPicker, TagPicker } from "@/components/tags/tag-picker";
+import { api } from "@/server/api";
 
 // import { TagPickerPopover } from "@/components/tag-picker/tag-picker-popover"
 
-import { searchClient } from "../backend";
 import ProjectListLoading from "./loading";
 import {
   ProjectSearchQuery,
@@ -280,7 +280,7 @@ async function getData(
   const sortOption = getSortOption(sort);
 
   const { projects, selectedTags, relevantTags, total } =
-    await searchClient.findProjects({
+    await api.projects.findProjects({
       criteria: tags.length > 0 ? { tags: { $all: tags } } : {},
       query,
       sort: sortOption.sort,
@@ -288,7 +288,7 @@ async function getData(
       limit,
     });
 
-  const { tags: allTags } = await searchClient.findTags({});
+  const { tags: allTags } = await api.tags.findTags({});
 
   return {
     projects,

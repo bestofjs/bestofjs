@@ -1,4 +1,4 @@
-import { searchClient } from "@/app/backend";
+import { api } from "@/server/api";
 
 export const runtime = "edge";
 
@@ -8,7 +8,7 @@ export async function GET(request: Request) {
   const limitParam = searchParams.get("limit");
   const skip = skipParam ? parseInt(skipParam) : 0;
   const limit = limitParam ? parseInt(limitParam) : 0;
-  const output = await searchClient.findRandomFeaturedProjects({ skip, limit });
+  const output = await api.projects.findRandomFeaturedProjects({ skip, limit });
 
   return new Response(JSON.stringify(output), {
     status: 200,

@@ -8,7 +8,7 @@ import {
 import { Table, TableBody, TableCell, TableRow } from "@/components/ui/table";
 import { Icons } from "@/components/icons";
 import { ProjectTable } from "@/components/project-list/project-table";
-import { searchClient } from "@/app/backend";
+import { api } from "@/server/api";
 
 export async function DependenciesSection({
   project,
@@ -19,7 +19,7 @@ export async function DependenciesSection({
   if (dependencies.length === 0) {
     return <div>No dependencies</div>;
   }
-  const { projects } = await searchClient.findProjects({
+  const { projects } = await api.projects.findProjects({
     criteria: { npm: { $in: dependencies } },
   });
   const dependenciesNotOnBestOfJS = dependencies.filter(

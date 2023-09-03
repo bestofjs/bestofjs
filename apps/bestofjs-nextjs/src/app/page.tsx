@@ -24,8 +24,8 @@ import {
   ProjectTable,
 } from "@/components/project-list/project-table";
 import { CompactTagList } from "@/components/tag-list/compact-tag-list";
+import { api } from "@/server/api";
 
-import { searchClient } from "./backend";
 import {
   getHotProjectsRequest,
   getLatestProjects,
@@ -278,14 +278,14 @@ async function getData() {
     projects: hotProjects,
     lastUpdateDate,
     total,
-  } = await searchClient.findProjects(getHotProjectsRequest());
-  const { projects: newestProjects } = await searchClient.findProjects(
+  } = await api.projects.findProjects(getHotProjectsRequest());
+  const { projects: newestProjects } = await api.projects.findProjects(
     getLatestProjects()
   );
-  const bestOfJSProject = await searchClient.findOne({
+  const bestOfJSProject = await api.projects.findOne({
     full_name: APP_REPO_FULL_NAME,
   });
-  const { tags: popularTags } = await searchClient.findTags({
+  const { tags: popularTags } = await api.tags.findTags({
     sort: { counter: -1 },
     limit: 10,
   });
