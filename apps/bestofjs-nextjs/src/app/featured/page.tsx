@@ -11,8 +11,8 @@ import {
   SortOptionKey,
   sortOrderOptionsByKey,
 } from "@/components/project-list/sort-order-options";
+import { api } from "@/server/api";
 
-import { searchClient } from "../backend";
 import { ProjectSearchQuery, SearchQueryUpdater } from "../projects/types";
 
 type PageProps = {
@@ -61,7 +61,7 @@ async function fetchFeaturedProjects({
 }: ProjectSearchQuery) {
   const sortOption = getSortOption(sort);
 
-  const { projects, total } = await searchClient.findProjects({
+  const { projects, total } = await api.projects.findProjects({
     criteria: { isFeatured: true },
     sort: sortOption.sort,
     skip: limit * (page - 1),

@@ -4,7 +4,7 @@ import { cn } from "@/lib/utils";
 import { buttonVariants } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { FeaturedProjectList } from "@/components/home/featured-project-list";
-import { searchClient } from "@/app/backend";
+import { api } from "@/server/api";
 
 import { FeaturedProjectsClient } from "./home-featured-projects.client";
 
@@ -39,7 +39,7 @@ export async function FeaturedProjects({ numberOfProjectPerPage = 5 }: Props) {
 }
 
 async function fetchFeaturedProjects(numberOfProjectPerPage: number) {
-  const { projects, total } = await searchClient.findRandomFeaturedProjects({
+  const { projects, total } = await api.projects.findRandomFeaturedProjects({
     skip: 0,
     limit: numberOfProjectPerPage,
   });

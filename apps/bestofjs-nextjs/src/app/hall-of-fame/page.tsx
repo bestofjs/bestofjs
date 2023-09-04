@@ -2,8 +2,8 @@ import { Metadata } from "next";
 
 import { APP_REPO_URL } from "@/config/site";
 import { ExternalLink, PageHeading } from "@/components/core/typography";
+import { api } from "@/server/api";
 
-import { searchClient } from "../backend";
 import { HallOfFameMemberList } from "./hall-of-member-list";
 import Loading from "./loading";
 
@@ -47,5 +47,5 @@ export default async function HallOfFamePage() {
 }
 
 function fetchHallOfFameMembers() {
-  return searchClient.findHallOfFameMembers();
+  return api.hallOfFame.findMembers();
 }

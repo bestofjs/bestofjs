@@ -16,12 +16,3 @@ export function getLatestProjects() {
     limit: 5,
   };
 }
-
-export function getBestOfJSProject() {
-  return {
-    criteria: {
-      full_name: "bestof/bestofjs-webui",
-    },
-    limit: 1,
-  };
-}

@@ -1,4 +1,4 @@
-import { searchClient } from "@/app/backend";
+import { api } from "@/server/api";
 import { getHotProjectsRequest } from "@/app/backend-search-requests";
 
 import { ImageLayout } from "./og-image-layout";
@@ -14,7 +14,7 @@ export const runtime = "edge";
 
 export async function GET() {
   const NUMBER_OF_PROJECTS = 3;
-  const { projects } = await searchClient.findProjects(
+  const { projects } = await api.projects.findProjects(
     getHotProjectsRequest(NUMBER_OF_PROJECTS)
   );
 

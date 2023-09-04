@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 
 import { TagPaginatedList } from "@/components/tag-list/tag-paginated-list";
-import { searchClient } from "@/app/backend";
+import { api } from "@/server/api";
 import { SearchQueryUpdater } from "@/app/projects/types";
 
 import TagListLoading from "./loading";
@@ -61,7 +61,7 @@ async function getTagsPageData(searchParams: PageProps["searchParams"]) {
   const { sortOptionId, page, limit } = parsePageSearchParams(searchParams);
   const sortOption = getTagListSortOptionByValue(sortOptionId);
   const skip = limit * (page - 1);
-  const { tags, total } = await searchClient.findTagsWithProjects({
+  const { tags, total } = await api.tags.findTagsWithProjects({
     limit,
     skip,
     sort: sortOption.sort,
