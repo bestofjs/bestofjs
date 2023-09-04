@@ -265,7 +265,7 @@ function MoreProjectsSection({
         </p>
         <p>
           Data is updated from GitHub every 24 hours, the last update was at{" "}
-          <code className="relative rounded bg-muted px-[0.3rem] py-[0.2rem] font-mono text-sm font-semibold mr-2">
+          <code className="relative mr-2 rounded bg-muted px-[0.3rem] py-[0.2rem] font-mono text-sm font-semibold">
             {formatDateGMT(lastUpdateDate)}
           </code>
           (GMT).
