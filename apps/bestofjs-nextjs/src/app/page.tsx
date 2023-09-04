@@ -240,10 +240,9 @@ function MoreProjectsSection({
   lastUpdateDate: Date;
   total: number;
 }) {
-  const timeOnlyFormat = new Intl.DateTimeFormat("default", {
-    hour: "numeric",
-    minute: "numeric",
-  });
+  function formatDateGMT(date: Date) {
+    return date.toJSON().slice(0, 10) + " " + date.toJSON().slice(11, 16);
+  }
 
   return (
     <div className="sm:px-4">
@@ -265,8 +264,11 @@ function MoreProjectsSection({
           .
         </p>
         <p>
-          Data is updated from GitHub every 24 hours, the last update was{" "}
-          <b>{fromNow(lastUpdateDate)}</b>.
+          Data is updated from GitHub every 24 hours, the last update was at{" "}
+          <code className="relative mr-2 rounded bg-muted px-[0.3rem] py-[0.2rem] font-mono text-sm font-semibold">
+            {formatDateGMT(lastUpdateDate)}
+          </code>
+          (GMT).
         </p>
       </div>
     </div>

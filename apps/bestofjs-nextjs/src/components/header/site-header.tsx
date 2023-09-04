@@ -5,8 +5,8 @@ import { APP_REPO_URL, DISCORD_URL } from "@/config/site";
 import { buttonVariants } from "@/components/ui/button";
 import { MainNav } from "@/components/header/desktop-nav";
 import { Icons } from "@/components/icons";
+import { SearchContainer } from "@/components/search-palette/search-container";
 import { ThemeToggle } from "@/components/theme-toggle";
-import { SearchContainer } from "@/app/search-container";
 
 export function SiteHeader() {
   return (
