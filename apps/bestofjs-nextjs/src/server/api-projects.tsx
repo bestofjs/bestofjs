@@ -1,7 +1,7 @@
 import * as mingo from "mingo";
 import { RawObject } from "mingo/types";
 
-import { filterProjectsByQuery } from "@/components/search-palette/find-projects";
+import { filterProjectsByQuery } from "@/lib/search-utils";
 
 import { Data, getProjectId, getResultRelevantTags } from "./api-utils";
 
