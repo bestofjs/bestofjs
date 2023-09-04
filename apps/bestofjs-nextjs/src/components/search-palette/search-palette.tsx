@@ -98,8 +98,13 @@ export function SearchPalette({ allProjects, allTags }: SearchProps) {
     setSearchQuery(value);
   };
 
+  const MAX_NUMBER_OF_PROJECT = 8;
   const filteredProjects = searchQuery
-    ? filterProjectsByTagsAndQuery(allProjects, currentTagCodes, searchQuery)
+    ? filterProjectsByTagsAndQuery(
+        allProjects,
+        currentTagCodes,
+        searchQuery
+      ).slice(0, MAX_NUMBER_OF_PROJECT)
     : [];
 
   React.useEffect(() => {
@@ -191,7 +196,7 @@ export function SearchPalette({ allProjects, allTags }: SearchProps) {
               )}
               {searchQuery.length > 0 && !isEmptyProjects && (
                 <CommandGroup heading="Projects">
-                  {filteredProjects.slice(0, 10).map((project) => (
+                  {filteredProjects.map((project) => (
                     <div
                       key={project.slug}
                       className="gap-2 md:grid md:grid-cols-[1fr_40px_40px]"
