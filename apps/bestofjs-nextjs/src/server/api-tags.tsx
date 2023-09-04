@@ -1,7 +1,7 @@
 import * as mingo from "mingo";
 import { RawObject } from "mingo/types";
 
-import { Data } from "./api-utils";
+import { APIContext } from "./api-utils";
 
 const defaultTagSearchQuery = {
   criteria: {},
@@ -21,7 +21,7 @@ type QueryParams = {
   query: string;
 };
 
-export function createTagsAPI({ getData }: { getData: () => Promise<Data> }) {
+export function createTagsAPI({ getData }: APIContext) {
   function findRawProjects(
     projectCollection: BestOfJS.RawProject[],
     searchQuery: QueryParams

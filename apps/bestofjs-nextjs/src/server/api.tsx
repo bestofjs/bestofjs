@@ -2,6 +2,7 @@ import { createHallOfFameAPI } from "./api-hall-of-fame";
 import { createProjectsAPI } from "./api-projects";
 import { createTagsAPI } from "./api-tags";
 import {
+  APIContext,
   Data,
   FETCH_ALL_PROJECTS_URL,
   getFeaturedRandomList,
@@ -41,7 +42,7 @@ export function createAPI() {
     };
   }
 
-  const context = {
+  const context: APIContext = {
     getData,
   };
 

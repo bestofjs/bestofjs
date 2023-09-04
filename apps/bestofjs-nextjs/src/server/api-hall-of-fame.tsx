@@ -1,13 +1,9 @@
-import { Data, FETCH_ALL_PROJECTS_URL } from "./api-utils";
+import { APIContext, FETCH_ALL_PROJECTS_URL } from "./api-utils";
 
-export function createHallOfFameAPI({
-  getData,
-}: {
-  getData: () => Promise<Data>;
-}) {
+export function createHallOfFameAPI(context: APIContext) {
   return {
     async findMembers() {
-      const { populate, projectsBySlug } = await getData();
+      const { populate, projectsBySlug } = await context.getData();
       const { heroes } = await fetchHallOfFameData();
 
       const populateMemberProjects = (member: BestOfJS.RawHallOfFameMember) => {

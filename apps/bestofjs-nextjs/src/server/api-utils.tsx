@@ -14,6 +14,10 @@ export type Data = {
   lastUpdateDate: Date;
 };
 
+export type APIContext = {
+  getData: () => Promise<Data>;
+};
+
 export const populateProject =
   (tagsByKey: { [key: string]: BestOfJS.Tag }) =>
   (project: BestOfJS.RawProject) => {

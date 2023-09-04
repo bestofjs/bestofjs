@@ -3,7 +3,12 @@ import { RawObject } from "mingo/types";
 
 import { filterProjectsByQuery } from "@/lib/search-utils";
 
-import { Data, getProjectId, getResultRelevantTags } from "./api-utils";
+import {
+  APIContext,
+  Data,
+  getProjectId,
+  getResultRelevantTags,
+} from "./api-utils";
 
 type QueryParams = {
   criteria: RawObject & {
@@ -16,11 +21,7 @@ type QueryParams = {
   query: string;
 };
 
-export function createProjectsAPI({
-  getData,
-}: {
-  getData: () => Promise<Data>;
-}) {
+export function createProjectsAPI({ getData }: APIContext) {
   function findProjectsAndRelatedTags(
     projectCollection: BestOfJS.RawProject[],
     searchQuery: QueryParams,
