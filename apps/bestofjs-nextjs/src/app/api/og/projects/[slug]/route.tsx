@@ -71,5 +71,7 @@ function Trend({ project }: { project: BestOfJS.Project }) {
       <div style={{ color: mutedColor }}>Total</div>
       <ShowStarsTotal value={project.stars} />
     </Box>
-  ) : null;
+  ) : (
+    <ShowStarsTotal value={project.stars} />
+  );
 }
