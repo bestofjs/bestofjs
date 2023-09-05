@@ -5,10 +5,14 @@ import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { Icons } from "@/components/icons";
 
+import { useIsApplePlatform } from "./use-is-apple-platform";
+
 type Props = {
   onClick: () => void;
 };
 export function SearchTrigger({ onClick }: Props) {
+  const isApplePlatform = useIsApplePlatform();
+
   return (
     <>
       <Button
@@ -21,7 +25,13 @@ export function SearchTrigger({ onClick }: Props) {
         <span className="hidden lg:inline-flex">Search in projects...</span>
         <span className="inline-flex lg:hidden">Search...</span>
         <kbd className="pointer-events-none absolute right-1.5 top-2 hidden h-5 select-none items-center gap-1 rounded border bg-muted px-1.5 text-[10px] font-medium opacity-100 sm:flex">
-          <span className="text-xs">⌘</span>K
+          {isApplePlatform ? (
+            <>
+              <span className="text-xs">⌘</span>K
+            </>
+          ) : (
+            <>Ctrl K</>
+          )}
         </kbd>
       </Button>
       <div className="flex items-center gap-4 lg:hidden">
