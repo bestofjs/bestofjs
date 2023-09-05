@@ -29,7 +29,8 @@ export function ProjectLogo({
   project: BestOfJS.Project;
   size: number;
 }) {
-  const imageURL = getProjectAvatarUrl(project, 100, "dark");
+  const rootURL = `https://${process.env.VERCEL_URL}`; // Image source must be an absolute URL
+  const imageURL = rootURL + getProjectAvatarUrl(project, 100, "dark");
   return <img src={imageURL} width={size} height={size} alt={project.name} />;
 }
 
