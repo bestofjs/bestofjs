@@ -1,6 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 import { ImageResponse } from "next/server";
 
+import { APP_CANONICAL_URL } from "@/config/site";
 import { getProjectAvatarUrl } from "@/components/core/project-utils";
 
 export const mutedColor = "#a1a1aa";
@@ -29,9 +30,18 @@ export function ProjectLogo({
   project: BestOfJS.Project;
   size: number;
 }) {
-  const rootURL = `https://${process.env.VERCEL_URL}`; // Image source must be an absolute URL
-  const imageURL = rootURL + getProjectAvatarUrl(project, 100, "dark");
+  const imageURL = getImageAbsoluteURL(
+    getProjectAvatarUrl(project, 100, "dark")
+  );
   return <img src={imageURL} width={size} height={size} alt={project.name} />;
+}
+
+// Image source must be an absolute URL
+function getImageAbsoluteURL(url: string) {
+  const rootURL = process.env.VERCEL_URL
+    ? new URL(`https://${process.env.VERCEL_URL}`)
+    : APP_CANONICAL_URL;
+  return url.startsWith("http") ? url : rootURL + url;
 }
 
 export function StarIcon() {
