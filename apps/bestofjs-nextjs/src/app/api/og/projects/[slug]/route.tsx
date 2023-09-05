@@ -30,8 +30,9 @@ export async function GET(_req: Request, { params: { slug } }: Context) {
           style={{
             flex: 1,
             flexDirection: "column",
-            gap: 32,
             position: "relative",
+            height: 360,
+            justifyContent: "space-between",
             top: -20, // to align the top of the project's name with the top of the logo
           }}
         >
