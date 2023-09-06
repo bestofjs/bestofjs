@@ -12,6 +12,13 @@ const nextConfig = {
       },
     ],
   },
+  redirects: () => [
+    {
+      source: "/tags/:tag",
+      destination: "/projects?tags=:tag",
+      permanent: false,
+    },
+  ],
 };
 
 export default nextConfig;

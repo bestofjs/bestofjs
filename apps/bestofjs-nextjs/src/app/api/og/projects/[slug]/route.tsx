@@ -24,9 +24,18 @@ export async function GET(_req: Request, { params: { slug } }: Context) {
 
   return generateImageResponse(
     <ImageLayout>
-      <Box style={{ alignItems: "center", gap: 64 }}>
+      <Box style={{ alignItems: "flex-start", gap: 48 }}>
         <ProjectLogo project={project} size={200} />
-        <Box style={{ flex: 1, flexDirection: "column", gap: 32 }}>
+        <Box
+          style={{
+            flex: 1,
+            flexDirection: "column",
+            position: "relative",
+            height: 360,
+            justifyContent: "space-between",
+            top: -20, // to align the top of the project's name with the top of the logo
+          }}
+        >
           <Box style={{ gap: 32, fontSize: 80 }}>{project.name}</Box>
           <div style={{ color: mutedColor }}>{project.description}</div>
           <Trend project={project} />
@@ -62,5 +71,7 @@ function Trend({ project }: { project: BestOfJS.Project }) {
       <div style={{ color: mutedColor }}>Total</div>
       <ShowStarsTotal value={project.stars} />
     </Box>
-  ) : null;
+  ) : (
+    <ShowStarsTotal value={project.stars} />
+  );
 }

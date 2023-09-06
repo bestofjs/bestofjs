@@ -5,11 +5,11 @@ Made of two applications:
 
 ```shell
 ./apps
-├── bestofjs-nextjs # the beta version:    https://beta.bestofjs.org
-└── bestofjs-webui  # the current version: https://bestofjs.org
+├── bestofjs-nextjs # Next.js app  https://bestofjs.org
+└── bestofjs-webui  # Classic app  https://classic.bestofjs.org
 ```
 
-[![image](https://github.com/bestofjs/bestofjs/assets/5546996/6415339d-d004-4498-b5d1-0757a26d5ab6)](https://bestofjs.org/)
+[![image](https://github.com/bestofjs/bestofjs/assets/5546996/e0e48657-90de-4bc0-b0a0-80968e826217)](https://bestofjs.org/)
 
 ## Concept
 

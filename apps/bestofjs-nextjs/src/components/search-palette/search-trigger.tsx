@@ -35,7 +35,7 @@ export function SearchTrigger({ onClick }: Props) {
         </kbd>
       </Button>
       <div className="flex items-center gap-4 lg:hidden">
-        <Button onClick={onClick} size="sm" variant="ghost">
+        <Button onClick={onClick} size="sm" variant="ghost" aria-label="Search">
           <Icons.search className="h-5 w-5" />
         </Button>
         <Separator orientation="vertical" className="h-6" />
