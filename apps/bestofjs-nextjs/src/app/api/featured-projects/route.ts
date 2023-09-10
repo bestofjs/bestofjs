@@ -1,4 +1,4 @@
-import { api } from "@/server/api";
+import { api } from "@/server/api-remote-json";
 
 export const runtime = "edge";
 

@@ -1,5 +1,5 @@
 import { formatNumber } from "@/helpers/numbers";
-import { api } from "@/server/api";
+import { api } from "@/server/api-remote-json";
 import {
   Box,
   ProjectLogo,
