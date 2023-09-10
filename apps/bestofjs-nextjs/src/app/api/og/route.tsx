@@ -1,4 +1,4 @@
-import { api } from "@/server/api";
+import { api } from "@/server/api-remote-json";
 import { getHotProjectsRequest } from "@/app/backend-search-requests";
 
 import { ImageLayout } from "./og-image-layout";
