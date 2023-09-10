@@ -1,3 +1,5 @@
+const path = require("path");
+
 module.exports = {
   $schema: "https://json.schemastore.org/eslintrc",
   root: true,
