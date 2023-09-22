@@ -4,5 +4,5 @@ import { fetchMonthlyRankings } from "./monthly-rankings-data";
 
 export async function GET(request: Request) {
   const { year, month } = await fetchMonthlyRankings({ limit: 0 });
-  redirect(`/rankings/monthly/${year}/${month}`);
+  return redirect(`/rankings/monthly/${year}/${month}`);
 }
