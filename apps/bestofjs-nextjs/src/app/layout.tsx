@@ -2,7 +2,7 @@ import "@/app/globals.css";
 import { Metadata } from "next";
 import { Analytics } from "@vercel/analytics/react";
 
-import { APP_DISPLAY_NAME } from "@/config/site";
+import { APP_CANONICAL_URL, APP_DISPLAY_NAME } from "@/config/site";
 import { fontSans, fontSerif } from "@/lib/fonts";
 import { cn } from "@/lib/utils";
 import { Footer } from "@/components/footer/footer";
@@ -26,11 +26,22 @@ export const metadata: Metadata = {
     shortcut: "/favicon-16x16.png",
     apple: "/apple-touch-icon.png",
   },
-  metadataBase: new URL(`https://${process.env.VERCEL_URL}`), // to avoid warnings at build time
+  metadataBase: getMetadataRootURL(),
   openGraph: {
     images: ["/api/og"],
   },
 };
+
+function getMetadataRootURL() {
+  switch (process.env.VERCEL_ENV) {
+    case "production":
+      return new URL(APP_CANONICAL_URL); // ensure URLs start with https://bestofjs.org in production
+    case "preview":
+      return new URL(`https://${process.env.VERCEL_URL}`); // https://xxx.vercel.app
+    default:
+      return new URL(`http://localhost:${process.env.PORT || 3000}`);
+  }
+}
 
 interface RootLayoutProps {
   children: React.ReactNode;

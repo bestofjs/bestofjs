@@ -11,8 +11,8 @@ export default function ProjectListLoading() {
           Loading project list...
         </CardHeader>
         <div className="divide-y">
-          {[...Array(5)].map((i) => (
-            <LoadingProject key={i} />
+          {[...Array(5)].map((_, index) => (
+            <LoadingProject key={index} />
           ))}
         </div>
       </Card>

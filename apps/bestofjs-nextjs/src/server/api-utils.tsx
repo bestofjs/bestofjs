@@ -103,9 +103,11 @@ export function getTagsByKey(
   tags: BestOfJS.RawTag[],
   projects: BestOfJS.RawProject[]
 ) {
-  const byKey = tags.reduce((acc, tag) => {
-    return { ...acc, [tag.code]: tag };
-  }, {}) as { [tag: string]: BestOfJS.Tag };
+  const byKey = {} as { [tag: string]: BestOfJS.Tag };
+
+  tags.forEach((tag) => {
+    byKey[tag.code] = { name: tag.name, code: tag.code, counter: 0 };
+  });
 
   projects.forEach(({ tags }) => {
     tags.forEach((tag) => {

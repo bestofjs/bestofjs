@@ -23,19 +23,19 @@ export const BetaVersionNews = () => {
     >
       <Flex mb={3} fontSize="xl" alignItems="center">
         <Icon as={GoMegaphone} fontSize="24px" color="var(--iconColor)" />
-        <Box ml={2}>Beta version live!</Box>
+        <Box ml={2}>Next.js version live!</Box>
       </Flex>
       <Stack>
         <Box>
           Check the new{" "}
           <ExternalLink
-            url="https://beta.bestofjs.org"
+            url="https://bestofjs.org"
             color="var(--textPrimaryColor)"
             fontFamily="var(--buttonFontFamily)"
             textDecoration="underline"
             fontWeight="bold"
           >
-            beta.bestofjs.org
+            bestofjs.org
           </ExternalLink>{" "}
           built with Next.js.
         </Box>

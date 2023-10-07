@@ -1,12 +1,8 @@
 # Best of JS Next.js 13 application
 
-The "next" version of Best of JS is coming soon!
-
-Available at https://beta.bestofjs.org/
-
 ## Technology
 
-- Next.js app router with React Server Components
+- [Next.js](https://nextjs.org/) with app router and React Server Components
 - [shadcn/ui](https://ui.shadcn.com/) UI components, built on top of headless [Radix](https://radix-ui.com/)
 - [TailwindCSS](https://tailwindcss.com/) for styling
 
