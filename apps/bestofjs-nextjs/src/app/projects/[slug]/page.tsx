@@ -29,7 +29,6 @@ export async function generateMetadata({
   return {
     title: project.name,
     description: project.description,
-    metadataBase: new URL(`https://${process.env.VERCEL_URL}`), // to avoid warnings at build time
     openGraph: {
       images: [`/api/og/projects/${slug}`],
     },
