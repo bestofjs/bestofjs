@@ -5,8 +5,8 @@ Made of two applications:
 
 ```shell
 ./apps
-├── bestofjs-nextjs # Next.js app  https://bestofjs.org
-└── bestofjs-webui  # Classic app  https://classic.bestofjs.org
+├── bestofjs-nextjs # The Next.js app running on https://bestofjs.org
+└── bestofjs-webui  # The original Single Page Application available at https://classic.bestofjs.org
 ```
 
 [![image](https://github.com/bestofjs/bestofjs/assets/5546996/e0e48657-90de-4bc0-b0a0-80968e826217)](https://bestofjs.org/)
