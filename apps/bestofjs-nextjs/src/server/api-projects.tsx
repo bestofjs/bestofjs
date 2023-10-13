@@ -5,7 +5,6 @@ import { filterProjectsByQuery } from "@/lib/search-utils";
 
 import {
   APIContext,
-  Data,
   getProjectId,
   getResultRelevantTags,
 } from "./api-utils";

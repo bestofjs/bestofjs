@@ -8,11 +8,12 @@ module.exports = {
     "prettier",
     "plugin:tailwindcss/recommended",
   ],
-  plugins: ["tailwindcss"],
+  plugins: ["tailwindcss", "unused-imports"],
   rules: {
     "@next/next/no-html-link-for-pages": "off",
     "react/jsx-key": "off",
     "tailwindcss/no-custom-classname": "off",
+    "unused-imports/no-unused-imports": "warn",
   },
   settings: {
     tailwindcss: {

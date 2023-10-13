@@ -5,7 +5,6 @@ import { PlusIcon, XMarkIcon } from "@heroicons/react/20/solid";
 import { cn } from "@/lib/utils";
 import { formatNumber } from "@/helpers/numbers";
 import { badgeVariants } from "@/components/ui/badge";
-import { Separator } from "@/components/ui/separator";
 import { TagIcon } from "@/components/core";
 import { PageHeading } from "@/components/core/typography";
 import {
@@ -19,7 +18,6 @@ import {
   SortOptionKey,
   sortOrderOptionsByKey,
 } from "@/components/project-list/sort-order-options";
-import { SearchPageTagPicker, TagPicker } from "@/components/tags/tag-picker";
 import { api } from "@/server/api";
 
 // import { TagPickerPopover } from "@/components/tag-picker/tag-picker-popover"
