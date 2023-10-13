@@ -1,5 +1,5 @@
 import { Suspense } from "react";
-import { Metadata, ResolvingMetadata } from "next";
+import { Metadata } from "next";
 
 import { getHotProjectsRequest } from "@/app/backend-search-requests";
 

@@ -9,7 +9,6 @@ import {
   SPONSOR_URL,
 } from "@/config/site";
 import { cn } from "@/lib/utils";
-import { fromNow } from "@/helpers/from-now";
 import { formatNumber } from "@/helpers/numbers";
 import { buttonVariants } from "@/components/ui/button";
 import { Card, CardHeader } from "@/components/ui/card";
