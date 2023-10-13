@@ -39,26 +39,11 @@ export async function DependenciesSection({
       <CollapsibleContent className="space-y-4 py-4">
         {projects.length > 0 && (
           <Card>
-            <CardHeader>
-              Dependencies on <i>Best of JS</i>{" "}
-              <Badge variant="secondary" className="ml-2">
-                {projects.length}
-              </Badge>
-            </CardHeader>
             <ProjectTable projects={projects} />
           </Card>
         )}
         {dependenciesNotOnBestOfJS.length > 0 && (
           <Card>
-            {projects.length > 0 && (
-              <CardHeader>
-                Dependencies not on <i>Best of JS</i>
-                <Badge variant={"secondary"} className="ml-2">
-                  {dependenciesNotOnBestOfJS.length}
-                </Badge>
-              </CardHeader>
-            )}
-
             <Table className="text-md">
               <TableBody>
                 {dependenciesNotOnBestOfJS.map((dependency) => (
