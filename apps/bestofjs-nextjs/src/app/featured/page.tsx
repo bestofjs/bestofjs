@@ -19,6 +19,8 @@ type PageProps = {
   searchParams: ProjectPageSearchParams;
 };
 
+export const revalidate = 0;
+
 export default async function FeaturedProjectsPage({
   searchParams,
 }: PageProps) {
