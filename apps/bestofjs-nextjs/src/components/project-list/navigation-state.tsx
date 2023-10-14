@@ -26,7 +26,7 @@ export function stateToQueryString({
   const params = {
     query: query || undefined,
     tags: tags.length === 0 ? undefined : tags,
-    sort: sort === DEFAULT_SEARCH_ORDER ? undefined : sort,
+    sort,
     page: page === 1 ? undefined : page,
     direction,
   };
