@@ -124,7 +124,7 @@ export function SearchPalette({ allProjects, allTags }: SearchProps) {
   const onSelectProject = (itemValue: string) => {
     const projectSlug = itemValue.slice("project/".length);
     const project = allProjects.find((project) => project.slug === projectSlug);
-    invariant(project);
+    invariant(project, `Project not found: ${projectSlug}`);
     setSelectedItem({ type: "project", value: project });
     goToURL(`/projects/${projectSlug}`);
   };

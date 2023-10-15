@@ -34,7 +34,6 @@ function mergeProjectData(
   const {
     npm,
     bundle,
-    // packageSize,
     description,
     github: { contributor_count, commit_count, created_at },
     timeSeries,
@@ -49,6 +48,5 @@ function mergeProjectData(
     created_at,
     bundle,
     packageData: npm,
-    // packageSize,
   } as BestOfJS.ProjectWithPackageDetails;
 }
