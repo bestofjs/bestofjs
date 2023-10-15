@@ -8,8 +8,8 @@ export const StarIcon = (props: IconBaseProps) => <MdStarBorder {...props} />;
 export const TagIcon = (props: IconBaseProps) => <GoTag {...props} />;
 
 type IconProps = {
-  color: string;
-  size: number;
+  color?: string;
+  size?: number;
 };
 
 export const DoubleChevronLeftIcon = (props: IconProps) => {
