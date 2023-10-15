@@ -85,7 +85,7 @@ const MonthlyRankingsNavigator = ({
   const previousMonth = getPreviousMonth(date);
   const nextMonth = getNextMonth(date);
   return (
-    <div className="flex items-center justify-between">
+    <div className="flex items-center w-full justify-between">
       <NavigationButton
         isDisabled={isFirst}
         url={buildRankingsURL(previousMonth)}

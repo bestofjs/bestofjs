@@ -49,7 +49,7 @@ export const ProjectPaginatedList = ({
     <Card>
       <CardHeader>
         {(showSortOptions || showPagination) && (
-          <div className="flex flex-col justify-between gap-4 md:flex-row">
+          <div className="flex flex-col w-full justify-between gap-4 md:flex-row">
             {showSortOptions && (
               <ProjectSortOrderPicker
                 value={sortOptionId as SortOptionKey}
