@@ -4,6 +4,7 @@ module.exports = {
   $schema: "https://json.schemastore.org/eslintrc",
   root: true,
   extends: [
+    "plugin:@typescript-eslint/recommended",
     "next/core-web-vitals",
     "prettier",
     "plugin:tailwindcss/recommended",
