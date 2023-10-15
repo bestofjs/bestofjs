@@ -3,11 +3,7 @@ import { RawObject } from "mingo/types";
 
 import { filterProjectsByQuery } from "@/lib/search-utils";
 
-import {
-  APIContext,
-  getProjectId,
-  getResultRelevantTags,
-} from "./api-utils";
+import { APIContext, getProjectId, getResultRelevantTags } from "./api-utils";
 
 type QueryParams = {
   criteria: RawObject & {
@@ -68,7 +64,9 @@ export function createProjectsAPI({ getData }: APIContext) {
 
       const projects = rawProjects.map(populate);
 
-      const selectedTagIds: string[] = (criteria?.tags as any)?.$all || [];
+      const selectedTagIds: string[] =
+        (criteria.tags && "$all" in criteria?.tags && criteria?.tags?.$all) ||
+        [];
       const selectedTags = selectedTagIds
         .map((tag) => tagsByKey[tag])
         .filter(Boolean);

@@ -7,7 +7,12 @@ export const StarIcon = (props: IconBaseProps) => <MdStarBorder {...props} />;
 
 export const TagIcon = (props: IconBaseProps) => <GoTag {...props} />;
 
-export const DoubleChevronLeftIcon = (props: any) => {
+type IconProps = {
+  color: string;
+  size: number;
+};
+
+export const DoubleChevronLeftIcon = (props: IconProps) => {
   return (
     <SVGContainer {...props}>
       <polyline points="11 17 6 12 11 7" />
@@ -16,7 +21,7 @@ export const DoubleChevronLeftIcon = (props: any) => {
   );
 };
 
-export const DoubleChevronRightIcon = (props: any) => {
+export const DoubleChevronRightIcon = (props: IconProps) => {
   return (
     <SVGContainer {...props}>
       <polyline points="13 17 18 12 13 7" />
@@ -25,7 +30,7 @@ export const DoubleChevronRightIcon = (props: any) => {
   );
 };
 
-export const ChevronLeftIcon = (props: any) => {
+export const ChevronLeftIcon = (props: IconProps) => {
   return (
     <SVGContainer {...props}>
       <polyline points="15 18 9 12 15 6" />
@@ -33,7 +38,7 @@ export const ChevronLeftIcon = (props: any) => {
   );
 };
 
-export const ChevronRightIcon = (props: any) => {
+export const ChevronRightIcon = (props: IconProps) => {
   return (
     <SVGContainer {...props}>
       <polyline points="9 18 15 12 9 6" />
@@ -45,10 +50,8 @@ const SVGContainer = ({
   children,
   color = "currentColor",
   size = 24,
-}: {
+}: IconProps & {
   children: React.ReactNode;
-  color: string;
-  size: number;
 }) => {
   return (
     <svg

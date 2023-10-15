@@ -11,8 +11,8 @@ export default function TagListLoading() {
           Loading all tags...
         </CardHeader>
         <CardContent>
-          {[...Array(10)].map((i) => (
-            <LoadingTag key={i} />
+          {[...Array(10)].map((_, index) => (
+            <LoadingTag key={index} />
           ))}
         </CardContent>
       </Card>
@@ -27,8 +27,8 @@ const LoadingTag = () => {
         <Skeleton className="h-8 w-1/2" />
       </div>
       <div className="flex gap-4">
-        {[...Array(5)].map((_) => (
-          <Skeleton className="h-8 w-8" />
+        {[...Array(5)].map((_, index) => (
+          <Skeleton key={index} className="h-8 w-8" />
         ))}
       </div>
     </div>

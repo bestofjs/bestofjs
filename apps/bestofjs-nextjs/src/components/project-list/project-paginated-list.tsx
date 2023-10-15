@@ -1,4 +1,5 @@
 import { Card, CardHeader } from "@/components/ui/card";
+import { ProjectSearchQuery, SearchUrlBuilder } from "@/app/projects/types";
 
 import {
   BottomPaginationControls,
@@ -15,8 +16,8 @@ type Props = {
   total: number;
   limit: number;
   sortOptionId: string;
-  searchState: any;
-  buildPageURL: any;
+  searchState: ProjectSearchQuery;
+  buildPageURL: SearchUrlBuilder<ProjectSearchQuery>;
   path?: string;
 };
 export const ProjectPaginatedList = ({

@@ -8,7 +8,7 @@ import {
 } from "../project-list/navigation-state";
 
 export function useSearchState() {
-  const urlSearchParams = useSearchParams()!;
+  const urlSearchParams = useSearchParams();
   const projectSearchParams: ProjectPageSearchParams = {
     tags: urlSearchParams.getAll("tags") || undefined,
     query: urlSearchParams.get("query") || undefined,
