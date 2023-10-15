@@ -27,7 +27,7 @@ export function createTagsAPI({ getData }: APIContext) {
     searchQuery: QueryParams
   ) {
     const { criteria, projection, sort, skip, limit } = searchQuery;
-    let cursor = mingo.find(projectCollection, criteria, projection);
+    const cursor = mingo.find(projectCollection, criteria, projection);
     const total = cursor.count();
 
     const projects = mingo
@@ -46,7 +46,7 @@ export function createTagsAPI({ getData }: APIContext) {
       const { criteria, sort, skip, limit } = searchQuery;
       const { tagCollection } = await getData();
       const query = new mingo.Query(criteria);
-      let cursor = query.find(tagCollection);
+      const cursor = query.find(tagCollection);
       const total = cursor.count();
 
       const tags = query
@@ -67,7 +67,7 @@ export function createTagsAPI({ getData }: APIContext) {
       const { criteria, sort, skip, limit } = searchQuery;
       const { populate, projectCollection, tagCollection } = await getData();
       const query = new mingo.Query(criteria || {});
-      let cursor = query.find(tagCollection);
+      const cursor = query.find(tagCollection);
       const total = cursor.count();
 
       const tags = query
