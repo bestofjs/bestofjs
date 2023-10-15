@@ -98,7 +98,7 @@ declare namespace BestOfJS {
   }
 
   interface Tag extends RawTag {
-    counter?: number;
+    counter: number;
   }
 
   interface TagWithProjects extends BestOfJS.Tag {

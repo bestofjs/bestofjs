@@ -57,7 +57,7 @@ export function TagPicker({
   onChange,
 }: Props & { onChange: (tagCode: string) => void }) {
   const [open, setOpen] = React.useState(false);
-  const [value, setValue] = React.useState("");
+  const [, setValue] = React.useState("");
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
@@ -81,7 +81,7 @@ export function TagPicker({
               {allTags.map((tag) => (
                 <CommandItem
                   key={tag.code}
-                  onSelect={(currentValue) => {
+                  onSelect={() => {
                     setValue(tag.code);
                     onChange(tag.code);
                     setOpen(false);

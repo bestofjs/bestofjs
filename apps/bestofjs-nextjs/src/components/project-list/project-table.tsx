@@ -176,6 +176,9 @@ export const ProjectScore = ({
   return <StarTotal value={project.stars} />;
 };
 
-const Cell = ({ className, ...props }: { className: string } & any) => (
+const Cell = ({
+  className,
+  ...props
+}: { className: string } & React.HTMLProps<HTMLTableCellElement>) => (
   <td className={cn(className)} {...props} />
 );

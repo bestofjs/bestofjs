@@ -1,8 +1,10 @@
 "use client";
 
 import { useState } from "react";
+import { InfoIcon } from "lucide-react";
 
 import { formatNumber } from "@/helpers/numbers";
+import { Alert, AlertDescription } from "@/components/ui/alert";
 
 const monthNames = "Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec".split(" ");
 
@@ -95,27 +97,18 @@ const ViewDetailsOnSmallScreens = ({
 }: {
   selectedItem: BarGraphItem | undefined;
 } & FormattingOptions) => {
-  return null; // TODO
-  // return (
-  //   <Alert
-  //     display={{ base: "flex", md: "none" }}
-  //     mb={2}
-  //     status="info"
-  //     fontSize="sm"
-  //     fontFamily="var(--buttonFontFamily)"
-  //     colorScheme="orange"
-  //     p={2}
-  //   >
-  //     <AlertIcon />
-  //     <AlertDescription>
-  //       {selectedItem ? (
-  //         <MonthSummary item={selectedItem} {...rest} />
-  //       ) : (
-  //         <Box>Click on the bars to view the numbers</Box>
-  //       )}
-  //     </AlertDescription>
-  //   </Alert>
-  // );
+  return (
+    <Alert className="mb-2 flex bg-transparent text-sm text-muted-foreground md:hidden">
+      <InfoIcon className="h-4 w-4" />
+      <AlertDescription>
+        {selectedItem ? (
+          <MonthSummary item={selectedItem} {...rest} />
+        ) : (
+          <div>Click on the bars to view the numbers</div>
+        )}
+      </AlertDescription>
+    </Alert>
+  );
 };
 
 const MonthSummary = ({
@@ -182,7 +175,7 @@ const EmptyGraphBar = ({ value }: { value: number | undefined }) => {
   );
 };
 
-const BarTopLabel = (props: any) => {
+const BarTopLabel = (props: React.HTMLProps<HTMLDivElement>) => {
   return (
     <div className="hidden w-full text-center text-sm md:block" {...props} />
   );

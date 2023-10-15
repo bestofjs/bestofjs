@@ -1,0 +1,36 @@
+name: PR check
+
+on: # event list
+  pull_request: # on a pull request to each of these branches
+    branches:
+      - develop
+
+env: # environment variables (available in any part of the action)
+  NODE_VERSION: 18
+
+jobs:
+  check_before_merge:
+    name: Test and lint checks
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install NodeJS
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      - name: Install PNPM 8
+        uses: pnpm/action-setup@v2
+        with:
+          version: 8.9.0
+
+      - name: Code Checkout
+        uses: actions/checkout@v2
+
+      - name: Install Dependencies
+        run: pnpm install
+
+      - name: Code Linting
+        run: pnpm -F bestofjs-nextjs lint
+
+      - name: Unit tests
+        run: pnpm -F bestofjs-nextjs test

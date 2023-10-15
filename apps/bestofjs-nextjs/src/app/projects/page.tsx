@@ -224,23 +224,14 @@ function CurrentTags({
   tags,
   textQuery,
   buildPageURL,
-  allTags,
 }: {
   tags: BestOfJS.Tag[];
   textQuery: string;
   buildPageURL: SearchUrlBuilder<ProjectSearchQuery>;
   allTags: BestOfJS.Tag[];
 }) {
-  const currentTagCodes = tags.map((tag) => tag.code);
-  const tagsToAdd = allTags.filter(
-    (tag) => !currentTagCodes.includes(tag.code)
-  );
   return (
     <div className="mb-4 flex flex-wrap gap-2">
-      {/* <SearchPageTagPicker
-        allTags={allTags}
-        currentTagCodes={currentTagCodes}
-      /> */}
       {tags.map((tag) => {
         const url = buildPageURL((state) => ({
           ...state,

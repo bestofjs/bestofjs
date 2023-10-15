@@ -4,6 +4,7 @@ import * as React from "react";
 import { useRouter } from "next/navigation";
 import { XMarkIcon } from "@heroicons/react/20/solid";
 import { GoHome, GoMarkGithub } from "react-icons/go";
+import invariant from "tiny-invariant";
 
 import { cn } from "@/lib/utils";
 import { Badge } from "@/components/ui/badge";
@@ -123,7 +124,8 @@ export function SearchPalette({ allProjects, allTags }: SearchProps) {
   const onSelectProject = (itemValue: string) => {
     const projectSlug = itemValue.slice("project/".length);
     const project = allProjects.find((project) => project.slug === projectSlug);
-    setSelectedItem({ type: "project", value: project! });
+    invariant(project, `Project not found: ${projectSlug}`);
+    setSelectedItem({ type: "project", value: project });
     goToURL(`/projects/${projectSlug}`);
   };
 
@@ -164,9 +166,9 @@ export function SearchPalette({ allProjects, allTags }: SearchProps) {
     <>
       <SearchTrigger onClick={() => setOpen(true)} />
       <CommandDialog open={open} onOpenChange={onOpenChange}>
-        {isPending ? (
+        {isPending && selectedItem ? (
           <div className="flex h-[300px] items-center justify-center">
-            <Loading item={selectedItem!} />
+            <Loading item={selectedItem} />
           </div>
         ) : (
           <>

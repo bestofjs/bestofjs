@@ -4,16 +4,16 @@ module.exports = {
   $schema: "https://json.schemastore.org/eslintrc",
   root: true,
   extends: [
+    "plugin:@typescript-eslint/recommended",
     "next/core-web-vitals",
     "prettier",
     "plugin:tailwindcss/recommended",
   ],
-  plugins: ["tailwindcss", "unused-imports"],
+  plugins: ["tailwindcss"],
   rules: {
     "@next/next/no-html-link-for-pages": "off",
     "react/jsx-key": "off",
     "tailwindcss/no-custom-classname": "off",
-    "unused-imports/no-unused-imports": "warn",
   },
   settings: {
     tailwindcss: {
