@@ -1,47 +1,52 @@
-import { api } from "@/server/api-remote-json";
 import {
-  Box,
-  ProjectLogo,
-  StarIcon,
-  generateImageResponse,
-  mutedColor,
-} from "@/app/api/og/og-utils";
-import { getHotProjectsRequest } from "@/app/backend-search-requests";
+  ProjectPageSearchParams,
+  parseSearchParams,
+} from "@/components/project-list/navigation-state";
+import { api } from "@/server/api-remote-json";
+import { Box, generateImageResponse, mutedColor } from "@/app/api/og/og-utils";
 
 import { ImageLayout } from "../og-image-layout";
+import { ProjectRow } from "../route";
 
 export const runtime = "edge";
 
 export async function GET(_req: Request) {
-  const NUMBER_OF_PROJECTS = 3;
-  const { projects } = await api.projects.findProjects(
-    getHotProjectsRequest(NUMBER_OF_PROJECTS)
-  );
-
-  const { searchParams } = new URL(_req.url);
-  console.log(searchParams);
+  const { tags, query } = useSearchParams(_req.url);
+  const { projects } = await api.projects.findProjects({ query });
 
   return generateImageResponse(
     <ImageLayout>
       <Box style={{ gap: 16 }}>
-        <div>All projects</div>
-        <div style={{ color: mutedColor }}>1,921 projects</div>
+        <div>{getImageTitle(tags, query)}</div>
+        <div style={{ color: mutedColor }}># of projects</div>
       </Box>
       <Box style={{ flexDirection: "column" }}>
         {projects.map((project, index) => (
-          <div key={project.slug}>{project.name}</div>
+          <ProjectRow key={project.slug} project={project} rank={index + 1} />
         ))}
       </Box>
     </ImageLayout>
   );
 }
 
-function getCaptionTitle(tags: BestOfJS.Tag[], query: string) {
+function getImageTitle(tags: string[], query: string | null) {
   if (!query && tags.length === 0) {
     return "All Projects";
   }
   if (!query && tags.length > 0) {
-    return tags.map((tag) => tag.name).join(" + ");
+    return tags.map((tag) => tag).join(" + ");
   }
   return "Search results";
+}
+
+function useSearchParams(url: string) {
+  const { searchParams } = new URL(url);
+  const projectSearchParams: ProjectPageSearchParams = {
+    tags: searchParams.getAll("tags") || undefined,
+    query: searchParams.get("query") || undefined,
+    page: searchParams.get("page") || undefined,
+    sort: searchParams.get("sort") || undefined,
+    limit: searchParams.get("limit") || undefined,
+  };
+  return parseSearchParams(projectSearchParams);
 }

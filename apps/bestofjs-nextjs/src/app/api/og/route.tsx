@@ -35,7 +35,7 @@ export async function GET() {
   );
 }
 
-function ProjectRow({
+export function ProjectRow({
   project,
   rank,
 }: {
