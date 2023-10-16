@@ -6,7 +6,7 @@ import { api } from "@/server/api-remote-json";
 import { Box, generateImageResponse, mutedColor } from "@/app/api/og/og-utils";
 
 import { ImageLayout } from "../og-image-layout";
-import { ProjectRow } from "../route";
+import { ProjectRow } from "../og-utils";
 
 export const runtime = "edge";
 
