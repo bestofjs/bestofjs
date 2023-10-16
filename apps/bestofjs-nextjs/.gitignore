@@ -37,3 +37,6 @@ yarn-error.log*
 
 # Data generated at build time
 public/data
+/test-results/
+/playwright-report/
+/playwright/.cache/

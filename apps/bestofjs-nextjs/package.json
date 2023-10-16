@@ -18,7 +18,9 @@
     "format:write": "prettier --write \"**/*.{ts,tsx,mdx}\" --cache",
     "format:check": "prettier --check \"**/*.{ts,tsx,mdx}\" --cache",
     "test": "vitest",
-    "test:ci": "vitest run"
+    "test:ci": "vitest run",
+    "test:e2e": "pnpm exec playwright test",
+    "e2e:init": "pnpm exec playwright install"
   },
   "dependencies": {
     "@heroicons/react": "^2.0.18",
@@ -74,5 +76,8 @@
     "prettier": "^2.8.8",
     "tailwindcss": "^3.3.2",
     "typescript": "^4.9.5"
+  },
+  "optionalDependencies": {
+    "@playwright/test": "^1.39.0"
   }
 }
