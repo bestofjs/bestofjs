@@ -26,7 +26,7 @@ export async function ReadmeCard({ project }: { project: BestOfJS.Project }) {
 }
 
 async function ReadmeContent({ project }: { project: BestOfJS.Project }) {
-  const html = await getData(project.full_name, project.branch);
+  const html = await getData(project.full_name, project.branch || "master");
   return <div dangerouslySetInnerHTML={{ __html: html }} />;
 }
 
