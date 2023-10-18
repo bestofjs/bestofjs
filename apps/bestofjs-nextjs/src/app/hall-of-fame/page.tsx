@@ -15,6 +15,9 @@ export async function generateMetadata(): Promise<Metadata> {
     title: "Hall of Fame",
     description:
       "Some of the greatest developers, authors and speakers of the JavaScript community. Meet Evan, Dan, Sindre, TJ and friends!",
+    openGraph: {
+      images: [`/api/og/hall-of-fame`],
+    },
   };
 }
 

@@ -4,13 +4,14 @@ import mingo from "mingo";
 import { APIContext, FETCH_ALL_PROJECTS_URL } from "./api-utils";
 
 type FindOptions = {
+  limit?: number;
   query?: string;
 };
 
 export function createHallOfFameAPI(context: APIContext) {
   return {
     async findMembers(options?: FindOptions) {
-      const { query } = options || {};
+      const { limit = 1000, query } = options || {};
       const { populate, projectCollection, projectsBySlug } =
         await context.getData();
 
@@ -51,7 +52,8 @@ export function createHallOfFameAPI(context: APIContext) {
       const filteredMembers = query ? filterMembers(heroes, query) : heroes;
       const populatedMembers = filteredMembers
         .map(populateMemberProjects)
-        .filter(filterMember);
+        .filter(filterMember)
+        .slice(0, limit);
       return { members: populatedMembers };
     },
   };
