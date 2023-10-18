@@ -3,12 +3,16 @@ import mingo from "mingo";
 
 import { APIContext, FETCH_ALL_PROJECTS_URL } from "./api-utils";
 
+type FindOptions = {
+  query?: string;
+};
+
 export function createHallOfFameAPI(context: APIContext) {
   return {
-    async findMembers() {
+    async findMembers(options?: FindOptions) {
+      const { query } = options || {};
       const { populate, projectCollection, projectsBySlug } =
         await context.getData();
-      const { heroes } = await fetchHallOfFameData();
 
       function findProjectsByOwner(owner: string) {
         const criteria = {
@@ -43,8 +47,12 @@ export function createHallOfFameAPI(context: APIContext) {
         );
       }
 
-      const members = heroes.map(populateMemberProjects).filter(filterMember);
-      return { members };
+      const { heroes } = await fetchHallOfFameData();
+      const filteredMembers = query ? filterMembers(heroes, query) : heroes;
+      const populatedMembers = filteredMembers
+        .map(populateMemberProjects)
+        .filter(filterMember);
+      return { members: populatedMembers };
     },
   };
 }
@@ -55,4 +63,16 @@ function fetchHallOfFameData() {
   return fetch(url).then((res) => res.json()) as Promise<{
     heroes: BestOfJS.RawHallOfFameMember[];
   }>;
+}
+
+function filterMembers(members: BestOfJS.RawHallOfFameMember[], query: string) {
+  const criteria = {
+    $or: [
+      { name: { $regex: new RegExp(query, "i") } },
+      { username: { $regex: new RegExp(query, "i") } },
+    ],
+  };
+  const mingoQuery = new mingo.Query(criteria);
+  const filteredMembers = mingoQuery.find(members).all();
+  return filteredMembers as BestOfJS.RawHallOfFameMember[];
 }
