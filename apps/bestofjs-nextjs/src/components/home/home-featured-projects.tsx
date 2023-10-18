@@ -9,7 +9,7 @@ import { api } from "@/server/api";
 import { FeaturedProjectsClient } from "./home-featured-projects.client";
 
 type Props = {
-  numberOfProjectPerPage: number;
+  numberOfProjectPerPage?: number;
 };
 export async function FeaturedProjects({ numberOfProjectPerPage = 5 }: Props) {
   const { projects, total } = await fetchFeaturedProjects(
