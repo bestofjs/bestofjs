@@ -53,10 +53,8 @@ export default async function ProjectDetailsPage({ params }: PageProps) {
           </Card>
         }
       >
-        {/* @ts-expect-error Server Component */}
         <ProjectDetailsCards project={project} />
       </Suspense>
-      {/* @ts-expect-error Server Component */}
       <ReadmeCard project={project} />
     </div>
   );
