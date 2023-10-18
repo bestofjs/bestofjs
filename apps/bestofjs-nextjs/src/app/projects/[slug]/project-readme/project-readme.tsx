@@ -16,7 +16,6 @@ export async function ReadmeCard({ project }: { project: BestOfJS.Project }) {
       <div className="markdown-body p-4">
         <ErrorBoundary fallback={<>Unable to load the project README</>}>
           <Suspense fallback={<>Loading README.md</>}>
-            {/* @ts-expect-error Server Component */}
             <ReadmeContent project={project} />
           </Suspense>
         </ErrorBoundary>

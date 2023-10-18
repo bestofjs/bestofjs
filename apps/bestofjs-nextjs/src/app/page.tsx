@@ -61,13 +61,11 @@ export default async function IndexPage() {
           <NewestProjectList projects={newestProjects} />
         </div>
         <div className="space-y-8 lg:w-[300px]">
-          {/* @ts-expect-error Server Component */}
           <FeaturedProjects />
           <PopularTagsList tags={popularTags} />
         </div>
       </div>
 
-      {/* @ts-expect-error Server Component */}
       <LatestMonthlyRankings />
 
       <Separator className="-mx-4 w-auto sm:mx-0" />

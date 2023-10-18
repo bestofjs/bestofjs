@@ -36,11 +36,9 @@ export function ProjectDetailsNpmCard({
           </div>
         </CardContent>
         <CardContent>
-          {/* @ts-expect-error Server Component */}
           <MonthlyDownloadsChart project={project} />
         </CardContent>
         <CardContent>
-          {/* @ts-expect-error Server Component */}
           <DependenciesSection project={project} />
         </CardContent>
         {project.bundle?.gzip && (

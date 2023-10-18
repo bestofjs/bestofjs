@@ -1,9 +1,9 @@
 import React, { Suspense } from "react";
-import formatUrl from "@/helpers/url";
 import { GoHome, GoMarkGithub } from "react-icons/go";
 import { ImNpm } from "react-icons/im";
 
 import { cn } from "@/lib/utils";
+import formatUrl from "@/helpers/url";
 import { buttonVariants } from "@/components/ui/button";
 import { ProjectAvatar } from "@/components/core";
 import { ProjectTagGroup } from "@/components/tags/project-tag";
@@ -24,7 +24,6 @@ export function ProjectHeader({ project }: Props) {
           <h2 className="font-serif text-4xl">{project.name}</h2>
           <div>
             <Suspense fallback={project.description}>
-              {/* @ts-expect-error Server Component */}
               <FullDescription project={project} />
             </Suspense>
           </div>
