@@ -49,7 +49,9 @@ export function createHallOfFameAPI(context: APIContext) {
       }
 
       const { heroes } = await fetchHallOfFameData();
-      const filteredMembers = query ? filterMembers(heroes, query) : heroes;
+      const filteredMembers = query
+        ? filterMembersByTextQuery(heroes, query)
+        : heroes;
       const populatedMembers = filteredMembers
         .map(populateMemberProjects)
         .filter(filterMember)
@@ -67,14 +69,16 @@ function fetchHallOfFameData() {
   }>;
 }
 
-function filterMembers(members: BestOfJS.RawHallOfFameMember[], query: string) {
+function filterMembersByTextQuery(
+  members: BestOfJS.RawHallOfFameMember[],
+  query: string
+) {
+  const includeRegExp = new RegExp(query, "i");
   const criteria = {
     $or: [
-      { name: { $regex: new RegExp(query, "i") } },
-      { username: { $regex: new RegExp(query, "i") } },
+      { name: { $regex: includeRegExp } },
+      { username: { $regex: includeRegExp } },
     ],
   };
-  const mingoQuery = new mingo.Query(criteria);
-  const filteredMembers = mingoQuery.find(members).all();
-  return filteredMembers as BestOfJS.RawHallOfFameMember[];
+  return mingo.find(members, criteria).all() as BestOfJS.RawHallOfFameMember[];
 }
