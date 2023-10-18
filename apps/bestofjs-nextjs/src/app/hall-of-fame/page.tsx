@@ -4,6 +4,7 @@ import { APP_REPO_URL } from "@/config/site";
 import { ExternalLink, PageHeading } from "@/components/core/typography";
 import { api } from "@/server/api";
 
+import { HallOfFameClientView } from "./hall-of-fame-view.client";
 import { HallOfFameMemberList } from "./hall-of-member-list";
 import Loading from "./loading";
 
@@ -14,11 +15,14 @@ export async function generateMetadata(): Promise<Metadata> {
     title: "Hall of Fame",
     description:
       "Some of the greatest developers, authors and speakers of the JavaScript community. Meet Evan, Dan, Sindre, TJ and friends!",
+    openGraph: {
+      images: [`/api/og/hall-of-fame`],
+    },
   };
 }
 
 export default async function HallOfFamePage() {
-  const { members } = await fetchHallOfFameMembers();
+  const { members: allMembers } = await api.hallOfFame.findMembers();
   if (forceLoadingState) return <Loading />;
 
   return (
@@ -41,11 +45,17 @@ export default async function HallOfFamePage() {
           </>
         }
       />
-      <HallOfFameMemberList members={members} />
+      <HallOfFameClientView
+        initialContent={
+          <>
+            <div className="mb-4 text-muted-foreground">
+              Showing <b>all</b> {allMembers.length} members by number of
+              followers
+            </div>
+            <HallOfFameMemberList members={allMembers} />
+          </>
+        }
+      />
     </>
   );
-}
-
-function fetchHallOfFameMembers() {
-  return api.hallOfFame.findMembers();
 }
