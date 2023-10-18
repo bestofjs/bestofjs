@@ -8,6 +8,7 @@ import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { searchHallOfFameMembers } from "./actions";
 import { HallOfFameSearchBar } from "./hall-of-fame-search.client";
 import { HallOfFameMemberList } from "./hall-of-member-list";
+import { HallOfFameSkeletonCard } from "./loading";
 
 export function HallOfFameClientView({
   initialContent,
@@ -30,8 +31,6 @@ export function HallOfFameClientView({
     setQuery("");
   };
 
-  if (isPending) return <>Searching...</>;
-
   return (
     <>
       <HallOfFameSearchBar
@@ -40,15 +39,39 @@ export function HallOfFameClientView({
         onReset={onReset}
       />
       {query ? (
-        <>
-          <div className="mb-4 text-muted-foreground">
-            <DescribeSearchResults count={results.length} />
-          </div>
-          <HallOfFameMemberList members={results} />
-        </>
+        <SearchResults results={results} isPending={isPending} />
       ) : (
         initialContent
       )}
+    </>
+  );
+}
+
+function SearchResults({
+  results,
+  isPending,
+}: {
+  results: BestOfJS.HallOfFameMember[];
+  isPending: boolean;
+}) {
+  if (isPending) {
+    return (
+      <>
+        <div className="mb-4 text-muted-foreground">Searching...</div>
+        <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
+          {["?", "?"].map((name, index) => (
+            <HallOfFameSkeletonCard key={index} name={name} />
+          ))}
+        </div>
+      </>
+    );
+  }
+  return (
+    <>
+      <div className="mb-4 text-muted-foreground">
+        <DescribeSearchResults count={results.length} />
+      </div>
+      <HallOfFameMemberList members={results} />
     </>
   );
 }
