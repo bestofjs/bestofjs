@@ -32,5 +32,5 @@ jobs:
       - name: Code Linting
         run: pnpm -F bestofjs-nextjs lint
 
-      - name: Unit tests
+      - name: Unit & E2E tests
         run: pnpm -F bestofjs-nextjs test

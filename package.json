@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "description": "Best of JS monorepo",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "pnpm -F bestofjs-nextjs test",
+    "test:e2e:install": "playwright install"
   },
   "author": "Michael Rambeau",
   "license": "MIT"
