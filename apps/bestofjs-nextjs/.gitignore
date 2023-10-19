@@ -40,3 +40,6 @@ public/data
 
 # Cache used when running typecheck commands
 tsconfig.tsbuildinfo
+/test-results/
+/playwright-report/
+/playwright/.cache/
