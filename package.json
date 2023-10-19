@@ -4,6 +4,7 @@
   "description": "Best of JS monorepo",
   "scripts": {
     "test": "pnpm -F bestofjs-nextjs test",
+    "test:e2e": "pnpm -F bestofjs-nextjs test:e2e",
     "test:e2e:install": "playwright install"
   },
   "author": "Michael Rambeau",
