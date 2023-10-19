@@ -34,6 +34,15 @@ pnpm build
 pnpm start
 ```
 
+#### Note about commands in the workspace
+
+Commands can be launched at the root level using the `-F` (filter) parameter, followed by the package name.
+For example:
+
+```bash
+pnpm -F bestofjs-nextjs dev
+```
+
 #### Development mode with automatic reloads
 
 First, we need to build a JSON file that will be queried by the backend:
@@ -48,32 +57,49 @@ pnpm dev
 
 ## Testing
 
-### 1. Install Playwright Dependencies
+### Unit Testing
+
+```bash
+pnpm test
+```
+
+### e2e
+
+#### 1. Install Playwright Dependencies
 
 ```bash
 pnpm test:e2e:install
 ```
 
-### 2. Run E2E Tests
+#### 2. Run E2E Tests
 
-You can use the production server or the dev server to run the e2e tests.
+e2e can be run on next production or dev server
 
 > [!WARNING]
 > The dev server may cause tests to timeout.
+> So using the production server is recommended.
 
-### 2.a Production server
+#### 2.a Production server
 
-Playwright will automatically start the production server
+Playwright will automatically start the production server so just make sure to create a next build
 
 ```bash
+cd apps/bestofjs-nextjs/
 pnpm build && pnpm test:e2e
 ```
 
-#### Note about commands in the workspace
+#### 2.b Dev server
 
-Commands can be launched at the root level using the `-F` (filter) parameter, followed by the package name.
-For example:
+Use two terminals with the following commands
+
+Terminal 1:
 
 ```bash
-pnpm -F bestofjs-nextjs dev
+pnpm dev
+```
+
+Terminal 2:
+
+```bash
+pnpm test:e2e
 ```
