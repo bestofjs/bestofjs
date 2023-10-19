@@ -6,6 +6,7 @@ import {
   CollapsibleTrigger,
 } from "@/components/ui/collapsible";
 import { Table, TableBody, TableCell, TableRow } from "@/components/ui/table";
+import { ExternalLinkIcon } from "@/components/core";
 import { Icons } from "@/components/icons";
 import { ProjectTable } from "@/components/project-list/project-table";
 import { api } from "@/server/api";
@@ -54,7 +55,7 @@ export async function DependenciesSection({
                         href={`https://npmjs.org/package/${dependency}`}
                       >
                         {dependency}
-                        <Icons.externalLink className="h-4 w-4" />
+                        <ExternalLinkIcon size={16} />
                       </a>
                     </TableCell>
                   </TableRow>

@@ -5,6 +5,7 @@ import {
   CollapsibleContent,
   CollapsibleTrigger,
 } from "@/components/ui/collapsible";
+import { ExternalLinkIcon } from "@/components/core";
 import { ExternalLink } from "@/components/core/typography";
 import { Icons } from "@/components/icons";
 
@@ -42,14 +43,14 @@ export function BundleSizeSection({ project }: Props) {
             Bundle in the browser with{" "}
             <ExternalLink url={urls.bundleJs}>
               <span className="font-sans">bundlejs online bundler</span>
-              <Icons.externalLink className="h-4 w-4" />
+              <ExternalLinkIcon size={16} />
             </ExternalLink>
           </li>
           <li className="list-disc">
             View details on{" "}
             <ExternalLink url={urls.bundlePhobia}>
               <span className="font-sans">Bundle Phobia</span>
-              <Icons.externalLink className="h-4 w-4" />
+              <ExternalLinkIcon size={16} />
             </ExternalLink>
           </li>
         </ul>

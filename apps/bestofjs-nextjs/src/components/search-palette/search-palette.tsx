@@ -2,8 +2,6 @@
 
 import * as React from "react";
 import { useRouter } from "next/navigation";
-import { XMarkIcon } from "@heroicons/react/20/solid";
-import { GoHome, GoMarkGithub } from "react-icons/go";
 import invariant from "tiny-invariant";
 
 import { cn } from "@/lib/utils";
@@ -19,8 +17,15 @@ import {
 } from "@/components/ui/command";
 import { Skeleton } from "@/components/ui/skeleton";
 
-import { ProjectAvatar, StarTotal, TagIcon } from "../core";
-import { Icons } from "../icons";
+import {
+  GitHubIcon,
+  HomeIcon,
+  ProjectAvatar,
+  SearchIcon,
+  StarTotal,
+  TagIcon,
+  XMarkIcon,
+} from "../core";
 import { stateToQueryString } from "../project-list/navigation-state";
 import { useSearchState } from "../project-list/search-state";
 import { filterProjectsByTagsAndQuery } from "./find-projects";
@@ -186,7 +191,7 @@ export function SearchPalette({ allProjects, allTags }: SearchProps) {
                   return (
                     <Badge key={tag.code} onClick={() => removeTag(tag.code)}>
                       {tag.name}
-                      <XMarkIcon className="h-5 w-5" />
+                      <XMarkIcon size={20} />
                     </Badge>
                   );
                 })}
@@ -237,7 +242,7 @@ export function SearchPalette({ allProjects, allTags }: SearchProps) {
                             "p-0"
                           )}
                         >
-                          <GoMarkGithub size={24} />
+                          <GitHubIcon size={24} />
                         </a>
                       </div>
                       {project.url && (
@@ -255,7 +260,7 @@ export function SearchPalette({ allProjects, allTags }: SearchProps) {
                               "p-0"
                             )}
                           >
-                            <GoHome size={24} />
+                            <HomeIcon size={24} />
                           </a>
                         </div>
                       )}
@@ -268,7 +273,7 @@ export function SearchPalette({ allProjects, allTags }: SearchProps) {
                       className="grid w-full grid-cols-[32px_1fr] items-center gap-4"
                     >
                       <div className="flex justify-center">
-                        <Icons.search />
+                        <SearchIcon />
                       </div>
                       <div>
                         Search for

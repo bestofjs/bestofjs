@@ -40,7 +40,7 @@ export function FeaturedProjectsClient({
     <>
       <CardHeader>
         <SectionHeading
-          icon={<StarIcon fontSize={32} />}
+          icon={<StarIcon size={32} />}
           title="Featured"
           subtitle={
             <>

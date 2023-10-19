@@ -1,6 +1,5 @@
 import { ChevronRightIcon } from "@heroicons/react/20/solid";
 import {
-  ExternalLinkIcon,
   LucideProps,
   Moon,
   Search,
@@ -10,9 +9,37 @@ import {
 
 export type Icon = LucideIcon;
 
+export type IconProps = React.SVGAttributes<SVGElement> & {
+  id: string;
+  size?: number;
+};
+
+export function SvgSprite({ id, ...props }: IconProps) {
+  const height = getDimension(props, "height");
+  const width = getDimension(props, "width");
+  return (
+    <svg {...props} width={width} height={height}>
+      <use href={`/sprite.svg#${id}`} />
+    </svg>
+  );
+}
+
+function getDimension(
+  props: Omit<IconProps, "id">,
+  dimension: "width" | "height"
+) {
+  const defaultValue = 16;
+  if (props[dimension]) {
+    return props[dimension];
+  }
+  if (props.size) {
+    return props.size;
+  }
+  return defaultValue;
+}
+
 export const Icons = {
   chevronRightIcon: ChevronRightIcon,
-  externalLink: ExternalLinkIcon,
   sun: SunMedium,
   moon: Moon,
   search: Search,
