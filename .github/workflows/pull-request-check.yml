@@ -13,24 +13,64 @@ jobs:
     name: Test and lint checks
     runs-on: ubuntu-latest
     steps:
-      - name: Install NodeJS
-        uses: actions/setup-node@v2
-        with:
-          node-version: ${{ env.NODE_VERSION }}
+      # - name: Install NodeJS
+      #   uses: actions/setup-node@v2
+      #   with:
+      # node-version: ${{ env.NODE_VERSION }}
 
-      - name: Install PNPM 8
-        uses: pnpm/action-setup@v2
-        with:
-          version: 8.9.0
+      # - name: Install PNPM 8
+      #   uses: pnpm/action-setup@v2
+      #   with:
+      #     version: 8.9.0
 
       - name: Code Checkout
         uses: actions/checkout@v2
 
-      - name: Install Dependencies
-        run: pnpm install
+      # - name: Install Dependencies
+      #   run: pnpm install
+
+      - name: Install
+        uses: ./tooling/github-actions/install
 
       - name: Code Linting
         run: pnpm -F bestofjs-nextjs lint
+      # - name: Unit & E2E tests
+      #   run: pnpm -F bestofjs-nextjs test
 
-      - name: Unit & E2E tests
-        run: pnpm -F bestofjs-nextjs test
+  automated-testing:
+    name: E2E & Unit Tests
+    timeout-minutes: 30
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Install
+        uses: ./tooling/github-actions/install
+
+      - name: Install Playwright Browsers
+        run: cd apps/bestofjs-nextjs && pnpm exec playwright install chromium --with-deps
+
+      - name: Run Unit & Playwright tests
+        run: pnpm -F bestofjs-nextjs test:ci
+
+      - name: Upload report
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: report
+          path: apps/web/playwright-report/
+
+      - name: Save PR number
+        if: always()
+        env:
+          PR_NUMBER: ${{ github.event.number }}
+        run: |
+          echo $PR_NUMBER > prNumber
+
+      - name: Upload prNumber
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: prNumber
+          path: prNumber
