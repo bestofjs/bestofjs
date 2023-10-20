@@ -1,8 +1,7 @@
 import NextLink from "next/link";
-import { ChevronRightIcon } from "@heroicons/react/20/solid";
 
 import { cn } from "@/lib/utils";
-import { ProjectAvatar } from "@/components/core";
+import { ChevronRightIcon, ProjectAvatar } from "@/components/core";
 
 import { buttonVariants } from "../ui/button";
 

@@ -1,5 +1,3 @@
-import { Moon, SunMedium } from "lucide-react";
-
 export type SvgSpriteProps = React.SVGProps<SVGSVGElement> & {
   id: string;
   size?: number;
@@ -28,8 +26,3 @@ function getDimension(
   }
   return defaultValue;
 }
-
-export const Icons = {
-  sun: SunMedium,
-  moon: Moon,
-};

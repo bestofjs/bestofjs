@@ -1,10 +1,14 @@
 import React from "react";
 
-import { SvgSprite } from "../icons";
+import { SvgSprite } from "./svg-sprite";
 
 type IconProps = React.SVGProps<SVGSVGElement> & {
   size?: number;
 };
+
+export const ChevronDownIcon = (props: IconProps) => (
+  <SvgSprite id="chevron-down-icon" {...props} />
+);
 
 export const ChevronLeftIcon = (props: IconProps) => (
   <SvgSprite id="chevron-left-icon" {...props} />

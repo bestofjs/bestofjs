@@ -7,7 +7,6 @@ import {
 } from "@/components/ui/collapsible";
 import { Table, TableBody, TableCell, TableRow } from "@/components/ui/table";
 import { ChevronRightIcon, ExternalLinkIcon } from "@/components/core";
-import { Icons } from "@/components/icons";
 import { ProjectTable } from "@/components/project-list/project-table";
 import { api } from "@/server/api";
 

@@ -5,7 +5,6 @@
 import * as React from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { ChevronDown } from "lucide-react";
 
 import { RISING_STARS_URL, extraNavItems, mainNavItems } from "@/config/site";
 import { cn } from "@/lib/utils";
@@ -19,8 +18,8 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Icons } from "@/components/icons";
 
+import { ChevronDownIcon } from "../core";
 import { BestOfJSLogo } from "../svg-logos";
 import { MobileMenuButton } from "./mobile-nav";
 
@@ -82,7 +81,7 @@ export function MoreLinksButton() {
           className={cn("text-muted-foreground")}
         >
           More
-          <ChevronDown className="h-4 w-4" />
+          <ChevronDownIcon size={16} />
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-60" align="end" sideOffset={0}>
