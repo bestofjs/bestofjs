@@ -5,7 +5,7 @@
   "scripts": {
     "test": "pnpm -F bestofjs-nextjs test",
     "test:e2e": "pnpm -F bestofjs-nextjs test:e2e",
-    "test:e2e:install": "pnpm -F bestofjs-nextjs playwright install"
+    "test:e2e:install": "pnpm -F bestofjs-nextjs exec playwright install"
   },
   "author": "Michael Rambeau",
   "license": "MIT"
