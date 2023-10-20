@@ -7,7 +7,7 @@ on: # event list
 
 jobs:
   check_before_merge:
-    name: Test and lint checks
+    name: Unit Tests and lint checks
     runs-on: ubuntu-latest
     steps:
       - name: Code Checkout
@@ -23,7 +23,7 @@ jobs:
         run: pnpm test
 
   automated-testing:
-    name: Build and E2E Tests
+    name: E2E Tests
     timeout-minutes: 30
     runs-on: ubuntu-latest
     steps:
