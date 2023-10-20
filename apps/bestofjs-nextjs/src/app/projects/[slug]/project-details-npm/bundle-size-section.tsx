@@ -5,9 +5,8 @@ import {
   CollapsibleContent,
   CollapsibleTrigger,
 } from "@/components/ui/collapsible";
-import { ExternalLinkIcon } from "@/components/core";
+import { ChevronRightIcon, ExternalLinkIcon } from "@/components/core";
 import { ExternalLink } from "@/components/core/typography";
-import { Icons } from "@/components/icons";
 
 type Props = { project: BestOfJS.ProjectWithPackageDetails };
 export function BundleSizeSection({ project }: Props) {
@@ -21,7 +20,7 @@ export function BundleSizeSection({ project }: Props) {
   return (
     <Collapsible>
       <CollapsibleTrigger className="group flex items-center">
-        <Icons.chevronRightIcon className="h-6 w-6 group-data-[state=open]:rotate-90" />
+        <ChevronRightIcon className="h-6 w-6 group-data-[state=open]:rotate-90" />
         Bundle size
         <span className="ml-2 text-muted-foreground">
           <FileSize value={bundle.gzip} /> (Minified + Gzipped)

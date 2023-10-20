@@ -21,6 +21,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Icons } from "@/components/icons";
 
+import { BestOfJSLogo } from "../svg-logos";
 import { MobileMenuButton } from "./mobile-nav";
 
 export function MainNav() {
@@ -37,7 +38,7 @@ export function MainNav() {
           className="flex items-center space-x-2"
           aria-label="Best of JS"
         >
-          <Icons.logo
+          <BestOfJSLogo
             width={130}
             height={37.15}
             className="h-[37.15px] w-[130px] text-primary"

@@ -17,6 +17,8 @@ import { Separator } from "@/components/ui/separator";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Icons } from "@/components/icons";
 
+import { BestOfJSLogo } from "../svg-logos";
+
 export function MobileMenuButton() {
   const [isOpen, setIsOpen] = React.useState(false);
 
@@ -49,7 +51,7 @@ function SidebarContent({
         className="mb-4 flex items-center space-x-2"
         aria-label="Best of JS"
       >
-        <Icons.logo
+        <BestOfJSLogo
           width={130}
           height={37.15}
           className="h-[37.15px] w-[130px] text-primary"

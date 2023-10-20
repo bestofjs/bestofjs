@@ -4,9 +4,10 @@ import Link from "next/link";
 import { APP_REPO_URL, DISCORD_URL } from "@/config/site";
 import { buttonVariants } from "@/components/ui/button";
 import { MainNav } from "@/components/header/desktop-nav";
-import { Icons } from "@/components/icons";
 import { SearchContainer } from "@/components/search-palette/search-container";
 import { ThemeToggle } from "@/components/theme-toggle";
+
+import { DiscordIcon, GitHubIcon } from "../core";
 
 export function SiteHeader() {
   return (
@@ -40,7 +41,7 @@ export function SiteHeader() {
                   variant: "ghost",
                 })}
               >
-                <Icons.gitHub className="h-5 w-5" width={20} height={20} />
+                <GitHubIcon size={20} />
                 <span className="sr-only">GitHub</span>
               </div>
             </Link>
@@ -56,7 +57,7 @@ export function SiteHeader() {
                   variant: "ghost",
                 })}
               >
-                <Icons.discord className="h-5 w-5" width={20} height={20} />
+                <DiscordIcon size={20} />
                 <span className="sr-only">GitHub</span>
               </div>
             </Link>
