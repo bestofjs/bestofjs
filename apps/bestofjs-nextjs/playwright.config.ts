@@ -65,11 +65,12 @@ export default defineConfig({
     // },
   ],
 
-  /* Run your local dev server before starting the tests */
-  webServer: {
+  /* Run your production server with built assets before starting the tests */
+  /* On CI we're using the vercel deployment so no need to run a server. */
+  webServer: process.env.CI ? undefined : {
     command: 'pnpm start',
     url: baseURL,
     timeout: 120 * 1000,
-    reuseExistingServer: !process.env.CI,
+    reuseExistingServer: true,
   },
 });
