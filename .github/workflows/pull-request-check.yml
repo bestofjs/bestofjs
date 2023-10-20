@@ -59,7 +59,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: report
-          path: apps/web/playwright-report/
+          path: apps/bestofjs-nextjs/playwright-report/
 
       - name: Save PR number
         if: always()
