@@ -33,7 +33,7 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           check_interval: 5 # seconds
-          max_timeout: 300 # seconds
+          max_timeout: 600 # seconds
 
       - name: Code Checkout
         uses: actions/checkout@v3
