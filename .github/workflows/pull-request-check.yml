@@ -50,7 +50,7 @@ jobs:
         uses: ./tooling/github-actions/install
 
       - name: Install Playwright Browsers
-        run: cd apps/bestofjs-nextjs && pnpm exec playwright install chromium --with-deps
+        run: pnpm test:e2e:install
 
       - name: Run Playwright tests
         run: pnpm test:e2e
