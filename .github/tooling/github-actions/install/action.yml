@@ -1,5 +1,5 @@
 name: "Install"
-description: "Sets up Node.js with PNPM"
+description: "Sets up Node.js with PNPM and installs depedencies"
 
 runs:
   using: composite

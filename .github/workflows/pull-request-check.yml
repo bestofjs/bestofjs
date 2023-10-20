@@ -23,7 +23,7 @@ jobs:
         run: pnpm test
 
   automated-testing:
-    name: E2E Tests
+    name: Build and E2E Tests
     timeout-minutes: 30
     runs-on: ubuntu-latest
     steps:
