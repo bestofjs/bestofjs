@@ -1,11 +1,7 @@
 import { defineConfig, devices } from '@playwright/test';
 
-// Use process.env.PORT by default and fallback to port 3000
-const PORT = process.env.PORT || 3000
-
-// Set webServer.url and use.baseURL with the location of the WebServer respecting the correct set port
-const baseURL = `http://localhost:${PORT}`
-
+const PORT = process.env.PORT || 3000;
+const BASE_URL = process.env.BASE_URL || `http://localhost:${PORT}`;
 
 /**
  * Read environment variables from file.
@@ -31,7 +27,7 @@ export default defineConfig({
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
     /* Base URL to use in actions like `await page.goto('/')`. */
-    baseURL: baseURL,
+    baseURL: BASE_URL,
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: 'on-first-retry',
@@ -69,7 +65,7 @@ export default defineConfig({
   /* On CI we're using the vercel deployment so no need to run a server. */
   webServer: process.env.CI ? undefined : {
     command: 'pnpm start',
-    url: baseURL,
+    url: BASE_URL,
     timeout: 120 * 1000,
     reuseExistingServer: true,
   },
