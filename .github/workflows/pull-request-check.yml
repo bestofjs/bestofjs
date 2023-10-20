@@ -58,3 +58,10 @@ jobs:
 
       - name: Run Playwright tests
         run: pnpm test:e2e
+
+      - name: Upload report
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: report
+          path: apps/bestofjs-nextjs/playwright-report/
