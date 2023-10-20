@@ -14,6 +14,8 @@ import { Box, generateImageResponse, mutedColor } from "@/app/api/og/og-utils";
 
 import { ImageLayout } from "../og-image-layout";
 import { ProjectRow } from "../og-utils";
+import { SortOption, SortOptionKey, sortOrderOptionsByKey } from "@/components/project-list/sort-order-options";
+import { formatNumber } from "@/helpers/numbers";
 
 export const runtime = "edge";
 
