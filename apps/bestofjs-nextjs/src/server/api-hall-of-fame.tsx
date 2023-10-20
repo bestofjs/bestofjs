@@ -48,10 +48,10 @@ export function createHallOfFameAPI(context: APIContext) {
         );
       }
 
-      const { heroes } = await fetchHallOfFameData();
+      const { members } = await fetchHallOfFameData();
       const filteredMembers = query
-        ? filterMembersByTextQuery(heroes, query)
-        : heroes;
+        ? filterMembersByTextQuery(members, query)
+        : members;
       const populatedMembers = filteredMembers
         .map(populateMemberProjects)
         .filter(filterMember)
@@ -61,12 +61,16 @@ export function createHallOfFameAPI(context: APIContext) {
   };
 }
 
-function fetchHallOfFameData() {
+async function fetchHallOfFameData() {
   const url = FETCH_ALL_PROJECTS_URL + `/hof.json`;
   console.log(`Fetching Hall of Fame data from ${url}`);
-  return fetch(url).then((res) => res.json()) as Promise<{
-    heroes: BestOfJS.RawHallOfFameMember[];
-  }>;
+  const { heroes } = await fetch(url, {
+    next: {
+      revalidate: 60 * 60 * 24, // try to invalidate data every 24h
+      tags: ["hall-of-fame"],
+    },
+  }).then((res) => res.json());
+  return { members: heroes as BestOfJS.RawHallOfFameMember[] };
 }
 
 function filterMembersByTextQuery(
