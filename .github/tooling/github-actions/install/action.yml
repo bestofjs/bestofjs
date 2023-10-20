@@ -1,22 +1,18 @@
 name: "Install"
 description: "Sets up Node.js with PNPM"
 
-env: # environment variables (available in any part of the action)
-  NODE_VERSION: 18
-  PNPM_VERSION: 8.9.0
-
 runs:
   using: composite
   steps:
     - name: Install NodeJS
       uses: actions/setup-node@v3
       with:
-        node-version: ${{ env.NODE_VERSION }}
+        node-version: 18
 
     - name: Install PNPM
       uses: pnpm/action-setup@v3
       with:
-        version: ${{ env.PNPM_VERSION }}
+        version: 8.9.0
 
     - name: Install Dependencies
       run: pnpm install
