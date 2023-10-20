@@ -26,6 +26,10 @@ export const ExternalLinkIcon = (props: IconProps) => (
   <SvgSprite id="external-icon" {...props} />
 );
 
+export const HamburgerMenuIcon = (props: IconProps) => (
+  <SvgSprite id="hamburger-menu-icon" {...props} />
+);
+
 export const GitHubIcon = (props: IconProps) => (
   <SvgSprite id="github-icon" {...props} />
 );

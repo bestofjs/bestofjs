@@ -3,7 +3,6 @@
 import * as React from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Bars3Icon } from "@heroicons/react/20/solid";
 
 import {
   APP_REPO_URL,
@@ -16,6 +15,7 @@ import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 
+import { HamburgerMenuIcon } from "../core";
 import { BestOfJSLogo } from "../svg-logos";
 
 export function MobileMenuButton() {
@@ -25,7 +25,7 @@ export function MobileMenuButton() {
     <Sheet open={isOpen} onOpenChange={setIsOpen}>
       <SheetTrigger asChild>
         <Button variant="outline" size="icon" aria-label="Menu">
-          <Bars3Icon className="h-5 w-5" />
+          <HamburgerMenuIcon size={20} />
         </Button>
       </SheetTrigger>
       <SheetContent side="left">

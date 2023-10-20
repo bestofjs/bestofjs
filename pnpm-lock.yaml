@@ -10,9 +10,6 @@ importers:
 
   apps/bestofjs-nextjs:
     dependencies:
-      '@heroicons/react':
-        specifier: ^2.0.18
-        version: 2.0.18(react@18.2.0)
       '@radix-ui/react-collapsible':
         specifier: ^1.0.3
         version: 1.0.3(@types/react-dom@18.2.7)(@types/react@18.2.18)(react-dom@18.2.0)(react@18.2.0)
@@ -1760,14 +1757,6 @@ packages:
       client-only: 0.0.1
       react: 17.0.2
       react-dom: 17.0.2(react@17.0.2)
-    dev: false
-
-  /@heroicons/react@2.0.18(react@18.2.0):
-    resolution: {integrity: sha512-7TyMjRrZZMBPa+/5Y8lN0iyvUU/01PeMGX2+RE7cQWpEUIcb4QotzUObFkJDejj/HUH4qjP/eQ0gzzKs2f+6Yw==}
-    peerDependencies:
-      react: '>= 16'
-    dependencies:
-      react: 18.2.0
     dev: false
 
   /@humanwhocodes/config-array@0.11.10:
