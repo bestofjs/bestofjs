@@ -14,8 +14,6 @@ import { Box, generateImageResponse, mutedColor } from "@/app/api/og/og-utils";
 
 import { ImageLayout } from "../og-image-layout";
 import { ProjectRow } from "../og-utils";
-import { SortOption, SortOptionKey, sortOrderOptionsByKey } from "@/components/project-list/sort-order-options";
-import { formatNumber } from "@/helpers/numbers";
 
 export const runtime = "edge";
 
@@ -47,7 +45,7 @@ function createCaption(tags: string[], query: string | null, total: number) {
     <Box style={{ display: "flex", gap: 16, alignItems: "center" }}>
       {tags.length > 0 && !query && (
         <div style={{ display: "flex", color: "#F59E0B" }}>
-          <TagIcon/>
+          <TagIcon />
         </div>
       )}
       <div>{getImageTitle(tags, query)}</div>
