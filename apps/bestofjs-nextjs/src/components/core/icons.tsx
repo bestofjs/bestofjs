@@ -6,6 +6,10 @@ type IconProps = React.SVGProps<SVGSVGElement> & {
   size?: number;
 };
 
+// For a maximum flexibility, we export each available icon as a separate component.
+// The default size (16px) is sometimes overridden by the `size` prop,
+// it's useful for Sun and Moon icons that have a viewVBox of 24px.
+
 export const ChevronDownIcon = (props: IconProps) => (
   <SvgSprite id="chevron-down-icon" {...props} />
 );
@@ -26,12 +30,16 @@ export const ExternalLinkIcon = (props: IconProps) => (
   <SvgSprite id="external-icon" {...props} />
 );
 
+export const GitHubIcon = (props: IconProps) => (
+  <SvgSprite id="github-icon" {...props} />
+);
+
 export const HamburgerMenuIcon = (props: IconProps) => (
   <SvgSprite id="hamburger-menu-icon" {...props} />
 );
 
-export const GitHubIcon = (props: IconProps) => (
-  <SvgSprite id="github-icon" {...props} />
+export const HomeIcon = (props: IconProps) => (
+  <SvgSprite id="home-icon" {...props} />
 );
 
 export const MoonIcon = (props: IconProps) => (
@@ -40,10 +48,6 @@ export const MoonIcon = (props: IconProps) => (
 
 export const PlusIcon = (props: IconProps) => (
   <SvgSprite id="plus-icon" {...props} />
-);
-
-export const HomeIcon = (props: IconProps) => (
-  <SvgSprite id="home-icon" {...props} />
 );
 
 export const SearchIcon = (props: IconProps) => (
