@@ -1,4 +1,6 @@
-import { FETCH_ALL_PROJECTS_URL, RawData } from "./api-utils";
+import { env } from "@/env.mjs";
+
+import { RawData } from "./api-utils";
 import { createAPI } from "./create-api";
 
 export const api = createAPI(fetchProjectData);
@@ -14,7 +16,7 @@ async function fetchProjectData(): Promise<RawData> {
 }
 
 function fetchDataFromRemoteJSON() {
-  const url = FETCH_ALL_PROJECTS_URL + `/projects.json`;
+  const url = env.STATIC_API_ROOT_URL + `/projects.json`;
   console.log(`Fetching JSON data from ${url}`);
   const options = {
     next: {

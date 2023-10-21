@@ -1,9 +1,6 @@
 import slugify from "slugify";
 
-import { env } from "@/env.mjs";
 import { shuffle } from "@/helpers/shuffle";
-
-export const FETCH_ALL_PROJECTS_URL = env.STATIC_API_ROOT_URL;
 
 export type RawData = {
   projects: BestOfJS.RawProject[];

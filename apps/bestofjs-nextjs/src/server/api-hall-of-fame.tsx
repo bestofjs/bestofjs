@@ -1,7 +1,9 @@
 import uniqBy from "lodash/uniqBy";
 import mingo from "mingo";
 
-import { APIContext, FETCH_ALL_PROJECTS_URL } from "./api-utils";
+import { env } from "@/env.mjs";
+
+import { APIContext } from "./api-utils";
 
 type FindOptions = {
   limit?: number;
@@ -62,7 +64,7 @@ export function createHallOfFameAPI(context: APIContext) {
 }
 
 async function fetchHallOfFameData() {
-  const url = FETCH_ALL_PROJECTS_URL + `/hof.json`;
+  const url = env.STATIC_API_ROOT_URL + `/hof.json`;
   console.log(`Fetching Hall of Fame data from ${url}`);
   const { heroes } = await fetch(url, {
     next: {
