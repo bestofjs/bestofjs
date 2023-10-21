@@ -1,3 +1,5 @@
+import { env } from "@/env.mjs";
+
 export async function getProjectDetails(project: BestOfJS.Project) {
   const details = await fetchProjectDetailsData(project.full_name);
   return mergeProjectData(project, details);
@@ -16,7 +18,7 @@ type ProjectDetailsRawData = {
 };
 
 async function fetchProjectDetailsData(fullName: string) {
-  const url = `https://bestofjs-serverless.vercel.app/api/project-details?fullName=${fullName}`;
+  const url = `${env.PROJECT_DETAILS_API_ROOT_URL}/api/project-details?fullName=${fullName}`;
   const options = {
     next: {
       revalidate: 60 * 60 * 24, // Revalidate every day to avoid showing stale data

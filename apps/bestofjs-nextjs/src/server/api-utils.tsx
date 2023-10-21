@@ -2,8 +2,6 @@ import slugify from "slugify";
 
 import { shuffle } from "@/helpers/shuffle";
 
-export const FETCH_ALL_PROJECTS_URL = "https://bestofjs-static-api.vercel.app";
-
 export type RawData = {
   projects: BestOfJS.RawProject[];
   tags: BestOfJS.RawTag[];

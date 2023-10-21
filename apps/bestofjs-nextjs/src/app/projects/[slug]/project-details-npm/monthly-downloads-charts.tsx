@@ -1,3 +1,5 @@
+import { env } from "@/env.mjs";
+
 import { MonthlyTrendsChart } from "../project-details-github/monthly-trends-chart";
 
 type DataItem = {
@@ -27,7 +29,7 @@ export async function MonthlyDownloadsChart({
 }
 
 async function fetchDownloadData(packageName: string) {
-  const url = `https://bestofjs-serverless.vercel.app/api/package-monthly-downloads?packageName=${packageName}`;
+  const url = `${env.PROJECT_DETAILS_API_ROOT_URL}/api/package-monthly-downloads?packageName=${packageName}`;
   const options = {
     next: {
       revalidate: 60 * 60 * 24, // Revalidate every day to avoid showing stale data
