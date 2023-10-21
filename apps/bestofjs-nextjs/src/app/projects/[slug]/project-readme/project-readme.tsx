@@ -1,6 +1,7 @@
 import { Suspense } from "react";
 import { GoBook } from "react-icons/go";
 
+import { env } from "@/env.mjs";
 import { Card, CardHeader } from "@/components/ui/card";
 import { ErrorBoundary } from "@/app/error-handling";
 
@@ -30,7 +31,7 @@ async function ReadmeContent({ project }: { project: BestOfJS.Project }) {
 }
 
 async function getData(fullName: string, branch: string) {
-  const url = `https://bestofjs-serverless.vercel.app/api/project-readme?fullName=${fullName}&branch=${branch}`;
+  const url = `${env.PROJECT_DETAILS_API_ROOT_URL}/api/project-readme?fullName=${fullName}&branch=${branch}`;
   const options = {
     next: {
       revalidate: 60 * 60 * 24, // Revalidate every day as we assume a README file can change frequently
