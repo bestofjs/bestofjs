@@ -24,17 +24,20 @@ jobs:
 
   automated-testing:
     name: E2E Tests
-    timeout-minutes: 30
+    timeout-minutes: 10
     runs-on: ubuntu-latest
     steps:
       - name: Waiting for 200 from the Vercel Preview
         uses: patrickedqvist/wait-for-vercel-preview@v1.2.0 # https://github.com/patrickedqvist/wait-for-vercel-preview
-        id: waitForDeploy
+        id: vercel_preview_url
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           check_interval: 5 # seconds
-          max_timeout: 600 # seconds
-          environment: "Preview – bestofjs" # https://github.com/patrickedqvist/wait-for-vercel-preview/issues/16#issuecomment-1140179571
+          max_timeout: 6000 # seconds
+          # Environment uses a special ASCII dash example: "Preview – bestofjs"
+          # If having issues, need to confirm environment name from the github deployments API
+          # https://github.com/patrickedqvist/wait-for-vercel-preview/issues/33
+          environment: "Preview – bestofjs"
 
       - name: Code Checkout
         uses: actions/checkout@v3
@@ -48,7 +51,7 @@ jobs:
       - name: Run Playwright tests
         run: pnpm test:e2e
         env:
-          BASE_URL: ${{ steps.waitForDeploy.outputs.url }}
+          BASE_URL: ${{ steps.vercel_preview_url.outputs.url }}
 
       - name: Upload report
         if: always()
