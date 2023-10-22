@@ -34,6 +34,7 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           check_interval: 5 # seconds
           max_timeout: 600 # seconds
+          environment: "Preview - bestofjs" # https://github.com/patrickedqvist/wait-for-vercel-preview/issues/16#issuecomment-1140179571
 
       - name: Code Checkout
         uses: actions/checkout@v3
