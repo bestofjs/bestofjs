@@ -2,7 +2,7 @@ import { ImNpm } from "react-icons/im";
 
 import { Badge } from "@/components/ui/badge";
 import { Card, CardBody, CardContent, CardHeader } from "@/components/ui/card";
-import { Icons } from "@/components/icons";
+import { ExternalLinkIcon } from "@/components/core";
 
 import { BundleSizeSection } from "./bundle-size-section";
 import { DependenciesSection } from "./dependencies-section";
@@ -30,7 +30,7 @@ export function ProjectDetailsNpmCard({
               className="flex items-center gap-1 font-sans text-primary hover:underline"
             >
               {packageName}
-              <Icons.externalLink className="h-4 w-4" />
+              <ExternalLinkIcon size={16} />
             </a>
             <Badge className="">{packageData.version}</Badge>
           </div>

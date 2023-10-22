@@ -3,7 +3,6 @@
 import * as React from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Bars3Icon } from "@heroicons/react/20/solid";
 
 import {
   APP_REPO_URL,
@@ -15,7 +14,9 @@ import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { Icons } from "@/components/icons";
+
+import { HamburgerMenuIcon } from "../core";
+import { BestOfJSLogo } from "../svg-logos";
 
 export function MobileMenuButton() {
   const [isOpen, setIsOpen] = React.useState(false);
@@ -24,7 +25,7 @@ export function MobileMenuButton() {
     <Sheet open={isOpen} onOpenChange={setIsOpen}>
       <SheetTrigger asChild>
         <Button variant="outline" size="icon" aria-label="Menu">
-          <Bars3Icon className="h-5 w-5" />
+          <HamburgerMenuIcon size={20} />
         </Button>
       </SheetTrigger>
       <SheetContent side="left">
@@ -49,7 +50,7 @@ function SidebarContent({
         className="mb-4 flex items-center space-x-2"
         aria-label="Best of JS"
       >
-        <Icons.logo
+        <BestOfJSLogo
           width={130}
           height={37.15}
           className="h-[37.15px] w-[130px] text-primary"

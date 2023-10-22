@@ -6,7 +6,7 @@ import {
   CollapsibleTrigger,
 } from "@/components/ui/collapsible";
 import { Table, TableBody, TableCell, TableRow } from "@/components/ui/table";
-import { Icons } from "@/components/icons";
+import { ChevronRightIcon, ExternalLinkIcon } from "@/components/core";
 import { ProjectTable } from "@/components/project-list/project-table";
 import { api } from "@/server/api";
 
@@ -30,7 +30,7 @@ export async function DependenciesSection({
   return (
     <Collapsible>
       <CollapsibleTrigger className="group flex items-center">
-        <Icons.chevronRightIcon className="h-6 w-6 group-data-[state=open]:rotate-90" />
+        <ChevronRightIcon className="h-6 w-6 group-data-[state=open]:rotate-90" />
         Dependencies
         <Badge variant={"secondary"} className="ml-2">
           {dependencies.length}
@@ -54,7 +54,7 @@ export async function DependenciesSection({
                         href={`https://npmjs.org/package/${dependency}`}
                       >
                         {dependency}
-                        <Icons.externalLink className="h-4 w-4" />
+                        <ExternalLinkIcon size={16} />
                       </a>
                     </TableCell>
                   </TableRow>

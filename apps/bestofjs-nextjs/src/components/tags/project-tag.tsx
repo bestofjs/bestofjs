@@ -3,7 +3,6 @@ import NextLink from "next/link";
 
 import { cn } from "@/lib/utils";
 import { badgeVariants } from "@/components/ui/badge";
-// import { MdAdd } from "react-icons/md";
 import { ProjectSearchQuery, SearchUrlBuilder } from "@/app/projects/types";
 
 type Props = {

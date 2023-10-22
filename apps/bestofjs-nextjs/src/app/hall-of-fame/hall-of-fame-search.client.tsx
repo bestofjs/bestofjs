@@ -1,12 +1,11 @@
 "use client";
 
 import { useRef } from "react";
-import { XMarkIcon } from "@heroicons/react/20/solid";
 import invariant from "tiny-invariant";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Icons } from "@/components/icons";
+import { SearchIcon, XMarkIcon } from "@/components/core";
 
 export function HallOfFameSearchBar({
   query,
@@ -55,11 +54,11 @@ export function HallOfFameSearchBar({
         variant="secondary"
       >
         <span className="mr-2 hidden md:inline">Reset</span>
-        <XMarkIcon className="h-5 w-5" />
+        <XMarkIcon size={20} />
       </Button>
       <Button type="submit">
         <span className="mr-2 hidden md:inline">Search</span>
-        <Icons.search className="h-5 w-5" />
+        <SearchIcon size={20} />
       </Button>
     </form>
   );

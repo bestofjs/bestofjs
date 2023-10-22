@@ -1,11 +1,10 @@
 import { Metadata } from "next";
 import NextLink from "next/link";
-import { PlusIcon, XMarkIcon } from "@heroicons/react/20/solid";
 
 import { cn } from "@/lib/utils";
 import { formatNumber } from "@/helpers/numbers";
 import { badgeVariants } from "@/components/ui/badge";
-import { TagIcon } from "@/components/core";
+import { PlusIcon, TagIcon, XMarkIcon } from "@/components/core";
 import { PageHeading } from "@/components/core/typography";
 import {
   ProjectPageSearchParams,
@@ -212,7 +211,7 @@ function RelevantTags({
             className={badgeVariants({ variant: "outline" })}
           >
             {tag.name}
-            <PlusIcon className="h-5 w-5" />
+            <PlusIcon size={20} />
           </NextLink>
         );
       })}
@@ -245,7 +244,7 @@ function CurrentTags({
             className={cn(badgeVariants({ variant: "default" }), "text-md")}
           >
             {tag.name}
-            <XMarkIcon className="h-5 w-5" />
+            <XMarkIcon size={20} />
           </NextLink>
         );
       })}
@@ -255,7 +254,7 @@ function CurrentTags({
           className={cn(badgeVariants({ variant: "destructive" }), "text-md")}
         >
           “{textQuery}”
-          <XMarkIcon className="h-5 w-5" />
+          <XMarkIcon size={20} />
         </NextLink>
       )}
     </div>

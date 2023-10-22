@@ -1,9 +1,9 @@
 import React from "react";
 import NextLink from "next/link";
-import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/20/solid";
 
 import { formatNumber } from "@/helpers/numbers";
 import { buttonVariants } from "@/components/ui/button";
+import { ChevronLeftIcon, ChevronRightIcon } from "@/components/core/icons";
 import { PaginationProps, SearchUrlBuilder } from "@/app/projects/types";
 
 import { PaginationState } from "./pagination-state";

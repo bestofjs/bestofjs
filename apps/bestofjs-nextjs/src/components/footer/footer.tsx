@@ -9,7 +9,7 @@ import {
 import { Separator } from "@/components/ui/separator";
 
 import { ExternalLink } from "../core/typography";
-import { Icons } from "../icons";
+import { VercelLogo } from "../svg-logos";
 
 export const Footer = () => {
   return (
@@ -85,7 +85,7 @@ export const Footer = () => {
               href="https://vercel.com?utm_source=bestofjs"
               aria-label="Vercel"
             >
-              <Icons.vercel width={80} height={18.1} />
+              <VercelLogo width={80} height={18.1} />
             </a>
           </div>
         </div>

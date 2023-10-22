@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { ChevronDownIcon } from "@heroicons/react/20/solid";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -11,6 +10,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { ProjectSearchQuery } from "@/app/projects/types";
 
+import { ChevronDownIcon } from "../core";
 import { stateToQueryString } from "./navigation-state";
 import { SortOptionKey, sortOrderOptionsByKey } from "./sort-order-options";
 
@@ -40,7 +40,7 @@ export function ProjectSortOrderPicker({
       <DropdownMenuTrigger asChild>
         <Button variant="outline">
           Sort: {currentOption?.label || ""}
-          <ChevronDownIcon className="h-6 w-6" aria-hidden="true" />
+          <ChevronDownIcon size={24} aria-hidden="true" />
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-[300px] divide-y">
