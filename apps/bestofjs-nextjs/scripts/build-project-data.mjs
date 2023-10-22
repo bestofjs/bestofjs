@@ -6,6 +6,8 @@ To speed up requests and avoid network errors when the domain is black-listed, w
 import path from "path";
 import fs from "fs-extra";
 
+import { env } from "../src/env.mjs";
+
 async function main() {
   console.log("=== Build JSON files for the backend... ===");
   await buildJsonFile("projects.json");
@@ -15,8 +17,7 @@ async function main() {
 main();
 
 async function buildJsonFile(filename) {
-  const rootURL = "https://bestofjs-static-api.vercel.app";
-  const url = rootURL + `/` + filename;
+  const url = env.STATIC_API_ROOT_URL + `/` + filename;
   console.log(`Fetching data from ${url}`);
   const data = await fetch(url).then((res) => res.json());
   const filepath = path.join(process.cwd(), "public", "data", filename);
