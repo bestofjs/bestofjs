@@ -9,6 +9,7 @@ module.exports = {
     "<THIRD_PARTY_MODULES>",
     "",
     "^types$",
+    "^@/env.mjs",
     "^@/types/(.*)$",
     "^@/config/(.*)$",
     "^@/lib/(.*)$",

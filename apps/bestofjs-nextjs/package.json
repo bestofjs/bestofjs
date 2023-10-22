@@ -29,6 +29,7 @@
     "@radix-ui/react-popover": "^1.0.6",
     "@radix-ui/react-separator": "^1.0.3",
     "@radix-ui/react-slot": "^1.0.2",
+    "@t3-oss/env-nextjs": "^0.7.1",
     "@types/debug": "^4.1.8",
     "@types/fs-extra": "^11.0.1",
     "@types/lodash": "^4.14.195",
@@ -57,7 +58,8 @@
     "tailwindcss-animate": "^1.0.5",
     "tiny-invariant": "^1.3.1",
     "vague-time": "^2.4.2",
-    "vitest": "^0.34.3"
+    "vitest": "^0.34.3",
+    "zod": "^3.22.4"
   },
   "devDependencies": {
     "@ianvs/prettier-plugin-sort-imports": "^3.7.2",
