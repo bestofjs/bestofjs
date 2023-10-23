@@ -10,8 +10,8 @@ export function generateImageResponse(
   content: ConstructorParameters<typeof ImageResponse>[0]
 ) {
   return new ImageResponse(content, {
-    width: 1200,
-    height: 630,
+    width: 843,
+    height: 441,
   });
 }
 
