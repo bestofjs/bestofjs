@@ -273,11 +273,10 @@ function MoreProjectsSection({
 }
 
 async function getData() {
-  const {
-    projects: hotProjects,
-    lastUpdateDate,
-    total,
-  } = await api.projects.findProjects(getHotProjectsRequest());
+  const { lastUpdateDate, total } = await api.projects.getStats();
+  const { projects: hotProjects } = await api.projects.findProjects(
+    getHotProjectsRequest()
+  );
   const { projects: newestProjects } = await api.projects.findProjects(
     getLatestProjects()
   );

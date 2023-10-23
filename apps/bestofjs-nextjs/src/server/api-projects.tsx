@@ -107,6 +107,11 @@ export function createProjectsAPI({ getData }: APIContext) {
       return { projects, total: featuredProjectIds.length };
     },
 
+    async getStats() {
+      const { projectCollection, lastUpdateDate } = await getData();
+      return { lastUpdateDate, total: projectCollection.length };
+    },
+
     async getSearchIndex() {
       const { projectCollection } = await getData();
       const projection = {
