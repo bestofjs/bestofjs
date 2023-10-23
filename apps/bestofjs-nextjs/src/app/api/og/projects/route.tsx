@@ -17,15 +17,16 @@ import { ProjectRow } from "../og-utils";
 
 export const runtime = "edge";
 
-export async function GET(_req: Request) {
-  const { tags, query, sort, page, limit } = useSearchParams(_req.url);
+export async function GET(req: Request) {
+  const NUMBER_OF_PROJECTS = 3;
+  const { tags, query, sort, page } = getSearchParams(req.url);
   const sortOption = getSortOption(sort);
   const { projects, total } = await api.projects.findProjects({
     criteria: tags.length > 0 ? { tags: { $all: tags } } : {},
     query,
     sort: sortOption.sort,
-    skip: limit * (page - 1),
-    limit,
+    skip: NUMBER_OF_PROJECTS * (page - 1),
+    limit: NUMBER_OF_PROJECTS,
   });
 
   return generateImageResponse(
@@ -64,7 +65,7 @@ function getImageTitle(tags: string[], query: string | null) {
   return "Search results";
 }
 
-function useSearchParams(url: string) {
+function getSearchParams(url: string) {
   const { searchParams } = new URL(url);
   const projectSearchParams: ProjectPageSearchParams = {
     tags: searchParams.getAll("tags") || undefined,
