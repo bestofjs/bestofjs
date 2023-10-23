@@ -7,6 +7,7 @@ import { ProjectDetailsGitHubCard } from "./project-details-github/github-card";
 import { ProjectHeader } from "./project-header";
 import { ReadmeCard } from "./project-readme/project-readme";
 import "./project-readme/readme.css";
+import { APP_CANONICAL_URL } from "@/config/site";
 import { Card, CardContent } from "@/components/ui/card";
 import { api } from "@/server/api";
 
@@ -26,11 +27,17 @@ export async function generateMetadata({
   const project = await getData(slug);
   if (!project) return { title: "Project not found" };
 
+  const title = project.name;
+  const description = `Trends and data about ${project.name} project. ${project.description}`;
+
   return {
-    title: project.name,
-    description: project.description,
+    title: title,
+    description: description,
     openGraph: {
       images: [`/api/og/projects/${slug}`],
+      url: `${APP_CANONICAL_URL}/projects/${slug}`,
+      title,
+      description,
     },
   };
 }

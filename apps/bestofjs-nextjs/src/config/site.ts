@@ -1,4 +1,5 @@
 export const APP_DISPLAY_NAME = "Best of JS";
+export const APP_DESCRIPTION = `Check out the most popular open-source projects and the latest trends about the web platform: React, Vue.js, Node.js, Deno, Bun... The best of JavaScript, TypeScript and friends!`;
 export const APP_CANONICAL_URL = "https://bestofjs.org";
 export const APP_REPO_FULL_NAME = "bestofjs/bestofjs";
 export const APP_REPO_URL = "https://github.com/" + APP_REPO_FULL_NAME;

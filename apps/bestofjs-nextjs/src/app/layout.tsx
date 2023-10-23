@@ -2,7 +2,11 @@ import "@/app/globals.css";
 import { Metadata } from "next";
 import { Analytics } from "@vercel/analytics/react";
 
-import { APP_CANONICAL_URL, APP_DISPLAY_NAME } from "@/config/site";
+import {
+  APP_CANONICAL_URL,
+  APP_DESCRIPTION,
+  APP_DISPLAY_NAME,
+} from "@/config/site";
 import { fontSans, fontSerif } from "@/lib/fonts";
 import { cn } from "@/lib/utils";
 import { Footer } from "@/components/footer/footer";
@@ -15,8 +19,7 @@ export const metadata: Metadata = {
     default: APP_DISPLAY_NAME,
     template: `${APP_DISPLAY_NAME} • %s`,
   },
-  description:
-    "Check out the most popular open-source projects and the latest trends about the web platform: React, Vue.js, Node.js, Deno, Bun... The best of JavaScript, TypeScript and friends!",
+  description: APP_DESCRIPTION,
   themeColor: [
     { media: "(prefers-color-scheme: light)", color: "white" },
     { media: "(prefers-color-scheme: dark)", color: "black" },
@@ -29,6 +32,9 @@ export const metadata: Metadata = {
   metadataBase: getMetadataRootURL(),
   openGraph: {
     images: [`/api/og?date=${new Date().toISOString().slice(0, 10)}`], // to avoid caching issues as the image is supposed to change every day
+    url: APP_CANONICAL_URL,
+    title: APP_DISPLAY_NAME,
+    description: APP_DESCRIPTION,
   },
 };
 
