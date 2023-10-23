@@ -51,7 +51,7 @@ export function HallOfFameSearchBar({
         type="button"
         onClick={handleReset}
         disabled={!query}
-        variant="secondary"
+        variant="outline"
       >
         <span className="mr-2 hidden md:inline">Reset</span>
         <XMarkIcon size={20} />

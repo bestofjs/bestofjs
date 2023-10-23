@@ -29,6 +29,7 @@ function HallOfFameMember({ member }: { member: BestOfJS.HallOfFameMember }) {
           height="100"
           alt={member.username}
           className="display-block h-[100px] w-[100px]"
+          loading="lazy"
         />
         <div className="flex flex-1 flex-col justify-center gap-2 px-4">
           <div className="flex items-center">
