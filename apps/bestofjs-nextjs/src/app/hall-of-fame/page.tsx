@@ -1,6 +1,6 @@
 import { Metadata } from "next";
 
-import { APP_REPO_URL } from "@/config/site";
+import { APP_CANONICAL_URL, APP_REPO_URL } from "@/config/site";
 import { ExternalLink, PageHeading } from "@/components/core/typography";
 import { api } from "@/server/api";
 
@@ -17,6 +17,7 @@ export async function generateMetadata(): Promise<Metadata> {
       "Some of the greatest developers, authors and speakers of the JavaScript community. Meet Evan, Dan, Sindre, TJ and friends!",
     openGraph: {
       images: [`/api/og/hall-of-fame`],
+      url: APP_CANONICAL_URL + "/hall-of-fame",
     },
   };
 }
