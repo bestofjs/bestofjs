@@ -28,7 +28,7 @@ export const metadata: Metadata = {
   },
   metadataBase: getMetadataRootURL(),
   openGraph: {
-    images: ["/api/og"],
+    images: [`/api/og?date=${new Date().toISOString().slice(0, 10)}`], // to avoid caching issues as the image is supposed to change every day
   },
 };
 
