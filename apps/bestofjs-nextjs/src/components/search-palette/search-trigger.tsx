@@ -3,8 +3,8 @@
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
-import { Icons } from "@/components/icons";
 
+import { SearchIcon } from "../core";
 import { useIsApplePlatform } from "./use-is-apple-platform";
 
 type Props = {
@@ -36,7 +36,7 @@ export function SearchTrigger({ onClick }: Props) {
       </Button>
       <div className="flex items-center gap-4 lg:hidden">
         <Button onClick={onClick} size="sm" variant="ghost" aria-label="Search">
-          <Icons.search className="h-5 w-5" />
+          <SearchIcon />
         </Button>
         <Separator orientation="vertical" className="h-6" />
       </div>

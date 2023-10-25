@@ -1,12 +1,10 @@
 import { Metadata } from "next";
 import NextLink from "next/link";
-import { PlusIcon, XMarkIcon } from "@heroicons/react/20/solid";
 
 import { cn } from "@/lib/utils";
 import { formatNumber } from "@/helpers/numbers";
 import { badgeVariants } from "@/components/ui/badge";
-import { Separator } from "@/components/ui/separator";
-import { TagIcon } from "@/components/core";
+import { PlusIcon, TagIcon, XMarkIcon } from "@/components/core";
 import { PageHeading } from "@/components/core/typography";
 import {
   ProjectPageSearchParams,
@@ -19,7 +17,6 @@ import {
   SortOptionKey,
   sortOrderOptionsByKey,
 } from "@/components/project-list/sort-order-options";
-import { SearchPageTagPicker, TagPicker } from "@/components/tags/tag-picker";
 import { api } from "@/server/api";
 
 // import { TagPickerPopover } from "@/components/tag-picker/tag-picker-popover"
@@ -214,7 +211,7 @@ function RelevantTags({
             className={badgeVariants({ variant: "outline" })}
           >
             {tag.name}
-            <PlusIcon className="h-5 w-5" />
+            <PlusIcon size={20} />
           </NextLink>
         );
       })}
@@ -226,23 +223,14 @@ function CurrentTags({
   tags,
   textQuery,
   buildPageURL,
-  allTags,
 }: {
   tags: BestOfJS.Tag[];
   textQuery: string;
   buildPageURL: SearchUrlBuilder<ProjectSearchQuery>;
   allTags: BestOfJS.Tag[];
 }) {
-  const currentTagCodes = tags.map((tag) => tag.code);
-  const tagsToAdd = allTags.filter(
-    (tag) => !currentTagCodes.includes(tag.code)
-  );
   return (
     <div className="mb-4 flex flex-wrap gap-2">
-      {/* <SearchPageTagPicker
-        allTags={allTags}
-        currentTagCodes={currentTagCodes}
-      /> */}
       {tags.map((tag) => {
         const url = buildPageURL((state) => ({
           ...state,
@@ -256,7 +244,7 @@ function CurrentTags({
             className={cn(badgeVariants({ variant: "default" }), "text-md")}
           >
             {tag.name}
-            <XMarkIcon className="h-5 w-5" />
+            <XMarkIcon size={20} />
           </NextLink>
         );
       })}
@@ -266,7 +254,7 @@ function CurrentTags({
           className={cn(badgeVariants({ variant: "destructive" }), "text-md")}
         >
           “{textQuery}”
-          <XMarkIcon className="h-5 w-5" />
+          <XMarkIcon size={20} />
         </NextLink>
       )}
     </div>

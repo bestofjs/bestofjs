@@ -1,11 +1,10 @@
 import React, { Suspense } from "react";
-import formatUrl from "@/helpers/url";
-import { GoHome, GoMarkGithub } from "react-icons/go";
 import { ImNpm } from "react-icons/im";
 
 import { cn } from "@/lib/utils";
+import formatUrl from "@/helpers/url";
 import { buttonVariants } from "@/components/ui/button";
-import { ProjectAvatar } from "@/components/core";
+import { GitHubIcon, HomeIcon, ProjectAvatar } from "@/components/core";
 import { ProjectTagGroup } from "@/components/tags/project-tag";
 
 import { getProjectDetails } from "./get-project-details";
@@ -24,7 +23,6 @@ export function ProjectHeader({ project }: Props) {
           <h2 className="font-serif text-4xl">{project.name}</h2>
           <div>
             <Suspense fallback={project.description}>
-              {/* @ts-expect-error Server Component */}
               <FullDescription project={project} />
             </Suspense>
           </div>
@@ -34,11 +32,11 @@ export function ProjectHeader({ project }: Props) {
         </div>
       </div>
       <aside className="flex flex-col justify-center space-y-2 font-sans sm:w-[280px] sm:pl-4">
-        <ButtonLink href={repository} icon={<GoMarkGithub size={20} />}>
+        <ButtonLink href={repository} icon={<GitHubIcon size={20} />}>
           {full_name}
         </ButtonLink>
         {url && (
-          <ButtonLink href={url} icon={<GoHome size={20} />}>
+          <ButtonLink href={url} icon={<HomeIcon size={20} />}>
             {formatUrl(url)}
           </ButtonLink>
         )}

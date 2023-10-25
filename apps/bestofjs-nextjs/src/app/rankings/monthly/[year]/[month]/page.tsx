@@ -85,13 +85,13 @@ const MonthlyRankingsNavigator = ({
   const previousMonth = getPreviousMonth(date);
   const nextMonth = getNextMonth(date);
   return (
-    <div className="flex items-center justify-between">
+    <div className="flex w-full items-center justify-between">
       <NavigationButton
         isDisabled={isFirst}
         url={buildRankingsURL(previousMonth)}
         label="Previous month"
       >
-        <ChevronLeftIcon fontSize="28px" />
+        <ChevronLeftIcon size={28} />
         <span className="hidden sm:block">
           {formatMonthlyDate(previousMonth)}
         </span>
@@ -103,7 +103,7 @@ const MonthlyRankingsNavigator = ({
         label="Next month"
       >
         <span className="hidden sm:block">{formatMonthlyDate(nextMonth)}</span>
-        <ChevronRightIcon fontSize="28px" />
+        <ChevronRightIcon size={28} />
       </NavigationButton>
     </div>
   );

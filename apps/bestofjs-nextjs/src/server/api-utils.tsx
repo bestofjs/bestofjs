@@ -2,8 +2,6 @@ import slugify from "slugify";
 
 import { shuffle } from "@/helpers/shuffle";
 
-export const FETCH_ALL_PROJECTS_URL = "https://bestofjs-static-api.vercel.app";
-
 export type RawData = {
   projects: BestOfJS.RawProject[];
   tags: BestOfJS.RawTag[];
@@ -67,7 +65,7 @@ export function getResultRelevantTags(
 
   return orderBy(
     Array.from(projectCountByTag.entries()),
-    ([_, count]) => count as number
+    ([, count]) => count as number
   ).slice(0, 10) as Array<[tag: string, count: number]>;
 }
 
@@ -84,8 +82,9 @@ function getTagsNumberOfOccurrencesFromProjects(
     project.tags
       .filter((tag) => !excludedTagIds.includes(tag))
       .forEach((tagId) => {
-        if (result.has(tagId)) {
-          result.set(tagId, result.get(tagId)! + 1);
+        const count = result.get(tagId);
+        if (count) {
+          result.set(tagId, count + 1);
         } else {
           result.set(tagId, 1);
         }
@@ -111,7 +110,7 @@ export function getTagsByKey(
 
   projects.forEach(({ tags }) => {
     tags.forEach((tag) => {
-      byKey[tag].counter = byKey[tag].counter ? byKey[tag].counter! + 1 : 1;
+      byKey[tag].counter = byKey[tag].counter ? byKey[tag].counter + 1 : 1;
     });
   });
 

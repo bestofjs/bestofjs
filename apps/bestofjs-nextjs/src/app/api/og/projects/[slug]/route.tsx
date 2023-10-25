@@ -24,7 +24,7 @@ export async function GET(_req: Request, { params: { slug } }: Context) {
 
   return generateImageResponse(
     <ImageLayout>
-      <Box style={{ alignItems: "flex-start", gap: 48 }}>
+      <Box style={{ alignItems: "center", gap: 48 }}>
         <ProjectLogo project={project} size={200} />
         <Box
           style={{

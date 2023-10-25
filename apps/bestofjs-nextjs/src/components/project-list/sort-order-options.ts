@@ -17,7 +17,7 @@ export type SortOption = {
   key: SortOptionKey;
   label: string;
   sort: { [key: string]: number };
-  disabled?: (params: { query: string; location: any }) => boolean;
+  disabled?: (params: { query: string }) => boolean;
   direction?: "desc" | "asc";
 };
 

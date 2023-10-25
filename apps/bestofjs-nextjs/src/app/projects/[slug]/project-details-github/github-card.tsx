@@ -1,16 +1,17 @@
-import { GoGitCommit, GoMarkGithub } from "react-icons/go";
+import { GoGitCommit } from "react-icons/go";
 import { MdGroup } from "react-icons/md";
 
 import { fromNow } from "@/helpers/from-now";
 import { formatNumber } from "@/helpers/numbers";
 import { Card, CardBody, CardContent, CardHeader } from "@/components/ui/card";
 import {
+  ExternalLinkIcon,
+  GitHubIcon,
   StarDelta,
   StarIcon,
   StarTotal,
   getDeltaByDay,
 } from "@/components/core";
-import { Icons } from "@/components/icons";
 
 import { MonthlyTrendsChart } from "./monthly-trends-chart";
 
@@ -25,7 +26,7 @@ export const ProjectDetailsGitHubCard = ({ project }: Props) => {
       <CardHeader className="border-b">
         <div className="flex items-center space-x-2">
           <div>
-            <GoMarkGithub size={20} />
+            <GitHubIcon size={20} />
           </div>
           <div>GitHub</div>
           <StarTotal value={stars} />
@@ -67,7 +68,7 @@ const GitHubData = ({ project }: { project: BestOfJS.ProjectDetails }) => {
           className="flex items-center gap-1 font-sans text-primary hover:underline"
         >
           {full_name}
-          <Icons.externalLink className="h-4 w-4" />
+          <ExternalLinkIcon size={16} />
         </a>
       </div>
       <div>

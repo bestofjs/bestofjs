@@ -4,7 +4,6 @@ import { createTagsAPI } from "./api-tags";
 import {
   APIContext,
   Data,
-  FETCH_ALL_PROJECTS_URL,
   RawData,
   getFeaturedRandomList,
   getProjectId,

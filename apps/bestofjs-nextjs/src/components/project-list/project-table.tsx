@@ -1,5 +1,4 @@
 import NextLink from "next/link";
-import { GoHome, GoMarkGithub } from "react-icons/go";
 
 import { cn } from "@/lib/utils";
 import { formatNumber } from "@/helpers/numbers";
@@ -8,6 +7,8 @@ import { ProjectSearchQuery, SearchUrlBuilder } from "@/app/projects/types";
 import { fromNow } from "../../helpers/from-now";
 import {
   DownloadCount,
+  GitHubIcon,
+  HomeIcon,
   ProjectAvatar,
   StarDelta,
   StarTotal,
@@ -95,7 +96,7 @@ const ProjectTableRow = ({
                 "p-0"
               )}
             >
-              <GoMarkGithub size={24} />
+              <GitHubIcon size={24} />
             </a>
             {project.url && (
               <a
@@ -111,7 +112,7 @@ const ProjectTableRow = ({
                   "p-0"
                 )}
               >
-                <GoHome size={24} />
+                <HomeIcon size={24} />
               </a>
             )}
           </div>
@@ -176,6 +177,9 @@ export const ProjectScore = ({
   return <StarTotal value={project.stars} />;
 };
 
-const Cell = ({ className, ...props }: { className: string } & any) => (
+const Cell = ({
+  className,
+  ...props
+}: { className: string } & React.HTMLProps<HTMLTableCellElement>) => (
   <td className={cn(className)} {...props} />
 );

@@ -1,6 +1,7 @@
 import { Suspense } from "react";
 import { GoBook } from "react-icons/go";
 
+import { env } from "@/env.mjs";
 import { Card, CardHeader } from "@/components/ui/card";
 import { ErrorBoundary } from "@/app/error-handling";
 
@@ -16,7 +17,6 @@ export async function ReadmeCard({ project }: { project: BestOfJS.Project }) {
       <div className="markdown-body p-4">
         <ErrorBoundary fallback={<>Unable to load the project README</>}>
           <Suspense fallback={<>Loading README.md</>}>
-            {/* @ts-expect-error Server Component */}
             <ReadmeContent project={project} />
           </Suspense>
         </ErrorBoundary>
@@ -26,12 +26,12 @@ export async function ReadmeCard({ project }: { project: BestOfJS.Project }) {
 }
 
 async function ReadmeContent({ project }: { project: BestOfJS.Project }) {
-  const html = await getData(project.full_name, project.branch);
+  const html = await getData(project.full_name, project.branch || "master");
   return <div dangerouslySetInnerHTML={{ __html: html }} />;
 }
 
 async function getData(fullName: string, branch: string) {
-  const url = `https://bestofjs-serverless.vercel.app/api/project-readme?fullName=${fullName}&branch=${branch}`;
+  const url = `${env.PROJECT_DETAILS_API_ROOT_URL}/api/project-readme?fullName=${fullName}&branch=${branch}`;
   const options = {
     next: {
       revalidate: 60 * 60 * 24, // Revalidate every day as we assume a README file can change frequently

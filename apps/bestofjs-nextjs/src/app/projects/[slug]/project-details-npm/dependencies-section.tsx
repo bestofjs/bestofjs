@@ -1,12 +1,12 @@
 import { Badge } from "@/components/ui/badge";
-import { Card, CardHeader } from "@/components/ui/card";
+import { Card } from "@/components/ui/card";
 import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
 } from "@/components/ui/collapsible";
 import { Table, TableBody, TableCell, TableRow } from "@/components/ui/table";
-import { Icons } from "@/components/icons";
+import { ChevronRightIcon, ExternalLinkIcon } from "@/components/core";
 import { ProjectTable } from "@/components/project-list/project-table";
 import { api } from "@/server/api";
 
@@ -30,7 +30,7 @@ export async function DependenciesSection({
   return (
     <Collapsible>
       <CollapsibleTrigger className="group flex items-center">
-        <Icons.chevronRightIcon className="h-6 w-6 group-data-[state=open]:rotate-90" />
+        <ChevronRightIcon className="h-6 w-6 group-data-[state=open]:rotate-90" />
         Dependencies
         <Badge variant={"secondary"} className="ml-2">
           {dependencies.length}
@@ -39,26 +39,11 @@ export async function DependenciesSection({
       <CollapsibleContent className="space-y-4 py-4">
         {projects.length > 0 && (
           <Card>
-            <CardHeader>
-              Dependencies on <i>Best of JS</i>{" "}
-              <Badge variant="secondary" className="ml-2">
-                {projects.length}
-              </Badge>
-            </CardHeader>
             <ProjectTable projects={projects} />
           </Card>
         )}
         {dependenciesNotOnBestOfJS.length > 0 && (
           <Card>
-            {projects.length > 0 && (
-              <CardHeader>
-                Dependencies not on <i>Best of JS</i>
-                <Badge variant={"secondary"} className="ml-2">
-                  {dependenciesNotOnBestOfJS.length}
-                </Badge>
-              </CardHeader>
-            )}
-
             <Table className="text-md">
               <TableBody>
                 {dependenciesNotOnBestOfJS.map((dependency) => (
@@ -69,7 +54,7 @@ export async function DependenciesSection({
                         href={`https://npmjs.org/package/${dependency}`}
                       >
                         {dependency}
-                        <Icons.externalLink className="h-4 w-4" />
+                        <ExternalLinkIcon size={16} />
                       </a>
                     </TableCell>
                   </TableRow>

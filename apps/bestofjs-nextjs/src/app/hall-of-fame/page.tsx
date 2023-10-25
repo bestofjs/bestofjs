@@ -1,24 +1,37 @@
 import { Metadata } from "next";
 
-import { APP_REPO_URL } from "@/config/site";
+import {
+  APP_CANONICAL_URL,
+  APP_DISPLAY_NAME,
+  APP_REPO_URL,
+} from "@/config/site";
 import { ExternalLink, PageHeading } from "@/components/core/typography";
 import { api } from "@/server/api";
 
+import { HallOfFameClientView } from "./hall-of-fame-view.client";
 import { HallOfFameMemberList } from "./hall-of-member-list";
 import Loading from "./loading";
 
 const forceLoadingState = false; // set to true when debugging the loading state
 
+const description =
+  "Some of the greatest developers, authors and speakers of the JavaScript community. Meet Evan, Dan, Sindre, TJ and friends!";
+
 export async function generateMetadata(): Promise<Metadata> {
   return {
     title: "Hall of Fame",
-    description:
-      "Some of the greatest developers, authors and speakers of the JavaScript community. Meet Evan, Dan, Sindre, TJ and friends!",
+    description,
+    openGraph: {
+      images: [`/api/og/hall-of-fame`],
+      url: APP_CANONICAL_URL + "/hall-of-fame",
+      title: APP_DISPLAY_NAME,
+      description,
+    },
   };
 }
 
 export default async function HallOfFamePage() {
-  const { members } = await fetchHallOfFameMembers();
+  const { members: allMembers } = await api.hallOfFame.findMembers();
   if (forceLoadingState) return <Loading />;
 
   return (
@@ -41,11 +54,17 @@ export default async function HallOfFamePage() {
           </>
         }
       />
-      <HallOfFameMemberList members={members} />
+      <HallOfFameClientView
+        initialContent={
+          <>
+            <div className="mb-4 text-muted-foreground">
+              Showing <b>all</b> {allMembers.length} members by number of
+              followers
+            </div>
+            <HallOfFameMemberList members={allMembers} />
+          </>
+        }
+      />
     </>
   );
-}
-
-function fetchHallOfFameMembers() {
-  return api.hallOfFame.findMembers();
 }

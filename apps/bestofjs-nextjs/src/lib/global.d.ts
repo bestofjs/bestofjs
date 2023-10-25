@@ -18,7 +18,7 @@ declare namespace BestOfJS {
     created_at: string;
     owner_id: string;
     url: string;
-    branch: string;
+    branch?: string;
     npm: string;
     downloads: number;
     icon: string;
@@ -98,7 +98,7 @@ declare namespace BestOfJS {
   }
 
   interface Tag extends RawTag {
-    counter?: number;
+    counter: number;
   }
 
   interface TagWithProjects extends BestOfJS.Tag {

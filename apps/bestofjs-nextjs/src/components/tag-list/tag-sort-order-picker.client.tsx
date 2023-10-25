@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import { ChevronDownIcon } from "@heroicons/react/20/solid";
 
 import {
   TagListSortSlug,
@@ -10,6 +9,7 @@ import {
   tagSearchStateToQueryString,
 } from "@/app/tags/tag-list-shared";
 
+import { ChevronDownIcon } from "../core";
 import { Button } from "../ui/button";
 import {
   DropdownMenu,
@@ -33,7 +33,7 @@ export const TagSortOrderPicker = ({ value, searchState }: Props) => {
       <DropdownMenuTrigger asChild>
         <Button variant="outline">
           Sort: {currentOption?.text || ""}
-          <ChevronDownIcon className="h-6 w-6" aria-hidden="true" />
+          <ChevronDownIcon size={24} aria-hidden="true" />
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-[300px] divide-y" align="start">

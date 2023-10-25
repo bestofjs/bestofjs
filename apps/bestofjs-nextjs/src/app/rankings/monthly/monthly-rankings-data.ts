@@ -1,3 +1,5 @@
+import { env } from "@/env.mjs";
+
 import { api } from "@/server/api";
 
 type RankingsData = {
@@ -20,7 +22,7 @@ export async function fetchMonthlyRankings({
   date?: MonthlyDate;
   limit: number;
 }) {
-  const rootURL = "https://bestofjs-rankings.vercel.app";
+  const rootURL = env.RANKINGS_ROOT_URL;
   const key = date ? formatDate(date) : `latest`;
   const url = `${rootURL}/monthly/${key}`;
   const options = {

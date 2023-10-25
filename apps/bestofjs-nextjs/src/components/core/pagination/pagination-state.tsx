@@ -23,7 +23,7 @@ export function computePaginationState({
   const numberOfPages = Math.ceil(total / limit);
   const allPageNumbers = times(numberOfPages);
   const lastPageNumber = allPageNumbers[allPageNumbers.length - 1];
-  let delta = Math.floor(pageNumberCount / 2);
+  const delta = Math.floor(pageNumberCount / 2);
 
   let minPageNumber = currentPageNumber - delta;
   let maxPageNumber = currentPageNumber + delta;
@@ -53,10 +53,10 @@ export function computePaginationState({
     lastPageNumber,
     currentPageNumber,
     total,
-    limit
+    limit,
   };
 }
 
-
-// @ts-ignore
-const times = (n: number) => [...Array(n).keys()].map((i) => i + 1);
+function times(n: number) {
+  return Array.from(Array(n).keys()).map((i) => i + 1);
+}

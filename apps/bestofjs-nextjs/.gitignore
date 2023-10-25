@@ -37,3 +37,9 @@ yarn-error.log*
 
 # Data generated at build time
 public/data
+
+# Cache used when running typecheck commands
+tsconfig.tsbuildinfo
+/test-results/
+/playwright-report/
+/playwright/.cache/

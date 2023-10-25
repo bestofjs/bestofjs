@@ -20,20 +20,26 @@ export default function HallOfFameLoading() {
       />
       <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
         {memberNames.map((name) => (
-          <Card key={name} className="sm:rounded-none">
-            <div className="flex border-b">
-              <Skeleton className="h-[100px] w-[100px] rounded-none" />
-              <div className="flex flex-1 items-center px-4 text-xl text-muted">
-                {name}
-              </div>
-            </div>
-            <div className="flex gap-4 p-4">
-              <Skeleton className="h-5 w-20" />
-              <Skeleton className="h-5 w-20" />
-            </div>
-          </Card>
+          <HallOfFameSkeletonCard key={name} name={name} />
         ))}
       </div>
     </>
+  );
+}
+
+export function HallOfFameSkeletonCard({ name }: { name: string }) {
+  return (
+    <Card className="sm:rounded-none">
+      <div className="flex border-b">
+        <Skeleton className="h-[100px] w-[100px] rounded-none" />
+        <div className="flex flex-1 items-center px-4 text-xl text-muted">
+          {name}
+        </div>
+      </div>
+      <div className="flex gap-4 p-4">
+        <Skeleton className="h-5 w-20" />
+        <Skeleton className="h-5 w-20" />
+      </div>
+    </Card>
   );
 }

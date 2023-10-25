@@ -89,10 +89,8 @@ export const getDeltaByDay =
       yearly: 365,
     };
 
-    // @ts-ignore
-    const delta = trends[period] as number;
-    // @ts-ignore
-    const numberOfDays = periods[period] as number;
+    const delta = trends[period as keyof BestOfJS.Project["trends"]];
+    const numberOfDays = periods[period as keyof BestOfJS.Project["trends"]];
     return average(delta, numberOfDays);
   };
 

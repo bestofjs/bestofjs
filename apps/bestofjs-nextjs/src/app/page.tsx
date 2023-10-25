@@ -9,7 +9,6 @@ import {
   SPONSOR_URL,
 } from "@/config/site";
 import { cn } from "@/lib/utils";
-import { fromNow } from "@/helpers/from-now";
 import { formatNumber } from "@/helpers/numbers";
 import { buttonVariants } from "@/components/ui/button";
 import { Card, CardHeader } from "@/components/ui/card";
@@ -62,13 +61,11 @@ export default async function IndexPage() {
           <NewestProjectList projects={newestProjects} />
         </div>
         <div className="space-y-8 lg:w-[300px]">
-          {/* @ts-expect-error Server Component */}
           <FeaturedProjects />
           <PopularTagsList tags={popularTags} />
         </div>
       </div>
 
-      {/* @ts-expect-error Server Component */}
       <LatestMonthlyRankings />
 
       <Separator className="-mx-4 w-auto sm:mx-0" />
@@ -161,7 +158,7 @@ function PopularTagsList({ tags }: { tags: BestOfJS.Tag[] }) {
     <Card>
       <CardHeader>
         <SectionHeading
-          icon={<TagIcon fontSize={32} />}
+          icon={<TagIcon size={32} />}
           title="Popular Tags"
           subtitle={<>By number of projects</>}
         />
@@ -276,11 +273,10 @@ function MoreProjectsSection({
 }
 
 async function getData() {
-  const {
-    projects: hotProjects,
-    lastUpdateDate,
-    total,
-  } = await api.projects.findProjects(getHotProjectsRequest());
+  const { lastUpdateDate, total } = await api.projects.getStats();
+  const { projects: hotProjects } = await api.projects.findProjects(
+    getHotProjectsRequest()
+  );
   const { projects: newestProjects } = await api.projects.findProjects(
     getLatestProjects()
   );

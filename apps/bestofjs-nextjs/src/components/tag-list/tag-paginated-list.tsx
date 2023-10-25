@@ -38,7 +38,7 @@ export const TagPaginatedList = ({
   return (
     <Card>
       <CardHeader>
-        <div className="flex flex-col justify-between gap-4 md:flex-row">
+        <div className="flex w-full flex-col justify-between gap-4 md:flex-row">
           <TagSortOrderPicker
             value={searchState.sortOptionId}
             searchState={searchState}

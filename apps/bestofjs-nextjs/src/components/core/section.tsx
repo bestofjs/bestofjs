@@ -10,7 +10,7 @@ type Props = {
 };
 export const SectionHeading = ({ className, icon, title, subtitle }: Props) => {
   return (
-    <div className={cn("flex items-center", className)}>
+    <div className={cn("flex w-full items-center", className)}>
       {icon && (
         <div className="pr-2 text-yellow-500 dark:text-yellow-600">{icon}</div>
       )}

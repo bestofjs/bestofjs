@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 
 export function useIsApplePlatform() {
-  let [isApplePlatform, setIsApplePlatform] = useState<boolean>();
+  const [isApplePlatform, setIsApplePlatform] = useState<boolean>();
 
   useEffect(() => {
     if (typeof navigator !== "undefined") {
