@@ -27,7 +27,7 @@ export const DiscordIcon = (props: IconProps) => (
 );
 
 export const ExternalLinkIcon = (props: IconProps) => (
-  <SvgSprite id="external-icon" {...props} />
+  <SvgSprite id="external-link-icon" {...props} />
 );
 
 export const GitHubIcon = (props: IconProps) => (
