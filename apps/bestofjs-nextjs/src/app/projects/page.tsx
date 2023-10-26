@@ -56,9 +56,13 @@ export async function generateMetadata({
   const { selectedTags } = await getData(searchParams);
   const searchState = parseSearchParams(searchParams);
   const title = getPageTitle(selectedTags, searchState.query);
+  const queryString = stateToQueryString(searchState);
 
   return {
     title,
+    openGraph: {
+      images: [`/api/og/projects/?${queryString}`],
+    },
   };
 }
 
