@@ -36,7 +36,7 @@ export async function GET(req: Request) {
 
   return generateImageResponse(
     <ImageLayout>
-      {ImageCaption({ tags, query, sortOption })}
+      <ImageCaption tags={tags} query={query} sortOption={sortOption} />
       <Box style={{ flexDirection: "column" }}>
         {projects.map((project, index) => (
           <ProjectRow key={project.slug} project={project} rank={index + 1} />
@@ -86,11 +86,11 @@ function ImageCaption({
   return (
     <Box style={{ gap: 16, alignItems: "center" }}>
       {tags.length > 0 && !query && (
-        <Box style={{ paddingLeft: "5px", color: "#F59E0B" }}>
+        <Box style={{ paddingLeft: 5, color: "#F59E0B" }}>
           <TagIcon />
         </Box>
       )}
-      <Box style={{paddingLeft: "25px"}}>{getImageTitle(tags, query)}</Box>
+      <Box style={{ paddingLeft: 25 }}>{getImageTitle(tags, query)}</Box>
       <span style={{ color: "#F59E0B" }}>•</span>
       <Box style={{ color: mutedColor }}>{sortOption.label}</Box>
     </Box>
