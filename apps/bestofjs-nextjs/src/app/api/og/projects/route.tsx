@@ -1,5 +1,4 @@
 import { formatNumber } from "@/helpers/numbers";
-import { TagIcon } from "@/components/core";
 import {
   ProjectPageSearchParams,
   parseSearchParams,
@@ -10,10 +9,16 @@ import {
   sortOrderOptionsByKey,
 } from "@/components/project-list/sort-order-options";
 import { api } from "@/server/api-remote-json";
-import { Box, generateImageResponse, mutedColor } from "@/app/api/og/og-utils";
+import {
+  Box,
+  ProjectLogo,
+  StarIcon,
+  TagIcon,
+  generateImageResponse,
+  mutedColor,
+} from "@/app/api/og/og-utils";
 
 import { ImageLayout } from "../og-image-layout";
-import { ProjectRow } from "../og-utils";
 
 export const runtime = "edge";
 
@@ -21,7 +26,7 @@ export async function GET(req: Request) {
   const NUMBER_OF_PROJECTS = 3;
   const { tags, query, sort, page } = getSearchParams(req.url);
   const sortOption = getSortOption(sort);
-  const { projects, total } = await api.projects.findProjects({
+  const { projects } = await api.projects.findProjects({
     criteria: tags.length > 0 ? { tags: { $all: tags } } : {},
     query,
     sort: sortOption.sort,
@@ -31,27 +36,13 @@ export async function GET(req: Request) {
 
   return generateImageResponse(
     <ImageLayout>
-      {createCaption(tags, query, total)}
+      {ImageCaption({ tags, query, sortOption })}
       <Box style={{ flexDirection: "column" }}>
         {projects.map((project, index) => (
           <ProjectRow key={project.slug} project={project} rank={index + 1} />
         ))}
       </Box>
     </ImageLayout>
-  );
-}
-
-function createCaption(tags: string[], query: string | null, total: number) {
-  return (
-    <Box style={{ display: "flex", gap: 16, alignItems: "center" }}>
-      {tags.length > 0 && !query && (
-        <div style={{ display: "flex", color: "#F59E0B" }}>
-          <TagIcon />
-        </div>
-      )}
-      <div>{getImageTitle(tags, query)}</div>
-      <ShowNumberOfProject count={total} />
-    </Box>
   );
 }
 
@@ -83,15 +74,74 @@ function getSortOption(sortKey: string): SortOption {
   return sortOrderOptionsByKey[sortKey as SortOptionKey] || defaultOption;
 }
 
-function ShowNumberOfProject({ count }: { count: number }) {
+function ImageCaption({
+  tags,
+  query,
+  sortOption,
+}: {
+  tags: string[];
+  query: string | null;
+  sortOption: SortOption;
+}) {
   return (
-    <div style={{ display: "flex", columnGap: "0.5rem" }}>
+    <Box style={{ gap: 16, alignItems: "center" }}>
+      {tags.length > 0 && !query && (
+        <Box style={{ paddingLeft: "5px", color: "#F59E0B" }}>
+          <TagIcon />
+        </Box>
+      )}
+      <Box style={{paddingLeft: "25px"}}>{getImageTitle(tags, query)}</Box>
       <span style={{ color: "#F59E0B" }}>•</span>
-      <span style={{ color: mutedColor }}>
-        {count === 1
-          ? "One project"
-          : `${formatNumber(count, "full")} projects`}
-      </span>
-    </div>
+      <Box style={{ color: mutedColor }}>{sortOption.label}</Box>
+    </Box>
+  );
+}
+
+function ProjectRow({
+  project,
+  rank,
+}: {
+  project: BestOfJS.Project;
+  rank: number;
+}) {
+  return (
+    <Box
+      style={{
+        color: "white",
+        gap: 24,
+        alignItems: "center",
+        borderBottom: "1px",
+        borderColor: "#3d3d42",
+        borderStyle: "dashed",
+        borderTopWidth: rank === 1 ? 1 : 0,
+        padding: "8px 0",
+      }}
+    >
+      <Box>
+        <ProjectLogo project={project} size={80} />
+      </Box>
+      <Box
+        style={{
+          justifyContent: "space-between",
+          flex: 1,
+        }}
+      >
+        <Box>{project.name}</Box>
+        <Box>
+          <ShowStars project={project} />
+        </Box>
+      </Box>
+    </Box>
+  );
+}
+
+function ShowStars({ project }: { project: BestOfJS.Project }) {
+  return (
+    <Box
+      style={{ flexDirection: "row", alignItems: "center", color: mutedColor }}
+    >
+      <Box>{formatNumber(project.stars, "compact")}</Box>
+      <StarIcon />
+    </Box>
   );
 }
