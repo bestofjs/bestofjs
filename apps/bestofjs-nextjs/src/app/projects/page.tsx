@@ -91,7 +91,7 @@ function getPageDescription(data: ProjectsPageData, query: string) {
     .map((project) => project.name)
     .slice(0, 10)
     .join(", ");
-  const tagNames = tags.map((tag) => tag.name).join(" + ");
+  const tagNames = tags.map((tag) => `“${tag.name}“`).join(" + ");
 
   if (!query && tags.length === 0) {
     return `All the ${total} projects tracked by Best of JS: ${projectNames}...`;
@@ -100,7 +100,7 @@ function getPageDescription(data: ProjectsPageData, query: string) {
     return `The ${total} projects tagged with ${tagNames}: ${projectNames}...`;
   }
   if (query && tags.length > 0) {
-    return `${total} projects matching the query “${query}” and the tags ${tagNames}: ${projectNames}...}`;
+    return `${total} projects matching the query “${query}” and the tags ${tagNames}: ${projectNames}...`;
   }
   return `${total} projects matching the query “${query}”: ${projectNames}...`;
 }
