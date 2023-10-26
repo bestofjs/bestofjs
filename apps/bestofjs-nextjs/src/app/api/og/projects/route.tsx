@@ -58,13 +58,10 @@ function getImageTitle(tags: string[], query: string | null) {
 
 function getSearchParams(url: string) {
   const { searchParams } = new URL(url);
-  const projectSearchParams: ProjectPageSearchParams = {
-    tags: searchParams.getAll("tags") || undefined,
-    query: searchParams.get("query") || undefined,
-    page: searchParams.get("page") || undefined,
-    sort: searchParams.get("sort") || undefined,
-    limit: searchParams.get("limit") || undefined,
-  };
+  const projectSearchParams = {
+    ...Object.fromEntries(searchParams.entries()),
+    tags: searchParams.getAll("tags"), // take into account multiple tags
+  } as ProjectPageSearchParams;
   return parseSearchParams(projectSearchParams);
 }
 
