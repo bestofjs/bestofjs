@@ -65,7 +65,7 @@ export const sortOrderOptions: SortOption[] = [
   {
     key: "created",
     label: "By date of creation (Oldest first)",
-    sort: { created_at: -1 },
+    sort: { created_at: 1 },
   },
   {
     key: "newest",

@@ -128,7 +128,7 @@ function ProjectScore({
   project: BestOfJS.Project;
   sortOptionKey: SortOptionKey;
 }) {
-  const { downloads, trends } = project;
+  const { contributor_count, created_at, downloads, trends } = project;
   switch (sortOptionKey) {
     case "daily":
       return <ShowStars value={trends.daily} showPrefix />;
@@ -146,6 +146,10 @@ function ProjectScore({
       ) : null;
     case "monthly-downloads":
       return <Box>{formatNumber(downloads, "compact")}</Box>;
+    case "contributors":
+      return <Box>{formatNumber(contributor_count, "compact")}</Box>;
+    case "created":
+      return <Box>{created_at}</Box>;
     default:
       return <ShowStars value={project.stars} />;
   }
