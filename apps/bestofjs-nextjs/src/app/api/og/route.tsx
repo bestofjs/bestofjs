@@ -5,7 +5,6 @@ import { ImageLayout } from "./og-image-layout";
 import {
   Box,
   ProjectLogo,
-  ProjectTable,
   StarIcon,
   generateImageResponse,
   getProjectRowStyles,
