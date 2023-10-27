@@ -34,7 +34,7 @@ export function getProjectRowStyles({ isFirst }: { isFirst: boolean }) {
     borderColor: "#3d3d42",
     borderStyle: "dashed",
     borderTopWidth: isFirst ? 1 : 0,
-    padding: "8px 0",
+    padding: "12px 0",
   };
 }
 

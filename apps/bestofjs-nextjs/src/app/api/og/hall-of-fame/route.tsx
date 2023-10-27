@@ -17,7 +17,7 @@ export async function GET() {
       <Box style={{ fontSize: 64 }}>JavaScript Hall of Fame</Box>
       <Box style={{ flexDirection: "row", gap: 32, flexWrap: "wrap" }}>
         {members.map((member) => (
-          <MemberBox key={member.username} member={member} size={112} />
+          <MemberBox key={member.username} member={member} size={110} />
         ))}
       </Box>
     </ImageLayout>

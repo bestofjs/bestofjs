@@ -28,7 +28,7 @@ export function ImageLayout({ children }: Props) {
           display: "flex",
           flexDirection: "column",
           gap: 32,
-          padding: 40,
+          padding: "24px 48px",
         }}
       >
         {children}
