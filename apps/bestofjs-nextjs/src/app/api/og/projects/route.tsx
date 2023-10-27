@@ -15,6 +15,7 @@ import {
   StarIcon,
   TagIcon,
   generateImageResponse,
+  getProjectRowStyles,
   mutedColor,
 } from "@/app/api/og/og-utils";
 
@@ -39,12 +40,7 @@ export async function GET(req: Request) {
       <ImageCaption tags={selectedTags} query={query} sortOption={sortOption} />
       <Box style={{ flexDirection: "column" }}>
         {projects.map((project, index) => (
-          <ProjectRow
-            key={project.slug}
-            project={project}
-            rank={index + 1}
-            sortOption={sortOption}
-          />
+          <ProjectRow project={project} index={index} sortOption={sortOption} />
         ))}
       </Box>
     </ImageLayout>
@@ -98,26 +94,15 @@ function ImageCaption({
 
 function ProjectRow({
   project,
-  rank,
   sortOption,
+  index,
 }: {
   project: BestOfJS.Project;
-  rank: number;
   sortOption: SortOption;
+  index: number;
 }) {
   return (
-    <Box
-      style={{
-        color: "white",
-        gap: 24,
-        alignItems: "center",
-        borderBottom: "1px",
-        borderColor: "#3d3d42",
-        borderStyle: "dashed",
-        borderTopWidth: rank === 1 ? 1 : 0,
-        padding: "8px 0",
-      }}
-    >
+    <Box style={getProjectRowStyles({ isFirst: index === 0 })}>
       <Box>
         <ProjectLogo project={project} size={80} />
       </Box>
