@@ -29,7 +29,7 @@ export async function GET() {
       </Box>
       <Box style={{ flexDirection: "column" }}>
         {projects.map((project, index) => (
-          <ProjectRow project={project} index={index} />
+          <ProjectRow key={project.slug} project={project} index={index} />
         ))}
       </Box>
     </ImageLayout>

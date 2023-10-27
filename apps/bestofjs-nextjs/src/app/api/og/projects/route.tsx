@@ -40,7 +40,12 @@ export async function GET(req: Request) {
       <ImageCaption tags={selectedTags} query={query} sortOption={sortOption} />
       <Box style={{ flexDirection: "column" }}>
         {projects.map((project, index) => (
-          <ProjectRow project={project} index={index} sortOption={sortOption} />
+          <ProjectRow
+            key={project.slug}
+            project={project}
+            index={index}
+            sortOption={sortOption}
+          />
         ))}
       </Box>
     </ImageLayout>
