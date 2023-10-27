@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 import NextLink from "next/link";
 
-import { APP_CANONICAL_URL } from "@/config/site";
+import { APP_CANONICAL_URL, APP_DISPLAY_NAME } from "@/config/site";
 import { cn } from "@/lib/utils";
 import { formatNumber } from "@/helpers/numbers";
 import { badgeVariants } from "@/components/ui/badge";
@@ -20,20 +20,12 @@ import {
 } from "@/components/project-list/sort-order-options";
 import { api } from "@/server/api";
 
-// import { TagPickerPopover } from "@/components/tag-picker/tag-picker-popover"
-
 import ProjectListLoading from "./loading";
 import {
   ProjectSearchQuery,
   SearchQueryUpdater,
   SearchUrlBuilder,
 } from "./types";
-
-// needed when running the built app (`start` command)
-// otherwise Next.js always renders the same page, ignoring the query string parameters!
-// export const revalidate = 0;
-// export const dynamic = "force-dynamic";
-// Last Update: not needed with 13.4.9
 
 type ProjectsPageData = {
   projects: BestOfJS.Project[];
@@ -68,7 +60,7 @@ export async function generateMetadata({
     openGraph: {
       images: [`/api/og/projects/?${queryString}`],
       url: `${APP_CANONICAL_URL}/projects/?${queryString}`,
-      title,
+      title: `${title} • ${APP_DISPLAY_NAME}`,
       description,
     },
   };
@@ -80,24 +72,28 @@ function getPageTitle(data: ProjectsPageData, query: string) {
     return "All Projects";
   }
   if (!query && tags.length > 0) {
-    return tags.map((tag) => tag.name).join(" + ");
+    const tagNames = tags.map((tag) => tag.name).join(" + ");
+    return `${tagNames} projects`;
   }
   return "Search results";
 }
 
 function getPageDescription(data: ProjectsPageData, query: string) {
+  const NUMBER_OF_PROJECTS = 8;
   const { projects, selectedTags: tags, total } = data;
   const projectNames = projects
     .map((project) => project.name)
-    .slice(0, 10)
+    .slice(0, NUMBER_OF_PROJECTS)
     .join(", ");
   const tagNames = tags.map((tag) => `“${tag.name}“`).join(" + ");
+  const sortOption = getSortOption(data.sortOptionId);
+  const sortOptionLabel = sortOption.label.toLowerCase();
 
   if (!query && tags.length === 0) {
-    return `All the ${total} projects tracked by Best of JS: ${projectNames}...`;
+    return `All the ${total} projects tracked by ${APP_DISPLAY_NAME}, ${sortOptionLabel}: ${projectNames}...`;
   }
   if (!query && tags.length > 0) {
-    return `The ${total} projects tagged with ${tagNames}: ${projectNames}...`;
+    return `${total} projects tagged with ${tagNames}, ${sortOptionLabel}: ${projectNames}...`;
   }
   if (query && tags.length > 0) {
     return `${total} projects matching the query “${query}” and the tags ${tagNames}: ${projectNames}...`;
