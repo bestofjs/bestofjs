@@ -41,7 +41,7 @@ export function ImageLayout({ children }: Props) {
 function AppLogo() {
   return (
     <div style={{ color: "#ffa666", display: "flex" }}>
-      <svg xmlns="http://www.w3.org/2000/svg" width="400" viewBox="0 0 700 200">
+      <svg xmlns="http://www.w3.org/2000/svg" width="200" viewBox="0 0 700 200">
         <g transform="translate(-40 -30)">
           <path
             fill="currentColor"
