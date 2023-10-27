@@ -83,3 +83,9 @@ export const sortOrderOptionsByKey = keyBy(sortOrderOptions, "key") as Record<
   SortOptionKey,
   SortOption
 >;
+
+export function getSortOptionByKey(sortKey: string): SortOption {
+  const defaultOption = sortOrderOptionsByKey.daily;
+  if (!sortKey) return defaultOption;
+  return sortOrderOptionsByKey[sortKey as SortOptionKey] || defaultOption;
+}

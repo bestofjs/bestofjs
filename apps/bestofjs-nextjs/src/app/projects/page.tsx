@@ -14,9 +14,8 @@ import {
 } from "@/components/project-list/navigation-state";
 import { ProjectPaginatedList } from "@/components/project-list/project-paginated-list";
 import {
-  SortOption,
   SortOptionKey,
-  sortOrderOptionsByKey,
+  getSortOptionByKey,
 } from "@/components/project-list/sort-order-options";
 import { api } from "@/server/api";
 
@@ -86,7 +85,7 @@ function getPageDescription(data: ProjectsPageData, query: string) {
     .slice(0, NUMBER_OF_PROJECTS)
     .join(", ");
   const tagNames = tags.map((tag) => `“${tag.name}“`).join(" + ");
-  const sortOption = getSortOption(data.sortOptionId);
+  const sortOption = getSortOptionByKey(data.sortOptionId);
   const sortOptionLabel = sortOption.label.toLowerCase();
 
   if (!query && tags.length === 0) {
@@ -293,7 +292,7 @@ async function getData(
   searchParams: ProjectPageSearchParams
 ): Promise<ProjectsPageData> {
   const { tags, sort, page, limit, query } = parseSearchParams(searchParams);
-  const sortOption = getSortOption(sort);
+  const sortOption = getSortOptionByKey(sort);
 
   const { projects, selectedTags, relevantTags, total } =
     await api.projects.findProjects({
@@ -317,10 +316,4 @@ async function getData(
     tags,
     allTags,
   };
-}
-
-function getSortOption(sortKey: string): SortOption {
-  const defaultOption = sortOrderOptionsByKey.daily;
-  if (!sortKey) return defaultOption;
-  return sortOrderOptionsByKey[sortKey as SortOptionKey] || defaultOption;
 }

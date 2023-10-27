@@ -6,7 +6,7 @@ import {
 import {
   SortOption,
   SortOptionKey,
-  sortOrderOptionsByKey,
+  getSortOptionByKey,
 } from "@/components/project-list/sort-order-options";
 import { api } from "@/server/api-remote-json";
 import {
@@ -25,7 +25,7 @@ export const runtime = "edge";
 export async function GET(req: Request) {
   const NUMBER_OF_PROJECTS = 3;
   const { tags, query, sort, page } = getSearchParams(req.url);
-  const sortOption = getSortOption(sort);
+  const sortOption = getSortOptionByKey(sort);
   const { projects, selectedTags } = await api.projects.findProjects({
     criteria: tags.length > 0 ? { tags: { $all: tags } } : {},
     query,
@@ -68,12 +68,6 @@ function getSearchParams(url: string) {
     tags: searchParams.getAll("tags"), // take into account multiple tags
   } as ProjectPageSearchParams;
   return parseSearchParams(projectSearchParams);
-}
-
-function getSortOption(sortKey: string): SortOption {
-  const defaultOption = sortOrderOptionsByKey.daily;
-  if (!sortKey) return defaultOption;
-  return sortOrderOptionsByKey[sortKey as SortOptionKey] || defaultOption;
 }
 
 function ImageCaption({
@@ -180,9 +174,7 @@ function ShowStars({
   showPrefix?: boolean;
 }) {
   return (
-    <Box
-      style={{ flexDirection: "row", alignItems: "center", color: mutedColor }}
-    >
+    <Box style={{ flexDirection: "row", alignItems: "center" }}>
       <Box>
         {showPrefix && value > 0 ? "+" : ""}
         {formatNumber(value, "compact")}
