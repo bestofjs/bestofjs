@@ -57,7 +57,11 @@ export async function generateMetadata({
     title,
     description,
     openGraph: {
-      images: [`/api/og/projects/?${queryString}`],
+      images: [
+        `/api/og/projects/?${queryString}&date=${new Date()
+          .toISOString()
+          .slice(0, 10)}`,
+      ],
       url: `${APP_CANONICAL_URL}/projects/?${queryString}`,
       title: `${title} • ${APP_DISPLAY_NAME}`,
       description,
