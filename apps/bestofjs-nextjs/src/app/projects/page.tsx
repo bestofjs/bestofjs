@@ -1,6 +1,7 @@
 import { Metadata } from "next";
 import NextLink from "next/link";
 
+import { APP_CANONICAL_URL } from "@/config/site";
 import { cn } from "@/lib/utils";
 import { formatNumber } from "@/helpers/numbers";
 import { badgeVariants } from "@/components/ui/badge";
@@ -53,20 +54,28 @@ type PageProps = {
 export async function generateMetadata({
   searchParams,
 }: PageProps): Promise<Metadata> {
-  const { selectedTags } = await getData(searchParams);
+  const data = await getData(searchParams);
   const searchState = parseSearchParams(searchParams);
-  const title = getPageTitle(selectedTags, searchState.query);
+
+  const title = getPageTitle(data, searchState.query);
+  const description = getPageDescription(data, searchState.query);
+
   const queryString = stateToQueryString(searchState);
 
   return {
     title,
+    description,
     openGraph: {
       images: [`/api/og/projects/?${queryString}`],
+      url: `${APP_CANONICAL_URL}/projects/?${queryString}`,
+      title,
+      description,
     },
   };
 }
 
-function getPageTitle(tags: BestOfJS.Tag[], query: string) {
+function getPageTitle(data: ProjectsPageData, query: string) {
+  const { selectedTags: tags } = data;
   if (!query && tags.length === 0) {
     return "All Projects";
   }
@@ -76,6 +85,25 @@ function getPageTitle(tags: BestOfJS.Tag[], query: string) {
   return "Search results";
 }
 
+function getPageDescription(data: ProjectsPageData, query: string) {
+  const { projects, selectedTags: tags, total } = data;
+  const projectNames = projects
+    .map((project) => project.name)
+    .slice(0, 10)
+    .join(", ");
+  const tagNames = tags.map((tag) => `“${tag.name}“`).join(" + ");
+
+  if (!query && tags.length === 0) {
+    return `All the ${total} projects tracked by Best of JS: ${projectNames}...`;
+  }
+  if (!query && tags.length > 0) {
+    return `The ${total} projects tagged with ${tagNames}: ${projectNames}...`;
+  }
+  if (query && tags.length > 0) {
+    return `${total} projects matching the query “${query}” and the tags ${tagNames}: ${projectNames}...`;
+  }
+  return `${total} projects matching the query “${query}”: ${projectNames}...`;
+}
 const showLoadingPage = false; // for debugging purpose only
 
 export default async function Projects({ searchParams }: PageProps) {
