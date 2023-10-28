@@ -1,4 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
+
+import React from "react";
 import { ImageResponse } from "next/server";
 
 import { APP_CANONICAL_URL } from "@/config/site";
@@ -21,6 +23,19 @@ export function generateImageResponse(
 export function Box(props: React.HTMLAttributes<HTMLDivElement>) {
   const { style, ...rest } = props;
   return <div style={{ display: "flex", ...style }} {...rest} />;
+}
+
+export function getProjectRowStyles({ isFirst }: { isFirst: boolean }) {
+  return {
+    color: "white",
+    gap: 24,
+    alignItems: "center",
+    borderBottom: "1px",
+    borderColor: "#3d3d42",
+    borderStyle: "dashed",
+    borderTopWidth: isFirst ? 1 : 0,
+    padding: "12px 0",
+  };
 }
 
 export function ProjectLogo({

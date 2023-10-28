@@ -65,7 +65,7 @@ export const sortOrderOptions: SortOption[] = [
   {
     key: "created",
     label: "By date of creation (Oldest first)",
-    sort: { created_at: -1 },
+    sort: { created_at: 1 },
   },
   {
     key: "newest",
@@ -83,3 +83,9 @@ export const sortOrderOptionsByKey = keyBy(sortOrderOptions, "key") as Record<
   SortOptionKey,
   SortOption
 >;
+
+export function getSortOptionByKey(sortKey: string): SortOption {
+  const defaultOption = sortOrderOptionsByKey.daily;
+  if (!sortKey) return defaultOption;
+  return sortOrderOptionsByKey[sortKey as SortOptionKey] || defaultOption;
+}

@@ -1,4 +1,5 @@
 import { formatNumber } from "@/helpers/numbers";
+import { getDeltaByDay } from "@/components/core";
 import {
   ProjectPageSearchParams,
   parseSearchParams,
@@ -6,7 +7,7 @@ import {
 import {
   SortOption,
   SortOptionKey,
-  sortOrderOptionsByKey,
+  getSortOptionByKey,
 } from "@/components/project-list/sort-order-options";
 import { api } from "@/server/api-remote-json";
 import {
@@ -15,6 +16,7 @@ import {
   StarIcon,
   TagIcon,
   generateImageResponse,
+  getProjectRowStyles,
   mutedColor,
 } from "@/app/api/og/og-utils";
 
@@ -25,8 +27,8 @@ export const runtime = "edge";
 export async function GET(req: Request) {
   const NUMBER_OF_PROJECTS = 3;
   const { tags, query, sort, page } = getSearchParams(req.url);
-  const sortOption = getSortOption(sort);
-  const { projects } = await api.projects.findProjects({
+  const sortOption = getSortOptionByKey(sort);
+  const { projects, selectedTags } = await api.projects.findProjects({
     criteria: tags.length > 0 ? { tags: { $all: tags } } : {},
     query,
     sort: sortOption.sort,
@@ -36,22 +38,27 @@ export async function GET(req: Request) {
 
   return generateImageResponse(
     <ImageLayout>
-      <ImageCaption tags={tags} query={query} sortOption={sortOption} />
+      <ImageCaption tags={selectedTags} query={query} sortOption={sortOption} />
       <Box style={{ flexDirection: "column" }}>
         {projects.map((project, index) => (
-          <ProjectRow key={project.slug} project={project} rank={index + 1} />
+          <ProjectRow
+            key={project.slug}
+            project={project}
+            index={index}
+            sortOption={sortOption}
+          />
         ))}
       </Box>
     </ImageLayout>
   );
 }
 
-function getImageTitle(tags: string[], query: string | null) {
+function getImageTitle(tags: BestOfJS.Tag[], query?: string) {
   if (!query && tags.length === 0) {
     return "All Projects";
   }
   if (!query && tags.length > 0) {
-    return tags.map((tag) => tag[0].toUpperCase() + tag.slice(1)).join(" + ");
+    return tags.map((tag) => tag.name).join(" + ");
   }
   return "Search results";
 }
@@ -65,19 +72,13 @@ function getSearchParams(url: string) {
   return parseSearchParams(projectSearchParams);
 }
 
-function getSortOption(sortKey: string): SortOption {
-  const defaultOption = sortOrderOptionsByKey.daily;
-  if (!sortKey) return defaultOption;
-  return sortOrderOptionsByKey[sortKey as SortOptionKey] || defaultOption;
-}
-
 function ImageCaption({
   tags,
   query,
   sortOption,
 }: {
-  tags: string[];
-  query: string | null;
+  tags: BestOfJS.Tag[];
+  query?: string;
   sortOption: SortOption;
 }) {
   return (
@@ -87,33 +88,27 @@ function ImageCaption({
           <TagIcon />
         </Box>
       )}
-      <Box style={{ paddingLeft: 25 }}>{getImageTitle(tags, query)}</Box>
-      <span style={{ color: "#F59E0B" }}>•</span>
-      <Box style={{ color: mutedColor }}>{sortOption.label}</Box>
+      <Box style={{ flexDirection: "column", paddingLeft: 25 }}>
+        <Box style={{}}>{getImageTitle(tags, query)}</Box>
+        <Box style={{ fontSize: 32, color: mutedColor }}>
+          {sortOption.label}
+        </Box>
+      </Box>
     </Box>
   );
 }
 
 function ProjectRow({
   project,
-  rank,
+  sortOption,
+  index,
 }: {
   project: BestOfJS.Project;
-  rank: number;
+  sortOption: SortOption;
+  index: number;
 }) {
   return (
-    <Box
-      style={{
-        color: "white",
-        gap: 24,
-        alignItems: "center",
-        borderBottom: "1px",
-        borderColor: "#3d3d42",
-        borderStyle: "dashed",
-        borderTopWidth: rank === 1 ? 1 : 0,
-        padding: "8px 0",
-      }}
-    >
+    <Box style={getProjectRowStyles({ isFirst: index === 0 })}>
       <Box>
         <ProjectLogo project={project} size={80} />
       </Box>
@@ -125,20 +120,73 @@ function ProjectRow({
       >
         <Box>{project.name}</Box>
         <Box>
-          <ShowStars project={project} />
+          <ProjectScore project={project} sortOptionKey={sortOption.key} />
         </Box>
       </Box>
     </Box>
   );
 }
 
-function ShowStars({ project }: { project: BestOfJS.Project }) {
+function ProjectScore({
+  project,
+  sortOptionKey,
+}: {
+  project: BestOfJS.Project;
+  sortOptionKey: SortOptionKey;
+}) {
+  const { contributor_count, created_at, downloads, trends } = project;
+  switch (sortOptionKey) {
+    case "daily":
+      return <ShowStarsTotal value={trends.daily} showPrefix />;
+    case "weekly":
+      return trends.weekly ? (
+        <ShowStarsAverage value={getDeltaByDay("weekly")(project)} />
+      ) : null;
+    case "monthly":
+      return trends.monthly ? (
+        <ShowStarsAverage value={getDeltaByDay("monthly")(project)} />
+      ) : null;
+    case "yearly":
+      return trends.yearly ? (
+        <ShowStarsAverage value={getDeltaByDay("yearly")(project)} />
+      ) : null;
+    case "monthly-downloads":
+      return <Box>{formatNumber(downloads, "compact")}</Box>;
+    case "contributors":
+      return <Box>{formatNumber(contributor_count, "compact")}</Box>;
+    case "created":
+      return <Box>{created_at}</Box>;
+    default:
+      return <ShowStarsTotal value={project.stars} />;
+  }
+}
+
+function ShowStarsTotal({
+  value,
+  showPrefix,
+}: {
+  value: number;
+  showPrefix?: boolean;
+}) {
   return (
-    <Box
-      style={{ flexDirection: "row", alignItems: "center", color: mutedColor }}
-    >
-      <Box>{formatNumber(project.stars, "compact")}</Box>
+    <Box style={{ flexDirection: "row", alignItems: "center" }}>
+      <Box>
+        {showPrefix && value > 0 ? "+" : ""}
+        {formatNumber(value, "compact")}
+      </Box>
       <StarIcon />
+    </Box>
+  );
+}
+
+function ShowStarsAverage({ value }: { value?: number }) {
+  if (value === undefined) return null;
+  return (
+    <Box style={{ flexDirection: "row", alignItems: "center" }}>
+      {value > 0 ? "+" : ""}
+      <Box>{formatNumber(value, "compact")}</Box>
+      <StarIcon />
+      <Box style={{ color: mutedColor }}>/day</Box>
     </Box>
   );
 }

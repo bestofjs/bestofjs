@@ -6,11 +6,7 @@ import {
   stateToQueryString,
 } from "@/components/project-list/navigation-state";
 import { ProjectPaginatedList } from "@/components/project-list/project-paginated-list";
-import {
-  SortOption,
-  SortOptionKey,
-  sortOrderOptionsByKey,
-} from "@/components/project-list/sort-order-options";
+import { getSortOptionByKey } from "@/components/project-list/sort-order-options";
 import { api } from "@/server/api";
 
 import { ProjectSearchQuery, SearchQueryUpdater } from "../projects/types";
@@ -59,7 +55,7 @@ async function fetchFeaturedProjects({
   page,
   limit,
 }: ProjectSearchQuery) {
-  const sortOption = getSortOption(sort);
+  const sortOption = getSortOptionByKey(sort);
 
   const { projects, total } = await api.projects.findProjects({
     criteria: { isFeatured: true },
@@ -75,14 +71,4 @@ async function fetchFeaturedProjects({
     limit,
     sortOptionId: sortOption.key,
   };
-}
-
-function getSortOption(sortKey: string): SortOption {
-  const defaultOption = sortOrderOptionsByKey.newest;
-  if (!sortKey) return defaultOption;
-  return (
-    (sortKey in sortOrderOptionsByKey &&
-      sortOrderOptionsByKey[sortKey as SortOptionKey]) ||
-    defaultOption
-  );
 }

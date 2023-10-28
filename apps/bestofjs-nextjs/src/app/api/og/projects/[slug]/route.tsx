@@ -33,7 +33,6 @@ export async function GET(_req: Request, { params: { slug } }: Context) {
             position: "relative",
             height: 360,
             justifyContent: "space-between",
-            top: -20, // to align the top of the project's name with the top of the logo
           }}
         >
           <Box style={{ gap: 32, fontSize: 80 }}>{project.name}</Box>
