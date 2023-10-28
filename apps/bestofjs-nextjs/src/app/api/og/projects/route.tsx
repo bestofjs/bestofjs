@@ -1,4 +1,5 @@
 import { formatNumber } from "@/helpers/numbers";
+import { getDeltaByDay } from "@/components/core";
 import {
   ProjectPageSearchParams,
   parseSearchParams,
@@ -136,18 +137,18 @@ function ProjectScore({
   const { contributor_count, created_at, downloads, trends } = project;
   switch (sortOptionKey) {
     case "daily":
-      return <ShowStars value={trends.daily} showPrefix />;
+      return <ShowStarsTotal value={trends.daily} showPrefix />;
     case "weekly":
       return trends.weekly ? (
-        <ShowStars value={trends.weekly} showPrefix />
+        <ShowStarsAverage value={getDeltaByDay("weekly")(project)} />
       ) : null;
     case "monthly":
       return trends.monthly ? (
-        <ShowStars value={trends.monthly} showPrefix />
+        <ShowStarsAverage value={getDeltaByDay("monthly")(project)} />
       ) : null;
     case "yearly":
       return trends.yearly ? (
-        <ShowStars value={trends.yearly} showPrefix />
+        <ShowStarsAverage value={getDeltaByDay("yearly")(project)} />
       ) : null;
     case "monthly-downloads":
       return <Box>{formatNumber(downloads, "compact")}</Box>;
@@ -156,11 +157,11 @@ function ProjectScore({
     case "created":
       return <Box>{created_at}</Box>;
     default:
-      return <ShowStars value={project.stars} />;
+      return <ShowStarsTotal value={project.stars} />;
   }
 }
 
-function ShowStars({
+function ShowStarsTotal({
   value,
   showPrefix,
 }: {
@@ -174,6 +175,18 @@ function ShowStars({
         {formatNumber(value, "compact")}
       </Box>
       <StarIcon />
+    </Box>
+  );
+}
+
+function ShowStarsAverage({ value }: { value?: number }) {
+  if (value === undefined) return null;
+  return (
+    <Box style={{ flexDirection: "row", alignItems: "center" }}>
+      {value > 0 ? "+" : ""}
+      <Box>{formatNumber(value, "compact")}</Box>
+      <StarIcon />
+      <Box style={{ color: mutedColor }}>/day</Box>
     </Box>
   );
 }
