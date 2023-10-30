@@ -9,6 +9,7 @@ export function ImageLayout({ children }: Props) {
         fontSize: 40,
         color: "white",
         background: "#09090b",
+        backgroundImage: "linear-gradient(to bottom right, #313131, #09090b)",
         width: "100%",
         height: "100%",
         flexDirection: "column",
@@ -16,9 +17,8 @@ export function ImageLayout({ children }: Props) {
     >
       <div
         style={{
-          borderBottom: "2px solid #3d3d42",
           display: "flex",
-          padding: `24px 64px 16px`,
+          padding: `24px 48px 8px`,
         }}
       >
         <AppLogo />

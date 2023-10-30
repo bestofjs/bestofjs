@@ -4,6 +4,7 @@ import {
   Box,
   ProjectLogo,
   StarIcon,
+  borderColor,
   generateImageResponse,
   mutedColor,
 } from "@/app/api/og/og-utils";
@@ -24,7 +25,15 @@ export async function GET(_req: Request, { params: { slug } }: Context) {
 
   return generateImageResponse(
     <ImageLayout>
-      <Box style={{ alignItems: "center", gap: 48 }}>
+      <Box
+        style={{
+          alignItems: "center",
+          gap: 48,
+          border: `3px solid ${borderColor}`,
+          padding: "0 48px 0",
+          borderRadius: 32,
+        }}
+      >
         <ProjectLogo project={project} size={200} />
         <Box
           style={{
@@ -33,6 +42,8 @@ export async function GET(_req: Request, { params: { slug } }: Context) {
             position: "relative",
             height: 360,
             justifyContent: "space-between",
+            borderLeft: `3px solid ${borderColor}`,
+            padding: "8px 32px 24px",
           }}
         >
           <Box style={{ gap: 32, fontSize: 80 }}>{project.name}</Box>

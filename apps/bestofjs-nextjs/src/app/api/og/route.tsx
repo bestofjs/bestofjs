@@ -21,10 +21,10 @@ export async function GET() {
 
   return generateImageResponse(
     <ImageLayout>
-      <Box style={{ gap: 16 }}>
-        <div>Hottest projects today</div>
+      <Box style={{ gap: 16, fontSize: 48 }}>
+        <div>Hot Projects Today</div>
         <div style={{ color: mutedColor }}>
-          {"(" + formatDate(new Date()) + ")"}
+          {" • " + formatDate(new Date())}
         </div>
       </Box>
       <Box style={{ flexDirection: "column" }}>
@@ -66,9 +66,7 @@ function ProjectRow({
 
 function ShowStars({ project }: { project: BestOfJS.Project }) {
   return (
-    <Box
-      style={{ flexDirection: "row", alignItems: "center", color: mutedColor }}
-    >
+    <Box style={{ flexDirection: "row", alignItems: "center" }}>
       <Box>{`+${project.trends.daily}`}</Box>
       <StarIcon />
     </Box>
