@@ -2,7 +2,7 @@ import React, { Suspense } from "react";
 import { ImNpm } from "react-icons/im";
 
 import { cn } from "@/lib/utils";
-import formatUrl from "@/helpers/url";
+import { formatUrl } from "@/helpers/url";
 import { buttonVariants } from "@/components/ui/button";
 import { GitHubIcon, HomeIcon, ProjectAvatar } from "@/components/core";
 import { ProjectTagGroup } from "@/components/tags/project-tag";
