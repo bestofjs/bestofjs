@@ -93,8 +93,11 @@ export function createProjectsAPI({ getData }: APIContext) {
     },
 
     async getProjectBySlug(slug: string) {
-      const { populate, projectsBySlug } = await getData();
-      return projectsBySlug[slug] ? populate(projectsBySlug[slug]) : undefined;
+      const { populate, projectsBySlug, lastUpdateDate } = await getData();
+      const project = projectsBySlug[slug]
+        ? populate(projectsBySlug[slug])
+        : undefined;
+      return { project, lastUpdateDate };
     },
 
     async findRandomFeaturedProjects({

@@ -8,6 +8,7 @@ import { ProjectHeader } from "./project-header";
 import { ReadmeCard } from "./project-readme/project-readme";
 import "./project-readme/readme.css";
 import { APP_CANONICAL_URL } from "@/config/site";
+import { addCacheBustingParam } from "@/helpers/url";
 import { Card, CardContent } from "@/components/ui/card";
 import { api } from "@/server/api";
 
@@ -24,21 +25,19 @@ export async function generateMetadata({
   params,
 }: PageProps): Promise<Metadata> {
   const { slug } = params;
-  const project = await getData(slug);
+  const { project, lastUpdateDate } = await getData(slug);
   if (!project) return { title: "Project not found" };
 
   const title = project.name;
   const description = `Trends and data about ${project.name} project. ${project.description}`;
+  const urlSearchParams = new URLSearchParams();
+  addCacheBustingParam(urlSearchParams, lastUpdateDate);
 
   return {
     title: title,
     description: description,
     openGraph: {
-      images: [
-        `/api/og/projects/${slug}?date=${new Date()
-          .toISOString()
-          .slice(0, 10)}`,
-      ],
+      images: [`/api/og/projects/${slug}?${urlSearchParams.toString()}`],
       url: `${APP_CANONICAL_URL}/projects/${slug}`,
       title,
       description,
@@ -48,7 +47,7 @@ export async function generateMetadata({
 
 export default async function ProjectDetailsPage({ params }: PageProps) {
   const { slug } = params;
-  const project = await getData(slug);
+  const { project } = await getData(slug);
   if (!project) {
     // TODO show a better page when an invalid slug is provided
     return <>Project not found!</>;
@@ -86,8 +85,7 @@ async function ProjectDetailsCards({ project }: { project: BestOfJS.Project }) {
 }
 
 async function getData(projectSlug: string) {
-  const project = await api.projects.getProjectBySlug(projectSlug);
-  return project;
+  return await api.projects.getProjectBySlug(projectSlug);
 }
 
 export async function generateStaticParams() {

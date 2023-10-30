@@ -14,7 +14,7 @@ export const runtime = "edge";
 
 type Context = { params: { slug: string } };
 export async function GET(_req: Request, { params: { slug } }: Context) {
-  const project = await api.projects.getProjectBySlug(slug);
+  const { project } = await api.projects.getProjectBySlug(slug);
   if (!project)
     return generateImageResponse(
       <ImageLayout>

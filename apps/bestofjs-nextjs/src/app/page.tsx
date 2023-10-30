@@ -1,8 +1,11 @@
+import { Metadata } from "next";
 import NextLink from "next/link";
 import { GoFlame, GoGift, GoHeart, GoPlus } from "react-icons/go";
 
 import {
   ADD_PROJECT_REQUEST_URL,
+  APP_CANONICAL_URL,
+  APP_DESCRIPTION,
   APP_DISPLAY_NAME,
   APP_REPO_FULL_NAME,
   APP_REPO_URL,
@@ -10,6 +13,7 @@ import {
 } from "@/config/site";
 import { cn } from "@/lib/utils";
 import { formatNumber } from "@/helpers/numbers";
+import { addCacheBustingParam } from "@/helpers/url";
 import { buttonVariants } from "@/components/ui/button";
 import { Card, CardHeader } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
@@ -29,6 +33,27 @@ import {
   getHotProjectsRequest,
   getLatestProjects,
 } from "./backend-search-requests";
+
+export async function generateMetadata(): Promise<Metadata> {
+  const data = await getData();
+
+  const urlSearchParams = new URLSearchParams();
+  addCacheBustingParam(urlSearchParams, data.lastUpdateDate);
+
+  const title = APP_DISPLAY_NAME;
+  const description = APP_DESCRIPTION;
+
+  return {
+    title,
+    description,
+    openGraph: {
+      images: [`api/og/?${urlSearchParams.toString()}`],
+      url: APP_CANONICAL_URL,
+      title,
+      description,
+    },
+  };
+}
 
 export default async function IndexPage() {
   const {

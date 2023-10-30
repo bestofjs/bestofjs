@@ -4,6 +4,7 @@ import NextLink from "next/link";
 import { APP_CANONICAL_URL, APP_DISPLAY_NAME } from "@/config/site";
 import { cn } from "@/lib/utils";
 import { formatNumber } from "@/helpers/numbers";
+import { addCacheBustingParam } from "@/helpers/url";
 import { badgeVariants } from "@/components/ui/badge";
 import { PlusIcon, TagIcon, XMarkIcon } from "@/components/core";
 import { PageHeading } from "@/components/core/typography";
@@ -36,6 +37,7 @@ type ProjectsPageData = {
   relevantTags: BestOfJS.Tag[];
   allTags: BestOfJS.Tag[];
   sortOptionId: SortOptionKey;
+  lastUpdateDate: Date;
 };
 
 type PageProps = {
@@ -52,16 +54,14 @@ export async function generateMetadata({
   const description = getPageDescription(data, searchState.query);
 
   const queryString = stateToQueryString(searchState);
+  const urlSearchParams = new URLSearchParams(queryString);
+  addCacheBustingParam(urlSearchParams, data.lastUpdateDate);
 
   return {
     title,
     description,
     openGraph: {
-      images: [
-        `/api/og/projects/?${queryString}&date=${new Date()
-          .toISOString()
-          .slice(0, 10)}`,
-      ],
+      images: [`api/og/projects/?${urlSearchParams.toString()}`],
       url: `${APP_CANONICAL_URL}/projects/?${queryString}`,
       title: `${title} • ${APP_DISPLAY_NAME}`,
       description,
@@ -298,7 +298,7 @@ async function getData(
   const { tags, sort, page, limit, query } = parseSearchParams(searchParams);
   const sortOption = getSortOptionByKey(sort);
 
-  const { projects, selectedTags, relevantTags, total } =
+  const { projects, selectedTags, relevantTags, total, lastUpdateDate } =
     await api.projects.findProjects({
       criteria: tags.length > 0 ? { tags: { $all: tags } } : {},
       query,
@@ -319,5 +319,6 @@ async function getData(
     relevantTags,
     tags,
     allTags,
+    lastUpdateDate,
   };
 }
