@@ -31,7 +31,6 @@ export const metadata: Metadata = {
   },
   metadataBase: getMetadataRootURL(),
   openGraph: {
-    images: [`/api/og?date=${new Date().toISOString().slice(0, 10)}`], // to avoid caching issues as the image is supposed to change every day
     url: APP_CANONICAL_URL,
     title: APP_DISPLAY_NAME,
     description: APP_DESCRIPTION,
