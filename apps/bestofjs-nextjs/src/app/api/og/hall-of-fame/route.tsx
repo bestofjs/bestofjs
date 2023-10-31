@@ -14,11 +14,13 @@ export async function GET() {
 
   return generateImageResponse(
     <ImageLayout>
-      <Box style={{ fontSize: 64 }}>JavaScript Hall of Fame</Box>
-      <Box style={{ flexDirection: "row", gap: 32, flexWrap: "wrap" }}>
-        {members.map((member) => (
-          <MemberBox key={member.username} member={member} size={110} />
-        ))}
+      <Box style={{ flexDirection: "column", gap: 48 }}>
+        <Box style={{ fontSize: 64 }}>JavaScript Hall of Fame</Box>
+        <Box style={{ flexDirection: "row", gap: 32, flexWrap: "wrap" }}>
+          {members.map((member) => (
+            <MemberBox key={member.username} member={member} size={110} />
+          ))}
+        </Box>
       </Box>
     </ImageLayout>
   );

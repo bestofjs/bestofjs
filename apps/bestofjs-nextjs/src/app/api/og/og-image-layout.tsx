@@ -15,20 +15,14 @@ export function ImageLayout({ children }: Props) {
         flexDirection: "column",
       }}
     >
+      <AppLogo />
       <div
         style={{
-          display: "flex",
-          padding: `24px 48px 8px`,
-        }}
-      >
-        <AppLogo />
-      </div>
-      <div
-        style={{
+          flexGrow: 1,
           display: "flex",
           flexDirection: "column",
-          gap: 32,
           padding: "24px 48px",
+          justifyContent: "center",
         }}
       >
         {children}
@@ -40,7 +34,15 @@ export function ImageLayout({ children }: Props) {
 
 function AppLogo() {
   return (
-    <div style={{ color: "#ffa666", display: "flex" }}>
+    <div
+      style={{
+        color: "#ffa666",
+        display: "flex",
+        position: "absolute",
+        top: 32,
+        right: 64,
+      }}
+    >
       <svg xmlns="http://www.w3.org/2000/svg" width="200" viewBox="0 0 700 200">
         <g transform="translate(-40 -30)">
           <path

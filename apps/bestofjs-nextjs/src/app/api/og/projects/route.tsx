@@ -38,16 +38,22 @@ export async function GET(req: Request) {
 
   return generateImageResponse(
     <ImageLayout>
-      <ImageCaption tags={selectedTags} query={query} sortOption={sortOption} />
-      <Box style={{ flexDirection: "column" }}>
-        {projects.map((project, index) => (
-          <ProjectRow
-            key={project.slug}
-            project={project}
-            index={index}
-            sortOption={sortOption}
-          />
-        ))}
+      <Box style={{ gap: 32, flexDirection: "column" }}>
+        <ImageCaption
+          tags={selectedTags}
+          query={query}
+          sortOption={sortOption}
+        />
+        <Box style={{ flexDirection: "column" }}>
+          {projects.map((project, index) => (
+            <ProjectRow
+              key={project.slug}
+              project={project}
+              index={index}
+              sortOption={sortOption}
+            />
+          ))}
+        </Box>
       </Box>
     </ImageLayout>
   );
