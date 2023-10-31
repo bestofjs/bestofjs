@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 
 import React from "react";
-import { ImageResponse } from "next/server";
+import { ImageResponse } from "next/og";
 
 import { APP_CANONICAL_URL } from "@/config/site";
 import { getProjectAvatarUrl } from "@/components/core/project-utils";

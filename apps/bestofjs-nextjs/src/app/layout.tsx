@@ -20,10 +20,6 @@ export const metadata: Metadata = {
     template: `${APP_DISPLAY_NAME} • %s`,
   },
   description: APP_DESCRIPTION,
-  themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "white" },
-    { media: "(prefers-color-scheme: dark)", color: "black" },
-  ],
   icons: {
     icon: "/favicon.ico",
     shortcut: "/favicon-16x16.png",
@@ -35,6 +31,13 @@ export const metadata: Metadata = {
     title: APP_DISPLAY_NAME,
     description: APP_DESCRIPTION,
   },
+};
+
+export const viewport = {
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "white" },
+    { media: "(prefers-color-scheme: dark)", color: "black" },
+  ],
 };
 
 function getMetadataRootURL() {
