@@ -7,7 +7,7 @@ import { ProjectDetailsGitHubCard } from "./project-details-github/github-card";
 import { ProjectHeader } from "./project-header";
 import { ReadmeCard } from "./project-readme/project-readme";
 import "./project-readme/readme.css";
-import { APP_CANONICAL_URL } from "@/config/site";
+import { APP_CANONICAL_URL, APP_DISPLAY_NAME } from "@/config/site";
 import { addCacheBustingParam } from "@/helpers/url";
 import { Card, CardContent } from "@/components/ui/card";
 import { api } from "@/server/api";
@@ -39,7 +39,7 @@ export async function generateMetadata({
     openGraph: {
       images: [`/api/og/projects/${slug}?${urlSearchParams.toString()}`],
       url: `${APP_CANONICAL_URL}/projects/${slug}`,
-      title,
+      title: `#${title} on ${APP_DISPLAY_NAME}`,
       description,
     },
   };

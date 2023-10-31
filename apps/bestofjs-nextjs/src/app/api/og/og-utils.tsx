@@ -6,7 +6,8 @@ import { ImageResponse } from "next/server";
 import { APP_CANONICAL_URL } from "@/config/site";
 import { getProjectAvatarUrl } from "@/components/core/project-utils";
 
-export const mutedColor = "#a1a1aa";
+export const mutedColor = `rgba(255, 255, 255, 0.7)`;
+export const borderColor = `rgba(255, 255, 255, 0.2)`;
 
 export function generateImageResponse(
   content: ConstructorParameters<typeof ImageResponse>[0]
@@ -31,8 +32,7 @@ export function getProjectRowStyles({ isFirst }: { isFirst: boolean }) {
     gap: 24,
     alignItems: "center",
     borderBottom: "1px",
-    borderColor: "#3d3d42",
-    borderStyle: "dashed",
+    borderColor,
     borderTopWidth: isFirst ? 1 : 0,
     padding: "12px 0",
   };

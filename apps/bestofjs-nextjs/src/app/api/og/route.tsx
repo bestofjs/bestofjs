@@ -21,16 +21,18 @@ export async function GET() {
 
   return generateImageResponse(
     <ImageLayout>
-      <Box style={{ gap: 16 }}>
-        <div>Hottest projects today</div>
-        <div style={{ color: mutedColor }}>
-          {"(" + formatDate(new Date()) + ")"}
-        </div>
-      </Box>
-      <Box style={{ flexDirection: "column" }}>
-        {projects.map((project, index) => (
-          <ProjectRow key={project.slug} project={project} index={index} />
-        ))}
+      <Box style={{ gap: 32, flexDirection: "column" }}>
+        <Box style={{ gap: 16, fontSize: 48 }}>
+          <div>Hot Projects Today</div>
+          <div style={{ color: mutedColor }}>
+            {" • " + formatDate(new Date())}
+          </div>
+        </Box>
+        <Box style={{ flexDirection: "column" }}>
+          {projects.map((project, index) => (
+            <ProjectRow key={project.slug} project={project} index={index} />
+          ))}
+        </Box>
       </Box>
     </ImageLayout>
   );
@@ -66,9 +68,7 @@ function ProjectRow({
 
 function ShowStars({ project }: { project: BestOfJS.Project }) {
   return (
-    <Box
-      style={{ flexDirection: "row", alignItems: "center", color: mutedColor }}
-    >
+    <Box style={{ flexDirection: "row", alignItems: "center" }}>
       <Box>{`+${project.trends.daily}`}</Box>
       <StarIcon />
     </Box>

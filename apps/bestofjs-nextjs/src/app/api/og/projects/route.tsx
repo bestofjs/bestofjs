@@ -38,16 +38,22 @@ export async function GET(req: Request) {
 
   return generateImageResponse(
     <ImageLayout>
-      <ImageCaption tags={selectedTags} query={query} sortOption={sortOption} />
-      <Box style={{ flexDirection: "column" }}>
-        {projects.map((project, index) => (
-          <ProjectRow
-            key={project.slug}
-            project={project}
-            index={index}
-            sortOption={sortOption}
-          />
-        ))}
+      <Box style={{ gap: 32, flexDirection: "column" }}>
+        <ImageCaption
+          tags={selectedTags}
+          query={query}
+          sortOption={sortOption}
+        />
+        <Box style={{ flexDirection: "column" }}>
+          {projects.map((project, index) => (
+            <ProjectRow
+              key={project.slug}
+              project={project}
+              index={index}
+              sortOption={sortOption}
+            />
+          ))}
+        </Box>
       </Box>
     </ImageLayout>
   );
@@ -85,11 +91,11 @@ function ImageCaption({
     <Box style={{ gap: 16, alignItems: "center" }}>
       {tags.length > 0 && !query && (
         <Box style={{ paddingLeft: 5, color: "#F59E0B" }}>
-          <TagIcon />
+          <TagIcon size="1.75em" />
         </Box>
       )}
-      <Box style={{ flexDirection: "column", paddingLeft: 25 }}>
-        <Box style={{}}>{getImageTitle(tags, query)}</Box>
+      <Box style={{ flexDirection: "column", paddingLeft: 0 }}>
+        <Box style={{ fontSize: 48 }}>{getImageTitle(tags, query)}</Box>
         <Box style={{ fontSize: 32, color: mutedColor }}>
           {sortOption.label}
         </Box>
