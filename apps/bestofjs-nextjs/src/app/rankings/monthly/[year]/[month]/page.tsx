@@ -13,8 +13,9 @@ import {
 } from "@/components/core";
 import { PageHeading } from "@/components/core/typography";
 import { ProjectTable } from "@/components/project-list/project-table";
+import { api } from "@/server/api";
+import { MonthlyDate } from "@/server/api-rankings";
 
-import { MonthlyDate, fetchMonthlyRankings } from "../../monthly-rankings-data";
 import { formatMonthlyDate } from "../../monthly-rankings-utils";
 
 type PageProps = {
@@ -29,7 +30,10 @@ export async function generateMetadata({
 }: PageProps): Promise<Metadata> {
   const date = parsePageParams(params);
 
-  const { projects } = await fetchMonthlyRankings({ date, limit: 10 });
+  const { projects } = await api.rankings.getMonthlyRankings({
+    date,
+    limit: 10,
+  });
   const projectNames = projects.map((project) => project.name).join(", ");
 
   const title = `Rankings ${formatMonthlyDate(date)}`;
@@ -51,10 +55,12 @@ export async function generateMetadata({
 
 export default async function MonthlyRankingPage({ params }: PageProps) {
   const date = parsePageParams(params);
-  const { isFirst, isLatest, projects } = await fetchMonthlyRankings({
-    date,
-    limit: 50,
-  });
+  const { isFirst, isLatest, projects } = await api.rankings.getMonthlyRankings(
+    {
+      date,
+      limit: 50,
+    }
+  );
 
   return (
     <>
@@ -82,7 +88,7 @@ export default async function MonthlyRankingPage({ params }: PageProps) {
 }
 
 export async function generateStaticParams() {
-  const { year, month } = await fetchMonthlyRankings({ limit: 0 });
+  const { year, month } = await api.rankings.getMonthlyRankings({ limit: 0 });
   return [{ year, month }, getPreviousMonth({ year, month })].map((date) => ({
     year: date.year.toString(),
     month: date.month.toString(), // search params must be string

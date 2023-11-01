@@ -7,11 +7,13 @@ import { Card, CardHeader } from "@/components/ui/card";
 import { StarDelta } from "@/components/core";
 import { SectionHeading } from "@/components/core/section";
 import { ProjectTable } from "@/components/project-list/project-table";
-import { fetchMonthlyRankings } from "@/app/rankings/monthly/monthly-rankings-data";
+import { api } from "@/server/api";
 import { formatMonthlyDate } from "@/app/rankings/monthly/monthly-rankings-utils";
 
 export async function LatestMonthlyRankings() {
-  const { year, month, projects } = await fetchMonthlyRankings({ limit: 5 });
+  const { year, month, projects } = await api.rankings.getMonthlyRankings({
+    limit: 5,
+  });
   return (
     <Card>
       <CardHeader className="border-b">

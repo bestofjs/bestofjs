@@ -1,4 +1,5 @@
 import { formatNumber } from "@/helpers/numbers";
+import { api } from "@/server/api-remote-json";
 import { ImageLayout } from "@/app/api/og/og-image-layout";
 import {
   Box,
@@ -8,7 +9,6 @@ import {
   getProjectRowStyles,
   mutedColor,
 } from "@/app/api/og/og-utils";
-import { fetchMonthlyRankings } from "@/app/rankings/monthly/monthly-rankings-data";
 import { formatMonthlyDate } from "@/app/rankings/monthly/monthly-rankings-utils";
 
 export const runtime = "edge";
@@ -17,7 +17,7 @@ type Context = { params: { year: string; month: string } };
 export async function GET(_: Request, { params }: Context) {
   const NUMBER_OF_PROJECTS = 3;
   const date = parsePageParams(params);
-  const { projects } = await fetchMonthlyRankings({
+  const { projects } = await api.rankings.getMonthlyRankings({
     date,
     limit: NUMBER_OF_PROJECTS,
   });
