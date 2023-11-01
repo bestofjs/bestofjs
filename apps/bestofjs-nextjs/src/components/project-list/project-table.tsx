@@ -27,31 +27,29 @@ type Props = {
 
 export const ProjectTable = ({ projects, footer, ...otherProps }: Props) => {
   return (
-    <div className="table-container">
-      <table className="w-full">
-        <tbody className="[&_tr:last-child]:border-0">
-          {projects.map((project) => {
-            if (!project) return null;
-            return (
-              <ProjectTableRow
-                key={project.full_name}
-                project={project}
-                {...otherProps}
-              />
-            );
-          })}
-        </tbody>
-        {footer && (
-          <tfoot className="border-t">
-            <tr>
-              <Cell colSpan={5} className="border-0 p-4 text-center">
-                {footer}
-              </Cell>
-            </tr>
-          </tfoot>
-        )}
-      </table>
-    </div>
+    <table className="w-full">
+      <tbody className="[&_tr:last-child]:border-0">
+        {projects.map((project) => {
+          if (!project) return null;
+          return (
+            <ProjectTableRow
+              key={project.full_name}
+              project={project}
+              {...otherProps}
+            />
+          );
+        })}
+      </tbody>
+      {footer && (
+        <tfoot className="border-t">
+          <tr>
+            <Cell colSpan={5} className="border-0 p-4 text-center">
+              {footer}
+            </Cell>
+          </tr>
+        </tfoot>
+      )}
+    </table>
   );
 };
 
@@ -123,12 +121,10 @@ const ProjectTableRow = ({
           )}
         </div>
 
-        <div className="mb-4 mt-2 space-y-2 text-sm">
-          <div className="pr-4 font-serif sm:pr-0">{project.description}</div>
+        <div className="mb-4 mt-2 truncate pr-4 font-serif text-sm sm:pr-0">
+          {project.description}
         </div>
-        <div>
-          <ProjectTagGroup tags={project.tags} buildPageURL={buildPageURL} />
-        </div>
+        <ProjectTagGroup tags={project.tags} buildPageURL={buildPageURL} />
       </Cell>
 
       {showDetails && (

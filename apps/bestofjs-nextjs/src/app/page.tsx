@@ -85,7 +85,7 @@ export default async function IndexPage() {
 
           <NewestProjectList projects={newestProjects} />
         </div>
-        <div className="space-y-8 lg:w-[300px]">
+        <div className="shrink-0 space-y-8 lg:w-[300px]">
           <FeaturedProjects />
           <PopularTagsList tags={popularTags} />
         </div>
