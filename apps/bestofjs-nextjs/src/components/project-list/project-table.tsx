@@ -121,7 +121,7 @@ const ProjectTableRow = ({
           )}
         </div>
 
-        <div className="mb-4 mt-2 min-w-0 truncate pr-4 font-serif text-sm sm:pr-0">
+        <div className="mb-4 mt-2 truncate pr-4 font-serif text-sm sm:pr-0">
           {project.description}
         </div>
         <ProjectTagGroup tags={project.tags} buildPageURL={buildPageURL} />
