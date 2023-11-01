@@ -1,5 +1,6 @@
 import { createHallOfFameAPI } from "./api-hall-of-fame";
 import { createProjectsAPI } from "./api-projects";
+import { createRankingsAPI } from "./api-rankings";
 import { createTagsAPI } from "./api-tags";
 import {
   APIContext,
@@ -40,9 +41,13 @@ export function createAPI(fetchProjectData: () => Promise<RawData>) {
   const tagsAPI = createTagsAPI(context);
   const hallOfFameAPI = createHallOfFameAPI(context);
 
+  // Dependent APIs
+  const rankingAPI = createRankingsAPI(projectsAPI);
+
   return {
     projects: projectsAPI,
     tags: tagsAPI,
     hallOfFame: hallOfFameAPI,
+    rankings: rankingAPI,
   };
 }

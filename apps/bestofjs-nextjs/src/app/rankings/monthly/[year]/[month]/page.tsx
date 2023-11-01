@@ -2,6 +2,7 @@ import { Metadata } from "next";
 import Link from "next/link";
 import { GoCalendar } from "react-icons/go";
 
+import { APP_CANONICAL_URL, APP_DISPLAY_NAME } from "@/config/site";
 import { cn } from "@/lib/utils";
 import { Button, buttonVariants } from "@/components/ui/button";
 import { Card, CardHeader } from "@/components/ui/card";
@@ -12,8 +13,9 @@ import {
 } from "@/components/core";
 import { PageHeading } from "@/components/core/typography";
 import { ProjectTable } from "@/components/project-list/project-table";
+import { api } from "@/server/api";
+import { MonthlyDate } from "@/server/api-rankings";
 
-import { MonthlyDate, fetchMonthlyRankings } from "../../monthly-rankings-data";
 import { formatMonthlyDate } from "../../monthly-rankings-utils";
 
 type PageProps = {
@@ -28,17 +30,37 @@ export async function generateMetadata({
 }: PageProps): Promise<Metadata> {
   const date = parsePageParams(params);
 
+  const { projects } = await api.rankings.getMonthlyRankings({
+    date,
+    limit: 10,
+  });
+  const projectNames = projects.map((project) => project.name).join(", ");
+
+  const title = `Rankings ${formatMonthlyDate(date)}`;
+  const description = `The most popular projects on Best of JS in ${formatMonthlyDate(
+    date
+  )}: ${projectNames}...`;
+
   return {
-    title: "Rankings " + formatMonthlyDate(date),
+    title,
+    description,
+    openGraph: {
+      images: [`api/og/rankings/monthly/${params.year}/${params.month}`],
+      url: `${APP_CANONICAL_URL}/rankings/monthly/${params.year}/${params.month}`,
+      title: `${title} • ${APP_DISPLAY_NAME}`,
+      description,
+    },
   };
 }
 
 export default async function MonthlyRankingPage({ params }: PageProps) {
   const date = parsePageParams(params);
-  const { isFirst, isLatest, projects } = await fetchMonthlyRankings({
-    date,
-    limit: 50,
-  });
+  const { isFirst, isLatest, projects } = await api.rankings.getMonthlyRankings(
+    {
+      date,
+      limit: 50,
+    }
+  );
 
   return (
     <>
@@ -66,7 +88,7 @@ export default async function MonthlyRankingPage({ params }: PageProps) {
 }
 
 export async function generateStaticParams() {
-  const { year, month } = await fetchMonthlyRankings({ limit: 0 });
+  const { year, month } = await api.rankings.getMonthlyRankings({ limit: 0 });
   return [{ year, month }, getPreviousMonth({ year, month })].map((date) => ({
     year: date.year.toString(),
     month: date.month.toString(), // search params must be string
