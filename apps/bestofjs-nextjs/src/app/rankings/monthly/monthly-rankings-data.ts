@@ -1,6 +1,5 @@
 import { env } from "@/env.mjs";
-
-import { api } from "@/server/api";
+import { api } from "@/server/api-remote-json";
 
 type RankingsData = {
   year: number;

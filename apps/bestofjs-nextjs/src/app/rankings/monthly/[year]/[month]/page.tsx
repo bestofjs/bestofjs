@@ -2,6 +2,7 @@ import { Metadata } from "next";
 import Link from "next/link";
 import { GoCalendar } from "react-icons/go";
 
+import { APP_CANONICAL_URL, APP_DISPLAY_NAME } from "@/config/site";
 import { cn } from "@/lib/utils";
 import { Button, buttonVariants } from "@/components/ui/button";
 import { Card, CardHeader } from "@/components/ui/card";
@@ -28,8 +29,23 @@ export async function generateMetadata({
 }: PageProps): Promise<Metadata> {
   const date = parsePageParams(params);
 
+  const { projects } = await fetchMonthlyRankings({ date, limit: 10 });
+  const projectNames = projects.map((project) => project.name).join(", ");
+
+  const title = `Rankings ${formatMonthlyDate(date)}`;
+  const description = `The most popular projects on Best of JS in ${formatMonthlyDate(
+    date
+  )}: ${projectNames}...`;
+
   return {
-    title: "Rankings " + formatMonthlyDate(date),
+    title,
+    description,
+    openGraph: {
+      images: [`api/og/rankings/monthly/${params.year}/${params.month}`],
+      url: `${APP_CANONICAL_URL}/rankings/monthly/${params.year}/${params.month}`,
+      title: `${title} • ${APP_DISPLAY_NAME}`,
+      description,
+    },
   };
 }
 
