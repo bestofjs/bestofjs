@@ -1,4 +1,4 @@
-import { MonthlyDate } from "./monthly-rankings-data";
+import { MonthlyDate } from "@/server/api-rankings";
 
 export function formatMonthlyDate(date: MonthlyDate) {
   const monthNames = [
