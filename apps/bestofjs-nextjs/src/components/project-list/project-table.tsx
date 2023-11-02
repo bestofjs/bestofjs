@@ -72,7 +72,7 @@ const ProjectTableRow = ({
         </NextLink>
       </Cell>
 
-      <Cell className="w-auto py-4 pl-4 md:pl-2">
+      <Cell className="max-w-0 py-4 pl-4 md:pl-2">
         <div className="relative flex items-center space-x-2">
           <NextLink
             href={path}
