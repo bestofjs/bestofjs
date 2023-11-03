@@ -2,6 +2,15 @@ import { MetadataRoute } from "next";
 
 import { APP_CANONICAL_URL } from "@/config/site";
 
+const tags = ["react", "vuejs"];
+
+const tagSearchPages: MetadataRoute.Sitemap = tags.map((tag) => ({
+  url: escapeURL(`${APP_CANONICAL_URL}/projects?tags=${tag}&sort=weekly`),
+  lastModified: new Date(),
+  changeFrequency: "daily",
+  priority: 0.5,
+}));
+
 export default function sitemap(): MetadataRoute.Sitemap {
   return [
     {
@@ -35,16 +44,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.5,
     },
     {
-      url: `${APP_CANONICAL_URL}/projects?tags=react&sort=weekly`,
-      lastModified: new Date(),
-      changeFrequency: "daily",
-      priority: 0.5,
-    },
-    {
       url: `${APP_CANONICAL_URL}/about`,
       lastModified: new Date(),
       changeFrequency: "monthly",
       priority: 0.1,
     },
+    ...tagSearchPages,
   ];
+}
+
+function escapeURL(url: string) {
+  return url.replace(/&/g, "&amp;");
 }
