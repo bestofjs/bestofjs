@@ -47,6 +47,7 @@
     "mingo": "^6.4.1",
     "next": "14.0.1",
     "next-themes": "^0.2.1",
+    "nextjs-bundle-analysis": "^0.5.0",
     "pretty-bytes": "^6.1.1",
     "qss": "^3.0.0",
     "react": "^18.2.0",
@@ -81,5 +82,11 @@
     "prettier": "^2.8.8",
     "tailwindcss": "^3.3.2",
     "typescript": "^5.2.2"
+  },
+  "nextBundleAnalysis": {
+    "budget": null,
+    "budgetPercentIncreaseRed": 20,
+    "minimumChangeThreshold": 0,
+    "showDetails": true
   }
 }

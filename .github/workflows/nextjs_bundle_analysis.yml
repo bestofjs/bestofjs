@@ -61,12 +61,12 @@ jobs:
 
       - name: Build next.js app
         # change this if your site requires a custom build command
-        run: pnpm build-project-data && next build
+        run: pnpm build
 
       # Here's the first place where next-bundle-analysis' own script is used
       # This step pulls the raw bundle stats for the current bundle
       - name: Analyze bundle
-        run: npx -p nextjs-bundle-analysis report
+        run: pnpm --package=nextjs-bundle-analysis dlx report
 
       - name: Upload bundle
         uses: actions/upload-artifact@v3
@@ -97,7 +97,7 @@ jobs:
       # entry in your package.json file.
       - name: Compare with base branch bundle
         if: success() && github.event.number
-        run: ls -laR .next/analyze/base && npx -p nextjs-bundle-analysis compare
+        run: ls -laR .next/analyze/base && pnpm exec -p nextjs-bundle-analysis compare
 
       - name: Get Comment Body
         id: get-comment-body
