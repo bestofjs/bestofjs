@@ -4,6 +4,10 @@ import * as React from "react";
 import { useRouter } from "next/navigation";
 import invariant from "tiny-invariant";
 
+import {
+  filterTagsByQueryWithRank,
+  mergeSearchResults,
+} from "@/lib/search-utils";
 import { cn } from "@/lib/utils";
 import { Badge } from "@/components/ui/badge";
 import { buttonVariants } from "@/components/ui/button";
@@ -29,6 +33,11 @@ import {
 import { stateToQueryString } from "../project-list/navigation-state";
 import { useSearchState } from "../project-list/search-state";
 import { filterProjectsByTagsAndQuery } from "./find-projects";
+import {
+  ProjectSearchResult,
+  SearchForTextCommand,
+  TagSearchResult,
+} from "./search-palette-results";
 import { SearchTrigger } from "./search-trigger";
 
 export type SearchProps = {
@@ -52,6 +61,11 @@ type SelectedItem =
   | {
       type: "text";
     };
+
+type CombinedSearchResult =
+  | (BestOfJS.SearchIndexProject & { rank: number })
+  | (BestOfJS.Tag & { rank: number });
+
 export function SearchPalette({ allProjects, allTags }: SearchProps) {
   const router = useRouter();
   const searchState = useSearchState();
@@ -125,6 +139,13 @@ export function SearchPalette({ allProjects, allTags }: SearchProps) {
   const filteredTags = searchQuery
     ? filterTagsByQuery(allTags, searchQuery)
     : popularTags;
+
+  const foundTagsWithRank = filterTagsByQueryWithRank(allTags, searchQuery);
+  const combinedResults: CombinedSearchResult[] = mergeSearchResults(
+    filteredProjects,
+    foundTagsWithRank
+  );
+  console.log({ combinedResults });
 
   const onSelectProject = (itemValue: string) => {
     const projectSlug = itemValue.slice("project/".length);
@@ -201,111 +222,52 @@ export function SearchPalette({ allProjects, allTags }: SearchProps) {
               {isEmptySearchResults && (
                 <CommandEmpty>No results found.</CommandEmpty>
               )}
-              {searchQuery.length > 0 && !isEmptyProjects && (
+              {combinedResults.map((result) => {
+                if ("stars" in result) {
+                  return (
+                    <ProjectSearchResult
+                      key={result.slug}
+                      project={result}
+                      onSelectProject={onSelectProject}
+                    />
+                  );
+                }
+                return (
+                  <TagSearchResult
+                    key={`tag/` + result.code}
+                    tag={result}
+                    onSelectTag={onSelectTag}
+                  />
+                );
+              })}
+              {/* {searchQuery.length > 0 && !isEmptyProjects && (
                 <CommandGroup heading="Projects">
                   {filteredProjects.map((project) => (
-                    <div
+                    <ProjectSearchResult
                       key={project.slug}
-                      className="gap-2 md:grid md:grid-cols-[1fr_40px_40px]"
-                    >
-                      <CommandItem
-                        key={project.slug}
-                        value={`project/` + project.slug}
-                        onSelect={onSelectProject}
-                      >
-                        <div className="flex w-full min-w-0 items-center gap-4">
-                          <div className="items-center justify-center">
-                            <ProjectAvatar project={project} size={32} />
-                          </div>
-                          <div className="flex-1 truncate">
-                            {project.name}
-                            <div className="truncate pt-2 text-muted-foreground">
-                              {project.description}
-                            </div>
-                          </div>
-                          <div className="hidden text-right md:block">
-                            <StarTotal value={project.stars} />
-                          </div>
-                        </div>
-                      </CommandItem>
-                      <div className="hidden items-center md:flex">
-                        <a
-                          href={`https://github.com/` + project.full_name}
-                          aria-label="GitHub repository"
-                          rel="noopener noreferrer"
-                          target="_blank"
-                          className={cn(
-                            buttonVariants({ variant: "ghost" }),
-                            "rounded-full",
-                            "w-10",
-                            "h-10",
-                            "p-0"
-                          )}
-                        >
-                          <GitHubIcon size={24} />
-                        </a>
-                      </div>
-                      {project.url && (
-                        <div className="hidden items-center md:flex">
-                          <a
-                            href={project.url}
-                            aria-label="Project's homepage"
-                            rel="noopener noreferrer"
-                            target="_blank"
-                            className={cn(
-                              buttonVariants({ variant: "ghost" }),
-                              "rounded-full",
-                              "w-10",
-                              "h-10",
-                              "p-0"
-                            )}
-                          >
-                            <HomeIcon size={24} />
-                          </a>
-                        </div>
-                      )}
-                    </div>
+                      project={project}
+                      onSelectProject={onSelectProject}
+                    />
                   ))}
                   {searchQuery.length > 2 && (
-                    <CommandItem
-                      onSelect={onSelectSearchForText}
-                      value={`search/${searchQuery}`}
-                      className="grid w-full grid-cols-[32px_1fr] items-center gap-4"
-                    >
-                      <div className="flex justify-center">
-                        <SearchIcon />
-                      </div>
-                      <div>
-                        Search for
-                        <span className="ml-1 font-bold italic">
-                          {searchQuery}
-                        </span>
-                      </div>
-                    </CommandItem>
+                    <SearchForTextCommand
+                      searchQuery={searchQuery}
+                      onSelectSearchForText={onSelectSearchForText}
+                    />
                   )}
                 </CommandGroup>
               )}
               {!isEmptyTags && (
                 <CommandGroup heading="Tags">
                   {filteredTags.slice(0, 20).map((tag) => (
-                    <CommandItem
+                    <TagSearchResult
                       key={tag.code}
-                      value={"tag/" + tag.code}
-                      onSelect={onSelectTag}
-                    >
-                      <div className="flex">
-                        <div className="flex w-8 items-center justify-center">
-                          <TagIcon />
-                        </div>
-                        <span className="pl-4 pr-2">{tag.name}</span>
-                        <div className="text-muted-foreground">
-                          ({tag.counter})
-                        </div>
-                      </div>
-                    </CommandItem>
+                      tag={tag}
+                      onSelectTag={onSelectTag}
+                    />
                   ))}
                 </CommandGroup>
-              )}
+              )} */}
             </CommandList>
           </>
         )}

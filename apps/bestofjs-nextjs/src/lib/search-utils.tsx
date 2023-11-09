@@ -35,7 +35,7 @@ function rank<T extends Omit<BestOfJS.SearchIndexProject, "slug">>(
   }
 
   if (startsWith.test(project.name)) {
-    return 0.8;
+    return 0.7;
   }
 
   if (query.length > 1) {
@@ -60,4 +60,44 @@ function rank<T extends Omit<BestOfJS.SearchIndexProject, "slug">>(
 // From https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions
 function escapeRegExp(input: string) {
   return input.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"); // $& means the whole matched string
+}
+
+export function filterTagsByQueryWithRank(tags: BestOfJS.Tag[], query: string) {
+  return orderBy(
+    tags
+      .map((tag) => ({ ...tag, rank: rankTags(tag, query) }))
+      .filter((tag) => tag.rank > 0),
+    ["rank", "counter"],
+    ["desc", "desc"]
+  );
+}
+
+function rankTags(tag: BestOfJS.Tag, query: string) {
+  const escapedQuery = escapeRegExp(query);
+  const equals = new RegExp("^" + escapedQuery + "$", "i");
+  const startsWith = new RegExp("^" + escapedQuery, "i");
+  const contains = new RegExp(escapedQuery.replace(/ /g, ".+"), "i"); // the query is split if it contains spaces
+
+  if (equals.test(tag.name) || equals.test(tag.code)) {
+    return 1;
+  }
+  if (
+    query.length > 1 &&
+    (startsWith.test(tag.name) || startsWith.test(tag.code))
+  ) {
+    return 0.8;
+  }
+  if (contains.test(tag.name) || contains.test(tag.code)) {
+    return 0.5;
+  }
+
+  return 0;
+}
+
+export function mergeSearchResults<T extends { rank: number }>(
+  projectResults: T[],
+  tagResults: Array<BestOfJS.Tag & { rank: number }>
+) {
+  const results = [...projectResults, ...tagResults];
+  return orderBy(results, "rank", "desc");
 }
