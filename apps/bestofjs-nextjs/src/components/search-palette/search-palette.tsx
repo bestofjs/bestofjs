@@ -207,20 +207,17 @@ export function SearchPalette({ allProjects, allTags }: SearchProps) {
                 <CommandEmpty>No results found.</CommandEmpty>
               )}
               {combinedResults.map((result) => {
+                const key =
+                  "stars" in result ? result.slug : "tags/" + result.code;
                 return (
-                  <div className="border-b border-dashed">
+                  <div key={key} className="border-b border-dashed">
                     {"stars" in result ? (
                       <ProjectSearchResult
-                        key={result.slug}
                         project={result}
                         onSelectProject={onSelectProject}
                       />
                     ) : (
-                      <TagSearchResult
-                        key={`tag/` + result.code}
-                        tag={result}
-                        onSelectTag={onSelectTag}
-                      />
+                      <TagSearchResult tag={result} onSelectTag={onSelectTag} />
                     )}
                   </div>
                 );
@@ -238,6 +235,11 @@ export function SearchPalette({ allProjects, allTags }: SearchProps) {
     </>
   );
 }
+
+// TODO
+// function isProject(result: CombinedSearchResult | BestOfJS.Tag): result is BestOfJS.SearchIndexProject {
+//   return "stars" in result
+// }
 
 function lookUpTag(tagCode: string, allTags: BestOfJS.Tag[]) {
   return allTags.find((tag) => tag.code === tagCode);
