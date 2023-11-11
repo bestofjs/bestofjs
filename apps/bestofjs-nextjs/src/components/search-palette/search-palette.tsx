@@ -52,7 +52,7 @@ type SelectedItem =
 
 type CombinedSearchResult =
   | (BestOfJS.SearchIndexProject & { rank: number })
-  | (BestOfJS.Tag & { rank: number });
+  | (BestOfJS.Tag & { rank?: number });
 
 export function SearchPalette({ allProjects, allTags }: SearchProps) {
   const router = useRouter();
@@ -124,12 +124,8 @@ export function SearchPalette({ allProjects, allTags }: SearchProps) {
 
   const popularTags = allTags.slice(0, 20);
 
-  // const filteredTags = searchQuery
-  //   ? filterTagsByQuery(allTags, searchQuery)
-  //   : popularTags;
-
   const foundTagsWithRank = filterTagsByQueryWithRank(allTags, searchQuery);
-  const combinedResults: CombinedSearchResult[] | BestOfJS.Tag[] = searchQuery
+  const combinedResults: CombinedSearchResult[] = searchQuery
     ? mergeSearchResults(filteredProjects, foundTagsWithRank)
     : popularTags;
 
@@ -207,11 +203,12 @@ export function SearchPalette({ allProjects, allTags }: SearchProps) {
                 <CommandEmpty>No results found.</CommandEmpty>
               )}
               {combinedResults.map((result) => {
-                const key =
-                  "stars" in result ? result.slug : "tags/" + result.code;
+                const key = isProject(result)
+                  ? result.slug
+                  : "tags/" + result.code;
                 return (
                   <div key={key} className="border-b border-dashed">
-                    {"stars" in result ? (
+                    {isProject(result) ? (
                       <ProjectSearchResult
                         project={result}
                         onSelectProject={onSelectProject}
@@ -236,10 +233,11 @@ export function SearchPalette({ allProjects, allTags }: SearchProps) {
   );
 }
 
-// TODO
-// function isProject(result: CombinedSearchResult | BestOfJS.Tag): result is BestOfJS.SearchIndexProject {
-//   return "stars" in result
-// }
+function isProject(
+  result: CombinedSearchResult
+): result is BestOfJS.SearchIndexProject & { rank: number } {
+  return "stars" in result;
+}
 
 function lookUpTag(tagCode: string, allTags: BestOfJS.Tag[]) {
   return allTags.find((tag) => tag.code === tagCode);

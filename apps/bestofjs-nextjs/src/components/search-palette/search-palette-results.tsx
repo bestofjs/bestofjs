@@ -6,8 +6,6 @@ import { cn } from "@/lib/utils";
 import { buttonVariants } from "@/components/ui/button";
 import { CommandItem } from "@/components/ui/command";
 
-// import { Skeleton } from "@/components/ui/skeleton";
-
 import {
   GitHubIcon,
   HomeIcon,
