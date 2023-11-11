@@ -6,6 +6,34 @@
   /* Light values come from the "stone" theme, except for the primary colors */
   /* https://ui.shadcn.com/themes */
   :root {
+    /* `orange` scale */
+    --orange-1: #fefcfb;
+    --orange-2: #fff7ed;
+    --orange-3: #ffefd6;
+    --orange-4: #ffdfb5;
+    --orange-5: #ffd19a;
+    --orange-6: #ffc182;
+    --orange-7: #f5ae73;
+    --orange-8: #ec9455;
+    --orange-9: #f76b15;
+    --orange-10: #ef5f00;
+    --orange-11: #cc4e00;
+    --orange-12: #582d1d;
+
+    /* `crimson` scale from Radix colors */
+    --crimson-1: #fffcfd;
+    --crimson-2: #fef7f9;
+    --crimson-3: #ffe9f0;
+    --crimson-4: #fedce7;
+    --crimson-5: #facedd;
+    --crimson-6: #f3bed1;
+    --crimson-7: #eaacc3;
+    --crimson-8: #e093b2;
+    --crimson-9: #e93d82;
+    --crimson-10: #df3478;
+    --crimson-11: #cb1d63;
+    --crimson-12: #621639;
+
     --background: 0 0% 100%;
     --foreground: 20 14.3% 4.1%;
     --card: 0 0% 100%;
@@ -17,7 +45,8 @@
     --secondary: 60 4.8% 95.9%;
     --secondary-foreground: 24 9.8% 10%;
     --muted: 60 4.8% 95.9%;
-    --muted-foreground: 25 5.3% 44.7%;
+    /* --muted-foreground: 25 5.3% 44.7%; */
+    --muted-foreground: 20 14.3% 4.1% / 0.7;
     --accent: 60 4.8% 95.9%;
     --accent-foreground: 24 9.8% 10%;
     --destructive: 0 84.2% 60.2%;
@@ -29,9 +58,43 @@
 
     --graphBackgroundColor1: #fbd38d;
     --graphBackgroundColor2: #feebc8;
+
+    /* Colors used to differentiate results in search palette */
+    --project-bg: var(--orange-3);
+    --project-border: var(--orange-9);
+    --tag-bg: var(--crimson-3);
+    --tag-border: var(--crimson-9);
   }
 
   .dark {
+    /* orangeDark scale */
+    --orange-1: #17120e;
+    --orange-2: #1e160f;
+    --orange-3: #331e0b;
+    --orange-4: #462100;
+    --orange-5: #562800;
+    --orange-6: #66350c;
+    --orange-7: #7e451d;
+    --orange-8: #a35829;
+    --orange-9: #f76b15;
+    --orange-10: #ff801f;
+    --orange-11: #ffa057;
+    --orange-12: #ffe0c2;
+
+    /* crimsonDark scale */
+    --crimson-1: #191114;
+    --crimson-2: #201318;
+    --crimson-3: #381525;
+    --crimson-4: #4d122f;
+    --crimson-5: #5c1839;
+    --crimson-6: #6d2545;
+    --crimson-7: #873356;
+    --crimson-8: #b0436e;
+    --crimson-9: #e93d82;
+    --crimson-10: #ee518a;
+    --crimson-11: #ff92ad;
+    --crimson-12: #fdd3e8;
+
     --background: 240 10% 3.9%;
     --foreground: 0 0% 98%;
 
@@ -56,7 +119,8 @@
 
     /* Make skeleton more visible (default L=15.9%) */
     --muted: 240 3.7% 25%;
-    --muted-foreground: 240 5% 64.9%;
+    /* --muted-foreground: 240 5% 64.9%; */
+    --muted-foreground: 255 100% 100% / 0.7;
 
     /* Increase contrast when tags are hovered (original L=15.9%) */
     --accent: 240 3.7% 20%;

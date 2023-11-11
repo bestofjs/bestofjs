@@ -8,28 +8,16 @@ import {
   filterTagsByQueryWithRank,
   mergeSearchResults,
 } from "@/lib/search-utils";
-import { cn } from "@/lib/utils";
 import { Badge } from "@/components/ui/badge";
-import { buttonVariants } from "@/components/ui/button";
 import {
   CommandDialog,
   CommandEmpty,
-  CommandGroup,
   CommandInput,
-  CommandItem,
   CommandList,
 } from "@/components/ui/command";
 import { Skeleton } from "@/components/ui/skeleton";
 
-import {
-  GitHubIcon,
-  HomeIcon,
-  ProjectAvatar,
-  SearchIcon,
-  StarTotal,
-  TagIcon,
-  XMarkIcon,
-} from "../core";
+import { ProjectAvatar, StarTotal, TagIcon, XMarkIcon } from "../core";
 import { stateToQueryString } from "../project-list/navigation-state";
 import { useSearchState } from "../project-list/search-state";
 import { filterProjectsByTagsAndQuery } from "./find-projects";
@@ -136,16 +124,14 @@ export function SearchPalette({ allProjects, allTags }: SearchProps) {
 
   const popularTags = allTags.slice(0, 20);
 
-  const filteredTags = searchQuery
-    ? filterTagsByQuery(allTags, searchQuery)
-    : popularTags;
+  // const filteredTags = searchQuery
+  //   ? filterTagsByQuery(allTags, searchQuery)
+  //   : popularTags;
 
   const foundTagsWithRank = filterTagsByQueryWithRank(allTags, searchQuery);
-  const combinedResults: CombinedSearchResult[] = mergeSearchResults(
-    filteredProjects,
-    foundTagsWithRank
-  );
-  console.log({ combinedResults });
+  const combinedResults: CombinedSearchResult[] | BestOfJS.Tag[] = searchQuery
+    ? mergeSearchResults(filteredProjects, foundTagsWithRank)
+    : popularTags;
 
   const onSelectProject = (itemValue: string) => {
     const projectSlug = itemValue.slice("project/".length);
@@ -184,9 +170,7 @@ export function SearchPalette({ allProjects, allTags }: SearchProps) {
     });
   };
 
-  const isEmptyProjects = filteredProjects.length == 0;
-  const isEmptyTags = filteredTags.length == 0;
-  const isEmptySearchResults = isEmptyProjects && isEmptyTags;
+  const isEmptySearchResults = combinedResults.length === 0;
 
   return (
     <>
@@ -223,66 +207,35 @@ export function SearchPalette({ allProjects, allTags }: SearchProps) {
                 <CommandEmpty>No results found.</CommandEmpty>
               )}
               {combinedResults.map((result) => {
-                if ("stars" in result) {
-                  return (
-                    <ProjectSearchResult
-                      key={result.slug}
-                      project={result}
-                      onSelectProject={onSelectProject}
-                    />
-                  );
-                }
                 return (
-                  <TagSearchResult
-                    key={`tag/` + result.code}
-                    tag={result}
-                    onSelectTag={onSelectTag}
-                  />
+                  <div className="border-b border-dashed">
+                    {"stars" in result ? (
+                      <ProjectSearchResult
+                        key={result.slug}
+                        project={result}
+                        onSelectProject={onSelectProject}
+                      />
+                    ) : (
+                      <TagSearchResult
+                        key={`tag/` + result.code}
+                        tag={result}
+                        onSelectTag={onSelectTag}
+                      />
+                    )}
+                  </div>
                 );
               })}
-              {/* {searchQuery.length > 0 && !isEmptyProjects && (
-                <CommandGroup heading="Projects">
-                  {filteredProjects.map((project) => (
-                    <ProjectSearchResult
-                      key={project.slug}
-                      project={project}
-                      onSelectProject={onSelectProject}
-                    />
-                  ))}
-                  {searchQuery.length > 2 && (
-                    <SearchForTextCommand
-                      searchQuery={searchQuery}
-                      onSelectSearchForText={onSelectSearchForText}
-                    />
-                  )}
-                </CommandGroup>
+              {!isEmptySearchResults && searchQuery.length > 1 && (
+                <SearchForTextCommand
+                  searchQuery={searchQuery}
+                  onSelectSearchForText={onSelectSearchForText}
+                />
               )}
-              {!isEmptyTags && (
-                <CommandGroup heading="Tags">
-                  {filteredTags.slice(0, 20).map((tag) => (
-                    <TagSearchResult
-                      key={tag.code}
-                      tag={tag}
-                      onSelectTag={onSelectTag}
-                    />
-                  ))}
-                </CommandGroup>
-              )} */}
             </CommandList>
           </>
         )}
       </CommandDialog>
     </>
-  );
-}
-
-function filterTagsByQuery(tags: BestOfJS.Tag[], searchQuery: string) {
-  const normalizedQuery = searchQuery.toLowerCase();
-
-  return tags.filter(
-    (tag) =>
-      tag.code.includes(normalizedQuery) ||
-      tag.name.toLowerCase().includes(normalizedQuery)
   );
 }
 

@@ -5,7 +5,8 @@ import * as React from "react";
 import { cn } from "@/lib/utils";
 import { buttonVariants } from "@/components/ui/button";
 import { CommandItem } from "@/components/ui/command";
-import { Skeleton } from "@/components/ui/skeleton";
+
+// import { Skeleton } from "@/components/ui/skeleton";
 
 import {
   GitHubIcon,
@@ -14,7 +15,6 @@ import {
   SearchIcon,
   StarTotal,
   TagIcon,
-  XMarkIcon,
 } from "../core";
 
 export function ProjectSearchResult({
@@ -25,32 +25,19 @@ export function ProjectSearchResult({
   onSelectProject: (itemValue: string) => void;
 }) {
   return (
-    <div className="gap-2 md:grid md:grid-cols-[1fr_40px_40px]">
-      <CommandItem value={`project/` + project.slug} onSelect={onSelectProject}>
+    <CommandItem
+      value={`project/` + project.slug}
+      onSelect={onSelectProject}
+      className="border-l-2 border-[transparent] data-[selected]:border-[var(--project-border)] data-[selected]:bg-[var(--project-bg)]"
+    >
+      <div className="w-full gap-2 md:grid md:grid-cols-[1fr_40px_40px]">
         <ProjectSummary project={project} />
-      </CommandItem>
-      <div className="hidden items-center md:flex">
-        <a
-          href={`https://github.com/` + project.full_name}
-          aria-label="GitHub repository"
-          rel="noopener noreferrer"
-          target="_blank"
-          className={cn(
-            buttonVariants({ variant: "ghost" }),
-            "rounded-full",
-            "w-10",
-            "h-10",
-            "p-0"
-          )}
-        >
-          <GitHubIcon size={24} />
-        </a>
-      </div>
-      {project.url && (
+
         <div className="hidden items-center md:flex">
           <a
-            href={project.url}
-            aria-label="Project's homepage"
+            href={`https://github.com/` + project.full_name}
+            onClick={(event) => event.stopPropagation()}
+            aria-label="GitHub repository"
             rel="noopener noreferrer"
             target="_blank"
             className={cn(
@@ -61,18 +48,38 @@ export function ProjectSearchResult({
               "p-0"
             )}
           >
-            <HomeIcon size={24} />
+            <GitHubIcon size={24} />
           </a>
         </div>
-      )}
-    </div>
+        {project.url && (
+          <div className="hidden items-center md:flex">
+            <a
+              href={project.url}
+              onClick={(event) => event.stopPropagation()}
+              aria-label="Project's homepage"
+              rel="noopener noreferrer"
+              target="_blank"
+              className={cn(
+                buttonVariants({ variant: "ghost" }),
+                "rounded-full",
+                "w-10",
+                "h-10",
+                "p-0"
+              )}
+            >
+              <HomeIcon size={24} />
+            </a>
+          </div>
+        )}
+      </div>
+    </CommandItem>
   );
 }
 
 function ProjectSummary({ project }: { project: BestOfJS.SearchIndexProject }) {
   return (
     <div className="flex w-full min-w-0 items-center gap-4">
-      <div className="items-center justify-center">
+      <div className="flex h-12 w-12 items-center justify-center">
         <ProjectAvatar project={project} size={32} />
       </div>
       <div className="flex-1 truncate">
@@ -96,13 +103,21 @@ export function TagSearchResult({
   onSelectTag: (itemValue: string) => void;
 }) {
   return (
-    <CommandItem value={"tag/" + tag.code} onSelect={onSelectTag}>
+    <CommandItem
+      value={"tag/" + tag.code}
+      onSelect={onSelectTag}
+      className="group border-l-2 border-[transparent] data-[selected]:border-[var(--tag-border)] data-[selected]:bg-[var(--tag-bg)]"
+    >
       <div className="flex min-h-[50px] items-center">
-        <div className="flex w-8 items-center justify-center">
+        <div className="flex h-12 w-12 items-center justify-center">
           <TagIcon size={32} />
         </div>
-        <span className="pl-4 pr-2">{tag.name}</span>
-        <div className="text-muted-foreground">({tag.counter})</div>
+        <div className="text-md pl-4">
+          <span className="group-[data-[selected]]:uppercase">{tag.name}</span>
+          <div className="pt-2 text-muted-foreground">
+            {tag.counter} projects
+          </div>
+        </div>
       </div>
     </CommandItem>
   );
@@ -119,10 +134,10 @@ export function SearchForTextCommand({
     <CommandItem
       onSelect={onSelectSearchForText}
       value={`search/${searchQuery}`}
-      className="grid w-full grid-cols-[32px_1fr] items-center gap-4"
+      className="group grid w-full grid-cols-[32px_1fr] items-center gap-4"
     >
-      <div className="flex justify-center">
-        <SearchIcon />
+      <div className="flex h-12 w-12 items-center justify-center">
+        <SearchIcon size={24} />
       </div>
       <div>
         Search for
