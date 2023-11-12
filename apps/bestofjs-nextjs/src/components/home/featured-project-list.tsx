@@ -38,7 +38,7 @@ function FeaturedProject({
       <div className="flex-1 space-y-2 overflow-hidden text-center">
         <NextLink
           href={`/projects/${project.slug}`}
-          className="block truncate text-primary hover:underline"
+          className="block truncate text-primary-foreground hover:underline"
         >
           {project.name}
         </NextLink>

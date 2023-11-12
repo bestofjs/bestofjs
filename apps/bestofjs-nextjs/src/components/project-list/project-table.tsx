@@ -76,7 +76,7 @@ const ProjectTableRow = ({
         <div className="relative flex items-center space-x-2">
           <NextLink
             href={path}
-            className="whitespace-nowrap text-primary hover:underline"
+            className="whitespace-nowrap text-primary-foreground hover:underline"
           >
             {project.name}
           </NextLink>

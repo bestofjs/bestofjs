@@ -26,7 +26,7 @@ export function ProjectSearchResult({
     <CommandItem
       value={`project/` + project.slug}
       onSelect={onSelectProject}
-      className="border-l-2 border-[transparent] data-[selected]:border-[var(--project-border)] data-[selected]:bg-[var(--project-bg)]"
+      className="border-l-1 border-[transparent] data-[selected]:border-[var(--project-border)] data-[selected]:bg-[var(--project-bg)] group"
     >
       <div className="w-full gap-2 md:grid md:grid-cols-[1fr_40px_40px]">
         <ProjectSummary project={project} />
@@ -43,7 +43,11 @@ export function ProjectSearchResult({
               "rounded-full",
               "w-10",
               "h-10",
-              "p-0"
+              "p-0",
+              "text-muted-foreground",
+              "group-aria-[selected]:hover:text-[var(--project-color)]",
+              "group-aria-[selected]:hover:bg-[var(--project-bg)]"
+              // "group-aria-[selected]:bg-[var(--orange-6)]"
             )}
           >
             <GitHubIcon size={24} />
@@ -62,7 +66,11 @@ export function ProjectSearchResult({
                 "rounded-full",
                 "w-10",
                 "h-10",
-                "p-0"
+                "p-0",
+                // "group-aria-[selected]:text-[var(--project-color)]",
+                "text-muted-foreground",
+                "group-aria-[selected]:hover:text-[var(--project-color)]",
+                "group-aria-[selected]:hover:bg-[var(--project-bg)]"
               )}
             >
               <HomeIcon size={24} />
@@ -80,7 +88,7 @@ function ProjectSummary({ project }: { project: BestOfJS.SearchIndexProject }) {
       <div className="flex h-12 w-12 items-center justify-center">
         <ProjectAvatar project={project} size={32} />
       </div>
-      <div className="flex-1 truncate">
+      <div className="flex-1 truncate group-aria-[selected]:text-[var(--project-color)]">
         {project.name}
         <div className="truncate pt-2 text-muted-foreground">
           {project.description}
@@ -104,14 +112,21 @@ export function TagSearchResult({
     <CommandItem
       value={"tag/" + tag.code}
       onSelect={onSelectTag}
-      className="group border-l-2 border-[transparent] data-[selected]:border-[var(--tag-border)] data-[selected]:bg-[var(--tag-bg)]"
+      className="group border-l-1 border-[transparent] data-[selected]:border-[var(--tag-border)] data-[selected]:bg-[var(--tag-bg)]"
     >
       <div className="flex min-h-[50px] items-center">
-        <div className="flex h-12 w-12 items-center justify-center">
+        <div
+          className={cn(
+            "flex h-12 w-12 items-center justify-center",
+            "text-muted-foreground group-aria-[selected]:text-[var(--tag-color)]"
+          )}
+        >
           <TagIcon size={32} />
         </div>
         <div className="text-md pl-4">
-          <span className="group-[data-[selected]]:uppercase">{tag.name}</span>
+          <span className="group-aria-[selected]:text-[var(--tag-color)]">
+            {tag.name}
+          </span>
           <div className="pt-2 text-muted-foreground">
             {tag.counter} projects
           </div>

@@ -6,7 +6,7 @@
   /* Light values come from the "stone" theme, except for the primary colors */
   /* https://ui.shadcn.com/themes */
   :root {
-    /* `orange` scale */
+    /* `orange` scale from Radix colors */
     --orange-1: #fefcfb;
     --orange-2: #fff7ed;
     --orange-3: #ffefd6;
@@ -20,7 +20,7 @@
     --orange-11: #cc4e00;
     --orange-12: #582d1d;
 
-    /* `crimson` scale from Radix colors */
+    /* `crimson` scale */
     --crimson-1: #fffcfd;
     --crimson-2: #fef7f9;
     --crimson-3: #ffe9f0;
@@ -34,18 +34,30 @@
     --crimson-11: #cb1d63;
     --crimson-12: #621639;
 
-    --background: 0 0% 100%;
-    --foreground: 20 14.3% 4.1%;
+    --sand-1: #fdfdfc;
+    --sand-2: #f9f9f8;
+    --sand-3: #f1f0ef;
+    --sand-4: #e9e8e6;
+    --sand-5: #e2e1de;
+    --sand-6: #dad9d6;
+    --sand-7: #cfceca;
+    --sand-8: #bcbbb5;
+    --sand-9: #8d8d86;
+    --sand-10: #82827c;
+    --sand-11: #63635e;
+    --sand-12: #21201c;
+
+    --background: white;
+    --foreground: var(--sand-12);
     --card: 0 0% 100%;
     --card-foreground: 20 14.3% 4.1%;
     --popover: 0 0% 100%;
     --popover-foreground: 20 14.3% 4.1%;
-    --primary: 24 100% 46.5%;
-    --primary-foreground: 210 40% 98%;
+    --primary: var(--orange-10);
+    --primary-foreground: var(--orange-11);
     --secondary: 60 4.8% 95.9%;
     --secondary-foreground: 24 9.8% 10%;
-    --muted: 60 4.8% 95.9%;
-    /* --muted-foreground: 25 5.3% 44.7%; */
+    --muted: var(--sand-2);
     --muted-foreground: 20 14.3% 4.1% / 0.7;
     --accent: 60 4.8% 95.9%;
     --accent-foreground: 24 9.8% 10%;
@@ -59,11 +71,18 @@
     --graphBackgroundColor1: #fbd38d;
     --graphBackgroundColor2: #feebc8;
 
+    --logo-color: var(--primary);
+
     /* Colors used to differentiate results in search palette */
-    --project-bg: var(--orange-3);
-    --project-border: var(--orange-9);
-    --tag-bg: var(--crimson-3);
-    --tag-border: var(--crimson-9);
+    --project-bg: var(--orange-2);
+    --project-border: var(--orange-8);
+    --project-color: var(--orange-11);
+
+    --tag-bg: var(--crimson-2);
+    --tag-border: var(--crimson-8);
+    --tag-color: var(--crimson-12);
+
+    --icon-color: var(--orange-8);
   }
 
   .dark {
@@ -95,8 +114,20 @@
     --crimson-11: #ff92ad;
     --crimson-12: #fdd3e8;
 
-    --background: 240 10% 3.9%;
-    --foreground: 0 0% 98%;
+    --sand-1: #111110;
+    --sand-2: #191918;
+    --sand-3: #222221;
+    --sand-4: #2a2a28;
+    --sand-5: #31312e;
+    --sand-6: #3b3a37;
+    --sand-7: #494844;
+    --sand-8: #62605b;
+    --sand-9: #6f6d66;
+    --sand-10: #7c7b74;
+    --sand-11: #b5b3ad;
+    --sand-12: #eeeeec;
+
+    --background: var(--sand-1);
 
     /* Less dark cards to make them stand up from the black bg (original: 240 10% 3.9%) */
     --card: 240 10% 15%;
@@ -108,10 +139,6 @@
     /* Make popover less dark to match the card bg (original L=3.9%;) */
     --popover: 240 10% 15%;
     --popover-foreground: 0 0% 98%;
-
-    /* Setup orange as the primary color instead of 0 0% 98% */
-    --primary: 25 100% 70%;
-    --primary-foreground: 240 5.9% 10%;
 
     /* Make secondary badges more visible when used in cards (default L=15.9%) */
     --secondary: 240 3.7% 25%;
@@ -138,6 +165,10 @@
     --graphBackgroundColor2: #7b341e;
 
     --link-foreground: 24 100% 75.3%;
+
+    /* Make the logo lighter by using the primary text color instead of the bg color */
+    --logo-color: var(--primary-foreground);
+    --icon-color: var(--orange-9);
   }
 }
 
