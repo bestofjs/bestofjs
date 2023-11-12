@@ -98,7 +98,7 @@ jobs:
       # entry in your package.json file.
       - name: Compare with base branch bundle
         if: success() && github.event.number
-        run: ls -laR .next/analyze/base && pnpm exec -p nextjs-bundle-analysis compare
+        run: ls -laR ./apps/bestofjs-nextjs/.next/analyze/__bundle_analysis.json && pnpm exec -p nextjs-bundle-analysis compare
 
       - name: Get Comment Body
         id: get-comment-body
