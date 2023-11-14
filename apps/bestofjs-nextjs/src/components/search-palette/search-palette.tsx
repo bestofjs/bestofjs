@@ -4,7 +4,6 @@ import * as React from "react";
 import { useRouter } from "next/navigation";
 import invariant from "tiny-invariant";
 
-import { cn } from "@/lib/utils";
 import { Badge } from "@/components/ui/badge";
 import { buttonVariants } from "@/components/ui/button";
 import {
@@ -234,12 +233,9 @@ export function SearchPalette({ allProjects, allTags }: SearchProps) {
                           aria-label="GitHub repository"
                           rel="noopener noreferrer"
                           target="_blank"
-                          className={cn(
-                            buttonVariants({ variant: "ghost" }),
-                            "rounded-full",
-                            "w-10",
-                            "h-10",
-                            "p-0"
+                          className={buttonVariants(
+                            { variant: "ghost" },
+                            "rounded-full w-10 h-10 p-0"
                           )}
                         >
                           <GitHubIcon size={24} />
@@ -252,12 +248,9 @@ export function SearchPalette({ allProjects, allTags }: SearchProps) {
                             aria-label="Project's homepage"
                             rel="noopener noreferrer"
                             target="_blank"
-                            className={cn(
-                              buttonVariants({ variant: "ghost" }),
-                              "rounded-full",
-                              "w-10",
-                              "h-10",
-                              "p-0"
+                            className={buttonVariants(
+                              { variant: "ghost" },
+                              "rounded-full w-10 h-10 p-0"
                             )}
                           >
                             <HomeIcon size={24} />

@@ -10,6 +10,12 @@ importers:
 
   apps/bestofjs-nextjs:
     dependencies:
+      '@klass/core':
+        specifier: ^3.4.8
+        version: 3.4.8
+      '@klass/react':
+        specifier: ^3.4.8
+        version: 3.4.8(@klass/core@3.4.8)(react@18.2.0)
       '@radix-ui/react-collapsible':
         specifier: ^1.0.3
         version: 1.0.3(@types/react-dom@18.2.7)(@types/react@18.2.18)(react-dom@18.2.0)(react@18.2.0)
@@ -46,12 +52,9 @@ importers:
       '@vercel/analytics':
         specifier: ^1.0.1
         version: 1.0.1
-      class-variance-authority:
-        specifier: ^0.7.0
-        version: 0.7.0
       clsx:
-        specifier: ^1.2.1
-        version: 1.2.1
+        specifier: ^2.0.0
+        version: 2.0.0
       cmdk:
         specifier: ^0.2.0
         version: 0.2.0(@types/react@18.2.18)(react-dom@18.2.0)(react@18.2.0)
@@ -2117,6 +2120,22 @@ packages:
     dependencies:
       '@jridgewell/resolve-uri': 3.1.0
       '@jridgewell/sourcemap-codec': 1.4.14
+
+  /@klass/core@3.4.8:
+    resolution: {integrity: sha512-DMels9Ki3nYgzVP+MagcJ/HSucVOWbIEvcnPGoreG0P2gTMS7SXjo7vSY2Sl2kVanPvEAugPP2wp3CcSiC2kWA==}
+    dependencies:
+      clsx: 2.0.0
+    dev: false
+
+  /@klass/react@3.4.8(@klass/core@3.4.8)(react@18.2.0):
+    resolution: {integrity: sha512-JuVnvDkFLqkBjG0anYSrljgFjh/A6nG/VzdQFkrCC6ZyhJVoRh/KCJwguERxWM9hSUJdqnIka5UTXz6kMQfJ7w==}
+    peerDependencies:
+      '@klass/core': 3.4.8
+      react: ^18.0.0
+    dependencies:
+      '@klass/core': 3.4.8
+      react: 18.2.0
+    dev: false
 
   /@mswjs/cookies@0.2.2:
     resolution: {integrity: sha512-mlN83YSrcFgk7Dm1Mys40DLssI1KdJji2CMKN8eOlBqsTADYzj2+jWzsANsUTFbxDMWPD5e9bfA1RGqBpS3O1g==}
@@ -4725,12 +4744,6 @@ packages:
     resolution: {integrity: sha512-0TNiGstbQmCFwt4akjjBg5pLRTSyj/PkWQ1ZoO2zntmg9yLqSRxwEa4iCfQLGjqhiqBfOJa7W/E8wfGrTDmlZQ==}
     dev: true
 
-  /class-variance-authority@0.7.0:
-    resolution: {integrity: sha512-jFI8IQw4hczaL4ALINxqLEXQbWcNjoSkloa4IaufXCJr6QawJyw7tuRysRsrE8w2p/4gGaxKIt/hX3qz/IbD1A==}
-    dependencies:
-      clsx: 2.0.0
-    dev: false
-
   /classnames@2.3.2:
     resolution: {integrity: sha512-CSbhY4cFEJRe6/GQzIk5qXZ4Jeg5pcsP7b5peFSDpffpe1cqjASH/n9UTjBwOp6XpMSTwQ8Za2K5V02ueA7Tmw==}
     dev: false
@@ -4809,11 +4822,6 @@ packages:
     resolution: {integrity: sha512-JQHZ2QMW6l3aH/j6xCqQThY/9OH4D/9ls34cgkUBiEeocRTU04tHfKPBsUK1PqZCUQM7GiA0IIXJSuXHI64Kbg==}
     engines: {node: '>=0.8'}
     dev: true
-
-  /clsx@1.2.1:
-    resolution: {integrity: sha512-EcR6r5a8bj6pu3ycsa/E/cKVGuTgZJZdsyUYHOksG/UHIiKfjxzRxYJpyVBwYaQeOvghal9fcc4PidlgzugAQg==}
-    engines: {node: '>=6'}
-    dev: false
 
   /clsx@2.0.0:
     resolution: {integrity: sha512-rQ1+kcj+ttHG0MKVGBUXwayCCF1oh39BF5COIpRzuCEv8Mwjv0XucrI2ExNTOn9IlLifGClWQcU9BrZORvtw6Q==}

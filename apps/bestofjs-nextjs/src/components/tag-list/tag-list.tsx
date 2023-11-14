@@ -1,6 +1,5 @@
 import NextLink from "next/link";
 
-import { cn } from "@/lib/utils";
 import { ChevronRightIcon, ProjectAvatar } from "@/components/core";
 
 import { buttonVariants } from "../ui/button";
@@ -39,8 +38,8 @@ export const TagList = ({ tags }: Props) => {
             ))}
             <NextLink
               href={`/projects?tags=${tag.code}`}
-              className={cn(
-                buttonVariants({ size: "icon", variant: "outline" }),
+              className={buttonVariants(
+                { size: "icon", variant: "outline" },
                 "h-[32px] w-[32px]"
               )}
             >
