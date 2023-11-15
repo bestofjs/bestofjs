@@ -52,7 +52,7 @@ export function MainNav() {
                     key={index}
                     href={item.href}
                     className={cn(
-                      "flex items-center text-sm font-medium text-muted-foreground hover:text-foreground/80",
+                      "hover:text-foreground/80 flex items-center text-sm font-medium text-muted-foreground",
                       item.isActive(pathname)
                         ? "text-foreground"
                         : "text-foreground/60",

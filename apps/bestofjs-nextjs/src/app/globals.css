@@ -49,15 +49,15 @@
 
     --background: white;
     --foreground: var(--sand-12);
-    --card: 0 0% 100%;
-    --card-foreground: 20 14.3% 4.1%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 20 14.3% 4.1%;
+    --card: white;
+    --card-foreground: var(--foreground);
+    --popover: white;
+    --popover-foreground: var(--foreground);
     --primary: var(--orange-10);
     --primary-foreground: var(--orange-11);
     --secondary: 60 4.8% 95.9%;
     --secondary-foreground: 24 9.8% 10%;
-    --muted: var(--sand-2);
+    --muted: var(--sand-3);
     --muted-foreground: 20 14.3% 4.1% / 0.7;
     --accent: 60 4.8% 95.9%;
     --accent-foreground: 24 9.8% 10%;
@@ -74,13 +74,16 @@
     --logo-color: var(--primary);
 
     /* Colors used to differentiate results in search palette */
-    --project-bg: var(--orange-2);
-    --project-border: var(--orange-8);
-    --project-color: var(--orange-11);
+    --search-result-bg: var(--sand-2);
+    --highlighted-project-bg: #f76b15;
+    --highlighted-project-bg: var(--orange-2);
+    --highlighted-project-text: white;
+    --highlighted-project-text: var(--orange-11);
 
-    --tag-bg: var(--crimson-2);
-    --tag-border: var(--crimson-8);
-    --tag-color: var(--crimson-12);
+    --highlighted-tag-bg: #e93d82;
+    --highlighted-tag-bg: var(--crimson-2);
+    --highlighted-tag-text: white;
+    --highlighted-tag-text: var(--crimson-11);
 
     --icon-color: var(--orange-8);
   }
@@ -130,14 +133,15 @@
     --background: var(--sand-1);
 
     /* Less dark cards to make them stand up from the black bg (original: 240 10% 3.9%) */
-    --card: 240 10% 15%;
+    --card: var(--sand-2);
     --card-foreground: 0 0% 98%;
 
     /* Add a lighter background for elements displayed inside a card (E.g. code block inside README) */
-    --card-element: 240 10% 25%;
+    /* --card-element: 240 10% 25%; */
+    --card-element: var(--sand-3);
 
     /* Make popover less dark to match the card bg (original L=3.9%;) */
-    --popover: 240 10% 15%;
+    --popover: var(--sand-2);
     --popover-foreground: 0 0% 98%;
 
     /* Make secondary badges more visible when used in cards (default L=15.9%) */
@@ -145,7 +149,7 @@
     --secondary-foreground: 0 0% 98%;
 
     /* Make skeleton more visible (default L=15.9%) */
-    --muted: 240 3.7% 25%;
+    /* --muted: 240 3.7% 25%; */
     /* --muted-foreground: 240 5% 64.9%; */
     --muted-foreground: 255 100% 100% / 0.7;
 
@@ -168,7 +172,11 @@
 
     /* Make the logo lighter by using the primary text color instead of the bg color */
     --logo-color: var(--primary-foreground);
-    --icon-color: var(--orange-9);
+    --icon-color: var(--orange-8);
+
+    --search-result-bg: var(--sand-3);
+    --highlighted-tag-bg: var(--crimson-3);
+    --highlighted-project-bg: var(--orange-3);
   }
 }
 

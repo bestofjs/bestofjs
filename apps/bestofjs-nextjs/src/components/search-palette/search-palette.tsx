@@ -198,7 +198,7 @@ export function SearchPalette({ allProjects, allTags }: SearchProps) {
                 })}
               </div>
             )}
-            <CommandList>
+            <CommandList className="pt-2">
               {isEmptySearchResults && (
                 <CommandEmpty>No results found.</CommandEmpty>
               )}
@@ -207,7 +207,7 @@ export function SearchPalette({ allProjects, allTags }: SearchProps) {
                   ? result.slug
                   : "tags/" + result.code;
                 return (
-                  <div key={key} className="border-b border-dashed">
+                  <div key={key} className="px-4 py-2">
                     {isProject(result) ? (
                       <ProjectSearchResult
                         project={result}

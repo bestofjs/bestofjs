@@ -26,7 +26,10 @@ export function ProjectSearchResult({
     <CommandItem
       value={`project/` + project.slug}
       onSelect={onSelectProject}
-      className="border-l-1 border-[transparent] data-[selected]:border-[var(--project-border)] data-[selected]:bg-[var(--project-bg)] group"
+      className={cn(
+        "group rounded border data-[selected]:border-[var(--orange-5)]",
+        "data-[selected]:bg-[var(--highlighted-project-bg)]"
+      )}
     >
       <div className="w-full gap-2 md:grid md:grid-cols-[1fr_40px_40px]">
         <ProjectSummary project={project} />
@@ -88,7 +91,7 @@ function ProjectSummary({ project }: { project: BestOfJS.SearchIndexProject }) {
       <div className="flex h-12 w-12 items-center justify-center">
         <ProjectAvatar project={project} size={32} />
       </div>
-      <div className="flex-1 truncate group-aria-[selected]:text-[var(--project-color)]">
+      <div className="flex-1 truncate group-aria-[selected]:text-[var(--highlighted-project-text)]">
         {project.name}
         <div className="truncate pt-2 text-muted-foreground">
           {project.description}
@@ -112,7 +115,10 @@ export function TagSearchResult({
     <CommandItem
       value={"tag/" + tag.code}
       onSelect={onSelectTag}
-      className="group border-l-1 border-[transparent] data-[selected]:border-[var(--tag-border)] data-[selected]:bg-[var(--tag-bg)]"
+      className={cn(
+        "group rounded border data-[selected]:border-[var(--crimson-7)]",
+        "data-[selected]:bg-[var(--highlighted-tag-bg)] data-[selected]:text-[var(--highlighted-tag-text)]"
+      )}
     >
       <div className="flex min-h-[50px] items-center">
         <div
