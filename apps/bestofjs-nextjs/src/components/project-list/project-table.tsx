@@ -86,12 +86,9 @@ const ProjectTableRow = ({
               aria-label="GitHub repository"
               rel="noopener noreferrer"
               target="_blank"
-              className={cn(
-                buttonVariants({ variant: "ghost" }),
-                "rounded-full",
-                "w-10",
-                "h-10",
-                "p-0"
+              className={buttonVariants(
+                { variant: "ghost" },
+                "rounded-full w-10 h-10 p-0"
               )}
             >
               <GitHubIcon size={24} />
@@ -102,12 +99,9 @@ const ProjectTableRow = ({
                 aria-label="Project's homepage"
                 rel="noopener noreferrer"
                 target="_blank"
-                className={cn(
-                  buttonVariants({ variant: "ghost" }),
-                  "rounded-full",
-                  "w-10",
-                  "h-10",
-                  "p-0"
+                className={buttonVariants(
+                  { variant: "ghost" },
+                  "rounded-full w-10 h-10 p-0"
                 )}
               >
                 <HomeIcon size={24} />

@@ -1,7 +1,6 @@
 import React, { Suspense } from "react";
 import { ImNpm } from "react-icons/im";
 
-import { cn } from "@/lib/utils";
 import { formatUrl } from "@/helpers/url";
 import { buttonVariants } from "@/components/ui/button";
 import { GitHubIcon, HomeIcon, ProjectAvatar } from "@/components/core";
@@ -70,11 +69,7 @@ const ButtonLink = ({
 }) => (
   <a
     href={href}
-    className={cn(
-      buttonVariants({ variant: "outline" }),
-      "relative",
-      "justify-start"
-    )}
+    className={buttonVariants({ variant: "outline" }, "relative justify-start")}
   >
     <span className="absolute left-4">{icon}</span>
     <span className="truncate pl-[36px] text-base">{children}</span>
