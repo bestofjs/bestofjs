@@ -13,8 +13,8 @@ export function ProjectHeader({ project }: Props) {
   const { full_name, packageName, repository, url } = project;
 
   return (
-    <div className="flex flex-col space-y-4 sm:flex-row sm:space-y-0 sm:divide-x sm:divide-dashed sm:divide-orange-500 sm:dark:divide-yellow-700">
-      <div className="flex min-h-[120px] grow items-center divide-x divide-dashed divide-orange-500 dark:divide-yellow-700">
+    <div className="flex flex-col space-y-4 sm:flex-row sm:space-y-0 sm:divide-x">
+      <div className="flex min-h-[120px] grow items-center divide-x">
         <div className="pr-4">
           <ProjectAvatar project={project} size={75} />
         </div>

@@ -3,6 +3,7 @@ import { ImNpm } from "react-icons/im";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardBody, CardContent, CardHeader } from "@/components/ui/card";
 import { ExternalLinkIcon } from "@/components/core";
+import { ExternalLink } from "@/components/core/typography";
 
 import { BundleSizeSection } from "./bundle-size-section";
 import { DependenciesSection } from "./dependencies-section";
@@ -25,13 +26,13 @@ export function ProjectDetailsNpmCard({
       <CardBody>
         <CardContent>
           <div className="flex items-center gap-2">
-            <a
-              href={`https://www.npmjs.com/package/${packageName}`}
-              className="flex items-center gap-1 font-sans text-primary hover:underline"
+            <ExternalLink
+              url={`https://www.npmjs.com/package/${packageName}`}
+              className="flex items-center gap-1 font-sans"
             >
               {packageName}
               <ExternalLinkIcon size={16} />
-            </a>
+            </ExternalLink>
             <Badge className="">{packageData.version}</Badge>
           </div>
         </CardContent>

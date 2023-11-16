@@ -12,6 +12,7 @@ import {
   StarTotal,
   getDeltaByDay,
 } from "@/components/core";
+import { ExternalLink } from "@/components/core/typography";
 
 import { MonthlyTrendsChart } from "./monthly-trends-chart";
 
@@ -26,7 +27,7 @@ export const ProjectDetailsGitHubCard = ({ project }: Props) => {
       <CardHeader className="border-b">
         <div className="flex items-center space-x-2">
           <div>
-            <GitHubIcon size={20} />
+            <GitHubIcon size={24} />
           </div>
           <div>GitHub</div>
           <StarTotal value={stars} />
@@ -61,15 +62,13 @@ const GitHubData = ({ project }: { project: BestOfJS.ProjectDetails }) => {
   return (
     <div className="grid grid-cols-2 gap-4">
       <div>
-        <a
-          href={repository}
-          target="_blank"
-          rel="noreferrer"
-          className="flex items-center gap-1 font-sans text-primary hover:underline"
+        <ExternalLink
+          url={repository}
+          className="flex items-center gap-1 font-sans"
         >
           {full_name}
           <ExternalLinkIcon size={16} />
-        </a>
+        </ExternalLink>
       </div>
       <div>
         {created_at && (
