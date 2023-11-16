@@ -70,9 +70,9 @@ export default function RootLayout({ children }: RootLayoutProps) {
           <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
             <div className="relative flex min-h-screen flex-col">
               <SiteHeader />
-              <div className="flex-1 bg-muted dark:bg-background">
+              <main className="flex-1 bg-[var(--app-background)]">
                 <div className="container pb-8 pt-6 md:py-10">{children}</div>
-              </div>
+              </main>
               <Footer />
             </div>
             <TailwindIndicator />
