@@ -56,8 +56,8 @@
     --ring: 20 14.3% 4.1%;
     --radius: 0.5rem;
 
-    --graphBackgroundColor1: #fbd38d;
-    --graphBackgroundColor2: #feebc8;
+    --graphBackgroundColor1: var(--orange-6);
+    --graphBackgroundColor2: var(--orange-7);
 
     --logo-color: var(--primary);
     --icon-color: var(--orange-9);
@@ -118,9 +118,6 @@
     --border: 240 3.7% 25%;
     --input: 240 3.7% 15.9%;
     --ring: 240 4.9% 83.9%;
-
-    --graphBackgroundColor1: #9c4221;
-    --graphBackgroundColor2: #7b341e;
 
     --link-foreground: 24 100% 75.3%;
 
