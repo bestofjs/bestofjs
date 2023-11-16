@@ -53,7 +53,7 @@ function SidebarContent({
         <BestOfJSLogo
           width={130}
           height={37.15}
-          className="h-[37.15px] w-[130px] text-primary"
+          className="h-[37.15px] w-[130px] text-[var(--logo-color)]"
         />
       </Link>
       <div className="w-full space-y-2">
