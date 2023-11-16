@@ -4,7 +4,7 @@ export function CompactTagList({ tags }: { tags: BestOfJS.Tag[] }) {
   return (
     <div className="divide-y">
       {tags.map((tag) => (
-        <div key={tag.code} className="px-4 py-2 hover:bg-muted/50">
+        <div key={tag.code} className="px-4 py-2 hover:bg-[var(--sand-1)]">
           <Link
             href={`/projects/?tags=${tag.code}`}
             className="flex justify-between"
