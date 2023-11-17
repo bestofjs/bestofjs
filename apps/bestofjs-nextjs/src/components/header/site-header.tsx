@@ -41,7 +41,7 @@ export function SiteHeader() {
                   variant: "ghost",
                 })}
               >
-                <GitHubIcon size={20} />
+                <GitHubIcon size={24} />
                 <span className="sr-only">GitHub</span>
               </div>
             </Link>
@@ -57,7 +57,7 @@ export function SiteHeader() {
                   variant: "ghost",
                 })}
               >
-                <DiscordIcon size={20} />
+                <DiscordIcon size={24} />
                 <span className="sr-only">GitHub</span>
               </div>
             </Link>

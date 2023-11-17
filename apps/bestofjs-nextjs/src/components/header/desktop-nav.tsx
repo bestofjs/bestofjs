@@ -40,11 +40,11 @@ export function MainNav() {
           <BestOfJSLogo
             width={130}
             height={37.15}
-            className="h-[37.15px] w-[130px] text-primary"
+            className="h-[37.15px] w-[130px] text-[var(--logo-color)]"
           />
         </Link>
-        <div className="hidden gap-4 lg:flex">
-          <nav className="flex gap-6">
+        <div className="hidden gap-2 lg:flex">
+          <nav className="flex items-center gap-2">
             {mainNavItems?.map(
               (item, index) =>
                 item.href && (
@@ -52,10 +52,11 @@ export function MainNav() {
                     key={index}
                     href={item.href}
                     className={cn(
-                      "flex items-center text-sm font-medium text-muted-foreground hover:text-foreground/80",
-                      item.isActive(pathname)
-                        ? "text-foreground"
-                        : "text-foreground/60",
+                      "flex h-9 items-center p-2 text-sm font-medium",
+                      "text-muted-foreground hover:bg-[var(--sand-3)] hover:text-foreground",
+                      "rounded",
+                      item.isActive(pathname) ? "text-foreground" : undefined,
+
                       item.disabled && "cursor-not-allowed opacity-80"
                     )}
                   >

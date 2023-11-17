@@ -16,6 +16,7 @@ import {
 } from "../core";
 import { ProjectTagGroup } from "../tags/project-tag";
 import { buttonVariants } from "../ui/button";
+import { linkVariants } from "../ui/link";
 
 type Props = {
   projects: BestOfJS.Project[];
@@ -76,7 +77,7 @@ const ProjectTableRow = ({
         <div className="relative flex items-center space-x-2">
           <NextLink
             href={path}
-            className="whitespace-nowrap text-primary hover:underline"
+            className={linkVariants({ variant: "project" })}
           >
             {project.name}
           </NextLink>

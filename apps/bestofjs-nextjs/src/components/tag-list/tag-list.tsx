@@ -13,7 +13,7 @@ export const TagList = ({ tags }: Props) => {
       {tags.map((tag) => (
         <div
           key={tag.code}
-          className="flex w-full flex-col justify-between gap-4 p-4 hover:bg-muted/50 md:flex-row"
+          className="flex w-full flex-col justify-between gap-4 p-4 md:flex-row"
         >
           <div className="">
             <NextLink

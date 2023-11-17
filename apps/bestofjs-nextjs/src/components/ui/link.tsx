@@ -2,8 +2,12 @@ import { klass } from "@klass/core";
 
 export const linkVariants = klass({
   base: [
-    // "text-orange-700 hover:underline dark:text-orange-300",
-    "text-primary hover:underline",
+    "whitespace-nowrap text-[var(--orange-11)] font-sans",
+    "decoration-[var(--orange-8)] hover:underline",
   ],
-  variants: {},
+  variants: {
+    variant: {
+      project: "hover:underline-offset-8",
+    },
+  },
 });
