@@ -239,7 +239,7 @@ function RelevantTags({
           <NextLink
             key={tag.code}
             href={url}
-            className={badgeVariants({ variant: "outline" })}
+            className={badgeVariants({ variant: "outline" }, "bg-card")}
           >
             {tag.name}
             <PlusIcon size={20} />

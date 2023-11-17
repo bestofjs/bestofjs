@@ -3,8 +3,7 @@
 @tailwind utilities;
 
 @layer base {
-  /* Light values come from the "stone" theme, except for the primary colors */
-  /* https://ui.shadcn.com/themes */
+  /* HSL values come from https://ui.shadcn.com/themes "stone" theme */
   :root {
     /* `orange` scale from Radix colors */
     --orange-1: #fefcfb;
@@ -51,9 +50,9 @@
     --accent-foreground: 24 9.8% 10%;
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 60 9.1% 97.8%;
-    --border: 20 5.9% 90%;
-    --input: 20 5.9% 90%;
-    --ring: 20 14.3% 4.1%;
+    --border: var(--sand-5);
+    --input: var(--border);
+    --ring: var(--orange-3);
     --radius: 0.5rem;
 
     --graphBackgroundColor1: var(--orange-6);
@@ -108,20 +107,10 @@
     --secondary-foreground: 0 0% 98%;
 
     /* Increase contrast when tags are hovered (original L=15.9%) */
-    /* --accent: 240 3.7% 20%; */
     --accent-foreground: 0 0% 98%;
-
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 0 85.7% 97.3%;
 
-    /* Increase the contrast of border as we use a less dark bg for cards (original L=15.9%) */
-    --border: 240 3.7% 25%;
-    --input: 240 3.7% 15.9%;
-    --ring: 240 4.9% 83.9%;
-
-    --link-foreground: 24 100% 75.3%;
-
-    /* Make the logo lighter by using the primary text color instead of the bg color */
     --logo-color: var(--orange-11);
     --icon-color: var(--orange-10);
   }

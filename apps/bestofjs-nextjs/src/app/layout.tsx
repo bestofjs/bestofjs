@@ -71,7 +71,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
             <div className="relative flex min-h-screen flex-col">
               <SiteHeader />
               <main className="flex-1 bg-[var(--app-background)]">
-                <div className="container pb-8 pt-6 md:py-10">{children}</div>
+                <div className="container pb-8 pt-6 md:py-8">{children}</div>
               </main>
               <Footer />
             </div>
