@@ -3,7 +3,6 @@
 @tailwind utilities;
 
 @layer base {
-  /* HSL values come from https://ui.shadcn.com/themes "stone" theme */
   :root {
     /* `orange` scale from Radix colors */
     --orange-1: #fefcfb;
@@ -46,8 +45,8 @@
     --secondary-foreground: 24 9.8% 10%;
     --muted: var(--sand-5);
     --muted-foreground: var(--sand-11);
-    --accent: var(--sand-3);
-    --accent-foreground: 24 9.8% 10%;
+    --accent: var(--sand-2);
+    --accent-foreground: black;
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 60 9.1% 97.8%;
     --border: var(--sand-4);
@@ -107,8 +106,8 @@
     --secondary: 240 3.7% 25%;
     --secondary-foreground: 0 0% 98%;
 
-    /* Increase contrast when tags are hovered (original L=15.9%) */
-    --accent-foreground: 0 0% 98%;
+    --accent: var(--sand-3);
+    --accent-foreground: white;
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 0 85.7% 97.3%;
 
