@@ -138,7 +138,7 @@
 }
 
 .markdown-body a {
-  color: hsl(var(--primary));
+  color: var(--orange-11);
   text-decoration: none;
 }
 
@@ -1138,11 +1138,11 @@
   background-color: transparent;
 }
 .dark .markdown-body code {
-  background-color: hsl(var(--card-element));
+  background-color: var(--card-element);
 }
 .dark .markdown-body .highlight pre,
 .dark .markdown-body pre {
-  background-color: hsl(var(--card-element));
+  background-color: var(--card-element);
 }
 .dark .markdown-body .commit-tease-sha {
   color: #b1bac4;
