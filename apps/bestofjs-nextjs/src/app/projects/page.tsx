@@ -6,6 +6,7 @@ import { cn } from "@/lib/utils";
 import { formatNumber } from "@/helpers/numbers";
 import { addCacheBustingParam } from "@/helpers/url";
 import { badgeVariants } from "@/components/ui/badge";
+import { buttonVariants } from "@/components/ui/button";
 import { PlusIcon, TagIcon, XMarkIcon } from "@/components/core";
 import { PageHeading } from "@/components/core/typography";
 import {
@@ -239,7 +240,7 @@ function RelevantTags({
           <NextLink
             key={tag.code}
             href={url}
-            className={badgeVariants({ variant: "outline" }, "bg-card")}
+            className={buttonVariants({ variant: "outline", size: "sm" })}
           >
             {tag.name}
             <PlusIcon size={20} />
