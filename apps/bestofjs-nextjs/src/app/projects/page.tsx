@@ -283,7 +283,7 @@ function CurrentTags({
       {textQuery && (
         <NextLink
           href={buildPageURL((state) => ({ ...state, page: 1, query: "" }))}
-          className={cn(badgeVariants({ variant: "destructive" }), "text-md")}
+          className={cn(badgeVariants({ variant: "default" }), "text-md")}
         >
           “{textQuery}”
           <XMarkIcon size={20} />

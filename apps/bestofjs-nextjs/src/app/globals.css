@@ -49,8 +49,6 @@
     --muted-foreground: var(--sand-11);
     --accent: var(--sand-2);
     --accent-foreground: black;
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 60 9.1% 97.8%;
     --border: var(--sand-4);
     --input: var(--border);
     --ring: var(--orange-3);
@@ -109,8 +107,6 @@
 
     --accent: var(--sand-3);
     --accent-foreground: white;
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 0 85.7% 97.3%;
 
     --logo-color: var(--orange-11);
     --icon-color: var(--orange-10);

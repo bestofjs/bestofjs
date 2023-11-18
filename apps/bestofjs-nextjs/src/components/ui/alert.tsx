@@ -14,10 +14,6 @@ const alertVariants = klass({
   variants: {
     variant: {
       default: "bg-background text-foreground",
-      destructive: [
-        "border-destructive/50 dark:border-destructive",
-        "text-destructive [&>svg]:text-destructive",
-      ],
     },
   },
   defaultVariants: {
