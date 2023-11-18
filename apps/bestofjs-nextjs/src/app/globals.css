@@ -39,8 +39,9 @@
     --card-foreground: var(--foreground);
     --popover: white;
     --popover-foreground: var(--foreground);
-    --primary: var(--orange-10);
-    --primary-foreground: var(--orange-1);
+    --primary: var(--orange-9);
+    --primary-hover: var(--orange-10);
+    --primary-foreground: white;
     --secondary: 60 4.8% 95.9%;
     --secondary-foreground: 24 9.8% 10%;
     --muted: var(--sand-5);
@@ -53,6 +54,9 @@
     --input: var(--border);
     --ring: var(--orange-3);
     --radius: 0.5rem;
+
+    --link-foreground: var(--orange-11);
+    --link-underline: var(--orange-8);
 
     --graphBackgroundColor1: var(--orange-6);
     --graphBackgroundColor2: var(--orange-7);

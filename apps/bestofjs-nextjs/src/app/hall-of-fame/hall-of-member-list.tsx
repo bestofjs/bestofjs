@@ -4,6 +4,7 @@ import { cn } from "@/lib/utils";
 import { badgeVariants } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
 import { ProjectAvatar } from "@/components/core";
+import { ExternalLink } from "@/components/core/typography";
 
 type Props = {
   members: BestOfJS.HallOfFameMember[];
@@ -36,12 +37,9 @@ function HallOfFameMember({ member }: { member: BestOfJS.HallOfFameMember }) {
             <span className="font-serif text-xl">{member.name}</span>
           </div>
           <div className="text-muted-foreground">
-            <a
-              href={`https://github.com/${member.username}`}
-              className="text-primary hover:underline"
-            >
+            <ExternalLink url={`https://github.com/${member.username}`}>
               {member.username}
-            </a>{" "}
+            </ExternalLink>{" "}
             on GitHub
           </div>
         </div>
