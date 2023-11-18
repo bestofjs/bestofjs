@@ -33,6 +33,7 @@
     --sand-12: #21201c;
 
     --background: white;
+    --overlay: rgba(255, 255, 255, 0.8);
     --app-background: var(--sand-2);
     --foreground: var(--sand-12);
     --card: white;
@@ -94,6 +95,7 @@
     --sand-12: #eeeeec;
 
     --background: var(--sand-1);
+    --overlay: rgba(17, 17, 16, 0.8);
     --app-background: var(--sand-1);
 
     --card: var(--sand-2);
