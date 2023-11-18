@@ -42,8 +42,9 @@
     --primary: var(--orange-9);
     --primary-hover: var(--orange-10);
     --primary-foreground: white;
-    --secondary: 60 4.8% 95.9%;
-    --secondary-foreground: 24 9.8% 10%;
+    --secondary: var(--sand-3);
+    --secondary-hover: var(--sand-4);
+    --secondary-foreground: var(--sand-11);
     --muted: var(--sand-5);
     --muted-foreground: var(--sand-11);
     --accent: var(--sand-2);
@@ -105,10 +106,6 @@
 
     /* Make popover less dark to match the card bg (original L=3.9%;) */
     --popover: var(--sand-2);
-
-    /* Make secondary badges more visible when used in cards (default L=15.9%) */
-    --secondary: 240 3.7% 25%;
-    --secondary-foreground: 0 0% 98%;
 
     --accent: var(--sand-3);
     --accent-foreground: white;
