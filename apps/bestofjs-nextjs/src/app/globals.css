@@ -52,7 +52,7 @@
     --accent-foreground: black;
     --border: var(--sand-4);
     --input: var(--border);
-    --ring: var(--orange-3);
+    --ring: var(--primary);
     --radius: 0.5rem;
 
     --link-foreground: var(--orange-11);
