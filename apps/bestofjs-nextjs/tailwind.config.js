@@ -21,11 +21,13 @@ module.exports = {
         foreground: "var(--foreground)",
         primary: {
           DEFAULT: "var(--primary)",
+          hover: "var(--primary-hover)",
           foreground: "var(--primary-foreground)",
         },
         secondary: {
-          DEFAULT: "hsl(var(--secondary))",
-          foreground: "hsl(var(--secondary-foreground))",
+          DEFAULT: "var(--secondary)",
+          hover: "var(--secondary-hover)",
+          foreground: "var(--secondary-foreground)",
         },
         destructive: {
           DEFAULT: "hsl(var(--destructive))",

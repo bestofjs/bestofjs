@@ -33,26 +33,30 @@
     --sand-12: #21201c;
 
     --background: white;
+    --overlay: rgba(255, 255, 255, 0.8);
     --app-background: var(--sand-2);
     --foreground: var(--sand-12);
     --card: white;
     --card-foreground: var(--foreground);
     --popover: white;
     --popover-foreground: var(--foreground);
-    --primary: var(--orange-10);
-    --primary-foreground: var(--orange-1);
-    --secondary: 60 4.8% 95.9%;
-    --secondary-foreground: 24 9.8% 10%;
+    --primary: var(--orange-9);
+    --primary-hover: var(--orange-10);
+    --primary-foreground: white;
+    --secondary: var(--sand-3);
+    --secondary-hover: var(--sand-4);
+    --secondary-foreground: var(--sand-11);
     --muted: var(--sand-5);
     --muted-foreground: var(--sand-11);
     --accent: var(--sand-2);
     --accent-foreground: black;
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 60 9.1% 97.8%;
     --border: var(--sand-4);
     --input: var(--border);
-    --ring: var(--orange-3);
+    --ring: var(--primary);
     --radius: 0.5rem;
+
+    --link-foreground: var(--orange-11);
+    --link-underline: var(--orange-8);
 
     --graphBackgroundColor1: var(--orange-6);
     --graphBackgroundColor2: var(--orange-7);
@@ -91,6 +95,7 @@
     --sand-12: #eeeeec;
 
     --background: var(--sand-1);
+    --overlay: rgba(17, 17, 16, 0.8);
     --app-background: var(--sand-1);
 
     --card: var(--sand-2);
@@ -102,14 +107,8 @@
     /* Make popover less dark to match the card bg (original L=3.9%;) */
     --popover: var(--sand-2);
 
-    /* Make secondary badges more visible when used in cards (default L=15.9%) */
-    --secondary: 240 3.7% 25%;
-    --secondary-foreground: 0 0% 98%;
-
     --accent: var(--sand-3);
     --accent-foreground: white;
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 0 85.7% 97.3%;
 
     --logo-color: var(--orange-11);
     --icon-color: var(--orange-10);

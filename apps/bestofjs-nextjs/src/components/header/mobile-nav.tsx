@@ -67,7 +67,7 @@ function SidebarContent({
                   "flex items-center",
                   item.isActive(pathname)
                     ? "text-foreground"
-                    : "text-foreground/70",
+                    : "text-secondary-foreground",
                   item.disabled && "cursor-not-allowed opacity-80"
                 )}
                 onClick={() => onOpenChange(false)}
@@ -82,7 +82,7 @@ function SidebarContent({
             href={DISCORD_URL}
             target="_blank"
             rel="noreferrer"
-            className="block text-foreground/70"
+            className="block text-secondary-foreground"
           >
             Discord
           </a>
@@ -90,7 +90,7 @@ function SidebarContent({
             href={APP_REPO_URL}
             target="_blank"
             rel="noreferrer"
-            className="block text-foreground/70"
+            className="block text-secondary-foreground"
           >
             GitHub
           </a>

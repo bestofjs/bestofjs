@@ -13,11 +13,9 @@ const badgeVariants = klass({
   variants: {
     variant: {
       default:
-        "bg-primary hover:bg-[var(--orange-11)] border-transparent text-primary-foreground",
+        "bg-primary hover:bg-primary-hover border-transparent text-primary-foreground",
       secondary:
-        "bg-secondary hover:bg-secondary/80 border-transparent text-secondary-foreground",
-      destructive:
-        "bg-destructive hover:bg-destructive/80 border-transparent text-destructive-foreground",
+        "bg-secondary hover:bg-secondary-hover border-transparent text-secondary-foreground",
       outline: "text-foreground",
     },
   },

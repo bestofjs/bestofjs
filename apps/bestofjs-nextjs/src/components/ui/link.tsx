@@ -2,8 +2,8 @@ import { klass } from "@klass/core";
 
 export const linkVariants = klass({
   base: [
-    "whitespace-nowrap text-[var(--orange-11)] font-sans",
-    "decoration-[var(--orange-8)] hover:underline",
+    "whitespace-nowrap text-[var(--link-foreground)] font-sans",
+    "decoration-[var(--link-underline)] hover:underline",
   ],
   variants: {
     variant: {
