@@ -63,6 +63,11 @@
 
     --logo-color: var(--primary);
     --icon-color: var(--orange-9);
+
+    /* Colors used to differentiate results in search palette */
+    --project-bg: var(--orange-3);
+    --project-border: var(--orange-8);
+    --project-color: var(--orange-11);
   }
 
   .dark {

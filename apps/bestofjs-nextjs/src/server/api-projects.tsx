@@ -1,9 +1,12 @@
 import * as mingo from "mingo";
 import { RawObject } from "mingo/types";
 
-import { filterProjectsByQuery } from "@/lib/search-utils";
+import {
+  filterProjectsByQuery,
+  getResultRelevantTags,
+} from "@/lib/search-utils";
 
-import { APIContext, getProjectId, getResultRelevantTags } from "./api-utils";
+import { APIContext, getProjectId } from "./api-utils";
 
 type QueryParams = {
   criteria: RawObject & {
@@ -38,10 +41,9 @@ export function createProjectsAPI({ getData }: APIContext) {
     const selectedTagIds: string[] =
       (criteria.tags && "$all" in criteria?.tags && criteria?.tags?.$all) || [];
 
-    const relevantTagIds = getResultRelevantTags(
-      foundProjects,
-      selectedTagIds
-    ).map(([id /*, count*/]) => id); // TODO include number of projects by tag?
+    const relevantTagIds = getResultRelevantTags(foundProjects, selectedTagIds)
+      .slice(0, 20)
+      .map(([id /*, count*/]) => id); // TODO include number of projects by tag?
     return {
       projects: paginatedProjects,
       total: foundProjects.length,

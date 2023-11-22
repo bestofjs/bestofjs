@@ -1,4 +1,5 @@
 import React from "react";
+import { TagsIcon } from "lucide-react";
 
 import { SvgSprite } from "./svg-sprite";
 
@@ -64,6 +65,10 @@ export const SunIcon = (props: IconProps) => (
 
 export const TagIcon = (props: IconProps) => (
   <SvgSprite id="tag-icon" {...props} />
+);
+
+export const TagsIcons = (props: IconProps) => (
+  <TagsIcon size={24} {...props} />
 );
 
 export const XMarkIcon = (props: IconProps) => (

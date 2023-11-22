@@ -53,46 +53,6 @@ export function getFeaturedRandomList(projects: BestOfJS.RawProject[]) {
   return shuffle(slugs);
 }
 
-// TODO add types: => [[ 'nodejs-framework', 6 ], [...], ...]
-export function getResultRelevantTags(
-  projects: BestOfJS.RawProject[],
-  excludedTags: string[] = []
-) {
-  const projectCountByTag = getTagsNumberOfOccurrencesFromProjects(
-    projects,
-    excludedTags
-  );
-
-  return orderBy(
-    Array.from(projectCountByTag.entries()),
-    ([, count]) => count as number
-  ).slice(0, 10) as Array<[tag: string, count: number]>;
-}
-
-function orderBy<T>(items: T[], fn: (item: T) => number) {
-  return items.sort((a, b) => fn(b) - fn(a));
-}
-
-function getTagsNumberOfOccurrencesFromProjects(
-  projects: BestOfJS.RawProject[],
-  excludedTagIds: string[] = []
-) {
-  const result = new Map<string, number>();
-  projects.forEach((project) => {
-    project.tags
-      .filter((tag) => !excludedTagIds.includes(tag))
-      .forEach((tagId) => {
-        const count = result.get(tagId);
-        if (count) {
-          result.set(tagId, count + 1);
-        } else {
-          result.set(tagId, 1);
-        }
-      });
-  });
-  return result;
-}
-
 // TODO read the project's slug from the API instead of computing it here
 export function getProjectId(project: BestOfJS.RawProject) {
   return slugify(project.name, { lower: true, remove: /[.'/]/g });

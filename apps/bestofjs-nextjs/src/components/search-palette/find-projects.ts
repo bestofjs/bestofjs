@@ -1,9 +1,19 @@
-import { filterProjectsByQuery } from "@/lib/search-utils";
+import {
+  filterProjectsByQuery,
+  getResultRelevantTags,
+} from "@/lib/search-utils";
 
 export function filterProjectsByTagsAndQuery<
   T extends Omit<BestOfJS.SearchIndexProject, "slug">
 >(projects: T[], tags: string[], query: string) {
-  return filterProjectsByQuery(filterProjectsByTags(projects, tags), query);
+  const foundProjects = filterProjectsByQuery(
+    filterProjectsByTags(projects, tags),
+    query
+  );
+  const relevantTags = getResultRelevantTags(foundProjects, tags).map(
+    ([tag]) => tag
+  );
+  return { projects: foundProjects, relevantTags };
 }
 
 export function filterProjectsByTags<
