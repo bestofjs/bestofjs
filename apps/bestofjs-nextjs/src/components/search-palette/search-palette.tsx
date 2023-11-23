@@ -369,7 +369,7 @@ function SearchResultsHeading({
             onCheckedChange={() => toggleProjects()}
           />
           <span>Projects</span>
-          <Badge variant="project">{projectCount}</Badge>
+          <Badge variant="outline">{projectCount}</Badge>
         </label>
         <Separator orientation="vertical" />
         <label className="flex items-center gap-2">

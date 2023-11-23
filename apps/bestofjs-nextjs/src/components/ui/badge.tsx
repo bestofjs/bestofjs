@@ -14,8 +14,6 @@ const badgeVariants = klass({
     variant: {
       default:
         "bg-primary hover:bg-primary-hover border-transparent text-primary-foreground",
-      project:
-        "bg-[var(--project-bg)] border border-[var(--project-border)] text-[var(--project-color)]",
       secondary:
         "bg-secondary hover:bg-secondary-hover border-transparent text-secondary-foreground",
       outline: "text-foreground",
