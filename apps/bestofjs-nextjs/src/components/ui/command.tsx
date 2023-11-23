@@ -66,7 +66,7 @@ const CommandList = React.forwardRef<
   <CommandPrimitive.List
     ref={ref}
     className={cn(
-      "h-[100vh] overflow-y-auto overflow-x-hidden sm:h-[80vh] lg:h-[80vh] xl:h-[70vh]",
+      "h-[100vh] overflow-x-hidden overflow-y-scroll sm:h-[80vh] lg:h-[80vh] xl:h-[70vh]",
       className
     )}
     {...props}

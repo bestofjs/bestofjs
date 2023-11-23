@@ -9,6 +9,7 @@ import {
   mergeSearchResults,
 } from "@/lib/search-utils";
 import { Badge } from "@/components/ui/badge";
+import { Checkbox } from "@/components/ui/checkbox";
 import {
   CommandDialog,
   CommandEmpty,
@@ -16,6 +17,7 @@ import {
   CommandInput,
   CommandList,
 } from "@/components/ui/command";
+import { Separator } from "@/components/ui/separator";
 import { Skeleton } from "@/components/ui/skeleton";
 
 import {
@@ -27,7 +29,6 @@ import {
 } from "../core";
 import { stateToQueryString } from "../project-list/navigation-state";
 import { useSearchState } from "../project-list/search-state";
-import { Separator } from "../ui/separator";
 import { filterProjectsByTagsAndQuery } from "./find-projects";
 import {
   ProjectSearchResult,
@@ -74,6 +75,18 @@ export function SearchPalette({ allProjects, allTags }: SearchProps) {
   const [selectedItem, setSelectedItem] = React.useState<
     SelectedItem | undefined
   >();
+
+  const [showProjects, setShowProjects] = React.useState(true);
+  const [showTags, setShowTags] = React.useState(true);
+
+  const toggleProjects = () => {
+    setShowProjects((value) => !value);
+    setShowTags(true);
+  };
+  const toggleTags = () => {
+    setShowTags((value) => !value);
+    setShowProjects(true);
+  };
 
   // The search palette is mounted only once, we need to sync the tags when the URL changes
   React.useEffect(() => {
@@ -147,7 +160,10 @@ export function SearchPalette({ allProjects, allTags }: SearchProps) {
   const projectCount = filteredProjects.length;
   const tagCount = foundTagsWithRank.length;
   const combinedResults: CombinedSearchResult[] = searchQuery
-    ? mergeSearchResults(filteredProjects, foundTagsWithRank)
+    ? mergeSearchResults(
+        showProjects ? filteredProjects : [],
+        showTags ? foundTagsWithRank : []
+      )
     : defaultResults;
 
   const onSelectProject = (itemValue: string) => {
@@ -245,6 +261,10 @@ export function SearchPalette({ allProjects, allTags }: SearchProps) {
                     <SearchResultsHeading
                       projectCount={projectCount}
                       tagCount={tagCount}
+                      showProjects={showProjects}
+                      toggleProjects={toggleProjects}
+                      showTags={showTags}
+                      toggleTags={toggleTags}
                     />
                   }
                 >
@@ -327,19 +347,36 @@ function DefaultTags({
 function SearchResultsHeading({
   projectCount,
   tagCount,
+  showProjects,
+  toggleProjects,
+  showTags,
+  toggleTags,
 }: {
   projectCount: number;
   tagCount: number;
+  showProjects: boolean;
+  toggleProjects: () => void;
+  showTags: boolean;
+  toggleTags: () => void;
 }) {
   return (
-    <div className="flex justify-between">
+    <div className="hidden justify-between md:flex">
       <span>Search Results</span>
-      <div className="flex items-center gap-2 text-sm">
-        <span>Projects</span>
-        <Badge variant="project">{projectCount}</Badge>
+      <div className="flex items-center gap-4 text-sm">
+        <label className="flex items-center gap-2">
+          <Checkbox
+            checked={showProjects}
+            onCheckedChange={() => toggleProjects()}
+          />
+          <span>Projects</span>
+          <Badge variant="project">{projectCount}</Badge>
+        </label>
         <Separator orientation="vertical" />
-        <span>Tags</span>
-        <Badge variant="outline">{tagCount}</Badge>
+        <label className="flex items-center gap-2">
+          <Checkbox checked={showTags} onCheckedChange={() => toggleTags()} />
+          <span>Tags</span>
+          <Badge variant="outline">{tagCount}</Badge>
+        </label>
       </div>
     </div>
   );
