@@ -1,5 +1,3 @@
-import orderBy from "lodash/orderBy";
-
 /**
  * Filter all projects when the user enters text in the search box
  * assigning a "rank" to each project.
@@ -8,12 +6,10 @@ import orderBy from "lodash/orderBy";
 export function filterProjectsByQuery<
   T extends Omit<BestOfJS.SearchIndexProject, "slug">
 >(projects: T[], query: string) {
-  return orderBy(
+  return orderByRank(
     projects
       .map((project) => ({ ...project, rank: rank(project, query) }))
-      .filter((project) => project.rank > 0),
-    "rank",
-    "desc"
+      .filter((project) => project.rank > 0)
   );
 }
 
@@ -63,12 +59,10 @@ function escapeRegExp(input: string) {
 }
 
 export function filterTagsByQueryWithRank(tags: BestOfJS.Tag[], query: string) {
-  return orderBy(
+  return orderByRank(
     tags
       .map((tag) => ({ ...tag, rank: rankTags(tag, query) }))
-      .filter((tag) => tag.rank > 0),
-    ["rank", "counter"],
-    ["desc", "desc"]
+      .filter((tag) => tag.rank > 0)
   );
 }
 
@@ -99,10 +93,15 @@ export function mergeSearchResults<T extends { rank: number }>(
   tagResults: Array<BestOfJS.Tag & { rank: number }>
 ) {
   const results = [...projectResults, ...tagResults];
-  return orderBy(results, "rank", "desc");
+  return orderByRank(results);
 }
 
-// TODO add types: => [[ 'nodejs-framework', 6 ], [...], ...]
+/**
+ * Given a list of projects (E.g. a search result),
+ * return the of tags ordered by number of occurrences
+ * E.g. [[ 'nodejs-framework', 6 ], [...], ...]
+ * @returns {Array<[tag: string, count: number]>}
+ */
 export function getResultRelevantTags<
   T extends Omit<BestOfJS.SearchIndexProject, "slug">
 >(projects: T[], excludedTags: string[] = []) {
@@ -117,7 +116,10 @@ export function getResultRelevantTags<
   ) as Array<[tag: string, count: number]>;
 }
 
-// TODO use Lodash orderBy?
+function orderByRank<T extends { rank: number }>(items: T[]) {
+  return orderByFn<T>(items, (item) => item.rank);
+}
+
 function orderByFn<T>(items: T[], fn: (item: T) => number) {
   return items.sort((a, b) => fn(b) - fn(a));
 }
