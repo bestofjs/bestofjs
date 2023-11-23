@@ -53,11 +53,6 @@ function rank<T extends Omit<BestOfJS.SearchIndexProject, "slug">>(
   return 0;
 }
 
-// From https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions
-function escapeRegExp(input: string) {
-  return input.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"); // $& means the whole matched string
-}
-
 export function filterTagsByQueryWithRank(tags: BestOfJS.Tag[], query: string) {
   return orderByRank(
     tags
@@ -116,14 +111,6 @@ export function getResultRelevantTags<
   ) as Array<[tag: string, count: number]>;
 }
 
-function orderByRank<T extends { rank: number }>(items: T[]) {
-  return orderByFn<T>(items, (item) => item.rank);
-}
-
-function orderByFn<T>(items: T[], fn: (item: T) => number) {
-  return items.sort((a, b) => fn(b) - fn(a));
-}
-
 function getTagsNumberOfOccurrencesFromProjects<
   T extends Omit<BestOfJS.SearchIndexProject, "slug">
 >(projects: T[], excludedTagIds: string[] = []) {
@@ -141,4 +128,17 @@ function getTagsNumberOfOccurrencesFromProjects<
       });
   });
   return result;
+}
+
+function orderByRank<T extends { rank: number }>(items: T[]) {
+  return orderByFn<T>(items, (item) => item.rank);
+}
+
+function orderByFn<T>(items: T[], fn: (item: T) => number) {
+  return items.sort((a, b) => fn(b) - fn(a));
+}
+
+// From https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions
+function escapeRegExp(input: string) {
+  return input.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"); // $& means the whole matched string
 }
