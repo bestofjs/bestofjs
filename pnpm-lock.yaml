@@ -118,6 +118,9 @@ importers:
       tiny-invariant:
         specifier: ^1.3.1
         version: 1.3.1
+      use-debounce:
+        specifier: ^3.0.0
+        version: 3.4.3(react@18.2.0)
       vague-time:
         specifier: ^2.4.2
         version: 2.4.2
@@ -11165,6 +11168,14 @@ packages:
       react: '>=16.8.0'
     dependencies:
       react: 17.0.2
+    dev: false
+
+  /use-debounce@3.4.3(react@18.2.0):
+    resolution: {integrity: sha512-nxy+opOxDccWfhMl36J5BSCTpvcj89iaQk2OZWLAtBJQj7ISCtx1gh+rFbdjGfMl6vtCZf6gke/kYvrkVfHMoA==}
+    peerDependencies:
+      react: '>=16.8.0'
+    dependencies:
+      react: 18.2.0
     dev: false
 
   /use-sidecar@1.1.2(@types/react@17.0.62)(react@17.0.2):

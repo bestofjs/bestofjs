@@ -59,6 +59,7 @@
     "tailwind-merge": "^1.12.0",
     "tailwindcss-animate": "^1.0.5",
     "tiny-invariant": "^1.3.1",
+    "use-debounce": "^3.0.0",
     "vague-time": "^2.4.2",
     "vitest": "^0.34.3",
     "zod": "^3.22.4"

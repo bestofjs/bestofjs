@@ -3,9 +3,11 @@
 import * as React from "react";
 import { useRouter } from "next/navigation";
 import invariant from "tiny-invariant";
+import useDebouncedCallback from "use-debounce/lib/useDebouncedCallback";
 
 import {
   filterTagsByQueryWithRank,
+  getResultRelevantTags,
   mergeSearchResults,
 } from "@/lib/search-utils";
 import { Badge } from "@/components/ui/badge";
@@ -19,17 +21,20 @@ import {
 } from "@/components/ui/command";
 import { Separator } from "@/components/ui/separator";
 import { Skeleton } from "@/components/ui/skeleton";
-
 import {
   ProjectAvatar,
   StarTotal,
   TagIcon,
   TagsIcons,
   XMarkIcon,
-} from "../core";
+} from "@/components/core";
+
 import { stateToQueryString } from "../project-list/navigation-state";
 import { useSearchState } from "../project-list/search-state";
-import { filterProjectsByTagsAndQuery } from "./find-projects";
+import {
+  filterProjectsByTags,
+  filterProjectsByTagsAndQuery,
+} from "./find-projects";
 import {
   ProjectSearchResult,
   SearchForTextCommand,
@@ -62,7 +67,12 @@ type SelectedItem =
 
 type CombinedSearchResult =
   | (BestOfJS.SearchIndexProject & { rank: number })
-  | (BestOfJS.Tag & { rank?: number });
+  | (BestOfJS.Tag & { rank: number });
+
+const DEBOUNCE_DELAY = 300;
+const MAX_NUMBER_OF_PROJECT = 20;
+const MAX_NUMBER_OF_TAG = 20;
+const TEXT_QUERY_MIN_LENGTH = 2;
 
 export function SearchPalette({ allProjects, allTags }: SearchProps) {
   const router = useRouter();
@@ -75,18 +85,6 @@ export function SearchPalette({ allProjects, allTags }: SearchProps) {
   const [selectedItem, setSelectedItem] = React.useState<
     SelectedItem | undefined
   >();
-
-  const [showProjects, setShowProjects] = React.useState(true);
-  const [showTags, setShowTags] = React.useState(true);
-
-  const toggleProjects = () => {
-    setShowProjects((value) => !value);
-    setShowTags(true);
-  };
-  const toggleTags = () => {
-    setShowTags((value) => !value);
-    setShowProjects(true);
-  };
 
   // The search palette is mounted only once, we need to sync the tags when the URL changes
   React.useEffect(() => {
@@ -103,6 +101,7 @@ export function SearchPalette({ allProjects, allTags }: SearchProps) {
   const [open, setOpen] = React.useState(false);
 
   const [searchQuery, setSearchQuery] = React.useState<string>("");
+  const canTriggerSearch = searchQuery.length >= TEXT_QUERY_MIN_LENGTH; // we need at least 2 characters to trigger a search
 
   const onOpenChange = (value: boolean) => {
     if (!value) {
@@ -127,44 +126,10 @@ export function SearchPalette({ allProjects, allTags }: SearchProps) {
   const onValueChange = (value: string) => {
     setSearchQuery(value);
   };
-
-  const MAX_NUMBER_OF_PROJECT = 20;
-  const MAX_NUMBER_OF_TAG = 20;
-  const { projects, relevantTags } = filterProjectsByTagsAndQuery(
-    allProjects,
-    currentTagCodes,
-    searchQuery
+  const [debouncedOnChange] = useDebouncedCallback(
+    onValueChange,
+    DEBOUNCE_DELAY
   );
-
-  const defaultResults =
-    currentTagCodes.length === 0
-      ? allTags.slice(0, MAX_NUMBER_OF_TAG)
-      : (
-          relevantTags
-            .map((tagCode) => lookUpTag(tagCode, allTags))
-            .filter(Boolean) as BestOfJS.Tag[]
-        ).slice(0, MAX_NUMBER_OF_TAG);
-
-  const filteredProjects = searchQuery
-    ? projects.slice(0, MAX_NUMBER_OF_PROJECT)
-    : [];
-
-  React.useEffect(() => {
-    if (searchQuery.length < 3) return;
-    if (filteredProjects.length === 0) return;
-    const firstProject = filteredProjects[0];
-    router.prefetch(`/projects/${firstProject.slug}`);
-  }, [searchQuery, filteredProjects.length]); // eslint-disable-line react-hooks/exhaustive-deps
-
-  const foundTagsWithRank = filterTagsByQueryWithRank(allTags, searchQuery);
-  const projectCount = filteredProjects.length;
-  const tagCount = foundTagsWithRank.length;
-  const combinedResults: CombinedSearchResult[] = searchQuery
-    ? mergeSearchResults(
-        showProjects ? filteredProjects : [],
-        showTags ? foundTagsWithRank : []
-      )
-    : defaultResults;
 
   const onSelectProject = (itemValue: string) => {
     const projectSlug = itemValue.slice("project/".length);
@@ -207,9 +172,6 @@ export function SearchPalette({ allProjects, allTags }: SearchProps) {
     });
   };
 
-  const canTriggerSearch = searchQuery.length > 1; // we need at least 2 characters to trigger a search
-  const isEmptySearchResults = combinedResults.length === 0;
-
   return (
     <>
       <SearchTrigger onClick={() => setOpen(true)} />
@@ -228,11 +190,8 @@ export function SearchPalette({ allProjects, allTags }: SearchProps) {
                       currentTags.length > 1 ? "s" : ""
                     }`
               }
-              onValueChange={onValueChange}
+              onValueChange={debouncedOnChange}
             />
-            {/* Two following lines are for debugging the loading state */}
-            {false && <LoadingProject project={allProjects[1000]} />}
-            {false && <LoadingTag tags={[allTags[10]]} />}
             {currentTags.length > 0 && (
               <div className="flex cursor-pointer flex-wrap gap-2 border-b p-4">
                 {currentTags.map((tag) => {
@@ -248,54 +207,21 @@ export function SearchPalette({ allProjects, allTags }: SearchProps) {
             <CommandList>
               {!canTriggerSearch ? (
                 <DefaultTags
-                  tags={defaultResults}
+                  allProjects={allProjects}
+                  allTags={allTags}
+                  currentTagCodes={currentTagCodes}
                   onSelectTag={onSelectTag}
                   onViewAllTags={onViewAllTags}
                   currentTags={currentTags}
                 />
-              ) : isEmptySearchResults ? (
-                <CommandEmpty>No results found.</CommandEmpty>
               ) : (
-                <CommandGroup
-                  heading={
-                    <SearchResultsHeading
-                      projectCount={projectCount}
-                      tagCount={tagCount}
-                      showProjects={showProjects}
-                      toggleProjects={toggleProjects}
-                      showTags={showTags}
-                      toggleTags={toggleTags}
-                    />
-                  }
-                >
-                  {combinedResults.map((result) => {
-                    const key = isProject(result)
-                      ? result.slug
-                      : "tags/" + result.code;
-                    return (
-                      <React.Fragment key={key}>
-                        {isProject(result) ? (
-                          <ProjectSearchResult
-                            key={key}
-                            project={result}
-                            onSelectProject={onSelectProject}
-                          />
-                        ) : (
-                          <TagSearchResult
-                            key={key}
-                            tag={result}
-                            onSelectTag={onSelectTag}
-                            currentTags={currentTags}
-                          />
-                        )}
-                      </React.Fragment>
-                    );
-                  })}
-                </CommandGroup>
-              )}
-              {!isEmptySearchResults && canTriggerSearch && (
-                <SearchForTextCommand
+                <CombinedSearchResults
+                  allProjects={allProjects}
+                  allTags={allTags}
+                  currentTagCodes={currentTagCodes}
                   searchQuery={searchQuery}
+                  onSelectProject={onSelectProject}
+                  onSelectTag={onSelectTag}
                   onSelectSearchForText={onSelectSearchForText}
                 />
               )}
@@ -307,17 +233,141 @@ export function SearchPalette({ allProjects, allTags }: SearchProps) {
   );
 }
 
+/**
+ * Show a combination of projects and tags, ordered by rank, when the user enters a text.
+ */
+function CombinedSearchResults({
+  allProjects,
+  allTags,
+  currentTagCodes,
+  searchQuery,
+  onSelectProject,
+  onSelectTag,
+  onSelectSearchForText,
+}: Pick<SearchProps, "allProjects" | "allTags"> & {
+  currentTagCodes: string[];
+  searchQuery: string;
+  onSelectProject: (projectSlug: string) => void;
+  onSelectTag: (tagCode: string) => void;
+  onSelectSearchForText: () => void;
+}) {
+  const currentTags = currentTagCodes
+    .map((tagCode) => lookUpTag(tagCode, allTags))
+    .filter(Boolean) as BestOfJS.Tag[];
+
+  const projects = filterProjectsByTagsAndQuery(
+    allProjects,
+    currentTagCodes,
+    searchQuery
+  );
+  const filteredProjects = projects.slice(0, MAX_NUMBER_OF_PROJECT);
+
+  const foundTagsWithRank = filterTagsByQueryWithRank(allTags, searchQuery);
+  const projectCount = filteredProjects.length;
+  const tagCount = foundTagsWithRank.length;
+
+  const [showProjects, setShowProjects] = React.useState(true);
+  const [showTags, setShowTags] = React.useState(true);
+
+  const toggleProjects = () => {
+    setShowProjects((value) => !value);
+    setShowTags(true);
+  };
+  const toggleTags = () => {
+    setShowTags((value) => !value);
+    setShowProjects(true);
+  };
+
+  const combinedResults: CombinedSearchResult[] = mergeSearchResults(
+    showProjects ? filteredProjects : [],
+    showTags ? foundTagsWithRank : []
+  );
+
+  const isEmptySearchResults = combinedResults.length === 0;
+
+  usePrefetchFirstProject(filteredProjects);
+
+  if (isEmptySearchResults) {
+    return <CommandEmpty>No results found.</CommandEmpty>;
+  }
+  return (
+    <CommandGroup
+      heading={
+        <SearchResultsHeading
+          projectCount={projectCount}
+          tagCount={tagCount}
+          showProjects={showProjects}
+          toggleProjects={toggleProjects}
+          showTags={showTags}
+          toggleTags={toggleTags}
+        />
+      }
+    >
+      {combinedResults.map((result) => {
+        const key = isProject(result) ? result.slug : "tags/" + result.code;
+        return (
+          <React.Fragment key={key}>
+            {isProject(result) ? (
+              <ProjectSearchResult
+                key={key}
+                project={result}
+                onSelectProject={onSelectProject}
+              />
+            ) : (
+              <TagSearchResult
+                key={key}
+                tag={result}
+                onSelectTag={onSelectTag}
+                currentTags={currentTags}
+              />
+            )}
+          </React.Fragment>
+        );
+      })}
+      {!isEmptySearchResults && (
+        <SearchForTextCommand
+          searchQuery={searchQuery}
+          onSelectSearchForText={onSelectSearchForText}
+        />
+      )}
+    </CommandGroup>
+  );
+}
+
+function usePrefetchFirstProject(projects: BestOfJS.SearchIndexProject[]) {
+  const router = useRouter();
+  React.useEffect(() => {
+    if (projects.length === 0) return;
+    const firstProject = projects[0];
+    router.prefetch(`/projects/${firstProject.slug}`);
+  }, [projects.length]); // eslint-disable-line react-hooks/exhaustive-deps
+}
+
+/**
+ * Before any text is entered, show either the popular tags if there is no tag selected
+ * or the tags related to the selected tag.
+ */
 function DefaultTags({
-  tags,
+  allProjects,
+  allTags,
+  currentTagCodes,
   onSelectTag,
   currentTags,
   onViewAllTags,
-}: {
-  tags: BestOfJS.Tag[];
+}: Pick<SearchProps, "allProjects" | "allTags"> & {
+  currentTagCodes: string[];
   onSelectTag: (tagCode: string) => void;
   onViewAllTags: () => void;
   currentTags: BestOfJS.Tag[];
 }) {
+  const projects = filterProjectsByTags(allProjects, currentTagCodes);
+  const tags =
+    currentTagCodes.length > 0
+      ? (getResultRelevantTags(projects, currentTagCodes)
+          .map(([tag]) => tag)
+          .map((tagCode) => lookUpTag(tagCode, allTags))
+          .filter(Boolean) as BestOfJS.Tag[])
+      : allTags.slice(0, MAX_NUMBER_OF_TAG);
   return currentTags.length === 0 ? (
     <CommandGroup heading="Popular Tags">
       {tags.map((tag) => (

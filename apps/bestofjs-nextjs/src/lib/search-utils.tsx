@@ -1,3 +1,4 @@
+const DEBUG_MODE = false; // to show time spent in search functions
 /**
  * Filter all projects when the user enters text in the search box
  * assigning a "rank" to each project.
@@ -5,12 +6,15 @@
  */
 export function filterProjectsByQuery<
   T extends Omit<BestOfJS.SearchIndexProject, "slug">
->(projects: T[], query: string) {
-  return orderByRank(
+>(projects: T[], query: string): Array<T & { rank: number }> {
+  if (DEBUG_MODE) console.time(`Search projects "${query}"`);
+  const results = orderByRank(
     projects
       .map((project) => ({ ...project, rank: rank(project, query) }))
       .filter((project) => project.rank > 0)
   );
+  if (DEBUG_MODE) console.timeEnd(`Search projects "${query}"`);
+  return results;
 }
 
 // for a given project and a query,
@@ -54,11 +58,14 @@ function rank<T extends Omit<BestOfJS.SearchIndexProject, "slug">>(
 }
 
 export function filterTagsByQueryWithRank(tags: BestOfJS.Tag[], query: string) {
-  return orderByRank(
+  if (DEBUG_MODE) console.time(`Search tags "${query}"`);
+  const foundTags = orderByRank(
     tags
       .map((tag) => ({ ...tag, rank: rankTags(tag, query) }))
       .filter((tag) => tag.rank > 0)
   );
+  if (DEBUG_MODE) console.timeEnd(`Search tags "${query}"`);
+  return foundTags;
 }
 
 function rankTags(tag: BestOfJS.Tag, query: string) {
@@ -100,15 +107,18 @@ export function mergeSearchResults<T extends { rank: number }>(
 export function getResultRelevantTags<
   T extends Omit<BestOfJS.SearchIndexProject, "slug">
 >(projects: T[], excludedTags: string[] = []) {
+  if (DEBUG_MODE) console.time(`Get relevant tags ${projects.length}`);
   const projectCountByTag = getTagsNumberOfOccurrencesFromProjects(
     projects,
     excludedTags
   );
 
-  return orderByFn(
+  const results = orderByFn(
     Array.from(projectCountByTag.entries()),
     ([, count]) => count as number
   ) as Array<[tag: string, count: number]>;
+  if (DEBUG_MODE) console.timeEnd(`Get relevant tags ${projects.length}`);
+  return results;
 }
 
 function getTagsNumberOfOccurrencesFromProjects<
