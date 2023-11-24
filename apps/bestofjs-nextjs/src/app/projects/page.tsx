@@ -145,7 +145,11 @@ export default async function Projects({ searchParams }: PageProps) {
         />
       )}
       {relevantTags.length > 0 && (
-        <RelevantTags tags={relevantTags} buildPageURL={buildPageURL} />
+        <RelevantTags
+          tags={relevantTags}
+          buildPageURL={buildPageURL}
+          showIcon={selectedTags.length > 0}
+        />
       )}
       <ProjectPaginatedList
         projects={projects}
@@ -224,13 +228,17 @@ function ShowNumberOfProject({ count }: { count: number }) {
 function RelevantTags({
   tags,
   buildPageURL,
+  showIcon,
+  limit = 16,
 }: {
   tags: BestOfJS.Tag[];
   buildPageURL: SearchUrlBuilder<ProjectSearchQuery>;
+  showIcon?: boolean;
+  limit?: number;
 }) {
   return (
     <div className="mb-4 flex flex-wrap gap-2">
-      {tags.map((tag) => {
+      {tags.slice(0, limit).map((tag) => {
         const url = buildPageURL((state) => ({
           ...state,
           page: 1,
@@ -243,7 +251,7 @@ function RelevantTags({
             className={buttonVariants({ variant: "outline", size: "sm" })}
           >
             {tag.name}
-            <PlusIcon size={20} />
+            {showIcon && <PlusIcon size={20} />}
           </NextLink>
         );
       })}
