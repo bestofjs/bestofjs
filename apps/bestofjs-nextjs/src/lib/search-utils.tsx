@@ -1,22 +1,26 @@
 const DEBUG_MODE = true; // to show time spent in search functions
 
+type ProjectItem = Omit<BestOfJS.SearchIndexProject, "slug">; // `Project` minimal type handled by both client and server
+
 /**
  * Filter all projects when the user enters text in the search box
  * assigning a "rank" to each project.
  * Imported by both client components and server API.
  */
-export function filterProjectsByQuery<
-  T extends Omit<BestOfJS.SearchIndexProject, "slug">
->(projects: T[], query: string): Array<T & { rank: number }> {
+export function filterProjectsByQuery<T extends ProjectItem>(
+  projects: T[],
+  query: string
+): Array<T & { rank: number }> {
   if (DEBUG_MODE) console.time(`Search projects "${query}"`);
   const results = orderByRank(rankAndFilterProjects(projects, query));
   if (DEBUG_MODE) console.timeEnd(`Search projects "${query}"`);
   return results;
 }
 
-function rankAndFilterProjects<
-  T extends Omit<BestOfJS.SearchIndexProject, "slug">
->(projects: Array<T>, query: string) {
+function rankAndFilterProjects<T extends ProjectItem>(
+  projects: Array<T>,
+  query: string
+) {
   const escapedQuery = escapeRegExp(query);
   const equals = new RegExp("^" + escapedQuery + "$", "i");
   const startsWith = new RegExp("^" + escapedQuery, "i");
@@ -27,9 +31,7 @@ function rankAndFilterProjects<
   // for a given project and a query,
   // return how much "relevant" is the project in the search results
   // `tags` is an array of tags that match the text
-  function rankProject<T extends Omit<BestOfJS.SearchIndexProject, "slug">>(
-    project: T
-  ) {
+  function rankProject<T extends ProjectItem>(project: T) {
     if (equals.test(project.name)) {
       // top level relevance: project whose name or package name is what the user entered
       return 1;
@@ -109,9 +111,10 @@ export function mergeSearchResults<T extends { rank: number }>(
  * E.g. [[ 'nodejs-framework', 6 ], [...], ...]
  * @returns {Array<[tag: string, count: number]>}
  */
-export function getResultRelevantTags<
-  T extends Omit<BestOfJS.SearchIndexProject, "slug">
->(projects: T[], excludedTags: string[] = []) {
+export function getResultRelevantTags<T extends ProjectItem>(
+  projects: T[],
+  excludedTags: string[] = []
+) {
   if (DEBUG_MODE) console.time(`Get relevant tags ${projects.length}`);
   const projectCountByTag = getTagsNumberOfOccurrencesFromProjects(
     projects,
@@ -126,9 +129,10 @@ export function getResultRelevantTags<
   return results;
 }
 
-function getTagsNumberOfOccurrencesFromProjects<
-  T extends Omit<BestOfJS.SearchIndexProject, "slug">
->(projects: T[], excludedTagIds: string[] = []) {
+function getTagsNumberOfOccurrencesFromProjects<T extends ProjectItem>(
+  projects: T[],
+  excludedTagIds: string[] = []
+) {
   const result = new Map<string, number>();
   projects.forEach((project) => {
     project.tags
