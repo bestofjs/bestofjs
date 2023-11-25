@@ -61,6 +61,7 @@
     "tiny-invariant": "^1.3.1",
     "use-debounce": "^3.0.0",
     "vague-time": "^2.4.2",
+    "vite-tsconfig-paths": "^3.4.1",
     "vitest": "^0.34.3",
     "zod": "^3.22.4"
   },
