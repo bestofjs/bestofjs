@@ -1,4 +1,4 @@
-const DEBUG_MODE = true; // to show time spent in search functions
+const DEBUG_MODE = false; // to show time spent in search functions
 
 type ProjectItem = Omit<BestOfJS.SearchIndexProject, "slug">; // `Project` minimal type handled by both client and server
 
@@ -10,7 +10,7 @@ type ProjectItem = Omit<BestOfJS.SearchIndexProject, "slug">; // `Project` minim
 export function filterProjectsByQuery<T extends ProjectItem>(
   projects: T[],
   query: string
-): Array<T & { rank: number }> {
+) {
   if (DEBUG_MODE) console.time(`Search projects "${query}"`);
   const results = orderByRank(rankAndFilterProjects(projects, query));
   if (DEBUG_MODE) console.timeEnd(`Search projects "${query}"`);
@@ -61,10 +61,7 @@ function rankAndFilterProjects<T extends ProjectItem>(
   }
 }
 
-export function filterTagsByQueryWithRank(
-  tags: BestOfJS.Tag[],
-  query: string
-): Array<T & { rank: number }> {
+export function filterTagsByQueryWithRank(tags: BestOfJS.Tag[], query: string) {
   if (DEBUG_MODE) console.time(`Search tags "${query}"`);
   const foundTags = orderByRank(rankAndFilterTags(tags, query));
   if (DEBUG_MODE) console.timeEnd(`Search tags "${query}"`);
