@@ -61,7 +61,7 @@ function rankAndFilterProjects<T extends ProjectItem>(
   }
 }
 
-export function filterTagsByQueryWithRank(tags: BestOfJS.Tag[], query: string) {
+export function filterTagsByQuery(tags: BestOfJS.Tag[], query: string) {
   if (DEBUG_MODE) console.time(`Search tags "${query}"`);
   const foundTags = orderByRank(rankAndFilterTags(tags, query));
   if (DEBUG_MODE) console.timeEnd(`Search tags "${query}"`);

@@ -6,7 +6,7 @@ import invariant from "tiny-invariant";
 import useDebouncedCallback from "use-debounce/lib/useDebouncedCallback";
 
 import {
-  filterTagsByQueryWithRank,
+  filterTagsByQuery,
   getResultRelevantTags,
   mergeSearchResults,
 } from "@/lib/search-utils";
@@ -262,7 +262,7 @@ function CombinedSearchResults({
   );
   const filteredProjects = projects.slice(0, MAX_NUMBER_OF_PROJECT);
 
-  const foundTagsWithRank = filterTagsByQueryWithRank(allTags, searchQuery);
+  const foundTagsWithRank = filterTagsByQuery(allTags, searchQuery);
   const projectCount = filteredProjects.length;
   const tagCount = foundTagsWithRank.length;
 
