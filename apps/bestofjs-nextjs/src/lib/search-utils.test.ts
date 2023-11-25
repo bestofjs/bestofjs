@@ -4,12 +4,12 @@ import { api } from "../server/api-local-json";
 import { filterProjectsByQuery, filterTagsByQuery } from "./search-utils";
 
 describe("search-utils", async () => {
+  const projects = await api.projects.getSearchIndex();
   it("should filter projects by query", async () => {
     const testCases = [
       { query: "rea", expected: "React" },
       { query: "red", expected: "Redux" },
     ];
-    const projects = await api.projects.getSearchIndex();
     testCases.forEach(({ query, expected }) => {
       const results = filterProjectsByQuery(projects, query);
       expect(results[0].name).toEqual(expected);
