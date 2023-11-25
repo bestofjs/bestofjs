@@ -283,7 +283,8 @@ function CombinedSearchResults({
     showTags ? foundTagsWithRank : []
   );
 
-  const isEmptySearchResults = combinedResults.length === 0;
+  const isEmptySearchResults =
+    filteredProjects.length === 0 && foundTagsWithRank.length === 0;
 
   usePrefetchFirstProject(filteredProjects);
 
@@ -417,13 +418,18 @@ function SearchResultsHeading({
           <Checkbox
             checked={showProjects}
             onCheckedChange={() => toggleProjects()}
+            disabled={projectCount === 0}
           />
           <span>Projects</span>
           <Badge variant="outline">{projectCount}</Badge>
         </label>
         <Separator orientation="vertical" />
         <label className="flex items-center gap-2">
-          <Checkbox checked={showTags} onCheckedChange={() => toggleTags()} />
+          <Checkbox
+            checked={showTags}
+            onCheckedChange={() => toggleTags()}
+            disabled={tagCount === 0}
+          />
           <span>Tags</span>
           <Badge variant="outline">{tagCount}</Badge>
         </label>
