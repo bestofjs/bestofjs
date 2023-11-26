@@ -3,11 +3,7 @@
 import * as React from "react";
 import { useRouter } from "next/navigation";
 
-import {
-  filterTagsByQuery,
-  getResultRelevantTags,
-  mergeSearchResults,
-} from "@/lib/search-utils";
+import { getResultRelevantTags, mergeSearchResults } from "@/lib/search-utils";
 import { Badge } from "@/components/ui/badge";
 import { Checkbox } from "@/components/ui/checkbox";
 import {
@@ -27,10 +23,7 @@ import {
   XMarkIcon,
 } from "@/components/core";
 
-import {
-  filterProjectsByTags,
-  filterProjectsByTagsAndQuery,
-} from "./find-projects";
+import { ClientSearch } from "./search-container";
 import {
   ProjectSearchResult,
   SearchForTextCommand,
@@ -38,9 +31,9 @@ import {
   ViewAllTagsCommand,
 } from "./search-palette-results";
 import {
-  SearchProps,
   SelectedItem,
   useSearchPaletteState,
+  useSearchPaletteTags,
 } from "./search-palette-state";
 import { SearchTrigger } from "./search-trigger";
 
@@ -52,13 +45,10 @@ const MAX_NUMBER_OF_PROJECT = 20;
 const MAX_NUMBER_OF_TAG = 20;
 const TEXT_QUERY_MIN_LENGTH = 2;
 
-export function SearchPalette({ allProjects, allTags }: SearchProps) {
+export function SearchPalette() {
   const {
-    currentTagCodes,
-    currentTags,
     debouncedOnChange,
     isPending,
-    removeTag,
     onOpenChange,
     onSelectTag,
     onSelectProject,
@@ -68,7 +58,8 @@ export function SearchPalette({ allProjects, allTags }: SearchProps) {
     searchQuery,
     selectedItem,
     setOpen,
-  } = useSearchPaletteState({ allProjects, allTags });
+  } = useSearchPaletteState();
+  const { currentTags, currentTagCodes, removeTag } = useSearchPaletteTags();
 
   const canTriggerSearch = searchQuery.length >= TEXT_QUERY_MIN_LENGTH; // we need at least 2 characters to trigger a search
 
@@ -107,16 +98,12 @@ export function SearchPalette({ allProjects, allTags }: SearchProps) {
             <CommandList>
               {!canTriggerSearch ? (
                 <DefaultTags
-                  allProjects={allProjects}
-                  allTags={allTags}
                   currentTags={currentTags}
                   onSelectTag={onSelectTag}
                   onViewAllTags={onViewAllTags}
                 />
               ) : (
                 <CombinedSearchResults
-                  allProjects={allProjects}
-                  allTags={allTags}
                   currentTagCodes={currentTagCodes}
                   onSelectProject={onSelectProject}
                   onSelectTag={onSelectTag}
@@ -136,32 +123,28 @@ export function SearchPalette({ allProjects, allTags }: SearchProps) {
  * Show a combination of projects and tags, ordered by rank, when the user enters a text.
  */
 function CombinedSearchResults({
-  allProjects,
-  allTags,
   currentTagCodes,
   searchQuery,
   onSelectProject,
   onSelectTag,
   onSelectSearchForText,
-}: Pick<SearchProps, "allProjects" | "allTags"> & {
+}: {
   currentTagCodes: string[];
   searchQuery: string;
   onSelectProject: (projectSlug: string) => void;
   onSelectTag: (tagCode: string) => void;
   onSelectSearchForText: () => void;
 }) {
+  const { findProjectsByQueryAndTags, findTagsByQuery, lookupTag } =
+    ClientSearch.useContainer();
   const currentTags = currentTagCodes
-    .map((tagCode) => lookUpTag(tagCode, allTags))
+    .map(lookupTag)
     .filter(Boolean) as BestOfJS.Tag[];
 
-  const projects = filterProjectsByTagsAndQuery(
-    allProjects,
-    currentTagCodes,
-    searchQuery
-  );
+  const projects = findProjectsByQueryAndTags(searchQuery, currentTagCodes);
   const filteredProjects = projects.slice(0, MAX_NUMBER_OF_PROJECT);
 
-  const foundTagsWithRank = filterTagsByQuery(allTags, searchQuery);
+  const foundTagsWithRank = findTagsByQuery(searchQuery, currentTagCodes);
   const projectCount = filteredProjects.length;
   const tagCount = foundTagsWithRank.length;
 
@@ -248,25 +231,25 @@ function usePrefetchFirstProject(projects: BestOfJS.SearchIndexProject[]) {
  * or the tags related to the selected tag.
  */
 function DefaultTags({
-  allProjects,
-  allTags,
   onSelectTag,
   currentTags,
   onViewAllTags,
-}: Pick<SearchProps, "allProjects" | "allTags"> & {
+}: {
   currentTags: BestOfJS.Tag[];
   onSelectTag: (tagCode: string) => void;
   onViewAllTags: () => void;
 }) {
+  const { findProjectsByTags, getAllTags, lookupTag } =
+    ClientSearch.useContainer();
   const currentTagCodes = currentTags.map((tag) => tag.code);
-  const projects = filterProjectsByTags(allProjects, currentTagCodes);
+  const projects = findProjectsByTags(currentTagCodes);
   const tags =
     currentTagCodes.length > 0
       ? (getResultRelevantTags(projects, currentTagCodes)
           .map(([tagCode]) => tagCode)
-          .map((tagCode) => lookUpTag(tagCode, allTags))
+          .map(lookupTag)
           .filter(Boolean) as BestOfJS.Tag[])
-      : allTags.slice(0, MAX_NUMBER_OF_TAG);
+      : getAllTags(MAX_NUMBER_OF_TAG);
   return currentTags.length === 0 ? (
     <CommandGroup heading="Popular Tags">
       {tags.map((tag) => (
@@ -340,10 +323,6 @@ function isProject(
   result: CombinedSearchResult
 ): result is BestOfJS.SearchIndexProject & { rank: number } {
   return "stars" in result;
-}
-
-function lookUpTag(tagCode: string, allTags: BestOfJS.Tag[]) {
-  return allTags.find((tag) => tag.code === tagCode);
 }
 
 function Loading({ item }: { item: SelectedItem }) {

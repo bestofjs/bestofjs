@@ -5,13 +5,10 @@ import { useRouter } from "next/navigation";
 import invariant from "tiny-invariant";
 import useDebouncedCallback from "use-debounce/lib/useDebouncedCallback";
 
-import { stateToQueryString } from "../project-list/navigation-state";
-import { useSearchState } from "../project-list/search-state";
+import { stateToQueryString } from "@/components/project-list/navigation-state";
+import { useSearchState } from "@/components/project-list/search-state";
 
-export type SearchProps = {
-  allProjects: BestOfJS.SearchIndexProject[];
-  allTags: BestOfJS.Tag[];
-};
+import { ClientSearch } from "./search-container";
 
 export type SelectedItem =
   | {
@@ -28,17 +25,12 @@ export type SelectedItem =
 
 const DEBOUNCE_DELAY = 300;
 
-export function useSearchPaletteState({ allProjects, allTags }: SearchProps) {
-  const router = useRouter();
+export function useSearchPaletteTags() {
   const searchState = useSearchState();
-  const [isPending, startTransition] = React.useTransition();
-
+  const { lookupTag } = ClientSearch.useContainer();
   const [currentTagCodes, setCurrentTagCodes] = React.useState<string[]>(
     searchState.tags
   );
-  const [selectedItem, setSelectedItem] = React.useState<
-    SelectedItem | undefined
-  >();
 
   // The search palette is mounted only once, we need to sync the tags when the URL changes
   React.useEffect(() => {
@@ -50,11 +42,37 @@ export function useSearchPaletteState({ allProjects, allTags }: SearchProps) {
   const resetCurrentTags = () => setCurrentTagCodes(searchState.tags);
 
   const currentTags = currentTagCodes
-    .map((tagCode) => lookUpTag(tagCode, allTags))
+    .map(lookupTag)
     .filter(Boolean) as BestOfJS.Tag[];
+
+  return {
+    currentTags,
+    currentTagCodes,
+    removeTag,
+    resetCurrentTags,
+    searchState,
+  };
+}
+
+export function useSearchPaletteState() {
+  const router = useRouter();
+  const [isPending, startTransition] = React.useTransition();
+  const { lookupProject, lookupTag } = ClientSearch.useContainer();
+
+  const [selectedItem, setSelectedItem] = React.useState<
+    SelectedItem | undefined
+  >();
+
   const [open, setOpen] = React.useState(false);
 
   const [searchQuery, setSearchQuery] = React.useState<string>("");
+  const {
+    currentTags,
+    currentTagCodes,
+    removeTag,
+    resetCurrentTags,
+    searchState,
+  } = useSearchPaletteTags();
 
   const onOpenChange = (value: boolean) => {
     if (!value) {
@@ -86,7 +104,7 @@ export function useSearchPaletteState({ allProjects, allTags }: SearchProps) {
 
   const onSelectProject = (itemValue: string) => {
     const projectSlug = itemValue.slice("project/".length);
-    const project = allProjects.find((project) => project.slug === projectSlug);
+    const project = lookupProject(projectSlug);
     invariant(project, `Project not found: ${projectSlug}`);
     setSelectedItem({ type: "project", value: project });
     goToURL(`/projects/${projectSlug}`);
@@ -95,9 +113,7 @@ export function useSearchPaletteState({ allProjects, allTags }: SearchProps) {
   const onSelectTag = (itemValue: string) => {
     const selectedTagCode = itemValue.slice("tag/".length);
     const tagCodes = [...currentTagCodes, selectedTagCode];
-    const tags = tagCodes
-      .map((tagCode) => lookUpTag(tagCode, allTags))
-      .filter(Boolean) as BestOfJS.Tag[];
+    const tags = tagCodes.map(lookupTag).filter(Boolean) as BestOfJS.Tag[];
     const nextState = { ...searchState, tags: tagCodes };
     const queryString = stateToQueryString(nextState);
     setSelectedItem({ type: "tag", value: tags });
@@ -141,8 +157,4 @@ export function useSearchPaletteState({ allProjects, allTags }: SearchProps) {
     selectedItem,
     setOpen,
   };
-}
-
-function lookUpTag(tagCode: string, allTags: BestOfJS.Tag[]) {
-  return allTags.find((tag) => tag.code === tagCode);
 }

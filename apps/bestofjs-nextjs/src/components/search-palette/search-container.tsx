@@ -1,23 +1,56 @@
 "use client";
 
-import useSWR, { SWRConfiguration } from "swr";
+import invariant from "tiny-invariant";
+import { createContainer } from "unstated-next";
 
-import { SearchPalette } from "@/components/search-palette/search-palette";
+import { filterProjectsByQuery, filterTagsByQuery } from "@/lib/search-utils";
 
-export function SearchContainer() {
-  const options: SWRConfiguration = {
-    revalidateIfStale: false,
-    revalidateOnFocus: false,
+import { filterProjectsByTags } from "./find-projects";
+
+function useClientSearch(initialState?: {
+  projects: BestOfJS.SearchIndexProject[];
+  tags: BestOfJS.Tag[];
+}) {
+  invariant(initialState, "Initial state is required");
+  const { projects: allProjects, tags: allTags } = initialState || {};
+
+  const findProjectsByQueryAndTags = (query: string, tags: string[]) => {
+    const filteredProjects = filterProjectsByTags(allProjects, tags);
+    const foundProjects = filterProjectsByQuery(filteredProjects, query);
+    return foundProjects;
   };
-  const { data, error } = useSWR("search-data", fetchSearchData, options);
 
-  if (error) return <div className="text-xs">Error</div>;
-  if (!data) return <div className="text-xs text-muted-foreground">...</div>;
+  const findProjectsByTags = (tagCodes: string[]) => {
+    return filterProjectsByTags(allProjects, tagCodes);
+  };
 
-  return <SearchPalette allProjects={data.projects} allTags={data.tags} />;
+  const findTagsByQuery = (
+    searchQuery: string,
+    excludedTags: string[] = []
+  ) => {
+    const tags = allTags.filter((tag) => !excludedTags.includes(tag.code));
+    return filterTagsByQuery(tags, searchQuery);
+  };
+
+  const getAllTags = (limit = 50) => {
+    return allTags.slice(0, limit);
+  };
+
+  const lookupProject = (slug: string) => {
+    return allProjects.find((project) => project.slug === slug);
+  };
+  const lookupTag = (tagCode: string) => {
+    return allTags.find((tag) => tag.code === tagCode);
+  };
+
+  return {
+    findProjectsByQueryAndTags,
+    findProjectsByTags,
+    findTagsByQuery,
+    getAllTags,
+    lookupProject,
+    lookupTag,
+  };
 }
 
-function fetchSearchData() {
-  const url = "/api/search-data";
-  return fetch(url).then((res) => res.json());
-}
+export const ClientSearch = createContainer(useClientSearch);
