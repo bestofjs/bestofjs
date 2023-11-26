@@ -20,7 +20,7 @@ jobs:
         run: pnpm -F bestofjs-nextjs lint
 
       - name: Unit tests
-        run: pnpm test:ci
+        run: pnpm -F bestofjs-nextjs test:ci
 
   automated-testing:
     name: E2E Tests
