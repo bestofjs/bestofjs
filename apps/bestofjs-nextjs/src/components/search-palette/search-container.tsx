@@ -5,8 +5,6 @@ import { createContainer } from "unstated-next";
 
 import { filterProjectsByQuery, filterTagsByQuery } from "@/lib/search-utils";
 
-import { filterProjectsByTags } from "./find-projects";
-
 function useClientSearch(initialState?: {
   projects: BestOfJS.SearchIndexProject[];
   tags: BestOfJS.Tag[];
@@ -54,3 +52,11 @@ function useClientSearch(initialState?: {
 }
 
 export const ClientSearch = createContainer(useClientSearch);
+
+function filterProjectsByTags<
+  T extends Omit<BestOfJS.SearchIndexProject, "slug">
+>(projects: T[], tags: string[]) {
+  return projects.filter((project) =>
+    tags.every((tag) => project.tags.includes(tag))
+  );
+}
