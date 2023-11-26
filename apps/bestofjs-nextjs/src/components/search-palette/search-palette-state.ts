@@ -140,7 +140,6 @@ export function useSearchPaletteState({ allProjects, allTags }: SearchProps) {
     searchQuery,
     selectedItem,
     setOpen,
-    setSearchQuery,
   };
 }
 

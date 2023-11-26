@@ -44,11 +44,6 @@ import {
 } from "./search-palette-state";
 import { SearchTrigger } from "./search-trigger";
 
-export type SearchResults = {
-  projects: BestOfJS.SearchIndexProject[];
-  tags: BestOfJS.Tag[];
-};
-
 type CombinedSearchResult =
   | (BestOfJS.SearchIndexProject & { rank: number })
   | (BestOfJS.Tag & { rank: number });
@@ -114,20 +109,19 @@ export function SearchPalette({ allProjects, allTags }: SearchProps) {
                 <DefaultTags
                   allProjects={allProjects}
                   allTags={allTags}
-                  currentTagCodes={currentTagCodes}
+                  currentTags={currentTags}
                   onSelectTag={onSelectTag}
                   onViewAllTags={onViewAllTags}
-                  currentTags={currentTags}
                 />
               ) : (
                 <CombinedSearchResults
                   allProjects={allProjects}
                   allTags={allTags}
                   currentTagCodes={currentTagCodes}
-                  searchQuery={searchQuery}
                   onSelectProject={onSelectProject}
                   onSelectTag={onSelectTag}
                   onSelectSearchForText={onSelectSearchForText}
+                  searchQuery={searchQuery}
                 />
               )}
             </CommandList>
@@ -256,16 +250,15 @@ function usePrefetchFirstProject(projects: BestOfJS.SearchIndexProject[]) {
 function DefaultTags({
   allProjects,
   allTags,
-  currentTagCodes,
   onSelectTag,
   currentTags,
   onViewAllTags,
 }: Pick<SearchProps, "allProjects" | "allTags"> & {
-  currentTagCodes: string[];
+  currentTags: BestOfJS.Tag[];
   onSelectTag: (tagCode: string) => void;
   onViewAllTags: () => void;
-  currentTags: BestOfJS.Tag[];
 }) {
+  const currentTagCodes = currentTags.map((tag) => tag.code);
   const projects = filterProjectsByTags(allProjects, currentTagCodes);
   const tags =
     currentTagCodes.length > 0
