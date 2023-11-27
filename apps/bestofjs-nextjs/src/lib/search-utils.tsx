@@ -1,4 +1,6 @@
-const DEBUG_MODE = false; // to show time spent in search functions
+import { env } from "@/env.mjs";
+
+const DEBUG_MODE = env.NEXT_PUBLIC_DEBUG_SEARCH;
 
 type ProjectItem = Omit<BestOfJS.SearchIndexProject, "slug">; // `Project` minimal type handled by both client and server
 
