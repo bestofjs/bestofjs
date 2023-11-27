@@ -82,18 +82,6 @@ export function useSearchPaletteState() {
     setOpen(value);
   };
 
-  React.useEffect(() => {
-    const down = (e: KeyboardEvent) => {
-      if (e.key === "k" && (e.metaKey || e.ctrlKey)) {
-        e.preventDefault();
-        setOpen((open) => !open);
-      }
-    };
-
-    document.addEventListener("keydown", down);
-    return () => document.removeEventListener("keydown", down);
-  }, []);
-
   const onValueChange = (value: string) => {
     setSearchQuery(value);
   };
@@ -141,6 +129,8 @@ export function useSearchPaletteState() {
     });
   };
 
+  useKeyboardShortcut(() => setOpen((open) => !open));
+
   return {
     currentTagCodes,
     currentTags,
@@ -157,4 +147,18 @@ export function useSearchPaletteState() {
     selectedItem,
     setOpen,
   };
+}
+
+function useKeyboardShortcut(callback: () => void) {
+  React.useEffect(() => {
+    const down = (e: KeyboardEvent) => {
+      if (e.key === "k" && (e.metaKey || e.ctrlKey)) {
+        e.preventDefault();
+        callback();
+      }
+    };
+
+    document.addEventListener("keydown", down);
+    return () => document.removeEventListener("keydown", down);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 }
