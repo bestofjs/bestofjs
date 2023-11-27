@@ -18,7 +18,7 @@
     "format:write": "prettier --write \"**/*.{ts,tsx,mdx}\" --cache",
     "format:check": "prettier --check \"**/*.{ts,tsx,mdx}\" --cache",
     "test": "vitest",
-    "test:ci": "vitest run",
+    "test:ci": "pnpm build-project-data && vitest run",
     "test:e2e": "playwright test",
     "test:e2e:ui": "playwright test --ui"
   },
@@ -59,7 +59,10 @@
     "tailwind-merge": "^1.12.0",
     "tailwindcss-animate": "^1.0.5",
     "tiny-invariant": "^1.3.1",
+    "unstated-next": "^1.1.0",
+    "use-debounce": "^3.0.0",
     "vague-time": "^2.4.2",
+    "vite-tsconfig-paths": "^3.4.1",
     "vitest": "^0.34.3",
     "zod": "^3.22.4"
   },

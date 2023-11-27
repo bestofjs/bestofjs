@@ -3,11 +3,10 @@ import Link from "next/link";
 
 import { APP_REPO_URL, DISCORD_URL } from "@/config/site";
 import { buttonVariants } from "@/components/ui/button";
+import { DiscordIcon, GitHubIcon } from "@/components/core/icons";
 import { MainNav } from "@/components/header/desktop-nav";
-import { SearchContainer } from "@/components/search-palette/search-container";
+import { ClientSearchRoot } from "@/components/search-palette/search-root";
 import { ThemeToggle } from "@/components/theme-toggle";
-
-import { DiscordIcon, GitHubIcon } from "../core";
 
 export function SiteHeader() {
   return (
@@ -26,7 +25,7 @@ export function SiteHeader() {
               </div>
             }
           >
-            <SearchContainer />
+            <ClientSearchRoot />
           </Suspense>
           <nav className="flex items-center gap-1">
             <Link
