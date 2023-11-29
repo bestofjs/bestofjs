@@ -103,3 +103,30 @@ Terminal 2:
 ```bash
 pnpm test:e2e
 ```
+
+## Analyzing app bundles
+
+#### 1. Run bundle-analyzer
+
+```bash
+cd apps/bestofjs-nextjs/
+pnpm analyze
+```
+
+#### 2. Inspect the app bundles
+
+- Via the terminal
+
+- Via the browser
+
+> If the pages are not loaded automatically, open them manually.
+
+```bash
+cd ./next/analyze/
+```
+
+Open the following files in the browser:
+
+`client.html` - displays all the bundles for the client side.
+
+`nodejs.html` - displays all the bundles for the server side.
