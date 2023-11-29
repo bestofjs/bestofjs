@@ -13,7 +13,7 @@ on:
 defaults:
   run:
     # change this if your nextjs app does not live at the root of the repo
-    working-directory: ./apps/bestofjs-nextjs/
+    working-directory: apps/bestofjs-nextjs/
 
 permissions:
   contents: read # for checkout repository
@@ -55,7 +55,7 @@ jobs:
         with:
           # if you use a custom build directory, replace all instances of `.next` in this file with your build directory
           # ex: if your app builds to `dist`, replace `.next` with `dist`
-          path: ./apps/bestofjs-nextjs/.next/cache
+          path: .next/cache
           # change this if you prefer a more strict cache
           key: ${{ runner.os }}-build-${{ env.cache-name }}
 
@@ -72,15 +72,15 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: bundle
-          path: ./apps/bestofjs-nextjs/.next/analyze/__bundle_analysis.json
+          path: apps/bestofjs-nextjs/.next/analyze/__bundle_analysis.json
 
       - name: Download base branch bundle stats
         uses: dawidd6/action-download-artifact@v2
         if: success() && github.event.number
         with:
-          workflow: nextjs_bundle_analysis.yml
+          workflow: nextjs-bundle-analysis.yml
           branch: ${{ github.event.pull_request.base.ref }}
-          path: ./apps/bestofjs-nextjs/.next/analyze/base
+          path: apps/bestofjs-nextjs/.next/analyze/base
 
       # And here's the second place - this runs after we have both the current and
       # base branch bundle stats, and will compare them to determine what changed.
@@ -97,7 +97,7 @@ jobs:
       # entry in your package.json file.
       - name: Compare with base branch bundle
         if: success() && github.event.number
-        run: ls -laR ./apps/bestofjs-nextjs/.next/analyze/__bundle_analysis.json && pnpm exec -p nextjs-bundle-analysis compare
+        run: ls -laR apps/bestofjs-nextjs/.next/base && pnpm exec -p nextjs-bundle-analysis compare
 
       - name: Get Comment Body
         id: get-comment-body
