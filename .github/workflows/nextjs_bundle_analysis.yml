@@ -76,10 +76,10 @@ jobs:
 
       - name: Download base branch bundle stats
         uses: dawidd6/action-download-artifact@v2
-        continue-on-error: true
         if: success() && github.event.number
         with:
           workflow: nextjs_bundle_analysis.yml
+          run_id: ${{ steps.get_run_id.outputs.run_id }}
           branch: ${{ github.event.pull_request.base.ref }}
           path: ./apps/bestofjs-nextjs/.next/analyze/__bundle_analysis.json
 
