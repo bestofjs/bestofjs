@@ -81,7 +81,6 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           workflow: nextjs_bundle_analysis.yml
           branch: ${{ github.event.pull_request.base.ref }}
-          commit: ${{ github.sha }}
           path: ./apps/bestofjs-nextjs/.next/analyze/__bundle_analysis.json
 
       # And here's the second place - this runs after we have both the current and
