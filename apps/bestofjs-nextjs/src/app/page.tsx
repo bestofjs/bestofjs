@@ -11,7 +11,6 @@ import {
   APP_REPO_URL,
   SPONSOR_URL,
 } from "@/config/site";
-import { cn } from "@/lib/utils";
 import { formatNumber } from "@/helpers/numbers";
 import { addCacheBustingParam } from "@/helpers/url";
 import { buttonVariants } from "@/components/ui/button";
@@ -128,8 +127,8 @@ function HotProjectList({ projects }: { projects: BestOfJS.Project[] }) {
           <NextLink
             href={`/projects?sort=daily`}
             passHref
-            className={cn(
-              buttonVariants({ variant: "link" }),
+            className={buttonVariants(
+              { variant: "link" },
               "text-md w-full text-secondary-foreground"
             )}
           >
@@ -165,8 +164,8 @@ function NewestProjectList({ projects }: { projects: BestOfJS.Project[] }) {
           <NextLink
             href={`/projects?sort=newest`}
             passHref
-            className={cn(
-              buttonVariants({ variant: "link" }),
+            className={buttonVariants(
+              { variant: "link" },
               "text-md w-full text-secondary-foreground"
             )}
           >
@@ -193,8 +192,8 @@ function PopularTagsList({ tags }: { tags: BestOfJS.Tag[] }) {
         <NextLink
           href={`/tags`}
           passHref
-          className={cn(
-            buttonVariants({ variant: "link" }),
+          className={buttonVariants(
+            { variant: "link" },
             "text-md w-full text-secondary-foreground"
           )}
         >
@@ -227,8 +226,8 @@ function BestOfJSSection({ project }: { project: BestOfJS.Project | null }) {
         {project && (
           <a
             href={APP_REPO_URL}
-            className={cn(
-              buttonVariants({ variant: "outline", size: "lg" }),
+            className={buttonVariants(
+              { variant: "outline", size: "lg" },
               "text-md min-w-[260px]"
             )}
           >
@@ -240,8 +239,8 @@ function BestOfJSSection({ project }: { project: BestOfJS.Project | null }) {
         )}
         <a
           href={SPONSOR_URL}
-          className={cn(
-            buttonVariants({ variant: "outline", size: "lg" }),
+          className={buttonVariants(
+            { variant: "outline", size: "lg" },
             "text-md"
           )}
         >

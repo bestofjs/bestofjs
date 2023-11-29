@@ -3,7 +3,6 @@ import Link from "next/link";
 import { GoCalendar } from "react-icons/go";
 
 import { APP_CANONICAL_URL, APP_DISPLAY_NAME } from "@/config/site";
-import { cn } from "@/lib/utils";
 import { Button, buttonVariants } from "@/components/ui/button";
 import { Card, CardHeader } from "@/components/ui/card";
 import {
@@ -157,8 +156,8 @@ function NavigationButton({
     <Link
       href={url}
       aria-label={label}
-      className={cn(
-        buttonVariants({ variant: "outline" }),
+      className={buttonVariants(
+        { variant: "outline" },
         "w-10 rounded-full p-0 sm:w-auto sm:rounded-sm sm:p-2"
       )}
     >

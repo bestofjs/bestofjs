@@ -5,6 +5,8 @@ import { ProjectAvatar, StarDelta, getDeltaByDay } from "@/components/core";
 import { SortOptionKey } from "@/components/project-list/sort-order-options";
 import { ProjectTag } from "@/components/tags/project-tag";
 
+import { linkVariants } from "../ui/link";
+
 export function FeaturedProjectList({
   projects,
 }: {
@@ -38,7 +40,7 @@ function FeaturedProject({
       <div className="flex-1 space-y-2 overflow-hidden text-center">
         <NextLink
           href={`/projects/${project.slug}`}
-          className="block truncate text-primary hover:underline"
+          className={linkVariants({ variant: "project" }, "truncate")}
         >
           {project.name}
         </NextLink>

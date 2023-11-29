@@ -1,7 +1,6 @@
 import NextLink from "next/link";
 import { GoCalendar } from "react-icons/go";
 
-import { cn } from "@/lib/utils";
 import { buttonVariants } from "@/components/ui/button";
 import { Card, CardHeader } from "@/components/ui/card";
 import { StarDelta } from "@/components/core";
@@ -33,8 +32,8 @@ export async function LatestMonthlyRankings() {
           <NextLink
             href={`/rankings/monthly/${year}/${month}`}
             passHref
-            className={cn(
-              buttonVariants({ variant: "link" }),
+            className={buttonVariants(
+              { variant: "link" },
               "text-md w-full text-secondary-foreground"
             )}
           >

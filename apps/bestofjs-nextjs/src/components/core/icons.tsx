@@ -66,6 +66,10 @@ export const TagIcon = (props: IconProps) => (
   <SvgSprite id="tag-icon" {...props} />
 );
 
+export const TagsIcons = (props: IconProps) => (
+  <SvgSprite id="tags-icon" {...props} />
+);
+
 export const XMarkIcon = (props: IconProps) => (
   <SvgSprite id="x-mark-icon" {...props} />
 );

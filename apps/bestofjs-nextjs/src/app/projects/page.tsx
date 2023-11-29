@@ -6,6 +6,7 @@ import { cn } from "@/lib/utils";
 import { formatNumber } from "@/helpers/numbers";
 import { addCacheBustingParam } from "@/helpers/url";
 import { badgeVariants } from "@/components/ui/badge";
+import { buttonVariants } from "@/components/ui/button";
 import { PlusIcon, TagIcon, XMarkIcon } from "@/components/core";
 import { PageHeading } from "@/components/core/typography";
 import {
@@ -144,7 +145,11 @@ export default async function Projects({ searchParams }: PageProps) {
         />
       )}
       {relevantTags.length > 0 && (
-        <RelevantTags tags={relevantTags} buildPageURL={buildPageURL} />
+        <RelevantTags
+          tags={relevantTags}
+          buildPageURL={buildPageURL}
+          showIcon={selectedTags.length > 0}
+        />
       )}
       <ProjectPaginatedList
         projects={projects}
@@ -210,7 +215,7 @@ function ProjectPageHeader({
 function ShowNumberOfProject({ count }: { count: number }) {
   return (
     <>
-      <span className="px-2 text-yellow-500">•</span>
+      <span className="px-2 text-[var(--icon-color)]">•</span>
       <span className="text-muted-foreground">
         {count === 1
           ? "One project"
@@ -223,13 +228,17 @@ function ShowNumberOfProject({ count }: { count: number }) {
 function RelevantTags({
   tags,
   buildPageURL,
+  showIcon,
+  limit = 16,
 }: {
   tags: BestOfJS.Tag[];
   buildPageURL: SearchUrlBuilder<ProjectSearchQuery>;
+  showIcon?: boolean;
+  limit?: number;
 }) {
   return (
     <div className="mb-4 flex flex-wrap gap-2">
-      {tags.map((tag) => {
+      {tags.slice(0, limit).map((tag) => {
         const url = buildPageURL((state) => ({
           ...state,
           page: 1,
@@ -239,10 +248,10 @@ function RelevantTags({
           <NextLink
             key={tag.code}
             href={url}
-            className={badgeVariants({ variant: "outline" })}
+            className={buttonVariants({ variant: "outline", size: "sm" })}
           >
             {tag.name}
-            <PlusIcon size={20} />
+            {showIcon && <PlusIcon size={20} />}
           </NextLink>
         );
       })}
@@ -282,7 +291,7 @@ function CurrentTags({
       {textQuery && (
         <NextLink
           href={buildPageURL((state) => ({ ...state, page: 1, query: "" }))}
-          className={cn(badgeVariants({ variant: "destructive" }), "text-md")}
+          className={cn(badgeVariants({ variant: "default" }), "text-md")}
         >
           “{textQuery}”
           <XMarkIcon size={20} />

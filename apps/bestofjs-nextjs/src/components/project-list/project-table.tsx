@@ -16,6 +16,7 @@ import {
 } from "../core";
 import { ProjectTagGroup } from "../tags/project-tag";
 import { buttonVariants } from "../ui/button";
+import { linkVariants } from "../ui/link";
 
 type Props = {
   projects: BestOfJS.Project[];
@@ -72,11 +73,11 @@ const ProjectTableRow = ({
         </NextLink>
       </Cell>
 
-      <Cell className="w-auto py-4 pl-4 md:pl-2">
+      <Cell className="max-w-0 py-4 pl-4 md:pl-2">
         <div className="relative flex items-center space-x-2">
           <NextLink
             href={path}
-            className="whitespace-nowrap text-primary hover:underline"
+            className={linkVariants({ variant: "project" })}
           >
             {project.name}
           </NextLink>
@@ -86,12 +87,9 @@ const ProjectTableRow = ({
               aria-label="GitHub repository"
               rel="noopener noreferrer"
               target="_blank"
-              className={cn(
-                buttonVariants({ variant: "ghost" }),
-                "rounded-full",
-                "w-10",
-                "h-10",
-                "p-0"
+              className={buttonVariants(
+                { variant: "ghost" },
+                "rounded-full w-10 h-10 p-0"
               )}
             >
               <GitHubIcon size={24} />
@@ -102,12 +100,9 @@ const ProjectTableRow = ({
                 aria-label="Project's homepage"
                 rel="noopener noreferrer"
                 target="_blank"
-                className={cn(
-                  buttonVariants({ variant: "ghost" }),
-                  "rounded-full",
-                  "w-10",
-                  "h-10",
-                  "p-0"
+                className={buttonVariants(
+                  { variant: "ghost" },
+                  "rounded-full w-10 h-10 p-0"
                 )}
               >
                 <HomeIcon size={24} />

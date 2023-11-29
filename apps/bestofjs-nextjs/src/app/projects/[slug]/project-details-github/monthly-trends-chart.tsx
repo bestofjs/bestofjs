@@ -167,8 +167,8 @@ const GraphBar = ({
 const EmptyGraphBar = ({ value }: { value: number | undefined }) => {
   return (
     <>
-      <BarTopLabel color="gray.400">
-        {value === undefined ? <span className="text-secondary">N/A</span> : 0}
+      <BarTopLabel className="text-muted-foreground">
+        {value === undefined ? "N/A" : 0}
       </BarTopLabel>
       <div className="border-b-1 mt-1 h-[1px] w-[75%] max-w-[2rem] border-dashed border-[var(--graphBackgroundColor1)]" />
     </>

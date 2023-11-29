@@ -25,6 +25,7 @@ const CardHeader = React.forwardRef<
     ref={ref}
     className={cn(
       "flex flex-row items-center space-y-1.5 border-b p-4",
+      "dark:bg-gradient-to-bl dark:from-[var(--sand-3)] dark:to-[var(--sand-2)]", // gradient BG only for dark mode
       className
     )}
     {...props}

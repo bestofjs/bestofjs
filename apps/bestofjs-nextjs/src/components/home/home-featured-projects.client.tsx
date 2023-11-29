@@ -46,13 +46,13 @@ export function FeaturedProjectsClient({
             <>
               <div className="flex items-center justify-between">
                 <div>Random order</div>
-                <div className="flex items-center">
+                <div className="flex items-center gap-2">
                   <Button
                     aria-label="Previous"
                     onClick={setPreviousPageNumber}
-                    variant="ghost"
+                    variant="outline"
                     size="icon"
-                    className="h-6 w-10"
+                    className="h-6 w-8"
                     disabled={pageNumber === 0}
                   >
                     <ChevronLeftIcon size={24} />
@@ -60,9 +60,9 @@ export function FeaturedProjectsClient({
                   <Button
                     aria-label="Next"
                     onClick={setNextPageNumber}
-                    variant="ghost"
+                    variant="outline"
                     size="icon"
-                    className="h-6 w-10"
+                    className="h-6 w-8"
                     disabled={pageNumber === lastPageNumber}
                   >
                     <ChevronRightIcon size={24} />

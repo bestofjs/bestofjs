@@ -19,4 +19,19 @@ export const env = createEnv({
       .url()
       .default("https://bestofjs-rankings.vercel.app"),
   },
+  client: {
+    /** Show time spent in search palette filter functions */
+    NEXT_PUBLIC_DEBUG_SEARCH: z
+      .string()
+      .default("false")
+      // only allow "true" or "false"
+      .refine((s) => s === "true" || s === "false")
+      // transform to boolean
+      .transform((s) => s === "true"),
+  },
+  // For Next.js >= 13.4.4, you need to destructure client variables
+  // See https://env.t3.gg/docs/nextjs
+  experimental__runtimeEnv: {
+    NEXT_PUBLIC_DEBUG_SEARCH: process.env.NEXT_PUBLIC_DEBUG_SEARCH,
+  },
 });
