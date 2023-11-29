@@ -81,6 +81,7 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           workflow: nextjs-bundle-analysis.yml
           commit: ${{ github.sha }}
+          run_id: ${{ github.event.workflow_run.id }}
           path: apps/bestofjs-nextjs/.next/analyze/base
 
       # And here's the second place - this runs after we have both the current and
