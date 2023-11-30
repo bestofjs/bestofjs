@@ -1,5 +1,3 @@
-import slugify from "slugify";
-
 import { formatNumber } from "@/helpers/numbers";
 
 import { StarIcon } from "./icons";
@@ -73,10 +71,6 @@ export const StarTotal = ({ value }: Props) => {
     </div>
   );
 };
-
-export function getProjectId(project: BestOfJS.RawProject) {
-  return slugify(project.name, { lower: true, remove: /[.'/]/g });
-}
 
 export const getDeltaByDay =
   (period: string) =>
