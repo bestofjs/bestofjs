@@ -65,7 +65,12 @@ export function getTagsByKey(
   const byKey = {} as { [tag: string]: BestOfJS.Tag };
 
   tags.forEach((tag) => {
-    byKey[tag.code] = { name: tag.name, code: tag.code, counter: 0 };
+    byKey[tag.code] = {
+      code: tag.code,
+      counter: 0,
+      description: tag.description,
+      name: tag.name,
+    };
   });
 
   projects.forEach(({ tags }) => {

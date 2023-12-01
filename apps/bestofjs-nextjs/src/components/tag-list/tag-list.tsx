@@ -1,8 +1,9 @@
 import NextLink from "next/link";
 
+import { Badge } from "@/components/ui/badge";
+import { buttonVariants } from "@/components/ui/button";
+import { linkVariants } from "@/components/ui/link";
 import { ChevronRightIcon, ProjectAvatar } from "@/components/core";
-
-import { buttonVariants } from "../ui/button";
 
 type Props = {
   tags: BestOfJS.TagWithProjects[];
@@ -15,16 +16,17 @@ export const TagList = ({ tags }: Props) => {
           key={tag.code}
           className="flex w-full flex-col justify-between gap-4 p-4 md:flex-row"
         >
-          <div className="">
+          <div className="flex flex-col gap-2">
             <NextLink
               href={`/projects?tags=${tag.code}`}
-              className="text-secondary-foreground hover:underline"
+              className={linkVariants({ variant: "project" })}
             >
               {tag.name}
+              <Badge className="ml-2" variant="outline">
+                {tag.counter}
+              </Badge>
             </NextLink>
-            <span className="ml-2 text-muted-foreground">
-              {tag.counter} projects
-            </span>
+            <div className="text-muted-foreground">{tag.description}</div>
           </div>
           <div className="flex items-center gap-4">
             {tag.projects.map((project) => (
