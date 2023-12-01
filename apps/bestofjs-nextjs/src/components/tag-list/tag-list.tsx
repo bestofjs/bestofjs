@@ -3,6 +3,11 @@ import NextLink from "next/link";
 import { Badge } from "@/components/ui/badge";
 import { buttonVariants } from "@/components/ui/button";
 import { linkVariants } from "@/components/ui/link";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 import { ChevronRightIcon, ProjectAvatar } from "@/components/core";
 
 type Props = {
@@ -14,7 +19,7 @@ export const TagList = ({ tags }: Props) => {
       {tags.map((tag) => (
         <div
           key={tag.code}
-          className="flex w-full flex-col justify-between gap-4 p-4 md:flex-row"
+          className="flex w-full flex-col items-center justify-between gap-4 p-4 md:flex-row"
         >
           <div className="flex flex-col gap-2">
             <NextLink
@@ -26,7 +31,9 @@ export const TagList = ({ tags }: Props) => {
                 {tag.counter}
               </Badge>
             </NextLink>
-            <div className="text-muted-foreground">{tag.description}</div>
+            {tag.description && (
+              <div className="text-muted-foreground">{tag.description}</div>
+            )}
           </div>
           <div className="flex items-center gap-4">
             {tag.projects.map((project) => (
@@ -35,7 +42,12 @@ export const TagList = ({ tags }: Props) => {
                 href={`/projects/${project.slug}`}
                 prefetch={false}
               >
-                <ProjectAvatar project={project} size={32} />
+                <Tooltip>
+                  <TooltipTrigger>
+                    <ProjectAvatar project={project} size={32} />
+                  </TooltipTrigger>
+                  <TooltipContent>{project.name}</TooltipContent>
+                </Tooltip>
               </NextLink>
             ))}
             <NextLink
@@ -45,7 +57,14 @@ export const TagList = ({ tags }: Props) => {
                 "h-[32px] w-[32px]"
               )}
             >
-              <ChevronRightIcon className="h-6 w-6" />
+              <Tooltip>
+                <TooltipTrigger>
+                  <ChevronRightIcon className="h-6 w-6" />
+                </TooltipTrigger>
+                <TooltipContent>
+                  View all projects ({tag.counter})
+                </TooltipContent>
+              </Tooltip>
             </NextLink>
           </div>
         </div>
