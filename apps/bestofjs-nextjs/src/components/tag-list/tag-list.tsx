@@ -19,7 +19,7 @@ export const TagList = ({ tags }: Props) => {
           <div className="flex flex-col gap-2">
             <NextLink
               href={`/projects?tags=${tag.code}`}
-              className={linkVariants({ variant: "project" })}
+              className={linkVariants({ variant: "tag" })}
             >
               {tag.name}
               <Badge className="ml-2" variant="outline">
