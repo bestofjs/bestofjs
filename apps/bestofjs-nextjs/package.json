@@ -33,6 +33,7 @@
     "@radix-ui/react-popover": "^1.0.6",
     "@radix-ui/react-separator": "^1.0.3",
     "@radix-ui/react-slot": "^1.0.2",
+    "@radix-ui/react-tooltip": "^1.0.7",
     "@t3-oss/env-nextjs": "^0.7.1",
     "@types/debug": "^4.1.8",
     "@types/fs-extra": "^11.0.1",

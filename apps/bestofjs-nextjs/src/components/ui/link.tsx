@@ -8,6 +8,7 @@ export const linkVariants = klass({
   variants: {
     variant: {
       project: "hover:underline-offset-8",
+      tag: "hover:underline-offset-8",
     },
   },
 });
