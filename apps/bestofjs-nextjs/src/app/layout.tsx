@@ -9,6 +9,7 @@ import {
 } from "@/config/site";
 import { fontSans, fontSerif } from "@/lib/fonts";
 import { cn } from "@/lib/utils";
+import { TooltipProvider } from "@/components/ui/tooltip";
 import { Footer } from "@/components/footer/footer";
 import { SiteHeader } from "@/components/header/site-header";
 import { TailwindIndicator } from "@/components/tailwind-indicator";
@@ -68,14 +69,16 @@ export default function RootLayout({ children }: RootLayoutProps) {
           )}
         >
           <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-            <div className="relative flex min-h-screen flex-col">
-              <SiteHeader />
-              <main className="flex-1 bg-[var(--app-background)]">
-                <div className="container pb-8 pt-6 md:py-8">{children}</div>
-              </main>
-              <Footer />
-            </div>
-            <TailwindIndicator />
+            <TooltipProvider>
+              <div className="relative flex min-h-screen flex-col">
+                <SiteHeader />
+                <main className="flex-1 bg-[var(--app-background)]">
+                  <div className="container pb-8 pt-6 md:py-8">{children}</div>
+                </main>
+                <Footer />
+              </div>
+              <TailwindIndicator />
+            </TooltipProvider>
           </ThemeProvider>
           <Analytics />
         </body>
