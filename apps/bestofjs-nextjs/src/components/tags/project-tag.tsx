@@ -5,10 +5,43 @@ import { cn } from "@/lib/utils";
 import { badgeVariants } from "@/components/ui/badge";
 import { ProjectSearchQuery, SearchUrlBuilder } from "@/app/projects/types";
 
+import {
+  HoverCard,
+  HoverCardContent,
+  HoverCardTrigger,
+} from "../ui/hover-card";
+
 type Props = {
   tags: BestOfJS.Tag[];
   appendTag?: boolean;
   buildPageURL?: SearchUrlBuilder<ProjectSearchQuery>;
+};
+
+const ProjectTagHoverCard = ({
+  children,
+  tag,
+}: {
+  children: React.ReactNode;
+  tag: BestOfJS.Tag;
+}) => {
+  return (
+    <HoverCard>
+      <HoverCardTrigger asChild>{children}</HoverCardTrigger>
+      <HoverCardContent className="w-80">
+        <div className="flex justify-between space-x-4">
+          <div className="space-y-1">
+            <h4 className="text-sm font-semibold">@nextjs</h4>
+            <p className="text-sm">{tag.description}</p>
+            <div className="flex items-center pt-2">
+              <span className="text-xs text-muted-foreground">
+                Joined December 2021
+              </span>
+            </div>
+          </div>
+        </div>
+      </HoverCardContent>
+    </HoverCard>
+  );
 };
 export const ProjectTagGroup = ({ tags, ...otherProps }: Props) => {
   return (
@@ -42,15 +75,17 @@ export const ProjectTag = ({
     : `/projects?tags=${tag.code}`;
 
   return (
-    <NextLink
-      href={url}
-      className={cn(
-        badgeVariants({ variant: "outline" }),
-        "rounded-sm bg-card px-3 py-1 font-sans text-sm font-normal hover:bg-accent",
-        className
-      )}
-    >
-      {tag.name}
-    </NextLink>
+    <ProjectTagHoverCard tag={tag}>
+      <NextLink
+        href={url}
+        className={cn(
+          badgeVariants({ variant: "outline" }),
+          "rounded-sm bg-card px-3 py-1 font-sans text-sm font-normal hover:bg-accent",
+          className
+        )}
+      >
+        {tag.name}
+      </NextLink>
+    </ProjectTagHoverCard>
   );
 };
