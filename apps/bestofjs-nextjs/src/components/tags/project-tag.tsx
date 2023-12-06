@@ -5,6 +5,7 @@ import { cn } from "@/lib/utils";
 import { badgeVariants } from "@/components/ui/badge";
 import { ProjectSearchQuery, SearchUrlBuilder } from "@/app/projects/types";
 
+import { TagIcon } from "../core";
 import {
   HoverCard,
   HoverCardContent,
@@ -30,7 +31,12 @@ const ProjectTagHoverCard = ({
       <HoverCardContent className="w-80">
         <div className="flex justify-between space-x-4">
           <div className="space-y-1">
-            <h4 className="text-sm font-semibold">@nextjs</h4>
+            <div className="flex items-center space-x-1">
+              <div style={{ color: "#F59E0B" }}>
+                <TagIcon />
+              </div>
+              <h4 className="text-sm font-semibold">{tag.name}</h4>
+            </div>
             <p className="text-sm">{tag.description}</p>
             <div className="flex items-center pt-2">
               <span className="text-xs text-muted-foreground">
