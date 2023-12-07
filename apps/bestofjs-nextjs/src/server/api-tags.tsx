@@ -97,6 +97,32 @@ export function createTagsAPI({ getData }: APIContext) {
         total,
       };
     },
+    async getTagBySlug(rawSearchQuery: Partial<QueryParams>) {
+      const searchQuery = { ...defaultTagSearchQuery, ...rawSearchQuery };
+      const { criteria, sort, skip, limit } = searchQuery;
+      const { projectCollection, tagCollection } = await getData();
+      const query = new mingo.Query(criteria);
+      const cursor = query.find(tagCollection);
+      const total = cursor.count();
+
+      const tags = query
+        .find(tagCollection)
+        .sort(sort)
+        .skip(skip)
+        .limit(limit)
+        .all();
+
+      for await (const tag of tags) {
+        const searchQuery = normalizeSearchQuery({
+          criteria: {},
+        });
+      }
+      // TODO finish method
+      return {
+        tags,
+        total,
+      };
+    },
   };
 }
 
