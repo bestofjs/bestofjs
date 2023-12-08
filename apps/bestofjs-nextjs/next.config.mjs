@@ -33,7 +33,8 @@ const nextConfig = {
 function fetchLatestRankings() {
   const url = `${env.RANKINGS_ROOT_URL}/monthly/latest`;
   console.log("Fetching latest rankings from", url);
-  const data = fetch(url).then((res) => res.json());
+  const options = { next: { tags: ["monthly", "latest"] } };
+  const data = fetch(url, options).then((res) => res.json());
   return data;
 }
 
