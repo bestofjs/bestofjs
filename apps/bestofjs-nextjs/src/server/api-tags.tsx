@@ -97,30 +97,32 @@ export function createTagsAPI({ getData }: APIContext) {
         total,
       };
     },
-    async getTagBySlug(rawSearchQuery: Partial<QueryParams>) {
-      const searchQuery = { ...defaultTagSearchQuery, ...rawSearchQuery };
-      const { criteria, sort, skip, limit } = searchQuery;
-      const { projectCollection, tagCollection } = await getData();
-      const query = new mingo.Query(criteria);
-      const cursor = query.find(tagCollection);
-      const total = cursor.count();
+
+    async getTagBySlug(slug: string) {
+      const { populate, projectCollection, tagCollection } = await getData();
+      const query = new mingo.Query({ code: slug });
 
       const tags = query
         .find(tagCollection)
-        .sort(sort)
-        .skip(skip)
-        .limit(limit)
-        .all();
+        .all() as BestOfJS.TagWithProjects[];
 
       for await (const tag of tags) {
         const searchQuery = normalizeSearchQuery({
-          criteria: {},
+          criteria: { tags: { $in: [tag.code] } },
+          sort: { stars: -1 },
+          limit: 5,
+          projection: { name: 1, icon: 1 },
         });
+
+        const { projects } = await findRawProjects(
+          projectCollection,
+          searchQuery
+        );
+
+        tag.projects = projects.map(populate);
       }
-      // TODO finish method
       return {
         tags,
-        total,
       };
     },
   };
