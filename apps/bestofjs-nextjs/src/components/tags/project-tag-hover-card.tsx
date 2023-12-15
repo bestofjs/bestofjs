@@ -49,8 +49,12 @@ const CardTagProjects = ({
 
   return (
     <div className="flex-col">
-      <h1 className="pb-1 text-left">Top 5 Projects</h1>
-      <FetchTagProjects tag={tag} />
+      <div className="py-2 text-left" style={{ color: "white" }}>
+        <h1>Top 5 Projects</h1>
+      </div>
+      <div>
+        <FetchTagProjects tag={tag} />
+      </div>
     </div>
   );
 };
@@ -74,19 +78,40 @@ const TagCardContent = ({
       </div>
       <p className="text-left text-sm">{description}</p>
       <div>
-        <span className="grow text-sm text-muted-foreground">{children}</span>
+        <div className="grow text-sm text-muted-foreground">{children}</div>
       </div>
     </div>
   </div>
 );
 
+function getTagProjecListStyles({ isFirst }: { isFirst: boolean }) {
+  return {
+    color: "white",
+    gap: 10,
+    alignItems: "center",
+    borderStyle: "solid",
+    borderColor: `rgba(255, 255, 255, 0.2)`,
+    borderBottomWidth: "1px",
+    borderTopWidth: isFirst ? 1 : 0,
+    padding: "8px 0",
+  };
+}
+
 const TagProjectList = ({ projects }: { projects: BestOfJS.Project[] }) => (
-  <div className="flex-col space-y-1">
+  <div className="flex-col">
     {projects &&
-      projects.map((project) => (
-        <div key={project.slug} className="flex gap-3">
-          <ProjectAvatar project={project} size={20} />
-          <div>{project.name}</div>
+      projects.map((project, index) => (
+        <div
+          key={project.slug}
+          className="flex gap-3"
+          style={getTagProjecListStyles({ isFirst: index === 0 })}
+        >
+          <div className="flex">
+            <ProjectAvatar project={project} size={20} />
+          </div>
+          <div>
+            <div>{project.name}</div>
+          </div>
         </div>
       ))}
   </div>
