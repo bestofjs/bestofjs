@@ -79,12 +79,12 @@ const TagCardContent = ({
     </div>
   </div>
 );
-//TODO finish project list and cleanup
+
 const TagProjectList = ({ projects }: { projects: BestOfJS.Project[] }) => (
   <div className="flex-col space-y-1">
     {projects &&
       projects.map((project) => (
-        <div className="flex">
+        <div key={project.slug} className="flex gap-3">
           <ProjectAvatar project={project} size={20} />
           <div>{project.name}</div>
         </div>
