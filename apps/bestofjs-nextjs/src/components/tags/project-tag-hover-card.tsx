@@ -18,7 +18,7 @@ export const ProjectTagHoverCard = ({
   tag,
 }: {
   children: ReactNode;
-  tag: BestOfJS.TagWithProjects;
+  tag: BestOfJS.Tag;
 }) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
@@ -43,7 +43,7 @@ const CardTagProjects = ({
   tag,
 }: {
   isOpen: boolean;
-  tag: BestOfJS.TagWithProjects;
+  tag: BestOfJS.Tag;
 }) => {
   if (!isOpen) return;
 
@@ -127,7 +127,7 @@ const TagProjectListSkeleton = () => (
   </div>
 );
 
-const FetchTagProjects = ({ tag }: { tag: BestOfJS.TagWithProjects }) => {
+const FetchTagProjects = ({ tag }: { tag: BestOfJS.Tag }) => {
   const options: SWRConfiguration = {
     revalidateIfStale: false,
     revalidateOnFocus: false,
@@ -141,7 +141,7 @@ const FetchTagProjects = ({ tag }: { tag: BestOfJS.TagWithProjects }) => {
   if (error) return <div>Unable to fetch...</div>;
   if (isLoading) return <TagProjectListSkeleton />;
 
-  const { tags } = data;
+  const { tags }: { tags: BestOfJS.TagWithProjects[] } = data;
 
   return <TagProjectList projects={tags[0].projects} />;
 };
