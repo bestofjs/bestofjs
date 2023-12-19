@@ -140,8 +140,9 @@ const FetchTagProjects = ({ tag }: { tag: BestOfJS.Tag }) => {
   const { data, error, isLoading } = useSWR(tag.code, fetchTagData, options);
   if (error) return <div>Unable to fetch...</div>;
   if (isLoading) return <TagProjectListSkeleton />;
+  const {
+    tag: { projects },
+  }: { tag: BestOfJS.TagWithProjects } = data;
 
-  const { tags }: { tags: BestOfJS.TagWithProjects[] } = data;
-
-  return <TagProjectList projects={tags[0].projects} />;
+  return <TagProjectList projects={projects} />;
 };

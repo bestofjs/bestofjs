@@ -121,9 +121,8 @@ export function createTagsAPI({ getData }: APIContext) {
 
         tag.projects = projects.map(populate);
       }
-      return {
-        tags,
-      };
+      const [tag] = tags;
+      return { tag: tag };
     },
   };
 }
