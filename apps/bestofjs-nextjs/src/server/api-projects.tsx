@@ -53,7 +53,7 @@ export function createProjectsAPI({ getData }: APIContext) {
 
   return {
     async findProjects(rawSearchQuery: Partial<QueryParams>) {
-      const searchQuery = normalizeSearchQuery(rawSearchQuery);
+      const searchQuery = normalizeProjectSearchQuery(rawSearchQuery);
       const { criteria, query } = searchQuery;
       const { projectCollection, populate, tagsByKey, lastUpdateDate } =
         await getData();
@@ -143,7 +143,9 @@ export function createProjectsAPI({ getData }: APIContext) {
   };
 }
 
-function normalizeSearchQuery(rawSearchQuery: Partial<QueryParams>) {
+export function normalizeProjectSearchQuery(
+  rawSearchQuery: Partial<QueryParams>
+) {
   const defaultQueryParams: QueryParams = {
     criteria: {},
     sort: { stars: -1 },
