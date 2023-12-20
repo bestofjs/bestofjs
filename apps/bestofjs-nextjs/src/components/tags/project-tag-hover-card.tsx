@@ -19,7 +19,7 @@ export const ProjectTagHoverCard = ({
 }: React.PropsWithChildren<{ tag: BestOfJS.Tag }>) => {
   const { name, description } = tag;
   return (
-    <HoverCard>
+    <HoverCard openDelay={0} closeDelay={0}>
       <HoverCardTrigger asChild>{children}</HoverCardTrigger>
       <HoverCardContent className="w-80">
         <div className="justify-start divide-y text-left text-sm">
