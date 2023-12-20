@@ -106,23 +106,24 @@ export function createTagsAPI({ getData }: APIContext) {
         .find(tagCollection)
         .all() as BestOfJS.TagWithProjects[];
 
-      for await (const tag of tags) {
-        const searchQuery = normalizeSearchQuery({
-          criteria: { tags: { $in: [tag.code] } },
-          sort: { stars: -1 },
-          limit: 5,
-          projection: { name: 1, owner_id: 1, icon: 1 },
-        });
+      const tag = tags[0];
+      if (!tag) return null;
 
-        const { projects } = await findRawProjects(
-          projectCollection,
-          searchQuery
-        );
+      const searchQuery = normalizeSearchQuery({
+        criteria: { tags: { $in: [tag.code] } },
+        sort: { stars: -1 },
+        limit: 5,
+        projection: { name: 1, owner_id: 1, icon: 1 },
+      });
 
-        tag.projects = projects.map(populate);
-      }
-      const [tag] = tags;
-      return { tag: tag };
+      const { projects } = await findRawProjects(
+        projectCollection,
+        searchQuery
+      );
+
+      tag.projects = projects.map(populate);
+
+      return tag;
     },
   };
 }

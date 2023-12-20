@@ -11,6 +11,8 @@ import {
 import { Skeleton } from "@/components/ui/skeleton";
 import { ProjectAvatar, TagIcon } from "@/components/core";
 
+const NUMBER_OF_PROJECTS = 5;
+
 export const ProjectTagHoverCard = ({
   children,
   tag,
@@ -63,7 +65,8 @@ const FetchTagProjects = ({ tag }: { tag: BestOfJS.Tag }) => {
   const fetchTagData = async () => {
     const url = `/api/tags/${tag.code}`;
     const data = await fetch(url).then((res) => res.json());
-    return data.tag as BestOfJS.TagWithProjects;
+    if (!data) throw new Error(`Unable to fetch tag data ${tag.code}`);
+    return data as BestOfJS.TagWithProjects;
   };
 
   const { data, error, isLoading } = useSWR(tag.code, fetchTagData, options);
@@ -91,7 +94,7 @@ const TagProjectList = ({ projects }: { projects: BestOfJS.Project[] }) => (
 
 const TagProjectListSkeleton = () => (
   <div className="flex flex-col gap-3">
-    {Array.from(Array(5).keys()).map((key) => (
+    {Array.from(Array(NUMBER_OF_PROJECTS).keys()).map((key) => (
       <Skeleton key={key} className="h-5 w-full" />
     ))}
   </div>
