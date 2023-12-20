@@ -1,131 +1,58 @@
 "use client";
 
-import { ReactNode, useState } from "react";
+import Link from "next/link";
 import useSWR, { SWRConfiguration } from "swr";
 
-import { ProjectAvatar } from "@/components/core";
-
-import { TagIcon } from "../core";
 import {
   HoverCard,
   HoverCardContent,
   HoverCardTrigger,
-} from "../ui/hover-card";
-import { Skeleton } from "../ui/skeleton";
+} from "@/components/ui/hover-card";
+import { Skeleton } from "@/components/ui/skeleton";
+import { ProjectAvatar, TagIcon } from "@/components/core";
 
 export const ProjectTagHoverCard = ({
   children,
   tag,
-}: {
-  children: ReactNode;
-  tag: BestOfJS.Tag;
-}) => {
-  const [isOpen, setIsOpen] = useState<boolean>(false);
-
-  const onOpenChange = (isOpen: boolean) => {
-    setIsOpen(isOpen);
-  };
-
+}: React.PropsWithChildren<{ tag: BestOfJS.Tag }>) => {
+  const { name, description } = tag;
   return (
-    <HoverCard onOpenChange={onOpenChange}>
+    <HoverCard>
       <HoverCardTrigger asChild>{children}</HoverCardTrigger>
       <HoverCardContent className="w-80">
-        <TagCardContent description={tag.description} name={tag.name}>
-          <CardTagProjects isOpen={isOpen} tag={tag} />
-        </TagCardContent>
+        <div className="justify-start divide-y text-left text-sm">
+          <div className="pb-2">
+            <div className="flex items-center gap-2">
+              <div className="text-[var(--icon-color)]">
+                <TagIcon size={24} />
+              </div>
+              <div>{name}</div>
+            </div>
+            {description && (
+              <p className="pt-1 text-sm text-muted-foreground">
+                {description}
+              </p>
+            )}
+          </div>
+          <div className="py-3">
+            <p className="mb-3 text-xs uppercase text-muted-foreground">
+              Popular Projects
+            </p>
+            <FetchTagProjects tag={tag} />
+          </div>
+          <div className="pt-2">
+            <Link
+              href={`/tags/${tag.code}`}
+              className="w-full text-sm text-secondary-foreground hover:text-primary-foreground"
+            >
+              View all »
+            </Link>
+          </div>
+        </div>
       </HoverCardContent>
     </HoverCard>
   );
 };
-
-const CardTagProjects = ({
-  isOpen,
-  tag,
-}: {
-  isOpen: boolean;
-  tag: BestOfJS.Tag;
-}) => {
-  if (!isOpen) return;
-
-  return (
-    <div className="flex-col">
-      <div className="py-2 text-left" style={{ color: "white" }}>
-        <h1>Top 5 Projects</h1>
-      </div>
-      <div>
-        <FetchTagProjects tag={tag} />
-      </div>
-    </div>
-  );
-};
-
-const TagCardContent = ({
-  children,
-  description,
-  name,
-}: {
-  children: ReactNode;
-  description: string | undefined;
-  name: string;
-}) => (
-  <div className="flex justify-between space-x-4">
-    <div className="w-[100%] space-y-1">
-      <div className="flex items-center space-x-1">
-        <div style={{ color: "#F59E0B" }}>
-          <TagIcon />
-        </div>
-        <h4 className="text-sm font-semibold">{name}</h4>
-      </div>
-      <p className="text-left text-sm">{description}</p>
-      <div>
-        <div className="grow text-sm text-muted-foreground">{children}</div>
-      </div>
-    </div>
-  </div>
-);
-
-function getTagProjecListStyles({ isFirst }: { isFirst: boolean }) {
-  return {
-    color: "white",
-    gap: 10,
-    alignItems: "center",
-    borderStyle: "solid",
-    borderColor: `rgba(255, 255, 255, 0.2)`,
-    borderBottomWidth: "1px",
-    borderTopWidth: isFirst ? 1 : 0,
-    padding: "8px 0",
-  };
-}
-
-const TagProjectList = ({ projects }: { projects: BestOfJS.Project[] }) => (
-  <div className="flex-col">
-    {projects &&
-      projects.map((project, index) => (
-        <div
-          key={project.slug}
-          className="flex gap-3"
-          style={getTagProjecListStyles({ isFirst: index === 0 })}
-        >
-          <div className="flex">
-            <ProjectAvatar project={project} size={20} />
-          </div>
-          <div>
-            <div>{project.name}</div>
-          </div>
-        </div>
-      ))}
-  </div>
-);
-
-const TagProjectListSkeleton = () => (
-  <div className="flex-col space-y-1">
-    <Skeleton className="h-6 w-[100%]" />
-    <Skeleton className="h-6 w-[100%]" />
-    <Skeleton className="h-6 w-[100%]" />
-    <Skeleton className="h-6 w-[100%]" />
-    <Skeleton className="h-6 w-[100%]" />
-  </div>
-);
 
 const FetchTagProjects = ({ tag }: { tag: BestOfJS.Tag }) => {
   const options: SWRConfiguration = {
@@ -133,16 +60,39 @@ const FetchTagProjects = ({ tag }: { tag: BestOfJS.Tag }) => {
     revalidateOnFocus: false,
   };
 
-  function fetchTagData() {
+  const fetchTagData = async () => {
     const url = `/api/tags/${tag.code}`;
-    return fetch(url).then((res) => res.json());
-  }
-  const { data, error, isLoading } = useSWR(tag.code, fetchTagData, options);
-  if (error) return <div>Unable to fetch...</div>;
-  if (isLoading) return <TagProjectListSkeleton />;
-  const {
-    tag: { projects },
-  }: { tag: BestOfJS.TagWithProjects } = data;
+    const data = await fetch(url).then((res) => res.json());
+    return data.tag as BestOfJS.TagWithProjects;
+  };
 
-  return <TagProjectList projects={projects} />;
+  const { data, error, isLoading } = useSWR(tag.code, fetchTagData, options);
+  if (isLoading) return <TagProjectListSkeleton />;
+  if (error) return <div>Unable to fetch tag data</div>;
+  if (!data) return null;
+
+  return <TagProjectList projects={data.projects} />;
 };
+
+const TagProjectList = ({ projects }: { projects: BestOfJS.Project[] }) => (
+  <div className="flex flex-col gap-3">
+    {projects.map((project) => (
+      <Link
+        key={project.slug}
+        href={`/projects/${project.slug}`}
+        className="flex h-5 items-center gap-2 text-sm text-muted-foreground hover:text-primary-foreground"
+      >
+        <ProjectAvatar project={project} size={20} />
+        <span>{project.name}</span>
+      </Link>
+    ))}
+  </div>
+);
+
+const TagProjectListSkeleton = () => (
+  <div className="flex flex-col gap-3">
+    {Array.from(Array(5).keys()).map((key) => (
+      <Skeleton key={key} className="h-5 w-full" />
+    ))}
+  </div>
+);
