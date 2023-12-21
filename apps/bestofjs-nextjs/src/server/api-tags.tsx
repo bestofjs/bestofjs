@@ -1,6 +1,7 @@
 import * as mingo from "mingo";
 import { RawObject } from "mingo/types";
 
+import { normalizeProjectSearchQuery } from "./api-projects";
 import { APIContext } from "./api-utils";
 
 const defaultTagSearchQuery = {
@@ -78,7 +79,7 @@ export function createTagsAPI({ getData }: APIContext) {
         .all() as BestOfJS.TagWithProjects[];
 
       for await (const tag of tags) {
-        const searchQuery = normalizeSearchQuery({
+        const searchQuery = normalizeProjectSearchQuery({
           criteria: { tags: { $in: [tag.code] } },
           sort: { stars: -1 },
           limit: 5,
@@ -97,17 +98,33 @@ export function createTagsAPI({ getData }: APIContext) {
         total,
       };
     },
-  };
-}
 
-function normalizeSearchQuery(rawSearchQuery: Partial<QueryParams>) {
-  const defaultQueryParams: QueryParams = {
-    criteria: {},
-    sort: { stars: -1 },
-    limit: 20,
-    skip: 0,
-    projection: {},
-    query: "",
+    async getTagBySlug(slug: string) {
+      const { populate, projectCollection, tagCollection } = await getData();
+      const query = new mingo.Query({ code: slug });
+
+      const tags = query
+        .find(tagCollection)
+        .all() as BestOfJS.TagWithProjects[];
+
+      const tag = tags[0];
+      if (!tag) return null;
+
+      const searchQuery = normalizeProjectSearchQuery({
+        criteria: { tags: { $in: [tag.code] } },
+        sort: { stars: -1 },
+        limit: 5,
+        projection: { name: 1, owner_id: 1, icon: 1 },
+      });
+
+      const { projects } = await findRawProjects(
+        projectCollection,
+        searchQuery
+      );
+
+      tag.projects = projects.map(populate);
+
+      return tag;
+    },
   };
-  return { ...defaultQueryParams, ...rawSearchQuery } as QueryParams;
 }

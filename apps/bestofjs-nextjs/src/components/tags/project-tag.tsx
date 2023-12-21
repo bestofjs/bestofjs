@@ -5,11 +5,14 @@ import { cn } from "@/lib/utils";
 import { badgeVariants } from "@/components/ui/badge";
 import { ProjectSearchQuery, SearchUrlBuilder } from "@/app/projects/types";
 
+import { ProjectTagHoverCard } from "./project-tag-hover-card";
+
 type Props = {
   tags: BestOfJS.Tag[];
   appendTag?: boolean;
   buildPageURL?: SearchUrlBuilder<ProjectSearchQuery>;
 };
+
 export const ProjectTagGroup = ({ tags, ...otherProps }: Props) => {
   return (
     <div className="-m-1 flex flex-wrap">
@@ -42,15 +45,17 @@ export const ProjectTag = ({
     : `/projects?tags=${tag.code}`;
 
   return (
-    <NextLink
-      href={url}
-      className={cn(
-        badgeVariants({ variant: "outline" }),
-        "rounded-sm bg-card px-3 py-1 font-sans text-sm font-normal hover:bg-accent",
-        className
-      )}
-    >
-      {tag.name}
-    </NextLink>
+    <ProjectTagHoverCard tag={tag}>
+      <NextLink
+        href={url}
+        className={cn(
+          badgeVariants({ variant: "outline" }),
+          "rounded-sm bg-card px-3 py-1 font-sans text-sm font-normal hover:bg-accent",
+          className
+        )}
+      >
+        {tag.name}
+      </NextLink>
+    </ProjectTagHoverCard>
   );
 };
