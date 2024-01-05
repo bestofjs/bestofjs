@@ -34,7 +34,7 @@ async function getData(fullName: string, branch: string) {
   const url = `${env.PROJECT_DETAILS_API_ROOT_URL}/api/project-readme?fullName=${fullName}&branch=${branch}`;
   const options = {
     next: {
-      revalidate: 60 * 60 * 24, // Revalidate every day as we assume a README file can change frequently
+      revalidate: 60 * 5, // Revalidate every 5 minutes because of images that have a short time to live
       tags: ["readme", fullName], // to be able to revalidate via API calls, on-demand
     },
   };
