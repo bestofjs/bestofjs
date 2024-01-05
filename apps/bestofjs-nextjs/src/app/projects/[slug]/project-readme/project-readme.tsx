@@ -33,10 +33,7 @@ async function ReadmeContent({ project }: { project: BestOfJS.Project }) {
 async function getData(fullName: string, branch: string) {
   const url = `${env.PROJECT_DETAILS_API_ROOT_URL}/api/project-readme?fullName=${fullName}&branch=${branch}`;
   const options = {
-    next: {
-      revalidate: 60 * 60 * 24, // Revalidate every day as we assume a README file can change frequently
-      tags: ["readme", fullName], // to be able to revalidate via API calls, on-demand
-    },
+    cache: "no-store" as RequestCache, // don't cache the response because of image URLs that become invalid after a while
   };
   const html = await fetch(url, options).then((res) => res.text());
   return html;
