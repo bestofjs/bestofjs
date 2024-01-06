@@ -5,14 +5,14 @@ import { useTheme } from "next-themes";
 
 import { cn } from "@/lib/utils";
 
-import { getProjectAvatarUrl } from "./project-utils";
+import { getProjectLogoUrl } from "./project-utils";
 
 type Props = {
   project: Pick<BestOfJS.Project, "name" | "owner_id" | "icon">;
   size: number;
   className?: string;
 };
-export const ProjectAvatar = ({ project, size = 100, className }: Props) => {
+export const ProjectLogo = ({ project, size = 100, className }: Props) => {
   const { resolvedTheme } = useTheme();
 
   const { src } = getProjectImageProps({
@@ -27,7 +27,7 @@ export const ProjectAvatar = ({ project, size = 100, className }: Props) => {
       width={size}
       height={size}
       alt={project.name}
-      className={cn(className, `w-[${size}px] h-[${size}px] max-w-none`)}
+      className={cn(className, "project-logo")}
     />
   );
 };
@@ -42,10 +42,10 @@ function getProjectImageProps({
   colorMode: "dark" | "light";
 }) {
   const retinaURL =
-    !project.icon && getProjectAvatarUrl(project, size * 2, colorMode);
+    !project.icon && getProjectLogoUrl(project, size * 2, colorMode);
 
   return {
-    src: getProjectAvatarUrl(project, size, colorMode),
+    src: getProjectLogoUrl(project, size, colorMode),
     srcSet: retinaURL ? `${retinaURL} 2x` : undefined, // to display correctly GitHub avatars on Retina screens
   };
 }

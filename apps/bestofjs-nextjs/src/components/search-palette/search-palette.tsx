@@ -16,7 +16,7 @@ import {
 import { Separator } from "@/components/ui/separator";
 import { Skeleton } from "@/components/ui/skeleton";
 import {
-  ProjectAvatar,
+  ProjectLogo,
   StarTotal,
   TagIcon,
   TagsIcons,
@@ -340,7 +340,7 @@ function LoadingProject({ project }: { project: BestOfJS.SearchIndexProject }) {
     <div className="p-4">
       <div className="grid grid-cols-[75px_1fr_100px]">
         <div className="items-center justify-center">
-          <ProjectAvatar project={project} size={50} />
+          <ProjectLogo project={project} size={50} />
         </div>
         <div className="space-y-2">
           <div className="text-lg">

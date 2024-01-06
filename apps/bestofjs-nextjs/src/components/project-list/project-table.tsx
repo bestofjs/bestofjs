@@ -9,7 +9,7 @@ import {
   DownloadCount,
   GitHubIcon,
   HomeIcon,
-  ProjectAvatar,
+  ProjectLogo,
   StarDelta,
   StarTotal,
   getDeltaByDay,
@@ -69,7 +69,7 @@ const ProjectTableRow = ({
     <tr data-testid="project-card" className="border-b">
       <Cell className="w-[50px] pl-4 sm:p-4">
         <NextLink href={path}>
-          <ProjectAvatar project={project} size={48} />
+          <ProjectLogo project={project} size={48} />
         </NextLink>
       </Cell>
 

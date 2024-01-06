@@ -1,7 +1,7 @@
 import NextLink from "next/link";
 
 import { Skeleton } from "@/components/ui/skeleton";
-import { ProjectAvatar, StarDelta, getDeltaByDay } from "@/components/core";
+import { ProjectLogo, StarDelta, getDeltaByDay } from "@/components/core";
 import { SortOptionKey } from "@/components/project-list/sort-order-options";
 import { ProjectTag } from "@/components/tags/project-tag";
 
@@ -35,7 +35,7 @@ function FeaturedProject({
         href={`/projects/${project.slug}`}
         className="display-block w-[80px] overflow-hidden text-muted-foreground"
       >
-        <ProjectAvatar project={project} size={80} />
+        <ProjectLogo project={project} size={80} />
       </NextLink>
       <div className="flex-1 space-y-2 overflow-hidden text-center">
         <NextLink

@@ -9,7 +9,7 @@ import {
   HoverCardTrigger,
 } from "@/components/ui/hover-card";
 import { Skeleton } from "@/components/ui/skeleton";
-import { ProjectAvatar, TagIcon } from "@/components/core";
+import { ProjectLogo, TagIcon } from "@/components/core";
 
 const NUMBER_OF_PROJECTS = 5;
 
@@ -85,7 +85,7 @@ const TagProjectList = ({ projects }: { projects: BestOfJS.Project[] }) => (
         href={`/projects/${project.slug}`}
         className="flex h-5 items-center gap-2 text-sm text-muted-foreground hover:text-primary-foreground"
       >
-        <ProjectAvatar project={project} size={20} />
+        <ProjectLogo project={project} size={20} />
         <span>{project.name}</span>
       </Link>
     ))}

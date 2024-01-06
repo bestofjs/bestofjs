@@ -132,6 +132,11 @@
   }
 }
 
+.project-logo {
+  max-width: initial;
+  height: revert-layer; /* override `height: auto` from Tailwind base layer */
+}
+
 /* Override the behavior provided by reset CSS to display correctly badges in projects README */
 .markdown-body img,
 .markdown-body svg {

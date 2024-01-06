@@ -8,7 +8,7 @@ import { CommandItem } from "@/components/ui/command";
 import {
   GitHubIcon,
   HomeIcon,
-  ProjectAvatar,
+  ProjectLogo,
   SearchIcon,
   StarTotal,
   TagIcon,
@@ -76,7 +76,7 @@ function ProjectSummary({ project }: { project: BestOfJS.SearchIndexProject }) {
   return (
     <div className="flex w-full min-w-0 items-center gap-4">
       <div className="flex h-12 w-12 items-center justify-center">
-        <ProjectAvatar project={project} size={32} />
+        <ProjectLogo project={project} size={32} />
       </div>
       <div className="group-aria-[selected]:text-accent-foreground] flex-1 truncate">
         {project.name}
