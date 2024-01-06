@@ -4,7 +4,7 @@
  * - the GitHub owner avatar (by default if no `icon` property is specified)
  * - A custom SVG file if project's `icon`property is specified.
  */
-export function getProjectAvatarUrl(
+export function getProjectLogoUrl(
   project: Pick<BestOfJS.Project, "name" | "owner_id" | "icon">,
   size: number,
   colorMode: "dark" | "light"

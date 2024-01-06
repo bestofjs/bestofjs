@@ -3,7 +3,7 @@ import { ImNpm } from "react-icons/im";
 
 import { formatUrl } from "@/helpers/url";
 import { buttonVariants } from "@/components/ui/button";
-import { GitHubIcon, HomeIcon, ProjectAvatar } from "@/components/core";
+import { GitHubIcon, HomeIcon, ProjectLogo } from "@/components/core";
 import { ProjectTagGroup } from "@/components/tags/project-tag";
 
 import { getProjectDetails } from "./get-project-details";
@@ -16,7 +16,7 @@ export function ProjectHeader({ project }: Props) {
     <div className="flex flex-col space-y-4 sm:flex-row sm:space-y-0 sm:divide-x">
       <div className="flex min-h-[120px] grow items-center divide-x">
         <div className="pr-4">
-          <ProjectAvatar project={project} size={75} />
+          <ProjectLogo project={project} size={75} />
         </div>
         <div className="flex flex-col space-y-4 pl-4">
           <h2 className="font-serif text-4xl">{project.name}</h2>

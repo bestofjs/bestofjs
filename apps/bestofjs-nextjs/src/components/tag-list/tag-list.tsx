@@ -8,7 +8,7 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { ChevronRightIcon, ProjectAvatar } from "@/components/core";
+import { ChevronRightIcon, ProjectLogo } from "@/components/core";
 
 type Props = {
   tags: BestOfJS.TagWithProjects[];
@@ -44,7 +44,7 @@ export const TagList = ({ tags }: Props) => {
               >
                 <Tooltip>
                   <TooltipTrigger>
-                    <ProjectAvatar project={project} size={32} />
+                    <ProjectLogo project={project} size={32} />
                   </TooltipTrigger>
                   <TooltipContent>{project.name}</TooltipContent>
                 </Tooltip>
