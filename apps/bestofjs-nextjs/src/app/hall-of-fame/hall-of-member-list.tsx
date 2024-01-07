@@ -3,7 +3,7 @@ import NextLink from "next/link";
 import { cn } from "@/lib/utils";
 import { badgeVariants } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
-import { ProjectAvatar } from "@/components/core";
+import { ProjectLogo } from "@/components/core";
 import { ExternalLink } from "@/components/core/typography";
 
 type Props = {
@@ -61,7 +61,7 @@ function HallOfFameMember({ member }: { member: BestOfJS.HallOfFameMember }) {
                 )}
               >
                 {project.icon && (
-                  <ProjectAvatar project={project} size={20} className="mr-2" />
+                  <ProjectLogo project={project} size={20} className="mr-2" />
                 )}
                 {project.name}
               </NextLink>

@@ -4,7 +4,7 @@ import React from "react";
 import { ImageResponse } from "next/og";
 
 import { APP_CANONICAL_URL } from "@/config/site";
-import { getProjectAvatarUrl } from "@/components/core/project-utils";
+import { getProjectLogoUrl } from "@/components/core/project-utils";
 
 export const mutedColor = `rgba(255, 255, 255, 0.7)`;
 export const borderColor = `rgba(255, 255, 255, 0.2)`;
@@ -45,9 +45,7 @@ export function ProjectLogo({
   project: BestOfJS.Project;
   size: number;
 }) {
-  const imageURL = getImageAbsoluteURL(
-    getProjectAvatarUrl(project, 100, "dark")
-  );
+  const imageURL = getImageAbsoluteURL(getProjectLogoUrl(project, 100, "dark"));
   return <img src={imageURL} width={size} height={size} alt={project.name} />;
 }
 
