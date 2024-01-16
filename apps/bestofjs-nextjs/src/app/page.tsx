@@ -21,6 +21,7 @@ import { SectionHeading } from "@/components/core/section";
 import { ExternalLink } from "@/components/core/typography";
 import { FeaturedProjects } from "@/components/home/home-featured-projects";
 import { LatestMonthlyRankings } from "@/components/home/latest-monthly-rankings";
+import { TypeWriter } from "@/components/home/type-writer";
 import {
   ProjectScore,
   ProjectTable,
@@ -68,7 +69,7 @@ export default async function IndexPage() {
     <div className="flex flex-col gap-8">
       <div className="flex flex-col items-start gap-2">
         <h1 className="font-serif text-3xl leading-tight tracking-tighter md:text-4xl">
-          The best of JS, HTML and CSS
+          <TypeWriter text="JavaScript" delay={100} infinite={false}/>
         </h1>
         <p className="font-serif text-lg text-muted-foreground">
           A place to find the best open source projects related to the web

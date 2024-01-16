@@ -68,10 +68,28 @@ module.exports = {
           from: { height: "var(--radix-accordion-content-height)" },
           to: { height: 0 },
         },
+        "cursor-pulse": {
+          from: {
+            opacity: 0,
+          },
+
+          "25%": {
+            opacity: 1,
+          },
+
+          "75%": {
+            opacity: 1,
+          },
+
+          to: {
+            opacity: 0,
+          },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
+        "cursor-pulse": "cursor-pulse 1s linear infinite",
       },
     },
   },
