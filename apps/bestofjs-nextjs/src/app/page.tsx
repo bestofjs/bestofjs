@@ -21,7 +21,7 @@ import { SectionHeading } from "@/components/core/section";
 import { ExternalLink } from "@/components/core/typography";
 import { FeaturedProjects } from "@/components/home/home-featured-projects";
 import { LatestMonthlyRankings } from "@/components/home/latest-monthly-rankings";
-import { TypeWriter } from "@/components/home/type-writer";
+import { TypeWriter } from "@/components/home/typewriter";
 import {
   ProjectScore,
   ProjectTable,
