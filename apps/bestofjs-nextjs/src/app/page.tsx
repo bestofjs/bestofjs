@@ -67,6 +67,7 @@ export default async function IndexPage() {
   const topics = [
     "JavaScript",
     "TypeScript",
+    "Node.js",
     "React",
     "Vue.js",
     "Astro",
