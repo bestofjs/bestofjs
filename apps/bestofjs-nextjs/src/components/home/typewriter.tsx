@@ -1,84 +1,77 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
-export function TypeWriter({
-  text,
-  delay,
-  infinite,
-}: {
-  text: string;
-  delay: number;
-  infinite: boolean;
-}) {
-  // const typeWriterRef = useRef<HTMLSpanElement | null>(null)
-  // const [ref, setRef] = useState<HTMLSpanElement | null>(null)
-  const [currentText, setCurrentText] = useState<string>("");
-  const [currentIndex, setCurrentIndex] = useState<number>(0);
+type Props = {
+  sleepTime: number;
+  topics: string[];
+  loop?: boolean;
+};
 
-  // useEffect(() => {
-  //   if (typeWriterRef && typeWriterRef.current) {
-  //     setRef(typeWriterRef.current)
-  //   }
-  // },[])
+export function TypeWriter({ topics, sleepTime, loop = false }: Props) {
+  const typeWriterRef = useRef<HTMLSpanElement | null>(null);
+  const [currentRef, setCurrentRef] = useState<HTMLSpanElement | null>(null);
+  let currentTopicIndex = 0;
 
   useEffect(() => {
-    if (currentIndex < text.length) {
-      const timeout = setTimeout(() => {
-        setCurrentText((prevText) => prevText + text[currentIndex]);
-        setCurrentIndex((prevIndex) => prevIndex + 1);
-      }, delay);
-
-      return () => clearTimeout(timeout);
-    } else if (currentIndex === (text.length - 1)) {
-      // TODO finish move in reverse to remove character
+    if (typeWriterRef && typeWriterRef.current) {
+      setCurrentRef(typeWriterRef.current);
     }
-    else if (infinite) {
-      setCurrentIndex(0);
-      setCurrentText("");
+  }, []);
+
+  function sleep(miliseconds: number) {
+    return new Promise((resolve) => setTimeout(resolve, miliseconds));
+  }
+
+  async function incrementText(currentTopic: string) {
+    for (let i = 0; i < currentTopic.length; i++) {
+      if (currentRef) {
+        currentRef.innerText = currentTopic.substring(0, i + 1);
+        await sleep(sleepTime);
+      }
     }
-  }, [currentIndex, delay, text, infinite]);
+  }
 
-  // function sleep(miliseconds: number) {
-  //   return new Promise((resolve) => setTimeout(resolve, miliseconds))
-  // }
+  async function reduceText(currentTopic: string) {
+    for (let i = currentTopic.length; i > 0; i--) {
+      if (currentRef) {
+        currentRef.innerText = currentTopic.substring(0, i - 1);
+        await sleep(sleepTime);
+      }
+    }
+  }
 
-  // const topics = ["JavaScript", "TypeScript", "React"];
+  async function animateText() {
+    let i = 0;
 
-  // let sleepTime = 100;
+    while (loop || i < topics.length) {
+      const currentTopic = topics[currentTopicIndex];
 
-  // let currentTopicIndex = 0;
+      await incrementText(currentTopic);
+      await sleep(sleepTime * 10);
 
-  //   const writeLoop = async () => {
-  //     while (true) {
-  //       const currentWord = topics[currentTopicIndex]
+      await reduceText(currentTopic);
+      await sleep(sleepTime * 5);
 
-  //       for (let i = 0; i < currentWord.length; i++) {
-  //         console.log(ref)
-  //         if (ref && ref.innerText) {
-  //           ref.innerText = currentWord.substring(0, i + 1)
-  //           await sleep(sleepTime)
-  //         }
-  //       }
+      // reset looping through topics array
+      if (currentTopicIndex === topics.length - 1) {
+        currentTopicIndex = 0;
+      } else {
+        currentTopicIndex++;
+      }
+      i++;
+    }
+  }
 
-  //       await sleep(sleepTime * 10)
-
-  //       for (let i = currentWord.length; i > 0; i--) {
-  //         if (ref && ref.innerText) {
-  //           ref.innerText = currentWord.substring(0, i - 1)
-  //           await sleep(sleepTime)
-  //         }
-
-  //       }
-  //       await sleep(sleepTime * 5)
-  //   };
-  // }
-
-  //   writeLoop()
-
+  animateText();
   return (
     <div className="flex whitespace-pre-wrap">
-      The Best of <span id="typewriter">{currentText}</span>
+      The Best of{" "}
+      <span
+        className="underline decoration-[var(--logo-color)]"
+        ref={typeWriterRef}
+        id="typewriter"
+      ></span>
       <span className="animate-cursor-pulse" id="cursor">
         |
       </span>
