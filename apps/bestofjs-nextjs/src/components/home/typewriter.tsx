@@ -10,7 +10,9 @@ type Props = {
 
 export function TypeWriter({ topics, sleepTime, loop = false }: Props) {
   const typeWriterRef = useRef<HTMLSpanElement | null>(null);
+  const displayTextRef = useRef<string>(topics[0]);
   let currentTopicIndex = 0;
+  let reverse = true;
 
   function sleep(miliseconds: number) {
     return new Promise((resolve) => setTimeout(resolve, miliseconds));
@@ -19,7 +21,8 @@ export function TypeWriter({ topics, sleepTime, loop = false }: Props) {
   async function incrementText(currentTopic: string) {
     for (let i = 0; i < currentTopic.length; i++) {
       if (typeWriterRef.current) {
-        typeWriterRef.current.innerText = currentTopic.substring(0, i + 1);
+        displayTextRef.current = currentTopic.substring(0, i + 1);
+        typeWriterRef.current.innerText = displayTextRef.current;
         await sleep(sleepTime);
       }
     }
@@ -28,7 +31,8 @@ export function TypeWriter({ topics, sleepTime, loop = false }: Props) {
   async function reduceText(currentTopic: string) {
     for (let i = currentTopic.length; i > 0; i--) {
       if (typeWriterRef.current) {
-        typeWriterRef.current.innerText = currentTopic.substring(0, i - 1);
+        displayTextRef.current = currentTopic.substring(0, i - 1);
+        typeWriterRef.current.innerText = displayTextRef.current;
         await sleep(sleepTime);
       }
     }
@@ -55,6 +59,11 @@ export function TypeWriter({ topics, sleepTime, loop = false }: Props) {
       i++;
     }
   }
+  // On initial render reduce show and reduce text
+  if (reverse) {
+    reduceText(topics[currentTopicIndex]);
+    reverse = false;
+  }
 
   animateText();
   return (
@@ -63,7 +72,9 @@ export function TypeWriter({ topics, sleepTime, loop = false }: Props) {
       <span
         className="underline decoration-[var(--logo-color)]"
         ref={typeWriterRef}
-      ></span>
+      >
+        {displayTextRef.current}
+      </span>
       <span className="animate-cursor-pulse">|</span>
     </div>
   );
