@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useRef } from "react";
 
 type Props = {
   sleepTime: number;
@@ -10,14 +10,7 @@ type Props = {
 
 export function TypeWriter({ topics, sleepTime, loop = false }: Props) {
   const typeWriterRef = useRef<HTMLSpanElement | null>(null);
-  const [currentRef, setCurrentRef] = useState<HTMLSpanElement | null>(null);
   let currentTopicIndex = 0;
-
-  useEffect(() => {
-    if (typeWriterRef && typeWriterRef.current) {
-      setCurrentRef(typeWriterRef.current);
-    }
-  }, []);
 
   function sleep(miliseconds: number) {
     return new Promise((resolve) => setTimeout(resolve, miliseconds));
@@ -25,8 +18,8 @@ export function TypeWriter({ topics, sleepTime, loop = false }: Props) {
 
   async function incrementText(currentTopic: string) {
     for (let i = 0; i < currentTopic.length; i++) {
-      if (currentRef) {
-        currentRef.innerText = currentTopic.substring(0, i + 1);
+      if (typeWriterRef.current) {
+        typeWriterRef.current.innerText = currentTopic.substring(0, i + 1);
         await sleep(sleepTime);
       }
     }
@@ -34,8 +27,8 @@ export function TypeWriter({ topics, sleepTime, loop = false }: Props) {
 
   async function reduceText(currentTopic: string) {
     for (let i = currentTopic.length; i > 0; i--) {
-      if (currentRef) {
-        currentRef.innerText = currentTopic.substring(0, i - 1);
+      if (typeWriterRef.current) {
+        typeWriterRef.current.innerText = currentTopic.substring(0, i - 1);
         await sleep(sleepTime);
       }
     }
@@ -70,11 +63,8 @@ export function TypeWriter({ topics, sleepTime, loop = false }: Props) {
       <span
         className="underline decoration-[var(--logo-color)]"
         ref={typeWriterRef}
-        id="typewriter"
       ></span>
-      <span className="animate-cursor-pulse" id="cursor">
-        |
-      </span>
+      <span className="animate-cursor-pulse">|</span>
     </div>
   );
 }
