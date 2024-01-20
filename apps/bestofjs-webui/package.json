@@ -63,7 +63,7 @@
     "unstated-next": "^1.1.0",
     "use-debounce": "^3.0.0",
     "vague-time": "^2.4.1",
-    "vite": "^3.2.5",
+    "vite": "^3.2.8",
     "vite-plugin-checker": "^0.4.9",
     "vite-plugin-html": "^3.2.0",
     "vite-tsconfig-paths": "^3.4.1"
