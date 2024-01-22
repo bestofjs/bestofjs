@@ -66,9 +66,13 @@ export function TypeWriter({ topics, sleepTime, loop = false }: Props) {
   }
 
   useEffect(() => {
-    setTimeout(() => {
+    const timeout = setTimeout(() => {
       animateText();
     }, 3000);
+
+    return () => {
+      clearTimeout(timeout)
+    }
   }, []);
   return (
     <div className="flex whitespace-pre-wrap">
