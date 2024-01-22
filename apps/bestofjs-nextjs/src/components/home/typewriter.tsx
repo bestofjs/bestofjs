@@ -67,9 +67,9 @@ export function TypeWriter({ topics, sleepTime, loop = false }: Props) {
 
   useEffect(() => {
     setTimeout(() => {
-      animateText()
-    }, 3000)
-  },[])
+      animateText();
+    }, 3000);
+  }, []);
   return (
     <div className="flex whitespace-pre-wrap">
       The Best of{" "}
@@ -77,7 +77,7 @@ export function TypeWriter({ topics, sleepTime, loop = false }: Props) {
         className="underline decoration-[var(--logo-color)]"
         ref={typeWriterRef}
       >
-       {defaultTopic}
+        {defaultTopic}
       </span>
       <span className="animate-cursor-pulse">|</span>
     </div>
