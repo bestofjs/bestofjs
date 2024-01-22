@@ -10,35 +10,19 @@ type Props = {
 
 export function TypeWriter({ topics, sleepTime, loop = false }: Props) {
   const typeWriterRef = useRef<HTMLSpanElement | null>(null);
-  let currentTopicIndex = 0;
   const defaultTopic = topics[0];
+  let currentTopicIndex = 0;
   let reverse = true;
 
-  function sleep(milliseconds: number) {
-    return new Promise((resolve) => setTimeout(resolve, milliseconds));
-  }
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      animateText();
+    }, 3000);
 
-  async function incrementText(currentTopic: string) {
-    for (let i = 0; i < currentTopic.length; i++) {
-      if (typeWriterRef.current) {
-        typeWriterRef.current.textContent = currentTopic.substring(0, i + 1);
-        await sleep(sleepTime);
-      }
-    }
-  }
-
-  async function reduceText(currentTopic: string) {
-    for (let i = currentTopic.length; i > 0; i--) {
-      if (typeWriterRef.current) {
-        typeWriterRef.current.textContent = currentTopic.substring(0, i - 1);
-        if (i === 1) {
-          reverse = false;
-          await sleep(sleepTime);
-        }
-        await sleep(sleepTime);
-      }
-    }
-  }
+    return () => {
+      clearTimeout(timeout);
+    };
+  }, []);
 
   async function animateText() {
     let index = 0;
@@ -65,15 +49,32 @@ export function TypeWriter({ topics, sleepTime, loop = false }: Props) {
     }
   }
 
-  useEffect(() => {
-    const timeout = setTimeout(() => {
-      animateText();
-    }, 3000);
-
-    return () => {
-      clearTimeout(timeout)
+  async function incrementText(currentTopic: string) {
+    for (let i = 0; i < currentTopic.length; i++) {
+      if (typeWriterRef.current) {
+        typeWriterRef.current.textContent = currentTopic.substring(0, i + 1);
+        await sleep(sleepTime);
+      }
     }
-  }, []);
+  }
+
+  async function reduceText(currentTopic: string) {
+    for (let i = currentTopic.length; i > 0; i--) {
+      if (typeWriterRef.current) {
+        typeWriterRef.current.textContent = currentTopic.substring(0, i - 1);
+        if (i === 1) {
+          reverse = false;
+          await sleep(sleepTime);
+        }
+        await sleep(sleepTime);
+      }
+    }
+  }
+
+  function sleep(milliseconds: number) {
+    return new Promise((resolve) => setTimeout(resolve, milliseconds));
+  }
+
   return (
     <div className="flex whitespace-pre-wrap">
       The Best of{" "}
