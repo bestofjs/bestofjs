@@ -11,9 +11,8 @@ type Props = {
 export function TypeWriter({ topics, sleepTime, loop = false }: Props) {
   const typeWriterRef = useRef<HTMLSpanElement | null>(null);
   let currentTopicIndex = 0;
-  const defaultTopic = topics[0]
-
-
+  const defaultTopic = topics[0];
+  let reverse = true;
 
   function sleep(miliseconds: number) {
     return new Promise((resolve) => setTimeout(resolve, miliseconds));
@@ -32,24 +31,37 @@ export function TypeWriter({ topics, sleepTime, loop = false }: Props) {
     for (let i = currentTopic.length; i > 0; i--) {
       if (typeWriterRef.current) {
         typeWriterRef.current.textContent = currentTopic.substring(0, i - 1);
+        if (i === 1) {
+          reverse = false;
+          await sleep(sleepTime);
+        }
         await sleep(sleepTime);
       }
     }
   }
 
-
-
   async function animateText() {
-    let index = 0
-    while (index < topics.length) {
-      let currentTopic = topics[currentTopicIndex]
+    let index = 0;
+    while (loop || index < topics.length) {
+      const currentTopic = topics[currentTopicIndex];
 
-      await reduceText(currentTopic)
-      await sleep(sleepTime * 10)
+      if (reverse) {
+        await reduceText(currentTopic);
+        await sleep(sleepTime * 5);
+      } else {
+        await incrementText(currentTopic);
+        await sleep(sleepTime * 15);
 
-      await incrementText(currentTopic)
-      await sleep(sleepTime * 10)
-      index++
+        await reduceText(currentTopic);
+        await sleep(sleepTime * 5);
+      }
+
+      index++;
+      if (currentTopicIndex === topics.length - 1) {
+        currentTopicIndex = 0;
+      } else {
+        currentTopicIndex++;
+      }
     }
   }
 
@@ -71,33 +83,3 @@ export function TypeWriter({ topics, sleepTime, loop = false }: Props) {
     </div>
   );
 }
-
-
-// async function animateText() {
-  //   let i = 0;
-
-  //   while (loop || i < topics.length) {
-  //     const currentTopic = topics[currentTopicIndex];
-
-  //     await incrementText(currentTopic);
-  //     await sleep(sleepTime * 10);
-
-  //     await reduceText(currentTopic);
-  //     await sleep(sleepTime * 5);
-
-  //     // reset looping through topics array
-  //     if (currentTopicIndex === topics.length - 1) {
-  //       currentTopicIndex = 0;
-  //     } else {
-  //       currentTopicIndex++;
-  //     }
-  //     i++;
-  //   }
-  // }
-  // // On initial render reduce show and reduce text
-  // if (reverse) {
-  //   reduceText(topics[currentTopicIndex]);
-  //   reverse = false;
-  // }
-
-  // animateText();
