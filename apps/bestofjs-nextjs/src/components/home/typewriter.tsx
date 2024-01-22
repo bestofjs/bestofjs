@@ -14,8 +14,8 @@ export function TypeWriter({ topics, sleepTime, loop = false }: Props) {
   const defaultTopic = topics[0];
   let reverse = true;
 
-  function sleep(miliseconds: number) {
-    return new Promise((resolve) => setTimeout(resolve, miliseconds));
+  function sleep(milliseconds: number) {
+    return new Promise((resolve) => setTimeout(resolve, milliseconds));
   }
 
   async function incrementText(currentTopic: string) {
