@@ -49,7 +49,17 @@ If you find _Best of JS_ useful, show your appreciation by starring the project 
 - [GitHub sponsors](https://github.com/sponsors/michaelrambeau)
 - [Open Collective](https://opencollective.com/bestofjs)
 
-[Become a backer](https://opencollective.com/bestofjs#contribute)
+##### Sponsors
+
+<a href="https://opencollective.com/bestofjs#sponsors" target="_blank">
+  <img src="https://opencollective.com/bestofjs/sponsors.svg?width=890&button=false">
+</a>
+
+#### Backers
+
+<a href="https://opencollective.com/bestofjs#contributors" target="_blank">
+  <img src="https://opencollective.com/bestofjs/backers.svg?width=890&button=false">
+</a>
 
 Thank you and don't forget: we are all made of stars ![star](https://bestofjs.org/images/star.png)!
 
