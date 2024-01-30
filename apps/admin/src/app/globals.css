@@ -74,3 +74,8 @@
     @apply bg-background text-foreground;
   }
 }
+
+.project-logo {
+  max-width: initial;
+  height: revert-layer; /* override `height: auto` from Tailwind base layer */
+}
