@@ -1,21 +1,112 @@
-import { count, asc, desc } from "drizzle-orm";
+import { count, asc, desc, eq, sql, ilike, inArray } from "drizzle-orm";
 
 import * as schema from "@/database/schema";
 import { DB } from "@/database/run-query";
 
-export async function countProjects(db: DB) {
-  const records = await db.select({ value: count() }).from(schema.projects);
-  return records?.at(0)?.value || 0;
-}
+const { projects, tags, projectsToTags, repos } = schema;
+
+export type ProjectListOrderByKey =
+  | "createdAt"
+  | "updatedAt"
+  | "stars"
+  | "-createdAt"
+  | "-updatedAt"
+  | "-stars";
 
 type Props = {
   db: DB;
   limit: number;
   offset: number;
-  sort: OrderByKey;
+  sort: ProjectListOrderByKey;
+  tag?: string;
+  text?: string;
 };
 
-export async function findProjects({ db, limit, offset, sort }: Props) {
+export async function findProjects({
+  db,
+  limit,
+  offset,
+  sort,
+  tag,
+  text,
+}: Props) {
+  const query = db
+    .select({
+      slug: projects.slug,
+      name: projects.name,
+      description: projects.description,
+      stars: repos.stars,
+      full_name: repos.full_name,
+      logo: projects.logo,
+      tags: sql<string[]>`json_agg(${tags.code})`,
+    })
+    .from(projectsToTags)
+    .leftJoin(projects, eq(projectsToTags.projectId, projects.id))
+    .leftJoin(repos, eq(projects.repoId, repos.id))
+    .leftJoin(tags, eq(projectsToTags.tagId, tags.id))
+    .orderBy(getOrderBy(sort))
+    .offset(offset)
+    .limit(limit)
+    .groupBy([
+      projects.slug,
+      projects.name,
+      projects.description,
+      projects.logo,
+      projects.createdAt,
+      repos.stars,
+      repos.full_name,
+    ]);
+
+  if (text) {
+    query.where(getWhereClauseSearchByText(text));
+  }
+  if (tag) {
+    query.where(getWhereClauseSearchByTag(db, tag));
+  }
+
+  const records = await query;
+  return records;
+}
+
+function getWhereClauseSearchByTag(db: DB, tagCode: string) {
+  return inArray(
+    projects.id,
+    db
+      .select({ id: projectsToTags.projectId })
+      .from(projectsToTags)
+      .innerJoin(tags, eq(projectsToTags.tagId, tags.id))
+      .where(eq(tags.code, tagCode))
+      .leftJoin(repos, eq(projects.repoId, repos.id))
+  );
+  // does not work well as we don't get all the tags related to the found projects
+  return sql`${
+    projectsToTags.tagId
+  } = (select id from tags where code = '${sql.raw(tagCode)}')`;
+}
+
+function getWhereClauseSearchByText(text: string) {
+  return ilike(projects.description, `%${text}%`);
+  // return sql`${projects.description} like '%${text}%'`;
+}
+
+export async function countProjects({
+  db,
+  tag,
+  text,
+}: Pick<Props, "db" | "tag" | "text">) {
+  const query = db.select({ value: count() }).from(schema.projects);
+  if (text) {
+    query.where(getWhereClauseSearchByText(text));
+  }
+  if (tag) {
+    query.where(getWhereClauseSearchByTag(db, tag));
+  }
+
+  const records = await query;
+  return records?.at(0)?.value || 0;
+}
+
+export async function findProjects0({ db, limit, offset, sort }: Props) {
   const projects = await db.query.projects.findMany({
     orderBy: getOrderBy(sort), //TODO only work for `projects` columns
     limit,
@@ -41,14 +132,6 @@ export async function findProjects({ db, limit, offset, sort }: Props) {
   });
   return projects;
 }
-
-export type ProjectListOrderByKey =
-  | "createdAt"
-  | "updatedAt"
-  | "stars"
-  | "-createdAt"
-  | "-updatedAt"
-  | "-stars";
 
 function getOrderBy(orderByKey: OrderByKey) {
   switch (orderByKey) {

@@ -25,8 +25,9 @@ import {
   countProjects,
   findProjects,
 } from "@/database/projects/find";
-import { Badge } from "@/components/ui/badge";
+import { Badge, badgeVariants } from "@/components/ui/badge";
 import { ProjectListSortOptionPicker } from "./sort-option-picker";
+import { SearchBox } from "./search-box";
 
 type PageProps = {
   searchParams: {
@@ -40,15 +41,24 @@ const searchSchema = z.object({
   limit: z.coerce.number().default(50),
   offset: z.coerce.number().default(0),
   sort: z.string().default("-createdAt"),
+  tag: z.string().optional(),
+  text: z.string().optional(),
 });
 
 export default async function ProjectsPage({ searchParams }: PageProps) {
   const db = getDatabase();
 
-  const { limit, offset, sort } = searchSchema.parse(searchParams);
+  const { limit, offset, sort, tag, text } = searchSchema.parse(searchParams);
 
-  const total = await countProjects(db);
-  const projects = await findProjects({ db, limit, offset, sort });
+  const total = await countProjects({ db, tag, text });
+  const projects = await findProjects({
+    db,
+    limit,
+    offset,
+    sort: sort as ProjectListOrderByKey,
+    tag,
+    text,
+  });
 
   return (
     <div className="flex flex-col gap-4">
@@ -56,6 +66,8 @@ export default async function ProjectsPage({ searchParams }: PageProps) {
         Projects
         <Badge className="text-sm">{total}</Badge>
       </h1>
+
+      <SearchBox text={text} />
 
       <div className="w-full flex justify-between">
         <ProjectListSortOptionPicker sort={sort as ProjectListOrderByKey} />
@@ -89,20 +101,27 @@ export default async function ProjectsPage({ searchParams }: PageProps) {
                     {project.description}
                   </span>
                   <div className="flex gap-2 flex-wrap">
-                    {project.projectsToTags.map((projectToTag) => {
+                    {project.tags.map((tag) => (
+                      <a
+                        href={`/projects/?tag=${tag}`}
+                        className={badgeVariants({ variant: "secondary" })}
+                        key={tag}
+                      >
+                        {tag}
+                      </a>
+                    ))}
+                    {/* {project.projectsToTags.map((projectToTag) => {
                       return (
                         <Badge variant="secondary" key={projectToTag.tagId}>
                           {projectToTag.tag.name}
                         </Badge>
                       );
-                    })}
+                    })} */}
                   </div>
                 </div>
               </TableCell>
-              <TableCell>{project.repo?.full_name}</TableCell>
-              <TableCell className="text-right">
-                {project.repo?.stars}
-              </TableCell>
+              <TableCell>{project.full_name}</TableCell>
+              <TableCell className="text-right">{project.stars}</TableCell>
             </TableRow>
           ))}
         </TableBody>
