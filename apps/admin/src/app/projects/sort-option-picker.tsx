@@ -1,5 +1,8 @@
 "use client";
 
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
+
+import { ProjectListOrderByKey } from "@/database/projects/find";
 import {
   Select,
   SelectContent,
@@ -7,9 +10,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-
-import { ProjectListOrderByKey } from "@/database/projects/find";
-import { useRouter, useSearchParams } from "next/navigation";
 
 const options = [
   { value: "-stars", text: "By stars DESC" },
@@ -23,13 +23,14 @@ type Props = {
 };
 export function ProjectListSortOptionPicker({ sort }: Props) {
   const router = useRouter();
+  const pathname = usePathname();
   const searchParams = useSearchParams();
 
   const onChange = (value: string) => {
     const params = new URLSearchParams(searchParams.toString());
     params.set("sort", value);
     params.set("offset", 0);
-    router.push(`/projects/?` + params.toString());
+    router.push(pathname + "?" + params.toString());
   };
   return (
     <Select onValueChange={onChange} value={sort}>

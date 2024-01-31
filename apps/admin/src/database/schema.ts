@@ -1,14 +1,14 @@
+import { relations } from "drizzle-orm";
 import {
-  pgTable,
   boolean,
   date,
+  integer,
+  jsonb,
+  pgTable,
+  primaryKey,
   text,
   timestamp,
-  integer,
-  primaryKey,
-  jsonb,
 } from "drizzle-orm/pg-core";
-import { relations } from "drizzle-orm";
 
 export const projects = pgTable("projects", {
   id: text("id").primaryKey(),

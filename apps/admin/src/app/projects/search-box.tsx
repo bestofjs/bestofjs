@@ -1,15 +1,17 @@
 "use client";
 
 import { useRef } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 import { Input } from "@/components/ui/input";
 
 type Props = {
   text?: string;
 };
+
 export function SearchBox({ text }: Props) {
   const router = useRouter();
+  const pathname = usePathname();
   const searchParams = useSearchParams();
   const ref = useRef<HTMLInputElement>(null);
 
@@ -19,7 +21,7 @@ export function SearchBox({ text }: Props) {
     const params = new URLSearchParams(searchParams.toString());
     params.set("text", value);
     params.set("offset", 0);
-    router.push(`/projects/?` + params.toString());
+    router.push(pathname + "?" + params.toString());
   };
 
   return (

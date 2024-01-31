@@ -36,7 +36,7 @@ importers:
         version: 0.105.0-alpha.4(react@18.2.0)
       next:
         specifier: 14.1.0
-        version: 14.1.0(react-dom@18.2.0)(react@18.2.0)
+        version: 14.1.0(@babel/core@7.22.9)(react-dom@18.2.0)(react@18.2.0)
       next-themes:
         specifier: ^0.2.1
         version: 0.2.1(next@14.1.0)(react-dom@18.2.0)(react@18.2.0)
@@ -59,6 +59,9 @@ importers:
         specifier: ^3.22.4
         version: 3.22.4
     devDependencies:
+      '@ianvs/prettier-plugin-sort-imports':
+        specifier: ^3.7.2
+        version: 3.7.2(prettier@2.8.8)
       '@types/node':
         specifier: ^20
         version: 20.11.10
@@ -77,9 +80,21 @@ importers:
       eslint-config-next:
         specifier: 14.1.0
         version: 14.1.0(eslint@8.46.0)(typescript@5.2.2)
+      eslint-config-prettier:
+        specifier: ^8.8.0
+        version: 8.9.0(eslint@8.46.0)
+      eslint-plugin-react:
+        specifier: ^7.32.2
+        version: 7.33.2(eslint@8.46.0)
+      eslint-plugin-tailwindcss:
+        specifier: ^3.12.0
+        version: 3.13.0(tailwindcss@3.3.3)
       postcss:
         specifier: ^8
         version: 8.4.31
+      prettier:
+        specifier: ^2.8.8
+        version: 2.8.8
       tailwindcss:
         specifier: ^3.3.0
         version: 3.3.3
@@ -9254,7 +9269,7 @@ packages:
       react: '*'
       react-dom: '*'
     dependencies:
-      next: 14.1.0(react-dom@18.2.0)(react@18.2.0)
+      next: 14.1.0(@babel/core@7.22.9)(react-dom@18.2.0)(react@18.2.0)
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
     dev: false
@@ -9271,7 +9286,7 @@ packages:
       react-dom: 18.2.0(react@18.2.0)
     dev: false
 
-  /next@14.1.0(react-dom@18.2.0)(react@18.2.0):
+  /next@14.1.0(@babel/core@7.22.9)(react-dom@18.2.0)(react@18.2.0):
     resolution: {integrity: sha512-wlzrsbfeSU48YQBjZhDzOwhWhGsy+uQycR8bHAOt1LY1bn3zZEcDyHQOEoN3aWzQ8LHCAJ1nqrWCc9XF2+O45Q==}
     engines: {node: '>=18.17.0'}
     hasBin: true

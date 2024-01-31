@@ -1,7 +1,7 @@
-import { count, asc, desc, eq, sql, ilike, inArray } from "drizzle-orm";
+import { asc, count, desc, eq, ilike, inArray, sql } from "drizzle-orm";
 
-import * as schema from "@/database/schema";
 import { DB } from "@/database/run-query";
+import * as schema from "@/database/schema";
 
 const { projects, tags, projectsToTags, repos } = schema;
 

@@ -6,7 +6,13 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "lint:fix": "next lint --fix",
+    "preview": "next build && next start",
+    "typecheck": "tsc --noEmit",
+    "typecheck:watch": "tsc --noEmit --incremental --watch",
+    "format:write": "prettier --write \"src/**/*.{ts,tsx,mdx}\" --cache",
+    "format:check": "prettier --check \"src/**/*.{ts,tsx,mdx}\" --cache"
   },
   "dependencies": {
     "@radix-ui/react-navigation-menu": "^1.1.4",
@@ -27,13 +33,18 @@
     "zod": "^3.22.4"
   },
   "devDependencies": {
+    "@ianvs/prettier-plugin-sort-imports": "^3.7.2",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
     "autoprefixer": "^10.0.1",
     "eslint": "^8",
     "eslint-config-next": "14.1.0",
+    "eslint-config-prettier": "^8.8.0",
+    "eslint-plugin-react": "^7.32.2",
+    "eslint-plugin-tailwindcss": "^3.12.0",
     "postcss": "^8",
+    "prettier": "^2.8.8",
     "tailwindcss": "^3.3.0",
     "typescript": "^5"
   }
