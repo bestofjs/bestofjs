@@ -1,6 +1,6 @@
 import { asc, count, desc, eq, ilike, inArray, sql } from "drizzle-orm";
 
-import { DB } from "@/database/run-query";
+import { DB } from "@/database";
 import * as schema from "@/database/schema";
 
 const { projects, tags, projectsToTags, repos } = schema;
@@ -39,6 +39,7 @@ export async function findProjects({
       full_name: repos.full_name,
       logo: projects.logo,
       tags: sql<string[]>`json_agg(${tags.code})`,
+      comments: projects.comments,
     })
     .from(projectsToTags)
     .leftJoin(projects, eq(projectsToTags.projectId, projects.id))
@@ -48,6 +49,7 @@ export async function findProjects({
     .offset(offset)
     .limit(limit)
     .groupBy([
+      projects.comments,
       projects.slug,
       projects.name,
       projects.description,

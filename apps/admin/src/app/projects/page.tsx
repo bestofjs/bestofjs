@@ -1,12 +1,12 @@
 import Link from "next/link";
 import { z } from "zod";
 
+import { getDatabase } from "@/database";
 import {
   ProjectListOrderByKey,
   countProjects,
   findProjects,
 } from "@/database/projects/find";
-import { getDatabase } from "@/database/run-query";
 import { Badge, badgeVariants } from "@/components/ui/badge";
 import { buttonVariants } from "@/components/ui/button";
 import {
@@ -117,10 +117,11 @@ function PaginatedProjectTable({
               </TableCell>
               <TableCell>
                 <div className="flex flex-col gap-4">
-                  {project.name}
+                  <Link href={`/projects/${project.slug}`}>{project.name}</Link>
                   <span className="text-muted-foreground">
                     {project.description}
                   </span>
+                  {project.comments && <div>{project.comments}</div>}
                   <div className="flex flex-wrap gap-2">
                     {project.tags.map((tag) => (
                       <a

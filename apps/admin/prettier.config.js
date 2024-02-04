@@ -12,7 +12,7 @@ module.exports = {
     "^@/env.mjs",
     "^@/types/(.*)$",
     "^@/config/(.*)$",
-    "^@/database/(.*)$",
+    "^@/database(.*)$",
     "^@/lib/(.*)$",
     "^@/helpers/(.*)$",
     "^@/hooks/(.*)$",

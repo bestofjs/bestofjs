@@ -7,6 +7,15 @@ import * as schema from "./schema";
 
 export type DB = ReturnType<typeof drizzle<typeof schema>>;
 
+export type ProjectData = typeof schema.projects.$inferSelect;
+
+export function getDatabase(): DB {
+  const dbURL = env.POSTGRES_URL;
+  const pg = postgres(dbURL);
+  const db = drizzle(pg, { schema });
+  return db;
+}
+
 export async function runQuery(callback: (db: DB) => Promise<void>) {
   const db = getDatabase();
   try {
@@ -18,11 +27,4 @@ export async function runQuery(callback: (db: DB) => Promise<void>) {
     await pg.end();
     console.log("Disconnected from database");
   }
-}
-
-export function getDatabase() {
-  const dbURL = env.POSTGRES_URL;
-  const pg = postgres(dbURL);
-  const db = drizzle(pg, { schema });
-  return db;
 }

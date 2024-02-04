@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { Inter as FontSans } from "next/font/google";
 
 import { cn } from "@/lib/utils";
+import { Toaster } from "@/components/ui/sonner";
 import { Header } from "@/components/header";
 import { ThemeProvider } from "@/components/theme-provider";
 
@@ -37,6 +38,7 @@ export default function RootLayout({
         >
           <Header />
           <main className="container py-4">{children}</main>
+          <Toaster />
         </ThemeProvider>
       </body>
     </html>
