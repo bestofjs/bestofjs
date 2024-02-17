@@ -1,4 +1,5 @@
 import { eq } from "drizzle-orm";
+import invariant from "tiny-invariant";
 
 import { getDatabase } from "@/database";
 import * as schema from "@/database/schema";
@@ -36,5 +37,8 @@ export async function getProjectBySlug(slug: string) {
       },
     },
   });
+  if (project) {
+    invariant(project?.repo);
+  }
   return project;
 }

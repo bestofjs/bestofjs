@@ -36,7 +36,12 @@ export async function findProjects({
       name: projects.name,
       description: projects.description,
       stars: repos.stars,
-      full_name: repos.full_name,
+      repo: {
+        full_name: repos.full_name,
+        owner_id: repos.owner_id,
+      },
+      // full_name: repos.full_name,
+      // owner_id: repos.owner_id,
       logo: projects.logo,
       tags: sql<string[]>`json_agg(${tags.code})`,
       comments: projects.comments,
@@ -57,6 +62,7 @@ export async function findProjects({
       projects.createdAt,
       repos.stars,
       repos.full_name,
+      repos.owner_id,
     ]);
 
   if (text) {

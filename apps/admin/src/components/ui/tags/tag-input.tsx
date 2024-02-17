@@ -308,7 +308,7 @@ const TagInput = React.forwardRef<HTMLInputElement, TagInputProps>(
                   ? placeholderWhenFull
                   : placeholder
               }
-              value={inputValue}
+              value={inputValue || ""}
               onChange={handleInputChange}
               onKeyDown={handleKeyDown}
               onFocus={onFocus}

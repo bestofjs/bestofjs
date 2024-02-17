@@ -142,7 +142,7 @@ function PaginatedProjectTable({
                   </div>
                 </div>
               </TableCell>
-              <TableCell>{project.full_name}</TableCell>
+              <TableCell>{project.repo!.full_name}</TableCell>
               <TableCell className="text-right">{project.stars}</TableCell>
             </TableRow>
           ))}

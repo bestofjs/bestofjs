@@ -34,7 +34,7 @@ export default async function EditProjectPage({ params: { slug } }: PageProps) {
         </div>
       </div>
       <ProjectForm project={project} />
-      <TagsForm project={project} allTags={allTags} />
+      {/* <TagsForm project={project} allTags={allTags} /> */}
     </div>
   );
 }

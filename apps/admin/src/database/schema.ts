@@ -77,20 +77,29 @@ export const projectsToTagsRelations = relations(projectsToTags, ({ one }) => ({
 
 export const repos = pgTable("repos", {
   id: text("id").primaryKey(),
-  owner_id: text("owner_id"),
-  name: text("name"),
-  full_name: text("full_name").unique(),
-  description: text("description"),
-  homepage: text("homepage"),
-  stars: integer("stargazers_count"),
-
+  // Date of addition to Best of JS
+  added_at: date("added_at"),
+  // Last update (by the daily task)
+  updated_at: date("updated_at"),
+  // From GitHub REST API
   archived: boolean("archived"),
+  default_branch: text("default_branch"),
+  description: text("description"),
+  full_name: text("full_name").unique(),
+  homepage: text("homepage"),
+  name: text("name"),
+  owner_id: text("owner_id").notNull(),
+  stars: integer("stargazers_count"),
+  topics: jsonb("topics"),
 
   pushed_at: date("pushed_at"),
   created_at: date("created_at"),
-  updatedAt: date("updated_at"),
 
+  // From GitHub GraphQL API
+  last_commit: date("last_commit"),
   commit_count: integer("commit_count"),
+
+  // From scrapping
   contributor_count: integer("contributor_count"),
 });
 

@@ -49,6 +49,9 @@ importers:
       cmdk:
         specifier: ^0.2.0
         version: 0.2.0(@types/react@18.2.18)(react-dom@18.2.0)(react@18.2.0)
+      dialog:
+        specifier: ^0.3.1
+        version: 0.3.1
       drizzle-orm:
         specifier: ^0.29.3
         version: 0.29.3(@types/react@18.2.18)(postgres@3.4.3)(react@18.2.0)
@@ -76,6 +79,9 @@ importers:
       react-hook-form:
         specifier: ^7.49.3
         version: 7.49.3(react@18.2.0)
+      slugify:
+        specifier: ^1.6.6
+        version: 1.6.6
       sonner:
         specifier: ^1.4.0
         version: 1.4.0(react-dom@18.2.0)(react@18.2.0)
@@ -5901,6 +5907,11 @@ packages:
 
   /detect-node-es@1.1.0:
     resolution: {integrity: sha512-ypdmJU/TbBby2Dxibuv7ZLW3Bs1QEmM7nHjEANfohJLvE0XVujisn1qPJcZxg+qDucsr+bP6fLD1rPS3AhJ7EQ==}
+    dev: false
+
+  /dialog@0.3.1:
+    resolution: {integrity: sha512-RYndSaXW/tYkfVbUKmyQzerHH080Pis7YabDxIHXRdYO6yo9/VqTIhPRB5RpoHwYlixeiUOvJCF7di+lmBaH6w==}
+    hasBin: true
     dev: false
 
   /didyoumean@1.2.2:

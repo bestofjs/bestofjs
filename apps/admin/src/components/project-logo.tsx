@@ -2,15 +2,18 @@
 "use client";
 
 import { useTheme } from "next-themes";
+import invariant from "tiny-invariant";
 
+import { getProjectBySlug } from "@/database/projects/get";
 import { cn } from "@/lib/utils";
 
 type Props = {
-  project: Pick<BestOfJS.Project, "name" | "owner_id" | "logo">;
+  project: Awaited<ReturnType<typeof getProjectBySlug>>;
   size: number;
   className?: string;
 };
 export const ProjectLogo = ({ project, size = 100, className }: Props) => {
+  invariant(project);
   const { resolvedTheme } = useTheme();
 
   const { src } = getProjectImageProps({
@@ -35,10 +38,11 @@ function getProjectImageProps({
   size,
   colorMode,
 }: {
-  project: Pick<BestOfJS.Project, "name" | "owner_id" | "logo">;
+  project: Props["project"];
   size: number;
   colorMode: "dark" | "light";
 }) {
+  invariant(project);
   const retinaURL =
     !project.logo && getProjectLogoUrl(project, size * 2, colorMode);
 
@@ -56,13 +60,15 @@ function getProjectImageProps({
  * - A custom SVG file if project's `icon`property is specified.
  */
 export function getProjectLogoUrl(
-  project: Pick<BestOfJS.Project, "name" | "owner_id" | "icon">,
+  project: Props["project"],
   size: number,
   colorMode: "dark" | "light"
 ) {
+  invariant(project);
+  invariant(project.repo);
   const url = project.logo
     ? getProjectLogoURL(project.logo, colorMode)
-    : getGitHubOwnerAvatarURL(project.owner_id, size);
+    : getGitHubOwnerAvatarURL(project.repo.owner_id, size);
   return url;
 }
 

@@ -1,7 +1,6 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { Router } from "next/router";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ReloadIcon } from "@radix-ui/react-icons";
 import { useForm } from "react-hook-form";
@@ -36,10 +35,16 @@ const formSchema = z.object({
   name: z.string().min(2).max(50),
   description: z.string().min(10).max(500),
   overrideDescription: z.coerce.boolean(),
-  url: z.string().url(),
+  url: z.string().url().nullable(),
+  // .transform((value) => value || ""),
   overrideURL: z.coerce.boolean(),
-  logo: z.string(),
-  comments: z.string(),
+  // status: z
+  //   .enum(["active", "featured", "promoted", "deprecated"])
+  //   .default("active"),
+  logo: z.string().nullable(),
+  // .transform((value) => value || ""),
+  comments: z.string().nullable(),
+  // .transform((value) => value || ""),
 });
 
 type Props = {
@@ -125,7 +130,11 @@ export function ProjectForm({ project }: Props) {
                 <FormItem>
                   <FormLabel>Logo</FormLabel>
                   <FormControl>
-                    <Input placeholder="Logo" {...field} />
+                    <Input
+                      placeholder="Logo"
+                      {...field}
+                      value={field.value || ""}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -138,7 +147,11 @@ export function ProjectForm({ project }: Props) {
                 <FormItem>
                   <FormLabel>URL</FormLabel>
                   <FormControl>
-                    <Input placeholder="URL" {...field} />
+                    <Input
+                      placeholder="URL"
+                      {...field}
+                      value={field.value || ""}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -168,17 +181,17 @@ export function ProjectForm({ project }: Props) {
                 <FormItem>
                   <FormLabel>Comments</FormLabel>
                   <FormControl>
-                    <Textarea {...field} />
+                    <Textarea {...field} value={field.value || ""} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
             />
-            <Button type="submit" aria-disabled={isPending}>
+            <Button type="submit" disabled={isPending}>
               {isPending && (
                 <ReloadIcon className="mr-2 h-4 w-4 animate-spin" />
               )}
-              Save
+              Save Project
             </Button>
           </form>
         </Form>
@@ -187,13 +200,13 @@ export function ProjectForm({ project }: Props) {
   );
 }
 
-export function SubmitButton() {
-  const { pending } = useFormStatus();
+// export function SubmitButton() {
+//   const { pending } = useFormStatus();
 
-  return (
-    <Button type="submit" aria-disabled={pending}>
-      {pending && <ReloadIcon className="mr-2 h-4 w-4 animate-spin" />}
-      Save
-    </Button>
-  );
-}
+//   return (
+//     <Button type="submit" aria-disabled={pending}>
+//       {pending && <ReloadIcon className="mr-2 h-4 w-4 animate-spin" />}
+//       Save
+//     </Button>
+//   );
+// }

@@ -14,6 +14,8 @@ type PageProps = {
   };
 };
 
+export const revalidate = 0;
+
 export default async function ViewProjectPage({ params: { slug } }: PageProps) {
   const project = await getProjectBySlug(slug);
   const allTags = await getAllTags();
