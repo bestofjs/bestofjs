@@ -88,6 +88,7 @@ function PaginatedProjectTable({
   total: number;
 }) {
   const { limit, offset, sort } = searchOptions;
+
   return (
     <>
       <div className="flex w-full justify-between">
@@ -105,6 +106,7 @@ function PaginatedProjectTable({
           <TableRow>
             <TableHead className="w-[100px]">Logo</TableHead>
             <TableHead>Name</TableHead>
+            <TableHead>Added at</TableHead>
             <TableHead>GitHub</TableHead>
             <TableHead className="text-right">Stars</TableHead>
           </TableRow>
@@ -142,7 +144,10 @@ function PaginatedProjectTable({
                   </div>
                 </div>
               </TableCell>
-              <TableCell>{project.repo!.full_name}</TableCell>
+              <TableCell>
+                {project.createdAt.toISOString().slice(0, 10)}
+              </TableCell>
+              <TableCell>{project.repo.full_name}</TableCell>
               <TableCell className="text-right">{project.stars}</TableCell>
             </TableRow>
           ))}

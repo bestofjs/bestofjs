@@ -6,6 +6,7 @@ import { ProjectData } from "@/database";
 import { saveTags } from "@/database/projects/tags";
 import { updateProjectById } from "@/database/projects/update";
 import { projects } from "@/database/schema";
+import { EditableTagData, updateTagById } from "@/database/tags/update";
 import { Tag } from "@/components/ui/tags/tag-input";
 
 export async function updateProjectData(
@@ -24,4 +25,10 @@ export async function updateProjectTags(
 ) {
   await saveTags(projectId, tags);
   revalidatePath(`/projects/${projectSlug}`);
+}
+
+export async function updateTagData(tagId: string, tagData: EditableTagData) {
+  await updateTagById(tagId, tagData);
+  revalidatePath(`/tags/${tagData.code}`);
+  revalidatePath(`/tags`);
 }

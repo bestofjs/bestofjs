@@ -35,19 +35,20 @@ export async function findProjects({
       slug: projects.slug,
       name: projects.name,
       description: projects.description,
+      createdAt: projects.createdAt,
       stars: repos.stars,
       repo: {
         full_name: repos.full_name,
         owner_id: repos.owner_id,
       },
-      // full_name: repos.full_name,
-      // owner_id: repos.owner_id,
       logo: projects.logo,
-      tags: sql<string[]>`json_agg(${tags.code})`,
+      tags: sql<
+        string[]
+      >`COALESCE(json_agg(${tags.code}) FILTER (WHERE ${tags.code} IS NOT NULL), '[]')`, // avoid [null], return empty arrays instead
       comments: projects.comments,
     })
-    .from(projectsToTags)
-    .leftJoin(projects, eq(projectsToTags.projectId, projects.id))
+    .from(projects)
+    .leftJoin(projectsToTags, eq(projectsToTags.projectId, projects.id))
     .leftJoin(repos, eq(projects.repoId, repos.id))
     .leftJoin(tags, eq(projectsToTags.tagId, tags.id))
     .orderBy(getOrderBy(sort))
@@ -55,6 +56,7 @@ export async function findProjects({
     .limit(limit)
     .groupBy([
       projects.comments,
+      projects.createdAt,
       projects.slug,
       projects.name,
       projects.description,
@@ -72,9 +74,15 @@ export async function findProjects({
     query.where(getWhereClauseSearchByTag(db, tag));
   }
 
+  // console.log(query.toSQL());
+
   const records = await query;
   return records;
 }
+
+// export type OriginalProjectRecord = Awaited<ReturnType<typeof findProjects>>[0];
+
+// export type ProjectRecord = NonNullable
 
 function getWhereClauseSearchByTag(db: DB, tagCode: string) {
   return inArray(

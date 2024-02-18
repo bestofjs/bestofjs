@@ -14,7 +14,7 @@ export const projects = pgTable("projects", {
   id: text("id").primaryKey(),
   name: text("name").unique(),
   slug: text("slug").unique(),
-  description: text("description"),
+  description: text("description").notNull(),
   overrideDescription: boolean("override_description"),
   url: text("url"),
   overrideURL: boolean("override_url"),
@@ -24,7 +24,7 @@ export const projects = pgTable("projects", {
   logo: text("logo"),
   twitter: text("twitter"),
   comments: text("comments"),
-  createdAt: date("created_at"),
+  createdAt: timestamp("created_at").notNull(),
   updatedAt: date("updated_at"),
   repoId: text("repoId").references(() => repos.id),
 });
@@ -32,11 +32,11 @@ export const projects = pgTable("projects", {
 export const tags = pgTable("tags", {
   id: text("id").primaryKey(),
   code: text("code").unique(),
-  name: text("name"),
+  name: text("name").notNull(),
   description: text("description"),
-  aliases: text("aliases"),
-  createdAt: date("createdAt"),
-  updatedAt: date("updatedAt"),
+  aliases: jsonb("aliases"),
+  createdAt: timestamp("created_at").notNull(),
+  updatedAt: timestamp("updated_at"),
 });
 
 export const projectsToTags = pgTable(
@@ -87,7 +87,7 @@ export const repos = pgTable("repos", {
   description: text("description"),
   full_name: text("full_name").unique(),
   homepage: text("homepage"),
-  name: text("name"),
+  name: text("name").notNull(),
   owner_id: text("owner_id").notNull(),
   stars: integer("stargazers_count"),
   topics: jsonb("topics"),
@@ -118,7 +118,7 @@ export const bookmarks = pgTable(
     projectSlug: text("project_slug")
       .notNull()
       .references(() => projects.slug),
-    createdAt: timestamp("created_at"),
+    createdAt: timestamp("created_at").notNull(),
   },
   (t) => ({
     pk: primaryKey(t.userEmail, t.projectSlug),
@@ -136,7 +136,7 @@ export const snapshots = pgTable("snapshots", {
   repoId: text("repo_id")
     .notNull()
     .references(() => repos.id),
-  createdAt: timestamp("created_at"),
+  createdAt: timestamp("created_at").notNull(),
   year: integer("year"),
   months: jsonb("months"),
 });
