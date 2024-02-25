@@ -22,7 +22,7 @@ export function TypeWriter({ topics, sleepTime, loop = false }: Props) {
     return () => {
       clearTimeout(timeout);
     };
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   async function animateText() {
     let index = 0;
