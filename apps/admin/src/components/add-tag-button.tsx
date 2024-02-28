@@ -8,7 +8,7 @@ import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from "zod";
 
-import { createProject } from "@/database/projects/create";
+import { createTag } from "@/database/tags/create";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -24,27 +24,27 @@ import { Label } from "@/components/ui/label";
 import { Form, FormControl, FormField, FormItem, FormMessage } from "./ui/form";
 
 const formSchema = z.object({
-  gitHubURL: z.string().url().startsWith("https://github.com/"),
+  name: z.string(),
 });
 
-export function AddProjectButton() {
+export function AddTagButton() {
   const [open, setOpen] = useState(false);
   const router = useRouter();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
-    defaultValues: { gitHubURL: "" },
+    defaultValues: { name: "" },
   });
 
   const isPending = form.formState.isSubmitting;
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     try {
-      const project = await createProject(values.gitHubURL);
-      toast.success(`Project added: ${project.name}`);
+      const tag = await createTag(values.name);
+      toast.success(`Tag added: ${tag.code}`);
       setOpen(false);
-      router.push(`/projects/${project.slug}`);
+      router.push(`/tags/${tag.code}`);
     } catch (error) {
-      toast.error(`Unable to create the project ${error.message}`);
+      toast.error(`Unable to create the project ${(error as Error).message}`);
     }
   }
 
@@ -52,24 +52,24 @@ export function AddProjectButton() {
     <Form {...form}>
       <Dialog open={open} onOpenChange={setOpen}>
         <DialogTrigger asChild>
-          <Button variant="default">Add Project</Button>
+          <Button variant="default">Add Tag</Button>
         </DialogTrigger>
         <DialogContent className="sm:max-w-[600px]">
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
             <DialogHeader>
-              <DialogTitle>Add Project</DialogTitle>
+              <DialogTitle>Add Tag</DialogTitle>
             </DialogHeader>
             <div className="grid grid-cols-[100px_1fr] items-center gap-4">
               <Label htmlFor="name" className="text-right">
-                GitHub URL
+                Name
               </Label>
               <FormField
                 control={form.control}
-                name="gitHubURL"
+                name="name"
                 render={({ field }) => (
                   <FormItem>
                     <FormControl>
-                      <Input placeholder="https://github.com/..." {...field} />
+                      <Input placeholder="" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>

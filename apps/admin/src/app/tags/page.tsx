@@ -1,6 +1,7 @@
 import Link from "next/link";
 
 import { findTags } from "@/database/tags/find";
+import { Badge } from "@/components/ui/badge";
 import {
   Table,
   TableBody,
@@ -9,6 +10,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { AddTagButton } from "@/components/add-tag-button";
 
 type Tag = Awaited<ReturnType<typeof findTags>>[0];
 
@@ -16,9 +18,13 @@ export default async function TagsPage() {
   const tags = await findTags();
   return (
     <div className="flex flex-col gap-4">
-      <h1 className="text-3xl font-extrabold tracking-tight lg:text-4xl">
-        Tags
-      </h1>
+      <div className="flex justify-between">
+        <h1 className="flex scroll-m-20 items-center gap-2 text-3xl font-extrabold tracking-tight lg:text-4xl">
+          Tags
+          <Badge className="text-sm">{tags.length}</Badge>
+        </h1>
+        <AddTagButton />
+      </div>
       <TagList tags={tags} />
     </div>
   );
