@@ -14,9 +14,16 @@ import { ChevronDownIcon } from "../core";
 import { stateToQueryString } from "./navigation-state";
 import { SortOptionKey, sortOrderOptionsByKey } from "./sort-order-options";
 
+const timePeriodOptions: SortOptionKey[] = [
+  "daily",
+  "weekly",
+  "monthly",
+  "yearly",
+];
+
 const sortOptionGroups: SortOptionKey[][] = [
   ["total"],
-  ["daily", "weekly", "monthly", "yearly"],
+  timePeriodOptions,
   ["monthly-downloads"],
   ["last-commit", "contributors"],
   ["created", "newest"],
@@ -28,6 +35,7 @@ type Props = {
   searchState: ProjectSearchQuery;
   path?: string;
 };
+
 export function ProjectSortOrderPicker({
   value,
   searchState,
@@ -60,6 +68,39 @@ export function ProjectSortOrderPicker({
                 );
               })}
             </DropdownMenuGroup>
+          );
+        })}
+      </DropdownMenuContent>
+    </DropdownMenu>
+  );
+}
+
+export function HotProjectSortOrderPicker({ value, searchState }: Props) {
+  const currentOption = sortOrderOptionsByKey[value];
+  const currentOptionLabel =
+    currentOption?.hotProjectsLabel || currentOption?.label || "";
+
+  return (
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild>
+        <Button variant="outline" className="w-44">
+          {currentOptionLabel}
+          <ChevronDownIcon size={24} aria-hidden="true" />
+        </Button>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent className="w-[150px] divide-y">
+        {timePeriodOptions.map((id) => {
+          const item = sortOrderOptionsByKey[id];
+          const nextState = { ...searchState, page: 1, sort: item.key };
+          const queryString = stateToQueryString(nextState);
+          const url = `?${queryString}`;
+
+          return (
+            <DropdownMenuItem key={id} asChild>
+              <Link href={url} scroll={false}>
+                {item.hotProjectsLabel || item.label}
+              </Link>
+            </DropdownMenuItem>
           );
         })}
       </DropdownMenuContent>
