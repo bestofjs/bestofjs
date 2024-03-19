@@ -85,7 +85,7 @@ async function ProjectDetailsCards({ project }: { project: BestOfJS.Project }) {
 }
 
 async function getData(projectSlug: string) {
-  return await api.projects.getProjectBySlug(projectSlug);
+  return await api.projects.getProjectBySlug(decodeURIComponent(projectSlug));
 }
 
 export async function generateStaticParams() {
