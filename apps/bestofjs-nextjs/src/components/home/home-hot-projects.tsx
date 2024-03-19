@@ -72,3 +72,13 @@ export async function HotProjectList({
     </Card>
   );
 }
+
+export async function getHotProjects(searchParams: ProjectPageSearchParams) {
+  const defaultParams = { sort: "daily" as SortOptionKey };
+  const searchState = parseSearchParams(searchParams, defaultParams);
+  const sortOption = getSortOptionByKey(searchState.sort);
+  const { projects } = await api.projects.findProjects(
+    getHotProjectsRequest(5, sortOption.sort)
+  );
+  return { projects, sortOptionId: sortOption.key, searchState };
+}

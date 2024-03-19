@@ -1,11 +1,14 @@
-export function getHotProjectsRequest(count = 5) {
+import { Sort } from "@/components/project-list/sort-order-options";
+
+export function getHotProjectsRequest(
+  count = 5,
+  sort: Sort = { "trends.daily": -1 }
+) {
   return {
     criteria: {
       tags: { $nin: ["meta", "learning"] },
     },
-    sort: {
-      "trends.daily": -1,
-    },
+    sort,
     limit: count,
   };
 }
