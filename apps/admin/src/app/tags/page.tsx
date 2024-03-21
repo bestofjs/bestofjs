@@ -12,6 +12,9 @@ import {
 } from "@/components/ui/table";
 import { AddTagButton } from "@/components/add-tag-button";
 
+import { columns } from "./columns";
+import { DataTable } from "./data-table";
+
 type Tag = Awaited<ReturnType<typeof findTags>>[0];
 
 export default async function TagsPage() {
@@ -25,7 +28,8 @@ export default async function TagsPage() {
         </h1>
         <AddTagButton />
       </div>
-      <TagList tags={tags} />
+      {/* <TagList tags={tags} /> */}
+      <DataTable columns={columns} data={tags} />
     </div>
   );
 }
