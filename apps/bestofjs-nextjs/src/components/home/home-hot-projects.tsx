@@ -16,6 +16,7 @@ import {
 import {
   SortOptionKey,
   getSortOptionByKey,
+  sortOrderOptionsByKey,
 } from "@/components/project-list/sort-order-options";
 import { api } from "@/server/api";
 import { getHotProjectsRequest } from "@/app/backend-search-requests";
@@ -23,7 +24,7 @@ import { ProjectSearchQuery } from "@/app/projects/types";
 
 type Props = {
   projects: BestOfJS.Project[];
-  sortOptionId: string;
+  sortOptionId: SortOptionKey;
   searchState: ProjectSearchQuery;
   path?: string;
 };
@@ -33,20 +34,17 @@ export async function HotProjectList({
   sortOptionId,
   searchState,
 }: Props) {
+  const sortOptionLabel = sortOrderOptionsByKey[sortOptionId]?.label;
   return (
     <Card>
       <CardHeader>
         <SectionHeading
           icon={<GoFlame fontSize={32} />}
           title="Hot Projects"
-          subtitle={
-            <>
-              By number of stars added <b>the last 24 hours</b>
-            </>
-          }
+          subtitle={sortOptionLabel}
         />
         <HotProjectSortOrderPicker
-          value={sortOptionId as SortOptionKey}
+          value={sortOptionId}
           searchState={searchState}
         />
       </CardHeader>
@@ -54,7 +52,7 @@ export async function HotProjectList({
         projects={projects}
         showDetails={false}
         metricsCell={(project) => (
-          <ProjectScore project={project} sortOptionId="daily" />
+          <ProjectScore project={project} sortOptionId={sortOptionId} />
         )}
         footer={
           <NextLink

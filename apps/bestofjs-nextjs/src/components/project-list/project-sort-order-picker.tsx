@@ -83,7 +83,7 @@ export function HotProjectSortOrderPicker({ value, searchState }: Props) {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="outline" className="w-44">
+        <Button variant="outline" className="w-40">
           {currentOptionLabel}
           <ChevronDownIcon size={24} aria-hidden="true" />
         </Button>
