@@ -46,11 +46,13 @@ export async function findProjects({
         string[]
       >`COALESCE(json_agg(${tags.code}) FILTER (WHERE ${tags.code} IS NOT NULL), '[]')`, // avoid [null], return empty arrays instead
       comments: projects.comments,
+      packages: schema.packages.name,
     })
     .from(projects)
     .leftJoin(projectsToTags, eq(projectsToTags.projectId, projects.id))
     .leftJoin(repos, eq(projects.repoId, repos.id))
     .leftJoin(tags, eq(projectsToTags.tagId, tags.id))
+    .leftJoin(schema.packages, eq(schema.packages.projectId, projects.id))
     .orderBy(getOrderBy(sort))
     .offset(offset)
     .limit(limit)
@@ -65,6 +67,7 @@ export async function findProjects({
       repos.stars,
       repos.full_name,
       repos.owner_id,
+      schema.packages.name,
     ]);
 
   if (text) {
@@ -94,10 +97,6 @@ function getWhereClauseSearchByTag(db: DB, tagCode: string) {
       .where(eq(tags.code, tagCode))
       .leftJoin(repos, eq(projects.repoId, repos.id))
   );
-  // does not work well as we don't get all the tags related to the found projects
-  return sql`${
-    projectsToTags.tagId
-  } = (select id from tags where code = '${sql.raw(tagCode)}')`;
 }
 
 function getWhereClauseSearchByText(text: string) {

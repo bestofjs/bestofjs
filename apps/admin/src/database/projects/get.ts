@@ -35,6 +35,13 @@ export async function getProjectBySlug(slug: string) {
           },
         },
       },
+      packages: {
+        columns: {
+          name: true,
+          version: true,
+          dependencies: true,
+        },
+      },
     },
   });
   if (project) {

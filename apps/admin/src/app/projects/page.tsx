@@ -108,6 +108,7 @@ function PaginatedProjectTable({
             <TableHead>Name</TableHead>
             <TableHead>Added at</TableHead>
             <TableHead>GitHub</TableHead>
+            <TableHead>Packages</TableHead>
             <TableHead className="text-right">Stars</TableHead>
           </TableRow>
         </TableHeader>
@@ -148,6 +149,15 @@ function PaginatedProjectTable({
                 {project.createdAt.toISOString().slice(0, 10)}
               </TableCell>
               <TableCell>{project.repo.full_name}</TableCell>
+              <TableCell>
+                {project.packages ? (
+                  project.packages // TODO how to view multiple packages?
+                ) : (
+                  <span className="text-muted-foreground italic">
+                    No package
+                  </span>
+                )}
+              </TableCell>
               <TableCell className="text-right">{project.stars}</TableCell>
             </TableRow>
           ))}
