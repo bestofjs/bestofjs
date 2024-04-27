@@ -11,8 +11,8 @@ import {
 
 export const projects = pgTable("projects", {
   id: text("id").primaryKey(),
-  name: text("name").unique(),
-  slug: text("slug").unique(),
+  name: text("name").notNull().unique(),
+  slug: text("slug").notNull().unique(),
   description: text("description").notNull(),
   overrideDescription: boolean("override_description"),
   url: text("url"),
@@ -30,7 +30,7 @@ export const projects = pgTable("projects", {
 
 export const tags = pgTable("tags", {
   id: text("id").primaryKey(),
-  code: text("code").unique(),
+  code: text("code").notNull().unique(),
   name: text("name").notNull(),
   description: text("description"),
   aliases: jsonb("aliases"),
@@ -91,8 +91,8 @@ export const repos = pgTable("repos", {
   stars: integer("stargazers_count"),
   topics: jsonb("topics"),
 
-  pushed_at: timestamp("pushed_at"),
-  created_at: timestamp("created_at"),
+  pushed_at: timestamp("pushed_at").notNull(),
+  created_at: timestamp("created_at").notNull(),
 
   // From GitHub GraphQL API
   last_commit: timestamp("last_commit"),

@@ -148,7 +148,7 @@ function PaginatedProjectTable({
               <TableCell>
                 {project.createdAt.toISOString().slice(0, 10)}
               </TableCell>
-              <TableCell>{project.repo.full_name}</TableCell>
+              <TableCell>{project.repo?.full_name || "No repo"}</TableCell>
               <TableCell>
                 {project.packages ? (
                   project.packages // TODO how to view multiple packages?

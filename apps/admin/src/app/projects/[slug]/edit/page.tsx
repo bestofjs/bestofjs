@@ -4,9 +4,6 @@ import { ProjectLogo } from "@/components/project-logo";
 
 import { ProjectForm } from "./project-form";
 import { TagsForm } from "./tags-form";
-import { ViewProject } from "./view-project";
-import { ViewRepo } from "./view-repo";
-import { ViewTags } from "./view-tags";
 
 type PageProps = {
   params: {

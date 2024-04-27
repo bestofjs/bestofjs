@@ -148,7 +148,7 @@ export async function findProjects0({ db, limit, offset, sort }: Props) {
   return projects;
 }
 
-function getOrderBy(orderByKey: OrderByKey) {
+function getOrderBy(orderByKey: ProjectListOrderByKey) {
   switch (orderByKey) {
     case "createdAt":
       return asc(schema.projects.createdAt);

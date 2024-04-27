@@ -2,8 +2,6 @@ import { getProjectBySlug } from "@/database/projects/get";
 import { getAllTags } from "@/database/projects/tags";
 import { ProjectLogo } from "@/components/project-logo";
 
-import { ProjectForm } from "./edit/project-form";
-import { TagsForm } from "./edit/tags-form";
 import { ViewProjectPackages } from "./view-packages";
 import { ViewProject } from "./view-project";
 import { ViewRepo } from "./view-repo";
@@ -39,7 +37,7 @@ export default async function ViewProjectPage({ params: { slug } }: PageProps) {
       {/* <TagsForm project={project} allTags={allTags} /> */}
       <ViewProject project={project} />
       <ViewTags project={project} allTags={allTags} />
-      <ViewRepo repo={project.repo} />
+      {project.repo ? <ViewRepo repo={project.repo} /> : <>No repository!</>}
       <ViewProjectPackages project={project} />
     </div>
   );

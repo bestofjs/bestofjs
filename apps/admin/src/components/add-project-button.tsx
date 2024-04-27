@@ -44,7 +44,7 @@ export function AddProjectButton() {
       setOpen(false);
       router.push(`/projects/${project.slug}`);
     } catch (error) {
-      toast.error(`Unable to create the project ${error.message}`);
+      toast.error(`Unable to create the project ${(error as Error).message}`);
     }
   }
 

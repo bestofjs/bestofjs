@@ -10,12 +10,6 @@ export async function getProjectBySlug(slug: string) {
     where: eq(schema.projects.slug, slug),
     with: {
       repo: {
-        // columns: {
-        //   id: true,
-        //   full_name: true,
-        //   owner_id: true,
-        //   stars: true,
-        // },
         with: {
           snapshots: {
             columns: {
@@ -27,18 +21,14 @@ export async function getProjectBySlug(slug: string) {
       },
       projectsToTags: {
         with: {
-          tag: {
-            // columns: {
-            //   code: true,
-            //   name: true,
-            // },
-          },
+          tag: {},
         },
       },
       packages: {
         columns: {
           name: true,
           version: true,
+          deprecated: true,
           dependencies: true,
         },
       },

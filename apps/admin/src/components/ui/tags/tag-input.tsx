@@ -54,7 +54,7 @@ export interface TagInputProps
   minLength?: number;
   maxLength?: number;
   usePopoverForTags?: boolean;
-  value?: string | number | readonly string[] | { id: string; text: string }[];
+  value?: string | number | readonly string[] | { id: string; name: string }[];
   autocompleteFilter?: (option: string) => boolean;
   direction?: "row" | "column";
   onInputChange?: (value: string) => void;
@@ -125,12 +125,7 @@ const TagInput = React.forwardRef<HTMLInputElement, TagInputProps>(
       (props.minTags !== undefined && props.minTags < 0)
     ) {
       console.warn("maxTags and minTags cannot be less than 0");
-      toast({
-        title: "maxTags and minTags cannot be less than 0",
-        description:
-          "Please set maxTags and minTags to a value greater than or equal to 0",
-        variant: "destructive",
-      });
+      toast.error("maxTags and minTags cannot be less than 0");
       return null;
     }
 
@@ -155,21 +150,13 @@ const TagInput = React.forwardRef<HTMLInputElement, TagInputProps>(
 
         if (minLength && newTagText.length < minLength) {
           console.warn("Tag is too short");
-          toast({
-            title: "Tag is too short",
-            description: "Please enter a tag with more characters",
-            variant: "destructive",
-          });
+          toast.error("Tag is too short");
           return;
         }
 
         // Validate maxLength
         if (maxLength && newTagText.length > maxLength) {
-          toast({
-            title: "Tag is too long",
-            description: "Please enter a tag with less characters",
-            variant: "destructive",
-          });
+          toast.error("Tag is too long");
           console.warn("Tag is too long");
           return;
         }
@@ -232,7 +219,7 @@ const TagInput = React.forwardRef<HTMLInputElement, TagInputProps>(
     const truncatedTags = truncate
       ? tags.map((tag) => ({
           id: tag.id,
-          text:
+          name:
             tag.name?.length > truncate
               ? `${tag.name.substring(0, truncate)}...`
               : tag.name,
@@ -241,7 +228,7 @@ const TagInput = React.forwardRef<HTMLInputElement, TagInputProps>(
 
     return (
       <div
-        className={`w-full flex gap-3 ${
+        className={`flex w-full gap-3 ${
           inputFieldPostion === "bottom"
             ? "flex-col"
             : inputFieldPostion === "top"
@@ -323,7 +310,7 @@ const TagInput = React.forwardRef<HTMLInputElement, TagInputProps>(
         )}
         {showCount && maxTags && (
           <div className="flex">
-            <span className="text-muted-foreground text-sm mt-1 ml-auto">
+            <span className="text-muted-foreground ml-auto mt-1 text-sm">
               {`${tagCount}`}/{`${maxTags}`}
             </span>
           </div>

@@ -29,7 +29,7 @@ export function ProjectListSortOptionPicker({ sort }: Props) {
   const onChange = (value: string) => {
     const params = new URLSearchParams(searchParams.toString());
     params.set("sort", value);
-    params.set("offset", 0);
+    params.set("offset", "0");
     router.push(pathname + "?" + params.toString());
   };
   return (

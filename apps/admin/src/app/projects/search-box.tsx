@@ -20,7 +20,7 @@ export function SearchBox({ text }: Props) {
     if (!value) return;
     const params = new URLSearchParams(searchParams.toString());
     params.set("text", value);
-    params.set("offset", 0);
+    params.set("offset", "0");
     router.push(pathname + "?" + params.toString());
   };
 

@@ -10,15 +10,13 @@ import invariant from "tiny-invariant";
 import { z } from "zod";
 
 import { getProjectBySlug } from "@/database/projects/get";
-import { Button, buttonVariants } from "@/components/ui/button";
+import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
-  FormLabel,
   FormMessage,
 } from "@/components/ui/form";
 import { Tag, TagInput } from "@/components/ui/tags/tag-input";
@@ -35,7 +33,7 @@ const FormSchema = z.object({
 });
 
 type Props = {
-  project: Required<Awaited<ReturnType<typeof getProjectBySlug>>>;
+  project: Exclude<Awaited<ReturnType<typeof getProjectBySlug>>, undefined>;
   allTags: Tag[];
 };
 
@@ -69,7 +67,7 @@ export function TagsForm({ project, allTags }: Props) {
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(onSubmit)}
-            className="space-y-8 flex flex-col items-start"
+            className="flex flex-col items-start space-y-8"
           >
             <FormField
               control={form.control}

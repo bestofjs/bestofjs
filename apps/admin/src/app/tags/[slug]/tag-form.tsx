@@ -37,7 +37,7 @@ const formSchema = z.object({
 });
 
 type Props = {
-  tag: Awaited<ReturnType<typeof getTagBySlug>>;
+  tag: Exclude<Awaited<ReturnType<typeof getTagBySlug>>, undefined>;
 };
 
 export function TagForm({ tag }: Props) {

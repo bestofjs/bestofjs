@@ -9,6 +9,11 @@ export type DB = ReturnType<typeof drizzle<typeof schema>>;
 
 export type ProjectData = typeof schema.projects.$inferSelect;
 
+export type EditableProjectData = Omit<
+  ProjectData,
+  "repoId" | "id" | "createdAt" | "updatedAt"
+>;
+
 export function getDatabase(): DB {
   const dbURL = env.POSTGRES_URL;
   const pg = postgres(dbURL);
@@ -24,7 +29,7 @@ export async function runQuery(callback: (db: DB) => Promise<void>) {
   } catch (error) {
     console.error(error);
   } finally {
-    await pg.end();
-    console.log("Disconnected from database");
+    // TODO do we need to disconnect calling `pg.end()`?
+    // console.log("Disconnected from database");
   }
 }

@@ -4,11 +4,14 @@
 import { useTheme } from "next-themes";
 import invariant from "tiny-invariant";
 
-import { getProjectBySlug } from "@/database/projects/get";
 import { cn } from "@/lib/utils";
 
 type Props = {
-  project: Awaited<ReturnType<typeof getProjectBySlug>>;
+  project: {
+    name: string;
+    logo?: string | null;
+    repo: { owner_id: string } | null;
+  };
   size: number;
   className?: string;
 };
@@ -50,7 +53,6 @@ function getProjectImageProps({
     src: getProjectLogoUrl(project, size, colorMode),
     srcSet: retinaURL ? `${retinaURL} 2x` : undefined, // to display correctly GitHub avatars on Retina screens
   };
-  s;
 }
 
 /**

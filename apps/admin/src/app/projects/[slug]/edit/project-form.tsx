@@ -33,18 +33,18 @@ import { updateProjectData } from "../actions";
 
 const formSchema = z.object({
   name: z.string().min(2).max(50),
+  slug: z.string(),
   description: z.string().min(10).max(500),
-  overrideDescription: z.coerce.boolean(),
+  overrideDescription: z.coerce.boolean().nullable(),
   url: z.string().url().nullable(),
-  // .transform((value) => value || ""),
-  overrideURL: z.coerce.boolean(),
-  // status: z
-  //   .enum(["active", "featured", "promoted", "deprecated"])
-  //   .default("active"),
+  overrideURL: z.coerce.boolean().nullable(),
+  status: z
+    .enum(["active", "featured", "promoted", "deprecated"])
+    .default("active")
+    .nullable(),
   logo: z.string().nullable(),
-  // .transform((value) => value || ""),
   comments: z.string().nullable(),
-  // .transform((value) => value || ""),
+  twitter: z.string().nullable(),
 });
 
 type Props = {
@@ -110,7 +110,7 @@ export function ProjectForm({ project }: Props) {
                 <FormItem className="flex flex-row items-start space-x-3 space-y-0">
                   <FormControl>
                     <Checkbox
-                      checked={field.value}
+                      checked={field.value || false}
                       onCheckedChange={field.onChange}
                     />
                   </FormControl>
@@ -164,7 +164,7 @@ export function ProjectForm({ project }: Props) {
                 <FormItem className="flex flex-row items-start space-x-3 space-y-0">
                   <FormControl>
                     <Checkbox
-                      checked={field.value}
+                      checked={field.value || false}
                       onCheckedChange={field.onChange}
                     />
                   </FormControl>

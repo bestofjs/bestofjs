@@ -2,16 +2,15 @@
 
 import { unstable_noStore as noStore, revalidatePath } from "next/cache";
 
-import { ProjectData } from "@/database";
+import { EditableProjectData } from "@/database";
 import { saveTags } from "@/database/projects/tags";
 import { updateProjectById } from "@/database/projects/update";
-import { projects } from "@/database/schema";
 import { EditableTagData, updateTagById } from "@/database/tags/update";
 import { Tag } from "@/components/ui/tags/tag-input";
 
 export async function updateProjectData(
   projectId: string,
-  projectData: ProjectData
+  projectData: EditableProjectData
 ) {
   noStore();
   await updateProjectById(projectId, projectData);

@@ -3,7 +3,7 @@ import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 type Props = {
-  project: Required<Awaited<ReturnType<typeof getProjectBySlug>>>;
+  project: Exclude<Awaited<ReturnType<typeof getProjectBySlug>>, undefined>;
 };
 
 export function ViewProjectPackages({ project }: Props) {
@@ -12,13 +12,17 @@ export function ViewProjectPackages({ project }: Props) {
   return (
     <div>
       {packages.map((pkg) => (
-        <ViewPackage key={pkg.name} pkg={pkg} />
+        <ViewPackage key={pkg.name} pkg={pkg as ProjectPackage} />
       ))}
     </div>
   );
 }
 
-function ViewPackage({ pkg }: { pkg: Props["project"]["packages"][number] }) {
+type ProjectPackage = Props["project"]["packages"][number] & {
+  dependencies: string[];
+};
+
+function ViewPackage({ pkg }: { pkg: ProjectPackage }) {
   return (
     <Card>
       <CardHeader>

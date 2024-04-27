@@ -1,6 +1,7 @@
 "use client";
 
 import { usePathname, useSearchParams } from "next/navigation";
+import { z } from "zod";
 
 import { PaginationNext, PaginationPrevious } from "@/components/ui/pagination";
 
