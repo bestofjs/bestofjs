@@ -56,7 +56,7 @@ export async function findProjects({
     .orderBy(getOrderBy(sort))
     .offset(offset)
     .limit(limit)
-    .groupBy([
+    .groupBy(() => [
       projects.comments,
       projects.createdAt,
       projects.slug,

@@ -18,7 +18,7 @@ export async function findTags() {
       schema.projectsToTags,
       eq(schema.projectsToTags.tagId, schema.tags.id)
     )
-    .groupBy([
+    .groupBy(() => [
       schema.tags.name,
       schema.tags.code,
       schema.tags.createdAt,
