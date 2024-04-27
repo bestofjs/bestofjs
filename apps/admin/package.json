@@ -30,7 +30,7 @@
     "clsx": "^2.0.0",
     "cmdk": "^0.2.0",
     "dialog": "^0.3.1",
-    "drizzle-orm": "^0.29.3",
+    "drizzle-orm": "^0.30.9",
     "lucide-react": "0.105.0-alpha.4",
     "nanoid": "^5.0.5",
     "next": "14.2.2",
