@@ -1,21 +1,9 @@
-import Link from "next/link";
-
 import { findTags } from "@/database/tags/find";
 import { Badge } from "@/components/ui/badge";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
 import { AddTagButton } from "@/components/add-tag-button";
 
 import { columns } from "./columns";
 import { DataTable } from "./data-table";
-
-type Tag = Awaited<ReturnType<typeof findTags>>[0];
 
 export default async function TagsPage() {
   const tags = await findTags();
@@ -31,34 +19,5 @@ export default async function TagsPage() {
       {/* <TagList tags={tags} /> */}
       <DataTable columns={columns} data={tags} />
     </div>
-  );
-}
-
-function TagList({ tags }: { tags: Tag[] }) {
-  return (
-    <Table>
-      <TableHeader>
-        <TableRow>
-          <TableHead>Name</TableHead>
-          <TableHead>Code</TableHead>
-          <TableHead>Projects</TableHead>
-          <TableHead>Description</TableHead>
-          <TableHead>Created</TableHead>
-        </TableRow>
-      </TableHeader>
-      <TableBody>
-        {tags.map((tag) => (
-          <TableRow key={tag.code}>
-            <TableCell>
-              <Link href={`/tags/${tag.code}`}>{tag.name}</Link>
-            </TableCell>
-            <TableCell>{tag.code}</TableCell>
-            <TableCell>{tag.count}</TableCell>
-            <TableCell>{tag.description || "-"}</TableCell>
-            <TableCell>{tag.createdAt.toISOString().slice(0, 10)}</TableCell>
-          </TableRow>
-        ))}
-      </TableBody>
-    </Table>
   );
 }

@@ -136,7 +136,7 @@ export const Tag: React.FC<TagProps> = ({
           e.stopPropagation(); // Prevent event from bubbling up to the tag span
           onRemoveTag(tagObj.id);
         }}
-        className={cn("py-1 px-3 h-full hover:bg-transparent")}
+        className={cn("h-full px-3 py-1 hover:bg-transparent")}
       >
         <X size={14} />
       </Button>

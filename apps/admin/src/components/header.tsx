@@ -12,7 +12,6 @@ import {
 } from "@/components/ui/navigation-menu";
 
 import { AddProjectButton } from "./add-project-button";
-import { Button } from "./ui/button";
 
 export function Header() {
   return (
