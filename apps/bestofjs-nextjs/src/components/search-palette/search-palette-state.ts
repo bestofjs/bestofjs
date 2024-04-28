@@ -102,7 +102,7 @@ export function useSearchPaletteState() {
     const selectedTagCode = itemValue.slice("tag/".length);
     const tagCodes = [...currentTagCodes, selectedTagCode];
     const tags = tagCodes.map(lookupTag).filter(Boolean) as BestOfJS.Tag[];
-    const nextState = { ...searchState, tags: tagCodes };
+    const nextState = { ...searchState, page: 1, tags: tagCodes };
     const queryString = stateToQueryString(nextState);
     setSelectedItem({ type: "tag", value: tags });
     goToURL(`/projects/?${queryString}`);
