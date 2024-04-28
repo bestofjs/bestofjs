@@ -1,7 +1,7 @@
 import Link from "next/link";
 
 import { ProjectData } from "@/database";
-import { Button, buttonVariants } from "@/components/ui/button";
+import { buttonVariants } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -27,17 +27,17 @@ export function ViewProject({ project }: Props) {
       <CardContent>
         <div className="grid grid-cols-[200px_1fr] gap-4">
           <p>Description</p>
-          <p>
+          <div>
             {project.description}
             {project.overrideDescription && (
-              <div className="flex gap-2 mt-2 items-center">
+              <div className="mt-2 flex items-center gap-2">
                 <Checkbox checked={true} />
                 <span>Override description</span>
               </div>
             )}
-          </p>
+          </div>
           <p>URL</p>
-          <p>
+          <div>
             {project.url ? (
               <a href={project.url} target="_blank">
                 {project.url}
@@ -46,12 +46,12 @@ export function ViewProject({ project }: Props) {
               "-"
             )}
             {project.overrideURL && (
-              <div className="flex gap-2 mt-2 items-center">
+              <div className="mt-2 flex items-center gap-2">
                 <Checkbox checked={true} />
                 <span>Override URL</span>
               </div>
             )}
-          </p>
+          </div>
           <p>Logo</p>
           <p>{project.logo}</p>
           <p>Comments</p>

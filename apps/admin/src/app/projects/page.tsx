@@ -135,13 +135,6 @@ function PaginatedProjectTable({
                         {tag}
                       </a>
                     ))}
-                    {/* {project.projectsToTags.map((projectToTag) => {
-                  return (
-                    <Badge variant="secondary" key={projectToTag.tagId}>
-                      {projectToTag.tag.name}
-                    </Badge>
-                  );
-                })} */}
                   </div>
                 </div>
               </TableCell>
@@ -151,7 +144,11 @@ function PaginatedProjectTable({
               <TableCell>{project.repo?.full_name || "No repo"}</TableCell>
               <TableCell>
                 {project.packages ? (
-                  project.packages // TODO how to view multiple packages?
+                  <div className="flex flex-col gap-4">
+                    {project.packages.map((pkg) => (
+                      <div key={pkg}>{pkg}</div>
+                    ))}
+                  </div>
                 ) : (
                   <span className="text-muted-foreground italic">
                     No package

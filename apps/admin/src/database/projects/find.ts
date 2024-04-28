@@ -3,7 +3,7 @@ import { asc, count, desc, eq, ilike, inArray, sql } from "drizzle-orm";
 import { DB } from "@/database";
 import * as schema from "@/database/schema";
 
-const { projects, tags, projectsToTags, repos } = schema;
+const { projects, tags, packages, projectsToTags, repos } = schema;
 
 export type ProjectListOrderByKey =
   | "createdAt"
@@ -44,9 +44,9 @@ export async function findProjects({
       logo: projects.logo,
       tags: sql<
         string[]
-      >`COALESCE(json_agg(${tags.code}) FILTER (WHERE ${tags.code} IS NOT NULL), '[]')`, // avoid [null], return empty arrays instead
+      >`COALESCE(json_agg(distinct ${tags.code}) FILTER (WHERE ${tags.code} IS NOT NULL), '[]')`, // avoid [null], return empty arrays instead
       comments: projects.comments,
-      packages: schema.packages.name,
+      packages: sql<string[]>`json_agg(distinct ${packages.name})`,
     })
     .from(projects)
     .leftJoin(projectsToTags, eq(projectsToTags.projectId, projects.id))
@@ -67,7 +67,8 @@ export async function findProjects({
       repos.stars,
       repos.full_name,
       repos.owner_id,
-      schema.packages.name,
+      projectsToTags.projectId,
+      packages.projectId,
     ]);
 
   if (text) {
@@ -82,10 +83,6 @@ export async function findProjects({
   const records = await query;
   return records;
 }
-
-// export type OriginalProjectRecord = Awaited<ReturnType<typeof findProjects>>[0];
-
-// export type ProjectRecord = NonNullable
 
 function getWhereClauseSearchByTag(db: DB, tagCode: string) {
   return inArray(

@@ -1,4 +1,4 @@
-import { and, arrayContains, asc, eq, inArray } from "drizzle-orm";
+import { and, asc, eq, inArray } from "drizzle-orm";
 
 import { Tag } from "@/components/ui/tags/tag-input";
 
