@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { ColumnDef } from "@tanstack/react-table";
 import { ArrowUpDown } from "lucide-react";
 
@@ -20,6 +21,13 @@ export const columns: ColumnDef<Tag>[] = [
           Name
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
+      );
+    },
+    cell: ({ row }) => {
+      return (
+        <Link href={`/tags/${row.original.code}`} className="hover:underline">
+          {row.original.name}
+        </Link>
       );
     },
   },
