@@ -13,10 +13,13 @@ export type SortOptionKey =
   | "newest"
   | "bookmark";
 
+export type Sort = { [key: string]: number };
+
 export type SortOption = {
   key: SortOptionKey;
   label: string;
-  sort: { [key: string]: number };
+  hotProjectsLabel?: string;
+  sort: Sort;
   disabled?: (params: { query: string }) => boolean;
   direction?: "desc" | "asc";
 };
@@ -30,21 +33,25 @@ export const sortOrderOptions: SortOption[] = [
   {
     key: "daily",
     label: "By stars added yesterday",
+    hotProjectsLabel: "Today",
     sort: { "trends.daily": -1 },
   },
   {
     key: "weekly",
     label: "By stars added the last 7 days",
+    hotProjectsLabel: "This week",
     sort: { "trends.weekly": -1 },
   },
   {
     key: "monthly",
     label: "By stars added the last 30 days",
+    hotProjectsLabel: "This month",
     sort: { "trends.monthly": -1 },
   },
   {
     key: "yearly",
     label: "By stars added the last 12 months",
+    hotProjectsLabel: "This year",
     sort: { "trends.yearly": -1 },
   },
   {

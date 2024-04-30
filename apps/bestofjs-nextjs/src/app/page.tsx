@@ -1,6 +1,6 @@
 import { Metadata } from "next";
 import NextLink from "next/link";
-import { GoFlame, GoGift, GoHeart, GoPlus } from "react-icons/go";
+import { GoGift, GoHeart, GoPlus } from "react-icons/go";
 
 import {
   ADD_PROJECT_REQUEST_URL,
@@ -20,8 +20,13 @@ import { StarIcon, TagIcon } from "@/components/core";
 import { SectionHeading } from "@/components/core/section";
 import { ExternalLink } from "@/components/core/typography";
 import { FeaturedProjects } from "@/components/home/home-featured-projects";
+import {
+  HotProjectList,
+  getHotProjects,
+} from "@/components/home/home-hot-projects";
 import { LatestMonthlyRankings } from "@/components/home/latest-monthly-rankings";
 import { TypeWriter } from "@/components/home/typewriter";
+import { ProjectPageSearchParams } from "@/components/project-list/navigation-state";
 import {
   ProjectScore,
   ProjectTable,
@@ -29,13 +34,16 @@ import {
 import { CompactTagList } from "@/components/tag-list/compact-tag-list";
 import { api } from "@/server/api";
 
-import {
-  getHotProjectsRequest,
-  getLatestProjects,
-} from "./backend-search-requests";
+import { getLatestProjects } from "./backend-search-requests";
 
-export async function generateMetadata(): Promise<Metadata> {
-  const data = await getData();
+type PageProps = {
+  searchParams: ProjectPageSearchParams;
+};
+
+export async function generateMetadata({
+  searchParams,
+}: PageProps): Promise<Metadata> {
+  const data = await getData(searchParams);
 
   const urlSearchParams = new URLSearchParams();
   addCacheBustingParam(urlSearchParams, data.lastUpdateDate);
@@ -55,15 +63,21 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
-export default async function IndexPage() {
+export default async function IndexPage(params: PageProps) {
+  const { searchParams } = params;
   const {
-    hotProjects,
+    hotProjectsData: {
+      projects: hotProjects,
+      sortOptionId: hotProjectsSortOptionId,
+      searchState,
+    },
     newestProjects,
     bestOfJSProject,
     popularTags,
     lastUpdateDate,
     total,
-  } = await getData();
+  } = await getData(searchParams);
+
   const topics = [
     "JavaScript",
     "TypeScript",
@@ -92,8 +106,11 @@ export default async function IndexPage() {
 
       <div className="flex flex-col gap-8 lg:flex-row">
         <div className="flex-1 space-y-8">
-          <HotProjectList projects={hotProjects} />
-
+          <HotProjectList
+            projects={hotProjects}
+            sortOptionId={hotProjectsSortOptionId}
+            searchState={searchState}
+          />
           <NewestProjectList projects={newestProjects} />
         </div>
         <div className="shrink-0 space-y-8 lg:w-[300px]">
@@ -112,43 +129,6 @@ export default async function IndexPage() {
 
       <MoreProjectsSection lastUpdateDate={lastUpdateDate} total={total} />
     </div>
-  );
-}
-
-function HotProjectList({ projects }: { projects: BestOfJS.Project[] }) {
-  return (
-    <Card>
-      <CardHeader>
-        <SectionHeading
-          icon={<GoFlame fontSize={32} />}
-          title="Hot Projects"
-          subtitle={
-            <>
-              By number of stars added <b>the last 24 hours</b>
-            </>
-          }
-        />
-      </CardHeader>
-      <ProjectTable
-        projects={projects}
-        showDetails={false}
-        metricsCell={(project) => (
-          <ProjectScore project={project} sortOptionId="daily" />
-        )}
-        footer={
-          <NextLink
-            href={`/projects?sort=daily`}
-            passHref
-            className={buttonVariants(
-              { variant: "link" },
-              "text-md w-full text-secondary-foreground"
-            )}
-          >
-            View full rankings »
-          </NextLink>
-        }
-      />
-    </Card>
   );
 }
 
@@ -308,11 +288,9 @@ function MoreProjectsSection({
   );
 }
 
-async function getData() {
+async function getData(searchParams: ProjectPageSearchParams) {
   const { lastUpdateDate, total } = await api.projects.getStats();
-  const { projects: hotProjects } = await api.projects.findProjects(
-    getHotProjectsRequest()
-  );
+  const hotProjectsData = await getHotProjects(searchParams);
   const { projects: newestProjects } = await api.projects.findProjects(
     getLatestProjects()
   );
@@ -323,9 +301,10 @@ async function getData() {
     sort: { counter: -1 },
     limit: 10,
   });
+
   return {
     bestOfJSProject,
-    hotProjects,
+    hotProjectsData,
     lastUpdateDate,
     newestProjects,
     popularTags,
