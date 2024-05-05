@@ -7,6 +7,7 @@ import {
   countProjects,
   findProjects,
 } from "@/database/projects/find";
+import { formatStars } from "@/lib/format-helpers";
 import { Badge, badgeVariants } from "@/components/ui/badge";
 import { buttonVariants } from "@/components/ui/button";
 import {
@@ -155,7 +156,9 @@ function PaginatedProjectTable({
                   </span>
                 )}
               </TableCell>
-              <TableCell className="text-right">{project.stars}</TableCell>
+              <TableCell className="text-right">
+                {formatStars(project.stars)}
+              </TableCell>
             </TableRow>
           ))}
         </TableBody>

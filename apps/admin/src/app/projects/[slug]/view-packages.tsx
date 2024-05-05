@@ -14,7 +14,7 @@ import { AddPackageButton } from "./edit/add-package-button";
 import { RemovePackageButton } from "./edit/remove-package-button";
 
 type Props = {
-  project: Exclude<Awaited<ReturnType<typeof getProjectBySlug>>, undefined>;
+  project: NonNullable<Awaited<ReturnType<typeof getProjectBySlug>>>;
 };
 
 export function ViewProjectPackages({ project }: Props) {

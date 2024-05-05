@@ -18,7 +18,7 @@ import {
 import { removePackageAction } from "../actions";
 
 type Props = {
-  project: Exclude<Awaited<ReturnType<typeof getProjectBySlug>>, undefined>;
+  project: NonNullable<Awaited<ReturnType<typeof getProjectBySlug>>>;
   packageName: string;
 };
 

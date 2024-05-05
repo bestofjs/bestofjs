@@ -1,4 +1,5 @@
 import * as schema from "@/database/schema";
+import { formatDateOnly, formatStars } from "@/lib/format-helpers";
 import {
   Card,
   CardContent,
@@ -14,7 +15,10 @@ export function ViewRepo({ repo }: Props) {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>GitHub Repository</CardTitle>
+        <CardTitle className="flex justify-between">
+          <div>GitHub Repository</div>
+          <div>{formatStars(repo.stars)}</div>
+        </CardTitle>
         <CardDescription>
           <code>{repo.id}</code>
         </CardDescription>
@@ -26,9 +30,9 @@ export function ViewRepo({ repo }: Props) {
           <p>Description</p>
           <p>{repo.description}</p>
           <p>Created</p>
-          <p>{repo.created_at as unknown as string}</p>
+          <p>{formatDateOnly(repo.created_at)}</p>
           <p>Pushed at</p>
-          <p>{repo.pushed_at as unknown as string}</p>
+          <p>{formatDateOnly(repo.pushed_at)}</p>
           <p>Commit count</p>
           <p>{repo.commit_count}</p>
           <p>Contributors</p>

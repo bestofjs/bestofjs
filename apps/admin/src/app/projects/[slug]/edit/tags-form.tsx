@@ -33,7 +33,7 @@ const FormSchema = z.object({
 });
 
 type Props = {
-  project: Exclude<Awaited<ReturnType<typeof getProjectBySlug>>, undefined>;
+  project: NonNullable<Awaited<ReturnType<typeof getProjectBySlug>>>;
   allTags: Tag[];
 };
 

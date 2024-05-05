@@ -39,7 +39,7 @@ const formSchema = z.object({
 });
 
 type Props = {
-  project: Exclude<Awaited<ReturnType<typeof getProjectBySlug>>, undefined>;
+  project: NonNullable<Awaited<ReturnType<typeof getProjectBySlug>>>;
 };
 
 export function AddPackageButton({ project }: Props) {
