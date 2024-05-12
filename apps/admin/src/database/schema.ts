@@ -49,7 +49,7 @@ export const projectsToTags = pgTable(
       .references(() => tags.id),
   },
   (t) => ({
-    pk: primaryKey(t.projectId, t.tagId),
+    pk: primaryKey({ columns: [t.projectId, t.tagId] }),
   })
 );
 
@@ -120,7 +120,7 @@ export const bookmarks = pgTable(
     createdAt: timestamp("created_at").notNull().defaultNow(),
   },
   (t) => ({
-    pk: primaryKey(t.userEmail, t.projectSlug),
+    pk: primaryKey({ columns: [t.userEmail, t.projectSlug] }),
   })
 );
 
@@ -136,6 +136,7 @@ export const snapshots = pgTable("snapshots", {
     .notNull()
     .references(() => repos.id),
   createdAt: timestamp("created_at").notNull().defaultNow(),
+  updatedAt: timestamp("updated_at"),
   year: integer("year"),
   months: jsonb("months"),
 });
@@ -166,17 +167,11 @@ export const packagesRelations = relations(packages, ({ one }) => ({
   }),
 }));
 
-export const bundles = pgTable(
-  "bundles",
-  {
-    name: text("name").primaryKey(),
-    version: text("version"),
-    size: integer("size"),
-    gzip: integer("gzip"),
-    errorMessage: text("error_message"),
-    createdAt: timestamp("created_at").notNull().defaultNow(),
-  },
-  (table) => {
-    return { pk: { columns: [table.name, table.version] } }; // composite PK
-  }
-);
+export const bundles = pgTable("bundles", {
+  name: text("name").primaryKey(),
+  version: text("version"),
+  size: integer("size"),
+  gzip: integer("gzip"),
+  errorMessage: text("error_message"),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+});

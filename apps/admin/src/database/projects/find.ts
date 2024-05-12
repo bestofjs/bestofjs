@@ -1,4 +1,4 @@
-import { asc, count, desc, eq, ilike, inArray, sql } from "drizzle-orm";
+import { asc, count, desc, eq, ilike, inArray, or, sql } from "drizzle-orm";
 
 import { DB } from "@/database";
 import * as schema from "@/database/schema";
@@ -97,8 +97,10 @@ function getWhereClauseSearchByTag(db: DB, tagCode: string) {
 }
 
 function getWhereClauseSearchByText(text: string) {
-  return ilike(projects.description, `%${text}%`);
-  // return sql`${projects.description} like '%${text}%'`;
+  return or(
+    ilike(projects.name, `%${text}%`),
+    ilike(projects.description, `%${text}%`)
+  );
 }
 
 export async function countProjects({

@@ -16,7 +16,7 @@ type Props = {
 export function ViewSnapshots({ snapshots }: Props) {
   return (
     <div className="rounded border p-4">
-      <h3 className="pb-4 text-2xl">Packages</h3>
+      <h3 className="pb-4 text-2xl">Snapshots</h3>
       <div className="flex flex-col gap-4">
         {snapshots.map((oneYearSnapshot) => (
           <ViewYear key={oneYearSnapshot.year} snapshots={oneYearSnapshot} />
@@ -35,12 +35,14 @@ function ViewYear({ snapshots }: { snapshots: Props["snapshots"][number] }) {
       <CardContent>
         <Table className="w-auto">
           <TableHeader>
-            <TableCell className="w-24">Month</TableCell>
-            <TableCell className="w-12">Count</TableCell>
-            <TableCell className="w-12">From</TableCell>
-            <TableCell className="w-24"></TableCell>
-            <TableCell className="w-12">To</TableCell>
-            <TableCell className="w-24"></TableCell>
+            <TableRow>
+              <TableCell className="w-24">Month</TableCell>
+              <TableCell className="w-12">Count</TableCell>
+              <TableCell className="w-12">From</TableCell>
+              <TableCell className="w-24"></TableCell>
+              <TableCell className="w-12">To</TableCell>
+              <TableCell className="w-24"></TableCell>
+            </TableRow>
           </TableHeader>
           <TableBody>
             {snapshots.months.map((item) => (
