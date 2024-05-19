@@ -9,6 +9,9 @@ import {
   TableRow,
 } from "@/components/ui/table";
 
+import { getMonthlyTrends } from "./get-monthly-trends";
+import { MonthlyTrendsChart } from "./monthly-trends-chart";
+
 type Props = {
   snapshots: OneYearSnapshots[];
 };
@@ -18,11 +21,33 @@ export function ViewSnapshots({ snapshots }: Props) {
     <div className="rounded border p-4">
       <h3 className="pb-4 text-2xl">Snapshots</h3>
       <div className="flex flex-col gap-4">
+        <Chart snapshots={snapshots} />
         {snapshots.map((oneYearSnapshot) => (
           <ViewYear key={oneYearSnapshot.year} snapshots={oneYearSnapshot} />
         ))}
       </div>
     </div>
+  );
+}
+
+function Chart({ snapshots }: Props) {
+  const flattenedSnapshots = flattenSnapshots(snapshots);
+  const monthlyTrends = getMonthlyTrends(flattenedSnapshots, new Date());
+
+  const results = monthlyTrends.map(({ year, month, delta }) => ({
+    year,
+    month,
+    value: delta,
+  }));
+  return (
+    <Card>
+      <CardHeader>
+        <CardTitle>Monthly Trends</CardTitle>
+      </CardHeader>
+      <CardContent>
+        <MonthlyTrendsChart results={results} unit="Stars" />;
+      </CardContent>
+    </Card>
   );
 }
 
@@ -90,3 +115,13 @@ const months = [
   "Nov",
   "Dec",
 ];
+
+function flattenSnapshots(records: Props["snapshots"]) {
+  return records
+    .slice(0, 2) // we only need the records for the last two years
+    .flatMap(({ year, months }) =>
+      months.flatMap(({ month, snapshots }) =>
+        snapshots.flatMap(({ day, stars }) => ({ year, month, day, stars }))
+      )
+    );
+}

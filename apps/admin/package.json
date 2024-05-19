@@ -31,6 +31,7 @@
     "cmdk": "^0.2.0",
     "drizzle-orm": "^0.30.9",
     "lucide-react": "0.105.0-alpha.4",
+    "luxon": "^3.4.4",
     "nanoid": "^5.0.5",
     "next": "14.2.2",
     "next-themes": "^0.2.1",
@@ -47,6 +48,7 @@
   },
   "devDependencies": {
     "@ianvs/prettier-plugin-sort-imports": "^3.7.2",
+    "@types/luxon": "^3.4.2",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
