@@ -1,15 +1,4 @@
-import { DateTime } from "luxon";
-
-type SnapshotMonth = {
-  year: number;
-  month: number;
-};
-type SnapshotDay = SnapshotMonth & {
-  day: number;
-};
-type Snapshot = SnapshotDay & {
-  stars: number;
-};
+import { Snapshot, SnapshotMonth, normalizeDate } from "./utils";
 
 export function getMonthlyTrends(snapshots: Snapshot[], date: Date) {
   const months = getLast12Months(date);
@@ -83,14 +72,6 @@ export function getNextMonth(date: SnapshotMonth): SnapshotMonth {
   return month === 12
     ? { year: year + 1, month: 1 }
     : { year, month: month + 1 };
-}
-
-export function normalizeDate(date: Date): SnapshotDay {
-  const dt = DateTime.fromJSDate(date).setZone("Asia/Tokyo");
-  const year = dt.year;
-  const month = dt.month;
-  const day = dt.day;
-  return { year, month, day };
 }
 
 function isSameMonth(date1: SnapshotMonth, date2: SnapshotMonth) {

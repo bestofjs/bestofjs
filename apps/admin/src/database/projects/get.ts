@@ -43,20 +43,22 @@ export async function getProjectBySlug(slug: string) {
   return { ...project, repo };
 }
 
-const snapshotSchema = z.object({
-  year: z.number(),
-  months: z.array(
+const MonthSchema = z.object({
+  month: z.number(),
+  snapshots: z.array(
     z.object({
-      month: z.number(),
-      snapshots: z.array(
-        z.object({
-          day: z.number(),
-          stars: z.number(),
-        })
-      ),
+      day: z.number(),
+      stars: z.number(),
     })
   ),
 });
+
+const snapshotSchema = z.object({
+  year: z.number(),
+  months: z.array(MonthSchema),
+});
+
+export type MonthSnapshots = z.infer<typeof MonthSchema>;
 
 const snapshotsSchema = z.array(snapshotSchema);
 

@@ -1,3 +1,5 @@
+import invariant from "tiny-invariant";
+
 import { getProjectBySlug } from "@/database/projects/get";
 import { getAllTags } from "@/database/projects/tags";
 import { ProjectLogo } from "@/components/project-logo";
@@ -23,6 +25,9 @@ export default async function ViewProjectPage({ params: { slug } }: PageProps) {
   if (!project) {
     return <div>Project not found {slug}</div>;
   }
+  const { repo } = project;
+  invariant(repo, "Project must have a repository");
+  invariant(project.repoId, "Project must have a repository");
 
   return (
     <div className="flex flex-col gap-6">
@@ -40,7 +45,14 @@ export default async function ViewProjectPage({ params: { slug } }: PageProps) {
       <ViewTags project={project} allTags={allTags} />
       {project.repo ? <ViewRepo repo={project.repo} /> : <>No repository!</>}
       <ViewProjectPackages project={project} />
-      {project.repo && <ViewSnapshots snapshots={project.repo.snapshots} />}
+      {project.repo && (
+        <ViewSnapshots
+          snapshots={repo.snapshots}
+          repoId={project.repoId}
+          repoFullName={repo.full_name}
+          slug={project.slug}
+        />
+      )}
     </div>
   );
 }

@@ -84,7 +84,7 @@ export const repos = pgTable("repos", {
   archived: boolean("archived"),
   default_branch: text("default_branch"),
   description: text("description"),
-  full_name: text("full_name").unique(),
+  full_name: text("full_name").notNull().unique(),
   homepage: text("homepage"),
   name: text("name").notNull(),
   owner_id: text("owner_id").notNull(),
@@ -131,15 +131,21 @@ export const bookmarksRelations = relations(bookmarks, ({ one }) => ({
   }),
 }));
 
-export const snapshots = pgTable("snapshots", {
-  repoId: text("repo_id")
-    .notNull()
-    .references(() => repos.id),
-  createdAt: timestamp("created_at").notNull().defaultNow(),
-  updatedAt: timestamp("updated_at"),
-  year: integer("year"),
-  months: jsonb("months"),
-});
+export const snapshots = pgTable(
+  "snapshots",
+  {
+    repoId: text("repo_id")
+      .notNull()
+      .references(() => repos.id),
+    createdAt: timestamp("created_at").notNull().defaultNow(),
+    updatedAt: timestamp("updated_at"),
+    year: integer("year"),
+    months: jsonb("months"),
+  },
+  (table) => ({
+    pk: primaryKey({ columns: [table.repoId, table.year] }),
+  })
+);
 
 export const snapshotsRelations = relations(snapshots, ({ one }) => ({
   repo: one(repos, {

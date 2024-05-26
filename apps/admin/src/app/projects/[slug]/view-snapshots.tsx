@@ -1,5 +1,9 @@
+"use client";
+
 import { OneYearSnapshots } from "@/database/projects/get";
+import { getMonthlyTrends } from "@/database/snapshots/monthly-trends";
 import { formatStars } from "@/lib/format-helpers";
+import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   Table,
@@ -9,17 +13,33 @@ import {
   TableRow,
 } from "@/components/ui/table";
 
-import { getMonthlyTrends } from "./get-monthly-trends";
+import { addSnapshotAction } from "./actions";
 import { MonthlyTrendsChart } from "./monthly-trends-chart";
 
 type Props = {
   snapshots: OneYearSnapshots[];
+  slug: string;
+  repoFullName: string;
+  repoId: string;
 };
 
-export function ViewSnapshots({ snapshots }: Props) {
+export function ViewSnapshots({
+  snapshots,
+  repoFullName,
+  repoId,
+  slug,
+}: Props) {
   return (
     <div className="rounded border p-4">
-      <h3 className="pb-4 text-2xl">Snapshots</h3>
+      <div className="flex items-center justify-between">
+        <h3 className="pb-4 text-2xl">Snapshots</h3>
+        <Button
+          size="sm"
+          onClick={() => addSnapshotAction(slug, repoId, repoFullName)}
+        >
+          Add snapshot
+        </Button>
+      </div>
       <div className="flex flex-col gap-4">
         <Chart snapshots={snapshots} />
         {snapshots.map((oneYearSnapshot) => (
@@ -30,7 +50,7 @@ export function ViewSnapshots({ snapshots }: Props) {
   );
 }
 
-function Chart({ snapshots }: Props) {
+function Chart({ snapshots }: { snapshots: Props["snapshots"] }) {
   const flattenedSnapshots = flattenSnapshots(snapshots);
   const monthlyTrends = getMonthlyTrends(flattenedSnapshots, new Date());
 
@@ -45,7 +65,7 @@ function Chart({ snapshots }: Props) {
         <CardTitle>Monthly Trends</CardTitle>
       </CardHeader>
       <CardContent>
-        <MonthlyTrendsChart results={results} unit="Stars" />;
+        <MonthlyTrendsChart results={results} unit="Stars" />
       </CardContent>
     </Card>
   );
@@ -87,7 +107,7 @@ function MonthSummary({
 }) {
   const { month, snapshots } = monthlySnapshots;
   const firstSnapshot = snapshots[0];
-  const lastSnapshot = snapshots[snapshots.length - 1];
+  const lastSnapshot = snapshots.length > 1 && snapshots.at(-1);
 
   return (
     <TableRow>
@@ -95,8 +115,12 @@ function MonthSummary({
       <TableCell className="w-12">{snapshots.length}</TableCell>
       <TableCell className="w-12">{firstSnapshot.day}</TableCell>
       <TableCell className="w-24">{formatStars(firstSnapshot.stars)}</TableCell>
-      <TableCell className="w-12">{lastSnapshot.day}</TableCell>
-      <TableCell className="w-24">{formatStars(lastSnapshot.stars)}</TableCell>
+      <TableCell className="w-12">
+        {lastSnapshot ? lastSnapshot.day : "-"}
+      </TableCell>
+      <TableCell className="w-24">
+        {lastSnapshot ? formatStars(lastSnapshot.stars) : ""}
+      </TableCell>
     </TableRow>
   );
 }
