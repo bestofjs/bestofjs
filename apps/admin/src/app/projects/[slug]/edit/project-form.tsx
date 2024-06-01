@@ -3,6 +3,7 @@
 import { useRouter } from "next/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ReloadIcon } from "@radix-ui/react-icons";
+import { SelectValue } from "@radix-ui/react-select";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from "zod";
@@ -27,21 +28,26 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+} from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 
 import { updateProjectData } from "../actions";
+
+const statuses = ["active", "featured", "promoted", "deprecated"] as const;
 
 const formSchema = z.object({
   name: z.string().min(2).max(50),
   slug: z.string(),
   description: z.string().min(10).max(500),
   overrideDescription: z.coerce.boolean().nullable(),
-  url: z.string().url().nullable(),
+  url: z.string().url().nullish().or(z.literal("")),
   overrideURL: z.coerce.boolean().nullable(),
-  status: z
-    .enum(["active", "featured", "promoted", "deprecated"])
-    .default("active")
-    .nullable(),
+  status: z.enum(statuses).default("active").nullable(),
   logo: z.string().nullable(),
   comments: z.string().nullable(),
   twitter: z.string().nullable(),
@@ -176,6 +182,30 @@ export function ProjectForm({ project }: Props) {
             />
             <FormField
               control={form.control}
+              name="status"
+              render={({ field }) => (
+                <FormItem className="">
+                  <FormLabel>Status</FormLabel>
+                  <FormControl>
+                    <Select
+                      onValueChange={field.onChange}
+                      defaultValue={field.value || undefined}
+                    >
+                      <SelectTrigger>
+                        <SelectValue placeholder="Status" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {statuses.map((status) => (
+                          <SelectItem value={status}>{status}</SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </FormControl>
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
               name="comments"
               render={({ field }) => (
                 <FormItem>
@@ -199,14 +229,3 @@ export function ProjectForm({ project }: Props) {
     </Card>
   );
 }
-
-// export function SubmitButton() {
-//   const { pending } = useFormStatus();
-
-//   return (
-//     <Button type="submit" aria-disabled={pending}>
-//       {pending && <ReloadIcon className="mr-2 h-4 w-4 animate-spin" />}
-//       Save
-//     </Button>
-//   );
-// }
