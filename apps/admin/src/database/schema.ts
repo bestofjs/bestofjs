@@ -102,11 +102,8 @@ export const repos = pgTable("repos", {
   contributor_count: integer("contributor_count"),
 });
 
-export const reposRelations = relations(repos, ({ one, many }) => ({
-  projects: one(projects, {
-    fields: [repos.id],
-    references: [projects.repoId],
-  }),
+export const reposRelations = relations(repos, ({ many }) => ({
+  projects: many(projects),
   snapshots: many(snapshots),
 }));
 
