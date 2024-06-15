@@ -38,7 +38,7 @@
     "lucide-react": "0.105.0-alpha.4",
     "luxon": "^3.4.4",
     "nanoid": "^5.0.5",
-    "next": "14.2.2",
+    "next": "14.2.4",
     "next-themes": "^0.2.1",
     "postgres": "^3.4.3",
     "react": "^18",
