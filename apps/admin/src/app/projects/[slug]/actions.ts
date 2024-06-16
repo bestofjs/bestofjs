@@ -1,15 +1,18 @@
 "use server";
 
 import { unstable_noStore as noStore, revalidatePath } from "next/cache";
+import { EditableProjectData } from "@repo/db";
+import { createClient } from "@repo/db/github";
+import {
+  addPackage,
+  removePackage,
+  saveTags,
+  updateProjectById,
+} from "@repo/db/projects";
+import { addSnapshot } from "@repo/db/snapshots";
+import { EditableTagData, updateTagById } from "@repo/db/tags";
 import invariant from "tiny-invariant";
 
-import { EditableProjectData } from "@/database";
-import { createClient } from "@/database/github/github-api-client";
-import { addPackage, removePackage } from "@/database/projects/packages";
-import { saveTags } from "@/database/projects/tags";
-import { updateProjectById } from "@/database/projects/update";
-import { addSnapshot } from "@/database/snapshots/snapshots";
-import { EditableTagData, updateTagById } from "@/database/tags/update";
 import { Tag } from "@/components/ui/tags/tag-input";
 
 export async function updateProjectData(

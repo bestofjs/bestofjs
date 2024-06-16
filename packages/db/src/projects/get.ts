@@ -2,8 +2,8 @@ import { desc, eq } from "drizzle-orm";
 import invariant from "tiny-invariant";
 import { z } from "zod";
 
-import { getDatabase } from "@/database";
-import * as schema from "@/database/schema";
+import { getDatabase } from "../index";
+import * as schema from "../schema";
 
 export async function getProjectBySlug(slug: string) {
   const db = getDatabase();

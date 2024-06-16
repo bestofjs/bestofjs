@@ -4,12 +4,12 @@ import React from "react";
 import { useRouter } from "next/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ReloadIcon } from "@radix-ui/react-icons";
+import { getProjectBySlug } from "@repo/db/projects/get";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import invariant from "tiny-invariant";
 import { z } from "zod";
 
-import { getProjectBySlug } from "@/database/projects/get";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {

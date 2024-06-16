@@ -37,6 +37,9 @@ importers:
       '@radix-ui/react-slot':
         specifier: ^1.0.2
         version: 1.0.2(@types/react@18.2.18)(react@18.2.0)
+      '@repo/db':
+        specifier: workspace:*
+        version: link:../../packages/db
       '@t3-oss/env-nextjs':
         specifier: ^0.7.1
         version: 0.7.1(typescript@5.2.2)(zod@3.22.4)
@@ -551,7 +554,53 @@ importers:
         specifier: ^3.6.2
         version: 3.6.17
 
-  apps/db: {}
+  packages/db:
+    dependencies:
+      '@t3-oss/env-nextjs':
+        specifier: ^0.7.1
+        version: 0.7.1(zod@3.23.8)
+      '@types/debug':
+        specifier: ^4.1.12
+        version: 4.1.12
+      '@types/lodash':
+        specifier: ^4.14.195
+        version: 4.14.196
+      debug:
+        specifier: ^4.3.4
+        version: 4.3.4
+      drizzle-orm:
+        specifier: ^0.30.9
+        version: 0.30.9(@types/react@18.2.18)(postgres@3.4.3)(react@18.2.0)
+      emoji-regex:
+        specifier: ^10.3.0
+        version: 10.3.0
+      graphql-request:
+        specifier: ^7.0.1
+        version: 7.0.1(graphql@16.7.1)
+      lodash:
+        specifier: ^4.17.21
+        version: 4.17.21
+      luxon:
+        specifier: ^3.4.4
+        version: 3.4.4
+      nanoid:
+        specifier: ^5.0.5
+        version: 5.0.5
+      postgres:
+        specifier: ^3.4.3
+        version: 3.4.3
+      scrape-it:
+        specifier: ^6.1.2
+        version: 6.1.2(debug@4.3.4)
+      slugify:
+        specifier: ^1.6.6
+        version: 1.6.6
+      tiny-invariant:
+        specifier: ^1.3.1
+        version: 1.3.1
+      zod:
+        specifier: ^3.22.4
+        version: 3.23.8
 
 packages:
 
@@ -4174,6 +4223,18 @@ packages:
       zod: 3.22.4
     dev: false
 
+  /@t3-oss/env-core@0.7.1(zod@3.23.8):
+    resolution: {integrity: sha512-3+SQt39OlmSaRLqYVFv8uRm1BpFepM5TIiMytRqO9cjH+wB77o6BIJdeyM5h5U4qLBMEzOJWCY4MBaU/rLwbYw==}
+    peerDependencies:
+      typescript: '>=4.7.2'
+      zod: ^3.0.0
+    peerDependenciesMeta:
+      typescript:
+        optional: true
+    dependencies:
+      zod: 3.23.8
+    dev: false
+
   /@t3-oss/env-nextjs@0.7.1(typescript@5.2.2)(zod@3.22.4):
     resolution: {integrity: sha512-tQDbNLGCOvKGi+JoGuJ/CJInJI7/kLWJqtgGppAKS7ZFLdVOqZYR/uRjxlXOWPnxmUKF8VswOAsq7fXUpNZDhA==}
     peerDependencies:
@@ -4186,6 +4247,19 @@ packages:
       '@t3-oss/env-core': 0.7.1(typescript@5.2.2)(zod@3.22.4)
       typescript: 5.2.2
       zod: 3.22.4
+    dev: false
+
+  /@t3-oss/env-nextjs@0.7.1(zod@3.23.8):
+    resolution: {integrity: sha512-tQDbNLGCOvKGi+JoGuJ/CJInJI7/kLWJqtgGppAKS7ZFLdVOqZYR/uRjxlXOWPnxmUKF8VswOAsq7fXUpNZDhA==}
+    peerDependencies:
+      typescript: '>=4.7.2'
+      zod: ^3.0.0
+    peerDependenciesMeta:
+      typescript:
+        optional: true
+    dependencies:
+      '@t3-oss/env-core': 0.7.1(zod@3.23.8)
+      zod: 3.23.8
     dev: false
 
   /@tanstack/react-table@8.13.2(react-dom@18.2.0)(react@18.2.0):
@@ -4320,7 +4394,6 @@ packages:
     resolution: {integrity: sha512-vIChWdVG3LG1SMxEvI/AK+FWJthlrqlTu7fbrlywTkkaONwk/UAGaULXRlf8vkzFBLVm0zkMdCquhL5aOjhXPQ==}
     dependencies:
       '@types/ms': 0.7.31
-    dev: true
 
   /@types/debug@4.1.8:
     resolution: {integrity: sha512-/vPO1EPOs306Cvhwv7KfVfYvOJqA/S/AXjaHQiJboCZzcNDb+TIJFN9/2C9DZ//ijSKWioNyUxD792QmDJ+HKQ==}

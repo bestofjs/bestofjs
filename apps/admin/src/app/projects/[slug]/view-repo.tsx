@@ -1,4 +1,5 @@
-import * as schema from "@/database/schema";
+import * as schema from "@repo/db/schema";
+
 import { formatDateOnly, formatStars } from "@/lib/format-helpers";
 import {
   Card,

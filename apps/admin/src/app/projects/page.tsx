@@ -1,12 +1,12 @@
 import Link from "next/link";
-import { z } from "zod";
-
-import { getDatabase } from "@/database";
+import { getDatabase } from "@repo/db";
 import {
   ProjectListOrderByKey,
   countProjects,
   findProjects,
-} from "@/database/projects/find";
+} from "@repo/db/projects";
+import { z } from "zod";
+
 import { formatStars } from "@/lib/format-helpers";
 import { Badge, badgeVariants } from "@/components/ui/badge";
 import { buttonVariants } from "@/components/ui/button";
@@ -18,6 +18,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { AddProjectButton } from "@/components/add-project-button";
 import { ProjectLogo } from "@/components/project-logo";
 
 import { ProjectTablePagination } from "./project-table-pagination";
@@ -51,10 +52,13 @@ export default async function ProjectsPage({ searchParams }: PageProps) {
 
   return (
     <div className="flex flex-col gap-6">
-      <h1 className="flex scroll-m-20 items-center gap-2 text-3xl font-extrabold tracking-tight lg:text-4xl">
-        Projects
-        <Badge className="text-sm">{total}</Badge>
-      </h1>
+      <div className="flex justify-between">
+        <h1 className="flex scroll-m-20 items-center gap-2 text-3xl font-extrabold tracking-tight lg:text-4xl">
+          Projects
+          <Badge className="text-sm">{total}</Badge>
+        </h1>
+        <AddProjectButton />
+      </div>
 
       <SearchBox text={text} />
 

@@ -11,8 +11,6 @@ import {
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
 
-import { AddProjectButton } from "./add-project-button";
-
 export function Header() {
   return (
     <header className="flex h-16 items-center border-b">
@@ -38,8 +36,6 @@ export function Header() {
             </NavigationMenuItem>
           </NavigationMenuList>
         </NavigationMenu>
-        <AddProjectButton />
-        {/* <Button>Add Project</Button> */}
       </div>
     </header>
   );

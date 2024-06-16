@@ -3,7 +3,7 @@
 import { nanoid } from "nanoid";
 import slugify from "slugify";
 
-import * as schema from "@/database/schema";
+import * as schema from "../schema";
 
 import { getDatabase } from "..";
 

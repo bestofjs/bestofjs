@@ -3,11 +3,11 @@
 import { useRouter } from "next/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ReloadIcon } from "@radix-ui/react-icons";
+import { getTagBySlug } from "@repo/db/tags";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from "zod";
 
-import { getTagBySlug } from "@/database/tags/get";
 import { Button } from "@/components/ui/button";
 import {
   Card,

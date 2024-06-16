@@ -1,6 +1,6 @@
+import { getProjectBySlug } from "@repo/db/projects/get";
 import invariant from "tiny-invariant";
 
-import { getProjectBySlug } from "@/database/projects/get";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tag } from "@/components/ui/tags/tag-input";

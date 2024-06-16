@@ -1,4 +1,5 @@
-import { findTags } from "@/database/tags/find";
+import { findTags } from "@repo/db/tags";
+
 import { Badge } from "@/components/ui/badge";
 import { AddTagButton } from "@/components/add-tag-button";
 
@@ -16,7 +17,6 @@ export default async function TagsPage() {
         </h1>
         <AddTagButton />
       </div>
-      {/* <TagList tags={tags} /> */}
       <DataTable columns={columns} data={tags} />
     </div>
   );

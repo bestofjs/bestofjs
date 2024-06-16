@@ -1,0 +1,33 @@
+{
+  "name": "@repo/db",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts",
+    "./projects": "./src/projects/index.ts",
+    "./github": "./src/github/index.ts",
+    "./snapshots": "./src/snapshots/index.ts",
+    "./snapshots/monthly-trends": "./src/snapshots/monthly-trends.ts",
+    "./tags": "./src/tags/index.ts",
+    "./projects/create": "./src/projects/create.ts",
+    "./projects/get": "./src/projects/get.ts",
+    "./types": "./src/types.ts"
+  },
+  "dependencies": {
+    "@t3-oss/env-nextjs": "^0.7.1",
+    "@types/debug": "^4.1.12",
+    "@types/lodash": "^4.14.195",
+    "debug": "^4.3.4",
+    "drizzle-orm": "^0.30.9",
+    "emoji-regex": "^10.3.0",
+    "graphql-request": "^7.0.1",
+    "lodash": "^4.17.21",
+    "luxon": "^3.4.4",
+    "nanoid": "^5.0.5",
+    "postgres": "^3.4.3",
+    "scrape-it": "^6.1.2",
+    "slugify": "^1.6.6",
+    "tiny-invariant": "^1.3.1",
+    "zod": "^3.22.4"
+  }
+}

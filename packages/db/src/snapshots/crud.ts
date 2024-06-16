@@ -1,9 +1,9 @@
 import { and, eq } from "drizzle-orm";
 
-import * as schema from "@/database/schema";
+import * as schema from "../schema";
 
 import { getDatabase } from "..";
-import { MonthSnapshots, OneYearSnapshots } from "../projects/get";
+import { MonthSnapshots, OneYearSnapshots } from "../projects";
 
 export async function getSnapshotRecord(repoId: string, year: number) {
   const db = getDatabase();

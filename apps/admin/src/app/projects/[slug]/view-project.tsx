@@ -1,6 +1,6 @@
 import Link from "next/link";
+import { ProjectData } from "@repo/db";
 
-import { ProjectData } from "@/database";
 import { buttonVariants } from "@/components/ui/button";
 import {
   Card,

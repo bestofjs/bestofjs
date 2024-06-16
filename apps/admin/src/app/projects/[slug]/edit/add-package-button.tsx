@@ -3,12 +3,12 @@
 import { useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ReloadIcon } from "@radix-ui/react-icons";
+import { getProjectBySlug } from "@repo/db/projects/get";
 import { PlusIcon } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from "zod";
 
-import { getProjectBySlug } from "@/database/projects/get";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -32,8 +32,8 @@ import { addPackageAction } from "../actions";
 
 const formSchema = z.object({
   packageName: z.string().refine((value) => {
-    // Regular expression to validate NPM package name
-    const packageNameRegex = /^[a-zA-Z0-9_-]+$/;
+    const packageNameRegex =
+      /^(@[a-z0-9-~][a-z0-9-._~]*\/)?[a-z0-9-~][a-z0-9-._~]*$/;
     return packageNameRegex.test(value);
   }, "Invalid package name"),
 });

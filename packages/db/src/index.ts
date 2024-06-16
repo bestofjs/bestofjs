@@ -1,7 +1,7 @@
 import { drizzle } from "drizzle-orm/postgres-js";
 import postgres from "postgres";
 
-import { env } from "@/env.mjs";
+import { env } from "./env.mjs";
 
 import * as schema from "./schema";
 
@@ -22,14 +22,16 @@ export function getDatabase(): DB {
 }
 
 export async function runQuery(callback: (db: DB) => Promise<void>) {
-  const db = getDatabase();
+  const dbURL = env.POSTGRES_URL;
+  const pg = postgres(dbURL);
+  const db = drizzle(pg, { schema });
   try {
     await callback(db);
     console.log("Done");
   } catch (error) {
     console.error(error);
   } finally {
-    // TODO do we need to disconnect calling `pg.end()`?
-    // console.log("Disconnected from database");
+    await pg.end();
+    console.log("Disconnected from database");
   }
 }

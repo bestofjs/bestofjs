@@ -2,9 +2,9 @@
 
 import { useState } from "react";
 import { ReloadIcon } from "@radix-ui/react-icons";
+import { getProjectBySlug } from "@repo/db/projects/get";
 import { toast } from "sonner";
 
-import { getProjectBySlug } from "@/database/projects/get";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,

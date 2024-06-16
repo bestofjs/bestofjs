@@ -1,5 +1,4 @@
 import debugPackage from "debug";
-import { create } from "lodash";
 
 import {
   createSnapshotRecord,

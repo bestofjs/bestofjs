@@ -1,7 +1,8 @@
 "use client";
 
-import { OneYearSnapshots } from "@/database/projects/get";
-import { getMonthlyTrends } from "@/database/snapshots/monthly-trends";
+import { OneYearSnapshots } from "@repo/db/projects/get";
+import { getMonthlyTrends } from "@repo/db/snapshots/monthly-trends";
+
 import { formatStars } from "@/lib/format-helpers";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";

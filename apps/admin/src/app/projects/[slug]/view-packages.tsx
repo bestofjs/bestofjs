@@ -1,6 +1,6 @@
 import React from "react";
+import { getProjectBySlug } from "@repo/db/projects/get";
 
-import { getProjectBySlug } from "@/database/projects/get";
 import { Badge } from "@/components/ui/badge";
 import {
   Card,

@@ -1,4 +1,4 @@
-import { getTagBySlug } from "@/database/tags/get";
+import { getTagBySlug } from "@repo/db/tags";
 
 import { TagForm } from "./tag-form";
 

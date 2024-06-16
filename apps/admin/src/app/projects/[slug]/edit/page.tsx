@@ -1,5 +1,5 @@
-import { getProjectBySlug } from "@/database/projects/get";
-import { getAllTags } from "@/database/projects/tags";
+import { getAllTags, getProjectBySlug } from "@repo/db/projects";
+
 import { ProjectLogo } from "@/components/project-logo";
 
 import { ProjectForm } from "./project-form";
