@@ -45,7 +45,7 @@ const formSchema = z.object({
   slug: z.string(),
   description: z.string().min(10).max(500),
   overrideDescription: z.coerce.boolean().nullable(),
-  url: z.string().url().nullish().or(z.literal("")),
+  url: z.string().url().nullable().or(z.literal("")),
   overrideURL: z.coerce.boolean().nullable(),
   status: z.enum(statuses).default("active").nullable(),
   logo: z.string().nullable(),

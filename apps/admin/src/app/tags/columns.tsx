@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { findTags } from "@repo/db/tags/find";
+import { findTags } from "@repo/db/tags";
 import { ColumnDef } from "@tanstack/react-table";
 import { ArrowUpDown } from "lucide-react";
 

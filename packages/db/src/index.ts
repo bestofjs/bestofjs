@@ -4,6 +4,7 @@ import postgres from "postgres";
 import { env } from "./env.mjs";
 
 import * as schema from "./schema";
+export * as schema from "./schema";
 
 export type DB = ReturnType<typeof drizzle<typeof schema>>;
 

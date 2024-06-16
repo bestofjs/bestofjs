@@ -1,4 +1,4 @@
-import * as schema from "@repo/db/schema";
+import { schema } from "@repo/db";
 
 import { formatDateOnly, formatStars } from "@/lib/format-helpers";
 import {
