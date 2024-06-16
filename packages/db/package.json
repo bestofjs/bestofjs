@@ -19,6 +19,7 @@
     "@types/lodash": "^4.14.195",
     "@types/luxon": "^3.4.2",
     "debug": "^4.3.4",
+    "dotenv-cli": "^7.4.2",
     "drizzle-orm": "^0.30.9",
     "emoji-regex": "^10.3.0",
     "graphql-request": "^7.0.1",

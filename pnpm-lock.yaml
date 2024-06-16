@@ -119,6 +119,12 @@ importers:
       autoprefixer:
         specifier: ^10.0.1
         version: 10.4.14(postcss@8.4.31)
+      dotenv:
+        specifier: ^16.3.1
+        version: 16.3.1
+      dotenv-cli:
+        specifier: ^7.4.2
+        version: 7.4.2
       eslint:
         specifier: ^8
         version: 8.46.0
@@ -146,6 +152,18 @@ importers:
       typescript:
         specifier: ^5
         version: 5.2.2
+
+  apps/backend:
+    dependencies:
+      '@repo/db':
+        specifier: workspace:*
+        version: link:../../packages/db
+      drizzle-orm:
+        specifier: ^0.30.9
+        version: 0.30.9(postgres@3.4.3)
+      tiny-invariant:
+        specifier: ^1.3.1
+        version: 1.3.1
 
   apps/bestofjs-nextjs:
     dependencies:
@@ -547,6 +565,9 @@ importers:
       debug:
         specifier: ^4.3.4
         version: 4.3.4
+      dotenv-cli:
+        specifier: ^7.4.2
+        version: 7.4.2
       drizzle-orm:
         specifier: ^0.30.9
         version: 0.30.9(postgres@3.4.3)
@@ -6339,6 +6360,19 @@ packages:
     dependencies:
       is-obj: 2.0.0
     dev: true
+
+  /dotenv-cli@7.4.2:
+    resolution: {integrity: sha512-SbUj8l61zIbzyhIbg0FwPJq6+wjbzdn9oEtozQpZ6kW2ihCcapKVZj49oCT3oPM+mgQm+itgvUQcG5szxVrZTA==}
+    hasBin: true
+    dependencies:
+      cross-spawn: 7.0.3
+      dotenv: 16.3.1
+      dotenv-expand: 10.0.0
+      minimist: 1.2.8
+
+  /dotenv-expand@10.0.0:
+    resolution: {integrity: sha512-GopVGCpVS1UKH75VKHGuQFqS1Gusej0z4FyQkPdwjil2gNIv+LNsqBlboOzpJFZKVT95GkCyWJbBSdFEFUWI2A==}
+    engines: {node: '>=12'}
 
   /dotenv-expand@8.0.3:
     resolution: {integrity: sha512-SErOMvge0ZUyWd5B0NXMQlDkN+8r+HhVUsxgOO7IoPDOdDRD2JjExpN6y3KnFR66jsJMwSn1pqIivhU5rcJiNg==}

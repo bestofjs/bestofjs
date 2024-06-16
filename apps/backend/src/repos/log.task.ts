@@ -2,6 +2,8 @@ import { parseArgs } from "util";
 
 import { processRepos } from "./process-repos";
 
+// A basic Hello World task that loops through all repos
+
 const { values } = parseArgs({
   args: Bun.argv,
   options: {
@@ -19,6 +21,7 @@ const { values } = parseArgs({
 processRepos({ limit: Number(values.limit) }, async (repo) => {
   console.log(
     repo.name,
-    repo.projects.map((project) => project.name)
+    repo.archived,
+    repo.projects.map((project) => [project.name, project.status])
   );
 });

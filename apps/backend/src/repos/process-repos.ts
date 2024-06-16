@@ -1,9 +1,9 @@
 import { eq } from "drizzle-orm";
 import invariant from "tiny-invariant";
 
-import * as schema from "@/schema";
+import { schema } from "@repo/db";
 
-import { DB, runQuery } from "..";
+import { DB, runQuery } from "@repo/db";
 
 type Options = {
   limit?: number;
