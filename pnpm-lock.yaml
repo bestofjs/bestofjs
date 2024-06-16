@@ -61,24 +61,12 @@ importers:
       debug:
         specifier: ^4.3.4
         version: 4.3.4
-      drizzle-orm:
-        specifier: ^0.30.9
-        version: 0.30.9(@types/react@18.2.18)(postgres@3.4.3)(react@18.2.0)
-      emoji-regex:
-        specifier: ^10.3.0
-        version: 10.3.0
-      graphql-request:
-        specifier: ^7.0.1
-        version: 7.0.1(graphql@16.7.1)
       lodash:
         specifier: ^4.17.21
         version: 4.17.21
       lucide-react:
         specifier: 0.105.0-alpha.4
         version: 0.105.0-alpha.4(react@18.2.0)
-      luxon:
-        specifier: ^3.4.4
-        version: 3.4.4
       nanoid:
         specifier: ^5.0.5
         version: 5.0.5
@@ -88,9 +76,6 @@ importers:
       next-themes:
         specifier: ^0.2.1
         version: 0.2.1(next@14.2.4)(react-dom@18.2.0)(react@18.2.0)
-      postgres:
-        specifier: ^3.4.3
-        version: 3.4.3
       react:
         specifier: ^18
         version: 18.2.0
@@ -100,12 +85,6 @@ importers:
       react-hook-form:
         specifier: ^7.49.3
         version: 7.49.3(react@18.2.0)
-      scrape-it:
-        specifier: ^6.1.2
-        version: 6.1.2(debug@4.3.4)
-      slugify:
-        specifier: ^1.6.6
-        version: 1.6.6
       sonner:
         specifier: ^1.4.0
         version: 1.4.0(react-dom@18.2.0)(react@18.2.0)
@@ -128,9 +107,6 @@ importers:
       '@types/debug':
         specifier: ^4.1.12
         version: 4.1.12
-      '@types/luxon':
-        specifier: ^3.4.2
-        version: 3.4.2
       '@types/node':
         specifier: ^20
         version: 20.11.10
@@ -573,7 +549,7 @@ importers:
         version: 4.3.4
       drizzle-orm:
         specifier: ^0.30.9
-        version: 0.30.9(@types/react@18.2.18)(postgres@3.4.3)(react@18.2.0)
+        version: 0.30.9(postgres@3.4.3)
       emoji-regex:
         specifier: ^10.3.0
         version: 10.3.0
@@ -4489,6 +4465,7 @@ packages:
 
   /@types/luxon@3.4.2:
     resolution: {integrity: sha512-TifLZlFudklWlMBfhubvgqTXRzLDI5pCbGa4P8a3wPyUQSW+1xQ5eDsreP9DWHX3tjq1ke96uYG/nwundroWcA==}
+    dev: false
 
   /@types/ms@0.7.31:
     resolution: {integrity: sha512-iiUgKzV9AuaEkZqkOLDIvlQiL6ltuZd9tGcW3gwpnX8JbuiuhFlEGmmFXEXkN50Cvq7Os88IY2v0dkDqXYWVgA==}
@@ -6386,7 +6363,7 @@ packages:
       '@dprint/win32-x64': 0.45.1
     dev: false
 
-  /drizzle-orm@0.30.9(@types/react@18.2.18)(postgres@3.4.3)(react@18.2.0):
+  /drizzle-orm@0.30.9(postgres@3.4.3):
     resolution: {integrity: sha512-VOiCFsexErmgqvNCOmbzmqDCZzZsHoz6SkWAjTFxsTr1AllKDbDJ2+GgedLXsXMDgpg/ljDG1zItIFeZtiO2LA==}
     peerDependencies:
       '@aws-sdk/client-rds-data': '>=3'
@@ -6466,9 +6443,7 @@ packages:
       sqlite3:
         optional: true
     dependencies:
-      '@types/react': 18.2.18
       postgres: 3.4.3
-      react: 18.2.0
     dev: false
 
   /duplexer3@0.1.5:
