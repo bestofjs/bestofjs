@@ -1,12 +1,16 @@
 # Best of JS monorepo
 
 Monorepo for _Best of JS_ application, setup in August 2023.
-Made of two applications:
+Made of 4 applications and one package:
 
 ```shell
-./apps
-├── bestofjs-nextjs # The Next.js app running on https://bestofjs.org
-└── bestofjs-webui  # The original Single Page Application available at https://classic.bestofjs.org
+├── apps
+│   ├── admin   // WIP
+│   ├── backend // WIP
+│   ├── bestofjs-nextjs // Best of JS main app
+│   └── bestofjs-webui
+└── packages
+    └── db // WIP
 ```
 
 [![image](https://github.com/bestofjs/bestofjs/assets/5546996/e0e48657-90de-4bc0-b0a0-80968e826217)](https://bestofjs.org/)
