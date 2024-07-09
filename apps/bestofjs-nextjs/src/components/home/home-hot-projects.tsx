@@ -34,6 +34,7 @@ export async function HotProjectList({
   sortOptionId,
   searchState,
 }: Props) {
+  console.log("HotProjectList searchState", searchState);
   const sortOptionLabel = sortOrderOptionsByKey[sortOptionId]?.label;
   return (
     <Card>
