@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { ReloadIcon } from "@radix-ui/react-icons";
-import { getProjectBySlug } from "@repo/db/projects/get";
+import { ProjectDetails } from "@repo/db/projects";
 import { toast } from "sonner";
 
 import { Button } from "@/components/ui/button";
@@ -18,7 +18,7 @@ import {
 import { removePackageAction } from "../actions";
 
 type Props = {
-  project: NonNullable<Awaited<ReturnType<typeof getProjectBySlug>>>;
+  project: ProjectDetails;
   packageName: string;
 };
 

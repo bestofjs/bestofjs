@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -11,7 +12,14 @@
   "license": "ISC",
   "dependencies": {
     "@repo/db": "workspace:*",
-    "drizzle-orm": "^0.30.9",
+    "@types/fs-extra": "^11.0.1",
+    "cleye": "^1.3.2",
+    "consola": "^3.2.3",
+    "drizzle-orm": "^0.31.2",
+    "fs-extra": "^11.1.1",
+    "p-map": "^7.0.2",
+    "pretty-bytes": "^6.1.1",
+    "tasuku": "^2.0.1",
     "tiny-invariant": "^1.3.1"
   }
 }

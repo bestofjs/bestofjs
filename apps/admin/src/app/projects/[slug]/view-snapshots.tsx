@@ -1,10 +1,7 @@
-"use client";
-
+import { getProjectMonthlyTrends } from "@repo/db/projects";
 import { OneYearSnapshots } from "@repo/db/projects/get";
-import { getMonthlyTrends } from "@repo/db/snapshots/monthly-trends";
 
 import { formatStars } from "@/lib/format-helpers";
-import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   Table,
@@ -14,7 +11,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 
-import { addSnapshotAction } from "./actions";
+import { AddSnapshotButton } from "./add-snapshot-button";
 import { MonthlyTrendsChart } from "./monthly-trends-chart";
 
 type Props = {
@@ -34,12 +31,11 @@ export function ViewSnapshots({
     <div className="rounded border p-4">
       <div className="flex items-center justify-between">
         <h3 className="pb-4 text-2xl">Snapshots</h3>
-        <Button
-          size="sm"
-          onClick={() => addSnapshotAction(slug, repoId, repoFullName)}
-        >
-          Add snapshot
-        </Button>
+        <AddSnapshotButton
+          slug={slug}
+          repoId={repoId}
+          repoFullName={repoFullName}
+        />
       </div>
       <div className="flex flex-col gap-4">
         <Chart snapshots={snapshots} />
@@ -52,8 +48,7 @@ export function ViewSnapshots({
 }
 
 function Chart({ snapshots }: { snapshots: Props["snapshots"] }) {
-  const flattenedSnapshots = flattenSnapshots(snapshots);
-  const monthlyTrends = getMonthlyTrends(flattenedSnapshots, new Date());
+  const monthlyTrends = getProjectMonthlyTrends(snapshots);
 
   const results = monthlyTrends.map(({ year, month, delta }) => ({
     year,
@@ -140,13 +135,3 @@ const months = [
   "Nov",
   "Dec",
 ];
-
-function flattenSnapshots(records: Props["snapshots"]) {
-  return records
-    .slice(0, 2) // we only need the records for the last two years
-    .flatMap(({ year, months }) =>
-      months.flatMap(({ month, snapshots }) =>
-        snapshots.flatMap(({ day, stars }) => ({ year, month, day, stars }))
-      )
-    );
-}

@@ -136,7 +136,7 @@ export const snapshots = pgTable(
       .references(() => repos.id),
     createdAt: timestamp("created_at").notNull().defaultNow(),
     updatedAt: timestamp("updated_at"),
-    year: integer("year"),
+    year: integer("year").notNull(),
     months: jsonb("months"),
   },
   (table) => ({

@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ReloadIcon } from "@radix-ui/react-icons";
-import { getProjectBySlug } from "@repo/db/projects/get";
+import { ProjectDetails } from "@repo/db/projects";
 import { PlusIcon } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
@@ -39,7 +39,7 @@ const formSchema = z.object({
 });
 
 type Props = {
-  project: NonNullable<Awaited<ReturnType<typeof getProjectBySlug>>>;
+  project: ProjectDetails;
 };
 
 export function AddPackageButton({ project }: Props) {

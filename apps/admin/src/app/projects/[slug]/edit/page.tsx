@@ -1,4 +1,5 @@
-import { getAllTags, getProjectBySlug } from "@repo/db/projects";
+import { getDatabase } from "@repo/db";
+import { ProjectService, getAllTags } from "@repo/db/projects";
 
 import { ProjectLogo } from "@/components/project-logo";
 
@@ -12,7 +13,8 @@ type PageProps = {
 };
 
 export default async function EditProjectPage({ params: { slug } }: PageProps) {
-  const project = await getProjectBySlug(slug);
+  const service = new ProjectService(getDatabase());
+  const project = await service.getProjectBySlug(slug);
   const allTags = await getAllTags();
 
   if (!project) {

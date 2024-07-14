@@ -1,4 +1,4 @@
-import { getProjectBySlug } from "@repo/db/projects/get";
+import { ProjectDetails } from "@repo/db/projects/get";
 import invariant from "tiny-invariant";
 
 import { Badge } from "@/components/ui/badge";
@@ -7,7 +7,7 @@ import { Tag } from "@/components/ui/tags/tag-input";
 import { TagPicker } from "@/components/tag-picker";
 
 type Props = {
-  project: Required<Awaited<ReturnType<typeof getProjectBySlug>>>;
+  project: ProjectDetails;
   allTags: Tag[];
 };
 export function ViewTags({ project, allTags }: Props) {
