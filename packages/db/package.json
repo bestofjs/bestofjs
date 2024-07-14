@@ -3,6 +3,8 @@
   "private": true,
   "type": "module",
   "scripts": {
+    "generate": "dotenv -e ../../.env pnpm drizzle-kit generate",
+    "migrate": "dotenv -e ../../.env bun run src/migrate.ts",
     "studio": "dotenv -e ../../.env pnpm drizzle-kit studio"
   },
   "exports": {
