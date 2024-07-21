@@ -18,6 +18,7 @@
     "./types": "./src/types.ts"
   },
   "dependencies": {
+    "@clack/prompts": "^0.7.0",
     "@t3-oss/env-nextjs": "^0.7.1",
     "@types/debug": "^4.1.12",
     "@types/lodash": "^4.14.195",
