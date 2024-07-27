@@ -69,7 +69,7 @@ runDbScript(async (db: DB, spinner) => {
       throw new Error(`Error importing project ${project.name}`);
     }
   }
-  spinner.stop(` ${imported} projects imported, ${skipped} skipped.`);
+  spinner.stop(`Done, ${imported} projects imported, ${skipped} skipped.`);
 
   async function importPackageData(project: MongoProject, projectId: string) {
     const packageRecord = getPackageRecord(project);

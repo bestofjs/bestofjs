@@ -47,7 +47,7 @@ runDbScript(async (db: DB, spinner) => {
     }
   }
 
-  spinner.stop(`${imported} snapshots created, ${skipped} skipped`);
+  spinner.stop(`Done, ${imported} snapshots created, ${skipped} skipped`);
 
   async function shouldBeImported(snapshot: MongoSnapshot) {
     if (!CHECK_EXISTING_DATA) return true;

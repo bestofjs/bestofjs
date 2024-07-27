@@ -5,10 +5,10 @@ import { runDbScript } from "./run-db-script";
 
 const LIMIT = 1000;
 
-runDbScript(async (db: DB) => {
+runDbScript(async (db: DB, spinner) => {
   const tags = await fetchTags();
 
-  console.log("Importing tags...");
+  spinner.message(`Importing ${tags.length} tags`);
 
   const records = tags.slice(0, LIMIT).map((tag) => ({
     id: tag._id.$oid,
@@ -21,4 +21,6 @@ runDbScript(async (db: DB) => {
   }));
 
   await db.insert(schema.tags).values(records);
+
+  spinner.stop(`Done, ${records.length} tags imported`);
 });
