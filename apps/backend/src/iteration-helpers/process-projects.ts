@@ -18,7 +18,7 @@ export function processProjects(context: TaskContext) {
     callback: (project: Project, index: number) => Promise<CallbackResult<T>>,
     options?: LoopOptions
   ) {
-    const { limit = 0, offset = 0, name, throwOnError = false } = options || {};
+    const { limit = 0, skip = 0, name, throwOnError = false } = options || {};
 
     const ids = await findAllIds();
     const results = await pMap(
@@ -54,7 +54,7 @@ export function processProjects(context: TaskContext) {
         .from(schema.projects)
         .orderBy(desc(schema.projects.createdAt))
         .limit(limit)
-        .offset(offset);
+        .offset(skip);
 
       if (name) {
         query.where(eq(schema.projects.slug, name));

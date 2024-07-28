@@ -20,6 +20,11 @@ const flags = {
     description: "Records to process",
     default: 0,
   },
+  skip: {
+    type: Number,
+    description: "Records to skip (when paginating)",
+    default: 0,
+  },
   name: {
     type: String,
     description: "Full name of the GitHub repo to process",

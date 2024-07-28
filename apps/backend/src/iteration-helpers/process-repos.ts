@@ -19,7 +19,7 @@ export function processRepos(context: TaskContext) {
   ) {
     const {
       limit = 0,
-      offset = 0,
+      skip = 0,
       name,
       throwOnError = false,
       concurrency = 1,
@@ -59,7 +59,7 @@ export function processRepos(context: TaskContext) {
         .from(schema.repos)
         .orderBy(desc(schema.repos.added_at))
         .limit(limit)
-        .offset(offset);
+        .offset(skip);
 
       if (name) {
         query.where(eq(schema.repos.full_name, name));

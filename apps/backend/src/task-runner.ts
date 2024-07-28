@@ -26,6 +26,7 @@ export type Task = {
 export type LoopOptions = {
   concurrency?: number;
   limit?: number;
+  skip?: number;
   logLevel?: number;
   name?: string;
   throwOnError?: boolean;
@@ -35,19 +36,27 @@ export class TaskRunner {
   tasks: Task[];
   db?: DB;
   logger: ReturnType<typeof createConsola>;
-  concurrency: number;
-  limit: number;
-  // Optional query to filter items to process
-  name?: string;
+  options: {
+    concurrency: number;
+    limit: number;
+    skip: number;
+    throwOnError?: boolean;
+    // Optional query to filter items to process
+    name?: string;
+  };
 
   constructor(options: LoopOptions = {}) {
     this.tasks = [];
     this.logger = createConsola({
       level: options.logLevel || 3,
     });
-    this.limit = options.limit || 0;
-    this.concurrency = options.concurrency || 1;
-    this.name = options.name;
+    this.options = {
+      limit: options.limit || 0,
+      skip: options.skip || 0,
+      concurrency: options.concurrency || 1,
+      name: options.name,
+      throwOnError: options.throwOnError,
+    };
   }
 
   addTask(task: Task) {
@@ -60,9 +69,7 @@ export class TaskRunner {
         this.db = db;
         for (const task of this.tasks) {
           this.logger.box(
-            `Running task "${task.name}", logLevel: ${this.logger.level}${
-              this.limit ? `, limit: ${this.limit}` : ""
-            }, concurrency: ${this.concurrency}`
+            `Running task "${task.name}" ${stringifyOptions(this)}`
           );
           const context = {
             db,
@@ -87,7 +94,7 @@ export class TaskRunner {
   ) {
     const results = await processRepos<T>({ db: this.db, logger: this.logger })(
       callback,
-      { limit: this.limit, name: this.name, concurrency: this.concurrency }
+      this.options
     );
     return results;
   }
@@ -101,11 +108,7 @@ export class TaskRunner {
     const results = await processProjects<T>({
       db: this.db,
       logger: this.logger,
-    })(callback, {
-      limit: this.limit,
-      name: this.name,
-      concurrency: this.concurrency,
-    });
+    })(callback, this.options);
     return results;
   }
 
@@ -122,4 +125,15 @@ export class TaskRunner {
     await fs.outputJson(filePath, json); // does not return anything
     this.logger.info("JSON file saved!", { fileName, filePath });
   }
+}
+function stringifyOptions(runner: TaskRunner) {
+  const { limit, skip, concurrency } = runner.options;
+  return [
+    `logLevel: ${runner.logger.level}`,
+    limit ? `limit: ${limit}` : "",
+    skip ? `skip: ${skip}` : "",
+    `concurrency: ${concurrency}`,
+  ]
+    .filter(Boolean)
+    .join(", ");
 }
