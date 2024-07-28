@@ -1,6 +1,5 @@
 import debugPackage from "debug";
 import { GraphQLClient } from "graphql-request";
-import { get } from "lodash";
 import scrapeIt from "scrape-it";
 
 import { extractRepoInfo, queryRepoInfo } from "./repo-info-query";
@@ -59,8 +58,8 @@ export function createClient(accessToken: string) {
     }
   };
 
-  const isErrorNotFound = (error: Error) => {
-    const errorType = get(error, "response.errors[0].type");
+  const isErrorNotFound = (error: unknown) => {
+    const errorType = (error as any).response?.errors?.[0]?.type;
     return errorType === "NOT_FOUND";
   };
 

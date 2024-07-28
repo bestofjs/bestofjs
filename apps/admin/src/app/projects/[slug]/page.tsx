@@ -1,4 +1,5 @@
-import { getAllTags, getProjectBySlug } from "@repo/db/projects";
+import { getDatabase } from "@repo/db";
+import { ProjectService, getAllTags } from "@repo/db/projects";
 import invariant from "tiny-invariant";
 
 import { ProjectLogo } from "@/components/project-logo";
@@ -8,6 +9,7 @@ import { ViewProject } from "./view-project";
 import { ViewRepo } from "./view-repo";
 import { ViewSnapshots } from "./view-snapshots";
 import { ViewTags } from "./view-tags";
+import { ViewTrends } from "./view-trends";
 
 type PageProps = {
   params: {
@@ -18,12 +20,14 @@ type PageProps = {
 export const revalidate = 0;
 
 export default async function ViewProjectPage({ params: { slug } }: PageProps) {
-  const project = await getProjectBySlug(slug);
+  const service = new ProjectService(getDatabase());
+  const project = await service.getProjectBySlug(slug);
   const allTags = await getAllTags();
 
   if (!project) {
     return <div>Project not found {slug}</div>;
   }
+
   const { repo } = project;
   invariant(repo, "Project must have a repository");
   invariant(project.repoId, "Project must have a repository");
@@ -43,6 +47,7 @@ export default async function ViewProjectPage({ params: { slug } }: PageProps) {
       <ViewProject project={project} />
       <ViewTags project={project} allTags={allTags} />
       {project.repo ? <ViewRepo repo={project.repo} /> : <>No repository!</>}
+      <ViewTrends snapshots={repo.snapshots} />
       <ViewProjectPackages project={project} />
       {project.repo && (
         <ViewSnapshots

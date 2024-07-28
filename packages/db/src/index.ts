@@ -28,7 +28,6 @@ export async function runQuery(callback: (db: DB) => Promise<void>) {
   const db = drizzle(pg, { schema });
   try {
     await callback(db);
-    console.log("Done");
   } catch (error) {
     console.error(error);
   } finally {

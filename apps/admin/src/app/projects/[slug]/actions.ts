@@ -1,7 +1,7 @@
 "use server";
 
 import { unstable_noStore as noStore, revalidatePath } from "next/cache";
-import { EditableProjectData } from "@repo/db";
+import { EditableProjectData, getDatabase } from "@repo/db";
 import { createClient } from "@repo/db/github";
 import {
   addPackage,
@@ -9,7 +9,7 @@ import {
   saveTags,
   updateProjectById,
 } from "@repo/db/projects";
-import { addSnapshot } from "@repo/db/snapshots";
+import { SnapshotsService } from "@repo/db/snapshots";
 import { EditableTagData, updateTagById } from "@repo/db/tags";
 import invariant from "tiny-invariant";
 
@@ -69,7 +69,10 @@ export async function addSnapshotAction(
   const stars = data.stargazers_count as number;
 
   // TODO add a real UI?
-  await addSnapshot(repoId, stars);
+  const service = new SnapshotsService(getDatabase());
+  console.log("Adding snapshot for", repoId, stars);
+
+  service.addSnapshot(repoId, stars);
 
   revalidatePath(`/projects/${projectSlug}`);
 }

@@ -11,3 +11,17 @@ Add as a dependency like this:
   "@repo/db": "workspace:*",
 }
 ```
+
+## Migrations
+
+To generate migrations files, after the schema file is updated (will run `drizzle-kit generate`)
+
+```sh
+pnpm generate
+```
+
+Run migrations files
+
+```sh
+pnpm migrate
+```

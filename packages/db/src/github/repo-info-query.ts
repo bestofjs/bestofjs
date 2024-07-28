@@ -65,7 +65,7 @@ export function extractRepoInfo(response: any) {
       repositoryTopics: { edges: topicEdges },
       isArchived,
       defaultBranchRef: {
-        name: branch,
+        name: default_branch,
         target: {
           history: { totalCount: commit_count, edges: commitEdges },
         },
@@ -85,9 +85,9 @@ export function extractRepoInfo(response: any) {
     owner_id,
     description: cleanGitHubDescription(description),
     homepage,
-    created_at,
-    pushed_at,
-    branch,
+    created_at: toDate(created_at),
+    pushed_at: toDate(pushed_at),
+    default_branch,
     stargazers_count,
     topics,
     archived: isArchived,
@@ -121,4 +121,8 @@ function removeGenericEmojis(input: string) {
     .replace(emojiRegex(), "")
     .replace(new RegExp(String.fromCharCode(65039), "g"), "") // clean weird white chars around emojis (E.g. ChakraUI)
     .trim();
+}
+
+function toDate(input: string) {
+  return new Date(input);
 }

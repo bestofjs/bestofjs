@@ -4,7 +4,7 @@ import React from "react";
 import { useRouter } from "next/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ReloadIcon } from "@radix-ui/react-icons";
-import { getProjectBySlug } from "@repo/db/projects/get";
+import { ProjectDetails } from "@repo/db/projects";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import invariant from "tiny-invariant";
@@ -33,7 +33,7 @@ const FormSchema = z.object({
 });
 
 type Props = {
-  project: NonNullable<Awaited<ReturnType<typeof getProjectBySlug>>>;
+  project: ProjectDetails;
   allTags: Tag[];
 };
 

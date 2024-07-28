@@ -28,16 +28,6 @@ export async function updateSnapshotRecord(
     .where(
       and(eq(schema.snapshots.repoId, repoId), eq(schema.snapshots.year, year))
     );
-
-  // const result = await db
-  //   .insert(schema.snapshots)
-  //   .values({ year, months, repoId })
-  //   .onConflictDoUpdate({
-  //     target: [schema.snapshots.repoId, schema.snapshots.year],
-  //     set: { months, updatedAt: new Date() },
-  //   });
-
-  console.log("Snapshot updated", result);
 }
 
 export async function createSnapshotRecord(

@@ -1,5 +1,5 @@
 import React from "react";
-import { getProjectBySlug } from "@repo/db/projects/get";
+import { ProjectDetails } from "@repo/db/projects";
 
 import { Badge } from "@/components/ui/badge";
 import {
@@ -14,7 +14,7 @@ import { AddPackageButton } from "./edit/add-package-button";
 import { RemovePackageButton } from "./edit/remove-package-button";
 
 type Props = {
-  project: NonNullable<Awaited<ReturnType<typeof getProjectBySlug>>>;
+  project: ProjectDetails;
 };
 
 export function ViewProjectPackages({ project }: Props) {
