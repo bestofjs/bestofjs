@@ -8,5 +8,9 @@
     "test:e2e:install": "pnpm -F bestofjs-nextjs exec playwright install"
   },
   "author": "Michael Rambeau",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "dotenv-cli": "^7.4.2",
+    "tsx": "^4.16.2"
+  }
 }
