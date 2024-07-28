@@ -17,7 +17,13 @@ export function processRepos(context: TaskContext) {
     callback: (repo: Repo, index: number) => Promise<CallbackResult<T>>,
     options?: LoopOptions
   ) {
-    const { limit = 0, offset = 0, name, throwOnError = false } = options || {};
+    const {
+      limit = 0,
+      offset = 0,
+      name,
+      throwOnError = false,
+      concurrency = 1,
+    } = options || {};
 
     const ids = await findAllIds();
     const results = await pMap(
@@ -39,7 +45,7 @@ export function processRepos(context: TaskContext) {
         }
       },
       {
-        concurrency: 1,
+        concurrency,
       }
     );
 

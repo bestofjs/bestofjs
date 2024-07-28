@@ -1,7 +1,7 @@
 import { desc, eq } from "drizzle-orm";
 import pMap from "p-map";
 
-import { DB, schema } from "@repo/db";
+import { schema } from "@repo/db";
 import { ProjectService } from "@repo/db/projects";
 
 import { LoopOptions, TaskContext } from "@/task-runner";
@@ -40,7 +40,7 @@ export function processProjects(context: TaskContext) {
         }
       },
       {
-        concurrency: 1,
+        concurrency: options?.concurrency || 1,
       }
     );
 

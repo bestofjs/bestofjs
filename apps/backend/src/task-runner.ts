@@ -23,15 +23,10 @@ export type Task = {
   run: (ctx: TaskContext) => void;
 };
 
-type Options = {
-  logLevel?: number;
-  limit?: number;
-  name?: string;
-};
-
 export type LoopOptions = {
+  concurrency?: number;
   limit?: number;
-  offset?: number;
+  logLevel?: number;
   name?: string;
   throwOnError?: boolean;
 };
@@ -40,16 +35,18 @@ export class TaskRunner {
   tasks: Task[];
   db?: DB;
   logger: ReturnType<typeof createConsola>;
+  concurrency: number;
   limit: number;
   // Optional query to filter items to process
   name?: string;
 
-  constructor(options: Options = {}) {
+  constructor(options: LoopOptions = {}) {
     this.tasks = [];
     this.logger = createConsola({
       level: options.logLevel || 3,
     });
     this.limit = options.limit || 0;
+    this.concurrency = options.concurrency || 1;
     this.name = options.name;
   }
 
@@ -63,9 +60,9 @@ export class TaskRunner {
         this.db = db;
         for (const task of this.tasks) {
           this.logger.box(
-            `Running "task ${task.name}", logLevel: ${this.logger.level}${
+            `Running task "${task.name}", logLevel: ${this.logger.level}${
               this.limit ? `, limit: ${this.limit}` : ""
-            }`
+            }, concurrency: ${this.concurrency}`
           );
           const context = {
             db,
@@ -90,7 +87,7 @@ export class TaskRunner {
   ) {
     const results = await processRepos<T>({ db: this.db, logger: this.logger })(
       callback,
-      { limit: this.limit, name: this.name }
+      { limit: this.limit, name: this.name, concurrency: this.concurrency }
     );
     return results;
   }
@@ -104,17 +101,13 @@ export class TaskRunner {
     const results = await processProjects<T>({
       db: this.db,
       logger: this.logger,
-    })(callback, { limit: this.limit, name: this.name });
+    })(callback, {
+      limit: this.limit,
+      name: this.name,
+      concurrency: this.concurrency,
+    });
     return results;
   }
-
-  // async processProjects<T>(callback: (project: Project, index: number) => Promise<T>) {
-  //   const results = await processProjects({ db: this.db, logger: this.logger })(
-  //     callback,
-  //     { limit: this.limit, name: this.name }
-  //   );
-  //   return results;
-  // }
 
   async saveJSON(json: unknown, fileName: string) {
     this.logger.info(`Saving ${fileName}`, {
