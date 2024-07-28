@@ -27,7 +27,7 @@ export function processRepos(context: TaskContext) {
         try {
           logger.debug(`Processing repo #${index + 1}`, repo.full_name);
           const data = await callback(repo, index);
-          logger.debug(`Processed repo ${repo.full_name}`, data);
+          logger.info(`Processed repo ${repo.full_name}`, data);
           return data;
         } catch (error) {
           logger.error(`Error processing repo ${repo.name}`, error);

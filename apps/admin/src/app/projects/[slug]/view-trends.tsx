@@ -7,7 +7,7 @@ type Props = {
   snapshots: OneYearSnapshots[];
 };
 export function ViewTrends({ snapshots }: Props) {
-  const trends = getProjectTrends(snapshots, new Date("2024-04-04"));
+  const trends = getProjectTrends(snapshots);
 
   return (
     <Card>

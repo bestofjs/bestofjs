@@ -62,7 +62,11 @@ export class TaskRunner {
       runQuery(async (db) => {
         this.db = db;
         for (const task of this.tasks) {
-          this.logger.log("Running task", task.name);
+          this.logger.box(
+            `Running "task ${task.name}", logLevel: ${this.logger.level}${
+              this.limit ? `, limit: ${this.limit}` : ""
+            }`
+          );
           const context = {
             db,
             logger: this.logger,
@@ -71,7 +75,7 @@ export class TaskRunner {
             saveJSON: this.saveJSON.bind(this),
           };
           const result = await task.run(context);
-          this.logger.log("Task", task.name, "completed", result.meta);
+          this.logger.success("Task", task.name, "completed", result.meta);
         }
         resolve(true);
       });

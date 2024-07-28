@@ -7,6 +7,14 @@ import { Snapshot } from "./utils";
  * Requirement: snapshots should be sorted by year in ascending order
  */
 export function computeTrends(snapshots: Snapshot[], referenceDate?: Date) {
+  if (snapshots.length === 0)
+    return {
+      daily: undefined,
+      weekly: undefined,
+      monthly: undefined,
+      quarterly: undefined,
+      yearly: undefined,
+    };
   snapshots.reverse();
   const referenceSnapshot = referenceDate
     ? snapshots.find((snapshot) => toDate(snapshot) < referenceDate) // for the Rising Stars trends are computed based on a given reference date

@@ -30,7 +30,7 @@ export class SnapshotsService {
     year: number,
     months: MonthSnapshots[]
   ) {
-    const result = await this.db
+    await this.db
       .update(schema.snapshots)
       .set({ months, updatedAt: new Date() })
       .where(
@@ -39,8 +39,6 @@ export class SnapshotsService {
           eq(schema.snapshots.year, year)
         )
       );
-
-    console.log("Snapshot updated", result);
   }
 
   async createSnapshotRecord(

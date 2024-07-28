@@ -42,14 +42,7 @@ export class ProjectService {
             tag: {},
           },
         },
-        packages: {
-          columns: {
-            name: true,
-            version: true,
-            deprecated: true,
-            dependencies: true,
-          },
-        },
+        packages: true,
       },
     });
     if (!project) return null;

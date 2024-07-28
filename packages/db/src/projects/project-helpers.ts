@@ -1,17 +1,10 @@
-import { orderBy } from "lodash";
 import isAbsoluteURL from "is-absolute-url";
 
 import { computeTrends, getMonthlyTrends } from "../snapshots/index";
-import { OneYearSnapshots, ProjectService } from ".";
+import { OneYearSnapshots, ProjectDetails } from ".";
 import invariant from "tiny-invariant";
 
-// interface ProjectWithSnapshots {
-//   snapshots: OneYearSnapshots[];
-// }
-
-export function getProjectDescription(
-  project: NonNullable<Awaited<ReturnType<ProjectService["getProjectBySlug"]>>>
-) {
+export function getProjectDescription(project: ProjectDetails) {
   invariant(project.repo);
   const repoDescription = project.repo.description;
   return project.overrideDescription
@@ -19,9 +12,7 @@ export function getProjectDescription(
     : repoDescription || project.description;
 }
 
-export function getProjectURL(
-  project: NonNullable<Awaited<ReturnType<ProjectService["getProjectBySlug"]>>>
-) {
+export function getProjectURL(project: ProjectDetails) {
   invariant(project.repo);
   if (project.overrideURL) return project.url;
   const homepage = project.repo.homepage;
@@ -69,4 +60,14 @@ function isValidProjectURL(url: string) {
   }
 
   return true;
+}
+
+export function getPackageData(project: ProjectDetails) {
+  const firstPackage = project.packages[0];
+  return firstPackage
+    ? {
+        npm: firstPackage.name,
+        downloads: firstPackage?.monthlyDownloads as number,
+      }
+    : null;
 }

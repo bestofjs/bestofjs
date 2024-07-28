@@ -28,8 +28,6 @@ export async function updateSnapshotRecord(
     .where(
       and(eq(schema.snapshots.repoId, repoId), eq(schema.snapshots.year, year))
     );
-
-  console.log("Snapshot updated", result);
 }
 
 export async function createSnapshotRecord(

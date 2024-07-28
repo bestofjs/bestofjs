@@ -4,6 +4,7 @@ import { SnapshotsService } from "@repo/db/snapshots";
 
 import { schema } from "@repo/db";
 import { eq } from "drizzle-orm";
+import { Repo } from "@/iteration-helpers/process-repos";
 
 export const updateGitHubDataTask: Task = {
   name: "update-github-data",
@@ -15,6 +16,11 @@ export const updateGitHubDataTask: Task = {
     const snapshotsService = new SnapshotsService(db);
 
     return await processRepos(async (repo) => {
+      if (!shouldProcessProject(repo)) {
+        logger.debug("Skipping deprecated project", repo.full_name);
+        return { meta: { skipped: true }, data: { stars: repo.stars } };
+      }
+
       logger.debug("STEP 1: get project data from GH API");
 
       const githubData = await client.fetchRepoInfo(repo.full_name);
@@ -38,11 +44,17 @@ export const updateGitHubDataTask: Task = {
         .where(eq(schema.repos.id, repo.id));
       logger.debug("Repo record updated", result);
 
-      // return {
-      //   meta: { updated: true, snapshotAdded },
-      //   data: { stars: repo.stars },
-      // };
-      return { meta: { success: true } };
+      return {
+        meta: { updated: true, snapshotAdded },
+        data: { stars: repo.stars },
+      };
     });
   },
 };
+
+function shouldProcessProject(repo: Repo) {
+  const isDeprecated = repo.projects.every(
+    (project) => project.status === "deprecated"
+  );
+  return !isDeprecated;
+}
