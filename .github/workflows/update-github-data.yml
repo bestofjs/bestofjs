@@ -17,6 +17,11 @@ on:
         required: false
         type: number
         default: 0
+      concurrency:
+        description: "Number of projects to process concurrently"
+        required: false
+        type: number
+        default: 1
 jobs:
   update-package-data:
     runs-on: ubuntu-latest
@@ -33,7 +38,7 @@ jobs:
       - name: Install Dependencies
         shell: bash
         run: pnpm -F backend install
-      - run: pnpm -F backend daily-update-github-data --limit ${{ inputs.limit || 0 }} --loglevel ${{ inputs.logLevel || 3 }}
+      - run: pnpm -F backend daily-update-github-data --limit ${{ inputs.limit || 0 }} --loglevel ${{ inputs.logLevel || 3 }} --concurrency ${{ inputs.concurrency || 1 }}
         env:
           POSTGRES_URL: ${{ secrets.POSTGRES_URL }}
           # caution: `GITHUB_` is not a valid prefix for secrets!
