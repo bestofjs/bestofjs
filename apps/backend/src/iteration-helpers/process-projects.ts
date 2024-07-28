@@ -1,7 +1,7 @@
 import { desc, eq } from "drizzle-orm";
 import pMap from "p-map";
 
-import { DB, schema } from "@repo/db";
+import { schema } from "@repo/db";
 import { ProjectService } from "@repo/db/projects";
 
 import { LoopOptions, TaskContext } from "@/task-runner";
@@ -18,7 +18,7 @@ export function processProjects(context: TaskContext) {
     callback: (project: Project, index: number) => Promise<CallbackResult<T>>,
     options?: LoopOptions
   ) {
-    const { limit = 0, offset = 0, name, throwOnError = false } = options || {};
+    const { limit = 0, skip = 0, name, throwOnError = false } = options || {};
 
     const ids = await findAllIds();
     const results = await pMap(
@@ -40,7 +40,7 @@ export function processProjects(context: TaskContext) {
         }
       },
       {
-        concurrency: 1,
+        concurrency: options?.concurrency || 1,
       }
     );
 
@@ -54,7 +54,7 @@ export function processProjects(context: TaskContext) {
         .from(schema.projects)
         .orderBy(desc(schema.projects.createdAt))
         .limit(limit)
-        .offset(offset);
+        .offset(skip);
 
       if (name) {
         query.where(eq(schema.projects.slug, name));

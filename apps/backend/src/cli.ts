@@ -5,6 +5,10 @@ import { updateGitHubDataTask } from "./tasks/update-github-data.task";
 import { buildStaticApiTask } from "./tasks/build-static-api";
 
 const flags = {
+  concurrency: {
+    type: Number,
+    default: 1,
+  },
   logLevel: {
     type: Number,
     description:
@@ -14,6 +18,11 @@ const flags = {
   limit: {
     type: Number,
     description: "Records to process",
+    default: 0,
+  },
+  skip: {
+    type: Number,
+    description: "Records to skip (when paginating)",
     default: 0,
   },
   name: {
