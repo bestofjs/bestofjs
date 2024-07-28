@@ -125,22 +125,6 @@
   }
 }
 
-::view-transition-old(root),
-::view-transition-new(root) {
-  animation: none;
-  mix-blend-mode: normal;
-}
-
-html:not(.light)::view-transition-old(root),
-html.light::view-transition-new(root) {
-  z-index: 1;
-}
-
-html:not(.light)::view-transition-new(root),
-html.light::view-transition-old(root) {
-  z-index: 9999;
-}
-
 @media (max-width: 640px) {
   .container {
     /* decrease the spacing on mobiles */
