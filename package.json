@@ -9,6 +9,7 @@
   },
   "author": "Michael Rambeau",
   "license": "MIT",
+  "packageManager": "pnpm@9.4.0",
   "devDependencies": {
     "dotenv-cli": "^7.4.2",
     "tsx": "^4.16.2"
