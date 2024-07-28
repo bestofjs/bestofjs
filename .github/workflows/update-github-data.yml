@@ -1,0 +1,40 @@
+name: Update GitHub Data
+on:
+  schedule:
+    - cron: "0 23 * * *"
+  workflow_dispatch:
+    inputs:
+      logLevel:
+        description: "Log level: 3 => info, 4 => debug"
+        required: true
+        default: 3
+        type: choice
+        options:
+          - 3
+          - 4
+      limit:
+        description: "Number of projects to process (mainly for debugging, keep the default value of 0 to process everything)"
+        required: false
+        type: number
+        default: 0
+jobs:
+  update-package-data:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Code Checkout
+        uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Install PNPM
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9.4.0
+      - name: Install Dependencies
+        shell: bash
+        run: pnpm install
+      - run: node run cli/tasks/projects/update-package-data.task.js --limit ${{ inputs.limit || 0 }} --loglevel ${{ inputs.logLevel || 3 }}
+        env:
+          POSTGRES_URL: ${{ secrets.POSTGRES_URL }}
+          # caution: `GITHUB_` is not a valid prefix for secrets!
+          GITHUB_ACCESS_TOKEN: ${{ secrets.GH_ACCESS_TOKEN }}
