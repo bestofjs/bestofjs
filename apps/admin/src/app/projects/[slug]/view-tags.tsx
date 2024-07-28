@@ -1,4 +1,4 @@
-import { ProjectDetails } from "@repo/db/projects/get";
+import { ProjectDetails } from "@repo/db/projects";
 import invariant from "tiny-invariant";
 
 import { Badge } from "@/components/ui/badge";

@@ -1,5 +1,4 @@
-import { getProjectMonthlyTrends } from "@repo/db/projects";
-import { OneYearSnapshots } from "@repo/db/projects/get";
+import { OneYearSnapshots, getProjectMonthlyTrends } from "@repo/db/projects";
 
 import { formatStars } from "@/lib/format-helpers";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";

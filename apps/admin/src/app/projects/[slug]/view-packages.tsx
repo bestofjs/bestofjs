@@ -1,5 +1,5 @@
 import React from "react";
-import { ProjectDetails } from "@repo/db/projects/get";
+import { ProjectDetails } from "@repo/db/projects";
 
 import { Badge } from "@/components/ui/badge";
 import {

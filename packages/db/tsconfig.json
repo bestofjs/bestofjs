@@ -11,11 +11,7 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "jsx": "preserve",
-    "incremental": true,
-    "baseUrl": ".",
-    "paths": {
-      "~/*": ["./src/*"]
-    }
+    "incremental": true
   },
   "include": ["**/*.ts"],
   "exclude": ["node_modules"]

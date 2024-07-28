@@ -13,8 +13,6 @@
     "./github": "./src/github/index.ts",
     "./snapshots": "./src/snapshots/index.ts",
     "./tags": "./src/tags/index.ts",
-    "./projects/create": "./src/projects/create.ts",
-    "./projects/get": "./src/projects/get.ts",
     "./types": "./src/types.ts"
   },
   "dependencies": {

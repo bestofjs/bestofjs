@@ -68,25 +68,3 @@ export function processProjects(context: TaskContext) {
     }
   };
 }
-
-// async function findProjectById(db: DB, id: string) {
-//   const project = await db.query.projects.findFirst({
-//     where: eq(schema.projects.id, id),
-//     with: {
-//       repo: {
-//         with: {
-//           snapshots: {
-//             orderBy: desc(schema.snapshots.year),
-//           },
-//         },
-//       },
-//     },
-//   });
-
-//   invariant(project, `Project not found by id: ${id}`);
-//   invariant(project.repo);
-
-//   const snapshots = snapshotsSchema.parse(project.repo.snapshots);
-//   const repo = { ...project.repo, snapshots };
-//   return { ...project, repo };
-// }
