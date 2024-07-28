@@ -32,8 +32,8 @@ jobs:
           version: 9.4.0
       - name: Install Dependencies
         shell: bash
-        run: pnpm install
-      - run: node run cli/tasks/projects/update-package-data.task.js --limit ${{ inputs.limit || 0 }} --loglevel ${{ inputs.logLevel || 3 }}
+        run: pnpm -F backend install
+      - run: pnpm -F backend daily-update-github-data --limit ${{ inputs.limit || 0 }} --loglevel ${{ inputs.logLevel || 3 }}
         env:
           POSTGRES_URL: ${{ secrets.POSTGRES_URL }}
           # caution: `GITHUB_` is not a valid prefix for secrets!
