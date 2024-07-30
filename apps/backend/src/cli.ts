@@ -1,8 +1,9 @@
 import { cli, command } from "cleye";
+
 import { TaskRunner } from "./task-runner";
 import { helloProjectsTask, helloWorldTask } from "./tasks/hello-world.task";
 import { updateGitHubDataTask } from "./tasks/update-github-data.task";
-import { buildStaticApiTask } from "./tasks/build-static-api";
+import { buildStaticApiTask } from "./tasks/build-static-api.task";
 
 const flags = {
   concurrency: {

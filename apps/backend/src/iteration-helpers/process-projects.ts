@@ -27,8 +27,8 @@ export function processProjects(context: TaskContext) {
         const project = await service.getProjectById(id);
         try {
           logger.debug(`Processing project #${index + 1}`, project.slug);
-          const data = await callback(project, index);
-          logger.debug(`Processed repo ${project.slug}`, data);
+          const result = await callback(project, index);
+          logger.info(`Processed repo ${project.slug}`, result.meta);
           return data;
         } catch (error) {
           logger.error(`Error processing repo ${project.slug}`, error);

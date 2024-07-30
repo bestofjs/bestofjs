@@ -1,7 +1,7 @@
 name: Update GitHub Data
 on:
   schedule:
-    - cron: "0 23 * * *"
+    - cron: "30 21 * * *"
   workflow_dispatch:
     inputs:
       logLevel:
@@ -43,7 +43,7 @@ jobs:
       - name: Install Dependencies
         shell: bash
         run: pnpm -F backend install
-      - run: pnpm -F backend daily-update-github-data --loglevel ${{ inputs.logLevel || 3 }} --limit ${{ inputs.limit || 0 }} --skip ${{ inputs.skip || 0 }} --concurrency ${{ inputs.concurrency || 1 }}
+      - run: pnpm -F backend daily-update-github-data --loglevel ${{ inputs.logLevel || 3 }} --limit ${{ inputs.limit || 0 }} --skip ${{ inputs.skip || 0 }} --concurrency ${{ inputs.concurrency || 5 }}
         env:
           POSTGRES_URL: ${{ secrets.POSTGRES_URL }}
           # caution: `GITHUB_` is not a valid prefix for secrets!
