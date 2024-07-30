@@ -1,0 +1,20 @@
+{
+  "version": 2,
+  "name": "bestofjs-static-api-v2",
+  "alias": "bestofjs-static-api-v2",
+  "scope": "bestofjs",
+  "routes": [
+    { "src": "/", "dest": "/build/" },
+    {
+      "src": "/(.+json)",
+      "dest": "/build/$1",
+      "headers": {
+        "key": "Access-Control-Allow-Origin",
+        "value": "*"
+      }
+    }
+  ],
+  "git": {
+    "deploymentEnabled": false
+  }
+}

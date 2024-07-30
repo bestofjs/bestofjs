@@ -5,8 +5,8 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "daily-update-github-data": "dotenv -e ../../.env tsx ./src/cli.ts update-github-data -- --limit 1 --logLevel 3"
+    "daily-update-github-data": "dotenv -e ../../.env tsx ./src/cli.ts update-github-data -- --logLevel 3",
+    "build-static-api": "dotenv -e ../../.env tsx ./src/cli.ts build-static-api -- --logLevel 3"
   },
   "keywords": [],
   "author": "",
