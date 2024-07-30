@@ -29,7 +29,7 @@ export function processProjects(context: TaskContext) {
           logger.debug(`Processing project #${index + 1}`, project.slug);
           const result = await callback(project, index);
           logger.info(`Processed repo ${project.slug}`, result.meta);
-          return data;
+          return result;
         } catch (error) {
           logger.error(`Error processing repo ${project.slug}`, error);
           if (throwOnError)
