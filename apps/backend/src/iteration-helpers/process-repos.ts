@@ -4,13 +4,13 @@ import pMap from "p-map";
 
 import { DB, schema } from "@repo/db";
 
-import { LoopOptions, TaskContext } from "@/task-runner";
+import { LoopOptions, RunnerContext } from "@/task-runner";
 import { CallbackResult, aggregateResults } from "./utils";
 
 // type Repo = typeof schema.repos.$inferSelect;
 export type Repo = Awaited<ReturnType<typeof findRepoById>>;
 
-export function processRepos(context: TaskContext) {
+export function processRepos(context: RunnerContext) {
   const { db, logger } = context;
 
   return async function <T>(

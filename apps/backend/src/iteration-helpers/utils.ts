@@ -1,5 +1,7 @@
+export type MetaResult = { [key: string]: boolean | number | undefined };
+
 export type CallbackResult<T> = {
-  meta: { [key: string]: boolean | number | undefined };
+  meta: MetaResult;
   data: T | null;
 };
 
@@ -18,9 +20,12 @@ export function aggregateResults<T>(results: CallbackResult<T>[]) {
   );
 }
 
-function sumMetaReducer(acc: Meta, [key, value]: [string, boolean | number]) {
-  function convertResultToNumber(result: number | boolean) {
-    if (result === false) return 0;
+function sumMetaReducer(
+  acc: Meta,
+  [key, value]: [string, MetaResult[keyof MetaResult]]
+) {
+  function convertResultToNumber(result: number | boolean | undefined) {
+    if (!result) return 0;
     if (result === true) return 1;
     return result;
   }

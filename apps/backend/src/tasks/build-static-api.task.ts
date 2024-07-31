@@ -130,10 +130,14 @@ export const buildStaticApiTask: Task = {
 
 function isColdProject(project: ProjectItem) {
   const delta = project.trends.yearly;
-  const monthlyDownloads = project.downloads;
   if (delta === undefined || delta === null) return false; // only consider projects with data covering 1 year
-  if (Boolean(monthlyDownloads) && monthlyDownloads > 100000) return false; // exclude projects with a lots of downloads (E.g. `Testem`)
+  if (!isPopularPackage(project)) return false; // exclude projects with a lots of downloads (E.g. `Testem`)
   return delta < 50;
+}
+
+function isPopularPackage(project: ProjectItem) {
+  if (!project.downloads) return false;
+  return project.downloads > 100000;
 }
 
 function isInactiveProject(project: ProjectItem) {

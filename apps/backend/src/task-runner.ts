@@ -2,10 +2,12 @@ import fs from "fs-extra";
 import { ConsolaInstance, createConsola } from "consola";
 import prettyBytes from "pretty-bytes";
 import path from "path";
+import invariant from "tiny-invariant";
 
 import { DB, runQuery } from "@repo/db";
 import { processRepos, Repo } from "./iteration-helpers/process-repos";
 import { Project, processProjects } from "./iteration-helpers/process-projects";
+import { MetaResult } from "./iteration-helpers/utils";
 
 export interface RunnerContext {
   db: DB;
@@ -20,7 +22,10 @@ export interface TaskContext extends RunnerContext {
 
 export type Task = {
   name: string;
-  run: (ctx: TaskContext) => void;
+  run: (ctx: TaskContext) => Promise<{
+    data: unknown;
+    meta: MetaResult;
+  }>;
 };
 
 export type LoopOptions = {
@@ -90,9 +95,10 @@ export class TaskRunner {
     callback: (
       repo: Repo,
       index: number
-    ) => Promise<{ data: T; meta: { [key: string]: boolean | number } }>
+    ) => Promise<{ data: T; meta: MetaResult }>
   ) {
-    const results = await processRepos<T>({ db: this.db, logger: this.logger })(
+    invariant(this.db, "DB connection is required");
+    const results = await processRepos({ db: this.db, logger: this.logger })(
       callback,
       this.options
     );
@@ -105,7 +111,8 @@ export class TaskRunner {
       index: number
     ) => Promise<{ data: T; meta: { [key: string]: boolean | number } }>
   ) {
-    const results = await processProjects<T>({
+    invariant(this.db, "DB connection is required");
+    const results = await processProjects({
       db: this.db,
       logger: this.logger,
     })(callback, this.options);
