@@ -123,12 +123,7 @@ export class TaskRunner {
     this.logger.info(`Saving ${fileName}`, {
       size: prettyBytes(JSON.stringify(json).length),
     });
-    const filePath = path.join(
-      process.cwd(),
-      "apps/backend",
-      "build",
-      fileName
-    );
+    const filePath = path.join(process.cwd(), "build", fileName); // to be run from app/backend, not from the root!
     await fs.outputJson(filePath, json); // does not return anything
     this.logger.info("JSON file saved!", { fileName, filePath });
   }
