@@ -4,6 +4,7 @@ import { TaskRunner } from "./task-runner";
 import { helloProjectsTask, helloWorldTask } from "./tasks/hello-world.task";
 import { updateGitHubDataTask } from "./tasks/update-github-data.task";
 import { buildStaticApiTask } from "./tasks/build-static-api.task";
+import { desc } from "drizzle-orm";
 
 const flags = {
   concurrency: {
@@ -29,6 +30,10 @@ const flags = {
   name: {
     type: String,
     description: "Full name of the GitHub repo to process",
+  },
+  throttleInterval: {
+    type: Number,
+    description: "Throttle interval in milliseconds",
   },
 };
 

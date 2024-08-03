@@ -1,16 +1,17 @@
 import { desc, eq } from "drizzle-orm";
-import invariant from "tiny-invariant";
 import pMap from "p-map";
+import pThrottle from "p-throttle";
+import invariant from "tiny-invariant";
 
 import { DB, schema } from "@repo/db";
 
-import { LoopOptions, TaskContext } from "@/task-runner";
+import { LoopOptions, RunnerContext } from "@/task-runner";
 import { CallbackResult, aggregateResults } from "./utils";
 
 // type Repo = typeof schema.repos.$inferSelect;
 export type Repo = Awaited<ReturnType<typeof findRepoById>>;
 
-export function processRepos(context: TaskContext) {
+export function processRepos(context: RunnerContext) {
   const { db, logger } = context;
 
   return async function <T>(
@@ -22,8 +23,18 @@ export function processRepos(context: TaskContext) {
       skip = 0,
       name,
       throwOnError = false,
+      throttleInterval = 0,
       concurrency = 1,
     } = options || {};
+
+    const throttle = pThrottle({
+      limit: 1,
+      interval: throttleInterval,
+      onDelay: () => {
+        logger.trace("Reached interval limit, call is delayed");
+      },
+    });
+    const throttledCallback = throttle(callback);
 
     const ids = await findAllIds();
     const results = await pMap(
@@ -32,13 +43,13 @@ export function processRepos(context: TaskContext) {
         const repo = await findRepoById(db, id);
         try {
           logger.debug(`Processing repo #${index + 1}`, repo.full_name);
-          const data = await callback(repo, index);
-          logger.info(`Processed repo ${repo.full_name}`, data);
+          const data = await throttledCallback(repo, index);
+          logger.info(`Processed repo #${index + 1} ${repo.full_name}`, data);
           return data;
         } catch (error) {
-          logger.error(`Error processing repo ${repo.name}`, error);
+          logger.error(`Error processing repo ${repo.full_name}`, error);
           if (throwOnError)
-            throw new Error(`Error processing repo ${repo.name}`, {
+            throw new Error(`Error processing repo ${repo.full_name}`, {
               cause: error,
             });
           return { meta: { error: true }, data: null };
@@ -66,7 +77,9 @@ export function processRepos(context: TaskContext) {
       }
 
       const repos = await query;
-      if (!repos.length) logger.error("No repos found");
+      if (!repos.length) {
+        logger.error(`No repos found with full_name: ${name}`);
+      }
 
       const ids = repos.map((repo) => repo.id);
       return ids;

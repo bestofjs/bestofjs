@@ -1,6 +1,9 @@
 import { and, asc, eq, inArray } from "drizzle-orm";
 
-import { Tag } from "@/components/ui/tags/tag-input";
+type Tag = {
+  id: string;
+  name: string;
+};
 
 import { getDatabase } from "..";
 import * as schema from "../schema";

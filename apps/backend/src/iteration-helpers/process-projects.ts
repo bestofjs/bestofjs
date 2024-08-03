@@ -4,12 +4,12 @@ import pMap from "p-map";
 import { schema } from "@repo/db";
 import { ProjectService } from "@repo/db/projects";
 
-import { LoopOptions, TaskContext } from "@/task-runner";
+import { LoopOptions, RunnerContext } from "@/task-runner";
 import { CallbackResult, aggregateResults } from "./utils";
 
 export type Project = Awaited<ReturnType<ProjectService["getProjectById"]>>;
 
-export function processProjects(context: TaskContext) {
+export function processProjects(context: RunnerContext) {
   const { db, logger } = context;
 
   const service = new ProjectService(db);

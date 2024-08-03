@@ -186,6 +186,9 @@ importers:
       p-map:
         specifier: ^7.0.2
         version: 7.0.2
+      p-throttle:
+        specifier: ^6.1.0
+        version: 6.1.0
       pretty-bytes:
         specifier: ^6.1.1
         version: 6.1.1
@@ -198,6 +201,9 @@ importers:
       tsx:
         specifier: ^4.16.2
         version: 4.16.2
+      typescript:
+        specifier: ^5.5.4
+        version: 5.5.4
 
   apps/bestofjs-nextjs:
     dependencies:
@@ -589,7 +595,7 @@ importers:
         version: 0.7.0
       '@t3-oss/env-nextjs':
         specifier: ^0.7.1
-        version: 0.7.1(typescript@5.2.2)(zod@3.23.8)
+        version: 0.7.1(typescript@5.5.4)(zod@3.23.8)
       '@types/debug':
         specifier: ^4.1.12
         version: 4.1.12
@@ -6056,6 +6062,10 @@ packages:
     resolution: {integrity: sha512-z4cYYMMdKHzw4O5UkWJImbZynVIo0lSGTXc7bzB1e/rrDqkgGUNysK/o4bTr+0+xKvvLoTyGqYC4Fgljy9qe1Q==}
     engines: {node: '>=18'}
 
+  p-throttle@6.1.0:
+    resolution: {integrity: sha512-eQMdGTxk2+047La67wefUtt0tEHh7D+C8Jl7QXoFCuIiNYeQ9zWs2AZiJdIAs72rSXZ06t11me2bgalRNdy3SQ==}
+    engines: {node: '>=18'}
+
   p-try@1.0.0:
     resolution: {integrity: sha512-U1etNYuMJoIz3ZXSrrySFjsXQTWOx2/jdi86L+2pRvph/qMKL6sbcCYdH23fqsbm8TH2Gn0OybpT4eSFlCVHww==}
     engines: {node: '>=4'}
@@ -7253,6 +7263,11 @@ packages:
 
   typescript@5.2.2:
     resolution: {integrity: sha512-mI4WrpHsbCIcwT9cF4FZvr80QUeKvsUsUvKDoR+X/7XHQH98xYD8YHZg7ANtz2GtZt/CBq2QJ0thkGJMHfqc1w==}
+    engines: {node: '>=14.17'}
+    hasBin: true
+
+  typescript@5.5.4:
+    resolution: {integrity: sha512-Mtq29sKDAEYP7aljRgtPOpTvOfbwRWlS6dPRzwjdE+C0R4brX/GUyhHSecbHMFLNBLcJIPt9nl9yG5TZ1weH+Q==}
     engines: {node: '>=14.17'}
     hasBin: true
 
@@ -10058,11 +10073,11 @@ snapshots:
     optionalDependencies:
       typescript: 5.2.2
 
-  '@t3-oss/env-core@0.7.1(typescript@5.2.2)(zod@3.23.8)':
+  '@t3-oss/env-core@0.7.1(typescript@5.5.4)(zod@3.23.8)':
     dependencies:
       zod: 3.23.8
     optionalDependencies:
-      typescript: 5.2.2
+      typescript: 5.5.4
 
   '@t3-oss/env-nextjs@0.7.1(typescript@5.2.2)(zod@3.22.4)':
     dependencies:
@@ -10071,12 +10086,12 @@ snapshots:
     optionalDependencies:
       typescript: 5.2.2
 
-  '@t3-oss/env-nextjs@0.7.1(typescript@5.2.2)(zod@3.23.8)':
+  '@t3-oss/env-nextjs@0.7.1(typescript@5.5.4)(zod@3.23.8)':
     dependencies:
-      '@t3-oss/env-core': 0.7.1(typescript@5.2.2)(zod@3.23.8)
+      '@t3-oss/env-core': 0.7.1(typescript@5.5.4)(zod@3.23.8)
       zod: 3.23.8
     optionalDependencies:
-      typescript: 5.2.2
+      typescript: 5.5.4
 
   '@tanstack/react-table@8.13.2(react-dom@18.2.0(react@18.2.0))(react@18.2.0)':
     dependencies:
@@ -13871,6 +13886,8 @@ snapshots:
 
   p-map@7.0.2: {}
 
+  p-throttle@6.1.0: {}
+
   p-try@1.0.0: {}
 
   p-try@2.2.0: {}
@@ -15161,6 +15178,8 @@ snapshots:
   typescript@4.9.5: {}
 
   typescript@5.2.2: {}
+
+  typescript@5.5.4: {}
 
   typpy@2.3.13:
     dependencies:
