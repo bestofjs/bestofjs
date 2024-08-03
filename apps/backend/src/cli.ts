@@ -4,7 +4,7 @@ import { TaskRunner } from "./task-runner";
 import { helloProjectsTask, helloWorldTask } from "./tasks/hello-world.task";
 import { updateGitHubDataTask } from "./tasks/update-github-data.task";
 import { buildStaticApiTask } from "./tasks/build-static-api.task";
-import { desc } from "drizzle-orm";
+import { triggerBuildStaticApiTask } from "./tasks/trigger-build-static-api";
 
 const flags = {
   concurrency: {
@@ -95,6 +95,18 @@ cli({
       (argv) => {
         const runner = new TaskRunner(argv.flags);
         runner.addTask(buildStaticApiTask);
+        runner.run();
+      }
+    ),
+
+    command(
+      {
+        name: triggerBuildStaticApiTask.name,
+        flags,
+      },
+      (argv) => {
+        const runner = new TaskRunner(argv.flags);
+        runner.addTask(triggerBuildStaticApiTask);
         runner.run();
       }
     ),
