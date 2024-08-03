@@ -30,6 +30,10 @@ export function createClient(accessToken: string) {
   const fetchRepoInfoFallback = async (fullName: string) => {
     debug("Fetch repo info using the REST API", fullName);
     const repoInfo = await gitHubRequest(`repos/${fullName}`, accessToken);
+    debug(repoInfo);
+    if (repoInfo.status === 404) throw new Error(`Repo not found!`);
+
+    // TODO validate API response
     const { name, full_name, description, stargazers_count, owner } = repoInfo;
     return {
       name,

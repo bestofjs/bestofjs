@@ -77,7 +77,9 @@ export function processRepos(context: RunnerContext) {
       }
 
       const repos = await query;
-      if (!repos.length) logger.error("No repos found");
+      if (!repos.length) {
+        logger.error(`No repos found with full_name: ${name}`);
+      }
 
       const ids = repos.map((repo) => repo.id);
       return ids;
