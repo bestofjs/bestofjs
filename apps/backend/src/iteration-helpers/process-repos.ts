@@ -41,15 +41,15 @@ export function processRepos(context: RunnerContext) {
       ids,
       async (id, index) => {
         const repo = await findRepoById(db, id);
-        const data = await throttledCallback(repo, index);
         try {
           logger.debug(`Processing repo #${index + 1}`, repo.full_name);
-          logger.info(`Processed repo ${repo.full_name}`, data);
+          const data = await throttledCallback(repo, index);
+          logger.info(`Processed repo #${index + 1} ${repo.full_name}`, data);
           return data;
         } catch (error) {
-          logger.error(`Error processing repo ${repo.name}`, error);
+          logger.error(`Error processing repo ${repo.full_name}`, error);
           if (throwOnError)
-            throw new Error(`Error processing repo ${repo.name}`, {
+            throw new Error(`Error processing repo ${repo.full_name}`, {
               cause: error,
             });
           return { meta: { error: true }, data: null };
