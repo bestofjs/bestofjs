@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "daily-update-github-data": "dotenv -e ../../.env tsx ./src/cli.ts update-github-data -- --logLevel 3",
-    "build-static-api": "dotenv -e ../../.env tsx ./src/cli.ts build-static-api -- --logLevel 3 --concurrency 10",
+    "trigger-build-static-api": "dotenv -e ../../.env tsx ./src/cli.ts trigger-build-static-api",
     "typecheck": "tsc --noEmit",
     "typecheck:watch": "tsc --noEmit --incremental --watch"
   },
