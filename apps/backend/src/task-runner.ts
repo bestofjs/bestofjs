@@ -22,6 +22,7 @@ export interface TaskContext extends RunnerContext {
 
 export type Task = {
   name: string;
+  description?: string;
   run: (ctx: TaskContext) => Promise<{
     data: unknown;
     meta: MetaResult;

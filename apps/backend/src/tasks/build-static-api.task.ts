@@ -33,6 +33,8 @@ type ProjectItem = {
 
 export const buildStaticApiTask: Task = {
   name: "build-static-api",
+  description:
+    "Build a static API from the database, to be used by the frontend app.",
   run: async ({ db, logger, processProjects, saveJSON }) => {
     const results = await processProjects(async (project) => {
       const repo = project.repo;

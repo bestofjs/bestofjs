@@ -8,6 +8,8 @@ import { Repo } from "@/iteration-helpers/process-repos";
 
 export const updateGitHubDataTask: Task = {
   name: "update-github-data",
+  description:
+    "Update GitHub data for all repos and take a snapshot. To be run run every day",
   run: async ({ db, processRepos, logger }) => {
     const accessToken = process.env.GITHUB_ACCESS_TOKEN;
     if (!accessToken) throw new Error("GITHUB_ACCESS_TOKEN is required!");
