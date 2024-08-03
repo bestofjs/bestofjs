@@ -1,6 +1,7 @@
 import { desc, eq } from "drizzle-orm";
-import invariant from "tiny-invariant";
 import pMap from "p-map";
+import pThrottle from "p-throttle";
+import invariant from "tiny-invariant";
 
 import { DB, schema } from "@repo/db";
 
@@ -22,17 +23,27 @@ export function processRepos(context: RunnerContext) {
       skip = 0,
       name,
       throwOnError = false,
+      throttleInterval = 0,
       concurrency = 1,
     } = options || {};
+
+    const throttle = pThrottle({
+      limit: 1,
+      interval: throttleInterval,
+      onDelay: () => {
+        logger.trace("Reached interval limit, call is delayed");
+      },
+    });
+    const throttledCallback = throttle(callback);
 
     const ids = await findAllIds();
     const results = await pMap(
       ids,
       async (id, index) => {
         const repo = await findRepoById(db, id);
+        const data = await throttledCallback(repo, index);
         try {
           logger.debug(`Processing repo #${index + 1}`, repo.full_name);
-          const data = await callback(repo, index);
           logger.info(`Processed repo ${repo.full_name}`, data);
           return data;
         } catch (error) {

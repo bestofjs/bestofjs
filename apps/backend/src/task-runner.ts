@@ -35,6 +35,7 @@ export type LoopOptions = {
   logLevel?: number;
   name?: string;
   throwOnError?: boolean;
+  throttleInterval?: number;
 };
 
 export class TaskRunner {
@@ -45,6 +46,7 @@ export class TaskRunner {
     concurrency: number;
     limit: number;
     skip: number;
+    throttleInterval: number;
     throwOnError?: boolean;
     // Optional query to filter items to process
     name?: string;
@@ -60,6 +62,7 @@ export class TaskRunner {
       skip: options.skip || 0,
       concurrency: options.concurrency || 1,
       name: options.name,
+      throttleInterval: options.throttleInterval || 0,
       throwOnError: options.throwOnError,
     };
   }
@@ -126,18 +129,19 @@ export class TaskRunner {
     this.logger.info(`Saving ${fileName}`, {
       size: prettyBytes(JSON.stringify(json).length),
     });
-    const filePath = path.join(process.cwd(), "build", fileName); // to be run from app/backend, not from the root!
-    await fs.outputJson(filePath, json); // does not return anything
+    const filePath = path.join(process.cwd(), "build", fileName); // to be run from app/backend because of monorepo setup on Vercel, not from the root!
+    await fs.outputJson(filePath, json);
     this.logger.info("JSON file saved!", filePath);
   }
 }
 function stringifyOptions(runner: TaskRunner) {
-  const { limit, skip, concurrency } = runner.options;
+  const { limit, skip, concurrency, throttleInterval } = runner.options;
   return [
     `logLevel: ${runner.logger.level}`,
     limit ? `limit: ${limit}` : "",
     skip ? `skip: ${skip}` : "",
     `concurrency: ${concurrency}`,
+    throttleInterval ? `throttleInterval: ${throttleInterval}` : "",
   ]
     .filter(Boolean)
     .join(", ");

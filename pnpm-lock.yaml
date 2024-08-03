@@ -186,6 +186,9 @@ importers:
       p-map:
         specifier: ^7.0.2
         version: 7.0.2
+      p-throttle:
+        specifier: ^6.1.0
+        version: 6.1.0
       pretty-bytes:
         specifier: ^6.1.1
         version: 6.1.1
@@ -6057,6 +6060,10 @@ packages:
 
   p-map@7.0.2:
     resolution: {integrity: sha512-z4cYYMMdKHzw4O5UkWJImbZynVIo0lSGTXc7bzB1e/rrDqkgGUNysK/o4bTr+0+xKvvLoTyGqYC4Fgljy9qe1Q==}
+    engines: {node: '>=18'}
+
+  p-throttle@6.1.0:
+    resolution: {integrity: sha512-eQMdGTxk2+047La67wefUtt0tEHh7D+C8Jl7QXoFCuIiNYeQ9zWs2AZiJdIAs72rSXZ06t11me2bgalRNdy3SQ==}
     engines: {node: '>=18'}
 
   p-try@1.0.0:
@@ -13878,6 +13885,8 @@ snapshots:
       p-limit: 3.1.0
 
   p-map@7.0.2: {}
+
+  p-throttle@6.1.0: {}
 
   p-try@1.0.0: {}
 
