@@ -28,7 +28,7 @@ on:
         type: number
         default: 1
 jobs:
-  update-package-data:
+  update-github-data:
     runs-on: ubuntu-latest
     steps:
       - name: Code Checkout
