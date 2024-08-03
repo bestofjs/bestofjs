@@ -31,7 +31,11 @@ on:
         description: "Interval in milliseconds to wait between requests, to avoid rate limit errors"
         required: false
         type: number
-        default: 750
+env:
+  POSTGRES_URL: ${{ secrets.POSTGRES_URL }}
+  # caution: `GITHUB_` is not a valid prefix for secrets!
+  GITHUB_ACCESS_TOKEN: ${{ secrets.GH_ACCESS_TOKEN }}
+  API_TRIGGER_BUILD_WEBHOOK_URL: ${{ secrets.API_TRIGGER_BUILD_WEBHOOK_URL }}
 jobs:
   update-github-data:
     runs-on: ubuntu-latest
@@ -50,11 +54,5 @@ jobs:
         run: pnpm -F backend install
       - name: Update GitHub Data and take snapshots
         run: pnpm -F backend daily-update-github-data --loglevel ${{ inputs.logLevel || 3 }} --limit ${{ inputs.limit || 0 }} --skip ${{ inputs.skip || 0 }} --concurrency ${{ inputs.concurrency || 5 }} --throttleInterval ${{ inputs.throttleInterval || 5 }}
-        env:
-          POSTGRES_URL: ${{ secrets.POSTGRES_URL }}
-          # caution: `GITHUB_` is not a valid prefix for secrets!
-          GITHUB_ACCESS_TOKEN: ${{ secrets.GH_ACCESS_TOKEN }}
       - name: Send Webhook to Vercel
         run: pnpm -F backend trigger-build-static-api
-        env:
-          API_TRIGGER_BUILD_WEBHOOK_URL: ${{ secrets.API_TRIGGER_BUILD_WEBHOOK_URL }}
