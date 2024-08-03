@@ -2,6 +2,8 @@ import { Task } from "@/task-runner";
 
 export const triggerBuildStaticApiTask: Task = {
   name: "trigger-build-static-api",
+  description:
+    "Trigger a build for the static API, sending a webhook to Vercel",
   run: async ({ logger }) => {
     const url = process.env.API_TRIGGER_BUILD_WEBHOOK_URL;
     if (!url) {
