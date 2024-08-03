@@ -72,15 +72,15 @@ export const buildStaticApiTask: Task = {
       };
     });
 
-    await buildMainList(results.data);
-    await buildFullList(results.data);
+    const data = results.data.filter((item) => !!item);
+    await buildMainList(data);
+    await buildFullList(data);
     return results;
 
     async function buildMainList(allProjects: ProjectItem[]) {
       const allTags = await fetchTags();
 
       const projects = allProjects
-        .filter((item) => !!item) // remove null items that might be created if error occurred
         .filter((project) => project.trends.daily !== undefined) // new projects need to include at least the daily trend
         .filter(
           (project) => isPromotedProject(project) || !isColdProject(project)
@@ -101,10 +101,7 @@ export const buildStaticApiTask: Task = {
       await saveJSON({ date, tags, projects }, "projects.json");
     }
 
-    async function buildFullList(allProjects: ProjectItem[]) {
-      const projects = allProjects.filter((item) => !!item); // remove null items that might be created if error occurred
-      // .map(getFullProjectData);
-
+    async function buildFullList(projects: ProjectItem[]) {
       logger.info(`${projects.length} projects to include in the full list`);
       const date = new Date();
 

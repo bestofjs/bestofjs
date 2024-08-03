@@ -109,7 +109,10 @@ export class TaskRunner {
     callback: (
       project: Project,
       index: number
-    ) => Promise<{ data: T; meta: { [key: string]: boolean | number } }>
+    ) => Promise<{
+      data: T;
+      meta: MetaResult;
+    }>
   ) {
     invariant(this.db, "DB connection is required");
     const results = await processProjects({
@@ -125,7 +128,7 @@ export class TaskRunner {
     });
     const filePath = path.join(process.cwd(), "build", fileName); // to be run from app/backend, not from the root!
     await fs.outputJson(filePath, json); // does not return anything
-    this.logger.info("JSON file saved!", { fileName, filePath });
+    this.logger.info("JSON file saved!", filePath);
   }
 }
 function stringifyOptions(runner: TaskRunner) {

@@ -1,11 +1,12 @@
-export type MetaResult = { [key: string]: boolean | number | undefined };
+export type MetaValue = boolean | number | undefined;
+export type MetaResult = { [key: string]: MetaValue };
 
 export type CallbackResult<T> = {
   meta: MetaResult;
-  data: T | null;
+  data: T | null; // `null` data returned when errors are triggered
 };
 
-type Meta = { [key: string]: number };
+type AggregatedMeta = { [key: string]: number };
 
 export function aggregateResults<T>(results: CallbackResult<T>[]) {
   return results.reduce(
@@ -16,23 +17,24 @@ export function aggregateResults<T>(results: CallbackResult<T>[]) {
         data: val.data ? [...acc.data, val.data] : acc.data, // skip `null` data
       };
     },
-    { meta: {}, data: [] as T[] }
+    { meta: {}, data: [] as (T | null)[] }
   );
 }
 
 function sumMetaReducer(
-  acc: Meta,
+  acc: AggregatedMeta,
   [key, value]: [string, MetaResult[keyof MetaResult]]
 ) {
-  function convertResultToNumber(result: number | boolean | undefined) {
-    if (!result) return 0;
-    if (result === true) return 1;
-    return result;
-  }
-  const number = convertResultToNumber(value);
+  const number = convertMetaValueToNumber(value);
 
   return {
     ...acc,
     [key]: acc[key] ? acc[key] + number : number,
   };
+}
+
+function convertMetaValueToNumber(value: MetaValue) {
+  if (!value) return 0;
+  if (value === true) return 1;
+  return value;
 }
