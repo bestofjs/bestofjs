@@ -58,7 +58,7 @@ async function fetchFeaturedProjects({
   const sortOption = getSortOptionByKey(sort);
 
   const { projects, total } = await api.projects.findProjects({
-    criteria: { isFeatured: true },
+    criteria: { status: "featured" },
     sort: sortOption.sort,
     skip: limit * (page - 1),
     limit,

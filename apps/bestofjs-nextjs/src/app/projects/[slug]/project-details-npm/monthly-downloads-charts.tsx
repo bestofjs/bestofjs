@@ -1,3 +1,5 @@
+import { ProjectDetails } from "@repo/db/projects";
+
 import { env } from "@/env.mjs";
 
 import { MonthlyTrendsChart } from "../project-details-github/monthly-trends-chart";
@@ -11,9 +13,10 @@ type DataItem = {
 export async function MonthlyDownloadsChart({
   project,
 }: {
-  project: BestOfJS.ProjectDetails;
+  project: ProjectDetails;
 }) {
-  const data = await fetchDownloadData(project.packageName);
+  const packageName = project.packages?.[0]?.name;
+  const data = await fetchDownloadData(packageName);
   const results = data.map(({ year, month, downloads }) => ({
     year,
     month,

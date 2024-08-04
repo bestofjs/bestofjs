@@ -1,3 +1,4 @@
+import { ProjectDetails } from "@repo/db/projects";
 import { ImNpm } from "react-icons/im";
 
 import { Badge } from "@/components/ui/badge";
@@ -12,9 +13,12 @@ import { MonthlyDownloadsChart } from "./monthly-downloads-charts";
 export function ProjectDetailsNpmCard({
   project,
 }: {
-  project: BestOfJS.ProjectWithPackageDetails;
+  project: ProjectDetails;
 }) {
-  const { packageName, packageData } = project;
+  const packageData = project.packages?.[0];
+  const packageName = packageData?.name;
+  const bundleData = packageData.bundles;
+
   return (
     <Card>
       <CardHeader className="border-b">
@@ -42,7 +46,7 @@ export function ProjectDetailsNpmCard({
         <CardContent>
           <DependenciesSection project={project} />
         </CardContent>
-        {project.bundle?.gzip && (
+        {bundleData && (
           <CardContent>
             <BundleSizeSection project={project} />
           </CardContent>

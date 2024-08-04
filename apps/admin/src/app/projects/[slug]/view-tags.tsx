@@ -12,7 +12,6 @@ type Props = {
 };
 export function ViewTags({ project, allTags }: Props) {
   invariant(project, "Project not found");
-  const tags = project.projectsToTags.map((ptt) => ptt.tag);
   return (
     <Card>
       <CardHeader>
@@ -20,7 +19,7 @@ export function ViewTags({ project, allTags }: Props) {
       </CardHeader>
       <CardContent>
         <div className="flex flex-wrap gap-2">
-          {tags.map((tag) => (
+          {project.tags.map((tag) => (
             <Badge variant="secondary" key={tag.id}>
               {tag.name}
             </Badge>
