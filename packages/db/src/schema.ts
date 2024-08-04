@@ -25,7 +25,7 @@ export const projects = pgTable("projects", {
   comments: text("comments"),
   createdAt: timestamp("created_at").notNull().defaultNow(),
   updatedAt: timestamp("updated_at"),
-  repoId: text("repoId").references(() => repos.id),
+  repoId: text("repoId").references(() => repos.id, { onDelete: "cascade" }),
 });
 
 export const tags = pgTable("tags", {
@@ -43,10 +43,10 @@ export const projectsToTags = pgTable(
   {
     projectId: text("project_id")
       .notNull()
-      .references(() => projects.id),
+      .references(() => projects.id, { onDelete: "cascade" }),
     tagId: text("tag_id")
       .notNull()
-      .references(() => tags.id),
+      .references(() => tags.id, { onDelete: "cascade" }),
   },
   (t) => ({
     pk: primaryKey({ columns: [t.projectId, t.tagId] }),
@@ -133,7 +133,7 @@ export const snapshots = pgTable(
   {
     repoId: text("repo_id")
       .notNull()
-      .references(() => repos.id),
+      .references(() => repos.id, { onDelete: "cascade" }),
     createdAt: timestamp("created_at").notNull().defaultNow(),
     updatedAt: timestamp("updated_at"),
     year: integer("year").notNull(),
@@ -153,7 +153,9 @@ export const snapshotsRelations = relations(snapshots, ({ one }) => ({
 
 export const packages = pgTable("packages", {
   name: text("name").primaryKey(),
-  projectId: text("project_id").references(() => projects.id),
+  projectId: text("project_id").references(() => projects.id, {
+    onDelete: "cascade",
+  }),
   version: text("version"),
   monthlyDownloads: integer("downloads"),
   dependencies: jsonb("dependencies"),
@@ -168,13 +170,26 @@ export const packagesRelations = relations(packages, ({ one }) => ({
     fields: [packages.projectId],
     references: [projects.id],
   }),
+  bundles: one(bundles, {
+    fields: [packages.name],
+    references: [bundles.name],
+  }),
 }));
 
 export const bundles = pgTable("bundles", {
-  name: text("name").primaryKey(),
+  name: text("name")
+    .primaryKey()
+    .references(() => packages.name, { onDelete: "cascade" }),
   version: text("version"),
   size: integer("size"),
   gzip: integer("gzip"),
   errorMessage: text("error_message"),
   createdAt: timestamp("created_at").notNull().defaultNow(),
 });
+
+export const bundlesRelations = relations(bundles, ({ one }) => ({
+  packages: one(packages, {
+    fields: [bundles.name],
+    references: [packages.name],
+  }),
+}));
