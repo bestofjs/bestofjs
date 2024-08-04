@@ -1,5 +1,6 @@
 import React from "react";
 import { ProjectDetails } from "@repo/db/projects";
+import prettyBytes from "pretty-bytes";
 
 import { Badge } from "@/components/ui/badge";
 import {
@@ -9,6 +10,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { Separator } from "@/components/ui/separator";
 
 import { AddPackageButton } from "./edit/add-package-button";
 import { RemovePackageButton } from "./edit/remove-package-button";
@@ -54,6 +56,7 @@ function ViewPackage({
   renderRemove: React.ReactNode;
 }) {
   const dependencies = pkg.dependencies || [];
+  const bundle = pkg.bundles;
 
   return (
     <Card className="max-w-[400px]">
@@ -65,20 +68,53 @@ function ViewPackage({
         </CardTitle>
       </CardHeader>
       <CardContent>
-        {dependencies.length > 0 ? (
-          <>
-            <p className="mb-2 text-xl">Dependencies</p>
-            <ul>
-              {(dependencies || []).map((dep) => (
-                <li key={dep}>{dep}</li>
-              ))}
-            </ul>
-          </>
-        ) : (
-          <div className="text-xl italic">No dependencies</div>
-        )}
+        <div className="space-y-4">
+          {bundle ? <ViewBundle bundle={bundle} /> : <i>No bundle data</i>}
+          <Separator />
+          {dependencies.length > 0 ? (
+            <ViewDependencies dependencies={dependencies} />
+          ) : (
+            <div className="text-xl italic">No dependencies</div>
+          )}
+        </div>
       </CardContent>
       <CardFooter>{renderRemove}</CardFooter>
     </Card>
   );
 }
+
+function ViewDependencies({ dependencies }: { dependencies: string[] }) {
+  return (
+    <>
+      <p className="mb-2 text-xl">Dependencies</p>
+      <ul>
+        {(dependencies || []).map((dep) => (
+          <li key={dep}>{dep}</li>
+        ))}
+      </ul>
+    </>
+  );
+}
+
+function ViewBundle({
+  bundle,
+}: {
+  bundle: ProjectDetails["packages"][number]["bundles"];
+}) {
+  return (
+    <div className="flex flex-col gap-2">
+      <p className="text-xl">Bundle size</p>
+      <div>
+        <FileSize value={bundle.gzip} /> (Minified + Gzipped)
+      </div>
+      <div>
+        <FileSize value={bundle.size} /> (Minified)
+      </div>
+    </div>
+  );
+}
+
+export const FileSize = ({ value }: { value: number | null }) => {
+  if (!value) return null;
+  return <span className="font-sans">{prettyBytes(value)}</span>;
+};

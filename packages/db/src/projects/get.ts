@@ -42,7 +42,9 @@ export class ProjectService {
             tag: {},
           },
         },
-        packages: true,
+        packages: {
+          with: { bundles: true },
+        },
       },
     });
     if (!project) return null;
