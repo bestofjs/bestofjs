@@ -1,7 +1,7 @@
-name: Update GitHub Data
+name: Update Package Data
 on:
   schedule:
-    - cron: "00 22 * * *"
+    - cron: "00 1 * * *"
   workflow_dispatch:
     inputs:
       logLevel:
@@ -34,11 +34,8 @@ on:
         default: 750
 env:
   POSTGRES_URL: ${{ secrets.POSTGRES_URL }}
-  # caution: `GITHUB_` is not a valid prefix for secrets!
-  GITHUB_ACCESS_TOKEN: ${{ secrets.GH_ACCESS_TOKEN }}
-  API_TRIGGER_BUILD_WEBHOOK_URL: ${{ secrets.API_TRIGGER_BUILD_WEBHOOK_URL }}
 jobs:
-  update-github-data:
+  update-package-data:
     runs-on: ubuntu-latest
     steps:
       - name: Code Checkout
@@ -54,6 +51,4 @@ jobs:
         shell: bash
         run: pnpm -F backend install
       - name: Update GitHub Data and take snapshots
-        run: pnpm -F backend daily-update-github-data --loglevel ${{ inputs.logLevel || 3 }} --limit ${{ inputs.limit || 0 }} --skip ${{ inputs.skip || 0 }} --concurrency ${{ inputs.concurrency || 5 }} --throttleInterval ${{ inputs.throttleInterval || 750 }}
-      - name: Send Webhook to Vercel
-        run: pnpm -F backend trigger-build-static-api
+        run: pnpm -F backend daily-update-package-data --loglevel ${{ inputs.logLevel || 3 }} --limit ${{ inputs.limit || 0 }} --skip ${{ inputs.skip || 0 }} --concurrency ${{ inputs.concurrency || 5 }} --throttleInterval ${{ inputs.throttleInterval || 750 }}

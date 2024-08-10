@@ -8,6 +8,7 @@ import {
 import { updateGitHubDataTask } from "./tasks/update-github-data.task";
 import { buildStaticApiTask } from "./tasks/build-static-api.task";
 import { triggerBuildStaticApiTask } from "./tasks/trigger-build-static-api";
+import { updatePackageDataTask } from "./tasks/update-package-data.task";
 
 import { cliFlags as flags } from "./flags";
 
@@ -17,6 +18,7 @@ const commands = [
   buildStaticApiTask,
   helloWorldProjectsTask,
   helloWorldReposTask,
+  updatePackageDataTask,
 ].map(getCommand);
 
 cli({

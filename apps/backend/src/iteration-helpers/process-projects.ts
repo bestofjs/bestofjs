@@ -32,6 +32,7 @@ export function processProjects(context: RunnerContext) {
           return result;
         } catch (error) {
           logger.error(`Error processing repo ${project.slug}`, error);
+          if (error instanceof Error && error.cause) logger.debug(error.cause);
           if (throwOnError)
             throw new Error(`Error processing repo ${project.slug}`, {
               cause: error,
