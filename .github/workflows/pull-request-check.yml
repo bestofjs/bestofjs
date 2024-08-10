@@ -16,6 +16,13 @@ jobs:
       - name: Setup Environment
         uses: ./.github/tooling/github-actions/install
 
+      - name: Install Dependencies
+        shell: bash
+        run: pnpm -F bestofjs-nextjs install
+
+      - name: Code Linting
+        run: pnpm -F bestofjs-nextjs lint
+
       - name: Code Linting
         run: pnpm -F bestofjs-nextjs lint
 
