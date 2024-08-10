@@ -195,6 +195,9 @@ importers:
       p-throttle:
         specifier: ^6.1.0
         version: 6.1.0
+      package-json:
+        specifier: ^6.4.0
+        version: 6.5.0
       pretty-bytes:
         specifier: ^6.1.1
         version: 6.1.1
@@ -210,6 +213,9 @@ importers:
       typescript:
         specifier: ^5.5.4
         version: 5.5.4
+      zod:
+        specifier: ^3.22.4
+        version: 3.23.8
 
   apps/bestofjs-nextjs:
     dependencies:
@@ -6724,6 +6730,11 @@ packages:
     engines: {node: '>=10'}
     hasBin: true
 
+  semver@7.6.3:
+    resolution: {integrity: sha512-oVekP1cKtI+CTDvHWYFUcMtsK/00wmAEfyqKfNdARm8u1wNVhSgaX7A8d4UuIlUI5e84iEwOhs7ZPYRmzU9U6A==}
+    engines: {node: '>=10'}
+    hasBin: true
+
   serve-handler@6.1.5:
     resolution: {integrity: sha512-ijPFle6Hwe8zfmBxJdE+5fta53fdIY0lHISJvuikXB3VYFafRjMRpOffSPvCYsbKyBA7pvy9oYr/BT1O3EArlg==}
 
@@ -10232,7 +10243,7 @@ snapshots:
 
   '@types/keyv@3.1.4':
     dependencies:
-      '@types/node': 14.18.54
+      '@types/node': 20.11.10
 
   '@types/lodash.mergewith@4.6.6':
     dependencies:
@@ -10295,7 +10306,7 @@ snapshots:
 
   '@types/responselike@1.0.0':
     dependencies:
-      '@types/node': 14.18.54
+      '@types/node': 20.11.10
 
   '@types/scheduler@0.16.3': {}
 
@@ -13196,7 +13207,7 @@ snapshots:
       jest-util: 27.5.1
       natural-compare: 1.4.0
       pretty-format: 27.5.1
-      semver: 7.5.4
+      semver: 7.6.3
     transitivePeerDependencies:
       - supports-color
 
@@ -13479,7 +13490,7 @@ snapshots:
 
   make-dir@4.0.0:
     dependencies:
-      semver: 7.5.4
+      semver: 7.6.3
 
   makeerror@1.0.12:
     dependencies:
@@ -13697,7 +13708,7 @@ snapshots:
 
   node-abi@3.45.0:
     dependencies:
-      semver: 7.5.4
+      semver: 7.6.3
 
   node-addon-api@6.1.0: {}
 
@@ -14613,6 +14624,8 @@ snapshots:
     dependencies:
       lru-cache: 6.0.0
 
+  semver@7.6.3: {}
+
   serve-handler@6.1.5:
     dependencies:
       bytes: 3.0.0
@@ -15464,7 +15477,7 @@ snapshots:
   vscode-languageclient@7.0.0:
     dependencies:
       minimatch: 3.1.2
-      semver: 7.5.4
+      semver: 7.6.3
       vscode-languageserver-protocol: 3.16.0
 
   vscode-languageserver-protocol@3.16.0:
