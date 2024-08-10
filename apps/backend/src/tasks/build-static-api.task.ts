@@ -41,7 +41,7 @@ export const buildStaticApiTask: Task = {
 
       if (!repo) throw new Error("No repo found");
       if (!repo.snapshots?.length)
-        return { data: null, meta: { "no snapshot": true, included: false } };
+        return { data: null, meta: { "no snapshot": true } };
 
       const trends = getProjectTrends(repo.snapshots);
       const tags = project.projectsToTags.map((ptt) => ptt.tag.code);
