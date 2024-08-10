@@ -8,9 +8,9 @@
   "packageManager": "pnpm@9.4.0",
   "scripts": {
     "analyze": "cross-env ANALYZE=true next build",
-    "build-project-data": "node ./scripts/build-project-data.mjs",
+    "build-project-data": "dotenv -e ../../.env node ./scripts/build-project-data.mjs",
     "dev": "dotenv -e ../../.env next dev",
-    "build": "dotenv -e ../../.env pnpm build-project-data && next build",
+    "build": "pnpm build-project-data && dotenv -e ../../.env next build",
     "start": "dotenv -e ../../.env next start",
     "lint": "next lint",
     "lint:fix": "next lint --fix",
