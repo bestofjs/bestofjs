@@ -7,9 +7,9 @@ const monthlyDownloadsSchema = z.object({
 
 const packageJsonSchema = z.object({
   version: z.string(),
-  dependencies: z.record(z.string()),
-  devDependencies: z.record(z.string()),
-  deprecated: z.boolean(),
+  dependencies: z.record(z.string()).optional(),
+  devDependencies: z.record(z.string()).optional(),
+  deprecated: z.boolean().optional(),
 });
 
 export function createNpmClient() {

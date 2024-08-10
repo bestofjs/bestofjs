@@ -35,7 +35,7 @@ export const updatePackageDataTask: Task = {
       logger.trace(`Fetched package data for ${packageName}`, data);
 
       if (data.version === previousVersion) {
-        logger.debug(`No new version for ${packageName}`);
+        logger.debug(`No new version for ${packageName} (${previousVersion})`);
         return false;
       }
 
