@@ -45,6 +45,10 @@ jobs:
       - name: Setup Environment
         uses: ./.github/tooling/github-actions/install
 
+      - name: Install Dependencies
+        shell: bash
+        run: pnpm -F bestofjs-nextjs install
+
       - name: Install Playwright Browsers
         run: pnpm -F bestofjs-nextjs exec playwright install chromium --with-deps
 
