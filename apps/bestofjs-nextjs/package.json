@@ -5,7 +5,6 @@
   "engines": {
     "node": "20.x"
   },
-  "packageManager": "pnpm@9.4.0",
   "scripts": {
     "analyze": "cross-env ANALYZE=true next build",
     "build-project-data": "dotenv -e ../../.env node ./scripts/build-project-data.mjs",
