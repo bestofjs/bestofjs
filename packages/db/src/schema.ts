@@ -107,27 +107,6 @@ export const reposRelations = relations(repos, ({ many }) => ({
   snapshots: many(snapshots),
 }));
 
-export const bookmarks = pgTable(
-  "bookmarks",
-  {
-    userEmail: text("user_email").notNull(),
-    projectSlug: text("project_slug")
-      .notNull()
-      .references(() => projects.slug),
-    createdAt: timestamp("created_at").notNull().defaultNow(),
-  },
-  (t) => ({
-    pk: primaryKey({ columns: [t.userEmail, t.projectSlug] }),
-  })
-);
-
-export const bookmarksRelations = relations(bookmarks, ({ one }) => ({
-  project: one(projects, {
-    fields: [bookmarks.projectSlug],
-    references: [projects.slug],
-  }),
-}));
-
 export const snapshots = pgTable(
   "snapshots",
   {

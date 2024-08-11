@@ -37,6 +37,8 @@ export function processRepos(context: RunnerContext) {
     const throttledCallback = throttle(callback);
 
     const ids = await findAllIds();
+    logger.start(`Processing ${ids.length} repos...`);
+
     const results = await pMap(
       ids,
       async (id, index) => {
@@ -44,7 +46,7 @@ export function processRepos(context: RunnerContext) {
         try {
           logger.debug(`Processing repo #${index + 1}`, repo.full_name);
           const data = await throttledCallback(repo, index);
-          logger.info(`Processed repo #${index + 1} ${repo.full_name}`, data);
+          logger.debug(`Processed repo #${index + 1} ${repo.full_name}`, data);
           return data;
         } catch (error) {
           logger.error(`Error processing repo ${repo.full_name}`, error);

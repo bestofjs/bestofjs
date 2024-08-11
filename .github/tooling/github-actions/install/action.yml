@@ -1,18 +1,13 @@
-name: "Install"
-description: "Sets up Node.js with PNPM and installs depedencies"
+name: "Shared setup"
+description: "Set up Node.js with PNPM"
 
 runs:
   using: composite
   steps:
-    - uses: actions/setup-node@v3
+    - uses: actions/setup-node@v4
       with:
-        node-version: 18
-
+        node-version: 20
     - name: Install PNPM
-      uses: pnpm/action-setup@v2
+      uses: pnpm/action-setup@v4
       with:
-        version: 8.9.0
-
-    - name: Install Dependencies
-      shell: bash
-      run: pnpm install
+        version: 9.4.0

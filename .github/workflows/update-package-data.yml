@@ -1,7 +1,7 @@
 name: Update Package Data
 on:
   schedule:
-    - cron: "00 1 * * *"
+    - cron: "0 23 * * *"
   workflow_dispatch:
     inputs:
       logLevel:
@@ -31,7 +31,7 @@ on:
         description: "Interval in milliseconds to wait between requests, to avoid rate limit errors"
         required: false
         type: number
-        default: 750
+        default: 0
 env:
   POSTGRES_URL: ${{ secrets.POSTGRES_URL }}
 jobs:
@@ -40,15 +40,10 @@ jobs:
     steps:
       - name: Code Checkout
         uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 20
-      - name: Install PNPM
-        uses: pnpm/action-setup@v4
-        with:
-          version: 9.4.0
+      - name: Setup Environment
+        uses: ./.github/tooling/github-actions/install
       - name: Install Dependencies
         shell: bash
         run: pnpm -F backend install
-      - name: Update GitHub Data and take snapshots
-        run: pnpm -F backend daily-update-package-data --loglevel ${{ inputs.logLevel || 3 }} --limit ${{ inputs.limit || 0 }} --skip ${{ inputs.skip || 0 }} --concurrency ${{ inputs.concurrency || 5 }} --throttleInterval ${{ inputs.throttleInterval || 750 }}
+      - name: Update Packages Data
+        run: pnpm -F backend daily-update-package-data --loglevel ${{ inputs.logLevel || 3 }} --limit ${{ inputs.limit || 0 }} --skip ${{ inputs.skip || 0 }} --concurrency ${{ inputs.concurrency || 5 }} --throttleInterval ${{ inputs.throttleInterval || 0 }}

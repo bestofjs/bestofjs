@@ -1,60 +1,9 @@
 {
-  "id": "e39b0ea1-78a4-49a1-9a04-0a98b9e5a467",
+  "id": "6ce389a6-6c59-41d5-b270-086d19a1e470",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
   "tables": {
-    "public.bookmarks": {
-      "name": "bookmarks",
-      "schema": "",
-      "columns": {
-        "user_email": {
-          "name": "user_email",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "project_slug": {
-          "name": "project_slug",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "created_at": {
-          "name": "created_at",
-          "type": "timestamp",
-          "primaryKey": false,
-          "notNull": true,
-          "default": "now()"
-        }
-      },
-      "indexes": {},
-      "foreignKeys": {
-        "bookmarks_project_slug_projects_slug_fk": {
-          "name": "bookmarks_project_slug_projects_slug_fk",
-          "tableFrom": "bookmarks",
-          "tableTo": "projects",
-          "columnsFrom": [
-            "project_slug"
-          ],
-          "columnsTo": [
-            "slug"
-          ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
-        }
-      },
-      "compositePrimaryKeys": {
-        "bookmarks_user_email_project_slug_pk": {
-          "name": "bookmarks_user_email_project_slug_pk",
-          "columns": [
-            "user_email",
-            "project_slug"
-          ]
-        }
-      },
-      "uniqueConstraints": {}
-    },
     "public.bundles": {
       "name": "bundles",
       "schema": "",
@@ -98,7 +47,21 @@
         }
       },
       "indexes": {},
-      "foreignKeys": {},
+      "foreignKeys": {
+        "bundles_name_packages_name_fk": {
+          "name": "bundles_name_packages_name_fk",
+          "tableFrom": "bundles",
+          "tableTo": "packages",
+          "columnsFrom": [
+            "name"
+          ],
+          "columnsTo": [
+            "name"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
       "compositePrimaryKeys": {},
       "uniqueConstraints": {}
     },
@@ -174,7 +137,7 @@
           "columnsTo": [
             "id"
           ],
-          "onDelete": "no action",
+          "onDelete": "cascade",
           "onUpdate": "no action"
         }
       },
@@ -283,7 +246,7 @@
           "columnsTo": [
             "id"
           ],
-          "onDelete": "no action",
+          "onDelete": "cascade",
           "onUpdate": "no action"
         }
       },
@@ -334,7 +297,7 @@
           "columnsTo": [
             "id"
           ],
-          "onDelete": "no action",
+          "onDelete": "cascade",
           "onUpdate": "no action"
         },
         "projects_to_tags_tag_id_tags_id_fk": {
@@ -347,7 +310,7 @@
           "columnsTo": [
             "id"
           ],
-          "onDelete": "no action",
+          "onDelete": "cascade",
           "onUpdate": "no action"
         }
       },
@@ -531,7 +494,7 @@
           "columnsTo": [
             "id"
           ],
-          "onDelete": "no action",
+          "onDelete": "cascade",
           "onUpdate": "no action"
         }
       },
