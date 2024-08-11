@@ -1,16 +1,16 @@
 # Best of JS monorepo
 
-Monorepo for _Best of JS_ application, setup in August 2023.
+Monorepo for _Best of JS_ application.
 Made of 4 applications and one package:
 
 ```shell
 ├── apps
-│   ├── admin   // WIP
-│   ├── backend // WIP
+│   ├── admin
+│   ├── backend
 │   ├── bestofjs-nextjs // Best of JS main app
 │   └── bestofjs-webui
 └── packages
-    └── db // WIP
+    └── db
 ```
 
 [![image](https://github.com/bestofjs/bestofjs/assets/5546996/e0e48657-90de-4bc0-b0a0-80968e826217)](https://bestofjs.org/)

@@ -1,3 +1,5 @@
+import { ProjectDetails } from "@repo/db/projects";
+
 import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
 import {
@@ -13,9 +15,10 @@ import { api } from "@/server/api";
 export async function DependenciesSection({
   project,
 }: {
-  project: BestOfJS.ProjectWithPackageDetails;
+  project: ProjectDetails;
 }) {
-  const dependencies = project.packageData.dependencies;
+  const packageData = project.packages?.[0];
+  const dependencies = (packageData?.dependencies as string[]) || [];
   if (dependencies.length === 0) {
     return <div>No dependencies</div>;
   }

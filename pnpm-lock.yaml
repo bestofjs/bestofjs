@@ -82,10 +82,10 @@ importers:
         version: 5.0.5
       next:
         specifier: 14.1.1-canary.2
-        version: 14.1.1-canary.2(@babel/core@7.22.9)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
+        version: 14.1.1-canary.2(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
       next-themes:
         specifier: ^0.2.1
-        version: 0.2.1(next@14.1.1-canary.2(@babel/core@7.22.9)(react-dom@18.2.0(react@18.2.0))(react@18.2.0))(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
+        version: 0.2.1(next@14.1.1-canary.2(react-dom@18.2.0(react@18.2.0))(react@18.2.0))(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
       pretty-bytes:
         specifier: ^6.1.1
         version: 6.1.1
@@ -255,6 +255,9 @@ importers:
       '@radix-ui/react-tooltip':
         specifier: ^1.0.7
         version: 1.0.7(@types/react-dom@18.2.7)(@types/react@18.2.18)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
+      '@repo/db':
+        specifier: workspace:*
+        version: link:../../packages/db
       '@t3-oss/env-nextjs':
         specifier: ^0.7.1
         version: 0.7.1(typescript@5.2.2)(zod@3.22.4)
@@ -300,6 +303,9 @@ importers:
       debug:
         specifier: ^4.3.4
         version: 4.3.4
+      dotenv-cli:
+        specifier: ^7.4.2
+        version: 7.4.2
       fs-extra:
         specifier: ^11.1.1
         version: 11.1.1
@@ -314,10 +320,10 @@ importers:
         version: 6.4.1
       next:
         specifier: 14.2.0-canary.1
-        version: 14.2.0-canary.1(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
+        version: 14.2.0-canary.1(@babel/core@7.22.9)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
       next-themes:
         specifier: ^0.2.1
-        version: 0.2.1(next@14.2.0-canary.1(react-dom@18.2.0(react@18.2.0))(react@18.2.0))(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
+        version: 0.2.1(next@14.2.0-canary.1(@babel/core@7.22.9)(react-dom@18.2.0(react@18.2.0))(react@18.2.0))(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
       nextjs-bundle-analysis:
         specifier: ^0.5.0
         version: 0.5.0
@@ -11818,8 +11824,8 @@ snapshots:
       '@typescript-eslint/parser': 6.9.1(eslint@8.46.0)(typescript@5.2.2)
       eslint: 8.46.0
       eslint-import-resolver-node: 0.3.7
-      eslint-import-resolver-typescript: 3.5.5(@typescript-eslint/parser@6.9.1(eslint@8.46.0)(typescript@5.2.2))(eslint-import-resolver-node@0.3.7)(eslint-plugin-import@2.28.1(eslint@8.46.0))(eslint@8.46.0)
-      eslint-plugin-import: 2.28.1(@typescript-eslint/parser@6.9.1(eslint@8.46.0)(typescript@5.2.2))(eslint-import-resolver-typescript@3.5.5(@typescript-eslint/parser@6.9.1(eslint@8.46.0)(typescript@5.2.2))(eslint-import-resolver-node@0.3.7)(eslint-plugin-import@2.28.1(eslint@8.46.0))(eslint@8.46.0))(eslint@8.46.0)
+      eslint-import-resolver-typescript: 3.5.5(@typescript-eslint/parser@6.9.1(eslint@8.46.0)(typescript@5.2.2))(eslint-import-resolver-node@0.3.7)(eslint-plugin-import@2.28.1)(eslint@8.46.0)
+      eslint-plugin-import: 2.28.1(@typescript-eslint/parser@6.9.1(eslint@8.46.0)(typescript@5.2.2))(eslint-import-resolver-typescript@3.5.5)(eslint@8.46.0)
       eslint-plugin-jsx-a11y: 6.7.1(eslint@8.46.0)
       eslint-plugin-react: 7.33.2(eslint@8.46.0)
       eslint-plugin-react-hooks: 4.6.0(eslint@8.46.0)
@@ -11841,13 +11847,13 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  eslint-import-resolver-typescript@3.5.5(@typescript-eslint/parser@6.9.1(eslint@8.46.0)(typescript@5.2.2))(eslint-import-resolver-node@0.3.7)(eslint-plugin-import@2.28.1(eslint@8.46.0))(eslint@8.46.0):
+  eslint-import-resolver-typescript@3.5.5(@typescript-eslint/parser@6.9.1(eslint@8.46.0)(typescript@5.2.2))(eslint-import-resolver-node@0.3.7)(eslint-plugin-import@2.28.1)(eslint@8.46.0):
     dependencies:
       debug: 4.3.4
       enhanced-resolve: 5.15.0
       eslint: 8.46.0
-      eslint-module-utils: 2.8.0(@typescript-eslint/parser@6.9.1(eslint@8.46.0)(typescript@5.2.2))(eslint-import-resolver-node@0.3.7)(eslint-import-resolver-typescript@3.5.5(@typescript-eslint/parser@6.9.1(eslint@8.46.0)(typescript@5.2.2))(eslint-import-resolver-node@0.3.7)(eslint-plugin-import@2.28.1(eslint@8.46.0))(eslint@8.46.0))(eslint@8.46.0)
-      eslint-plugin-import: 2.28.1(@typescript-eslint/parser@6.9.1(eslint@8.46.0)(typescript@5.2.2))(eslint-import-resolver-typescript@3.5.5(@typescript-eslint/parser@6.9.1(eslint@8.46.0)(typescript@5.2.2))(eslint-import-resolver-node@0.3.7)(eslint-plugin-import@2.28.1(eslint@8.46.0))(eslint@8.46.0))(eslint@8.46.0)
+      eslint-module-utils: 2.8.0(@typescript-eslint/parser@6.9.1(eslint@8.46.0)(typescript@5.2.2))(eslint-import-resolver-node@0.3.7)(eslint-import-resolver-typescript@3.5.5(@typescript-eslint/parser@6.9.1(eslint@8.46.0)(typescript@5.2.2))(eslint-import-resolver-node@0.3.7)(eslint-plugin-import@2.28.1)(eslint@8.46.0))(eslint@8.46.0)
+      eslint-plugin-import: 2.28.1(@typescript-eslint/parser@6.9.1(eslint@8.46.0)(typescript@5.2.2))(eslint-import-resolver-typescript@3.5.5)(eslint@8.46.0)
       get-tsconfig: 4.6.2
       globby: 13.2.2
       is-core-module: 2.13.0
@@ -11859,18 +11865,18 @@ snapshots:
       - eslint-import-resolver-webpack
       - supports-color
 
-  eslint-module-utils@2.8.0(@typescript-eslint/parser@6.9.1(eslint@8.46.0)(typescript@5.2.2))(eslint-import-resolver-node@0.3.7)(eslint-import-resolver-typescript@3.5.5(@typescript-eslint/parser@6.9.1(eslint@8.46.0)(typescript@5.2.2))(eslint-import-resolver-node@0.3.7)(eslint-plugin-import@2.28.1(eslint@8.46.0))(eslint@8.46.0))(eslint@8.46.0):
+  eslint-module-utils@2.8.0(@typescript-eslint/parser@6.9.1(eslint@8.46.0)(typescript@5.2.2))(eslint-import-resolver-node@0.3.7)(eslint-import-resolver-typescript@3.5.5(@typescript-eslint/parser@6.9.1(eslint@8.46.0)(typescript@5.2.2))(eslint-import-resolver-node@0.3.7)(eslint-plugin-import@2.28.1)(eslint@8.46.0))(eslint@8.46.0):
     dependencies:
       debug: 3.2.7
     optionalDependencies:
       '@typescript-eslint/parser': 6.9.1(eslint@8.46.0)(typescript@5.2.2)
       eslint: 8.46.0
       eslint-import-resolver-node: 0.3.7
-      eslint-import-resolver-typescript: 3.5.5(@typescript-eslint/parser@6.9.1(eslint@8.46.0)(typescript@5.2.2))(eslint-import-resolver-node@0.3.7)(eslint-plugin-import@2.28.1(eslint@8.46.0))(eslint@8.46.0)
+      eslint-import-resolver-typescript: 3.5.5(@typescript-eslint/parser@6.9.1(eslint@8.46.0)(typescript@5.2.2))(eslint-import-resolver-node@0.3.7)(eslint-plugin-import@2.28.1)(eslint@8.46.0)
     transitivePeerDependencies:
       - supports-color
 
-  eslint-plugin-import@2.28.1(@typescript-eslint/parser@6.9.1(eslint@8.46.0)(typescript@5.2.2))(eslint-import-resolver-typescript@3.5.5(@typescript-eslint/parser@6.9.1(eslint@8.46.0)(typescript@5.2.2))(eslint-import-resolver-node@0.3.7)(eslint-plugin-import@2.28.1(eslint@8.46.0))(eslint@8.46.0))(eslint@8.46.0):
+  eslint-plugin-import@2.28.1(@typescript-eslint/parser@6.9.1(eslint@8.46.0)(typescript@5.2.2))(eslint-import-resolver-typescript@3.5.5)(eslint@8.46.0):
     dependencies:
       array-includes: 3.1.6
       array.prototype.findlastindex: 1.2.2
@@ -11880,7 +11886,7 @@ snapshots:
       doctrine: 2.1.0
       eslint: 8.46.0
       eslint-import-resolver-node: 0.3.7
-      eslint-module-utils: 2.8.0(@typescript-eslint/parser@6.9.1(eslint@8.46.0)(typescript@5.2.2))(eslint-import-resolver-node@0.3.7)(eslint-import-resolver-typescript@3.5.5(@typescript-eslint/parser@6.9.1(eslint@8.46.0)(typescript@5.2.2))(eslint-import-resolver-node@0.3.7)(eslint-plugin-import@2.28.1(eslint@8.46.0))(eslint@8.46.0))(eslint@8.46.0)
+      eslint-module-utils: 2.8.0(@typescript-eslint/parser@6.9.1(eslint@8.46.0)(typescript@5.2.2))(eslint-import-resolver-node@0.3.7)(eslint-import-resolver-typescript@3.5.5(@typescript-eslint/parser@6.9.1(eslint@8.46.0)(typescript@5.2.2))(eslint-import-resolver-node@0.3.7)(eslint-plugin-import@2.28.1)(eslint@8.46.0))(eslint@8.46.0)
       has: 1.0.3
       is-core-module: 2.13.0
       is-glob: 4.0.3
@@ -13631,19 +13637,19 @@ snapshots:
 
   negotiator@0.6.3: {}
 
-  next-themes@0.2.1(next@14.1.1-canary.2(@babel/core@7.22.9)(react-dom@18.2.0(react@18.2.0))(react@18.2.0))(react-dom@18.2.0(react@18.2.0))(react@18.2.0):
+  next-themes@0.2.1(next@14.1.1-canary.2(react-dom@18.2.0(react@18.2.0))(react@18.2.0))(react-dom@18.2.0(react@18.2.0))(react@18.2.0):
     dependencies:
-      next: 14.1.1-canary.2(@babel/core@7.22.9)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
+      next: 14.1.1-canary.2(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
 
-  next-themes@0.2.1(next@14.2.0-canary.1(react-dom@18.2.0(react@18.2.0))(react@18.2.0))(react-dom@18.2.0(react@18.2.0))(react@18.2.0):
+  next-themes@0.2.1(next@14.2.0-canary.1(@babel/core@7.22.9)(react-dom@18.2.0(react@18.2.0))(react@18.2.0))(react-dom@18.2.0(react@18.2.0))(react@18.2.0):
     dependencies:
-      next: 14.2.0-canary.1(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
+      next: 14.2.0-canary.1(@babel/core@7.22.9)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
 
-  next@14.1.1-canary.2(@babel/core@7.22.9)(react-dom@18.2.0(react@18.2.0))(react@18.2.0):
+  next@14.1.1-canary.2(react-dom@18.2.0(react@18.2.0))(react@18.2.0):
     dependencies:
       '@next/env': 14.1.1-canary.2
       '@swc/helpers': 0.5.2
@@ -13668,7 +13674,7 @@ snapshots:
       - '@babel/core'
       - babel-plugin-macros
 
-  next@14.2.0-canary.1(react-dom@18.2.0(react@18.2.0))(react@18.2.0):
+  next@14.2.0-canary.1(@babel/core@7.22.9)(react-dom@18.2.0(react@18.2.0))(react@18.2.0):
     dependencies:
       '@next/env': 14.2.0-canary.1
       '@swc/helpers': 0.5.5

@@ -1,10 +1,16 @@
-import { asc, desc, eq } from "drizzle-orm";
+import { asc, eq } from "drizzle-orm";
 import invariant from "tiny-invariant";
 import { z } from "zod";
 
-import { DB } from "../index";
+import { DB, getDatabase } from "../index";
 import * as schema from "../schema";
 import { PgColumn } from "drizzle-orm/pg-core";
+
+export async function getProjectBySlug(slug: string) {
+  const service = new ProjectService(getDatabase());
+  const project = await service.getProjectBySlug(slug);
+  return project;
+}
 
 export class ProjectService {
   db: DB;
@@ -51,7 +57,12 @@ export class ProjectService {
     invariant(project?.repo);
     const snapshots = snapshotsSchema.parse(project?.repo?.snapshots);
     const repo = { ...project.repo, snapshots };
-    return { ...project, repo };
+
+    const tags = project.projectsToTags
+      .map((ptt) => ptt.tag)
+      .map((tag) => ({ ...tag, description: tag.description || undefined }));
+
+    return { ...project, repo, tags };
   }
 }
 

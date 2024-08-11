@@ -1,7 +1,6 @@
 import { Suspense } from "react";
 import { Metadata } from "next";
-
-import { getHotProjectsRequest } from "@/app/backend-search-requests";
+import { ProjectDetails, getProjectBySlug } from "@repo/db/projects";
 
 import { ProjectDetailsGitHubCard } from "./project-details-github/github-card";
 import { ProjectHeader } from "./project-header";
@@ -11,8 +10,8 @@ import { APP_CANONICAL_URL, APP_DISPLAY_NAME } from "@/config/site";
 import { addCacheBustingParam } from "@/helpers/url";
 import { Card, CardContent } from "@/components/ui/card";
 import { api } from "@/server/api";
+import { getHotProjectsRequest } from "@/app/backend-search-requests";
 
-import { getProjectDetails } from "./get-project-details";
 import { ProjectDetailsNpmCard } from "./project-details-npm/project-details-npm";
 
 type PageProps = {
@@ -25,12 +24,13 @@ export async function generateMetadata({
   params,
 }: PageProps): Promise<Metadata> {
   const { slug } = params;
-  const { project, lastUpdateDate } = await getData(slug);
+  const project = await getProjectBySlug(slug);
   if (!project) return { title: "Project not found" };
 
   const title = project.name;
   const description = `Trends and data about ${project.name} project. ${project.description}`;
   const urlSearchParams = new URLSearchParams();
+  const lastUpdateDate = project.repo.updated_at || new Date(); // TODO
   addCacheBustingParam(urlSearchParams, lastUpdateDate);
 
   return {
@@ -47,7 +47,7 @@ export async function generateMetadata({
 
 export default async function ProjectDetailsPage({ params }: PageProps) {
   const { slug } = params;
-  const { project } = await getData(slug);
+  const project = await getProjectBySlug(slug);
   if (!project) {
     // TODO show a better page when an invalid slug is provided
     return <>Project not found!</>;
@@ -70,22 +70,14 @@ export default async function ProjectDetailsPage({ params }: PageProps) {
   );
 }
 
-async function ProjectDetailsCards({ project }: { project: BestOfJS.Project }) {
-  const projectWithDetails = await getProjectDetails(project);
+async function ProjectDetailsCards({ project }: { project: ProjectDetails }) {
+  const packageName = project.packages?.[0]?.name;
   return (
     <>
-      <ProjectDetailsGitHubCard project={projectWithDetails} />
-      {project.packageName && (
-        <ProjectDetailsNpmCard
-          project={projectWithDetails as BestOfJS.ProjectWithPackageDetails}
-        />
-      )}
+      <ProjectDetailsGitHubCard project={project} />
+      {packageName && <ProjectDetailsNpmCard project={project} />}
     </>
   );
-}
-
-async function getData(projectSlug: string) {
-  return await api.projects.getProjectBySlug(decodeURIComponent(projectSlug));
 }
 
 export async function generateStaticParams() {

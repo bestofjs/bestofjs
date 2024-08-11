@@ -7,9 +7,10 @@ declare namespace BestOfJS {
     tags: string[];
     stars: number;
     trends: {
-      daily: number;
+      daily?: number;
       weekly?: number;
       monthly?: number;
+      quarterly?: number;
       yearly?: number;
     };
     delta?: number; // from monthly rankings section
@@ -22,7 +23,7 @@ declare namespace BestOfJS {
     npm: string;
     downloads: number;
     icon: string;
-    isFeatured: boolean;
+    status: string;
   }
 
   // Project handled in the state container

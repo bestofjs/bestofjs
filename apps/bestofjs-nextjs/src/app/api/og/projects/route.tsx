@@ -143,7 +143,9 @@ function ProjectScore({
   const { contributor_count, created_at, downloads, trends } = project;
   switch (sortOptionKey) {
     case "daily":
-      return <ShowStarsTotal value={trends.daily} showPrefix />;
+      return trends.daily ? (
+        <ShowStarsTotal value={trends.daily} showPrefix />
+      ) : null;
     case "weekly":
       return trends.weekly ? (
         <ShowStarsAverage value={getDeltaByDay("weekly")(project)} />

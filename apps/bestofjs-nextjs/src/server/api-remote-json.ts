@@ -16,7 +16,7 @@ async function fetchProjectData(): Promise<RawData> {
 }
 
 function fetchDataFromRemoteJSON() {
-  const url = env.STATIC_API_ROOT_URL + `/projects.json`;
+  const url = env.STATIC_API_ROOT_URL_V2 + `/projects.json`;
   console.log(`Fetching JSON data from ${url}`);
   const options = {
     next: {

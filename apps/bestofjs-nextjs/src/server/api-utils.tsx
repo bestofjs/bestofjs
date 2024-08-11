@@ -47,7 +47,7 @@ export const populateProject =
 
 export function getFeaturedRandomList(projects: BestOfJS.RawProject[]) {
   const slugs = projects
-    .filter((project) => project.isFeatured)
+    .filter((project) => project.status === "featured")
     .map((project) => getProjectId(project));
 
   return shuffle(slugs);

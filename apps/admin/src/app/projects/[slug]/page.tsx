@@ -1,5 +1,4 @@
-import { getDatabase } from "@repo/db";
-import { ProjectService, getAllTags } from "@repo/db/projects";
+import { getAllTags, getProjectBySlug } from "@repo/db/projects";
 import invariant from "tiny-invariant";
 
 import { ProjectLogo } from "@/components/project-logo";
@@ -20,8 +19,7 @@ type PageProps = {
 export const revalidate = 0;
 
 export default async function ViewProjectPage({ params: { slug } }: PageProps) {
-  const service = new ProjectService(getDatabase());
-  const project = await service.getProjectBySlug(slug);
+  const project = await getProjectBySlug(slug);
   const allTags = await getAllTags();
 
   if (!project) {

@@ -8,7 +8,7 @@ import { ProjectSearchQuery, SearchUrlBuilder } from "@/app/projects/types";
 import { ProjectTagHoverCard } from "./project-tag-hover-card";
 
 type Props = {
-  tags: BestOfJS.Tag[];
+  tags: BestOfJS.RawTag[];
   appendTag?: boolean;
   buildPageURL?: SearchUrlBuilder<ProjectSearchQuery>;
 };
@@ -31,7 +31,7 @@ export const ProjectTag = ({
   appendTag,
   className,
 }: {
-  tag: BestOfJS.Tag;
+  tag: BestOfJS.RawTag;
   buildPageURL?: Props["buildPageURL"];
   appendTag?: boolean;
   className?: string;
