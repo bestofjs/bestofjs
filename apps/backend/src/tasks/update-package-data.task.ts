@@ -12,15 +12,29 @@ export const updatePackageDataTask: Task = {
   run: async ({ db, logger, processProjects }) => {
     const results = await processProjects(async (project) => {
       let updatedCount = 0;
+      let deprecatedCount = 0;
+
+      if (!shouldProcessProject(project)) {
+        logger.debug(`Skipping deprecated project ${project.repo.full_name}`);
+        return { meta: { skipped: true }, data: null };
+      }
 
       for (const packageData of project.packages) {
-        const updated = await processPackage(packageData);
-        if (updated) updatedCount++;
+        const updatedData = await processPackage(packageData);
+        if (updatedData) updatedCount++;
+        if (updatedData?.deprecated) {
+          logger.warn(`Deprecated package ${packageData.name}`);
+          deprecatedCount++;
+        }
       }
 
       return {
         data: null,
-        meta: { processed: project.packages.length, updated: updatedCount },
+        meta: {
+          processed: project.packages.length,
+          updated: updatedCount,
+          deprecated: deprecatedCount,
+        },
       };
     });
 
@@ -36,7 +50,7 @@ export const updatePackageDataTask: Task = {
 
       if (data.version === previousVersion) {
         logger.debug(`No new version for ${packageName} (${previousVersion})`);
-        return false;
+        return null;
       }
 
       const monthlyDownloads = await npmClient.fetchMonthlyDownloadCount(
@@ -58,11 +72,16 @@ export const updatePackageDataTask: Task = {
         .where(eq(schema.packages.name, packageName));
 
       logger.debug("Repo record updated", updatedData);
-      return true;
+      return updatedData;
     }
   },
 };
 
 function formatDependencies(dependencies?: { [key: string]: string }) {
   return dependencies ? Object.keys(dependencies) : [];
+}
+
+function shouldProcessProject(project: ProjectDetails) {
+  const isDeprecated = project.status === "deprecated";
+  return !isDeprecated;
 }
