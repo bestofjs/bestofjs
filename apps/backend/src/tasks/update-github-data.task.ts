@@ -27,6 +27,8 @@ export const updateGitHubDataTask: Task = {
 
       const githubData = await client.fetchRepoInfo(repo.full_name);
       logger.debug(githubData);
+      if (githubData.archived)
+        logger.warn(`Repo ${repo.full_name} is archived`);
       const { full_name, stargazers_count: stars } = githubData;
 
       logger.debug("STEP 2: Get contributor count by scrapping GH web page");
