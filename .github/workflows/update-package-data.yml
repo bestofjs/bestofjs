@@ -1,7 +1,7 @@
 name: Update Package Data
 on:
   schedule:
-    - cron: "00 1 * * *"
+    - cron: "0 23 * * *"
   workflow_dispatch:
     inputs:
       logLevel:

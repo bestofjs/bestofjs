@@ -1,7 +1,7 @@
 name: Update GitHub Data
 on:
   schedule:
-    - cron: "00 22 * * *"
+    - cron: "0 21 * * *"
   workflow_dispatch:
     inputs:
       logLevel:
