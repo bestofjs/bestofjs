@@ -5,22 +5,8 @@
     {
       "idx": 0,
       "version": "7",
-      "when": 1720959932899,
-      "tag": "0000_early_hercules",
-      "breakpoints": true
-    },
-    {
-      "idx": 1,
-      "version": "7",
-      "when": 1722688094471,
-      "tag": "0001_daily_pet_avengers",
-      "breakpoints": true
-    },
-    {
-      "idx": 2,
-      "version": "7",
-      "when": 1722688957346,
-      "tag": "0002_opposite_machine_man",
+      "when": 1723349560439,
+      "tag": "0000_exotic_ultimo",
       "breakpoints": true
     }
   ]

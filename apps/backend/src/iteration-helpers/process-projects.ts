@@ -21,6 +21,8 @@ export function processProjects(context: RunnerContext) {
     const { limit = 0, skip = 0, name, throwOnError = false } = options || {};
 
     const ids = await findAllIds();
+    logger.start(`Processing ${ids.length} projects...`);
+
     const results = await pMap(
       ids,
       async (id, index) => {
@@ -28,7 +30,7 @@ export function processProjects(context: RunnerContext) {
         try {
           logger.debug(`Processing project #${index + 1}`, project.slug);
           const result = await callback(project, index);
-          logger.info(`Processed repo ${project.slug}`, result.meta);
+          logger.debug(`Processed repo ${project.slug}`, result.meta);
           return result;
         } catch (error) {
           logger.error(`Error processing repo ${project.slug}`, error);
