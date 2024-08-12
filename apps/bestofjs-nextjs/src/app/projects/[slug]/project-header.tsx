@@ -1,5 +1,5 @@
 import React from "react";
-import { ProjectDetails } from "@repo/db/projects";
+import { ProjectDetails, getProjectURL } from "@repo/db/projects";
 import { ImNpm } from "react-icons/im";
 
 import { formatUrl } from "@/helpers/url";
@@ -11,9 +11,9 @@ type Props = { project: ProjectDetails };
 export function ProjectHeader({ project }: Props) {
   const {
     repo: { full_name },
-    url,
   } = project;
   const repository = `https://github.com/${full_name}`;
+  const url = getProjectURL(project);
   const packageName = project.packages?.[0]?.name;
 
   return (
