@@ -63,7 +63,7 @@ const GitHubData = ({ project }: { project: ProjectDetails }) => {
   const {
     repo: { commit_count, contributor_count, created_at, full_name, pushed_at },
   } = project;
-  const url = `https://github.com${full_name}`;
+  const url = `https://github.com/${full_name}`;
 
   return (
     <div className="grid grid-cols-2 gap-4">
