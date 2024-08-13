@@ -11,19 +11,39 @@ import { triggerBuildStaticApiTask } from "./tasks/trigger-build-static-api";
 import { updatePackageDataTask } from "./tasks/update-package-data.task";
 
 import { cliFlags as flags } from "./flags";
+import { notifyDailyTask } from "./tasks/notify-daily.task";
+import { triggerBuildWebappTask } from "./tasks/trigger-build-webapp.task";
 
 const commands = [
+  notifyDailyTask,
   updateGitHubDataTask,
   triggerBuildStaticApiTask,
+  triggerBuildWebappTask,
   buildStaticApiTask,
   helloWorldProjectsTask,
   helloWorldReposTask,
   updatePackageDataTask,
 ].map(getCommand);
 
+const staticApiDailyTask = command(
+  {
+    name: "static-api-daily",
+    description:
+      "Build command on Vercel: build static API, trigger Next.js rebuild and send notification",
+    flags,
+  },
+  (argv) => {
+    const runner = new TaskRunner(argv.flags);
+    runner.addTask(buildStaticApiTask);
+    runner.addTask(triggerBuildWebappTask);
+    runner.addTask(notifyDailyTask);
+    runner.run();
+  }
+);
+
 cli({
   name: "bestofjs-cli",
-  commands,
+  commands: [staticApiDailyTask, ...commands],
 });
 
 function getCommand(task: Task) {

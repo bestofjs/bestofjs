@@ -3,6 +3,11 @@ export const cliFlags = {
     type: Number,
     default: 1,
   },
+  dryRun: {
+    type: Boolean,
+    description: "Dry run mode",
+    default: false,
+  },
   logLevel: {
     type: Number,
     description:

@@ -12,6 +12,7 @@ import { MetaResult } from "./iteration-helpers/utils";
 export interface RunnerContext {
   db: DB;
   logger: ConsolaInstance;
+  dryRun: boolean;
 }
 
 export interface TaskContext extends RunnerContext {
@@ -31,6 +32,7 @@ export type Task = {
 
 export type LoopOptions = {
   concurrency?: number;
+  dryRun?: boolean;
   limit?: number;
   skip?: number;
   logLevel?: number;
@@ -42,6 +44,7 @@ export type LoopOptions = {
 export class TaskRunner {
   tasks: Task[];
   db?: DB;
+  dryRun: boolean;
   logger: ReturnType<typeof createConsola>;
   options: {
     concurrency: number;
@@ -58,6 +61,7 @@ export class TaskRunner {
     this.logger = createConsola({
       level: options.logLevel || 3,
     });
+    this.dryRun = options.dryRun || false;
     this.options = {
       limit: options.limit || 0,
       skip: options.skip || 0,
@@ -76,13 +80,18 @@ export class TaskRunner {
     return new Promise((resolve) => {
       runQuery(async (db) => {
         this.db = db;
+        let i = 0;
         for (const task of this.tasks) {
+          i++;
           this.logger.box(
-            `Running task "${task.name}" ${stringifyOptions(this)}`
+            `Running task ${i}/${this.tasks.length} "${
+              task.name
+            }" ${stringifyOptions(this)}`
           );
           const context = {
             db,
             logger: this.logger,
+            dryRun: this.dryRun,
             processRepos: this.processRepos.bind(this),
             processProjects: this.processProjects.bind(this),
             saveJSON: this.saveJSON.bind(this),
@@ -102,10 +111,11 @@ export class TaskRunner {
     ) => Promise<{ data: T; meta: MetaResult }>
   ) {
     invariant(this.db, "DB connection is required");
-    const results = await processRepos({ db: this.db, logger: this.logger })(
-      callback,
-      this.options
-    );
+    const results = await processRepos({
+      db: this.db,
+      logger: this.logger,
+      dryRun: this.dryRun,
+    })(callback, this.options);
     return results;
   }
 
@@ -122,6 +132,7 @@ export class TaskRunner {
     const results = await processProjects({
       db: this.db,
       logger: this.logger,
+      dryRun: this.dryRun,
     })(callback, this.options);
     return results;
   }
@@ -143,6 +154,7 @@ function stringifyOptions(runner: TaskRunner) {
     skip ? `skip: ${skip}` : "",
     `concurrency: ${concurrency}`,
     throttleInterval ? `throttleInterval: ${throttleInterval}` : "",
+    runner.dryRun ? "DRY RUN" : "",
   ]
     .filter(Boolean)
     .join(", ");
