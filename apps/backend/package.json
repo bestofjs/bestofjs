@@ -7,7 +7,7 @@
   "scripts": {
     "daily-update-github-data": "dotenv -e ../../.env tsx ./src/cli.ts update-github-data -- --logLevel 3",
     "trigger-build-static-api": "dotenv -e ../../.env tsx ./src/cli.ts trigger-build-static-api",
-    "build-static-api": "dotenv -e ../../.env tsx ./src/cli.ts build-static-api -- --logLevel 3 --concurrency 20",
+    "static-api-daily": "dotenv -e ../../.env tsx ./src/cli.ts static-api-daily -- --logLevel 3 --concurrency 20",
     "daily-update-package-data": "dotenv -e ../../.env tsx ./src/cli.ts update-package-data -- --logLevel 3 --concurrency 5",
     "typecheck": "tsc --noEmit",
     "typecheck:watch": "tsc --noEmit --incremental --watch"
@@ -20,6 +20,7 @@
     "@types/fs-extra": "^11.0.1",
     "cleye": "^1.3.2",
     "consola": "^3.2.3",
+    "debug": "^4.3.4",
     "dotenv-cli": "^7.4.2",
     "drizzle-orm": "^0.31.2",
     "fs-extra": "^11.1.1",
@@ -32,5 +33,8 @@
     "tsx": "^4.16.2",
     "typescript": "^5.5.4",
     "zod": "^3.22.4"
+  },
+  "devDependencies": {
+    "@types/debug": "^4.1.12"
   }
 }

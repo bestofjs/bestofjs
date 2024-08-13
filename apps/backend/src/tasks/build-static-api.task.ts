@@ -6,35 +6,13 @@ import {
   getProjectURL,
 } from "@repo/db/projects";
 import { schema } from "@repo/db";
-
-type ProjectItem = {
-  name: string;
-  added_at: string;
-  description: string;
-  url?: string;
-  stars: number;
-  full_name: string;
-  owner_id: string;
-  created_at: string;
-  pushed_at: string;
-  contributor_count: number | null;
-  status: string;
-  tags: string[];
-  trends: {
-    daily?: number;
-    weekly?: number | null;
-    monthly?: number | null;
-    yearly?: number | null;
-  };
-  npm?: string;
-  downloads?: number;
-  icon?: string;
-};
+import { ProjectItem } from "./static-api-types";
 
 export const buildStaticApiTask: Task = {
   name: "build-static-api",
   description:
     "Build a static API from the database, to be used by the frontend app.",
+
   run: async ({ db, logger, processProjects, saveJSON }) => {
     const results = await processProjects(async (project) => {
       const repo = project.repo;
@@ -53,7 +31,7 @@ export const buildStaticApiTask: Task = {
       const data: ProjectItem = {
         name: project.name,
         added_at: formatDate(project.createdAt),
-        description: getProjectDescription(project),
+        description: truncate(getProjectDescription(project), 75),
         stars: repo.stars || 0,
         full_name: project.repo.full_name,
         owner_id: repo.owner_id,
@@ -161,4 +139,9 @@ const findProjectByTagId = (projects: ProjectItem[]) => (tagId: string) =>
 
 function formatDate(date: Date | null) {
   return date ? date.toISOString().slice(0, 10) : "";
+}
+
+function truncate(input: string, maxLength = 50) {
+  const isTruncated = input.length > maxLength;
+  return isTruncated ? `${input.slice(0, maxLength)}...` : input;
 }
