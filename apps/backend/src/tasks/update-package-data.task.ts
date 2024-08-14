@@ -71,7 +71,7 @@ export const updatePackageDataTask: Task = {
         .set(updatedData)
         .where(eq(schema.packages.name, packageName));
 
-      logger.debug("Repo record updated", updatedData);
+      logger.debug("Package record updated", updatedData);
       return updatedData;
     }
   },

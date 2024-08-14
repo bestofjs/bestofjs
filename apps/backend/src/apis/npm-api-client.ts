@@ -9,7 +9,7 @@ const packageJsonSchema = z.object({
   version: z.string(),
   dependencies: z.record(z.string()).optional(),
   devDependencies: z.record(z.string()).optional(),
-  deprecated: z.boolean().optional(),
+  deprecated: z.string().optional(),
 });
 
 export function createNpmClient() {
