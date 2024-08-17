@@ -30,6 +30,14 @@ export function ViewRepo({ repo }: Props) {
           <p>{repo.full_name}</p>
           <p>Description</p>
           <p>{repo.description}</p>
+          <p>Homepage</p>
+          <p>
+            {repo.homepage ? (
+              <a href={repo.homepage}>{repo.homepage}</a>
+            ) : (
+              <i className="text-muted-foreground">No homepage</i>
+            )}
+          </p>
           <p>Created</p>
           <p>{formatDateOnly(repo.created_at)}</p>
           <p>Pushed at</p>

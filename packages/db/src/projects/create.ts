@@ -26,6 +26,7 @@ export async function createProject(gitHubURL: string) {
       slug: slugify(data.name),
       description: data.description,
       url: data.homepage,
+      status: "active",
     })
     .returning();
 

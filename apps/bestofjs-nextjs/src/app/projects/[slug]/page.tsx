@@ -1,6 +1,6 @@
 import { Suspense } from "react";
 import { Metadata } from "next";
-import { ProjectDetails, getProjectBySlug } from "@repo/db/projects";
+import { ProjectDetails } from "@repo/db/projects";
 
 import { ProjectDetailsGitHubCard } from "./project-details-github/github-card";
 import { ProjectHeader } from "./project-header";
@@ -11,6 +11,7 @@ import { addCacheBustingParam } from "@/helpers/url";
 import { Card, CardContent } from "@/components/ui/card";
 import { api } from "@/server/api";
 import { getHotProjectsRequest } from "@/app/backend-search-requests";
+import { projectService } from "@/app/db";
 
 import { ProjectDetailsNpmCard } from "./project-details-npm/project-details-npm";
 
@@ -24,7 +25,7 @@ export async function generateMetadata({
   params,
 }: PageProps): Promise<Metadata> {
   const { slug } = params;
-  const project = await getProjectBySlug(slug);
+  const project = await projectService.getProjectBySlug(slug);
   if (!project) return { title: "Project not found" };
 
   const title = project.name;
@@ -47,7 +48,7 @@ export async function generateMetadata({
 
 export default async function ProjectDetailsPage({ params }: PageProps) {
   const { slug } = params;
-  const project = await getProjectBySlug(slug);
+  const project = await projectService.getProjectBySlug(slug);
   if (!project) {
     // TODO show a better page when an invalid slug is provided
     return <>Project not found!</>;

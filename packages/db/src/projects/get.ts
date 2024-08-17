@@ -1,16 +1,10 @@
 import { asc, eq } from "drizzle-orm";
+import { PgColumn } from "drizzle-orm/pg-core";
 import invariant from "tiny-invariant";
 import { z } from "zod";
 
-import { DB, getDatabase } from "../index";
+import { DB } from "../index";
 import * as schema from "../schema";
-import { PgColumn } from "drizzle-orm/pg-core";
-
-export async function getProjectBySlug(slug: string) {
-  const service = new ProjectService(getDatabase());
-  const project = await service.getProjectBySlug(slug);
-  return project;
-}
 
 export class ProjectService {
   db: DB;

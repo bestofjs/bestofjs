@@ -1,37 +1,38 @@
-import { drizzle } from "drizzle-orm/postgres-js";
-import postgres from "postgres";
-
-import { env } from "./env.mjs";
-
 import * as schema from "./schema";
+import { LocalDatabase } from "./local-database";
+import { VercelPostgresService } from "./vercel-database";
 export * as schema from "./schema";
 
-export type DB = ReturnType<typeof drizzle<typeof schema>>;
+export type DB = ReturnType<typeof getDatabase>;
 
-export type ProjectData = typeof schema.projects.$inferSelect;
+type ProjectData = typeof schema.projects.$inferSelect;
 
 export type EditableProjectData = Omit<
   ProjectData,
   "repoId" | "id" | "createdAt" | "updatedAt"
 >;
 
-export function getDatabase(): DB {
-  const dbURL = env.POSTGRES_URL;
-  const pg = postgres(dbURL);
-  const db = drizzle(pg, { schema });
-  return db;
+export function getDatabase() {
+  const service = getService();
+  return service.db;
 }
 
 export async function runQuery(callback: (db: DB) => Promise<void>) {
-  const dbURL = env.POSTGRES_URL;
-  const pg = postgres(dbURL);
-  const db = drizzle(pg, { schema });
+  const service = getService();
+
   try {
-    await callback(db);
+    await callback(service.db);
   } catch (error) {
     console.error(error);
   } finally {
-    await pg.end();
-    console.log("Disconnected from database");
+    service.disconnect();
   }
+}
+
+function getService() {
+  const service =
+    process.env.STAGE === "local"
+      ? new LocalDatabase()
+      : new VercelPostgresService();
+  return service;
 }
