@@ -1,6 +1,7 @@
 "use server";
 
 import { unstable_noStore as noStore, revalidatePath } from "next/cache";
+import { snapshotsService } from "@/db";
 import { EditableProjectData, getDatabase } from "@repo/db";
 import { createClient } from "@repo/db/github";
 import {
@@ -69,10 +70,9 @@ export async function addSnapshotAction(
   const stars = data.stargazers_count as number;
 
   // TODO add a real UI?
-  const service = new SnapshotsService(getDatabase());
   console.log("Adding snapshot for", repoId, stars);
 
-  service.addSnapshot(repoId, stars);
+  snapshotsService.addSnapshot(repoId, stars);
 
   revalidatePath(`/projects/${projectSlug}`);
 }
