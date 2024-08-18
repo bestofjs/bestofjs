@@ -1,4 +1,5 @@
-import { rest } from "msw";
+import { http, HttpResponse } from "msw";
+
 import monthlyDownloadsReactResponse from "../data/monthly-downloads-react.json";
 import monthlyRankings202203Response from "../data/monthly-rankings-2022-03.json";
 import monthlyRankings202204Response from "../data/monthly-rankings-2022-04.json";
@@ -14,56 +15,51 @@ export const mockFetchProjectReadMe = (
   callback = (response) => response,
   statusCode = 200
 ) =>
-  rest.get("*/api/project-readme", (req, res, ctx) => {
-    return res(
-      ctx.status(statusCode),
-      ctx.set("Content-Type", "text/html; charset=utf-8"),
-      ctx.body(callback(projectReadMeReactResponse))
-    );
+  http.get("*/api/project-readme", () => {
+    return new HttpResponse(callback(projectReadMeReactResponse), {
+      status: statusCode,
+      headers: { "Content-Type": "text/html; charset=utf-8" },
+    });
   });
 
 export const mockFetchProjectDetails = (
   callback = (response) => response,
   statusCode = 200
 ) =>
-  rest.get("*/api/project-details", (req, res, ctx) => {
-    return res(
-      ctx.status(statusCode),
-      ctx.json(callback(projectDetailsReactResponse))
-    );
+  http.get("*/api/project-details", () => {
+    return HttpResponse.json(callback(projectDetailsReactResponse), {
+      status: statusCode,
+    });
   });
 
 export const mockFetchMonthlyDownloads = (
   callback = (response) => response,
   statusCode = 200
 ) =>
-  rest.get("*/api/package-monthly-downloads", (req, res, ctx) => {
-    return res(
-      ctx.status(statusCode),
-      ctx.json(callback(monthlyDownloadsReactResponse))
-    );
+  http.get("*/api/package-monthly-downloads", () => {
+    return HttpResponse.json(callback(monthlyDownloadsReactResponse), {
+      status: statusCode,
+    });
   });
 
 export const mockFetchMonthlyRankingsLatest = (
   callback = (response) => response,
   statusCode = 200
 ) =>
-  rest.get("*/monthly/latest", (req, res, ctx) => {
-    return res(
-      ctx.status(statusCode),
-      ctx.json(callback(monthlyRankings202204Response))
-    );
+  http.get("*/monthly/latest", () => {
+    return HttpResponse.json(callback(monthlyRankings202204Response), {
+      status: statusCode,
+    });
   });
 
 export const mockFetchMonthlyRankingsPreviousMonth = (
   callback = (response) => response,
   statusCode = 200
 ) =>
-  rest.get("*/monthly/2022/:year-:month.json", (req, res, ctx) => {
-    return res(
-      ctx.status(statusCode),
-      ctx.json(callback(monthlyRankings202203Response))
-    );
+  http.get("*/monthly/2022/:year-:month.json", () => {
+    return HttpResponse.json(callback(monthlyRankings202203Response), {
+      status: statusCode,
+    });
   });
 
 // Auth
@@ -71,19 +67,10 @@ export const mockFetchUserProfile = (
   callback = (response) => response,
   statusCode = 200
 ) =>
-  rest.post("*/tokeninfo", (req, res, ctx) => {
-    return res(ctx.status(statusCode), ctx.json(callback(userProfileResponse)));
-  });
-
-export const mockFetchAllProjects = (
-  callback = (response) => response,
-  statusCode = 200
-) =>
-  rest.get("*/projects.json", (req, res, ctx) => {
-    return res(
-      ctx.status(statusCode),
-      ctx.json(callback(fetchAllProjectsDefaultResponse))
-    );
+  http.post("*/tokeninfo", () => {
+    return HttpResponse.json(callback(userProfileResponse), {
+      status: statusCode,
+    });
   });
 
 // Hall of fame
@@ -91,9 +78,8 @@ export const mockFetchHeroes = (
   callback = (response) => response,
   statusCode = 200
 ) =>
-  rest.get("*/hof.json", (req, res, ctx) => {
-    return res(
-      ctx.status(statusCode),
-      ctx.json(callback(fetchHeroesDefaultResponse))
-    );
+  http.get("*/hof.json", () => {
+    return HttpResponse.json(callback(fetchHeroesDefaultResponse), {
+      status: statusCode,
+    });
   });
