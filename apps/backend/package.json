@@ -26,6 +26,7 @@
     "fs-extra": "^11.1.1",
     "p-map": "^7.0.2",
     "p-throttle": "^6.1.0",
+    "p-timeout": "^6.1.2",
     "package-json": "^6.4.0",
     "pretty-bytes": "^6.1.1",
     "tasuku": "^2.0.1",

@@ -8,6 +8,13 @@
       "when": 1723349560439,
       "tag": "0000_exotic_ultimo",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1723967504988,
+      "tag": "0001_light_cerise",
+      "breakpoints": true
     }
   ]
 }

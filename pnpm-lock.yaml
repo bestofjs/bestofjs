@@ -198,6 +198,9 @@ importers:
       p-throttle:
         specifier: ^6.1.0
         version: 6.1.0
+      p-timeout:
+        specifier: ^6.1.2
+        version: 6.1.2
       package-json:
         specifier: ^6.4.0
         version: 6.5.0
@@ -6098,6 +6101,10 @@ packages:
   p-throttle@6.1.0:
     resolution: {integrity: sha512-eQMdGTxk2+047La67wefUtt0tEHh7D+C8Jl7QXoFCuIiNYeQ9zWs2AZiJdIAs72rSXZ06t11me2bgalRNdy3SQ==}
     engines: {node: '>=18'}
+
+  p-timeout@6.1.2:
+    resolution: {integrity: sha512-UbD77BuZ9Bc9aABo74gfXhNvzC9Tx7SxtHSh1fxvx3jTLLYvmVhiQZZrJzqqU0jKbN32kb5VOKiLEQI/3bIjgQ==}
+    engines: {node: '>=14.16'}
 
   p-try@1.0.0:
     resolution: {integrity: sha512-U1etNYuMJoIz3ZXSrrySFjsXQTWOx2/jdi86L+2pRvph/qMKL6sbcCYdH23fqsbm8TH2Gn0OybpT4eSFlCVHww==}
@@ -13956,6 +13963,8 @@ snapshots:
   p-map@7.0.2: {}
 
   p-throttle@6.1.0: {}
+
+  p-timeout@6.1.2: {}
 
   p-try@1.0.0: {}
 

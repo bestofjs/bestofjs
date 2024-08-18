@@ -13,6 +13,7 @@ import { updatePackageDataTask } from "./tasks/update-package-data.task";
 import { cliFlags as flags } from "./flags";
 import { notifyDailyTask } from "./tasks/notify-daily.task";
 import { triggerBuildWebappTask } from "./tasks/trigger-build-webapp.task";
+import { updateBundleSizeTask } from "./tasks/update-bundle-size.task";
 
 const commands = [
   notifyDailyTask,
@@ -23,6 +24,7 @@ const commands = [
   helloWorldProjectsTask,
   helloWorldReposTask,
   updatePackageDataTask,
+  updateBundleSizeTask,
 ].map(getCommand);
 
 const staticApiDailyTask = command(
