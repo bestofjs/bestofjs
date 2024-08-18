@@ -30,7 +30,7 @@ on:
 env:
   POSTGRES_URL: ${{ secrets.POSTGRES_URL }}
 jobs:
-  update-bunedle-size:
+  update-bundle-size:
     runs-on: ubuntu-latest
     steps:
       - name: Code Checkout

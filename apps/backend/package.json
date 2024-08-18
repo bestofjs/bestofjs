@@ -9,6 +9,7 @@
     "trigger-build-static-api": "dotenv -e ../../.env tsx ./src/cli.ts trigger-build-static-api",
     "static-api-daily": "dotenv -e ../../.env tsx ./src/cli.ts static-api-daily -- --logLevel 3 --concurrency 20",
     "daily-update-package-data": "dotenv -e ../../.env tsx ./src/cli.ts update-package-data -- --logLevel 3 --concurrency 5",
+    "daily-update-bundle-size": "dotenv -e ../../.env tsx ./src/cli.ts update-bundle-size -- --logLevel 3",
     "typecheck": "tsc --noEmit",
     "typecheck:watch": "tsc --noEmit --incremental --watch"
   },
