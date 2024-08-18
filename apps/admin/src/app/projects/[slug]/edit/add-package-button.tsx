@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { DialogDescription } from "@radix-ui/react-dialog";
 import { ReloadIcon } from "@radix-ui/react-icons";
 import { ProjectDetails } from "@repo/db/projects";
 import { PlusIcon } from "lucide-react";
@@ -75,6 +76,9 @@ export function AddPackageButton({ project }: Props) {
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
             <DialogHeader>
               <DialogTitle>Add Package</DialogTitle>
+              <DialogDescription>
+                Specify the package name to be linked to the project
+              </DialogDescription>
             </DialogHeader>
             <div className="grid grid-cols-[100px_1fr] items-center gap-4">
               <Label htmlFor="name" className="text-right">

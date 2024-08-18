@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { DialogDescription } from "@radix-ui/react-dialog";
 import { ReloadIcon } from "@radix-ui/react-icons";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
@@ -58,6 +59,9 @@ export function AddProjectButton() {
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
             <DialogHeader>
               <DialogTitle>Add Project</DialogTitle>
+              <DialogDescription>
+                Specify the GitHub URL of the project to add
+              </DialogDescription>
             </DialogHeader>
             <div className="grid grid-cols-[100px_1fr] items-center gap-4">
               <Label htmlFor="name" className="text-right">
