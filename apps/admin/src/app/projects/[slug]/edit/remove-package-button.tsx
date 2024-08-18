@@ -48,7 +48,7 @@ export function RemovePackageButton({ project, packageName }: Props) {
       <DialogTrigger asChild>
         <Button variant="destructive">Remove Package</Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[600px]">
+      <DialogContent className="sm:max-w-[600px]" aria-describedby={undefined}>
         <form onSubmit={handleSubmit} className="space-y-6">
           <DialogHeader>
             <DialogTitle>Remove Package</DialogTitle>
