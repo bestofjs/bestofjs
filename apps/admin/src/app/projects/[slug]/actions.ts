@@ -2,19 +2,23 @@
 
 import { unstable_noStore as noStore, revalidatePath } from "next/cache";
 import { snapshotsService } from "@/db";
-import { EditableProjectData, getDatabase } from "@repo/db";
 import { createClient } from "@repo/db/github";
 import {
+  ProjectData,
   addPackage,
   removePackage,
   saveTags,
   updateProjectById,
 } from "@repo/db/projects";
-import { SnapshotsService } from "@repo/db/snapshots";
 import { EditableTagData, updateTagById } from "@repo/db/tags";
 import invariant from "tiny-invariant";
 
 import { Tag } from "@/components/ui/tags/tag-input";
+
+type EditableProjectData = Omit<
+  ProjectData,
+  "repoId" | "id" | "createdAt" | "updatedAt"
+>;
 
 export async function updateProjectData(
   projectId: string,

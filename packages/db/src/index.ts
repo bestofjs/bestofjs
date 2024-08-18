@@ -5,13 +5,6 @@ export * as schema from "./schema";
 
 export type DB = ReturnType<typeof getDatabase>;
 
-type ProjectData = typeof schema.projects.$inferSelect;
-
-export type EditableProjectData = Omit<
-  ProjectData,
-  "repoId" | "id" | "createdAt" | "updatedAt"
->;
-
 export function getDatabase() {
   const service = getService();
   return service.db;

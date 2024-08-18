@@ -6,6 +6,8 @@ import { z } from "zod";
 import { DB } from "../index";
 import * as schema from "../schema";
 
+export type ProjectData = typeof schema.projects.$inferSelect;
+
 export class ProjectService {
   db: DB;
   constructor(db: DB) {
