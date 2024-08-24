@@ -62,7 +62,7 @@ export function ViewProject({ project }: Props) {
           <p>{project.status}</p>
         </div>
       </CardContent>
-      <CardFooter>
+      <CardFooter className="flex justify-end">
         <Link
           href={`/projects/${project.slug}/edit`}
           className={buttonVariants({ variant: "default" })}

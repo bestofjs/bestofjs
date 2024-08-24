@@ -1,7 +1,8 @@
 "use client";
 
 import * as React from "react";
-import { Check, ChevronsUpDown } from "lucide-react";
+import { ProjectDetails } from "@repo/db/projects";
+import { Check, ChevronsUpDown, PlusIcon } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
@@ -19,15 +20,16 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 
-import { Tag } from "./ui/tags/tag-input";
+type Tag = ProjectDetails["tags"][number];
 
 type Props = {
   allTags: Tag[];
+  values: string[];
+  onChange: (values: string[]) => void;
 };
 
-export function TagPicker({ allTags }: Props) {
+export function TagPicker({ allTags, values, onChange }: Props) {
   const [open, setOpen] = React.useState(false);
-  const [value, setValue] = React.useState("");
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
@@ -38,15 +40,13 @@ export function TagPicker({ allTags }: Props) {
           aria-expanded={open}
           className="w-[200px] justify-between"
         >
-          {value
-            ? allTags.find((tag) => tag.id === value)?.name
-            : "Add a tag..."}
-          <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+          Add tag
+          <PlusIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-[200px] p-0">
         <Command>
-          <CommandInput placeholder="Search framework..." />
+          <CommandInput placeholder="Search..." />
           <CommandList>
             <CommandEmpty>No tag found.</CommandEmpty>
             <CommandGroup>
@@ -54,17 +54,15 @@ export function TagPicker({ allTags }: Props) {
                 <CommandItem
                   key={tag.id}
                   value={tag.name}
-                  onSelect={(currentValue) => {
-                    console.log("currentValue", currentValue);
-
-                    setValue(currentValue === value ? "" : currentValue);
+                  onSelect={() => {
+                    onChange([...values, tag.id]);
                     setOpen(false);
                   }}
                 >
                   <Check
                     className={cn(
                       "mr-2 h-4 w-4",
-                      value === tag.id ? "opacity-100" : "opacity-0"
+                      values.includes(tag.id) ? "opacity-100" : "opacity-0"
                     )}
                   />
                   {tag.name}
