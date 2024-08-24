@@ -54,9 +54,7 @@ export class ProjectService {
     const snapshots = snapshotsSchema.parse(project?.repo?.snapshots);
     const repo = { ...project.repo, snapshots };
 
-    const tags = project.projectsToTags
-      .map((ptt) => ptt.tag)
-      .map((tag) => ({ ...tag, description: tag.description || undefined }));
+    const tags = project.projectsToTags.map((ptt) => ptt.tag);
 
     return { ...project, repo, tags };
   }

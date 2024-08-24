@@ -26,6 +26,8 @@ export function ViewProject({ project }: Props) {
       </CardHeader>
       <CardContent>
         <div className="grid grid-cols-[200px_1fr] gap-4">
+          <p>Slug</p>
+          <p>{project.slug}</p>
           <p>Description</p>
           <div>
             {project.description}
@@ -60,7 +62,7 @@ export function ViewProject({ project }: Props) {
           <p>{project.status}</p>
         </div>
       </CardContent>
-      <CardFooter>
+      <CardFooter className="flex justify-end">
         <Link
           href={`/projects/${project.slug}/edit`}
           className={buttonVariants({ variant: "default" })}

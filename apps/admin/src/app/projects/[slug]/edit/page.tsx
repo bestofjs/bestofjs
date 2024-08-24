@@ -3,8 +3,8 @@ import { getAllTags } from "@repo/db/projects";
 
 import { ProjectLogo } from "@/components/project-logo";
 
+import { ViewTags } from "../view-tags";
 import { ProjectForm } from "./project-form";
-import { TagsForm } from "./tags-form";
 
 type PageProps = {
   params: {
@@ -32,7 +32,7 @@ export default async function EditProjectPage({ params: { slug } }: PageProps) {
         </div>
       </div>
       <ProjectForm project={project} />
-      <TagsForm project={project} allTags={allTags} />
+      <ViewTags project={project} allTags={allTags} />
     </div>
   );
 }

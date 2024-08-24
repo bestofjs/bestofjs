@@ -13,8 +13,6 @@ import {
 import { EditableTagData, updateTagById } from "@repo/db/tags";
 import invariant from "tiny-invariant";
 
-import { Tag } from "@/components/ui/tags/tag-input";
-
 type EditableProjectData = Omit<
   ProjectData,
   "repoId" | "id" | "createdAt" | "updatedAt"
@@ -32,9 +30,9 @@ export async function updateProjectData(
 export async function updateProjectTags(
   projectId: string,
   projectSlug: string,
-  tags: Tag[]
+  tagIds: string[]
 ) {
-  await saveTags(projectId, tags);
+  await saveTags(projectId, tagIds);
   revalidatePath(`/projects/${projectSlug}`);
 }
 

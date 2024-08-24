@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ReloadIcon } from "@radix-ui/react-icons";
@@ -9,11 +10,12 @@ import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from "zod";
 
-import { Button } from "@/components/ui/button";
+import { Button, buttonVariants } from "@/components/ui/button";
 import {
   Card,
   CardContent,
   CardDescription,
+  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
@@ -73,16 +75,16 @@ export function ProjectForm({ project }: Props) {
   }
 
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle>Project data</CardTitle>
-        <CardDescription>
-          <code>{project.id}</code>
-        </CardDescription>
-      </CardHeader>
-      <CardContent>
-        <Form {...form}>
-          <form className="space-y-8" onSubmit={form.handleSubmit(onSubmit)}>
+    <Form {...form}>
+      <form onSubmit={form.handleSubmit(onSubmit)}>
+        <Card>
+          <CardHeader>
+            <CardTitle>Project data</CardTitle>
+            <CardDescription>
+              <code>{project.id}</code>
+            </CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-8">
             <FormField
               control={form.control}
               name="name"
@@ -219,15 +221,23 @@ export function ProjectForm({ project }: Props) {
                 </FormItem>
               )}
             />
+          </CardContent>
+          <CardFooter className="flex justify-end gap-4">
+            <Link
+              href={`/projects/${project.slug}`}
+              className={buttonVariants({ variant: "secondary" })}
+            >
+              Cancel
+            </Link>
             <Button type="submit" disabled={isPending}>
               {isPending && (
                 <ReloadIcon className="mr-2 h-4 w-4 animate-spin" />
               )}
               Save Project
             </Button>
-          </form>
-        </Form>
-      </CardContent>
-    </Card>
+          </CardFooter>
+        </Card>
+      </form>
+    </Form>
   );
 }

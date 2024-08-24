@@ -42,7 +42,6 @@ export default async function ViewProjectPage({ params: { slug } }: PageProps) {
           <div>{project.description}</div>
         </div>
       </div>
-      {/* <TagsForm project={project} allTags={allTags} /> */}
       <ViewProject project={project} />
       <ViewTags project={project} allTags={allTags} />
       {project.repo ? <ViewRepo repo={project.repo} /> : <>No repository!</>}

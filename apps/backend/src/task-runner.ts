@@ -1,25 +1,17 @@
 import fs from "fs-extra";
-import { ConsolaInstance, createConsola } from "consola";
+import { createConsola } from "consola";
 import prettyBytes from "pretty-bytes";
 import path from "path";
-import invariant from "tiny-invariant";
 
 import { DB, runQuery } from "@repo/db";
-import { processRepos, Repo } from "./iteration-helpers/process-repos";
-import { Project, processProjects } from "./iteration-helpers/process-projects";
 import { MetaResult } from "./iteration-helpers/utils";
-
-export interface RunnerContext {
-  db: DB;
-  logger: ConsolaInstance;
-  dryRun: boolean;
-}
-
-export interface TaskContext extends RunnerContext {
-  processRepos: ReturnType<typeof processRepos>;
-  processProjects: ReturnType<typeof processProjects>;
-  saveJSON: (json: unknown, fileName: string) => Promise<void>;
-}
+import {
+  TaskContext,
+  TaskLoopOptions,
+  TaskRunInputParams,
+  TaskRunnerContext,
+} from "./task-types";
+import { ProjectProcessor, RepoProcessor } from "./iteration-helpers";
 
 export type Task = {
   name: string;
@@ -30,33 +22,13 @@ export type Task = {
   }>;
 };
 
-export type LoopOptions = {
-  concurrency?: number;
-  dryRun?: boolean;
-  limit?: number;
-  skip?: number;
-  logLevel?: number;
-  name?: string;
-  throwOnError?: boolean;
-  throttleInterval?: number;
-};
-
 export class TaskRunner {
   tasks: Task[];
-  db?: DB;
+  logger: TaskRunnerContext["logger"];
   dryRun: boolean;
-  logger: ReturnType<typeof createConsola>;
-  options: {
-    concurrency: number;
-    limit: number;
-    skip: number;
-    throttleInterval: number;
-    throwOnError?: boolean;
-    // Optional query to filter items to process
-    name?: string;
-  };
+  options: TaskLoopOptions;
 
-  constructor(options: LoopOptions = {}) {
+  constructor(options: TaskRunInputParams = {}) {
     this.tasks = [];
     this.logger = createConsola({
       level: options.logLevel || 3,
@@ -66,9 +38,8 @@ export class TaskRunner {
       limit: options.limit || 0,
       skip: options.skip || 0,
       concurrency: options.concurrency || 1,
-      name: options.name,
+      name: options.name || "",
       throttleInterval: options.throttleInterval || 0,
-      throwOnError: options.throwOnError,
     };
   }
 
@@ -79,7 +50,6 @@ export class TaskRunner {
   async run() {
     return new Promise((resolve) => {
       runQuery(async (db) => {
-        this.db = db;
         let i = 0;
         for (const task of this.tasks) {
           i++;
@@ -88,14 +58,7 @@ export class TaskRunner {
               task.name
             }" ${stringifyOptions(this)}`
           );
-          const context = {
-            db,
-            logger: this.logger,
-            dryRun: this.dryRun,
-            processRepos: this.processRepos.bind(this),
-            processProjects: this.processProjects.bind(this),
-            saveJSON: this.saveJSON.bind(this),
-          };
+          const context = this.createTaskContext(db);
           const result = await task.run(context);
           this.logger.success("Task", task.name, "completed", result.meta);
         }
@@ -104,37 +67,19 @@ export class TaskRunner {
     });
   }
 
-  async processRepos<T>(
-    callback: (
-      repo: Repo,
-      index: number
-    ) => Promise<{ data: T; meta: MetaResult }>
-  ) {
-    invariant(this.db, "DB connection is required");
-    const results = await processRepos({
-      db: this.db,
-      logger: this.logger,
-      dryRun: this.dryRun,
-    })(callback, this.options);
-    return results;
-  }
+  createTaskContext(db: DB): TaskContext {
+    const context = { db, logger: this.logger, dryRun: this.dryRun };
+    const projectProcessor = new ProjectProcessor(context, this.options);
+    const repoProcessor = new RepoProcessor(context, this.options);
 
-  async processProjects<T>(
-    callback: (
-      project: Project,
-      index: number
-    ) => Promise<{
-      data: T;
-      meta: MetaResult;
-    }>
-  ) {
-    invariant(this.db, "DB connection is required");
-    const results = await processProjects({
-      db: this.db,
+    return {
+      db,
       logger: this.logger,
       dryRun: this.dryRun,
-    })(callback, this.options);
-    return results;
+      processProjects: projectProcessor.processItems.bind(projectProcessor),
+      processRepos: repoProcessor.processItems.bind(repoProcessor),
+      saveJSON: this.saveJSON.bind(this),
+    };
   }
 
   async saveJSON(json: unknown, fileName: string) {
@@ -146,6 +91,7 @@ export class TaskRunner {
     this.logger.info("JSON file saved!", filePath);
   }
 }
+
 function stringifyOptions(runner: TaskRunner) {
   const { limit, skip, concurrency, throttleInterval } = runner.options;
   return [
