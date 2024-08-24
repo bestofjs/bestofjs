@@ -26,6 +26,8 @@ export function ViewProject({ project }: Props) {
       </CardHeader>
       <CardContent>
         <div className="grid grid-cols-[200px_1fr] gap-4">
+          <p>Slug</p>
+          <p>{project.slug}</p>
           <p>Description</p>
           <div>
             {project.description}

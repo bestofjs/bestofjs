@@ -27,7 +27,14 @@ export function ViewRepo({ repo }: Props) {
       <CardContent>
         <div className="grid grid-cols-[200px_1fr] gap-4">
           <p>Full Name</p>
-          <p>{repo.full_name}</p>
+          <p>
+            <a
+              href={`https://github.com/${repo.full_name}`}
+              className="hover:underline"
+            >
+              {repo.full_name}
+            </a>
+          </p>
           <p>Description</p>
           <p>{repo.description}</p>
           <p>Homepage</p>

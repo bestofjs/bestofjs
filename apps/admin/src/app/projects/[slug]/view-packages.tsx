@@ -2,6 +2,7 @@ import React from "react";
 import { ProjectDetails } from "@repo/db/projects";
 import prettyBytes from "pretty-bytes";
 
+import { formatNumber } from "@/lib/format-helpers";
 import { Badge } from "@/components/ui/badge";
 import {
   Card,
@@ -68,7 +69,13 @@ function ViewPackage({
         </CardTitle>
       </CardHeader>
       <CardContent>
-        <div className="space-y-4">
+        <div className="flex flex-col gap-4">
+          {pkg.monthlyDownloads !== null && (
+            <p>
+              Downloads: {formatNumber(pkg.monthlyDownloads, "compact")} by
+              month
+            </p>
+          )}
           {bundle ? <ViewBundle bundle={bundle} /> : <i>No bundle data</i>}
           <Separator />
           {dependencies.length > 0 ? (
