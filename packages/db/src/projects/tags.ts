@@ -16,9 +16,8 @@ export function getAllTags() {
   return tags;
 }
 
-export async function saveTags(projectId: string, tags: Tag[]) {
+export async function saveTags(projectId: string, tagIds: string[]) {
   const db = getDatabase();
-  const tagIds = tags.map((tag) => tag.id);
   const currentTagRecords = await db.query.projectsToTags.findMany({
     where: eq(schema.projectsToTags.projectId, projectId),
   });
