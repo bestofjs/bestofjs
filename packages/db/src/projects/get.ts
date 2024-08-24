@@ -15,9 +15,7 @@ export class ProjectService {
   }
 
   async getProjectBySlug(slug: string) {
-    const project = await this.getProjectByKey(schema.projects.slug, slug);
-    if (!project) throw new Error(`Project not found by slug: ${slug}`);
-    return project;
+    return await this.getProjectByKey(schema.projects.slug, slug);
   }
 
   async getProjectById(id: string) {
