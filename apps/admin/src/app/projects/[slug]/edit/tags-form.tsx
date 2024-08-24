@@ -1,10 +1,11 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ReloadIcon } from "@radix-ui/react-icons";
 import { ProjectDetails } from "@repo/db/projects";
+import { Tag, TagInput } from "emblor";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import invariant from "tiny-invariant";
@@ -19,7 +20,6 @@ import {
   FormItem,
   FormMessage,
 } from "@/components/ui/form";
-import { Tag, TagInput } from "@/components/ui/tags/tag-input";
 
 import { updateProjectTags } from "../actions";
 
@@ -27,7 +27,7 @@ const FormSchema = z.object({
   tags: z.array(
     z.object({
       id: z.string(),
-      name: z.string(),
+      text: z.string(),
     })
   ),
 });
@@ -39,7 +39,9 @@ type Props = {
 
 export function TagsForm({ project, allTags }: Props) {
   const router = useRouter();
-  const initialTags = project.projectsToTags.map((ptt) => ptt.tag);
+  const initialTags = project.projectsToTags
+    .map((ptt) => ptt.tag)
+    .map((tag) => ({ id: tag.id, text: tag.name }));
 
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
@@ -51,10 +53,16 @@ export function TagsForm({ project, allTags }: Props) {
 
   const { setValue } = form;
 
+  const [activeTagIndex, setActiveTagIndex] = useState<number | null>(null);
+
   async function onSubmit(data: z.infer<typeof FormSchema>) {
     invariant(project, "Project not found");
     toast.success(`Project updated ${JSON.stringify(data)}`);
-    await updateProjectTags(project.id, project.slug, data.tags);
+    await updateProjectTags(
+      project.id,
+      project.slug,
+      data.tags.map((tag) => tag.id)
+    );
     router.push(`/projects/${project.slug}`);
   }
 
@@ -77,12 +85,14 @@ export function TagsForm({ project, allTags }: Props) {
                   <FormControl>
                     <TagInput
                       {...field}
+                      activeTagIndex={activeTagIndex}
+                      setActiveTagIndex={setActiveTagIndex}
                       placeholder="Enter a topic"
                       tags={tags}
                       className="sm:min-w-[450px]"
                       setTags={(newTags) => {
                         setTags(newTags);
-                        setValue("tags", newTags as [Tag, ...Tag[]]);
+                        setValue("tags", newTags as Tag[]);
                       }}
                       enableAutocomplete
                       autocompleteOptions={allTags}
