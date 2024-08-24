@@ -4,7 +4,7 @@ import { SnapshotsService } from "@repo/db/snapshots";
 
 import { schema } from "@repo/db";
 import { eq } from "drizzle-orm";
-import { Repo } from "@/iteration-helpers/process-repos";
+import { Repo } from "@/iteration-helpers/repo-processor";
 
 export const updateGitHubDataTask: Task = {
   name: "update-github-data",
