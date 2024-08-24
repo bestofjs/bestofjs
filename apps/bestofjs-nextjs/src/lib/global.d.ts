@@ -95,7 +95,7 @@ declare namespace BestOfJS {
   interface RawTag {
     code: string;
     name: string;
-    description?: string;
+    description: string | null;
   }
 
   interface Tag extends RawTag {
