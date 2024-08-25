@@ -1,5 +1,6 @@
 export type ProjectItem = {
   name: string;
+  slug: string;
   added_at: string;
   description: string;
   url?: string;
