@@ -107,8 +107,6 @@ export function createProjectsAPI({ getData }: APIContext) {
     }: Pick<QueryParams, "skip" | "limit">) {
       const { featuredProjectIds, populate, projectsBySlug } = await getData();
       const slugs = featuredProjectIds.slice(skip, skip + limit);
-      console.log(">> slugs", slugs);
-
       const projects = slugs.map((slug) => populate(projectsBySlug[slug]));
       return { projects, total: featuredProjectIds.length };
     },
