@@ -1,14 +1,14 @@
-import { api } from "@/server/api-remote-json";
 import { getHotProjectsRequest } from "@/app/backend-search-requests";
+import { api } from "@/server/api-remote-json";
 
 import { ImageLayout } from "./og-image-layout";
 import {
   Box,
-  ProjectLogo,
-  StarIcon,
   generateImageResponse,
   getProjectRowStyles,
   mutedColor,
+  ProjectLogo,
+  StarIcon,
 } from "./og-utils";
 
 export const runtime = "edge";

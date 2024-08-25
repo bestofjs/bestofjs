@@ -3,13 +3,13 @@
 import Link from "next/link";
 import useSWR, { SWRConfiguration } from "swr";
 
+import { ProjectLogo, TagIcon } from "@/components/core";
 import {
   HoverCard,
   HoverCardContent,
   HoverCardTrigger,
 } from "@/components/ui/hover-card";
 import { Skeleton } from "@/components/ui/skeleton";
-import { ProjectLogo, TagIcon } from "@/components/core";
 
 const NUMBER_OF_PROJECTS = 5;
 

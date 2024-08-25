@@ -1,8 +1,8 @@
 import { StarIcon } from "@/components/core";
 import { PageHeading } from "@/components/core/typography";
 import {
-  ProjectPageSearchParams,
   parseSearchParams,
+  ProjectPageSearchParams,
   stateToQueryString,
 } from "@/components/project-list/navigation-state";
 import { ProjectPaginatedList } from "@/components/project-list/project-paginated-list";

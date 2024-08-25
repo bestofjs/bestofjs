@@ -1,11 +1,11 @@
 import { Metadata } from "next";
 
+import { ExternalLink, PageHeading } from "@/components/core/typography";
 import {
   APP_CANONICAL_URL,
   APP_DISPLAY_NAME,
   APP_REPO_URL,
 } from "@/config/site";
-import { ExternalLink, PageHeading } from "@/components/core/typography";
 import { api } from "@/server/api";
 
 import { HallOfFameClientView } from "./hall-of-fame-view.client";

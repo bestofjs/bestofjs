@@ -1,13 +1,14 @@
-import { ProjectDetails } from "@repo/db/projects";
 import prettyBytes from "pretty-bytes";
 
+import { ProjectDetails } from "@repo/db/projects";
+
+import { ChevronRightIcon, ExternalLinkIcon } from "@/components/core";
+import { ExternalLink } from "@/components/core/typography";
 import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
 } from "@/components/ui/collapsible";
-import { ChevronRightIcon, ExternalLinkIcon } from "@/components/core";
-import { ExternalLink } from "@/components/core/typography";
 
 type Props = { project: ProjectDetails };
 export function BundleSizeSection({ project }: Props) {

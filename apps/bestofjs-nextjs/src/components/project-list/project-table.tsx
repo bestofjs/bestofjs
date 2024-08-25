@@ -1,18 +1,18 @@
 import NextLink from "next/link";
 
-import { cn } from "@/lib/utils";
-import { formatNumber } from "@/helpers/numbers";
 import { ProjectSearchQuery, SearchUrlBuilder } from "@/app/projects/types";
+import { formatNumber } from "@/helpers/numbers";
+import { cn } from "@/lib/utils";
 
 import { fromNow } from "../../helpers/from-now";
 import {
   DownloadCount,
+  getDeltaByDay,
   GitHubIcon,
   HomeIcon,
   ProjectLogo,
   StarDelta,
   StarTotal,
-  getDeltaByDay,
 } from "../core";
 import { ProjectTagGroup } from "../tags/project-tag";
 import { buttonVariants } from "../ui/button";

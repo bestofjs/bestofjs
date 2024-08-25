@@ -1,11 +1,11 @@
-import { Card, CardHeader } from "@/components/ui/card";
+import { SearchQueryUpdater } from "@/app/projects/types";
+import { TagSearchQuery } from "@/app/tags/tag-list-shared";
 import {
   BottomPaginationControls,
   TopPaginationControls,
 } from "@/components/core/pagination/pagination-controls";
 import { computePaginationState } from "@/components/core/pagination/pagination-state";
-import { SearchQueryUpdater } from "@/app/projects/types";
-import { TagSearchQuery } from "@/app/tags/tag-list-shared";
+import { Card, CardHeader } from "@/components/ui/card";
 
 import { TagList } from "./tag-list";
 import { TagSortOrderPicker } from "./tag-sort-order-picker.client";

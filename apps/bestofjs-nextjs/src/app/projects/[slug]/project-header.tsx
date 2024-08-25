@@ -1,11 +1,12 @@
 import React from "react";
-import { ProjectDetails, getProjectURL } from "@repo/db/projects";
 import { ImNpm } from "react-icons/im";
 
-import { formatUrl } from "@/helpers/url";
-import { buttonVariants } from "@/components/ui/button";
+import { getProjectURL, ProjectDetails } from "@repo/db/projects";
+
 import { GitHubIcon, HomeIcon, ProjectLogo } from "@/components/core";
 import { ProjectTagGroup } from "@/components/tags/project-tag";
+import { buttonVariants } from "@/components/ui/button";
+import { formatUrl } from "@/helpers/url";
 
 type Props = { project: ProjectDetails };
 export function ProjectHeader({ project }: Props) {

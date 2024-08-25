@@ -1,5 +1,6 @@
 import NextLink from "next/link";
 
+import { ChevronRightIcon, ProjectLogo } from "@/components/core";
 import { Badge } from "@/components/ui/badge";
 import { buttonVariants } from "@/components/ui/button";
 import { linkVariants } from "@/components/ui/link";
@@ -8,7 +9,6 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { ChevronRightIcon, ProjectLogo } from "@/components/core";
 
 type Props = {
   tags: BestOfJS.TagWithProjects[];

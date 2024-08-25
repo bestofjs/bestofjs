@@ -1,7 +1,13 @@
 import "@/app/globals.css";
+
 import { Metadata } from "next";
 import { Analytics } from "@vercel/analytics/react";
 
+import { Footer } from "@/components/footer/footer";
+import { SiteHeader } from "@/components/header/site-header";
+import { TailwindIndicator } from "@/components/tailwind-indicator";
+import { ThemeProvider } from "@/components/theme-provider";
+import { TooltipProvider } from "@/components/ui/tooltip";
 import {
   APP_CANONICAL_URL,
   APP_DESCRIPTION,
@@ -9,11 +15,6 @@ import {
 } from "@/config/site";
 import { fontSans, fontSerif } from "@/lib/fonts";
 import { cn } from "@/lib/utils";
-import { TooltipProvider } from "@/components/ui/tooltip";
-import { Footer } from "@/components/footer/footer";
-import { SiteHeader } from "@/components/header/site-header";
-import { TailwindIndicator } from "@/components/tailwind-indicator";
-import { ThemeProvider } from "@/components/theme-provider";
 
 export const metadata: Metadata = {
   title: {

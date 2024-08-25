@@ -6,8 +6,6 @@ import * as React from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-import { RISING_STARS_URL, extraNavItems, mainNavItems } from "@/config/site";
-import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -18,6 +16,8 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { extraNavItems, mainNavItems, RISING_STARS_URL } from "@/config/site";
+import { cn } from "@/lib/utils";
 
 import { ChevronDownIcon } from "../core";
 import { BestOfJSLogo } from "../svg-logos";

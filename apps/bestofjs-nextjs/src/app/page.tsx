@@ -2,20 +2,6 @@ import { Metadata } from "next";
 import NextLink from "next/link";
 import { GoFlame, GoGift, GoHeart, GoPlus } from "react-icons/go";
 
-import {
-  ADD_PROJECT_REQUEST_URL,
-  APP_CANONICAL_URL,
-  APP_DESCRIPTION,
-  APP_DISPLAY_NAME,
-  APP_REPO_FULL_NAME,
-  APP_REPO_URL,
-  SPONSOR_URL,
-} from "@/config/site";
-import { formatNumber } from "@/helpers/numbers";
-import { addCacheBustingParam } from "@/helpers/url";
-import { buttonVariants } from "@/components/ui/button";
-import { Card, CardHeader } from "@/components/ui/card";
-import { Separator } from "@/components/ui/separator";
 import { StarIcon, TagIcon } from "@/components/core";
 import { SectionHeading } from "@/components/core/section";
 import { ExternalLink } from "@/components/core/typography";
@@ -27,6 +13,20 @@ import {
   ProjectTable,
 } from "@/components/project-list/project-table";
 import { CompactTagList } from "@/components/tag-list/compact-tag-list";
+import { buttonVariants } from "@/components/ui/button";
+import { Card, CardHeader } from "@/components/ui/card";
+import { Separator } from "@/components/ui/separator";
+import {
+  ADD_PROJECT_REQUEST_URL,
+  APP_CANONICAL_URL,
+  APP_DESCRIPTION,
+  APP_DISPLAY_NAME,
+  APP_REPO_FULL_NAME,
+  APP_REPO_URL,
+  SPONSOR_URL,
+} from "@/config/site";
+import { formatNumber } from "@/helpers/numbers";
+import { addCacheBustingParam } from "@/helpers/url";
 import { api } from "@/server/api";
 
 import {
@@ -313,9 +313,8 @@ async function getData() {
   const { projects: hotProjects } = await api.projects.findProjects(
     getHotProjectsRequest()
   );
-  const { projects: newestProjects } = await api.projects.findProjects(
-    getLatestProjects()
-  );
+  const { projects: newestProjects } =
+    await api.projects.findProjects(getLatestProjects());
   const bestOfJSProject = await api.projects.findOne({
     full_name: APP_REPO_FULL_NAME,
   });

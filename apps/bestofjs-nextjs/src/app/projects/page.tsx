@@ -1,24 +1,24 @@
 import { Metadata } from "next";
 import NextLink from "next/link";
 
-import { APP_CANONICAL_URL, APP_DISPLAY_NAME } from "@/config/site";
-import { cn } from "@/lib/utils";
-import { formatNumber } from "@/helpers/numbers";
-import { addCacheBustingParam } from "@/helpers/url";
-import { badgeVariants } from "@/components/ui/badge";
-import { buttonVariants } from "@/components/ui/button";
 import { PlusIcon, TagIcon, XMarkIcon } from "@/components/core";
 import { PageHeading } from "@/components/core/typography";
 import {
-  ProjectPageSearchParams,
   parseSearchParams,
+  ProjectPageSearchParams,
   stateToQueryString,
 } from "@/components/project-list/navigation-state";
 import { ProjectPaginatedList } from "@/components/project-list/project-paginated-list";
 import {
-  SortOptionKey,
   getSortOptionByKey,
+  SortOptionKey,
 } from "@/components/project-list/sort-order-options";
+import { badgeVariants } from "@/components/ui/badge";
+import { buttonVariants } from "@/components/ui/button";
+import { APP_CANONICAL_URL, APP_DISPLAY_NAME } from "@/config/site";
+import { formatNumber } from "@/helpers/numbers";
+import { addCacheBustingParam } from "@/helpers/url";
+import { cn } from "@/lib/utils";
 import { api } from "@/server/api";
 
 import ProjectListLoading from "./loading";

@@ -1,9 +1,9 @@
 import React from "react";
 import NextLink from "next/link";
 
-import { cn } from "@/lib/utils";
-import { badgeVariants } from "@/components/ui/badge";
 import { ProjectSearchQuery, SearchUrlBuilder } from "@/app/projects/types";
+import { badgeVariants } from "@/components/ui/badge";
+import { cn } from "@/lib/utils";
 
 import { ProjectTagHoverCard } from "./project-tag-hover-card";
 

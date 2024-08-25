@@ -1,5 +1,5 @@
-import { Card, CardHeader } from "@/components/ui/card";
 import { ProjectSearchQuery, SearchUrlBuilder } from "@/app/projects/types";
+import { Card, CardHeader } from "@/components/ui/card";
 
 import {
   BottomPaginationControls,

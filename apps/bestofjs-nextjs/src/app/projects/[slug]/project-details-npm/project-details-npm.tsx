@@ -1,10 +1,11 @@
-import { ProjectDetails } from "@repo/db/projects";
 import { ImNpm } from "react-icons/im";
 
-import { Badge } from "@/components/ui/badge";
-import { Card, CardBody, CardContent, CardHeader } from "@/components/ui/card";
+import { ProjectDetails } from "@repo/db/projects";
+
 import { ExternalLinkIcon } from "@/components/core";
 import { ExternalLink } from "@/components/core/typography";
+import { Badge } from "@/components/ui/badge";
+import { Card, CardBody, CardContent, CardHeader } from "@/components/ui/card";
 
 import { BundleSizeSection } from "./bundle-size-section";
 import { DependenciesSection } from "./dependencies-section";

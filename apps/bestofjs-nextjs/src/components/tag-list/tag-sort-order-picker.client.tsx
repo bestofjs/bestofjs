@@ -3,9 +3,9 @@
 import Link from "next/link";
 
 import {
+  tagListSortOptions,
   TagListSortSlug,
   TagSearchQuery,
-  tagListSortOptions,
   tagSearchStateToQueryString,
 } from "@/app/tags/tag-list-shared";
 

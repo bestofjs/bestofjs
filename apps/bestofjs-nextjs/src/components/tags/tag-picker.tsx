@@ -4,7 +4,7 @@ import * as React from "react";
 import { useRouter } from "next/navigation";
 import { Check, ChevronsUpDown } from "lucide-react";
 
-import { cn } from "@/lib/utils";
+import { ProjectSearchQuery, SearchQueryUpdater } from "@/app/projects/types";
 import { Button } from "@/components/ui/button";
 import {
   Command,
@@ -18,7 +18,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { ProjectSearchQuery, SearchQueryUpdater } from "@/app/projects/types";
+import { cn } from "@/lib/utils";
 
 import { stateToQueryString } from "../project-list/navigation-state";
 import { useSearchState } from "../project-list/search-state";
