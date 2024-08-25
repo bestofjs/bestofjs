@@ -6,7 +6,6 @@ import monthlyRankings202204Response from "../data/monthly-rankings-2022-04.json
 import projectDetailsReactResponse from "../data/project-details-react.json";
 import userProfileResponse from "../data/user-profile.json";
 
-import fetchAllProjectsDefaultResponse from "../data/projects.json";
 import fetchHeroesDefaultResponse from "../data/hof.json";
 
 import projectReadMeReactResponse from "../data/project-readme-react.html";
