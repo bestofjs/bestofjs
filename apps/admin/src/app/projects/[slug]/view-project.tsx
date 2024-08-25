@@ -1,4 +1,5 @@
 import Link from "next/link";
+
 import { ProjectData } from "@repo/db/projects";
 
 import { buttonVariants } from "@/components/ui/button";

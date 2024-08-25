@@ -3,11 +3,13 @@
 import { useRouter } from "next/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ReloadIcon } from "@radix-ui/react-icons";
-import { getTagBySlug } from "@repo/db/tags";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from "zod";
 
+import { getTagBySlug } from "@repo/db/tags";
+
+import { updateTagData } from "@/app/projects/[slug]/actions";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -26,7 +28,6 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { updateTagData } from "@/app/projects/[slug]/actions";
 
 const formSchema = z.object({
   name: z.string(),

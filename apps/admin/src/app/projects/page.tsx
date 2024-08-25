@@ -1,13 +1,15 @@
 import Link from "next/link";
-import { getDatabase } from "@repo/db";
-import {
-  ProjectListOrderByKey,
-  countProjects,
-  findProjects,
-} from "@repo/db/projects";
 import { z } from "zod";
 
-import { formatStars } from "@/lib/format-helpers";
+import { getDatabase } from "@repo/db";
+import {
+  countProjects,
+  findProjects,
+  ProjectListOrderByKey,
+} from "@repo/db/projects";
+
+import { AddProjectButton } from "@/components/add-project-button";
+import { ProjectLogo } from "@/components/project-logo";
 import { Badge, badgeVariants } from "@/components/ui/badge";
 import { buttonVariants } from "@/components/ui/button";
 import {
@@ -18,8 +20,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { AddProjectButton } from "@/components/add-project-button";
-import { ProjectLogo } from "@/components/project-logo";
+import { formatStars } from "@/lib/format-helpers";
 
 import { ProjectTablePagination } from "./project-table-pagination";
 import { SearchBox } from "./search-box";

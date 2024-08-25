@@ -4,11 +4,12 @@ import { useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { DialogDescription } from "@radix-ui/react-dialog";
 import { ReloadIcon } from "@radix-ui/react-icons";
-import { ProjectDetails } from "@repo/db/projects";
 import { PlusIcon } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from "zod";
+
+import { ProjectDetails } from "@repo/db/projects";
 
 import { Button } from "@/components/ui/button";
 import {

@@ -1,7 +1,7 @@
-import { OneYearSnapshots, getProjectTrends } from "@repo/db/projects";
+import { getProjectTrends, OneYearSnapshots } from "@repo/db/projects";
 
-import { formatStars } from "@/lib/format-helpers";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { formatStars } from "@/lib/format-helpers";
 
 type Props = {
   snapshots: OneYearSnapshots[];

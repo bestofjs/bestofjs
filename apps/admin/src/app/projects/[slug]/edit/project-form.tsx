@@ -5,10 +5,11 @@ import { useRouter } from "next/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ReloadIcon } from "@radix-ui/react-icons";
 import { SelectValue } from "@radix-ui/react-select";
-import { ProjectData } from "@repo/db/projects";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from "zod";
+
+import { ProjectData } from "@repo/db/projects";
 
 import { Button, buttonVariants } from "@/components/ui/button";
 import {

@@ -1,10 +1,10 @@
 "use client";
 
 import * as React from "react";
-import { ProjectDetails } from "@repo/db/projects";
 import { Check, ChevronsUpDown, PlusIcon } from "lucide-react";
 
-import { cn } from "@/lib/utils";
+import { ProjectDetails } from "@repo/db/projects";
+
 import { Button } from "@/components/ui/button";
 import {
   Command,
@@ -19,6 +19,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
+import { cn } from "@/lib/utils";
 
 type Tag = ProjectDetails["tags"][number];
 

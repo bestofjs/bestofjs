@@ -3,8 +3,8 @@
 import { useState } from "react";
 import { InfoIcon } from "lucide-react";
 
-import { formatNumber } from "@/lib/format-helpers";
 import { Alert, AlertDescription } from "@/components/ui/alert";
+import { formatNumber } from "@/lib/format-helpers";
 
 const monthNames = "Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec".split(" ");
 

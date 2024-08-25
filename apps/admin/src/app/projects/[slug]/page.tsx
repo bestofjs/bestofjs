@@ -1,8 +1,9 @@
-import { projectService } from "@/db";
-import { getAllTags } from "@repo/db/projects";
 import invariant from "tiny-invariant";
 
+import { getAllTags } from "@repo/db/projects";
+
 import { ProjectLogo } from "@/components/project-logo";
+import { projectService } from "@/db";
 
 import { ViewProjectPackages } from "./view-packages";
 import { ViewProject } from "./view-project";
