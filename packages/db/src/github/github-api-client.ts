@@ -50,10 +50,9 @@ export function createClient(accessToken: string) {
       return repoInfo;
     } catch (error) {
       if (isErrorNotFound(error as Error)) {
-        debug(`The repo "${fullName}" was mot found, try the fallback method!`);
-        const { full_name: updatedFullName } = await fetchRepoInfoFallback(
-          fullName
-        );
+        debug(`The repo "${fullName}" was not found, try the fallback method!`);
+        const { full_name: updatedFullName } =
+          await fetchRepoInfoFallback(fullName);
         const repoInfo = await fetchRepoInfoMain(updatedFullName);
         return repoInfo;
       } else {

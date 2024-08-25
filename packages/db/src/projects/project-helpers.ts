@@ -1,8 +1,8 @@
 import isAbsoluteURL from "is-absolute-url";
-
-import { computeTrends, getMonthlyTrends } from "../snapshots/index";
-import { OneYearSnapshots, ProjectDetails } from ".";
 import invariant from "tiny-invariant";
+
+import { OneYearSnapshots, ProjectDetails } from ".";
+import { computeTrends, getMonthlyTrends } from "../snapshots/index";
 
 export function getProjectDescription(project: ProjectDetails) {
   invariant(project.repo);
