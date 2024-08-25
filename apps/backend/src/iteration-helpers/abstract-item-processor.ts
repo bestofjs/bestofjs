@@ -1,8 +1,9 @@
-import prettyMilliseconds from "pretty-ms";
 import pMap from "p-map";
 import pThrottle from "p-throttle";
+import prettyMilliseconds from "pretty-ms";
 
 import { TaskLoopOptions, TaskRunnerContext } from "@/task-types";
+
 import { aggregateResults, MetaResult } from "./utils";
 
 export abstract class ItemProcessor<T> {

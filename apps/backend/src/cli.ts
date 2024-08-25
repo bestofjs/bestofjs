@@ -1,19 +1,18 @@
 import { cli, command } from "cleye";
 
+import { cliFlags as flags } from "./flags";
 import { Task, TaskRunner } from "./task-runner";
+import { buildStaticApiTask } from "./tasks/build-static-api.task";
 import {
   helloWorldProjectsTask,
   helloWorldReposTask,
 } from "./tasks/hello-world.task";
-import { updateGitHubDataTask } from "./tasks/update-github-data.task";
-import { buildStaticApiTask } from "./tasks/build-static-api.task";
-import { triggerBuildStaticApiTask } from "./tasks/trigger-build-static-api";
-import { updatePackageDataTask } from "./tasks/update-package-data.task";
-
-import { cliFlags as flags } from "./flags";
 import { notifyDailyTask } from "./tasks/notify-daily.task";
+import { triggerBuildStaticApiTask } from "./tasks/trigger-build-static-api";
 import { triggerBuildWebappTask } from "./tasks/trigger-build-webapp.task";
 import { updateBundleSizeTask } from "./tasks/update-bundle-size.task";
+import { updateGitHubDataTask } from "./tasks/update-github-data.task";
+import { updatePackageDataTask } from "./tasks/update-package-data.task";
 
 const commands = [
   notifyDailyTask,

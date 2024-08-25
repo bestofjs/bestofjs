@@ -1,8 +1,10 @@
-import { createNpmClient } from "@/apis/npm-api-client";
-import { Task } from "@/task-runner";
+import { eq } from "drizzle-orm";
+
 import { schema } from "@repo/db";
 import { ProjectDetails } from "@repo/db/projects";
-import { eq } from "drizzle-orm";
+
+import { createNpmClient } from "@/apis/npm-api-client";
+import { Task } from "@/task-runner";
 
 const npmClient = createNpmClient();
 
@@ -53,9 +55,8 @@ export const updatePackageDataTask: Task = {
         return null;
       }
 
-      const monthlyDownloads = await npmClient.fetchMonthlyDownloadCount(
-        packageName
-      );
+      const monthlyDownloads =
+        await npmClient.fetchMonthlyDownloadCount(packageName);
 
       const updatedData = {
         version: data.version,

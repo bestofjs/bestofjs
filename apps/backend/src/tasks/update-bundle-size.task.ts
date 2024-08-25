@@ -1,9 +1,10 @@
 import { eq } from "drizzle-orm";
 
-import { createNpmClient } from "@/apis/npm-api-client";
-import { Task } from "@/task-runner";
 import { schema } from "@repo/db";
 import { ProjectDetails } from "@repo/db/projects";
+
+import { createNpmClient } from "@/apis/npm-api-client";
+import { Task } from "@/task-runner";
 
 const npmClient = createNpmClient();
 

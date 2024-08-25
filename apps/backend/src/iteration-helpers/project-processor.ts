@@ -1,9 +1,9 @@
 import { desc, eq } from "drizzle-orm";
 
-import { TaskLoopOptions, TaskRunnerContext } from "@/task-types";
-import { ProjectDetails } from "@repo/db/projects";
 import { schema } from "@repo/db";
-import { ProjectService } from "@repo/db/projects";
+import { ProjectDetails, ProjectService } from "@repo/db/projects";
+
+import { TaskLoopOptions, TaskRunnerContext } from "@/task-types";
 
 import { ItemProcessor } from "./abstract-item-processor";
 
