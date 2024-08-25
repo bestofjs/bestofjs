@@ -9,9 +9,7 @@ const config = {
     "<THIRD_PARTY_MODULES>",
     "",
     "^@repo/(.*)$", // monorepo dependencies
-    "",
     "^@/(.*)$",
-    "",
     "^[./]",
   ],
   importOrderTypeScriptVersion: "5.5.4",
