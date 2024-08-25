@@ -1,10 +1,10 @@
 import NextLink from "next/link";
 
-import { cn } from "@/lib/utils";
-import { badgeVariants } from "@/components/ui/badge";
-import { Card } from "@/components/ui/card";
 import { ProjectLogo } from "@/components/core";
 import { ExternalLink } from "@/components/core/typography";
+import { badgeVariants } from "@/components/ui/badge";
+import { Card } from "@/components/ui/card";
+import { cn } from "@/lib/utils";
 
 type Props = {
   members: BestOfJS.HallOfFameMember[];

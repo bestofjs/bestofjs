@@ -2,9 +2,6 @@
 
 import * as React from "react";
 
-import { cn } from "@/lib/utils";
-import { buttonVariants } from "@/components/ui/button";
-import { CommandItem } from "@/components/ui/command";
 import {
   GitHubIcon,
   HomeIcon,
@@ -14,6 +11,9 @@ import {
   TagIcon,
   TagsIcons,
 } from "@/components/core";
+import { buttonVariants } from "@/components/ui/button";
+import { CommandItem } from "@/components/ui/command";
+import { cn } from "@/lib/utils";
 
 export function ProjectSearchResult({
   project,

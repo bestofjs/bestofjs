@@ -1,6 +1,7 @@
-import * as schema from "./schema";
 import { LocalDatabase } from "./local-database";
+import * as schema from "./schema";
 import { VercelPostgresService } from "./vercel-database";
+
 export * as schema from "./schema";
 
 export type DB = ReturnType<typeof getDatabase>;

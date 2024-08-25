@@ -1,12 +1,12 @@
 import { Suspense } from "react";
 import Link from "next/link";
 
-import { APP_REPO_URL, DISCORD_URL } from "@/config/site";
-import { buttonVariants } from "@/components/ui/button";
 import { DiscordIcon, GitHubIcon } from "@/components/core/icons";
 import { MainNav } from "@/components/header/desktop-nav";
 import { ClientSearchRoot } from "@/components/search-palette/search-root";
 import { ThemeToggle } from "@/components/theme-toggle";
+import { buttonVariants } from "@/components/ui/button";
+import { APP_REPO_URL, DISCORD_URL } from "@/config/site";
 
 export function SiteHeader() {
   return (

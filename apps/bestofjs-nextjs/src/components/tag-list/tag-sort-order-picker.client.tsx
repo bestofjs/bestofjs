@@ -3,12 +3,11 @@
 import Link from "next/link";
 
 import {
+  tagListSortOptions,
   TagListSortSlug,
   TagSearchQuery,
-  tagListSortOptions,
   tagSearchStateToQueryString,
 } from "@/app/tags/tag-list-shared";
-
 import { ChevronDownIcon } from "../core";
 import { Button } from "../ui/button";
 import {

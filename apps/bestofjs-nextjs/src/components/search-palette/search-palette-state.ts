@@ -7,7 +7,6 @@ import useDebouncedCallback from "use-debounce/lib/useDebouncedCallback";
 
 import { stateToQueryString } from "@/components/project-list/navigation-state";
 import { useSearchState } from "@/components/project-list/search-state";
-
 import { ClientSearch } from "./search-container";
 
 export type SelectedItem =

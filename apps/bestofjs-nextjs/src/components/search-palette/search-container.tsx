@@ -54,7 +54,7 @@ function useClientSearch(initialState?: {
 export const ClientSearch = createContainer(useClientSearch);
 
 function filterProjectsByTags<
-  T extends Omit<BestOfJS.SearchIndexProject, "slug">
+  T extends Omit<BestOfJS.SearchIndexProject, "slug">,
 >(projects: T[], tags: string[]) {
   return projects.filter((project) =>
     tags.every((tag) => project.tags.includes(tag))

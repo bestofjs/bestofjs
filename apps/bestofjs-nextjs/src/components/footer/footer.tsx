@@ -1,13 +1,12 @@
 import Image from "next/image";
 import NextLink from "next/link";
 
+import { Separator } from "@/components/ui/separator";
 import {
   APP_DISPLAY_NAME,
   RISING_STARS_URL,
   STATE_OF_JS_URL,
 } from "@/config/site";
-import { Separator } from "@/components/ui/separator";
-
 import { ExternalLink } from "../core/typography";
 import { VercelLogo } from "../svg-logos";
 

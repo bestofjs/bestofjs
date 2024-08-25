@@ -1,6 +1,4 @@
 import { schema } from "@repo/db";
-
-import { formatDateOnly, formatStars } from "@/lib/format-helpers";
 import {
   Card,
   CardContent,
@@ -8,6 +6,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { formatDateOnly, formatStars } from "@/lib/format-helpers";
 
 type Props = {
   repo: typeof schema.repos.$inferSelect;

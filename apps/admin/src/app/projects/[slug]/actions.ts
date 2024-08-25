@@ -1,17 +1,18 @@
 "use server";
 
 import { unstable_noStore as noStore, revalidatePath } from "next/cache";
-import { snapshotsService } from "@/db";
+import invariant from "tiny-invariant";
+
 import { createClient } from "@repo/db/github";
 import {
-  ProjectData,
   addPackage,
+  ProjectData,
   removePackage,
   saveTags,
   updateProjectById,
 } from "@repo/db/projects";
 import { EditableTagData, updateTagById } from "@repo/db/tags";
-import invariant from "tiny-invariant";
+import { snapshotsService } from "@/db";
 
 type EditableProjectData = Omit<
   ProjectData,

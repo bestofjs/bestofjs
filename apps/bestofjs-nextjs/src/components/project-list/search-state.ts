@@ -3,8 +3,8 @@
 import { useSearchParams } from "next/navigation";
 
 import {
-  ProjectPageSearchParams,
   parseSearchParams,
+  ProjectPageSearchParams,
 } from "../project-list/navigation-state";
 
 export function useSearchState() {

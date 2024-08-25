@@ -1,25 +1,24 @@
-import { formatNumber } from "@/helpers/numbers";
-import { getDeltaByDay } from "@/components/core";
-import {
-  ProjectPageSearchParams,
-  parseSearchParams,
-} from "@/components/project-list/navigation-state";
-import {
-  SortOption,
-  SortOptionKey,
-  getSortOptionByKey,
-} from "@/components/project-list/sort-order-options";
-import { api } from "@/server/api-remote-json";
 import {
   Box,
-  ProjectLogo,
-  StarIcon,
-  TagIcon,
   generateImageResponse,
   getProjectRowStyles,
   mutedColor,
+  ProjectLogo,
+  StarIcon,
+  TagIcon,
 } from "@/app/api/og/og-utils";
-
+import { getDeltaByDay } from "@/components/core";
+import {
+  parseSearchParams,
+  ProjectPageSearchParams,
+} from "@/components/project-list/navigation-state";
+import {
+  getSortOptionByKey,
+  SortOption,
+  SortOptionKey,
+} from "@/components/project-list/sort-order-options";
+import { formatNumber } from "@/helpers/numbers";
+import { api } from "@/server/api-remote-json";
 import { ImageLayout } from "../og-image-layout";
 
 export const runtime = "edge";

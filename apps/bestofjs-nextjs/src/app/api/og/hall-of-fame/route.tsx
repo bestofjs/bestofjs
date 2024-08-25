@@ -1,6 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
 import { api } from "@/server/api-remote-json";
-
 import { ImageLayout } from "../og-image-layout";
 import { Box, generateImageResponse } from "../og-utils";
 

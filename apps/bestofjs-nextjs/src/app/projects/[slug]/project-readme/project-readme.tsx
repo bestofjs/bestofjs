@@ -1,10 +1,10 @@
 import { Suspense } from "react";
-import { ProjectDetails } from "@repo/db/projects";
 import { GoBook } from "react-icons/go";
 
-import { env } from "@/env.mjs";
-import { Card, CardHeader } from "@/components/ui/card";
+import { ProjectDetails } from "@repo/db/projects";
 import { ErrorBoundary } from "@/app/error-handling";
+import { Card, CardHeader } from "@/components/ui/card";
+import { env } from "@/env.mjs";
 
 export async function ReadmeCard({ project }: { project: ProjectDetails }) {
   return (

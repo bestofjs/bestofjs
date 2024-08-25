@@ -1,8 +1,6 @@
-import { projectService } from "@/db";
 import { getAllTags } from "@repo/db/projects";
-
 import { ProjectLogo } from "@/components/project-logo";
-
+import { projectService } from "@/db";
 import { ViewTags } from "../view-tags";
 import { ProjectForm } from "./project-form";
 

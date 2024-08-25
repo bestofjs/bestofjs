@@ -1,7 +1,6 @@
-import packageJson from "package-json";
 import pTimeout, { TimeoutError } from "p-timeout";
+import packageJson from "package-json";
 import { z } from "zod";
-import { version } from "typescript";
 
 const timeout = 100e3; // prevent API request from taking more than N milliseconds
 

@@ -1,8 +1,8 @@
 import { nanoid } from "nanoid";
 import slugify from "slugify";
 
-import * as schema from "../schema";
 import { getDatabase } from "..";
+import * as schema from "../schema";
 
 export async function createTag(tagName: string) {
   const db = getDatabase();

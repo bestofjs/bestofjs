@@ -1,10 +1,10 @@
-import { Task } from "@/task-runner";
-import { createClient } from "@repo/db/github";
-import { SnapshotsService } from "@repo/db/snapshots";
+import { eq } from "drizzle-orm";
 
 import { schema } from "@repo/db";
-import { eq } from "drizzle-orm";
+import { createClient } from "@repo/db/github";
+import { SnapshotsService } from "@repo/db/snapshots";
 import { Repo } from "@/iteration-helpers/repo-processor";
+import { Task } from "@/task-runner";
 
 export const updateGitHubDataTask: Task = {
   name: "update-github-data",

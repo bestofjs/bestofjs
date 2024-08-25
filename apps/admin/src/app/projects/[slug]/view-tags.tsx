@@ -3,10 +3,11 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { ReloadIcon } from "@radix-ui/react-icons";
-import { ProjectDetails } from "@repo/db/projects";
 import { XIcon } from "lucide-react";
 import { toast } from "sonner";
 
+import { ProjectDetails } from "@repo/db/projects";
+import { TagPicker } from "@/components/tag-picker";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
@@ -16,8 +17,6 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { TagPicker } from "@/components/tag-picker";
-
 import { updateProjectTags } from "./actions";
 
 type Props = {

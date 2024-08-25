@@ -1,9 +1,10 @@
+import path from "path";
+import debugPackage from "debug";
+import fs from "fs-extra";
+
 import { Task } from "@/task-runner";
 import { ProjectItem } from "./static-api-types";
 
-import fs from "fs-extra";
-import path from "path";
-import debugPackage from "debug";
 const debug = debugPackage("notify");
 
 export const notifyDailyTask: Task = {

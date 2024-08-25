@@ -1,11 +1,11 @@
-import { Task } from "@/task-runner";
+import { schema } from "@repo/db";
 import {
   getPackageData,
   getProjectDescription,
   getProjectTrends,
   getProjectURL,
 } from "@repo/db/projects";
-import { schema } from "@repo/db";
+import { Task } from "@/task-runner";
 import { ProjectItem } from "./static-api-types";
 
 export const buildStaticApiTask: Task = {

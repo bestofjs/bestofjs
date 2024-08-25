@@ -1,6 +1,6 @@
+import { PageHeading } from "@/components/core/typography";
 import { Card, CardHeader } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
-import { PageHeading } from "@/components/core/typography";
 
 export default function ProjectListLoading() {
   return (

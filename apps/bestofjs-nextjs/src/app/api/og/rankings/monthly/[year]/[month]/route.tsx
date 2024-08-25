@@ -1,15 +1,15 @@
-import { formatNumber } from "@/helpers/numbers";
-import { api } from "@/server/api-remote-json";
 import { ImageLayout } from "@/app/api/og/og-image-layout";
 import {
   Box,
-  ProjectLogo,
-  StarIcon,
   generateImageResponse,
   getProjectRowStyles,
   mutedColor,
+  ProjectLogo,
+  StarIcon,
 } from "@/app/api/og/og-utils";
 import { formatMonthlyDate } from "@/app/rankings/monthly/monthly-rankings-utils";
+import { formatNumber } from "@/helpers/numbers";
+import { api } from "@/server/api-remote-json";
 
 export const runtime = "edge";
 

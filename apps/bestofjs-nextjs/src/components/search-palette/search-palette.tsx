@@ -3,7 +3,13 @@
 import * as React from "react";
 import { useRouter } from "next/navigation";
 
-import { getResultRelevantTags, mergeSearchResults } from "@/lib/search-utils";
+import {
+  ProjectLogo,
+  StarTotal,
+  TagIcon,
+  TagsIcons,
+  XMarkIcon,
+} from "@/components/core";
 import { Badge } from "@/components/ui/badge";
 import { Checkbox } from "@/components/ui/checkbox";
 import {
@@ -15,14 +21,7 @@ import {
 } from "@/components/ui/command";
 import { Separator } from "@/components/ui/separator";
 import { Skeleton } from "@/components/ui/skeleton";
-import {
-  ProjectLogo,
-  StarTotal,
-  TagIcon,
-  TagsIcons,
-  XMarkIcon,
-} from "@/components/core";
-
+import { getResultRelevantTags, mergeSearchResults } from "@/lib/search-utils";
 import { ClientSearch } from "./search-container";
 import {
   ProjectSearchResult,

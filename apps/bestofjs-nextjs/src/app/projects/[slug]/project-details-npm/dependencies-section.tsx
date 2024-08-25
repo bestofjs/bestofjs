@@ -1,5 +1,6 @@
 import { ProjectDetails } from "@repo/db/projects";
-
+import { ChevronRightIcon, ExternalLinkIcon } from "@/components/core";
+import { ProjectTable } from "@/components/project-list/project-table";
 import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
 import {
@@ -8,8 +9,6 @@ import {
   CollapsibleTrigger,
 } from "@/components/ui/collapsible";
 import { Table, TableBody, TableCell, TableRow } from "@/components/ui/table";
-import { ChevronRightIcon, ExternalLinkIcon } from "@/components/core";
-import { ProjectTable } from "@/components/project-list/project-table";
 import { api } from "@/server/api";
 
 export async function DependenciesSection({

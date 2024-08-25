@@ -9,7 +9,6 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-
 import { MoonIcon, SunIcon } from "./core";
 
 export function ThemeToggle() {

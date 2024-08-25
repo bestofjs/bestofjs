@@ -5,7 +5,6 @@ import {
   filterProjectsByQuery,
   getResultRelevantTags,
 } from "@/lib/search-utils";
-
 import { APIContext, getProjectId } from "./api-utils";
 
 type QueryParams = {

@@ -1,4 +1,4 @@
-import { Snapshot, SnapshotMonth, normalizeDate } from "./utils";
+import { normalizeDate, Snapshot, SnapshotMonth } from "./utils";
 
 export function getMonthlyTrends(snapshots: Snapshot[], date: Date) {
   const months = getLast12Months(date);

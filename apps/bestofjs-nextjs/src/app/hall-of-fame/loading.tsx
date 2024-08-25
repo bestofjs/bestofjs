@@ -1,6 +1,6 @@
+import { PageHeading } from "@/components/core/typography";
 import { Card } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
-import { PageHeading } from "@/components/core/typography";
 
 const memberNames = ["Evan", "Dan", "Sindre", "Ryan", "Kent", "TJ"];
 

@@ -1,5 +1,4 @@
 import { env } from "@/env.mjs";
-
 import { createProjectsAPI } from "./api-projects";
 
 type RankingsData = {

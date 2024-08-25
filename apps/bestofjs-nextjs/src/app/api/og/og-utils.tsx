@@ -3,8 +3,8 @@
 import React from "react";
 import { ImageResponse } from "next/og";
 
-import { APP_CANONICAL_URL } from "@/config/site";
 import { getProjectLogoUrl } from "@/components/core/project-utils";
+import { APP_CANONICAL_URL } from "@/config/site";
 
 export const mutedColor = `rgba(255, 255, 255, 0.7)`;
 export const borderColor = `rgba(255, 255, 255, 0.2)`;

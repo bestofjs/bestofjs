@@ -1,12 +1,12 @@
 import { and, asc, eq, inArray } from "drizzle-orm";
 
+import { getDatabase } from "..";
+import * as schema from "../schema";
+
 type Tag = {
   id: string;
   name: string;
 };
-
-import { getDatabase } from "..";
-import * as schema from "../schema";
 
 export function getAllTags() {
   const db = getDatabase();

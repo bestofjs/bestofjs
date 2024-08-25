@@ -1,7 +1,6 @@
 import { ConsolaInstance } from "consola";
 
 import { DB } from "@repo/db";
-
 import { ProjectProcessor, RepoProcessor } from "./iteration-helpers";
 
 /** Options passed from the command line as flags */

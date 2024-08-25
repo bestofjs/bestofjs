@@ -1,8 +1,6 @@
 import { findTags } from "@repo/db/tags";
-
-import { Badge } from "@/components/ui/badge";
 import { AddTagButton } from "@/components/add-tag-button";
-
+import { Badge } from "@/components/ui/badge";
 import { columns } from "./columns";
 import { DataTable } from "./data-table";
 
