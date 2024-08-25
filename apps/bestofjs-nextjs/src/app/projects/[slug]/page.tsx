@@ -2,7 +2,6 @@ import { Suspense } from "react";
 import { Metadata } from "next";
 
 import { ProjectDetails } from "@repo/db/projects";
-
 import { ProjectDetailsGitHubCard } from "./project-details-github/github-card";
 import { ProjectHeader } from "./project-header";
 import { ReadmeCard } from "./project-readme/project-readme";
@@ -15,7 +14,6 @@ import { Card, CardContent } from "@/components/ui/card";
 import { APP_CANONICAL_URL, APP_DISPLAY_NAME } from "@/config/site";
 import { addCacheBustingParam } from "@/helpers/url";
 import { api } from "@/server/api";
-
 import { ProjectDetailsNpmCard } from "./project-details-npm/project-details-npm";
 
 type PageProps = {

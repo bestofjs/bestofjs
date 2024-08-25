@@ -18,7 +18,6 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { extraNavItems, mainNavItems, RISING_STARS_URL } from "@/config/site";
 import { cn } from "@/lib/utils";
-
 import { ChevronDownIcon } from "../core";
 import { BestOfJSLogo } from "../svg-logos";
 import { MobileMenuButton } from "./mobile-nav";

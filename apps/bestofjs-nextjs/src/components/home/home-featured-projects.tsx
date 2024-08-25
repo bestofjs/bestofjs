@@ -4,7 +4,6 @@ import { FeaturedProjectList } from "@/components/home/featured-project-list";
 import { buttonVariants } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { api } from "@/server/api";
-
 import { FeaturedProjectsClient } from "./home-featured-projects.client";
 
 type Props = {

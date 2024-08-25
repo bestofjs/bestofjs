@@ -7,7 +7,6 @@ import {
   RISING_STARS_URL,
   STATE_OF_JS_URL,
 } from "@/config/site";
-
 import { ExternalLink } from "../core/typography";
 import { VercelLogo } from "../svg-logos";
 

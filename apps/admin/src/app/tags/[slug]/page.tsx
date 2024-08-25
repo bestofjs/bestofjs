@@ -1,5 +1,4 @@
 import { getTagBySlug } from "@repo/db/tags";
-
 import { TagForm } from "./tag-form";
 
 type PageProps = {

@@ -1,7 +1,5 @@
 import { ProjectDetails } from "@repo/db/projects";
-
 import { env } from "@/env.mjs";
-
 import { MonthlyTrendsChart } from "../project-details-github/monthly-trends-chart";
 
 type DataItem = {

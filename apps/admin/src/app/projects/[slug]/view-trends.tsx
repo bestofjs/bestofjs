@@ -1,5 +1,4 @@
 import { getProjectTrends, OneYearSnapshots } from "@repo/db/projects";
-
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { formatStars } from "@/lib/format-helpers";
 

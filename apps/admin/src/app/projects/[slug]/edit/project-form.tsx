@@ -10,7 +10,6 @@ import { toast } from "sonner";
 import { z } from "zod";
 
 import { ProjectData } from "@repo/db/projects";
-
 import { Button, buttonVariants } from "@/components/ui/button";
 import {
   Card,
@@ -38,7 +37,6 @@ import {
   SelectTrigger,
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
-
 import { updateProjectData } from "../actions";
 
 const statuses = ["active", "featured", "promoted", "deprecated"] as const;

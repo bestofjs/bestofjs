@@ -1,12 +1,10 @@
 import { ImNpm } from "react-icons/im";
 
 import { ProjectDetails } from "@repo/db/projects";
-
 import { ExternalLinkIcon } from "@/components/core";
 import { ExternalLink } from "@/components/core/typography";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardBody, CardContent, CardHeader } from "@/components/ui/card";
-
 import { BundleSizeSection } from "./bundle-size-section";
 import { DependenciesSection } from "./dependencies-section";
 import { MonthlyDownloadsChart } from "./monthly-downloads-charts";

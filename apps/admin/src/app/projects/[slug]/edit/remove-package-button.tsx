@@ -5,7 +5,6 @@ import { ReloadIcon } from "@radix-ui/react-icons";
 import { toast } from "sonner";
 
 import { ProjectDetails } from "@repo/db/projects";
-
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -15,7 +14,6 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-
 import { removePackageAction } from "../actions";
 
 type Props = {

@@ -14,7 +14,6 @@ import { Card, CardHeader } from "@/components/ui/card";
 import { APP_CANONICAL_URL, APP_DISPLAY_NAME } from "@/config/site";
 import { api } from "@/server/api";
 import { MonthlyDate } from "@/server/api-rankings";
-
 import { formatMonthlyDate } from "../../monthly-rankings-utils";
 
 type PageProps = {

@@ -1,6 +1,5 @@
 import { getHotProjectsRequest } from "@/app/backend-search-requests";
 import { api } from "@/server/api-remote-json";
-
 import { ImageLayout } from "./og-image-layout";
 import {
   Box,

@@ -1,5 +1,4 @@
 import { formatNumber } from "@/helpers/numbers";
-
 import { StarIcon } from "./icons";
 
 type Props = {

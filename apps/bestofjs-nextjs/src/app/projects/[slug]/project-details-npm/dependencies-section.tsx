@@ -1,5 +1,4 @@
 import { ProjectDetails } from "@repo/db/projects";
-
 import { ChevronRightIcon, ExternalLinkIcon } from "@/components/core";
 import { ProjectTable } from "@/components/project-list/project-table";
 import { Badge } from "@/components/ui/badge";

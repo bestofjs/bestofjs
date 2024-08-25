@@ -28,7 +28,6 @@ import {
 import { formatNumber } from "@/helpers/numbers";
 import { addCacheBustingParam } from "@/helpers/url";
 import { api } from "@/server/api";
-
 import {
   getHotProjectsRequest,
   getLatestProjects,

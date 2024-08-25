@@ -8,7 +8,6 @@ import {
 } from "@/app/api/og/og-utils";
 import { formatNumber } from "@/helpers/numbers";
 import { api } from "@/server/api-remote-json";
-
 import { ImageLayout } from "../../og-image-layout";
 
 export const runtime = "edge";

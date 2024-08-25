@@ -2,7 +2,6 @@ import { Suspense } from "react";
 import { GoBook } from "react-icons/go";
 
 import { ProjectDetails } from "@repo/db/projects";
-
 import { ErrorBoundary } from "@/app/error-handling";
 import { Card, CardHeader } from "@/components/ui/card";
 import { env } from "@/env.mjs";

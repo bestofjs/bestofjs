@@ -4,7 +4,6 @@ import { useState } from "react";
 import { InfoIcon } from "lucide-react";
 
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-
 import { searchHallOfFameMembers } from "./actions";
 import { HallOfFameSearchBar } from "./hall-of-fame-search.client";
 import { HallOfFameMemberList } from "./hall-of-member-list";

@@ -7,7 +7,6 @@ import {
   OneYearSnapshots,
   ProjectDetails,
 } from "@repo/db/projects";
-
 import {
   ExternalLinkIcon,
   getDeltaByDay,
@@ -20,7 +19,6 @@ import { ExternalLink } from "@/components/core/typography";
 import { Card, CardBody, CardContent, CardHeader } from "@/components/ui/card";
 import { fromNow } from "@/helpers/from-now";
 import { formatNumber } from "@/helpers/numbers";
-
 import { MonthlyTrendsChart } from "./monthly-trends-chart";
 
 type Props = {

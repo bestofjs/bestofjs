@@ -20,7 +20,6 @@ import { formatNumber } from "@/helpers/numbers";
 import { addCacheBustingParam } from "@/helpers/url";
 import { cn } from "@/lib/utils";
 import { api } from "@/server/api";
-
 import ProjectListLoading from "./loading";
 import {
   ProjectSearchQuery,

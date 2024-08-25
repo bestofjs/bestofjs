@@ -12,7 +12,6 @@ import {
   updateProjectById,
 } from "@repo/db/projects";
 import { EditableTagData, updateTagById } from "@repo/db/tags";
-
 import { snapshotsService } from "@/db";
 
 type EditableProjectData = Omit<

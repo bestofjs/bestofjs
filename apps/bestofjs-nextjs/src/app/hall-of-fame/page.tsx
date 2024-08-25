@@ -7,7 +7,6 @@ import {
   APP_REPO_URL,
 } from "@/config/site";
 import { api } from "@/server/api";
-
 import { HallOfFameClientView } from "./hall-of-fame-view.client";
 import { HallOfFameMemberList } from "./hall-of-member-list";
 import Loading from "./loading";

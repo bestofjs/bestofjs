@@ -8,7 +8,6 @@ import {
 import { ProjectPaginatedList } from "@/components/project-list/project-paginated-list";
 import { getSortOptionByKey } from "@/components/project-list/sort-order-options";
 import { api } from "@/server/api";
-
 import { ProjectSearchQuery, SearchQueryUpdater } from "../projects/types";
 
 type PageProps = {

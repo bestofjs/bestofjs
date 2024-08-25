@@ -7,7 +7,6 @@ import {
   findProjects,
   ProjectListOrderByKey,
 } from "@repo/db/projects";
-
 import { AddProjectButton } from "@/components/add-project-button";
 import { ProjectLogo } from "@/components/project-logo";
 import { Badge, badgeVariants } from "@/components/ui/badge";
@@ -21,7 +20,6 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { formatStars } from "@/lib/format-helpers";
-
 import { ProjectTablePagination } from "./project-table-pagination";
 import { SearchBox } from "./search-box";
 import { searchSchema } from "./search-schema";

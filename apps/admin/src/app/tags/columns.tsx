@@ -5,7 +5,6 @@ import { ColumnDef } from "@tanstack/react-table";
 import { ArrowUpDown } from "lucide-react";
 
 import { findTags } from "@repo/db/tags";
-
 import { Button } from "@/components/ui/button";
 
 type Tag = Awaited<ReturnType<typeof findTags>>[0];

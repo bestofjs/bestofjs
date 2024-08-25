@@ -4,7 +4,6 @@ import * as React from "react";
 import { Check, ChevronsUpDown, PlusIcon } from "lucide-react";
 
 import { ProjectDetails } from "@repo/db/projects";
-
 import { Button } from "@/components/ui/button";
 import {
   Command,

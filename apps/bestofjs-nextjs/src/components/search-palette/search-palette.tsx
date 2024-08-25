@@ -22,7 +22,6 @@ import {
 import { Separator } from "@/components/ui/separator";
 import { Skeleton } from "@/components/ui/skeleton";
 import { getResultRelevantTags, mergeSearchResults } from "@/lib/search-utils";
-
 import { ClientSearch } from "./search-container";
 import {
   ProjectSearchResult,

@@ -3,7 +3,6 @@ import NextLink from "next/link";
 import { ProjectSearchQuery, SearchUrlBuilder } from "@/app/projects/types";
 import { formatNumber } from "@/helpers/numbers";
 import { cn } from "@/lib/utils";
-
 import { fromNow } from "../../helpers/from-now";
 import {
   DownloadCount,

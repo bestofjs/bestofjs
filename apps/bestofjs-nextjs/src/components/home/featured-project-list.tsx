@@ -4,7 +4,6 @@ import { getDeltaByDay, ProjectLogo, StarDelta } from "@/components/core";
 import { SortOptionKey } from "@/components/project-list/sort-order-options";
 import { ProjectTag } from "@/components/tags/project-tag";
 import { Skeleton } from "@/components/ui/skeleton";
-
 import { linkVariants } from "../ui/link";
 
 export function FeaturedProjectList({

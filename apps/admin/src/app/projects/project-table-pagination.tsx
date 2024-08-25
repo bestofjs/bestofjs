@@ -4,7 +4,6 @@ import { usePathname, useSearchParams } from "next/navigation";
 import { z } from "zod";
 
 import { PaginationNext, PaginationPrevious } from "@/components/ui/pagination";
-
 import { searchSchema } from "./search-schema";
 
 export function ProjectTablePagination({

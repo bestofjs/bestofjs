@@ -3,7 +3,6 @@ import { Metadata } from "next";
 import { SearchQueryUpdater } from "@/app/projects/types";
 import { TagPaginatedList } from "@/components/tag-list/tag-paginated-list";
 import { api } from "@/server/api";
-
 import TagListLoading from "./loading";
 import {
   getTagListSortOptionByValue,

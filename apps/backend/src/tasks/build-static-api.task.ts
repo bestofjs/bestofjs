@@ -5,9 +5,7 @@ import {
   getProjectTrends,
   getProjectURL,
 } from "@repo/db/projects";
-
 import { Task } from "@/task-runner";
-
 import { ProjectItem } from "./static-api-types";
 
 export const buildStaticApiTask: Task = {

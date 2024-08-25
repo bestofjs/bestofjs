@@ -5,7 +5,6 @@ import { PaginationProps, SearchUrlBuilder } from "@/app/projects/types";
 import { ChevronLeftIcon, ChevronRightIcon } from "@/components/core/icons";
 import { buttonVariants } from "@/components/ui/button";
 import { formatNumber } from "@/helpers/numbers";
-
 import { PaginationState } from "./pagination-state";
 
 type Props<T> = {

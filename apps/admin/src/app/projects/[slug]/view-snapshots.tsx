@@ -1,5 +1,4 @@
 import { getProjectMonthlyTrends, OneYearSnapshots } from "@repo/db/projects";
-
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   Table,
@@ -9,7 +8,6 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { formatStars } from "@/lib/format-helpers";
-
 import { AddSnapshotButton } from "./add-snapshot-button";
 import { MonthlyTrendsChart } from "./monthly-trends-chart";
 

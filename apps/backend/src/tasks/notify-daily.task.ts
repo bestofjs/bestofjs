@@ -3,7 +3,6 @@ import debugPackage from "debug";
 import fs from "fs-extra";
 
 import { Task } from "@/task-runner";
-
 import { ProjectItem } from "./static-api-types";
 
 const debug = debugPackage("notify");
