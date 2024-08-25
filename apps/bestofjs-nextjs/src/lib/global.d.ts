@@ -2,6 +2,7 @@ declare namespace BestOfJS {
   // Project raw data from the JSON API
   interface RawProject {
     name: string;
+    slug: string;
     full_name: string;
     description: string;
     tags: string[];
@@ -28,7 +29,6 @@ declare namespace BestOfJS {
 
   // Project handled in the state container
   interface StateProject extends RawProject {
-    slug: string;
     repository: string;
     packageName: string;
     addedPosition: number;

@@ -30,6 +30,7 @@ export const buildStaticApiTask: Task = {
 
       const data: ProjectItem = {
         name: project.name,
+        slug: project.slug,
         added_at: formatDate(project.createdAt),
         description: truncate(getProjectDescription(project), 75),
         stars: repo.stars || 0,

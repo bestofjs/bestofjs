@@ -1,5 +1,3 @@
-import slugify from "slugify";
-
 import { shuffle } from "@/helpers/shuffle";
 
 export type RawData = {
@@ -36,8 +34,6 @@ export const populateProject =
       populated.tags = tags.map((id) => tagsByKey[id]).filter((tag) => !!tag);
     }
 
-    populated.slug = getProjectId(project);
-
     if (project.npm) {
       populated.packageName = project.npm; // TODO fix data?
     }
@@ -48,14 +44,9 @@ export const populateProject =
 export function getFeaturedRandomList(projects: BestOfJS.RawProject[]) {
   const slugs = projects
     .filter((project) => project.status === "featured")
-    .map((project) => getProjectId(project));
+    .map((project) => project.slug);
 
   return shuffle(slugs);
-}
-
-// TODO read the project's slug from the API instead of computing it here
-export function getProjectId(project: BestOfJS.RawProject) {
-  return slugify(project.name, { lower: true, remove: /[.'/]/g });
 }
 
 export function getTagsByKey(
