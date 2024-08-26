@@ -46,8 +46,12 @@ async function fetchHottestProjects() {
   return topProjects;
 }
 
+/**
+ * Exclude from the rankings projects with specific tags
+ * TODO: move this behavior to the `tag` record, adding an attribute `exclude_from_rankings`?
+ **/
 const isIncludedInHotProjects = (project: ProjectItem) => {
-  const hotProjectsExcludedTags = ["meta", "learning"];
+  const hotProjectsExcludedTags = ["meta", "learning", "wildcard"];
 
   const hasExcludedTag = hotProjectsExcludedTags.some((tag) =>
     project.tags.includes(tag)
