@@ -1,7 +1,7 @@
 export function getHotProjectsRequest(count = 5) {
   return {
     criteria: {
-      tags: { $nin: ["meta", "learning"] },
+      tags: { $nin: ["meta", "learning", "wildcard"] },
     },
     sort: {
       "trends.daily": -1,
