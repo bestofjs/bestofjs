@@ -1,3 +1,5 @@
+import { orderBy } from "es-toolkit";
+
 import { schema } from "@repo/db";
 import {
   getPackageData,
@@ -72,7 +74,8 @@ export const buildStaticApiTask: Task = {
       // .map(compactProjectData); // we don't need the `version` in `projects.json`
 
       logger.info(
-        `${projects.length} projects to include in the main JSON file`
+        `${projects.length} projects to include in the main JSON file`,
+        { trendingToday: getDailyHotProjects(projects) }
       );
       const date = new Date();
 
@@ -137,6 +140,16 @@ function getYearsSinceLastCommit(project: ProjectItem) {
 
 const findProjectByTagId = (projects: ProjectItem[]) => (tagId: string) =>
   projects.find(({ tags }) => tags.includes(tagId));
+
+function getDailyHotProjects(projects: ProjectItem[]) {
+  return orderBy<ProjectItem>(
+    projects,
+    [(project) => project.trends.daily],
+    ["desc"]
+  )
+    .slice(0, 5)
+    .map((project) => `${project.name} (+${project.trends.daily})`);
+}
 
 function formatDate(date: Date | null) {
   return date ? date.toISOString().slice(0, 10) : "";
