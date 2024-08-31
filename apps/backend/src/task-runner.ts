@@ -1,106 +1,103 @@
 import path from "path";
+import { Command } from "cleye";
 import { createConsola } from "consola";
 import fs from "fs-extra";
 import prettyBytes from "pretty-bytes";
+import { z } from "zod";
 
 import { DB, runQuery } from "@repo/db";
+import { ParsedFlags, sharedFlagsSchema } from "./flags";
 import { ProjectProcessor, RepoProcessor } from "./iteration-helpers";
 import { MetaResult } from "./iteration-helpers/utils";
-import {
-  TaskContext,
-  TaskLoopOptions,
-  TaskRunInputParams,
-  TaskRunnerContext,
-} from "./task-types";
+import { TaskContext } from "./task-types";
 
-export type Task = {
+export type Task<FlagsType = undefined> = {
   name: string;
   description?: string;
-  run: (ctx: TaskContext) => Promise<{
+  flags?: Command["options"]["flags"];
+  schema?: z.ZodType<FlagsType>;
+  run: (
+    ctx: TaskContext,
+    flags: FlagsType extends undefined ? undefined : FlagsType
+  ) => Promise<{
     data: unknown;
     meta: MetaResult;
   }>;
 };
 
-export class TaskRunner {
-  tasks: Task[];
-  logger: TaskRunnerContext["logger"];
-  dryRun: boolean;
-  options: TaskLoopOptions;
+type RawFlags = { [key: string]: unknown };
 
-  constructor(options: TaskRunInputParams = {}) {
-    this.tasks = [];
-    this.logger = createConsola({
-      level: options.logLevel || 3,
-    });
-    this.dryRun = options.dryRun || false;
-    this.options = {
-      limit: options.limit || 0,
-      skip: options.skip || 0,
-      concurrency: options.concurrency || 1,
-      name: options.name || "",
-      throttleInterval: options.throttleInterval || 0,
-    };
-  }
+export function createTaskRunner(tasks: Task<any>[]) {
+  return {
+    run(rawFlags: RawFlags) {
+      const flags = sharedFlagsSchema.parse(rawFlags);
+      const logger = createConsola({ level: flags.logLevel });
+      const dryRun = flags.dryRun;
+      const options = {
+        limit: flags.limit,
+        skip: flags.skip,
+        concurrency: flags.concurrency,
+        name: flags.name,
+        throttleInterval: flags.throttleInterval,
+      };
 
-  addTask(task: Task) {
-    this.tasks.push(task);
-  }
+      return new Promise((resolve) => {
+        runQuery(async (db) => {
+          let i = 0;
+          for (const task of tasks) {
+            i++;
+            logger.box(
+              `Running task ${i}/${tasks.length} "${task.name} ${stringifyFlags(flags)}`
+            );
+            const context = createTaskContext(db);
+            const taskFlags = task.schema?.parse(rawFlags) || {};
 
-  async run() {
-    return new Promise((resolve) => {
-      runQuery(async (db) => {
-        let i = 0;
-        for (const task of this.tasks) {
-          i++;
-          this.logger.box(
-            `Running task ${i}/${this.tasks.length} "${
-              task.name
-            }" ${stringifyOptions(this)}`
-          );
-          const context = this.createTaskContext(db);
-          const result = await task.run(context);
-          this.logger.success("Task", task.name, "completed", result.meta);
-        }
-        resolve(true);
+            const result = await task.run(context, taskFlags);
+            logger.success("Task", task.name, "completed", result.meta);
+          }
+          resolve(true);
+        });
       });
-    });
-  }
 
-  createTaskContext(db: DB): TaskContext {
-    const context = { db, logger: this.logger, dryRun: this.dryRun };
-    const projectProcessor = new ProjectProcessor(context, this.options);
-    const repoProcessor = new RepoProcessor(context, this.options);
+      function createTaskContext(db: DB): TaskContext {
+        const context = { db, logger, dryRun };
+        const projectProcessor = new ProjectProcessor(context, options);
+        const repoProcessor = new RepoProcessor(context, options);
 
-    return {
-      db,
-      logger: this.logger,
-      dryRun: this.dryRun,
-      processProjects: projectProcessor.processItems.bind(projectProcessor),
-      processRepos: repoProcessor.processItems.bind(repoProcessor),
-      saveJSON: this.saveJSON.bind(this),
-    };
-  }
+        return {
+          db,
+          logger,
+          dryRun,
 
-  async saveJSON(json: unknown, fileName: string) {
-    this.logger.info(`Saving ${fileName}`, {
-      size: prettyBytes(JSON.stringify(json).length),
-    });
-    const filePath = path.join(process.cwd(), "build", fileName); // to be run from app/backend because of monorepo setup on Vercel, not from the root!
-    await fs.outputJson(filePath, json);
-    this.logger.info("JSON file saved!", filePath);
-  }
+          // Database helpers
+          processProjects: projectProcessor.processItems.bind(projectProcessor),
+          processRepos: repoProcessor.processItems.bind(repoProcessor),
+
+          // Filesystem helpers
+          async saveJSON(json: unknown, fileName: string) {
+            logger.info(`Saving ${fileName}`, {
+              size: prettyBytes(JSON.stringify(json).length),
+            });
+            const filePath = path.join(process.cwd(), "build", fileName); // to be run from app/backend because of monorepo setup on Vercel, not from the root!
+            await fs.outputJson(filePath, json);
+            logger.info("JSON file saved!", filePath);
+          },
+        };
+      }
+    },
+  };
 }
 
-function stringifyOptions(runner: TaskRunner) {
-  const { limit, skip, concurrency, throttleInterval } = runner.options;
+function stringifyFlags(flags: ParsedFlags) {
+  const { dryRun, limit, logLevel, skip, concurrency, throttleInterval } =
+    flags;
   return [
-    `logLevel: ${runner.logger.level}`,
+    `logLevel: ${logLevel}`,
     limit ? `limit: ${limit}` : "",
     skip ? `skip: ${skip}` : "",
     `concurrency: ${concurrency}`,
     throttleInterval ? `throttleInterval: ${throttleInterval}` : "",
-    runner.dryRun ? "DRY RUN" : "",
+    dryRun ? "DRY RUN" : "",
   ]
     .filter(Boolean)
     .join(", ");
