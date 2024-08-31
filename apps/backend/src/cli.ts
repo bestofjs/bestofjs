@@ -36,11 +36,12 @@ const staticApiDailyTask = command(
     flags: sharedFlags,
   },
   (argv) => {
-    const runner = createTaskRunner([
+    const tasks: Task<any>[] = [
       buildStaticApiTask,
       triggerBuildWebappTask,
       notifyDailyTask,
-    ]);
+    ];
+    const runner = createTaskRunner(tasks);
     runner.run(argv.flags);
   }
 );

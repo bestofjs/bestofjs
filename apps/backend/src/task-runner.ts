@@ -27,7 +27,7 @@ export type Task<FlagsType = undefined> = {
 
 type RawFlags = { [key: string]: unknown };
 
-export function createTaskRunner(tasks: Task<any>[]) {
+export function createTaskRunner(tasks: Task<RawFlags | undefined>[]) {
   return {
     run(rawFlags: RawFlags) {
       const flags = sharedFlagsSchema.parse(rawFlags);
@@ -46,11 +46,11 @@ export function createTaskRunner(tasks: Task<any>[]) {
           let i = 0;
           for (const task of tasks) {
             i++;
+            const taskFlags = task.schema?.parse(rawFlags);
             logger.box(
-              `Running task ${i}/${tasks.length} "${task.name} ${stringifyFlags(flags)}`
+              `Running task ${i}/${tasks.length} "${task.name}" ${stringifyFlags(flags, taskFlags)}`
             );
             const context = createTaskContext(db);
-            const taskFlags = task.schema?.parse(rawFlags) || {};
 
             const result = await task.run(context, taskFlags);
             logger.success("Task", task.name, "completed", result.meta);
@@ -78,7 +78,8 @@ export function createTaskRunner(tasks: Task<any>[]) {
             logger.info(`Saving ${fileName}`, {
               size: prettyBytes(JSON.stringify(json).length),
             });
-            const filePath = path.join(process.cwd(), "build", fileName); // to be run from app/backend because of monorepo setup on Vercel, not from the root!
+            const appRoot = getAppRootPath();
+            const filePath = path.join(appRoot, "build", fileName); // to be run from app/backend because of monorepo setup on Vercel, not from the root!
             await fs.outputJson(filePath, json);
             logger.info("JSON file saved!", filePath);
           },
@@ -88,17 +89,37 @@ export function createTaskRunner(tasks: Task<any>[]) {
   };
 }
 
-function stringifyFlags(flags: ParsedFlags) {
+/**
+ * @returns The path to the current app's root directory
+ * Scripts can be run either:
+ * - from the root of the monorepo (when working in local `bun run apps/backend/src/cli.ts ...`)
+ * - or from the app's root when running on Vercel
+ */
+function getAppRootPath() {
+  const appRoot = "apps/backend";
+  const currentDir = process.cwd();
+  if (currentDir.endsWith(appRoot)) {
+    return currentDir;
+  } else {
+    return path.join(currentDir, appRoot);
+  }
+}
+
+function stringifyFlags(flags: ParsedFlags, taskFlags?: RawFlags) {
   const { dryRun, limit, logLevel, skip, concurrency, throttleInterval } =
     flags;
+
   return [
     `logLevel: ${logLevel}`,
     limit ? `limit: ${limit}` : "",
     skip ? `skip: ${skip}` : "",
-    `concurrency: ${concurrency}`,
+    concurrency > 1 ? `concurrency: ${concurrency}` : "",
     throttleInterval ? `throttleInterval: ${throttleInterval}` : "",
     dryRun ? "DRY RUN" : "",
   ]
+    .concat(
+      Object.entries(taskFlags || {}).map(([key, value]) => `${key}: ${value}`)
+    )
     .filter(Boolean)
     .join(", ");
 }
