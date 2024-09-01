@@ -48,7 +48,7 @@
     "@vercel/analytics": "^1.0.1",
     "autoprefixer": "^10.4.14",
     "clsx": "^2.0.0",
-    "cmdk": "^0.2.0",
+    "cmdk": "^1.0.0",
     "cross-env": "^7.0.3",
     "dayjs": "^1.11.8",
     "debug": "^4.3.4",
