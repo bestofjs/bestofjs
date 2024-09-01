@@ -2,7 +2,7 @@ import path from "path";
 import debugPackage from "debug";
 import fs from "fs-extra";
 
-import { TAGS_EXCLUDED_FROM_RANKINGS } from "@repo/db/projects";
+import { TAGS_EXCLUDED_FROM_RANKINGS } from "@repo/db/constants";
 import { Task } from "@/task-runner";
 import { ProjectItem } from "./static-api-types";
 

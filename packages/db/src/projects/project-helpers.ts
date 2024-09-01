@@ -2,9 +2,8 @@ import isAbsoluteURL from "is-absolute-url";
 import invariant from "tiny-invariant";
 
 import { OneYearSnapshots, ProjectDetails } from ".";
+import { TAGS_EXCLUDED_FROM_RANKINGS } from "../constants";
 import { computeTrends, getMonthlyTrends } from "../snapshots/index";
-
-export const TAGS_EXCLUDED_FROM_RANKINGS = ["meta", "learning", "wildcard"];
 
 export function getProjectDescription(project: ProjectDetails) {
   invariant(project.repo);

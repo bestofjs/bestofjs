@@ -1,4 +1,4 @@
-import { TAGS_EXCLUDED_FROM_RANKINGS } from "@repo/db/projects";
+import { TAGS_EXCLUDED_FROM_RANKINGS } from "@repo/db/constants";
 
 export function getHotProjectsRequest(count = 5) {
   return {
