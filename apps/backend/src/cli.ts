@@ -1,7 +1,8 @@
 import { cli, command } from "cleye";
 
-import { cliFlags as flags } from "./flags";
-import { Task, TaskRunner } from "./task-runner";
+import { cliFlags as sharedFlags } from "./flags";
+import { createTaskRunner, Task } from "./task-runner";
+import { buildMonthlyRankingsTask } from "./tasks/build-monthly-rankings";
 import { buildStaticApiTask } from "./tasks/build-static-api.task";
 import {
   helloWorldProjectsTask,
@@ -24,6 +25,7 @@ const commands = [
   helloWorldReposTask,
   updatePackageDataTask,
   updateBundleSizeTask,
+  buildMonthlyRankingsTask,
 ].map(getCommand);
 
 const staticApiDailyTask = command(
@@ -31,14 +33,16 @@ const staticApiDailyTask = command(
     name: "static-api-daily",
     description:
       "Build command on Vercel: build static API, trigger Next.js rebuild and send notification",
-    flags,
+    flags: sharedFlags,
   },
   (argv) => {
-    const runner = new TaskRunner(argv.flags);
-    runner.addTask(buildStaticApiTask);
-    runner.addTask(triggerBuildWebappTask);
-    runner.addTask(notifyDailyTask);
-    runner.run();
+    const tasks: Task<any>[] = [
+      buildStaticApiTask,
+      triggerBuildWebappTask,
+      notifyDailyTask,
+    ];
+    const runner = createTaskRunner(tasks);
+    runner.run(argv.flags);
   }
 );
 
@@ -47,19 +51,18 @@ cli({
   commands: [staticApiDailyTask, ...commands],
 });
 
-function getCommand(task: Task) {
+function getCommand(task: Task<any>) {
   return command(
     {
       name: task.name,
-      flags,
+      flags: { ...sharedFlags, ...task.flags },
       help: {
         description: task.description,
       },
     },
     (argv) => {
-      const runner = new TaskRunner(argv.flags);
-      runner.addTask(task);
-      runner.run();
+      const runner = createTaskRunner([task]);
+      runner.run(argv.flags);
     }
   );
 }

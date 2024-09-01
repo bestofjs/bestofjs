@@ -2,6 +2,7 @@ import path from "path";
 import debugPackage from "debug";
 import fs from "fs-extra";
 
+import { TAGS_EXCLUDED_FROM_RANKINGS } from "@repo/db/constants";
 import { Task } from "@/task-runner";
 import { ProjectItem } from "./static-api-types";
 
@@ -51,9 +52,7 @@ async function fetchHottestProjects() {
  * TODO: move this behavior to the `tag` record, adding an attribute `exclude_from_rankings`?
  **/
 const isIncludedInHotProjects = (project: ProjectItem) => {
-  const hotProjectsExcludedTags = ["meta", "learning", "wildcard"];
-
-  const hasExcludedTag = hotProjectsExcludedTags.some((tag) =>
+  const hasExcludedTag = TAGS_EXCLUDED_FROM_RANKINGS.some((tag) =>
     project.tags.includes(tag)
   );
   return !hasExcludedTag;

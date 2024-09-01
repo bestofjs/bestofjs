@@ -2,6 +2,7 @@ import isAbsoluteURL from "is-absolute-url";
 import invariant from "tiny-invariant";
 
 import { OneYearSnapshots, ProjectDetails } from ".";
+import { TAGS_EXCLUDED_FROM_RANKINGS } from "../constants";
 import { computeTrends, getMonthlyTrends } from "../snapshots/index";
 
 export function getProjectDescription(project: ProjectDetails) {
@@ -33,7 +34,7 @@ export function getProjectMonthlyTrends(
   return getMonthlyTrends(flattenedSnapshots, date || new Date());
 }
 
-function flattenSnapshots(records: OneYearSnapshots[]) {
+export function flattenSnapshots(records: OneYearSnapshots[]) {
   // return orderBy(records, (record) => record.year, "desc") // most recent first
   return records.flatMap(({ year, months }) =>
     months.flatMap(({ month, snapshots }) =>
@@ -70,4 +71,15 @@ export function getPackageData(project: ProjectDetails) {
         downloads: firstPackage?.monthlyDownloads as number,
       }
     : null;
+}
+
+/**
+ * Exclude from the rankings projects with specific tags
+ * TODO: move this behavior to the `tag` record, adding an attribute `exclude_from_rankings`?
+ **/
+export function isProjectIncludedInRankings(project: ProjectDetails) {
+  const hasExcludedTag = TAGS_EXCLUDED_FROM_RANKINGS.some((tagCode) =>
+    project.tags.map((tag) => tag.code).includes(tagCode)
+  );
+  return !hasExcludedTag;
 }

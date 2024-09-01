@@ -1,20 +1,8 @@
 import { ConsolaInstance } from "consola";
 
 import { DB } from "@repo/db";
+import { ParsedFlags } from "./flags";
 import { ProjectProcessor, RepoProcessor } from "./iteration-helpers";
-
-/** Options passed from the command line as flags */
-export type TaskRunInputParams = {
-  concurrency?: number;
-  dryRun?: boolean;
-  limit?: number;
-  skip?: number;
-  logLevel?: number;
-  name?: string;
-  throttleInterval?: number;
-};
-
-export type TaskRunParams = Required<TaskRunInputParams>;
 
 export interface TaskRunnerContext {
   logger: ConsolaInstance;
@@ -30,6 +18,6 @@ export interface TaskContext extends TaskRunnerContext {
 }
 
 export type TaskLoopOptions = Pick<
-  TaskRunParams,
+  ParsedFlags,
   "concurrency" | "limit" | "skip" | "name" | "throttleInterval"
 >;

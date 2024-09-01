@@ -1,7 +1,9 @@
+import { TAGS_EXCLUDED_FROM_RANKINGS } from "@repo/db/constants";
+
 export function getHotProjectsRequest(count = 5) {
   return {
     criteria: {
-      tags: { $nin: ["meta", "learning", "wildcard"] },
+      tags: { $nin: TAGS_EXCLUDED_FROM_RANKINGS },
     },
     sort: {
       "trends.daily": -1,
