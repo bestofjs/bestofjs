@@ -4,7 +4,7 @@ import { z } from "zod";
 import {
   flattenSnapshots,
   getProjectDescription,
-  isProjectIncludeInRankings,
+  isProjectIncludedInRankings,
 } from "@repo/db/projects";
 import { getMonthlyDelta } from "@repo/db/snapshots";
 import { Task } from "@/task-runner";
@@ -44,7 +44,7 @@ export const buildMonthlyRankingsTask: Task<z.infer<typeof schema>> = {
       if (delta === undefined) {
         return { data: null, meta: { "not enough snapshots": true } };
       }
-      if (!isProjectIncludeInRankings(project)) {
+      if (!isProjectIncludedInRankings(project)) {
         return { data: null, meta: { excluded: true } };
       }
 

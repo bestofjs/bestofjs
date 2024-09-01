@@ -4,6 +4,8 @@ import invariant from "tiny-invariant";
 import { OneYearSnapshots, ProjectDetails } from ".";
 import { computeTrends, getMonthlyTrends } from "../snapshots/index";
 
+export const TAGS_EXCLUDED_FROM_RANKINGS = ["meta", "learning", "wildcard"];
+
 export function getProjectDescription(project: ProjectDetails) {
   invariant(project.repo);
   const repoDescription = project.repo.description;
@@ -76,10 +78,8 @@ export function getPackageData(project: ProjectDetails) {
  * Exclude from the rankings projects with specific tags
  * TODO: move this behavior to the `tag` record, adding an attribute `exclude_from_rankings`?
  **/
-export function isProjectIncludeInRankings(project: ProjectDetails) {
-  const excludedTags = ["meta", "learning", "wildcard"];
-
-  const hasExcludedTag = excludedTags.some((tagCode) =>
+export function isProjectIncludedInRankings(project: ProjectDetails) {
+  const hasExcludedTag = TAGS_EXCLUDED_FROM_RANKINGS.some((tagCode) =>
     project.tags.map((tag) => tag.code).includes(tagCode)
   );
   return !hasExcludedTag;
