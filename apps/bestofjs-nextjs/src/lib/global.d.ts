@@ -3,6 +3,7 @@ declare namespace BestOfJS {
   interface RawProject {
     name: string;
     slug: string;
+    added_at: string;
     full_name: string;
     description: string;
     tags: string[];
@@ -31,7 +32,6 @@ declare namespace BestOfJS {
   interface StateProject extends RawProject {
     repository: string;
     packageName: string;
-    addedPosition: number;
     isBookmark?: boolean;
   }
 

@@ -29,11 +29,7 @@ import {
   TagSearchResult,
   ViewAllTagsCommand,
 } from "./search-palette-results";
-import {
-  SelectedItem,
-  useSearchPaletteState,
-  useSearchPaletteTags,
-} from "./search-palette-state";
+import { SelectedItem, useSearchPaletteState } from "./search-palette-state";
 import { SearchTrigger } from "./search-trigger";
 
 type CombinedSearchResult =
@@ -46,6 +42,8 @@ const TEXT_QUERY_MIN_LENGTH = 2;
 
 export function SearchPalette() {
   const {
+    currentTags,
+    currentTagCodes,
     debouncedOnChange,
     isPending,
     onOpenChange,
@@ -54,11 +52,11 @@ export function SearchPalette() {
     onSelectSearchForText,
     onViewAllTags,
     open,
+    removeTag,
     searchQuery,
     selectedItem,
     setOpen,
   } = useSearchPaletteState();
-  const { currentTags, currentTagCodes, removeTag } = useSearchPaletteTags();
 
   const canTriggerSearch = searchQuery.length >= TEXT_QUERY_MIN_LENGTH; // we need at least 2 characters to trigger a search
 

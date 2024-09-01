@@ -70,7 +70,7 @@ export const sortOrderOptions: SortOption[] = [
   {
     key: "newest",
     label: "By date of addition on Best of JS",
-    sort: {},
+    sort: { added_at: -1 },
   },
   // {
   //   key: "bookmark",
