@@ -124,7 +124,7 @@ const ProjectTableRow = ({
       {showDetails && (
         <Cell className="hidden w-[180px] space-y-2 p-4 text-sm md:table-cell">
           <div>Pushed {fromNow(project.pushed_at)}</div>
-          {project.contributor_count && (
+          {project.contributor_count > 0 && (
             <div>
               {formatNumber(project.contributor_count, "compact")} contributors
             </div>
