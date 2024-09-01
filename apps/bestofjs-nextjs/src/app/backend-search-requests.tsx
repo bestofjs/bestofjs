@@ -14,7 +14,9 @@ export function getHotProjectsRequest(count = 5) {
 
 export function getLatestProjects() {
   return {
-    sort: {}, // TODO sort by `addedAt` when it's available in data instead of relying on the default sort
+    sort: {
+      added_at: -1,
+    },
     limit: 5,
   };
 }
