@@ -62,11 +62,11 @@ export function ProjectTable({ projects }: Props) {
             <TableCell>
               <div className="flex flex-col gap-4">
                 {project.repo?.full_name || "No repo"}
-                <div>
-                  {project.repo?.archived && (
+                {project.repo?.archived && (
+                  <div>
                     <Badge variant="destructive">Archived</Badge>
-                  )}
-                </div>
+                  </div>
+                )}
               </div>
             </TableCell>
             <TableCell>

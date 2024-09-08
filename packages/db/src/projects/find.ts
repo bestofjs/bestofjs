@@ -28,6 +28,7 @@ type Props = {
   limit: number;
   offset: number;
   owner?: string;
+  full_name?: string;
   sort: ProjectListOrderByKey;
   tag?: string;
   text?: string;
@@ -37,6 +38,7 @@ export async function findProjects({
   db,
   limit,
   offset,
+  full_name,
   owner,
   sort,
   tag,
@@ -93,6 +95,9 @@ export async function findProjects({
   }
   if (owner) {
     query.where(like(repos.full_name, `${owner}/%`));
+  }
+  if (full_name) {
+    query.where(like(repos.full_name, full_name));
   }
 
   // console.log(query.toSQL());

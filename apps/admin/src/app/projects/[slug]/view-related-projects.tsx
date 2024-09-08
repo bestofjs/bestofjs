@@ -1,10 +1,7 @@
-import { schema } from "@repo/db";
 import { findProjects, ProjectDetails } from "@repo/db/projects";
 import { AddProjectToRepoButton } from "@/components/add-project-to-repo-button";
 import { ProjectTable } from "@/components/project-table";
-import { badgeVariants } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Table, TableBody, TableCell, TableRow } from "@/components/ui/table";
 import { projectService } from "@/db";
 
 type Props = {
@@ -21,11 +18,11 @@ export async function ViewRelatedProjects({ project }: Props) {
 }
 
 async function MonorepoProjectsCard({ project }: Props) {
-  const projectsInSameRepo = await projectService.findProjectsByRepoId(
-    project.repoId
+  const projectsInSameRepo = await findProjectsByFullName(
+    project.repo.full_name
   );
   const relatedProjects = projectsInSameRepo.filter(
-    (foundProject) => foundProject.id !== project.id
+    (foundProject) => foundProject.slug !== project.slug
   );
   return (
     <Card>
@@ -42,7 +39,7 @@ async function MonorepoProjectsCard({ project }: Props) {
           {relatedProjects.length === 0 ? (
             <i>No related projects</i>
           ) : (
-            <CompactProjectList projects={relatedProjects} />
+            <ProjectTable projects={relatedProjects} />
           )}
         </div>
       </CardContent>
@@ -54,7 +51,7 @@ async function SameOwnerProjectsCard({ project }: Props) {
   const owner = project.repo.full_name.split("/")[0];
   const projectsFromSameOwner = await findProjectsByOwner(owner);
   const otherProjects = projectsFromSameOwner.filter(
-    (foundProject) => foundProject.slug !== project.slug
+    (foundProject) => foundProject.repo?.full_name !== project.repo.full_name
   );
   return (
     <Card>
@@ -84,41 +81,12 @@ async function findProjectsByOwner(owner: string) {
   });
 }
 
-type RelatedProject = Pick<
-  typeof schema.projects.$inferSelect,
-  "slug" | "name" | "description" | "createdAt"
-> & { tags: string[] };
-
-/** A variation of the `ProjectTable` component, specific to the context of a given repo */
-function CompactProjectList({ projects }: { projects: RelatedProject[] }) {
-  return (
-    <Table>
-      <TableBody>
-        {projects.map((project) => (
-          <TableRow key={project.slug}>
-            <TableCell className="flex flex-col gap-4">
-              <a href={`/projects/${project.slug}`} className="hover:underline">
-                {project.name}
-              </a>
-              <div>{project.description}</div>
-              <div className="flex flex-wrap gap-2">
-                {project.tags.map((tag) => (
-                  <a
-                    href={`/projects/?tag=${tag}`}
-                    className={badgeVariants({ variant: "secondary" })}
-                    key={tag}
-                  >
-                    {tag}
-                  </a>
-                ))}
-              </div>
-            </TableCell>
-            <TableCell className="w-48">
-              Added: {project.createdAt.toISOString().slice(0, 10)}
-            </TableCell>
-          </TableRow>
-        ))}
-      </TableBody>
-    </Table>
-  );
+async function findProjectsByFullName(full_name: string) {
+  return await findProjects({
+    db: projectService.db,
+    full_name,
+    sort: "-stars",
+    limit: 0,
+    offset: 0,
+  });
 }
