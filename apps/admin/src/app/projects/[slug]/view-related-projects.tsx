@@ -10,13 +10,13 @@ type Props = {
 export async function ViewRelatedProjects({ project }: Props) {
   return (
     <>
-      <MonorepoProjectsCard project={project} />
-      <SameOwnerProjectsCard project={project} />
+      <SameRepoOtherProjectsSection project={project} />
+      <SameOwnerOtherProjectsSection project={project} />
     </>
   );
 }
 
-async function MonorepoProjectsCard({ project }: Props) {
+async function SameRepoOtherProjectsSection({ project }: Props) {
   const projectsInSameRepo = await findProjectsByFullName(
     project.repo.full_name
   );
@@ -24,7 +24,7 @@ async function MonorepoProjectsCard({ project }: Props) {
     (foundProject) => foundProject.slug !== project.slug
   );
   return (
-    <div>
+    <section>
       <div className="flex justify-between">
         <h3 className="text-lg font-bold">Other projects linked to the repo</h3>
         <div>
@@ -38,18 +38,18 @@ async function MonorepoProjectsCard({ project }: Props) {
           <ProjectTable projects={relatedProjects} />
         )}
       </div>
-    </div>
+    </section>
   );
 }
 
-async function SameOwnerProjectsCard({ project }: Props) {
+async function SameOwnerOtherProjectsSection({ project }: Props) {
   const owner = project.repo.full_name.split("/")[0];
   const projectsFromSameOwner = await findProjectsByOwner(owner);
   const otherProjects = projectsFromSameOwner.filter(
     (foundProject) => foundProject.repo?.full_name !== project.repo.full_name
   );
   return (
-    <div>
+    <section>
       <h3 className="text-lg font-bold">
         Other projects from <i>{owner}</i>
       </h3>
@@ -60,7 +60,7 @@ async function SameOwnerProjectsCard({ project }: Props) {
           <ProjectTable projects={otherProjects} />
         )}
       </div>
-    </div>
+    </section>
   );
 }
 
