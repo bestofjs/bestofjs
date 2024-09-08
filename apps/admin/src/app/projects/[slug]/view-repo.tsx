@@ -1,4 +1,5 @@
 import { schema } from "@repo/db";
+import { Badge } from "@/components/ui/badge";
 import {
   Card,
   CardContent,
@@ -16,7 +17,14 @@ export function ViewRepo({ repo }: Props) {
     <Card>
       <CardHeader>
         <CardTitle className="flex justify-between">
-          <div>GitHub Repository</div>
+          <div>
+            GitHub Repository
+            {repo.archived && (
+              <Badge variant="destructive" className="ml-2 text-lg">
+                Archived
+              </Badge>
+            )}
+          </div>
           <div>{formatStars(repo.stars)}</div>
         </CardTitle>
         <CardDescription>
@@ -39,7 +47,9 @@ export function ViewRepo({ repo }: Props) {
           <p>Homepage</p>
           <p>
             {repo.homepage ? (
-              <a href={repo.homepage}>{repo.homepage}</a>
+              <a href={repo.homepage} className="hover:underline">
+                {repo.homepage}
+              </a>
             ) : (
               <i className="text-muted-foreground">No homepage</i>
             )}

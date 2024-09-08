@@ -10,10 +10,7 @@ import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from "zod";
 
-import {
-  addProjectToRepoAction,
-  createProjectAction,
-} from "@/app/projects/actions";
+import { addProjectToRepoAction } from "@/app/projects/actions";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,

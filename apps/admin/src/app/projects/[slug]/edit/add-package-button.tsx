@@ -67,7 +67,7 @@ export function AddPackageButton({ project }: Props) {
       <Dialog open={open} onOpenChange={setOpen}>
         <DialogTrigger asChild>
           <Button variant="default">
-            <PlusIcon />
+            <PlusIcon className="h-4 w-4" />
             Add Package
           </Button>
         </DialogTrigger>

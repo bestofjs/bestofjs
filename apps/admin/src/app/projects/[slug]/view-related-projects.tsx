@@ -31,7 +31,7 @@ async function MonorepoProjectsCard({ project }: Props) {
     <Card>
       <CardHeader>
         <div className="flex justify-between">
-          <CardTitle>Other projects from the repo</CardTitle>
+          <CardTitle>Other projects linked to the repo</CardTitle>
           <div>
             <AddProjectToRepoButton repoId={project.repoId} />
           </div>
@@ -86,7 +86,7 @@ async function findProjectsByOwner(owner: string) {
 
 type RelatedProject = Pick<
   typeof schema.projects.$inferSelect,
-  "slug" | "name" | "description"
+  "slug" | "name" | "description" | "createdAt"
 > & { tags: string[] };
 
 /** A variation of the `ProjectTable` component, specific to the context of a given repo */
@@ -96,12 +96,10 @@ function CompactProjectList({ projects }: { projects: RelatedProject[] }) {
       <TableBody>
         {projects.map((project) => (
           <TableRow key={project.slug}>
-            <TableCell>
+            <TableCell className="flex flex-col gap-4">
               <a href={`/projects/${project.slug}`} className="hover:underline">
                 {project.name}
               </a>
-            </TableCell>
-            <TableCell className="flex flex-col gap-4">
               <div>{project.description}</div>
               <div className="flex flex-wrap gap-2">
                 {project.tags.map((tag) => (
@@ -115,7 +113,9 @@ function CompactProjectList({ projects }: { projects: RelatedProject[] }) {
                 ))}
               </div>
             </TableCell>
-            <TableCell></TableCell>
+            <TableCell className="w-48">
+              Added: {project.createdAt.toISOString().slice(0, 10)}
+            </TableCell>
           </TableRow>
         ))}
       </TableBody>
