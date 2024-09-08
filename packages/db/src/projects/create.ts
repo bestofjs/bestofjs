@@ -49,3 +49,29 @@ async function fetchGitHubRepoData(fullName: string) {
     topics: data.topics,
   };
 }
+
+export async function addProjectToRepo({
+  name,
+  description,
+  repoId,
+}: {
+  name: string;
+  description: string;
+  repoId: string;
+}) {
+  const db = getDatabase();
+  const createdProjects = await db
+    .insert(schema.projects)
+    .values({
+      id: nanoid(),
+      createdAt: new Date(),
+      repoId,
+      name,
+      description,
+      slug: slugify(name).toLowerCase(),
+      status: "active",
+    })
+    .returning();
+
+  return createdProjects[0];
+}

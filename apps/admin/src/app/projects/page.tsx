@@ -8,18 +8,9 @@ import {
   ProjectListOrderByKey,
 } from "@repo/db/projects";
 import { AddProjectButton } from "@/components/add-project-button";
-import { ProjectLogo } from "@/components/project-logo";
-import { Badge, badgeVariants } from "@/components/ui/badge";
+import { ProjectTable } from "@/components/project-table";
+import { Badge } from "@/components/ui/badge";
 import { buttonVariants } from "@/components/ui/button";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
-import { formatStars } from "@/lib/format-helpers";
 import { ProjectTablePagination } from "./project-table-pagination";
 import { SearchBox } from "./search-box";
 import { searchSchema } from "./search-schema";
@@ -105,67 +96,7 @@ function PaginatedProjectTable({
         />
       </div>
 
-      <Table>
-        <TableHeader>
-          <TableRow>
-            <TableHead className="w-[100px]">Logo</TableHead>
-            <TableHead>Name</TableHead>
-            <TableHead>Added at</TableHead>
-            <TableHead>GitHub</TableHead>
-            <TableHead>Packages</TableHead>
-            <TableHead className="text-right">Stars</TableHead>
-          </TableRow>
-        </TableHeader>
-        <TableBody>
-          {projects.map((project) => (
-            <TableRow key={project.slug}>
-              <TableCell>
-                <ProjectLogo project={project} size={50} />
-              </TableCell>
-              <TableCell>
-                <div className="flex flex-col gap-4">
-                  <Link href={`/projects/${project.slug}`}>{project.name}</Link>
-                  <span className="text-muted-foreground">
-                    {project.description}
-                  </span>
-                  {project.comments && <div>{project.comments}</div>}
-                  <div className="flex flex-wrap gap-2">
-                    {project.tags.map((tag) => (
-                      <a
-                        href={`/projects/?tag=${tag}`}
-                        className={badgeVariants({ variant: "secondary" })}
-                        key={tag}
-                      >
-                        {tag}
-                      </a>
-                    ))}
-                  </div>
-                </div>
-              </TableCell>
-              <TableCell>
-                {project.createdAt.toISOString().slice(0, 10)}
-              </TableCell>
-              <TableCell>{project.repo?.full_name || "No repo"}</TableCell>
-              <TableCell>
-                {project.packages ? (
-                  <div className="flex flex-col gap-4">
-                    {project.packages.map((pkg) => (
-                      <div key={pkg}>{pkg}</div>
-                    ))}
-                  </div>
-                ) : (
-                  <span className="text-muted-foreground italic">
-                    No package
-                  </span>
-                )}
-              </TableCell>
-              <TableCell className="text-right">
-                {formatStars(project.stars)}
-              </TableCell>
-            </TableRow>
-          ))}
-        </TableBody>
-      </Table>
+      <ProjectTable projects={projects} />
 
       <ProjectTablePagination
         offset={offset}
