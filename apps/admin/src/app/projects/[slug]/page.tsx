@@ -5,11 +5,9 @@ import { ProjectLogo } from "@/components/project-logo";
 import { projectService } from "@/db";
 import { ViewProjectPackages } from "./view-packages";
 import { ViewProject } from "./view-project";
-import { ViewRelatedProjects } from "./view-related-projects";
 import { ViewRepo } from "./view-repo";
 import { ViewSnapshots } from "./view-snapshots";
 import { ViewTags } from "./view-tags";
-import { ViewTrends } from "./view-trends";
 
 type PageProps = {
   params: {
@@ -44,15 +42,7 @@ export default async function ViewProjectPage({ params: { slug } }: PageProps) {
       </div>
       <ViewProject project={project} />
       <ViewTags project={project} allTags={allTags} />
-      {project.repo ? (
-        <>
-          <ViewRepo repo={project.repo} />
-          <ViewRelatedProjects project={project} />
-        </>
-      ) : (
-        <>No repository!</>
-      )}
-      <ViewTrends snapshots={repo.snapshots} />
+      {project.repo ? <ViewRepo project={project} /> : <>No repository!</>}
       <ViewProjectPackages project={project} />
       {project.repo && (
         <ViewSnapshots

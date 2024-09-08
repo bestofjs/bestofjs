@@ -1,7 +1,6 @@
 import { findProjects, ProjectDetails } from "@repo/db/projects";
 import { AddProjectToRepoButton } from "@/components/add-project-to-repo-button";
 import { ProjectTable } from "@/components/project-table";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { projectService } from "@/db";
 
 type Props = {
@@ -25,25 +24,21 @@ async function MonorepoProjectsCard({ project }: Props) {
     (foundProject) => foundProject.slug !== project.slug
   );
   return (
-    <Card>
-      <CardHeader>
-        <div className="flex justify-between">
-          <CardTitle>Other projects linked to the repo</CardTitle>
-          <div>
-            <AddProjectToRepoButton repoId={project.repoId} />
-          </div>
-        </div>
-      </CardHeader>
-      <CardContent className="flex flex-col gap-4">
+    <div>
+      <div className="flex justify-between">
+        <h3 className="text-lg font-bold">Other projects linked to the repo</h3>
         <div>
-          {relatedProjects.length === 0 ? (
-            <i>No related projects</i>
-          ) : (
-            <ProjectTable projects={relatedProjects} />
-          )}
+          <AddProjectToRepoButton repoId={project.repoId} />
         </div>
-      </CardContent>
-    </Card>
+      </div>
+      <div className="flex flex-col gap-4">
+        {relatedProjects.length === 0 ? (
+          <i>No related projects</i>
+        ) : (
+          <ProjectTable projects={relatedProjects} />
+        )}
+      </div>
+    </div>
   );
 }
 
@@ -54,20 +49,18 @@ async function SameOwnerProjectsCard({ project }: Props) {
     (foundProject) => foundProject.repo?.full_name !== project.repo.full_name
   );
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle>
-          Other projects from <i>{owner}</i>
-        </CardTitle>
-      </CardHeader>
-      <CardContent>
+    <div>
+      <h3 className="text-lg font-bold">
+        Other projects from <i>{owner}</i>
+      </h3>
+      <div>
         {otherProjects.length === 0 ? (
           <i>No other projects from {owner}</i>
         ) : (
           <ProjectTable projects={otherProjects} />
         )}
-      </CardContent>
-    </Card>
+      </div>
+    </div>
   );
 }
 
