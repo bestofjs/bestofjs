@@ -58,35 +58,6 @@ export class ProjectService {
 
     return { ...project, repo, tags };
   }
-
-  /** Usually a repo is associated with a single project but some monorepos are linked to several projects */
-  async findProjectsByRepoId(repoId: string) {
-    const found = await this.db.query.projects.findMany({
-      where: eq(schema.projects.repoId, repoId),
-      with: {
-        repo: {
-          columns: {
-            full_name: true,
-            stars: true,
-          },
-        },
-        projectsToTags: {
-          with: {
-            tag: {
-              columns: {
-                code: true,
-                name: true,
-              },
-            },
-          },
-        },
-      },
-    });
-    return found.map((project) => ({
-      ...project,
-      tags: project.projectsToTags.map((ptt) => ptt.tag.code),
-    }));
-  }
 }
 
 export type ProjectDetails = NonNullable<
