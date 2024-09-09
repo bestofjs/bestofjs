@@ -1,4 +1,14 @@
-import { asc, count, desc, eq, ilike, inArray, or, sql } from "drizzle-orm";
+import {
+  asc,
+  count,
+  desc,
+  eq,
+  ilike,
+  inArray,
+  like,
+  or,
+  sql,
+} from "drizzle-orm";
 
 import { DB } from "../index";
 import * as schema from "../schema";
@@ -17,6 +27,8 @@ type Props = {
   db: DB;
   limit: number;
   offset: number;
+  owner?: string;
+  full_name?: string;
   sort: ProjectListOrderByKey;
   tag?: string;
   text?: string;
@@ -26,6 +38,8 @@ export async function findProjects({
   db,
   limit,
   offset,
+  full_name,
+  owner,
   sort,
   tag,
   text,
@@ -40,6 +54,7 @@ export async function findProjects({
       repo: {
         full_name: repos.full_name,
         owner_id: repos.owner_id,
+        archived: repos.archived,
       },
       logo: projects.logo,
       tags: sql<
@@ -64,6 +79,7 @@ export async function findProjects({
       projects.description,
       projects.logo,
       projects.createdAt,
+      repos.archived,
       repos.stars,
       repos.full_name,
       repos.owner_id,
@@ -76,6 +92,12 @@ export async function findProjects({
   }
   if (tag) {
     query.where(getWhereClauseSearchByTag(db, tag));
+  }
+  if (owner) {
+    query.where(like(repos.full_name, `${owner}/%`));
+  }
+  if (full_name) {
+    query.where(like(repos.full_name, full_name));
   }
 
   // console.log(query.toSQL());

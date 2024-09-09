@@ -25,7 +25,9 @@ export const projects = pgTable("projects", {
   comments: text("comments"),
   createdAt: timestamp("created_at").notNull().defaultNow(),
   updatedAt: timestamp("updated_at"),
-  repoId: text("repoId").references(() => repos.id, { onDelete: "cascade" }),
+  repoId: text("repoId")
+    .references(() => repos.id, { onDelete: "cascade" })
+    .notNull(),
 });
 
 export const tags = pgTable("tags", {

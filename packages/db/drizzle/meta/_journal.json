@@ -15,6 +15,13 @@
       "when": 1723967504988,
       "tag": "0001_light_cerise",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1725801788752,
+      "tag": "0002_minor_sentry",
+      "breakpoints": true
     }
   ]
 }

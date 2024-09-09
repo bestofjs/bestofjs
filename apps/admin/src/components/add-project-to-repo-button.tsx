@@ -1,15 +1,16 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { DialogDescription } from "@radix-ui/react-dialog";
 import { ReloadIcon } from "@radix-ui/react-icons";
-import { PlusIcon } from "lucide-react";
+import { Plus } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from "zod";
 
-import { ProjectDetails } from "@repo/db/projects";
+import { addProjectToRepoAction } from "@/app/projects/actions";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -19,46 +20,33 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormMessage,
-} from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { addPackageAction } from "../actions";
+import { Form, FormControl, FormField, FormItem, FormMessage } from "./ui/form";
 
 const formSchema = z.object({
-  packageName: z.string().refine((value) => {
-    const packageNameRegex =
-      /^(@[a-z0-9-~][a-z0-9-._~]*\/)?[a-z0-9-~][a-z0-9-._~]*$/;
-    return packageNameRegex.test(value);
-  }, "Invalid package name"),
+  name: z.string().min(2),
+  description: z.string().min(10),
 });
 
-type Props = {
-  project: ProjectDetails;
-};
-
-export function AddPackageButton({ project }: Props) {
+export function AddProjectToRepoButton({ repoId }: { repoId: string }) {
   const [open, setOpen] = useState(false);
+  const router = useRouter();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
-    defaultValues: { packageName: "" },
+    defaultValues: { name: "", description: "" },
   });
 
   const isPending = form.formState.isSubmitting;
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     try {
-      await addPackageAction(project.id, project.slug, values.packageName);
-      toast.success(`Package added: ${values.packageName}`);
+      const project = await addProjectToRepoAction({ ...values, repoId });
+      toast.success(`Project added: ${project.name}`);
       setOpen(false);
+      router.push(`/projects/${project.slug}`);
     } catch (error) {
-      console.error(error);
-      toast.error(`Unable to add the package ${(error as Error).message}`);
+      toast.error(`Unable to create the project ${(error as Error).message}`);
     }
   }
 
@@ -67,25 +55,40 @@ export function AddPackageButton({ project }: Props) {
       <Dialog open={open} onOpenChange={setOpen}>
         <DialogTrigger asChild>
           <Button variant="default">
-            <PlusIcon className="h-4 w-4" />
-            Add Package
+            <Plus className="h-4 w-4" />
+            Add Project
           </Button>
         </DialogTrigger>
         <DialogContent className="sm:max-w-[600px]">
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
             <DialogHeader>
-              <DialogTitle>Add Package</DialogTitle>
+              <DialogTitle>Add Project</DialogTitle>
               <DialogDescription>
-                Specify the package name to be linked to the project
+                Specify the name of the project to add to this repository
               </DialogDescription>
             </DialogHeader>
             <div className="grid grid-cols-[100px_1fr] items-center gap-4">
               <Label htmlFor="name" className="text-right">
-                Package name
+                Project name
               </Label>
               <FormField
                 control={form.control}
-                name="packageName"
+                name="name"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormControl>
+                      <Input placeholder="" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <Label htmlFor="name" className="text-right">
+                Description
+              </Label>
+              <FormField
+                control={form.control}
+                name="description"
                 render={({ field }) => (
                   <FormItem>
                     <FormControl>
