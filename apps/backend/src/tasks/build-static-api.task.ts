@@ -6,6 +6,7 @@ import {
   getProjectDescription,
   getProjectTrends,
   getProjectURL,
+  ProjectDetails,
 } from "@repo/db/projects";
 import { Task } from "@/task-runner";
 import { ProjectItem } from "./static-api-types";
@@ -20,6 +21,8 @@ export const buildStaticApiTask: Task = {
       const repo = project.repo;
 
       if (!repo) throw new Error("No repo found");
+      if (!shouldProcessProject(project))
+        return { data: null, meta: { skipped: true } };
       if (!repo.snapshots?.length)
         return { data: null, meta: { "no snapshot": true } };
 
@@ -108,6 +111,10 @@ export const buildStaticApiTask: Task = {
     }
   },
 };
+
+function shouldProcessProject(project: ProjectDetails) {
+  return !["deprecated", "hidden"].includes(project.status);
+}
 
 function isColdProject(project: ProjectItem) {
   const delta = project.trends.yearly;
