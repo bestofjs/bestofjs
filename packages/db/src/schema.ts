@@ -9,6 +9,8 @@ import {
   timestamp,
 } from "drizzle-orm/pg-core";
 
+import { PROJECT_STATUSES } from "./constants";
+
 export const projects = pgTable("projects", {
   id: text("id").primaryKey(),
   name: text("name").notNull().unique(),
@@ -17,9 +19,7 @@ export const projects = pgTable("projects", {
   overrideDescription: boolean("override_description"),
   url: text("url"),
   overrideURL: boolean("override_url"),
-  status: text("status", {
-    enum: ["active", "featured", "promoted", "deprecated"],
-  }),
+  status: text("status", { enum: PROJECT_STATUSES }).notNull(),
   logo: text("logo"),
   twitter: text("twitter"),
   comments: text("comments"),

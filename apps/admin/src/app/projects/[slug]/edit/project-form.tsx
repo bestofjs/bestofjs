@@ -9,6 +9,7 @@ import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from "zod";
 
+import { PROJECT_STATUSES } from "@repo/db/constants";
 import { ProjectData } from "@repo/db/projects";
 import { Button, buttonVariants } from "@/components/ui/button";
 import {
@@ -39,8 +40,6 @@ import {
 import { Textarea } from "@/components/ui/textarea";
 import { updateProjectData } from "../actions";
 
-const statuses = ["active", "featured", "promoted", "deprecated"] as const;
-
 const formSchema = z.object({
   name: z.string().min(2).max(50),
   slug: z.string(),
@@ -48,7 +47,7 @@ const formSchema = z.object({
   overrideDescription: z.coerce.boolean().nullable(),
   url: z.string().url().nullable().or(z.literal("")),
   overrideURL: z.coerce.boolean().nullable(),
-  status: z.enum(statuses).default("active").nullable(),
+  status: z.enum(PROJECT_STATUSES).default("active"),
   logo: z.string().nullable(),
   comments: z.string().nullable(),
   twitter: z.string().nullable(),
@@ -196,7 +195,7 @@ export function ProjectForm({ project }: Props) {
                         <SelectValue placeholder="Status" />
                       </SelectTrigger>
                       <SelectContent>
-                        {statuses.map((status) => (
+                        {PROJECT_STATUSES.map((status) => (
                           <SelectItem key={status} value={status}>
                             {status}
                           </SelectItem>
