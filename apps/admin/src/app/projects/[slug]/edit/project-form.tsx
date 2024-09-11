@@ -70,7 +70,7 @@ export function ProjectForm({ project }: Props) {
     console.log(values);
     await updateProjectData(project.id, values);
     toast.success("Project updated");
-    router.push(`/projects/${project.slug}`);
+    router.push(`/projects/${values.slug}`);
   }
 
   return (
