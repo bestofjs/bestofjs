@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ReloadIcon } from "@radix-ui/react-icons";
 import { SelectValue } from "@radix-ui/react-select";
+import { TriangleAlert } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from "zod";
@@ -105,8 +106,9 @@ export function ProjectForm({ project }: Props) {
                   <FormControl>
                     <Input placeholder="Slug" {...field} />
                   </FormControl>
-                  <FormDescription>
-                    Edit with case, the slug may be referenced a lot of places
+                  <FormDescription className="flex items-center gap-2">
+                    <TriangleAlert className="h-4 w-4" />
+                    Edit with care, the slug may be referenced a lot of places
                   </FormDescription>
                   <FormMessage />
                 </FormItem>
