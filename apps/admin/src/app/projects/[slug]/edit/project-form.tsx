@@ -98,6 +98,22 @@ export function ProjectForm({ project }: Props) {
             />
             <FormField
               control={form.control}
+              name="slug"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Slug</FormLabel>
+                  <FormControl>
+                    <Input placeholder="Slug" {...field} />
+                  </FormControl>
+                  <FormDescription>
+                    Edit with case, the slug may be referenced a lot of places
+                  </FormDescription>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
               name="description"
               render={({ field }) => (
                 <FormItem>
