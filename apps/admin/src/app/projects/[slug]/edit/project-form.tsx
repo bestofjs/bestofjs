@@ -5,10 +5,12 @@ import { useRouter } from "next/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ReloadIcon } from "@radix-ui/react-icons";
 import { SelectValue } from "@radix-ui/react-select";
+import { TriangleAlert } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from "zod";
 
+import { PROJECT_STATUSES } from "@repo/db/constants";
 import { ProjectData } from "@repo/db/projects";
 import { Button, buttonVariants } from "@/components/ui/button";
 import {
@@ -39,8 +41,6 @@ import {
 import { Textarea } from "@/components/ui/textarea";
 import { updateProjectData } from "../actions";
 
-const statuses = ["active", "featured", "promoted", "deprecated"] as const;
-
 const formSchema = z.object({
   name: z.string().min(2).max(50),
   slug: z.string(),
@@ -48,7 +48,7 @@ const formSchema = z.object({
   overrideDescription: z.coerce.boolean().nullable(),
   url: z.string().url().nullable().or(z.literal("")),
   overrideURL: z.coerce.boolean().nullable(),
-  status: z.enum(statuses).default("active").nullable(),
+  status: z.enum(PROJECT_STATUSES).default("active"),
   logo: z.string().nullable(),
   comments: z.string().nullable(),
   twitter: z.string().nullable(),
@@ -70,7 +70,7 @@ export function ProjectForm({ project }: Props) {
     console.log(values);
     await updateProjectData(project.id, values);
     toast.success("Project updated");
-    router.push(`/projects/${project.slug}`);
+    router.push(`/projects/${values.slug}`);
   }
 
   return (
@@ -93,6 +93,23 @@ export function ProjectForm({ project }: Props) {
                   <FormControl>
                     <Input placeholder="Name" {...field} />
                   </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="slug"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Slug</FormLabel>
+                  <FormControl>
+                    <Input placeholder="Slug" {...field} />
+                  </FormControl>
+                  <FormDescription className="flex items-center gap-2">
+                    <TriangleAlert className="h-4 w-4" />
+                    Edit with care, the slug may be referenced a lot of places
+                  </FormDescription>
                   <FormMessage />
                 </FormItem>
               )}
@@ -196,7 +213,7 @@ export function ProjectForm({ project }: Props) {
                         <SelectValue placeholder="Status" />
                       </SelectTrigger>
                       <SelectContent>
-                        {statuses.map((status) => (
+                        {PROJECT_STATUSES.map((status) => (
                           <SelectItem key={status} value={status}>
                             {status}
                           </SelectItem>

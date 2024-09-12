@@ -38,7 +38,12 @@ export function ProjectTable({ projects }: Props) {
             </TableCell>
             <TableCell>
               <div className="flex flex-col gap-4">
-                <Link href={`/projects/${project.slug}`}>{project.name}</Link>
+                <Link
+                  href={`/projects/${project.slug}`}
+                  className="hover:underline"
+                >
+                  {project.name}
+                </Link>
                 <span className="text-muted-foreground">
                   {project.description}
                 </span>
