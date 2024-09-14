@@ -11,7 +11,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Code Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
+
+      - name: Cache turbo build setup
+        uses: actions/cache@v4
+        with:
+          path: .turbo
+          key: ${{ runner.os }}-turbo-${{ github.sha }}
+          restore-keys: |
+            ${{ runner.os }}-turbo-
 
       - name: Setup Environment
         uses: ./.github/tooling/github-actions/install
@@ -21,7 +29,7 @@ jobs:
         run: pnpm -F bestofjs-nextjs install
 
       - name: Code Linting
-        run: pnpm -F bestofjs-nextjs lint
+        run: pnpm -F bestofjs-nextjs typecheck
 
       - name: Code Linting
         run: pnpm -F bestofjs-nextjs lint
