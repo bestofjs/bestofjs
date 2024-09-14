@@ -26,8 +26,11 @@ export class ProjectProcessor extends ItemProcessor<ProjectDetails> {
       .select({ id: schema.projects.id })
       .from(schema.projects)
       .orderBy(desc(schema.projects.createdAt))
-      .limit(limit)
       .offset(skip);
+
+    if (limit) {
+      query.limit(limit);
+    }
 
     if (name) {
       query.where(eq(schema.projects.slug, name));
