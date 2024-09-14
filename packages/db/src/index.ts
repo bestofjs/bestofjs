@@ -1,18 +1,19 @@
-import { LocalDatabase } from "./local-database";
+import { drizzle } from "drizzle-orm/vercel-postgres";
+
+import { sql } from "./db";
 import * as schema from "./schema";
-import { VercelPostgresService } from "./vercel-database";
 
 export * as schema from "./schema";
 
-export type DB = ReturnType<typeof getDatabase>;
+export type DB = ReturnType<typeof drizzle<typeof schema>>;
 
 export function getDatabase() {
-  const service = getService();
+  const service = new VercelPostgresService();
   return service.db;
 }
 
 export async function runQuery(callback: (db: DB) => Promise<void>) {
-  const service = getService();
+  const service = new VercelPostgresService();
 
   try {
     await callback(service.db);
@@ -23,10 +24,18 @@ export async function runQuery(callback: (db: DB) => Promise<void>) {
   }
 }
 
-function getService() {
-  const service =
-    process.env.STAGE === "local"
-      ? new LocalDatabase()
-      : new VercelPostgresService();
-  return service;
+class VercelPostgresService {
+  db: DB;
+
+  constructor() {
+    console.log("Vercel DB connected");
+    this.db = drizzle(sql, { schema });
+    sql.on("remove", () => {
+      console.log("Vercel DB disconnected");
+    });
+  }
+
+  disconnect() {
+    sql.end();
+  }
 }
