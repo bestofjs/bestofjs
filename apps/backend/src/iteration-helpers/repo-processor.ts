@@ -26,8 +26,11 @@ export class RepoProcessor extends ItemProcessor<Repo> {
       .select({ id: schema.repos.id })
       .from(schema.repos)
       .orderBy(desc(schema.repos.added_at))
-      .limit(limit)
       .offset(skip);
+
+    if (limit) {
+      query.limit(limit);
+    }
 
     if (name) {
       query.where(eq(schema.repos.full_name, name));
