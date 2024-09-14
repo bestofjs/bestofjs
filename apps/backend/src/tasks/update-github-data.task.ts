@@ -39,14 +39,19 @@ export const updateGitHubDataTask: Task = {
       const snapshotAdded = await snapshotsService.addSnapshot(repo.id, stars);
       logger.debug("Snapshot added?", snapshotAdded);
 
-      const data = { ...githubData, contributor_count, updatedAt: new Date() };
+      const data = {
+        ...githubData,
+        stars,
+        contributor_count,
+        updatedAt: new Date(),
+      };
       logger.debug("STEP 4: save the repo record", data);
 
       const result = await db
         .update(schema.repos)
         .set(data)
         .where(eq(schema.repos.id, repo.id));
-      logger.debug("Repo record updated", result);
+      logger.debug("Repo record updated", result.rowCount);
 
       return {
         meta: { updated: true, snapshotAdded },
