@@ -16,7 +16,7 @@ jobs:
       - name: Cache turbo build setup
         uses: actions/cache@v4
         with:
-          path: .turbo
+          path: apps/*/.turbo
           key: ${{ runner.os }}-turbo-${{ github.sha }}
           restore-keys: |
             ${{ runner.os }}-turbo-
@@ -28,7 +28,7 @@ jobs:
         shell: bash
         run: pnpm -F bestofjs-nextjs install
 
-      - name: Code Linting
+      - name: Type checking
         run: pnpm -F bestofjs-nextjs typecheck
 
       - name: Code Linting
@@ -55,7 +55,7 @@ jobs:
           environment: "Preview – bestofjs"
 
       - name: Code Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Setup Environment
         uses: ./.github/tooling/github-actions/install
