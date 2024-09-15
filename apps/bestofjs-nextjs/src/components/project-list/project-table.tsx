@@ -33,7 +33,7 @@ export const ProjectTable = ({ projects, footer, ...otherProps }: Props) => {
           if (!project) return null;
           return (
             <ProjectTableRow
-              key={project.full_name}
+              key={project.slug}
               project={project}
               {...otherProps}
             />
