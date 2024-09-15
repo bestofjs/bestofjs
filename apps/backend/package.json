@@ -1,0 +1,46 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "Best of JS backend tasks",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "daily-update-github-data": "dotenv -e ../../.env tsx ./src/cli.ts update-github-data -- --logLevel 3",
+    "trigger-build-static-api": "dotenv -e ../../.env tsx ./src/cli.ts trigger-build-static-api",
+    "static-api-daily": "dotenv -e ../../.env tsx ./src/cli.ts static-api-daily -- --logLevel 3 --concurrency 20",
+    "daily-update-package-data": "dotenv -e ../../.env tsx ./src/cli.ts update-package-data -- --logLevel 3 --concurrency 5",
+    "daily-update-bundle-size": "dotenv -e ../../.env tsx ./src/cli.ts update-bundle-size -- --logLevel 3",
+    "typecheck": "tsc --noEmit",
+    "typecheck:watch": "tsc --noEmit --incremental --watch",
+    "format:write": "prettier --write \"src/**/*.{ts,tsx,mdx}\" --cache",
+    "format:check": "prettier --check \"src/**/*.{ts,tsx,mdx}\" --cache"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@repo/db": "workspace:*",
+    "@types/fs-extra": "^11.0.1",
+    "cleye": "^1.3.2",
+    "consola": "^3.2.3",
+    "debug": "^4.3.4",
+    "dotenv-cli": "^7.4.2",
+    "drizzle-orm": "^0.33.0",
+    "es-toolkit": "1.16.0-dev.477",
+    "fs-extra": "^11.1.1",
+    "p-map": "^7.0.2",
+    "p-throttle": "^6.1.0",
+    "p-timeout": "^6.1.2",
+    "package-json": "^6.4.0",
+    "pretty-bytes": "^6.1.1",
+    "pretty-ms": "^9.1.0",
+    "tasuku": "^2.0.1",
+    "tiny-invariant": "^1.3.1",
+    "tsx": "^4.16.2",
+    "typescript": "^5.5.4",
+    "zod": "^3.22.4"
+  },
+  "devDependencies": {
+    "@types/debug": "^4.1.12"
+  }
+}

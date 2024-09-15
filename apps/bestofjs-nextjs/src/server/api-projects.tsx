@@ -5,8 +5,7 @@ import {
   filterProjectsByQuery,
   getResultRelevantTags,
 } from "@/lib/search-utils";
-
-import { APIContext, getProjectId } from "./api-utils";
+import { APIContext } from "./api-utils";
 
 type QueryParams = {
   criteria: RawObject & {
@@ -122,6 +121,7 @@ export function createProjectsAPI({ getData }: APIContext) {
       const projection = {
         full_name: 1,
         name: 1,
+        slug: 1,
         owner_id: 1,
         icon: 1,
         npm: 1,
@@ -135,10 +135,7 @@ export function createProjectsAPI({ getData }: APIContext) {
         .sort({ stars: -1 })
         .all() as BestOfJS.RawProject[];
 
-      return rawProjects.map((project) => ({
-        ...project,
-        slug: getProjectId(project),
-      })) as BestOfJS.SearchIndexProject[];
+      return rawProjects;
     },
   };
 }

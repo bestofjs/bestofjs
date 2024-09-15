@@ -1,14 +1,13 @@
 import { StarIcon } from "@/components/core";
 import { PageHeading } from "@/components/core/typography";
 import {
-  ProjectPageSearchParams,
   parseSearchParams,
+  ProjectPageSearchParams,
   stateToQueryString,
 } from "@/components/project-list/navigation-state";
 import { ProjectPaginatedList } from "@/components/project-list/project-paginated-list";
 import { getSortOptionByKey } from "@/components/project-list/sort-order-options";
 import { api } from "@/server/api";
-
 import { ProjectSearchQuery, SearchQueryUpdater } from "../projects/types";
 
 type PageProps = {
@@ -58,7 +57,7 @@ async function fetchFeaturedProjects({
   const sortOption = getSortOptionByKey(sort);
 
   const { projects, total } = await api.projects.findProjects({
-    criteria: { isFeatured: true },
+    criteria: { status: "featured" },
     sort: sortOption.sort,
     skip: limit * (page - 1),
     limit,

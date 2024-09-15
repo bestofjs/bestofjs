@@ -1,10 +1,10 @@
 import { ImNpm } from "react-icons/im";
 
-import { Badge } from "@/components/ui/badge";
-import { Card, CardBody, CardContent, CardHeader } from "@/components/ui/card";
+import { ProjectDetails } from "@repo/db/projects";
 import { ExternalLinkIcon } from "@/components/core";
 import { ExternalLink } from "@/components/core/typography";
-
+import { Badge } from "@/components/ui/badge";
+import { Card, CardBody, CardContent, CardHeader } from "@/components/ui/card";
 import { BundleSizeSection } from "./bundle-size-section";
 import { DependenciesSection } from "./dependencies-section";
 import { MonthlyDownloadsChart } from "./monthly-downloads-charts";
@@ -12,9 +12,12 @@ import { MonthlyDownloadsChart } from "./monthly-downloads-charts";
 export function ProjectDetailsNpmCard({
   project,
 }: {
-  project: BestOfJS.ProjectWithPackageDetails;
+  project: ProjectDetails;
 }) {
-  const { packageName, packageData } = project;
+  const packageData = project.packages?.[0];
+  const packageName = packageData?.name;
+  const bundleData = packageData.bundles;
+
   return (
     <Card>
       <CardHeader className="border-b">
@@ -42,7 +45,7 @@ export function ProjectDetailsNpmCard({
         <CardContent>
           <DependenciesSection project={project} />
         </CardContent>
-        {project.bundle?.gzip && (
+        {bundleData && (
           <CardContent>
             <BundleSizeSection project={project} />
           </CardContent>

@@ -1,21 +1,23 @@
 import prettyBytes from "pretty-bytes";
 
+import { ProjectDetails } from "@repo/db/projects";
+import { ChevronRightIcon, ExternalLinkIcon } from "@/components/core";
+import { ExternalLink } from "@/components/core/typography";
 import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
 } from "@/components/ui/collapsible";
-import { ChevronRightIcon, ExternalLinkIcon } from "@/components/core";
-import { ExternalLink } from "@/components/core/typography";
 
-type Props = { project: BestOfJS.ProjectWithPackageDetails };
+type Props = { project: ProjectDetails };
 export function BundleSizeSection({ project }: Props) {
-  const { bundle } = project;
+  const packageName = project.packages?.[0]?.name;
+  const bundle = project.packages?.[0]?.bundles;
   if (!bundle?.size || !bundle.gzip) return null;
 
   const urls = {
-    bundlePhobia: `https://bundlephobia.com/result?p=${project.packageName}`,
-    bundleJs: `https://bundlejs.com/?q=${project.packageName}&bundle`,
+    bundlePhobia: `https://bundlephobia.com/result?p=${packageName}`,
+    bundleJs: `https://bundlejs.com/?q=${packageName}&bundle`,
   };
   return (
     <Collapsible>

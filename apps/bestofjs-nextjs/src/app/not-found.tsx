@@ -1,7 +1,7 @@
 import Link from "next/link";
 
-import { APP_REPO_URL } from "@/config/site";
 import { ExternalLink, PageHeading } from "@/components/core/typography";
+import { APP_REPO_URL } from "@/config/site";
 
 export default function NotFound() {
   return (

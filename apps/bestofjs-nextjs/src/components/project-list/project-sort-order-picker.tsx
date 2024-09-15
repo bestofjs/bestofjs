@@ -1,5 +1,6 @@
 import Link from "next/link";
 
+import { ProjectSearchQuery } from "@/app/projects/types";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -8,8 +9,6 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { ProjectSearchQuery } from "@/app/projects/types";
-
 import { ChevronDownIcon } from "../core";
 import { stateToQueryString } from "./navigation-state";
 import { SortOptionKey, sortOrderOptionsByKey } from "./sort-order-options";

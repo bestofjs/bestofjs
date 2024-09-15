@@ -1,5 +1,4 @@
 import { formatNumber } from "@/helpers/numbers";
-
 import { StarIcon } from "./icons";
 
 type Props = {
@@ -53,12 +52,16 @@ export const StarDeltaAverage = ({ value }: Props) => {
     return <div className="star-delta text-sm text-muted-foreground">N/A</div>;
 
   return (
-    <div className="inline-flex items-center">
-      <span>{sign}</span>
-      <span>{integerPart}</span>
-      <span>.{decimalPart}</span>
-      <StarIcon />
-      <span> /day</span>
+    <div className="flex flex-col items-center">
+      <div>
+        <span>{sign}</span>
+        <span>{integerPart}</span>
+        <span>.{decimalPart}</span>
+      </div>
+      <div className="inline-flex items-center">
+        <StarIcon />
+        <span> /day</span>
+      </div>
     </div>
   );
 };

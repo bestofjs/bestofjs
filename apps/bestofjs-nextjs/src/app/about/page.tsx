@@ -1,14 +1,14 @@
 import { Metadata } from "next";
 import Image from "next/image";
 
+import { ExternalLink, PageHeading } from "@/components/core/typography";
+import { Card } from "@/components/ui/card";
 import {
   ADD_PROJECT_REQUEST_URL,
   APP_DISPLAY_NAME,
   APP_REPO_URL,
   SPONSOR_URL,
 } from "@/config/site";
-import { Card } from "@/components/ui/card";
-import { ExternalLink, PageHeading } from "@/components/core/typography";
 
 export const metadata: Metadata = {
   title: "About",

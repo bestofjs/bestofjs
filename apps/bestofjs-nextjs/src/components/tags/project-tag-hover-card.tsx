@@ -3,20 +3,20 @@
 import Link from "next/link";
 import useSWR, { SWRConfiguration } from "swr";
 
+import { ProjectLogo, TagIcon } from "@/components/core";
 import {
   HoverCard,
   HoverCardContent,
   HoverCardTrigger,
 } from "@/components/ui/hover-card";
 import { Skeleton } from "@/components/ui/skeleton";
-import { ProjectLogo, TagIcon } from "@/components/core";
 
 const NUMBER_OF_PROJECTS = 5;
 
 export const ProjectTagHoverCard = ({
   children,
   tag,
-}: React.PropsWithChildren<{ tag: BestOfJS.Tag }>) => {
+}: React.PropsWithChildren<{ tag: BestOfJS.RawTag }>) => {
   const { name, description } = tag;
   return (
     <HoverCard openDelay={300} closeDelay={100}>
@@ -56,7 +56,7 @@ export const ProjectTagHoverCard = ({
   );
 };
 
-const FetchTagProjects = ({ tag }: { tag: BestOfJS.Tag }) => {
+const FetchTagProjects = ({ tag }: { tag: BestOfJS.RawTag }) => {
   const options: SWRConfiguration = {
     revalidateIfStale: false,
     revalidateOnFocus: false,

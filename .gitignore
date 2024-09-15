@@ -1,2 +1,11 @@
 node_modules
 .DS_Store
+.env
+.env.development
+.env.production
+
+# local PostgreSQL database
+db-data
+
+# Output of typecheck command
+tsconfig.tsbuildinfo

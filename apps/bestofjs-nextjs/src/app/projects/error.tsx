@@ -3,8 +3,8 @@
 // Error components must be Client Components
 import { useEffect } from "react";
 
-import { APP_REPO_URL, DISCORD_URL } from "@/config/site";
 import { ExternalLink, PageHeading } from "@/components/core/typography";
+import { APP_REPO_URL, DISCORD_URL } from "@/config/site";
 
 export default function Error({ error }: { error: Error; reset: () => void }) {
   useEffect(() => {

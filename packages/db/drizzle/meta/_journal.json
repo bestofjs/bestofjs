@@ -1,0 +1,34 @@
+{
+  "version": "7",
+  "dialect": "postgresql",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "7",
+      "when": 1723349560439,
+      "tag": "0000_exotic_ultimo",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1723967504988,
+      "tag": "0001_light_cerise",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1725801788752,
+      "tag": "0002_minor_sentry",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1726269359368,
+      "tag": "0003_deep_the_enforcers",
+      "breakpoints": true
+    }
+  ]
+}

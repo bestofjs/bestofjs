@@ -1,6 +1,6 @@
-"use client"
+"use client";
 
-import {Component} from "react";
+import { Component } from "react";
 
 // From https://reactjs.org/docs/concurrent-mode-suspense.html#handling-errors
 type Props = { fallback: React.ReactNode; children: React.ReactNode };

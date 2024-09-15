@@ -4,10 +4,14 @@ import { z } from "zod";
 export const env = createEnv({
   server: {
     /** The huge JSON file with aggregated data about all projects tracked by Best of JS */
-    STATIC_API_ROOT_URL: z
+    STATIC_API_ROOT_URL_V1: z
       .string()
       .url()
       .default("https://bestofjs-static-api.vercel.app"),
+    STATIC_API_ROOT_URL_V2: z
+      .string()
+      .url()
+      .default("https://bestofjs-static-api-v2.vercel.app"),
     /** Serverless functions related to project details */
     PROJECT_DETAILS_API_ROOT_URL: z
       .string()

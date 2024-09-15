@@ -3,7 +3,6 @@
 import useSWR, { SWRConfiguration } from "swr";
 
 import { SearchPalette } from "@/components/search-palette/search-palette";
-
 import { ClientSearch } from "./search-container";
 
 type SearchData = {

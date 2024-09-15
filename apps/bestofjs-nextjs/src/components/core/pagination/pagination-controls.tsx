@@ -1,11 +1,10 @@
 import React from "react";
 import NextLink from "next/link";
 
-import { formatNumber } from "@/helpers/numbers";
-import { buttonVariants } from "@/components/ui/button";
-import { ChevronLeftIcon, ChevronRightIcon } from "@/components/core/icons";
 import { PaginationProps, SearchUrlBuilder } from "@/app/projects/types";
-
+import { ChevronLeftIcon, ChevronRightIcon } from "@/components/core/icons";
+import { buttonVariants } from "@/components/ui/button";
+import { formatNumber } from "@/helpers/numbers";
 import { PaginationState } from "./pagination-state";
 
 type Props<T> = {
@@ -45,7 +44,7 @@ export function BottomPaginationControls<T extends PaginationProps>(
       ({
         ...state,
         page: state.page - 1,
-      } as T)
+      }) as T
   );
   const nextPageURL = buildPageURL((state: T) => ({
     ...state,

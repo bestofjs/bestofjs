@@ -4,6 +4,9 @@ import * as React from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
+import { Button } from "@/components/ui/button";
+import { Separator } from "@/components/ui/separator";
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import {
   APP_REPO_URL,
   DISCORD_URL,
@@ -11,10 +14,6 @@ import {
   mainNavItems,
 } from "@/config/site";
 import { cn } from "@/lib/utils";
-import { Button } from "@/components/ui/button";
-import { Separator } from "@/components/ui/separator";
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-
 import { HamburgerMenuIcon } from "../core";
 import { BestOfJSLogo } from "../svg-logos";
 

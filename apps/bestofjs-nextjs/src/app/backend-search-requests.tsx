@@ -1,3 +1,4 @@
+import { TAGS_EXCLUDED_FROM_RANKINGS } from "@repo/db/constants";
 import { Sort } from "@/components/project-list/sort-order-options";
 
 export function getHotProjectsRequest(
@@ -6,7 +7,7 @@ export function getHotProjectsRequest(
 ) {
   return {
     criteria: {
-      tags: { $nin: ["meta", "learning"] },
+      tags: { $nin: TAGS_EXCLUDED_FROM_RANKINGS },
     },
     sort,
     limit: count,
@@ -15,7 +16,9 @@ export function getHotProjectsRequest(
 
 export function getLatestProjects() {
   return {
-    sort: {}, // TODO sort by `addedAt` when it's available in data instead of relying on the default sort
+    sort: {
+      added_at: -1,
+    },
     limit: 5,
   };
 }

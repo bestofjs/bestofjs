@@ -3,7 +3,13 @@
 import * as React from "react";
 import { useRouter } from "next/navigation";
 
-import { getResultRelevantTags, mergeSearchResults } from "@/lib/search-utils";
+import {
+  ProjectLogo,
+  StarTotal,
+  TagIcon,
+  TagsIcons,
+  XMarkIcon,
+} from "@/components/core";
 import { Badge } from "@/components/ui/badge";
 import { Checkbox } from "@/components/ui/checkbox";
 import {
@@ -15,14 +21,7 @@ import {
 } from "@/components/ui/command";
 import { Separator } from "@/components/ui/separator";
 import { Skeleton } from "@/components/ui/skeleton";
-import {
-  ProjectLogo,
-  StarTotal,
-  TagIcon,
-  TagsIcons,
-  XMarkIcon,
-} from "@/components/core";
-
+import { getResultRelevantTags, mergeSearchResults } from "@/lib/search-utils";
 import { ClientSearch } from "./search-container";
 import {
   ProjectSearchResult,
@@ -30,11 +29,7 @@ import {
   TagSearchResult,
   ViewAllTagsCommand,
 } from "./search-palette-results";
-import {
-  SelectedItem,
-  useSearchPaletteState,
-  useSearchPaletteTags,
-} from "./search-palette-state";
+import { SelectedItem, useSearchPaletteState } from "./search-palette-state";
 import { SearchTrigger } from "./search-trigger";
 
 type CombinedSearchResult =
@@ -47,6 +42,8 @@ const TEXT_QUERY_MIN_LENGTH = 2;
 
 export function SearchPalette() {
   const {
+    currentTags,
+    currentTagCodes,
     debouncedOnChange,
     isPending,
     onOpenChange,
@@ -55,11 +52,11 @@ export function SearchPalette() {
     onSelectSearchForText,
     onViewAllTags,
     open,
+    removeTag,
     searchQuery,
     selectedItem,
     setOpen,
   } = useSearchPaletteState();
-  const { currentTags, currentTagCodes, removeTag } = useSearchPaletteTags();
 
   const canTriggerSearch = searchQuery.length >= TEXT_QUERY_MIN_LENGTH; // we need at least 2 characters to trigger a search
 

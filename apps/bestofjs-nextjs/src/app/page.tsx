@@ -2,6 +2,25 @@ import { Metadata } from "next";
 import NextLink from "next/link";
 import { GoGift, GoHeart, GoPlus } from "react-icons/go";
 
+import { StarIcon, TagIcon } from "@/components/core";
+import { SectionHeading } from "@/components/core/section";
+import { ExternalLink } from "@/components/core/typography";
+import { FeaturedProjects } from "@/components/home/home-featured-projects";
+import {
+  getHotProjects,
+  HotProjectList,
+} from "@/components/home/home-hot-projects";
+import { LatestMonthlyRankings } from "@/components/home/latest-monthly-rankings";
+import { TypeWriter } from "@/components/home/typewriter";
+import { ProjectPageSearchParams } from "@/components/project-list/navigation-state";
+import {
+  ProjectScore,
+  ProjectTable,
+} from "@/components/project-list/project-table";
+import { CompactTagList } from "@/components/tag-list/compact-tag-list";
+import { buttonVariants } from "@/components/ui/button";
+import { Card, CardHeader } from "@/components/ui/card";
+import { Separator } from "@/components/ui/separator";
 import {
   ADD_PROJECT_REQUEST_URL,
   APP_CANONICAL_URL,
@@ -13,28 +32,11 @@ import {
 } from "@/config/site";
 import { formatNumber } from "@/helpers/numbers";
 import { addCacheBustingParam } from "@/helpers/url";
-import { buttonVariants } from "@/components/ui/button";
-import { Card, CardHeader } from "@/components/ui/card";
-import { Separator } from "@/components/ui/separator";
-import { StarIcon, TagIcon } from "@/components/core";
-import { SectionHeading } from "@/components/core/section";
-import { ExternalLink } from "@/components/core/typography";
-import { FeaturedProjects } from "@/components/home/home-featured-projects";
-import {
-  HotProjectList,
-  getHotProjects,
-} from "@/components/home/home-hot-projects";
-import { LatestMonthlyRankings } from "@/components/home/latest-monthly-rankings";
-import { TypeWriter } from "@/components/home/typewriter";
-import { ProjectPageSearchParams } from "@/components/project-list/navigation-state";
-import {
-  ProjectScore,
-  ProjectTable,
-} from "@/components/project-list/project-table";
-import { CompactTagList } from "@/components/tag-list/compact-tag-list";
 import { api } from "@/server/api";
-
-import { getLatestProjects } from "./backend-search-requests";
+import {
+  getHotProjectsRequest,
+  getLatestProjects,
+} from "./backend-search-requests";
 
 type PageProps = {
   searchParams: ProjectPageSearchParams;
@@ -291,9 +293,8 @@ function MoreProjectsSection({
 async function getData(searchParams: ProjectPageSearchParams) {
   const { lastUpdateDate, total } = await api.projects.getStats();
   const hotProjectsData = await getHotProjects(searchParams);
-  const { projects: newestProjects } = await api.projects.findProjects(
-    getLatestProjects()
-  );
+  const { projects: newestProjects } =
+    await api.projects.findProjects(getLatestProjects());
   const bestOfJSProject = await api.projects.findOne({
     full_name: APP_REPO_FULL_NAME,
   });

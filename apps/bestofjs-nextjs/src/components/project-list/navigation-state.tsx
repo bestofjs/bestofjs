@@ -1,7 +1,6 @@
 import { encode } from "qss";
 
 import { ProjectSearchQuery } from "@/app/projects/types";
-
 import { SortOptionKey } from "./sort-order-options";
 
 const DEFAULT_NUMBER_OF_PROJECTS_BY_PAGE = 30;

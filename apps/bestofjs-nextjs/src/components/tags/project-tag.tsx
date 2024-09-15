@@ -1,14 +1,13 @@
 import React from "react";
 import NextLink from "next/link";
 
-import { cn } from "@/lib/utils";
-import { badgeVariants } from "@/components/ui/badge";
 import { ProjectSearchQuery, SearchUrlBuilder } from "@/app/projects/types";
-
+import { badgeVariants } from "@/components/ui/badge";
+import { cn } from "@/lib/utils";
 import { ProjectTagHoverCard } from "./project-tag-hover-card";
 
 type Props = {
-  tags: BestOfJS.Tag[];
+  tags: BestOfJS.RawTag[];
   appendTag?: boolean;
   buildPageURL?: SearchUrlBuilder<ProjectSearchQuery>;
 };
@@ -31,7 +30,7 @@ export const ProjectTag = ({
   appendTag,
   className,
 }: {
-  tag: BestOfJS.Tag;
+  tag: BestOfJS.RawTag;
   buildPageURL?: Props["buildPageURL"];
   appendTag?: boolean;
   className?: string;

@@ -8,5 +8,12 @@
     "test:e2e:install": "pnpm -F bestofjs-nextjs exec playwright install"
   },
   "author": "Michael Rambeau",
-  "license": "MIT"
+  "license": "MIT",
+  "packageManager": "pnpm@9.4.0",
+  "devDependencies": {
+    "@ianvs/prettier-plugin-sort-imports": "^4.3.1",
+    "dotenv-cli": "^7.4.2",
+    "prettier": "^3.3.3",
+    "tsx": "^4.16.2"
+  }
 }

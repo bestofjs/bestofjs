@@ -3,14 +3,14 @@
 import { useEffect, useState } from "react";
 import useSWR, { useSWRConfig } from "swr";
 
-import { Button } from "@/components/ui/button";
-import { CardHeader } from "@/components/ui/card";
 import { ChevronLeftIcon, ChevronRightIcon, StarIcon } from "@/components/core";
 import { SectionHeading } from "@/components/core/section";
 import {
   FeaturedProjectList,
   ProjectListSkeleton,
 } from "@/components/home/featured-project-list";
+import { Button } from "@/components/ui/button";
+import { CardHeader } from "@/components/ui/card";
 
 const forceLoadingState = false; // for debugging
 

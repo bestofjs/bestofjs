@@ -17,7 +17,7 @@ async function main() {
 main();
 
 async function buildJsonFile(filename) {
-  const url = env.STATIC_API_ROOT_URL + `/` + filename;
+  const url = env.STATIC_API_ROOT_URL_V2 + `/` + filename;
   console.log(`Fetching data from ${url}`);
   const data = await fetch(url).then((res) => res.json());
   const filepath = path.join(process.cwd(), "public", "data", filename);

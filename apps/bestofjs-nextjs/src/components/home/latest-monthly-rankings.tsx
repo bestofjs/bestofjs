@@ -1,13 +1,13 @@
 import NextLink from "next/link";
 import { GoCalendar } from "react-icons/go";
 
-import { buttonVariants } from "@/components/ui/button";
-import { Card, CardHeader } from "@/components/ui/card";
+import { formatMonthlyDate } from "@/app/rankings/monthly/monthly-rankings-utils";
 import { StarDelta } from "@/components/core";
 import { SectionHeading } from "@/components/core/section";
 import { ProjectTable } from "@/components/project-list/project-table";
+import { buttonVariants } from "@/components/ui/button";
+import { Card, CardHeader } from "@/components/ui/card";
 import { api } from "@/server/api";
-import { formatMonthlyDate } from "@/app/rankings/monthly/monthly-rankings-utils";
 
 export async function LatestMonthlyRankings() {
   const { year, month, projects } = await api.rankings.getMonthlyRankings({

@@ -1,26 +1,34 @@
 import { GoGitCommit } from "react-icons/go";
 import { MdGroup } from "react-icons/md";
 
-import { fromNow } from "@/helpers/from-now";
-import { formatNumber } from "@/helpers/numbers";
-import { Card, CardBody, CardContent, CardHeader } from "@/components/ui/card";
+import {
+  getProjectMonthlyTrends,
+  getProjectTrends,
+  OneYearSnapshots,
+  ProjectDetails,
+} from "@repo/db/projects";
 import {
   ExternalLinkIcon,
+  getDeltaByDay,
   GitHubIcon,
   StarDelta,
   StarIcon,
   StarTotal,
-  getDeltaByDay,
 } from "@/components/core";
 import { ExternalLink } from "@/components/core/typography";
-
+import { Card, CardBody, CardContent, CardHeader } from "@/components/ui/card";
+import { fromNow } from "@/helpers/from-now";
+import { formatNumber } from "@/helpers/numbers";
 import { MonthlyTrendsChart } from "./monthly-trends-chart";
 
 type Props = {
-  project: BestOfJS.ProjectDetails;
+  project: ProjectDetails;
 };
 export const ProjectDetailsGitHubCard = ({ project }: Props) => {
-  const { stars, timeSeries } = project;
+  const {
+    repo: { stars, snapshots },
+  } = project;
+  const monthlyTrends = getProjectMonthlyTrends(snapshots);
 
   return (
     <Card>
@@ -30,42 +38,36 @@ export const ProjectDetailsGitHubCard = ({ project }: Props) => {
             <GitHubIcon size={24} />
           </div>
           <div>GitHub</div>
-          <StarTotal value={stars} />
+          <StarTotal value={stars || 0} />
         </div>
       </CardHeader>
       <CardBody>
         <CardContent>
           <GitHubData project={project} />
         </CardContent>
-        {timeSeries?.monthly?.length > 1 && (
+        {monthlyTrends.length > 1 && (
           <CardContent>
-            <GitHubMonthlyTrends project={project} />
+            <GitHubMonthlyTrends trends={monthlyTrends} />
           </CardContent>
         )}
         <CardContent>
-          <GitHubTrendsSummary project={project} />
+          <GitHubTrendsSummary snapshots={snapshots} />
         </CardContent>
       </CardBody>
     </Card>
   );
 };
 
-const GitHubData = ({ project }: { project: BestOfJS.ProjectDetails }) => {
+const GitHubData = ({ project }: { project: ProjectDetails }) => {
   const {
-    commit_count,
-    contributor_count,
-    created_at,
-    full_name,
-    pushed_at,
-    repository,
+    repo: { commit_count, contributor_count, created_at, full_name, pushed_at },
   } = project;
+  const url = `https://github.com/${full_name}`;
+
   return (
     <div className="grid grid-cols-2 gap-4">
       <div>
-        <ExternalLink
-          url={repository}
-          className="flex items-center gap-1 font-sans"
-        >
+        <ExternalLink url={url} className="flex items-center gap-1 font-sans">
           {full_name}
           <ExternalLinkIcon size={16} />
         </ExternalLink>
@@ -100,12 +102,11 @@ const GitHubData = ({ project }: { project: BestOfJS.ProjectDetails }) => {
 };
 
 export const GitHubMonthlyTrends = ({
-  project,
+  trends,
 }: {
-  project: BestOfJS.ProjectDetails;
+  trends: { year: number; month: number; delta: number }[];
 }) => {
-  const deltas = project.timeSeries?.monthly; // { year: number; month: number; delta: number }[];
-  const results = deltas.map(({ year, month, delta }) => ({
+  const results = trends.map(({ year, month, delta }) => ({
     year,
     month,
     value: delta,
@@ -130,11 +131,11 @@ const summaryItems: SummaryItem[] = [
 ];
 
 const GitHubTrendsSummary = ({
-  project,
+  snapshots,
 }: {
-  project: BestOfJS.ProjectDetails;
+  snapshots: OneYearSnapshots[];
 }) => {
-  const { trends } = project;
+  const trends = getProjectTrends(snapshots);
   const items = summaryItems.filter(({ category }) => {
     const value = trends[category];
     return value !== undefined && value !== null;
@@ -164,6 +165,7 @@ const OnlyYesterday = ({
   trends: BestOfJS.ProjectDetails["trends"];
 }) => {
   const value = trends.daily;
+  if (value === undefined) return null;
   if (value === 0) return <div>No star added on GitHub yesterday</div>;
   return value > 0 ? (
     <div style={{ display: "flex", alignItems: "center" }}>

@@ -1,14 +1,13 @@
 import { Metadata } from "next";
 
+import { SearchQueryUpdater } from "@/app/projects/types";
 import { TagPaginatedList } from "@/components/tag-list/tag-paginated-list";
 import { api } from "@/server/api";
-import { SearchQueryUpdater } from "@/app/projects/types";
-
 import TagListLoading from "./loading";
 import {
-  TagSearchQuery,
   getTagListSortOptionByValue,
   tagListSortSlugs,
+  TagSearchQuery,
   tagSearchStateToQueryString,
 } from "./tag-list-shared";
 import { TagsPageShell } from "./tags-page-shell";
@@ -28,9 +27,8 @@ export const metadata: Metadata = {
 };
 
 export default async function TagsPage({ searchParams }: PageProps) {
-  const { tags, total, limit, page, sortOptionId } = await getTagsPageData(
-    searchParams
-  );
+  const { tags, total, limit, page, sortOptionId } =
+    await getTagsPageData(searchParams);
 
   const searchState = parsePageSearchParams(searchParams);
 

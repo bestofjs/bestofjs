@@ -1,3 +1,6 @@
+import { ProjectDetails } from "@repo/db/projects";
+import { ChevronRightIcon, ExternalLinkIcon } from "@/components/core";
+import { ProjectTable } from "@/components/project-list/project-table";
 import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
 import {
@@ -6,16 +9,15 @@ import {
   CollapsibleTrigger,
 } from "@/components/ui/collapsible";
 import { Table, TableBody, TableCell, TableRow } from "@/components/ui/table";
-import { ChevronRightIcon, ExternalLinkIcon } from "@/components/core";
-import { ProjectTable } from "@/components/project-list/project-table";
 import { api } from "@/server/api";
 
 export async function DependenciesSection({
   project,
 }: {
-  project: BestOfJS.ProjectWithPackageDetails;
+  project: ProjectDetails;
 }) {
-  const dependencies = project.packageData.dependencies;
+  const packageData = project.packages?.[0];
+  const dependencies = (packageData?.dependencies as string[]) || [];
   if (dependencies.length === 0) {
     return <div>No dependencies</div>;
   }

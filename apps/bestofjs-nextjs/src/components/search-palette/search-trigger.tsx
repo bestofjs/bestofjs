@@ -1,9 +1,8 @@
 "use client";
 
-import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
-
+import { cn } from "@/lib/utils";
 import { SearchIcon } from "../core";
 import { useIsApplePlatform } from "./use-is-apple-platform";
 

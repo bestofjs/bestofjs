@@ -22,7 +22,7 @@ declare namespace BestOfJS {
     npm: string;
     downloads: number;
     icon: string;
-    isFeatured: boolean;
+    status: "active" | "promoted" | "deprecated" | "featured";
   }
 
   // Project handled in the state container

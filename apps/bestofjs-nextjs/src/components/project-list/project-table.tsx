@@ -1,18 +1,17 @@
 import NextLink from "next/link";
 
-import { cn } from "@/lib/utils";
-import { formatNumber } from "@/helpers/numbers";
 import { ProjectSearchQuery, SearchUrlBuilder } from "@/app/projects/types";
-
+import { formatNumber } from "@/helpers/numbers";
+import { cn } from "@/lib/utils";
 import { fromNow } from "../../helpers/from-now";
 import {
   DownloadCount,
+  getDeltaByDay,
   GitHubIcon,
   HomeIcon,
   ProjectLogo,
   StarDelta,
   StarTotal,
-  getDeltaByDay,
 } from "../core";
 import { ProjectTagGroup } from "../tags/project-tag";
 import { buttonVariants } from "../ui/button";
@@ -125,7 +124,7 @@ const ProjectTableRow = ({
       {showDetails && (
         <Cell className="hidden w-[180px] space-y-2 p-4 text-sm md:table-cell">
           <div>Pushed {fromNow(project.pushed_at)}</div>
-          {project.contributor_count && (
+          {project.contributor_count > 0 && (
             <div>
               {formatNumber(project.contributor_count, "compact")} contributors
             </div>

@@ -3,7 +3,7 @@
   "version": "0.36.0",
   "description": "Best of JS front-end web application",
   "engines": {
-    "node": "18.x"
+    "node": "20.x"
   },
   "scripts": {
     "start": "cross-env VITE_APP_VERSION=$npm_package_version vite",
@@ -57,13 +57,13 @@
     "react-vertical-timeline-component": "^3.0.2",
     "reselect": "4.0.0",
     "serve": "^14.1.2",
-    "swr": "^0.2.3",
+    "swr": "^2.2.5",
     "typescript": "^4.6.3",
     "unfetch": "^4.1.0",
     "unstated-next": "^1.1.0",
     "use-debounce": "^3.0.0",
     "vague-time": "^2.4.1",
-    "vite": "^3.2.5",
+    "vite": "^3.2.10",
     "vite-plugin-checker": "^0.4.9",
     "vite-plugin-html": "^3.2.0",
     "vite-tsconfig-paths": "^3.4.1"
@@ -94,9 +94,7 @@
     "jest": "^27.5.1",
     "jest-preview": "^0.3.1",
     "jest-watch-typeahead": "^1.1.0",
-    "msw": "^0.41.0",
-    "prettier": "^2.4.1",
-    "pretty-quick": "^1.4.1",
+    "msw": "^2.3.5",
     "whatwg-fetch": "^3.6.2"
   },
   "browserslist": [

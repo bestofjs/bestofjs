@@ -1,11 +1,12 @@
 import { Suspense } from "react";
 import { GoBook } from "react-icons/go";
 
-import { env } from "@/env.mjs";
-import { Card, CardHeader } from "@/components/ui/card";
+import { ProjectDetails } from "@repo/db/projects";
 import { ErrorBoundary } from "@/app/error-handling";
+import { Card, CardHeader } from "@/components/ui/card";
+import { env } from "@/env.mjs";
 
-export async function ReadmeCard({ project }: { project: BestOfJS.Project }) {
+export async function ReadmeCard({ project }: { project: ProjectDetails }) {
   return (
     <Card>
       <CardHeader className="border-b">
@@ -25,8 +26,9 @@ export async function ReadmeCard({ project }: { project: BestOfJS.Project }) {
   );
 }
 
-async function ReadmeContent({ project }: { project: BestOfJS.Project }) {
-  const html = await getData(project.full_name, project.branch || "master");
+async function ReadmeContent({ project }: { project: ProjectDetails }) {
+  const { full_name, default_branch } = project.repo;
+  const html = await getData(full_name, default_branch || "main");
   return <div dangerouslySetInnerHTML={{ __html: html }} />;
 }
 

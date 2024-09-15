@@ -2,9 +2,6 @@ import { Metadata } from "next";
 import Link from "next/link";
 import { GoCalendar } from "react-icons/go";
 
-import { APP_CANONICAL_URL, APP_DISPLAY_NAME } from "@/config/site";
-import { Button, buttonVariants } from "@/components/ui/button";
-import { Card, CardHeader } from "@/components/ui/card";
 import {
   ChevronLeftIcon,
   ChevronRightIcon,
@@ -12,9 +9,11 @@ import {
 } from "@/components/core";
 import { PageHeading } from "@/components/core/typography";
 import { ProjectTable } from "@/components/project-list/project-table";
+import { Button, buttonVariants } from "@/components/ui/button";
+import { Card, CardHeader } from "@/components/ui/card";
+import { APP_CANONICAL_URL, APP_DISPLAY_NAME } from "@/config/site";
 import { api } from "@/server/api";
 import { MonthlyDate } from "@/server/api-rankings";
-
 import { formatMonthlyDate } from "../../monthly-rankings-utils";
 
 type PageProps = {

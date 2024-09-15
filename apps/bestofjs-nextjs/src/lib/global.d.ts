@@ -2,14 +2,17 @@ declare namespace BestOfJS {
   // Project raw data from the JSON API
   interface RawProject {
     name: string;
+    slug: string;
+    added_at: string;
     full_name: string;
     description: string;
     tags: string[];
     stars: number;
     trends: {
-      daily: number;
+      daily?: number;
       weekly?: number;
       monthly?: number;
+      quarterly?: number;
       yearly?: number;
     };
     delta?: number; // from monthly rankings section
@@ -22,15 +25,13 @@ declare namespace BestOfJS {
     npm: string;
     downloads: number;
     icon: string;
-    isFeatured: boolean;
+    status: string;
   }
 
   // Project handled in the state container
   interface StateProject extends RawProject {
-    slug: string;
     repository: string;
     packageName: string;
-    addedPosition: number;
     isBookmark?: boolean;
   }
 
@@ -94,7 +95,7 @@ declare namespace BestOfJS {
   interface RawTag {
     code: string;
     name: string;
-    description?: string;
+    description: string | null;
   }
 
   interface Tag extends RawTag {
