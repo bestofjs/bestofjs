@@ -12,11 +12,12 @@ runs:
         restore-keys: |
           ${{ runner.os }}-turbo-
 
-    - uses: actions/setup-node@v4
-      with:
-        node-version: 20
-
     - name: Install PNPM
       uses: pnpm/action-setup@v4
       with:
         version: 9.4.0
+
+    - uses: actions/setup-node@v4
+      with:
+        node-version: 20
+        cache: pnpm
