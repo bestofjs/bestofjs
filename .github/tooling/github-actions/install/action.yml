@@ -1,5 +1,5 @@
-name: "Shared setup"
-description: "Set up Node.js with PNPM"
+name: Shared setup
+description: Set up Node.js with PNPM"
 
 runs:
   using: composite
