@@ -1,0 +1,33 @@
+name: E2E Tests with Playwright
+
+on:
+  deployment_status:
+jobs:
+  run-e2es:
+    if: github.event_name == 'deployment_status' && github.event.deployment_status.state == 'success'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Code Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup Environment
+        uses: ./.github/tooling/github-actions/install
+
+      - name: Install Dependencies
+        shell: bash
+        run: pnpm -F bestofjs-nextjs install
+
+      - name: Install Playwright Browsers
+        run: pnpm -F bestofjs-nextjs exec playwright install chromium --with-deps
+
+      - name: Run Playwright tests
+        run: pnpm test:e2e
+        env:
+          BASE_URL: ${{ github.event.deployment_status.environment_url }}
+
+      - name: Upload report
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: report
+          path: apps/bestofjs-nextjs/playwright-report/
