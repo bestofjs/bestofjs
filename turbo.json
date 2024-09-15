@@ -3,7 +3,7 @@
   "tasks": {
     "build": {
       "dependsOn": ["^build"],
-      "outputs": [".next/**", "!.next/cache/**", "build/**"],
+      "outputs": [".next/**", "!.next/cache/**", "public/data/**", "build/**"],
       "env": ["POSTGRES_URL"]
     },
     "lint": {
