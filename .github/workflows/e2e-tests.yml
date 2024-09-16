@@ -20,7 +20,7 @@ jobs:
       - name: Install Playwright Browsers
         run: pnpm -F bestofjs-nextjs exec playwright install chromium --with-deps
 
-      - name: Run Playwright tests
+      - name: Run Playwright tests against preview URL ${{ github.event.deployment_status.environment_url }}
         run: pnpm test:e2e
         env:
           BASE_URL: ${{ github.event.deployment_status.environment_url }}
