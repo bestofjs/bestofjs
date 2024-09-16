@@ -4,6 +4,7 @@ services:
   postgres:
     image: postgres
     environment:
+      POSTGRES_USER: postgres
       POSTGRES_PASSWORD: password
       POSTGRES_DB: bestofjs-dev # The PostgreSQL default database (automatically created at first launch)
     # Expose the Postgres port to the host machine,
