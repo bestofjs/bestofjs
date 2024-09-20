@@ -23,9 +23,6 @@ jobs:
       - name: Code Linting
         run: pnpm -F bestofjs-nextjs lint
 
-      - name: Code Linting
-        run: pnpm -F bestofjs-nextjs lint
-
       - name: Unit tests
         run: pnpm -F bestofjs-nextjs test:ci
 
@@ -34,18 +31,6 @@ jobs:
     timeout-minutes: 10
     runs-on: ubuntu-latest
     steps:
-      - name: Waiting for 200 from the Vercel Preview
-        uses: patrickedqvist/wait-for-vercel-preview@v1.2.0 # https://github.com/patrickedqvist/wait-for-vercel-preview
-        id: vercel_preview_url
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          check_interval: 5 # seconds
-          max_timeout: 6000 # seconds
-          # Environment uses a special ASCII dash example: "Preview – bestofjs"
-          # If having issues, need to confirm environment name from the github deployments API
-          # https://github.com/patrickedqvist/wait-for-vercel-preview/issues/33
-          environment: "Preview – bestofjs"
-
       - name: Code Checkout
         uses: actions/checkout@v3
 
@@ -56,13 +41,21 @@ jobs:
         shell: bash
         run: pnpm -F bestofjs-nextjs install
 
+      - name: Build
+        shell: bash
+        run: pnpm -F bestofjs-nextjs build
+
+      - name: Start the app
+        shell: bash
+        run: pnpm -F bestofjs-nextjs start
+
       - name: Install Playwright Browsers
         run: pnpm -F bestofjs-nextjs exec playwright install chromium --with-deps
 
       - name: Run Playwright tests
         run: pnpm test:e2e
         env:
-          BASE_URL: ${{ steps.vercel_preview_url.outputs.url }}
+          BASE_URL: http://localhost:3000
 
       - name: Upload report
         if: always()
