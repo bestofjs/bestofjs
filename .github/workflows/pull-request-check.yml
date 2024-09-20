@@ -30,6 +30,8 @@ jobs:
     name: E2E Tests
     timeout-minutes: 10
     runs-on: ubuntu-latest
+    env:
+      POSTGRES_URL: ${{ secrets.POSTGRES_URL }}
     steps:
       - name: Code Checkout
         uses: actions/checkout@v3
