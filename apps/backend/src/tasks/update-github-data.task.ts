@@ -1,7 +1,7 @@
 import { eq } from "drizzle-orm";
 
+import { createClient } from "@repo/api/github";
 import { schema } from "@repo/db";
-import { createClient } from "@repo/db/github";
 import { SnapshotsService } from "@repo/db/snapshots";
 import { Repo } from "@/iteration-helpers/repo-processor";
 import { Task } from "@/task-runner";

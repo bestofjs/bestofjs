@@ -15,35 +15,29 @@
     ".": "./src/index.ts",
     "./constants": "./src/constants.ts",
     "./projects": "./src/projects/index.ts",
-    "./github": "./src/github/index.ts",
     "./snapshots": "./src/snapshots/index.ts",
     "./tags": "./src/tags/index.ts",
     "./types": "./src/types.ts"
   },
   "dependencies": {
-    "@clack/prompts": "^0.7.0",
     "@neondatabase/serverless": "^0.9.5",
     "@t3-oss/env-nextjs": "^0.7.1",
     "@types/debug": "^4.1.12",
-    "@types/lodash": "^4.14.195",
     "@types/luxon": "^3.4.2",
     "@vercel/postgres": "^0.10.0",
     "debug": "^4.3.4",
     "dotenv-cli": "^7.4.2",
     "drizzle-kit": "^0.24.2",
     "drizzle-orm": "^0.33.0",
-    "emoji-regex": "^10.3.0",
-    "graphql-request": "^7.0.1",
     "is-absolute-url": "^4.0.1",
-    "lodash": "^4.17.21",
     "luxon": "^3.4.4",
     "nanoid": "^5.0.5",
-    "scrape-it": "^6.1.2",
     "slugify": "^1.6.6",
     "tiny-invariant": "^1.3.1",
     "zod": "^3.22.4"
   },
   "devDependencies": {
+    "@clack/prompts": "^0.7.0",
     "@types/bun": "^1.1.6"
   }
 }

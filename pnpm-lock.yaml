@@ -20,6 +20,9 @@ importers:
       tsx:
         specifier: ^4.16.2
         version: 4.16.2
+      typescript:
+        specifier: ^5.5.4
+        version: 5.5.4
 
   apps/admin:
     dependencies:
@@ -168,6 +171,9 @@ importers:
 
   apps/backend:
     dependencies:
+      '@repo/api':
+        specifier: workspace:*
+        version: link:../../packages/api
       '@repo/db':
         specifier: workspace:*
         version: link:../../packages/db
@@ -188,7 +194,7 @@ importers:
         version: 7.4.2
       drizzle-orm:
         specifier: ^0.33.0
-        version: 0.33.0(@neondatabase/serverless@0.9.5)(@types/pg@8.11.6)(@types/react@18.2.18)(@vercel/postgres@0.10.0(utf-8-validate@6.0.4))(bun-types@1.1.17)(postgres@3.4.3)(react@18.2.0)
+        version: 0.33.0(@neondatabase/serverless@0.9.5)(@types/pg@8.11.6)(@types/react@18.2.18)(@vercel/postgres@0.10.0)(bun-types@1.1.17)(postgres@3.4.3)(react@18.2.0)
       es-toolkit:
         specifier: 1.16.0-dev.477
         version: 1.16.0-dev.477
@@ -607,11 +613,38 @@ importers:
         specifier: ^3.6.2
         version: 3.6.17
 
+  packages/api:
+    dependencies:
+      '@types/debug':
+        specifier: ^4.1.12
+        version: 4.1.12
+      '@types/lodash':
+        specifier: ^4.14.195
+        version: 4.14.196
+      debug:
+        specifier: ^4.3.4
+        version: 4.3.4
+      emoji-regex:
+        specifier: ^10.3.0
+        version: 10.3.0
+      graphql-request:
+        specifier: ^7.0.1
+        version: 7.0.1(graphql@16.9.0)
+      is-absolute-url:
+        specifier: ^4.0.1
+        version: 4.0.1
+      lodash:
+        specifier: ^4.17.21
+        version: 4.17.21
+      luxon:
+        specifier: ^3.4.4
+        version: 3.4.4
+      scrape-it:
+        specifier: ^6.1.2
+        version: 6.1.2(debug@4.3.4)
+
   packages/db:
     dependencies:
-      '@clack/prompts':
-        specifier: ^0.7.0
-        version: 0.7.0
       '@neondatabase/serverless':
         specifier: ^0.9.5
         version: 0.9.5
@@ -621,9 +654,6 @@ importers:
       '@types/debug':
         specifier: ^4.1.12
         version: 4.1.12
-      '@types/lodash':
-        specifier: ^4.14.195
-        version: 4.14.196
       '@types/luxon':
         specifier: ^3.4.2
         version: 3.4.2
@@ -641,28 +671,16 @@ importers:
         version: 0.24.2
       drizzle-orm:
         specifier: ^0.33.0
-        version: 0.33.0(@neondatabase/serverless@0.9.5)(@types/pg@8.11.6)(@types/react@18.2.18)(@vercel/postgres@0.10.0(utf-8-validate@6.0.4))(bun-types@1.1.17)(postgres@3.4.3)(react@18.2.0)
-      emoji-regex:
-        specifier: ^10.3.0
-        version: 10.3.0
-      graphql-request:
-        specifier: ^7.0.1
-        version: 7.0.1(graphql@16.9.0)
+        version: 0.33.0(@neondatabase/serverless@0.9.5)(@types/pg@8.11.6)(@types/react@18.2.18)(@vercel/postgres@0.10.0)(bun-types@1.1.17)(postgres@3.4.3)(react@18.2.0)
       is-absolute-url:
         specifier: ^4.0.1
         version: 4.0.1
-      lodash:
-        specifier: ^4.17.21
-        version: 4.17.21
       luxon:
         specifier: ^3.4.4
         version: 3.4.4
       nanoid:
         specifier: ^5.0.5
         version: 5.0.5
-      scrape-it:
-        specifier: ^6.1.2
-        version: 6.1.2(debug@4.3.4)
       slugify:
         specifier: ^1.6.6
         version: 1.6.6
@@ -673,6 +691,9 @@ importers:
         specifier: ^3.22.4
         version: 3.23.8
     devDependencies:
+      '@clack/prompts':
+        specifier: ^0.7.0
+        version: 0.7.0
       '@types/bun':
         specifier: ^1.1.6
         version: 1.1.6
@@ -8172,7 +8193,7 @@ snapshots:
       '@babel/helper-validator-identifier': 7.24.7
       chalk: 2.4.2
       js-tokens: 4.0.0
-      picocolors: 1.0.0
+      picocolors: 1.0.1
 
   '@babel/parser@7.22.7':
     dependencies:
@@ -8852,13 +8873,13 @@ snapshots:
 
   '@clack/core@0.3.4':
     dependencies:
-      picocolors: 1.0.0
+      picocolors: 1.0.1
       sisteransi: 1.0.5
 
   '@clack/prompts@0.7.0':
     dependencies:
       '@clack/core': 0.3.4
-      picocolors: 1.0.0
+      picocolors: 1.0.1
       sisteransi: 1.0.5
 
   '@ctrl/tinycolor@3.6.0': {}
@@ -9678,7 +9699,7 @@ snapshots:
       fast-glob: 3.3.1
       is-glob: 4.0.3
       open: 9.1.0
-      picocolors: 1.0.0
+      picocolors: 1.0.1
       tslib: 2.6.1
 
   '@playwright/test@1.39.0':
@@ -12010,7 +12031,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  drizzle-orm@0.33.0(@neondatabase/serverless@0.9.5)(@types/pg@8.11.6)(@types/react@18.2.18)(@vercel/postgres@0.10.0(utf-8-validate@6.0.4))(bun-types@1.1.17)(postgres@3.4.3)(react@18.2.0):
+  drizzle-orm@0.33.0(@neondatabase/serverless@0.9.5)(@types/pg@8.11.6)(@types/react@18.2.18)(@vercel/postgres@0.10.0)(bun-types@1.1.17)(postgres@3.4.3)(react@18.2.0):
     optionalDependencies:
       '@neondatabase/serverless': 0.9.5
       '@types/pg': 8.11.6
