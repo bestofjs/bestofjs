@@ -13,17 +13,13 @@
     "./github": "./src/github/index.ts"
   },
   "dependencies": {
-    "@types/debug": "^4.1.12",
-    "@types/lodash": "^4.14.195",
     "debug": "^4.3.4",
     "emoji-regex": "^10.3.0",
     "graphql-request": "^7.0.1",
-    "is-absolute-url": "^4.0.1",
-    "lodash": "^4.17.21",
-    "luxon": "^3.4.4",
     "scrape-it": "^6.1.2"
   },
   "devDependencies": {
-    "@types/bun": "^1.1.6"
+    "@types/bun": "^1.1.6",
+    "@types/debug": "^4.1.12"
   }
 }

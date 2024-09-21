@@ -11,9 +11,7 @@ export const updateGitHubDataTask: Task = {
   description:
     "Update GitHub data for all repos and take a snapshot. To be run run every day",
   run: async ({ db, processRepos, logger }) => {
-    const accessToken = process.env.GITHUB_ACCESS_TOKEN;
-    if (!accessToken) throw new Error("GITHUB_ACCESS_TOKEN is required!");
-    const client = createGitHubClient(accessToken);
+    const client = createGitHubClient();
 
     const snapshotsService = new SnapshotsService(db);
 

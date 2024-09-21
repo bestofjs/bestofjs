@@ -21,7 +21,7 @@ export async function updateSnapshotRecord(
   months: MonthSnapshots[]
 ) {
   const db = getDatabase();
-  const result = await db
+  await db
     .update(schema.snapshots)
     .set({ months, updatedAt: new Date() })
     .where(
