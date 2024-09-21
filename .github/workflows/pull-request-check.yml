@@ -47,10 +47,6 @@ jobs:
         shell: bash
         run: pnpm -F bestofjs-nextjs build
 
-      - name: Start the app
-        shell: bash
-        run: pnpm -F bestofjs-nextjs start
-
       - name: Install Playwright Browsers
         run: pnpm -F bestofjs-nextjs exec playwright install chromium --with-deps
 
