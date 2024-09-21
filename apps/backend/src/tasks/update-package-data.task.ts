@@ -49,7 +49,7 @@ export const updatePackageDataTask: Task = {
       const data = await npmClient.fetchPackageInfo(packageName);
       logger.trace(`Fetched package data for ${packageName}`, data);
 
-      if (data.version === previousVersion) {
+      if (data.version === previousVersion && !data.deprecated) {
         logger.debug(`No new version for ${packageName} (${previousVersion})`);
         return null;
       }

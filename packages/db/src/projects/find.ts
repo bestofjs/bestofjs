@@ -70,7 +70,6 @@ export async function findProjects({
     .leftJoin(schema.packages, eq(schema.packages.projectId, projects.id))
     .orderBy(getOrderBy(sort))
     .offset(offset)
-    .limit(limit)
     .groupBy(() => [
       projects.comments,
       projects.createdAt,
@@ -87,6 +86,10 @@ export async function findProjects({
       packages.projectId,
     ]);
 
+  if (limit) {
+    query.limit(limit);
+  }
+
   if (text) {
     query.where(getWhereClauseSearchByText(text));
   }
@@ -99,8 +102,6 @@ export async function findProjects({
   if (full_name) {
     query.where(like(repos.full_name, full_name));
   }
-
-  // console.log(query.toSQL());
 
   const records = await query;
   return records;
