@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Code Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Setup Environment
         uses: ./.github/tooling/github-actions/install
@@ -19,9 +19,6 @@ jobs:
       - name: Install Dependencies
         shell: bash
         run: pnpm -F bestofjs-nextjs install
-
-      - name: Code Linting
-        run: pnpm -F bestofjs-nextjs lint
 
       - name: Code Linting
         run: pnpm -F bestofjs-nextjs lint
@@ -31,23 +28,15 @@ jobs:
 
   automated-testing:
     name: E2E Tests
+    # only run when PR are merged into develop
+    if: github.ref == 'refs/heads/develop'
     timeout-minutes: 10
     runs-on: ubuntu-latest
+    env:
+      POSTGRES_URL: ${{ secrets.POSTGRES_URL }}
     steps:
-      - name: Waiting for 200 from the Vercel Preview
-        uses: patrickedqvist/wait-for-vercel-preview@v1.2.0 # https://github.com/patrickedqvist/wait-for-vercel-preview
-        id: vercel_preview_url
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          check_interval: 5 # seconds
-          max_timeout: 6000 # seconds
-          # Environment uses a special ASCII dash example: "Preview – bestofjs"
-          # If having issues, need to confirm environment name from the github deployments API
-          # https://github.com/patrickedqvist/wait-for-vercel-preview/issues/33
-          environment: "Preview – bestofjs"
-
       - name: Code Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Setup Environment
         uses: ./.github/tooling/github-actions/install
@@ -56,17 +45,28 @@ jobs:
         shell: bash
         run: pnpm -F bestofjs-nextjs install
 
+      - name: Build
+        shell: bash
+        run: pnpm -F bestofjs-nextjs build
+
       - name: Install Playwright Browsers
         run: pnpm -F bestofjs-nextjs exec playwright install chromium --with-deps
 
-      - name: Run Playwright tests
-        run: pnpm test:e2e
+      - name: Start app and run tests
         env:
-          BASE_URL: ${{ steps.vercel_preview_url.outputs.url }}
+          BASE_URL: http://localhost:3000
+        run: |
+          pnpm -F bestofjs-nextjs start &
+          echo "Waiting for app to be ready..."
+          while ! curl -s http://localhost:3000 > /dev/null; do
+            sleep 1
+          done
+          echo "App is ready. Running tests..."
+          pnpm  -F bestofjs-nextjs test:e2e
 
       - name: Upload report
         if: always()
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: report
           path: apps/bestofjs-nextjs/playwright-report/
