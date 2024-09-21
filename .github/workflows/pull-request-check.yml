@@ -11,17 +11,17 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Code Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
-      - name: Setup Environment
+      - name: Setup Node.js and PNPM
         uses: ./.github/tooling/github-actions/install
 
       - name: Install Dependencies
         shell: bash
         run: pnpm -F bestofjs-nextjs install
 
-      - name: Code Linting
-        run: pnpm -F bestofjs-nextjs lint
+      - name: Type checking
+        run: pnpm -F bestofjs-nextjs typecheck
 
       - name: Code Linting
         run: pnpm -F bestofjs-nextjs lint
@@ -47,9 +47,9 @@ jobs:
           environment: "Preview – bestofjs"
 
       - name: Code Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
-      - name: Setup Environment
+      - name: Setup Node.js and PNPM
         uses: ./.github/tooling/github-actions/install
 
       - name: Install Dependencies

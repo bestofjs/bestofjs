@@ -4,6 +4,8 @@ node_modules
 .env.development
 .env.production
 
+.turbo
+
 # local PostgreSQL database
 db-data
 
