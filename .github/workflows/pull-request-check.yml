@@ -54,10 +54,17 @@ jobs:
       - name: Install Playwright Browsers
         run: pnpm -F bestofjs-nextjs exec playwright install chromium --with-deps
 
-      - name: Run Playwright tests
-        run: pnpm test:e2e
+      - name: Start app and run tests
         env:
           BASE_URL: http://localhost:3000
+        run: |
+          pnpm -F bestofjs-nextjs start &
+          echo "Waiting for app to be ready..."
+          while ! curl -s http://localhost:3000 > /dev/null; do
+            sleep 1
+          done
+          echo "App is ready. Running tests..."
+          pnpm  -F bestofjs-nextjs test:e2e
 
       - name: Upload report
         if: always()
