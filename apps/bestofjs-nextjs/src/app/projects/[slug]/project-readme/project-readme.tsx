@@ -1,6 +1,7 @@
 import { Suspense } from "react";
 import { GoBook } from "react-icons/go";
 
+import { createGitHubClient } from "@repo/api/github";
 import { ProjectDetails } from "@repo/db/projects";
 import { ErrorBoundary } from "@/app/error-handling";
 import { Card, CardHeader } from "@/components/ui/card";
@@ -33,10 +34,14 @@ async function ReadmeContent({ project }: { project: ProjectDetails }) {
 }
 
 async function getData(fullName: string, branch: string) {
-  const url = `${env.PROJECT_DETAILS_API_ROOT_URL}/api/project-readme?fullName=${fullName}&branch=${branch}`;
+  console.log("getData", fullName, branch);
+
+  const gitHubClient = createGitHubClient();
+  // const url = `${env.PROJECT_DETAILS_API_ROOT_URL}/api/project-readme?fullName=${fullName}&branch=${branch}`;
   const options = {
     cache: "no-store" as RequestCache, // don't cache the response because of image URLs that become invalid after a while
   };
-  const html = await fetch(url, options).then((res) => res.text());
+  // const html = await fetch(url, options).then((res) => res.text());
+  const html = await gitHubClient.fetchRepoReadMeAsHtml(fullName, branch);
   return html;
 }

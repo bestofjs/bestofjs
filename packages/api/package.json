@@ -22,5 +22,8 @@
     "lodash": "^4.17.21",
     "luxon": "^3.4.4",
     "scrape-it": "^6.1.2"
+  },
+  "devDependencies": {
+    "@types/bun": "^1.1.6"
   }
 }
