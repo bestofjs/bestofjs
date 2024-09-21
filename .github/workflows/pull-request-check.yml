@@ -28,6 +28,8 @@ jobs:
 
   automated-testing:
     name: E2E Tests
+    # only run when PR are merged into develop
+    if: github.ref == 'refs/heads/develop'
     timeout-minutes: 10
     runs-on: ubuntu-latest
     env:
