@@ -5,7 +5,6 @@ import { createGitHubClient } from "@repo/api/github";
 import { ProjectDetails } from "@repo/db/projects";
 import { ErrorBoundary } from "@/app/error-handling";
 import { Card, CardHeader } from "@/components/ui/card";
-import { env } from "@/env.mjs";
 
 export async function ReadmeCard({ project }: { project: ProjectDetails }) {
   return (
@@ -28,20 +27,11 @@ export async function ReadmeCard({ project }: { project: ProjectDetails }) {
 }
 
 async function ReadmeContent({ project }: { project: ProjectDetails }) {
-  const { full_name, default_branch } = project.repo;
-  const html = await getData(full_name, default_branch || "main");
-  return <div dangerouslySetInnerHTML={{ __html: html }} />;
-}
-
-async function getData(fullName: string, branch: string) {
-  console.log("getData", fullName, branch);
-
   const gitHubClient = createGitHubClient();
-  // const url = `${env.PROJECT_DETAILS_API_ROOT_URL}/api/project-readme?fullName=${fullName}&branch=${branch}`;
-  const options = {
-    cache: "no-store" as RequestCache, // don't cache the response because of image URLs that become invalid after a while
-  };
-  // const html = await fetch(url, options).then((res) => res.text());
-  const html = await gitHubClient.fetchRepoReadMeAsHtml(fullName, branch);
-  return html;
+  const { full_name, default_branch } = project.repo;
+  const html = await gitHubClient.fetchRepoReadMeAsHtml(
+    full_name,
+    default_branch || "main"
+  );
+  return <div dangerouslySetInnerHTML={{ __html: html }} />;
 }
