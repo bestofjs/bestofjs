@@ -3,11 +3,6 @@ import { and, asc, eq, inArray } from "drizzle-orm";
 import { getDatabase } from "..";
 import * as schema from "../schema";
 
-type Tag = {
-  id: string;
-  name: string;
-};
-
 export function getAllTags() {
   const db = getDatabase();
   const tags = db.query.tags.findMany({

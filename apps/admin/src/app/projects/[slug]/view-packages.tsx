@@ -62,7 +62,12 @@ function ViewPackage({
     <Card className="max-w-[400px]">
       <CardHeader>
         <CardTitle className="flex items-center gap-2">
-          {pkg.name}
+          <a
+            href={`https://www.npmjs.com/package/${pkg.name}`}
+            className="hover:underline"
+          >
+            {pkg.name}
+          </a>
           <Badge>{pkg.version || "?"}</Badge>
           {pkg.deprecated && <Badge variant="destructive">Deprecated</Badge>}
         </CardTitle>

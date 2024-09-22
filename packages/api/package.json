@@ -1,0 +1,29 @@
+{
+  "name": "@repo/api",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "typecheck:watch": "tsc --noEmit --watch",
+    "format:write": "prettier --write \"src/**/*.{ts,tsx,mdx}\" --cache",
+    "format:check": "prettier --check \"src/**/*.{ts,tsx,mdx}\" --cache",
+    "test": "bun test ./packages/api/src/**/*.test.ts"
+  },
+  "exports": {
+    ".": "./src/index.ts",
+    "./github": "./src/github/index.ts",
+    "./npm": "./src/npm/index.ts"
+  },
+  "dependencies": {
+    "@types/debug": "^4.1.12",
+    "date-fns": "^4.1.0",
+    "debug": "^4.3.4",
+    "emoji-regex": "^10.3.0",
+    "es-toolkit": "1.16.0-dev.477",
+    "graphql-request": "^7.0.1",
+    "scrape-it": "^6.1.2"
+  },
+  "devDependencies": {
+    "@types/bun": "^1.1.6"
+  }
+}

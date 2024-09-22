@@ -1,9 +1,8 @@
 "use server";
 
 import { unstable_noStore as noStore, revalidatePath } from "next/cache";
-import invariant from "tiny-invariant";
 
-import { createClient } from "@repo/db/github";
+import { createGitHubClient } from "@repo/api/github";
 import {
   addPackage,
   ProjectData,
@@ -66,9 +65,7 @@ export async function addSnapshotAction(
   repoId: string,
   repoFullName: string
 ) {
-  const token = process.env.GITHUB_ACCESS_TOKEN;
-  invariant(token, "The GITHUB_ACCESS_TOKEN is required!");
-  const gitHubClient = createClient(token);
+  const gitHubClient = createGitHubClient();
   const data = await gitHubClient.fetchRepoInfo(repoFullName);
   const stars = data.stargazers_count as number;
 

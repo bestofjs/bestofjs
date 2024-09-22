@@ -1,7 +1,7 @@
 import { eq } from "drizzle-orm";
 
+import { createGitHubClient } from "@repo/api/github";
 import { schema } from "@repo/db";
-import { createClient } from "@repo/db/github";
 import { SnapshotsService } from "@repo/db/snapshots";
 import { Repo } from "@/iteration-helpers/repo-processor";
 import { Task } from "@/task-runner";
@@ -11,9 +11,7 @@ export const updateGitHubDataTask: Task = {
   description:
     "Update GitHub data for all repos and take a snapshot. To be run run every day",
   run: async ({ db, processRepos, logger }) => {
-    const accessToken = process.env.GITHUB_ACCESS_TOKEN;
-    if (!accessToken) throw new Error("GITHUB_ACCESS_TOKEN is required!");
-    const client = createClient(accessToken);
+    const client = createGitHubClient();
 
     const snapshotsService = new SnapshotsService(db);
 

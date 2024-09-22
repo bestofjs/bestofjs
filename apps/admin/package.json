@@ -24,6 +24,7 @@
     "@radix-ui/react-select": "^2.1.1",
     "@radix-ui/react-separator": "^1.1.0",
     "@radix-ui/react-slot": "^1.1.0",
+    "@repo/api": "workspace:*",
     "@repo/db": "workspace:*",
     "@t3-oss/env-nextjs": "^0.7.1",
     "@tanstack/react-table": "^8.13.2",

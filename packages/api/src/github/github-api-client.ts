@@ -2,17 +2,42 @@ import debugPackage from "debug";
 import { GraphQLClient } from "graphql-request";
 import scrapeIt from "scrape-it";
 
+import { processReadMeHtml } from "./process-readme-html";
 import { extractRepoInfo, queryRepoInfo } from "./repo-info-query";
 import { extractUserInfo, queryUserInfo } from "./user-info-query";
 
 const debug = debugPackage("github");
 
-export function createClient(accessToken: string) {
+export function createGitHubClient() {
+  const accessToken = process.env.GITHUB_ACCESS_TOKEN;
+  if (!accessToken) {
+    throw new Error("GITHUB_ACCESS_TOKEN is required!");
+  }
   const graphQLClient = new GraphQLClient("https://api.github.com/graphql", {
     headers: {
       authorization: `bearer ${accessToken}`,
     },
   });
+
+  async function makeRestApiRequest(
+    endPoint: string,
+    accept = "application/vnd.github.v3+json"
+  ) {
+    const url = `https://api.github.com/${endPoint}`;
+    const options = {
+      headers: {
+        accept,
+        authorization: `token ${accessToken}`,
+      },
+    };
+    const response = await fetch(url, options);
+    debug("Remaining API calls", response.headers.get("x-ratelimit-remaining")); // auth credentials are needed to avoid the default limit (60)
+    return response;
+  }
+
+  function makeRestApiRequestJSON(endPoint: string) {
+    return makeRestApiRequest(endPoint).then((response) => response.json());
+  }
 
   const fetchRepoInfoMain = (fullName: string) => {
     const [owner, name] = fullName.split("/");
@@ -29,7 +54,7 @@ export function createClient(accessToken: string) {
 
   const fetchRepoInfoFallback = async (fullName: string) => {
     debug("Fetch repo info using the REST API", fullName);
-    const repoInfo = await gitHubRequest(`repos/${fullName}`, accessToken);
+    const repoInfo = await makeRestApiRequestJSON(`repos/${fullName}`);
     debug(repoInfo);
     if (repoInfo.status === 404) throw new Error(`Repo not found!`);
 
@@ -93,6 +118,15 @@ export function createClient(accessToken: string) {
         .request(queryUserInfo, { login })
         .then(extractUserInfo);
     },
+
+    async fetchRepoReadMeAsHtml(fullName: string, branch = "main") {
+      const html = await makeRestApiRequest(
+        `repos/${fullName}/readme`,
+        "application/vnd.github.VERSION.html"
+      ).then((response) => response.text());
+      const readme = processReadMeHtml(html, fullName, branch);
+      return readme;
+    },
   };
 }
 
@@ -103,14 +137,3 @@ const toInteger = (source: string) => {
     ? 0
     : parseInt(onlyNumbers, 10);
 };
-
-function gitHubRequest(endPoint: string, accessToken: string) {
-  const url = `https://api.github.com/${endPoint}`;
-  const options = {
-    headers: {
-      accept: "application/vnd.github.v3+json",
-      authorization: `token ${accessToken}`,
-    },
-  };
-  return fetch(url, options).then((res) => res.json());
-}

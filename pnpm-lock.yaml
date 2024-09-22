@@ -20,6 +20,9 @@ importers:
       tsx:
         specifier: ^4.16.2
         version: 4.16.2
+      typescript:
+        specifier: ^5.5.4
+        version: 5.5.4
 
   apps/admin:
     dependencies:
@@ -53,6 +56,9 @@ importers:
       '@radix-ui/react-slot':
         specifier: ^1.1.0
         version: 1.1.0(@types/react@18.2.18)(react@18.2.0)
+      '@repo/api':
+        specifier: workspace:*
+        version: link:../../packages/api
       '@repo/db':
         specifier: workspace:*
         version: link:../../packages/db
@@ -168,6 +174,9 @@ importers:
 
   apps/backend:
     dependencies:
+      '@repo/api':
+        specifier: workspace:*
+        version: link:../../packages/api
       '@repo/db':
         specifier: workspace:*
         version: link:../../packages/db
@@ -271,6 +280,9 @@ importers:
       '@radix-ui/react-tooltip':
         specifier: ^1.1.2
         version: 1.1.2(@types/react-dom@18.2.7)(@types/react@18.2.18)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
+      '@repo/api':
+        specifier: workspace:*
+        version: link:../../packages/api
       '@repo/db':
         specifier: workspace:*
         version: link:../../packages/db
@@ -607,11 +619,36 @@ importers:
         specifier: ^3.6.2
         version: 3.6.17
 
+  packages/api:
+    dependencies:
+      '@types/debug':
+        specifier: ^4.1.12
+        version: 4.1.12
+      date-fns:
+        specifier: ^4.1.0
+        version: 4.1.0
+      debug:
+        specifier: ^4.3.4
+        version: 4.3.4
+      emoji-regex:
+        specifier: ^10.3.0
+        version: 10.3.0
+      es-toolkit:
+        specifier: 1.16.0-dev.477
+        version: 1.16.0-dev.477
+      graphql-request:
+        specifier: ^7.0.1
+        version: 7.0.1(graphql@16.9.0)
+      scrape-it:
+        specifier: ^6.1.2
+        version: 6.1.2(debug@4.3.4)
+    devDependencies:
+      '@types/bun':
+        specifier: ^1.1.6
+        version: 1.1.6
+
   packages/db:
     dependencies:
-      '@clack/prompts':
-        specifier: ^0.7.0
-        version: 0.7.0
       '@neondatabase/serverless':
         specifier: ^0.9.5
         version: 0.9.5
@@ -621,9 +658,6 @@ importers:
       '@types/debug':
         specifier: ^4.1.12
         version: 4.1.12
-      '@types/lodash':
-        specifier: ^4.14.195
-        version: 4.14.196
       '@types/luxon':
         specifier: ^3.4.2
         version: 3.4.2
@@ -642,27 +676,15 @@ importers:
       drizzle-orm:
         specifier: ^0.33.0
         version: 0.33.0(@neondatabase/serverless@0.9.5)(@types/pg@8.11.6)(@types/react@18.2.18)(@vercel/postgres@0.10.0(utf-8-validate@6.0.4))(bun-types@1.1.17)(postgres@3.4.3)(react@18.2.0)
-      emoji-regex:
-        specifier: ^10.3.0
-        version: 10.3.0
-      graphql-request:
-        specifier: ^7.0.1
-        version: 7.0.1(graphql@16.9.0)
       is-absolute-url:
         specifier: ^4.0.1
         version: 4.0.1
-      lodash:
-        specifier: ^4.17.21
-        version: 4.17.21
       luxon:
         specifier: ^3.4.4
         version: 3.4.4
       nanoid:
         specifier: ^5.0.5
         version: 5.0.5
-      scrape-it:
-        specifier: ^6.1.2
-        version: 6.1.2(debug@4.3.4)
       slugify:
         specifier: ^1.6.6
         version: 1.6.6
@@ -673,6 +695,9 @@ importers:
         specifier: ^3.22.4
         version: 3.23.8
     devDependencies:
+      '@clack/prompts':
+        specifier: ^0.7.0
+        version: 0.7.0
       '@types/bun':
         specifier: ^1.1.6
         version: 1.1.6
@@ -4131,6 +4156,9 @@ packages:
   data-urls@2.0.0:
     resolution: {integrity: sha512-X5eWTSXO/BJmpdIKCRuKUgSCgAN0OwliVK3yPKbwIWU1Tdw5BRajxlzMidvh+gwko9AfQ9zIj52pzF91Q3YAvQ==}
     engines: {node: '>=10'}
+
+  date-fns@4.1.0:
+    resolution: {integrity: sha512-Ukq0owbQXxa/U3EGtsdVBkR1w7KOQ5gIBqdH2hkvknzZPYvBxb/aa6E8L7tmjFtkwZBu3UXBbjIgPo/Ez4xaNg==}
 
   dayjs@1.11.9:
     resolution: {integrity: sha512-QvzAURSbQ0pKdIye2txOzNaHmxtUBXerpY0FJsFXUMKbIZeFm5ht1LS/jFsrncjnmtv8HsG0W2g6c0zUjZWmpA==}
@@ -8172,7 +8200,7 @@ snapshots:
       '@babel/helper-validator-identifier': 7.24.7
       chalk: 2.4.2
       js-tokens: 4.0.0
-      picocolors: 1.0.0
+      picocolors: 1.0.1
 
   '@babel/parser@7.22.7':
     dependencies:
@@ -8852,13 +8880,13 @@ snapshots:
 
   '@clack/core@0.3.4':
     dependencies:
-      picocolors: 1.0.0
+      picocolors: 1.0.1
       sisteransi: 1.0.5
 
   '@clack/prompts@0.7.0':
     dependencies:
       '@clack/core': 0.3.4
-      picocolors: 1.0.0
+      picocolors: 1.0.1
       sisteransi: 1.0.5
 
   '@ctrl/tinycolor@3.6.0': {}
@@ -9678,7 +9706,7 @@ snapshots:
       fast-glob: 3.3.1
       is-glob: 4.0.3
       open: 9.1.0
-      picocolors: 1.0.0
+      picocolors: 1.0.1
       tslib: 2.6.1
 
   '@playwright/test@1.39.0':
@@ -11787,6 +11815,8 @@ snapshots:
       abab: 2.0.6
       whatwg-mimetype: 2.3.0
       whatwg-url: 8.7.0
+
+  date-fns@4.1.0: {}
 
   dayjs@1.11.9: {}
 
