@@ -42,6 +42,6 @@ describe("GitHub API client", async () => {
 
   test("User info", async () => {
     const userInfo = await client.fetchUserInfo("sindresorhus");
-    expect(userInfo.followers).toBeGreaterThan(30000);
+    expect(userInfo.followers).toBeGreaterThan(30_000);
   });
 });

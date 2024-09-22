@@ -12,11 +12,6 @@ export const env = createEnv({
       .string()
       .url()
       .default("https://bestofjs-static-api-v2.vercel.app"),
-    /** Serverless functions related to project details */
-    PROJECT_DETAILS_API_ROOT_URL: z
-      .string()
-      .url()
-      .default("https://bestofjs-serverless.vercel.app"),
     /** Monthly rankings data */
     RANKINGS_ROOT_URL: z
       .string()
