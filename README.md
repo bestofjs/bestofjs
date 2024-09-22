@@ -1,15 +1,16 @@
-# Best of JS monorepo
+# [Best of JS](https://bestofjs.org) monorepo
 
 Monorepo for _Best of JS_ application.
-Made of 4 applications and one package:
+Made of four applications and two package:
 
 ```shell
 ├── apps
 │   ├── admin
 │   ├── backend
-│   ├── bestofjs-nextjs // Best of JS main app
+│   ├── bestofjs-nextjs
 │   └── bestofjs-webui
 └── packages
+    ├── api
     └── db
 ```
 
