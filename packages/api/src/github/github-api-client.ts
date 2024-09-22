@@ -2,7 +2,7 @@ import debugPackage from "debug";
 import { GraphQLClient } from "graphql-request";
 import scrapeIt from "scrape-it";
 
-import { processHtml } from "./process-html";
+import { processReadMeHtml } from "./process-readme-html";
 import { extractRepoInfo, queryRepoInfo } from "./repo-info-query";
 import { extractUserInfo, queryUserInfo } from "./user-info-query";
 
@@ -124,7 +124,7 @@ export function createGitHubClient() {
         `repos/${fullName}/readme`,
         "application/vnd.github.VERSION.html"
       ).then((response) => response.text());
-      const readme = processHtml(html, fullName, branch);
+      const readme = processReadMeHtml(html, fullName, branch);
       return readme;
     },
   };
