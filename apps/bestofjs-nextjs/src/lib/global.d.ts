@@ -24,7 +24,7 @@ declare namespace BestOfJS {
     branch?: string;
     npm: string;
     downloads: number;
-    icon: string;
+    logo: string;
     status: string;
   }
 
@@ -47,7 +47,7 @@ declare namespace BestOfJS {
     RawProject,
     | "description"
     | "full_name"
-    | "icon"
+    | "logo"
     | "name"
     | "npm"
     | "owner_id"
