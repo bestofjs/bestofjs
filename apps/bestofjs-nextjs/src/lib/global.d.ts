@@ -28,15 +28,8 @@ declare namespace BestOfJS {
     status: string;
   }
 
-  // Project handled in the state container
-  interface StateProject extends RawProject {
-    repository: string;
-    packageName: string;
-    isBookmark?: boolean;
-  }
-
   // Project with the `tags` property populated "react" => {id: "react". name: "React"... }
-  interface Project extends Omit<StateProject, "tags"> {
+  interface Project extends Omit<RawProject, "tags"> {
     tags: Tag[];
   }
 
