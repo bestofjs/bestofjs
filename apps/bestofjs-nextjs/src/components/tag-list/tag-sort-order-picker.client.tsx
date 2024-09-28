@@ -4,10 +4,9 @@ import Link from "next/link";
 
 import {
   tagListSortOptions,
-  TagListSortSlug,
-  TagSearchQuery,
+  TagSearchState,
   tagSearchStateToQueryString,
-} from "@/app/tags/tag-list-shared";
+} from "@/app/tags/tag-search-types";
 import { ChevronDownIcon } from "../core";
 import { Button } from "../ui/button";
 import {
@@ -19,8 +18,8 @@ import {
 } from "../ui/dropdown-menu";
 
 type Props = {
-  value: TagListSortSlug;
-  searchState: TagSearchQuery;
+  value: TagSearchState["sortOptionId"];
+  searchState: TagSearchState;
 };
 export const TagSortOrderPicker = ({ value, searchState }: Props) => {
   const currentOption = tagListSortOptions.find(
@@ -38,7 +37,7 @@ export const TagSortOrderPicker = ({ value, searchState }: Props) => {
       <DropdownMenuContent className="w-[300px] divide-y" align="start">
         <DropdownMenuGroup>
           {tagListSortOptions.map(({ value, text }) => {
-            const nextState: TagSearchQuery = {
+            const nextState: TagSearchState = {
               ...searchState,
               page: 1,
               sortOptionId: value,

@@ -1,4 +1,7 @@
-import { ProjectSearchQuery, SearchUrlBuilder } from "@/app/projects/types";
+import {
+  ProjectSearchState,
+  ProjectSearchUrlBuilder,
+} from "@/app/projects/project-search-types";
 import { Card, CardHeader } from "@/components/ui/card";
 import {
   BottomPaginationControls,
@@ -15,8 +18,8 @@ type Props = {
   total: number;
   limit: number;
   sortOptionId: string;
-  searchState: ProjectSearchQuery;
-  buildPageURL: SearchUrlBuilder<ProjectSearchQuery>;
+  searchState: ProjectSearchState;
+  buildPageURL: ProjectSearchUrlBuilder;
   path?: string;
 };
 export const ProjectPaginatedList = ({

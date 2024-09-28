@@ -1,6 +1,11 @@
 import { encode } from "qss";
+import { z } from "zod";
 
-import { PaginationProps } from "@/app/projects/types";
+import {
+  PageSearchStateUpdater,
+  PageSearchUrlBuilder,
+  paginationSchema,
+} from "@/lib/page-search-state";
 
 export const tagListSortSlugs = {
   ALPHA: "alpha",
@@ -8,16 +13,20 @@ export const tagListSortSlugs = {
 } as const;
 
 type TagListSortMap = typeof tagListSortSlugs;
-export type TagListSortSlug = TagListSortMap[keyof TagListSortMap]; // querystring `&sort=` parameter
 
-export type TagSearchQuery = {
-  sortOptionId: TagListSortSlug;
-} & PaginationProps;
+const tagSearchSchema = paginationSchema.extend({
+  sortOptionId: z.nativeEnum(tagListSortSlugs),
+});
+
+export type TagSearchState = z.infer<typeof tagSearchSchema>;
+
+export type TagSearchUpdater = PageSearchStateUpdater<TagSearchState>;
+export type TagSearchUrlBuilder = PageSearchUrlBuilder<TagSearchState>;
 
 export function tagSearchStateToQueryString({
   sortOptionId,
   page,
-}: TagSearchQuery) {
+}: TagSearchState) {
   const params = {
     sort: sortOptionId || undefined,
     page: page === 1 ? undefined : page,
@@ -28,7 +37,7 @@ export function tagSearchStateToQueryString({
 }
 
 export type TagListSortOption = {
-  value: TagListSortSlug;
+  value: TagSearchState["sortOptionId"];
   text: string;
   sort: { [key: string]: 1 | -1 };
 };

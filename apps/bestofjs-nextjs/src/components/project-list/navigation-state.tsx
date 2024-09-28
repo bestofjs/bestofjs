@@ -1,6 +1,6 @@
 import { encode } from "qss";
 
-import { ProjectSearchQuery } from "@/app/projects/types";
+import { ProjectSearchState } from "@/app/projects/project-search-types";
 import { SortOptionKey } from "./sort-order-options";
 
 const DEFAULT_NUMBER_OF_PROJECTS_BY_PAGE = 30;
@@ -21,7 +21,7 @@ export function stateToQueryString({
   sort,
   direction,
   page,
-}: ProjectSearchQuery) {
+}: ProjectSearchState) {
   const params = {
     query: query || undefined,
     tags: tags.length === 0 ? undefined : tags,
@@ -36,8 +36,8 @@ export function stateToQueryString({
 
 export function parseSearchParams(
   params: ProjectPageSearchParams,
-  defaultParams?: Partial<ProjectSearchQuery>
-): ProjectSearchQuery {
+  defaultParams?: Partial<ProjectSearchState>
+): ProjectSearchState {
   return {
     query: params.query || "", // TODO clean input?
     tags: toArray(params.tags),

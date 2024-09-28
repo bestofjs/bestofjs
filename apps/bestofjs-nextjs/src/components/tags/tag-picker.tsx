@@ -4,7 +4,8 @@ import * as React from "react";
 import { useRouter } from "next/navigation";
 import { Check, ChevronsUpDown } from "lucide-react";
 
-import { ProjectSearchQuery, SearchQueryUpdater } from "@/app/projects/types";
+import { ProjectSearchUpdater } from "@/app/projects/project-search-types";
+import { TagSearchUpdater } from "@/app/tags/tag-search-types";
 import { Button } from "@/components/ui/button";
 import {
   Command,
@@ -31,7 +32,7 @@ export function SearchPageTagPicker(props: Props) {
   const searchState = useSearchState();
   const router = useRouter();
 
-  const buildPageURL = (updater: SearchQueryUpdater<ProjectSearchQuery>) => {
+  const buildPageURL = (updater: ProjectSearchUpdater) => {
     const nextState = updater(searchState);
     const queryString = stateToQueryString(nextState);
     return "/projects?" + queryString;

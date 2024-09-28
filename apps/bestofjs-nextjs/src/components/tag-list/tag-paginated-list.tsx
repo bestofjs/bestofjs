@@ -1,5 +1,7 @@
-import { SearchQueryUpdater } from "@/app/projects/types";
-import { TagSearchQuery } from "@/app/tags/tag-list-shared";
+import {
+  TagSearchState,
+  TagSearchUrlBuilder,
+} from "@/app/tags/tag-search-types";
 import {
   BottomPaginationControls,
   TopPaginationControls,
@@ -15,8 +17,8 @@ type Props = {
   total: number;
   limit: number;
   sortOptionId: string;
-  buildTagsPageURL: (updater: SearchQueryUpdater<TagSearchQuery>) => string;
-  searchState: TagSearchQuery;
+  buildTagsPageURL: TagSearchUrlBuilder;
+  searchState: TagSearchState;
 };
 
 export const TagPaginatedList = ({

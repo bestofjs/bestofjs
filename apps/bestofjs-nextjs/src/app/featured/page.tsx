@@ -8,7 +8,10 @@ import {
 import { ProjectPaginatedList } from "@/components/project-list/project-paginated-list";
 import { getSortOptionByKey } from "@/components/project-list/sort-order-options";
 import { api } from "@/server/api";
-import { ProjectSearchQuery, SearchQueryUpdater } from "../projects/types";
+import {
+  ProjectSearchState,
+  ProjectSearchUpdater,
+} from "../projects/project-search-types";
 
 type PageProps = {
   searchParams: ProjectPageSearchParams;
@@ -21,7 +24,7 @@ export default async function FeaturedProjectsPage({
   const { projects, total } = await fetchFeaturedProjects(searchState);
   const { page, limit, sort } = searchState;
 
-  const buildPageURL = (updater: SearchQueryUpdater<ProjectSearchQuery>) => {
+  const buildPageURL = (updater: ProjectSearchUpdater) => {
     const nextState = updater(searchState);
     const queryString = stateToQueryString(nextState);
     return "/featured?" + queryString;
@@ -53,7 +56,7 @@ async function fetchFeaturedProjects({
   sort,
   page,
   limit,
-}: ProjectSearchQuery) {
+}: ProjectSearchState) {
   const sortOption = getSortOptionByKey(sort);
 
   const { projects, total } = await api.projects.findProjects({

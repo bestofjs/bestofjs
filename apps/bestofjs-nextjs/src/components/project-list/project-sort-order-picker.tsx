@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-import { ProjectSearchQuery } from "@/app/projects/types";
+import { ProjectSearchState } from "@/app/projects/project-search-types";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -24,7 +24,7 @@ const sortOptionGroups: SortOptionKey[][] = [
 
 type Props = {
   value: SortOptionKey;
-  searchState: ProjectSearchQuery;
+  searchState: ProjectSearchState;
   path?: string;
 };
 export function ProjectSortOrderPicker({

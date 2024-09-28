@@ -1,17 +1,21 @@
 import keyBy from "lodash/keyBy";
 
-export type SortOptionKey =
-  | "total"
-  | "daily"
-  | "weekly"
-  | "monthly"
-  | "yearly"
-  | "monthly-downloads"
-  | "contributors"
-  | "created"
-  | "last-commit"
-  | "newest"
-  | "bookmark";
+export const sortOptionsMap = {
+  TOTAL: "total",
+  DAILY: "daily",
+  WEEKLY: "weekly",
+  MONTHLY: "monthly",
+  YEARLY: "yearly",
+  MONTHLY_DOWNLOADS: "monthly-downloads",
+  LAST_COMMIT: "last-commit",
+  CONTRIBUTORS: "contributors",
+  CREATED: "created",
+  NEWEST: "newest",
+  BOOKMARK: "bookmark",
+} as const;
+
+type SortOptionMap = typeof sortOptionsMap;
+export type SortOptionKey = SortOptionMap[keyof SortOptionMap];
 
 export type SortOption = {
   key: SortOptionKey;

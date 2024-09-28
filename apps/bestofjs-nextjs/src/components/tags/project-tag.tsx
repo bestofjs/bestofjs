@@ -1,7 +1,7 @@
 import React from "react";
 import NextLink from "next/link";
 
-import { ProjectSearchQuery, SearchUrlBuilder } from "@/app/projects/types";
+import { ProjectSearchUrlBuilder } from "@/app/projects/project-search-types";
 import { badgeVariants } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
 import { ProjectTagHoverCard } from "./project-tag-hover-card";
@@ -9,7 +9,7 @@ import { ProjectTagHoverCard } from "./project-tag-hover-card";
 type Props = {
   tags: BestOfJS.RawTag[];
   appendTag?: boolean;
-  buildPageURL?: SearchUrlBuilder<ProjectSearchQuery>;
+  buildPageURL?: ProjectSearchUrlBuilder;
 };
 
 export const ProjectTagGroup = ({ tags, ...otherProps }: Props) => {

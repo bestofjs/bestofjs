@@ -1,15 +1,15 @@
 import { Metadata } from "next";
 
-import { SearchQueryUpdater } from "@/app/projects/types";
 import { TagPaginatedList } from "@/components/tag-list/tag-paginated-list";
+import { PageSearchStateUpdater } from "@/lib/page-search-state";
 import { api } from "@/server/api";
 import TagListLoading from "./loading";
 import {
   getTagListSortOptionByValue,
   tagListSortSlugs,
-  TagSearchQuery,
+  TagSearchState,
   tagSearchStateToQueryString,
-} from "./tag-list-shared";
+} from "./tag-search-types";
 import { TagsPageShell } from "./tags-page-shell";
 
 type PageProps = {
@@ -32,7 +32,7 @@ export default async function TagsPage({ searchParams }: PageProps) {
 
   const searchState = parsePageSearchParams(searchParams);
 
-  function buildTagsPageURL(updater: SearchQueryUpdater<TagSearchQuery>) {
+  function buildTagsPageURL(updater: PageSearchStateUpdater<TagSearchState>) {
     const nextState = updater(searchState);
     const queryString = tagSearchStateToQueryString(nextState);
     return "/tags?" + queryString;
@@ -76,12 +76,12 @@ async function getTagsPageData(searchParams: PageProps["searchParams"]) {
 
 function parsePageSearchParams(
   searchParams: PageProps["searchParams"]
-): TagSearchQuery {
+): TagSearchState {
   return {
     page: toInteger(searchParams.page, 1),
     limit: toInteger(searchParams.limit, 20),
     sortOptionId: (searchParams.sort ||
-      tagListSortSlugs.PROJECT_COUNT) as TagSearchQuery["sortOptionId"],
+      tagListSortSlugs.PROJECT_COUNT) as TagSearchState["sortOptionId"],
   };
 }
 

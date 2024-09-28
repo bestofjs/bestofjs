@@ -22,10 +22,10 @@ import { cn } from "@/lib/utils";
 import { api } from "@/server/api";
 import ProjectListLoading from "./loading";
 import {
-  ProjectSearchQuery,
-  SearchQueryUpdater,
-  SearchUrlBuilder,
-} from "./types";
+  ProjectSearchState,
+  ProjectSearchUpdater,
+  ProjectSearchUrlBuilder,
+} from "./project-search-types";
 
 type ProjectsPageData = {
   projects: BestOfJS.Project[];
@@ -122,7 +122,7 @@ export default async function Projects({ searchParams }: PageProps) {
   const searchState = parseSearchParams(searchParams);
   const { query } = searchState;
 
-  const buildPageURL = (updater: SearchQueryUpdater<ProjectSearchQuery>) => {
+  const buildPageURL = (updater: ProjectSearchUpdater) => {
     const nextState = updater(searchState);
     const queryString = stateToQueryString(nextState);
     return "/projects?" + queryString;
@@ -169,7 +169,7 @@ function ProjectPageHeader({
   total,
 }: {
   tags: BestOfJS.Tag[];
-  searchState: ProjectSearchQuery;
+  searchState: ProjectSearchState;
   total: number;
 }) {
   const { query } = searchState;
@@ -231,7 +231,7 @@ function RelevantTags({
   limit = 16,
 }: {
   tags: BestOfJS.Tag[];
-  buildPageURL: SearchUrlBuilder<ProjectSearchQuery>;
+  buildPageURL: ProjectSearchUrlBuilder;
   showIcon?: boolean;
   limit?: number;
 }) {
@@ -265,7 +265,7 @@ function CurrentTags({
 }: {
   tags: BestOfJS.Tag[];
   textQuery: string;
-  buildPageURL: SearchUrlBuilder<ProjectSearchQuery>;
+  buildPageURL: ProjectSearchUrlBuilder;
   allTags: BestOfJS.Tag[];
 }) {
   return (
@@ -289,7 +289,11 @@ function CurrentTags({
       })}
       {textQuery && (
         <NextLink
-          href={buildPageURL((state) => ({ ...state, page: 1, query: "" }))}
+          href={buildPageURL((state: ProjectSearchState) => ({
+            ...state,
+            page: 1,
+            query: "",
+          }))}
           className={cn(badgeVariants({ variant: "default" }), "text-md")}
         >
           “{textQuery}”

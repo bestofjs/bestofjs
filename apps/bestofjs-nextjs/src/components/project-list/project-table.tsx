@@ -1,6 +1,6 @@
 import NextLink from "next/link";
 
-import { ProjectSearchQuery, SearchUrlBuilder } from "@/app/projects/types";
+import { ProjectSearchUrlBuilder } from "@/app/projects/project-search-types";
 import { formatNumber } from "@/helpers/numbers";
 import { cn } from "@/lib/utils";
 import { fromNow } from "../../helpers/from-now";
@@ -19,7 +19,7 @@ import { linkVariants } from "../ui/link";
 
 type Props = {
   projects: BestOfJS.Project[];
-  buildPageURL?: SearchUrlBuilder<ProjectSearchQuery>;
+  buildPageURL?: ProjectSearchUrlBuilder;
   footer?: React.ReactNode;
   metricsCell?: (project: BestOfJS.Project) => React.ReactNode;
   showDetails?: boolean;
