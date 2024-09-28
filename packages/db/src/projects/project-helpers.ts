@@ -13,6 +13,10 @@ export function getProjectDescription(project: ProjectDetails) {
     : repoDescription || project.description;
 }
 
+export function getProjectRepositoryURL(project: ProjectDetails) {
+  return "https://github.com/" + project.repo.full_name;
+}
+
 export function getProjectURL(project: ProjectDetails) {
   invariant(project.repo);
   if (project.overrideURL) return project.url;
