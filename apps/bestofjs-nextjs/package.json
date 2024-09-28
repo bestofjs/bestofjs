@@ -7,7 +7,7 @@
   },
   "scripts": {
     "analyze": "cross-env ANALYZE=true next build",
-    "build-project-data": "node ./scripts/build-project-data.mjs",
+    "build-project-data": "dotenv -e ../../.env.${STAGE:=development} node ./scripts/build-project-data.mjs",
     "dev": "dotenv -e ../../.env.${STAGE:=development} next dev",
     "build": "pnpm build-project-data && dotenv -e ../../.env.${STAGE:=development} next build",
     "start": "dotenv -e ../../.env.${STAGE:=development} next start",
