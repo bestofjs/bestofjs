@@ -1,9 +1,9 @@
-import { createContainer } from "unstated-next";
-import useSWR from "swr";
-
+import { getProjectId } from "components/core/project";
 import { FETCH_ALL_PROJECTS_URL } from "config";
 import { fetchJSON } from "helpers/fetch";
-import { getProjectId } from "components/core/project";
+import useSWR from "swr";
+import { createContainer } from "unstated-next";
+
 import { AuthContainer } from "./auth-container";
 
 export type State = {
@@ -73,9 +73,7 @@ function getProjectsBySlug(projects) {
   const total = projects.length;
 
   projects.forEach((project, index) => {
-    const slug = getProjectId(project);
-    projectsBySlug[slug] = {
-      slug,
+    projectsBySlug[project.slug] = {
       addedPosition: total - index,
       ...project,
       packageName: project.npm,

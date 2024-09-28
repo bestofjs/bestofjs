@@ -2,6 +2,7 @@ declare namespace BestOfJS {
   // Project raw data from the JSON API
   interface RawProject {
     name: string;
+    slug: string;
     full_name: string;
     description: string;
     tags: string[];
@@ -21,7 +22,7 @@ declare namespace BestOfJS {
     branch: string;
     npm: string;
     downloads: number;
-    icon: string;
+    logo: string;
     status: "active" | "promoted" | "deprecated" | "featured";
   }
 

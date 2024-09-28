@@ -1,33 +1,35 @@
 import styled from "@emotion/styled";
-import numeral from "numeral";
-import { Link as RouterLink } from "react-router-dom";
-import { GoTag, GoHeart, GoPlus } from "react-icons/go";
-
 import {
+  Box,
   Button,
   ButtonProps,
-  Box,
+  Center,
+  ExternalLink,
   Flex,
   Link,
   LinkProps,
-  Center,
+  MainContent,
   PageHeader,
+  Section,
   SectionHeading,
 } from "components/core";
-import { APP_REPO_URL, APP_DISPLAY_NAME, SPONSOR_URL } from "config";
-import { useSelector } from "containers/project-data-container";
-import { getTotalNumberOfStars } from "selectors";
-import log from "helpers/log";
-import { addProjectURL } from "components/user-requests/add-project/create-issue-link";
-import { ProjectTagGroup } from "components/tags/project-tag";
 import { StarIcon } from "components/core/icons";
-import { ExternalLink, MainContent, Section } from "components/core";
+import { SortOptionKey } from "components/search/sort-order-options";
+import { ProjectTagGroup } from "components/tags/project-tag";
 import { CompactTagList } from "components/tags/tag-list";
-import { HotProjects, NewestProjects } from "./home-projects";
+import { addProjectURL } from "components/user-requests/add-project/create-issue-link";
+import { APP_DISPLAY_NAME, APP_REPO_URL, SPONSOR_URL } from "config";
+import { useSelector } from "containers/project-data-container";
+import log from "helpers/log";
+import numeral from "numeral";
+import { GoHeart, GoPlus, GoTag } from "react-icons/go";
+import { Link as RouterLink } from "react-router-dom";
+import { getTotalNumberOfStars } from "selectors";
+
 import { BetaVersionNews } from "./beta-version-news";
 import { RandomFeaturedProject } from "./featured-projects";
 import { HomeMonthlyRankings } from "./home-monthly-rankings";
-import { SortOptionKey } from "components/search/sort-order-options";
+import { HotProjects, NewestProjects } from "./home-projects";
 
 type Props = {
   pending: boolean;

@@ -1,7 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
+import { Box, chakra, useColorMode } from "components/core";
 import ContentLoader from "react-content-loader";
-
-import { Box, useColorMode, chakra } from "components/core";
 
 type Props = {
   project: BestOfJS.Project;
@@ -44,7 +43,7 @@ export const ProjectAvatar = ({ project, size = 100 }: Props) => {
 
 function getProjectImageProps({ project, size, colorMode }) {
   const retinaURL =
-    !project.icon && getProjectAvatarUrl(project, size * 2, colorMode);
+    !project.logo && getProjectAvatarUrl(project, size * 2, colorMode);
 
   return {
     src: getProjectAvatarUrl(project, size, colorMode),
@@ -85,7 +84,7 @@ function getGitHubOwnerAvatarURL(owner_id, size) {
 }
 
 export function getProjectAvatarUrl(project, size, colorMode) {
-  return project.icon
-    ? getProjectLogoURL(project.icon, colorMode)
+  return project.logo
+    ? getProjectLogoURL(project.logo, colorMode)
     : getGitHubOwnerAvatarURL(project.owner_id, size);
 }
