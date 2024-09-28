@@ -24,18 +24,10 @@ export const populateProject =
   (tagsByKey: { [key: string]: BestOfJS.Tag }) =>
   (project: BestOfJS.RawProject) => {
     const populated = { ...project } as unknown as BestOfJS.Project;
-    const { full_name, tags } = project;
-
-    if (full_name) {
-      populated.repository = "https://github.com/" + full_name;
-    }
+    const { tags } = project;
 
     if (tags) {
       populated.tags = tags.map((id) => tagsByKey[id]).filter((tag) => !!tag);
-    }
-
-    if (project.npm) {
-      populated.packageName = project.npm; // TODO fix data?
     }
 
     return populated;

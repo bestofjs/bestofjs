@@ -82,7 +82,7 @@ const ProjectTableRow = ({
           </NextLink>
           <div className="hidden w-full space-x-1 md:flex">
             <a
-              href={project.repository}
+              href={"https://github.com/" + project.full_name}
               aria-label="GitHub repository"
               rel="noopener noreferrer"
               target="_blank"

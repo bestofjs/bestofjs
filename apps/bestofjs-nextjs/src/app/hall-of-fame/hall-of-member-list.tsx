@@ -60,7 +60,7 @@ function HallOfFameMember({ member }: { member: BestOfJS.HallOfFameMember }) {
                   "font-normal"
                 )}
               >
-                {project.icon && (
+                {project.logo && (
                   <ProjectLogo project={project} size={20} className="mr-2" />
                 )}
                 {project.name}

@@ -17,7 +17,9 @@
     "precommit": "pretty-quick --staged",
     "lint": "eslint src",
     "lint:fix": "npm run lint -- --fix",
-    "sort": "npx sort-package-json"
+    "sort": "npx sort-package-json",
+    "typecheck": "tsc --noEmit",
+    "typecheck:watch": "tsc --noEmit --watch"
   },
   "repository": {
     "type": "git",

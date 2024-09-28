@@ -7,7 +7,7 @@ import { cn } from "@/lib/utils";
 import { getProjectLogoUrl } from "./project-utils";
 
 type Props = {
-  project: Pick<BestOfJS.Project, "name" | "owner_id" | "icon">;
+  project: Pick<BestOfJS.Project, "name" | "owner_id" | "logo">;
   size: number;
   className?: string;
 };
@@ -36,12 +36,12 @@ function getProjectImageProps({
   size,
   colorMode,
 }: {
-  project: Pick<BestOfJS.Project, "name" | "owner_id" | "icon">;
+  project: Pick<BestOfJS.Project, "name" | "owner_id" | "logo">;
   size: number;
   colorMode: "dark" | "light";
 }) {
   const retinaURL =
-    !project.icon && getProjectLogoUrl(project, size * 2, colorMode);
+    !project.logo && getProjectLogoUrl(project, size * 2, colorMode);
 
   return {
     src: getProjectLogoUrl(project, size, colorMode),

@@ -1,19 +1,18 @@
 import styled from "@emotion/styled";
-import { Link as RouterLink } from "react-router-dom";
-import numeral from "numeral";
-import { GoMarkGithub, GoBookmark, GoHome } from "react-icons/go";
-
 import {
   Box,
+  getDeltaByDay,
   IconButton,
   Link,
   ProjectAvatar,
-  getDeltaByDay,
 } from "components/core";
-import { AuthContainer } from "containers/auth-container";
 import { DownloadCount, StarDelta, StarTotal } from "components/core/project";
 import { ProjectTagGroup } from "components/tags/project-tag";
+import { AuthContainer } from "containers/auth-container";
 import { fromNow } from "helpers/from-now";
+import numeral from "numeral";
+import { GoBookmark, GoHome, GoMarkGithub } from "react-icons/go";
+import { Link as RouterLink } from "react-router-dom";
 
 type Props = {
   projects: BestOfJS.Project[];
@@ -31,7 +30,7 @@ export const ProjectTable = ({ projects, footer, ...otherProps }: Props) => {
             if (!project) return null;
             return (
               <ProjectTableRow
-                key={project.full_name}
+                key={project.slug}
                 project={project}
                 {...otherProps}
               />

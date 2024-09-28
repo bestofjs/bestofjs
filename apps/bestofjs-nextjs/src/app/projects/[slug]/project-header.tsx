@@ -22,7 +22,7 @@ export function ProjectHeader({ project }: Props) {
         <div className="pr-4">
           <ProjectLogo
             project={{
-              icon: project.logo || "",
+              logo: project.logo || "",
               name: project.name,
               owner_id: project.repo.owner_id,
             }}

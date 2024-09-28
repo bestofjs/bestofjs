@@ -5,12 +5,12 @@
  * - A custom SVG file if project's `icon`property is specified.
  */
 export function getProjectLogoUrl(
-  project: Pick<BestOfJS.Project, "name" | "owner_id" | "icon">,
+  project: Pick<BestOfJS.Project, "name" | "owner_id" | "logo">,
   size: number,
   colorMode: "dark" | "light"
 ) {
-  const url = project.icon
-    ? getProjectLogoURL(project.icon, colorMode)
+  const url = project.logo
+    ? getProjectLogoURL(project.logo, colorMode)
     : getGitHubOwnerAvatarURL(project.owner_id, size);
   return url;
 }

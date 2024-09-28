@@ -29,8 +29,9 @@ export const buildStaticApiTask: Task = {
       const trends = getProjectTrends(repo.snapshots);
       const tags = project.projectsToTags.map((ptt) => ptt.tag.code);
 
+      // optional data
       const url = getProjectURL(project);
-      const icon = project.logo || undefined;
+      const logo = project.logo || undefined;
       const packageData = getPackageData(project);
 
       const data: ProjectItem = {
@@ -49,7 +50,7 @@ export const buildStaticApiTask: Task = {
         created_at: formatDate(repo.created_at),
         ...(packageData && { ...packageData }),
         ...(url && { url }),
-        ...(icon && { icon }),
+        ...(logo && { logo }),
       };
 
       return {

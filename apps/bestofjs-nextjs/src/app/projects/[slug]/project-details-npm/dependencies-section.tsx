@@ -25,8 +25,7 @@ export async function DependenciesSection({
     criteria: { npm: { $in: dependencies } },
   });
   const dependenciesNotOnBestOfJS = dependencies.filter(
-    (dependency) =>
-      !projects.find((project) => project.packageName === dependency)
+    (dependency) => !projects.find((project) => project.npm === dependency)
   );
 
   return (
