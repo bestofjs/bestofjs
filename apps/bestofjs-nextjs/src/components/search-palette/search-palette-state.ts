@@ -5,9 +5,9 @@ import { useRouter } from "next/navigation";
 import invariant from "tiny-invariant";
 import useDebouncedCallback from "use-debounce/lib/useDebouncedCallback";
 
-import { stateToQueryString } from "@/components/project-list/navigation-state";
-import { useSearchState } from "@/components/project-list/search-state";
+import { stateToQueryString } from "@/lib/page-search-state";
 import { ClientSearch } from "./search-container";
+import { useProjectSearchState } from "./search-state.client";
 
 export type SelectedItem =
   | {
@@ -25,7 +25,7 @@ export type SelectedItem =
 const DEBOUNCE_DELAY = 300;
 
 export function useSearchPaletteTags() {
-  const searchState = useSearchState();
+  const { searchState, buildPageURL } = useProjectSearchState();
   const { lookupTag } = ClientSearch.useContainer();
   const [currentTagCodes, setCurrentTagCodes] = React.useState<string[]>(
     searchState.tags

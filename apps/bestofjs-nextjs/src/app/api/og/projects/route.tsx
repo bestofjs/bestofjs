@@ -1,3 +1,5 @@
+import { get } from "lodash";
+
 import {
   Box,
   generateImageResponse,
@@ -7,25 +9,25 @@ import {
   StarIcon,
   TagIcon,
 } from "@/app/api/og/og-utils";
+import { ProjectSearchStateParser } from "@/app/projects/project-search-types";
 import { getDeltaByDay } from "@/components/core";
-import {
-  parseSearchParams,
-  ProjectPageSearchParams,
-} from "@/components/project-list/navigation-state";
 import {
   getSortOptionByKey,
   SortOption,
   SortOptionKey,
 } from "@/components/project-list/sort-order-options";
 import { formatNumber } from "@/helpers/numbers";
+import { getSearchParamsKeyValues } from "@/lib/url-search-params";
 import { api } from "@/server/api-remote-json";
 import { ImageLayout } from "../og-image-layout";
+
+const searchStateParser = new ProjectSearchStateParser();
 
 export const runtime = "edge";
 
 export async function GET(req: Request) {
   const NUMBER_OF_PROJECTS = 3;
-  const { tags, query, sort, page } = getSearchParams(req.url);
+  const { tags, query, sort, page } = getSearchStateFromURL(req.url);
   const sortOption = getSortOptionByKey(sort);
   const { projects, selectedTags } = await api.projects.findProjects({
     criteria: tags.length > 0 ? { tags: { $all: tags } } : {},
@@ -68,13 +70,10 @@ function getImageTitle(tags: BestOfJS.Tag[], query?: string) {
   return "Search results";
 }
 
-function getSearchParams(url: string) {
+function getSearchStateFromURL(url: string) {
   const { searchParams } = new URL(url);
-  const projectSearchParams = {
-    ...Object.fromEntries(searchParams.entries()),
-    tags: searchParams.getAll("tags"), // take into account multiple tags
-  } as ProjectPageSearchParams;
-  return parseSearchParams(projectSearchParams);
+  const projectSearchParams = getSearchParamsKeyValues(searchParams);
+  return searchStateParser.parse(projectSearchParams);
 }
 
 function ImageCaption({

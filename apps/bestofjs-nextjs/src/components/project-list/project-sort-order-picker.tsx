@@ -9,8 +9,8 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { stateToQueryString } from "@/lib/page-search-state";
 import { ChevronDownIcon } from "../core";
-import { stateToQueryString } from "./navigation-state";
 import { SortOptionKey, sortOrderOptionsByKey } from "./sort-order-options";
 
 const sortOptionGroups: SortOptionKey[][] = [
