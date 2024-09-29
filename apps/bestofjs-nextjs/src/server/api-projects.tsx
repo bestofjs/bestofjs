@@ -123,7 +123,7 @@ export function createProjectsAPI({ getData }: APIContext) {
         name: 1,
         slug: 1,
         owner_id: 1,
-        icon: 1,
+        logo: 1,
         npm: 1,
         description: 1,
         stars: 1,
