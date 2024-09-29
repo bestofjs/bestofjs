@@ -17,7 +17,7 @@ type Props = {
   page: number;
   total: number;
   limit: number;
-  sortOptionId: string;
+  sort: string;
   searchState: ProjectSearchState;
   buildPageURL: ProjectSearchUrlBuilder;
   path?: string;
@@ -27,7 +27,7 @@ export const ProjectPaginatedList = ({
   page,
   total,
   limit,
-  sortOptionId,
+  sort,
   buildPageURL,
   searchState,
   path,
@@ -55,7 +55,7 @@ export const ProjectPaginatedList = ({
           <div className="flex w-full flex-col justify-between gap-4 md:flex-row">
             {showSortOptions && (
               <ProjectSortOrderPicker
-                value={sortOptionId as SortOptionKey}
+                value={sort as SortOptionKey}
                 searchState={searchState}
                 path={path}
               />
@@ -73,7 +73,7 @@ export const ProjectPaginatedList = ({
         projects={projects}
         buildPageURL={buildPageURL}
         metricsCell={(project) => (
-          <ProjectScore project={project} sortOptionId={sortOptionId} />
+          <ProjectScore project={project} sort={sort} />
         )}
         footer={
           <div className="flex justify-end">

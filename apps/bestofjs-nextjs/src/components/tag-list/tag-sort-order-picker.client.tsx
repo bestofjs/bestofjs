@@ -18,7 +18,7 @@ import {
 } from "../ui/dropdown-menu";
 
 type Props = {
-  value: TagSearchState["sortOptionId"];
+  value: TagSearchState["sort"];
   searchState: TagSearchState;
 };
 export const TagSortOrderPicker = ({ value, searchState }: Props) => {
@@ -40,7 +40,7 @@ export const TagSortOrderPicker = ({ value, searchState }: Props) => {
             const nextState: TagSearchState = {
               ...searchState,
               page: 1,
-              sortOptionId: value,
+              sort: value,
             };
             const queryString = tagSearchStateToQueryString(nextState);
             const url = `/tags?` + queryString;

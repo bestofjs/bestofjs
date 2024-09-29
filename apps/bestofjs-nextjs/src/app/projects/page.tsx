@@ -32,7 +32,7 @@ type ProjectsPageData = {
   selectedTags: BestOfJS.Tag[];
   relevantTags: BestOfJS.Tag[];
   allTags: BestOfJS.Tag[];
-  sortOptionId: SortOptionKey;
+  sort: SortOptionKey;
   lastUpdateDate: Date;
 };
 
@@ -87,7 +87,7 @@ function getPageDescription(data: ProjectsPageData, query?: string) {
     .slice(0, NUMBER_OF_PROJECTS)
     .join(", ");
   const tagNames = tags.map((tag) => `“${tag.name}“`).join(" + ");
-  const sortOption = getSortOptionByKey(data.sortOptionId);
+  const sortOption = getSortOptionByKey(data.sort);
   const sortOptionLabel = sortOption.label.toLowerCase();
 
   if (!query && tags.length === 0) {
@@ -109,7 +109,7 @@ export default async function Projects({ searchParams }: PageProps) {
     page,
     limit,
     total,
-    sortOptionId,
+    sort,
     selectedTags,
     relevantTags,
     allTags,
@@ -153,7 +153,7 @@ export default async function Projects({ searchParams }: PageProps) {
         page={page}
         limit={limit}
         total={total}
-        sortOptionId={sortOptionId}
+        sort={sort}
         searchState={searchState}
         buildPageURL={buildPageURL}
       />
@@ -325,7 +325,7 @@ async function getData(
     total,
     page,
     limit,
-    sortOptionId: sortOption.key,
+    sort: sortOption.key,
     selectedTags,
     relevantTags,
     tags,

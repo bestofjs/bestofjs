@@ -16,7 +16,7 @@ type Props = {
   page: number;
   total: number;
   limit: number;
-  sortOptionId: string;
+  sort: string;
   buildTagsPageURL: TagSearchUrlBuilder;
   searchState: TagSearchState;
 };
@@ -41,7 +41,7 @@ export const TagPaginatedList = ({
       <CardHeader>
         <div className="flex w-full flex-col justify-between gap-4 md:flex-row">
           <TagSortOrderPicker
-            value={searchState.sortOptionId}
+            value={searchState.sort}
             searchState={searchState}
           />
           {showPagination && (

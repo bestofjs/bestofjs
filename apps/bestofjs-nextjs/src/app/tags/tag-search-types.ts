@@ -12,10 +12,8 @@ export const tagListSortSlugs = {
   PROJECT_COUNT: "project-count",
 } as const;
 
-type TagListSortMap = typeof tagListSortSlugs;
-
 const tagSearchSchema = paginationSchema.extend({
-  sortOptionId: z.nativeEnum(tagListSortSlugs),
+  sort: z.nativeEnum(tagListSortSlugs),
 });
 
 export type TagSearchState = z.infer<typeof tagSearchSchema>;
@@ -23,12 +21,9 @@ export type TagSearchState = z.infer<typeof tagSearchSchema>;
 export type TagSearchUpdater = PageSearchStateUpdater<TagSearchState>;
 export type TagSearchUrlBuilder = PageSearchUrlBuilder<TagSearchState>;
 
-export function tagSearchStateToQueryString({
-  sortOptionId,
-  page,
-}: TagSearchState) {
+export function tagSearchStateToQueryString({ sort, page }: TagSearchState) {
   const params = {
-    sort: sortOptionId || undefined,
+    sort: sort || undefined,
     page: page === 1 ? undefined : page,
   };
 
@@ -37,7 +32,7 @@ export function tagSearchStateToQueryString({
 }
 
 export type TagListSortOption = {
-  value: TagSearchState["sortOptionId"];
+  value: TagSearchState["sort"];
   text: string;
   sort: { [key: string]: 1 | -1 };
 };

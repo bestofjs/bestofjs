@@ -41,7 +41,7 @@ export default async function FeaturedProjectsPage({
         page={page}
         limit={limit}
         total={total}
-        sortOptionId={sort}
+        sort={sort}
         searchState={searchState}
         buildPageURL={buildPageURL}
         path="/featured"
@@ -69,6 +69,6 @@ async function fetchFeaturedProjects({
     total,
     page,
     limit,
-    sortOptionId: sortOption.key,
+    sort: sortOption.key,
   };
 }

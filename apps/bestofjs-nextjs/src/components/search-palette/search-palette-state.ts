@@ -5,7 +5,6 @@ import { useRouter } from "next/navigation";
 import invariant from "tiny-invariant";
 import useDebouncedCallback from "use-debounce/lib/useDebouncedCallback";
 
-import { stateToQueryString } from "@/lib/page-search-state";
 import { ClientSearch } from "./search-container";
 import { useProjectSearchState } from "./search-state.client";
 
@@ -45,6 +44,7 @@ export function useSearchPaletteTags() {
     .filter(Boolean) as BestOfJS.Tag[];
 
   return {
+    buildPageURL,
     currentTags,
     currentTagCodes,
     removeTag,
@@ -70,7 +70,7 @@ export function useSearchPaletteState() {
     currentTagCodes,
     removeTag,
     resetCurrentTags,
-    searchState,
+    buildPageURL,
   } = useSearchPaletteTags();
 
   const onOpenChange = (value: boolean) => {
@@ -101,10 +101,13 @@ export function useSearchPaletteState() {
     const selectedTagCode = itemValue.slice("tag/".length);
     const tagCodes = [...currentTagCodes, selectedTagCode];
     const tags = tagCodes.map(lookupTag).filter(Boolean) as BestOfJS.Tag[];
-    const nextState = { ...searchState, page: 1, tags: tagCodes };
-    const queryString = stateToQueryString(nextState);
     setSelectedItem({ type: "tag", value: tags });
-    goToURL(`/projects/?${queryString}`);
+    const url = buildPageURL((state) => ({
+      ...state,
+      page: 1,
+      tags: tagCodes,
+    }));
+    goToURL(url);
   };
 
   const onViewAllTags = () => {

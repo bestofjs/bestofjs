@@ -27,7 +27,7 @@ export const metadata: Metadata = {
 };
 
 export default async function TagsPage({ searchParams }: PageProps) {
-  const { tags, total, limit, page, sortOptionId } =
+  const { tags, total, limit, page, sort } =
     await getTagsPageData(searchParams);
 
   const searchState = parsePageSearchParams(searchParams);
@@ -47,7 +47,7 @@ export default async function TagsPage({ searchParams }: PageProps) {
         page={page}
         limit={limit}
         total={total}
-        sortOptionId={sortOptionId}
+        sort={sort}
         buildTagsPageURL={buildTagsPageURL}
         searchState={searchState}
       />
@@ -56,8 +56,8 @@ export default async function TagsPage({ searchParams }: PageProps) {
 }
 
 async function getTagsPageData(searchParams: PageProps["searchParams"]) {
-  const { sortOptionId, page, limit } = parsePageSearchParams(searchParams);
-  const sortOption = getTagListSortOptionByValue(sortOptionId);
+  const { sort, page, limit } = parsePageSearchParams(searchParams);
+  const sortOption = getTagListSortOptionByValue(sort);
   const skip = limit * (page - 1);
   const { tags, total } = await api.tags.findTagsWithProjects({
     limit,
@@ -69,7 +69,7 @@ async function getTagsPageData(searchParams: PageProps["searchParams"]) {
     tags,
     page,
     limit,
-    sortOptionId,
+    sort,
     total,
   };
 }
@@ -80,8 +80,8 @@ function parsePageSearchParams(
   return {
     page: toInteger(searchParams.page, 1),
     limit: toInteger(searchParams.limit, 20),
-    sortOptionId: (searchParams.sort ||
-      tagListSortSlugs.PROJECT_COUNT) as TagSearchState["sortOptionId"],
+    sort: (searchParams.sort ||
+      tagListSortSlugs.PROJECT_COUNT) as TagSearchState["sort"],
   };
 }
 
