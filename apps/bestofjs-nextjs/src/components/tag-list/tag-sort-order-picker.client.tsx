@@ -5,17 +5,17 @@ import Link from "next/link";
 import {
   tagListSortOptions,
   TagSearchState,
-  tagSearchStateToQueryString,
 } from "@/app/tags/tag-search-types";
-import { ChevronDownIcon } from "../core";
-import { Button } from "../ui/button";
+import { ChevronDownIcon } from "@/components/core";
+import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuGroup,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "../ui/dropdown-menu";
+} from "@/components/ui/dropdown-menu";
+import { stateToQueryString } from "@/lib/page-search-state";
 
 type Props = {
   value: TagSearchState["sort"];
@@ -42,7 +42,7 @@ export const TagSortOrderPicker = ({ value, searchState }: Props) => {
               page: 1,
               sort: value,
             };
-            const queryString = tagSearchStateToQueryString(nextState);
+            const queryString = stateToQueryString(nextState);
             const url = `/tags?` + queryString;
 
             return (

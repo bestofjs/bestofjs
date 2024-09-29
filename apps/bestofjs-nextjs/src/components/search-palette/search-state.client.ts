@@ -1,6 +1,6 @@
 "use client";
 
-import { useSearchParams } from "next/navigation";
+import { usePathname, useSearchParams } from "next/navigation";
 
 import {
   ProjectSearchStateParser,
@@ -13,9 +13,14 @@ const searchStateParser = new ProjectSearchStateParser();
 
 export function useProjectSearchState() {
   const urlSearchParams = useSearchParams();
-  const searchParamsKeyValues = getSearchParamsKeyValues(urlSearchParams);
+  const pathName = usePathname();
 
-  const searchState = searchStateParser.parse(searchParamsKeyValues);
+  const searchParamsKeyValues = getSearchParamsKeyValues(urlSearchParams);
+  const shouldReadURL = pathName === "/projects"; // the palette should try to read URL params only from the projects page
+
+  const searchState = searchStateParser.parse(
+    shouldReadURL ? searchParamsKeyValues : {}
+  );
 
   const buildPageURL = (updater: ProjectSearchUpdater) => {
     const nextState = updater(searchState);

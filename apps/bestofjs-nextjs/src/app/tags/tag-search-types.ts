@@ -1,34 +1,34 @@
-import { encode } from "qss";
 import { z } from "zod";
 
 import {
   PageSearchStateUpdater,
   PageSearchUrlBuilder,
   paginationSchema,
+  SearchStateParser,
 } from "@/lib/page-search-state";
 
-export const tagListSortSlugs = {
+export const tagSortOptionsMap = {
   ALPHA: "alpha",
   PROJECT_COUNT: "project-count",
 } as const;
 
-const tagSearchSchema = paginationSchema.extend({
-  sort: z.nativeEnum(tagListSortSlugs),
+const tagSearchStateSchema = paginationSchema.extend({
+  sort: z
+    .nativeEnum(tagSortOptionsMap)
+    .default(tagSortOptionsMap.PROJECT_COUNT),
 });
 
-export type TagSearchState = z.infer<typeof tagSearchSchema>;
+export type TagSearchState = z.infer<typeof tagSearchStateSchema>;
 
 export type TagSearchUpdater = PageSearchStateUpdater<TagSearchState>;
 export type TagSearchUrlBuilder = PageSearchUrlBuilder<TagSearchState>;
 
-export function tagSearchStateToQueryString({ sort, page }: TagSearchState) {
-  const params = {
-    sort: sort || undefined,
-    page: page === 1 ? undefined : page,
-  };
-
-  const queryString = encode(params);
-  return queryString;
+export class TagSearchStateParser extends SearchStateParser<
+  typeof tagSearchStateSchema
+> {
+  constructor() {
+    super(tagSearchStateSchema);
+  }
 }
 
 export type TagListSortOption = {

@@ -6,7 +6,7 @@ import { z } from "zod";
 
 export const paginationSchema = z.object({
   page: z.coerce.number().default(1),
-  limit: z.coerce.number().default(5),
+  limit: z.coerce.number().default(20),
 });
 
 export type PaginationProps = z.infer<typeof paginationSchema>;
@@ -20,18 +20,11 @@ export type PageSearchStateUpdater<T extends PaginationProps> = (
 
 /**
  * Paginated components get a `buildPageURL` function to generate the URL to navigate to,
- * given an `Updater` function that describes the changes to the current search state.
+ * given an `Updater` function that return the next state from the current search state.
  */
 export type PageSearchUrlBuilder<T extends PaginationProps> = (
   updater: PageSearchStateUpdater<T>
 ) => string;
-
-// export function parseSearchParams<T extends z.ZodTypeAny>(
-//   params: Record<string, string>,
-//   schema: T
-// ) {
-//   return schema.parse(params) as z.infer<T>;
-// }
 
 export class SearchStateParser<T extends z.ZodTypeAny> {
   constructor(public schema: T) {
@@ -39,7 +32,7 @@ export class SearchStateParser<T extends z.ZodTypeAny> {
   }
 
   parse(params: unknown) {
-    return this.schema.parse(params);
+    return this.schema.parse(params) as z.infer<T>;
   }
 
   stringify(searchState: z.infer<T>) {

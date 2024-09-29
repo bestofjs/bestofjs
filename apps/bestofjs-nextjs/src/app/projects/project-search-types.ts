@@ -12,7 +12,7 @@ const sortSchema = z.nativeEnum(sortOptionsMap);
 
 export const projectSearchStateSchema = paginationSchema.extend({
   tags: z
-    .preprocess(makeArray, z.union([z.string(), z.array(z.string())])) // accept string or array and convert to array
+    .preprocess(makeArray, z.array(z.string())) // accept string or array and convert to array
     .default([]),
   query: z.string().optional(),
   sort: sortSchema.default("total"),
@@ -35,10 +35,6 @@ export class ProjectSearchStateParser extends SearchStateParser<
     });
 
     super(extendedSchema);
-  }
-
-  parse(params: Record<string, string | string[] | undefined>) {
-    return this.schema.parse(params);
   }
 }
 

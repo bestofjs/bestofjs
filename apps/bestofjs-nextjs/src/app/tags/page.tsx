@@ -6,9 +6,8 @@ import { api } from "@/server/api";
 import TagListLoading from "./loading";
 import {
   getTagListSortOptionByValue,
-  tagListSortSlugs,
   TagSearchState,
-  tagSearchStateToQueryString,
+  TagSearchStateParser,
 } from "./tag-search-types";
 import { TagsPageShell } from "./tags-page-shell";
 
@@ -22,6 +21,8 @@ type PageProps = {
 
 const showLoadingPage = false; // for debugging purpose only
 
+const searchStateParser = new TagSearchStateParser();
+
 export const metadata: Metadata = {
   title: "All Tags",
 };
@@ -30,11 +31,11 @@ export default async function TagsPage({ searchParams }: PageProps) {
   const { tags, total, limit, page, sort } =
     await getTagsPageData(searchParams);
 
-  const searchState = parsePageSearchParams(searchParams);
+  const searchState = searchStateParser.parse(searchParams);
 
   function buildTagsPageURL(updater: PageSearchStateUpdater<TagSearchState>) {
     const nextState = updater(searchState);
-    const queryString = tagSearchStateToQueryString(nextState);
+    const queryString = searchStateParser.stringify(nextState);
     return "/tags?" + queryString;
   }
 
@@ -56,7 +57,7 @@ export default async function TagsPage({ searchParams }: PageProps) {
 }
 
 async function getTagsPageData(searchParams: PageProps["searchParams"]) {
-  const { sort, page, limit } = parsePageSearchParams(searchParams);
+  const { sort, page, limit } = searchStateParser.parse(searchParams);
   const sortOption = getTagListSortOptionByValue(sort);
   const skip = limit * (page - 1);
   const { tags, total } = await api.tags.findTagsWithProjects({
@@ -72,20 +73,4 @@ async function getTagsPageData(searchParams: PageProps["searchParams"]) {
     sort,
     total,
   };
-}
-
-function parsePageSearchParams(
-  searchParams: PageProps["searchParams"]
-): TagSearchState {
-  return {
-    page: toInteger(searchParams.page, 1),
-    limit: toInteger(searchParams.limit, 20),
-    sort: (searchParams.sort ||
-      tagListSortSlugs.PROJECT_COUNT) as TagSearchState["sort"],
-  };
-}
-
-function toInteger(input: string | undefined, defaultValue = 1) {
-  if (!input) return defaultValue;
-  return isNaN(Number(input)) ? defaultValue : parseInt(input, 0);
 }
