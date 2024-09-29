@@ -4,9 +4,11 @@
 import { encode } from "qss";
 import { z } from "zod";
 
+export const limitSchema = z.coerce.number();
+
 export const paginationSchema = z.object({
   page: z.coerce.number().default(1),
-  limit: z.coerce.number().default(20),
+  limit: limitSchema.default(20),
 });
 
 export type PaginationProps = z.infer<typeof paginationSchema>;

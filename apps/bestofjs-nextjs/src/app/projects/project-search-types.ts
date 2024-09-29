@@ -2,6 +2,7 @@ import { z } from "zod";
 
 import { sortOptionsMap } from "@/components/project-list/sort-order-options";
 import {
+  limitSchema,
   PageSearchStateUpdater,
   PageSearchUrlBuilder,
   paginationSchema,
@@ -29,9 +30,11 @@ export class ProjectSearchStateParser extends SearchStateParser<
   typeof projectSearchStateSchema
 > {
   constructor(options: Partial<ProjectSearchState> = {}) {
-    const { sort = "total" } = options;
+    const { sort = "total", limit = 30 } = options;
+
     const extendedSchema = projectSearchStateSchema.extend({
       sort: sortSchema.default(sort),
+      limit: limitSchema.default(limit),
     });
 
     super(extendedSchema);
