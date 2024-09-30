@@ -114,7 +114,7 @@ export function createTagsAPI({ getData }: APIContext) {
         criteria: { tags: { $in: [tag.code] } },
         sort: { stars: -1 },
         limit: 5,
-        projection: { name: 1, owner_id: 1, icon: 1, slug: 1 },
+        projection: { name: 1, owner_id: 1, logo: 1, slug: 1 },
       });
 
       const { projects } = await findRawProjects(
