@@ -5,6 +5,7 @@ import {
   flattenSnapshots,
   getProjectDescription,
   isProjectIncludedInRankings,
+  ProjectDetails,
 } from "@repo/db/projects";
 import { getMonthlyDelta } from "@repo/db/snapshots";
 import { Task } from "@/task-runner";
@@ -34,6 +35,8 @@ export const buildMonthlyRankingsTask: Task<z.infer<typeof schema>> = {
       const repo = project.repo;
 
       if (!repo) throw new Error("No repo found");
+      if (!shouldProcessProject(project))
+        return { data: null, meta: { skipped: true } };
       if (!repo.snapshots?.length)
         return { data: null, meta: { "no snapshots": true } };
 
@@ -104,4 +107,8 @@ export const buildMonthlyRankingsTask: Task<z.infer<typeof schema>> = {
 
 function formatDate(year: number, month: number) {
   return `${year}-${month.toString().padStart(2, "0")}`;
+}
+
+function shouldProcessProject(project: ProjectDetails) {
+  return !["deprecated", "hidden"].includes(project.status);
 }
