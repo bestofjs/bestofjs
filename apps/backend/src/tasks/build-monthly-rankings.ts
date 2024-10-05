@@ -1,4 +1,4 @@
-import { orderBy, round } from "es-toolkit";
+import { orderBy, round, uniqBy } from "es-toolkit";
 import { z } from "zod";
 
 import {
@@ -9,6 +9,7 @@ import {
 } from "@repo/db/projects";
 import { getMonthlyDelta } from "@repo/db/snapshots";
 import { Task } from "@/task-runner";
+import { truncate } from "@/utils";
 
 const schema = z.object({ year: z.number(), month: z.number() });
 
@@ -40,9 +41,11 @@ export const buildMonthlyRankingsTask: Task<z.infer<typeof schema>> = {
       if (!repo.snapshots?.length)
         return { data: null, meta: { "no snapshots": true } };
 
-      const stars = repo.stars || 0;
       const flattenedSnapshots = flattenSnapshots(repo.snapshots);
-      const delta = getMonthlyDelta(flattenedSnapshots, { year, month });
+      const { delta, stars } = getMonthlyDelta(flattenedSnapshots, {
+        year,
+        month,
+      });
 
       if (delta === undefined) {
         return { data: null, meta: { "not enough snapshots": true } };
@@ -56,7 +59,7 @@ export const buildMonthlyRankingsTask: Task<z.infer<typeof schema>> = {
       const data = {
         name: project.name,
         full_name: repo.full_name,
-        description: getProjectDescription(project),
+        description: truncate(getProjectDescription(project), 75),
         stars,
         delta,
         relativeGrowth:
@@ -68,13 +71,12 @@ export const buildMonthlyRankingsTask: Task<z.infer<typeof schema>> = {
       return { data, meta: { success: true } };
     });
 
-    const projects = results.data.filter((project) => project !== null);
+    const projects = uniqBy(
+      results.data.filter((project) => project !== null),
+      (project) => project.full_name
+    );
 
-    const trending = orderBy(
-      projects.filter((project) => project !== null),
-      ["delta"],
-      ["desc"]
-    ).slice(0, 100);
+    const trending = orderBy(projects, ["delta"], ["desc"]).slice(0, 100);
 
     const byRelativeGrowth = orderBy(
       projects,

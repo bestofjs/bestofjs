@@ -9,6 +9,7 @@ import {
   ProjectDetails,
 } from "@repo/db/projects";
 import { Task } from "@/task-runner";
+import { truncate } from "@/utils";
 import { ProjectItem } from "./static-api-types";
 
 export const buildStaticApiTask: Task = {
@@ -161,9 +162,4 @@ function getDailyHotProjects(projects: ProjectItem[]) {
 
 function formatDate(date: Date | null) {
   return date ? date.toISOString().slice(0, 10) : "";
-}
-
-function truncate(input: string, maxLength = 50) {
-  const isTruncated = input.length > maxLength;
-  return isTruncated ? `${input.slice(0, maxLength)}...` : input;
 }
