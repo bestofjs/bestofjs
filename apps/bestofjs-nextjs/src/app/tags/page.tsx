@@ -7,7 +7,7 @@ import {
   getTagListSortOptionByValue,
   TagSearchState,
   TagSearchStateParser,
-} from "./tag-search-types";
+} from "./tag-search-state";
 import { TagsPageShell } from "./tags-page-shell";
 
 type PageProps = {

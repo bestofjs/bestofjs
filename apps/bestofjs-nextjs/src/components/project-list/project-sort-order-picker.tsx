@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-import { ProjectSearchUrlBuilder } from "@/app/projects/project-search-types";
+import { ProjectSearchUrlBuilder } from "@/app/projects/project-search-state";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,

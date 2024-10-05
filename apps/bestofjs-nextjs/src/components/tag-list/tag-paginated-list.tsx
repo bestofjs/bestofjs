@@ -1,7 +1,7 @@
 import {
   TagSearchState,
   TagSearchUrlBuilder,
-} from "@/app/tags/tag-search-types";
+} from "@/app/tags/tag-search-state";
 import {
   BottomPaginationControls,
   TopPaginationControls,

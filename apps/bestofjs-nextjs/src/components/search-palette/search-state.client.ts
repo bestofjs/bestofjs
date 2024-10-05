@@ -2,7 +2,7 @@
 
 import { usePathname, useSearchParams } from "next/navigation";
 
-import { ProjectSearchStateParser } from "@/app/projects/project-search-types";
+import { ProjectSearchStateParser } from "@/app/projects/project-search-state";
 import { getSearchParamsKeyValues } from "@/lib/url-search-params";
 
 const searchStateParser = new ProjectSearchStateParser();

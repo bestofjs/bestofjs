@@ -4,7 +4,7 @@ import {
   tagListSortOptions,
   TagSearchState,
   TagSearchUrlBuilder,
-} from "@/app/tags/tag-search-types";
+} from "@/app/tags/tag-search-state";
 import { ChevronDownIcon } from "@/components/core";
 import { Button } from "@/components/ui/button";
 import {

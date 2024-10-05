@@ -7,7 +7,7 @@ import {
   StarIcon,
   TagIcon,
 } from "@/app/api/og/og-utils";
-import { ProjectSearchStateParser } from "@/app/projects/project-search-types";
+import { ProjectSearchStateParser } from "@/app/projects/project-search-state";
 import { getDeltaByDay } from "@/components/core";
 import {
   getSortOptionByKey,

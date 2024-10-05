@@ -1,7 +1,7 @@
 import {
   ProjectSearchState,
   ProjectSearchStateParser,
-} from "@/app/projects/project-search-types";
+} from "@/app/projects/project-search-state";
 import { StarIcon } from "@/components/core";
 import { PageHeading } from "@/components/core/typography";
 import { ProjectPaginatedList } from "@/components/project-list/project-paginated-list";

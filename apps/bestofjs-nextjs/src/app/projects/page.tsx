@@ -17,7 +17,7 @@ import {
   ProjectSearchState,
   ProjectSearchStateParser,
   ProjectSearchUrlBuilder,
-} from "./project-search-types";
+} from "./project-search-state";
 
 type ProjectsPageData = {
   projects: BestOfJS.Project[];

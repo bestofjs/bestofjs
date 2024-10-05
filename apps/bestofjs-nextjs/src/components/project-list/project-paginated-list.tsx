@@ -1,7 +1,7 @@
 import {
   ProjectSearchState,
   ProjectSearchUrlBuilder,
-} from "@/app/projects/project-search-types";
+} from "@/app/projects/project-search-state";
 import { Card, CardHeader } from "@/components/ui/card";
 import {
   BottomPaginationControls,

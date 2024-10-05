@@ -1,7 +1,7 @@
 import React from "react";
 import NextLink from "next/link";
 
-import { ProjectSearchUrlBuilder } from "@/app/projects/project-search-types";
+import { ProjectSearchUrlBuilder } from "@/app/projects/project-search-state";
 import { badgeVariants } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
 import { ProjectTagHoverCard } from "./project-tag-hover-card";

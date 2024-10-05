@@ -1,6 +1,6 @@
 import NextLink from "next/link";
 
-import { ProjectSearchUrlBuilder } from "@/app/projects/project-search-types";
+import { ProjectSearchUrlBuilder } from "@/app/projects/project-search-state";
 import { formatNumber } from "@/helpers/numbers";
 import { cn } from "@/lib/utils";
 import { fromNow } from "../../helpers/from-now";
