@@ -26,11 +26,7 @@ export const TagPaginatedList = ({
 }: Props) => {
   const { page, limit } = searchState;
   const showPagination = total > limit;
-  const paginationState = computePaginationState({
-    total,
-    currentPageNumber: page,
-    limit,
-  });
+  const paginationState = computePaginationState({ page, limit, total });
 
   return (
     <Card>

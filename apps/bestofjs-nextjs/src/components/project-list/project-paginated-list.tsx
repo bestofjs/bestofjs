@@ -27,11 +27,7 @@ export const ProjectPaginatedList = ({
   const { page, limit, sort } = searchState;
   const showPagination = total > limit;
   const showSortOptions = total > 1;
-  const paginationState = computePaginationState({
-    total,
-    currentPageNumber: page,
-    limit,
-  });
+  const paginationState = computePaginationState({ page, limit, total });
 
   if (total === 0) {
     return (
