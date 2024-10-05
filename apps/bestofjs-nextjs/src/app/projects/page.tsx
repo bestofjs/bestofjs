@@ -19,7 +19,6 @@ import ProjectListLoading from "./loading";
 import {
   ProjectSearchState,
   ProjectSearchStateParser,
-  ProjectSearchUpdater,
   ProjectSearchUrlBuilder,
 } from "./project-search-types";
 
@@ -45,8 +44,8 @@ const searchStateParser = new ProjectSearchStateParser();
 export async function generateMetadata({
   searchParams,
 }: PageProps): Promise<Metadata> {
-  const data = await getData(searchParams);
-  const searchState = searchStateParser.parse(searchParams);
+  const { searchState } = searchStateParser.parse(searchParams);
+  const data = await fetchPageData(searchState);
 
   const title = getPageTitle(data, searchState.query);
   const description = getPageDescription(data, searchState.query);
@@ -103,28 +102,14 @@ function getPageDescription(data: ProjectsPageData, query?: string) {
 }
 const showLoadingPage = false; // for debugging purpose only
 
-export default async function Projects({ searchParams }: PageProps) {
-  const {
-    projects,
-    page,
-    limit,
-    total,
-    sort,
-    selectedTags,
-    relevantTags,
-    allTags,
-  } = await getData(searchParams);
-
+export default async function ProjectsPage({ searchParams }: PageProps) {
   if (showLoadingPage) return <ProjectListLoading />;
 
-  const searchState = searchStateParser.parse(searchParams);
-  const { query } = searchState;
+  const { searchState, buildPageURL } = searchStateParser.parse(searchParams);
+  const { projects, total, selectedTags, relevantTags, allTags } =
+    await fetchPageData(searchState);
 
-  const buildPageURL = (updater: ProjectSearchUpdater) => {
-    const nextState = updater(searchState);
-    const queryString = searchStateParser.stringify(nextState);
-    return "/projects?" + queryString;
-  };
+  const { query } = searchState;
 
   return (
     <>
@@ -150,12 +135,9 @@ export default async function Projects({ searchParams }: PageProps) {
       )}
       <ProjectPaginatedList
         projects={projects}
-        page={page}
-        limit={limit}
-        total={total}
-        sort={sort}
         searchState={searchState}
         buildPageURL={buildPageURL}
+        total={total}
       />
     </>
   );
@@ -302,11 +284,10 @@ function CurrentTags({
   );
 }
 
-async function getData(
-  searchParams: PageProps["searchParams"]
+async function fetchPageData(
+  searchState: ProjectSearchState
 ): Promise<ProjectsPageData> {
-  const { tags, sort, page, limit, query } =
-    searchStateParser.parse(searchParams);
+  const { tags, sort, page, limit, query } = searchState;
   const sortOption = getSortOptionByKey(sort);
 
   const { projects, selectedTags, relevantTags, total, lastUpdateDate } =

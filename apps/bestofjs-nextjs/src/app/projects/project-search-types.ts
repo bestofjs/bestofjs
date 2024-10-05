@@ -29,6 +29,8 @@ export type ProjectSearchUrlBuilder = PageSearchUrlBuilder<ProjectSearchState>;
 export class ProjectSearchStateParser extends SearchStateParser<
   typeof projectSearchStateSchema
 > {
+  path = "/projects";
+
   constructor(options: Partial<ProjectSearchState> = {}) {
     const { sort = "total", limit = 30 } = options;
 

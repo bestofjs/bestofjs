@@ -25,7 +25,9 @@ export const runtime = "edge";
 
 export async function GET(req: Request) {
   const NUMBER_OF_PROJECTS = 3;
-  const { tags, query, sort, page } = getSearchStateFromURL(req.url);
+  const {
+    searchState: { tags, query, sort, page },
+  } = getSearchStateFromURL(req.url);
   const sortOption = getSortOptionByKey(sort);
   const { projects, selectedTags } = await api.projects.findProjects({
     criteria: tags.length > 0 ? { tags: { $all: tags } } : {},

@@ -1,10 +1,9 @@
-"use client";
-
 import Link from "next/link";
 
 import {
   tagListSortOptions,
   TagSearchState,
+  TagSearchUrlBuilder,
 } from "@/app/tags/tag-search-types";
 import { ChevronDownIcon } from "@/components/core";
 import { Button } from "@/components/ui/button";
@@ -15,13 +14,13 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { stateToQueryString } from "@/lib/page-search-state";
 
 type Props = {
   value: TagSearchState["sort"];
   searchState: TagSearchState;
+  buildPageURL: TagSearchUrlBuilder;
 };
-export const TagSortOrderPicker = ({ value, searchState }: Props) => {
+export const TagSortOrderPicker = ({ value, buildPageURL }: Props) => {
   const currentOption = tagListSortOptions.find(
     (option) => option.value === value
   );
@@ -37,13 +36,11 @@ export const TagSortOrderPicker = ({ value, searchState }: Props) => {
       <DropdownMenuContent className="w-[300px] divide-y" align="start">
         <DropdownMenuGroup>
           {tagListSortOptions.map(({ value, text }) => {
-            const nextState: TagSearchState = {
-              ...searchState,
-              page: 1,
+            const url = buildPageURL((state) => ({
+              ...state,
               sort: value,
-            };
-            const queryString = stateToQueryString(nextState);
-            const url = `/tags?` + queryString;
+              page: 1,
+            }));
 
             return (
               <DropdownMenuItem key={value} asChild>

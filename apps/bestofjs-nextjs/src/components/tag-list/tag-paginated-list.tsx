@@ -9,26 +9,22 @@ import {
 import { computePaginationState } from "@/components/core/pagination/pagination-state";
 import { Card, CardHeader } from "@/components/ui/card";
 import { TagList } from "./tag-list";
-import { TagSortOrderPicker } from "./tag-sort-order-picker.client";
+import { TagSortOrderPicker } from "./tag-sort-order-picker";
 
 type Props = {
   tags: BestOfJS.TagWithProjects[];
-  page: number;
   total: number;
-  limit: number;
-  sort: string;
-  buildTagsPageURL: TagSearchUrlBuilder;
+  buildPageURL: TagSearchUrlBuilder;
   searchState: TagSearchState;
 };
 
 export const TagPaginatedList = ({
   searchState,
-  buildTagsPageURL,
+  buildPageURL,
   tags,
-  page,
   total,
-  limit,
 }: Props) => {
+  const { page, limit } = searchState;
   const showPagination = total > limit;
   const paginationState = computePaginationState({
     total,
@@ -43,11 +39,12 @@ export const TagPaginatedList = ({
           <TagSortOrderPicker
             value={searchState.sort}
             searchState={searchState}
+            buildPageURL={buildPageURL}
           />
           {showPagination && (
             <TopPaginationControls
               paginationState={paginationState}
-              buildPageURL={buildTagsPageURL}
+              buildPageURL={buildPageURL}
             />
           )}
         </div>
@@ -56,7 +53,7 @@ export const TagPaginatedList = ({
       <div className="flex justify-end border-t p-4">
         <BottomPaginationControls
           paginationState={paginationState}
-          buildPageURL={buildTagsPageURL}
+          buildPageURL={buildPageURL}
         />
       </div>
     </Card>

@@ -26,6 +26,8 @@ export type TagSearchUrlBuilder = PageSearchUrlBuilder<TagSearchState>;
 export class TagSearchStateParser extends SearchStateParser<
   typeof tagSearchStateSchema
 > {
+  path = "/tags";
+
   constructor() {
     super(tagSearchStateSchema);
   }

@@ -14,24 +14,17 @@ import { SortOptionKey } from "./sort-order-options";
 
 type Props = {
   projects: BestOfJS.Project[];
-  page: number;
-  total: number;
-  limit: number;
-  sort: string;
   searchState: ProjectSearchState;
   buildPageURL: ProjectSearchUrlBuilder;
-  path?: string;
+  total: number;
 };
 export const ProjectPaginatedList = ({
   projects,
-  page,
-  total,
-  limit,
-  sort,
   buildPageURL,
   searchState,
-  path,
+  total,
 }: Props) => {
+  const { page, limit, sort } = searchState;
   const showPagination = total > limit;
   const showSortOptions = total > 1;
   const paginationState = computePaginationState({
@@ -56,8 +49,7 @@ export const ProjectPaginatedList = ({
             {showSortOptions && (
               <ProjectSortOrderPicker
                 value={sort as SortOptionKey}
-                searchState={searchState}
-                path={path}
+                buildPageURL={buildPageURL}
               />
             )}
             {showPagination && (

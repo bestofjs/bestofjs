@@ -28,17 +28,31 @@ export type PageSearchUrlBuilder<T extends PaginationProps> = (
   updater: PageSearchStateUpdater<T>
 ) => string;
 
-export class SearchStateParser<T extends z.ZodTypeAny> {
+export abstract class SearchStateParser<T extends z.ZodTypeAny> {
+  abstract path: string;
+
   constructor(public schema: T) {
     this.schema = schema;
   }
 
   parse(params: unknown) {
-    return this.schema.parse(params) as z.infer<T>;
+    const searchState = this.schema.parse(params) as z.infer<T>;
+    return {
+      searchState,
+      buildPageURL: this.createBuildPageURL(searchState),
+    };
   }
 
   stringify(searchState: z.infer<T>) {
     return stateToQueryString(searchState);
+  }
+
+  createBuildPageURL(searchState: z.infer<T>) {
+    return (updater: PageSearchStateUpdater<z.infer<T>>) => {
+      const nextState = updater(searchState);
+      const queryString = this.stringify(nextState);
+      return this.path + "?" + queryString;
+    };
   }
 }
 
