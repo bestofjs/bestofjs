@@ -37,8 +37,8 @@ export default async function TagsPage({ searchParams }: PageProps) {
       <TagPaginatedList
         tags={tags}
         total={total}
-        buildPageURL={buildPageURL}
         searchState={searchState}
+        buildPageURL={buildPageURL}
       />
     </TagsPageShell>
   );

@@ -133,9 +133,9 @@ export default async function ProjectsPage({ searchParams }: PageProps) {
       )}
       <ProjectPaginatedList
         projects={projects}
+        total={total}
         searchState={searchState}
         buildPageURL={buildPageURL}
-        total={total}
       />
     </>
   );

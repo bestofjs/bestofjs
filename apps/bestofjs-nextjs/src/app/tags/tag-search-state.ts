@@ -19,6 +19,7 @@ const tagSearchStateSchema = paginationSchema.extend({
 export type TagSearchState = z.infer<typeof tagSearchStateSchema>;
 
 export type TagSearchUpdater = PageSearchStateUpdater<TagSearchState>;
+
 export type TagSearchUrlBuilder = PageSearchUrlBuilder<TagSearchState>;
 
 export class TagSearchStateParser extends SearchStateParser<

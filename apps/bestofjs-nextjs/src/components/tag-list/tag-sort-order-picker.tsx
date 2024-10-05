@@ -17,7 +17,6 @@ import {
 
 type Props = {
   value: TagSearchState["sort"];
-  searchState: TagSearchState;
   buildPageURL: TagSearchUrlBuilder;
 };
 export const TagSortOrderPicker = ({ value, buildPageURL }: Props) => {

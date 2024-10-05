@@ -38,7 +38,6 @@ export const TagPaginatedList = ({
         <div className="flex w-full flex-col justify-between gap-4 md:flex-row">
           <TagSortOrderPicker
             value={searchState.sort}
-            searchState={searchState}
             buildPageURL={buildPageURL}
           />
           {showPagination && (
