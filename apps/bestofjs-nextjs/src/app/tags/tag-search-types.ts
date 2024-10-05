@@ -13,9 +13,7 @@ export const tagSortOptionsMap = {
 } as const;
 
 const tagSearchStateSchema = paginationSchema.extend({
-  sort: z
-    .nativeEnum(tagSortOptionsMap)
-    .default(tagSortOptionsMap.PROJECT_COUNT),
+  sort: z.nativeEnum(tagSortOptionsMap).catch(tagSortOptionsMap.PROJECT_COUNT),
 });
 
 export type TagSearchState = z.infer<typeof tagSearchStateSchema>;

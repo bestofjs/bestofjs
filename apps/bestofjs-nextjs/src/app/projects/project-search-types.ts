@@ -9,7 +9,7 @@ import {
   SearchStateParser,
 } from "@/lib/page-search-state";
 
-const sortSchema = z.nativeEnum(sortOptionsMap);
+const sortSchema = z.nativeEnum(sortOptionsMap).catch("total"); // default value not included in the base schema, to be able specify it at the page level
 
 export const projectSearchStateSchema = paginationSchema.extend({
   tags: z
@@ -17,7 +17,6 @@ export const projectSearchStateSchema = paginationSchema.extend({
     .default([]),
   query: z.string().optional(),
   sort: sortSchema.default("total"),
-  direction: z.enum(["desc", "asc"]).optional(),
 });
 
 export type ProjectSearchState = z.infer<typeof projectSearchStateSchema>;

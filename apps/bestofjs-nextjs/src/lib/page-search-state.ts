@@ -4,10 +4,15 @@
 import { encode } from "qss";
 import { z } from "zod";
 
-export const limitSchema = z.coerce.number();
+export const limitSchema = z.coerce
+  .number()
+  .positive()
+  .int()
+  .max(100)
+  .catch(10);
 
 export const paginationSchema = z.object({
-  page: z.coerce.number().default(1),
+  page: z.coerce.number().catch(1),
   limit: limitSchema.default(20),
 });
 
@@ -22,10 +27,12 @@ export type PageSearchStateUpdater<T extends PaginationProps> = (
 
 /**
  * Paginated components get a `buildPageURL` function to generate the URL to navigate to,
- * given an `Updater` function that return the next state from the current search state.
+ * given an `Updater` function that return the next state from the current search state
+ * and an optional path when we need to override the default path (E.g. for tag links)
  */
 export type PageSearchUrlBuilder<T extends PaginationProps> = (
-  updater: PageSearchStateUpdater<T>
+  updater: PageSearchStateUpdater<T>,
+  path?: string
 ) => string;
 
 export abstract class SearchStateParser<T extends z.ZodTypeAny> {
@@ -48,10 +55,10 @@ export abstract class SearchStateParser<T extends z.ZodTypeAny> {
   }
 
   createBuildPageURL(searchState: z.infer<T>) {
-    return (updater: PageSearchStateUpdater<z.infer<T>>) => {
+    return (updater: PageSearchStateUpdater<z.infer<T>>, path?: string) => {
       const nextState = updater(searchState);
       const queryString = this.stringify(nextState);
-      return this.path + "?" + queryString;
+      return (path || this.path) + "?" + queryString;
     };
   }
 }

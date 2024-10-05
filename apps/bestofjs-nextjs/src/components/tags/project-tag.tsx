@@ -36,11 +36,14 @@ export const ProjectTag = ({
   className?: string;
 }) => {
   const url = buildPageURL
-    ? buildPageURL((state) => ({
-        ...state,
-        tags: appendTag ? [...state.tags, tag.code] : [tag.code],
-        page: 1,
-      }))
+    ? buildPageURL(
+        (state) => ({
+          ...state,
+          tags: appendTag ? [...state.tags, tag.code] : [tag.code],
+          page: 1,
+        }),
+        "/projects"
+      )
     : `/projects?tags=${tag.code}`;
 
   return (

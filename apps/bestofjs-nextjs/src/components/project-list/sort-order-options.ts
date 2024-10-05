@@ -22,7 +22,6 @@ export type SortOption = {
   label: string;
   sort: { [key: string]: number };
   disabled?: (params: { query: string }) => boolean;
-  direction?: "desc" | "asc";
 };
 
 export const sortOrderOptions: SortOption[] = [
@@ -76,11 +75,6 @@ export const sortOrderOptions: SortOption[] = [
     label: "By date of addition on Best of JS",
     sort: { added_at: -1 },
   },
-  // {
-  //   key: "bookmark",
-  //   label: "By date of the bookmark",
-  //   disabled: ({ location }) => location.pathname !== "/bookmarks",
-  // },
 ];
 
 export const sortOrderOptionsByKey = keyBy(sortOrderOptions, "key") as Record<
