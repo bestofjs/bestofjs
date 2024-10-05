@@ -56,8 +56,5 @@ async function fetchFeaturedProjects({
   return {
     projects,
     total,
-    page,
-    limit,
-    sort: sortOption.key,
   };
 }

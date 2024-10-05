@@ -4,10 +4,7 @@ import NextLink from "next/link";
 import { PlusIcon, TagIcon, XMarkIcon } from "@/components/core";
 import { PageHeading } from "@/components/core/typography";
 import { ProjectPaginatedList } from "@/components/project-list/project-paginated-list";
-import {
-  getSortOptionByKey,
-  SortOptionKey,
-} from "@/components/project-list/sort-order-options";
+import { getSortOptionByKey } from "@/components/project-list/sort-order-options";
 import { badgeVariants } from "@/components/ui/badge";
 import { buttonVariants } from "@/components/ui/button";
 import { APP_CANONICAL_URL, APP_DISPLAY_NAME } from "@/config/site";
@@ -25,13 +22,9 @@ import {
 type ProjectsPageData = {
   projects: BestOfJS.Project[];
   total: number;
-  page: number;
-  limit: number;
-  tags: string[];
   selectedTags: BestOfJS.Tag[];
   relevantTags: BestOfJS.Tag[];
   allTags: BestOfJS.Tag[];
-  sort: SortOptionKey;
   lastUpdateDate: Date;
 };
 
@@ -47,8 +40,8 @@ export async function generateMetadata({
   const { searchState } = searchStateParser.parse(searchParams);
   const data = await fetchPageData(searchState);
 
-  const title = getPageTitle(data, searchState.query);
-  const description = getPageDescription(data, searchState.query);
+  const title = getPageTitle(data, searchState);
+  const description = getPageDescription(data, searchState);
 
   const queryString = searchStateParser.stringify(searchState);
   const urlSearchParams = new URLSearchParams(queryString);
@@ -66,7 +59,8 @@ export async function generateMetadata({
   };
 }
 
-function getPageTitle(data: ProjectsPageData, query?: string) {
+function getPageTitle(data: ProjectsPageData, searchState: ProjectSearchState) {
+  const { query } = searchState;
   const { selectedTags: tags } = data;
   if (!query && tags.length === 0) {
     return "All Projects";
@@ -78,7 +72,11 @@ function getPageTitle(data: ProjectsPageData, query?: string) {
   return "Search results";
 }
 
-function getPageDescription(data: ProjectsPageData, query?: string) {
+function getPageDescription(
+  data: ProjectsPageData,
+  searchState: ProjectSearchState
+) {
+  const { query, sort } = searchState;
   const NUMBER_OF_PROJECTS = 8;
   const { projects, selectedTags: tags, total } = data;
   const projectNames = projects
@@ -86,7 +84,7 @@ function getPageDescription(data: ProjectsPageData, query?: string) {
     .slice(0, NUMBER_OF_PROJECTS)
     .join(", ");
   const tagNames = tags.map((tag) => `“${tag.name}“`).join(" + ");
-  const sortOption = getSortOptionByKey(data.sort);
+  const sortOption = getSortOptionByKey(sort);
   const sortOptionLabel = sortOption.label.toLowerCase();
 
   if (!query && tags.length === 0) {
@@ -304,12 +302,8 @@ async function fetchPageData(
   return {
     projects,
     total,
-    page,
-    limit,
-    sort: sortOption.key,
     selectedTags,
     relevantTags,
-    tags,
     allTags,
     lastUpdateDate,
   };

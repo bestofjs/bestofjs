@@ -48,17 +48,9 @@ async function fetchTagsPageData(searchState: TagSearchState) {
   const { sort, page, limit } = searchState;
   const sortOption = getTagListSortOptionByValue(sort);
   const skip = limit * (page - 1);
-  const { tags, total } = await api.tags.findTagsWithProjects({
+  return await api.tags.findTagsWithProjects({
     limit,
     skip,
     sort: sortOption.sort,
   });
-
-  return {
-    tags,
-    page,
-    limit,
-    sort,
-    total,
-  };
 }
