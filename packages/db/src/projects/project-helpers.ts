@@ -81,7 +81,9 @@ export function getPackageData(project: ProjectDetails) {
  * Exclude from the rankings projects with specific tags
  * TODO: move this behavior to the `tag` record, adding an attribute `exclude_from_rankings`?
  **/
-export function isProjectIncludedInRankings(project: ProjectDetails) {
+export function isProjectIncludedInRankings(
+  project: Pick<ProjectDetails, "tags">
+) {
   const hasExcludedTag = TAGS_EXCLUDED_FROM_RANKINGS.some((tagCode) =>
     project.tags.map((tag) => tag.code).includes(tagCode)
   );

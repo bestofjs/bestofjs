@@ -1,6 +1,7 @@
-import { desc, eq } from "drizzle-orm";
+import { asc, desc, eq } from "drizzle-orm";
 
 import { DB, schema } from "@repo/db";
+import { snapshotsSchema } from "@repo/db/projects";
 import { TaskLoopOptions, TaskRunnerContext } from "@/task-types";
 import { ItemProcessor } from "./abstract-item-processor";
 
@@ -51,8 +52,31 @@ export class RepoProcessor extends ItemProcessor<Repo> {
 async function findRepoById(db: DB, id: string) {
   const repo = await db.query.repos.findFirst({
     where: eq(schema.repos.id, id),
-    with: { projects: true },
+    with: {
+      projects: {
+        orderBy: asc(schema.projects.priority),
+        with: {
+          projectsToTags: {
+            with: {
+              tag: true,
+            },
+          },
+        },
+      },
+      snapshots: {
+        orderBy: asc(schema.snapshots.year),
+      },
+    },
   });
+
   if (!repo) throw new Error(`Repo not found by id: ${id}`);
-  return repo;
+
+  const projects = repo.projects.map((project) => {
+    const tags = project.projectsToTags.map((ptt) => ptt.tag);
+    return { ...project, tags };
+  });
+
+  const snapshots = snapshotsSchema.parse(repo.snapshots);
+
+  return { ...repo, snapshots, projects };
 }

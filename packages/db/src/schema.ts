@@ -5,6 +5,7 @@ import {
   jsonb,
   pgTable,
   primaryKey,
+  smallint,
   text,
   timestamp,
 } from "drizzle-orm/pg-core";
@@ -22,6 +23,7 @@ export const projects = pgTable("projects", {
   status: text("status", { enum: PROJECT_STATUSES }).notNull(),
   logo: text("logo"),
   twitter: text("twitter"),
+  priority: smallint("priority").notNull().default(0),
   comments: text("comments"),
   createdAt: timestamp("created_at").notNull().defaultNow(),
   updatedAt: timestamp("updated_at"),
