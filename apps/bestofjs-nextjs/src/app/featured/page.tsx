@@ -1,31 +1,25 @@
+import {
+  ProjectSearchState,
+  ProjectSearchStateParser,
+} from "@/app/projects/project-search-state";
 import { StarIcon } from "@/components/core";
 import { PageHeading } from "@/components/core/typography";
-import {
-  parseSearchParams,
-  ProjectPageSearchParams,
-  stateToQueryString,
-} from "@/components/project-list/navigation-state";
 import { ProjectPaginatedList } from "@/components/project-list/project-paginated-list";
 import { getSortOptionByKey } from "@/components/project-list/sort-order-options";
 import { api } from "@/server/api";
-import { ProjectSearchQuery, SearchQueryUpdater } from "../projects/types";
 
 type PageProps = {
-  searchParams: ProjectPageSearchParams;
+  searchParams: Record<string, string | string[]>;
 };
+
+const searchStateParser = new ProjectSearchStateParser({ sort: "newest" });
+searchStateParser.path = "/featured";
 
 export default async function FeaturedProjectsPage({
   searchParams,
 }: PageProps) {
-  const searchState = parseSearchParams(searchParams, { sort: "newest" });
+  const { searchState, buildPageURL } = searchStateParser.parse(searchParams);
   const { projects, total } = await fetchFeaturedProjects(searchState);
-  const { page, limit, sort } = searchState;
-
-  const buildPageURL = (updater: SearchQueryUpdater<ProjectSearchQuery>) => {
-    const nextState = updater(searchState);
-    const queryString = stateToQueryString(nextState);
-    return "/featured?" + queryString;
-  };
 
   return (
     <>
@@ -37,13 +31,9 @@ export default async function FeaturedProjectsPage({
 
       <ProjectPaginatedList
         projects={projects}
-        page={page}
-        limit={limit}
         total={total}
-        sortOptionId={sort}
         searchState={searchState}
         buildPageURL={buildPageURL}
-        path="/featured"
       />
     </>
   );
@@ -53,7 +43,7 @@ async function fetchFeaturedProjects({
   sort,
   page,
   limit,
-}: ProjectSearchQuery) {
+}: ProjectSearchState) {
   const sortOption = getSortOptionByKey(sort);
 
   const { projects, total } = await api.projects.findProjects({
@@ -66,8 +56,5 @@ async function fetchFeaturedProjects({
   return {
     projects,
     total,
-    page,
-    limit,
-    sortOptionId: sortOption.key,
   };
 }

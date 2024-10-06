@@ -1,24 +1,27 @@
 import keyBy from "lodash/keyBy";
 
-export type SortOptionKey =
-  | "total"
-  | "daily"
-  | "weekly"
-  | "monthly"
-  | "yearly"
-  | "monthly-downloads"
-  | "contributors"
-  | "created"
-  | "last-commit"
-  | "newest"
-  | "bookmark";
+export const sortOptionsMap = {
+  TOTAL: "total",
+  DAILY: "daily",
+  WEEKLY: "weekly",
+  MONTHLY: "monthly",
+  YEARLY: "yearly",
+  MONTHLY_DOWNLOADS: "monthly-downloads",
+  LAST_COMMIT: "last-commit",
+  CONTRIBUTORS: "contributors",
+  CREATED: "created",
+  NEWEST: "newest",
+  BOOKMARK: "bookmark",
+} as const;
+
+type SortOptionMap = typeof sortOptionsMap;
+export type SortOptionKey = SortOptionMap[keyof SortOptionMap];
 
 export type SortOption = {
   key: SortOptionKey;
   label: string;
   sort: { [key: string]: number };
   disabled?: (params: { query: string }) => boolean;
-  direction?: "desc" | "asc";
 };
 
 export const sortOrderOptions: SortOption[] = [
@@ -72,11 +75,6 @@ export const sortOrderOptions: SortOption[] = [
     label: "By date of addition on Best of JS",
     sort: { added_at: -1 },
   },
-  // {
-  //   key: "bookmark",
-  //   label: "By date of the bookmark",
-  //   disabled: ({ location }) => location.pathname !== "/bookmarks",
-  // },
 ];
 
 export const sortOrderOptionsByKey = keyBy(sortOrderOptions, "key") as Record<

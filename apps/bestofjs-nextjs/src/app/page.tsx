@@ -132,7 +132,7 @@ function HotProjectList({ projects }: { projects: BestOfJS.Project[] }) {
         projects={projects}
         showDetails={false}
         metricsCell={(project) => (
-          <ProjectScore project={project} sortOptionId="daily" />
+          <ProjectScore project={project} sort="daily" />
         )}
         footer={
           <NextLink
@@ -169,7 +169,7 @@ function NewestProjectList({ projects }: { projects: BestOfJS.Project[] }) {
         projects={projects}
         showDetails={false}
         metricsCell={(project) => (
-          <ProjectScore project={project} sortOptionId="total" />
+          <ProjectScore project={project} sort="total" />
         )}
         footer={
           <NextLink

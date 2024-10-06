@@ -1,15 +1,15 @@
 import React from "react";
 import NextLink from "next/link";
 
-import { PaginationProps, SearchUrlBuilder } from "@/app/projects/types";
 import { ChevronLeftIcon, ChevronRightIcon } from "@/components/core/icons";
 import { buttonVariants } from "@/components/ui/button";
 import { formatNumber } from "@/helpers/numbers";
+import { PageSearchUrlBuilder, PaginationProps } from "@/lib/page-search-state";
 import { PaginationState } from "./pagination-state";
 
-type Props<T> = {
+type Props<T extends PaginationProps> = {
   paginationState: PaginationState;
-  buildPageURL: SearchUrlBuilder<T>;
+  buildPageURL: PageSearchUrlBuilder<T>;
 };
 export const TopPaginationControls = <T extends PaginationProps>(
   props: Props<T>

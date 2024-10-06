@@ -2,7 +2,7 @@ export type PaginationState = {
   from: number;
   to: number;
   limit: number;
-  currentPageNumber: number;
+  page: number;
   total: number;
   pageNumbers: number[];
   hasPreviousPage: boolean;
@@ -12,11 +12,11 @@ export type PaginationState = {
 
 export function computePaginationState({
   total,
-  currentPageNumber,
+  page,
   limit,
 }: {
   total: number;
-  currentPageNumber: number;
+  page: number;
   limit: number;
 }) {
   const pageNumberCount = 5;
@@ -25,8 +25,8 @@ export function computePaginationState({
   const lastPageNumber = allPageNumbers[allPageNumbers.length - 1];
   const delta = Math.floor(pageNumberCount / 2);
 
-  let minPageNumber = currentPageNumber - delta;
-  let maxPageNumber = currentPageNumber + delta;
+  let minPageNumber = page - delta;
+  let maxPageNumber = page + delta;
 
   if (minPageNumber < 1) {
     minPageNumber = 1;
@@ -38,10 +38,10 @@ export function computePaginationState({
   }
 
   const pageNumbers = allPageNumbers.slice(minPageNumber - 1, maxPageNumber);
-  const hasPreviousPage = currentPageNumber > 1;
-  const hasNextPage = currentPageNumber < lastPageNumber;
+  const hasPreviousPage = page > 1;
+  const hasNextPage = page < lastPageNumber;
 
-  const from = (currentPageNumber - 1) * limit + 1;
+  const from = (page - 1) * limit + 1;
   const to = Math.min(from + limit - 1, total);
 
   return {
@@ -51,7 +51,7 @@ export function computePaginationState({
     hasNextPage,
     pageNumbers,
     lastPageNumber,
-    currentPageNumber,
+    page,
     total,
     limit,
   };

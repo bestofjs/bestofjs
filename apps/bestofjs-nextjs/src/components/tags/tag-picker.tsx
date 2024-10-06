@@ -4,7 +4,6 @@ import * as React from "react";
 import { useRouter } from "next/navigation";
 import { Check, ChevronsUpDown } from "lucide-react";
 
-import { ProjectSearchQuery, SearchQueryUpdater } from "@/app/projects/types";
 import { Button } from "@/components/ui/button";
 import {
   Command,
@@ -19,8 +18,7 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { cn } from "@/lib/utils";
-import { stateToQueryString } from "../project-list/navigation-state";
-import { useSearchState } from "../project-list/search-state";
+import { useProjectSearchState } from "../search-palette/search-state.client";
 
 type Props = {
   allTags: BestOfJS.Tag[];
@@ -28,14 +26,8 @@ type Props = {
 };
 
 export function SearchPageTagPicker(props: Props) {
-  const searchState = useSearchState();
+  const { buildPageURL } = useProjectSearchState();
   const router = useRouter();
-
-  const buildPageURL = (updater: SearchQueryUpdater<ProjectSearchQuery>) => {
-    const nextState = updater(searchState);
-    const queryString = stateToQueryString(nextState);
-    return "/projects?" + queryString;
-  };
 
   const onChange = (tagCode: string) => {
     const url = buildPageURL((state) => ({

@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-import { ProjectSearchQuery } from "@/app/projects/types";
+import { ProjectSearchUrlBuilder } from "@/app/projects/project-search-state";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -10,7 +10,6 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { ChevronDownIcon } from "../core";
-import { stateToQueryString } from "./navigation-state";
 import { SortOptionKey, sortOrderOptionsByKey } from "./sort-order-options";
 
 const sortOptionGroups: SortOptionKey[][] = [
@@ -24,14 +23,9 @@ const sortOptionGroups: SortOptionKey[][] = [
 
 type Props = {
   value: SortOptionKey;
-  searchState: ProjectSearchQuery;
-  path?: string;
+  buildPageURL: ProjectSearchUrlBuilder;
 };
-export function ProjectSortOrderPicker({
-  value,
-  searchState,
-  path = "/projects",
-}: Props) {
+export function ProjectSortOrderPicker({ value, buildPageURL }: Props) {
   const currentOption = sortOrderOptionsByKey[value];
 
   return (
@@ -48,9 +42,11 @@ export function ProjectSortOrderPicker({
             <DropdownMenuGroup key={index} className="py-2">
               {group.map((id) => {
                 const item = sortOrderOptionsByKey[id];
-                const nextState = { ...searchState, page: 1, sort: item.key };
-                const queryString = stateToQueryString(nextState);
-                const url = path + `?` + queryString;
+                const url = buildPageURL((state) => ({
+                  ...state,
+                  sort: item.key,
+                  page: 1,
+                }));
 
                 return (
                   <DropdownMenuItem key={id} asChild>

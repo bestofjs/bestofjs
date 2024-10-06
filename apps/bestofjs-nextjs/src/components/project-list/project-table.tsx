@@ -1,6 +1,6 @@
 import NextLink from "next/link";
 
-import { ProjectSearchQuery, SearchUrlBuilder } from "@/app/projects/types";
+import { ProjectSearchUrlBuilder } from "@/app/projects/project-search-state";
 import { formatNumber } from "@/helpers/numbers";
 import { cn } from "@/lib/utils";
 import { fromNow } from "../../helpers/from-now";
@@ -19,7 +19,7 @@ import { linkVariants } from "../ui/link";
 
 type Props = {
   projects: BestOfJS.Project[];
-  buildPageURL?: SearchUrlBuilder<ProjectSearchQuery>;
+  buildPageURL?: ProjectSearchUrlBuilder;
   footer?: React.ReactNode;
   metricsCell?: (project: BestOfJS.Project) => React.ReactNode;
   showDetails?: boolean;
@@ -144,20 +144,18 @@ const ProjectTableRow = ({
 
 export const ProjectScore = ({
   project,
-  sortOptionId,
+  sort,
 }: {
   project: BestOfJS.Project;
-  sortOptionId: string;
+  sort: string;
 }) => {
-  const showDelta = ["daily", "weekly", "monthly", "yearly"].includes(
-    sortOptionId
-  );
-  const showDownloads = sortOptionId === "monthly-downloads";
+  const showDelta = ["daily", "weekly", "monthly", "yearly"].includes(sort);
+  const showDownloads = sort === "monthly-downloads";
 
   if (showDelta) {
-    const value = getDeltaByDay(sortOptionId)(project);
+    const value = getDeltaByDay(sort)(project);
     if (value === undefined) return null;
-    return <StarDelta average={sortOptionId !== "daily"} value={value} />;
+    return <StarDelta average={sort !== "daily"} value={value} />;
   }
 
   if (showDownloads) {

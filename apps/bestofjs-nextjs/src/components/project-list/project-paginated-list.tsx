@@ -1,4 +1,7 @@
-import { ProjectSearchQuery, SearchUrlBuilder } from "@/app/projects/types";
+import {
+  ProjectSearchState,
+  ProjectSearchUrlBuilder,
+} from "@/app/projects/project-search-state";
 import { Card, CardHeader } from "@/components/ui/card";
 import {
   BottomPaginationControls,
@@ -11,31 +14,20 @@ import { SortOptionKey } from "./sort-order-options";
 
 type Props = {
   projects: BestOfJS.Project[];
-  page: number;
+  searchState: ProjectSearchState;
+  buildPageURL: ProjectSearchUrlBuilder;
   total: number;
-  limit: number;
-  sortOptionId: string;
-  searchState: ProjectSearchQuery;
-  buildPageURL: SearchUrlBuilder<ProjectSearchQuery>;
-  path?: string;
 };
 export const ProjectPaginatedList = ({
   projects,
-  page,
-  total,
-  limit,
-  sortOptionId,
   buildPageURL,
   searchState,
-  path,
+  total,
 }: Props) => {
+  const { page, limit, sort } = searchState;
   const showPagination = total > limit;
   const showSortOptions = total > 1;
-  const paginationState = computePaginationState({
-    total,
-    currentPageNumber: page,
-    limit,
-  });
+  const paginationState = computePaginationState({ page, limit, total });
 
   if (total === 0) {
     return (
@@ -52,9 +44,8 @@ export const ProjectPaginatedList = ({
           <div className="flex w-full flex-col justify-between gap-4 md:flex-row">
             {showSortOptions && (
               <ProjectSortOrderPicker
-                value={sortOptionId as SortOptionKey}
-                searchState={searchState}
-                path={path}
+                value={sort as SortOptionKey}
+                buildPageURL={buildPageURL}
               />
             )}
             {showPagination && (
@@ -70,7 +61,7 @@ export const ProjectPaginatedList = ({
         projects={projects}
         buildPageURL={buildPageURL}
         metricsCell={(project) => (
-          <ProjectScore project={project} sortOptionId={sortOptionId} />
+          <ProjectScore project={project} sort={sort} />
         )}
         footer={
           <div className="flex justify-end">

@@ -1,15 +1,13 @@
 import { Metadata } from "next";
 
-import { SearchQueryUpdater } from "@/app/projects/types";
 import { TagPaginatedList } from "@/components/tag-list/tag-paginated-list";
 import { api } from "@/server/api";
 import TagListLoading from "./loading";
 import {
   getTagListSortOptionByValue,
-  tagListSortSlugs,
-  TagSearchQuery,
-  tagSearchStateToQueryString,
-} from "./tag-list-shared";
+  TagSearchState,
+  TagSearchStateParser,
+} from "./tag-search-state";
 import { TagsPageShell } from "./tags-page-shell";
 
 type PageProps = {
@@ -22,21 +20,15 @@ type PageProps = {
 
 const showLoadingPage = false; // for debugging purpose only
 
+const searchStateParser = new TagSearchStateParser();
+
 export const metadata: Metadata = {
   title: "All Tags",
 };
 
 export default async function TagsPage({ searchParams }: PageProps) {
-  const { tags, total, limit, page, sortOptionId } =
-    await getTagsPageData(searchParams);
-
-  const searchState = parsePageSearchParams(searchParams);
-
-  function buildTagsPageURL(updater: SearchQueryUpdater<TagSearchQuery>) {
-    const nextState = updater(searchState);
-    const queryString = tagSearchStateToQueryString(nextState);
-    return "/tags?" + queryString;
-  }
+  const { searchState, buildPageURL } = searchStateParser.parse(searchParams);
+  const { tags, total } = await fetchTagsPageData(searchState);
 
   if (showLoadingPage) return <TagListLoading />;
 
@@ -44,48 +36,21 @@ export default async function TagsPage({ searchParams }: PageProps) {
     <TagsPageShell>
       <TagPaginatedList
         tags={tags}
-        page={page}
-        limit={limit}
         total={total}
-        sortOptionId={sortOptionId}
-        buildTagsPageURL={buildTagsPageURL}
         searchState={searchState}
+        buildPageURL={buildPageURL}
       />
     </TagsPageShell>
   );
 }
 
-async function getTagsPageData(searchParams: PageProps["searchParams"]) {
-  const { sortOptionId, page, limit } = parsePageSearchParams(searchParams);
-  const sortOption = getTagListSortOptionByValue(sortOptionId);
+async function fetchTagsPageData(searchState: TagSearchState) {
+  const { sort, page, limit } = searchState;
+  const sortOption = getTagListSortOptionByValue(sort);
   const skip = limit * (page - 1);
-  const { tags, total } = await api.tags.findTagsWithProjects({
+  return await api.tags.findTagsWithProjects({
     limit,
     skip,
     sort: sortOption.sort,
   });
-
-  return {
-    tags,
-    page,
-    limit,
-    sortOptionId,
-    total,
-  };
-}
-
-function parsePageSearchParams(
-  searchParams: PageProps["searchParams"]
-): TagSearchQuery {
-  return {
-    page: toInteger(searchParams.page, 1),
-    limit: toInteger(searchParams.limit, 20),
-    sortOptionId: (searchParams.sort ||
-      tagListSortSlugs.PROJECT_COUNT) as TagSearchQuery["sortOptionId"],
-  };
-}
-
-function toInteger(input: string | undefined, defaultValue = 1) {
-  if (!input) return defaultValue;
-  return isNaN(Number(input)) ? defaultValue : parseInt(input, 0);
 }

@@ -1,5 +1,7 @@
-import { SearchQueryUpdater } from "@/app/projects/types";
-import { TagSearchQuery } from "@/app/tags/tag-list-shared";
+import {
+  TagSearchState,
+  TagSearchUrlBuilder,
+} from "@/app/tags/tag-search-state";
 import {
   BottomPaginationControls,
   TopPaginationControls,
@@ -7,45 +9,37 @@ import {
 import { computePaginationState } from "@/components/core/pagination/pagination-state";
 import { Card, CardHeader } from "@/components/ui/card";
 import { TagList } from "./tag-list";
-import { TagSortOrderPicker } from "./tag-sort-order-picker.client";
+import { TagSortOrderPicker } from "./tag-sort-order-picker";
 
 type Props = {
   tags: BestOfJS.TagWithProjects[];
-  page: number;
   total: number;
-  limit: number;
-  sortOptionId: string;
-  buildTagsPageURL: (updater: SearchQueryUpdater<TagSearchQuery>) => string;
-  searchState: TagSearchQuery;
+  buildPageURL: TagSearchUrlBuilder;
+  searchState: TagSearchState;
 };
 
 export const TagPaginatedList = ({
   searchState,
-  buildTagsPageURL,
+  buildPageURL,
   tags,
-  page,
   total,
-  limit,
 }: Props) => {
+  const { page, limit } = searchState;
   const showPagination = total > limit;
-  const paginationState = computePaginationState({
-    total,
-    currentPageNumber: page,
-    limit,
-  });
+  const paginationState = computePaginationState({ page, limit, total });
 
   return (
     <Card>
       <CardHeader>
         <div className="flex w-full flex-col justify-between gap-4 md:flex-row">
           <TagSortOrderPicker
-            value={searchState.sortOptionId}
-            searchState={searchState}
+            value={searchState.sort}
+            buildPageURL={buildPageURL}
           />
           {showPagination && (
             <TopPaginationControls
               paginationState={paginationState}
-              buildPageURL={buildTagsPageURL}
+              buildPageURL={buildPageURL}
             />
           )}
         </div>
@@ -54,7 +48,7 @@ export const TagPaginatedList = ({
       <div className="flex justify-end border-t p-4">
         <BottomPaginationControls
           paginationState={paginationState}
-          buildPageURL={buildTagsPageURL}
+          buildPageURL={buildPageURL}
         />
       </div>
     </Card>
