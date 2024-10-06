@@ -5,7 +5,7 @@ export function getMonthlyTrends(snapshots: Snapshot[], date: Date) {
   const trends = months
     .map((month) => ({
       ...month,
-      delta: getMonthlyDelta(snapshots, month),
+      delta: getMonthlyDelta(snapshots, month).delta,
     }))
     .filter((month) => month.delta !== undefined);
   return trends as (SnapshotMonth & { delta: number })[];
@@ -20,18 +20,19 @@ export function getLastSnapshotOfTheMonth(
   );
 }
 
-export function getMonthlyDelta(
-  snapshots: Snapshot[],
-  date: SnapshotMonth
-): number | undefined {
+export function getMonthlyDelta(snapshots: Snapshot[], date: SnapshotMonth) {
   const firstSnapshot = getFirstSnapshotOfTheMonth(snapshots, date);
 
   const lastSnapshot = getFirstSnapshotOfTheMonth(
     snapshots,
     getNextMonth(date)
   );
-  if (!lastSnapshot || !firstSnapshot) return undefined;
-  return lastSnapshot.stars - firstSnapshot.stars;
+  const delta =
+    !lastSnapshot || !firstSnapshot
+      ? undefined
+      : lastSnapshot.stars - firstSnapshot.stars;
+  const stars = lastSnapshot?.stars || undefined;
+  return { delta, stars };
 }
 
 export function getFirstSnapshotOfTheMonth(

@@ -1,14 +1,14 @@
-import { orderBy, round } from "es-toolkit";
+import { orderBy, round, uniqBy } from "es-toolkit";
 import { z } from "zod";
 
 import {
   flattenSnapshots,
-  getProjectDescription,
   isProjectIncludedInRankings,
-  ProjectDetails,
+  ProjectData,
 } from "@repo/db/projects";
 import { getMonthlyDelta } from "@repo/db/snapshots";
 import { Task } from "@/task-runner";
+import { truncate } from "@/utils";
 
 const schema = z.object({ year: z.number(), month: z.number() });
 
@@ -28,23 +28,25 @@ export const buildMonthlyRankingsTask: Task<z.infer<typeof schema>> = {
   schema,
 
   async run(context, flags) {
-    const { logger, processProjects, saveJSON } = context;
+    const { logger, processRepos, saveJSON } = context;
     const { year, month } = flags;
 
-    const results = await processProjects(async (project) => {
-      const repo = project.repo;
+    const results = await processRepos(async (repo) => {
+      const project = repo.projects?.[0];
+      if (!project) throw new Error("No project found");
 
-      if (!repo) throw new Error("No repo found");
       if (!shouldProcessProject(project))
         return { data: null, meta: { skipped: true } };
       if (!repo.snapshots?.length)
         return { data: null, meta: { "no snapshots": true } };
 
-      const stars = repo.stars || 0;
       const flattenedSnapshots = flattenSnapshots(repo.snapshots);
-      const delta = getMonthlyDelta(flattenedSnapshots, { year, month });
+      const { delta, stars } = getMonthlyDelta(flattenedSnapshots, {
+        year,
+        month,
+      });
 
-      if (delta === undefined) {
+      if (delta === undefined || stars === undefined) {
         return { data: null, meta: { "not enough snapshots": true } };
       }
       if (!isProjectIncludedInRankings(project)) {
@@ -52,12 +54,16 @@ export const buildMonthlyRankingsTask: Task<z.infer<typeof schema>> = {
       }
 
       const relativeGrowth = delta ? delta / (stars - delta) : undefined;
+      const description =
+        project.overrideDescription || !repo.description
+          ? project.description
+          : repo.description;
 
       const data = {
         name: project.name,
         full_name: repo.full_name,
-        description: getProjectDescription(project),
-        stars,
+        description: truncate(description, 75),
+        stars: stars || 0,
         delta,
         relativeGrowth:
           relativeGrowth !== undefined ? round(relativeGrowth, 4) : null,
@@ -68,13 +74,12 @@ export const buildMonthlyRankingsTask: Task<z.infer<typeof schema>> = {
       return { data, meta: { success: true } };
     });
 
-    const projects = results.data.filter((project) => project !== null);
+    const projects = uniqBy(
+      results.data.filter((project) => project !== null),
+      (project) => project.full_name
+    );
 
-    const trending = orderBy(
-      projects.filter((project) => project !== null),
-      ["delta"],
-      ["desc"]
-    ).slice(0, 100);
+    const trending = orderBy(projects, ["delta"], ["desc"]).slice(0, 100);
 
     const byRelativeGrowth = orderBy(
       projects,
@@ -109,6 +114,6 @@ function formatDate(year: number, month: number) {
   return `${year}-${month.toString().padStart(2, "0")}`;
 }
 
-function shouldProcessProject(project: ProjectDetails) {
+function shouldProcessProject<T extends ProjectData>(project: T) {
   return !["deprecated", "hidden"].includes(project.status);
 }

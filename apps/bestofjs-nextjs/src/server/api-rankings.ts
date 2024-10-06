@@ -47,7 +47,8 @@ export function createRankingsAPI(
 
       const sortedProjects = projects
         .map(({ full_name, delta }) => {
-          const project = foundProjects.find(
+          // we use `findLast` to lookup data because the oldest projects have a higher priority. TODO don't lookup by full_name, use a unique key
+          const project = foundProjects.findLast(
             (project) => project.full_name === full_name
           );
           if (!project) {

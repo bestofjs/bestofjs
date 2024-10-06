@@ -1,0 +1,1 @@
+ALTER TABLE "projects" ADD COLUMN "priority" smallint DEFAULT 0 NOT NULL;
