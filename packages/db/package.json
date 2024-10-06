@@ -17,6 +17,7 @@
     "./projects": "./src/projects/index.ts",
     "./snapshots": "./src/snapshots/index.ts",
     "./tags": "./src/tags/index.ts",
+    "./hall-of-fame": "./src/hall-of-fame.ts",
     "./types": "./src/types.ts"
   },
   "dependencies": {

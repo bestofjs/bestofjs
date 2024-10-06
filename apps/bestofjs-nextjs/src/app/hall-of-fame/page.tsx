@@ -1,15 +1,16 @@
 import { Metadata } from "next";
 
+import { getDatabase } from "@repo/db";
+import { findHallOfFameMembers } from "@repo/db/hall-of-fame";
 import { ExternalLink, PageHeading } from "@/components/core/typography";
 import {
   APP_CANONICAL_URL,
   APP_DISPLAY_NAME,
   APP_REPO_URL,
 } from "@/config/site";
-import { api } from "@/server/api";
-import { HallOfFameClientView } from "./hall-of-fame-view.client";
-import { HallOfFameMemberList } from "./hall-of-member-list";
+import { HallOfFameMemberList } from "./hall-of-fame-member-list";
 import Loading from "./loading";
+import { DescribeSearchResults, HallOfFameSearchBar } from "./search-bar";
 
 const forceLoadingState = false; // set to true when debugging the loading state
 
@@ -29,12 +30,26 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
-export default async function HallOfFamePage() {
-  const { members: allMembers } = await api.hallOfFame.findMembers();
+type PageProps = {
+  searchParams: { query?: string };
+};
+
+export default async function HallOfFamePage({
+  searchParams,
+}: PageProps): Promise<React.ReactElement> {
   if (forceLoadingState) return <Loading />;
 
+  const db = await getDatabase();
+  const searchQuery = searchParams.q;
+  const { members, total } = await findHallOfFameMembers({
+    db,
+    limit: 50,
+    offset: 0,
+    searchQuery,
+  });
+
   return (
-    <>
+    <div className="space-y-4">
       <PageHeading
         title={<>JavaScript Hall of Fame</>}
         subtitle={
@@ -53,17 +68,13 @@ export default async function HallOfFamePage() {
           </>
         }
       />
-      <HallOfFameClientView
-        initialContent={
-          <>
-            <div className="mb-4 text-muted-foreground">
-              Showing <b>all</b> {allMembers.length} members by number of
-              followers
-            </div>
-            <HallOfFameMemberList members={allMembers} />
-          </>
-        }
-      />
-    </>
+      <HallOfFameSearchBar query={searchQuery} />
+      {searchQuery ? (
+        <DescribeSearchResults count={members.length} />
+      ) : (
+        <p>Showing all {total} members by number of followers</p>
+      )}
+      <HallOfFameMemberList members={members} />
+    </div>
   );
 }

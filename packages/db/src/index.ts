@@ -3,8 +3,6 @@ import { drizzle } from "drizzle-orm/vercel-postgres";
 import { sql } from "./db";
 import * as schema from "./schema";
 
-export * as schema from "./schema";
-
 export type DB = ReturnType<typeof drizzle<typeof schema>>;
 
 export function getDatabase() {

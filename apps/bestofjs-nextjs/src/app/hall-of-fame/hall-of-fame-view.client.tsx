@@ -5,8 +5,8 @@ import { InfoIcon } from "lucide-react";
 
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { searchHallOfFameMembers } from "./actions";
+import { HallOfFameMemberList } from "./hall-of-fame-member-list";
 import { HallOfFameSearchBar } from "./hall-of-fame-search.client";
-import { HallOfFameMemberList } from "./hall-of-member-list";
 import { HallOfFameSkeletonCard } from "./loading";
 
 export function HallOfFameClientView({
