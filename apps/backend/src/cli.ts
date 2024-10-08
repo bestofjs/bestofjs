@@ -9,6 +9,7 @@ import {
   helloWorldReposTask,
 } from "./tasks/hello-world.task";
 import { notifyDailyTask } from "./tasks/notify-daily.task";
+import { notifyMonthlyTask } from "./tasks/notify-monthly.task";
 import { triggerBuildStaticApiTask } from "./tasks/trigger-build-static-api";
 import { triggerBuildWebappTask } from "./tasks/trigger-build-webapp.task";
 import { updateBundleSizeTask } from "./tasks/update-bundle-size.task";
@@ -17,6 +18,7 @@ import { updatePackageDataTask } from "./tasks/update-package-data.task";
 
 const commands = [
   notifyDailyTask,
+  notifyMonthlyTask,
   updateGitHubDataTask,
   triggerBuildStaticApiTask,
   triggerBuildWebappTask,
