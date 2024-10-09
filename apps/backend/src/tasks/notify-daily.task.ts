@@ -1,19 +1,15 @@
-import path from "path";
-import debugPackage from "debug";
-import fs from "fs-extra";
-
 import { TAGS_EXCLUDED_FROM_RANKINGS } from "@repo/db/constants";
+import { projectToDiscordEmbed, sendMessageToDiscord } from "@/shared/discord";
+import { projectToSlackAttachment, sendMessageToSlack } from "@/shared/slack";
 import { Task } from "@/task-runner";
 import { ProjectItem } from "./static-api-types";
-
-const debug = debugPackage("notify");
 
 export const notifyDailyTask: Task = {
   name: "notify-daily",
   description:
     "Send notification on Slack and Discord after static API is built",
 
-  run: async ({ dryRun, logger }) => {
+  run: async ({ dryRun, logger, readJSON }) => {
     const slackURL = process.env.SLACK_DAILY_WEBHOOK;
     if (!slackURL) throw new Error('No "SLACK_WEBHOOK" env. variable defined');
     const discordURL = process.env.DISCORD_DAILY_WEBHOOK;
@@ -32,20 +28,25 @@ export const notifyDailyTask: Task = {
       logger.info("Notification sent to Discord");
     }
     return { data: null, meta: { sent: true } };
+
+    async function fetchProjectsFromJSON() {
+      const data = await readJSON("projects.json");
+      return (data as any).projects as ProjectItem[]; // TODO parse data
+    }
+
+    async function fetchHottestProjects() {
+      const projects = await fetchProjectsFromJSON();
+
+      const score = (project: ProjectItem) => project.trends?.daily || 0;
+
+      const topProjects = projects
+        .filter(isIncludedInHotProjects)
+        .sort((a, b) => (score(a) > score(b) ? -1 : 1))
+        .slice(0, 5);
+      return topProjects;
+    }
   },
 };
-
-async function fetchHottestProjects() {
-  const projects = await fetchProjectsFromJSON();
-
-  const score = (project: ProjectItem) => project.trends?.daily || 0;
-
-  const topProjects = projects
-    .filter(isIncludedInHotProjects)
-    .sort((a, b) => (score(a) > score(b) ? -1 : 1))
-    .slice(0, 5);
-  return topProjects;
-}
 
 /**
  * Exclude from the rankings projects with specific tags
@@ -57,12 +58,6 @@ const isIncludedInHotProjects = (project: ProjectItem) => {
   );
   return !hasExcludedTag;
 };
-
-async function fetchProjectsFromJSON() {
-  const filePath = path.join(process.cwd(), "build", "projects.json");
-  const data = await fs.readJson(filePath);
-  return data.projects as ProjectItem[];
-}
 
 async function notifySlack({
   projects,
@@ -116,109 +111,6 @@ async function notifyDiscord({
 
   await sendMessageToDiscord(text, { url, embeds });
   return true;
-}
-
-// Convert a `project` object (from bestofjs API)
-// into an "attachment" included in the Slack message
-// See: https://api.slack.com/docs/message-attachments
-function projectToSlackAttachment(project: ProjectItem, pretext: string) {
-  const url = project.url || `https://github.com/${project.full_name}`;
-  const owner = project.full_name.split("/")[0];
-  const author_name = owner;
-  // `thumb_url` does not accept .svg files so we don't use project `logo` property
-  const thumb_url = `https://avatars.githubusercontent.com/u/${project.owner_id}?v=3&s=75`;
-  const attachment = {
-    color: "#e65100",
-    pretext,
-    author_name,
-    author_link: `https://github.com/${owner}`,
-    title: project.name,
-    title_link: url,
-    text: project.description,
-    thumb_url,
-  };
-  return attachment;
-}
-
-function projectToDiscordEmbed(
-  project: ProjectItem,
-  text: string,
-  color: string
-) {
-  const url = project.url || `https://github.com/${project.full_name}`;
-  const thumbnailSize = 50;
-  return {
-    type: "article",
-    title: project.name,
-    url,
-    description: project.description,
-    thumbnail: {
-      url: `https://avatars.githubusercontent.com/u/${project.owner_id}?v=3&s=${thumbnailSize}`,
-      width: thumbnailSize,
-      height: thumbnailSize,
-    },
-    color: parseInt(color, 16), // has to be a decimal number
-    footer: { text }, // a header would be better to introduce the project
-  };
-}
-
-// Send a message to a Slack channel
-async function sendMessageToSlack(
-  text: string,
-  {
-    url,
-    channel,
-    attachments,
-  }: { url: string; channel?: string; attachments: any }
-) {
-  const body = {
-    text,
-    mrkdwn: true,
-    attachments,
-  };
-  if (channel) {
-    // TODO add correct types
-    (body as any).channel = `#${channel}`; // Override the default webhook channel, if specified (for tests)
-  }
-
-  debug("Request", body);
-  try {
-    const result = await fetch(url, {
-      method: "POST",
-      body: JSON.stringify(body),
-      headers: { "content-type": "application/json" },
-    }).then((res) => res.text());
-
-    debug("Response", result);
-    return true;
-  } catch (error) {
-    throw new Error(`Invalid response from Slack ${(error as Error).message}`);
-  }
-}
-
-async function sendMessageToDiscord(
-  text: string,
-  { url, embeds }: { url: string; embeds: any }
-) {
-  const body = {
-    content: text,
-    embeds,
-  };
-  try {
-    debug(`Sending webhook to ${url}`, body);
-    const result = fetch(url, {
-      method: "POST",
-      body: JSON.stringify(body),
-      headers: { "content-type": "application/json" },
-    }).then((res) => res.text());
-
-    debug("Response", result || "(No response)");
-    return true;
-  } catch (error) {
-    throw new Error(
-      `Invalid response from Discord ${(error as Error).message}`
-    );
-  }
 }
 
 /**

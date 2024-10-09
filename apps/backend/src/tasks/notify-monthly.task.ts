@@ -1,6 +1,6 @@
-import debugPackage from "debug";
 import { z } from "zod";
 
+import { projectToDiscordEmbed, sendMessageToDiscord } from "@/shared/discord";
 import { Task } from "@/task-runner";
 import { ProjectItem } from "./static-api-types";
 
@@ -17,8 +17,6 @@ type RankingsData = {
 const NUMBER_OF_PROJECTS = 5;
 
 const schema = z.object({ year: z.number(), month: z.number() });
-
-const debug = debugPackage("notify");
 
 export const notifyMonthlyTask: Task<z.infer<typeof schema>> = {
   name: "notify-monthly",
@@ -98,49 +96,6 @@ async function notifyDiscord({
 
   await sendMessageToDiscord(text, { url, embeds });
   return true;
-}
-
-function projectToDiscordEmbed(project: Project, text: string, color: string) {
-  const url = project.url || `https://github.com/${project.full_name}`;
-  const thumbnailSize = 50;
-  return {
-    type: "article",
-    title: project.name,
-    url,
-    description: project.description,
-    thumbnail: {
-      url: `https://avatars.githubusercontent.com/u/${project.owner_id}?v=3&s=${thumbnailSize}`,
-      width: thumbnailSize,
-      height: thumbnailSize,
-    },
-    color: parseInt(color, 16), // has to be a decimal number
-    footer: { text }, // a header would be better to introduce the project
-  };
-}
-
-async function sendMessageToDiscord(
-  text: string,
-  { url, embeds }: { url: string; embeds: any }
-) {
-  const body = {
-    content: text,
-    embeds,
-  };
-  try {
-    debug(`Sending webhook to ${url}`, body);
-    const result = fetch(url, {
-      method: "POST",
-      body: JSON.stringify(body),
-      headers: { "content-type": "application/json" },
-    }).then((res) => res.text());
-
-    debug("Response", result || "(No response)");
-    return true;
-  } catch (error) {
-    throw new Error(
-      `Invalid response from Discord ${(error as Error).message}`
-    );
-  }
 }
 
 /**

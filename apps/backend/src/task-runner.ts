@@ -73,15 +73,23 @@ export function createTaskRunner(tasks: Task<RawFlags | undefined>[]) {
           processProjects: projectProcessor.processItems.bind(projectProcessor),
           processRepos: repoProcessor.processItems.bind(repoProcessor),
 
-          // Filesystem helpers
+          // Filesystem helpers to access files from `build` folder
+          // when running the either from monorepo root (local dev)
+          // or from the `backend` app root (when running on Vercel)
           async saveJSON(json: unknown, fileName: string) {
             logger.info(`Saving ${fileName}`, {
               size: prettyBytes(JSON.stringify(json).length),
             });
             const appRoot = getAppRootPath();
-            const filePath = path.join(appRoot, "build", fileName); // to be run from app/backend because of monorepo setup on Vercel, not from the root!
+            const filePath = path.join(appRoot, "build", fileName);
             await fs.outputJson(filePath, json);
             logger.info("JSON file saved!", filePath);
+          },
+
+          async readJSON(fileName: string) {
+            const appRoot = getAppRootPath();
+            const filePath = path.join(appRoot, "build", fileName);
+            return fs.readJson(filePath);
           },
         };
       }
