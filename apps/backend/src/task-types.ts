@@ -15,6 +15,7 @@ export interface TaskContext extends TaskRunnerContext {
   processProjects: ProjectProcessor["processItems"];
   processRepos: RepoProcessor["processItems"];
   saveJSON: (json: unknown, fileName: string) => Promise<void>;
+  readJSON: (fileName: string) => Promise<unknown>;
 }
 
 export type TaskLoopOptions = Pick<
