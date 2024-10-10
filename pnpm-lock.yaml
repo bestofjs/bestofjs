@@ -405,7 +405,7 @@ importers:
         version: 2.4.2
       vite-tsconfig-paths:
         specifier: ^3.4.1
-        version: 3.6.0(vite@3.2.10(@types/node@18.19.21)(terser@5.19.2))
+        version: 3.6.0(vite@3.2.11(@types/node@18.19.21)(terser@5.19.2))
       vitest:
         specifier: ^0.34.3
         version: 0.34.3(jsdom@16.7.0(bufferutil@4.0.8))(playwright@1.47.2)(terser@5.19.2)
@@ -454,7 +454,7 @@ importers:
         version: 1.7.16(react-dom@17.0.2(react@17.0.2))(react@17.0.2)
       '@vitejs/plugin-react':
         specifier: ^2.0.0
-        version: 2.2.0(vite@3.2.10(@types/node@14.18.54)(terser@5.19.2))
+        version: 2.2.0(vite@3.2.11(@types/node@14.18.54)(terser@5.19.2))
       cross-env:
         specifier: ^7.0.3
         version: 7.0.3
@@ -525,17 +525,17 @@ importers:
         specifier: ^2.4.1
         version: 2.4.2
       vite:
-        specifier: ^3.2.10
-        version: 3.2.10(@types/node@14.18.54)(terser@5.19.2)
+        specifier: ^3.2.11
+        version: 3.2.11(@types/node@14.18.54)(terser@5.19.2)
       vite-plugin-checker:
         specifier: ^0.4.9
-        version: 0.4.9(vite@3.2.10(@types/node@14.18.54)(terser@5.19.2))
+        version: 0.4.9(vite@3.2.11(@types/node@14.18.54)(terser@5.19.2))
       vite-plugin-html:
         specifier: ^3.2.0
-        version: 3.2.0(vite@3.2.10(@types/node@14.18.54)(terser@5.19.2))
+        version: 3.2.0(vite@3.2.11(@types/node@14.18.54)(terser@5.19.2))
       vite-tsconfig-paths:
         specifier: ^3.4.1
-        version: 3.6.0(vite@3.2.10(@types/node@14.18.54)(terser@5.19.2))
+        version: 3.6.0(vite@3.2.11(@types/node@14.18.54)(terser@5.19.2))
     devDependencies:
       '@swc/core':
         specifier: ^1.3.73
@@ -7667,8 +7667,8 @@ packages:
       terser:
         optional: true
 
-  vite@3.2.7:
-    resolution: {integrity: sha512-29pdXjk49xAP0QBr0xXqu2s5jiQIXNvE/xwd0vUizYT2Hzqe4BksNNoWllFVXJf4eLZ+UlVQmXfB4lWrc+t18g==}
+  vite@3.2.11:
+    resolution: {integrity: sha512-K/jGKL/PgbIgKCiJo5QbASQhFiV02X9Jh+Qq0AKCRCRKZtOTVi4t6wh75FDpGf2N9rYOnzH87OEFQNaFy6pdxQ==}
     engines: {node: ^14.18.0 || >=16.0.0}
     hasBin: true
     peerDependencies:
@@ -10925,7 +10925,7 @@ snapshots:
     transitivePeerDependencies:
       - utf-8-validate
 
-  '@vitejs/plugin-react@2.2.0(vite@3.2.10(@types/node@14.18.54)(terser@5.19.2))':
+  '@vitejs/plugin-react@2.2.0(vite@3.2.11(@types/node@14.18.54)(terser@5.19.2))':
     dependencies:
       '@babel/core': 7.22.9
       '@babel/plugin-transform-react-jsx': 7.22.5(@babel/core@7.22.9)
@@ -10934,7 +10934,7 @@ snapshots:
       '@babel/plugin-transform-react-jsx-source': 7.22.5(@babel/core@7.22.9)
       magic-string: 0.26.7
       react-refresh: 0.14.0
-      vite: 3.2.10(@types/node@14.18.54)(terser@5.19.2)
+      vite: 3.2.11(@types/node@14.18.54)(terser@5.19.2)
     transitivePeerDependencies:
       - supports-color
 
@@ -11455,7 +11455,7 @@ snapshots:
       normalize-path: 3.0.0
       readdirp: 3.6.0
     optionalDependencies:
-      fsevents: 2.3.2
+      fsevents: 2.3.3
 
   chownr@1.1.4: {}
 
@@ -13461,7 +13461,7 @@ snapshots:
       micromatch: 4.0.5
       walker: 1.0.8
     optionalDependencies:
-      fsevents: 2.3.2
+      fsevents: 2.3.3
 
   jest-jasmine2@27.5.1:
     dependencies:
@@ -14959,7 +14959,7 @@ snapshots:
 
   rollup@2.79.1:
     optionalDependencies:
-      fsevents: 2.3.2
+      fsevents: 2.3.3
 
   rtl-css-js@1.16.1:
     dependencies:
@@ -15764,7 +15764,7 @@ snapshots:
       mlly: 1.4.1
       pathe: 1.1.1
       picocolors: 1.0.0
-      vite: 3.2.10(@types/node@18.19.21)(terser@5.19.2)
+      vite: 3.2.11(@types/node@18.19.21)(terser@5.19.2)
     transitivePeerDependencies:
       - '@types/node'
       - less
@@ -15774,7 +15774,7 @@ snapshots:
       - supports-color
       - terser
 
-  vite-plugin-checker@0.4.9(vite@3.2.10(@types/node@14.18.54)(terser@5.19.2)):
+  vite-plugin-checker@0.4.9(vite@3.2.11(@types/node@14.18.54)(terser@5.19.2)):
     dependencies:
       '@babel/code-frame': 7.22.5
       ansi-escapes: 4.3.2
@@ -15787,13 +15787,13 @@ snapshots:
       npm-run-path: 4.0.1
       strip-ansi: 6.0.1
       tiny-invariant: 1.3.1
-      vite: 3.2.10(@types/node@14.18.54)(terser@5.19.2)
+      vite: 3.2.11(@types/node@14.18.54)(terser@5.19.2)
       vscode-languageclient: 7.0.0
       vscode-languageserver: 7.0.0
       vscode-languageserver-textdocument: 1.0.8
       vscode-uri: 3.0.7
 
-  vite-plugin-html@3.2.0(vite@3.2.10(@types/node@14.18.54)(terser@5.19.2)):
+  vite-plugin-html@3.2.0(vite@3.2.11(@types/node@14.18.54)(terser@5.19.2)):
     dependencies:
       '@rollup/pluginutils': 4.2.1
       colorette: 2.0.20
@@ -15807,38 +15807,27 @@ snapshots:
       html-minifier-terser: 6.1.0
       node-html-parser: 5.4.2
       pathe: 0.2.0
-      vite: 3.2.10(@types/node@14.18.54)(terser@5.19.2)
+      vite: 3.2.11(@types/node@14.18.54)(terser@5.19.2)
 
-  vite-tsconfig-paths@3.6.0(vite@3.2.10(@types/node@14.18.54)(terser@5.19.2)):
+  vite-tsconfig-paths@3.6.0(vite@3.2.11(@types/node@14.18.54)(terser@5.19.2)):
     dependencies:
       debug: 4.3.4
       globrex: 0.1.2
       recrawl-sync: 2.2.3
       tsconfig-paths: 4.2.0
-      vite: 3.2.10(@types/node@14.18.54)(terser@5.19.2)
+      vite: 3.2.11(@types/node@14.18.54)(terser@5.19.2)
     transitivePeerDependencies:
       - supports-color
 
-  vite-tsconfig-paths@3.6.0(vite@3.2.10(@types/node@18.19.21)(terser@5.19.2)):
+  vite-tsconfig-paths@3.6.0(vite@3.2.11(@types/node@18.19.21)(terser@5.19.2)):
     dependencies:
       debug: 4.3.4
       globrex: 0.1.2
       recrawl-sync: 2.2.3
       tsconfig-paths: 4.2.0
-      vite: 3.2.10(@types/node@18.19.21)(terser@5.19.2)
+      vite: 3.2.11(@types/node@18.19.21)(terser@5.19.2)
     transitivePeerDependencies:
       - supports-color
-
-  vite@3.2.10(@types/node@14.18.54)(terser@5.19.2):
-    dependencies:
-      esbuild: 0.15.18
-      postcss: 8.4.31
-      resolve: 1.22.3
-      rollup: 2.79.1
-    optionalDependencies:
-      '@types/node': 14.18.54
-      fsevents: 2.3.2
-      terser: 5.19.2
 
   vite@3.2.10(@types/node@18.19.21)(terser@5.19.2):
     dependencies:
@@ -15851,7 +15840,18 @@ snapshots:
       fsevents: 2.3.2
       terser: 5.19.2
 
-  vite@3.2.7(@types/node@18.19.21)(terser@5.19.2):
+  vite@3.2.11(@types/node@14.18.54)(terser@5.19.2):
+    dependencies:
+      esbuild: 0.15.18
+      postcss: 8.4.31
+      resolve: 1.22.3
+      rollup: 2.79.1
+    optionalDependencies:
+      '@types/node': 14.18.54
+      fsevents: 2.3.3
+      terser: 5.19.2
+
+  vite@3.2.11(@types/node@18.19.21)(terser@5.19.2):
     dependencies:
       esbuild: 0.15.18
       postcss: 8.4.31
@@ -15859,7 +15859,7 @@ snapshots:
       rollup: 2.79.1
     optionalDependencies:
       '@types/node': 18.19.21
-      fsevents: 2.3.2
+      fsevents: 2.3.3
       terser: 5.19.2
 
   vitest@0.34.3(jsdom@16.7.0(bufferutil@4.0.8))(playwright@1.47.2)(terser@5.19.2):
@@ -15885,7 +15885,7 @@ snapshots:
       strip-literal: 1.3.0
       tinybench: 2.5.0
       tinypool: 0.7.0
-      vite: 3.2.7(@types/node@18.19.21)(terser@5.19.2)
+      vite: 3.2.10(@types/node@18.19.21)(terser@5.19.2)
       vite-node: 0.34.3(@types/node@18.19.21)(terser@5.19.2)
       why-is-node-running: 2.2.2
     optionalDependencies:
