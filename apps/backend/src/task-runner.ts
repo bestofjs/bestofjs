@@ -73,8 +73,8 @@ export function createTaskRunner(tasks: Task<RawFlags | undefined>[]) {
           processProjects: projectProcessor.processItems.bind(projectProcessor),
           processRepos: repoProcessor.processItems.bind(repoProcessor),
 
-          // Filesystem helpers to access files from `build` folder
-          // when running the either from monorepo root (local dev)
+          // File system helpers to access JSON files from the `build` folder
+          // when running the script either from the monorepo root (local dev)
           // or from the `backend` app root (when running on Vercel)
           async saveJSON(json: unknown, fileName: string) {
             logger.info(`Saving ${fileName}`, {

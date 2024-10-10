@@ -4,6 +4,8 @@ import { projectToSlackAttachment, sendMessageToSlack } from "@/shared/slack";
 import { Task } from "@/task-runner";
 import { ProjectItem } from "./static-api-types";
 
+const NUMBER_OF_PROJECTS = 5;
+
 export const notifyDailyTask: Task = {
   name: "notify-daily",
   description:
@@ -35,7 +37,7 @@ export const notifyDailyTask: Task = {
 
     async function fetchProjectsFromJSON() {
       const data = await readJSON("projects.json");
-      return (data as any).projects as ProjectItem[]; // TODO parse data
+      return (data as any).projects as ProjectItem[]; // TODO parse data with Zod
     }
 
     async function fetchHottestProjects() {
@@ -46,7 +48,7 @@ export const notifyDailyTask: Task = {
       const topProjects = projects
         .filter(isIncludedInHotProjects)
         .sort((a, b) => (score(a) > score(b) ? -1 : 1))
-        .slice(0, 5);
+        .slice(0, NUMBER_OF_PROJECTS);
       return topProjects;
     }
   },
@@ -72,7 +74,7 @@ async function notifySlack({
   url: string;
   dryRun: boolean;
 }) {
-  const text = `TOP 5 Hottest Projects Today (${formatTodayDate()})`;
+  const text = `TOP ${NUMBER_OF_PROJECTS} Hottest Projects Today (${formatTodayDate()})`;
 
   const attachments = projects.map((project, i) => {
     const stars = project.trends.daily;
@@ -99,7 +101,7 @@ async function notifyDiscord({
   dryRun: boolean;
 }) {
   return await notifyDiscordProjectList({
-    text: `TOP 5 Hottest Projects Today (${formatTodayDate()})`,
+    text: `TOP ${NUMBER_OF_PROJECTS} Hottest Projects Today (${formatTodayDate()})`,
     projects,
     getProjectComment: (project, index) =>
       `+${project.trends.daily} stars since yesterday [number ${index + 1}]`,

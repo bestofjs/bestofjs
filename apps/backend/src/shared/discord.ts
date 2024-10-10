@@ -35,7 +35,7 @@ export async function notifyDiscordProjectList<T extends Project>({
       webhookURL,
       text,
       embeds,
-    }); //eslint-disable-line no-console
+    });
     return false;
   } else {
     await sendMessageToDiscord({ text, embeds, webhookURL });
