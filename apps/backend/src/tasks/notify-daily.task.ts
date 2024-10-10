@@ -1,3 +1,5 @@
+import { orderBy } from "es-toolkit";
+
 import { TAGS_EXCLUDED_FROM_RANKINGS } from "@repo/db/constants";
 import { notifyDiscordProjectList } from "@/shared/discord";
 import { projectToSlackAttachment, sendMessageToSlack } from "@/shared/slack";
@@ -43,13 +45,13 @@ export const notifyDailyTask: Task = {
     async function fetchHottestProjects() {
       const projects = await fetchProjectsFromJSON();
 
-      const score = (project: ProjectItem) => project.trends?.daily || 0;
+      const topProjects = orderBy(
+        projects.filter(isIncludedInHotProjects),
+        [(project) => project.trends?.daily || 0],
+        ["desc"]
+      );
 
-      const topProjects = projects
-        .filter(isIncludedInHotProjects)
-        .sort((a, b) => (score(a) > score(b) ? -1 : 1))
-        .slice(0, NUMBER_OF_PROJECTS);
-      return topProjects;
+      return topProjects.slice(0, NUMBER_OF_PROJECTS);
     }
   },
 };
