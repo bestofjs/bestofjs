@@ -459,8 +459,8 @@ importers:
         specifier: ^7.0.3
         version: 7.0.3
       dompurify:
-        specifier: ^2.3.8
-        version: 2.4.7
+        specifier: ^2.5.4
+        version: 2.5.4
       framer-motion:
         specifier: ^4.1.17
         version: 4.1.17(react-dom@17.0.2(react@17.0.2))(react@17.0.2)
@@ -4283,8 +4283,8 @@ packages:
     resolution: {integrity: sha512-cgwlv/1iFQiFnU96XXgROh8xTeetsnJiDsTc7TYCLFd9+/WNkIqPTxiM/8pSd8VIrhXGTf1Ny1q1hquVqDJB5w==}
     engines: {node: '>= 4'}
 
-  dompurify@2.4.7:
-    resolution: {integrity: sha512-kxxKlPEDa6Nc5WJi+qRgPbOAbgTpSULL+vI3NUXsZMlkJxTqYI9wg5ZTay2sFrdZRWHPWNi+EdAhcJf81WtoMQ==}
+  dompurify@2.5.4:
+    resolution: {integrity: sha512-l5NNozANzaLPPe0XaAwvg3uZcHtDBnziX/HjsY1UcDj1MxTK8Dd0Kv096jyPK5HRzs/XM5IMj20dW8Fk+HnbUA==}
 
   domutils@2.8.0:
     resolution: {integrity: sha512-w96Cjofp72M5IIhpjgobBimYEfoPjx1Vx0BSX9P30WBdZW2WIKU0T1Bd0kz2eNZ9ikjKgHbEyKx8BB6H1L3h3A==}
@@ -11893,7 +11893,7 @@ snapshots:
     dependencies:
       domelementtype: 2.3.0
 
-  dompurify@2.4.7: {}
+  dompurify@2.5.4: {}
 
   domutils@2.8.0:
     dependencies:
