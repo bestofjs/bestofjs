@@ -20,7 +20,7 @@ type EditableProjectData = Omit<
 
 export async function updateProjectData(
   projectId: string,
-  projectData: EditableProjectData
+  projectData: Partial<EditableProjectData>
 ) {
   noStore();
   await updateProjectById(projectId, projectData);
