@@ -9,6 +9,40 @@ type Project = Pick<
   "name" | "full_name" | "owner_id" | "description" | "url"
 >;
 
+export async function notifyDiscordProjectList<T extends Project>({
+  text,
+  projects,
+  getProjectComment,
+  webhookURL,
+  dryRun,
+}: {
+  text: string;
+  projects: T[];
+  getProjectComment: (project: T, index: number) => string;
+  webhookURL: string;
+  dryRun: boolean;
+}) {
+  const colors = ["ffe38c", "ffae63", "f76d42", "d63c4a", "9c0042"]; // hex colors without the `#`
+
+  const embeds = projects.map((project, index) => {
+    const text = getProjectComment(project, index);
+    const color = colors[index];
+    return projectToDiscordEmbed(project, text, color);
+  });
+
+  if (dryRun) {
+    console.info("[DRY RUN] No message sent to Discord", {
+      webhookURL,
+      text,
+      embeds,
+    }); //eslint-disable-line no-console
+    return false;
+  } else {
+    await sendMessageToDiscord({ text, embeds, webhookURL });
+    return true;
+  }
+}
+
 export function projectToDiscordEmbed<T extends Project>(
   project: T,
   text: string,
@@ -31,17 +65,22 @@ export function projectToDiscordEmbed<T extends Project>(
   };
 }
 
-export async function sendMessageToDiscord(
-  text: string,
-  { url, embeds }: { url: string; embeds: any }
-) {
+export async function sendMessageToDiscord({
+  text,
+  embeds,
+  webhookURL,
+}: {
+  text: string;
+  embeds: any[]; // TODO add correct types
+  webhookURL: string;
+}) {
   const body = {
     content: text,
     embeds,
   };
   try {
-    debug(`Sending webhook to ${url}`, body);
-    const result = fetch(url, {
+    debug(`Sending webhook to ${webhookURL}`, body);
+    const result = fetch(webhookURL, {
       method: "POST",
       body: JSON.stringify(body),
       headers: { "content-type": "application/json" },

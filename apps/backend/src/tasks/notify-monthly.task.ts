@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-import { projectToDiscordEmbed, sendMessageToDiscord } from "@/shared/discord";
+import { notifyDiscordProjectList } from "@/shared/discord";
 import { Task } from "@/task-runner";
 import { ProjectItem } from "./static-api-types";
 
@@ -39,16 +39,28 @@ export const notifyMonthlyTask: Task<z.infer<typeof schema>> = {
     const projects = await fetchMonthlyRankings(year, month);
 
     logger.info(
-      "Sending the daily notifications...",
+      "Sending the monthly notifications...",
       projects.map((project) => `${project.name}: +${project.delta}`)
     );
 
-    if (
-      await notifyDiscord({ year, month, projects, url: discordURL, dryRun })
-    ) {
-      logger.info("Notification sent to Discord");
-    }
-    return { data: null, meta: { sent: true } };
+    const pageURL = `https://bestofjs.org/rankings/monthly/${year}/${month}`;
+    const text = [
+      `TOP ${NUMBER_OF_PROJECTS} Hottest Projects in ${formatMonth(year, month)}`,
+      `[Full rankings on Best of JS](${pageURL})`,
+    ].join("\n");
+
+    const sent = await notifyDiscordProjectList({
+      webhookURL: discordURL,
+      text,
+      projects,
+      getProjectComment: (project, index) =>
+        `+${project.delta} stars [number ${index + 1}]`,
+      dryRun,
+    });
+
+    if (sent) logger.info("Notification sent to Discord");
+
+    return { data: null, meta: { sent } };
   },
 };
 
@@ -56,46 +68,10 @@ async function fetchMonthlyRankings(year: number, month: number) {
   const rootURL = process.env.RANKINGS_ROOT_URL;
   if (!rootURL) throw new Error('No "RANKINGS_ROOT_URL" env. variable!');
   const url = `${rootURL}/monthly/${formatDateForFilename(year, month)}`;
-  const data = (await fetch(url).then((res) => res.json())) as RankingsData;
+  const data = (await fetch(url).then((res) => res.json())) as RankingsData; // TODO parse data with Zod
   const { trending } = data;
   const projects = trending.slice(0, NUMBER_OF_PROJECTS);
   return projects;
-}
-
-async function notifyDiscord({
-  projects,
-  month,
-  year,
-  url,
-  dryRun,
-}: {
-  month: number;
-  year: number;
-  projects: Project[];
-  url: string;
-  dryRun: boolean;
-}) {
-  const pageURL = `https://bestofjs.org/rankings/monthly/${year}/${month}`;
-  const text = [
-    `TOP ${NUMBER_OF_PROJECTS} Hottest Projects in ${formatMonth(year, month)}`,
-    `[Full rankings on Best of JS](${pageURL})`,
-  ].join("\n");
-  const colors = ["ffe38c", "ffae63", "f76d42", "d63c4a", "9c0042"]; // hex colors without the `#`
-
-  const embeds = projects.map((project, index) => {
-    const starsAdded = project.delta;
-    const text = `+${starsAdded} stars [number ${index + 1}]`;
-    const color = colors[index];
-    return projectToDiscordEmbed(project, text, color);
-  });
-
-  if (dryRun) {
-    console.info("[DRY RUN] No message sent to Discord", { text, embeds }); //eslint-disable-line no-console
-    return;
-  }
-
-  await sendMessageToDiscord(text, { url, embeds });
-  return true;
 }
 
 /**

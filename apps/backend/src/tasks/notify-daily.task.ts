@@ -1,5 +1,5 @@
 import { TAGS_EXCLUDED_FROM_RANKINGS } from "@repo/db/constants";
-import { projectToDiscordEmbed, sendMessageToDiscord } from "@/shared/discord";
+import { notifyDiscordProjectList } from "@/shared/discord";
 import { projectToSlackAttachment, sendMessageToSlack } from "@/shared/slack";
 import { Task } from "@/task-runner";
 import { ProjectItem } from "./static-api-types";
@@ -24,10 +24,14 @@ export const notifyDailyTask: Task = {
       logger.info("Notification sent to Slack");
     }
 
-    if (await notifyDiscord({ projects, url: discordURL, dryRun })) {
-      logger.info("Notification sent to Discord");
-    }
-    return { data: null, meta: { sent: true } };
+    const sent = await notifyDiscord({
+      projects,
+      webhookURL: discordURL,
+      dryRun,
+    });
+    if (sent) logger.info("Notification sent to Discord");
+
+    return { data: null, meta: { sent } };
 
     async function fetchProjectsFromJSON() {
       const data = await readJSON("projects.json");
@@ -87,30 +91,21 @@ async function notifySlack({
 
 async function notifyDiscord({
   projects,
-  url,
+  webhookURL,
   dryRun,
 }: {
   projects: ProjectItem[];
-  url: string;
+  webhookURL: string;
   dryRun: boolean;
 }) {
-  const text = `TOP 5 Hottest Projects Today (${formatTodayDate()})`;
-  const colors = ["9c0042", "d63c4a", "f76d42", "ffae63", "ffe38c"]; // hex colors without the `#`
-
-  const embeds = projects.map((project, index) => {
-    const stars = project.trends.daily;
-    const text = `+${stars} stars since yesterday [number ${index + 1}]`;
-    const color = colors[index];
-    return projectToDiscordEmbed(project, text, color);
+  return await notifyDiscordProjectList({
+    text: `TOP 5 Hottest Projects Today (${formatTodayDate()})`,
+    projects,
+    getProjectComment: (project, index) =>
+      `+${project.trends.daily} stars since yesterday [number ${index + 1}]`,
+    webhookURL,
+    dryRun,
   });
-
-  if (dryRun) {
-    console.info("[DRY RUN] No message sent to Discord", { text, embeds }); //eslint-disable-line no-console
-    return;
-  }
-
-  await sendMessageToDiscord(text, { url, embeds });
-  return true;
 }
 
 /**
