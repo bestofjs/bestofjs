@@ -1,4 +1,5 @@
-import { count, desc, ilike, or } from "drizzle-orm";
+import { count, desc, ilike, or, SQL } from "drizzle-orm";
+import { orderBy, uniqBy } from "es-toolkit";
 
 import { DB } from ".";
 import * as schema from "./schema";
@@ -16,12 +17,12 @@ export async function findHallOfFameMembers({
   limit,
   searchQuery,
 }: Props) {
-  const where =
-    searchQuery &&
-    or(
-      ilike(schema.hallOfFame.name, `%${searchQuery}%`),
-      ilike(schema.hallOfFame.username, `%${searchQuery}%`)
-    );
+  const where = searchQuery
+    ? or(
+        ilike(schema.hallOfFame.name, `%${searchQuery}%`),
+        ilike(schema.hallOfFame.username, `%${searchQuery}%`)
+      )
+    : undefined;
 
   const offset = (page - 1) * limit;
 
@@ -31,11 +32,36 @@ export async function findHallOfFameMembers({
     .where(where || undefined);
   const total = totalResult[0].count;
 
+  const query = fetchHallOfFameRecords(db, limit, offset, where);
+  const members = await query;
+
+  const membersWithProjects = members.map((member) => {
+    const projects = getHallOfFameMemberProjects(member);
+    return { ...member, projects };
+  });
+  return { members: membersWithProjects, total };
+}
+
+export type HallOfFameMember = Awaited<
+  ReturnType<typeof findHallOfFameMembers>
+>["members"][number];
+
+function fetchHallOfFameRecords(
+  db: DB,
+  limit: number,
+  offset: number,
+  where?: SQL<unknown>
+) {
   const query = db.query.hallOfFame.findMany({
     with: {
       hallOfFameToProjects: {
         with: {
           project: true,
+        },
+      },
+      repos: {
+        with: {
+          projects: true,
         },
       },
     },
@@ -45,16 +71,29 @@ export async function findHallOfFameMembers({
     ...(where && { where }),
   });
 
-  const members = await query;
-  const membersWithProjects = members.map((member) => {
-    const projects = member.hallOfFameToProjects.map(
-      (relation) => relation.project
-    );
-    return { ...member, projects };
-  });
-  return { members: membersWithProjects, total };
+  return query;
 }
 
-export type HallOfFameMember = Awaited<
-  ReturnType<typeof findHallOfFameMembers>
->["members"][number];
+type RawMember = Awaited<ReturnType<typeof fetchHallOfFameRecords>>[number];
+
+/**
+ * Return all projects associated to a given Hall of Fame member:
+ * - projects manually associated to the member through the `hallOfFameToProjects` relation
+ * - repos whose owner is the member
+ **/
+function getHallOfFameMemberProjects(member: RawMember) {
+  const relatedProjects = member.hallOfFameToProjects.map(
+    (relation) => relation.project
+  );
+  const ownedRepoProjects = member.repos.flatMap((repo) => repo.projects);
+
+  const projects = orderBy(
+    uniqBy(
+      [...relatedProjects, ...ownedRepoProjects],
+      (project) => project.slug
+    ),
+    [(project) => (project.status === "featured" ? 1 : 0)],
+    ["desc"]
+  );
+  return projects;
+}

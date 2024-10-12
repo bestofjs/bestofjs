@@ -1,4 +1,4 @@
-import { relations } from "drizzle-orm";
+import { relations, sql } from "drizzle-orm";
 import {
   boolean,
   integer,
@@ -91,6 +91,9 @@ export const repos = pgTable("repos", {
   full_name: text("full_name").notNull().unique(),
   homepage: text("homepage"),
   name: text("name").notNull(),
+  owner: text("owner").generatedAlwaysAs(
+    () => sql`split_part(full_name, '/', 1)`
+  ),
   owner_id: text("owner_id").notNull(),
   stars: integer("stargazers_count"),
   topics: jsonb("topics"),
@@ -106,9 +109,13 @@ export const repos = pgTable("repos", {
   contributor_count: integer("contributor_count"),
 });
 
-export const reposRelations = relations(repos, ({ many }) => ({
+export const reposRelations = relations(repos, ({ many, one }) => ({
   projects: many(projects),
   snapshots: many(snapshots),
+  hallOfFameMember: one(hallOfFame, {
+    fields: [repos.owner],
+    references: [hallOfFame.username],
+  }),
 }));
 
 export const snapshots = pgTable(
@@ -209,6 +216,7 @@ export const hallOfFameToProjects = pgTable(
 
 export const hallOfFameRelations = relations(hallOfFame, ({ many }) => ({
   hallOfFameToProjects: many(hallOfFameToProjects),
+  repos: many(repos),
 }));
 
 export const hallOfFameToProjectsRelations = relations(
