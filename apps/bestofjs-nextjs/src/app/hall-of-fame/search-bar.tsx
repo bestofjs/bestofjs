@@ -9,10 +9,7 @@ import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Button, buttonVariants } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
-type Props = {
-  query: string;
-};
-export function HallOfFameSearchBar({ query }: Props) {
+export function HallOfFameSearchBar() {
   const searchParams = useSearchParams();
   return (
     <form className="flex w-full gap-4" action="/hall-of-fame">
@@ -31,12 +28,9 @@ export function HallOfFameSearchBar({ query }: Props) {
         href="/hall-of-fame"
         className={buttonVariants({ variant: "outline" })}
       >
-        <span className="mr-2 hidden md:inline">Reset!</span>
+        <span className="mr-2 hidden md:inline">Reset</span>
         <XMarkIcon size={20} />
       </Link>
-      {/* <Button type="submit" name="q" value="" variant="outline">
-        Reset
-      </Button> */}
       <Button type="submit">
         <span className="mr-2 hidden md:inline">Search</span>
         <SearchIcon size={20} />

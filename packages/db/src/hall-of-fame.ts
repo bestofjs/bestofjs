@@ -16,8 +16,6 @@ export async function findHallOfFameMembers({
   limit,
   searchQuery,
 }: Props) {
-  console.log("Search query:", searchQuery);
-
   const where =
     searchQuery &&
     or(
