@@ -8,7 +8,8 @@ import {
   APP_DISPLAY_NAME,
   APP_REPO_URL,
 } from "@/config/site";
-import { HallOfFameMemberList } from "./hall-of-fame-member-list";
+import { HallOfFamePaginatedList } from "./hall-of-fame-paginated-list";
+import { HallOfFameSearchStateParser } from "./hall-of-fame-search-state";
 import Loading from "./loading";
 import { DescribeSearchResults, HallOfFameSearchBar } from "./search-bar";
 
@@ -16,6 +17,8 @@ const forceLoadingState = false; // set to true when debugging the loading state
 
 const description =
   "Some of the greatest developers, authors and speakers of the JavaScript community. Meet Evan, Dan, Sindre, TJ and friends!";
+
+const searchStateParser = new HallOfFameSearchStateParser();
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
@@ -34,18 +37,19 @@ type PageProps = {
   searchParams: { query?: string };
 };
 
-export default async function HallOfFamePage({
-  searchParams,
-}: PageProps): Promise<React.ReactElement> {
+export default async function HallOfFamePage({ searchParams }: PageProps) {
   if (forceLoadingState) return <Loading />;
 
   const db = await getDatabase();
-  const searchQuery = searchParams.q;
+
+  const { searchState, buildPageURL } = searchStateParser.parse(searchParams);
+  const searchQuery = searchState.query;
+
   const { members, total } = await findHallOfFameMembers({
     db,
-    limit: 50,
-    offset: 0,
-    searchQuery,
+    page: searchState.page,
+    limit: searchState.limit,
+    searchQuery: searchState.query,
   });
 
   return (
@@ -68,13 +72,18 @@ export default async function HallOfFamePage({
           </>
         }
       />
-      <HallOfFameSearchBar query={searchQuery} />
+      <HallOfFameSearchBar query={searchQuery || ""} />
       {searchQuery ? (
-        <DescribeSearchResults count={members.length} />
+        <DescribeSearchResults count={total} />
       ) : (
         <p>Showing all {total} members by number of followers</p>
       )}
-      <HallOfFameMemberList members={members} />
+      <HallOfFamePaginatedList
+        members={members}
+        total={total}
+        searchState={searchState}
+        buildPageURL={buildPageURL}
+      />
     </div>
   );
 }

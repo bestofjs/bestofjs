@@ -5,15 +5,15 @@ import * as schema from "./schema";
 
 type Props = {
   db: DB;
+  page: number;
   limit: number;
-  offset: number;
   searchQuery?: string;
 };
 
 export async function findHallOfFameMembers({
   db,
+  page,
   limit,
-  offset,
   searchQuery,
 }: Props) {
   console.log("Search query:", searchQuery);
@@ -24,6 +24,8 @@ export async function findHallOfFameMembers({
       ilike(schema.hallOfFame.name, `%${searchQuery}%`),
       ilike(schema.hallOfFame.username, `%${searchQuery}%`)
     );
+
+  const offset = (page - 1) * limit;
 
   const totalResult = await db
     .select({ count: count() })
@@ -57,4 +59,4 @@ export async function findHallOfFameMembers({
 
 export type HallOfFameMember = Awaited<
   ReturnType<typeof findHallOfFameMembers>
->[number];
+>["members"][number];

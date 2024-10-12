@@ -1,4 +1,7 @@
+"use client";
+
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 import { InfoIcon } from "lucide-react";
 
 import { SearchIcon, XMarkIcon } from "@/components/core";
@@ -10,24 +13,25 @@ type Props = {
   query: string;
 };
 export function HallOfFameSearchBar({ query }: Props) {
+  const searchParams = useSearchParams();
   return (
-    <form className="flex w-full gap-4" method="get" action="/hall-of-fame">
+    <form className="flex w-full gap-4" action="/hall-of-fame">
       <Input
+        key={searchParams?.get("query")}
         autoFocus
         autoComplete="off"
         autoCorrect="false"
         spellCheck="false"
         type="text"
         placeholder="Filter by name or username"
-        name="q"
-        defaultValue={query}
+        name="query"
+        defaultValue={searchParams?.get("query") || ""}
       />
       <Link
-        replace
         href="/hall-of-fame"
         className={buttonVariants({ variant: "outline" })}
       >
-        <span className="mr-2 hidden md:inline">Reset</span>
+        <span className="mr-2 hidden md:inline">Reset!</span>
         <XMarkIcon size={20} />
       </Link>
       {/* <Button type="submit" name="q" value="" variant="outline">

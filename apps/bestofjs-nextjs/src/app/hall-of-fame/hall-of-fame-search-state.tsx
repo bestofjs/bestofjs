@@ -1,25 +1,37 @@
-import { encode } from "qss";
+import { z } from "zod";
 
-import { PaginationProps } from "@/app/projects/types";
+import {
+  limitSchema,
+  PageSearchStateUpdater,
+  PageSearchUrlBuilder,
+  paginationSchema,
+  SearchStateParser,
+} from "@/lib/page-search-state";
 
-export type HallOfFameSearchState = {
-  query: string;
-} & PaginationProps;
+export const hallOfFameSearchStateSchema = paginationSchema.extend({
+  query: z.string().optional(),
+});
 
-export function buildHallOfFamePageURL(
-  updater: (state: HallOfFameSearchState) => HallOfFameSearchState
-) {
-  const nextState = updater(state);
-  const queryString = stateToQueryString(nextState);
-  return "/tags?" + queryString;
-}
+export type HallOfFameSearchState = z.infer<typeof hallOfFameSearchStateSchema>;
 
-export function stateToQueryString({ query, page }: HallOfFameSearchState) {
-  const params = {
-    query: query || undefined,
-    page: page === 1 ? undefined : page,
-  };
+export type HallOfFameSearchUpdater =
+  PageSearchStateUpdater<HallOfFameSearchState>;
 
-  const queryString = encode(params);
-  return queryString;
+export type HallOfFameSearchUrlBuilder =
+  PageSearchUrlBuilder<HallOfFameSearchState>;
+
+export class HallOfFameSearchStateParser extends SearchStateParser<
+  typeof hallOfFameSearchStateSchema
+> {
+  path = "/hall-of-fame";
+
+  constructor(options: Partial<HallOfFameSearchState> = {}) {
+    const { limit = 50 } = options;
+
+    const extendedSchema = hallOfFameSearchStateSchema.extend({
+      limit: limitSchema.default(limit),
+    });
+
+    super(extendedSchema);
+  }
 }

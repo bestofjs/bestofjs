@@ -1,7 +1,7 @@
 import NextLink from "next/link";
 
 import { HallOfFameMember } from "@repo/db/hall-of-fame";
-import { ProjectLogo } from "@/components/core";
+import { ProjectCustomLogo } from "@/components/core";
 import { ExternalLink } from "@/components/core/typography";
 import { badgeVariants } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
@@ -62,7 +62,12 @@ function HallOfFameMemberCard({ member }: { member: HallOfFameMember }) {
                 )}
               >
                 {project.logo && (
-                  <ProjectLogo project={project} size={20} className="mr-2" />
+                  <ProjectCustomLogo
+                    filename={project.logo}
+                    name={project.name}
+                    size={20}
+                    className="mr-2"
+                  />
                 )}
                 {project.name}
               </NextLink>

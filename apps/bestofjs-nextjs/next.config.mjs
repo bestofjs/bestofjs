@@ -12,6 +12,8 @@ const nextConfig = {
         hostname: "avatars.githubusercontent.com",
       },
     ],
+    deviceSizes: [],
+    imageSizes: [48, 75, 96, 150],
   },
   redirects: async () => {
     const { year, month } = await fetchLatestRankings();
