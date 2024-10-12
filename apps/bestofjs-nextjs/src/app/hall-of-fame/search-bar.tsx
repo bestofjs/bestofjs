@@ -51,6 +51,7 @@ export function DescribeSearchResults({ count }: { count: number }) {
       </Alert>
     );
   }
+
   return (
     <div className="flex items-center">
       <InfoIcon className="mr-2 h-5 w-5" />

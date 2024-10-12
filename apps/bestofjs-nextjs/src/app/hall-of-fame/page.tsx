@@ -11,7 +11,7 @@ import {
 import { HallOfFamePaginatedList } from "./hall-of-fame-paginated-list";
 import { HallOfFameSearchStateParser } from "./hall-of-fame-search-state";
 import Loading from "./loading";
-import { DescribeSearchResults, HallOfFameSearchBar } from "./search-bar";
+import { HallOfFameSearchBar } from "./search-bar";
 
 const forceLoadingState = false; // set to true when debugging the loading state
 
@@ -43,7 +43,6 @@ export default async function HallOfFamePage({ searchParams }: PageProps) {
   const db = await getDatabase();
 
   const { searchState, buildPageURL } = searchStateParser.parse(searchParams);
-  const searchQuery = searchState.query;
 
   const { members, total } = await findHallOfFameMembers({
     db,
@@ -53,7 +52,7 @@ export default async function HallOfFamePage({ searchParams }: PageProps) {
   });
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-6">
       <PageHeading
         title={<>JavaScript Hall of Fame</>}
         subtitle={
@@ -72,12 +71,7 @@ export default async function HallOfFamePage({ searchParams }: PageProps) {
           </>
         }
       />
-      <HallOfFameSearchBar query={searchQuery || ""} />
-      {searchQuery ? (
-        <DescribeSearchResults count={total} />
-      ) : (
-        <p>Showing all {total} members by number of followers</p>
-      )}
+      <HallOfFameSearchBar />
       <HallOfFamePaginatedList
         members={members}
         total={total}
