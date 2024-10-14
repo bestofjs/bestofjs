@@ -1,10 +1,9 @@
 import { asc, count, eq } from "drizzle-orm";
 
-import { DB, getDatabase } from "../index";
+import { db } from "../index";
 import * as schema from "../schema";
 
 export async function findTags() {
-  const db: DB = getDatabase();
   const tags = await db
     .select({
       name: schema.tags.name,

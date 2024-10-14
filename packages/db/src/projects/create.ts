@@ -4,11 +4,10 @@ import { nanoid } from "nanoid";
 import slugify from "slugify";
 import { z } from "zod";
 
-import { getDatabase } from "..";
+import { db } from "..";
 import * as schema from "../schema";
 
 export async function createProject(gitHubURL: string) {
-  const db = getDatabase();
   const fullName = gitHubURL.split("/").slice(-2).join("/");
   const repoData = await fetchGitHubRepoData(fullName);
 
@@ -64,7 +63,6 @@ export async function addProjectToRepo({
   description: string;
   repoId: string;
 }) {
-  const db = getDatabase();
   const createdProjects = await db
     .insert(schema.projects)
     .values({

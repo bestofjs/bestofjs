@@ -1,11 +1,10 @@
 import { and, eq } from "drizzle-orm";
 
-import { getDatabase } from "..";
+import { db } from "..";
 import { MonthSnapshots, OneYearSnapshots } from "../projects";
 import * as schema from "../schema";
 
 export async function getSnapshotRecord(repoId: string, year: number) {
-  const db = getDatabase();
   const snapshot = await db.query.snapshots.findFirst({
     where: and(
       eq(schema.snapshots.repoId, repoId),
@@ -20,7 +19,6 @@ export async function updateSnapshotRecord(
   year: number,
   months: MonthSnapshots[]
 ) {
-  const db = getDatabase();
   await db
     .update(schema.snapshots)
     .set({ months, updatedAt: new Date() })
@@ -34,7 +32,6 @@ export async function createSnapshotRecord(
   year: number,
   months: MonthSnapshots[]
 ) {
-  const db = getDatabase();
   const result = await db
     .insert(schema.snapshots)
     .values({ year, repoId, months })

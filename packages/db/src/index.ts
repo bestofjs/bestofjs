@@ -7,10 +7,7 @@ export * as schema from "./schema";
 
 export type DB = ReturnType<typeof drizzle<typeof schema>>;
 
-export function getDatabase() {
-  const service = new VercelPostgresService();
-  return service.db;
-}
+export const db = drizzle(sql, { schema });
 
 export async function runQuery(callback: (db: DB) => Promise<void>) {
   const service = new VercelPostgresService();
@@ -29,7 +26,7 @@ class VercelPostgresService {
 
   constructor() {
     console.log("Vercel DB connected");
-    this.db = drizzle(sql, { schema });
+    this.db = db;
     sql.on("remove", () => {
       console.log("Vercel DB disconnected");
     });
