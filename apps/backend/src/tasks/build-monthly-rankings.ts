@@ -7,8 +7,8 @@ import {
   ProjectData,
 } from "@repo/db/projects";
 import { getMonthlyDelta } from "@repo/db/snapshots";
+import { truncate } from "@/shared/utils";
 import { Task } from "@/task-runner";
-import { truncate } from "@/utils";
 
 const schema = z.object({ year: z.number(), month: z.number() });
 

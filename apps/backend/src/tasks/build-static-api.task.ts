@@ -8,8 +8,8 @@ import {
   getProjectURL,
   ProjectDetails,
 } from "@repo/db/projects";
+import { truncate } from "@/shared/utils";
 import { Task } from "@/task-runner";
-import { truncate } from "@/utils";
 import { ProjectItem } from "./static-api-types";
 
 export const buildStaticApiTask: Task = {
