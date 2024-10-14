@@ -1,11 +1,11 @@
 import {
+  and,
   asc,
   count,
   desc,
   eq,
   ilike,
   inArray,
-  like,
   or,
   sql,
 } from "drizzle-orm";
@@ -52,7 +52,8 @@ export async function findProjects({
       createdAt: projects.createdAt,
       stars: repos.stars,
       repo: {
-        full_name: repos.full_name,
+        name: repos.name,
+        full_name: sql<string>`${repos.owner} || '/' || ${repos.name}`,
         owner_id: repos.owner_id,
         archived: repos.archived,
       },
@@ -80,7 +81,6 @@ export async function findProjects({
       projects.createdAt,
       repos.archived,
       repos.stars,
-      repos.full_name,
       repos.owner_id,
       projectsToTags.projectId,
       packages.projectId,
@@ -97,10 +97,11 @@ export async function findProjects({
     query.where(getWhereClauseSearchByTag(db, tag));
   }
   if (owner) {
-    query.where(like(repos.full_name, `${owner}/%`));
+    query.where(eq(repos.owner, owner));
   }
   if (full_name) {
-    query.where(like(repos.full_name, full_name));
+    const [owner, name] = full_name.split("/");
+    query.where(and(eq(repos.owner, owner), eq(repos.name, name)));
   }
 
   const records = await query;
@@ -141,33 +142,6 @@ export async function countProjects({
 
   const records = await query;
   return records?.at(0)?.value || 0;
-}
-
-export async function findProjects0({ db, limit, offset, sort }: Props) {
-  const projects = await db.query.projects.findMany({
-    orderBy: getOrderBy(sort), //TODO only work for `projects` columns
-    limit,
-    offset,
-    with: {
-      repo: {
-        columns: {
-          full_name: true,
-          stars: true,
-        },
-      },
-      projectsToTags: {
-        with: {
-          tag: {
-            columns: {
-              code: true,
-              name: true,
-            },
-          },
-        },
-      },
-    },
-  });
-  return projects;
 }
 
 function getOrderBy(orderByKey: ProjectListOrderByKey) {

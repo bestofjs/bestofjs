@@ -37,6 +37,7 @@ export async function createSnapshotRecord(
   const db = getDatabase();
   const result = await db
     .insert(schema.snapshots)
-    .values({ year, repoId, months });
-  console.log("Snapshot created", result);
+    .values({ year, repoId, months })
+    .returning();
+  console.log("Snapshot record created", result);
 }
