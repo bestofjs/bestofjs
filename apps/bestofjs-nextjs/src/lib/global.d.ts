@@ -19,7 +19,7 @@ declare namespace BestOfJS {
     contributor_count: number;
     pushed_at: string;
     created_at: string;
-    owner_id: string;
+    owner_id: number;
     url: string;
     branch?: string;
     npm: string;
