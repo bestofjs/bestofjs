@@ -10,7 +10,7 @@ type Props = {
   project: {
     name: string;
     logo?: string | null;
-    repo: { owner_id: string } | null;
+    repo: { owner_id: number } | null;
   };
   size: number;
   className?: string;
@@ -80,6 +80,6 @@ function getProjectLogoURL(input: string, colorMode: string) {
   return `https://bestofjs.org/logos/${filename}`;
 }
 
-function getGitHubOwnerAvatarURL(owner_id: string, size: number) {
+function getGitHubOwnerAvatarURL(owner_id: number, size: number) {
   return `https://avatars.githubusercontent.com/u/${owner_id}?v=3&s=${size}`;
 }

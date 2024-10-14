@@ -1,14 +1,14 @@
 import { eq } from "drizzle-orm";
 import slugify from "slugify";
 
+import { DB } from "../src/index";
+import * as schema from "../src/schema";
 import {
-  MongoProject,
   fetchAllProjects,
   fetchFeaturedProjects,
   getDateFromMongoValue,
+  MongoProject,
 } from "./read-data";
-import { DB } from "../src/index";
-import * as schema from "../src/schema";
 import { runDbScript } from "./run-db-script";
 
 const debug = false;
@@ -138,9 +138,9 @@ function getRepoRecord(doc: MongoProject) {
   const record = {
     id: getId(doc),
     added_at: getDateFromMongoValue(doc.createdAt) as Date,
-    owner_id: data.owner_id,
+    owner_id: parseInt(data.owner_id, 0),
     name: data.name,
-    full_name: data.full_name,
+    owner: data.full_name.split("/")[0],
     stars: data.stargazers_count,
     description: data.description,
     homepage: data.homepage,

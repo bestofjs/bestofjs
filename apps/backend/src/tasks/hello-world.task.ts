@@ -22,9 +22,12 @@ export const helloWorldReposTask: Task = {
 export const helloWorldProjectsTask: Task = {
   name: "hello-world-projects",
   description: "A simple `hello world` task, looping through all projects",
-  run: async ({ processProjects }) => {
+  run: async ({ processProjects, logger }) => {
     return await processProjects(async (project) => {
       const isDeprecated = project.status === "deprecated";
+
+      logger.debug(project);
+
       return {
         meta: { isDeprecated },
         data: { stars: project.name },

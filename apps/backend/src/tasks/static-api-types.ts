@@ -6,7 +6,7 @@ export type ProjectItem = {
   url?: string;
   stars: number;
   full_name: string;
-  owner_id: string;
+  owner_id: number;
   created_at: string;
   pushed_at: string;
   contributor_count: number | null;

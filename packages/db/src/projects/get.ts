@@ -52,7 +52,11 @@ export class ProjectService {
     if (!project) return null;
     invariant(project?.repo);
     const snapshots = snapshotsSchema.parse(project?.repo?.snapshots);
-    const repo = { ...project.repo, snapshots };
+    const repo = {
+      ...project.repo,
+      full_name: project.repo.owner + "/" + project.repo.name,
+      snapshots,
+    };
 
     const tags = project.projectsToTags.map((ptt) => ptt.tag);
 

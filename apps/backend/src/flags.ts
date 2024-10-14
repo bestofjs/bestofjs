@@ -7,7 +7,8 @@ export const sharedFlagsSchema = z.object({
   logLevel: z.number().optional().default(3),
   limit: z.number().optional().default(0),
   skip: z.number().optional().default(0),
-  name: z.string().optional().default(""),
+  fullName: z.string().optional().default(""),
+  slug: z.string().optional().default(""),
   throttleInterval: z.number().optional().default(0),
 });
 
@@ -39,7 +40,11 @@ export const cliFlags: Command["options"]["flags"] = {
     description: "Records to skip (when paginating)",
     default: 0,
   },
-  name: {
+  slug: {
+    type: String,
+    description: "Slug of the project to process",
+  },
+  fullName: {
     type: String,
     description: "Full name of the GitHub repo to process",
     default: "",

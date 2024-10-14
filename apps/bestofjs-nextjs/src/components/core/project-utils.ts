@@ -21,6 +21,6 @@ function getProjectLogoURL(input: string, colorMode: string) {
   return `/logos/${filename}`;
 }
 
-function getGitHubOwnerAvatarURL(owner_id: string, size: number) {
+function getGitHubOwnerAvatarURL(owner_id: number, size: number) {
   return `https://avatars.githubusercontent.com/u/${owner_id}?v=3&s=${size}`;
 }
