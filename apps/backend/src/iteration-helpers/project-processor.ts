@@ -1,4 +1,4 @@
-import { desc, eq } from "drizzle-orm";
+import { and, desc, eq } from "drizzle-orm";
 
 import { schema } from "@repo/db";
 import { ProjectDetails, ProjectService } from "@repo/db/projects";
@@ -21,25 +21,33 @@ export class ProjectProcessor extends ItemProcessor<ProjectDetails> {
 
   async getAllItemsIds() {
     const { db, logger } = this.context;
-    const { limit, skip, name } = this.loopOptions;
+    const { limit, skip, fullName, slug } = this.loopOptions;
+    const { projects, repos } = schema;
+
     const query = db
-      .select({ id: schema.projects.id })
-      .from(schema.projects)
-      .orderBy(desc(schema.projects.createdAt))
+      .select({ id: projects.id })
+      .from(projects)
+      .orderBy(desc(projects.createdAt))
       .offset(skip);
 
     if (limit) {
       query.limit(limit);
     }
 
-    if (name) {
-      query.where(eq(schema.projects.slug, name));
+    if (slug) {
+      query.where(eq(projects.slug, slug));
     }
 
-    const projects = await query;
-    if (!projects.length) logger.error("No projects found");
+    if (fullName) {
+      const [owner, name] = fullName.split("/");
+      query.leftJoin(repos, eq(projects.repoId, repos.id));
+      query.where(and(eq(repos.owner, owner), eq(repos.name, name)));
+    }
 
-    const ids = projects.map((repo) => repo.id);
+    const foundProjects = await query;
+    if (!foundProjects.length) logger.error("No projects found");
+
+    const ids = foundProjects.map((repo) => repo.id);
     return ids;
   }
 
