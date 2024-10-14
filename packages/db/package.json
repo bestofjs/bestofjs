@@ -4,7 +4,8 @@
   "type": "module",
   "scripts": {
     "generate": "dotenv -e ../../.env.${STAGE:=development} pnpm drizzle-kit generate",
-    "migrate": "dotenv -e ../../.env.${STAGE:=development} tsx src/migrate.ts",
+    "migrate": "dotenv -e ../../.env.${STAGE:=development} pnpm drizzle-kit migrate",
+    "migrate1": "dotenv -e ../../.env.${STAGE:=development} tsx src/migrate.ts",
     "studio": "dotenv -e ../../.env.${STAGE:=development} pnpm drizzle-kit studio",
     "typecheck": "tsc --noEmit",
     "typecheck:watch": "tsc --noEmit --incremental --watch",
