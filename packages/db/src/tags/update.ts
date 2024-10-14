@@ -1,6 +1,6 @@
 import { eq } from "drizzle-orm";
 
-import { getDatabase } from "..";
+import { db } from "..";
 import * as schema from "../schema";
 
 export type EditableTagData = Omit<
@@ -12,7 +12,6 @@ export async function updateTagById(
   tagId: string,
   data: Partial<EditableTagData>
 ) {
-  const db = getDatabase();
   const result = await db
     .update(schema.tags)
     .set(data)

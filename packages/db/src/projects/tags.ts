@@ -1,10 +1,9 @@
 import { and, asc, eq, inArray } from "drizzle-orm";
 
-import { getDatabase } from "..";
+import { db } from "..";
 import * as schema from "../schema";
 
 export function getAllTags() {
-  const db = getDatabase();
   const tags = db.query.tags.findMany({
     orderBy: asc(schema.tags.name),
   });
@@ -12,7 +11,6 @@ export function getAllTags() {
 }
 
 export async function saveTags(projectId: string, tagIds: string[]) {
-  const db = getDatabase();
   const currentTagRecords = await db.query.projectsToTags.findMany({
     where: eq(schema.projectsToTags.projectId, projectId),
   });
@@ -31,7 +29,6 @@ export async function saveTags(projectId: string, tagIds: string[]) {
 }
 
 export async function addTagsToProject(projectId: string, tagIds: string[]) {
-  const db = getDatabase();
   const values = tagIds.map((tagId) => ({
     projectId,
     tagId,
@@ -44,7 +41,6 @@ export async function removeTagsFromProject(
   projectId: string,
   tagIds: string[]
 ) {
-  const db = getDatabase();
   await db
     .delete(schema.projectsToTags)
     .where(

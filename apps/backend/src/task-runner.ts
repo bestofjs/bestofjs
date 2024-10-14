@@ -31,15 +31,8 @@ export function createTaskRunner(tasks: Task<RawFlags | undefined>[]) {
   return {
     run(rawFlags: RawFlags) {
       const flags = sharedFlagsSchema.parse(rawFlags);
-      const logger = createConsola({ level: flags.logLevel });
-      const dryRun = flags.dryRun;
-      const options = {
-        limit: flags.limit,
-        skip: flags.skip,
-        concurrency: flags.concurrency,
-        name: flags.name,
-        throttleInterval: flags.throttleInterval,
-      };
+      const { logLevel, dryRun, ...options } = flags;
+      const logger = createConsola({ level: logLevel });
 
       return new Promise((resolve) => {
         runQuery(async (db) => {

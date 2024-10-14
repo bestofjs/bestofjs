@@ -20,6 +20,6 @@ export function getProjectCustomLogoURL(filename: string, colorMode: string) {
   return `/logos/${actualFilename}`;
 }
 
-export function getGitHubOwnerAvatarURL(owner_id: string, size: number) {
+export function getGitHubOwnerAvatarURL(owner_id: number, size: number) {
   return `https://avatars.githubusercontent.com/u/${owner_id}?v=3&s=${size}`;
 }

@@ -1,4 +1,4 @@
-import { asc, desc, eq } from "drizzle-orm";
+import { and, asc, desc, eq } from "drizzle-orm";
 
 import { DB, schema } from "@repo/db";
 import { snapshotsSchema } from "@repo/db/projects";
@@ -21,26 +21,33 @@ export class RepoProcessor extends ItemProcessor<Repo> {
 
   async getAllItemsIds() {
     const { db, logger } = this.context;
-    const { limit, skip, name } = this.loopOptions;
+    const { limit, skip, fullName, slug } = this.loopOptions;
+    const { repos, projects } = schema;
 
     const query = db
-      .select({ id: schema.repos.id })
-      .from(schema.repos)
-      .orderBy(desc(schema.repos.added_at))
+      .select({ id: repos.id })
+      .from(repos)
+      .orderBy(desc(repos.added_at))
       .offset(skip);
 
     if (limit) {
       query.limit(limit);
     }
 
-    if (name) {
-      query.where(eq(schema.repos.full_name, name));
+    if (fullName) {
+      const [owner, name] = fullName.split("/");
+      query.where(and(eq(repos.owner, owner), eq(repos.name, name)));
     }
 
-    const repos = await query;
-    if (!repos.length) logger.error("No repos found");
+    if (slug) {
+      query.leftJoin(projects, eq(repos.id, projects.repoId));
+      query.where(eq(projects.slug, slug));
+    }
 
-    const ids = repos.map((repo) => repo.id);
+    const foundRepos = await query;
+    if (!foundRepos.length) logger.error("No repos found");
+
+    const ids = foundRepos.map((repo) => repo.id);
     return ids;
   }
 
@@ -77,6 +84,7 @@ async function findRepoById(db: DB, id: string) {
   });
 
   const snapshots = snapshotsSchema.parse(repo.snapshots);
+  const full_name = repo.owner + "/" + repo.name;
 
-  return { ...repo, snapshots, projects };
+  return { ...repo, full_name, snapshots, projects };
 }

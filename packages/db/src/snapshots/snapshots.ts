@@ -47,8 +47,9 @@ export class SnapshotsService {
   ) {
     const result = await this.db
       .insert(schema.snapshots)
-      .values({ year, repoId, months });
-    console.log("Snapshot created", result);
+      .values({ year, repoId, months })
+      .returning();
+    debug("Snapshot created", result);
   }
 
   async addSnapshot(

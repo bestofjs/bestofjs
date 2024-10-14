@@ -8,6 +8,7 @@ import {
   smallint,
   text,
   timestamp,
+  uniqueIndex,
 } from "drizzle-orm/pg-core";
 
 import { PROJECT_STATUSES } from "./constants";
@@ -78,36 +79,39 @@ export const projectsToTagsRelations = relations(projectsToTags, ({ one }) => ({
   }),
 }));
 
-export const repos = pgTable("repos", {
-  id: text("id").primaryKey(),
-  // Date of addition to Best of JS
-  added_at: timestamp("added_at").notNull().defaultNow(),
-  // Last update (by the daily task)
-  updated_at: timestamp("updated_at"),
-  // From GitHub REST API
-  archived: boolean("archived"),
-  default_branch: text("default_branch"),
-  description: text("description"),
-  full_name: text("full_name").notNull().unique(),
-  homepage: text("homepage"),
-  name: text("name").notNull(),
-  owner: text("owner").generatedAlwaysAs(
-    () => sql`split_part(full_name, '/', 1)`
-  ),
-  owner_id: text("owner_id").notNull(),
-  stars: integer("stargazers_count"),
-  topics: jsonb("topics"),
+export const repos = pgTable(
+  "repos",
+  {
+    id: text("id").primaryKey(),
+    // Date of addition to Best of JS
+    added_at: timestamp("added_at").notNull().defaultNow(),
+    // Last update (by the daily task)
+    updated_at: timestamp("updated_at"),
+    // From GitHub REST API
+    archived: boolean("archived"),
+    default_branch: text("default_branch"),
+    description: text("description"),
+    homepage: text("homepage"),
+    name: text("name").notNull(),
+    owner: text("owner").notNull(),
+    owner_id: integer("owner_id").notNull(), // used in GitHub users avatar URLs
+    stars: integer("stargazers_count"),
+    topics: jsonb("topics"),
 
-  pushed_at: timestamp("pushed_at").notNull(),
-  created_at: timestamp("created_at").notNull(),
+    pushed_at: timestamp("pushed_at").notNull(),
+    created_at: timestamp("created_at").notNull(),
 
-  // From GitHub GraphQL API
-  last_commit: timestamp("last_commit"),
-  commit_count: integer("commit_count"),
+    // From GitHub GraphQL API
+    last_commit: timestamp("last_commit"),
+    commit_count: integer("commit_count"),
 
-  // From scrapping
-  contributor_count: integer("contributor_count"),
-});
+    // From scrapping
+    contributor_count: integer("contributor_count"),
+  },
+  (table) => ({
+    fullName: uniqueIndex("name_owner_index").on(table.owner, table.name),
+  })
+);
 
 export const reposRelations = relations(repos, ({ many, one }) => ({
   projects: many(projects),

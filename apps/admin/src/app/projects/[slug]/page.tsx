@@ -48,7 +48,7 @@ export default async function ViewProjectPage({ params: { slug } }: PageProps) {
         <ViewSnapshots
           snapshots={repo.snapshots}
           repoId={project.repoId}
-          repoFullName={repo.full_name}
+          repoFullName={repo.owner + "/" + repo.name}
           slug={project.slug}
         />
       )}

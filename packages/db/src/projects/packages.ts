@@ -1,10 +1,9 @@
 import { and, eq } from "drizzle-orm";
 
-import { getDatabase } from "..";
+import { db } from "..";
 import * as schema from "../schema";
 
 export async function addPackage(projectId: string, packageName: string) {
-  const db = getDatabase();
   const values = {
     name: packageName,
     projectId,
@@ -13,7 +12,6 @@ export async function addPackage(projectId: string, packageName: string) {
 }
 
 export async function removePackage(projectId: string, packageName: string) {
-  const db = getDatabase();
   await db
     .delete(schema.packages)
     .where(

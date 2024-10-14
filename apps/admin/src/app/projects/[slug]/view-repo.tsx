@@ -55,10 +55,10 @@ function ViewRepoData({ repo }: { repo: typeof schema.repos.$inferSelect }) {
       <p>Full Name</p>
       <p>
         <a
-          href={`https://github.com/${repo.full_name}`}
+          href={`https://github.com/${repo.owner}/${repo.name}`}
           className="hover:underline"
         >
-          {repo.full_name}
+          {repo.owner}/{repo.name}
         </a>
       </p>
       <p>Description</p>

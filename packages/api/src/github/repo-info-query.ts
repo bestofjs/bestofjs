@@ -102,7 +102,7 @@ const getTopic = (edge: any) => edge.node.topic.name;
 function extractOwnerIdFromAvatarURL(url: string) {
   const re = /\/u\/(.+)\?/;
   const parts = re.exec(url);
-  if (parts) return parts[1];
+  return parseInt(parts?.[1] || "0");
 }
 
 function cleanGitHubDescription(description: string) {

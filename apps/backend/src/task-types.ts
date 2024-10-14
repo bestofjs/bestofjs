@@ -19,5 +19,5 @@ export interface TaskContext extends TaskRunnerContext {
 
 export type TaskLoopOptions = Pick<
   ParsedFlags,
-  "concurrency" | "limit" | "skip" | "name" | "throttleInterval"
+  "concurrency" | "limit" | "skip" | "slug" | "fullName" | "throttleInterval"
 >;

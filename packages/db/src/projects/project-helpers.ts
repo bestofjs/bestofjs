@@ -14,7 +14,7 @@ export function getProjectDescription(project: ProjectDetails) {
 }
 
 export function getProjectRepositoryURL(project: ProjectDetails) {
-  return "https://github.com/" + project.repo.full_name;
+  return "https://github.com/" + project.repo.owner + "/" + project.repo.name;
 }
 
 export function getProjectURL(project: ProjectDetails) {

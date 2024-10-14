@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { z } from "zod";
 
-import { getDatabase } from "@repo/db";
+import { db } from "@repo/db";
 import {
   countProjects,
   findProjects,
@@ -25,8 +25,6 @@ type PageProps = {
 };
 
 export default async function ProjectsPage({ searchParams }: PageProps) {
-  const db = getDatabase();
-
   const searchOptions = searchSchema.parse(searchParams);
   const { limit, offset, sort, tag, text } = searchOptions;
 
