@@ -1,1 +1,0 @@
-ALTER TABLE "repos" ADD COLUMN "owner" text GENERATED ALWAYS AS (split_part(full_name, '/', 1)) STORED;
