@@ -1,6 +1,6 @@
 import { Metadata } from "next";
 
-import { getDatabase } from "@repo/db";
+import { db } from "@repo/db";
 import { findHallOfFameMembers } from "@repo/db/hall-of-fame";
 import { ExternalLink, PageHeading } from "@/components/core/typography";
 import {
@@ -39,8 +39,6 @@ type PageProps = {
 
 export default async function HallOfFamePage({ searchParams }: PageProps) {
   if (forceLoadingState) return <Loading />;
-
-  const db = await getDatabase();
 
   const { searchState, buildPageURL } = searchStateParser.parse(searchParams);
 

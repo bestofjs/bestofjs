@@ -1,5 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
-import { getDatabase } from "@repo/db";
+import { db } from "@repo/db";
 import { findHallOfFameMembers, HallOfFameMember } from "@repo/db/hall-of-fame";
 import { ImageLayout } from "../og-image-layout";
 import { Box, generateImageResponse } from "../og-utils";
@@ -9,7 +9,6 @@ export const runtime = "edge";
 const NUMBER_OF_CARD = 16;
 
 export async function GET() {
-  const db = await getDatabase();
   const { members } = await findHallOfFameMembers({
     db,
     limit: NUMBER_OF_CARD,

@@ -10,7 +10,7 @@ import {
 } from "./project-utils";
 
 type Props = {
-  project: { name: string; owner_id: string } | { name: string; logo: string };
+  project: { name: string; owner_id: number } | { name: string; logo: string };
   size?: number;
   className?: string;
 };
@@ -76,7 +76,7 @@ export function GitHubAvatar({
   name,
   size = 100,
   className,
-}: { owner_id: string } & BaseProps) {
+}: { owner_id: number } & BaseProps) {
   const imageURL = getGitHubOwnerAvatarURL(owner_id, size * 2);
 
   return (
