@@ -43,10 +43,10 @@ async function SameRepoOtherProjectsSection({ project }: Props) {
 }
 
 async function SameOwnerOtherProjectsSection({ project }: Props) {
-  const owner = project.repo.full_name.split("/")[0];
+  const owner = project.repo.owner;
   const projectsFromSameOwner = await findProjectsByOwner(owner);
   const otherProjects = projectsFromSameOwner.filter(
-    (foundProject) => foundProject.repo?.full_name !== project.repo.full_name
+    (foundProject) => foundProject.repo?.name !== project.repo.name
   );
   return (
     <section>

@@ -80,6 +80,8 @@ export async function findProjects({
       projects.logo,
       projects.createdAt,
       repos.archived,
+      repos.name,
+      repos.owner,
       repos.stars,
       repos.owner_id,
       projectsToTags.projectId,
