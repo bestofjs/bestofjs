@@ -34,7 +34,7 @@ export class RepoProcessor extends ItemProcessor<Repo> {
     }
 
     if (name) {
-      query.where(eq(schema.repos.full_name, name));
+      query.where(eq(schema.repos.name, name)); // TODO handle full_name instead of name
     }
 
     const repos = await query;
@@ -77,6 +77,7 @@ async function findRepoById(db: DB, id: string) {
   });
 
   const snapshots = snapshotsSchema.parse(repo.snapshots);
+  const full_name = repo.owner + "/" + repo.name;
 
-  return { ...repo, snapshots, projects };
+  return { ...repo, full_name, snapshots, projects };
 }
