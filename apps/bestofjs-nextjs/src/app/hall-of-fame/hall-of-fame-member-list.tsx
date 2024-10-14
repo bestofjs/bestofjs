@@ -1,25 +1,26 @@
 import NextLink from "next/link";
 
-import { ProjectLogo } from "@/components/core";
+import { HallOfFameMember } from "@repo/db/hall-of-fame";
+import { ProjectCustomLogo } from "@/components/core";
 import { ExternalLink } from "@/components/core/typography";
 import { badgeVariants } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 
 type Props = {
-  members: BestOfJS.HallOfFameMember[];
+  members: HallOfFameMember[];
 };
 export function HallOfFameMemberList({ members }: Props) {
   return (
     <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
       {members.map((member) => (
-        <HallOfFameMember key={member.username} member={member} />
+        <HallOfFameMemberCard key={member.username} member={member} />
       ))}
     </div>
   );
 }
 
-function HallOfFameMember({ member }: { member: BestOfJS.HallOfFameMember }) {
+function HallOfFameMemberCard({ member }: { member: HallOfFameMember }) {
   return (
     <Card className="sm:rounded-none">
       <div className="flex items-center border-b">
@@ -61,7 +62,12 @@ function HallOfFameMember({ member }: { member: BestOfJS.HallOfFameMember }) {
                 )}
               >
                 {project.logo && (
-                  <ProjectLogo project={project} size={20} className="mr-2" />
+                  <ProjectCustomLogo
+                    filename={project.logo}
+                    name={project.name}
+                    size={20}
+                    className="mr-2"
+                  />
                 )}
                 {project.name}
               </NextLink>

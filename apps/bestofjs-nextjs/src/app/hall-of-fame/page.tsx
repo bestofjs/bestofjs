@@ -1,20 +1,24 @@
 import { Metadata } from "next";
 
+import { db } from "@repo/db";
+import { findHallOfFameMembers } from "@repo/db/hall-of-fame";
 import { ExternalLink, PageHeading } from "@/components/core/typography";
 import {
   APP_CANONICAL_URL,
   APP_DISPLAY_NAME,
   APP_REPO_URL,
 } from "@/config/site";
-import { api } from "@/server/api";
-import { HallOfFameClientView } from "./hall-of-fame-view.client";
-import { HallOfFameMemberList } from "./hall-of-member-list";
+import { HallOfFamePaginatedList } from "./hall-of-fame-paginated-list";
+import { HallOfFameSearchStateParser } from "./hall-of-fame-search-state";
 import Loading from "./loading";
+import { HallOfFameSearchBar } from "./search-bar";
 
 const forceLoadingState = false; // set to true when debugging the loading state
 
 const description =
   "Some of the greatest developers, authors and speakers of the JavaScript community. Meet Evan, Dan, Sindre, TJ and friends!";
+
+const searchStateParser = new HallOfFameSearchStateParser();
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
@@ -29,12 +33,24 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
-export default async function HallOfFamePage() {
-  const { members: allMembers } = await api.hallOfFame.findMembers();
+type PageProps = {
+  searchParams: { query?: string };
+};
+
+export default async function HallOfFamePage({ searchParams }: PageProps) {
   if (forceLoadingState) return <Loading />;
 
+  const { searchState, buildPageURL } = searchStateParser.parse(searchParams);
+
+  const { members, total } = await findHallOfFameMembers({
+    db,
+    page: searchState.page,
+    limit: searchState.limit,
+    searchQuery: searchState.query,
+  });
+
   return (
-    <>
+    <div className="space-y-6">
       <PageHeading
         title={<>JavaScript Hall of Fame</>}
         subtitle={
@@ -53,17 +69,13 @@ export default async function HallOfFamePage() {
           </>
         }
       />
-      <HallOfFameClientView
-        initialContent={
-          <>
-            <div className="mb-4 text-muted-foreground">
-              Showing <b>all</b> {allMembers.length} members by number of
-              followers
-            </div>
-            <HallOfFameMemberList members={allMembers} />
-          </>
-        }
+      <HallOfFameSearchBar />
+      <HallOfFamePaginatedList
+        members={members}
+        total={total}
+        searchState={searchState}
+        buildPageURL={buildPageURL}
       />
-    </>
+    </div>
   );
 }

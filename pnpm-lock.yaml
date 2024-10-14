@@ -197,7 +197,7 @@ importers:
         version: 7.4.2
       drizzle-orm:
         specifier: ^0.33.0
-        version: 0.33.0(@neondatabase/serverless@0.9.5)(@types/pg@8.11.6)(@types/react@18.2.18)(@vercel/postgres@0.10.0(utf-8-validate@6.0.4))(bun-types@1.1.17)(postgres@3.4.3)(react@18.2.0)
+        version: 0.33.0(@neondatabase/serverless@0.9.5)(@types/pg@8.11.6)(@types/react@18.2.18)(@vercel/postgres@0.10.0)(bun-types@1.1.17)(postgres@3.4.3)(react@18.2.0)
       es-toolkit:
         specifier: 1.16.0-dev.477
         version: 1.16.0-dev.477
@@ -675,7 +675,10 @@ importers:
         version: 0.24.2
       drizzle-orm:
         specifier: ^0.33.0
-        version: 0.33.0(@neondatabase/serverless@0.9.5)(@types/pg@8.11.6)(@types/react@18.2.18)(@vercel/postgres@0.10.0(utf-8-validate@6.0.4))(bun-types@1.1.17)(postgres@3.4.3)(react@18.2.0)
+        version: 0.33.0(@neondatabase/serverless@0.9.5)(@types/pg@8.11.6)(@types/react@18.2.18)(@vercel/postgres@0.10.0)(bun-types@1.1.17)(postgres@3.4.3)(react@18.2.0)
+      es-toolkit:
+        specifier: 1.16.0-dev.477
+        version: 1.16.0-dev.477
       is-absolute-url:
         specifier: ^4.0.1
         version: 4.0.1
@@ -11948,7 +11951,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  drizzle-orm@0.33.0(@neondatabase/serverless@0.9.5)(@types/pg@8.11.6)(@types/react@18.2.18)(@vercel/postgres@0.10.0(utf-8-validate@6.0.4))(bun-types@1.1.17)(postgres@3.4.3)(react@18.2.0):
+  drizzle-orm@0.33.0(@neondatabase/serverless@0.9.5)(@types/pg@8.11.6)(@types/react@18.2.18)(@vercel/postgres@0.10.0)(bun-types@1.1.17)(postgres@3.4.3)(react@18.2.0):
     optionalDependencies:
       '@neondatabase/serverless': 0.9.5
       '@types/pg': 8.11.6
@@ -12301,7 +12304,7 @@ snapshots:
       eslint: 8.46.0
       eslint-import-resolver-node: 0.3.7
       eslint-import-resolver-typescript: 3.5.5(@typescript-eslint/parser@6.9.1(eslint@8.46.0)(typescript@5.5.4))(eslint-import-resolver-node@0.3.7)(eslint-plugin-import@2.28.1(eslint@8.46.0))(eslint@8.46.0)
-      eslint-plugin-import: 2.28.1(@typescript-eslint/parser@6.9.1(eslint@8.46.0)(typescript@5.5.4))(eslint-import-resolver-typescript@3.5.5)(eslint@8.46.0)
+      eslint-plugin-import: 2.28.1(@typescript-eslint/parser@6.9.1(eslint@8.46.0)(typescript@5.5.4))(eslint-import-resolver-typescript@3.5.5(@typescript-eslint/parser@6.9.1(eslint@8.46.0)(typescript@5.5.4))(eslint-import-resolver-node@0.3.7)(eslint-plugin-import@2.28.1(eslint@8.46.0))(eslint@8.46.0))(eslint@8.46.0)
       eslint-plugin-jsx-a11y: 6.7.1(eslint@8.46.0)
       eslint-plugin-react: 7.33.2(eslint@8.46.0)
       eslint-plugin-react-hooks: 4.6.0(eslint@8.46.0)
@@ -12329,7 +12332,7 @@ snapshots:
       enhanced-resolve: 5.15.0
       eslint: 8.46.0
       eslint-module-utils: 2.8.0(@typescript-eslint/parser@6.9.1(eslint@8.46.0)(typescript@5.5.4))(eslint-import-resolver-node@0.3.7)(eslint-import-resolver-typescript@3.5.5(@typescript-eslint/parser@6.9.1(eslint@8.46.0)(typescript@5.5.4))(eslint-import-resolver-node@0.3.7)(eslint-plugin-import@2.28.1(eslint@8.46.0))(eslint@8.46.0))(eslint@8.46.0)
-      eslint-plugin-import: 2.28.1(@typescript-eslint/parser@6.9.1(eslint@8.46.0)(typescript@5.5.4))(eslint-import-resolver-typescript@3.5.5)(eslint@8.46.0)
+      eslint-plugin-import: 2.28.1(@typescript-eslint/parser@6.9.1(eslint@8.46.0)(typescript@5.5.4))(eslint-import-resolver-typescript@3.5.5(@typescript-eslint/parser@6.9.1(eslint@8.46.0)(typescript@5.5.4))(eslint-import-resolver-node@0.3.7)(eslint-plugin-import@2.28.1(eslint@8.46.0))(eslint@8.46.0))(eslint@8.46.0)
       get-tsconfig: 4.6.2
       globby: 13.2.2
       is-core-module: 2.13.0
@@ -12352,7 +12355,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  eslint-plugin-import@2.28.1(@typescript-eslint/parser@6.9.1(eslint@8.46.0)(typescript@5.5.4))(eslint-import-resolver-typescript@3.5.5)(eslint@8.46.0):
+  eslint-plugin-import@2.28.1(@typescript-eslint/parser@6.9.1(eslint@8.46.0)(typescript@5.5.4))(eslint-import-resolver-typescript@3.5.5(@typescript-eslint/parser@6.9.1(eslint@8.46.0)(typescript@5.5.4))(eslint-import-resolver-node@0.3.7)(eslint-plugin-import@2.28.1(eslint@8.46.0))(eslint@8.46.0))(eslint@8.46.0):
     dependencies:
       array-includes: 3.1.6
       array.prototype.findlastindex: 1.2.2
