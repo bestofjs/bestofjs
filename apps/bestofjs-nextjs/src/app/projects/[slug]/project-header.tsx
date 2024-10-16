@@ -1,7 +1,11 @@
 import React from "react";
 import { ImNpm } from "react-icons/im";
 
-import { getProjectURL, ProjectDetails } from "@repo/db/projects";
+import {
+  getProjectDescription,
+  getProjectURL,
+  ProjectDetails,
+} from "@repo/db/projects";
 import { GitHubIcon, HomeIcon, ProjectLogo } from "@/components/core";
 import { ProjectTagGroup } from "@/components/tags/project-tag";
 import { buttonVariants } from "@/components/ui/button";
@@ -31,7 +35,7 @@ export function ProjectHeader({ project }: Props) {
         </div>
         <div className="flex flex-col space-y-4 pl-4">
           <h2 className="font-serif text-4xl">{project.name}</h2>
-          <div>{project.description}</div>
+          <div>{getProjectDescription(project)}</div>
           <div>
             <ProjectTagGroup tags={project.tags} />
           </div>
