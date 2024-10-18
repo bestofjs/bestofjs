@@ -5,25 +5,26 @@ import { ChevronLeftIcon, ChevronRightIcon } from "@/components/core/icons";
 import { buttonVariants } from "@/components/ui/button";
 import { formatNumber } from "@/helpers/numbers";
 import { PageSearchUrlBuilder, PaginationProps } from "@/lib/page-search-state";
+import { cn } from "@/lib/utils";
 import { PaginationState } from "./pagination-state";
 
 type Props<T extends PaginationProps> = {
   paginationState: PaginationState;
   buildPageURL: PageSearchUrlBuilder<T>;
+  className?: string;
+  compact?: boolean;
 };
 export const TopPaginationControls = <T extends PaginationProps>(
   props: Props<T>
 ) => {
-  const { paginationState } = props;
+  const { className, compact, paginationState } = props;
   const { from, to, total } = paginationState;
 
   return (
     <div className="flex items-center">
-      <div className="text-sm">
-        Showing{" "}
-        {from === to ? (
-          `#${from}`
-        ) : (
+      <div className={cn("text-sm", className)}>
+        {!compact && <>Showing </>}
+        {from !== to && (
           <>
             {from} - {to} of {formatNumber(total, "full")}
           </>

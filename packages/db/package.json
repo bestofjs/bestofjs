@@ -17,6 +17,7 @@
     "./projects": "./src/projects/index.ts",
     "./snapshots": "./src/snapshots/index.ts",
     "./tags": "./src/tags/index.ts",
+    "./hall-of-fame": "./src/hall-of-fame.ts",
     "./types": "./src/types.ts"
   },
   "dependencies": {
@@ -29,6 +30,7 @@
     "dotenv-cli": "^7.4.2",
     "drizzle-kit": "^0.24.2",
     "drizzle-orm": "^0.33.0",
+    "es-toolkit": "1.16.0-dev.477",
     "is-absolute-url": "^4.0.1",
     "luxon": "^3.4.4",
     "nanoid": "^5.0.5",
