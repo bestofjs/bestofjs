@@ -9,7 +9,8 @@ CREATE TABLE IF NOT EXISTS "hall_of_fame" (
 	"twitter" text,
 	"avatar" text,
 	"npm_username" text,
-	"npm_package_count" integer
+	"npm_package_count" integer,
+	"status" text DEFAULT 'active' NOT NULL
 );
 --> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "hall_of_fame_to_projects" (

@@ -47,15 +47,8 @@
     {
       "idx": 6,
       "version": "7",
-      "when": 1728906645311,
-      "tag": "0006_kind_shaman",
-      "breakpoints": true
-    },
-    {
-      "idx": 7,
-      "version": "7",
-      "when": 1729924245510,
-      "tag": "0007_sudden_mandarin",
+      "when": 1729945783900,
+      "tag": "0006_wonderful_the_fury",
       "breakpoints": true
     }
   ]
