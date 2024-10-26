@@ -11,8 +11,8 @@ import { HallOfFameMemberList } from "./hall-of-fame-member-list";
 import {
   HallOfFameSearchState,
   HallOfFameSearchUrlBuilder,
-} from "./hall-of-fame-search-state";
-import { DescribeSearchResults } from "./search-bar";
+} from "./search/hall-of-fame-search-state";
+import { DescribeSearchResults } from "./search/search-bar";
 
 type Props = {
   members: HallOfFameMember[];

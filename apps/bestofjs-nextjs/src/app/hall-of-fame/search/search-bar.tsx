@@ -12,7 +12,7 @@ import { Input } from "@/components/ui/input";
 export function HallOfFameSearchBar() {
   const searchParams = useSearchParams();
   return (
-    <form className="flex w-full gap-4" action="/hall-of-fame">
+    <form className="flex w-full gap-4" action="/hall-of-fame/search">
       <Input
         key={searchParams?.get("query")}
         autoFocus

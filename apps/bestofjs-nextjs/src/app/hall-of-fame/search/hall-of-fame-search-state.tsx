@@ -23,7 +23,7 @@ export type HallOfFameSearchUrlBuilder =
 export class HallOfFameSearchStateParser extends SearchStateParser<
   typeof hallOfFameSearchStateSchema
 > {
-  path = "/hall-of-fame";
+  path = "/hall-of-fame/search";
 
   constructor(options: Partial<HallOfFameSearchState> = {}) {
     const { limit = 50 } = options;
