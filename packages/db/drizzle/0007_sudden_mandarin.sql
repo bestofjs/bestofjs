@@ -1,0 +1,1 @@
+ALTER TABLE "hall_of_fame" ADD COLUMN "status" text DEFAULT 'active';

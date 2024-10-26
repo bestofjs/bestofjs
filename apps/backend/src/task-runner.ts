@@ -7,7 +7,11 @@ import { z } from "zod";
 
 import { DB, runQuery } from "@repo/db";
 import { ParsedFlags, sharedFlagsSchema } from "./flags";
-import { ProjectProcessor, RepoProcessor } from "./iteration-helpers";
+import {
+  HallOfFameProcessor,
+  ProjectProcessor,
+  RepoProcessor,
+} from "./iteration-helpers";
 import { MetaResult } from "./iteration-helpers/utils";
 import { TaskContext } from "./task-types";
 
@@ -56,6 +60,7 @@ export function createTaskRunner(tasks: Task<RawFlags | undefined>[]) {
         const context = { db, logger, dryRun };
         const projectProcessor = new ProjectProcessor(context, options);
         const repoProcessor = new RepoProcessor(context, options);
+        const hallOfFameProcessor = new HallOfFameProcessor(context, options);
 
         return {
           db,
@@ -65,6 +70,8 @@ export function createTaskRunner(tasks: Task<RawFlags | undefined>[]) {
           // Database helpers
           processProjects: projectProcessor.processItems.bind(projectProcessor),
           processRepos: repoProcessor.processItems.bind(repoProcessor),
+          processHallOfFameMembers:
+            hallOfFameProcessor.processItems.bind(hallOfFameProcessor),
 
           // Filesystem helpers
           async saveJSON(json: unknown, fileName: string) {

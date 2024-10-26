@@ -1,4 +1,4 @@
-import { relations, sql } from "drizzle-orm";
+import { relations } from "drizzle-orm";
 import {
   boolean,
   integer,
@@ -201,6 +201,9 @@ export const hallOfFame = pgTable("hall_of_fame", {
   avatar: text("avatar"),
   npmUsername: text("npm_username"),
   npmPackageCount: integer("npm_package_count"),
+  status: text("status", { enum: ["active", "inactive"] })
+    .default("active")
+    .notNull(),
 });
 
 export const hallOfFameToProjects = pgTable(

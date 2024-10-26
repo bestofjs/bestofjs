@@ -1,4 +1,4 @@
-import { count, desc, ilike, or, SQL } from "drizzle-orm";
+import { and, count, desc, eq, ilike, or, SQL } from "drizzle-orm";
 import { orderBy, uniqBy } from "es-toolkit";
 
 import { DB } from ".";
@@ -17,19 +17,20 @@ export async function findHallOfFameMembers({
   limit,
   searchQuery,
 }: Props) {
-  const where = searchQuery
+  const whereSearchQuery = searchQuery
     ? or(
         ilike(schema.hallOfFame.name, `%${searchQuery}%`),
         ilike(schema.hallOfFame.username, `%${searchQuery}%`)
       )
     : undefined;
+  const where = and(eq(schema.hallOfFame.status, "active"), whereSearchQuery);
 
   const offset = (page - 1) * limit;
 
   const totalResult = await db
     .select({ count: count() })
     .from(schema.hallOfFame)
-    .where(where || undefined);
+    .where(where);
   const total = totalResult[0].count;
 
   const query = fetchHallOfFameRecords(db, limit, offset, where);
@@ -52,16 +53,23 @@ function fetchHallOfFameRecords(
   offset: number,
   where?: SQL<unknown>
 ) {
+  const projectColumns = {
+    name: true,
+    slug: true,
+    logo: true,
+    status: true,
+  } as const;
+
   const query = db.query.hallOfFame.findMany({
     with: {
       hallOfFameToProjects: {
         with: {
-          project: true,
+          project: { columns: projectColumns },
         },
       },
       repos: {
         with: {
-          projects: true,
+          projects: { columns: projectColumns },
         },
       },
     },
@@ -81,7 +89,7 @@ type RawMember = Awaited<ReturnType<typeof fetchHallOfFameRecords>>[number];
  * - projects manually associated to the member through the `hallOfFameToProjects` relation
  * - repos whose owner is the member
  **/
-function getHallOfFameMemberProjects(member: RawMember) {
+export function getHallOfFameMemberProjects(member: RawMember) {
   const relatedProjects = member.hallOfFameToProjects.map(
     (relation) => relation.project
   );
