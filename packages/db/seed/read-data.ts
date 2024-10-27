@@ -83,6 +83,29 @@ type MonthData = {
   snapshots: { day: number; stars: number }[];
 };
 
+export type Hero = {
+  _id: { $oid: string };
+  createdAt: MongoDate;
+  updatedAt: MongoDate;
+  github: {
+    login: string;
+    name: string;
+    avatar_url: string;
+    bio: string;
+    twitter: string;
+    homepage: string;
+    followers: number;
+  };
+  projects: { $oid: string }[];
+  npm: {
+    username: string;
+    count: number;
+  };
+  short_bio: string;
+  url: string;
+  name?: string;
+};
+
 export function getDateFromMongoValue(value?: MongoDate) {
   if (!value?.$date) return null;
   if (typeof value.$date !== "string" && "$numberLong" in value.$date) {
@@ -137,4 +160,11 @@ export async function fetchAllSnapshotsByYear() {
 export async function fetchSnapshotsByYear(year: number) {
   const snapshots = await fetchAllSnapshotsByYear();
   return snapshots.filter((snapshot) => snapshot.year === year);
+}
+
+export async function fetchHeroes() {
+  const path = `${dataDir}/${backupPrefix}.heroes.json`;
+  const file = Bun.file(path);
+  const contents = await file.json();
+  return contents as Hero[];
 }

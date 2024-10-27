@@ -1,14 +1,18 @@
 /* eslint-disable @next/next/no-img-element */
-import { api } from "@/server/api-remote-json";
+import { db } from "@repo/db";
+import { findHallOfFameMembers, HallOfFameMember } from "@repo/db/hall-of-fame";
 import { ImageLayout } from "../og-image-layout";
 import { Box, generateImageResponse } from "../og-utils";
 
 export const runtime = "edge";
 
+const NUMBER_OF_CARD = 16;
+
 export async function GET() {
-  const NUMBER_OF_CARD = 16;
-  const { members } = await api.hallOfFame.findMembers({
+  const { members } = await findHallOfFameMembers({
+    db,
     limit: NUMBER_OF_CARD,
+    page: 1,
   });
 
   return generateImageResponse(
@@ -29,7 +33,7 @@ function MemberBox({
   member,
   size,
 }: {
-  member: BestOfJS.HallOfFameMember;
+  member: HallOfFameMember;
   size: number;
 }) {
   return (

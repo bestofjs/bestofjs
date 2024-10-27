@@ -12,6 +12,12 @@ const nextConfig = {
         hostname: "avatars.githubusercontent.com",
       },
     ],
+    // We want GitHub avatars only in 2 sizes:
+    // - 48px (in tables)
+    // - 75px (in details page)
+    // and we need the retina version.
+    deviceSizes: [],
+    imageSizes: [48, 75, 96, 150],
   },
   redirects: async () => {
     const { year, month } = await fetchLatestRankings();

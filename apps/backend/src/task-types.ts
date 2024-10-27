@@ -2,7 +2,11 @@ import { ConsolaInstance } from "consola";
 
 import { DB } from "@repo/db";
 import { ParsedFlags } from "./flags";
-import { ProjectProcessor, RepoProcessor } from "./iteration-helpers";
+import {
+  HallOfFameProcessor,
+  ProjectProcessor,
+  RepoProcessor,
+} from "./iteration-helpers";
 
 export interface TaskRunnerContext {
   logger: ConsolaInstance;
@@ -14,6 +18,7 @@ export interface TaskRunnerContext {
 export interface TaskContext extends TaskRunnerContext {
   processProjects: ProjectProcessor["processItems"];
   processRepos: RepoProcessor["processItems"];
+  processHallOfFameMembers: HallOfFameProcessor["processItems"];
   saveJSON: (json: unknown, fileName: string) => Promise<void>;
   readJSON: (fileName: string) => Promise<unknown>;
 }

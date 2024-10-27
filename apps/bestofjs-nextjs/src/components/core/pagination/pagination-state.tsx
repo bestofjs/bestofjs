@@ -2,6 +2,7 @@ export type PaginationState = {
   from: number;
   to: number;
   limit: number;
+  numberOfPages: number;
   page: number;
   total: number;
   pageNumbers: number[];
@@ -18,7 +19,7 @@ export function computePaginationState({
   total: number;
   page: number;
   limit: number;
-}) {
+}): PaginationState {
   const pageNumberCount = 5;
   const numberOfPages = Math.ceil(total / limit);
   const allPageNumbers = times(numberOfPages);
@@ -50,6 +51,7 @@ export function computePaginationState({
     hasPreviousPage,
     hasNextPage,
     pageNumbers,
+    numberOfPages,
     lastPageNumber,
     page,
     total,

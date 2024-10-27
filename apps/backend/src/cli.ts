@@ -5,6 +5,7 @@ import { createTaskRunner, Task } from "./task-runner";
 import { buildMonthlyRankingsTask } from "./tasks/build-monthly-rankings";
 import { buildStaticApiTask } from "./tasks/build-static-api.task";
 import {
+  helloWorldHallOfFameTask,
   helloWorldProjectsTask,
   helloWorldReposTask,
 } from "./tasks/hello-world.task";
@@ -14,6 +15,7 @@ import { triggerBuildStaticApiTask } from "./tasks/trigger-build-static-api";
 import { triggerBuildWebappTask } from "./tasks/trigger-build-webapp.task";
 import { updateBundleSizeTask } from "./tasks/update-bundle-size.task";
 import { updateGitHubDataTask } from "./tasks/update-github-data.task";
+import { updateHallOfFameTask } from "./tasks/update-hall-of-fame";
 import { updatePackageDataTask } from "./tasks/update-package-data.task";
 
 const commands = [
@@ -25,7 +27,9 @@ const commands = [
   buildStaticApiTask,
   helloWorldProjectsTask,
   helloWorldReposTask,
+  helloWorldHallOfFameTask,
   updatePackageDataTask,
+  updateHallOfFameTask,
   updateBundleSizeTask,
   buildMonthlyRankingsTask,
 ].map(getCommand);
