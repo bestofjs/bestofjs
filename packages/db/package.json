@@ -21,7 +21,7 @@
     "./types": "./src/types.ts"
   },
   "dependencies": {
-    "@neondatabase/serverless": "^0.10.1",
+    "@neondatabase/serverless": "^0.9.5",
     "@t3-oss/env-nextjs": "^0.11.1",
     "@types/debug": "^4.1.12",
     "@types/luxon": "^3.4.2",
