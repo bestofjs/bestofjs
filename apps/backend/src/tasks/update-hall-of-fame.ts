@@ -41,7 +41,7 @@ export const updateHallOfFameTask: Task = {
 
       if (isArchived) {
         logger.debug(`Member ${member.username} is archived, skipping`);
-        return { meta: { isArchived: true } };
+        return { meta: { isArchived: true }, data: null };
       }
 
       if (shouldBeUpdated) {
