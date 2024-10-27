@@ -8,7 +8,7 @@ import { Task } from "@/task-runner";
 export const updateHallOfFameTask: Task = {
   name: "update-hall-of-fame",
   description:
-    "Update Hall of Fame members status based on their projects and bio",
+    "Update Hall of Fame members follower status based on their projects and bio",
   run: async ({ processHallOfFameMembers, dryRun, logger, db }) => {
     return await processHallOfFameMembers(async (member) => {
       let updated = false;
@@ -35,8 +35,14 @@ export const updateHallOfFameTask: Task = {
       const data = await client.fetchUserInfo(member.username);
 
       const followersHaveChanged = data.followers !== member.followers;
+      const isArchived = member.status === "archived";
       const statusHasChanged = status !== member.status;
       const shouldBeUpdated = followersHaveChanged || statusHasChanged;
+
+      if (isArchived) {
+        logger.debug(`Member ${member.username} is archived, skipping`);
+        return { meta: { isArchived: true } };
+      }
 
       if (shouldBeUpdated) {
         logger.debug(
@@ -46,8 +52,10 @@ export const updateHallOfFameTask: Task = {
           await db
             .update(schema.hallOfFame)
             .set({
-              status,
+              avatar: data.avatar_url,
               followers: data.followers,
+              status,
+              updatedAt: new Date(),
             })
             .where(eq(schema.hallOfFame.username, member.username));
 

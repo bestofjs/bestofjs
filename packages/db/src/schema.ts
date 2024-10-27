@@ -201,7 +201,7 @@ export const hallOfFame = pgTable("hall_of_fame", {
   avatar: text("avatar"),
   npmUsername: text("npm_username"),
   npmPackageCount: integer("npm_package_count"),
-  status: text("status", { enum: ["active", "inactive"] })
+  status: text("status", { enum: ["active", "inactive", "archived"] })
     .default("active")
     .notNull(),
 });
