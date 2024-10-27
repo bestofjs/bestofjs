@@ -53,8 +53,9 @@ export function DescribeSearchResults({ count }: { count: number }) {
   }
 
   return (
-    <div className="flex items-center">
-      <InfoIcon className="mr-2 h-5 w-5" />
+    <div className="flex items-center gap-2">
+      <InfoIcon className="h-5 w-5" />
+      <span>Search results:</span>
       {count === 1 ? "One member found" : `${count} members found`}
     </div>
   );

@@ -43,28 +43,35 @@ export function HallOfFamePaginatedList({
 
   return (
     <>
-      <div className="flex justify-between">
+      <div className="flex justify-between text-muted-foreground">
         <div>
           {searchState.query ? (
             <DescribeSearchResults count={total} />
           ) : (
-            <p>Showing all {total} members</p>
+            <p>Showing all members, by number of followers on GitHub</p>
           )}
         </div>
-        <TopPaginationControls
-          paginationState={paginationState}
-          buildPageURL={buildPageURL}
-          className="text-md"
-          compact
-        />
+
+        {paginationState.numberOfPages > 1 && (
+          <TopPaginationControls
+            paginationState={paginationState}
+            buildPageURL={buildPageURL}
+            className="text-md"
+            compact
+          />
+        )}
       </div>
+
       <HallOfFameMemberList members={members} />
-      <div className="flex justify-end">
-        <BottomPaginationControls
-          paginationState={paginationState}
-          buildPageURL={buildPageURL}
-        />
-      </div>
+
+      {paginationState.numberOfPages > 1 && (
+        <div className="flex justify-end">
+          <BottomPaginationControls
+            paginationState={paginationState}
+            buildPageURL={buildPageURL}
+          />
+        </div>
+      )}
     </>
   );
 }
