@@ -22,24 +22,24 @@
   },
   "dependencies": {
     "@neondatabase/serverless": "^0.9.5",
-    "@t3-oss/env-nextjs": "^0.7.1",
+    "@t3-oss/env-nextjs": "^0.11.1",
     "@types/debug": "^4.1.12",
     "@types/luxon": "^3.4.2",
     "@vercel/postgres": "^0.10.0",
-    "debug": "^4.3.4",
+    "debug": "^4.3.7",
     "dotenv-cli": "^7.4.2",
-    "drizzle-kit": "^0.24.2",
-    "drizzle-orm": "^0.33.0",
-    "es-toolkit": "1.16.0-dev.477",
+    "drizzle-kit": "^0.26.2",
+    "drizzle-orm": "^0.35.3",
+    "es-toolkit": "1.26.1",
     "is-absolute-url": "^4.0.1",
-    "luxon": "^3.4.4",
-    "nanoid": "^5.0.5",
+    "luxon": "^3.5.0",
+    "nanoid": "^5.0.7",
     "slugify": "^1.6.6",
-    "tiny-invariant": "^1.3.1",
-    "zod": "^3.22.4"
+    "tiny-invariant": "^1.3.3",
+    "zod": "^3.23.8"
   },
   "devDependencies": {
     "@clack/prompts": "^0.7.0",
-    "@types/bun": "^1.1.6"
+    "@types/bun": "^1.1.12"
   }
 }
