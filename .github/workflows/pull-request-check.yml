@@ -18,7 +18,16 @@ jobs:
 
       - name: Install Dependencies
         shell: bash
-        run: pnpm -F bestofjs-nextjs install
+        run: pnpm install
+
+      - name: Type checking / db
+        run: pnpm -F db typecheck
+
+      - name: Type checking / backend
+        run: pnpm -F backend typecheck
+
+      - name: Type checking / admin
+        run: pnpm -F admin typecheck
 
       - name: Code Linting
         run: pnpm -F bestofjs-nextjs lint
