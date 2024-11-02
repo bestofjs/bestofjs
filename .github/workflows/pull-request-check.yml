@@ -23,8 +23,11 @@ jobs:
       - name: Type checking / db
         run: pnpm -F db typecheck
 
+      - name: Type checking / api
+        run: pnpm -F db typecheck
+
       - name: Type checking / backend
-        run: pnpm -F backend typecheck
+        run: pnpm -F api typecheck
 
       - name: Type checking / admin
         run: pnpm -F admin typecheck
