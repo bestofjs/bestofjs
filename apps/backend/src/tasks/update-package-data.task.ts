@@ -1,6 +1,5 @@
-import { eq } from "drizzle-orm";
-
 import { schema } from "@repo/db";
+import { eq } from "@repo/db/drizzle";
 import { ProjectDetails } from "@repo/db/projects";
 import { createNpmClient } from "@/apis/npm-api-client";
 import { Task } from "@/task-runner";
