@@ -26,7 +26,6 @@
     "consola": "^3.2.3",
     "debug": "^4.3.7",
     "dotenv-cli": "^7.4.2",
-    "drizzle-orm": "^0.35.3",
     "es-toolkit": "1.26.1",
     "fs-extra": "^11.2.0",
     "p-map": "^7.0.2",

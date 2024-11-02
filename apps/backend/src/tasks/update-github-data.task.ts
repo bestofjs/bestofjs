@@ -1,7 +1,6 @@
-import { eq } from "drizzle-orm";
-
 import { createGitHubClient } from "@repo/api/github";
 import { schema } from "@repo/db";
+import { eq } from "@repo/db/drizzle";
 import { SnapshotsService } from "@repo/db/snapshots";
 import { Repo } from "@/iteration-helpers/repo-processor";
 import { Task } from "@/task-runner";

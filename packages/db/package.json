@@ -13,6 +13,8 @@
   },
   "exports": {
     ".": "./src/index.ts",
+    "./drizzle": "./src/drizzle.ts",
+    "./schema": "./src/schema.ts",
     "./constants": "./src/constants.ts",
     "./projects": "./src/projects/index.ts",
     "./snapshots": "./src/snapshots/index.ts",
@@ -29,7 +31,7 @@
     "debug": "^4.3.7",
     "dotenv-cli": "^7.4.2",
     "drizzle-kit": "^0.26.2",
-    "drizzle-orm": "^0.35.3",
+    "drizzle-orm": "^0.36.0",
     "es-toolkit": "1.26.1",
     "is-absolute-url": "^4.0.1",
     "luxon": "^3.5.0",

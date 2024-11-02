@@ -1,6 +1,5 @@
-import { and, asc, desc, eq } from "drizzle-orm";
-
 import { DB, schema } from "@repo/db";
+import { and, asc, desc, eq } from "@repo/db/drizzle";
 import { snapshotsSchema } from "@repo/db/projects";
 import { TaskLoopOptions, TaskRunnerContext } from "@/task-types";
 import { ItemProcessor } from "./abstract-item-processor";
