@@ -30,7 +30,7 @@
     "@vercel/postgres": "^0.10.0",
     "debug": "^4.3.7",
     "dotenv-cli": "^7.4.2",
-    "drizzle-kit": "^0.26.2",
+    "drizzle-kit": "^0.27.1",
     "drizzle-orm": "^0.36.0",
     "es-toolkit": "1.26.1",
     "is-absolute-url": "^4.0.1",

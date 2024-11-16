@@ -53,9 +53,7 @@ export const projectsToTags = pgTable(
       .notNull()
       .references(() => tags.id, { onDelete: "cascade" }),
   },
-  (t) => ({
-    pk: primaryKey({ columns: [t.projectId, t.tagId] }),
-  })
+  (t) => [primaryKey({ columns: [t.projectId, t.tagId] })]
 );
 
 export const projectsRelations = relations(projects, ({ many, one }) => ({
@@ -108,9 +106,7 @@ export const repos = pgTable(
     // From scrapping
     contributor_count: integer("contributor_count"),
   },
-  (table) => ({
-    fullName: uniqueIndex("name_owner_index").on(table.owner, table.name),
-  })
+  (table) => [uniqueIndex("name_owner_index").on(table.owner, table.name)]
 );
 
 export const reposRelations = relations(repos, ({ many, one }) => ({
@@ -133,9 +129,7 @@ export const snapshots = pgTable(
     year: integer("year").notNull(),
     months: jsonb("months"),
   },
-  (table) => ({
-    pk: primaryKey({ columns: [table.repoId, table.year] }),
-  })
+  (table) => [primaryKey({ columns: [table.repoId, table.year] })]
 );
 
 export const snapshotsRelations = relations(snapshots, ({ one }) => ({
@@ -216,9 +210,7 @@ export const hallOfFameToProjects = pgTable(
       .notNull()
       .references(() => projects.id, { onDelete: "cascade" }),
   },
-  (t) => ({
-    pk: primaryKey({ columns: [t.username, t.projectId] }),
-  })
+  (t) => [primaryKey({ columns: [t.username, t.projectId] })]
 );
 
 export const hallOfFameRelations = relations(hallOfFame, ({ many }) => ({
