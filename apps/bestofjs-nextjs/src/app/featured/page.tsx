@@ -9,7 +9,7 @@ import { getSortOptionByKey } from "@/components/project-list/sort-order-options
 import { api } from "@/server/api";
 
 type PageProps = {
-  searchParams: Record<string, string | string[]>;
+  searchParams: Promise<Record<string, string | string[]>>;
 };
 
 const searchStateParser = new ProjectSearchStateParser({ sort: "newest" });
