@@ -10,14 +10,20 @@ import { ViewSnapshots } from "./view-snapshots";
 import { ViewTags } from "./view-tags";
 
 type PageProps = {
-  params: {
+  params: Promise<{
     slug: string;
-  };
+  }>;
 };
 
 export const revalidate = 0;
 
-export default async function ViewProjectPage({ params: { slug } }: PageProps) {
+export default async function ViewProjectPage(props: PageProps) {
+  const params = await props.params;
+
+  const {
+    slug
+  } = params;
+
   const project = await projectService.getProjectBySlug(slug);
   const allTags = await getAllTags();
 

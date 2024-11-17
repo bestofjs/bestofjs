@@ -5,12 +5,18 @@ import { ViewTags } from "../view-tags";
 import { ProjectForm } from "./project-form";
 
 type PageProps = {
-  params: {
+  params: Promise<{
     slug: string;
-  };
+  }>;
 };
 
-export default async function EditProjectPage({ params: { slug } }: PageProps) {
+export default async function EditProjectPage(props: PageProps) {
+  const params = await props.params;
+
+  const {
+    slug
+  } = params;
+
   const project = await projectService.getProjectBySlug(slug);
   const allTags = await getAllTags();
 

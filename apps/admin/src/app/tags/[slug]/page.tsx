@@ -2,11 +2,12 @@ import { getTagBySlug } from "@repo/db/tags";
 import { TagForm } from "./tag-form";
 
 type PageProps = {
-  params: {
+  params: Promise<{
     slug: string;
-  };
+  }>;
 };
-export default async function TagDetailsPage({ params }: PageProps) {
+export default async function TagDetailsPage(props: PageProps) {
+  const params = await props.params;
   const tag = await getTagBySlug(params.slug);
   if (!tag) {
     return <div>Tag not found</div>;
