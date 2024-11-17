@@ -61,6 +61,7 @@ export async function generateMetadata(props: PageProps): Promise<Metadata> {
 function getPageTitle(data: ProjectsPageData, searchState: ProjectSearchState) {
   const { query } = searchState;
   const { selectedTags: tags } = data;
+
   if (!query && tags.length === 0) {
     return "All Projects";
   }
@@ -151,7 +152,7 @@ function ProjectPageHeader({
   total: number;
 }) {
   const { query } = searchState;
-  const showingAllProjects = query === "" && tags.length === 0;
+  const showingAllProjects = !query && tags.length === 0;
   if (showingAllProjects) {
     return (
       <PageHeading
