@@ -1,7 +1,5 @@
-import { ImNpm } from "react-icons/im";
-
 import { ProjectDetails } from "@repo/db/projects";
-import { ExternalLinkIcon } from "@/components/core";
+import { ExternalLinkIcon, NpmIcon } from "@/components/core";
 import { ExternalLink } from "@/components/core/typography";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardBody, CardContent, CardHeader } from "@/components/ui/card";
@@ -22,7 +20,7 @@ export function ProjectDetailsNpmCard({
     <Card>
       <CardHeader className="border-b">
         <div className="flex items-center gap-2">
-          <ImNpm className="" />
+          <NpmIcon className="" />
           Package on NPM
         </div>
       </CardHeader>

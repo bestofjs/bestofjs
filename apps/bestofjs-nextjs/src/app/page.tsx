@@ -1,6 +1,6 @@
 import { Metadata } from "next";
 import NextLink from "next/link";
-import { GoFlame, GoGift, GoHeart, GoPlus } from "react-icons/go";
+import { FlameIcon, GiftIcon, HeartIcon, PlusIcon } from "lucide-react";
 
 import { StarIcon, TagIcon } from "@/components/core";
 import { SectionHeading } from "@/components/core/section";
@@ -119,7 +119,7 @@ function HotProjectList({ projects }: { projects: BestOfJS.Project[] }) {
     <Card>
       <CardHeader>
         <SectionHeading
-          icon={<GoFlame fontSize={32} />}
+          icon={<FlameIcon className="h-8 w-8" />}
           title="Hot Projects"
           subtitle={
             <>
@@ -156,7 +156,7 @@ function NewestProjectList({ projects }: { projects: BestOfJS.Project[] }) {
     <Card>
       <CardHeader>
         <SectionHeading
-          icon={<GoGift fontSize={32} />}
+          icon={<GiftIcon className="h-8 w-8" />}
           title="Recently Added Projects"
           subtitle={
             <>
@@ -193,7 +193,7 @@ function PopularTagsList({ tags }: { tags: BestOfJS.Tag[] }) {
     <Card>
       <CardHeader>
         <SectionHeading
-          icon={<TagIcon size={32} />}
+          icon={<TagIcon className="h-8 w-8" />}
           title="Popular Tags"
           subtitle={<>By number of projects</>}
         />
@@ -221,7 +221,7 @@ function BestOfJSSection({ project }: { project: BestOfJS.Project | null }) {
       <div>
         <SectionHeading
           className="mb-4"
-          icon={<GoHeart fontSize={32} />}
+          icon={<HeartIcon className="h-8 w-8" />}
           title={<>Do you find {APP_DISPLAY_NAME} useful?</>}
         />
         <div className="pl-10 font-serif">
@@ -257,7 +257,7 @@ function BestOfJSSection({ project }: { project: BestOfJS.Project | null }) {
         >
           Sponsor
           <span className="align-center ml-4 inline-flex">
-            <GoHeart size={20} />
+            <HeartIcon className="h-5 w-5" />
           </span>
         </a>
       </div>
@@ -280,7 +280,7 @@ function MoreProjectsSection({
     <div className="sm:px-4">
       <SectionHeading
         className="mb-4"
-        icon={<GoPlus fontSize={32} />}
+        icon={<PlusIcon className="h-8 w-8" />}
         title="Do you want more projects?"
       />
       <div className="space-y-4 pl-10 font-serif">

@@ -7,12 +7,11 @@ import { HallOfFameSearchBar } from "./search-bar";
 const searchStateParser = new HallOfFameSearchStateParser();
 
 type PageProps = {
-  searchParams: { query?: string };
+  searchParams: Promise<{ query?: string }>;
 };
 
-export default async function HallOfFameSearchPage({
-  searchParams,
-}: PageProps) {
+export default async function HallOfFameSearchPage(props: PageProps) {
+  const searchParams = await props.searchParams;
   const { searchState, buildPageURL } = searchStateParser.parse(searchParams);
 
   const { members, total } = await findHallOfFameMembers({

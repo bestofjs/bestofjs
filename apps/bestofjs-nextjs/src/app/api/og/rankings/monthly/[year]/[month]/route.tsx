@@ -13,8 +13,9 @@ import { api } from "@/server/api-remote-json";
 
 export const runtime = "edge";
 
-type Context = { params: { year: string; month: string } };
-export async function GET(_: Request, { params }: Context) {
+type Context = { params: Promise<{ year: string; month: string }> };
+export async function GET(_: Request, props: Context) {
+  const params = await props.params;
   const NUMBER_OF_PROJECTS = 3;
   const date = parsePageParams(params);
   const { projects } = await api.rankings.getMonthlyRankings({
@@ -75,7 +76,7 @@ function ShowStars({ project }: { project: BestOfJS.ProjectWithScore }) {
   );
 }
 
-function parsePageParams(params: Context["params"]) {
+function parsePageParams(params: Awaited<Context["params"]>) {
   const { year, month } = params;
   return { year: parseInt(year), month: parseInt(month) };
 }

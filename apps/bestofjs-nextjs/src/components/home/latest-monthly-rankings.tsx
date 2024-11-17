@@ -1,5 +1,5 @@
 import NextLink from "next/link";
-import { GoCalendar } from "react-icons/go";
+import { CalendarIcon } from "lucide-react";
 
 import { formatMonthlyDate } from "@/app/rankings/monthly/monthly-rankings-utils";
 import { StarDelta } from "@/components/core";
@@ -17,7 +17,7 @@ export async function LatestMonthlyRankings() {
     <Card>
       <CardHeader className="border-b">
         <SectionHeading
-          icon={<GoCalendar fontSize={32} />}
+          icon={<CalendarIcon className="h-8 w-8" />}
           title={`Rankings ${formatMonthlyDate({ year, month })}`}
           subtitle="By number of stars added last month"
         />

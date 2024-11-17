@@ -17,14 +17,13 @@ import { api } from "@/server/api";
 import { ProjectDetailsNpmCard } from "./project-details-npm/project-details-npm";
 
 type PageProps = {
-  params: {
+  params: Promise<{
     slug: string;
-  };
+  }>;
 };
 
-export async function generateMetadata({
-  params,
-}: PageProps): Promise<Metadata> {
+export async function generateMetadata(props: PageProps): Promise<Metadata> {
+  const params = await props.params;
   const { slug } = params;
   const project = await projectService.getProjectBySlug(slug);
   if (!project) return { title: "Project not found" };
@@ -47,7 +46,8 @@ export async function generateMetadata({
   };
 }
 
-export default async function ProjectDetailsPage({ params }: PageProps) {
+export default async function ProjectDetailsPage(props: PageProps) {
+  const params = await props.params;
   const { slug } = params;
   const project = await projectService.getProjectBySlug(slug);
   if (!project) {

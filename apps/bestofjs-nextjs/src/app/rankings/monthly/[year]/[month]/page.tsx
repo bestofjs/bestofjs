@@ -1,6 +1,6 @@
 import { Metadata } from "next";
 import Link from "next/link";
-import { GoCalendar } from "react-icons/go";
+import { CalendarIcon } from "lucide-react";
 
 import {
   ChevronLeftIcon,
@@ -17,15 +17,14 @@ import { MonthlyDate } from "@/server/api-rankings";
 import { formatMonthlyDate } from "../../monthly-rankings-utils";
 
 type PageProps = {
-  params: {
+  params: Promise<{
     year: string;
     month: string;
-  };
+  }>;
 };
 
-export async function generateMetadata({
-  params,
-}: PageProps): Promise<Metadata> {
+export async function generateMetadata(props: PageProps): Promise<Metadata> {
+  const params = await props.params;
   const date = parsePageParams(params);
 
   const { projects } = await api.rankings.getMonthlyRankings({
@@ -51,7 +50,8 @@ export async function generateMetadata({
   };
 }
 
-export default async function MonthlyRankingPage({ params }: PageProps) {
+export default async function MonthlyRankingPage(props: PageProps) {
+  const params = await props.params;
   const date = parsePageParams(params);
   const { isFirst, isLatest, projects } = await api.rankings.getMonthlyRankings(
     {
@@ -64,7 +64,7 @@ export default async function MonthlyRankingPage({ params }: PageProps) {
     <>
       <PageHeading
         title="Monthly Rankings"
-        icon={<GoCalendar fontSize={32} />}
+        icon={<CalendarIcon className="h-8 w-8" />}
       />
       <Card>
         <CardHeader className="border-b">
@@ -183,7 +183,7 @@ function getNextMonth(date: MonthlyDate): MonthlyDate {
     : { year, month: month + 1 };
 }
 
-function parsePageParams(params: PageProps["params"]) {
+function parsePageParams(params: Awaited<PageProps["params"]>) {
   const { year, month } = params;
   return { year: parseInt(year), month: parseInt(month) };
 }

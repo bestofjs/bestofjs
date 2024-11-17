@@ -34,9 +34,8 @@ type PageProps = {
 
 const searchStateParser = new ProjectSearchStateParser();
 
-export async function generateMetadata({
-  searchParams,
-}: PageProps): Promise<Metadata> {
+export async function generateMetadata(props: PageProps): Promise<Metadata> {
+  const searchParams = await props.searchParams;
   const { searchState } = searchStateParser.parse(searchParams);
   const data = await fetchPageData(searchState);
 
@@ -100,7 +99,8 @@ function getPageDescription(
 }
 const showLoadingPage = false; // for debugging purpose only
 
-export default async function ProjectsPage({ searchParams }: PageProps) {
+export default async function ProjectsPage(props: PageProps) {
+  const searchParams = await props.searchParams;
   if (showLoadingPage) return <ProjectListLoading />;
 
   const { searchState, buildPageURL } = searchStateParser.parse(searchParams);

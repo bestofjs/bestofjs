@@ -12,8 +12,14 @@ import { ImageLayout } from "../../og-image-layout";
 
 export const runtime = "edge";
 
-type Context = { params: { slug: string } };
-export async function GET(_req: Request, { params: { slug } }: Context) {
+type Context = { params: Promise<{ slug: string }> };
+export async function GET(_req: Request, props: Context) {
+  const params = await props.params;
+
+  const {
+    slug
+  } = params;
+
   const { project } = await api.projects.getProjectBySlug(slug);
   if (!project)
     return generateImageResponse(

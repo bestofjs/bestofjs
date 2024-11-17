@@ -1,12 +1,11 @@
 import React from "react";
-import { ImNpm } from "react-icons/im";
 
 import {
   getProjectDescription,
   getProjectURL,
   ProjectDetails,
 } from "@repo/db/projects";
-import { GitHubIcon, HomeIcon, ProjectLogo } from "@/components/core";
+import { GitHubIcon, HomeIcon, NpmIcon, ProjectLogo } from "@/components/core";
 import { ProjectTagGroup } from "@/components/tags/project-tag";
 import { buttonVariants } from "@/components/ui/button";
 import { formatUrl } from "@/helpers/url";
@@ -53,7 +52,7 @@ export function ProjectHeader({ project }: Props) {
         {packageName && (
           <ButtonLink
             href={`https://www.npmjs.com/package/${packageName}`}
-            icon={<ImNpm className="text-[16px]" />}
+            icon={<NpmIcon className="text-[16px]" />}
           >
             {packageName}
           </ButtonLink>

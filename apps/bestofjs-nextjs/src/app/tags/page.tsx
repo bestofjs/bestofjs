@@ -11,11 +11,11 @@ import {
 import { TagsPageShell } from "./tags-page-shell";
 
 type PageProps = {
-  searchParams: {
+  searchParams: Promise<{
     limit?: string;
     page?: string;
     sort?: string;
-  };
+  }>;
 };
 
 const showLoadingPage = false; // for debugging purpose only
@@ -26,7 +26,8 @@ export const metadata: Metadata = {
   title: "All Tags",
 };
 
-export default async function TagsPage({ searchParams }: PageProps) {
+export default async function TagsPage(props: PageProps) {
+  const searchParams = await props.searchParams;
   const { searchState, buildPageURL } = searchStateParser.parse(searchParams);
   const { tags, total } = await fetchTagsPageData(searchState);
 

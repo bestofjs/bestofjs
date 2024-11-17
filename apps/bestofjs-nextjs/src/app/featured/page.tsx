@@ -15,9 +15,8 @@ type PageProps = {
 const searchStateParser = new ProjectSearchStateParser({ sort: "newest" });
 searchStateParser.path = "/featured";
 
-export default async function FeaturedProjectsPage({
-  searchParams,
-}: PageProps) {
+export default async function FeaturedProjectsPage(props: PageProps) {
+  const searchParams = await props.searchParams;
   const { searchState, buildPageURL } = searchStateParser.parse(searchParams);
   const { projects, total } = await fetchFeaturedProjects(searchState);
 
