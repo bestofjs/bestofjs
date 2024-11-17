@@ -75,6 +75,8 @@ function ViewRepoData({ repo }: { repo: typeof schema.repos.$inferSelect }) {
       </p>
       <p>Created</p>
       <p>{formatDateOnly(repo.created_at)}</p>
+      <p>Last commit</p>
+      <p>{repo.last_commit ? formatDateOnly(repo.last_commit) : "-"}</p>
       <p>Pushed at</p>
       <p>{formatDateOnly(repo.pushed_at)}</p>
       <p>Commit count</p>

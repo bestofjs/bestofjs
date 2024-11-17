@@ -59,12 +59,18 @@ export const ProjectDetailsGitHubCard = ({ project }: Props) => {
 
 const GitHubData = ({ project }: { project: ProjectDetails }) => {
   const {
-    repo: { commit_count, contributor_count, created_at, full_name, pushed_at },
+    repo: {
+      commit_count,
+      contributor_count,
+      created_at,
+      full_name,
+      last_commit,
+    },
   } = project;
   const url = `https://github.com/${full_name}`;
 
   return (
-    <div className="grid grid-cols-2 gap-4">
+    <div className="grid gap-4 sm:grid-cols-2">
       <div>
         <ExternalLink url={url} className="flex items-center gap-1 font-sans">
           {full_name}
@@ -74,7 +80,8 @@ const GitHubData = ({ project }: { project: ProjectDetails }) => {
       <div>
         {created_at && (
           <>
-            Created {fromNow(created_at)}, last commit {fromNow(pushed_at)}
+            Created {fromNow(created_at)}
+            {last_commit && <>, last commit {fromNow(last_commit)}</>}
           </>
         )}
       </div>
