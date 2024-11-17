@@ -1,5 +1,6 @@
 "use client";
 
+import { log } from "console";
 import { useState } from "react";
 import {
   ColumnDef,
@@ -27,10 +28,12 @@ import {
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
+  getRowId: (row: TData) => string;
 }
 
 export function DataTable<TData, TValue>({
   columns,
+  getRowId,
   data,
 }: DataTableProps<TData, TValue>) {
   const [sorting, setSorting] = useState<SortingState>([]);
@@ -38,6 +41,7 @@ export function DataTable<TData, TValue>({
 
   const table = useReactTable({
     data,
+    getRowId,
     columns,
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
@@ -98,23 +102,25 @@ export function DataTable<TData, TValue>({
           </TableHeader>
           <TableBody>
             {table.getRowModel().rows?.length ? (
-              table.getRowModel().rows.map((row) => (
-                <TableRow
-                  key={row.id}
-                  data-state={row.getIsSelected() && "selected"}
-                >
-                  {row.getVisibleCells().map((cell) => (
-                    <div>
-                      {
-                        flexRender(
-                          cell.column.columnDef.cell,
-                          cell.getContext()
-                        ) as React.ReactNode // TODO: fix typing, error introduced when upgrading to React 19
-                      }
-                    </div>
-                  ))}
-                </TableRow>
-              ))
+              table.getRowModel().rows.map((row) => {
+                return (
+                  <TableRow
+                    key={row.id}
+                    data-state={row.getIsSelected() && "selected"}
+                  >
+                    {row.getVisibleCells().map((cell) => (
+                      <TableCell key={cell.id}>
+                        {
+                          flexRender(
+                            cell.column.columnDef.cell,
+                            cell.getContext()
+                          ) as React.ReactNode // TODO: fix typing, error introduced when upgrading to React 19
+                        }
+                      </TableCell>
+                    ))}
+                  </TableRow>
+                );
+              })
             ) : (
               <TableRow>
                 <TableCell
