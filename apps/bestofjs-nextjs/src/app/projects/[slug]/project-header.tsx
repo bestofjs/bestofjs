@@ -52,7 +52,7 @@ export function ProjectHeader({ project }: Props) {
         {packageName && (
           <ButtonLink
             href={`https://www.npmjs.com/package/${packageName}`}
-            icon={<NpmIcon className="text-[16px]" />}
+            icon={<NpmIcon className="h-5 w-5" />}
           >
             {packageName}
           </ButtonLink>

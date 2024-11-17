@@ -20,7 +20,7 @@ export function ProjectDetailsNpmCard({
     <Card>
       <CardHeader className="border-b">
         <div className="flex items-center gap-2">
-          <NpmIcon className="" />
+          <NpmIcon className="h-6 w-6" />
           Package on NPM
         </div>
       </CardHeader>
