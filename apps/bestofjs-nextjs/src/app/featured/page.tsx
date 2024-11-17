@@ -9,15 +9,14 @@ import { getSortOptionByKey } from "@/components/project-list/sort-order-options
 import { api } from "@/server/api";
 
 type PageProps = {
-  searchParams: Record<string, string | string[]>;
+  searchParams: Promise<Record<string, string | string[]>>;
 };
 
 const searchStateParser = new ProjectSearchStateParser({ sort: "newest" });
 searchStateParser.path = "/featured";
 
-export default async function FeaturedProjectsPage({
-  searchParams,
-}: PageProps) {
+export default async function FeaturedProjectsPage(props: PageProps) {
+  const searchParams = await props.searchParams;
   const { searchState, buildPageURL } = searchStateParser.parse(searchParams);
   const { projects, total } = await fetchFeaturedProjects(searchState);
 

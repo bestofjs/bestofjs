@@ -17,14 +17,15 @@ import { searchSchema } from "./search-schema";
 import { ProjectListSortOptionPicker } from "./sort-option-picker";
 
 type PageProps = {
-  searchParams: {
+  searchParams: Promise<{
     limit?: string;
     page?: string;
     sort?: string;
-  };
+  }>;
 };
 
-export default async function ProjectsPage({ searchParams }: PageProps) {
+export default async function ProjectsPage(props: PageProps) {
+  const searchParams = await props.searchParams;
   const searchOptions = searchSchema.parse(searchParams);
   const { limit, offset, sort, tag, text } = searchOptions;
 

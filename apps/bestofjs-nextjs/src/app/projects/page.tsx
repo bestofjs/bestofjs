@@ -29,14 +29,13 @@ type ProjectsPageData = {
 };
 
 type PageProps = {
-  searchParams: Record<string, string | string[]>;
+  searchParams: Promise<Record<string, string | string[]>>;
 };
 
 const searchStateParser = new ProjectSearchStateParser();
 
-export async function generateMetadata({
-  searchParams,
-}: PageProps): Promise<Metadata> {
+export async function generateMetadata(props: PageProps): Promise<Metadata> {
+  const searchParams = await props.searchParams;
   const { searchState } = searchStateParser.parse(searchParams);
   const data = await fetchPageData(searchState);
 
@@ -62,6 +61,7 @@ export async function generateMetadata({
 function getPageTitle(data: ProjectsPageData, searchState: ProjectSearchState) {
   const { query } = searchState;
   const { selectedTags: tags } = data;
+
   if (!query && tags.length === 0) {
     return "All Projects";
   }
@@ -100,7 +100,8 @@ function getPageDescription(
 }
 const showLoadingPage = false; // for debugging purpose only
 
-export default async function ProjectsPage({ searchParams }: PageProps) {
+export default async function ProjectsPage(props: PageProps) {
+  const searchParams = await props.searchParams;
   if (showLoadingPage) return <ProjectListLoading />;
 
   const { searchState, buildPageURL } = searchStateParser.parse(searchParams);
@@ -151,7 +152,7 @@ function ProjectPageHeader({
   total: number;
 }) {
   const { query } = searchState;
-  const showingAllProjects = query === "" && tags.length === 0;
+  const showingAllProjects = !query && tags.length === 0;
   if (showingAllProjects) {
     return (
       <PageHeading

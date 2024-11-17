@@ -1,5 +1,5 @@
 import { Suspense } from "react";
-import { GoBook } from "react-icons/go";
+import { BookOpenTextIcon } from "lucide-react";
 
 import { createGitHubClient } from "@repo/api/github";
 import { ProjectDetails } from "@repo/db/projects";
@@ -11,7 +11,7 @@ export async function ReadmeCard({ project }: { project: ProjectDetails }) {
     <Card>
       <CardHeader className="border-b">
         <div className="flex space-x-2">
-          <GoBook size={24} />
+          <BookOpenTextIcon className="h-6 w-6" />
           <div>README</div>
         </div>
       </CardHeader>

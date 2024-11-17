@@ -1,5 +1,4 @@
-import { GoGitCommit } from "react-icons/go";
-import { MdGroup } from "react-icons/md";
+import { GitCommitHorizontalIcon, UsersIcon } from "lucide-react";
 
 import {
   getProjectMonthlyTrends,
@@ -80,7 +79,7 @@ const GitHubData = ({ project }: { project: ProjectDetails }) => {
         )}
       </div>
       <div className="flex gap-2">
-        <MdGroup size={20} className="icon" />
+        <UsersIcon className="icon h-5 w-5" />
         {contributor_count ? (
           <>{formatNumber(contributor_count, "compact")} contributors</>
         ) : (
@@ -92,7 +91,7 @@ const GitHubData = ({ project }: { project: ProjectDetails }) => {
       <div className="flex gap-2">
         {commit_count && (
           <>
-            <GoGitCommit size={20} className="icon" />
+            <GitCommitHorizontalIcon className="icon h-5 w-5" />
             {formatNumber(commit_count, "compact")} commits
           </>
         )}

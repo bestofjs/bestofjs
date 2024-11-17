@@ -1,8 +1,7 @@
 import { findTags } from "@repo/db/tags";
 import { AddTagButton } from "@/components/add-tag-button";
 import { Badge } from "@/components/ui/badge";
-import { columns } from "./columns";
-import { DataTable } from "./data-table";
+import { TagsDataTable } from "./tags-data-table";
 
 export default async function TagsPage() {
   const tags = await findTags();
@@ -15,7 +14,7 @@ export default async function TagsPage() {
         </h1>
         <AddTagButton />
       </div>
-      <DataTable columns={columns} data={tags} />
+      <TagsDataTable tags={tags} />
     </div>
   );
 }
