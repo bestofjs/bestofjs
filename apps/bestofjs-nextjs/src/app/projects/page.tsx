@@ -29,7 +29,7 @@ type ProjectsPageData = {
 };
 
 type PageProps = {
-  searchParams: Record<string, string | string[]>;
+  searchParams: Promise<Record<string, string | string[]>>;
 };
 
 const searchStateParser = new ProjectSearchStateParser();
