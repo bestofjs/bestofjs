@@ -3,12 +3,12 @@ import { orderBy } from "es-toolkit";
 import { TAGS_EXCLUDED_FROM_RANKINGS } from "@repo/db/constants";
 import { notifyDiscordProjectList } from "@/shared/discord";
 import { projectToSlackAttachment, sendMessageToSlack } from "@/shared/slack";
-import { Task } from "@/task-runner";
+import { createTask } from "@/task-runner";
 import { ProjectItem } from "./static-api-types";
 
 const NUMBER_OF_PROJECTS = 5;
 
-export const notifyDailyTask: Task = {
+export const notifyDailyTask = createTask({
   name: "notify-daily",
   description:
     "Send notification on Slack and Discord after static API is built",
@@ -54,7 +54,7 @@ export const notifyDailyTask: Task = {
       return topProjects.slice(0, NUMBER_OF_PROJECTS);
     }
   },
-};
+});
 
 /**
  * Exclude from the rankings projects with specific tags

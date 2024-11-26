@@ -2,11 +2,11 @@ import { schema } from "@repo/db";
 import { eq } from "@repo/db/drizzle";
 import { ProjectDetails } from "@repo/db/projects";
 import { createNpmClient } from "@/apis/npm-api-client";
-import { Task } from "@/task-runner";
+import { createTask } from "@/task-runner";
 
 const npmClient = createNpmClient();
 
-export const updatePackageDataTask: Task = {
+export const updatePackageDataTask = createTask({
   name: "update-package-data",
   description: "Update package data from NPM",
   run: async ({ db, logger, processProjects }) => {
@@ -74,7 +74,7 @@ export const updatePackageDataTask: Task = {
       return updatedData;
     }
   },
-};
+});
 
 function formatDependencies(dependencies?: { [key: string]: string }) {
   return dependencies ? Object.keys(dependencies) : [];

@@ -2,9 +2,9 @@ import { createGitHubClient } from "@repo/api/github";
 import { schema } from "@repo/db";
 import { eq } from "@repo/db/drizzle";
 import { HallOfFameMember } from "@/iteration-helpers";
-import { Task } from "@/task-runner";
+import { createTask } from "@/task-runner";
 
-export const updateHallOfFameTask: Task = {
+export const updateHallOfFameTask = createTask({
   name: "update-hall-of-fame",
   description:
     "Update Hall of Fame members follower status based on their projects and bio",
@@ -70,4 +70,4 @@ export const updateHallOfFameTask: Task = {
       };
     });
   },
-};
+});

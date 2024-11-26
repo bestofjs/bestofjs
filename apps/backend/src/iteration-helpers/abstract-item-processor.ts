@@ -2,15 +2,20 @@ import pMap from "p-map";
 import pThrottle from "p-throttle";
 import prettyMilliseconds from "pretty-ms";
 
+import { SQL } from "@repo/db/drizzle";
 import { TaskLoopOptions, TaskRunnerContext } from "@/task-types";
 import { aggregateResults, MetaResult } from "./utils";
+
+type QueryOptions = {
+  where?: SQL;
+};
 
 export abstract class ItemProcessor<T> {
   context: TaskRunnerContext;
   loopOptions: TaskLoopOptions;
 
   abstract type: string;
-  abstract getAllItemsIds(): Promise<string[]>;
+  abstract getAllItemsIds(where?: SQL): Promise<string[]>;
   abstract getItemById(id: string): Promise<T>;
   abstract toString(item: T): string;
 
@@ -20,10 +25,12 @@ export abstract class ItemProcessor<T> {
   }
 
   async processItems<U>(
-    mapper: (item: T, index: number) => Promise<{ data: U; meta: MetaResult }>
+    mapper: (item: T, index: number) => Promise<{ data: U; meta: MetaResult }>,
+    options?: QueryOptions
   ) {
     const { logger } = this.context;
     const { concurrency, throttleInterval } = this.loopOptions;
+    const { where } = options || {};
 
     const throttle = pThrottle({
       limit: 1,
@@ -35,7 +42,7 @@ export abstract class ItemProcessor<T> {
     const throttledMapper = throttle(mapper);
 
     logger.info(`Finding ids of ${this.type}s to process...`);
-    const ids = await this.getAllItemsIds();
+    const ids = await this.getAllItemsIds(where);
     logger.start(`Processing ${ids.length} ${this.type}(s)...`);
 
     const start = Date.now();

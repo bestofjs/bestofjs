@@ -1,13 +1,13 @@
 import { schema } from "@repo/db";
 import { ProjectDetails } from "@repo/db/projects";
 import { createNpmClient } from "@/apis/npm-api-client";
-import { Task } from "@/task-runner";
+import { createTask } from "@/task-runner";
 
 const npmClient = createNpmClient();
 
 type Result = "updated" | "same-version" | "timeout" | "error" | "backend-only";
 
-export const updateBundleSizeTask: Task = {
+export const updateBundleSizeTask = createTask({
   name: "update-bundle-size",
   description: "Update bundle size data from bundlejs.com",
   run: async ({ db, logger, processProjects }) => {
@@ -73,7 +73,7 @@ export const updateBundleSizeTask: Task = {
       return "updated";
     }
   },
-};
+});
 
 function needsUpdate(packageData: ProjectDetails["packages"][number]) {
   const bundle = packageData.bundles;

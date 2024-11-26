@@ -8,11 +8,9 @@ import {
 } from "@repo/db/projects";
 import { getMonthlyDelta } from "@repo/db/snapshots";
 import { truncate } from "@/shared/utils";
-import { Task } from "@/task-runner";
+import { createTask } from "@/task-runner";
 
-const schema = z.object({ year: z.number(), month: z.number() });
-
-export const buildMonthlyRankingsTask: Task<z.infer<typeof schema>> = {
+export const buildMonthlyRankingsTask = createTask({
   name: "build-monthly-rankings",
   description: "Build monthly rankings to be displayed on the frontend",
   flags: {
@@ -25,7 +23,7 @@ export const buildMonthlyRankingsTask: Task<z.infer<typeof schema>> = {
       description: "Month to build rankings for",
     },
   },
-  schema,
+  schema: z.object({ year: z.number(), month: z.number() }),
 
   async run(context, flags) {
     const { logger, processRepos, saveJSON } = context;
@@ -108,7 +106,7 @@ export const buildMonthlyRankingsTask: Task<z.infer<typeof schema>> = {
 
     return results;
   },
-};
+});
 
 function formatDate(year: number, month: number) {
   return `${year}-${month.toString().padStart(2, "0")}`;

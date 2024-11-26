@@ -1,7 +1,8 @@
 import { cli, command } from "cleye";
 
 import { cliFlags as sharedFlags } from "./flags";
-import { createTaskRunner, Task } from "./task-runner";
+import { createTaskRunner } from "./task-runner";
+import { Task } from "./task-types";
 import { buildMonthlyRankingsTask } from "./tasks/build-monthly-rankings";
 import { buildStaticApiTask } from "./tasks/build-static-api.task";
 import {
