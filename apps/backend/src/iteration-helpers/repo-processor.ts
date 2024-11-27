@@ -53,8 +53,6 @@ export class RepoProcessor extends ItemProcessor<Repo> {
       query.where(and(...whereClauses));
     }
 
-    console.log(query.toSQL());
-
     const foundRepos = await query;
     if (!foundRepos.length) logger.error("No repos found");
 
