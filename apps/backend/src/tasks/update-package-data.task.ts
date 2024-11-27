@@ -1,5 +1,5 @@
 import { schema } from "@repo/db";
-import { eq } from "@repo/db/drizzle";
+import { eq, notInArray } from "@repo/db/drizzle";
 import { ProjectDetails } from "@repo/db/projects";
 import { createNpmClient } from "@/apis/npm-api-client";
 import { createTask } from "@/task-runner";
@@ -10,33 +10,31 @@ export const updatePackageDataTask = createTask({
   name: "update-package-data",
   description: "Update package data from NPM",
   run: async ({ db, logger, processProjects }) => {
-    const results = await processProjects(async (project) => {
-      let updatedCount = 0;
-      let deprecatedCount = 0;
+    const results = await processProjects(
+      async (project) => {
+        let updatedCount = 0;
+        let deprecatedCount = 0;
 
-      if (!shouldProcessProject(project)) {
-        logger.debug(`Skipping deprecated project ${project.repo.full_name}`);
-        return { meta: { skipped: true }, data: null };
-      }
-
-      for (const packageData of project.packages) {
-        const updatedData = await processPackage(packageData);
-        if (updatedData) updatedCount++;
-        if (updatedData?.deprecated) {
-          logger.warn(`Deprecated package ${packageData.name}`);
-          deprecatedCount++;
+        for (const packageData of project.packages) {
+          const updatedData = await processPackage(packageData);
+          if (updatedData) updatedCount++;
+          if (updatedData?.deprecated) {
+            logger.warn(`Deprecated package ${packageData.name}`);
+            deprecatedCount++;
+          }
         }
-      }
 
-      return {
-        data: null,
-        meta: {
-          processed: project.packages.length,
-          updated: updatedCount,
-          deprecated: deprecatedCount,
-        },
-      };
-    });
+        return {
+          data: null,
+          meta: {
+            processed: project.packages.length,
+            updated: updatedCount,
+            deprecated: deprecatedCount,
+          },
+        };
+      },
+      { where: notInArray(schema.projects.status, ["deprecated"]) }
+    );
 
     return results;
 
@@ -78,9 +76,4 @@ export const updatePackageDataTask = createTask({
 
 function formatDependencies(dependencies?: { [key: string]: string }) {
   return dependencies ? Object.keys(dependencies) : [];
-}
-
-function shouldProcessProject(project: ProjectDetails) {
-  const isDeprecated = project.status === "deprecated";
-  return !isDeprecated;
 }

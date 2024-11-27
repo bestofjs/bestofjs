@@ -28,7 +28,8 @@ export class RepoProcessor extends ItemProcessor<Repo> {
       .from(repos)
       .orderBy(desc(repos.added_at))
       .offset(skip)
-      .leftJoin(projects, eq(projects.repoId, repos.id));
+      .leftJoin(projects, eq(projects.repoId, repos.id))
+      .groupBy(repos.id);
 
     if (limit) {
       query.limit(limit);

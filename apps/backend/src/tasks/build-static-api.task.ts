@@ -1,12 +1,12 @@
 import { orderBy } from "es-toolkit";
 
 import { schema } from "@repo/db";
+import { notInArray } from "@repo/db/drizzle";
 import {
   getPackageData,
   getProjectDescription,
   getProjectTrends,
   getProjectURL,
-  ProjectDetails,
 } from "@repo/db/projects";
 import { truncate } from "@/shared/utils";
 import { createTask } from "@/task-runner";
@@ -18,47 +18,48 @@ export const buildStaticApiTask = createTask({
     "Build a static API from the database, to be used by the frontend app.",
 
   run: async ({ db, logger, processProjects, saveJSON }) => {
-    const results = await processProjects(async (project) => {
-      const repo = project.repo;
+    const results = await processProjects(
+      async (project) => {
+        const repo = project.repo;
 
-      if (!repo) throw new Error("No repo found");
-      if (!shouldProcessProject(project))
-        return { data: null, meta: { skipped: true } };
-      if (!repo.snapshots?.length)
-        return { data: null, meta: { "no snapshot": true } };
+        if (!repo) throw new Error("No repo found");
+        if (!repo.snapshots?.length)
+          return { data: null, meta: { "no snapshot": true } };
 
-      const trends = getProjectTrends(repo.snapshots);
-      const tags = project.projectsToTags.map((ptt) => ptt.tag.code);
+        const trends = getProjectTrends(repo.snapshots);
+        const tags = project.projectsToTags.map((ptt) => ptt.tag.code);
 
-      // optional data
-      const url = getProjectURL(project);
-      const logo = project.logo || undefined;
-      const packageData = getPackageData(project);
+        // optional data
+        const url = getProjectURL(project);
+        const logo = project.logo || undefined;
+        const packageData = getPackageData(project);
 
-      const data: ProjectItem = {
-        name: project.name,
-        slug: project.slug,
-        added_at: formatDate(project.createdAt),
-        description: truncate(getProjectDescription(project), 75),
-        stars: repo.stars || 0,
-        full_name: project.repo.full_name,
-        owner_id: repo.owner_id,
-        status: project.status || "active",
-        tags,
-        trends,
-        contributor_count: repo.contributor_count,
-        pushed_at: formatDate(repo.last_commit),
-        created_at: formatDate(repo.created_at),
-        ...(packageData && { ...packageData }),
-        ...(url && { url }),
-        ...(logo && { logo }),
-      };
+        const data: ProjectItem = {
+          name: project.name,
+          slug: project.slug,
+          added_at: formatDate(project.createdAt),
+          description: truncate(getProjectDescription(project), 75),
+          stars: repo.stars || 0,
+          full_name: project.repo.full_name,
+          owner_id: repo.owner_id,
+          status: project.status || "active",
+          tags,
+          trends,
+          contributor_count: repo.contributor_count,
+          pushed_at: formatDate(repo.last_commit),
+          created_at: formatDate(repo.created_at),
+          ...(packageData && { ...packageData }),
+          ...(url && { url }),
+          ...(logo && { logo }),
+        };
 
-      return {
-        meta: { processed: true },
-        data,
-      };
-    });
+        return {
+          meta: { processed: true },
+          data,
+        };
+      },
+      { where: notInArray(schema.projects.status, ["deprecated", "hidden"]) }
+    );
 
     const data = results.data.filter((item) => !!item);
     await buildMainList(data);
@@ -113,10 +114,6 @@ export const buildStaticApiTask = createTask({
     }
   },
 });
-
-function shouldProcessProject(project: ProjectDetails) {
-  return !["deprecated", "hidden"].includes(project.status);
-}
 
 function isColdProject(project: ProjectItem) {
   const delta = project.trends.yearly;
