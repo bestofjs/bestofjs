@@ -1,6 +1,6 @@
-import { Task } from "@/task-runner";
+import { createTask } from "@/task-runner";
 
-export const triggerBuildWebappTask: Task = {
+export const triggerBuildWebappTask = createTask({
   name: "trigger-build-webapp",
   description: "Trigger the build of the Next.js app",
 
@@ -45,4 +45,4 @@ export const triggerBuildWebappTask: Task = {
       }
     }
   },
-};
+});

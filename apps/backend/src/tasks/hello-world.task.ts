@@ -1,45 +1,83 @@
 import { countBy } from "es-toolkit";
+import { z } from "zod";
 
+import { schema } from "@repo/db";
+import { PROJECT_STATUSES } from "@repo/db/constants";
+import { and, eq, SQL } from "@repo/db/drizzle";
 import { HallOfFameMember } from "@/iteration-helpers";
-import { Task } from "@/task-runner";
+import { createTask } from "@/task-runner";
 
-export const helloWorldReposTask: Task = {
+export const helloWorldReposTask = createTask({
   name: "hello-world-repos",
   description: "A simple `hello world` task to, looping through all repos",
-  run: async ({ processRepos, logger }) => {
-    return await processRepos(async (repo) => {
-      const isDeprecated = repo.projects.every(
-        (project) => project.status === "deprecated"
-      );
-
-      logger.debug(repo);
-
-      return {
-        meta: { isDeprecated },
-        data: { stars: repo.stars },
-      };
-    });
+  flags: {
+    archived: { type: Boolean },
+    status: { type: String },
   },
-};
+  schema: z.object({
+    archived: z.boolean().optional(),
+    status: z.enum(PROJECT_STATUSES).optional(),
+  }),
+  run: async (context, flags) => {
+    const { processRepos, logger } = context;
+    const where = [];
 
-export const helloWorldProjectsTask: Task = {
+    if (flags.status) {
+      where.push(eq(schema.projects.status, flags.status));
+    }
+    if (flags.archived) {
+      where.push(eq(schema.repos.archived, flags.archived));
+    }
+    return await processRepos(
+      async (repo) => {
+        const isDeprecated = repo.projects.every(
+          (project) => project.status === "deprecated"
+        );
+
+        logger.debug(repo.full_name);
+
+        return {
+          meta: { isDeprecated },
+          data: { stars: repo.stars },
+        };
+      },
+      { ...(where.length > 0 && { where: and(...where) }) }
+    );
+  },
+});
+
+export const helloWorldProjectsTask = createTask({
   name: "hello-world-projects",
   description: "A simple `hello world` task, looping through all projects",
-  run: async ({ processProjects, logger }) => {
-    return await processProjects(async (project) => {
-      const isDeprecated = project.status === "deprecated";
-
-      logger.debug(project);
-
-      return {
-        meta: { isDeprecated },
-        data: { stars: project.name },
-      };
-    });
+  flags: {
+    status: { type: String },
   },
-};
+  schema: z.object({
+    status: z.enum(PROJECT_STATUSES).optional(),
+  }),
+  run: async (context, flags) => {
+    const { processProjects, logger } = context;
+    const where: SQL<unknown>[] = [];
+    if (flags.status) {
+      where.push(eq(schema.projects.status, flags.status));
+    }
+    return await processProjects(
+      async (project) => {
+        const isDeprecated = project.status === "deprecated";
 
-export const helloWorldHallOfFameTask: Task = {
+        logger.debug(project);
+
+        return {
+          meta: { isDeprecated },
+          data: { stars: project.name },
+        };
+      },
+      { ...(where.length > 0 && { where: and(...where) }) }
+    );
+  },
+});
+
+export const helloWorldHallOfFameTask = createTask({
   name: "hello-hall-of-fame",
   description:
     "A simple `hello world` task, looping through all Hall of Fame members",
@@ -79,4 +117,4 @@ export const helloWorldHallOfFameTask: Task = {
     console.log(countBy(result.data, (item) => item?.status || ""));
     return result;
   },
-};
+});

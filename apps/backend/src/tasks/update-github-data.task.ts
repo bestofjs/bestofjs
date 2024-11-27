@@ -3,9 +3,9 @@ import { schema } from "@repo/db";
 import { eq } from "@repo/db/drizzle";
 import { SnapshotsService } from "@repo/db/snapshots";
 import { Repo } from "@/iteration-helpers/repo-processor";
-import { Task } from "@/task-runner";
+import { createTask } from "@/task-runner";
 
-export const updateGitHubDataTask: Task = {
+export const updateGitHubDataTask = createTask({
   name: "update-github-data",
   description:
     "Update GitHub data for all repos and take a snapshot. To be run run every day",
@@ -56,7 +56,7 @@ export const updateGitHubDataTask: Task = {
       };
     });
   },
-};
+});
 
 function shouldProcessProject(repo: Repo) {
   const isDeprecated = repo.projects.every(

@@ -1,5 +1,5 @@
 import { DB, schema } from "@repo/db";
-import { and, asc, desc, eq } from "@repo/db/drizzle";
+import { and, asc, desc, eq, SQL } from "@repo/db/drizzle";
 import { snapshotsSchema } from "@repo/db/projects";
 import { TaskLoopOptions, TaskRunnerContext } from "@/task-types";
 import { ItemProcessor } from "./abstract-item-processor";
@@ -18,7 +18,7 @@ export class RepoProcessor extends ItemProcessor<Repo> {
     return item.full_name;
   }
 
-  async getAllItemsIds() {
+  async getAllItemsIds(where?: SQL) {
     const { db, logger } = this.context;
     const { limit, skip, fullName, slug } = this.loopOptions;
     const { repos, projects } = schema;
@@ -27,20 +27,30 @@ export class RepoProcessor extends ItemProcessor<Repo> {
       .select({ id: repos.id })
       .from(repos)
       .orderBy(desc(repos.added_at))
-      .offset(skip);
+      .offset(skip)
+      .leftJoin(projects, eq(projects.repoId, repos.id));
 
     if (limit) {
       query.limit(limit);
     }
 
+    const whereClauses = [];
+
     if (fullName) {
       const [owner, name] = fullName.split("/");
-      query.where(and(eq(repos.owner, owner), eq(repos.name, name)));
+      whereClauses.push(and(eq(repos.owner, owner), eq(repos.name, name)));
     }
 
     if (slug) {
-      query.leftJoin(projects, eq(repos.id, projects.repoId));
-      query.where(eq(projects.slug, slug));
+      whereClauses.push(eq(projects.slug, slug));
+    }
+
+    if (where) {
+      whereClauses.push(where);
+    }
+
+    if (whereClauses.length > 0) {
+      query.where(and(...whereClauses));
     }
 
     const foundRepos = await query;

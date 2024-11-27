@@ -9,10 +9,10 @@ import {
   ProjectDetails,
 } from "@repo/db/projects";
 import { truncate } from "@/shared/utils";
-import { Task } from "@/task-runner";
+import { createTask } from "@/task-runner";
 import { ProjectItem } from "./static-api-types";
 
-export const buildStaticApiTask: Task = {
+export const buildStaticApiTask = createTask({
   name: "build-static-api",
   description:
     "Build a static API from the database, to be used by the frontend app.",
@@ -112,7 +112,7 @@ export const buildStaticApiTask: Task = {
       return tags;
     }
   },
-};
+});
 
 function shouldProcessProject(project: ProjectDetails) {
   return !["deprecated", "hidden"].includes(project.status);

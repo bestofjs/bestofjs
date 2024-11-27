@@ -1,5 +1,5 @@
 import { schema } from "@repo/db";
-import { and, desc, eq } from "@repo/db/drizzle";
+import { and, desc, eq, SQL } from "@repo/db/drizzle";
 import { ProjectDetails, ProjectService } from "@repo/db/projects";
 import { TaskLoopOptions, TaskRunnerContext } from "@/task-types";
 import { ItemProcessor } from "./abstract-item-processor";
@@ -18,7 +18,7 @@ export class ProjectProcessor extends ItemProcessor<ProjectDetails> {
     return item.slug;
   }
 
-  async getAllItemsIds() {
+  async getAllItemsIds(where?: SQL) {
     const { db, logger } = this.context;
     const { limit, skip, fullName, slug } = this.loopOptions;
     const { projects, repos } = schema;
@@ -33,14 +33,24 @@ export class ProjectProcessor extends ItemProcessor<ProjectDetails> {
       query.limit(limit);
     }
 
+    const whereClauses = [];
+
     if (slug) {
-      query.where(eq(projects.slug, slug));
+      whereClauses.push(eq(projects.slug, slug));
     }
 
     if (fullName) {
       const [owner, name] = fullName.split("/");
       query.leftJoin(repos, eq(projects.repoId, repos.id));
-      query.where(and(eq(repos.owner, owner), eq(repos.name, name)));
+      whereClauses.push(eq(repos.owner, owner), eq(repos.name, name));
+    }
+
+    if (where) {
+      whereClauses.push(where);
+    }
+
+    if (whereClauses.length > 0) {
+      query.where(and(...whereClauses));
     }
 
     const foundProjects = await query;

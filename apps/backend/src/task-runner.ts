@@ -1,5 +1,4 @@
 import path from "path";
-import { Command } from "cleye";
 import { createConsola } from "consola";
 import fs from "fs-extra";
 import prettyBytes from "pretty-bytes";
@@ -12,22 +11,30 @@ import {
   ProjectProcessor,
   RepoProcessor,
 } from "./iteration-helpers";
-import { MetaResult } from "./iteration-helpers/utils";
-import { TaskContext } from "./task-types";
+import { Task, TaskContext } from "./task-types";
 
-export type Task<FlagsType = undefined> = {
+export function createTask<FlagsType = undefined>({
+  name,
+  description,
+  flags,
+  schema,
+  run,
+}: {
   name: string;
   description?: string;
-  flags?: Command["options"]["flags"];
   schema?: z.ZodType<FlagsType>;
-  run: (
-    ctx: TaskContext,
-    flags: FlagsType extends undefined ? undefined : FlagsType
-  ) => Promise<{
-    data: unknown;
-    meta: MetaResult;
-  }>;
-};
+  flags?: Task["flags"];
+  run: Task<FlagsType>["run"];
+}) {
+  const task: Task<FlagsType> = {
+    name,
+    description,
+    schema,
+    flags, //TODO infer flags from schema
+    run,
+  };
+  return task;
+}
 
 type RawFlags = { [key: string]: unknown };
 

@@ -1,6 +1,6 @@
-import { Task } from "@/task-runner";
+import { createTask } from "@/task-runner";
 
-export const triggerBuildStaticApiTask: Task = {
+export const triggerBuildStaticApiTask = createTask({
   name: "trigger-build-static-api",
   description:
     "Trigger a build for the static API, sending a webhook to Vercel",
@@ -17,4 +17,4 @@ export const triggerBuildStaticApiTask: Task = {
 
     return { data: null, meta: { sent: true } };
   },
-};
+});

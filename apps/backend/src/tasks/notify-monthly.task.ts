@@ -1,7 +1,7 @@
 import { z } from "zod";
 
 import { notifyDiscordProjectList } from "@/shared/discord";
-import { Task } from "@/task-runner";
+import { createTask } from "@/task-runner";
 import { ProjectItem } from "./static-api-types";
 
 interface Project extends ProjectItem {
@@ -16,9 +16,7 @@ type RankingsData = {
 
 const NUMBER_OF_PROJECTS = 5;
 
-const schema = z.object({ year: z.number(), month: z.number() });
-
-export const notifyMonthlyTask: Task<z.infer<typeof schema>> = {
+export const notifyMonthlyTask = createTask({
   name: "notify-monthly",
   description:
     "Send notification on Discord after monthly rankings are published",
@@ -27,7 +25,7 @@ export const notifyMonthlyTask: Task<z.infer<typeof schema>> = {
     year: { type: Number },
     month: { type: Number },
   },
-  schema,
+  schema: z.object({ year: z.number(), month: z.number() }),
 
   run: async (context, flags) => {
     const { dryRun, logger } = context;
@@ -62,7 +60,7 @@ export const notifyMonthlyTask: Task<z.infer<typeof schema>> = {
 
     return { data: null, meta: { sent } };
   },
-};
+});
 
 async function fetchMonthlyRankings(year: number, month: number) {
   const rootURL = process.env.RANKINGS_ROOT_URL;

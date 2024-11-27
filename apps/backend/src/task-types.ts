@@ -1,4 +1,6 @@
+import { Command } from "cleye";
 import { ConsolaInstance } from "consola";
+import { z } from "zod";
 
 import { DB } from "@repo/db";
 import { ParsedFlags } from "./flags";
@@ -7,6 +9,21 @@ import {
   ProjectProcessor,
   RepoProcessor,
 } from "./iteration-helpers";
+import { MetaResult } from "./iteration-helpers/utils";
+
+export type Task<FlagsType = undefined> = {
+  name: string;
+  description?: string;
+  flags?: Command["options"]["flags"];
+  schema?: z.ZodType<FlagsType>;
+  run: (
+    ctx: TaskContext,
+    flags: FlagsType extends undefined ? undefined : FlagsType
+  ) => Promise<{
+    data: unknown;
+    meta: MetaResult;
+  }>;
+};
 
 export interface TaskRunnerContext {
   logger: ConsolaInstance;
