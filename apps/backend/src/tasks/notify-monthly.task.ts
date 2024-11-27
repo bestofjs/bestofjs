@@ -16,8 +16,6 @@ type RankingsData = {
 
 const NUMBER_OF_PROJECTS = 5;
 
-const schema = z.object({ year: z.number(), month: z.number() });
-
 export const notifyMonthlyTask = createTask({
   name: "notify-monthly",
   description:
@@ -27,7 +25,7 @@ export const notifyMonthlyTask = createTask({
     year: { type: Number },
     month: { type: Number },
   },
-  schema,
+  schema: z.object({ year: z.number(), month: z.number() }),
 
   run: async (context, flags) => {
     const { dryRun, logger } = context;

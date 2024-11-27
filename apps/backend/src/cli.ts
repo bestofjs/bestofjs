@@ -3,7 +3,7 @@ import { cli, command } from "cleye";
 import { cliFlags as sharedFlags } from "./flags";
 import { createTaskRunner } from "./task-runner";
 import { Task } from "./task-types";
-import { buildMonthlyRankingsTask } from "./tasks/build-monthly-rankings";
+import { buildMonthlyRankingsTask } from "./tasks/build-monthly-rankings.task";
 import { buildStaticApiTask } from "./tasks/build-static-api.task";
 import {
   helloWorldHallOfFameTask,
@@ -12,11 +12,11 @@ import {
 } from "./tasks/hello-world.task";
 import { notifyDailyTask } from "./tasks/notify-daily.task";
 import { notifyMonthlyTask } from "./tasks/notify-monthly.task";
-import { triggerBuildStaticApiTask } from "./tasks/trigger-build-static-api";
+import { triggerBuildStaticApiTask } from "./tasks/trigger-build-static-api.task";
 import { triggerBuildWebappTask } from "./tasks/trigger-build-webapp.task";
 import { updateBundleSizeTask } from "./tasks/update-bundle-size.task";
 import { updateGitHubDataTask } from "./tasks/update-github-data.task";
-import { updateHallOfFameTask } from "./tasks/update-hall-of-fame";
+import { updateHallOfFameTask } from "./tasks/update-hall-of-fame.task";
 import { updatePackageDataTask } from "./tasks/update-package-data.task";
 
 const commands = [
