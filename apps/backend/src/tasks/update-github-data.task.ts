@@ -2,7 +2,6 @@ import { createGitHubClient } from "@repo/api/github";
 import { schema } from "@repo/db";
 import { eq, not } from "@repo/db/drizzle";
 import { SnapshotsService } from "@repo/db/snapshots";
-import { Repo } from "@/iteration-helpers/repo-processor";
 import { createTask } from "@/task-runner";
 
 export const updateGitHubDataTask = createTask({

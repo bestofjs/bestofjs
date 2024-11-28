@@ -6,7 +6,6 @@ import { notInArray } from "@repo/db/drizzle";
 import {
   flattenSnapshots,
   isProjectIncludedInRankings,
-  ProjectData,
 } from "@repo/db/projects";
 import { getMonthlyDelta } from "@repo/db/snapshots";
 import { truncate } from "@/shared/utils";
