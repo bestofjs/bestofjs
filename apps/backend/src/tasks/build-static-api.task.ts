@@ -7,6 +7,7 @@ import {
   getProjectDescription,
   getProjectTrends,
   getProjectURL,
+  ProjectDetails,
 } from "@repo/db/projects";
 import { truncate } from "@/shared/utils";
 import { createTask } from "@/task-runner";
@@ -18,53 +19,54 @@ export const buildStaticApiTask = createTask({
     "Build a static API from the database, to be used by the frontend app.",
 
   run: async ({ db, logger, processProjects, saveJSON }) => {
-    const results = await processProjects(
-      async (project) => {
-        const repo = project.repo;
+    const aggregatedData = await processProjects(buildProjectItem, {
+      where: notInArray(schema.projects.status, ["deprecated", "hidden"]),
+    });
 
-        if (!repo) throw new Error("No repo found");
-        if (!repo.snapshots?.length)
-          return { data: null, meta: { "no snapshot": true } };
-
-        const trends = getProjectTrends(repo.snapshots);
-        const tags = project.projectsToTags.map((ptt) => ptt.tag.code);
-
-        // optional data
-        const url = getProjectURL(project);
-        const logo = project.logo || undefined;
-        const packageData = getPackageData(project);
-
-        const data: ProjectItem = {
-          name: project.name,
-          slug: project.slug,
-          added_at: formatDate(project.createdAt),
-          description: truncate(getProjectDescription(project), 75),
-          stars: repo.stars || 0,
-          full_name: project.repo.full_name,
-          owner_id: repo.owner_id,
-          status: project.status || "active",
-          tags,
-          trends,
-          contributor_count: repo.contributor_count,
-          pushed_at: formatDate(repo.last_commit),
-          created_at: formatDate(repo.created_at),
-          ...(packageData && { ...packageData }),
-          ...(url && { url }),
-          ...(logo && { logo }),
-        };
-
-        return {
-          meta: { processed: true },
-          data,
-        };
-      },
-      { where: notInArray(schema.projects.status, ["deprecated", "hidden"]) }
-    );
-
-    const data = results.data.filter((item) => !!item);
+    const data = aggregatedData.data.filter((item) => !!item); // remove {data: null} items
     await buildMainList(data);
     await buildFullList(data);
-    return results;
+    return aggregatedData;
+
+    async function buildProjectItem(project: ProjectDetails) {
+      const repo = project.repo;
+
+      if (!repo) throw new Error("No repo found");
+      if (!repo.snapshots?.length)
+        return { data: null, meta: { "no snapshot": true } };
+
+      const trends = getProjectTrends(repo.snapshots);
+      const tags = project.projectsToTags.map((ptt) => ptt.tag.code);
+
+      // optional data
+      const url = getProjectURL(project);
+      const logo = project.logo || undefined;
+      const packageData = getPackageData(project);
+
+      const data: ProjectItem = {
+        name: project.name,
+        slug: project.slug,
+        added_at: formatDate(project.createdAt),
+        description: truncate(getProjectDescription(project), 75),
+        stars: repo.stars || 0,
+        full_name: project.repo.full_name,
+        owner_id: repo.owner_id,
+        status: project.status,
+        tags,
+        trends,
+        contributor_count: repo.contributor_count,
+        pushed_at: formatDate(repo.last_commit),
+        created_at: formatDate(repo.created_at),
+        ...(packageData && { ...packageData }),
+        ...(url && { url }),
+        ...(logo && { logo }),
+      };
+
+      return {
+        meta: { processed: true },
+        data,
+      };
+    }
 
     async function buildMainList(allProjects: ProjectItem[]) {
       const allTags = await fetchTags();
@@ -77,7 +79,6 @@ export const buildStaticApiTask = createTask({
         .filter(
           (project) => isPromotedProject(project) || !isInactiveProject(project)
         );
-      // .map(compactProjectData); // we don't need the `version` in `projects.json`
 
       logger.info(
         `${projects.length} projects to include in the main JSON file`,
