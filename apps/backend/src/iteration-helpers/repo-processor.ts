@@ -7,11 +7,10 @@ import { ItemProcessor } from "./abstract-item-processor";
 export type Repo = Awaited<ReturnType<typeof findRepoById>>;
 
 export class RepoProcessor extends ItemProcessor<Repo> {
-  type: "repo";
+  type = "repo";
 
   constructor(context: TaskRunnerContext, loopOptions: TaskLoopOptions) {
     super(context, loopOptions);
-    this.type = "repo";
   }
 
   toString(item: Repo) {

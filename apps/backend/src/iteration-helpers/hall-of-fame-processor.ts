@@ -10,11 +10,10 @@ export type HallOfFameMember = Awaited<
 >;
 
 export class HallOfFameProcessor extends ItemProcessor<HallOfFameMember> {
-  type: "hall-of-fame";
+  type = "hall-of-fame";
 
   constructor(context: TaskRunnerContext, loopOptions: TaskLoopOptions) {
     super(context, loopOptions);
-    this.type = "hall-of-fame";
   }
 
   toString(item: HallOfFameMember) {

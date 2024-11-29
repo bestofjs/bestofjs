@@ -14,7 +14,7 @@ export abstract class ItemProcessor<T> {
   context: TaskRunnerContext;
   loopOptions: TaskLoopOptions;
 
-  abstract type: string;
+  abstract readonly type: string;
   abstract getAllItemsIds(where?: SQL): Promise<string[]>;
   abstract getItemById(id: string): Promise<T>;
   abstract toString(item: T): string;

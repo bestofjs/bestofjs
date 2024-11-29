@@ -5,12 +5,11 @@ import { TaskLoopOptions, TaskRunnerContext } from "@/task-types";
 import { ItemProcessor } from "./abstract-item-processor";
 
 export class ProjectProcessor extends ItemProcessor<ProjectDetails> {
-  type: "project";
+  type = "project";
   service: ProjectService;
 
   constructor(context: TaskRunnerContext, loopOptions: TaskLoopOptions) {
     super(context, loopOptions);
-    this.type = "project";
     this.service = new ProjectService(context.db);
   }
 
