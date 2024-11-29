@@ -1,4 +1,5 @@
 import { schema } from "@repo/db";
+import { notInArray } from "@repo/db/drizzle";
 import { ProjectDetails } from "@repo/db/projects";
 import { createNpmClient } from "@/apis/npm-api-client";
 import { createTask } from "@/task-runner";
@@ -11,30 +12,28 @@ export const updateBundleSizeTask = createTask({
   name: "update-bundle-size",
   description: "Update bundle size data from bundlejs.com",
   run: async ({ db, logger, processProjects }) => {
-    const results = await processProjects(async (project) => {
-      if (!shouldProcessProject(project)) {
-        logger.debug(`Skipping deprecated project ${project.repo.full_name}`);
-        return { meta: { skipped: true }, data: null };
-      }
+    const results = await processProjects(
+      async (project) => {
+        const resultCounts: Record<Result, number> = {
+          "backend-only": 0,
+          "same-version": 0,
+          updated: 0,
+          error: 0,
+          timeout: 0,
+        };
 
-      const resultCounts: Record<Result, number> = {
-        "backend-only": 0,
-        "same-version": 0,
-        updated: 0,
-        error: 0,
-        timeout: 0,
-      };
+        for (const packageData of project.packages) {
+          const result = await processPackage(project, packageData);
+          resultCounts[result]++;
+        }
 
-      for (const packageData of project.packages) {
-        const result = await processPackage(project, packageData);
-        resultCounts[result]++;
-      }
-
-      return {
-        data: null,
-        meta: resultCounts,
-      };
-    });
+        return {
+          data: null,
+          meta: resultCounts,
+        };
+      },
+      { where: notInArray(schema.projects.status, ["deprecated"]) }
+    );
 
     return results;
 
@@ -88,11 +87,6 @@ function needsUpdate(packageData: ProjectDetails["packages"][number]) {
 function canRunInBrowser(project: ProjectDetails) {
   if (isBackendProject(project)) return false;
   return true;
-}
-
-function shouldProcessProject(project: ProjectDetails) {
-  const isDeprecated = project.status === "deprecated";
-  return !isDeprecated;
 }
 
 function isBackendProject(project: ProjectDetails) {

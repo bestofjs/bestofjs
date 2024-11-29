@@ -1,6 +1,7 @@
 import { orderBy } from "es-toolkit";
 
 import { schema } from "@repo/db";
+import { notInArray } from "@repo/db/drizzle";
 import {
   getPackageData,
   getProjectDescription,
@@ -18,12 +19,19 @@ export const buildStaticApiTask = createTask({
     "Build a static API from the database, to be used by the frontend app.",
 
   run: async ({ db, logger, processProjects, saveJSON }) => {
-    const results = await processProjects(async (project) => {
+    const aggregatedData = await processProjects(buildProjectItem, {
+      where: notInArray(schema.projects.status, ["deprecated", "hidden"]),
+    });
+
+    const data = aggregatedData.data.filter((item) => !!item); // remove {data: null} items
+    await buildMainList(data);
+    await buildFullList(data);
+    return aggregatedData;
+
+    async function buildProjectItem(project: ProjectDetails) {
       const repo = project.repo;
 
       if (!repo) throw new Error("No repo found");
-      if (!shouldProcessProject(project))
-        return { data: null, meta: { skipped: true } };
       if (!repo.snapshots?.length)
         return { data: null, meta: { "no snapshot": true } };
 
@@ -43,7 +51,7 @@ export const buildStaticApiTask = createTask({
         stars: repo.stars || 0,
         full_name: project.repo.full_name,
         owner_id: repo.owner_id,
-        status: project.status || "active",
+        status: project.status,
         tags,
         trends,
         contributor_count: repo.contributor_count,
@@ -58,12 +66,7 @@ export const buildStaticApiTask = createTask({
         meta: { processed: true },
         data,
       };
-    });
-
-    const data = results.data.filter((item) => !!item);
-    await buildMainList(data);
-    await buildFullList(data);
-    return results;
+    }
 
     async function buildMainList(allProjects: ProjectItem[]) {
       const allTags = await fetchTags();
@@ -76,7 +79,6 @@ export const buildStaticApiTask = createTask({
         .filter(
           (project) => isPromotedProject(project) || !isInactiveProject(project)
         );
-      // .map(compactProjectData); // we don't need the `version` in `projects.json`
 
       logger.info(
         `${projects.length} projects to include in the main JSON file`,
@@ -113,10 +115,6 @@ export const buildStaticApiTask = createTask({
     }
   },
 });
-
-function shouldProcessProject(project: ProjectDetails) {
-  return !["deprecated", "hidden"].includes(project.status);
-}
 
 function isColdProject(project: ProjectItem) {
   const delta = project.trends.yearly;

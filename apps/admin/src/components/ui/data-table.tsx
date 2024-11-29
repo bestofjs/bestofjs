@@ -1,6 +1,5 @@
 "use client";
 
-import { log } from "console";
 import { useState } from "react";
 import {
   ColumnDef,

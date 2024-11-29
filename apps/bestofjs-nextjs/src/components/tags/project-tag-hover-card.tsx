@@ -83,7 +83,7 @@ const TagProjectList = ({ projects }: { projects: BestOfJS.Project[] }) => (
       <Link
         key={project.slug}
         href={`/projects/${project.slug}`}
-        className="flex h-5 items-center gap-2 text-sm text-muted-foreground hover:text-primary-foreground"
+        className="flex h-5 items-center gap-2 text-sm text-muted-foreground hover:text-foreground"
       >
         <ProjectLogo project={project} size={20} />
         <span>{project.name}</span>
