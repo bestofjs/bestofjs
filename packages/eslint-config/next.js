@@ -9,6 +9,10 @@ import tsEsLint from "typescript-eslint";
 
 import { config as baseConfig } from "./base.js";
 
+// console.log(pluginTailwind.configs["flat/recommended"][0].plugins);
+
+// console.log(pluginTailwind.rules);
+
 const twRules = pluginTailwind.configs["flat/recommended"].find((config) =>
   Boolean(config.rules)
 ).rules;
@@ -60,6 +64,11 @@ export const nextJsConfig = [
     rules: {
       ...twRules,
       "tailwindcss/no-custom-classname": "off",
+    },
+    settings: {
+      tailwindcss: {
+        callees: ["cn", "cva", "klass"],
+      },
     },
   },
 ];
