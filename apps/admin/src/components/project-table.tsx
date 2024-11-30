@@ -82,7 +82,7 @@ export function ProjectTable({ projects }: Props) {
                   ))}
                 </div>
               ) : (
-                <span className="text-muted-foreground italic">No package</span>
+                <span className="italic text-muted-foreground">No package</span>
               )}
             </TableCell>
             <TableCell className="text-right">

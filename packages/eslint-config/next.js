@@ -3,10 +3,15 @@ import pluginNext from "@next/eslint-plugin-next";
 import eslintConfigPrettier from "eslint-config-prettier";
 import pluginReact from "eslint-plugin-react";
 import pluginReactHooks from "eslint-plugin-react-hooks";
+import pluginTailwind from "eslint-plugin-tailwindcss";
 import globals from "globals";
-import tseslint from "typescript-eslint";
+import tsEsLint from "typescript-eslint";
 
 import { config as baseConfig } from "./base.js";
+
+const twRules = pluginTailwind.configs["flat/recommended"].find((config) =>
+  Boolean(config.rules)
+).rules;
 
 /**
  * A custom ESLint configuration for libraries that use Next.js.
@@ -17,7 +22,7 @@ export const nextJsConfig = [
   ...baseConfig,
   js.configs.recommended,
   eslintConfigPrettier,
-  ...tseslint.configs.recommended,
+  ...tsEsLint.configs.recommended,
   {
     ...pluginReact.configs.flat.recommended,
     languageOptions: {
@@ -46,6 +51,15 @@ export const nextJsConfig = [
       // React scope no longer necessary with new JSX transform.
       "react/react-in-jsx-scope": "off",
       "react/prop-types": "off", // TODO understand why it's needed to avoid: `'className' is missing in props validation` errors, in UI components
+    },
+  },
+  {
+    plugins: {
+      tailwindcss: pluginTailwind,
+    },
+    rules: {
+      ...twRules,
+      "tailwindcss/no-custom-classname": "off",
     },
   },
 ];

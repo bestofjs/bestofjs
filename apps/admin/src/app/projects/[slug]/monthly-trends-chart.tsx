@@ -30,7 +30,7 @@ export const MonthlyTrendsChart = ({
   ...rest
 }: Props) => {
   if (results.length === 0)
-    return <div className="text-italic pt-2">No data available</div>;
+    return <div className="pt-2 italic">No data available</div>;
 
   const lastNMonths = getLastNMonths(numberOfMonths);
 
@@ -99,7 +99,7 @@ const ViewDetailsOnSmallScreens = ({
   selectedItem: BarGraphItem | undefined;
 } & FormattingOptions) => {
   return (
-    <Alert className="text-muted-foreground mb-2 flex bg-transparent text-sm md:hidden">
+    <Alert className="mb-2 flex bg-transparent text-sm text-muted-foreground md:hidden">
       <InfoIcon className="h-4 w-4" />
       <AlertDescription>
         {selectedItem ? (
@@ -156,7 +156,7 @@ const GraphBar = ({
     <>
       <BarTopLabel>{formattedValue}</BarTopLabel>
       <div
-        className="mt-1 bg-gradient-to-b from-[var(--graphBackgroundColor1)] to-[var(--graphBackgroundColor2)] max-w-[2rem] w-[75%]"
+        className="mt-1 w-3/4 max-w-[2rem] bg-gradient-to-b from-[var(--graphBackgroundColor1)] to-[var(--graphBackgroundColor2)]"
         style={{ height }}
         aria-label={tooltipLabel}
         onClick={onClick}
@@ -171,7 +171,7 @@ const EmptyGraphBar = ({ value }: { value: number | undefined }) => {
       <BarTopLabel className="text-muted-foreground">
         {value === undefined ? "N/A" : 0}
       </BarTopLabel>
-      <div className="border-b-1 mt-1 h-px w-[75%] max-w-[2rem] border-dashed border-[var(--graphBackgroundColor1)]" />
+      <div className="border-b-1 mt-1 h-px w-3/4 max-w-[2rem] border-dashed border-[var(--graphBackgroundColor1)]" />
     </>
   );
 };

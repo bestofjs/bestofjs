@@ -155,7 +155,7 @@ const GraphBar = ({
     <>
       <BarTopLabel>{formattedValue}</BarTopLabel>
       <div
-        className="mt-1 w-[75%] max-w-[2rem] bg-gradient-to-b from-[var(--graphBackgroundColor1)] to-[var(--graphBackgroundColor2)]"
+        className="mt-1 w-3/4 max-w-[2rem] bg-gradient-to-b from-[var(--graphBackgroundColor1)] to-[var(--graphBackgroundColor2)]"
         style={{ height }}
         aria-label={tooltipLabel}
         onClick={onClick}
@@ -170,7 +170,7 @@ const EmptyGraphBar = ({ value }: { value: number | undefined }) => {
       <BarTopLabel className="text-muted-foreground">
         {value === undefined ? "N/A" : 0}
       </BarTopLabel>
-      <div className="border-b-1 mt-1 h-[1px] w-[75%] max-w-[2rem] border-dashed border-[var(--graphBackgroundColor1)]" />
+      <div className="mt-1 h-px w-3/4 max-w-[2rem] border-b border-dashed border-[var(--graphBackgroundColor1)]" />
     </>
   );
 };
@@ -183,7 +183,7 @@ const BarTopLabel = (props: React.HTMLProps<HTMLDivElement>) => {
 
 const MonthLabelGroup = ({ items }: { items: BarGraphItem[] }) => {
   return (
-    <div className="mt-1 grid grid-cols-12 divide-x divide-solid border-x-[1px] border-[var(--graphBackgroundColor1)]">
+    <div className="mt-1 grid grid-cols-12 divide-x divide-solid border-x border-[var(--graphBackgroundColor1)]">
       {items.map(({ year, month }) => {
         const monthName = monthNames[month - 1];
         const shortMonthName = month; // Show the month number (from 1 to 12) on small screens
@@ -206,7 +206,7 @@ const YearLabelGroup = ({ items }: { items: BarGraphItem[] }) => {
   const yearDataItems = getYearData(items);
 
   return (
-    <div className="grid grid-cols-12 divide-x divide-solid border-x-[1px] border-[var(--graphBackgroundColor1)]">
+    <div className="grid grid-cols-12 divide-x divide-solid border-x border-[var(--graphBackgroundColor1)]">
       {yearDataItems.map((item) => {
         const colSpan = item.months.length;
         return (
