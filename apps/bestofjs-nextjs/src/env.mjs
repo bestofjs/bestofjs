@@ -1,3 +1,4 @@
+/* global process */
 import { createEnv } from "@t3-oss/env-nextjs";
 import { z } from "zod";
 
@@ -30,7 +31,5 @@ export const env = createEnv({
   },
   // For Next.js >= 13.4.4, you need to destructure client variables
   // See https://env.t3.gg/docs/nextjs
-  experimental__runtimeEnv: {
-    NEXT_PUBLIC_DEBUG_SEARCH: process.env.NEXT_PUBLIC_DEBUG_SEARCH,
-  },
+  experimental__runtimeEnv: process.env,
 });

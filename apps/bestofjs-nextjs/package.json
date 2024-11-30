@@ -2,6 +2,7 @@
   "name": "bestofjs-nextjs",
   "version": "0.0.1",
   "private": true,
+  "type": "module",
   "engines": {
     "node": "20.x"
   },
@@ -37,7 +38,7 @@
     "@radix-ui/react-tooltip": "^1.1.2",
     "@repo/api": "workspace:*",
     "@repo/db": "workspace:*",
-    "@t3-oss/env-nextjs": "^0.7.1",
+    "@t3-oss/env-nextjs": "^0.11.1",
     "@types/debug": "^4.1.8",
     "@types/fs-extra": "^11.0.1",
     "@types/lodash": "^4.14.195",
@@ -68,36 +69,27 @@
     "sharp": "^0.32.6",
     "swr": "^2.2.0",
     "tailwind-merge": "^1.12.0",
-    "tailwindcss": "^3.3.2",
+    "tailwindcss": "^3.4.0",
     "tailwindcss-animate": "^1.0.5",
     "tiny-invariant": "^1.3.3",
     "typescript": "^5.6.3",
     "unstated-next": "^1.1.0",
     "use-debounce": "^3.0.0",
     "vague-time": "^2.4.2",
-    "vite-tsconfig-paths": "^3.4.1",
-    "vitest": "^0.34.3",
+    "vite-tsconfig-paths": "^5.1.3",
+    "vitest": "^2.1.6",
     "zod": "^3.23.8"
   },
   "devDependencies": {
     "@playwright/test": "^1.47.2",
-    "@typescript-eslint/parser": "^6.9.1",
-    "eslint": "^8.41.0",
-    "eslint-config-next": "15.0.3",
-    "eslint-config-prettier": "^8.8.0",
-    "eslint-plugin-react": "^7.32.2",
-    "eslint-plugin-tailwindcss": "^3.12.0"
+    "@repo/eslint-config": "workspace:*",
+    "@typescript-eslint/parser": "^8.16.0",
+    "eslint": "^9.16.0"
   },
   "nextBundleAnalysis": {
     "budget": null,
     "budgetPercentIncreaseRed": 20,
     "minimumChangeThreshold": 0,
     "showDetails": true
-  },
-  "pnpm": {
-    "overrides": {
-      "@types/react": "npm:types-react@19.0.0-rc.1",
-      "@types/react-dom": "npm:types-react-dom@19.0.0-rc.1"
-    }
   }
 }

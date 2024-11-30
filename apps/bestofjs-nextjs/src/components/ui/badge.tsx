@@ -7,15 +7,15 @@ type BadgeVariants = VariantsOf<typeof badgeVariants>;
 
 const badgeVariants = klass({
   base: [
-    "inline-flex items-center border rounded-full px-2.5 py-0.5 text-xs font-semibold transition-colors",
+    "inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold transition-colors",
     "focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2",
   ],
   variants: {
     variant: {
       default:
-        "bg-primary hover:bg-primary-hover border-transparent text-primary-foreground",
+        "border-transparent bg-primary text-primary-foreground hover:bg-primary-hover",
       secondary:
-        "bg-secondary hover:bg-secondary-hover border-transparent text-secondary-foreground",
+        "border-transparent bg-secondary text-secondary-foreground hover:bg-secondary-hover",
       outline: "text-foreground",
     },
   },
