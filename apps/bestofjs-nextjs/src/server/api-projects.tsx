@@ -38,7 +38,7 @@ export function createProjectsAPI({ getData }: APIContext) {
     const paginatedProjects = foundProjects.slice(skip, skip + limit);
 
     const selectedTagIds: string[] =
-      (criteria.tags && "$all" in criteria?.tags && criteria?.tags?.$all) || [];
+      (criteria.tags && "$all" in criteria.tags && criteria?.tags?.$all) || [];
 
     const relevantTagIds = getResultRelevantTags(foundProjects, selectedTagIds)
       .slice(0, 20)
@@ -66,7 +66,7 @@ export function createProjectsAPI({ getData }: APIContext) {
       const projects = rawProjects.map(populate);
 
       const selectedTagIds: string[] =
-        (criteria.tags && "$all" in criteria?.tags && criteria?.tags?.$all) ||
+        (criteria.tags && "$all" in criteria.tags && criteria?.tags?.$all) ||
         [];
       const selectedTags = selectedTagIds
         .map((tag) => tagsByKey[tag])

@@ -41,7 +41,7 @@ export function ViewProject({ project }: Props) {
           <p>URL</p>
           <div>
             {project.url ? (
-              <a href={project.url} target="_blank">
+              <a href={project.url} target="_blank" rel="noreferrer">
                 {project.url}
               </a>
             ) : (

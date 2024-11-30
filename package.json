@@ -16,5 +16,10 @@
     "prettier": "^3.3.3",
     "tsx": "^4.16.2",
     "typescript": "^5.5.4"
+  },
+  "pnpm": {
+    "overrides": {
+      "@typescript-eslint/typescript-estree": "8.16.0"
+    }
   }
 }
