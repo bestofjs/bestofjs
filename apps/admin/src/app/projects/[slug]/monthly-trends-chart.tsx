@@ -100,7 +100,7 @@ const ViewDetailsOnSmallScreens = ({
 } & FormattingOptions) => {
   return (
     <Alert className="mb-2 flex bg-transparent text-sm text-muted-foreground md:hidden">
-      <InfoIcon className="h-4 w-4" />
+      <InfoIcon className="size-4" />
       <AlertDescription>
         {selectedItem ? (
           <MonthSummary item={selectedItem} {...rest} />
@@ -156,7 +156,7 @@ const GraphBar = ({
     <>
       <BarTopLabel>{formattedValue}</BarTopLabel>
       <div
-        className="mt-1 w-3/4 max-w-[2rem] bg-gradient-to-b from-[var(--graphBackgroundColor1)] to-[var(--graphBackgroundColor2)]"
+        className="mt-1 w-3/4 max-w-8 bg-gradient-to-b from-[var(--graphBackgroundColor1)] to-[var(--graphBackgroundColor2)]"
         style={{ height }}
         aria-label={tooltipLabel}
         onClick={onClick}
@@ -171,7 +171,7 @@ const EmptyGraphBar = ({ value }: { value: number | undefined }) => {
       <BarTopLabel className="text-muted-foreground">
         {value === undefined ? "N/A" : 0}
       </BarTopLabel>
-      <div className="border-b-1 mt-1 h-px w-3/4 max-w-[2rem] border-dashed border-[var(--graphBackgroundColor1)]" />
+      <div className="border-b-1 mt-1 h-px w-3/4 max-w-8 border-dashed border-[var(--graphBackgroundColor1)]" />
     </>
   );
 };
