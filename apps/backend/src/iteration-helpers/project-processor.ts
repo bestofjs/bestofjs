@@ -26,7 +26,8 @@ export class ProjectProcessor extends ItemProcessor<ProjectDetails> {
       .select({ id: projects.id })
       .from(projects)
       .orderBy(desc(projects.createdAt))
-      .offset(skip);
+      .offset(skip)
+      .leftJoin(repos, eq(projects.repoId, repos.id));
 
     if (limit) {
       query.limit(limit);
@@ -40,7 +41,6 @@ export class ProjectProcessor extends ItemProcessor<ProjectDetails> {
 
     if (fullName) {
       const [owner, name] = fullName.split("/");
-      query.leftJoin(repos, eq(projects.repoId, repos.id));
       whereClauses.push(eq(repos.owner, owner), eq(repos.name, name));
     }
 
