@@ -24,15 +24,15 @@ export function getLastSnapshotOfTheMonth(
 export function getMonthlyDelta(snapshots: Snapshot[], date: YearMonth) {
   const firstSnapshot = getFirstSnapshotOfTheMonth(snapshots, date);
 
-  const lastSnapshot = getFirstSnapshotOfTheMonth(
-    snapshots,
-    getNextMonth(date)
-  );
+  const lastSnapshot =
+    getFirstSnapshotOfTheMonth(snapshots, getNextMonth(date)) ||
+    getLastSnapshotOfTheMonth(snapshots, date); // fallback useful at the end of the year, when working on the 1st draft
   const delta =
     !lastSnapshot || !firstSnapshot
       ? undefined
       : lastSnapshot.stars - firstSnapshot.stars;
   const stars = lastSnapshot?.stars || undefined;
+
   return { delta, stars };
 }
 
