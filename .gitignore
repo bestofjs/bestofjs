@@ -9,3 +9,6 @@ db-data
 
 # Output of typecheck command
 tsconfig.tsbuildinfo
+
+# node-fetch-cache requests cache
+.cache

@@ -28,6 +28,8 @@
     "dotenv-cli": "^7.4.2",
     "es-toolkit": "1.26.1",
     "fs-extra": "^11.2.0",
+    "node-fetch-cache": "^5.0.2",
+    "octokit": "^4.0.2",
     "p-map": "^7.0.2",
     "p-throttle": "^6.2.0",
     "p-timeout": "^6.1.3",

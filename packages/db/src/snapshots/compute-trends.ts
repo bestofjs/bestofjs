@@ -1,6 +1,6 @@
 import invariant from "tiny-invariant";
 
-import { Snapshot } from "./utils";
+import { Snapshot } from "./types";
 
 /**
  * Return the variations of stars for different periods: one day, one week , one month...
