@@ -1,17 +1,8 @@
 import { DateTime } from "luxon";
 
-export type SnapshotMonth = {
-  year: number;
-  month: number;
-};
-export type SnapshotDay = SnapshotMonth & {
-  day: number;
-};
-export type Snapshot = SnapshotDay & {
-  stars: number;
-};
+import { YearMonthDay } from "./types";
 
-export function normalizeDate(date: Date): SnapshotDay {
+export function normalizeDate(date: Date): YearMonthDay {
   const dt = DateTime.fromJSDate(date).setZone("Asia/Tokyo");
   const year = dt.year;
   const month = dt.month;

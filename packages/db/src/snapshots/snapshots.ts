@@ -1,9 +1,15 @@
 import debugPackage from "debug";
 import { and, eq } from "drizzle-orm";
+import { groupBy, orderBy, pick } from "es-toolkit";
 
 import { DB } from "..";
-import { MonthSnapshots, OneYearSnapshots } from "../projects";
+import {
+  flattenSnapshots,
+  MonthSnapshots,
+  OneYearSnapshots,
+} from "../projects";
 import * as schema from "../schema";
+import { Snapshot } from "./types";
 import { normalizeDate } from "./utils";
 
 const debug = debugPackage("snapshots");
@@ -93,6 +99,18 @@ export class SnapshotsService {
       });
     }
   }
+
+  async addMissingSnapshotsForYear(
+    repoId: string,
+    year: number,
+    snapshots: Snapshot[]
+  ) {
+    const existingRecord = await this.getSnapshotRecord(repoId, year);
+    if (!existingRecord)
+      throw new Error(`No snapshot record found for ${repoId} in ${year}`);
+    const updatedMonths = mergeSnapshots(existingRecord, snapshots);
+    await this.updateSnapshotRecord(repoId, year, updatedMonths);
+  }
 }
 
 const findByMonth =
@@ -104,3 +122,55 @@ const findByDay =
   <T extends { day: number }>(day: number) =>
   (item: T) =>
     item.day === day;
+
+export function mergeSnapshots(
+  existingSnapshots: OneYearSnapshots,
+  newSnapshots: Snapshot[]
+) {
+  const existingSnapshotsMap = buildKeyValueMap(
+    flattenSnapshots([existingSnapshots])
+  );
+  const newSnapshotsMap = buildKeyValueMap(newSnapshots);
+
+  const mergedMap = { ...existingSnapshotsMap, ...newSnapshotsMap };
+
+  const months = unflattenKeyValueMap(mergedMap);
+  return months;
+}
+
+type YearMonthDayKey = string;
+
+function buildKeyValueMap(snapshots: Snapshot[]) {
+  return snapshots.reduce(
+    (acc, item) => {
+      const key: YearMonthDayKey = `${item.year}-${item.month}-${item.day}`;
+      acc[key] = item.stars;
+      return acc;
+    },
+    {} as Record<YearMonthDayKey, number>
+  );
+}
+
+function unflattenKeyValueMap(map: Record<YearMonthDayKey, number>) {
+  const snapshots: Snapshot[] = orderSnapshots(
+    Object.entries(map).map(([key, stars]) => {
+      const [year, month, day] = key.split("-").map(Number);
+      return { year, month, day, stars };
+    })
+  );
+  const byMonth = groupBy(snapshots, (snapshot) => snapshot.month);
+
+  const months = Object.entries(byMonth).map(([month, snapshots]) => ({
+    month: Number(month),
+    snapshots: snapshots.map((snapshot) => pick(snapshot, ["day", "stars"])),
+  }));
+  return months;
+}
+
+function orderSnapshots(snapshots: Snapshot[]) {
+  return orderBy(
+    snapshots,
+    [(snapshot) => snapshot.month, (snapshot) => snapshot.month],
+    ["asc", "asc"]
+  );
+}
