@@ -58,6 +58,7 @@ export class SnapshotsService {
     debug("Snapshot created", result);
   }
 
+  /** Add a snapshot for the current day, called every day for all active projects by the CRON job */
   async addSnapshot(
     repoId: string,
     stars: number,
@@ -100,6 +101,7 @@ export class SnapshotsService {
     }
   }
 
+  /** Add a bunch of snapshot data we got from GitHub API, useful for popular projects created during the year  */
   async addMissingSnapshotsForYear(
     repoId: string,
     year: number,
@@ -170,7 +172,7 @@ function unflattenKeyValueMap(map: Record<YearMonthDayKey, number>) {
 function orderSnapshots(snapshots: Snapshot[]) {
   return orderBy(
     snapshots,
-    [(snapshot) => snapshot.month, (snapshot) => snapshot.month],
+    [(snapshot) => snapshot.month, (snapshot) => snapshot.day],
     ["asc", "asc"]
   );
 }

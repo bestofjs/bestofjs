@@ -2,6 +2,7 @@ import path from "node:path";
 import fs from "fs-extra";
 import { z } from "zod";
 
+// TODO share the scheme with javascript-risingstars app
 const schema = z.object({
   key: z.string(),
   limit: z.number().optional(),

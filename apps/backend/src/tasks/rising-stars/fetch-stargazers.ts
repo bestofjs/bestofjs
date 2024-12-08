@@ -61,7 +61,6 @@ export async function fetchAllStargazers(
 
 export function getFirstSnapshotsOfTheMonth(events: Event[], year: number) {
   if (!events.length) throw new Error("No events found");
-  console.log(events);
 
   const lastMonth = events.at(-1)!.month;
   const allSnapshots = eventsToSnapshots(events);

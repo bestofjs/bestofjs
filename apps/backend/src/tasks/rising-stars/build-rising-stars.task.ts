@@ -142,12 +142,6 @@ function getYearlyDelta(
     : getInitialSnapshot(snapshots, year)?.stars || 0;
 
   const delta = finalValue - initialValue;
-
-  // console.log({
-  //   finalSnapshot,
-  //   intialSnapshot: getInitialSnapshot(snapshots, year),
-  // });
-
   return delta;
 }
 
