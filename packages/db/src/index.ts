@@ -1,7 +1,10 @@
+import createDebug from "debug";
 import { drizzle } from "drizzle-orm/vercel-postgres";
 
 import { sql } from "./db";
 import * as schema from "./schema";
+
+const debug = createDebug("db");
 
 export * as schema from "./schema";
 
@@ -25,10 +28,12 @@ class VercelPostgresService {
   db: DB;
 
   constructor() {
-    console.log("Vercel DB connected");
     this.db = db;
+    sql.on("connect", () => {
+      debug("Vercel DB connected");
+    });
     sql.on("remove", () => {
-      console.log("Vercel DB disconnected");
+      debug("Vercel DB disconnected");
     });
   }
 
