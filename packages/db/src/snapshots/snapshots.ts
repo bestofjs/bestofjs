@@ -1,6 +1,6 @@
 import debugPackage from "debug";
 import { and, eq } from "drizzle-orm";
-import { groupBy, orderBy, pick } from "es-toolkit";
+import { groupBy, isEqual, orderBy, pick } from "es-toolkit";
 
 import { DB } from "..";
 import {
@@ -111,7 +111,14 @@ export class SnapshotsService {
     if (!existingRecord)
       throw new Error(`No snapshot record found for ${repoId} in ${year}`);
     const updatedMonths = mergeSnapshots(existingRecord, snapshots);
-    await this.updateSnapshotRecord(repoId, year, updatedMonths);
+
+    if (isEqual(existingRecord.months, updatedMonths)) {
+      // Nothing to add, the project is already up to date";
+      return false;
+    } else {
+      await this.updateSnapshotRecord(repoId, year, updatedMonths);
+      return true;
+    }
   }
 }
 

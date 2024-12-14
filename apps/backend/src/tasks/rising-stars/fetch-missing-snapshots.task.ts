@@ -40,16 +40,16 @@ export const fetchMissingSnapshotsTask = createTask({
 
     logger.debug(`${year} snapshots`, snapshots);
 
-    if (dryRun) {
-      logger.warn("Dry run, no DB write!");
-    } else {
-      await snapshotService.addMissingSnapshotsForYear(
-        project.repo.id,
-        year,
-        snapshots
-      );
-    }
+    if (dryRun) logger.warn("Dry run, no DB write!");
 
-    return { data: snapshots.length, meta: { saved: !dryRun } };
+    const saved = dryRun
+      ? false
+      : await snapshotService.addMissingSnapshotsForYear(
+          project.repo.id,
+          year,
+          snapshots
+        );
+
+    return { data: snapshots.length, meta: { saved } };
   },
 });
