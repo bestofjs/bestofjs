@@ -36,7 +36,7 @@
     "debug": "^4.3.7",
     "lodash": "^4.17.21",
     "lucide-react": "0.428.0",
-    "nanoid": "^5.0.7",
+    "nanoid": "^5.0.9",
     "next": "15.0.3",
     "next-themes": "^0.2.1",
     "pretty-bytes": "^6.1.1",
