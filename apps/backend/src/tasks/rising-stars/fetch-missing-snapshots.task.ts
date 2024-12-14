@@ -1,7 +1,7 @@
 import { z } from "zod";
 
 import { ProjectService } from "@repo/db/projects";
-import { SnapshotsService } from "@repo/db/snapshots";
+import { SnapshotsService, toDate } from "@repo/db/snapshots";
 import { createTask } from "@/task-runner";
 import {
   fetchAllStargazers,
@@ -33,11 +33,16 @@ export const fetchMissingSnapshotsTask = createTask({
 
     logger.debug("Stargazer events found", events.length);
 
-    const snapshots = await getFirstSnapshotsOfTheMonth(events, year);
+    const oneYearSnapshots = await getFirstSnapshotsOfTheMonth(events, year);
+    const snapshots = oneYearSnapshots.filter(
+      (snapshot) => toDate(snapshot) > project.repo.created_at
+    );
 
     logger.debug(`${year} snapshots`, snapshots);
 
-    if (!dryRun) {
+    if (dryRun) {
+      logger.warn("Dry run, no DB write!");
+    } else {
       await snapshotService.addMissingSnapshotsForYear(
         project.repo.id,
         year,
@@ -45,6 +50,6 @@ export const fetchMissingSnapshotsTask = createTask({
       );
     }
 
-    return { data: snapshots.length, meta: { processed: true } };
+    return { data: snapshots.length, meta: { saved: !dryRun } };
   },
 });

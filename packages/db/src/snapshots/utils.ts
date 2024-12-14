@@ -9,3 +9,10 @@ export function normalizeDate(date: Date): YearMonthDay {
   const day = dt.day;
   return { year, month, day };
 }
+
+export function toDate({ year, month, day }: YearMonthDay): Date {
+  return DateTime.fromObject(
+    { year, month, day },
+    { zone: "Asia/Tokyo" }
+  ).toJSDate();
+}

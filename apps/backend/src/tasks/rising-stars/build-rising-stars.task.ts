@@ -100,6 +100,11 @@ export const buildRisingStarsTask = createTask({
     context.logger.info(
       `${projects.length} projects included in Rising Stars, ${tags.length} tags`
     );
+    context.logger.info(
+      projects
+        .slice(0, 10)
+        .map((project) => `${project.name}: +${project.delta}`)
+    );
 
     await context.saveJSON(
       {
