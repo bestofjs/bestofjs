@@ -62,12 +62,8 @@ export async function fetchAllStargazers(
 export function getFirstSnapshotsOfTheMonth(events: Event[], year: number) {
   if (!events.length) throw new Error("No events found");
 
-  const lastMonth = events.at(-1)!.month;
   const allSnapshots = eventsToSnapshots(events);
-
-  const months = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12].filter(
-    (month) => month <= lastMonth
-  );
+  const months = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
   const firstSnapshotsOfTheMonth = months.map((month) => {
     const snapshot = findClosestSnapshotBeforeDate(allSnapshots, {
       year,
