@@ -13,21 +13,7 @@ import {
 import { getMonthlyDelta, Snapshot } from "@repo/db/snapshots";
 import { createTask } from "@/task-runner";
 import { Category, fetchCategories } from "./categories";
-
-type Project = {
-  name: string;
-  slug: string;
-  full_name: string;
-  description: string;
-  stars: number | null;
-  delta: number;
-  monthly: (number | undefined)[];
-  tags: string[];
-  owner_id: number;
-  icon?: string;
-  created_at: Date;
-  url?: string;
-};
+import { Project } from "./projects";
 
 export const buildRisingStarsTask = createTask({
   name: "build-rising-stars",
