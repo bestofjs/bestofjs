@@ -22,7 +22,7 @@ export async function createProject(gitHubURL: string) {
         id: nanoid(),
         repoId,
         name: repoData.name,
-        slug: slugify(repoData.name),
+        slug: generateProjectDefaultSlug(repoData.name),
         description: repoData.description || "(No description)",
         url: repoData.homepage,
         status: "active",
@@ -33,6 +33,10 @@ export async function createProject(gitHubURL: string) {
   console.log("Project created", createdProjects);
 
   return createdProjects[0];
+}
+
+export function generateProjectDefaultSlug(name: string) {
+  return slugify(name).toLowerCase().replaceAll(".", "").replaceAll("'", "");
 }
 
 async function fetchGitHubRepoData(fullName: string) {

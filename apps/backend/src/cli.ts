@@ -13,6 +13,7 @@ import {
 import { notifyDailyTask } from "./tasks/notify-daily.task";
 import { notifyMonthlyTask } from "./tasks/notify-monthly.task";
 import { buildRisingStarsTask } from "./tasks/rising-stars/build-rising-stars.task";
+import { cleanupRisingStars } from "./tasks/rising-stars/cleanup-rising-stars.task";
 import { fetchMissingSnapshotsTask } from "./tasks/rising-stars/fetch-missing-snapshots.task";
 import { triggerBuildStaticApiTask } from "./tasks/trigger-build-static-api.task";
 import { triggerBuildWebappTask } from "./tasks/trigger-build-webapp.task";
@@ -36,6 +37,7 @@ const commands = [
   updateBundleSizeTask,
   buildMonthlyRankingsTask,
   buildRisingStarsTask,
+  cleanupRisingStars,
   fetchMissingSnapshotsTask,
 ].map(getCommand);
 
