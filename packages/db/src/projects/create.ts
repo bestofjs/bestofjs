@@ -6,12 +6,14 @@ import { z } from "zod";
 
 import { db } from "..";
 import * as schema from "../schema";
+import { generateProjectDefaultSlug } from "./project-helpers";
 
 export async function createProject(gitHubURL: string) {
   const fullName = gitHubURL.split("/").slice(-2).join("/");
   const repoData = await fetchGitHubRepoData(fullName);
 
   const repoId = nanoid();
+  const slug = generateProjectDefaultSlug(repoData.name);
 
   const createdProjects = await db.transaction(async (tx) => {
     await tx.insert(schema.repos).values({ id: repoId, ...repoData });
@@ -22,7 +24,7 @@ export async function createProject(gitHubURL: string) {
         id: nanoid(),
         repoId,
         name: repoData.name,
-        slug: slugify(repoData.name),
+        slug,
         description: repoData.description || "(No description)",
         url: repoData.homepage,
         status: "active",

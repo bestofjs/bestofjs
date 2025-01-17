@@ -1,6 +1,7 @@
 import path from "path";
 import { createConsola } from "consola";
 import fs from "fs-extra";
+import * as prettier from "prettier";
 import prettyBytes from "pretty-bytes";
 import { z } from "zod";
 
@@ -84,12 +85,15 @@ export function createTaskRunner(tasks: Task<RawFlags | undefined>[]) {
           // when running the script either from the monorepo root (local dev)
           // or from the `backend` app root (when running on Vercel)
           async saveJSON(json: unknown, fileName: string) {
+            const formattedJson = await prettier.format(JSON.stringify(json), {
+              parser: "json",
+            });
             logger.info(`Saving ${fileName}`, {
-              size: prettyBytes(JSON.stringify(json).length),
+              size: prettyBytes(formattedJson.length),
             });
             const appRoot = getAppRootPath();
             const filePath = path.join(appRoot, "build", fileName);
-            await fs.outputJson(filePath, json);
+            await fs.outputFile(filePath, formattedJson);
             logger.info("JSON file saved!", filePath);
           },
 

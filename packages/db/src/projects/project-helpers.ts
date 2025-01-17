@@ -1,4 +1,5 @@
 import isAbsoluteURL from "is-absolute-url";
+import slugify from "slugify";
 import invariant from "tiny-invariant";
 
 import { OneYearSnapshots, ProjectDetails } from ".";
@@ -88,4 +89,8 @@ export function isProjectIncludedInRankings(
     project.tags.map((tag) => tag.code).includes(tagCode)
   );
   return !hasExcludedTag;
+}
+
+export function generateProjectDefaultSlug(name: string) {
+  return slugify(name).toLowerCase().replaceAll(".", "").replaceAll("'", "");
 }

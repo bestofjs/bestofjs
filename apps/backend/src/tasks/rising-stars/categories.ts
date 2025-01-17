@@ -9,6 +9,7 @@ const schema = z.object({
   count: z.number().optional(),
   tags: z.array(z.string()).optional(),
   excluded: z.array(z.string()).optional(),
+  excludedTags: z.array(z.string()).optional(),
   availableComments: z.array(z.string()).optional(),
   guest: z.string().optional(),
   disabled: z.boolean().optional(),

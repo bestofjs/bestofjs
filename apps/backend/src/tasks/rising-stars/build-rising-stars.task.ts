@@ -3,29 +3,17 @@ import { z } from "zod";
 
 import { schema } from "@repo/db";
 import { TAGS_EXCLUDED_FROM_RANKINGS } from "@repo/db/constants";
-import { and, eq, inArray, notInArray } from "@repo/db/drizzle";
+import { eq, inArray } from "@repo/db/drizzle";
 import {
   flattenSnapshots,
   getProjectDescription,
+  getProjectURL,
   ProjectDetails,
 } from "@repo/db/projects";
 import { getMonthlyDelta, Snapshot } from "@repo/db/snapshots";
 import { createTask } from "@/task-runner";
 import { Category, fetchCategories } from "./categories";
-
-type Project = {
-  name: string;
-  slug: string;
-  full_name: string;
-  description: string;
-  stars: number | null;
-  delta: number;
-  monthly: (number | undefined)[];
-  tags: string[];
-  owner_id: number;
-  icon?: string;
-  created_at: Date;
-};
+import { Project } from "./projects";
 
 export const buildRisingStarsTask = createTask({
   name: "build-rising-stars",
@@ -39,9 +27,13 @@ export const buildRisingStarsTask = createTask({
 
     const { data: allProjects, meta } = await context.processProjects(
       async (project) => {
-        const stars = project.repo.stars;
+        const currentYear = new Date().getFullYear();
         const snapshots = project.repo.snapshots;
         const flattenedSnapshots = flattenSnapshots(snapshots);
+        const stars =
+          currentYear === year
+            ? project.repo.stars
+            : getNumberOfStarsAt(year, flattenedSnapshots);
 
         const delta = getYearlyDelta(project, flattenedSnapshots, year);
 
@@ -49,6 +41,7 @@ export const buildRisingStarsTask = createTask({
         const monthly = months.map(
           (month) => getMonthlyDelta(flattenedSnapshots, { year, month }).delta
         );
+        const url = getProjectURL(project);
 
         const data: Project = {
           name: project.name,
@@ -60,8 +53,9 @@ export const buildRisingStarsTask = createTask({
           monthly,
           tags: project.tags.map((tag) => tag.code),
           owner_id: project.repo.owner_id,
-          ...(project.logo && { icon: project.logo }),
           created_at: project.repo.created_at,
+          ...(url && { url }),
+          ...(project.logo && { icon: project.logo }),
         };
         return {
           meta: { processed: true },
@@ -69,15 +63,12 @@ export const buildRisingStarsTask = createTask({
         };
       },
       {
-        where: and(
-          notInArray(schema.projects.status, ["deprecated", "hidden"]),
-          inArray(
-            schema.repos.id,
-            context.db
-              .select({ repoId: schema.snapshots.repoId })
-              .from(schema.snapshots)
-              .where(eq(schema.snapshots.year, year))
-          )
+        where: inArray(
+          schema.repos.id,
+          context.db
+            .select({ repoId: schema.snapshots.repoId })
+            .from(schema.snapshots)
+            .where(eq(schema.snapshots.year, year))
         ),
       }
     );
@@ -126,13 +117,15 @@ export const buildRisingStarsTask = createTask({
         .select({
           name: schema.tags.name,
           code: schema.tags.code,
-          createdAt: schema.tags.createdAt,
-          description: schema.tags.description,
         })
         .from(schema.tags);
     }
   },
 });
+
+function getNumberOfStarsAt(year: number, snapshots: Snapshot[]) {
+  return snapshots.find((snapshot) => snapshot.year === year + 1)?.stars || 0;
+}
 
 function getYearlyDelta(
   project: ProjectDetails,
@@ -202,8 +195,10 @@ function filterProjects(projects: Project[], categories: Category[]) {
       .filter((category) => category.disabled !== true);
     subCategories.forEach((category) => {
       const selectedProjects = projects
-        .filter((project) =>
-          hasOneOfTags(project, category.tags || [category.key])
+        .filter(
+          (project) =>
+            hasOneOfTags(project, category.tags || [category.key]) &&
+            hasNotOneOfTags(project, category.excludedTags)
         )
         .filter((project) =>
           filterExcludeProjectBySlug(project, category.excluded)
@@ -226,6 +221,11 @@ function filterProjects(projects: Project[], categories: Category[]) {
 function hasOneOfTags(project: Project, tags: string[]) {
   if (!tags) return false;
   return project.tags.some((tag) => tags.includes(tag));
+}
+
+function hasNotOneOfTags(project: Project, tags?: string[]) {
+  if (!tags) return true;
+  return !project.tags.some((tag) => tags.includes(tag));
 }
 
 function filterExcludeProjectBySlug(project: Project, slugs?: string[]) {
