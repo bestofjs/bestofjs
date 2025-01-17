@@ -2,7 +2,7 @@ import { z } from "zod";
 
 export const projectSchema = z.object({
   name: z.string(),
-  slug: z.string().optional(), // make it required after data is cleaned up
+  slug: z.string(),
   full_name: z.string(),
   description: z.string(),
   stars: z.number().nullable(),
