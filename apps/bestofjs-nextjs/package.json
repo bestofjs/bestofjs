@@ -37,6 +37,12 @@
     "@repo/db": "workspace:*",
     "@repo/eslint-config": "workspace:*",
     "@t3-oss/env-nextjs": "^0.11.1",
+    "@types/debug": "^4.1.12",
+    "@types/fs-extra": "^11.0.1",
+    "@types/node": "^20",
+    "@types/numeral": "^2.0.2",
+    "@types/react": "19.0.3",
+    "@types/react-dom": "19.0.3",
     "@typescript-eslint/parser": "^8.16.0",
     "@vercel/analytics": "^1.0.1",
     "autoprefixer": "^10.4.14",
@@ -74,12 +80,6 @@
   },
   "devDependencies": {
     "@playwright/test": "^1.47.2",
-    "@types/debug": "^4.1.12",
-    "@types/fs-extra": "^11.0.1",
-    "@types/node": "^20",
-    "@types/numeral": "^2.0.2",
-    "@types/react": "19.0.3",
-    "@types/react-dom": "19.0.3",
     "nextjs-bundle-analysis": "^0.5.0"
   },
   "engines": {
