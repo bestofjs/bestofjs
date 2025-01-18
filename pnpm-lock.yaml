@@ -292,6 +292,9 @@ importers:
       '@types/numeral':
         specifier: ^2.0.2
         version: 2.0.2
+      '@types/react':
+        specifier: npm:types-react@19.0.0-alpha.3
+        version: types-react@19.0.0-alpha.3
       '@types/react-dom':
         specifier: npm:types-react-dom@19.0.0-alpha.3
         version: types-react-dom@19.0.0-alpha.3
@@ -401,9 +404,6 @@ importers:
       '@repo/eslint-config':
         specifier: workspace:*
         version: link:../../packages/eslint-config
-      '@types/react':
-        specifier: npm:types-react@19.0.0-alpha.3
-        version: types-react@19.0.0-alpha.3
       '@typescript-eslint/parser':
         specifier: ^8.16.0
         version: 8.16.0(eslint@9.16.0(jiti@1.21.6))(typescript@5.7.3)
