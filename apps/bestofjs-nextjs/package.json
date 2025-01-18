@@ -37,14 +37,16 @@
     "@radix-ui/react-slot": "^1.1.0",
     "@radix-ui/react-tooltip": "^1.1.2",
     "@repo/api": "workspace:*",
+    "@repo/eslint-config": "workspace:*",
     "@repo/db": "workspace:*",
     "@t3-oss/env-nextjs": "^0.11.1",
+    "@typescript-eslint/parser": "^8.16.0",
     "@types/debug": "^4.1.8",
     "@types/fs-extra": "^11.0.1",
     "@types/node": "18",
     "@types/numeral": "^2.0.2",
-    "@types/react": "npm:types-react@19.0.0-alpha.3",
-    "@types/react-dom": "npm:types-react-dom@19.0.0-alpha.3",
+    "@types/react": "19.0.3",
+    "@types/react-dom": "19.0.3",
     "@vercel/analytics": "^1.0.1",
     "autoprefixer": "^10.4.14",
     "clsx": "^2.0.0",
@@ -53,6 +55,7 @@
     "dayjs": "^1.11.8",
     "debug": "^4.3.7",
     "dotenv-cli": "^7.4.2",
+    "eslint": "^9.16.0",
     "es-toolkit": "^1.31.0",
     "fs-extra": "^11.2.0",
     "lucide-react": "0.428.0",
@@ -80,10 +83,7 @@
     "zod": "^3.23.8"
   },
   "devDependencies": {
-    "@playwright/test": "^1.47.2",
-    "@repo/eslint-config": "workspace:*",
-    "@typescript-eslint/parser": "^8.16.0",
-    "eslint": "^9.16.0"
+    "@playwright/test": "^1.47.2"
   },
   "nextBundleAnalysis": {
     "budget": null,
