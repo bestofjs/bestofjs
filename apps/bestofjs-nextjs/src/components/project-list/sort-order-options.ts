@@ -1,4 +1,4 @@
-import keyBy from "lodash/keyBy";
+import { keyBy } from "es-toolkit";
 
 export const sortOptionsMap = {
   TOTAL: "total",
@@ -77,10 +77,10 @@ export const sortOrderOptions: SortOption[] = [
   },
 ];
 
-export const sortOrderOptionsByKey = keyBy(sortOrderOptions, "key") as Record<
-  SortOptionKey,
-  SortOption
->;
+export const sortOrderOptionsByKey = keyBy(
+  sortOrderOptions,
+  (item) => item.key
+) as Record<SortOptionKey, SortOption>;
 
 export function getSortOptionByKey(sortKey: string): SortOption {
   const defaultOption = sortOrderOptionsByKey.daily;
