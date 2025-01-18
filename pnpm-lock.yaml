@@ -286,9 +286,6 @@ importers:
       '@types/fs-extra':
         specifier: ^11.0.1
         version: 11.0.1
-      '@types/lodash':
-        specifier: ^4.17.14
-        version: 4.17.14
       '@types/node':
         specifier: '18'
         version: 18.19.21
@@ -322,12 +319,12 @@ importers:
       dotenv-cli:
         specifier: ^7.4.2
         version: 7.4.2
+      es-toolkit:
+        specifier: ^1.31.0
+        version: 1.31.0
       fs-extra:
         specifier: ^11.2.0
         version: 11.2.0
-      lodash:
-        specifier: ^4.17.21
-        version: 4.17.21
       lucide-react:
         specifier: 0.428.0
         version: 0.428.0(react@19.0.0)
@@ -3899,9 +3896,6 @@ packages:
   '@types/lodash@4.14.196':
     resolution: {integrity: sha512-22y3o88f4a94mKljsZcanlNWPzO0uBsBdzLAngf2tp533LzZcQzb6+eZPJ+vCTt+bqF2XnvT9gejTLsAcJAJyQ==}
 
-  '@types/lodash@4.17.14':
-    resolution: {integrity: sha512-jsxagdikDiDBeIRaPYtArcT8my4tN1og7MtMRquFT3XNA6axxyHDRUemqDz/taRDdOUn0GnGHRCuff4q48sW9A==}
-
   '@types/luxon@3.4.2':
     resolution: {integrity: sha512-TifLZlFudklWlMBfhubvgqTXRzLDI5pCbGa4P8a3wPyUQSW+1xQ5eDsreP9DWHX3tjq1ke96uYG/nwundroWcA==}
 
@@ -5301,6 +5295,9 @@ packages:
 
   es-toolkit@1.26.1:
     resolution: {integrity: sha512-E3H14lHWk8JpupVpIRA1gfNF4r953abHTFW+X1Rp7zl7eG37ksuthfEA4FinyVF/Y807vzzfQS1nubeZk2LTVA==}
+
+  es-toolkit@1.31.0:
+    resolution: {integrity: sha512-vwS0lv/tzjM2/t4aZZRAgN9I9TP0MSkWuvt6By+hEXfG/uLs8yg2S1/ayRXH/x3pinbLgVJYT+eppueg3cM6tg==}
 
   esbuild-android-64@0.15.18:
     resolution: {integrity: sha512-wnpt3OXRhcjfIDSZu9bnzT4/TNTDsOUvip0foZOUBG7QbSt//w3QV4FInVJxNhKc/ErhUxc5z4QjHtMi7/TbgA==}
@@ -12244,8 +12241,6 @@ snapshots:
 
   '@types/lodash@4.14.196': {}
 
-  '@types/lodash@4.17.14': {}
-
   '@types/luxon@3.4.2': {}
 
   '@types/ms@0.7.31': {}
@@ -13900,6 +13895,8 @@ snapshots:
   es-toolkit@1.16.0-dev.477: {}
 
   es-toolkit@1.26.1: {}
+
+  es-toolkit@1.31.0: {}
 
   esbuild-android-64@0.15.18:
     optional: true
