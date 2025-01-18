@@ -71,6 +71,18 @@ importers:
       '@tanstack/react-table':
         specifier: ^8.20.5
         version: 8.20.5(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+      '@types/debug':
+        specifier: ^4.1.12
+        version: 4.1.12
+      '@types/node':
+        specifier: ^20
+        version: 20.11.10
+      '@types/react':
+        specifier: 19.0.3
+        version: 19.0.3
+      '@types/react-dom':
+        specifier: 19.0.3
+        version: 19.0.3(@types/react@19.0.3)
       class-variance-authority:
         specifier: ^0.7.0
         version: 0.7.0
@@ -126,18 +138,6 @@ importers:
       '@repo/eslint-config':
         specifier: workspace:*
         version: link:../../packages/eslint-config
-      '@types/debug':
-        specifier: ^4.1.12
-        version: 4.1.12
-      '@types/node':
-        specifier: ^20
-        version: 20.11.10
-      '@types/react':
-        specifier: 19.0.3
-        version: 19.0.3
-      '@types/react-dom':
-        specifier: 19.0.3
-        version: 19.0.3(@types/react@19.0.3)
       autoprefixer:
         specifier: ^10.4.14
         version: 10.4.14(postcss@8.4.49)
@@ -283,6 +283,24 @@ importers:
       '@t3-oss/env-nextjs':
         specifier: ^0.11.1
         version: 0.11.1(typescript@5.7.3)(zod@3.23.8)
+      '@types/debug':
+        specifier: ^4.1.12
+        version: 4.1.12
+      '@types/fs-extra':
+        specifier: ^11.0.1
+        version: 11.0.1
+      '@types/node':
+        specifier: ^20
+        version: 20.12.14
+      '@types/numeral':
+        specifier: ^2.0.2
+        version: 2.0.2
+      '@types/react':
+        specifier: 19.0.3
+        version: 19.0.3
+      '@types/react-dom':
+        specifier: 19.0.3
+        version: 19.0.3(@types/react@19.0.3)
       '@typescript-eslint/parser':
         specifier: ^8.16.0
         version: 8.16.0(eslint@9.16.0(jiti@1.21.6))(typescript@5.7.3)
@@ -389,24 +407,6 @@ importers:
       '@playwright/test':
         specifier: ^1.47.2
         version: 1.47.2
-      '@types/debug':
-        specifier: ^4.1.12
-        version: 4.1.12
-      '@types/fs-extra':
-        specifier: ^11.0.1
-        version: 11.0.1
-      '@types/node':
-        specifier: ^20
-        version: 20.12.14
-      '@types/numeral':
-        specifier: ^2.0.2
-        version: 2.0.2
-      '@types/react':
-        specifier: 19.0.3
-        version: 19.0.3
-      '@types/react-dom':
-        specifier: 19.0.3
-        version: 19.0.3(@types/react@19.0.3)
       nextjs-bundle-analysis:
         specifier: ^0.5.0
         version: 0.5.0
