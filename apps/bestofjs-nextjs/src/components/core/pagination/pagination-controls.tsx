@@ -54,12 +54,12 @@ export function BottomPaginationControls<T extends PaginationProps>(
   return (
     <div className="flex gap-2">
       <PaginationButton href={previousPageURL} isDisabled={!hasPreviousPage}>
-        <ChevronLeftIcon className="h-4 w-4" />
+        <ChevronLeftIcon className="size-4" />
         Prev
       </PaginationButton>
       <PaginationButton href={nextPageURL} isDisabled={!hasNextPage}>
         Next
-        <ChevronRightIcon className="h-4 w-4" />
+        <ChevronRightIcon className="size-4" />
       </PaginationButton>
     </div>
   );
@@ -75,7 +75,11 @@ function PaginationButton({
   children: React.ReactNode;
 }) {
   return !isDisabled ? (
-    <NextLink href={href} className={buttonVariants({ variant: "outline" })}>
+    <NextLink
+      href={href}
+      scroll={true}
+      className={buttonVariants({ variant: "outline" })}
+    >
       {children}
     </NextLink>
   ) : (
