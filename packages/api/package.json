@@ -15,6 +15,7 @@
     "./npm": "./src/npm/index.ts"
   },
   "dependencies": {
+    "@types/debug": "^4.1.12",
     "date-fns": "^4.1.0",
     "debug": "^4.3.7",
     "emoji-regex": "^10.3.0",
@@ -23,7 +24,6 @@
     "scrape-it": "^6.1.2"
   },
   "devDependencies": {
-    "@types/bun": "^1.1.12",
-    "@types/debug": "^4.1.12"
+    "@types/bun": "^1.1.12"
   }
 }

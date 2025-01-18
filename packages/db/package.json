@@ -25,6 +25,8 @@
   "dependencies": {
     "@neondatabase/serverless": "^0.9.5",
     "@t3-oss/env-nextjs": "^0.11.1",
+    "@types/debug": "^4.1.12",
+    "@types/luxon": "^3.4.2",
     "@vercel/postgres": "^0.10.0",
     "debug": "^4.3.7",
     "dotenv-cli": "^7.4.2",
@@ -40,8 +42,6 @@
   },
   "devDependencies": {
     "@clack/prompts": "^0.7.0",
-    "@types/bun": "^1.1.12",
-    "@types/debug": "^4.1.12",
-    "@types/luxon": "^3.4.2"
+    "@types/bun": "^1.1.12"
   }
 }
