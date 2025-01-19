@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import { Metadata } from "next";
 import NextLink from "next/link";
 
@@ -12,7 +13,7 @@ import { formatNumber } from "@/helpers/numbers";
 import { addCacheBustingParam } from "@/helpers/url";
 import { cn } from "@/lib/utils";
 import { api } from "@/server/api";
-import ProjectListLoading from "./loading";
+import { ProjectListLoading } from "./loading-state";
 import {
   ProjectSearchState,
   ProjectSearchStateParser,
@@ -98,11 +99,17 @@ function getPageDescription(
   }
   return `${total} projects matching the query “${query}”: ${projectNames}...`;
 }
-const showLoadingPage = false; // for debugging purpose only
 
 export default async function ProjectsPage(props: PageProps) {
+  return (
+    <Suspense fallback={<ProjectListLoading />}>
+      <ProjectsPageContent {...props} />
+    </Suspense>
+  );
+}
+
+async function ProjectsPageContent(props: PageProps) {
   const searchParams = await props.searchParams;
-  if (showLoadingPage) return <ProjectListLoading />;
 
   const { searchState, buildPageURL } = searchStateParser.parse(searchParams);
   const { projects, total, selectedTags, relevantTags, allTags } =

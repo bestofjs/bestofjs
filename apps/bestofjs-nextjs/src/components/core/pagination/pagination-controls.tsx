@@ -75,11 +75,7 @@ function PaginationButton({
   children: React.ReactNode;
 }) {
   return !isDisabled ? (
-    <NextLink
-      href={href}
-      scroll={true}
-      className={buttonVariants({ variant: "outline" })}
-    >
+    <NextLink href={href} className={buttonVariants({ variant: "outline" })}>
       {children}
     </NextLink>
   ) : (

@@ -2,7 +2,6 @@ import { Metadata } from "next";
 
 import { TagPaginatedList } from "@/components/tag-list/tag-paginated-list";
 import { api } from "@/server/api";
-import TagListLoading from "./loading";
 import {
   getTagListSortOptionByValue,
   TagSearchState,
@@ -18,8 +17,6 @@ type PageProps = {
   }>;
 };
 
-const showLoadingPage = false; // for debugging purpose only
-
 const searchStateParser = new TagSearchStateParser();
 
 export const metadata: Metadata = {
@@ -30,8 +27,6 @@ export default async function TagsPage(props: PageProps) {
   const searchParams = await props.searchParams;
   const { searchState, buildPageURL } = searchStateParser.parse(searchParams);
   const { tags, total } = await fetchTagsPageData(searchState);
-
-  if (showLoadingPage) return <TagListLoading />;
 
   return (
     <TagsPageShell>

@@ -2,7 +2,7 @@ import { PageHeading } from "@/components/core/typography";
 import { Card, CardHeader } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 
-export default function ProjectListLoading() {
+export function ProjectListLoading() {
   return (
     <>
       <PageHeading title={<>Projects</>} />
@@ -24,7 +24,7 @@ const LoadingProject = () => {
   return (
     <div className="flex w-full flex-row">
       <div className="flex items-center p-4">
-        <Skeleton className="h-[50px] w-[50px] p-4" />
+        <Skeleton className="size-[50px] p-4" />
       </div>
       <div className="grow space-y-4 p-4">
         <Skeleton className="h-4 w-1/4" />
