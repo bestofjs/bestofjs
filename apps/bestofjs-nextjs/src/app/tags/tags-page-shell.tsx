@@ -1,5 +1,8 @@
+import { Suspense } from "react";
+
 import { TagIcon } from "@/components/core";
 import { PageHeading } from "@/components/core/typography";
+import { TagListLoading } from "./loading-state";
 
 /**
  *
@@ -9,7 +12,7 @@ export function TagsPageShell({ children }: { children: React.ReactNode }) {
   return (
     <>
       <PageHeading title="All Tags" icon={<TagIcon size={32} />} />
-      {children}
+      <Suspense fallback={<TagListLoading />}>{children}</Suspense>
     </>
   );
 }
