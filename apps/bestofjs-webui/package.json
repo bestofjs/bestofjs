@@ -43,7 +43,7 @@
     "@headlessui/react": "^1.4.0",
     "@vitejs/plugin-react": "^2.0.0",
     "cross-env": "^7.0.3",
-    "dompurify": "^2.5.4",
+    "dompurify": "^3.2.4",
     "framer-motion": "^4.1.17",
     "numeral": "^1.5.3",
     "qs": "^6.9.7",
