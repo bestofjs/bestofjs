@@ -43,6 +43,7 @@
     "zod": "^3.23.8"
   },
   "devDependencies": {
-    "@types/debug": "^4.1.12"
+    "@types/debug": "^4.1.12",
+    "nano-spawn": "^0.2.0"
   }
 }

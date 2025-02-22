@@ -6,6 +6,7 @@ node_modules
 
 # local PostgreSQL database
 db-data
+db-backup
 
 # Output of typecheck command
 tsconfig.tsbuildinfo
