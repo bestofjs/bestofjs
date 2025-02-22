@@ -232,6 +232,9 @@ importers:
       '@types/debug':
         specifier: ^4.1.12
         version: 4.1.12
+      nano-spawn:
+        specifier: ^0.2.0
+        version: 0.2.0
 
   apps/bestofjs-nextjs:
     dependencies:
@@ -6533,6 +6536,10 @@ packages:
     peerDependencies:
       react: '*'
       react-dom: '*'
+
+  nano-spawn@0.2.0:
+    resolution: {integrity: sha512-IjZBIOLxSlxu+m/kacg9JuP93oUpRemeV0mEuCy64nzBKKIL9m0aLJHtVPcVuzJDHFhElzjpwbW4a3tMzgKoZQ==}
+    engines: {node: '>=18.19'}
 
   nanoid@3.3.8:
     resolution: {integrity: sha512-WNLf5Sd8oZxOm+TzppcYk8gVOgP+l58xNy58D0nbUnOxOWRWvlcCV4kUF7ltmI6PsrLl/BgKEyS4mqsGChFN0w==}
@@ -15146,6 +15153,8 @@ snapshots:
       sourcemap-codec: 1.4.8
       stacktrace-js: 2.0.2
       stylis: 4.3.0
+
+  nano-spawn@0.2.0: {}
 
   nanoid@3.3.8: {}
 
