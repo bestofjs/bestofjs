@@ -9,6 +9,9 @@ jobs:
   check_before_merge:
     name: Test and lint checks
     runs-on: ubuntu-latest
+    env:
+      TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
+      TURBO_TEAM: ${{ vars.TURBO_TEAM }}
     steps:
       - name: Code Checkout
         uses: actions/checkout@v4
