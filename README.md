@@ -8,7 +8,7 @@ Made of four applications and two package:
 │   ├── admin
 │   ├── backend
 │   ├── web
-│   └── classic
+│   └── legacy
 └── packages
     ├── api
     └── db
