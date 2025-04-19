@@ -4,9 +4,9 @@
   "description": "Best of JS monorepo",
   "scripts": {
     "backup": "NODE_ENV=production bun run ./apps/backend/src/backup/make-backup.ts",
-    "test": "pnpm -F bestofjs-nextjs test",
-    "test:e2e": "pnpm -F bestofjs-nextjs test:e2e",
-    "test:e2e:install": "pnpm -F bestofjs-nextjs exec playwright install"
+    "test": "pnpm -F web test",
+    "test:e2e": "pnpm -F web test:e2e",
+    "test:e2e:install": "pnpm -F web exec playwright install"
   },
   "author": "Michael Rambeau",
   "license": "MIT",
