@@ -13,3 +13,6 @@ tsconfig.tsbuildinfo
 
 # node-fetch-cache requests cache
 .cache
+
+# Turbo https://turbo.build/docs/getting-started/add-to-existing-repository#edit-gitignore
+.turbo
