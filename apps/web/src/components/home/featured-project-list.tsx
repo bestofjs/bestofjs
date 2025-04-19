@@ -67,7 +67,7 @@ export function ProjectListSkeleton({
       {[...Array(numberOfItems)].map((_, index) => (
         <div key={index} className="flex gap-4 px-4 py-6">
           <div className="grow space-y-2 overflow-hidden text-center">
-            <Skeleton className="h-[80px] w-[80px]" />
+            <Skeleton className="size-[80px]" />
           </div>
           <div className="flex grow flex-col items-center justify-center space-y-4 overflow-hidden">
             <Skeleton className="h-4 w-[80px]" />

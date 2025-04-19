@@ -59,7 +59,7 @@ export const TagList = ({ tags }: Props) => {
             >
               <Tooltip>
                 <TooltipTrigger>
-                  <ChevronRightIcon className="h-6 w-6" />
+                  <ChevronRightIcon className="size-6" />
                 </TooltipTrigger>
                 <TooltipContent>
                   View all projects ({tag.counter})

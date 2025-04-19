@@ -22,7 +22,7 @@ export function BundleSizeSection({ project }: Props) {
   return (
     <Collapsible>
       <CollapsibleTrigger className="group flex items-center">
-        <ChevronRightIcon className="h-6 w-6 group-data-[state=open]:rotate-90" />
+        <ChevronRightIcon className="size-6 group-data-[state=open]:rotate-90" />
         Bundle size
         <span className="ml-2 text-muted-foreground">
           <FileSize value={bundle.gzip} /> (Minified + Gzipped)

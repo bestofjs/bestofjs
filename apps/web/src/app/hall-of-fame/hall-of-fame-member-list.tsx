@@ -30,7 +30,7 @@ function HallOfFameMemberCard({ member }: { member: HallOfFameMember }) {
           width="100"
           height="100"
           alt={member.username}
-          className="display-block h-[100px] w-[100px]"
+          className="display-block size-[100px]"
           loading="lazy"
         />
         <div className="flex flex-1 flex-col justify-center gap-2 px-4">

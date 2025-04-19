@@ -17,7 +17,7 @@ export async function LatestMonthlyRankings() {
     <Card>
       <CardHeader className="border-b">
         <SectionHeading
-          icon={<CalendarIcon className="h-8 w-8" />}
+          icon={<CalendarIcon className="size-8" />}
           title={`Rankings ${formatMonthlyDate({ year, month })}`}
           subtitle="By number of stars added last month"
         />

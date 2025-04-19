@@ -11,7 +11,7 @@ export async function ReadmeCard({ project }: { project: ProjectDetails }) {
     <Card>
       <CardHeader className="border-b">
         <div className="flex space-x-2">
-          <BookOpenTextIcon className="h-6 w-6" />
+          <BookOpenTextIcon className="size-6" />
           <div>README</div>
         </div>
       </CardHeader>

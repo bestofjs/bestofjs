@@ -32,7 +32,7 @@ export function HallOfFamePaginatedList({
   if (total === 0) {
     return (
       <Alert className="mt-8">
-        <InfoIcon className="h-5 w-5" />
+        <InfoIcon className="size-5" />
         <AlertTitle>No results found</AlertTitle>
         <AlertDescription>
           Try another search or click on the Reset button.
