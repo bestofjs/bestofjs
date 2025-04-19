@@ -236,6 +236,190 @@ importers:
         specifier: ^0.2.0
         version: 0.2.0
 
+  apps/legacy:
+    dependencies:
+      '@chakra-ui/react':
+        specifier: ^1.8.1
+        version: 1.8.9(@emotion/react@11.11.1(@types/react@17.0.62)(react@17.0.2))(@emotion/styled@11.11.0(@emotion/react@11.11.1(@types/react@17.0.62)(react@17.0.2))(@types/react@17.0.62)(react@17.0.2))(@types/react@17.0.62)(framer-motion@4.1.17(react-dom@17.0.2(react@17.0.2))(react@17.0.2))(react-dom@17.0.2(react@17.0.2))(react@17.0.2)
+      '@chakra-ui/theme-tools':
+        specifier: ^1.3.6
+        version: 1.3.6(@chakra-ui/system@1.12.1(@emotion/react@11.11.1(@types/react@17.0.62)(react@17.0.2))(@emotion/styled@11.11.0(@emotion/react@11.11.1(@types/react@17.0.62)(react@17.0.2))(@types/react@17.0.62)(react@17.0.2))(react@17.0.2))
+      '@emotion/react':
+        specifier: ^11.1.1
+        version: 11.11.1(@types/react@17.0.62)(react@17.0.2)
+      '@emotion/styled':
+        specifier: ^11.0.0
+        version: 11.11.0(@emotion/react@11.11.1(@types/react@17.0.62)(react@17.0.2))(@types/react@17.0.62)(react@17.0.2)
+      '@headlessui/react':
+        specifier: ^1.4.0
+        version: 1.7.16(react-dom@17.0.2(react@17.0.2))(react@17.0.2)
+      '@vitejs/plugin-react':
+        specifier: ^2.0.0
+        version: 2.2.0(vite@4.5.13(@types/node@20.12.14)(terser@5.19.2))
+      cross-env:
+        specifier: ^7.0.3
+        version: 7.0.3
+      dompurify:
+        specifier: ^3.2.4
+        version: 3.2.4
+      framer-motion:
+        specifier: ^4.1.17
+        version: 4.1.17(react-dom@17.0.2(react@17.0.2))(react@17.0.2)
+      numeral:
+        specifier: ^1.5.3
+        version: 1.5.6
+      qs:
+        specifier: ^6.9.7
+        version: 6.11.2
+      react:
+        specifier: ^17.0.2
+        version: 17.0.2
+      react-content-loader:
+        specifier: ^5.1.2
+        version: 5.1.4(react@17.0.2)
+      react-dom:
+        specifier: ^17.0.2
+        version: 17.0.2(react@17.0.2)
+      react-icons:
+        specifier: ^3.10.0
+        version: 3.11.0(react@17.0.2)
+      react-router-dom:
+        specifier: ^5.1.2
+        version: 5.3.4(react@17.0.2)
+      react-select:
+        specifier: ^4.3.1
+        version: 4.3.1(@types/react@17.0.62)(react-dom@17.0.2(react@17.0.2))(react@17.0.2)
+      react-simple-animate:
+        specifier: ^3.3.6
+        version: 3.5.2(react-dom@17.0.2(react@17.0.2))
+      react-toggled:
+        specifier: ^1.0.2
+        version: 1.2.7(prop-types@15.8.1)(react@17.0.2)
+      react-use:
+        specifier: ^15.3.0
+        version: 15.3.8(react-dom@17.0.2(react@17.0.2))(react@17.0.2)
+      react-vertical-timeline-component:
+        specifier: ^3.0.2
+        version: 3.6.0(react@17.0.2)
+      reselect:
+        specifier: 4.0.0
+        version: 4.0.0
+      serve:
+        specifier: ^14.1.2
+        version: 14.2.0
+      swr:
+        specifier: ^2.2.5
+        version: 2.2.5(react@17.0.2)
+      typescript:
+        specifier: ^5.7.3
+        version: 5.7.3
+      unfetch:
+        specifier: ^4.1.0
+        version: 4.2.0
+      unstated-next:
+        specifier: ^1.1.0
+        version: 1.1.0
+      use-debounce:
+        specifier: ^3.0.0
+        version: 3.4.3(react@17.0.2)
+      vague-time:
+        specifier: ^2.4.2
+        version: 2.4.2
+      vite:
+        specifier: ^4.5.13
+        version: 4.5.13(@types/node@20.12.14)(terser@5.19.2)
+      vite-plugin-checker:
+        specifier: ^0.4.9
+        version: 0.4.9(vite@4.5.13(@types/node@20.12.14)(terser@5.19.2))
+      vite-plugin-html:
+        specifier: ^3.2.0
+        version: 3.2.0(vite@4.5.13(@types/node@20.12.14)(terser@5.19.2))
+      vite-tsconfig-paths:
+        specifier: ^3.4.1
+        version: 3.6.0(vite@4.5.13(@types/node@20.12.14)(terser@5.19.2))
+    devDependencies:
+      '@swc/core':
+        specifier: ^1.3.73
+        version: 1.3.73(@swc/helpers@0.5.15)
+      '@swc/jest':
+        specifier: ^0.2.21
+        version: 0.2.27(@swc/core@1.3.73(@swc/helpers@0.5.15))
+      '@testing-library/jest-dom':
+        specifier: ^5.16.4
+        version: 5.17.0
+      '@testing-library/react':
+        specifier: ^12.1.5
+        version: 12.1.5(react-dom@17.0.2(react@17.0.2))(react@17.0.2)
+      '@testing-library/user-event':
+        specifier: ^13.5.0
+        version: 13.5.0(@testing-library/dom@8.20.1)
+      '@types/debug':
+        specifier: ^4.1.12
+        version: 4.1.12
+      '@types/dompurify':
+        specifier: ^2.3.3
+        version: 2.4.0
+      '@types/jest':
+        specifier: ^26.0.4
+        version: 26.0.24
+      '@types/node':
+        specifier: ^20
+        version: 20.12.14
+      '@types/react':
+        specifier: ^17.0.38
+        version: 17.0.62
+      '@types/react-dom':
+        specifier: ^17.0.11
+        version: 17.0.20
+      '@types/react-router-dom':
+        specifier: ^5.3.3
+        version: 5.3.3
+      '@types/testing-library__jest-dom':
+        specifier: ^5.14.5
+        version: 5.14.9
+      '@typescript-eslint/eslint-plugin':
+        specifier: ^5.25.0
+        version: 5.62.0(@typescript-eslint/parser@5.62.0(eslint@8.46.0)(typescript@5.7.3))(eslint@8.46.0)(typescript@5.7.3)
+      '@typescript-eslint/parser':
+        specifier: ^5.25.0
+        version: 5.62.0(eslint@8.46.0)(typescript@5.7.3)
+      dotenv:
+        specifier: ^16.4.5
+        version: 16.4.5
+      eslint:
+        specifier: ^8.16.0
+        version: 8.46.0
+      eslint-config-prettier:
+        specifier: ^8.3.0
+        version: 8.9.0(eslint@8.46.0)
+      eslint-plugin-prettier:
+        specifier: ^4.0.0
+        version: 4.2.1(eslint-config-prettier@8.9.0(eslint@8.46.0))(eslint@8.46.0)(prettier@3.3.3)
+      eslint-plugin-react-hooks:
+        specifier: ^4.5.0
+        version: 4.6.0(eslint@8.46.0)
+      eslint-plugin-testing-library:
+        specifier: ^5.5.0
+        version: 5.11.0(eslint@8.46.0)(typescript@5.7.3)
+      husky:
+        specifier: ^0.14.3
+        version: 0.14.3
+      jest:
+        specifier: ^27.5.1
+        version: 27.5.1(bufferutil@4.0.8)
+      jest-preview:
+        specifier: ^0.3.1
+        version: 0.3.1(bufferutil@4.0.8)(postcss@8.5.3)
+      jest-watch-typeahead:
+        specifier: ^1.1.0
+        version: 1.1.0(jest@27.5.1(bufferutil@4.0.8))
+      msw:
+        specifier: ^2.3.5
+        version: 2.3.5(typescript@5.7.3)
+      whatwg-fetch:
+        specifier: ^3.6.2
+        version: 3.6.17
+
   apps/web:
     dependencies:
       '@klass/core':
@@ -413,190 +597,6 @@ importers:
       nextjs-bundle-analysis:
         specifier: ^0.5.0
         version: 0.5.0
-
-  apps/legacy:
-    dependencies:
-      '@chakra-ui/react':
-        specifier: ^1.8.1
-        version: 1.8.9(@emotion/react@11.11.1(@types/react@17.0.62)(react@17.0.2))(@emotion/styled@11.11.0(@emotion/react@11.11.1(@types/react@17.0.62)(react@17.0.2))(@types/react@17.0.62)(react@17.0.2))(@types/react@17.0.62)(framer-motion@4.1.17(react-dom@17.0.2(react@17.0.2))(react@17.0.2))(react-dom@17.0.2(react@17.0.2))(react@17.0.2)
-      '@chakra-ui/theme-tools':
-        specifier: ^1.3.6
-        version: 1.3.6(@chakra-ui/system@1.12.1(@emotion/react@11.11.1(@types/react@17.0.62)(react@17.0.2))(@emotion/styled@11.11.0(@emotion/react@11.11.1(@types/react@17.0.62)(react@17.0.2))(@types/react@17.0.62)(react@17.0.2))(react@17.0.2))
-      '@emotion/react':
-        specifier: ^11.1.1
-        version: 11.11.1(@types/react@17.0.62)(react@17.0.2)
-      '@emotion/styled':
-        specifier: ^11.0.0
-        version: 11.11.0(@emotion/react@11.11.1(@types/react@17.0.62)(react@17.0.2))(@types/react@17.0.62)(react@17.0.2)
-      '@headlessui/react':
-        specifier: ^1.4.0
-        version: 1.7.16(react-dom@17.0.2(react@17.0.2))(react@17.0.2)
-      '@vitejs/plugin-react':
-        specifier: ^2.0.0
-        version: 2.2.0(vite@4.5.6(@types/node@20.12.14)(terser@5.19.2))
-      cross-env:
-        specifier: ^7.0.3
-        version: 7.0.3
-      dompurify:
-        specifier: ^3.2.4
-        version: 3.2.4
-      framer-motion:
-        specifier: ^4.1.17
-        version: 4.1.17(react-dom@17.0.2(react@17.0.2))(react@17.0.2)
-      numeral:
-        specifier: ^1.5.3
-        version: 1.5.6
-      qs:
-        specifier: ^6.9.7
-        version: 6.11.2
-      react:
-        specifier: ^17.0.2
-        version: 17.0.2
-      react-content-loader:
-        specifier: ^5.1.2
-        version: 5.1.4(react@17.0.2)
-      react-dom:
-        specifier: ^17.0.2
-        version: 17.0.2(react@17.0.2)
-      react-icons:
-        specifier: ^3.10.0
-        version: 3.11.0(react@17.0.2)
-      react-router-dom:
-        specifier: ^5.1.2
-        version: 5.3.4(react@17.0.2)
-      react-select:
-        specifier: ^4.3.1
-        version: 4.3.1(@types/react@17.0.62)(react-dom@17.0.2(react@17.0.2))(react@17.0.2)
-      react-simple-animate:
-        specifier: ^3.3.6
-        version: 3.5.2(react-dom@17.0.2(react@17.0.2))
-      react-toggled:
-        specifier: ^1.0.2
-        version: 1.2.7(prop-types@15.8.1)(react@17.0.2)
-      react-use:
-        specifier: ^15.3.0
-        version: 15.3.8(react-dom@17.0.2(react@17.0.2))(react@17.0.2)
-      react-vertical-timeline-component:
-        specifier: ^3.0.2
-        version: 3.6.0(react@17.0.2)
-      reselect:
-        specifier: 4.0.0
-        version: 4.0.0
-      serve:
-        specifier: ^14.1.2
-        version: 14.2.0
-      swr:
-        specifier: ^2.2.5
-        version: 2.2.5(react@17.0.2)
-      typescript:
-        specifier: ^5.7.3
-        version: 5.7.3
-      unfetch:
-        specifier: ^4.1.0
-        version: 4.2.0
-      unstated-next:
-        specifier: ^1.1.0
-        version: 1.1.0
-      use-debounce:
-        specifier: ^3.0.0
-        version: 3.4.3(react@17.0.2)
-      vague-time:
-        specifier: ^2.4.2
-        version: 2.4.2
-      vite:
-        specifier: ^4.5.6
-        version: 4.5.6(@types/node@20.12.14)(terser@5.19.2)
-      vite-plugin-checker:
-        specifier: ^0.4.9
-        version: 0.4.9(vite@4.5.6(@types/node@20.12.14)(terser@5.19.2))
-      vite-plugin-html:
-        specifier: ^3.2.0
-        version: 3.2.0(vite@4.5.6(@types/node@20.12.14)(terser@5.19.2))
-      vite-tsconfig-paths:
-        specifier: ^3.4.1
-        version: 3.6.0(vite@4.5.6(@types/node@20.12.14)(terser@5.19.2))
-    devDependencies:
-      '@swc/core':
-        specifier: ^1.3.73
-        version: 1.3.73(@swc/helpers@0.5.15)
-      '@swc/jest':
-        specifier: ^0.2.21
-        version: 0.2.27(@swc/core@1.3.73(@swc/helpers@0.5.15))
-      '@testing-library/jest-dom':
-        specifier: ^5.16.4
-        version: 5.17.0
-      '@testing-library/react':
-        specifier: ^12.1.5
-        version: 12.1.5(react-dom@17.0.2(react@17.0.2))(react@17.0.2)
-      '@testing-library/user-event':
-        specifier: ^13.5.0
-        version: 13.5.0(@testing-library/dom@8.20.1)
-      '@types/debug':
-        specifier: ^4.1.12
-        version: 4.1.12
-      '@types/dompurify':
-        specifier: ^2.3.3
-        version: 2.4.0
-      '@types/jest':
-        specifier: ^26.0.4
-        version: 26.0.24
-      '@types/node':
-        specifier: ^20
-        version: 20.12.14
-      '@types/react':
-        specifier: ^17.0.38
-        version: 17.0.62
-      '@types/react-dom':
-        specifier: ^17.0.11
-        version: 17.0.20
-      '@types/react-router-dom':
-        specifier: ^5.3.3
-        version: 5.3.3
-      '@types/testing-library__jest-dom':
-        specifier: ^5.14.5
-        version: 5.14.9
-      '@typescript-eslint/eslint-plugin':
-        specifier: ^5.25.0
-        version: 5.62.0(@typescript-eslint/parser@5.62.0(eslint@8.46.0)(typescript@5.7.3))(eslint@8.46.0)(typescript@5.7.3)
-      '@typescript-eslint/parser':
-        specifier: ^5.25.0
-        version: 5.62.0(eslint@8.46.0)(typescript@5.7.3)
-      dotenv:
-        specifier: ^16.4.5
-        version: 16.4.5
-      eslint:
-        specifier: ^8.16.0
-        version: 8.46.0
-      eslint-config-prettier:
-        specifier: ^8.3.0
-        version: 8.9.0(eslint@8.46.0)
-      eslint-plugin-prettier:
-        specifier: ^4.0.0
-        version: 4.2.1(eslint-config-prettier@8.9.0(eslint@8.46.0))(eslint@8.46.0)(prettier@3.3.3)
-      eslint-plugin-react-hooks:
-        specifier: ^4.5.0
-        version: 4.6.0(eslint@8.46.0)
-      eslint-plugin-testing-library:
-        specifier: ^5.5.0
-        version: 5.11.0(eslint@8.46.0)(typescript@5.7.3)
-      husky:
-        specifier: ^0.14.3
-        version: 0.14.3
-      jest:
-        specifier: ^27.5.1
-        version: 27.5.1(bufferutil@4.0.8)
-      jest-preview:
-        specifier: ^0.3.1
-        version: 0.3.1(bufferutil@4.0.8)(postcss@8.5.3)
-      jest-watch-typeahead:
-        specifier: ^1.1.0
-        version: 1.1.0(jest@27.5.1(bufferutil@4.0.8))
-      msw:
-        specifier: ^2.3.5
-        version: 2.3.5(typescript@5.7.3)
-      whatwg-fetch:
-        specifier: ^3.6.2
-        version: 3.6.17
 
   packages/api:
     dependencies:
@@ -6541,6 +6541,11 @@ packages:
     resolution: {integrity: sha512-IjZBIOLxSlxu+m/kacg9JuP93oUpRemeV0mEuCy64nzBKKIL9m0aLJHtVPcVuzJDHFhElzjpwbW4a3tMzgKoZQ==}
     engines: {node: '>=18.19'}
 
+  nanoid@3.3.11:
+    resolution: {integrity: sha512-N8SpfPUnUp1bK+PMYW8qSWdl9U+wwNWI4QKxOYDy9JAro3WMX7p2OeVRF9v+347pnakNevPmiHhNmZ2HbFA76w==}
+    engines: {node: ^10 || ^12 || ^13.7 || ^14 || >=15.0.1}
+    hasBin: true
+
   nanoid@3.3.8:
     resolution: {integrity: sha512-WNLf5Sd8oZxOm+TzppcYk8gVOgP+l58xNy58D0nbUnOxOWRWvlcCV4kUF7ltmI6PsrLl/BgKEyS4mqsGChFN0w==}
     engines: {node: ^10 || ^12 || ^13.7 || ^14 || >=15.0.1}
@@ -7012,10 +7017,6 @@ packages:
 
   postcss@8.4.49:
     resolution: {integrity: sha512-OCVPnIObs4N29kxTjzLfUryOkvZEq+pf8jTF0lg8E7uETuWHA+v7j3c/xJmiqpX450191LlmZfUKkXxkTry7nA==}
-    engines: {node: ^10 || ^12 || >=14}
-
-  postcss@8.5.1:
-    resolution: {integrity: sha512-6oz2beyjc5VMn/KV1pPw8fliQkhBXrVn1Z3TVyqZxU8kZpzEKhBdmCFqI6ZbmGtamQvQGuU1sgPTk8ZrXDD7jQ==}
     engines: {node: ^10 || ^12 || >=14}
 
   postcss@8.5.3:
@@ -8275,8 +8276,8 @@ packages:
       vite:
         optional: true
 
-  vite@4.5.6:
-    resolution: {integrity: sha512-ElBNuVvJKslxcfY2gMmae5IjaKGqCYGicCNZ+8R56sAznobeE3pI9ctzI17cBS/6OJh5YuQNMSN4BP4dRjugBg==}
+  vite@4.5.13:
+    resolution: {integrity: sha512-Hgp8IF/yZDzKsN1hQWOuQZbrKiaFsbQud+07jJ8h9m9PaHWkpvZ5u55Xw5yYjWRXwRQ4jwFlJvY7T7FUJG9MCA==}
     engines: {node: ^14.18.0 || >=16.0.0}
     hasBin: true
     peerDependencies:
@@ -11868,7 +11869,7 @@ snapshots:
     transitivePeerDependencies:
       - utf-8-validate
 
-  '@vitejs/plugin-react@2.2.0(vite@4.5.6(@types/node@20.12.14)(terser@5.19.2))':
+  '@vitejs/plugin-react@2.2.0(vite@4.5.13(@types/node@20.12.14)(terser@5.19.2))':
     dependencies:
       '@babel/core': 7.22.9
       '@babel/plugin-transform-react-jsx': 7.22.5(@babel/core@7.22.9)
@@ -11877,7 +11878,7 @@ snapshots:
       '@babel/plugin-transform-react-jsx-source': 7.22.5(@babel/core@7.22.9)
       magic-string: 0.26.7
       react-refresh: 0.14.0
-      vite: 4.5.6(@types/node@20.12.14)(terser@5.19.2)
+      vite: 4.5.13(@types/node@20.12.14)(terser@5.19.2)
     transitivePeerDependencies:
       - supports-color
 
@@ -15156,6 +15157,8 @@ snapshots:
 
   nano-spawn@0.2.0: {}
 
+  nanoid@3.3.11: {}
+
   nanoid@3.3.8: {}
 
   nanoid@5.0.9: {}
@@ -15607,15 +15610,9 @@ snapshots:
       picocolors: 1.1.1
       source-map-js: 1.2.1
 
-  postcss@8.5.1:
-    dependencies:
-      nanoid: 3.3.8
-      picocolors: 1.1.1
-      source-map-js: 1.2.1
-
   postcss@8.5.3:
     dependencies:
-      nanoid: 3.3.8
+      nanoid: 3.3.11
       picocolors: 1.1.1
       source-map-js: 1.2.1
 
@@ -17074,7 +17071,7 @@ snapshots:
       - supports-color
       - terser
 
-  vite-plugin-checker@0.4.9(vite@4.5.6(@types/node@20.12.14)(terser@5.19.2)):
+  vite-plugin-checker@0.4.9(vite@4.5.13(@types/node@20.12.14)(terser@5.19.2)):
     dependencies:
       '@babel/code-frame': 7.22.5
       ansi-escapes: 4.3.2
@@ -17087,13 +17084,13 @@ snapshots:
       npm-run-path: 4.0.1
       strip-ansi: 6.0.1
       tiny-invariant: 1.3.3
-      vite: 4.5.6(@types/node@20.12.14)(terser@5.19.2)
+      vite: 4.5.13(@types/node@20.12.14)(terser@5.19.2)
       vscode-languageclient: 7.0.0
       vscode-languageserver: 7.0.0
       vscode-languageserver-textdocument: 1.0.8
       vscode-uri: 3.0.7
 
-  vite-plugin-html@3.2.0(vite@4.5.6(@types/node@20.12.14)(terser@5.19.2)):
+  vite-plugin-html@3.2.0(vite@4.5.13(@types/node@20.12.14)(terser@5.19.2)):
     dependencies:
       '@rollup/pluginutils': 4.2.1
       colorette: 2.0.20
@@ -17107,15 +17104,15 @@ snapshots:
       html-minifier-terser: 6.1.0
       node-html-parser: 5.4.2
       pathe: 0.2.0
-      vite: 4.5.6(@types/node@20.12.14)(terser@5.19.2)
+      vite: 4.5.13(@types/node@20.12.14)(terser@5.19.2)
 
-  vite-tsconfig-paths@3.6.0(vite@4.5.6(@types/node@20.12.14)(terser@5.19.2)):
+  vite-tsconfig-paths@3.6.0(vite@4.5.13(@types/node@20.12.14)(terser@5.19.2)):
     dependencies:
       debug: 4.3.7
       globrex: 0.1.2
       recrawl-sync: 2.2.3
       tsconfig-paths: 4.2.0
-      vite: 4.5.6(@types/node@20.12.14)(terser@5.19.2)
+      vite: 4.5.13(@types/node@20.12.14)(terser@5.19.2)
     transitivePeerDependencies:
       - supports-color
 
@@ -17130,10 +17127,10 @@ snapshots:
       - supports-color
       - typescript
 
-  vite@4.5.6(@types/node@20.12.14)(terser@5.19.2):
+  vite@4.5.13(@types/node@20.12.14)(terser@5.19.2):
     dependencies:
       esbuild: 0.18.20
-      postcss: 8.5.1
+      postcss: 8.5.3
       rollup: 3.29.5
     optionalDependencies:
       '@types/node': 20.12.14
