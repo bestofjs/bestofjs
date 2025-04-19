@@ -9,6 +9,9 @@ jobs:
   check_before_merge:
     name: Test and lint checks
     runs-on: ubuntu-latest
+    env:
+      TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
+      TURBO_TEAM: ${{ vars.TURBO_TEAM }}
     steps:
       - name: Code Checkout
         uses: actions/checkout@v4
@@ -20,20 +23,11 @@ jobs:
         shell: bash
         run: pnpm install
 
-      - name: Type checking / db
-        run: pnpm -F db typecheck
+      - name: Type checking with Turbo
+        run: pnpm run typecheck
 
-      - name: Type checking / api
-        run: pnpm -F db typecheck
-
-      - name: Type checking / backend
-        run: pnpm -F api typecheck
-
-      - name: Type checking / admin
-        run: pnpm -F admin typecheck
-
-      - name: Code Linting
-        run: pnpm -F web lint
+      - name: Code Linting with Turbo
+        run: pnpm run lint
 
       - name: Unit tests
         run: pnpm -F web test:ci
