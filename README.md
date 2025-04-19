@@ -7,8 +7,8 @@ Made of four applications and two package:
 ├── apps
 │   ├── admin
 │   ├── backend
-│   ├── bestofjs-nextjs
-│   └── bestofjs-webui
+│   ├── web
+│   └── legacy
 └── packages
     ├── api
     └── db
