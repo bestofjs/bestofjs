@@ -23,7 +23,7 @@
   "dependencies": {
     "@klass/core": "^3.4.8",
     "@klass/react": "^3.4.8",
-    "@next/bundle-analyzer": "15.0.3",
+    "@next/bundle-analyzer": "15.3.1",
     "@radix-ui/react-checkbox": "^1.1.1",
     "@radix-ui/react-collapsible": "^1.1.0",
     "@radix-ui/react-dialog": "^1.1.1",
@@ -41,8 +41,8 @@
     "@types/fs-extra": "^11.0.1",
     "@types/node": "^20",
     "@types/numeral": "^2.0.2",
-    "@types/react": "19.0.3",
-    "@types/react-dom": "19.0.3",
+    "@types/react": "19.1.2",
+    "@types/react-dom": "19.1.2",
     "@typescript-eslint/parser": "^8.16.0",
     "@vercel/analytics": "^1.0.1",
     "autoprefixer": "^10.4.14",
@@ -57,13 +57,13 @@
     "fs-extra": "^11.2.0",
     "lucide-react": "0.428.0",
     "mingo": "6.4.15",
-    "next": "15.1.5",
+    "next": "15.3.1",
     "next-themes": "^0.4.4",
     "postcss": "^8.4.31",
     "pretty-bytes": "^6.1.1",
     "qss": "^3.0.0",
-    "react": "19.0.0",
-    "react-dom": "19.0.0",
+    "react": "19.1.0",
+    "react-dom": "19.1.0",
     "sharp": "^0.32.6",
     "swr": "^2.2.5",
     "tailwind-merge": "^1.12.0",
@@ -90,5 +90,11 @@
     "budgetPercentIncreaseRed": 20,
     "minimumChangeThreshold": 0,
     "showDetails": true
+  },
+  "pnpm": {
+    "overrides": {
+      "@types/react": "19.1.2",
+      "@types/react-dom": "19.1.2"
+    }
   }
 }
