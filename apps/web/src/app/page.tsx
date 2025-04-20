@@ -119,7 +119,7 @@ function HotProjectList({ projects }: { projects: BestOfJS.Project[] }) {
     <Card>
       <CardHeader>
         <SectionHeading
-          icon={<FlameIcon className="h-8 w-8" />}
+          icon={<FlameIcon className="size-8" />}
           title="Hot Projects"
           subtitle={
             <>
@@ -156,7 +156,7 @@ function NewestProjectList({ projects }: { projects: BestOfJS.Project[] }) {
     <Card>
       <CardHeader>
         <SectionHeading
-          icon={<GiftIcon className="h-8 w-8" />}
+          icon={<GiftIcon className="size-8" />}
           title="Recently Added Projects"
           subtitle={
             <>
@@ -193,7 +193,7 @@ function PopularTagsList({ tags }: { tags: BestOfJS.Tag[] }) {
     <Card>
       <CardHeader>
         <SectionHeading
-          icon={<TagIcon className="h-8 w-8" />}
+          icon={<TagIcon className="size-8" />}
           title="Popular Tags"
           subtitle={<>By number of projects</>}
         />
@@ -221,7 +221,7 @@ function BestOfJSSection({ project }: { project: BestOfJS.Project | null }) {
       <div>
         <SectionHeading
           className="mb-4"
-          icon={<HeartIcon className="h-8 w-8" />}
+          icon={<HeartIcon className="size-8" />}
           title={<>Do you find {APP_DISPLAY_NAME} useful?</>}
         />
         <div className="pl-10 font-serif">
@@ -257,7 +257,7 @@ function BestOfJSSection({ project }: { project: BestOfJS.Project | null }) {
         >
           Sponsor
           <span className="align-center ml-4 inline-flex">
-            <HeartIcon className="h-5 w-5" />
+            <HeartIcon className="size-5" />
           </span>
         </a>
       </div>
@@ -280,7 +280,7 @@ function MoreProjectsSection({
     <div className="sm:px-4">
       <SectionHeading
         className="mb-4"
-        icon={<PlusIcon className="h-8 w-8" />}
+        icon={<PlusIcon className="size-8" />}
         title="Do you want more projects?"
       />
       <div className="space-y-4 pl-10 font-serif">

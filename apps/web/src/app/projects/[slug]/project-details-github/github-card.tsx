@@ -86,7 +86,7 @@ const GitHubData = ({ project }: { project: ProjectDetails }) => {
         )}
       </div>
       <div className="flex gap-2">
-        <UsersIcon className="icon h-5 w-5" />
+        <UsersIcon className="icon size-5" />
         {contributor_count ? (
           <>{formatNumber(contributor_count, "compact")} contributors</>
         ) : (
@@ -98,7 +98,7 @@ const GitHubData = ({ project }: { project: ProjectDetails }) => {
       <div className="flex gap-2">
         {commit_count && (
           <>
-            <GitCommitHorizontalIcon className="icon h-5 w-5" />
+            <GitCommitHorizontalIcon className="icon size-5" />
             {formatNumber(commit_count, "compact")} commits
           </>
         )}

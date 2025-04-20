@@ -31,7 +31,7 @@ export async function DependenciesSection({
   return (
     <Collapsible>
       <CollapsibleTrigger className="group flex items-center">
-        <ChevronRightIcon className="h-6 w-6 group-data-[state=open]:rotate-90" />
+        <ChevronRightIcon className="size-6 group-data-[state=open]:rotate-90" />
         Dependencies
         <Badge variant={"secondary"} className="ml-2">
           {dependencies.length}

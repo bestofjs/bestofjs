@@ -64,7 +64,7 @@ export default async function MonthlyRankingPage(props: PageProps) {
     <>
       <PageHeading
         title="Monthly Rankings"
-        icon={<CalendarIcon className="h-8 w-8" />}
+        icon={<CalendarIcon className="size-8" />}
       />
       <Card>
         <CardHeader className="border-b">

@@ -40,7 +40,7 @@ export function ProjectSearchResult({
             target="_blank"
             className={cn(
               buttonVariants({ variant: "ghost" }),
-              "h-10 w-10 rounded-full p-0 text-muted-foreground",
+              "size-10 rounded-full p-0 text-muted-foreground",
               "group-aria-[selected]:hover:text-[var(--project-color)]",
               "group-aria-[selected]:hover:bg-[var(--project-bg)]"
             )}
@@ -58,7 +58,7 @@ export function ProjectSearchResult({
               target="_blank"
               className={cn(
                 buttonVariants({ variant: "ghost" }),
-                "h-10 w-10 rounded-full p-0 text-muted-foreground",
+                "size-10 rounded-full p-0 text-muted-foreground",
                 "group-aria-[selected]:hover:text-[var(--project-color)]",
                 "group-aria-[selected]:hover:bg-[var(--project-bg)]"
               )}
@@ -75,7 +75,7 @@ export function ProjectSearchResult({
 function ProjectSummary({ project }: { project: BestOfJS.SearchIndexProject }) {
   return (
     <div className="flex w-full min-w-0 items-center gap-4">
-      <div className="flex h-12 w-12 items-center justify-center">
+      <div className="flex size-12 items-center justify-center">
         <ProjectLogo project={project} size={32} />
       </div>
       <div className="group-aria-[selected]:text-accent-foreground] flex-1 truncate">
@@ -110,7 +110,7 @@ export function TagSearchResult({
       <div className="flex min-h-[50px] items-center">
         <div
           className={cn(
-            "flex h-12 w-12 items-center justify-center",
+            "flex size-12 items-center justify-center",
             "text-muted-foreground",
             "group-aria-[selected]:text-accent-foreground"
           )}
@@ -140,7 +140,7 @@ export function ViewAllTagsCommand({ onSelect }: { onSelect: () => void }) {
   return (
     <CommandItem value="all-tags" onSelect={() => onSelect()}>
       <div className="flex min-h-[50px] items-center">
-        <div className="flex h-12 w-12 items-center justify-center">
+        <div className="flex size-12 items-center justify-center">
           <TagsIcons size={32} />
         </div>
         <div className="pl-4">View all tags</div>
@@ -162,7 +162,7 @@ export function SearchForTextCommand({
       value={`search/${searchQuery}`}
       className="group grid w-full grid-cols-[32px_1fr] items-center gap-4"
     >
-      <div className="flex h-12 w-12 items-center justify-center">
+      <div className="flex size-12 items-center justify-center">
         <SearchIcon size={24} />
       </div>
       <div>

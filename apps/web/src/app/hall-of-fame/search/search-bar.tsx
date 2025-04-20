@@ -43,7 +43,7 @@ export function DescribeSearchResults({ count }: { count: number }) {
   if (count === 0) {
     return (
       <Alert className="mt-8">
-        <InfoIcon className="h-5 w-5" />
+        <InfoIcon className="size-5" />
         <AlertTitle>No results found</AlertTitle>
         <AlertDescription>
           Try another search or click on the Reset button.
@@ -54,7 +54,7 @@ export function DescribeSearchResults({ count }: { count: number }) {
 
   return (
     <div className="flex items-center gap-2">
-      <InfoIcon className="h-5 w-5" />
+      <InfoIcon className="size-5" />
       <span>Search results:</span>
       {count === 1 ? "One member found" : `${count} members found`}
     </div>
