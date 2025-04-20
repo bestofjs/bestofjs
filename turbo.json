@@ -4,7 +4,7 @@
     "build": {
       "dependsOn": ["^build"],
       "outputs": [".next/**", "!.next/cache/**", "public/data/**", "build/**"],
-      "env": ["POSTGRES_URL", "GITHUB_ACCESS_TOKEN", "STAGE"]
+      "env": ["POSTGRES_URL", "GITHUB_ACCESS_TOKEN", "STAGE", "NODE_ENV"]
     },
     "lint": {
       "dependsOn": ["^lint"]
