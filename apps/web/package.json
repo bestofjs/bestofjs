@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "analyze": "cross-env ANALYZE=true next build",
-    "build": "pnpm build-project-data && dotenv -e ../../.env.${STAGE:=development} next build",
+    "build": "pnpm build-project-data && dotenv -e ../../.env.${STAGE:=development} next build --turbopack",
     "build-project-data": "dotenv -e ../../.env.${STAGE:=development} node ./scripts/build-project-data.mjs",
     "dev": "dotenv -e ../../.env.${STAGE:=development} next dev --turbopack",
     "format:check": "prettier --check \"**/*.{ts,tsx,mdx}\" --cache",
@@ -90,11 +90,5 @@
     "budgetPercentIncreaseRed": 20,
     "minimumChangeThreshold": 0,
     "showDetails": true
-  },
-  "pnpm": {
-    "overrides": {
-      "@types/react": "19.1.2",
-      "@types/react-dom": "19.1.2"
-    }
   }
 }
