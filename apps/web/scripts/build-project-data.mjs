@@ -20,6 +20,7 @@ async function buildJsonFile(filename) {
   const url = env.STATIC_API_ROOT_URL_V2 + `/` + filename;
   console.log(`Fetching data from ${url}`);
   const data = await fetch(url).then((res) => res.json());
+  console.log("Fetched data", data.date);
   const filepath = path.join(process.cwd(), "public", "data", filename);
   console.log("Copy", filepath);
   await fs.outputJSON(filepath, data);
