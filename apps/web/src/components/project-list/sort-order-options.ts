@@ -20,6 +20,7 @@ export type SortOptionKey = SortOptionMap[keyof SortOptionMap];
 export type SortOption = {
   key: SortOptionKey;
   label: string;
+  shortLabel?: string;
   sort: { [key: string]: number };
   disabled?: (params: { query: string }) => boolean;
 };
@@ -33,21 +34,25 @@ export const sortOrderOptions: SortOption[] = [
   {
     key: "daily",
     label: "By stars added yesterday",
+    shortLabel: "Today",
     sort: { "trends.daily": -1 },
   },
   {
     key: "weekly",
     label: "By stars added the last 7 days",
+    shortLabel: "Last 7 days",
     sort: { "trends.weekly": -1 },
   },
   {
     key: "monthly",
     label: "By stars added the last 30 days",
+    shortLabel: "Last 30 days",
     sort: { "trends.monthly": -1 },
   },
   {
     key: "yearly",
     label: "By stars added the last 12 months",
+    shortLabel: "Last 12 months",
     sort: { "trends.yearly": -1 },
   },
   {

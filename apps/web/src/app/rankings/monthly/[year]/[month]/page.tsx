@@ -12,6 +12,7 @@ import { ProjectTable } from "@/components/project-list/project-table";
 import { Button, buttonVariants } from "@/components/ui/button";
 import { Card, CardHeader } from "@/components/ui/card";
 import { APP_CANONICAL_URL, APP_DISPLAY_NAME } from "@/config/site";
+import { cn } from "@/lib/utils";
 import { api } from "@/server/api";
 import { MonthlyDate } from "@/server/api-rankings";
 import { formatMonthlyDate } from "../../monthly-rankings-utils";
@@ -155,8 +156,8 @@ function NavigationButton({
     <Link
       href={url}
       aria-label={label}
-      className={buttonVariants(
-        { variant: "outline" },
+      className={cn(
+        buttonVariants({ variant: "outline" }),
         "w-10 rounded-full p-0 sm:w-auto sm:rounded-sm sm:p-2"
       )}
     >

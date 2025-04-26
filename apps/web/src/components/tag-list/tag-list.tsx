@@ -9,6 +9,7 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import { cn } from "@/lib/utils";
 
 type Props = {
   tags: BestOfJS.TagWithProjects[];
@@ -52,9 +53,9 @@ export const TagList = ({ tags }: Props) => {
             ))}
             <NextLink
               href={`/projects?tags=${tag.code}`}
-              className={buttonVariants(
-                { size: "icon", variant: "outline" },
-                "h-[32px] w-[32px]"
+              className={cn(
+                buttonVariants({ size: "icon", variant: "outline" }),
+                "size-[32px]"
               )}
             >
               <Tooltip>
