@@ -39,7 +39,7 @@ export function TimeRangePicker({ value }: Props) {
           <ChevronDownIcon size={24} aria-hidden="true" />
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent className="w-[300px] divide-y" align="end">
+      <DropdownMenuContent align="end">
         <DropdownMenuGroup>
           {sortOptionKeys.map((sortOptionKey) => {
             const item = getSortOptionByKey(sortOptionKey);
