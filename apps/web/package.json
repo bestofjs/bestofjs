@@ -21,8 +21,6 @@
     "typecheck:watch": "tsc --noEmit --watch"
   },
   "dependencies": {
-    "@klass/core": "^3.4.8",
-    "@klass/react": "^3.4.8",
     "@next/bundle-analyzer": "15.3.1",
     "@radix-ui/react-checkbox": "^1.1.1",
     "@radix-ui/react-collapsible": "^1.1.0",
@@ -46,6 +44,7 @@
     "@typescript-eslint/parser": "^8.16.0",
     "@vercel/analytics": "^1.0.1",
     "autoprefixer": "^10.4.14",
+    "class-variance-authority": "^0.7.0",
     "clsx": "^2.0.0",
     "cmdk": "^1.0.0",
     "cross-env": "^7.0.3",

@@ -425,12 +425,6 @@ importers:
 
   apps/web:
     dependencies:
-      '@klass/core':
-        specifier: ^3.4.8
-        version: 3.4.8
-      '@klass/react':
-        specifier: ^3.4.8
-        version: 3.4.8(@klass/core@3.4.8)(react@19.1.0)
       '@next/bundle-analyzer':
         specifier: 15.3.1
         version: 15.3.1(bufferutil@4.0.8)
@@ -500,6 +494,9 @@ importers:
       autoprefixer:
         specifier: ^10.4.14
         version: 10.4.14(postcss@8.4.31)
+      class-variance-authority:
+        specifier: ^0.7.0
+        version: 0.7.0
       clsx:
         specifier: ^2.0.0
         version: 2.0.0
@@ -2419,15 +2416,6 @@ packages:
 
   '@jridgewell/trace-mapping@0.3.25':
     resolution: {integrity: sha512-vNk6aEwybGtawWmy/PzwnGDOjCkLWSD2wqvjGGAgOAwCGWySYXfYoxt00IJkTF+8Lb57DwOb3Aa0o9CApepiYQ==}
-
-  '@klass/core@3.4.8':
-    resolution: {integrity: sha512-DMels9Ki3nYgzVP+MagcJ/HSucVOWbIEvcnPGoreG0P2gTMS7SXjo7vSY2Sl2kVanPvEAugPP2wp3CcSiC2kWA==}
-
-  '@klass/react@3.4.8':
-    resolution: {integrity: sha512-JuVnvDkFLqkBjG0anYSrljgFjh/A6nG/VzdQFkrCC6ZyhJVoRh/KCJwguERxWM9hSUJdqnIka5UTXz6kMQfJ7w==}
-    peerDependencies:
-      '@klass/core': 3.4.8
-      react: ^18.0.0
 
   '@libsql/client-wasm@0.14.0':
     resolution: {integrity: sha512-gB/jtz0xuwrqAHApBv9e9JSew2030Fhj2edyZ83InZ4yPj/Q2LTUlEhaspEYT0T0xsAGqPy38uGrmq/OGS+DdQ==}
@@ -10407,15 +10395,6 @@ snapshots:
     dependencies:
       '@jridgewell/resolve-uri': 3.1.0
       '@jridgewell/sourcemap-codec': 1.5.0
-
-  '@klass/core@3.4.8':
-    dependencies:
-      clsx: 2.0.0
-
-  '@klass/react@3.4.8(@klass/core@3.4.8)(react@19.1.0)':
-    dependencies:
-      '@klass/core': 3.4.8
-      react: 19.1.0
 
   '@libsql/client-wasm@0.14.0':
     dependencies:

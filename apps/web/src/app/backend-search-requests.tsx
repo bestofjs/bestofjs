@@ -1,12 +1,12 @@
 import { TAGS_EXCLUDED_FROM_RANKINGS } from "@repo/db/constants";
 
-export function getHotProjectsRequest(count = 5) {
+export function getHotProjectsRequest(count = 5, sortOrder = "daily") {
   return {
     criteria: {
       tags: { $nin: TAGS_EXCLUDED_FROM_RANKINGS },
     },
     sort: {
-      "trends.daily": -1,
+      [`trends.${sortOrder}`]: -1,
     },
     limit: count,
   };

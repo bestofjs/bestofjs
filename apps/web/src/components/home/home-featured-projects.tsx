@@ -3,6 +3,7 @@ import NextLink from "next/link";
 import { FeaturedProjectList } from "@/components/home/featured-project-list";
 import { buttonVariants } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
+import { cn } from "@/lib/utils";
 import { api } from "@/server/api";
 import { FeaturedProjectsClient } from "./home-featured-projects.client";
 
@@ -24,8 +25,8 @@ export async function FeaturedProjects({ numberOfProjectPerPage = 5 }: Props) {
         <NextLink
           href={`/featured`}
           passHref
-          className={buttonVariants(
-            { variant: "link" },
+          className={cn(
+            buttonVariants({ variant: "link" }),
             "text-md w-full text-secondary-foreground"
           )}
         >

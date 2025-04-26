@@ -7,6 +7,7 @@ import { SectionHeading } from "@/components/core/section";
 import { ProjectTable } from "@/components/project-list/project-table";
 import { buttonVariants } from "@/components/ui/button";
 import { Card, CardHeader } from "@/components/ui/card";
+import { cn } from "@/lib/utils";
 import { api } from "@/server/api";
 
 export async function LatestMonthlyRankings() {
@@ -32,8 +33,8 @@ export async function LatestMonthlyRankings() {
           <NextLink
             href={`/rankings/monthly/${year}/${month}`}
             passHref
-            className={buttonVariants(
-              { variant: "link" },
+            className={cn(
+              buttonVariants({ variant: "link" }),
               "text-md w-full text-secondary-foreground"
             )}
           >

@@ -9,6 +9,7 @@ import { GitHubIcon, HomeIcon, NpmIcon, ProjectLogo } from "@/components/core";
 import { ProjectTagGroup } from "@/components/tags/project-tag";
 import { buttonVariants } from "@/components/ui/button";
 import { formatUrl } from "@/helpers/url";
+import { cn } from "@/lib/utils";
 
 type Props = { project: ProjectDetails };
 export function ProjectHeader({ project }: Props) {
@@ -73,7 +74,10 @@ const ButtonLink = ({
 }) => (
   <a
     href={href}
-    className={buttonVariants({ variant: "outline" }, "relative justify-start")}
+    className={cn(
+      buttonVariants({ variant: "outline" }),
+      "relative justify-start"
+    )}
   >
     <span className="absolute left-4">{icon}</span>
     <span className="truncate pl-[36px] text-base">{children}</span>
