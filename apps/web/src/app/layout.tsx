@@ -32,6 +32,7 @@ export const metadata: Metadata = {
     url: APP_CANONICAL_URL,
     title: APP_DISPLAY_NAME,
     description: APP_DESCRIPTION,
+    images: ["/images/og-home-2025-04-27.png"],
   },
 };
 
