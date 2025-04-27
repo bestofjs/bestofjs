@@ -75,11 +75,7 @@ export function MoreLinksButton() {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button
-          size="sm"
-          variant="ghost"
-          className={cn("text-muted-foreground")}
-        >
+        <Button variant="ghost" className="text-muted-foreground">
           More
           <ChevronDownIcon size={16} />
         </Button>
