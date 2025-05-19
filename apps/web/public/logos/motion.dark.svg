@@ -1,19 +1,3 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
-  <defs>
-    <linearGradient id="a" gradientTransform="rotate(90 .5 .5)">
-      <stop offset="0" stop-color="#f08"/>
-      <stop offset="1" stop-color="#d0e"/>
-    </linearGradient>
-    <linearGradient id="b" gradientTransform="rotate(90 .5 .5)">
-      <stop offset="0" stop-color="#91f"/>
-      <stop offset="1" stop-color="#40f"/>
-    </linearGradient>
-    <linearGradient id="c" gradientTransform="rotate(90 .5 .5)">
-      <stop offset="0" stop-color="#09f"/>
-      <stop offset="1" stop-color="#05f"/>
-    </linearGradient>
-  </defs>
-  <path d="M0 100V0l50 50z" fill="url(#a)"/>
-  <path d="M100 0v50l-50 50-25-25z" fill="url(#b)"/>
-  <path d="M100 50v50L75 75z" fill="url(#c)"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1103 386">
+  <path fill="#f8ed2c" d="M416.47 0 198.54 385.66H0L170.17 84.52C196.55 37.84 262.37 0 317.2 0Zm486.88 96.42c0-53.25 44.44-96.42 99.27-96.42 54.82 0 99.27 43.17 99.27 96.42 0 53.24-44.45 96.41-99.27 96.41-54.83 0-99.27-43.17-99.27-96.42ZM453.7 0h198.54L434.3 385.66H235.77Zm234.5 0h198.53L716.56 301.14c-26.38 46.68-92.2 84.52-147.03 84.52h-99.27Z"/>
 </svg>
