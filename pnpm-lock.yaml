@@ -258,7 +258,7 @@ importers:
         version: 1.7.16(react-dom@17.0.2(react@17.0.2))(react@17.0.2)
       '@vitejs/plugin-react':
         specifier: ^2.0.0
-        version: 2.2.0(vite@4.5.6(@types/node@20.12.14)(terser@5.19.2))
+        version: 2.2.0(vite@4.5.14(@types/node@20.12.14)(terser@5.19.2))
       cross-env:
         specifier: ^7.0.3
         version: 7.0.3
@@ -329,17 +329,17 @@ importers:
         specifier: ^2.4.2
         version: 2.4.2
       vite:
-        specifier: ^4.5.6
-        version: 4.5.6(@types/node@20.12.14)(terser@5.19.2)
+        specifier: ^4.5.14
+        version: 4.5.14(@types/node@20.12.14)(terser@5.19.2)
       vite-plugin-checker:
         specifier: ^0.4.9
-        version: 0.4.9(vite@4.5.6(@types/node@20.12.14)(terser@5.19.2))
+        version: 0.4.9(vite@4.5.14(@types/node@20.12.14)(terser@5.19.2))
       vite-plugin-html:
         specifier: ^3.2.0
-        version: 3.2.0(vite@4.5.6(@types/node@20.12.14)(terser@5.19.2))
+        version: 3.2.0(vite@4.5.14(@types/node@20.12.14)(terser@5.19.2))
       vite-tsconfig-paths:
         specifier: ^3.4.1
-        version: 3.6.0(vite@4.5.6(@types/node@20.12.14)(terser@5.19.2))
+        version: 3.6.0(vite@4.5.14(@types/node@20.12.14)(terser@5.19.2))
     devDependencies:
       '@swc/core':
         specifier: ^1.3.73
@@ -6539,6 +6539,11 @@ packages:
       react: '*'
       react-dom: '*'
 
+  nanoid@3.3.11:
+    resolution: {integrity: sha512-N8SpfPUnUp1bK+PMYW8qSWdl9U+wwNWI4QKxOYDy9JAro3WMX7p2OeVRF9v+347pnakNevPmiHhNmZ2HbFA76w==}
+    engines: {node: ^10 || ^12 || ^13.7 || ^14 || >=15.0.1}
+    hasBin: true
+
   nanoid@3.3.8:
     resolution: {integrity: sha512-WNLf5Sd8oZxOm+TzppcYk8gVOgP+l58xNy58D0nbUnOxOWRWvlcCV4kUF7ltmI6PsrLl/BgKEyS4mqsGChFN0w==}
     engines: {node: ^10 || ^12 || ^13.7 || ^14 || >=15.0.1}
@@ -6606,6 +6611,7 @@ packages:
   node-domexception@1.0.0:
     resolution: {integrity: sha512-/jKZoMpw0F8GRwl4/eLROPA3cfcXtLApP0QzLmUT/HuPCZWyB7IY9ZrMeKw2O/nFIqPQB3PVM9aYm0F312AXDQ==}
     engines: {node: '>=10.5.0'}
+    deprecated: Use your platform's native DOMException instead
 
   node-fetch-cache@5.0.2:
     resolution: {integrity: sha512-ubwGjofT4XlbKwLTPEYUjWin2rpFCqduTAKB7YuCRmMCMd+Z/9LvwcPbzOUF52WjIh0MmwPtOnuu7OozaEMPHQ==}
@@ -7010,10 +7016,6 @@ packages:
 
   postcss@8.4.49:
     resolution: {integrity: sha512-OCVPnIObs4N29kxTjzLfUryOkvZEq+pf8jTF0lg8E7uETuWHA+v7j3c/xJmiqpX450191LlmZfUKkXxkTry7nA==}
-    engines: {node: ^10 || ^12 || >=14}
-
-  postcss@8.5.1:
-    resolution: {integrity: sha512-6oz2beyjc5VMn/KV1pPw8fliQkhBXrVn1Z3TVyqZxU8kZpzEKhBdmCFqI6ZbmGtamQvQGuU1sgPTk8ZrXDD7jQ==}
     engines: {node: ^10 || ^12 || >=14}
 
   postcss@8.5.3:
@@ -8312,8 +8314,8 @@ packages:
       vite:
         optional: true
 
-  vite@4.5.6:
-    resolution: {integrity: sha512-ElBNuVvJKslxcfY2gMmae5IjaKGqCYGicCNZ+8R56sAznobeE3pI9ctzI17cBS/6OJh5YuQNMSN4BP4dRjugBg==}
+  vite@4.5.14:
+    resolution: {integrity: sha512-+v57oAaoYNnO3hIu5Z/tJRZjq5aHM2zDve9YZ8HngVHbhk66RStobhb1sqPMIPEleV6cNKYK4eGrAbE9Ulbl2g==}
     engines: {node: ^14.18.0 || >=16.0.0}
     hasBin: true
     peerDependencies:
@@ -11903,7 +11905,7 @@ snapshots:
     transitivePeerDependencies:
       - utf-8-validate
 
-  '@vitejs/plugin-react@2.2.0(vite@4.5.6(@types/node@20.12.14)(terser@5.19.2))':
+  '@vitejs/plugin-react@2.2.0(vite@4.5.14(@types/node@20.12.14)(terser@5.19.2))':
     dependencies:
       '@babel/core': 7.22.9
       '@babel/plugin-transform-react-jsx': 7.22.5(@babel/core@7.22.9)
@@ -11912,7 +11914,7 @@ snapshots:
       '@babel/plugin-transform-react-jsx-source': 7.22.5(@babel/core@7.22.9)
       magic-string: 0.26.7
       react-refresh: 0.14.0
-      vite: 4.5.6(@types/node@20.12.14)(terser@5.19.2)
+      vite: 4.5.14(@types/node@20.12.14)(terser@5.19.2)
     transitivePeerDependencies:
       - supports-color
 
@@ -15193,6 +15195,8 @@ snapshots:
       stacktrace-js: 2.0.2
       stylis: 4.3.0
 
+  nanoid@3.3.11: {}
+
   nanoid@3.3.8: {}
 
   nanoid@5.0.9: {}
@@ -15644,15 +15648,9 @@ snapshots:
       picocolors: 1.1.1
       source-map-js: 1.2.1
 
-  postcss@8.5.1:
-    dependencies:
-      nanoid: 3.3.8
-      picocolors: 1.1.1
-      source-map-js: 1.2.1
-
   postcss@8.5.3:
     dependencies:
-      nanoid: 3.3.8
+      nanoid: 3.3.11
       picocolors: 1.1.1
       source-map-js: 1.2.1
 
@@ -17141,7 +17139,7 @@ snapshots:
       - supports-color
       - terser
 
-  vite-plugin-checker@0.4.9(vite@4.5.6(@types/node@20.12.14)(terser@5.19.2)):
+  vite-plugin-checker@0.4.9(vite@4.5.14(@types/node@20.12.14)(terser@5.19.2)):
     dependencies:
       '@babel/code-frame': 7.22.5
       ansi-escapes: 4.3.2
@@ -17154,13 +17152,13 @@ snapshots:
       npm-run-path: 4.0.1
       strip-ansi: 6.0.1
       tiny-invariant: 1.3.3
-      vite: 4.5.6(@types/node@20.12.14)(terser@5.19.2)
+      vite: 4.5.14(@types/node@20.12.14)(terser@5.19.2)
       vscode-languageclient: 7.0.0
       vscode-languageserver: 7.0.0
       vscode-languageserver-textdocument: 1.0.8
       vscode-uri: 3.0.7
 
-  vite-plugin-html@3.2.0(vite@4.5.6(@types/node@20.12.14)(terser@5.19.2)):
+  vite-plugin-html@3.2.0(vite@4.5.14(@types/node@20.12.14)(terser@5.19.2)):
     dependencies:
       '@rollup/pluginutils': 4.2.1
       colorette: 2.0.20
@@ -17174,15 +17172,15 @@ snapshots:
       html-minifier-terser: 6.1.0
       node-html-parser: 5.4.2
       pathe: 0.2.0
-      vite: 4.5.6(@types/node@20.12.14)(terser@5.19.2)
+      vite: 4.5.14(@types/node@20.12.14)(terser@5.19.2)
 
-  vite-tsconfig-paths@3.6.0(vite@4.5.6(@types/node@20.12.14)(terser@5.19.2)):
+  vite-tsconfig-paths@3.6.0(vite@4.5.14(@types/node@20.12.14)(terser@5.19.2)):
     dependencies:
       debug: 4.3.7
       globrex: 0.1.2
       recrawl-sync: 2.2.3
       tsconfig-paths: 4.2.0
-      vite: 4.5.6(@types/node@20.12.14)(terser@5.19.2)
+      vite: 4.5.14(@types/node@20.12.14)(terser@5.19.2)
     transitivePeerDependencies:
       - supports-color
 
@@ -17197,10 +17195,10 @@ snapshots:
       - supports-color
       - typescript
 
-  vite@4.5.6(@types/node@20.12.14)(terser@5.19.2):
+  vite@4.5.14(@types/node@20.12.14)(terser@5.19.2):
     dependencies:
       esbuild: 0.18.20
-      postcss: 8.5.1
+      postcss: 8.5.3
       rollup: 3.29.5
     optionalDependencies:
       '@types/node': 20.12.14
