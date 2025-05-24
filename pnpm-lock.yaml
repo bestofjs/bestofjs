@@ -232,12 +232,12 @@ importers:
         specifier: ^3.23.8
         version: 3.23.8
     devDependencies:
+      '@types/bun':
+        specifier: ^1.2.14
+        version: 1.2.14
       '@types/debug':
         specifier: ^4.1.12
         version: 4.1.12
-      nano-spawn:
-        specifier: ^0.2.0
-        version: 0.2.0
 
   apps/legacy:
     dependencies:
@@ -654,7 +654,7 @@ importers:
         version: 0.27.1
       drizzle-orm:
         specifier: ^0.36.0
-        version: 0.36.0(@libsql/client-wasm@0.14.0)(@neondatabase/serverless@0.9.5)(@types/pg@8.11.6)(@types/react@19.1.2)(@vercel/postgres@0.10.0(utf-8-validate@6.0.4))(bun-types@1.1.32)(postgres@3.4.3)(react@19.1.0)
+        version: 0.36.0(@libsql/client-wasm@0.14.0)(@neondatabase/serverless@0.9.5)(@types/pg@8.11.6)(@types/react@19.1.2)(@vercel/postgres@0.10.0(utf-8-validate@6.0.4))(bun-types@1.2.14)(postgres@3.4.3)(react@19.1.0)
       es-toolkit:
         specifier: ^1.31.0
         version: 1.31.0
@@ -3579,6 +3579,9 @@ packages:
   '@types/bun@1.1.12':
     resolution: {integrity: sha512-UkewJesRDP3+AW30Gc8hvxuIt+vHgYZXmVOKaXV8xnwAnMXTAs3XZDsa/jW+LSdAYhHslokSm72lq63FYYjZqA==}
 
+  '@types/bun@1.2.14':
+    resolution: {integrity: sha512-VsFZKs8oKHzI7zwvECiAJ5oSorWndIWEVhfbYqZd4HI/45kzW7PN2Rr5biAzvGvRuNmYLSANY+H59ubHq8xw7Q==}
+
   '@types/cheerio@0.22.35':
     resolution: {integrity: sha512-yD57BchKRvTV+JD53UZ6PD8KWY5g5rvvMLRnZR3EQBCZXiDT/HR+pKpMzFGlWNhFrXlo7VPZXtKvIEwZkAWOIA==}
 
@@ -4195,6 +4198,9 @@ packages:
 
   bun-types@1.1.32:
     resolution: {integrity: sha512-Lxgux4InO/WRjSAEy3iyDscsnDXR8+3rgNDeZYjPAizFYjUraoNuMl9PuRd9XMgFZgdyQwaUX7/QHmOw5KGFQw==}
+
+  bun-types@1.2.14:
+    resolution: {integrity: sha512-Kuh4Ub28ucMRWeiUUWMHsT9Wcbr4H3kLIO72RZZElSDxSu7vpetRvxIUDUaW6QtaIeixIpm7OXtNnZPf82EzwA==}
 
   busboy@1.6.0:
     resolution: {integrity: sha512-8SFQbg/0hQ9xy3UNTB0YEnsNBbWfhf7RtnzpL7TkBiTBRfrQ9Fxcnz7VJsleJpyp6rVLvXiuORqjlHi5q+PYuA==}
@@ -6532,10 +6538,6 @@ packages:
     peerDependencies:
       react: '*'
       react-dom: '*'
-
-  nano-spawn@0.2.0:
-    resolution: {integrity: sha512-IjZBIOLxSlxu+m/kacg9JuP93oUpRemeV0mEuCy64nzBKKIL9m0aLJHtVPcVuzJDHFhElzjpwbW4a3tMzgKoZQ==}
-    engines: {node: '>=18.19'}
 
   nanoid@3.3.8:
     resolution: {integrity: sha512-WNLf5Sd8oZxOm+TzppcYk8gVOgP+l58xNy58D0nbUnOxOWRWvlcCV4kUF7ltmI6PsrLl/BgKEyS4mqsGChFN0w==}
@@ -11559,6 +11561,10 @@ snapshots:
     dependencies:
       bun-types: 1.1.32
 
+  '@types/bun@1.2.14':
+    dependencies:
+      bun-types: 1.2.14
+
   '@types/cheerio@0.22.35':
     dependencies:
       '@types/node': 20.12.14
@@ -12352,6 +12358,10 @@ snapshots:
       '@types/node': 20.12.14
       '@types/ws': 8.5.12
 
+  bun-types@1.2.14:
+    dependencies:
+      '@types/node': 20.12.14
+
   busboy@1.6.0:
     dependencies:
       streamsearch: 1.1.0
@@ -13005,14 +13015,14 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  drizzle-orm@0.36.0(@libsql/client-wasm@0.14.0)(@neondatabase/serverless@0.9.5)(@types/pg@8.11.6)(@types/react@19.1.2)(@vercel/postgres@0.10.0(utf-8-validate@6.0.4))(bun-types@1.1.32)(postgres@3.4.3)(react@19.1.0):
+  drizzle-orm@0.36.0(@libsql/client-wasm@0.14.0)(@neondatabase/serverless@0.9.5)(@types/pg@8.11.6)(@types/react@19.1.2)(@vercel/postgres@0.10.0(utf-8-validate@6.0.4))(bun-types@1.2.14)(postgres@3.4.3)(react@19.1.0):
     optionalDependencies:
       '@libsql/client-wasm': 0.14.0
       '@neondatabase/serverless': 0.9.5
       '@types/pg': 8.11.6
       '@types/react': 19.1.2
       '@vercel/postgres': 0.10.0(utf-8-validate@6.0.4)
-      bun-types: 1.1.32
+      bun-types: 1.2.14
       postgres: 3.4.3
       react: 19.1.0
 
@@ -15182,8 +15192,6 @@ snapshots:
       sourcemap-codec: 1.4.8
       stacktrace-js: 2.0.2
       stylis: 4.3.0
-
-  nano-spawn@0.2.0: {}
 
   nanoid@3.3.8: {}
 

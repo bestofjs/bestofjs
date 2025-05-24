@@ -1,7 +1,6 @@
-import { createWriteStream, existsSync, readdirSync } from "fs";
+import { existsSync, readdirSync } from "fs";
 import path from "path";
 import consola from "consola";
-import spawn from "nano-spawn";
 import prettyMs from "pretty-ms";
 
 main();
@@ -19,11 +18,14 @@ async function main() {
 
 async function launchBackupCommand(dbURL: string, filepath: string) {
   consola.box("Backup...", filepath);
+  const start = Date.now();
   try {
-    const result = await spawn("pg_dump", [dbURL], {
-      stdout: createWriteStream(filepath),
+    const proc = Bun.spawn(["pg_dump", dbURL], {
+      stdout: Bun.file(filepath),
     });
-    consola.success("Backup done", prettyMs(result.durationMs));
+    proc.stdout;
+    await proc.exited;
+    consola.success("Backup done", prettyMs(Date.now() - start));
   } catch (error) {
     consola.error("Backup failed", error);
   }
