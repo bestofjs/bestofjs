@@ -67,7 +67,7 @@ export function AddPackageButton({ project }: Props) {
       <Dialog open={open} onOpenChange={setOpen}>
         <DialogTrigger asChild>
           <Button variant="default">
-            <PlusIcon className="h-4 w-4" />
+            <PlusIcon className="size-4" />
             Add Package
           </Button>
         </DialogTrigger>
@@ -99,7 +99,7 @@ export function AddPackageButton({ project }: Props) {
             <DialogFooter>
               <Button type="submit" disabled={isPending}>
                 {isPending && (
-                  <ReloadIcon className="mr-2 h-4 w-4 animate-spin" />
+                  <ReloadIcon className="mr-2 size-4 animate-spin" />
                 )}
                 Add
               </Button>

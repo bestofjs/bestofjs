@@ -59,7 +59,7 @@ export function RemovePackageButton({ project, packageName }: Props) {
           <DialogFooter>
             <Button type="submit" disabled={isPending} variant="destructive">
               {isPending && (
-                <ReloadIcon className="mr-2 h-4 w-4 animate-spin" />
+                <ReloadIcon className="mr-2 size-4 animate-spin" />
               )}
               Remove {packageName}
             </Button>
