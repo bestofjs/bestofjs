@@ -10,7 +10,7 @@ import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from "zod";
 
-import { addProjectToRepoAction } from "@/app/projects/actions";
+import { addProjectToRepoAction } from "@/actions/projects-actions";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -55,7 +55,7 @@ export function AddProjectToRepoButton({ repoId }: { repoId: string }) {
       <Dialog open={open} onOpenChange={setOpen}>
         <DialogTrigger asChild>
           <Button variant="default">
-            <Plus className="h-4 w-4" />
+            <Plus className="size-4" />
             Add Project
           </Button>
         </DialogTrigger>
@@ -102,7 +102,7 @@ export function AddProjectToRepoButton({ repoId }: { repoId: string }) {
             <DialogFooter>
               <Button type="submit" disabled={isPending}>
                 {isPending && (
-                  <ReloadIcon className="mr-2 h-4 w-4 animate-spin" />
+                  <ReloadIcon className="mr-2 size-4 animate-spin" />
                 )}
                 Add
               </Button>

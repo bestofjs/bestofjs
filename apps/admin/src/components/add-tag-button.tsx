@@ -8,7 +8,7 @@ import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from "zod";
 
-import { createTag } from "@/app/tags/actions";
+import { createTag } from "@/actions/tags-actions";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -78,7 +78,7 @@ export function AddTagButton() {
             <DialogFooter>
               <Button type="submit" disabled={isPending}>
                 {isPending && (
-                  <ReloadIcon className="mr-2 h-4 w-4 animate-spin" />
+                  <ReloadIcon className="mr-2 size-4 animate-spin" />
                 )}
                 Add
               </Button>
