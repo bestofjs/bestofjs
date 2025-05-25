@@ -8,7 +8,7 @@ import { toast } from "sonner";
 import { z } from "zod";
 
 import { getTagBySlug } from "@repo/db/tags";
-import { updateTagData } from "@/app/projects/[slug]/actions";
+import { updateTagData } from "@/app/(dashboard)/projects/[slug]/actions";
 import { Button } from "@/components/ui/button";
 import {
   Card,
