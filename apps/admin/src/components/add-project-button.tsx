@@ -9,7 +9,7 @@ import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from "zod";
 
-import { createProjectAction } from "@/app/projects/actions";
+import { createProjectAction } from "@/actions/projects-actions";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -82,7 +82,7 @@ export function AddProjectButton() {
             <DialogFooter>
               <Button type="submit" disabled={isPending}>
                 {isPending && (
-                  <ReloadIcon className="mr-2 h-4 w-4 animate-spin" />
+                  <ReloadIcon className="mr-2 size-4 animate-spin" />
                 )}
                 Add
               </Button>

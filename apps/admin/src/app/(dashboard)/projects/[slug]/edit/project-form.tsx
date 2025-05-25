@@ -107,7 +107,7 @@ export function ProjectForm({ project }: Props) {
                     <Input placeholder="Slug" {...field} />
                   </FormControl>
                   <FormDescription className="flex items-center gap-2">
-                    <TriangleAlert className="h-4 w-4" />
+                    <TriangleAlert className="size-4" />
                     Edit with care, the slug may be referenced a lot of places
                   </FormDescription>
                   <FormMessage />
@@ -247,7 +247,7 @@ export function ProjectForm({ project }: Props) {
             </Link>
             <Button type="submit" disabled={isPending}>
               {isPending && (
-                <ReloadIcon className="mr-2 h-4 w-4 animate-spin" />
+                <ReloadIcon className="mr-2 size-4 animate-spin" />
               )}
               Save Project
             </Button>

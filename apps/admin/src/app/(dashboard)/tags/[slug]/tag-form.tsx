@@ -8,7 +8,7 @@ import { toast } from "sonner";
 import { z } from "zod";
 
 import { getTagBySlug } from "@repo/db/tags";
-import { updateTagData } from "@/app/projects/[slug]/actions";
+import { updateTagData } from "@/app/(dashboard)/projects/[slug]/actions";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -113,7 +113,7 @@ export function TagForm({ tag }: Props) {
 
             <Button type="submit" disabled={isPending}>
               {isPending && (
-                <ReloadIcon className="mr-2 h-4 w-4 animate-spin" />
+                <ReloadIcon className="mr-2 size-4 animate-spin" />
               )}
               Save
             </Button>

@@ -80,7 +80,7 @@ export function ViewTags({ project, allTags }: Props) {
                   );
                 }}
               >
-                <XIcon className="h-4 w-4" />
+                <XIcon className="size-4" />
               </Button>
             </Badge>
           ))}
@@ -100,7 +100,7 @@ export function ViewTags({ project, allTags }: Props) {
           Discard
         </Button>
         <Button disabled={!isChanged} onClick={handleSave}>
-          {isPending && <ReloadIcon className="mr-2 h-4 w-4 animate-spin" />}
+          {isPending && <ReloadIcon className="mr-2 size-4 animate-spin" />}
           Save
         </Button>
       </CardFooter>
