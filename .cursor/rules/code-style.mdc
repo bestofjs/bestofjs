@@ -1,0 +1,106 @@
+---
+description:
+globs:
+alwaysApply: false
+---
+# Best of JS - Development Rules
+
+## 🔧 File Naming
+
+- **All files**: lowercase `kebab-case` (e.g., `project-card.tsx`, `api-client.ts`)
+- **Components**: `component-name.tsx`
+- **Utilities**: `utility-name.ts`
+- **Types**: `type-name.types.ts`
+- **Hooks**: `use-hook-name.ts`
+- **Tests**: `file-name.test.ts`
+
+## 📦 Functions & Exports
+
+### Function Declarations
+
+**Always use `function` keyword:**
+```typescript
+// ✅ Preferred
+export function ProjectCard({ project }: Props) {
+  return <div>{project.name}</div>;
+}
+
+// ❌ Avoid arrow functions
+export const ProjectCard = ({ project }: Props) => { ... };
+```
+
+### Exports
+**Always use named exports:**
+```typescript
+// ✅ Preferred
+export function ProjectCard() { ... }
+
+// ❌ Avoid default exports
+export default ProjectCard;
+```
+
+## 🏗️ Code Organization
+
+### Function Order (Most Important First)
+
+1. **Main functions** - Core functionality
+2. **Secondary functions** - Supporting functions
+3. **Helper functions** - Internal utilities
+4. **Constants** - Static values
+
+```typescript
+// ✅ Example
+export function fetchProjectData(id: string) {
+  const data = await apiClient.get(`/projects/${id}`);
+  return transformData(data);
+}
+
+function transformData(raw: ApiData) {
+  return { ...raw, score: calculateScore(raw) };
+}
+
+function calculateScore(data: ApiData) {
+  return data.stars * STAR_WEIGHT + data.downloads * DOWNLOAD_WEIGHT;
+}
+
+const STAR_WEIGHT = 0.7;
+const DOWNLOAD_WEIGHT = 0.3;
+```
+
+## 🎨 Code Style
+
+### Formatting
+
+- **Quotes**: Double quotes (`"`)
+- **Indentation**: 2 spaces
+- **Trailing commas**: ES5 style
+
+### Naming
+
+- **Variables/Functions**: `camelCase`
+- **Components**: `PascalCase` (but files are lowercase)
+- **Constants**: `SCREAMING_SNAKE_CASE`
+- **Booleans**: `is`, `has`, `can`, `should` prefixes
+
+### Import Order
+
+1. React imports
+2. Next.js imports
+3. Third-party libraries
+4. Monorepo packages (`@repo/`)
+5. Internal imports (`@/`)
+6. Relative imports (`./`, `../`)
+
+
+## Monorepo Structure
+```
+apps/
+├── web/           # Next.js app
+├── admin/         # Admin dashboard
+├── backend/       # Backend services
+└── legacy/        # Legacy code
+packages/
+├── api/           # API utilities
+├── db/            # Database utilities
+└── eslint-config/ # Shared configs
+```

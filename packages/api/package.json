@@ -15,7 +15,7 @@
     "./npm": "./src/npm/index.ts"
   },
   "dependencies": {
-    "@types/debug": "^4.1.12",
+    "@types/debug": "catalog:",
     "date-fns": "^4.1.0",
     "debug": "^4.3.7",
     "emoji-regex": "^10.3.0",
