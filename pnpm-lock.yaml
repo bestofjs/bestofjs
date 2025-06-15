@@ -30,6 +30,9 @@ catalogs:
     prettier:
       specifier: ^3.3.3
       version: 3.3.3
+    radix-ui:
+      specifier: 1.4.2
+      version: 1.4.2
     react:
       specifier: 19.1.0
       version: 19.1.0
@@ -132,7 +135,7 @@ importers:
         specifier: ^6.1.1
         version: 6.1.1
       radix-ui:
-        specifier: latest
+        specifier: 'catalog:'
         version: 1.4.2(@types/react-dom@19.1.2(@types/react@19.1.2))(@types/react@19.1.2)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       react:
         specifier: 'catalog:'
@@ -540,7 +543,7 @@ importers:
         specifier: ^3.0.0
         version: 3.0.0
       radix-ui:
-        specifier: latest
+        specifier: 'catalog:'
         version: 1.4.2(@types/react-dom@19.1.2(@types/react@19.1.2))(@types/react@19.1.2)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       react:
         specifier: 'catalog:'
