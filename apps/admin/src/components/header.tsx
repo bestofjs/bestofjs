@@ -3,12 +3,13 @@
 import * as React from "react";
 import NextLink, { type LinkProps } from "next/link";
 import { usePathname } from "next/navigation";
+
 import {
   NavigationMenu,
   NavigationMenuItem,
   NavigationMenuLink,
   NavigationMenuList,
-} from "@radix-ui/react-navigation-menu";
+} from "@/components/ui/navigation-menu";
 
 export function Header() {
   return (
