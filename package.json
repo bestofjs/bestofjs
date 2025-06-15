@@ -13,14 +13,17 @@
   },
   "author": "Michael Rambeau",
   "license": "MIT",
-  "packageManager": "pnpm@9.4.0",
+  "engines": {
+    "node": ">=20",
+    "pnpm": ">=10"
+  },
   "devDependencies": {
     "@ianvs/prettier-plugin-sort-imports": "^4.3.1",
-    "dotenv-cli": "^7.4.2",
-    "prettier": "^3.3.3",
-    "tsx": "^4.19.2",
+    "dotenv-cli": "catalog:",
+    "prettier": "catalog:",
+    "tsx": "catalog:",
     "turbo": "^2.5.0",
-    "typescript": "^5.7.3"
+    "typescript": "catalog:"
   },
   "pnpm": {
     "overrides": {

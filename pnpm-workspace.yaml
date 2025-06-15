@@ -1,3 +1,25 @@
 packages:
   - "apps/*"
   - "packages/*"
+
+# Catalog for managing common dependencies across workspaces
+catalog:
+  # Next.js and React ecosystem
+  next: "15.3.1"
+  react: "19.1.0"
+  react-dom: "19.1.0"
+
+  # TypeScript and types
+  typescript: "^5.7.3"
+  "@types/node": "^20"
+  "@types/react": "19.1.2"
+  "@types/react-dom": "19.1.2"
+  "@types/debug": "^4.1.12"
+
+  # Schema validation
+  zod: "^3.23.8"
+
+  # Development tools
+  dotenv-cli: "^7.4.2"
+  prettier: "^3.3.3"
+  tsx: "^4.19.2"

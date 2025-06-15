@@ -11,7 +11,7 @@
 Requirements:
 
 - Node.js 20
-- [PNPM](https://pnpm.io/) 9
+- [PNPM](https://pnpm.io/) 10
 
 The app is part of a monorepo built using [PNPM workspace](https://pnpm.io/workspaces) feature.
 
