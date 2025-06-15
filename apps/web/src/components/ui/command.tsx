@@ -1,7 +1,6 @@
 "use client";
 
 import * as React from "react";
-import { DialogProps } from "@radix-ui/react-dialog";
 import { Command as CommandPrimitive } from "cmdk";
 
 import { SearchIcon } from "@/components/core";
@@ -25,7 +24,10 @@ const Command = React.forwardRef<
 ));
 Command.displayName = CommandPrimitive.displayName;
 
-const CommandDialog = ({ children, ...props }: DialogProps) => {
+const CommandDialog = ({
+  children,
+  ...props
+}: React.ComponentProps<typeof Dialog>) => {
   return (
     <Dialog {...props}>
       <DialogContent

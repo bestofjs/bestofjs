@@ -2,7 +2,6 @@
 "use client";
 
 import * as React from "react";
-import { ComponentProps } from "react";
 import { Command as CommandPrimitive } from "cmdk";
 import { Search } from "lucide-react";
 
@@ -27,7 +26,7 @@ Command.displayName = CommandPrimitive.displayName;
 const CommandDialog = ({
   children,
   ...props
-}: ComponentProps<typeof Dialog>) => {
+}: React.ComponentProps<typeof Dialog>) => {
   return (
     <Dialog {...props}>
       <DialogContent className="overflow-hidden p-0 shadow-lg">
