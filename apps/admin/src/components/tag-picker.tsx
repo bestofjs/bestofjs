@@ -41,7 +41,7 @@ export function TagPicker({ allTags, values, onChange }: Props) {
           className="w-[200px] justify-between"
         >
           Add tag
-          <PlusIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+          <PlusIcon className="ml-2 size-4 shrink-0 opacity-50" />
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-[200px] p-0">
@@ -61,7 +61,7 @@ export function TagPicker({ allTags, values, onChange }: Props) {
                 >
                   <Check
                     className={cn(
-                      "mr-2 h-4 w-4",
+                      "mr-2 size-4",
                       values.includes(tag.id) ? "opacity-100" : "opacity-0"
                     )}
                   />
