@@ -13,6 +13,7 @@
   },
   "author": "Michael Rambeau",
   "license": "MIT",
+  "packageManager": "pnpm@10.12.0",
   "engines": {
     "node": ">=20",
     "pnpm": ">=10"
