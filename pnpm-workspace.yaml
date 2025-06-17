@@ -25,3 +25,5 @@ catalog:
   prettier: "^3.3.3"
   tsx: "^4.19.2"
   eslint: "^9.16.0"
+
+  debug: "^4.3.7"
