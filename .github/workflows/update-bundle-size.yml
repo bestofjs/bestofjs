@@ -39,6 +39,6 @@ jobs:
         uses: ./.github/tooling/github-actions/install
       - name: Install Dependencies
         shell: bash
-        run: pnpm -F backend install
+        run: pnpm -F backend... install
       - name: Update Bundle Size
         run: pnpm -F backend daily-update-bundle-size --loglevel ${{ inputs.logLevel || 3 }} --limit ${{ inputs.limit || 0 }} --skip ${{ inputs.skip || 0 }} --concurrency ${{ inputs.concurrency || 1 }}
