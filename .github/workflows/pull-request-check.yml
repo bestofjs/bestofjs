@@ -49,7 +49,7 @@ jobs:
 
       - name: Install Dependencies
         shell: bash
-        run: pnpm -F web install
+        run: pnpm -F web... install
 
       - name: Build
         shell: bash
