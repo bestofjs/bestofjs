@@ -47,7 +47,7 @@ jobs:
         uses: ./.github/tooling/github-actions/install
       - name: Install Dependencies
         shell: bash
-        run: pnpm -F backend install
+        run: pnpm install
       - name: Update GitHub Data and take snapshots
         run: pnpm -F backend daily-update-github-data --loglevel ${{ inputs.logLevel || 3 }} --limit ${{ inputs.limit || 0 }} --skip ${{ inputs.skip || 0 }} --concurrency ${{ inputs.concurrency || 1 }} --throttleInterval ${{ inputs.throttleInterval || 750 }}
       - name: Send Webhook to Vercel
