@@ -5,7 +5,7 @@ packages:
 # Catalog for managing common dependencies across workspaces
 catalog:
   # Next.js and React ecosystem
-  next: "15.3.1"
+  next: "15.3.3"
   react: "19.1.0"
   react-dom: "19.1.0"
   radix-ui: "1.4.2"
