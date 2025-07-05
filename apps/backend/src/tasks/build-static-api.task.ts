@@ -13,7 +13,7 @@ import { truncate } from "@/shared/utils";
 import { createTask } from "@/task-runner";
 import { ProjectItem } from "./static-api-types";
 
-// Thresholds for filtering projects includes in the main list
+// Thresholds for filtering projects included in the main list
 const YEARLY_STARS_THRESHOLD = 50;
 const MONTHLY_DOWNLOADS_THRESHOLD = 100_000;
 
