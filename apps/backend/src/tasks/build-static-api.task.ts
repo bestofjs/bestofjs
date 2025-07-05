@@ -13,6 +13,10 @@ import { truncate } from "@/shared/utils";
 import { createTask } from "@/task-runner";
 import { ProjectItem } from "./static-api-types";
 
+// Thresholds for filtering projects includes in the main list
+const YEARLY_STARS_THRESHOLD = 50;
+const MONTHLY_DOWNLOADS_THRESHOLD = 100_000;
+
 export const buildStaticApiTask = createTask({
   name: "build-static-api",
   description:
@@ -71,14 +75,7 @@ export const buildStaticApiTask = createTask({
     async function buildMainList(allProjects: ProjectItem[]) {
       const allTags = await fetchTags();
 
-      const projects = allProjects
-        .filter((project) => project.trends.daily !== undefined) // new projects need to include at least the daily trend
-        .filter(
-          (project) => isPromotedProject(project) || !isColdProject(project)
-        )
-        .filter(
-          (project) => isPromotedProject(project) || !isInactiveProject(project)
-        );
+      const projects = allProjects.filter(shouldIncludeProjectInMainList);
 
       logger.info(
         `${projects.length} projects to include in the main JSON file`,
@@ -102,6 +99,18 @@ export const buildStaticApiTask = createTask({
       );
     }
 
+    function shouldIncludeProjectInMainList(project: ProjectItem) {
+      const isNew = project.trends.daily === undefined;
+      const isPromoted = isPromotedProject(project);
+      const isCold = isColdProject(project);
+      const isInactive = isInactiveProject(project);
+      const isPopular = isPopularPackage(project);
+
+      logger.debug(project.name, { isPromoted, isPopular, isCold, isInactive });
+
+      return isNew || isPromoted || isPopular || !isInactive || !isCold;
+    }
+
     async function fetchTags() {
       const tags = await db
         .select({
@@ -119,19 +128,16 @@ export const buildStaticApiTask = createTask({
 function isColdProject(project: ProjectItem) {
   const delta = project.trends.yearly;
   if (delta === undefined || delta === null) return false; // only consider projects with data covering 1 year
-  if (!isPopularPackage(project)) return false; // exclude projects with a lots of downloads (E.g. `Testem`)
-  return delta < 50;
+  return delta < YEARLY_STARS_THRESHOLD;
 }
 
 function isPopularPackage(project: ProjectItem) {
   if (!project.downloads) return false;
-  return project.downloads > 100000;
+  return project.downloads > MONTHLY_DOWNLOADS_THRESHOLD;
 }
 
 function isInactiveProject(project: ProjectItem) {
-  const delta = project.trends.yearly;
-  if (delta === undefined || delta === null) return false; // only consider projects with data covering 1 year
-  return Math.floor(getYearsSinceLastCommit(project)) > 0 && delta < 100;
+  return Math.floor(getYearsSinceLastCommit(project)) > 0;
 }
 
 // we want to show "promoted" projects in the UI even if they are cold or inactive
