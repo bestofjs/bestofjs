@@ -108,7 +108,7 @@ export const buildStaticApiTask = createTask({
 
       logger.debug(project.name, { isPromoted, isPopular, isCold, isInactive });
 
-      if (isNew) return false; // projects need at least 1 day of data to be included
+      if (isNew) return false; // projects need at least 2 days of data (to show the daily trend)
       if (isPromoted || isPopular) return true; // promoted and popular (by number of downloads) projects are always included
       if (isInactive) return false; // exclude projects without recent Git activity
       return !isCold; // finally take into account the trend over the last 12 months
