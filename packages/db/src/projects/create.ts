@@ -1,5 +1,6 @@
 "use server";
 
+import { eq } from "drizzle-orm";
 import { nanoid } from "nanoid";
 import slugify from "slugify";
 import { z } from "zod";
@@ -8,12 +9,15 @@ import { db } from "..";
 import * as schema from "../schema";
 import { generateProjectDefaultSlug } from "./project-helpers";
 
+/** Add a new project (and its related repository) from a modal in Admin app  */
 export async function createProject(gitHubURL: string) {
   const fullName = gitHubURL.split("/").slice(-2).join("/");
   const repoData = await fetchGitHubRepoData(fullName);
 
   const repoId = nanoid();
-  const slug = generateProjectDefaultSlug(repoData.name);
+  const generatedSlug = generateProjectDefaultSlug(repoData.name);
+  const isSlugAvailable = await checkIfSlugIsAvailable(generatedSlug);
+  const slug = isSlugAvailable ? generatedSlug : `${generatedSlug}-FIXME`;
 
   const createdProjects = await db.transaction(async (tx) => {
     await tx.insert(schema.repos).values({ id: repoId, ...repoData });
@@ -56,6 +60,17 @@ async function fetchGitHubRepoData(fullName: string) {
   };
 }
 
+async function checkIfSlugIsAvailable(slug: string) {
+  const project = await db.query.projects.findFirst({
+    where: eq(schema.projects.slug, slug),
+  });
+  if (project) {
+    console.log("Slug already used by another project", project.name);
+  }
+  return !project;
+}
+
+/** For monorepos, add a new project to an existing repository */
 export async function addProjectToRepo({
   name,
   description,
