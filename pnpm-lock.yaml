@@ -165,9 +165,6 @@ importers:
         specifier: 'catalog:'
         version: 3.23.8
     devDependencies:
-      '@repo/eslint-config':
-        specifier: workspace:*
-        version: link:../../packages/eslint-config
       autoprefixer:
         specifier: ^10.4.14
         version: 10.4.14(postcss@8.4.49)
@@ -177,9 +174,6 @@ importers:
       dotenv-cli:
         specifier: 'catalog:'
         version: 7.4.2
-      eslint:
-        specifier: 'catalog:'
-        version: 9.16.0(jiti@1.21.6)
       postcss:
         specifier: ^8.4.31
         version: 8.4.49

@@ -7,12 +7,10 @@
     "dev": "dotenv -e ../../.env.${STAGE:=development} next dev --turbopack",
     "build": "dotenv -e ../../.env.${STAGE:=development} next build --turbopack",
     "start": "dotenv -e ../../.env.${STAGE:=development} next start",
-    "lint": "next lint",
-    "lint:fix": "next lint --fix",
+    "lint": "biome check ./src",
+    "lint:fix": "biome check --write ./src",
     "typecheck": "tsc --noEmit",
-    "typecheck:watch": "tsc --noEmit --incremental --watch",
-    "format:write": "prettier --write \"src/**/*.{ts,tsx,mdx}\" --cache",
-    "format:check": "prettier --check \"src/**/*.{ts,tsx,mdx}\" --cache"
+    "typecheck:watch": "tsc --noEmit --incremental --watch"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.3.4",
@@ -45,11 +43,9 @@
     "zod": "catalog:"
   },
   "devDependencies": {
-    "@repo/eslint-config": "workspace:*",
     "autoprefixer": "^10.4.14",
     "dotenv": "^16.4.5",
     "dotenv-cli": "catalog:",
-    "eslint": "catalog:",
     "postcss": "^8.4.31",
     "tailwindcss": "^3.4.0",
     "typescript": "catalog:"
