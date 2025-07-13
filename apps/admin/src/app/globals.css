@@ -35,9 +35,7 @@
     --radius: 0.5rem;
 
     --graphBackgroundColor1: hsl(var(--primary));
-    --graphBackgroundColor2: hsl(
-      var(--primary)
-    ); /* TODO: setup a different color to get a gradient */
+    --graphBackgroundColor2: hsl(var(--primary)); /* TODO: setup a different color to get a gradient */
   }
 }
 

@@ -1,8 +1,10 @@
 import invariant from "tiny-invariant";
 
 import { getAllTags } from "@repo/db/projects";
+
 import { ProjectLogo } from "@/components/project-logo";
 import { projectService } from "@/db";
+
 import { ViewProjectPackages } from "./view-packages";
 import { ViewProject } from "./view-project";
 import { ViewRepo } from "./view-repo";
@@ -20,9 +22,7 @@ export const revalidate = 0;
 export default async function ViewProjectPage(props: PageProps) {
   const params = await props.params;
 
-  const {
-    slug
-  } = params;
+  const { slug } = params;
 
   const project = await projectService.getProjectBySlug(slug);
   const allTags = await getAllTags();
@@ -40,7 +40,7 @@ export default async function ViewProjectPage(props: PageProps) {
       <div className="flex items-center gap-4">
         <ProjectLogo project={project} size={100} />
         <div className="flex flex-col gap-4">
-          <h1 className="flex scroll-m-20 items-center gap-2 text-3xl font-extrabold tracking-tight lg:text-4xl">
+          <h1 className="flex scroll-m-20 items-center gap-2 font-extrabold text-3xl tracking-tight lg:text-4xl">
             {project.name}
           </h1>
           <div>{project.description}</div>

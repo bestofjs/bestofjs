@@ -4,7 +4,8 @@ import { useState } from "react";
 import { ReloadIcon } from "@radix-ui/react-icons";
 import { toast } from "sonner";
 
-import { ProjectDetails } from "@repo/db/projects";
+import type { ProjectDetails } from "@repo/db/projects";
+
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -14,6 +15,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+
 import { removePackageAction } from "../actions";
 
 type Props = {
@@ -58,9 +60,7 @@ export function RemovePackageButton({ project, packageName }: Props) {
           </div>
           <DialogFooter>
             <Button type="submit" disabled={isPending} variant="destructive">
-              {isPending && (
-                <ReloadIcon className="mr-2 size-4 animate-spin" />
-              )}
+              {isPending && <ReloadIcon className="mr-2 size-4 animate-spin" />}
               Remove {packageName}
             </Button>
           </DialogFooter>

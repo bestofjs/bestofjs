@@ -1,10 +1,11 @@
 "use client";
 
 import { usePathname, useSearchParams } from "next/navigation";
-import { z } from "zod";
+import type { z } from "zod";
 
 import { PaginationNext, PaginationPrevious } from "@/components/ui/pagination";
-import { searchSchema } from "./search-schema";
+
+import type { searchSchema } from "./search-schema";
 
 export function ProjectTablePagination({
   offset,

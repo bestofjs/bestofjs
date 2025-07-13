@@ -1,4 +1,5 @@
 import { getTagBySlug } from "@repo/db/tags";
+
 import { TagForm } from "./tag-form";
 
 type PageProps = {
@@ -14,7 +15,7 @@ export default async function TagDetailsPage(props: PageProps) {
   }
   return (
     <div className="flex flex-col gap-4">
-      <h1 className="text-3xl font-extrabold tracking-tight lg:text-4xl">
+      <h1 className="font-extrabold text-3xl tracking-tight lg:text-4xl">
         {tag.name}
       </h1>
       <TagForm tag={tag} />

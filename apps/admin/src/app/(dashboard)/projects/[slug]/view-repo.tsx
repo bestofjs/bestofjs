@@ -1,5 +1,6 @@
-import { schema } from "@repo/db";
-import { ProjectDetails } from "@repo/db/projects";
+import type { schema } from "@repo/db";
+import type { ProjectDetails } from "@repo/db/projects";
+
 import { Badge } from "@/components/ui/badge";
 import {
   Card,
@@ -10,6 +11,7 @@ import {
 } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { formatDateOnly, formatStars } from "@/lib/format-helpers";
+
 import { ViewRelatedProjects } from "./view-related-projects";
 import { ViewTrends } from "./view-trends";
 

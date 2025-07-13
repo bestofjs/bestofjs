@@ -5,12 +5,13 @@ import { unstable_noStore as noStore, revalidatePath } from "next/cache";
 import { createGitHubClient } from "@repo/api/github";
 import {
   addPackage,
-  ProjectData,
+  type ProjectData,
   removePackage,
   saveTags,
   updateProjectById,
 } from "@repo/db/projects";
-import { EditableTagData, updateTagById } from "@repo/db/tags";
+import { type EditableTagData, updateTagById } from "@repo/db/tags";
+
 import { snapshotsService } from "@/db";
 
 type EditableProjectData = Omit<
@@ -20,7 +21,7 @@ type EditableProjectData = Omit<
 
 export async function updateProjectData(
   projectId: string,
-  projectData: Partial<EditableProjectData>
+  projectData: Partial<EditableProjectData>,
 ) {
   noStore();
   await updateProjectById(projectId, projectData);
@@ -30,7 +31,7 @@ export async function updateProjectData(
 export async function updateProjectTags(
   projectId: string,
   projectSlug: string,
-  tagIds: string[]
+  tagIds: string[],
 ) {
   await saveTags(projectId, tagIds);
   revalidatePath(`/projects/${projectSlug}`);
@@ -45,7 +46,7 @@ export async function updateTagData(tagId: string, tagData: EditableTagData) {
 export async function addPackageAction(
   projectId: string,
   projectSlug: string,
-  packageName: string
+  packageName: string,
 ) {
   await addPackage(projectId, packageName);
   revalidatePath(`/projects/${projectSlug}`);
@@ -54,7 +55,7 @@ export async function addPackageAction(
 export async function removePackageAction(
   projectId: string,
   projectSlug: string,
-  packageName: string
+  packageName: string,
 ) {
   await removePackage(projectId, packageName);
   revalidatePath(`/projects/${projectSlug}`);
@@ -63,7 +64,7 @@ export async function removePackageAction(
 export async function addSnapshotAction(
   projectSlug: string,
   repoId: string,
-  repoFullName: string
+  repoFullName: string,
 ) {
   const gitHubClient = createGitHubClient();
   const data = await gitHubClient.fetchRepoInfo(repoFullName);

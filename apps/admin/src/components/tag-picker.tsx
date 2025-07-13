@@ -3,7 +3,8 @@
 import * as React from "react";
 import { Check, PlusIcon } from "lucide-react";
 
-import { ProjectDetails } from "@repo/db/projects";
+import type { ProjectDetails } from "@repo/db/projects";
+
 import { Button } from "@/components/ui/button";
 import {
   Command,
@@ -36,7 +37,6 @@ export function TagPicker({ allTags, values, onChange }: Props) {
       <PopoverTrigger asChild>
         <Button
           variant="outline"
-          role="combobox"
           aria-expanded={open}
           className="w-[200px] justify-between"
         >
@@ -62,7 +62,7 @@ export function TagPicker({ allTags, values, onChange }: Props) {
                   <Check
                     className={cn(
                       "mr-2 size-4",
-                      values.includes(tag.id) ? "opacity-100" : "opacity-0"
+                      values.includes(tag.id) ? "opacity-100" : "opacity-0",
                     )}
                   />
                   {tag.name}

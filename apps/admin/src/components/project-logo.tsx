@@ -64,7 +64,7 @@ function getProjectImageProps({
 export function getProjectLogoUrl(
   project: Props["project"],
   size: number,
-  colorMode: "dark" | "light"
+  colorMode: "dark" | "light",
 ) {
   invariant(project);
   invariant(project.repo);

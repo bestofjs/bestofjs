@@ -1,13 +1,14 @@
 "use client";
 
-import { useRouter } from "next/navigation";
+import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ReloadIcon } from "@radix-ui/react-icons";
-import { useForm } from "react-hook-form";
+import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { z } from "zod";
 
-import { getTagBySlug } from "@repo/db/tags";
+import type { getTagBySlug } from "@repo/db/tags";
+
 import { updateTagData } from "@/app/(dashboard)/projects/[slug]/actions";
 import { Button } from "@/components/ui/button";
 import {
@@ -112,9 +113,7 @@ export function TagForm({ tag }: Props) {
             />
 
             <Button type="submit" disabled={isPending}>
-              {isPending && (
-                <ReloadIcon className="mr-2 size-4 animate-spin" />
-              )}
+              {isPending && <ReloadIcon className="mr-2 size-4 animate-spin" />}
               Save
             </Button>
           </form>

@@ -2,14 +2,14 @@
 
 import { useState } from "react";
 import {
-  ColumnDef,
-  ColumnFiltersState,
+  type ColumnDef,
+  type ColumnFiltersState,
   flexRender,
   getCoreRowModel,
   getFilteredRowModel,
   getPaginationRowModel,
   getSortedRowModel,
-  SortingState,
+  type SortingState,
   useReactTable,
 } from "@tanstack/react-table";
 
@@ -90,7 +90,7 @@ export function DataTable<TData, TValue>({
                           ? null
                           : (flexRender(
                               header.column.columnDef.header,
-                              header.getContext()
+                              header.getContext(),
                             ) as React.ReactNode) // TODO: fix typing, error introduced when upgrading to React 19
                       }
                     </TableHead>
@@ -112,7 +112,7 @@ export function DataTable<TData, TValue>({
                         {
                           flexRender(
                             cell.column.columnDef.cell,
-                            cell.getContext()
+                            cell.getContext(),
                           ) as React.ReactNode // TODO: fix typing, error introduced when upgrading to React 19
                         }
                       </TableCell>
