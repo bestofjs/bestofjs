@@ -1,8 +1,9 @@
 import { Box, Button } from "components/core";
 import { ChevronDownIcon } from "components/core/icons";
-import { useSearch } from "./search-container";
 import { DropdownMenu, Menu, MenuGroup, MenuItem } from "components/core/menu";
-import { SortOptionKey, sortOrderOptions } from "./sort-order-options";
+
+import { useSearch } from "./search-container";
+import { type SortOptionKey, sortOrderOptions } from "./sort-order-options";
 
 const sortOptionGroups: SortOptionKey[][] = [
   ["total"],

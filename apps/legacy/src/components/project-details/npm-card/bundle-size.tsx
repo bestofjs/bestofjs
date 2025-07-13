@@ -1,10 +1,10 @@
 import Toggle from "react-toggled";
-
 import { ExternalLinkIcon } from "components/core/icons";
+
+import { ExternalLink } from "../../core/typography";
 import { ExpandableSection } from "./expandable-section";
 import { FileSize } from "./file-size";
 import { SizeDetailsList } from "./size-details-list";
-import { ExternalLink } from "../../core/typography";
 
 type Props = { project: BestOfJS.ProjectDetails };
 export const BundleSize = ({ project }: Props) => {

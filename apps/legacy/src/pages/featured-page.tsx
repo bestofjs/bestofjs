@@ -1,14 +1,13 @@
 import styled from "@emotion/styled";
-import { GoStar } from "react-icons/go";
-
-import { useSelector } from "containers/project-data-container";
-import { useSearch } from "components/search/search-container";
+import { MainContent, PageHeader } from "components/core";
 import {
-  paginateItemList,
   PaginationContainer,
+  paginateItemList,
 } from "components/core/pagination";
 import { ProjectPaginatedList } from "components/search/project-paginated-list";
-import { MainContent, PageHeader } from "components/core";
+import { useSearch } from "components/search/search-container";
+import { useSelector } from "containers/project-data-container";
+import { GoStar } from "react-icons/go";
 import { getFeaturedProjects } from "selectors";
 
 export const FeaturedPage = () => {

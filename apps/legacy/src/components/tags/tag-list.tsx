@@ -1,18 +1,17 @@
 import { Link as RouterLink, useHistory } from "react-router-dom";
 import styled from "@emotion/styled";
-
 import {
   Box,
   Button,
-  Link,
-  HStack,
-  Flex,
   Center,
+  Flex,
+  HStack,
+  Link,
   ProjectAvatar,
 } from "components/core";
+import { ChevronRightIcon } from "components/core/icons";
 import { useSelector } from "containers/project-data-container";
 import { getProjectsByTag } from "selectors";
-import { ChevronRightIcon } from "components/core/icons";
 
 export const DetailedTagList = ({ tags }: { tags: BestOfJS.Tag[] }) => {
   return (
@@ -97,7 +96,7 @@ const IconGrid = ({
 }) => {
   const history = useHistory();
   const projects = useSelector(
-    getProjectsByTag({ tagId: tag.code, criteria: "total" })
+    getProjectsByTag({ tagId: tag.code, criteria: "total" }),
   ).slice(0, projectCount);
 
   return (

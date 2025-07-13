@@ -1,11 +1,11 @@
-import { getFullProject, sortProjectsByFunction } from "selectors";
 import { paginateItemList } from "components/core/pagination";
+import { getFullProject, sortProjectsByFunction } from "selectors";
 
 export function findProjects(
   projects,
   tagsById,
   auth,
-  { tags, query, page = 1, selector, direction, limit }
+  { tags, query, page = 1, selector, direction, limit },
 ) {
   const filterByTag = (project) =>
     tags.every((tagId) => project.tags.includes(tagId));
@@ -24,7 +24,7 @@ export function findProjects(
   const sortedProjects = sortProjectsByFunction(
     foundProjects,
     selector,
-    direction
+    direction,
   );
 
   const relevantTags =
@@ -96,7 +96,7 @@ function rank(project, query) {
 
 function getResultRelevantTags(
   projects: BestOfJS.StateProject[],
-  excludedTags = []
+  excludedTags = [],
 ) {
   const projectCountByTag = getTagsFromProjects(projects, excludedTags);
   return orderBy(Array.from(projectCountByTag.entries()), ([, count]) => count);
@@ -108,7 +108,7 @@ function orderBy<T>(items: T[], fn: (element: T) => number) {
 
 function getTagsFromProjects(
   projects: BestOfJS.StateProject[],
-  excludedTagIds: string[] = []
+  excludedTagIds: string[] = [],
 ) {
   const result = new Map<string, number>();
   projects.forEach((project) => {

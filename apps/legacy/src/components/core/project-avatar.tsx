@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { Box, chakra, useColorMode } from "components/core";
 import ContentLoader from "react-content-loader";
+import { Box, chakra, useColorMode } from "components/core";
 
 type Props = {
   project: BestOfJS.Project;
@@ -13,6 +13,7 @@ export const ProjectAvatar = ({ project, size = 100 }: Props) => {
   const [isImageLoaded, setIsImageLoaded] = useState(false);
   const isMounted = React.useRef(true);
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: TODO fix me
   useEffect(() => {
     const image = new Image();
     image.src = src;
@@ -25,7 +26,7 @@ export const ProjectAvatar = ({ project, size = 100 }: Props) => {
     return () => {
       isMounted.current = false;
     };
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+  }, []);
 
   return isImageLoaded ? (
     <chakra.img

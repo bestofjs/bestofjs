@@ -8,6 +8,6 @@ it("Should generate the right slug", () => {
   expect(slugify("$mol")).toEqual("$mol");
   expect(slugify("You don't know JS")).toEqual("you-dont-know-js");
   expect(slugify("JS Algorithms & Data Structures")).toEqual(
-    "js-algorithms-and-data-structures"
+    "js-algorithms-and-data-structures",
   );
 });

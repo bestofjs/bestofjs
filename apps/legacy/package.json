@@ -13,10 +13,8 @@
     "test": "node scripts/test.js --watch",
     "test:ci": "node scripts/test.js --coverage --watchAll=false --runInBand --forceExit",
     "jest-preview": "jest-preview",
-    "pretty-quick": "pretty-quick",
-    "precommit": "pretty-quick --staged",
-    "lint": "eslint src",
-    "lint:fix": "npm run lint -- --fix",
+    "lint": "biome check ./src",
+    "lint:fix": "biome check --write ./src",
     "sort": "npx sort-package-json",
     "typecheck": "tsc --noEmit",
     "typecheck:watch": "tsc --noEmit --watch"

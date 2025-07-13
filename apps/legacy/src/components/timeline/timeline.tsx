@@ -8,21 +8,21 @@ import styled from "@emotion/styled";
 import featuredProjects from "./featured-projects.json";
 import "./vertical-timeline.css";
 import "./vertical-timeline-element.css";
-import { findProjectsByIds } from "selectors";
-import { useSelector } from "containers/project-data-container";
-import { ProjectTagGroup } from "components/tags/project-tag";
 import { ProjectAvatar } from "components/core";
+import { ProjectTagGroup } from "components/tags/project-tag";
+import { useSelector } from "containers/project-data-container";
+import { findProjectsByIds } from "selectors";
 
 type Project = BestOfJS.Project & { date: Date; comments: string[] };
 
 function useTimelineProjects() {
   const projects: BestOfJS.Project[] = useSelector(
-    findProjectsByIds(featuredProjects.map(({ slug }) => slug))
+    findProjectsByIds(featuredProjects.map(({ slug }) => slug)),
   ).filter(Boolean);
   return featuredProjects
     .map(({ slug, date, comments }) => {
       const project: BestOfJS.Project | undefined = projects.find(
-        (project) => project.slug === slug
+        (project) => project.slug === slug,
       );
       if (!project) return null;
       return {

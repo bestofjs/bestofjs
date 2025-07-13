@@ -1,3 +1,4 @@
+import { Link as RouterLink } from "react-router-dom";
 import styled from "@emotion/styled";
 import {
   Box,
@@ -12,7 +13,6 @@ import { AuthContainer } from "containers/auth-container";
 import { fromNow } from "helpers/from-now";
 import numeral from "numeral";
 import { GoBookmark, GoHome, GoMarkGithub } from "react-icons/go";
-import { Link as RouterLink } from "react-router-dom";
 
 type Props = {
   projects: BestOfJS.Project[];
@@ -156,7 +156,7 @@ export const ProjectScore = ({
   sortOptionId: string;
 }) => {
   const showDelta = ["daily", "weekly", "monthly", "yearly"].includes(
-    sortOptionId
+    sortOptionId,
   );
   const showDownloads = sortOptionId === "monthly-downloads";
 

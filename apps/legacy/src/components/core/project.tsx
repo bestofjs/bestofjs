@@ -1,6 +1,6 @@
+import { Box, Center } from "components/core";
 import numeral from "numeral";
 
-import { Box, Center } from "components/core";
 import { StarIcon } from "./icons";
 
 type Props = {
@@ -127,6 +127,6 @@ function average(delta: number | undefined, numberOfDays: number) {
 }
 
 function round(number: number, decimals = 1) {
-  const i = Math.pow(10, decimals);
+  const i = 10 ** decimals;
   return Math.round(number * i) / i;
 }

@@ -1,8 +1,9 @@
+/** biome-ignore-all lint/suspicious/noExplicitAny: TODO type correctly */
 import { render } from "@testing-library/react";
-import { Root } from "../root";
 import { initializeColorMode } from "components/core/color-mode";
-
 import { debug } from "jest-preview";
+
+import { Root } from "../root";
 
 // Used to render a component not coupled with others (isolated)
 // The goal is to render faster than `renderApp`

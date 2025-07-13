@@ -1,6 +1,4 @@
 import { useHistory, useParams } from "react-router-dom";
-import { GoCalendar } from "react-icons/go";
-
 import { useFetchMonthlyRankings } from "api/hooks";
 import { MainContent, PageHeader, Spinner } from "components/core";
 import {
@@ -9,6 +7,7 @@ import {
   MonthlyRankingsNavigator,
   MonthlyRankingsProjects,
 } from "components/monthly-rankings/rankings";
+import { GoCalendar } from "react-icons/go";
 
 export const MonthlyRankingsPage = () => {
   const { year, month } = useParams<{ year: string; month: string }>();

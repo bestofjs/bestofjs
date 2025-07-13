@@ -1,18 +1,17 @@
 import { Link } from "react-router-dom";
 import styled from "@emotion/styled";
-import { GoMarkGithub } from "react-icons/go";
-
-import { useSelector } from "containers/project-data-container";
-import { fromNow } from "helpers/from-now";
-import { ExternalLinkIcon } from "components/core/icons";
 import { Box, Flex } from "components/core";
+import { ExternalLinkIcon } from "components/core/icons";
 import {
-  APP_REPO_URL,
   APP_DISPLAY_NAME,
+  APP_REPO_URL,
+  APP_VERSION,
   RISING_STARS_URL,
   STATE_OF_JS_URL,
-  APP_VERSION,
 } from "config";
+import { useSelector } from "containers/project-data-container";
+import { fromNow } from "helpers/from-now";
+import { GoMarkGithub } from "react-icons/go";
 
 export const Footer = () => {
   const lastUpdate = useSelector((state) => state.meta.lastUpdate);

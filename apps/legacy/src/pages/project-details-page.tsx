@@ -1,13 +1,10 @@
-import { useParams } from "react-router-dom";
-import { Route, Switch } from "react-router-dom";
-
-import { useSelector } from "containers/project-data-container";
-import { findProjectById } from "selectors";
+import { Route, Switch, useParams } from "react-router-dom";
 import { useFetchProjectDetails } from "api/hooks";
-
 import { MainContent, Spinner } from "components/core";
 import ProjectDetails from "components/project-details";
 import { ProjectHeader } from "components/project-details/project-header";
+import { useSelector } from "containers/project-data-container";
+import { findProjectById } from "selectors";
 
 const ProjectDetailsPageContainer = () => {
   const { id } = useParams<{ id: string }>();

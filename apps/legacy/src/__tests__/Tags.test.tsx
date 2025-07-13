@@ -1,5 +1,5 @@
-import { screen, renderApp /*, debug*/ } from "test-utils";
 import userEvent from "@testing-library/user-event";
+import { renderApp /*, debug*/, screen } from "test-utils";
 
 describe("Tags", () => {
   const getAllTags = () => screen.getAllByTestId("tag-card");

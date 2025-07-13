@@ -1,4 +1,4 @@
-import { Box, Flex, Heading, chakra } from "./layout";
+import { Box, chakra, Flex, Heading } from "./layout";
 
 export const Section = chakra.section;
 

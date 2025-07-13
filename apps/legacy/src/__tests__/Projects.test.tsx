@@ -1,9 +1,9 @@
+import userEvent from "@testing-library/user-event";
 import {
-  screen,
   renderApp,
+  screen,
   // debug,
 } from "test-utils";
-import userEvent from "@testing-library/user-event";
 
 describe("Projects", () => {
   const getAllProjects = () => screen.findAllByTestId("project-card");
@@ -66,12 +66,12 @@ describe("Projects", () => {
     // Sort by stars added the last 12 months
     userEvent.click(await screen.findByTestId("sort-order-picker"));
     userEvent.click(
-      await screen.findByText("By stars added the last 12 months")
+      await screen.findByText("By stars added the last 12 months"),
     );
     // "JS Algorithms & Data Structures" should be at the top of the list
     allProjects = await getAllProjects();
     expect(allProjects.at(0)?.innerHTML).toContain(
-      "JS Algorithms &amp; Data Structures"
+      "JS Algorithms &amp; Data Structures",
     );
 
     // Sort by downloads the last 30 days
@@ -98,7 +98,7 @@ describe("Projects", () => {
     // Sort by date of creation (Oldest first)
     userEvent.click(await screen.findByTestId("sort-order-picker"));
     userEvent.click(
-      await screen.findByText("By date of creation (Oldest first)")
+      await screen.findByText("By date of creation (Oldest first)"),
     );
     // "Raphael" should be at the top of the list
     allProjects = await getAllProjects();
@@ -107,7 +107,7 @@ describe("Projects", () => {
     // Sort by date of addition on Best of JS
     userEvent.click(await screen.findByTestId("sort-order-picker"));
     userEvent.click(
-      await screen.findByText("By date of addition on Best of JS")
+      await screen.findByText("By date of addition on Best of JS"),
     );
     // "google-spreadsheet" should be at the top of the list
     allProjects = await getAllProjects();

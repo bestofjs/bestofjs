@@ -1,11 +1,10 @@
 import { Link as RouterLink } from "react-router-dom";
 import { useMedia } from "react-use";
-import { FiMenu } from "react-icons/fi";
-
 import { Button, IconButton } from "components/core";
 import { ChevronDownIcon, ExternalLinkIcon } from "components/core/icons";
 import { DropdownMenu, Menu, MenuGroup, MenuItem } from "components/core/menu";
 import { RISING_STARS_URL, STATE_OF_JS_URL } from "config";
+import { FiMenu } from "react-icons/fi";
 
 export const NavigationDropdownMenu = () => {
   const isDesktop = useMedia("(min-width: 750px)");

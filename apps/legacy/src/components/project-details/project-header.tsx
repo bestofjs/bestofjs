@@ -1,19 +1,18 @@
 import styled from "@emotion/styled";
-import { GoHome, GoMarkGithub } from "react-icons/go";
-import { DiNpm } from "react-icons/di";
-
 import {
   Box,
   Button,
-  LinkProps,
-  ButtonProps,
+  type ButtonProps,
   Heading,
-  VStack,
+  type LinkProps,
   ProjectAvatar,
+  usePageTitle,
+  VStack,
 } from "components/core";
-import { usePageTitle } from "components/core";
 import { ProjectTagGroup } from "components/tags/project-tag";
 import formatUrl from "helpers/url";
+import { DiNpm } from "react-icons/di";
+import { GoHome, GoMarkGithub } from "react-icons/go";
 
 type Props = { project: BestOfJS.Project };
 export const ProjectHeader = ({ project }: Props) => {

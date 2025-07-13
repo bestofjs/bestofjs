@@ -1,12 +1,12 @@
-import { Box, HStack, Flex, IconButton } from "components/core";
+import { Box, Flex, HStack, IconButton } from "components/core";
+import { useNextLocation } from "components/search/search-utils";
 
 import {
+  ChevronLeftIcon,
+  ChevronRightIcon,
   DoubleChevronLeftIcon,
   DoubleChevronRightIcon,
-  ChevronRightIcon,
-  ChevronLeftIcon,
 } from "../icons";
-import { useNextLocation } from "components/search/search-utils";
 import { PaginationContainer } from "./provider";
 
 const iconSize = 28;

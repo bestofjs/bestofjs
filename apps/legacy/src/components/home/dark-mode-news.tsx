@@ -1,5 +1,3 @@
-import { GoMegaphone } from "react-icons/go";
-
 import {
   Box,
   ExternalLink,
@@ -8,6 +6,7 @@ import {
   useColorModeValue,
 } from "components/core";
 import { APP_REPO_URL } from "config";
+import { GoMegaphone } from "react-icons/go";
 
 export const DarkModeNews = () => {
   return (

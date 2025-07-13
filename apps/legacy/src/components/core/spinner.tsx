@@ -1,5 +1,6 @@
-import { BoxProps, Center } from "./layout";
 import styled from "@emotion/styled";
+
+import { type BoxProps, Center } from "./layout";
 
 export const Spinner = (props: BoxProps) => (
   <Center h={200} {...props}>

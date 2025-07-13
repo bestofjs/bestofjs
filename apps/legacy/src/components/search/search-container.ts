@@ -2,14 +2,14 @@ import { useHistory, useLocation } from "react-router-dom";
 import { createContainer } from "unstated-next";
 
 import { queryStringToState, stateToQueryString } from "./search-utils";
-import { SortOption, sortOrderOptions } from "./sort-order-options";
+import { type SortOption, sortOrderOptions } from "./sort-order-options";
 
 function useSearchState() {
   const location = useLocation();
   const history = useHistory();
 
   const { query, selectedTags, page, sort, direction } = queryStringToState(
-    location.search
+    location.search,
   );
 
   const onChange = (changes) => {

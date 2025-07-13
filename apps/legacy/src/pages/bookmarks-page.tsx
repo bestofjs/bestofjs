@@ -1,15 +1,14 @@
-import { GoBookmark } from "react-icons/go";
-
-import { useSelector } from "containers/project-data-container";
-import { useSearch } from "components/search/search-container";
+import { EmptyContent, MainContent, PageHeader } from "components/core";
 import {
-  paginateItemList,
   PaginationContainer,
+  paginateItemList,
 } from "components/core/pagination";
 import { ProjectPaginatedList } from "components/search/project-paginated-list";
-import { EmptyContent, MainContent, PageHeader } from "components/core";
-import { getBookmarksSortedBy } from "selectors";
+import { useSearch } from "components/search/search-container";
 import { AuthContainer } from "containers/auth-container";
+import { useSelector } from "containers/project-data-container";
+import { GoBookmark } from "react-icons/go";
+import { getBookmarksSortedBy } from "selectors";
 
 const BookmarksPage = () => {
   const { page, sortOptionId } = useSearch({ defaultSortOptionId: "bookmark" });

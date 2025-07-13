@@ -1,5 +1,6 @@
-import { generatePageNumbers } from "./helpers";
 import { createContainer } from "unstated-next";
+
+import { generatePageNumbers } from "./helpers";
 
 interface usePagingStateType {
   currentPageNumber: number;

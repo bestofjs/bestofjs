@@ -1,4 +1,4 @@
-import { getYearData, BarGraphItem } from "./monthly-trends-chart";
+import { type BarGraphItem, getYearData } from "./monthly-trends-chart";
 
 const sampleAugust: BarGraphItem[] = [
   { year: 2021, month: 8, value: undefined },

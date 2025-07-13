@@ -1,11 +1,10 @@
 import styled from "@emotion/styled";
-import { GoChevronLeft, GoChevronRight } from "react-icons/go";
-
-import { findProjectsByIds } from "selectors";
-import { ProjectTable } from "components/project-list/project-table";
-import { getProjectId, StarDelta } from "components/core/project";
 import { IconButton } from "components/core";
+import { getProjectId, StarDelta } from "components/core/project";
+import { ProjectTable } from "components/project-list/project-table";
 import { useSelector } from "containers/project-data-container";
+import { GoChevronLeft, GoChevronRight } from "react-icons/go";
+import { findProjectsByIds } from "selectors";
 
 export type MonthlyDate = { year: number; month: number };
 

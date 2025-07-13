@@ -14,6 +14,7 @@ const defaultOptions = {
 export const useViewportSpy = (elementRef, options = defaultOptions) => {
   const [isVisible, setIsVisible] = useState<boolean>();
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: TODO
   useLayoutEffect(
     () => {
       if (!supportsObserverAPI()) {
@@ -26,7 +27,7 @@ export const useViewportSpy = (elementRef, options = defaultOptions) => {
             const nextValue = item.isIntersecting;
             setIsVisible(nextValue);
           }),
-        options
+        options,
       );
 
       observer.observe(elementRef.current);
@@ -35,7 +36,7 @@ export const useViewportSpy = (elementRef, options = defaultOptions) => {
         observer.disconnect(); // eslint-disable-line react-hooks/exhaustive-deps
       };
     },
-    [elementRef] // eslint-disable-line react-hooks/exhaustive-deps
+    [elementRef], // eslint-disable-line react-hooks/exhaustive-deps
   );
 
   return isVisible;

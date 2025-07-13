@@ -1,15 +1,14 @@
 import { Link as RouterLink } from "react-router-dom";
-import { GoFlame, GoGift } from "react-icons/go";
-
 import { Box, Button, Flex, SectionHeading, Spinner } from "components/core";
-import { APP_DISPLAY_NAME } from "config";
+import { ChevronDownIcon } from "components/core/icons";
+import { DropdownMenu, Menu, MenuGroup, MenuItem } from "components/core/menu";
 import {
   ProjectScore,
   ProjectTable,
 } from "components/project-list/project-table";
-import { ChevronDownIcon } from "components/core/icons";
-import { DropdownMenu, Menu, MenuGroup, MenuItem } from "components/core/menu";
-import { SortOptionKey } from "components/search/sort-order-options";
+import type { SortOptionKey } from "components/search/sort-order-options";
+import { APP_DISPLAY_NAME } from "config";
+import { GoFlame, GoGift } from "react-icons/go";
 
 const ranges = {
   daily: "the last 24 hours",

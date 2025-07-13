@@ -1,11 +1,10 @@
 import { Link as RouterLink } from "react-router-dom";
 import styled from "@emotion/styled";
-import { GoBookmark, GoSignOut } from "react-icons/go";
-
-import { AuthContainer } from "containers/auth-container";
+import { Button } from "components/core";
 import { ChevronDownIcon } from "components/core/icons";
 import { DropdownMenu, Menu, MenuGroup, MenuItem } from "components/core/menu";
-import { Button } from "components/core";
+import { AuthContainer } from "containers/auth-container";
+import { GoBookmark, GoSignOut } from "react-icons/go";
 
 export const UserDropdownMenu = () => {
   const auth = AuthContainer.useContainer();

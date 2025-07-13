@@ -1,10 +1,5 @@
 import { Link } from "react-router-dom";
 import styled from "@emotion/styled";
-
-import { useSelector } from "containers/project-data-container";
-import { allProjects, getTagsByCode, getProjectSelectorByKey } from "selectors";
-import { PaginationContainer } from "components/core/pagination";
-import { TagIcon } from "components/core/icons";
 import {
   Button,
   EmptyContent,
@@ -13,11 +8,15 @@ import {
   PageHeader,
   Spinner,
 } from "components/core";
+import { TagIcon } from "components/core/icons";
+import { PaginationContainer } from "components/core/pagination";
+import { findProjects } from "components/search/find-projects";
 import { ProjectPaginatedList } from "components/search/project-paginated-list";
-import { ProjectTagGroup } from "components/tags/project-tag";
 import { useSearch } from "components/search/search-container";
 import { useNextLocation } from "components/search/search-utils";
-import { findProjects } from "components/search/find-projects";
+import { ProjectTagGroup } from "components/tags/project-tag";
+import { useSelector } from "containers/project-data-container";
+import { allProjects, getProjectSelectorByKey, getTagsByCode } from "selectors";
 
 export const SearchResultsPage = () => {
   const { selectedTags, query, sortOptionId, direction, page } = useSearch();

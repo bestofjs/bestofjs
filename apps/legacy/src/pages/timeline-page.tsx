@@ -1,20 +1,19 @@
 import { Link as RouterLink } from "react-router-dom";
 import styled from "@emotion/styled";
-
 import {
-  MainContent,
   Heading,
   Link,
   ListItem,
-  Spinner,
+  MainContent,
   PageHeader,
+  Spinner,
   Text,
   UnorderedList,
   VStack,
 } from "components/core";
-import { allProjects } from "selectors";
-import { useSelector } from "containers/project-data-container";
 import { Timeline } from "components/timeline/timeline";
+import { useSelector } from "containers/project-data-container";
+import { allProjects } from "selectors";
 
 export const TimelinePage = () => {
   const projects = useSelector(allProjects);
@@ -96,7 +95,7 @@ export default TimelinePage;
 export const isIncludedInHotProjects = (project) => {
   const hotProjectsExcludedTags = ["meta", "learning"];
   const hasExcludedTag = hotProjectsExcludedTags.some((tag) =>
-    project.tags.includes(tag)
+    project.tags.includes(tag),
   );
   return !hasExcludedTag;
 };

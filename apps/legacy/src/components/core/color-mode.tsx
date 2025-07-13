@@ -1,4 +1,4 @@
-import { ColorMode } from "@chakra-ui/react";
+import type { ColorMode } from "@chakra-ui/react";
 
 export { useColorMode, useColorModeValue } from "@chakra-ui/react";
 export type { ColorMode };
@@ -17,7 +17,7 @@ export function initializeColorMode(initialValue: Mode) {
     persistedPreference = localStorage.getItem("chakra-ui-color-mode") as Mode;
   } catch (error) {
     console.log(
-      "Chakra UI: localStorage is not available. Color mode persistence might not work as expected"
+      "Chakra UI: localStorage is not available. Color mode persistence might not work as expected",
     );
   }
 

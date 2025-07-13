@@ -1,7 +1,7 @@
+import type { State } from "containers/project-data-container";
 import { createSelector } from "reselect";
 
-import { State } from "containers/project-data-container";
-import { sortByString, sortByNumber } from "./sort-utils";
+import { sortByNumber, sortByString } from "./sort-utils";
 
 // Number of projects under each tag:
 //  {react: 200, vue: 60...}
@@ -24,7 +24,7 @@ const getTagCounters = createSelector<
 export const getTagsByCode = (codes: string[]) =>
   createSelector<State, any, BestOfJS.Tag[]>(
     [(state) => state.entities.tags],
-    (allTags) => codes.map((code) => allTags[code])
+    (allTags) => codes.map((code) => allTags[code]),
   );
 
 // All tags including counter data:
@@ -39,7 +39,7 @@ export const getAllTags = createSelector(
     Object.values(tagIds).map((tag) => {
       const counter = countsByTag[tag.code];
       return { ...tag, counter };
-    })
+    }),
 );
 
 const sortFunctions = {

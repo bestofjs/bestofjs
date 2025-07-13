@@ -1,16 +1,15 @@
 import React, { useState } from "react";
-
+import { Home } from "components/home/home";
+import type { SortOptionKey } from "components/search/sort-order-options";
+import {
+  ProjectDataContainer,
+  useSelector,
+} from "containers/project-data-container";
 import {
   getNewestProjects,
   getPopularTags,
   getProjectsSortedBy,
 } from "selectors";
-import { Home } from "components/home/home";
-import {
-  ProjectDataContainer,
-  useSelector,
-} from "containers/project-data-container";
-import { SortOptionKey } from "components/search/sort-order-options";
 
 const HomePage = () => {
   const state = ProjectDataContainer.useContainer();
@@ -23,7 +22,7 @@ const HomePage = () => {
       criteria: sortOptionId,
       limit: 5,
       start: 0,
-    })
+    }),
   );
 
   const tagCount = 10;
@@ -49,7 +48,7 @@ const hotProjectsExcludedTags = ["meta", "learning"];
 
 export const isIncludedInHotProjects = (project) => {
   const hasExcludedTag = hotProjectsExcludedTags.some((tag) =>
-    project.tags.includes(tag)
+    project.tags.includes(tag),
   );
   return !hasExcludedTag;
 };

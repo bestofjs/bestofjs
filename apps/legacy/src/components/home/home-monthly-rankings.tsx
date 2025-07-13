@@ -1,7 +1,5 @@
 import React, { useState } from "react";
 import { Link as RouterLink } from "react-router-dom";
-import { GoCalendar } from "react-icons/go";
-
 import { useFetchMonthlyRankings } from "api/hooks";
 import { Button, Section, SectionHeading, Spinner } from "components/core";
 import {
@@ -10,6 +8,7 @@ import {
   MonthlyRankingsNavigator,
   MonthlyRankingsProjects,
 } from "components/monthly-rankings/rankings";
+import { GoCalendar } from "react-icons/go";
 
 type MonthlyDate = {
   year: number;

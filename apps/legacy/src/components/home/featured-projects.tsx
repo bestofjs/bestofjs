@@ -1,29 +1,32 @@
-import React, { useState, useRef } from "react";
+/** biome-ignore-all lint/suspicious/noExplicitAny: TODO type correctly */
+/** biome-ignore-all lint/a11y/noStaticElementInteractions: TODO */
+import React, { useRef, useState } from "react";
 import { Link as RouterLink } from "react-router-dom";
-import styled from "@emotion/styled";
 import { Animate } from "react-simple-animate";
 import { useInterval } from "react-use";
-import { GoStar } from "react-icons/go";
-
+import styled from "@emotion/styled";
 import {
   Box,
   Button,
+  getDeltaByDay,
+  getProjectAvatarUrl,
   Link,
   ProjectAvatar,
-  getProjectAvatarUrl,
-  getDeltaByDay,
+  Section,
   SectionHeading,
+  useColorMode,
 } from "components/core";
-import { shuffle } from "helpers/shuffle";
-import { useUpdateEffect } from "helpers/lifecycle-hooks";
-import { useViewportSpy } from "helpers/use-viewport-spy";
-import { useIsDocumentVisible } from "helpers/use-page-events";
-import { useSelector } from "containers/project-data-container";
-import { getFeaturedProjects } from "selectors";
 import { StarDelta } from "components/core/project";
-import { Section, useColorMode } from "components/core";
+import type { SortOptionKey } from "components/search/sort-order-options";
 import { ProjectTag } from "components/tags/project-tag";
-import { SortOptionKey } from "components/search/sort-order-options";
+import { useSelector } from "containers/project-data-container";
+import { useUpdateEffect } from "helpers/lifecycle-hooks";
+import { shuffle } from "helpers/shuffle";
+import { useIsDocumentVisible } from "helpers/use-page-events";
+import { useViewportSpy } from "helpers/use-viewport-spy";
+import { GoStar } from "react-icons/go";
+import { getFeaturedProjects } from "selectors";
+
 import { ProgressBar } from "./progress-bar";
 
 export const RandomFeaturedProject = ({
@@ -34,9 +37,10 @@ export const RandomFeaturedProject = ({
   const featuredProjects = useSelector(getFeaturedProjects("newest"));
 
   // don't shuffle projects when the component updates after color mode switch
+  // biome-ignore lint/correctness/useExhaustiveDependencies: TODO
   const projects = React.useMemo(
     () => shuffle<BestOfJS.Project>(featuredProjects).slice(0, 200),
-    [] // eslint-disable-line react-hooks/exhaustive-deps
+    [],
   );
 
   return (
@@ -68,7 +72,7 @@ export const Slider = ({
     () => {
       setPageNumber((page) => (page >= maxPageNumber ? 0 : page + 1));
     },
-    isPaused ? null : duration
+    isPaused ? null : duration,
   );
 
   return (
@@ -273,7 +277,7 @@ const CountDown = ({ pageNumber, duration, interval, isPaused }) => {
         setProgress((val) => val + initialProgress);
       }
     },
-    !isPaused ? interval : null
+    !isPaused ? interval : null,
   );
 
   useUpdateEffect(() => {

@@ -1,12 +1,12 @@
 import styled from "@emotion/styled";
+import { Box, MainContent } from "components/core";
+import { Footer } from "components/footer/footer";
+import { Header } from "components/header/header";
+import { SearchBox, SearchContainer } from "components/search";
+import { APP_REPO_URL } from "config";
+import { ProjectDataContainer } from "containers/project-data-container";
 
 import Routes from "./pages/routes";
-import { SearchBox, SearchContainer } from "components/search";
-import { Header } from "components/header/header";
-import { Footer } from "components/footer/footer";
-import { ProjectDataContainer } from "containers/project-data-container";
-import { Box, MainContent } from "components/core";
-import { APP_REPO_URL } from "config";
 
 export const App = () => {
   const { error, isPending } = ProjectDataContainer.useContainer();

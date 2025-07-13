@@ -1,16 +1,15 @@
-import DOMPurify from "dompurify";
-import { GoBook } from "react-icons/go";
-
+import { useFetchProjectReadMe } from "api/hooks";
 import {
   Button,
   Card,
-  CardHeader,
   CardBody,
   CardFooter,
+  CardHeader,
   CardSection,
   Spinner,
 } from "components/core";
-import { useFetchProjectReadMe } from "api/hooks";
+import DOMPurify from "dompurify";
+import { GoBook } from "react-icons/go";
 
 import "stylesheets/markdown-body.css";
 
@@ -28,6 +27,7 @@ export const ReadmeCard = ({ project }: Props) => {
         </CardSection>
       </CardBody>
       <CardFooter>
+        {/* @ts-expect-error TODO fix me */}
         <Button as="a" href={project.repository} variant="link">
           View on GitHub
         </Button>
@@ -43,5 +43,6 @@ const ReadmeContent = ({ project }: Props) => {
 
   if (!html) return <Spinner />;
 
+  // biome-ignore lint/security/noDangerouslySetInnerHtml: TODO
   return <div dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(html) }} />;
 };
