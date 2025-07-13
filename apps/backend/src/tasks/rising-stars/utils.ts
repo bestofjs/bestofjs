@@ -11,6 +11,7 @@ export class EventCounter<T> {
   add(keyAsObject: T, value = 1) {
     const key = this.stringify(keyAsObject);
     if (this.map.has(key)) {
+      // biome-ignore lint/style/noNonNullAssertion: we know the map has the key
       this.map.set(key, this.map.get(key)! + value);
     } else {
       this.map.set(key, value);

@@ -2,7 +2,8 @@ import { z } from "zod";
 
 import { notifyDiscordProjectList } from "@/shared/discord";
 import { createTask } from "@/task-runner";
-import { ProjectItem } from "./static-api-types";
+
+import type { ProjectItem } from "./static-api-types";
 
 interface Project extends ProjectItem {
   delta: number;
@@ -38,7 +39,7 @@ export const notifyMonthlyTask = createTask({
 
     logger.info(
       "Sending the monthly notifications...",
-      projects.map((project) => `${project.name}: +${project.delta}`)
+      projects.map((project) => `${project.name}: +${project.delta}`),
     );
 
     const pageURL = `https://bestofjs.org/rankings/monthly/${year}/${month}`;

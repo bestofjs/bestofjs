@@ -4,8 +4,10 @@ import pMap from "p-map";
 import { z } from "zod";
 
 import { generateProjectDefaultSlug, ProjectService } from "@repo/db/projects";
+
 import { createTask } from "@/task-runner";
-import { Project, projectSchema } from "./projects";
+
+import { type Project, projectSchema } from "./projects";
 
 export const cleanupRisingStars = createTask({
   name: "cleanup-rising-stars",
@@ -25,7 +27,7 @@ export const cleanupRisingStars = createTask({
       "javascript-risingstars",
       "data",
       `${year}`,
-      "projects.json"
+      "projects.json",
     );
     const rawData = await fs.readJSON(filepath);
     const inputSchema = z.object({ projects: z.array(projectSchema) });

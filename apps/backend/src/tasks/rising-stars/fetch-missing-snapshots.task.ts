@@ -2,7 +2,9 @@ import { z } from "zod";
 
 import { ProjectService } from "@repo/db/projects";
 import { SnapshotsService, toDate } from "@repo/db/snapshots";
+
 import { createTask } from "@/task-runner";
+
 import {
   fetchAllStargazers,
   getFirstSnapshotsOfTheMonth,
@@ -26,7 +28,7 @@ export const fetchMissingSnapshotsTask = createTask({
 
     const { owner, name } = project.repo;
     logger.debug(
-      `Fetching missing snapshots for ${owner}/${name} until ${project.createdAt}`
+      `Fetching missing snapshots for ${owner}/${name} until ${project.createdAt}`,
     );
 
     const events = await fetchAllStargazers(owner, name, project.createdAt);
@@ -35,7 +37,7 @@ export const fetchMissingSnapshotsTask = createTask({
 
     const oneYearSnapshots = await getFirstSnapshotsOfTheMonth(events, year);
     const snapshots = oneYearSnapshots.filter(
-      (snapshot) => toDate(snapshot) > project.repo.created_at
+      (snapshot) => toDate(snapshot) > project.repo.created_at,
     );
 
     logger.debug(`${year} snapshots`, snapshots);
@@ -47,7 +49,7 @@ export const fetchMissingSnapshotsTask = createTask({
       : await snapshotService.addMissingSnapshotsForYear(
           project.repo.id,
           year,
-          snapshots
+          snapshots,
         );
 
     return { data: snapshots.length, meta: { saved } };

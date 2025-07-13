@@ -23,7 +23,7 @@ export async function fetchCategories(year: number) {
     "..",
     "javascript-risingstars",
     "src/content/categories",
-    `${year}.json`
+    `${year}.json`,
   );
   const rawData = await fs.readJSON(filepath);
   return z.array(schema).parse(rawData);

@@ -17,7 +17,7 @@ export const triggerBuildWebappTask = createTask({
       const invalidateCacheURL = `${rootURL}/api/revalidate?tag=${tag}`;
       try {
         const result = await fetch(invalidateCacheURL).then((res) =>
-          res.json()
+          res.json(),
         );
         logger.debug(result);
         logger.info(`Invalid cache request for "${tag}" tag sent!`);
@@ -25,7 +25,7 @@ export const triggerBuildWebappTask = createTask({
         throw new Error(
           `Unable to invalid the cache for "${tag}" tag ${
             (error as Error).message
-          }`
+          }`,
         );
       }
     }
@@ -40,7 +40,7 @@ export const triggerBuildWebappTask = createTask({
         logger.info("Daily build webhook request sent!");
       } catch (error) {
         throw new Error(
-          `Unable to send daily build webhook ${(error as Error).message}`
+          `Unable to send daily build webhook ${(error as Error).message}`,
         );
       }
     }

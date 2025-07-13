@@ -11,7 +11,7 @@ export const triggerBuildStaticApiTask = createTask({
     }
     logger.log(`Triggering build for static API, sending webhook to Vercel...`);
     const result = await fetch(url, { method: "POST" }).then((res) =>
-      res.json()
+      res.json(),
     );
     logger.log(`Build triggered!`, result);
 

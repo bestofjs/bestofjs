@@ -1,6 +1,7 @@
 import { schema } from "@repo/db";
 import { eq, notInArray } from "@repo/db/drizzle";
-import { ProjectDetails } from "@repo/db/projects";
+import type { ProjectDetails } from "@repo/db/projects";
+
 import { createNpmClient } from "@/apis/npm-api-client";
 import { createTask } from "@/task-runner";
 
@@ -33,13 +34,13 @@ export const updatePackageDataTask = createTask({
           },
         };
       },
-      { where: notInArray(schema.projects.status, ["deprecated"]) }
+      { where: notInArray(schema.projects.status, ["deprecated"]) },
     );
 
     return results;
 
     async function processPackage(
-      packageData: ProjectDetails["packages"][number]
+      packageData: ProjectDetails["packages"][number],
     ) {
       const packageName = packageData.name;
       const previousVersion = packageData.version;

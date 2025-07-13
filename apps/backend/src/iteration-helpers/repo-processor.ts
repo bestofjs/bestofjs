@@ -1,17 +1,13 @@
-import { DB, schema } from "@repo/db";
-import { and, asc, desc, eq, SQL } from "@repo/db/drizzle";
+import { type DB, schema } from "@repo/db";
+import { and, asc, desc, eq, type SQL } from "@repo/db/drizzle";
 import { snapshotsSchema } from "@repo/db/projects";
-import { TaskLoopOptions, TaskRunnerContext } from "@/task-types";
+
 import { ItemProcessor } from "./abstract-item-processor";
 
 export type Repo = Awaited<ReturnType<typeof findRepoById>>;
 
 export class RepoProcessor extends ItemProcessor<Repo> {
   type = "repo";
-
-  constructor(context: TaskRunnerContext, loopOptions: TaskLoopOptions) {
-    super(context, loopOptions);
-  }
 
   toString(item: Repo) {
     return item.full_name;

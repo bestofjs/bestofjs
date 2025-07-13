@@ -1,15 +1,16 @@
-import { Command } from "cleye";
-import { ConsolaInstance } from "consola";
-import { z } from "zod";
+import type { Command } from "cleye";
+import type { ConsolaInstance } from "consola";
+import type { z } from "zod";
 
-import { DB } from "@repo/db";
-import { ParsedFlags } from "./flags";
-import {
+import type { DB } from "@repo/db";
+
+import type { ParsedFlags } from "./flags";
+import type {
   HallOfFameProcessor,
   ProjectProcessor,
   RepoProcessor,
 } from "./iteration-helpers";
-import { MetaResult } from "./iteration-helpers/utils";
+import type { MetaResult } from "./iteration-helpers/utils";
 
 export type Task<FlagsType = undefined> = {
   name: string;
@@ -18,7 +19,7 @@ export type Task<FlagsType = undefined> = {
   schema?: z.ZodType<FlagsType>;
   run: (
     ctx: TaskContext,
-    flags: FlagsType extends undefined ? undefined : FlagsType
+    flags: FlagsType extends undefined ? undefined : FlagsType,
   ) => Promise<{
     data: unknown;
     meta: MetaResult;

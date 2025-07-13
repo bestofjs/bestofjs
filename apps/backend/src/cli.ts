@@ -1,8 +1,9 @@
+/** biome-ignore-all lint/suspicious/noExplicitAny: TODO type correctly */
 import { cli, command } from "cleye";
 
 import { cliFlags as sharedFlags } from "./flags";
 import { createTaskRunner } from "./task-runner";
-import { Task } from "./task-types";
+import type { Task } from "./task-types";
 import { buildMonthlyRankingsTask } from "./tasks/build-monthly-rankings.task";
 import { buildStaticApiTask } from "./tasks/build-static-api.task";
 import {
@@ -56,7 +57,7 @@ const staticApiDailyTask = command(
     ];
     const runner = createTaskRunner(tasks);
     runner.run(argv.flags);
-  }
+  },
 );
 
 cli({
@@ -76,6 +77,6 @@ function getCommand(task: Task<any>) {
     (argv) => {
       const runner = createTaskRunner([task]);
       runner.run(argv.flags);
-    }
+    },
   );
 }

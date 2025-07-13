@@ -7,11 +7,13 @@ import {
   getProjectDescription,
   getProjectTrends,
   getProjectURL,
-  ProjectDetails,
+  type ProjectDetails,
 } from "@repo/db/projects";
+
 import { truncate } from "@/shared/utils";
 import { createTask } from "@/task-runner";
-import { ProjectItem } from "./static-api-types";
+
+import type { ProjectItem } from "./static-api-types";
 
 // Thresholds for filtering projects included in the main list
 const YEARLY_STARS_THRESHOLD = 50;
@@ -79,12 +81,12 @@ export const buildStaticApiTask = createTask({
 
       logger.info(
         `${projects.length} projects to include in the main JSON file`,
-        { trendingToday: getDailyHotProjects(projects) }
+        { trendingToday: getDailyHotProjects(projects) },
       );
       const date = new Date();
 
       const tags = allTags.filter(
-        ({ code }) => !!findProjectByTagId(projects)(code)
+        ({ code }) => !!findProjectByTagId(projects)(code),
       );
       await saveJSON({ date, tags, projects }, "projects.json");
     }
@@ -95,7 +97,7 @@ export const buildStaticApiTask = createTask({
 
       await saveJSON(
         { date, count: projects.length, projects },
-        "projects-full.json"
+        "projects-full.json",
       );
     }
 
@@ -161,7 +163,7 @@ function getDailyHotProjects(projects: ProjectItem[]) {
   return orderBy<ProjectItem>(
     projects,
     [(project) => project.trends.daily],
-    ["desc"]
+    ["desc"],
   )
     .slice(0, 5)
     .map((project) => `${project.name} (+${project.trends.daily})`);

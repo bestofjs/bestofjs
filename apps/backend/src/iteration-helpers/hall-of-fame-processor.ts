@@ -1,8 +1,8 @@
 import { omit } from "es-toolkit";
 
-import { DB, schema } from "@repo/db";
+import { type DB, schema } from "@repo/db";
 import { desc, eq } from "@repo/db/drizzle";
-import { TaskLoopOptions, TaskRunnerContext } from "@/task-types";
+
 import { ItemProcessor } from "./abstract-item-processor";
 
 export type HallOfFameMember = Awaited<
@@ -11,10 +11,6 @@ export type HallOfFameMember = Awaited<
 
 export class HallOfFameProcessor extends ItemProcessor<HallOfFameMember> {
   type = "hall-of-fame";
-
-  constructor(context: TaskRunnerContext, loopOptions: TaskLoopOptions) {
-    super(context, loopOptions);
-  }
 
   toString(item: HallOfFameMember) {
     return item.username + " " + item.name;
@@ -71,7 +67,7 @@ async function findHallOfFameMemberByUsername(db: DB, username: string) {
   if (!member) throw new Error(`Member not found by username: ${username}`);
 
   const relatedProjects = member.hallOfFameToProjects.map(
-    (relation) => relation.project
+    (relation) => relation.project,
   );
   const ownedProjects = member.repos.flatMap((repo) => repo.projects);
 

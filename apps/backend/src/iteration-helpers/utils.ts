@@ -17,13 +17,13 @@ export function aggregateResults<T>(results: CallbackResult<T>[]) {
         data: val.data ? [...acc.data, val.data] : acc.data, // skip `null` data
       };
     },
-    { meta: {}, data: [] as (T | null)[] }
+    { meta: {}, data: [] as (T | null)[] },
   );
 }
 
 function sumMetaReducer(
   acc: AggregatedMeta,
-  [key, value]: [string, MetaResult[keyof MetaResult]]
+  [key, value]: [string, MetaResult[keyof MetaResult]],
 ) {
   const number = convertMetaValueToNumber(value);
 

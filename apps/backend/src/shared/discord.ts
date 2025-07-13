@@ -1,6 +1,7 @@
+/** biome-ignore-all lint/suspicious/noExplicitAny: TODO type correctly */
 import debugPackage from "debug";
 
-import { ProjectItem } from "@/tasks/static-api-types";
+import type { ProjectItem } from "@/tasks/static-api-types";
 
 const debug = debugPackage("notify");
 
@@ -46,7 +47,7 @@ export async function notifyDiscordProjectList<T extends Project>({
 export function projectToDiscordEmbed<T extends Project>(
   project: T,
   text: string,
-  color: string
+  color: string,
 ) {
   const url = project.url || `https://github.com/${project.full_name}`;
   const thumbnailSize = 50;
@@ -90,7 +91,7 @@ export async function sendMessageToDiscord({
     return true;
   } catch (error) {
     throw new Error(
-      `Invalid response from Discord ${(error as Error).message}`
+      `Invalid response from Discord ${(error as Error).message}`,
     );
   }
 }

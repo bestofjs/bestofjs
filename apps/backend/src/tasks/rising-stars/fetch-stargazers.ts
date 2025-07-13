@@ -1,7 +1,12 @@
 import NodeFetchCache, { FileSystemCache } from "node-fetch-cache";
 import { Octokit } from "octokit";
 
-import { normalizeDate, Snapshot, YearMonthDay } from "@repo/db/snapshots";
+import {
+  normalizeDate,
+  type Snapshot,
+  type YearMonthDay,
+} from "@repo/db/snapshots";
+
 import { EventCounter } from "./utils";
 
 const fetch = NodeFetchCache.create({
@@ -20,7 +25,7 @@ type Event = YearMonthDay & { value: number };
 export async function fetchAllStargazers(
   owner: string,
   repo: string,
-  endDate: Date
+  endDate: Date,
 ): Promise<Event[]> {
   console.log("> Fetch stargazers", owner, repo);
   const counter = new EventCounter<YearMonthDay>();
@@ -35,7 +40,7 @@ export async function fetchAllStargazers(
   };
   const iterator = octokit.paginate.iterator(
     octokit.rest.activity.listStargazersForRepo,
-    options
+    options,
   );
 
   let page = 1;
@@ -79,10 +84,10 @@ export function getFirstSnapshotsOfTheMonth(events: Event[], year: number) {
 
 function findClosestSnapshotBeforeDate(
   snapshots: Snapshot[],
-  date: YearMonthDay
+  date: YearMonthDay,
 ): Snapshot | undefined {
   const index = snapshots.findIndex(
-    (snapshot) => compareDates(snapshot, date) > -1
+    (snapshot) => compareDates(snapshot, date) > -1,
   );
   if (index === -1) return undefined; // No snapshot before
 
@@ -100,6 +105,7 @@ function eventsToSnapshots(events: Event[]): Snapshot[] {
     const { year, month, day, value } = item;
     const previousTotal = acc[acc.length - 1]?.stars | 0;
     const stars = previousTotal + value;
+    // biome-ignore lint/performance/noAccumulatingSpread: TODO mutate the array instead?
     return [...acc, { year, month, day, stars }];
   }, [] as Snapshot[]);
 }
