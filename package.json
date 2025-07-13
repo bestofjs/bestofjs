@@ -19,6 +19,7 @@
     "pnpm": ">=10"
   },
   "devDependencies": {
+    "@biomejs/biome": "2.1.1",
     "@ianvs/prettier-plugin-sort-imports": "^4.3.1",
     "dotenv-cli": "catalog:",
     "prettier": "catalog:",
