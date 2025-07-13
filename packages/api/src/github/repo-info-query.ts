@@ -52,6 +52,7 @@ export const queryRepoInfo = `query getRepoInfo($owner: String!, $name: String!)
   }
 }`;
 
+// biome-ignore lint/suspicious/noExplicitAny: TODO type correctly
 export function extractRepoInfo(response: any) {
   const {
     repository: {
@@ -96,6 +97,7 @@ export function extractRepoInfo(response: any) {
   };
 }
 
+// biome-ignore lint/suspicious/noExplicitAny: TODO type correctly
 const getTopic = (edge: any) => edge.node.topic.name;
 
 // TODO: extract the user "short id" from the GraphQL query?

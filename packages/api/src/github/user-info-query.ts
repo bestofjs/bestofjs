@@ -12,6 +12,7 @@ export const queryUserInfo = `query queryRepoInfo($login: String!) {
   }
 }`;
 
+// biome-ignore lint/suspicious/noExplicitAny: TODO type correctly
 export function extractUserInfo(response: any) {
   const {
     user: {
