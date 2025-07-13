@@ -1,6 +1,10 @@
 /* eslint-disable @next/next/no-img-element */
 import { db } from "@repo/db";
-import { findHallOfFameMembers, HallOfFameMember } from "@repo/db/hall-of-fame";
+import {
+  findHallOfFameMembers,
+  type HallOfFameMember,
+} from "@repo/db/hall-of-fame";
+
 import { ImageLayout } from "../og-image-layout";
 import { Box, generateImageResponse } from "../og-utils";
 
@@ -25,7 +29,7 @@ export async function GET() {
           ))}
         </Box>
       </Box>
-    </ImageLayout>
+    </ImageLayout>,
   );
 }
 

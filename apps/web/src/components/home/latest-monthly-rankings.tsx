@@ -1,5 +1,5 @@
-import NextLink from "next/link";
 import { CalendarIcon } from "lucide-react";
+import NextLink from "next/link";
 
 import { formatMonthlyDate } from "@/app/rankings/monthly/monthly-rankings-utils";
 import { StarDelta } from "@/components/core";
@@ -35,7 +35,7 @@ export async function LatestMonthlyRankings() {
             passHref
             className={cn(
               buttonVariants({ variant: "link" }),
-              "text-md w-full text-secondary-foreground"
+              "w-full text-md text-secondary-foreground",
             )}
           >
             View monthly rankings »

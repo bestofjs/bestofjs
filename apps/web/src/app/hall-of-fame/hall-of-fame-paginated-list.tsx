@@ -1,14 +1,16 @@
 import { InfoIcon } from "lucide-react";
 
-import { HallOfFameMember } from "@repo/db/hall-of-fame";
+import type { HallOfFameMember } from "@repo/db/hall-of-fame";
+
 import {
   BottomPaginationControls,
   TopPaginationControls,
 } from "@/components/core/pagination/pagination-controls";
 import { computePaginationState } from "@/components/core/pagination/pagination-state";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+
 import { HallOfFameMemberList } from "./hall-of-fame-member-list";
-import {
+import type {
   HallOfFameSearchState,
   HallOfFameSearchUrlBuilder,
 } from "./search/hall-of-fame-search-state";

@@ -1,12 +1,16 @@
-import React from "react";
+import type React from "react";
 import NextLink from "next/link";
 
 import { ChevronLeftIcon, ChevronRightIcon } from "@/components/core/icons";
 import { buttonVariants } from "@/components/ui/button";
 import { formatNumber } from "@/helpers/numbers";
-import { PageSearchUrlBuilder, PaginationProps } from "@/lib/page-search-state";
+import type {
+  PageSearchUrlBuilder,
+  PaginationProps,
+} from "@/lib/page-search-state";
 import { cn } from "@/lib/utils";
-import { PaginationState } from "./pagination-state";
+
+import type { PaginationState } from "./pagination-state";
 
 type Props<T extends PaginationProps> = {
   paginationState: PaginationState;
@@ -15,7 +19,7 @@ type Props<T extends PaginationProps> = {
   compact?: boolean;
 };
 export const TopPaginationControls = <T extends PaginationProps>(
-  props: Props<T>
+  props: Props<T>,
 ) => {
   const { className, compact, paginationState } = props;
   const { from, to, total } = paginationState;
@@ -35,7 +39,7 @@ export const TopPaginationControls = <T extends PaginationProps>(
 };
 
 export function BottomPaginationControls<T extends PaginationProps>(
-  props: Props<T>
+  props: Props<T>,
 ) {
   const { paginationState, buildPageURL } = props;
   const { hasPreviousPage, hasNextPage } = paginationState;
@@ -45,7 +49,7 @@ export function BottomPaginationControls<T extends PaginationProps>(
       ({
         ...state,
         page: state.page - 1,
-      }) as T
+      }) as T,
   );
   const nextPageURL = buildPageURL((state: T) => ({
     ...state,
@@ -79,7 +83,11 @@ function PaginationButton({
       {children}
     </NextLink>
   ) : (
-    <button disabled className={buttonVariants({ variant: "outline" })}>
+    <button
+      disabled
+      className={buttonVariants({ variant: "outline" })}
+      type="button"
+    >
       {children}
     </button>
   );

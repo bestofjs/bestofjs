@@ -7,12 +7,13 @@ import {
   RISING_STARS_URL,
   STATE_OF_JS_URL,
 } from "@/config/site";
+
 import { ExternalLink } from "../core/typography";
 import { VercelLogo } from "../svg-logos";
 
 export const Footer = () => {
   return (
-    <footer className="bg-base-200 text-base-content border-t">
+    <footer className="border-t bg-base-200 text-base-content">
       <div className="container">
         <div className="grid gap-8 py-10 sm:grid-cols-[200px_1fr_1fr]">
           <div>
@@ -24,7 +25,7 @@ export const Footer = () => {
             />
           </div>
           <div className="space-y-2">
-            <div className="text-sm text-muted-foreground">Direct links</div>
+            <div className="text-muted-foreground text-sm">Direct links</div>
             <div className="flex flex-col gap-2">
               <NextLink href="/projects" className="hover:underline">
                 Projects
@@ -44,7 +45,7 @@ export const Footer = () => {
             </div>
           </div>
           <div className="space-y-2">
-            <div className="text-sm text-muted-foreground">
+            <div className="text-muted-foreground text-sm">
               Related projects
             </div>
             <div className="flex flex-col gap-2">

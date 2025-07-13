@@ -1,8 +1,9 @@
 "use client";
 
-import useSWR, { SWRConfiguration } from "swr";
+import useSWR, { type SWRConfiguration } from "swr";
 
 import { SearchPalette } from "@/components/search-palette/search-palette";
+
 import { ClientSearch } from "./search-container";
 
 type SearchData = {
@@ -18,11 +19,11 @@ export function ClientSearchRoot() {
   const { data, error } = useSWR<SearchData>(
     "search-data",
     fetchSearchData,
-    options
+    options,
   );
 
   if (error) return <div className="text-xs">Error</div>;
-  if (!data) return <div className="text-xs text-muted-foreground">...</div>;
+  if (!data) return <div className="text-muted-foreground text-xs">...</div>;
 
   return (
     <ClientSearch.Provider initialState={data}>

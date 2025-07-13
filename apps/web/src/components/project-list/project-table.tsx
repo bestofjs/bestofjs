@@ -1,13 +1,14 @@
 import NextLink from "next/link";
 
-import { ProjectSearchUrlBuilder } from "@/app/projects/project-search-state";
+import type { ProjectSearchUrlBuilder } from "@/app/projects/project-search-state";
 import { formatNumber } from "@/helpers/numbers";
 import { cn } from "@/lib/utils";
+
 import { fromNow } from "../../helpers/from-now";
 import {
   DownloadCount,
-  getDeltaByDay,
   GitHubIcon,
+  getDeltaByDay,
   HomeIcon,
   ProjectLogo,
   StarDelta,
@@ -88,7 +89,7 @@ const ProjectTableRow = ({
               target="_blank"
               className={cn(
                 buttonVariants({ variant: "ghost" }),
-                "size-10 rounded-full p-0"
+                "size-10 rounded-full p-0",
               )}
             >
               <GitHubIcon size={24} />
@@ -101,7 +102,7 @@ const ProjectTableRow = ({
                 target="_blank"
                 className={cn(
                   buttonVariants({ variant: "ghost" }),
-                  "size-10 rounded-full p-0"
+                  "size-10 rounded-full p-0",
                 )}
               >
                 <HomeIcon size={24} />
@@ -115,7 +116,7 @@ const ProjectTableRow = ({
           )}
         </div>
 
-        <div className="mb-4 mt-2 truncate pr-4 font-serif text-sm sm:pr-0">
+        <div className="mt-2 mb-4 truncate pr-4 font-serif text-sm sm:pr-0">
           {project.description}
         </div>
         <ProjectTagGroup tags={project.tags} buildPageURL={buildPageURL} />

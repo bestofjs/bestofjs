@@ -1,7 +1,7 @@
 import path from "node:path";
 import fs from "fs-extra";
 
-import { RawData } from "./api-utils";
+import type { RawData } from "./api-utils";
 import { createAPI } from "./create-api";
 
 export const api = createAPI(fetchProjectData);

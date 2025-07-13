@@ -1,8 +1,8 @@
 "use client";
 
 import * as React from "react";
-import { useRouter } from "next/navigation";
 import { Check, ChevronsUpDown } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -18,6 +18,7 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { cn } from "@/lib/utils";
+
 import { useProjectSearchState } from "../search-palette/search-state.client";
 
 type Props = {
@@ -55,7 +56,6 @@ export function TagPicker({
       <PopoverTrigger asChild>
         <Button
           variant="outline"
-          role="combobox"
           aria-expanded={open}
           className="justify-between"
         >
@@ -83,7 +83,7 @@ export function TagPicker({
                       "mr-2 size-4",
                       currentTagCodes.includes(tag.code)
                         ? "opacity-100"
-                        : "opacity-0"
+                        : "opacity-0",
                     )}
                   />
                   {tag.name}

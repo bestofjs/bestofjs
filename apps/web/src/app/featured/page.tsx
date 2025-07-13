@@ -1,5 +1,5 @@
 import {
-  ProjectSearchState,
+  type ProjectSearchState,
   ProjectSearchStateParser,
 } from "@/app/projects/project-search-state";
 import { StarIcon } from "@/components/core";

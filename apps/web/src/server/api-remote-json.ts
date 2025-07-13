@@ -1,5 +1,6 @@
 import { env } from "@/env.mjs";
-import { RawData } from "./api-utils";
+
+import type { RawData } from "./api-utils";
 import { createAPI } from "./create-api";
 
 export const api = createAPI(fetchProjectData);

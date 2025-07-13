@@ -1,14 +1,15 @@
-import NextLink from "next/link";
 import { FlameIcon } from "lucide-react";
+import NextLink from "next/link";
 
 import { SectionHeading } from "@/components/core/section";
 import { buttonVariants } from "@/components/ui/button";
 import { Card, CardHeader } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
+
 import { ProjectScore, ProjectTable } from "../project-list/project-table";
 import {
   getSortOptionByKey,
-  SortOptionKey,
+  type SortOptionKey,
 } from "../project-list/sort-order-options";
 import { TimeRangePicker } from "./time-range-picker";
 
@@ -44,7 +45,7 @@ export function HotProjectList({
             passHref
             className={cn(
               buttonVariants({ variant: "link" }),
-              "text-md w-full text-secondary-foreground"
+              "w-full text-md text-secondary-foreground",
             )}
           >
             View full rankings »

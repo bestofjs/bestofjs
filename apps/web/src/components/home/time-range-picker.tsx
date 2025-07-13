@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { ChevronDownIcon } from "@/components/core";
 import {
   getSortOptionByKey,
-  SortOptionKey,
+  type SortOptionKey,
 } from "@/components/project-list/sort-order-options";
 import { Button } from "@/components/ui/button";
 import {

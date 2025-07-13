@@ -8,6 +8,7 @@ export function SvgSprite({ id, ...props }: SvgSpriteProps) {
   const width = getDimension(props, "width");
   return (
     <svg {...props} width={width} height={height}>
+      <title>{id}</title>
       <use href={`/sprite.svg#${id}`} />
     </svg>
   );
@@ -15,7 +16,7 @@ export function SvgSprite({ id, ...props }: SvgSpriteProps) {
 
 function getDimension(
   props: Omit<SvgSpriteProps, "id">,
-  dimension: "width" | "height"
+  dimension: "width" | "height",
 ) {
   const defaultValue = 16;
   if (props[dimension]) {

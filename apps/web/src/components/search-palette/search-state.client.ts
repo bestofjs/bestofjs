@@ -15,7 +15,7 @@ export function useProjectSearchState() {
   const shouldReadURL = pathName === "/projects"; // the palette should try to read URL params only from the projects page
 
   const { searchState, buildPageURL } = searchStateParser.parse(
-    shouldReadURL ? searchParamsKeyValues : {}
+    shouldReadURL ? searchParamsKeyValues : {},
   );
 
   return { searchState, buildPageURL };

@@ -22,6 +22,7 @@ import {
 import { Separator } from "@/components/ui/separator";
 import { Skeleton } from "@/components/ui/skeleton";
 import { getResultRelevantTags, mergeSearchResults } from "@/lib/search-utils";
+
 import { ClientSearch } from "./search-container";
 import {
   ProjectSearchResult,
@@ -29,7 +30,10 @@ import {
   TagSearchResult,
   ViewAllTagsCommand,
 } from "./search-palette-results";
-import { SelectedItem, useSearchPaletteState } from "./search-palette-state";
+import {
+  type SelectedItem,
+  useSearchPaletteState,
+} from "./search-palette-state";
 import { SearchTrigger } from "./search-trigger";
 
 type CombinedSearchResult =
@@ -159,7 +163,7 @@ function CombinedSearchResults({
 
   const combinedResults: CombinedSearchResult[] = mergeSearchResults(
     showProjects ? filteredProjects : [],
-    showTags ? foundTagsWithRank : []
+    showTags ? foundTagsWithRank : [],
   );
 
   const isEmptySearchResults =
@@ -292,8 +296,9 @@ function SearchResultsHeading({
     <div className="hidden justify-between md:flex">
       <span>Search Results</span>
       <div className="flex items-center gap-4 text-sm">
-        <label className="flex items-center gap-2">
+        <label className="flex items-center gap-2" htmlFor="show-projects">
           <Checkbox
+            id="show-projects"
             checked={showProjects}
             onCheckedChange={() => toggleProjects()}
             disabled={projectCount === 0}
@@ -302,8 +307,9 @@ function SearchResultsHeading({
           <Badge variant="outline">{projectCount}</Badge>
         </label>
         <Separator orientation="vertical" />
-        <label className="flex items-center gap-2">
+        <label className="flex items-center gap-2" htmlFor="show-tags">
           <Checkbox
+            id="show-tags"
             checked={showTags}
             onCheckedChange={() => toggleTags()}
             disabled={tagCount === 0}
@@ -317,7 +323,7 @@ function SearchResultsHeading({
 }
 
 function isProject(
-  result: CombinedSearchResult
+  result: CombinedSearchResult,
 ): result is BestOfJS.SearchIndexProject & { rank: number } {
   return "stars" in result;
 }

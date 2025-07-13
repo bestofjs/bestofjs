@@ -33,7 +33,7 @@ export function FeaturedProjectsClient({
   };
 
   const lastPageNumber = Math.ceil(
-    totalNumberOfProjects / numberOfProjectPerPage - 1
+    totalNumberOfProjects / numberOfProjectPerPage - 1,
   );
 
   return (
@@ -103,7 +103,7 @@ function DynamicFeaturedProjectList({
     {
       revalidateOnFocus: false,
       revalidateOnReconnect: false,
-    }
+    },
   );
   const { mutate } = useSWRConfig();
   useEffect(() => {
@@ -126,7 +126,7 @@ function DynamicFeaturedProjectList({
 
 async function fetchRandomProjects(
   pageNumber: number,
-  numberOfProjectPerPage: number
+  numberOfProjectPerPage: number,
 ) {
   const params = new URLSearchParams();
   params.set("skip", (pageNumber * numberOfProjectPerPage).toString());

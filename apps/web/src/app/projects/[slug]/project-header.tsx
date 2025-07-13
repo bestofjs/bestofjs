@@ -1,10 +1,11 @@
-import React from "react";
+import type React from "react";
 
 import {
   getProjectDescription,
   getProjectURL,
-  ProjectDetails,
+  type ProjectDetails,
 } from "@repo/db/projects";
+
 import { GitHubIcon, HomeIcon, NpmIcon, ProjectLogo } from "@/components/core";
 import { ProjectTagGroup } from "@/components/tags/project-tag";
 import { buttonVariants } from "@/components/ui/button";
@@ -76,7 +77,7 @@ const ButtonLink = ({
     href={href}
     className={cn(
       buttonVariants({ variant: "outline" }),
-      "relative justify-start"
+      "relative justify-start",
     )}
   >
     <span className="absolute left-4">{icon}</span>

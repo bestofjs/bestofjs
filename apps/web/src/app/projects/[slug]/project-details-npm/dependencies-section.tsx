@@ -1,4 +1,5 @@
-import { ProjectDetails } from "@repo/db/projects";
+import type { ProjectDetails } from "@repo/db/projects";
+
 import { ChevronRightIcon, ExternalLinkIcon } from "@/components/core";
 import { ProjectTable } from "@/components/project-list/project-table";
 import { Badge } from "@/components/ui/badge";
@@ -25,7 +26,7 @@ export async function DependenciesSection({
     criteria: { npm: { $in: dependencies } },
   });
   const dependenciesNotOnBestOfJS = dependencies.filter(
-    (dependency) => !projects.find((project) => project.npm === dependency)
+    (dependency) => !projects.find((project) => project.npm === dependency),
   );
 
   return (

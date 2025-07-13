@@ -10,6 +10,7 @@ import { LatestMonthlyRankings } from "@/components/home/latest-monthly-rankings
 import { Separator } from "@/components/ui/separator";
 import { APP_REPO_FULL_NAME } from "@/config/site";
 import { api } from "@/server/api-local-json";
+
 import { getLatestProjects } from "../backend-search-requests";
 
 export default async function TrendsLayout({
@@ -52,8 +53,9 @@ export default async function TrendsLayout({
 
 async function getData() {
   const { lastUpdateDate, total } = await api.projects.getStats();
-  const { projects: newestProjects } =
-    await api.projects.findProjects(getLatestProjects());
+  const { projects: newestProjects } = await api.projects.findProjects(
+    getLatestProjects(),
+  );
   const bestOfJSProject = await api.projects.findOne({
     full_name: APP_REPO_FULL_NAME,
   });

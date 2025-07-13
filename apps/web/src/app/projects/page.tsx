@@ -1,5 +1,5 @@
 import { Suspense } from "react";
-import { Metadata } from "next";
+import type { Metadata } from "next";
 import NextLink from "next/link";
 
 import { PlusIcon, TagIcon, XMarkIcon } from "@/components/core";
@@ -13,11 +13,12 @@ import { formatNumber } from "@/helpers/numbers";
 import { addCacheBustingParam } from "@/helpers/url";
 import { cn } from "@/lib/utils";
 import { api } from "@/server/api";
+
 import { ProjectListLoading } from "./loading-state";
 import {
-  ProjectSearchState,
+  type ProjectSearchState,
   ProjectSearchStateParser,
-  ProjectSearchUrlBuilder,
+  type ProjectSearchUrlBuilder,
 } from "./project-search-state";
 
 type ProjectsPageData = {
@@ -75,7 +76,7 @@ function getPageTitle(data: ProjectsPageData, searchState: ProjectSearchState) {
 
 function getPageDescription(
   data: ProjectsPageData,
-  searchState: ProjectSearchState
+  searchState: ProjectSearchState,
 ) {
   const { query, sort } = searchState;
   const NUMBER_OF_PROJECTS = 8;
@@ -291,7 +292,7 @@ function CurrentTags({
 }
 
 async function fetchPageData(
-  searchState: ProjectSearchState
+  searchState: ProjectSearchState,
 ): Promise<ProjectsPageData> {
   const { tags, sort, page, limit, query } = searchState;
   const sortOption = getSortOptionByKey(sort);

@@ -1,10 +1,11 @@
-import { Metadata } from "next";
+import type { Metadata } from "next";
 
 import { TagPaginatedList } from "@/components/tag-list/tag-paginated-list";
 import { api } from "@/server/api";
+
 import {
   getTagListSortOptionByValue,
-  TagSearchState,
+  type TagSearchState,
   TagSearchStateParser,
 } from "./tag-search-state";
 import { TagsPageShell } from "./tags-page-shell";

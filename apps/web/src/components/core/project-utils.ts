@@ -1,7 +1,7 @@
 export function getProjectLogoURL(
   project: BestOfJS.Project,
   size: number,
-  colorMode: string
+  colorMode: string,
 ) {
   if (project.logo) {
     return getProjectCustomLogoURL(project.logo, colorMode);

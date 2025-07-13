@@ -10,7 +10,7 @@ const Card = React.forwardRef<
     ref={ref}
     className={cn(
       "-mx-4 border-y bg-card text-card-foreground shadow-sm sm:mx-0 sm:rounded-md sm:border",
-      className
+      className,
     )}
     {...props}
   />
@@ -26,7 +26,7 @@ const CardHeader = React.forwardRef<
     className={cn(
       "flex flex-row items-center space-y-1.5 border-b p-4",
       "dark:bg-gradient-to-bl dark:from-[var(--sand-3)] dark:to-[var(--sand-2)]", // gradient BG only for dark mode
-      className
+      className,
     )}
     {...props}
   />
@@ -40,8 +40,8 @@ const CardTitle = React.forwardRef<
   <h3
     ref={ref}
     className={cn(
-      "text-2xl font-semibold leading-none tracking-tight",
-      className
+      "font-semibold text-2xl leading-none tracking-tight",
+      className,
     )}
     {...props}
   />
@@ -54,7 +54,7 @@ const CardDescription = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <p
     ref={ref}
-    className={cn("text-sm text-muted-foreground", className)}
+    className={cn("text-muted-foreground text-sm", className)}
     {...props}
   />
 ));

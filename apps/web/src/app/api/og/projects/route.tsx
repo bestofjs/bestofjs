@@ -11,12 +11,13 @@ import { ProjectSearchStateParser } from "@/app/projects/project-search-state";
 import { getDeltaByDay } from "@/components/core";
 import {
   getSortOptionByKey,
-  SortOption,
-  SortOptionKey,
+  type SortOption,
+  type SortOptionKey,
 } from "@/components/project-list/sort-order-options";
 import { formatNumber } from "@/helpers/numbers";
 import { getSearchParamsKeyValues } from "@/lib/url-search-params";
 import { api } from "@/server/api-remote-json";
+
 import { ImageLayout } from "../og-image-layout";
 
 const searchStateParser = new ProjectSearchStateParser();
@@ -56,7 +57,7 @@ export async function GET(req: Request) {
           ))}
         </Box>
       </Box>
-    </ImageLayout>
+    </ImageLayout>,
   );
 }
 

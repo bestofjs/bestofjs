@@ -1,6 +1,6 @@
 import {
-  borderColor,
   Box,
+  borderColor,
   generateImageResponse,
   mutedColor,
   ProjectLogo,
@@ -8,6 +8,7 @@ import {
 } from "@/app/api/og/og-utils";
 import { formatNumber } from "@/helpers/numbers";
 import { api } from "@/server/api-remote-json";
+
 import { ImageLayout } from "../../og-image-layout";
 
 export const runtime = "edge";
@@ -16,16 +17,14 @@ type Context = { params: Promise<{ slug: string }> };
 export async function GET(_req: Request, props: Context) {
   const params = await props.params;
 
-  const {
-    slug
-  } = params;
+  const { slug } = params;
 
   const { project } = await api.projects.getProjectBySlug(slug);
   if (!project)
     return generateImageResponse(
       <ImageLayout>
         <div>Project not found!</div>
-      </ImageLayout>
+      </ImageLayout>,
     );
 
   return generateImageResponse(
@@ -57,7 +56,7 @@ export async function GET(_req: Request, props: Context) {
           <Trend project={project} />
         </Box>
       </Box>
-    </ImageLayout>
+    </ImageLayout>,
   );
 }
 

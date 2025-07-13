@@ -12,5 +12,5 @@ export const linkVariants = cva(
         tag: "hover:underline-offset-8",
       },
     },
-  }
+  },
 );

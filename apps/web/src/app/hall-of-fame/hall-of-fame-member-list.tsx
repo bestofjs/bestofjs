@@ -1,6 +1,7 @@
 import NextLink from "next/link";
 
-import { HallOfFameMember } from "@repo/db/hall-of-fame";
+import type { HallOfFameMember } from "@repo/db/hall-of-fame";
+
 import { ProjectCustomLogo } from "@/components/core";
 import { ExternalLink } from "@/components/core/typography";
 import { badgeVariants } from "@/components/ui/badge";
@@ -58,7 +59,7 @@ function HallOfFameMemberCard({ member }: { member: HallOfFameMember }) {
                   "text-md",
                   "rounded-sm",
                   "hover:bg-accent",
-                  "font-normal"
+                  "font-normal",
                 )}
               >
                 {project.logo && (

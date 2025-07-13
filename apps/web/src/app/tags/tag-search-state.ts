@@ -1,8 +1,8 @@
 import { z } from "zod";
 
 import {
-  PageSearchStateUpdater,
-  PageSearchUrlBuilder,
+  type PageSearchStateUpdater,
+  type PageSearchUrlBuilder,
   paginationSchema,
   SearchStateParser,
 } from "@/lib/page-search-state";
@@ -53,7 +53,7 @@ export const tagListSortOptions: TagListSortOption[] = [
 
 export function getTagListSortOptionByValue(sortOptionValue: string) {
   const sortOption = tagListSortOptions.find(
-    (option) => option.value === sortOptionValue
+    (option) => option.value === sortOptionValue,
   );
   return sortOption || tagListSortOptions[0];
 }

@@ -1,8 +1,8 @@
 "use client";
 
+import { InfoIcon } from "lucide-react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
-import { InfoIcon } from "lucide-react";
 
 import { SearchIcon, XMarkIcon } from "@/components/core";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";

@@ -1,7 +1,7 @@
 import "@/app/globals.css";
 
-import { Metadata } from "next";
 import { Analytics } from "@vercel/analytics/react";
+import type { Metadata } from "next";
 
 import { Footer } from "@/components/footer/footer";
 import { SiteHeader } from "@/components/header/site-header";
@@ -67,7 +67,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
           className={cn(
             "min-h-screen bg-background font-sans antialiased",
             fontSans.variable,
-            fontSerif.variable
+            fontSerif.variable,
           )}
         >
           <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
@@ -75,7 +75,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
               <div className="relative flex min-h-screen flex-col">
                 <SiteHeader />
                 <main className="flex-1 bg-[var(--app-background)]">
-                  <div className="container pb-8 pt-6 md:py-8">{children}</div>
+                  <div className="container pt-6 pb-8 md:py-8">{children}</div>
                 </main>
                 <Footer />
               </div>

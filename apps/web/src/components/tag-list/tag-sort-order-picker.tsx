@@ -1,9 +1,9 @@
 import Link from "next/link";
 
 import {
+  type TagSearchState,
+  type TagSearchUrlBuilder,
   tagListSortOptions,
-  TagSearchState,
-  TagSearchUrlBuilder,
 } from "@/app/tags/tag-search-state";
 import { ChevronDownIcon } from "@/components/core";
 import { Button } from "@/components/ui/button";
@@ -21,7 +21,7 @@ type Props = {
 };
 export const TagSortOrderPicker = ({ value, buildPageURL }: Props) => {
   const currentOption = tagListSortOptions.find(
-    (option) => option.value === value
+    (option) => option.value === value,
   );
 
   return (

@@ -20,7 +20,7 @@ export function SiteHeader() {
           */}
           <Suspense
             fallback={
-              <div className="text-sm text-muted-foreground">
+              <div className="text-muted-foreground text-sm">
                 Loading search...
               </div>
             }

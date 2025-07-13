@@ -27,7 +27,7 @@ export function useSearchPaletteTags() {
   const { searchState, buildPageURL } = useProjectSearchState();
   const { lookupTag } = ClientSearch.useContainer();
   const [currentTagCodes, setCurrentTagCodes] = React.useState<string[]>(
-    searchState.tags
+    searchState.tags,
   );
 
   // The search palette is mounted only once, we need to sync the tags when the URL changes
@@ -86,7 +86,7 @@ export function useSearchPaletteState() {
   };
   const [debouncedOnChange] = useDebouncedCallback(
     onValueChange,
-    DEBOUNCE_DELAY
+    DEBOUNCE_DELAY,
   );
 
   const onSelectProject = (itemValue: string) => {

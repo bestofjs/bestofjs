@@ -11,7 +11,7 @@ export function formatUrl(url: string) {
  */
 export function addCacheBustingParam(
   searchParams: URLSearchParams,
-  date: Date
+  date: Date,
 ) {
   const dateParam = date.toISOString().slice(0, 16).replace(":", "-"); // 2020-01-01T00:00 => 2020-01-01T00-00
   searchParams.set("t", dateParam);

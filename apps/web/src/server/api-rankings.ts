@@ -1,5 +1,6 @@
 import { env } from "@/env.mjs";
-import { createProjectsAPI } from "./api-projects";
+
+import type { createProjectsAPI } from "./api-projects";
 
 type RankingsData = {
   year: number;
@@ -15,7 +16,7 @@ export type MonthlyDate = {
 };
 
 export function createRankingsAPI(
-  projectsAPI: ReturnType<typeof createProjectsAPI>
+  projectsAPI: ReturnType<typeof createProjectsAPI>,
 ) {
   return {
     async getMonthlyRankings({
@@ -34,7 +35,7 @@ export function createRankingsAPI(
         },
       };
       const data = (await fetch(url, options).then((res) =>
-        res.json()
+        res.json(),
       )) as RankingsData;
       const { isFirst, isLatest, month, year } = data;
       const projects = data.trending.slice(0, limit);
@@ -49,7 +50,7 @@ export function createRankingsAPI(
         .map(({ full_name, delta }) => {
           // we use `findLast` to lookup data because the oldest projects have a higher priority. TODO don't lookup by full_name, use a unique key
           const project = foundProjects.findLast(
-            (project) => project.full_name === full_name
+            (project) => project.full_name === full_name,
           );
           if (!project) {
             console.log("Not found", full_name);
