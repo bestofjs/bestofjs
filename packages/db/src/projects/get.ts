@@ -1,9 +1,9 @@
 import { asc, eq } from "drizzle-orm";
-import { PgColumn } from "drizzle-orm/pg-core";
+import type { PgColumn } from "drizzle-orm/pg-core";
 import invariant from "tiny-invariant";
 import { z } from "zod";
 
-import { DB } from "../index";
+import type { DB } from "../index";
 import * as schema from "../schema";
 
 export type ProjectData = typeof schema.projects.$inferSelect;
@@ -74,7 +74,7 @@ const MonthSchema = z.object({
     z.object({
       day: z.number(),
       stars: z.number(),
-    })
+    }),
   ),
 });
 

@@ -2,14 +2,14 @@ import debugPackage from "debug";
 import { and, eq } from "drizzle-orm";
 import { groupBy, isEqual, orderBy, pick } from "es-toolkit";
 
-import { DB } from "..";
+import type { DB } from "..";
 import {
   flattenSnapshots,
-  MonthSnapshots,
-  OneYearSnapshots,
+  type MonthSnapshots,
+  type OneYearSnapshots,
 } from "../projects";
 import * as schema from "../schema";
-import { Snapshot } from "./types";
+import type { Snapshot } from "./types";
 import { normalizeDate } from "./utils";
 
 const debug = debugPackage("snapshots");
@@ -24,7 +24,7 @@ export class SnapshotsService {
     const snapshot = await this.db.query.snapshots.findFirst({
       where: and(
         eq(schema.snapshots.repoId, repoId),
-        eq(schema.snapshots.year, year)
+        eq(schema.snapshots.year, year),
       ),
     });
     return snapshot as OneYearSnapshots | null;
@@ -33,7 +33,7 @@ export class SnapshotsService {
   async updateSnapshotRecord(
     repoId: string,
     year: number,
-    months: MonthSnapshots[]
+    months: MonthSnapshots[],
   ) {
     await this.db
       .update(schema.snapshots)
@@ -41,15 +41,15 @@ export class SnapshotsService {
       .where(
         and(
           eq(schema.snapshots.repoId, repoId),
-          eq(schema.snapshots.year, year)
-        )
+          eq(schema.snapshots.year, year),
+        ),
       );
   }
 
   async createSnapshotRecord(
     repoId: string,
     year: number,
-    months: MonthSnapshots[]
+    months: MonthSnapshots[],
   ) {
     const result = await this.db
       .insert(schema.snapshots)
@@ -62,7 +62,7 @@ export class SnapshotsService {
   async addSnapshot(
     repoId: string,
     stars: number,
-    { year, month, day } = normalizeDate(new Date())
+    { year, month, day } = normalizeDate(new Date()),
   ) {
     const existingRecord = await this.getSnapshotRecord(repoId, year);
 
@@ -72,7 +72,7 @@ export class SnapshotsService {
     const existingSnapshot = monthItem?.snapshots.find(findByDay(day));
     if (existingSnapshot) {
       debug(
-        `No snapshot to add, a snapshot already exists for this day (${day})`
+        `No snapshot to add, a snapshot already exists for this day (${day})`,
       );
       return false;
     }
@@ -105,7 +105,7 @@ export class SnapshotsService {
   async addMissingSnapshotsForYear(
     repoId: string,
     year: number,
-    snapshots: Snapshot[]
+    snapshots: Snapshot[],
   ) {
     const existingRecord = await this.getSnapshotRecord(repoId, year);
     if (!existingRecord)
@@ -134,10 +134,10 @@ const findByDay =
 
 export function mergeSnapshots(
   existingSnapshots: OneYearSnapshots,
-  newSnapshots: Snapshot[]
+  newSnapshots: Snapshot[],
 ) {
   const existingSnapshotsMap = buildKeyValueMap(
-    flattenSnapshots([existingSnapshots])
+    flattenSnapshots([existingSnapshots]),
   );
   const newSnapshotsMap = buildKeyValueMap(newSnapshots);
 
@@ -156,7 +156,7 @@ function buildKeyValueMap(snapshots: Snapshot[]) {
       acc[key] = item.stars;
       return acc;
     },
-    {} as Record<YearMonthDayKey, number>
+    {} as Record<YearMonthDayKey, number>,
   );
 }
 
@@ -165,7 +165,7 @@ function unflattenKeyValueMap(map: Record<YearMonthDayKey, number>) {
     Object.entries(map).map(([key, stars]) => {
       const [year, month, day] = key.split("-").map(Number);
       return { year, month, day, stars };
-    })
+    }),
   );
   const byMonth = groupBy(snapshots, (snapshot) => snapshot.month);
 
@@ -180,6 +180,6 @@ function orderSnapshots(snapshots: Snapshot[]) {
   return orderBy(
     snapshots,
     [(snapshot) => snapshot.month, (snapshot) => snapshot.day],
-    ["asc", "asc"]
+    ["asc", "asc"],
   );
 }

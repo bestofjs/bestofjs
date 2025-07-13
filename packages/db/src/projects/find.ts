@@ -10,7 +10,7 @@ import {
   sql,
 } from "drizzle-orm";
 
-import { DB } from "../index";
+import type { DB } from "../index";
 import * as schema from "../schema";
 
 const { projects, tags, packages, projectsToTags, repos } = schema;
@@ -118,14 +118,14 @@ function getWhereClauseSearchByTag(db: DB, tagCode: string) {
       .from(projectsToTags)
       .innerJoin(tags, eq(projectsToTags.tagId, tags.id))
       .where(eq(tags.code, tagCode))
-      .leftJoin(repos, eq(projects.repoId, repos.id))
+      .leftJoin(repos, eq(projects.repoId, repos.id)),
   );
 }
 
 function getWhereClauseSearchByText(text: string) {
   return or(
     ilike(projects.name, `%${text}%`),
-    ilike(projects.description, `%${text}%`)
+    ilike(projects.description, `%${text}%`),
   );
 }
 

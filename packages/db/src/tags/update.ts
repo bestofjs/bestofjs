@@ -10,7 +10,7 @@ export type EditableTagData = Omit<
 
 export async function updateTagById(
   tagId: string,
-  data: Partial<EditableTagData>
+  data: Partial<EditableTagData>,
 ) {
   const result = await db
     .update(schema.tags)

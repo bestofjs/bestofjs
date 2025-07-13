@@ -1,4 +1,4 @@
-import { Snapshot, YearMonth } from "./types";
+import type { Snapshot, YearMonth } from "./types";
 import { normalizeDate } from "./utils";
 
 export function getMonthlyTrends(snapshots: Snapshot[], date: Date) {
@@ -14,10 +14,10 @@ export function getMonthlyTrends(snapshots: Snapshot[], date: Date) {
 
 export function getLastSnapshotOfTheMonth(
   snapshots: Snapshot[],
-  date: YearMonth
+  date: YearMonth,
 ): Snapshot | undefined {
   return lastElement(
-    snapshots.filter((snapshot) => isSameMonth(snapshot, date))
+    snapshots.filter((snapshot) => isSameMonth(snapshot, date)),
   );
 }
 
@@ -38,10 +38,10 @@ export function getMonthlyDelta(snapshots: Snapshot[], date: YearMonth) {
 
 export function getFirstSnapshotOfTheMonth(
   snapshots: Snapshot[],
-  date: YearMonth
+  date: YearMonth,
 ): Snapshot | undefined {
   return firstElement(
-    snapshots.filter((snapshot) => isSameMonth(snapshot, date))
+    snapshots.filter((snapshot) => isSameMonth(snapshot, date)),
   );
 }
 

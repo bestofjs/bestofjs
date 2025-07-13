@@ -1,8 +1,8 @@
-import { OneYearSnapshots } from "~/projects";
-import { describe, expect, test } from "bun:test";
+import type { OneYearSnapshots } from "~/projects";
 
 import { mergeSnapshots } from "./snapshots";
-import { Snapshot } from "./types";
+import type { Snapshot } from "./types";
+import { describe, expect, test } from "bun:test";
 
 const snapshots: OneYearSnapshots = {
   year: 2024,

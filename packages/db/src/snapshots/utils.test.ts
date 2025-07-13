@@ -1,6 +1,5 @@
-import { describe, expect, test } from "bun:test";
-
 import { normalizeDate, toDate } from "./utils";
+import { describe, expect, test } from "bun:test";
 
 describe("Testing date utils", () => {
   test("It should normalize date", () => {

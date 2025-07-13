@@ -17,7 +17,7 @@ export async function removePackage(projectId: string, packageName: string) {
     .where(
       and(
         eq(schema.packages.projectId, projectId),
-        eq(schema.packages.name, packageName)
-      )
+        eq(schema.packages.name, packageName),
+      ),
     );
 }

@@ -43,7 +43,7 @@ export async function createProject(gitHubURL: string) {
 
 async function fetchGitHubRepoData(fullName: string) {
   const rawData = await fetch(`https://api.github.com/repos/${fullName}`).then(
-    (res) => res.json()
+    (res) => res.json(),
   );
   const data = apiResponseSchema.parse(rawData);
   return {

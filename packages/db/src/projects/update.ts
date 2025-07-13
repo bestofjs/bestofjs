@@ -7,7 +7,7 @@ type Project = typeof schema.projects.$inferInsert;
 
 export async function updateProjectById(
   projectId: string,
-  data: Partial<Project>
+  data: Partial<Project>,
 ) {
   const result = await db
     .update(schema.projects)

@@ -1,7 +1,7 @@
-import { and, count, desc, eq, ilike, or, SQL } from "drizzle-orm";
+import { and, count, desc, eq, ilike, or, type SQL } from "drizzle-orm";
 import { orderBy, uniqBy } from "es-toolkit";
 
-import { DB } from ".";
+import type { DB } from ".";
 import * as schema from "./schema";
 
 type Props = {
@@ -20,7 +20,7 @@ export async function findHallOfFameMembers({
   const whereSearchQuery = searchQuery
     ? or(
         ilike(schema.hallOfFame.name, `%${searchQuery}%`),
-        ilike(schema.hallOfFame.username, `%${searchQuery}%`)
+        ilike(schema.hallOfFame.username, `%${searchQuery}%`),
       )
     : undefined;
   const where = and(eq(schema.hallOfFame.status, "active"), whereSearchQuery);
@@ -51,7 +51,7 @@ function fetchHallOfFameRecords(
   db: DB,
   limit: number,
   offset: number,
-  where?: SQL<unknown>
+  where?: SQL<unknown>,
 ) {
   const projectColumns = {
     name: true,
@@ -91,17 +91,17 @@ type RawMember = Awaited<ReturnType<typeof fetchHallOfFameRecords>>[number];
  **/
 export function getHallOfFameMemberProjects(member: RawMember) {
   const relatedProjects = member.hallOfFameToProjects.map(
-    (relation) => relation.project
+    (relation) => relation.project,
   );
   const ownedRepoProjects = member.repos.flatMap((repo) => repo.projects);
 
   const projects = orderBy(
     uniqBy(
       [...relatedProjects, ...ownedRepoProjects],
-      (project) => project.slug
+      (project) => project.slug,
     ),
     [(project) => (project.status === "featured" ? 1 : 0)],
-    ["desc"]
+    ["desc"],
   );
   return projects;
 }

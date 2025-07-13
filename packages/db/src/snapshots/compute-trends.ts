@@ -1,6 +1,6 @@
 import invariant from "tiny-invariant";
 
-import { Snapshot } from "./types";
+import type { Snapshot } from "./types";
 
 /**
  * Return the variations of stars for different periods: one day, one week , one month...
@@ -24,10 +24,10 @@ export function computeTrends(snapshots: Snapshot[], referenceDate?: Date) {
   const findSnapshotDaysAgo = (days: number, exactMatch?: boolean) =>
     exactMatch
       ? snapshots.find(
-          (snapshot) => diffDay(referenceSnapshot, snapshot) === days
+          (snapshot) => diffDay(referenceSnapshot, snapshot) === days,
         )
       : snapshots.find(
-          (snapshot) => diffDay(referenceSnapshot, snapshot) >= days
+          (snapshot) => diffDay(referenceSnapshot, snapshot) >= days,
         );
 
   const getDelta = (days: number, exactMatch?: boolean) => {

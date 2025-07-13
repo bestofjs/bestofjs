@@ -2,9 +2,9 @@ import isAbsoluteURL from "is-absolute-url";
 import slugify from "slugify";
 import invariant from "tiny-invariant";
 
-import { OneYearSnapshots, ProjectDetails } from ".";
 import { TAGS_EXCLUDED_FROM_RANKINGS } from "../constants";
 import { computeTrends, getMonthlyTrends } from "../snapshots/index";
+import type { OneYearSnapshots, ProjectDetails } from ".";
 
 export function getProjectDescription(project: ProjectDetails) {
   invariant(project.repo);
@@ -33,7 +33,7 @@ export function getProjectTrends(snapshots: OneYearSnapshots[], date?: Date) {
 
 export function getProjectMonthlyTrends(
   snapshots: OneYearSnapshots[],
-  date?: Date
+  date?: Date,
 ) {
   const flattenedSnapshots = flattenSnapshots(snapshots);
   return getMonthlyTrends(flattenedSnapshots, date || new Date());
@@ -43,8 +43,8 @@ export function flattenSnapshots(records: OneYearSnapshots[]) {
   // return orderBy(records, (record) => record.year, "desc") // most recent first
   return records.flatMap(({ year, months }) =>
     months.flatMap(({ month, snapshots }) =>
-      snapshots.flatMap(({ day, stars }) => ({ year, month, day, stars }))
-    )
+      snapshots.flatMap(({ day, stars }) => ({ year, month, day, stars })),
+    ),
   );
 }
 
@@ -83,10 +83,10 @@ export function getPackageData(project: ProjectDetails) {
  * TODO: move this behavior to the `tag` record, adding an attribute `exclude_from_rankings`?
  **/
 export function isProjectIncludedInRankings(
-  project: Pick<ProjectDetails, "tags">
+  project: Pick<ProjectDetails, "tags">,
 ) {
   const hasExcludedTag = TAGS_EXCLUDED_FROM_RANKINGS.some((tagCode) =>
-    project.tags.map((tag) => tag.code).includes(tagCode)
+    project.tags.map((tag) => tag.code).includes(tagCode),
   );
   return !hasExcludedTag;
 }
