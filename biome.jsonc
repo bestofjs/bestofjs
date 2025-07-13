@@ -42,7 +42,6 @@
         "noUselessFragments": "off"
       },
       "nursery": {
-        "useUniqueElementIds": "off",
         "useSortedClasses": {
           "fix": "safe",
           "level": "error",
@@ -94,7 +93,6 @@
       "quoteStyle": "double"
     },
     "parser": {
-      "allowWrongLineComments": false,
       "cssModules": false
     }
   },
