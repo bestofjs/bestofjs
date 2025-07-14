@@ -1,22 +1,22 @@
-import numeral from "numeral";
 import styled from "@emotion/styled";
-import { GoMarkGithub, GoGitCommit } from "react-icons/go";
-import { MdGroup } from "react-icons/md";
-
 import {
+  Box,
   Card,
   CardBody,
   CardSection,
-  Link,
-  Box,
   Flex,
-  Icon,
   HStack,
+  Icon,
+  Link,
   SimpleGrid,
 } from "components/core";
-import { getDeltaByDay, StarDelta, StarTotal } from "components/core/project";
 import { ExternalLinkIcon, StarIcon } from "components/core/icons";
+import { getDeltaByDay, StarDelta, StarTotal } from "components/core/project";
 import { fromNow } from "helpers/from-now";
+import numeral from "numeral";
+import { GoGitCommit, GoMarkGithub } from "react-icons/go";
+import { MdGroup } from "react-icons/md";
+
 import { MonthlyTrendsChart } from "./monthly-trends-graph/monthly-trends-chart";
 
 type Props = { project: BestOfJS.ProjectDetails };

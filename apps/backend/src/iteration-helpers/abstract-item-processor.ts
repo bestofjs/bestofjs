@@ -2,9 +2,11 @@ import pMap from "p-map";
 import pThrottle from "p-throttle";
 import prettyMilliseconds from "pretty-ms";
 
-import { SQL } from "@repo/db/drizzle";
-import { TaskLoopOptions, TaskRunnerContext } from "@/task-types";
-import { aggregateResults, MetaResult } from "./utils";
+import type { SQL } from "@repo/db/drizzle";
+
+import type { TaskLoopOptions, TaskRunnerContext } from "@/task-types";
+
+import { aggregateResults, type MetaResult } from "./utils";
 
 type QueryOptions = {
   where?: SQL;
@@ -26,7 +28,7 @@ export abstract class ItemProcessor<T> {
 
   async processItems<U>(
     mapper: (item: T, index: number) => Promise<{ data: U; meta: MetaResult }>,
-    options?: QueryOptions
+    options?: QueryOptions,
   ) {
     const { logger } = this.context;
     const { concurrency, throttleInterval } = this.loopOptions;
@@ -53,24 +55,24 @@ export abstract class ItemProcessor<T> {
         try {
           logger.debug(
             `> Processing ${this.type} #${index + 1}`,
-            this.toString(item)
+            this.toString(item),
           );
           const result = await throttledMapper(item, index);
           logger.debug(
             `Processed ${this.type} ${this.toString(item)}`,
-            result.meta
+            result.meta,
           );
           return result;
         } catch (error) {
           logger.error(
             `Error processing ${this.type} ${this.toString(item)}`,
-            error
+            error,
           );
           if (error instanceof Error && error.cause) logger.debug(error.cause);
           return { meta: { error: true }, data: null };
         }
       },
-      { concurrency }
+      { concurrency },
     );
 
     const end = Date.now();
@@ -79,8 +81,8 @@ export abstract class ItemProcessor<T> {
 
     logger.info(
       `Processed ${ids.length} ${this.type}(s) in ${prettyMilliseconds(
-        duration
-      )} (Avg: ${prettyMilliseconds(average)})`
+        duration,
+      )} (Avg: ${prettyMilliseconds(average)})`,
     );
 
     return aggregateResults(results);

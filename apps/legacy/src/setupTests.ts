@@ -1,8 +1,8 @@
 import "@testing-library/jest-dom/extend-expect";
 import { configure } from "@testing-library/react";
 import "whatwg-fetch";
-import { server } from "mocks/server";
 import { jestPreviewConfigure } from "jest-preview";
+import { server } from "mocks/server";
 
 import "./stylesheets/base.css";
 
@@ -67,11 +67,9 @@ window.open = jest.fn();
 window.scrollTo = jest.fn();
 
 // @ts-expect-error JSDOM does not support IntersectionObserver
-window.IntersectionObserver = function () {
-  return {
-    observe: jest.fn(),
-    unobserve: jest.fn(),
-    disconnect: jest.fn(),
-    takeRecords: jest.fn(),
-  };
-};
+window.IntersectionObserver = () => ({
+  observe: jest.fn(),
+  unobserve: jest.fn(),
+  disconnect: jest.fn(),
+  takeRecords: jest.fn(),
+});

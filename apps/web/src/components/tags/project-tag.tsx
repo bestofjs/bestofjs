@@ -1,9 +1,9 @@
-import React from "react";
 import NextLink from "next/link";
 
-import { ProjectSearchUrlBuilder } from "@/app/projects/project-search-state";
+import type { ProjectSearchUrlBuilder } from "@/app/projects/project-search-state";
 import { badgeVariants } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
+
 import { ProjectTagHoverCard } from "./project-tag-hover-card";
 
 type Props = {
@@ -42,7 +42,7 @@ export const ProjectTag = ({
           tags: appendTag ? [...state.tags, tag.code] : [tag.code],
           page: 1,
         }),
-        "/projects"
+        "/projects",
       )
     : `/projects?tags=${tag.code}`;
 
@@ -52,8 +52,8 @@ export const ProjectTag = ({
         href={url}
         className={cn(
           badgeVariants({ variant: "outline" }),
-          "rounded-sm bg-card px-3 py-1 font-sans text-sm font-normal hover:bg-accent",
-          className
+          "rounded-sm bg-card px-3 py-1 font-normal font-sans text-sm hover:bg-accent",
+          className,
         )}
       >
         {tag.name}

@@ -2,6 +2,7 @@ import { createGitHubClient } from "@repo/api/github";
 import { schema } from "@repo/db";
 import { eq, not } from "@repo/db/drizzle";
 import { SnapshotsService } from "@repo/db/snapshots";
+
 import { createTask } from "@/task-runner";
 
 export const updateGitHubDataTask = createTask({
@@ -30,7 +31,7 @@ export const updateGitHubDataTask = createTask({
         logger.debug("STEP 3: save a snapshot record for today, if needed.");
         const snapshotAdded = await snapshotsService.addSnapshot(
           repo.id,
-          stars
+          stars,
         );
         logger.debug("Snapshot added?", snapshotAdded);
 
@@ -53,7 +54,7 @@ export const updateGitHubDataTask = createTask({
           data: { stars: repo.stars },
         };
       },
-      { where: not(eq(schema.projects.status, "deprecated")) }
+      { where: not(eq(schema.projects.status, "deprecated")) },
     );
   },
 });

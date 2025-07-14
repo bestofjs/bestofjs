@@ -1,7 +1,8 @@
-import React from "react";
+import type React from "react";
 import prettyBytes from "pretty-bytes";
 
-import { ProjectDetails } from "@repo/db/projects";
+import type { ProjectDetails } from "@repo/db/projects";
+
 import { Badge } from "@/components/ui/badge";
 import {
   Card,
@@ -12,6 +13,7 @@ import {
 } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { formatNumber } from "@/lib/format-helpers";
+
 import { AddPackageButton } from "./edit/add-package-button";
 import { RemovePackageButton } from "./edit/remove-package-button";
 

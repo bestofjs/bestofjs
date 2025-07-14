@@ -1,6 +1,7 @@
+/** biome-ignore-all lint/suspicious/noExplicitAny: TODO type correctly */
 import debugPackage from "debug";
 
-import { ProjectItem } from "@/tasks/static-api-types";
+import type { ProjectItem } from "@/tasks/static-api-types";
 
 const debug = debugPackage("notify");
 
@@ -15,7 +16,7 @@ export async function sendMessageToSlack(
     url,
     channel,
     attachments,
-  }: { url: string; channel?: string; attachments: any }
+  }: { url: string; channel?: string; attachments: any },
 ) {
   const body = {
     text,
@@ -48,7 +49,7 @@ export async function sendMessageToSlack(
  */
 export function projectToSlackAttachment<T extends Project>(
   project: T,
-  pretext: string
+  pretext: string,
 ) {
   const url = project.url || `https://github.com/${project.full_name}`;
   const owner = project.full_name.split("/")[0];

@@ -1,10 +1,11 @@
 import NextLink from "next/link";
 
 import { getDeltaByDay, ProjectLogo, StarDelta } from "@/components/core";
-import { SortOptionKey } from "@/components/project-list/sort-order-options";
+import type { SortOptionKey } from "@/components/project-list/sort-order-options";
 import { ProjectTag } from "@/components/tags/project-tag";
 import { Skeleton } from "@/components/ui/skeleton";
 import { cn } from "@/lib/utils";
+
 import { linkVariants } from "../ui/link";
 
 export function FeaturedProjectList({

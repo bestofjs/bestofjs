@@ -1,6 +1,6 @@
-import { MonthlyTrendsChart } from "components/project-details/monthly-trends-graph/monthly-trends-chart";
 import { useFetchMonthlyDownloads } from "api/hooks";
 import { Box, Spinner, useColorModeValue } from "components/core";
+import { MonthlyTrendsChart } from "components/project-details/monthly-trends-graph/monthly-trends-chart";
 
 export const PackageMonthlyDownloadChart = ({
   project,

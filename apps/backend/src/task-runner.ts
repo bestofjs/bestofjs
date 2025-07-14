@@ -1,18 +1,19 @@
-import path from "path";
+import path from "node:path";
 import { createConsola } from "consola";
 import fs from "fs-extra";
 import * as prettier from "prettier";
 import prettyBytes from "pretty-bytes";
-import { z } from "zod";
+import type { z } from "zod";
 
-import { DB, runQuery } from "@repo/db";
-import { ParsedFlags, sharedFlagsSchema } from "./flags";
+import { type DB, runQuery } from "@repo/db";
+
+import { type ParsedFlags, sharedFlagsSchema } from "./flags";
 import {
   HallOfFameProcessor,
   ProjectProcessor,
   RepoProcessor,
 } from "./iteration-helpers";
-import { Task, TaskContext } from "./task-types";
+import type { Task, TaskContext } from "./task-types";
 
 export function createTask<FlagsType = undefined>({
   name,
@@ -53,7 +54,7 @@ export function createTaskRunner(tasks: Task<RawFlags | undefined>[]) {
             i++;
             const taskFlags = task.schema?.parse(rawFlags);
             logger.box(
-              `Running task ${i}/${tasks.length} "${task.name}" ${stringifyFlags(flags, taskFlags)}`
+              `Running task ${i}/${tasks.length} "${task.name}" ${stringifyFlags(flags, taskFlags)}`,
             );
             const context = createTaskContext(db);
 
@@ -137,7 +138,7 @@ function stringifyFlags(flags: ParsedFlags, taskFlags?: RawFlags) {
     dryRun ? "DRY RUN" : "",
   ]
     .concat(
-      Object.entries(taskFlags || {}).map(([key, value]) => `${key}: ${value}`)
+      Object.entries(taskFlags || {}).map(([key, value]) => `${key}: ${value}`),
     )
     .filter(Boolean)
     .join(", ");

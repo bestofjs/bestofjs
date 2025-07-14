@@ -21,7 +21,7 @@ export const snapshots = pgTable(
     year: integer("year").notNull(),
     months: jsonb("months"),
   },
-  (table) => [primaryKey({ columns: [table.repoId, table.year] })]
+  (table) => [primaryKey({ columns: [table.repoId, table.year] })],
 );
 
 export const snapshotsRelations = relations(snapshots, ({ one }) => ({

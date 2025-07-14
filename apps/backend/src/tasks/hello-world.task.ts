@@ -3,8 +3,9 @@ import { z } from "zod";
 
 import { schema } from "@repo/db";
 import { PROJECT_STATUSES } from "@repo/db/constants";
-import { and, eq, SQL } from "@repo/db/drizzle";
-import { HallOfFameMember } from "@/iteration-helpers";
+import { and, eq, type SQL } from "@repo/db/drizzle";
+
+import type { HallOfFameMember } from "@/iteration-helpers";
 import { createTask } from "@/task-runner";
 
 export const helloWorldReposTask = createTask({
@@ -31,7 +32,7 @@ export const helloWorldReposTask = createTask({
     return await processRepos(
       async (repo) => {
         const isDeprecated = repo.projects.every(
-          (project) => project.status === "deprecated"
+          (project) => project.status === "deprecated",
         );
 
         logger.debug(repo.full_name);
@@ -41,7 +42,7 @@ export const helloWorldReposTask = createTask({
           data: { stars: repo.stars },
         };
       },
-      { ...(where.length > 0 && { where: and(...where) }) }
+      { ...(where.length > 0 && { where: and(...where) }) },
     );
   },
 });
@@ -72,7 +73,7 @@ export const helloWorldProjectsTask = createTask({
           data: { stars: project.name },
         };
       },
-      { ...(where.length > 0 && { where: and(...where) }) }
+      { ...(where.length > 0 && { where: and(...where) }) },
     );
   },
 });
@@ -85,7 +86,7 @@ export const helloWorldHallOfFameTask = createTask({
     const result = await processHallOfFameMembers<{ status: string }>(
       async (member) => {
         const isActive = (
-          project: HallOfFameMember["relatedProjects"][number]
+          project: HallOfFameMember["relatedProjects"][number],
         ) => project.status !== "deprecated";
 
         const getStatus = () => {
@@ -112,7 +113,7 @@ export const helloWorldHallOfFameTask = createTask({
           meta: { processed: true },
           data: { status: getStatus() },
         };
-      }
+      },
     );
     console.log(countBy(result.data, (item) => item?.status || ""));
     return result;

@@ -1,14 +1,14 @@
 import { useState } from "react";
-import numeral from "numeral";
 import {
   Alert,
   AlertDescription,
   AlertIcon,
   Box,
-  BoxProps,
+  type BoxProps,
   Grid,
   GridItem,
 } from "components/core";
+import numeral from "numeral";
 
 const monthNames = "Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec".split(" ");
 
@@ -43,7 +43,7 @@ export const MonthlyTrendsChart = ({
 
   const items = lastNMonths.map(({ year, month }) => {
     const foundResult = results.find(
-      (result) => result.year === year && result.month === month
+      (result) => result.year === year && result.month === month,
     );
     const value = foundResult ? foundResult.value : undefined;
     return { year, month, value };
@@ -62,7 +62,7 @@ const BarGraph = ({ items, ...rest }: BarGraphProps) => {
   const maxValue = Math.max(...(values as number[]));
 
   const [selectedItem, setSelectedItem] = useState<BarGraphItem | undefined>(
-    undefined
+    undefined,
   );
 
   return (

@@ -1,7 +1,6 @@
-import { stringify } from "qs";
 import { useHistory, useLocation } from "react-router-dom";
-
 import { parseQueryString } from "helpers/url";
+import { stringify } from "qs";
 
 type NavigationState = {
   selectedTags: string[];
@@ -48,7 +47,7 @@ export function stateToQueryString({
       encode: false,
       arrayFormat: "repeat",
       skipNulls: true,
-    }
+    },
   );
   return queryString;
 }

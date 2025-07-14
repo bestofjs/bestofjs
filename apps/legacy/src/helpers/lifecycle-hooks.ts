@@ -19,5 +19,6 @@ export const useUpdateEffect = (effect, deps) => {
     if (!isFirstMount) {
       return effect();
     }
-  }, deps); // eslint-disable-line react-hooks/exhaustive-deps
+    // biome-ignore lint/correctness/useExhaustiveDependencies: TODO
+  }, deps);
 };

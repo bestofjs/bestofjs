@@ -1,4 +1,4 @@
-import { shuffle } from "@/helpers/shuffle";
+import { shuffle } from "es-toolkit";
 
 export type RawData = {
   projects: BestOfJS.RawProject[];
@@ -43,7 +43,7 @@ export function getFeaturedRandomList(projects: BestOfJS.RawProject[]) {
 
 export function getTagsByKey(
   tags: BestOfJS.RawTag[],
-  projects: BestOfJS.RawProject[]
+  projects: BestOfJS.RawProject[],
 ) {
   const byKey = {} as { [tag: string]: BestOfJS.Tag };
 

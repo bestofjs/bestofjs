@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 
 import { usePageTitle } from "./html-head";
-import { Heading, Link, LinkProps } from "./layout";
+import { Heading, Link, type LinkProps } from "./layout";
 
 /*
 Link to external websites, that open in a new browser tab

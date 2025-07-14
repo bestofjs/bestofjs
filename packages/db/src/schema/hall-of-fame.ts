@@ -37,7 +37,7 @@ export const hallOfFameToProjects = pgTable(
       .notNull()
       .references(() => projects.id, { onDelete: "cascade" }),
   },
-  (t) => [primaryKey({ columns: [t.username, t.projectId] })]
+  (t) => [primaryKey({ columns: [t.username, t.projectId] })],
 );
 
 export const hallOfFameRelations = relations(hallOfFame, ({ many }) => ({
@@ -56,5 +56,5 @@ export const hallOfFameToProjectsRelations = relations(
       fields: [hallOfFameToProjects.username],
       references: [hallOfFame.username],
     }),
-  })
+  }),
 );

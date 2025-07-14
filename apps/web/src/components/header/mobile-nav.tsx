@@ -14,6 +14,7 @@ import {
   mainNavItems,
 } from "@/config/site";
 import { cn } from "@/lib/utils";
+
 import { HamburgerMenuIcon } from "../core";
 import { BestOfJSLogo } from "../svg-logos";
 
@@ -67,13 +68,13 @@ function SidebarContent({
                   item.isActive(pathname)
                     ? "text-foreground"
                     : "text-secondary-foreground",
-                  item.disabled && "cursor-not-allowed opacity-80"
+                  item.disabled && "cursor-not-allowed opacity-80",
                 )}
                 onClick={() => onOpenChange(false)}
               >
                 {item.title}
               </Link>
-            )
+            ),
         )}
         <Separator />
         <div className="space-y-2">

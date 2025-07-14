@@ -1,7 +1,7 @@
 import React from "react";
-
 import { Box, Card, CardSection } from "components/core";
 import { APP_REPO_URL } from "config";
+
 import { ExternalLink } from "./typography";
 
 // From https://reactjs.org/docs/concurrent-mode-suspense.html#handling-errors
@@ -15,7 +15,7 @@ export class ErrorBoundary extends React.Component<Props, State> {
   }
 
   render() {
-    if (!!this.state.error) {
+    if (this.state.error) {
       return <>{this.props.fallback}</>;
     }
     // TODO it seems TS does not pick the right type after migration to PNPM workspace

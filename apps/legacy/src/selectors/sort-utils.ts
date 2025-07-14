@@ -32,7 +32,7 @@ export function sortProjectsByFunction(projects, fn, direction = "desc") {
 
   const sortedProjects = projects
     .slice(0) // use `slice(0)` to avoid mutating the array
-    .sort(function (a, b) {
+    .sort((a, b) => {
       let diff = getValue(a) - getValue(b);
       if (diff === 0) {
         diff = a.stars - b.stars;

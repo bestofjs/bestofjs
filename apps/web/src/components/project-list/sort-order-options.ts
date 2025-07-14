@@ -84,7 +84,7 @@ export const sortOrderOptions: SortOption[] = [
 
 export const sortOrderOptionsByKey = keyBy(
   sortOrderOptions,
-  (item) => item.key
+  (item) => item.key,
 ) as Record<SortOptionKey, SortOption>;
 
 export function getSortOptionByKey(sortKey: string): SortOption {

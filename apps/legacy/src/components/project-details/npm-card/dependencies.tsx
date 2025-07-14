@@ -1,15 +1,15 @@
-import Toggle from "react-toggled";
 import { Link as RouterLink } from "react-router-dom";
+import Toggle from "react-toggled";
 import styled from "@emotion/styled";
-
-import { useSelector } from "containers/project-data-container";
-import { StarTotal } from "components/core/project";
 import { Link } from "components/core";
-import { ExternalLink } from "components/core/typography";
 import { ExternalLinkIcon } from "components/core/icons";
+import { StarTotal } from "components/core/project";
+import { ExternalLink } from "components/core/typography";
+import { useSelector } from "containers/project-data-container";
 import { npmProjects } from "selectors";
-import { ExpandableSection } from "./expandable-section";
+
 import { DependencyTable } from "./dependency-table";
+import { ExpandableSection } from "./expandable-section";
 
 const DependenciesContainer = styled.div`
   overflow: hidden;

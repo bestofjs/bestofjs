@@ -1,6 +1,5 @@
-import { describe, expect, test } from "bun:test";
-
 import { fetchMonthlyDownloads } from "./monthly-downloads";
+import { describe, expect, test } from "bun:test";
 
 describe("Monthly downloads", async () => {
   test("Fetch monthly downloads", async () => {

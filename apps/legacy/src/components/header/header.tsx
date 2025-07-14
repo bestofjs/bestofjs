@@ -1,26 +1,25 @@
-import { Link as RouterLink, NavLink } from "react-router-dom";
+import { NavLink, Link as RouterLink } from "react-router-dom";
 import styled from "@emotion/styled";
-import { GoMarkGithub } from "react-icons/go";
-
 import {
   Box,
   Button,
-  IconButton,
   Center,
   Divider,
   Flex,
   HStack,
+  IconButton,
+  useColorMode,
 } from "components/core";
+import { DiscordIcon } from "components/core/icons";
 import { APP_REPO_URL } from "config";
 import { AuthContainer } from "containers/auth-container";
-import { DiscordIcon } from "components/core/icons";
-import { useColorMode } from "components/core";
+import { GoMarkGithub } from "react-icons/go";
 
-import { UserDropdownMenu } from "./user-dropdown-menu";
-import { NavigationDropdownMenu } from "./navigation-dropdown-menu";
-import { ColorModePicker } from "./color-mode-picker";
-import logoLight from "./bestofjs-logo-light.svg";
 import logoDark from "./bestofjs-logo-dark.svg";
+import logoLight from "./bestofjs-logo-light.svg";
+import { ColorModePicker } from "./color-mode-picker";
+import { NavigationDropdownMenu } from "./navigation-dropdown-menu";
+import { UserDropdownMenu } from "./user-dropdown-menu";
 
 const breakpoint = 750;
 

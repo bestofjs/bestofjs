@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import useSWR, { SWRConfiguration } from "swr";
+import useSWR, { type SWRConfiguration } from "swr";
 
 import { ProjectLogo, TagIcon } from "@/components/core";
 import {
@@ -31,13 +31,13 @@ export const ProjectTagHoverCard = ({
               <div>{name}</div>
             </div>
             {description && (
-              <p className="pt-1 text-sm text-muted-foreground">
+              <p className="pt-1 text-muted-foreground text-sm">
                 {description}
               </p>
             )}
           </div>
           <div className="py-3">
-            <p className="mb-3 text-xs uppercase text-muted-foreground">
+            <p className="mb-3 text-muted-foreground text-xs uppercase">
               Popular Projects
             </p>
             <FetchTagProjects tag={tag} />
@@ -45,7 +45,7 @@ export const ProjectTagHoverCard = ({
           <div className="pt-2">
             <Link
               href={`/tags/${tag.code}`}
-              className="w-full text-sm text-secondary-foreground hover:text-primary-foreground"
+              className="w-full text-secondary-foreground text-sm hover:text-primary-foreground"
             >
               View all »
             </Link>
@@ -83,7 +83,7 @@ const TagProjectList = ({ projects }: { projects: BestOfJS.Project[] }) => (
       <Link
         key={project.slug}
         href={`/projects/${project.slug}`}
-        className="flex h-5 items-center gap-2 text-sm text-muted-foreground hover:text-foreground"
+        className="flex h-5 items-center gap-2 text-muted-foreground text-sm hover:text-foreground"
       >
         <ProjectLogo project={project} size={20} />
         <span>{project.name}</span>

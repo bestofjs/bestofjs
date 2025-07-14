@@ -11,7 +11,7 @@ Formats the given number using `Number#toLocaleString`.
 - If locale is true, the system default locale is used for translation.
 - If no value for locale is specified, the number is returned unmodified.
 */
-const toLocaleString = (number, locale) => {
+const numberToLocaleString = (number, locale) => {
   let result = number;
   if (typeof locale === "string") {
     result = number.toLocaleString(locale);
@@ -25,7 +25,7 @@ const toLocaleString = (number, locale) => {
 export function prettyBytes(number: number, options?: any): string {
   if (!Number.isFinite(number)) {
     throw new TypeError(
-      `Expected a finite number, got ${typeof number}: ${number}`
+      `Expected a finite number, got ${typeof number}: ${number}`,
     );
   }
 
@@ -43,16 +43,16 @@ export function prettyBytes(number: number, options?: any): string {
   }
 
   if (number < 1) {
-    const numberString = toLocaleString(number, options.locale);
+    const numberString = numberToLocaleString(number, options.locale);
     return prefix + numberString + " B";
   }
 
   const exponent = Math.min(
     Math.floor(Math.log10(number) / 3),
-    UNITS.length - 1
+    UNITS.length - 1,
   );
-  number = Number((number / Math.pow(1000, exponent)).toPrecision(3));
-  const numberString = toLocaleString(number, options.locale);
+  number = Number((number / 1000 ** exponent).toPrecision(3));
+  const numberString = numberToLocaleString(number, options.locale);
 
   const unit = UNITS[exponent];
 

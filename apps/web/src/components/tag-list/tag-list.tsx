@@ -55,7 +55,7 @@ export const TagList = ({ tags }: Props) => {
               href={`/projects?tags=${tag.code}`}
               className={cn(
                 buttonVariants({ size: "icon", variant: "outline" }),
-                "size-[32px]"
+                "size-[32px]",
               )}
             >
               <Tooltip>

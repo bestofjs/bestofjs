@@ -1,20 +1,20 @@
+import type { State } from "containers/project-data-container";
 import { createSelector } from "reselect";
 
 import { sortProjectsByFunction } from "./sort-utils";
-import { State } from "containers/project-data-container";
 
 export const allProjects = createSelector<State, any, BestOfJS.Project[]>(
   [(state) => state.entities.projects],
-  (projectsById) => Object.values(projectsById)
+  (projectsById) => Object.values(projectsById),
 );
 
 export const getAllProjectsCount = createSelector(
   [allProjects],
-  (projects) => projects.length
+  (projects) => projects.length,
 );
 
 export const npmProjects = createSelector([allProjects], (projects) =>
-  projects.filter((project) => !!project.packageName)
+  projects.filter((project) => !!project.packageName),
 );
 
 const sortProjects = (fn) => (projects) => sortProjectsByFunction(projects, fn);
@@ -31,7 +31,7 @@ const getRawProjectsSortedBy = ({
     const projectSelector = getProjectSelectorByKey(criteria);
     const sliced = sortProjects(projectSelector)(filteredProjects).slice(
       start,
-      start + limit
+      start + limit,
     );
     return sliced;
   });
@@ -55,7 +55,7 @@ export const getProjectsSortedBy = ({
       (state) => state.entities.tags,
       (state) => state.auth,
     ],
-    (projects, tags, auth) => projects.map(getFullProject(tags, auth))
+    (projects, tags, auth) => projects.map(getFullProject(tags, auth)),
   );
 
 export const getNewestProjects = (count) =>
@@ -66,7 +66,7 @@ export const getNewestProjects = (count) =>
 
 export const getAllProjectsByTag = (tagId) =>
   createSelector([allProjects], (projects) =>
-    projects.filter((project) => project.tags.includes(tagId))
+    projects.filter((project) => project.tags.includes(tagId)),
   );
 
 // Selector used to display the list of projects belonging to a given tag
@@ -76,7 +76,7 @@ export const getProjectsByTag = ({ criteria, tagId }) =>
     (projects) => {
       const projectSelector = getProjectSelectorByKey(criteria);
       return sortProjects(projectSelector)(projects);
-    }
+    },
   );
 
 export const getBookmarksSortedBy = (criteria) =>
@@ -97,14 +97,14 @@ export const getBookmarksSortedBy = (criteria) =>
         .map(getFullProject(tags, auth));
       const projectSelector = getProjectSelectorByKey(criteria);
       return sortProjects(projectSelector)(result);
-    }
+    },
   );
 
 export const getBookmarkCount = createSelector<State, any, number>(
   (state) => state.auth.myProjects,
   (ids) => {
     return ids.length;
-  }
+  },
 );
 
 export const getFeaturedProjects = (criteria) =>
@@ -116,7 +116,7 @@ export const getFeaturedProjects = (criteria) =>
         .map(getFullProject(tags, auth));
       const projectSelector = getProjectSelectorByKey(criteria);
       return sortProjects(projectSelector)(featured);
-    }
+    },
   );
 
 export const getFullProject = (tags, auth) => (project) => {
@@ -185,7 +185,7 @@ export const findProjectById = (slug) =>
         ...populateProject(tags)(project),
         slug,
       };
-    }
+    },
   );
 
 export const findProjectsByIds = (ids) =>
@@ -201,12 +201,12 @@ export const findProjectsByIds = (ids) =>
             }
           : null;
       });
-    }
+    },
   );
 
 // Update `tags` populated objects to a `project` object that contains only an array of tag ids
 export function populateProject(tags) {
-  return function (project) {
+  return (project) => {
     if (!project) throw new Error("populate() called with NO PROJECT!");
     const populated = {
       ...project,

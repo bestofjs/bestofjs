@@ -1,5 +1,6 @@
 import { getHotProjectsRequest } from "@/app/backend-search-requests";
 import { api } from "@/server/api-remote-json";
+
 import { ImageLayout } from "./og-image-layout";
 import {
   Box,
@@ -15,7 +16,7 @@ export const runtime = "edge";
 export async function GET() {
   const NUMBER_OF_PROJECTS = 3;
   const { projects } = await api.projects.findProjects(
-    getHotProjectsRequest(NUMBER_OF_PROJECTS)
+    getHotProjectsRequest(NUMBER_OF_PROJECTS),
   );
 
   return generateImageResponse(
@@ -33,7 +34,7 @@ export async function GET() {
           ))}
         </Box>
       </Box>
-    </ImageLayout>
+    </ImageLayout>,
   );
 }
 

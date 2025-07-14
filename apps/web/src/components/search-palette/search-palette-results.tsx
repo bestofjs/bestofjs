@@ -1,7 +1,5 @@
 "use client";
 
-import * as React from "react";
-
 import {
   GitHubIcon,
   HomeIcon,
@@ -42,7 +40,7 @@ export function ProjectSearchResult({
               buttonVariants({ variant: "ghost" }),
               "size-10 rounded-full p-0 text-muted-foreground",
               "group-aria-[selected]:hover:text-[var(--project-color)]",
-              "group-aria-[selected]:hover:bg-[var(--project-bg)]"
+              "group-aria-[selected]:hover:bg-[var(--project-bg)]",
             )}
           >
             <GitHubIcon size={24} />
@@ -60,7 +58,7 @@ export function ProjectSearchResult({
                 buttonVariants({ variant: "ghost" }),
                 "size-10 rounded-full p-0 text-muted-foreground",
                 "group-aria-[selected]:hover:text-[var(--project-color)]",
-                "group-aria-[selected]:hover:bg-[var(--project-bg)]"
+                "group-aria-[selected]:hover:bg-[var(--project-bg)]",
               )}
             >
               <HomeIcon size={24} />
@@ -112,7 +110,7 @@ export function TagSearchResult({
           className={cn(
             "flex size-12 items-center justify-center",
             "text-muted-foreground",
-            "group-aria-[selected]:text-accent-foreground"
+            "group-aria-[selected]:text-accent-foreground",
           )}
         >
           {currentTags.length === 0 ? (
@@ -121,7 +119,7 @@ export function TagSearchResult({
             <TagsIcons size={32} />
           )}
         </div>
-        <div className="text-md pl-4">
+        <div className="pl-4 text-md">
           <span className={cn("group-aria-[selected]:text-accent-foreground")}>
             {displayedTags.map((tag) => tag.name).join(" + ")}
           </span>

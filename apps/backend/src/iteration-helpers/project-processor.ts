@@ -1,7 +1,9 @@
 import { schema } from "@repo/db";
-import { and, desc, eq, SQL } from "@repo/db/drizzle";
-import { ProjectDetails, ProjectService } from "@repo/db/projects";
-import { TaskLoopOptions, TaskRunnerContext } from "@/task-types";
+import { and, desc, eq, type SQL } from "@repo/db/drizzle";
+import { type ProjectDetails, ProjectService } from "@repo/db/projects";
+
+import type { TaskLoopOptions, TaskRunnerContext } from "@/task-types";
+
 import { ItemProcessor } from "./abstract-item-processor";
 
 export class ProjectProcessor extends ItemProcessor<ProjectDetails> {

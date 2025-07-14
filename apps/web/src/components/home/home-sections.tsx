@@ -1,5 +1,5 @@
-import NextLink from "next/link";
 import { GiftIcon, HeartIcon, PlusIcon } from "lucide-react";
+import NextLink from "next/link";
 
 import { StarIcon, TagIcon } from "@/components/core";
 import { SectionHeading } from "@/components/core/section";
@@ -50,7 +50,7 @@ export function NewestProjectList({
             passHref
             className={cn(
               buttonVariants({ variant: "link" }),
-              "text-md w-full text-secondary-foreground"
+              "w-full text-md text-secondary-foreground",
             )}
           >
             View more »
@@ -78,7 +78,7 @@ export function PopularTagsList({ tags }: { tags: BestOfJS.Tag[] }) {
           passHref
           className={cn(
             buttonVariants({ variant: "link" }),
-            "text-md w-full text-secondary-foreground"
+            "w-full text-md text-secondary-foreground",
           )}
         >
           View all tags »
@@ -116,11 +116,11 @@ export function BestOfJSSection({
             href={APP_REPO_URL}
             className={cn(
               buttonVariants({ variant: "outline", size: "lg" }),
-              "text-md min-w-[260px]"
+              "min-w-[260px] text-md",
             )}
           >
             Star on GitHub
-            <span className="align-center ml-4 inline-flex">
+            <span className="ml-4 inline-flex align-center">
               {formatNumber(project.stars, "full")} <StarIcon size={24} />
             </span>
           </a>
@@ -129,11 +129,11 @@ export function BestOfJSSection({
           href={SPONSOR_URL}
           className={cn(
             buttonVariants({ variant: "outline", size: "lg" }),
-            "text-md"
+            "text-md",
           )}
         >
           Sponsor
-          <span className="align-center ml-4 inline-flex">
+          <span className="ml-4 inline-flex align-center">
             <HeartIcon className="size-5" />
           </span>
         </a>
@@ -174,7 +174,7 @@ export function MoreProjectsSection({
         </p>
         <p>
           Data is updated from GitHub every 24 hours, the last update was at{" "}
-          <code className="relative mr-2 rounded bg-muted px-[0.3rem] py-[0.2rem] font-mono text-sm font-semibold">
+          <code className="relative mr-2 rounded bg-muted px-[0.3rem] py-[0.2rem] font-mono font-semibold text-sm">
             {formatDateGMT(lastUpdateDate)}
           </code>
           (GMT).

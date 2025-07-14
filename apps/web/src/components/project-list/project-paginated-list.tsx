@@ -1,8 +1,9 @@
-import {
+import type {
   ProjectSearchState,
   ProjectSearchUrlBuilder,
 } from "@/app/projects/project-search-state";
 import { Card, CardHeader } from "@/components/ui/card";
+
 import {
   BottomPaginationControls,
   TopPaginationControls,
@@ -10,7 +11,7 @@ import {
 import { computePaginationState } from "../core/pagination/pagination-state";
 import { ProjectSortOrderPicker } from "./project-sort-order-picker";
 import { ProjectScore, ProjectTable } from "./project-table";
-import { SortOptionKey } from "./sort-order-options";
+import type { SortOptionKey } from "./sort-order-options";
 
 type Props = {
   projects: BestOfJS.Project[];

@@ -202,11 +202,9 @@
 }
 @media only screen and (min-width: 768px) {
   .vertical-timeline-element-content h2 {
-    font-size: 20px;
     font-size: 1.25rem;
   }
   .vertical-timeline-element-content p {
-    font-size: 16px;
     font-size: 1rem;
   }
   .vertical-timeline-element-content .vertical-timeline-element-date {
@@ -239,7 +237,9 @@
   }
 
   .vertical-timeline--two-columns
-    .vertical-timeline-element:nth-child(even):not(.vertical-timeline-element--left)
+    .vertical-timeline-element:nth-child(even):not(
+      .vertical-timeline-element--left
+    )
     .vertical-timeline-element-content,
   .vertical-timeline--two-columns
     .vertical-timeline-element.vertical-timeline-element--right
@@ -247,7 +247,9 @@
     float: right;
   }
   .vertical-timeline--two-columns
-    .vertical-timeline-element:nth-child(even):not(.vertical-timeline-element--left)
+    .vertical-timeline-element:nth-child(even):not(
+      .vertical-timeline-element--left
+    )
     .vertical-timeline-element-content-arrow,
   .vertical-timeline--two-columns
     .vertical-timeline-element.vertical-timeline-element--right
@@ -259,7 +261,9 @@
   }
 
   .vertical-timeline--two-columns
-    .vertical-timeline-element:nth-child(even):not(.vertical-timeline-element--left)
+    .vertical-timeline-element:nth-child(even):not(
+      .vertical-timeline-element--left
+    )
     .vertical-timeline-element-content
     .vertical-timeline-element-date,
   .vertical-timeline--two-columns
@@ -285,8 +289,9 @@
 
 @media only screen and (min-width: 1170px) {
   /* inverse bounce effect on even content blocks */
-  .vertical-timeline--two-columns.vertical-timeline--animate
-    .vertical-timeline-element:nth-child(even):not(.vertical-timeline-element--left)
+  .vertical-timeline--two-columns.vertical-timeline--animate .vertical-timeline-element:nth-child(
+      even
+    ):not(.vertical-timeline-element--left)
     .vertical-timeline-element-content.bounce-in,
   .vertical-timeline--two-columns.vertical-timeline--animate
     .vertical-timeline-element.vertical-timeline-element--right

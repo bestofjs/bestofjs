@@ -1,8 +1,6 @@
 import userEvent from "@testing-library/user-event";
 import { renderApp, screen, within } from "test-utils";
 
-export {};
-
 describe("Monthly Ranking", () => {
   it("should render correctly", async () => {
     renderApp();
@@ -16,14 +14,13 @@ describe("Monthly Ranking", () => {
     // APRIL 2022
     await screen.findByText("April 2022");
     // Should see Remotion is the rank #1
-    const homeMonthlyRankingProjectsLatest = await screen.findAllByTestId(
-      "project-card"
-    );
+    const homeMonthlyRankingProjectsLatest =
+      await screen.findAllByTestId("project-card");
     // Should have 50 projects
     expect(homeMonthlyRankingProjectsLatest).toHaveLength(50);
     // Next.js should be the first project
     await within(
-      homeMonthlyRankingProjectsLatest.at(0) as HTMLElement
+      homeMonthlyRankingProjectsLatest.at(0) as HTMLElement,
     ).findByText("The React Framework");
 
     // Right arrow should be disabled
@@ -38,14 +35,13 @@ describe("Monthly Ranking", () => {
     // MARCH 2022
     await screen.findByText("March 2022");
     // Should see Remotion is the rank #1
-    const homeMonthlyRankingProjectsLastMonth = await screen.findAllByTestId(
-      "project-card"
-    );
+    const homeMonthlyRankingProjectsLastMonth =
+      await screen.findAllByTestId("project-card");
     // Should have 50 projects
     expect(homeMonthlyRankingProjectsLastMonth).toHaveLength(50);
     // Remotion should be the first project
     await within(
-      homeMonthlyRankingProjectsLastMonth.at(0) as HTMLElement
+      homeMonthlyRankingProjectsLastMonth.at(0) as HTMLElement,
     ).findByText("Remotion");
   });
 });

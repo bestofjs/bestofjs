@@ -1,5 +1,5 @@
-import { PropsWithChildren } from "react";
-import { Metadata } from "next";
+import type { PropsWithChildren } from "react";
+import type { Metadata } from "next";
 
 import { ExternalLink, PageHeading } from "@/components/core/typography";
 import {

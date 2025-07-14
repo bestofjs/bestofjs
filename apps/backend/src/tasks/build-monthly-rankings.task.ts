@@ -8,6 +8,7 @@ import {
   isProjectIncludedInRankings,
 } from "@repo/db/projects";
 import { getMonthlyDelta } from "@repo/db/snapshots";
+
 import { truncate } from "@/shared/utils";
 import { createTask } from "@/task-runner";
 
@@ -71,12 +72,12 @@ export const buildMonthlyRankingsTask = createTask({
         };
         return { data, meta: { success: true } };
       },
-      { where: notInArray(schema.projects.status, ["deprecated", "hidden"]) }
+      { where: notInArray(schema.projects.status, ["deprecated", "hidden"]) },
     );
 
     const projects = uniqBy(
       results.data.filter((project) => project !== null),
-      (project) => project.full_name
+      (project) => project.full_name,
     );
 
     const trending = orderBy(projects, ["delta"], ["desc"]).slice(0, 100);
@@ -84,7 +85,7 @@ export const buildMonthlyRankingsTask = createTask({
     const byRelativeGrowth = orderBy(
       projects,
       ["relativeGrowth"],
-      ["desc"]
+      ["desc"],
     ).slice(0, 100);
 
     const output = {

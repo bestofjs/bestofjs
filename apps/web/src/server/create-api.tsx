@@ -2,12 +2,12 @@ import { createProjectsAPI } from "./api-projects";
 import { createRankingsAPI } from "./api-rankings";
 import { createTagsAPI } from "./api-tags";
 import {
-  APIContext,
-  Data,
+  type APIContext,
+  type Data,
   getFeaturedRandomList,
   getTagsByKey,
   populateProject,
-  RawData,
+  type RawData,
 } from "./api-utils";
 
 export function createAPI(fetchProjectData: () => Promise<RawData>) {

@@ -1,4 +1,5 @@
 import { formatNumber } from "@/helpers/numbers";
+
 import { StarIcon } from "./icons";
 
 type Props = {
@@ -49,7 +50,7 @@ export const StarDeltaAverage = ({ value }: Props) => {
   const sign = getSign(value);
 
   if (value === undefined)
-    return <div className="star-delta text-sm text-muted-foreground">N/A</div>;
+    return <div className="star-delta text-muted-foreground text-sm">N/A</div>;
 
   return (
     <div className="flex flex-col items-center">
@@ -97,6 +98,6 @@ function average(delta: number | undefined, numberOfDays: number) {
 }
 
 function round(number: number, decimals = 1) {
-  const i = Math.pow(10, decimals);
+  const i = 10 ** decimals;
   return Math.round(number * i) / i;
 }

@@ -1,7 +1,8 @@
 import { createGitHubClient } from "@repo/api/github";
 import { schema } from "@repo/db";
 import { eq } from "@repo/db/drizzle";
-import { HallOfFameMember } from "@/iteration-helpers";
+
+import type { HallOfFameMember } from "@/iteration-helpers";
 import { createTask } from "@/task-runner";
 
 export const updateHallOfFameTask = createTask({
@@ -45,7 +46,7 @@ export const updateHallOfFameTask = createTask({
 
       if (shouldBeUpdated) {
         logger.debug(
-          `Update followers count for ${member.username}: ${member.followers} -> ${data.followers}`
+          `Update followers count for ${member.username}: ${member.followers} -> ${data.followers}`,
         );
         if (!dryRun) {
           await db

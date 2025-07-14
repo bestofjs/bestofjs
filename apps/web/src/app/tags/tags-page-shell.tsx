@@ -2,6 +2,7 @@ import { Suspense } from "react";
 
 import { TagIcon } from "@/components/core";
 import { PageHeading } from "@/components/core/typography";
+
 import { TagListLoading } from "./loading-state";
 
 /**

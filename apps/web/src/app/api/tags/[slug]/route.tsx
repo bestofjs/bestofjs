@@ -6,9 +6,7 @@ type Context = { params: Promise<{ slug: string }> };
 export async function GET(_req: Request, props: Context) {
   const params = await props.params;
 
-  const {
-    slug
-  } = params;
+  const { slug } = params;
 
   const tag = await api.tags.getTagBySlug(slug);
 

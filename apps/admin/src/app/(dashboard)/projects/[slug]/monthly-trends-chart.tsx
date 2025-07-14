@@ -1,3 +1,6 @@
+/** biome-ignore-all lint/a11y/noStaticElementInteractions: TODO */
+/** biome-ignore-all lint/a11y/useKeyWithClickEvents: TODO */
+/** biome-ignore-all lint/a11y/useAriaPropsSupportedByRole: TODO */
 "use client";
 
 import { useState } from "react";
@@ -36,7 +39,7 @@ export const MonthlyTrendsChart = ({
 
   const items = lastNMonths.map(({ year, month }) => {
     const foundResult = results.find(
-      (result) => result.year === year && result.month === month
+      (result) => result.year === year && result.month === month,
     );
     const value = foundResult ? foundResult.value : undefined;
     return { year, month, value };
@@ -55,7 +58,7 @@ const BarGraph = ({ items, ...rest }: BarGraphProps) => {
   const maxValue = Math.max(...(values as number[]));
 
   const [selectedItem, setSelectedItem] = useState<BarGraphItem | undefined>(
-    undefined
+    undefined,
   );
 
   return (
@@ -99,7 +102,7 @@ const ViewDetailsOnSmallScreens = ({
   selectedItem: BarGraphItem | undefined;
 } & FormattingOptions) => {
   return (
-    <Alert className="mb-2 flex bg-transparent text-sm text-muted-foreground md:hidden">
+    <Alert className="mb-2 flex bg-transparent text-muted-foreground text-sm md:hidden">
       <InfoIcon className="size-4" />
       <AlertDescription>
         {selectedItem ? (
@@ -171,7 +174,7 @@ const EmptyGraphBar = ({ value }: { value: number | undefined }) => {
       <BarTopLabel className="text-muted-foreground">
         {value === undefined ? "N/A" : 0}
       </BarTopLabel>
-      <div className="border-b-1 mt-1 h-px w-3/4 max-w-8 border-dashed border-[var(--graphBackgroundColor1)]" />
+      <div className="mt-1 h-px w-3/4 max-w-8 border-[var(--graphBackgroundColor1)] border-b-1 border-dashed" />
     </>
   );
 };
@@ -184,7 +187,7 @@ const BarTopLabel = (props: React.HTMLProps<HTMLDivElement>) => {
 
 const MonthLabelGroup = ({ items }: { items: BarGraphItem[] }) => {
   return (
-    <div className="mt-1 grid grid-cols-12 divide-x divide-solid border-x border-[var(--graphBackgroundColor1)]">
+    <div className="mt-1 grid grid-cols-12 divide-x divide-solid border-[var(--graphBackgroundColor1)] border-x">
       {items.map(({ year, month }) => {
         const monthName = monthNames[month - 1];
         const shortMonthName = month; // Show the month number (from 1 to 12) on small screens
@@ -207,14 +210,14 @@ const YearLabelGroup = ({ items }: { items: BarGraphItem[] }) => {
   const yearDataItems = getYearData(items);
 
   return (
-    <div className="grid grid-cols-12 divide-x divide-solid border-x border-[var(--graphBackgroundColor1)]">
+    <div className="grid grid-cols-12 divide-x divide-solid border-[var(--graphBackgroundColor1)] border-x">
       {yearDataItems.map((item) => {
         const colSpan = item.months.length;
         return (
           <div
             key={item.year}
             style={{ gridColumn: `span ${colSpan} / span ${colSpan}` }}
-            className="border-b border-[var(--graphBackgroundColor1)] py-1 text-center text-sm"
+            className="border-[var(--graphBackgroundColor1)] border-b py-1 text-center text-sm"
           >
             {item.year}
           </div>

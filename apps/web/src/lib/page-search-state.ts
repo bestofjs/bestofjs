@@ -22,7 +22,7 @@ export type PaginationProps = z.infer<typeof paginationSchema>;
  * A function that takes a current search state and returns a new search state.
  */
 export type PageSearchStateUpdater<T extends PaginationProps> = (
-  searchState: T
+  searchState: T,
 ) => T;
 
 /**
@@ -32,7 +32,7 @@ export type PageSearchStateUpdater<T extends PaginationProps> = (
  */
 export type PageSearchUrlBuilder<T extends PaginationProps> = (
   updater: PageSearchStateUpdater<T>,
-  path?: string
+  path?: string,
 ) => string;
 
 export abstract class SearchStateParser<T extends z.ZodTypeAny> {

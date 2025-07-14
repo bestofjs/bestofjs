@@ -59,7 +59,6 @@
 .markdown-body {
   -ms-text-size-adjust: 100%;
   -webkit-text-size-adjust: 100%;
-  line-height: 1.5;
   /* color: #24292e; */
   /* background-color: #ffffff; */
   /* font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial,
@@ -87,7 +86,6 @@
 }
 
 .markdown-body strong {
-  font-weight: inherit;
   font-weight: bolder;
 }
 
@@ -103,7 +101,7 @@
 .markdown-body code,
 .markdown-body kbd,
 .markdown-body pre {
-  font-family: monospace, monospace;
+  font-family: monospace;
   font-size: 1em;
 }
 
@@ -186,7 +184,12 @@
 .markdown-body kbd {
   display: inline-block;
   padding: 3px 5px;
-  font: 11px SFMono-Regular, Consolas, Liberation Mono, Menlo, monospace;
+  font:
+    11px SFMono-Regular,
+    Consolas,
+    Liberation Mono,
+    Menlo,
+    monospace;
   line-height: 10px;
   color: #444d56;
   vertical-align: middle;
@@ -279,7 +282,12 @@
 
 .markdown-body code,
 .markdown-body pre {
-  font-family: SFMono-Regular, Consolas, Liberation Mono, Menlo, monospace;
+  font-family:
+    SFMono-Regular,
+    Consolas,
+    Liberation Mono,
+    Menlo,
+    monospace;
   font-size: 12px;
 }
 
@@ -431,6 +439,7 @@
 }
 
 .markdown-body .pl-smw,
+/* biome-ignore lint/style/noDescendingSpecificity: TODO update CSS to fix lint error? */
 .markdown-body .pl-v {
   color: #e36209;
 }
@@ -598,7 +607,12 @@
 .markdown-body kbd {
   display: inline-block;
   padding: 3px 5px;
-  font: 11px SFMono-Regular, Consolas, Liberation Mono, Menlo, monospace;
+  font:
+    11px SFMono-Regular,
+    Consolas,
+    Liberation Mono,
+    Menlo,
+    monospace;
   line-height: 10px;
   color: #444d56;
   vertical-align: middle;
@@ -845,7 +859,12 @@
 
 .markdown-body .commit-tease-sha {
   display: inline-block;
-  font-family: SFMono-Regular, Consolas, Liberation Mono, Menlo, monospace;
+  font-family:
+    SFMono-Regular,
+    Consolas,
+    Liberation Mono,
+    Menlo,
+    monospace;
   font-size: 90%;
   color: #444d56;
 }
@@ -870,7 +889,12 @@
   min-width: 50px;
   padding-right: 10px;
   padding-left: 10px;
-  font-family: SFMono-Regular, Consolas, Liberation Mono, Menlo, monospace;
+  font-family:
+    SFMono-Regular,
+    Consolas,
+    Liberation Mono,
+    Menlo,
+    monospace;
   font-size: 12px;
   line-height: 20px;
   color: rgba(27, 31, 35, 0.3);
@@ -902,7 +926,12 @@
 
 .markdown-body .blob-code-inner {
   overflow: visible;
-  font-family: SFMono-Regular, Consolas, Liberation Mono, Menlo, monospace;
+  font-family:
+    SFMono-Regular,
+    Consolas,
+    Liberation Mono,
+    Menlo,
+    monospace;
   font-size: 12px;
   color: #24292e;
   word-wrap: normal;

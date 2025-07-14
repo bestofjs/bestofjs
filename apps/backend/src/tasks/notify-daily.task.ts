@@ -1,10 +1,12 @@
 import { orderBy } from "es-toolkit";
 
 import { TAGS_EXCLUDED_FROM_RANKINGS } from "@repo/db/constants";
+
 import { notifyDiscordProjectList } from "@/shared/discord";
 import { projectToSlackAttachment, sendMessageToSlack } from "@/shared/slack";
 import { createTask } from "@/task-runner";
-import { ProjectItem } from "./static-api-types";
+
+import type { ProjectItem } from "./static-api-types";
 
 const NUMBER_OF_PROJECTS = 5;
 
@@ -39,6 +41,7 @@ export const notifyDailyTask = createTask({
 
     async function fetchProjectsFromJSON() {
       const data = await readJSON("projects.json");
+      // biome-ignore lint/suspicious/noExplicitAny: TODO parse with Zod
       return (data as any).projects as ProjectItem[]; // TODO parse data with Zod
     }
 
@@ -48,7 +51,7 @@ export const notifyDailyTask = createTask({
       const topProjects = orderBy(
         projects.filter(isIncludedInHotProjects),
         [(project) => project.trends?.daily || 0],
-        ["desc"]
+        ["desc"],
       );
 
       return topProjects.slice(0, NUMBER_OF_PROJECTS);
@@ -62,7 +65,7 @@ export const notifyDailyTask = createTask({
  **/
 const isIncludedInHotProjects = (project: ProjectItem) => {
   const hasExcludedTag = TAGS_EXCLUDED_FROM_RANKINGS.some((tag) =>
-    project.tags.includes(tag)
+    project.tags.includes(tag),
   );
   return !hasExcludedTag;
 };

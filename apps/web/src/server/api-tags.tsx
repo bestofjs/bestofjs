@@ -1,8 +1,8 @@
 import * as mingo from "mingo";
-import { RawObject } from "mingo/types";
+import type { RawObject } from "mingo/types";
 
 import { normalizeProjectSearchQuery } from "./api-projects";
-import { APIContext } from "./api-utils";
+import type { APIContext } from "./api-utils";
 
 const defaultTagSearchQuery = {
   criteria: {},
@@ -25,7 +25,7 @@ type QueryParams = {
 export function createTagsAPI({ getData }: APIContext) {
   function findRawProjects(
     projectCollection: BestOfJS.RawProject[],
-    searchQuery: QueryParams
+    searchQuery: QueryParams,
   ) {
     const { criteria, projection, sort, skip, limit } = searchQuery;
     const cursor = mingo.find(projectCollection, criteria, projection);
@@ -87,7 +87,7 @@ export function createTagsAPI({ getData }: APIContext) {
         });
         const { projects } = await findRawProjects(
           projectCollection,
-          searchQuery
+          searchQuery,
         );
 
         tag.projects = projects.map(populate);
@@ -119,7 +119,7 @@ export function createTagsAPI({ getData }: APIContext) {
 
       const { projects } = await findRawProjects(
         projectCollection,
-        searchQuery
+        searchQuery,
       );
 
       tag.projects = projects.map(populate);

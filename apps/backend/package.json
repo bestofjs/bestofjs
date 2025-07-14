@@ -12,8 +12,8 @@
     "daily-update-bundle-size": "dotenv -e ../../.env tsx ./src/cli.ts update-bundle-size -- --logLevel 3",
     "typecheck": "tsc --noEmit",
     "typecheck:watch": "tsc --noEmit --incremental --watch",
-    "format:write": "prettier --write \"src/**/*.{ts,tsx,mdx}\" --cache",
-    "format:check": "prettier --check \"src/**/*.{ts,tsx,mdx}\" --cache"
+    "lint": "biome check ./src",
+    "lint:fix": "biome check --write ./src"
   },
   "keywords": [],
   "author": "",

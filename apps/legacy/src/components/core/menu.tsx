@@ -1,7 +1,6 @@
 import React from "react";
-import { Menu as HeadlessMenu } from "@headlessui/react";
 import styled from "@emotion/styled";
-
+import { Menu as HeadlessMenu } from "@headlessui/react";
 import { Box, useColorModeValue } from "components/core";
 
 export const DropdownMenu = ({ children, menu, ...props }) => {

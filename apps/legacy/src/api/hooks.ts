@@ -1,5 +1,3 @@
-import useSWR from "swr";
-
 import {
   FETCH_DETAILS_URL,
   FETCH_PACKAGE_DATA_URL,
@@ -7,6 +5,7 @@ import {
   FETCH_README_URL,
 } from "config";
 import { fetchHTML, fetchJSON } from "helpers/fetch";
+import useSWR from "swr";
 
 export function useFetchProjectReadMe({ full_name, branch }) {
   const fetcher = () => fetchProjectReadMe({ full_name, branch });
@@ -15,7 +14,7 @@ export function useFetchProjectReadMe({ full_name, branch }) {
 
 function fetchProjectReadMe({ full_name, branch = "master" }) {
   const url = `${FETCH_README_URL}/api/project-readme?fullName=${encodeURIComponent(
-    full_name
+    full_name,
   )}&branch=${encodeURIComponent(branch)}`;
   return fetchHTML(url);
 }
@@ -27,7 +26,7 @@ export function useFetchProjectDetails({ full_name }) {
 
 function fetchProjectDetails({ full_name }) {
   const url = `${FETCH_DETAILS_URL}/api/project-details?fullName=${encodeURIComponent(
-    full_name
+    full_name,
   )}`;
   return fetchJSON(url);
 }
@@ -39,7 +38,7 @@ export function useFetchMonthlyDownloads(packageName) {
 
 const fetchMonthlyDownloads = ({ packageName }) => {
   const url = `${FETCH_PACKAGE_DATA_URL}/api/package-monthly-downloads?packageName=${encodeURIComponent(
-    packageName
+    packageName,
   )}`;
   return fetchJSON(url);
 };

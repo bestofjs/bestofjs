@@ -43,7 +43,7 @@ export const projectsToTags = pgTable(
       .notNull()
       .references(() => tags.id, { onDelete: "cascade" }),
   },
-  (t) => [primaryKey({ columns: [t.projectId, t.tagId] })]
+  (t) => [primaryKey({ columns: [t.projectId, t.tagId] })],
 );
 
 export const projectsRelations = relations(projects, ({ many, one }) => ({

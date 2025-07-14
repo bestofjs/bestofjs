@@ -1,7 +1,5 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Select, { components } from "react-select";
-import useDebouncedCallback from "use-debounce/lib/useDebouncedCallback";
-
 import {
   Box,
   CloseButton,
@@ -11,9 +9,11 @@ import {
   TagLabel,
   useColorModeValue,
 } from "components/core";
+import { ChevronDownIcon } from "components/core/icons";
 import { useSelector } from "containers/project-data-container";
 import { getAllTags } from "selectors";
-import { ChevronDownIcon } from "components/core/icons";
+import useDebouncedCallback from "use-debounce/lib/useDebouncedCallback";
+
 import { SearchContainer } from "./search-container";
 
 // see https://github.com/JedWatson/react-select/issues/3692 for theming and dark theme
@@ -34,7 +34,7 @@ export const SearchBox = () => {
   ];
 
   const selectedOptions = selectedTags.map((tagCode) =>
-    options.find(({ value }) => value === tagCode)
+    options.find(({ value }) => value === tagCode),
   );
 
   useEffect(() => {
@@ -47,7 +47,7 @@ export const SearchBox = () => {
     <Box
       bgGradient={useColorModeValue(
         "linear(to-r, orange.400, orange.600)",
-        "linear(to-r, orange.500, orange.800)"
+        "linear(to-r, orange.500, orange.800)",
       )}
       py={4}
       fontFamily="var(--buttonFontFamily)"

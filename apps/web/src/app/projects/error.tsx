@@ -6,7 +6,12 @@ import { useEffect } from "react";
 import { ExternalLink, PageHeading } from "@/components/core/typography";
 import { APP_REPO_URL, DISCORD_URL } from "@/config/site";
 
-export default function Error({ error }: { error: Error; reset: () => void }) {
+export default function ErrorPage({
+  error,
+}: {
+  error: Error;
+  reset: () => void;
+}) {
   useEffect(() => {
     // Log the error to an error reporting service
     console.error(error);

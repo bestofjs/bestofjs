@@ -1,5 +1,6 @@
 import { fetchMonthlyDownloads } from "@repo/api/npm";
-import { ProjectDetails } from "@repo/db/projects";
+import type { ProjectDetails } from "@repo/db/projects";
+
 import { MonthlyTrendsChart } from "../project-details-github/monthly-trends-chart";
 
 type Props = {

@@ -1,8 +1,8 @@
-import { createContainer } from "unstated-next";
-import useSWR from "swr";
-
 import { FETCH_HALL_OF_FAME_URL } from "config";
 import { fetchJSON } from "helpers/fetch";
+import useSWR from "swr";
+import { createContainer } from "unstated-next";
+
 import { ProjectDataContainer } from "./project-data-container";
 
 export function useHallOfFame() {

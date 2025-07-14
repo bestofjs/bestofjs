@@ -1,5 +1,5 @@
-import { existsSync, readdirSync } from "fs";
-import path from "path";
+import { existsSync, readdirSync } from "node:fs";
+import path from "node:path";
 import consola from "consola";
 import prettyMs from "pretty-ms";
 

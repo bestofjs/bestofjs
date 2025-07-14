@@ -1,12 +1,13 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter } from "next/navigation";
 import { ReloadIcon } from "@radix-ui/react-icons";
 import { XIcon } from "lucide-react";
+import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 
-import { ProjectDetails } from "@repo/db/projects";
+import type { ProjectDetails } from "@repo/db/projects";
+
 import { TagPicker } from "@/components/tag-picker";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -17,6 +18,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+
 import { updateProjectTags } from "./actions";
 
 type Props = {
@@ -76,7 +78,7 @@ export function ViewTags({ project, allTags }: Props) {
                 variant="ghost"
                 onClick={() => {
                   setSelectedTagIds((prev) =>
-                    prev.filter((id) => id !== tag.id)
+                    prev.filter((id) => id !== tag.id),
                   );
                 }}
               >
@@ -110,9 +112,9 @@ export function ViewTags({ project, allTags }: Props) {
 
 /** Compare two arrays of tags ignoring the order */
 function areSameTags(tagsA: string[], tagB: string[]) {
-  return toString(tagsA) === toString(tagB);
+  return tagToString(tagsA) === tagToString(tagB);
 }
 
-function toString(values: string[]) {
+function tagToString(values: string[]) {
   return values.slice().sort().join(",");
 }

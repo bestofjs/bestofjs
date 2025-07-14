@@ -1,9 +1,9 @@
 import styled from "@emotion/styled";
+import { ExternalLink } from "components/core/typography";
+import formatUrl from "helpers/url";
 import numeral from "numeral";
 import { GoGlobe, GoPackage } from "react-icons/go";
 
-import formatUrl from "helpers/url";
-import { ExternalLink } from "components/core/typography";
 import { CardProjectLabels } from "./card-project-labels";
 
 const digits = (value) => (value > 1000 ? "0.0" : "0");
@@ -33,7 +33,7 @@ export const HeroCard = ({ hero, showDetails }) => {
                 <span className="text-secondary">{hero.username}</span>
                 <div className="text-secondary">
                   {numeral(hero.followers).format(
-                    `${digits(hero.followers)} a`
+                    `${digits(hero.followers)} a`,
                   )}{" "}
                   followers{" "}
                 </div>

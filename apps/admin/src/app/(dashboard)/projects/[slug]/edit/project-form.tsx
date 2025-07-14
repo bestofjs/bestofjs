@@ -1,16 +1,17 @@
 "use client";
 
-import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ReloadIcon } from "@radix-ui/react-icons";
 import { TriangleAlert } from "lucide-react";
-import { useForm } from "react-hook-form";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { z } from "zod";
 
 import { PROJECT_STATUSES } from "@repo/db/constants";
-import { ProjectData } from "@repo/db/projects";
+import type { ProjectData } from "@repo/db/projects";
+
 import { Button, buttonVariants } from "@/components/ui/button";
 import {
   Card,
@@ -39,6 +40,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
+
 import { updateProjectData } from "../actions";
 
 const formSchema = z.object({

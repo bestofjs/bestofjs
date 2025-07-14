@@ -11,7 +11,7 @@ type ProjectItem = Omit<BestOfJS.SearchIndexProject, "slug">; // `Project` minim
  */
 export function filterProjectsByQuery<T extends ProjectItem>(
   projects: T[],
-  query: string
+  query: string,
 ) {
   if (DEBUG_MODE) console.time(`Search projects "${query}"`);
   const results = orderByRank(rankAndFilterProjects(projects, query));
@@ -21,7 +21,7 @@ export function filterProjectsByQuery<T extends ProjectItem>(
 
 function rankAndFilterProjects<T extends ProjectItem>(
   projects: Array<T>,
-  query: string
+  query: string,
 ) {
   const escapedQuery = escapeRegExp(query);
   const equals = new RegExp("^" + escapedQuery + "$", "i");
@@ -98,7 +98,7 @@ function rankAndFilterTags<T extends BestOfJS.Tag>(tags: T[], query: string) {
 
 export function mergeSearchResults<T extends { rank: number }>(
   projectResults: T[],
-  tagResults: Array<BestOfJS.Tag & { rank: number }>
+  tagResults: Array<BestOfJS.Tag & { rank: number }>,
 ) {
   const results = [...projectResults, ...tagResults];
   return orderByRank(results);
@@ -112,17 +112,17 @@ export function mergeSearchResults<T extends { rank: number }>(
  */
 export function getResultRelevantTags<T extends ProjectItem>(
   projects: T[],
-  excludedTags: string[] = []
+  excludedTags: string[] = [],
 ) {
   if (DEBUG_MODE) console.time(`Get relevant tags ${projects.length}`);
   const projectCountByTag = getTagsNumberOfOccurrencesFromProjects(
     projects,
-    excludedTags
+    excludedTags,
   );
 
   const results = orderByFn(
     Array.from(projectCountByTag.entries()),
-    ([, count]) => count as number
+    ([, count]) => count as number,
   ) as Array<[tag: string, count: number]>;
   if (DEBUG_MODE) console.timeEnd(`Get relevant tags ${projects.length}`);
   return results;
@@ -130,7 +130,7 @@ export function getResultRelevantTags<T extends ProjectItem>(
 
 function getTagsNumberOfOccurrencesFromProjects<T extends ProjectItem>(
   projects: T[],
-  excludedTagIds: string[] = []
+  excludedTagIds: string[] = [],
 ) {
   const result = new Map<string, number>();
   projects.forEach((project) => {

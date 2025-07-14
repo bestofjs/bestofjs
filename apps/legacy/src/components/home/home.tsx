@@ -1,20 +1,21 @@
+import { Link as RouterLink } from "react-router-dom";
 import styled from "@emotion/styled";
 import {
   Box,
   Button,
-  ButtonProps,
+  type ButtonProps,
   Center,
   ExternalLink,
   Flex,
   Link,
-  LinkProps,
+  type LinkProps,
   MainContent,
   PageHeader,
   Section,
   SectionHeading,
 } from "components/core";
 import { StarIcon } from "components/core/icons";
-import { SortOptionKey } from "components/search/sort-order-options";
+import type { SortOptionKey } from "components/search/sort-order-options";
 import { ProjectTagGroup } from "components/tags/project-tag";
 import { CompactTagList } from "components/tags/tag-list";
 import { addProjectURL } from "components/user-requests/add-project/create-issue-link";
@@ -23,7 +24,6 @@ import { useSelector } from "containers/project-data-container";
 import log from "helpers/log";
 import numeral from "numeral";
 import { GoHeart, GoPlus, GoTag } from "react-icons/go";
-import { Link as RouterLink } from "react-router-dom";
 import { getTotalNumberOfStars } from "selectors";
 
 import { BetaVersionNews } from "./beta-version-news";

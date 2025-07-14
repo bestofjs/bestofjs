@@ -1,9 +1,9 @@
 /**
  * Manual tests to be launched with `bun test`
  */
-import { describe, expect, test } from "bun:test";
 
 import { createGitHubClient } from "./github-api-client";
+import { describe, expect, test } from "bun:test";
 
 const client = createGitHubClient();
 

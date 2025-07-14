@@ -1,15 +1,16 @@
+import { Box, Stack } from "components/core";
+import {
+  BottomPaginationControls,
+  TopPaginationControls,
+} from "components/core/pagination/pagination-controls";
+import { PaginationContainer } from "components/core/pagination/provider";
 import {
   ProjectScore,
   ProjectTable,
 } from "components/project-list/project-table";
-import { PaginationContainer } from "components/core/pagination/provider";
-import {
-  TopPaginationControls,
-  BottomPaginationControls,
-} from "components/core/pagination/pagination-controls";
-import { Box, Stack } from "components/core";
-import { SortOrderPicker } from "./sort-order-picker";
+
 import { useNextLocation } from "./search-utils";
+import { SortOrderPicker } from "./sort-order-picker";
 
 export const ProjectPaginatedList = ({ projects, total, sortOptionId }) => {
   const { pageNumbers } = PaginationContainer.useContainer();

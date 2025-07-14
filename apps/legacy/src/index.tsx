@@ -1,7 +1,7 @@
 import { render } from "react-dom";
+import { initializeColorMode } from "components/core/color-mode";
 
 import { Root } from "./root";
-import { initializeColorMode } from "components/core/color-mode";
 
 // Old-fashioned stylesheets
 import "./stylesheets/css-reset.css";

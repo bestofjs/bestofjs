@@ -1,5 +1,5 @@
-import { renderApp, screen } from "test-utils";
 import userEvent from "@testing-library/user-event";
+import { renderApp, screen } from "test-utils";
 
 describe("Static Pages", () => {
   it("should render correctly", async () => {

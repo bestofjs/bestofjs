@@ -2,8 +2,8 @@ import { z } from "zod";
 
 import {
   limitSchema,
-  PageSearchStateUpdater,
-  PageSearchUrlBuilder,
+  type PageSearchStateUpdater,
+  type PageSearchUrlBuilder,
   paginationSchema,
   SearchStateParser,
 } from "@/lib/page-search-state";

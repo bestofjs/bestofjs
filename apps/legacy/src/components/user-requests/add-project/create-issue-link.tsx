@@ -1,5 +1,6 @@
-import { ExternalLink } from "../../core";
 import { ISSUE_TRACKER_URL } from "config";
+
+import { ExternalLink } from "../../core";
 
 const templates = {
   ADD_PROJECT: "add-a-project-to-best-of-javascript.md",

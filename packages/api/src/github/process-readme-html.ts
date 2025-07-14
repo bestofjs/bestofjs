@@ -13,7 +13,7 @@ export function processReadMeHtml(html: string, repo: string, branch = "main") {
 
   // STEP 1: replace relative anchor link URL
   // [Quick Start](#quick-start) => [Quick Start](https://github.com/node-inspector/node-inspector#quick-start)"
-  readme = readme.replace(/<a href="#([^"]+)">/gi, function (_, p1) {
+  readme = readme.replace(/<a href="#([^"]+)">/gi, (_, p1) => {
     debug("Replace link relative anchors", p1);
     return `<a href="${root}#${p1}">`;
   });
@@ -22,7 +22,7 @@ export function processReadMeHtml(html: string, repo: string, branch = "main") {
   // Example 1: From react-router <a href="/docs">
   // [Guides and API Docs](/docs) => [Guides and API Docs](https://github.com/rackt/react-router/tree/master/docs)"
   // Example 2: from acdlite/recompose: <a href="docs">
-  readme = readme.replace(/href="\/?(.+?)"/gi, function (match, p1) {
+  readme = readme.replace(/href="\/?(.+?)"/gi, (match, p1) => {
     // If the URL starts with http => do nothing
     if (p1.indexOf("http") === 0) return match;
     debug("Replace link relative URL", p1);
@@ -31,13 +31,13 @@ export function processReadMeHtml(html: string, repo: string, branch = "main") {
 
   // STEP 3: markdown images seen on https://github.com/MostlyAdequate/mostly-adequate-guide
   //! [cover](images/cover.png)] => ![cover](https://github.com/MostlyAdequate/mostly-adequate-guide/raw/master/images/cover.png)
-  readme = readme.replace(/!\[(.+?)]\(\/(.+?)\)/gi, function (_, p1, p2) {
+  readme = readme.replace(/!\[(.+?)]\(\/(.+?)\)/gi, (_, p1, p2) => {
     debug("Replace md image relative URL", p1);
     return `[${p1}](${root}/blob/${branch}/${p2})`;
   });
 
   // STEP 4: replace relative image URL
-  readme = readme.replace(/src="(.+?)"/gi, function (_, p1) {
+  readme = readme.replace(/src="(.+?)"/gi, (_, p1) => {
     debug("Replace image relative URL", p1);
     const path = getImageAbsolutePath(repo, p1, branch);
     return `src="${path}"`;
@@ -45,13 +45,13 @@ export function processReadMeHtml(html: string, repo: string, branch = "main") {
 
   // STEP 5: remove self closed anchors (seen on async repo)
   // the regexp matches: <a name=\"forEach\"> and <a name="forEach">
-  readme = readme.replace(/<a name=\\?"(.+?)\\?" \/>/gi, function () {
+  readme = readme.replace(/<a name=\\?"(.+?)\\?" \/>/gi, () => {
     debug("Remove self closed anchor");
     return "";
   });
 
   // matches <a name="constant">
-  readme = readme.replace(/<a name="(.+?)">/gi, function () {
+  readme = readme.replace(/<a name="(.+?)">/gi, () => {
     debug("Remove anchor");
     return "";
   });
@@ -62,10 +62,10 @@ export function processReadMeHtml(html: string, repo: string, branch = "main") {
   // </a>
   readme = readme.replace(
     /<a id="user-content(.*)" class="anchor" (.*?)>(.*?)<\/a>/gi,
-    function () {
+    () => {
       debug("Remove title anchor");
       return "";
-    }
+    },
   );
   return readme;
 }

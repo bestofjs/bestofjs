@@ -44,6 +44,7 @@ function AppLogo() {
       }}
     >
       <svg xmlns="http://www.w3.org/2000/svg" width="200" viewBox="0 0 700 200">
+        <title>Best of JS</title>
         <g transform="translate(-40 -30)">
           <path
             fill="currentColor"

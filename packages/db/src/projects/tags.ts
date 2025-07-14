@@ -39,14 +39,14 @@ export async function addTagsToProject(projectId: string, tagIds: string[]) {
 
 export async function removeTagsFromProject(
   projectId: string,
-  tagIds: string[]
+  tagIds: string[],
 ) {
   await db
     .delete(schema.projectsToTags)
     .where(
       and(
         eq(schema.projectsToTags.projectId, projectId),
-        inArray(schema.projectsToTags.tagId, tagIds)
-      )
+        inArray(schema.projectsToTags.tagId, tagIds),
+      ),
     );
 }

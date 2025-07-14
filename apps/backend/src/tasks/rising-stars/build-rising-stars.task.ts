@@ -8,12 +8,14 @@ import {
   flattenSnapshots,
   getProjectDescription,
   getProjectURL,
-  ProjectDetails,
+  type ProjectDetails,
 } from "@repo/db/projects";
-import { getMonthlyDelta, Snapshot } from "@repo/db/snapshots";
+import { getMonthlyDelta, type Snapshot } from "@repo/db/snapshots";
+
 import { createTask } from "@/task-runner";
-import { Category, fetchCategories } from "./categories";
-import { Project } from "./projects";
+
+import { type Category, fetchCategories } from "./categories";
+import type { Project } from "./projects";
 
 export const buildRisingStarsTask = createTask({
   name: "build-rising-stars",
@@ -39,7 +41,7 @@ export const buildRisingStarsTask = createTask({
 
         const months = [12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1];
         const monthly = months.map(
-          (month) => getMonthlyDelta(flattenedSnapshots, { year, month }).delta
+          (month) => getMonthlyDelta(flattenedSnapshots, { year, month }).delta,
         );
         const url = getProjectURL(project);
 
@@ -68,9 +70,9 @@ export const buildRisingStarsTask = createTask({
           context.db
             .select({ repoId: schema.snapshots.repoId })
             .from(schema.snapshots)
-            .where(eq(schema.snapshots.year, year))
+            .where(eq(schema.snapshots.year, year)),
         ),
-      }
+      },
     );
 
     const sortedProjects = orderBy(
@@ -78,7 +80,7 @@ export const buildRisingStarsTask = createTask({
         .filter((item) => item !== null)
         .filter((item) => item.delta > 0),
       ["delta"],
-      ["desc"]
+      ["desc"],
     );
 
     const categories = await fetchCategories(year);
@@ -89,12 +91,12 @@ export const buildRisingStarsTask = createTask({
     const tags = allTags.filter((tag) => isTagIncluded(tag.code, projects));
 
     context.logger.info(
-      `${projects.length} projects included in Rising Stars, ${tags.length} tags`
+      `${projects.length} projects included in Rising Stars, ${tags.length} tags`,
     );
     context.logger.info(
       projects
         .slice(0, 10)
-        .map((project) => `${project.name}: +${project.delta}`)
+        .map((project) => `${project.name}: +${project.delta}`),
     );
 
     await context.saveJSON(
@@ -104,7 +106,7 @@ export const buildRisingStarsTask = createTask({
         projects,
         tags,
       },
-      "rising-stars.json"
+      "rising-stars.json",
     );
 
     return {
@@ -130,7 +132,7 @@ function getNumberOfStarsAt(year: number, snapshots: Snapshot[]) {
 function getYearlyDelta(
   project: ProjectDetails,
   snapshots: Snapshot[],
-  year: number
+  year: number,
 ) {
   const finalSnapshot = getFinalSnapshot(snapshots, year);
   if (!finalSnapshot) return 0;
@@ -183,7 +185,9 @@ function filterProjects(projects: Project[], categories: Category[]) {
     const selectedProjects = projects
       .filter(
         (project) =>
-          !TAGS_EXCLUDED_FROM_RANKINGS.some((tag) => project.tags.includes(tag))
+          !TAGS_EXCLUDED_FROM_RANKINGS.some((tag) =>
+            project.tags.includes(tag),
+          ),
       )
       .slice(0, count);
     selectedProjects.forEach((project) => set.add(project.full_name));
@@ -198,10 +202,10 @@ function filterProjects(projects: Project[], categories: Category[]) {
         .filter(
           (project) =>
             hasOneOfTags(project, category.tags || [category.key]) &&
-            hasNotOneOfTags(project, category.excludedTags)
+            hasNotOneOfTags(project, category.excludedTags),
         )
         .filter((project) =>
-          filterExcludeProjectBySlug(project, category.excluded)
+          filterExcludeProjectBySlug(project, category.excluded),
         )
         .slice(0, category.count);
       selectedProjects.forEach((project) => {
@@ -212,7 +216,7 @@ function filterProjects(projects: Project[], categories: Category[]) {
 
   function getFilteredProjects() {
     const selectedProjects = projects.filter((project) =>
-      set.has(project.full_name)
+      set.has(project.full_name),
     );
     return selectedProjects;
   }

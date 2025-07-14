@@ -40,6 +40,6 @@ function sendResponse(data: { tag?: string; path?: string }) {
       headers: {
         "content-type": "application/json",
       },
-    }
+    },
   );
 }

@@ -1,4 +1,4 @@
-import { MetadataRoute } from "next";
+import type { MetadataRoute } from "next";
 
 import { APP_CANONICAL_URL } from "@/config/site";
 import { api } from "@/server/api";

@@ -46,12 +46,12 @@ export function createNpmClient() {
 
     async fetchBundleData(packageName: string) {
       const url = `https://deno.bundlejs.com/?q=${encodeURIComponent(
-        packageName
+        packageName,
       )}`;
       try {
         const data = await pTimeout(
           fetch(url).then((res) => res.json()),
-          { milliseconds: timeout }
+          { milliseconds: timeout },
         );
         const parsedData = bundleDataSchema.parse(data);
         return {

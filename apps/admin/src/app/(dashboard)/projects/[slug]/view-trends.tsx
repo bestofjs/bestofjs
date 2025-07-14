@@ -1,4 +1,5 @@
-import { getProjectTrends, OneYearSnapshots } from "@repo/db/projects";
+import { getProjectTrends, type OneYearSnapshots } from "@repo/db/projects";
+
 import { formatStars } from "@/lib/format-helpers";
 
 type Props = {
@@ -9,12 +10,12 @@ export function ViewTrends({ snapshots }: Props) {
 
   return (
     <div>
-      <div className="mb-4 text-lg font-bold">Trends</div>
+      <div className="mb-4 font-bold text-lg">Trends</div>
       <div className="grid grid-cols-4 gap-2">
-        <label>Today</label>
-        <label>This week</label>
-        <label>This month</label>
-        <label>This year</label>
+        <div>Today</div>
+        <div>This week</div>
+        <div>This month</div>
+        <div>This year</div>
         <div>{trends.daily ? formatStars(trends.daily) : "-"}</div>
         <div>{trends.weekly ? formatStars(trends.weekly) : "-"}</div>
         <div>{trends.monthly ? formatStars(trends.monthly) : "-"}</div>

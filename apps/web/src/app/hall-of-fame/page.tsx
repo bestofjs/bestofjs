@@ -1,5 +1,6 @@
 import { db } from "@repo/db";
 import { findHallOfFameMembers } from "@repo/db/hall-of-fame";
+
 import { HallOfFamePaginatedList } from "./hall-of-fame-paginated-list";
 import Loading from "./loading";
 import { HallOfFameSearchStateParser } from "./search/hall-of-fame-search-state";

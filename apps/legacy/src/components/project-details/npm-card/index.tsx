@@ -1,5 +1,3 @@
-import { IoLogoNpm } from "react-icons/io";
-
 import {
   Badge,
   Box,
@@ -13,10 +11,12 @@ import {
   Spinner,
 } from "components/core";
 import { ExternalLinkIcon } from "components/core/icons";
-import { Dependencies } from "./dependencies";
+import { IoLogoNpm } from "react-icons/io";
+
 import { BundleSize } from "./bundle-size";
-import { PackageSize } from "./package-size";
+import { Dependencies } from "./dependencies";
 import { PackageMonthlyDownloadChart } from "./monthly-download-chart";
+import { PackageSize } from "./package-size";
 
 type Props = {
   project: BestOfJS.ProjectDetails;

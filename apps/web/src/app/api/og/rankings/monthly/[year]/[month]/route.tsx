@@ -35,7 +35,7 @@ export async function GET(_: Request, props: Context) {
           ))}
         </Box>
       </Box>
-    </ImageLayout>
+    </ImageLayout>,
   );
 }
 

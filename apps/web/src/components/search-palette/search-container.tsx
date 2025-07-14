@@ -24,7 +24,7 @@ function useClientSearch(initialState?: {
 
   const findTagsByQuery = (
     searchQuery: string,
-    excludedTags: string[] = []
+    excludedTags: string[] = [],
   ) => {
     const tags = allTags.filter((tag) => !excludedTags.includes(tag.code));
     return filterTagsByQuery(tags, searchQuery);
@@ -57,6 +57,6 @@ function filterProjectsByTags<
   T extends Omit<BestOfJS.SearchIndexProject, "slug">,
 >(projects: T[], tags: string[]) {
   return projects.filter((project) =>
-    tags.every((tag) => project.tags.includes(tag))
+    tags.every((tag) => project.tags.includes(tag)),
   );
 }

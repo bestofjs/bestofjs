@@ -32,7 +32,7 @@ export function HallOfFameSkeletonCard({ name }: { name: string }) {
     <Card className="sm:rounded-none">
       <div className="flex border-b">
         <Skeleton className="size-[100px] rounded-none" />
-        <div className="flex flex-1 items-center px-4 text-xl text-muted">
+        <div className="flex flex-1 items-center px-4 text-muted text-xl">
           {name}
         </div>
       </div>

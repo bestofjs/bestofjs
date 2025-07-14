@@ -1,6 +1,6 @@
-import { Metadata } from "next";
-import Link from "next/link";
 import { CalendarIcon } from "lucide-react";
+import type { Metadata } from "next";
+import Link from "next/link";
 
 import {
   ChevronLeftIcon,
@@ -14,7 +14,8 @@ import { Card, CardHeader } from "@/components/ui/card";
 import { APP_CANONICAL_URL, APP_DISPLAY_NAME } from "@/config/site";
 import { cn } from "@/lib/utils";
 import { api } from "@/server/api";
-import { MonthlyDate } from "@/server/api-rankings";
+import type { MonthlyDate } from "@/server/api-rankings";
+
 import { formatMonthlyDate } from "../../monthly-rankings-utils";
 
 type PageProps = {
@@ -36,7 +37,7 @@ export async function generateMetadata(props: PageProps): Promise<Metadata> {
 
   const title = `Rankings ${formatMonthlyDate(date)}`;
   const description = `The most popular projects on Best of JS in ${formatMonthlyDate(
-    date
+    date,
   )}: ${projectNames}...`;
 
   return {
@@ -58,7 +59,7 @@ export default async function MonthlyRankingPage(props: PageProps) {
     {
       date,
       limit: 50,
-    }
+    },
   );
 
   return (
@@ -158,7 +159,7 @@ function NavigationButton({
       aria-label={label}
       className={cn(
         buttonVariants({ variant: "outline" }),
-        "w-10 rounded-full p-0 sm:w-auto sm:rounded-sm sm:p-2"
+        "w-10 rounded-full p-0 sm:w-auto sm:rounded-sm sm:p-2",
       )}
     >
       {children}

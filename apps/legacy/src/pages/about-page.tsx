@@ -10,13 +10,13 @@ import {
   UnorderedList,
   VStack,
 } from "components/core";
-import { useSelector } from "containers/project-data-container";
 import { CreateIssueLink } from "components/user-requests/add-project/create-issue-link";
-import { APP_REPO_URL, APP_DISPLAY_NAME, SPONSOR_URL } from "config";
+import { APP_DISPLAY_NAME, APP_REPO_URL, SPONSOR_URL } from "config";
+import { useSelector } from "containers/project-data-container";
 
 const AboutPage = () => {
   const count = useSelector(
-    (state) => Object.keys(state.entities.projects).length
+    (state) => Object.keys(state.entities.projects).length,
   );
   return (
     <MainContent>

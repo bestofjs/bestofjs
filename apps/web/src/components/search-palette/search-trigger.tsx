@@ -3,6 +3,7 @@
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { cn } from "@/lib/utils";
+
 import { SearchIcon } from "../core";
 import { useIsApplePlatform } from "./use-is-apple-platform";
 
@@ -17,13 +18,13 @@ export function SearchTrigger({ onClick }: Props) {
       <Button
         variant="outline"
         className={cn(
-          "relative ml-4 hidden h-9 w-full justify-start rounded-[0.5rem] text-sm text-muted-foreground sm:pr-12 md:w-40 lg:inline-flex lg:w-64"
+          "relative ml-4 hidden h-9 w-full justify-start rounded-[0.5rem] text-muted-foreground text-sm sm:pr-12 md:w-40 lg:inline-flex lg:w-64",
         )}
         onClick={onClick}
       >
         <span className="hidden lg:inline-flex">Search in projects...</span>
         <span className="inline-flex lg:hidden">Search...</span>
-        <kbd className="pointer-events-none absolute right-1.5 top-2 hidden h-5 select-none items-center gap-1 rounded border bg-muted px-1.5 text-[10px] font-medium opacity-100 sm:flex">
+        <kbd className="pointer-events-none absolute top-2 right-1.5 hidden h-5 select-none items-center gap-1 rounded border bg-muted px-1.5 font-medium text-[10px] opacity-100 sm:flex">
           {isApplePlatform ? (
             <>
               <span className="text-xs">⌘</span>K

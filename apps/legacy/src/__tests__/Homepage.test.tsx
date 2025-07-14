@@ -1,11 +1,11 @@
+import userEvent from "@testing-library/user-event";
 import {
-  screen,
-  renderApp,
-  within,
   // eslint-disable-next-line
   debug,
+  renderApp,
+  screen,
+  within,
 } from "test-utils";
-import userEvent from "@testing-library/user-event";
 
 describe("Home page", () => {
   it("should render correctly", async () => {
@@ -19,7 +19,7 @@ describe("Home page", () => {
     // Today Hot Projects
     await screen.findByText("the last 24 hours");
     const hotProjects = await within(
-      await screen.findByTestId("hot-projects-section")
+      await screen.findByTestId("hot-projects-section"),
     ).findAllByTestId("project-card");
     expect(hotProjects).toHaveLength(5);
 
@@ -30,7 +30,7 @@ describe("Home page", () => {
 
     // Should see project Solid in the list
     const hotProjectsThisWeek = await within(
-      await screen.findByTestId("hot-projects-section")
+      await screen.findByTestId("hot-projects-section"),
     ).findAllByTestId("project-card");
     // Should have 5 projects
     expect(hotProjectsThisWeek).toHaveLength(5);
@@ -43,7 +43,7 @@ describe("Home page", () => {
 
     // Should see project Tauri in the list
     const hotProjectsThisMonth = await within(
-      await screen.findByTestId("hot-projects-section")
+      await screen.findByTestId("hot-projects-section"),
     ).findAllByTestId("project-card");
     // Should have 5 projects
     expect(hotProjectsThisMonth).toHaveLength(5);
@@ -56,7 +56,7 @@ describe("Home page", () => {
 
     // Should see project Slidev in the list
     const hotProjectsThisYear = await within(
-      await screen.findByTestId("hot-projects-section")
+      await screen.findByTestId("hot-projects-section"),
     ).findAllByTestId("project-card");
     // Should have 5 projects
     expect(hotProjectsThisYear).toHaveLength(5);
@@ -70,7 +70,7 @@ describe("Home page", () => {
     // RECENTLY ADDED PROJECTS
     // Should have 5 projects in Recently Added Projects
     const recentlyAddedProjects = await within(
-      await screen.findByTestId("newest-section")
+      await screen.findByTestId("newest-section"),
     ).findAllByTestId("project-card");
     expect(recentlyAddedProjects).toHaveLength(5);
 
@@ -82,12 +82,12 @@ describe("Home page", () => {
     // MONTHLY RANKINGS
     // Should have 5 projects in Monthly Rankings
     const homeMonthlyRankingProjects = await within(
-      await screen.findByTestId("home-monthly-ranking-section")
+      await screen.findByTestId("home-monthly-ranking-section"),
     ).findAllByTestId("project-card");
     expect(homeMonthlyRankingProjects).toHaveLength(5);
     // Should see Next.js is the rank #1 in the current month (April 2022)
     await within(homeMonthlyRankingProjects.at(0) as HTMLElement).findByText(
-      "The React Framework"
+      "The React Framework",
     );
     // Right arrow should be disabled
     expect(screen.getByLabelText("Next month")).toBeDisabled();
@@ -101,10 +101,10 @@ describe("Home page", () => {
     await screen.findByText("March 2022");
     // Should see Remotion is the rank #1
     const homeMonthlyRankingProjectsLastMonth = await within(
-      await screen.findByTestId("home-monthly-ranking-section")
+      await screen.findByTestId("home-monthly-ranking-section"),
     ).findAllByTestId("project-card");
     await within(
-      homeMonthlyRankingProjectsLastMonth.at(0) as HTMLElement
+      homeMonthlyRankingProjectsLastMonth.at(0) as HTMLElement,
     ).findByText("Remotion");
 
     // If you update this file, uncomment to preview UI real time in Chrome

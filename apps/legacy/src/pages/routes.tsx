@@ -1,16 +1,15 @@
-import { Suspense, lazy } from "react";
-import { Route, Switch, Redirect } from "react-router-dom";
-
-import HomePage from "pages/home-page";
+import { lazy, Suspense } from "react";
+import { Redirect, Route, Switch } from "react-router-dom";
+import { ErrorBoundary, Spinner } from "components/core";
 import BookmarksPage from "pages/bookmarks-page";
+import { ErrorFallbackPage } from "pages/error-fallback-page";
 import { FeaturedPage } from "pages/featured-page";
 import HallOfFamePage from "pages/hall-of-fame-page";
-import TagsPage from "pages/tags-page";
-import { SearchResultsPage } from "pages/search-results-page";
-import { ErrorFallbackPage } from "pages/error-fallback-page";
-import { NoMatchPage } from "pages/no-match-page";
+import HomePage from "pages/home-page";
 import { MonthlyRankingsPage } from "pages/monthly-rankings-page";
-import { ErrorBoundary, Spinner } from "components/core";
+import { NoMatchPage } from "pages/no-match-page";
+import { SearchResultsPage } from "pages/search-results-page";
+import TagsPage from "pages/tags-page";
 
 const AsyncViewProject = lazy(() => import("pages/project-details-page"));
 const AsyncAboutPage = lazy(() => import("pages/about-page"));

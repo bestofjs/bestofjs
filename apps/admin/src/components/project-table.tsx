@@ -1,6 +1,7 @@
 import Link from "next/link";
 
-import { findProjects } from "@repo/db/projects";
+import type { findProjects } from "@repo/db/projects";
+
 import { ProjectLogo } from "@/components/project-logo";
 import { Badge, badgeVariants } from "@/components/ui/badge";
 import {
@@ -82,7 +83,7 @@ export function ProjectTable({ projects }: Props) {
                   ))}
                 </div>
               ) : (
-                <span className="italic text-muted-foreground">No package</span>
+                <span className="text-muted-foreground italic">No package</span>
               )}
             </TableCell>
             <TableCell className="text-right">

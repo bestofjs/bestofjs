@@ -1,13 +1,13 @@
-import { useSelector } from "containers/project-data-container";
-import { getAllTagsSortedBy } from "selectors";
-import { PaginatedTagList } from "components/tags/paginated-tag-list";
-import { TagIcon } from "components/core/icons";
 import { MainContent, PageHeader } from "components/core";
+import { TagIcon } from "components/core/icons";
 import {
-  paginateItemList,
   PaginationContainer,
+  paginateItemList,
 } from "components/core/pagination";
+import { PaginatedTagList } from "components/tags/paginated-tag-list";
+import { useSelector } from "containers/project-data-container";
 import { useParseURL } from "helpers/url";
+import { getAllTagsSortedBy } from "selectors";
 
 const TagsPage = () => {
   const { sort, page } = useParseURL({ sort: "project-count" });

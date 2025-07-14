@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom";
-
 import { Button, Wrap, WrapItem } from "components/core";
 
 export const CardProjectLabels = ({ projects }) => {

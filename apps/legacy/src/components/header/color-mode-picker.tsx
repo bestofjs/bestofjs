@@ -1,7 +1,10 @@
-import { MdWbSunny } from "react-icons/md";
+import {
+  IconButton,
+  type IconButtonProps,
+  useColorMode,
+} from "components/core";
 import { IoMdMoon } from "react-icons/io";
-
-import { IconButton, IconButtonProps, useColorMode } from "components/core";
+import { MdWbSunny } from "react-icons/md";
 
 export const ColorModePicker = (props: Partial<IconButtonProps>) => {
   const { colorMode, toggleColorMode } = useColorMode();

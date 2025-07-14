@@ -1,10 +1,9 @@
+import userEvent from "@testing-library/user-event";
 import {
-  screen,
   renderApp,
+  screen,
   // debug,
 } from "test-utils";
-
-import userEvent from "@testing-library/user-event";
 
 describe("Authentication.test", () => {
   it("should login successfully with Github", async () => {

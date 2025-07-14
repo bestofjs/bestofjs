@@ -3,8 +3,8 @@ import { z } from "zod";
 import { sortOptionsMap } from "@/components/project-list/sort-order-options";
 import {
   limitSchema,
-  PageSearchStateUpdater,
-  PageSearchUrlBuilder,
+  type PageSearchStateUpdater,
+  type PageSearchUrlBuilder,
   paginationSchema,
   SearchStateParser,
 } from "@/lib/page-search-state";

@@ -1,4 +1,4 @@
-import { Command } from "cleye";
+import type { Command } from "cleye";
 import { z } from "zod";
 
 export const sharedFlagsSchema = z.object({

@@ -1,3 +1,5 @@
+/** biome-ignore-all lint/a11y/useKeyWithClickEvents: TODO */
+/** biome-ignore-all lint/a11y/noStaticElementInteractions: TODO */
 "use client";
 
 import { useState } from "react";
@@ -29,13 +31,13 @@ export const MonthlyTrendsChart = ({
   ...rest
 }: Props) => {
   if (results.length === 0)
-    return <div className="text-italic pt-2">No data available</div>;
+    return <div className="pt-2 text-italic">No data available</div>;
 
   const lastNMonths = getLastNMonths(numberOfMonths);
 
   const items = lastNMonths.map(({ year, month }) => {
     const foundResult = results.find(
-      (result) => result.year === year && result.month === month
+      (result) => result.year === year && result.month === month,
     );
     const value = foundResult ? foundResult.value : undefined;
     return { year, month, value };
@@ -54,7 +56,7 @@ const BarGraph = ({ items, ...rest }: BarGraphProps) => {
   const maxValue = Math.max(...(values as number[]));
 
   const [selectedItem, setSelectedItem] = useState<BarGraphItem | undefined>(
-    undefined
+    undefined,
   );
 
   return (
@@ -98,7 +100,7 @@ const ViewDetailsOnSmallScreens = ({
   selectedItem: BarGraphItem | undefined;
 } & FormattingOptions) => {
   return (
-    <Alert className="mb-2 flex bg-transparent text-sm text-muted-foreground md:hidden">
+    <Alert className="mb-2 flex bg-transparent text-muted-foreground text-sm md:hidden">
       <InfoIcon className="size-4" />
       <AlertDescription>
         {selectedItem ? (
@@ -131,9 +133,6 @@ const MonthSummary = ({
 const GraphBar = ({
   height,
   value,
-  year,
-  month,
-  unit,
   showPlusSymbol,
   onClick,
 }: {
@@ -148,8 +147,9 @@ const GraphBar = ({
   }
 
   const formattedValue = formatValue(value, { showPlusSymbol });
-  const formattedDate = year + "/" + month;
-  const tooltipLabel = formattedDate + ": " + formattedValue + " " + unit;
+  // TODO add tooltip?
+  // const formattedDate = year + "/" + month;
+  // const tooltipLabel = formattedDate + ": " + formattedValue + " " + unit;
 
   return (
     <>
@@ -157,7 +157,6 @@ const GraphBar = ({
       <div
         className="mt-1 w-3/4 max-w-8 bg-gradient-to-b from-[var(--graphBackgroundColor1)] to-[var(--graphBackgroundColor2)]"
         style={{ height }}
-        aria-label={tooltipLabel}
         onClick={onClick}
       ></div>
     </>
@@ -170,7 +169,7 @@ const EmptyGraphBar = ({ value }: { value: number | undefined }) => {
       <BarTopLabel className="text-muted-foreground">
         {value === undefined ? "N/A" : 0}
       </BarTopLabel>
-      <div className="mt-1 h-px w-3/4 max-w-8 border-b border-dashed border-[var(--graphBackgroundColor1)]" />
+      <div className="mt-1 h-px w-3/4 max-w-8 border-[var(--graphBackgroundColor1)] border-b border-dashed" />
     </>
   );
 };
@@ -183,7 +182,7 @@ const BarTopLabel = (props: React.HTMLProps<HTMLDivElement>) => {
 
 const MonthLabelGroup = ({ items }: { items: BarGraphItem[] }) => {
   return (
-    <div className="mt-1 grid grid-cols-12 divide-x divide-solid border-x border-[var(--graphBackgroundColor1)]">
+    <div className="mt-1 grid grid-cols-12 divide-x divide-solid border-[var(--graphBackgroundColor1)] border-x">
       {items.map(({ year, month }) => {
         const monthName = monthNames[month - 1];
         const shortMonthName = month; // Show the month number (from 1 to 12) on small screens
@@ -206,14 +205,14 @@ const YearLabelGroup = ({ items }: { items: BarGraphItem[] }) => {
   const yearDataItems = getYearData(items);
 
   return (
-    <div className="grid grid-cols-12 divide-x divide-solid border-x border-[var(--graphBackgroundColor1)]">
+    <div className="grid grid-cols-12 divide-x divide-solid border-[var(--graphBackgroundColor1)] border-x">
       {yearDataItems.map((item) => {
         const colSpan = item.months.length;
         return (
           <div
             key={item.year}
             style={{ gridColumn: `span ${colSpan} / span ${colSpan}` }}
-            className="border-b border-[var(--graphBackgroundColor1)] py-1 text-center text-sm"
+            className="border-[var(--graphBackgroundColor1)] border-b py-1 text-center text-sm"
           >
             {item.year}
           </div>

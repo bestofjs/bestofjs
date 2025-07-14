@@ -2,7 +2,6 @@
 
 // https://nextjs.org/docs/app/api-reference/functions/use-pathname
 // > Reading the current URL from a Server Component is not supported.
-import * as React from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
@@ -18,6 +17,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { extraNavItems, mainNavItems, RISING_STARS_URL } from "@/config/site";
 import { cn } from "@/lib/utils";
+
 import { ChevronDownIcon } from "../core";
 import { BestOfJSLogo } from "../svg-logos";
 import { MobileMenuButton } from "./mobile-nav";
@@ -51,17 +51,17 @@ export function MainNav() {
                     key={index}
                     href={item.href}
                     className={cn(
-                      "flex h-9 items-center p-2 text-sm font-medium",
+                      "flex h-9 items-center p-2 font-medium text-sm",
                       "text-muted-foreground hover:bg-[var(--sand-3)] hover:text-foreground",
                       "rounded",
                       item.isActive(pathname) ? "text-foreground" : undefined,
 
-                      item.disabled && "cursor-not-allowed opacity-80"
+                      item.disabled && "cursor-not-allowed opacity-80",
                     )}
                   >
                     {item.title}
                   </Link>
-                )
+                ),
             )}
           </nav>
           <MoreLinksButton />

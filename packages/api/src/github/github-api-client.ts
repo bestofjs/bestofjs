@@ -21,7 +21,7 @@ export function createGitHubClient() {
 
   async function makeRestApiRequest(
     endPoint: string,
-    accept = "application/vnd.github.v3+json"
+    accept = "application/vnd.github.v3+json",
   ) {
     const url = `https://api.github.com/${endPoint}`;
     const options = {
@@ -46,7 +46,7 @@ export function createGitHubClient() {
       .request(queryRepoInfo, { owner, name })
       .then(extractRepoInfo)
       .catch((error) => {
-        const message = error.response && error.response.message;
+        const message = error.response?.message;
         if (message) throw new Error(`GraphQL API error "${message}"`);
         throw error;
       });
@@ -87,6 +87,7 @@ export function createGitHubClient() {
   };
 
   const isErrorNotFound = (error: unknown) => {
+    // biome-ignore lint/suspicious/noExplicitAny: TODO type correctly
     const errorType = (error as any).response?.errors?.[0]?.type;
     return errorType === "NOT_FOUND";
   };
@@ -122,7 +123,7 @@ export function createGitHubClient() {
     async fetchRepoReadMeAsHtml(fullName: string, branch = "main") {
       const html = await makeRestApiRequest(
         `repos/${fullName}/readme`,
-        "application/vnd.github.VERSION.html"
+        "application/vnd.github.VERSION.html",
       ).then((response) => response.text());
       const readme = processReadMeHtml(html, fullName, branch);
       return readme;
@@ -133,7 +134,7 @@ export function createGitHubClient() {
 // Convert a String from the web page E.g. `1,300` into an Integer
 const toInteger = (source: string) => {
   const onlyNumbers = source.replace(/[^\d]/, "");
-  return !onlyNumbers || isNaN(Number(onlyNumbers))
+  return !onlyNumbers || Number.isNaN(Number(onlyNumbers))
     ? 0
     : parseInt(onlyNumbers, 10);
 };

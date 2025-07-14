@@ -1,10 +1,10 @@
-import { useCallback, useState, useEffect } from "react";
+/** biome-ignore-all lint/correctness/useExhaustiveDependencies: TODO */
+import { useCallback, useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
-import { createContainer } from "unstated-next";
-import useSWR from "swr";
-import { stringify } from "qs";
-
 import { fetchJSON } from "helpers/fetch";
+import { stringify } from "qs";
+import useSWR from "swr";
+import { createContainer } from "unstated-next";
 
 type TokenInfoResponse = {
   user_id: string;
@@ -70,7 +70,7 @@ export function useAuth() {
   const profile = data?.profile;
   const { bookmarks, addBookmark, removeBookmark } = useBookmarks(
     profile,
-    data?.token
+    data?.token,
   );
 
   return {

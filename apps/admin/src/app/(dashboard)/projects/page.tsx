@@ -1,16 +1,18 @@
 import Link from "next/link";
-import { z } from "zod";
+import type { z } from "zod";
 
 import { db } from "@repo/db";
 import {
   countProjects,
   findProjects,
-  ProjectListOrderByKey,
+  type ProjectListOrderByKey,
 } from "@repo/db/projects";
+
 import { AddProjectButton } from "@/components/add-project-button";
 import { ProjectTable } from "@/components/project-table";
 import { Badge } from "@/components/ui/badge";
 import { buttonVariants } from "@/components/ui/button";
+
 import { ProjectTablePagination } from "./project-table-pagination";
 import { SearchBox } from "./search-box";
 import { searchSchema } from "./search-schema";
@@ -42,7 +44,7 @@ export default async function ProjectsPage(props: PageProps) {
   return (
     <div className="flex flex-col gap-6">
       <div className="flex justify-between">
-        <h1 className="flex scroll-m-20 items-center gap-2 text-3xl font-extrabold tracking-tight lg:text-4xl">
+        <h1 className="flex scroll-m-20 items-center gap-2 font-extrabold text-3xl tracking-tight lg:text-4xl">
           Projects
           <Badge className="text-sm">{total}</Badge>
         </h1>

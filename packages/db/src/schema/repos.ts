@@ -42,7 +42,7 @@ export const repos = pgTable(
     // From scrapping
     contributor_count: integer("contributor_count"),
   },
-  (table) => [uniqueIndex("name_owner_index").on(table.owner, table.name)]
+  (table) => [uniqueIndex("name_owner_index").on(table.owner, table.name)],
 );
 
 export const reposRelations = relations(repos, ({ many, one }) => ({

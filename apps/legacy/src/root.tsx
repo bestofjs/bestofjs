@@ -1,17 +1,19 @@
-import React, { useEffect } from "react";
+/** biome-ignore-all lint/correctness/useExhaustiveDependencies: <explanation> */
+import { useEffect } from "react";
 import { BrowserRouter as Router, useLocation } from "react-router-dom";
 import { ChakraProvider } from "@chakra-ui/react";
-
+import { AuthProvider } from "containers/auth-container";
+// import { useAppUpdateChecker } from 'app-update-checker'
+import { ProjectDataProvider } from "containers/project-data-container";
 import { customTheme } from "theme";
 
 import { App } from "./app";
-// import { useAppUpdateChecker } from 'app-update-checker'
-import { ProjectDataProvider } from "containers/project-data-container";
-import { AuthProvider } from "containers/auth-container";
 
 export const Root = () => {
   return (
+    // @ts-expect-error TODO fix me
     <ChakraProvider theme={customTheme} resetCSS={false}>
+      {/* @ts-expect-error TODO fix me */}
       <Router>
         <AppWithRouter />
       </Router>
@@ -36,8 +38,11 @@ const AppWithRouter = (props) => {
   }, [location.pathname, location.search]);
 
   return (
+    // @ts-expect-error TODO fix me
     <AuthProvider>
+      {/* @ts-expect-error TODO fix me */}
       <ProjectDataProvider>
+        {/* @ts-expect-error TODO fix me */}
         <App {...props} />
       </ProjectDataProvider>
     </AuthProvider>

@@ -1,4 +1,4 @@
-/* 
+/*
 Created from ChakraUI v1
 https://github.com/chakra-ui/chakra-ui/blob/v1/packages/css-reset/src/css-reset.tsx
 Unwanted styles have been commented out
@@ -47,7 +47,6 @@ a {
 }
 abbr[title] {
   border-bottom: none;
-  text-decoration: underline;
   -webkit-text-decoration: underline dotted;
   text-decoration: underline dotted;
 }

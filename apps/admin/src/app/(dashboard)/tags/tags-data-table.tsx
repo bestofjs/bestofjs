@@ -1,7 +1,9 @@
 "use client";
 
-import { findTags } from "@repo/db/tags";
+import type { findTags } from "@repo/db/tags";
+
 import { DataTable } from "@/components/ui/data-table";
+
 import { columns } from "./columns";
 
 type Tag = Awaited<ReturnType<typeof findTags>>[0];

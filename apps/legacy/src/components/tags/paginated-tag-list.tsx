@@ -1,13 +1,13 @@
 import styled from "@emotion/styled";
-
-import { PaginationContainer } from "components/core/pagination/provider";
 import {
-  TopPaginationControls,
   BottomPaginationControls,
+  TopPaginationControls,
 } from "components/core/pagination/pagination-controls";
-import { TagListSortOrderPicker } from "./tag-list-sort-order";
-import { DetailedTagList } from "./tag-list";
+import { PaginationContainer } from "components/core/pagination/provider";
 import { useNextLocation } from "components/search";
+
+import { DetailedTagList } from "./tag-list";
+import { TagListSortOrderPicker } from "./tag-list-sort-order";
 
 export const PaginatedTagList = ({ tags, total, sortOptionId }) => {
   const { pageNumbers } = PaginationContainer.useContainer();
