@@ -3,7 +3,7 @@
   "version": "0.36.0",
   "description": "Best of JS front-end web application",
   "engines": {
-    "node": "20.x"
+    "node": "22.x"
   },
   "scripts": {
     "start": "cross-env VITE_APP_VERSION=$npm_package_version vite",
