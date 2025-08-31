@@ -2,7 +2,7 @@
 # https://vercel.com/docs/storage/vercel-postgres/local-development
 services:
   postgres:
-    image: postgres
+    image: postgres:17.4
     environment:
       POSTGRES_PASSWORD: password
       POSTGRES_DB: bestofjs-dev # The PostgreSQL default database (automatically created at first launch)
