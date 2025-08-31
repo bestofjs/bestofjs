@@ -5,6 +5,7 @@
   "scripts": {
     "generate": "dotenv -e ../../.env.${STAGE:=development} pnpm drizzle-kit generate",
     "migrate": "dotenv -e ../../.env.${STAGE:=development} pnpm drizzle-kit migrate",
+    "push": "dotenv -e ../../.env.${STAGE:=development} pnpm drizzle-kit push",
     "studio": "dotenv -e ../../.env.${STAGE:=development} pnpm drizzle-kit studio",
     "typecheck": "tsc --noEmit",
     "typecheck:watch": "tsc --noEmit --incremental --watch",
@@ -23,25 +24,25 @@
     "./types": "./src/types.ts"
   },
   "dependencies": {
-    "@neondatabase/serverless": "^0.9.5",
-    "@t3-oss/env-nextjs": "^0.11.1",
+    "@neondatabase/serverless": "0.9.5",
+    "@t3-oss/env-nextjs": "^0.13.8",
     "@types/debug": "catalog:",
-    "@types/luxon": "^3.4.2",
+    "@types/luxon": "^3.7.1",
     "@vercel/postgres": "^0.10.0",
-    "debug": "^4.3.7",
+    "debug": "^4.4.1",
     "dotenv-cli": "catalog:",
-    "drizzle-kit": "^0.27.1",
-    "drizzle-orm": "^0.36.0",
-    "es-toolkit": "^1.31.0",
+    "drizzle-kit": "^0.31.4",
+    "drizzle-orm": "^0.44.5",
+    "es-toolkit": "^1.39.10",
     "is-absolute-url": "^4.0.1",
-    "luxon": "^3.5.0",
-    "nanoid": "^5.0.9",
+    "luxon": "^3.7.1",
+    "nanoid": "^5.1.5",
     "slugify": "^1.6.6",
     "tiny-invariant": "^1.3.3",
     "zod": "catalog:"
   },
   "devDependencies": {
-    "@clack/prompts": "^0.7.0",
-    "@types/bun": "^1.1.12"
+    "@clack/prompts": "^0.11.0",
+    "@types/bun": "^1.2.21"
   }
 }
