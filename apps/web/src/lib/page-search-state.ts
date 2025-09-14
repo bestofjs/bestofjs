@@ -19,7 +19,7 @@ export const paginationSchema = z.object({
 export type PaginationProps = z.infer<typeof paginationSchema>;
 
 /** Given a Zod schema that extends the pagination schema, the search state (including pagination) */
-type SearchState<T extends z.ZodTypeAny> = z.infer<T> extends PaginationProps
+type SearchState<T extends z.ZodType> = z.infer<T> extends PaginationProps
   ? z.infer<T>
   : never;
 
