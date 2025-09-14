@@ -10,8 +10,8 @@ const monthlyDownloadsSchema = z.object({
 
 const packageJsonSchema = z.object({
   version: z.string(),
-  dependencies: z.record(z.string()).optional(),
-  devDependencies: z.record(z.string()).optional(),
+  dependencies: z.record(z.string(), z.string()).optional(),
+  devDependencies: z.record(z.string(), z.string()).optional(),
   deprecated: z.string().optional(),
 });
 
