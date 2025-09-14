@@ -30,7 +30,7 @@ interface DataTableProps<TData> {
   getRowId: (row: TData) => string;
 }
 
-export function DataTable<TData>({
+export function ClientDataTable<TData>({
   columns,
   getRowId,
   data,

@@ -2,7 +2,7 @@
 
 import type { findTags } from "@repo/db/tags";
 
-import { DataTable } from "@/components/ui/data-table";
+import { ClientDataTable } from "@/components/ui/client-data-table";
 
 import { columns } from "./columns";
 
@@ -14,6 +14,10 @@ type Props = {
 
 export function TagsDataTable({ tags }: Props) {
   return (
-    <DataTable columns={columns} data={tags} getRowId={(tag) => tag.code} />
+    <ClientDataTable
+      columns={columns}
+      data={tags}
+      getRowId={(tag) => tag.code}
+    />
   );
 }
