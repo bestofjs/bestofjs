@@ -44,12 +44,11 @@ export function DataTableViewOptions<TData>({
         <Button
           aria-label="Toggle columns"
           variant="outline"
-          size="sm"
           className="ml-auto hidden h-8 lg:flex"
         >
-          <Settings2 />
+          <Settings2 size={16} />
           View
-          <ChevronsUpDown className="ml-auto opacity-50" />
+          <ChevronsUpDown size={16} className="ml-auto opacity-50" />
         </Button>
       </PopoverTrigger>
       <PopoverContent align="end" className="w-44 p-0">

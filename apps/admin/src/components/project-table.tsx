@@ -19,6 +19,8 @@ import { useDataTable } from "@/hooks/use-data-table";
 import { formatStars } from "@/lib/format-helpers";
 
 import { DataTableColumnHeader } from "./data-table/data-table-column-header";
+import { DataTableSortList } from "./data-table/data-table-sort-list";
+import { DataTableToolbar } from "./data-table/data-table-toolbar";
 
 type Project = Awaited<ReturnType<typeof findProjects>>["projects"][number];
 
@@ -104,7 +106,13 @@ export function ProjectTable({ projects, total, limit, sort }: Props) {
       sorting: sort,
     },
   });
-  return <DataTable table={table} />;
+  return (
+    <DataTable table={table}>
+      <DataTableToolbar table={table}>
+        <DataTableSortList table={table} />
+      </DataTableToolbar>
+    </DataTable>
+  );
 }
 
 function StatusIcon({ status }: { status: Project["status"] }) {
