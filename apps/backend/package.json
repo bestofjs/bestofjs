@@ -34,6 +34,7 @@
     "p-throttle": "^6.2.0",
     "p-timeout": "^6.1.3",
     "package-json": "^6.4.0",
+    "prettier": "^3.6.2",
     "pretty-bytes": "^6.1.1",
     "pretty-ms": "^9.1.0",
     "tasuku": "^2.0.1",

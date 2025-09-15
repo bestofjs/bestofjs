@@ -18,6 +18,11 @@ export const paginationSchema = z.object({
 
 export type PaginationProps = z.infer<typeof paginationSchema>;
 
+/** Given a Zod schema that extends the pagination schema, the search state (including pagination) */
+type SearchState<T extends z.ZodType> = z.infer<T> extends PaginationProps
+  ? z.infer<T>
+  : never;
+
 /**
  * A function that takes a current search state and returns a new search state.
  */
@@ -43,19 +48,19 @@ export abstract class SearchStateParser<T extends z.ZodTypeAny> {
   }
 
   parse(params: unknown) {
-    const searchState = this.schema.parse(params) as z.infer<T>;
+    const searchState = this.schema.parse(params) as SearchState<T>;
     return {
       searchState,
       buildPageURL: this.createBuildPageURL(searchState),
     };
   }
 
-  stringify(searchState: z.infer<T>) {
+  stringify(searchState: SearchState<T>) {
     return stateToQueryString(searchState);
   }
 
-  createBuildPageURL(searchState: z.infer<T>) {
-    return (updater: PageSearchStateUpdater<z.infer<T>>, path?: string) => {
+  createBuildPageURL(searchState: SearchState<T>) {
+    return (updater: PageSearchStateUpdater<SearchState<T>>, path?: string) => {
       const nextState = updater(searchState);
       const queryString = this.stringify(nextState);
       return (path || this.path) + "?" + queryString;
