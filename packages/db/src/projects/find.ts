@@ -3,7 +3,11 @@ import { z } from "zod";
 
 import type { DB } from "../index";
 import * as schema from "../schema";
-import { getSortQuery, getTotalNumberOfRows } from "../utils/queries-utils";
+import {
+  getSortQuery,
+  getTotalNumberOfProjects,
+  getTotalNumberOfRows,
+} from "../utils/queries-utils";
 
 const { projects, tags, packages, projectsToTags, repos } = schema;
 
@@ -15,6 +19,8 @@ export const columnIdsSchema = z.enum([
   "comments",
   "createdAt",
   "stars",
+  "lastCommit",
+  "commitCount",
 ]);
 
 type SortableColumnName = z.infer<typeof columnIdsSchema>;
@@ -44,6 +50,8 @@ export async function findProjects({
   text,
 }: Props) {
   const orderBy = getSortQuery(projects, sort);
+  console.log("orderBy", sort);
+
   const offset = (page - 1) * limit;
   const query = db
     .select({
@@ -52,6 +60,8 @@ export async function findProjects({
       description: projects.description,
       createdAt: projects.createdAt,
       stars: repos.stars,
+      lastCommit: repos.last_commit,
+      commitCount: repos.commit_count,
       repo: {
         name: repos.name,
         full_name: sql<string>`${repos.owner} || '/' || ${repos.name}`,
@@ -86,6 +96,8 @@ export async function findProjects({
       repos.owner,
       repos.stars,
       repos.owner_id,
+      repos.last_commit,
+      repos.commit_count,
       projectsToTags.projectId,
       packages.projectId,
       projects.status,
@@ -94,8 +106,6 @@ export async function findProjects({
   if (limit) {
     query.limit(limit);
   }
-
-  const foundProjects = await query;
 
   function getWhereClause() {
     if (text) {
@@ -115,8 +125,12 @@ export async function findProjects({
   }
 
   const where = getWhereClause();
+  if (where) {
+    query.where(where);
+  }
 
-  const total = await getTotalNumberOfRows(projects, where);
+  const total = await getTotalNumberOfProjects(where);
+  const foundProjects = await query;
 
   return { projects: foundProjects, total };
 }

@@ -16,7 +16,7 @@ import { DataTable } from "@/components/data-table/data-table";
 import { ProjectLogo } from "@/components/project-logo";
 import { Badge } from "@/components/ui/badge";
 import { useDataTable } from "@/hooks/use-data-table";
-import { formatStars } from "@/lib/format-helpers";
+import { formatDateOnly, formatStars } from "@/lib/format-helpers";
 
 import { DataTableColumnHeader } from "./data-table/data-table-column-header";
 import { DataTableSortList } from "./data-table/data-table-sort-list";
@@ -70,9 +70,19 @@ const columns = [
     ),
     cell: ({ getValue }) => formatStars(getValue()),
   }),
-  columnHelper.accessor("repo.full_name", {
-    header: "Owner",
-    cell: ({ row }) => row.original.repo?.full_name.split("/").at(1),
+  columnHelper.accessor("lastCommit", {
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="Last commit" />
+    ),
+    cell: ({ row }) =>
+      row.original.lastCommit ? formatDateOnly(row.original.lastCommit) : "-",
+  }),
+  columnHelper.accessor("commitCount", {
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="Commits" />
+    ),
+    cell: ({ row }) =>
+      row.original.commitCount ? row.original.commitCount : "-",
   }),
   columnHelper.accessor("packages", {
     header: "Packages",
@@ -117,16 +127,16 @@ export function ProjectTable({ projects, total, limit, sort }: Props) {
 
 function StatusIcon({ status }: { status: Project["status"] }) {
   if (status === "active") {
-    return <CircleCheckIcon />;
+    return <CircleCheckIcon className="text-green-500" />;
   }
   if (status === "featured") {
-    return <StarIcon />;
+    return <StarIcon className="text-yellow-500" />;
   }
   if (status === "promoted") {
-    return <ArrowBigUpIcon />;
+    return <ArrowBigUpIcon className="text-blue-500" />;
   }
   if (status === "deprecated") {
-    return <CircleXIcon />;
+    return <CircleXIcon className="text-red-500" />;
   }
   return null;
 }
