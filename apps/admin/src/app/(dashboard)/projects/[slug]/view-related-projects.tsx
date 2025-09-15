@@ -36,7 +36,11 @@ async function SameRepoOtherProjectsSection({ project }: Props) {
         {relatedProjects.length === 0 ? (
           <i>No related projects</i>
         ) : (
-          <ProjectTable projects={relatedProjects} />
+          <ProjectTable
+            projects={relatedProjects}
+            total={relatedProjects.length}
+            limit={relatedProjects.length}
+          />
         )}
       </div>
     </section>
@@ -58,7 +62,11 @@ async function SameOwnerOtherProjectsSection({ project }: Props) {
         {otherProjects.length === 0 ? (
           <i>No other projects from {owner}</i>
         ) : (
-          <ProjectTable projects={otherProjects} />
+          <ProjectTable
+            projects={otherProjects}
+            total={otherProjects.length}
+            limit={otherProjects.length}
+          />
         )}
       </div>
     </section>
@@ -66,21 +74,23 @@ async function SameOwnerOtherProjectsSection({ project }: Props) {
 }
 
 async function findProjectsByOwner(owner: string) {
-  return await findProjects({
+  const { projects } = await findProjects({
     db: projectService.db,
     owner,
-    sort: "-stars",
+    sort: [{ id: "stars", desc: true }],
+    page: 1,
     limit: 0,
-    offset: 0,
   });
+  return projects;
 }
 
 async function findProjectsByFullName(full_name: string) {
-  return await findProjects({
+  const { projects } = await findProjects({
     db: projectService.db,
     full_name,
-    sort: "-stars",
+    sort: [{ id: "stars", desc: true }],
+    page: 1,
     limit: 0,
-    offset: 0,
   });
+  return projects;
 }

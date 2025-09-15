@@ -1,7 +1,7 @@
 import "@/app/globals.css";
-
 import type { Metadata } from "next";
 import { Inter as FontSans } from "next/font/google";
+import { NuqsAdapter } from "nuqs/adapters/next/app";
 
 import { Header } from "@/components/header";
 import { ThemeProvider } from "@/components/theme-provider";
@@ -31,16 +31,18 @@ export default function RootLayout({
           fontSans.variable,
         )}
       >
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-        >
-          <Header />
-          <main className="container py-4">{children}</main>
-          <Toaster />
-        </ThemeProvider>
+        <NuqsAdapter>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
+            <Header />
+            <main className="container py-4">{children}</main>
+            <Toaster />
+          </ThemeProvider>
+        </NuqsAdapter>
       </body>
     </html>
   );
