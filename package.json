@@ -20,6 +20,7 @@
   },
   "devDependencies": {
     "@biomejs/biome": "2.1.1",
+    "dotenv-cli": "catalog:",
     "tsx": "catalog:",
     "turbo": "^2.5.6",
     "typescript": "catalog:"
