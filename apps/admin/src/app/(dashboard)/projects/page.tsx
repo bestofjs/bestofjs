@@ -1,22 +1,13 @@
 import Link from "next/link";
-import type { z } from "zod";
 
 import { db } from "@repo/db";
-import {
-  countProjects,
-  findProjects,
-  type ProjectListOrderByKey,
-} from "@repo/db/projects";
+import { findProjects } from "@repo/db/projects";
 
 import { AddProjectButton } from "@/components/add-project-button";
 import { ProjectTable } from "@/components/project-table";
 import { Badge } from "@/components/ui/badge";
 import { buttonVariants } from "@/components/ui/button";
-
-import { ProjectTablePagination } from "./project-table-pagination";
-import { SearchBox } from "./search-box";
-import { searchSchema } from "./search-schema";
-import { ProjectListSortOptionPicker } from "./sort-option-picker";
+import { searchParamsCache } from "@/lib/search-params";
 
 type PageProps = {
   searchParams: Promise<{
@@ -28,17 +19,16 @@ type PageProps = {
 
 export default async function ProjectsPage(props: PageProps) {
   const searchParams = await props.searchParams;
-  const searchOptions = searchSchema.parse(searchParams);
-  const { limit, offset, sort, tag, text } = searchOptions;
+  const searchOptions = searchParamsCache.parse(searchParams);
+  const { limit, page, sort /*tag, text*/ } = searchOptions;
 
-  const total = await countProjects({ db, tag, text });
-  const projects = await findProjects({
+  const { projects, total } = await findProjects({
     db,
     limit,
-    offset,
-    sort: sort as ProjectListOrderByKey,
-    tag,
-    text,
+    page,
+    sort,
+    /*tag,
+    text,*/
   });
 
   return (
@@ -51,13 +41,15 @@ export default async function ProjectsPage(props: PageProps) {
         <AddProjectButton />
       </div>
 
-      <SearchBox text={text} />
+      {/* <SearchBox text={text} /> */}
 
       {projects.length > 0 ? (
-        <PaginatedProjectTable
+        <ProjectTable
           projects={projects}
-          searchOptions={searchOptions}
           total={total}
+          limit={limit}
+          page={page}
+          sort={sort}
         />
       ) : (
         <div className="flex h-40 flex-col items-center justify-center gap-6 border">
@@ -71,40 +63,5 @@ export default async function ProjectsPage(props: PageProps) {
         </div>
       )}
     </div>
-  );
-}
-
-function PaginatedProjectTable({
-  projects,
-  searchOptions,
-  total,
-}: {
-  projects: Awaited<ReturnType<typeof findProjects>>;
-  searchOptions: z.infer<typeof searchSchema>;
-  total: number;
-}) {
-  const { limit, offset, sort } = searchOptions;
-
-  return (
-    <>
-      <div className="flex w-full justify-between">
-        <ProjectListSortOptionPicker sort={sort as ProjectListOrderByKey} />
-        <ProjectTablePagination
-          offset={offset}
-          limit={limit}
-          sort={sort}
-          total={total}
-        />
-      </div>
-
-      <ProjectTable projects={projects} />
-
-      <ProjectTablePagination
-        offset={offset}
-        limit={limit}
-        sort={sort}
-        total={total}
-      />
-    </>
   );
 }

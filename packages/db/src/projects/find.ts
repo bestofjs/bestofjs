@@ -1,49 +1,50 @@
-import {
-  and,
-  asc,
-  count,
-  desc,
-  eq,
-  ilike,
-  inArray,
-  or,
-  sql,
-} from "drizzle-orm";
+import { and, eq, ilike, inArray, or, sql } from "drizzle-orm";
+import { z } from "zod";
 
 import type { DB } from "../index";
 import * as schema from "../schema";
+import { getSortQuery, getTotalNumberOfRows } from "../utils/queries-utils";
 
 const { projects, tags, packages, projectsToTags, repos } = schema;
 
-export type ProjectListOrderByKey =
-  | "createdAt"
-  | "updatedAt"
-  | "stars"
-  | "-createdAt"
-  | "-updatedAt"
-  | "-stars";
+export const columnIdsSchema = z.enum([
+  "name",
+  "slug",
+  "description",
+  "status",
+  "comments",
+  "createdAt",
+  "stars",
+]);
 
-type Props = {
-  db: DB;
-  limit: number;
-  offset: number;
+type SortableColumnName = z.infer<typeof columnIdsSchema>;
+
+export interface FindProjectsOptions {
+  page?: number;
+  limit?: number;
   owner?: string;
   full_name?: string;
-  sort: ProjectListOrderByKey;
+  sort?: { id: SortableColumnName; desc: boolean }[];
   tag?: string;
   text?: string;
-};
+}
+
+interface Props extends FindProjectsOptions {
+  db: DB;
+}
 
 export async function findProjects({
   db,
-  limit,
-  offset,
+  limit = 100,
+  page = 1,
   full_name,
   owner,
-  sort,
+  sort = [{ id: "createdAt", desc: true }],
   tag,
   text,
 }: Props) {
+  const orderBy = getSortQuery(projects, sort);
+  const offset = (page - 1) * limit;
   const query = db
     .select({
       slug: projects.slug,
@@ -63,13 +64,14 @@ export async function findProjects({
       >`COALESCE(json_agg(distinct ${tags.code}) FILTER (WHERE ${tags.code} IS NOT NULL), '[]')`, // avoid [null], return empty arrays instead
       comments: projects.comments,
       packages: sql<string[]>`json_agg(distinct ${packages.name})`,
+      status: projects.status,
     })
     .from(projects)
     .leftJoin(projectsToTags, eq(projectsToTags.projectId, projects.id))
     .leftJoin(repos, eq(projects.repoId, repos.id))
     .leftJoin(tags, eq(projectsToTags.tagId, tags.id))
     .leftJoin(schema.packages, eq(schema.packages.projectId, projects.id))
-    .orderBy(getOrderBy(sort))
+    .orderBy(...orderBy)
     .offset(offset)
     .groupBy(() => [
       projects.comments,
@@ -86,28 +88,37 @@ export async function findProjects({
       repos.owner_id,
       projectsToTags.projectId,
       packages.projectId,
+      projects.status,
     ]);
 
   if (limit) {
     query.limit(limit);
   }
 
-  if (text) {
-    query.where(getWhereClauseSearchByText(text));
-  }
-  if (tag) {
-    query.where(getWhereClauseSearchByTag(db, tag));
-  }
-  if (owner) {
-    query.where(eq(repos.owner, owner));
-  }
-  if (full_name) {
-    const [owner, name] = full_name.split("/");
-    query.where(and(eq(repos.owner, owner), eq(repos.name, name)));
+  const foundProjects = await query;
+
+  function getWhereClause() {
+    if (text) {
+      return getWhereClauseSearchByText(text);
+    }
+    if (tag) {
+      return getWhereClauseSearchByTag(db, tag);
+    }
+    if (owner) {
+      return eq(repos.owner, owner);
+    }
+    if (full_name) {
+      const [owner, name] = full_name.split("/");
+      return and(eq(repos.owner, owner), eq(repos.name, name));
+    }
+    return undefined;
   }
 
-  const records = await query;
-  return records;
+  const where = getWhereClause();
+
+  const total = await getTotalNumberOfRows(projects, where);
+
+  return { projects: foundProjects, total };
 }
 
 function getWhereClauseSearchByTag(db: DB, tagCode: string) {
@@ -127,38 +138,4 @@ function getWhereClauseSearchByText(text: string) {
     ilike(projects.name, `%${text}%`),
     ilike(projects.description, `%${text}%`),
   );
-}
-
-export async function countProjects({
-  db,
-  tag,
-  text,
-}: Pick<Props, "db" | "tag" | "text">) {
-  const query = db.select({ value: count() }).from(schema.projects);
-  if (text) {
-    query.where(getWhereClauseSearchByText(text));
-  }
-  if (tag) {
-    query.where(getWhereClauseSearchByTag(db, tag));
-  }
-
-  const records = await query;
-  return records?.at(0)?.value || 0;
-}
-
-function getOrderBy(orderByKey: ProjectListOrderByKey) {
-  switch (orderByKey) {
-    case "createdAt":
-      return asc(schema.projects.createdAt);
-    case "-createdAt":
-      return desc(schema.projects.createdAt);
-    case "updatedAt":
-      return asc(schema.projects.updatedAt);
-    case "-updatedAt":
-      return desc(schema.projects.updatedAt);
-    case "stars":
-      return asc(schema.repos.stars);
-    default:
-      return desc(schema.repos.stars);
-  }
 }

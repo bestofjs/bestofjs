@@ -34,7 +34,7 @@ import { getSortingStateParser } from "@/lib/parsers";
 import type { ExtendedColumnSort } from "@/types/data-table";
 
 const PAGE_KEY = "page";
-const PER_PAGE_KEY = "perPage";
+const PER_PAGE_KEY = "limit";
 const SORT_KEY = "sort";
 const ARRAY_SEPARATOR = ",";
 const DEBOUNCE_MS = 300;
@@ -74,8 +74,8 @@ export function useDataTable<TData>(props: UseDataTableProps<TData>) {
     throttleMs = THROTTLE_MS,
     clearOnDefault = false,
     enableAdvancedFilter = false,
-    scroll = false,
-    shallow = true,
+    scroll = true,
+    shallow = false,
     startTransition,
     ...tableProps
   } = props;
@@ -156,6 +156,7 @@ export function useDataTable<TData>(props: UseDataTableProps<TData>) {
 
   const onSortingChange = React.useCallback(
     (updaterOrValue: Updater<SortingState>) => {
+      setPage(1);
       if (typeof updaterOrValue === "function") {
         const newSorting = updaterOrValue(sorting);
         setSorting(newSorting as ExtendedColumnSort<TData>[]);
