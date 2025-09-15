@@ -9,15 +9,11 @@ import {
 import * as z from "zod";
 
 import { PROJECT_STATUSES } from "@repo/db/constants";
-import { columnIdsSchema } from "@repo/db/projects";
+import { findProjectsSortSchema } from "@repo/db/shared-schemas";
 
 // import { flagConfig } from "@/config/flag";
 // import { type Task, tasks } from "@/db/schema";
 import { getFiltersStateParser } from "@/lib/parsers";
-
-const sortSchema = z.array(
-  z.object({ id: columnIdsSchema, desc: z.boolean() }),
-);
 
 export const searchParamsCache = createSearchParamsCache({
   // filterFlag: parseAsStringEnum(
@@ -25,7 +21,9 @@ export const searchParamsCache = createSearchParamsCache({
   // ),
   page: parseAsInteger.withDefault(1),
   limit: parseAsInteger.withDefault(10),
-  sort: parseAsJson(sortSchema).withDefault([{ id: "createdAt", desc: true }]),
+  sort: parseAsJson(findProjectsSortSchema).withDefault([
+    { id: "createdAt", desc: true },
+  ]),
   title: parseAsString.withDefault(""),
   status: parseAsArrayOf(z.enum(PROJECT_STATUSES)).withDefault([]),
   tags: parseAsArrayOf(z.string()).withDefault([]),

@@ -9,8 +9,11 @@ import {
   StarIcon,
 } from "lucide-react";
 import Link from "next/link";
+import { createSerializer, parseAsArrayOf, parseAsJson } from "nuqs";
+import { z } from "zod";
 
 import type { FindProjectsOptions, findProjects } from "@repo/db/projects";
+import { findProjectsSortSchema } from "@repo/db/shared-schemas";
 
 import { DataTable } from "@/components/data-table/data-table";
 import { ProjectLogo } from "@/components/project-logo";
@@ -28,6 +31,15 @@ interface Props extends FindProjectsOptions {
   projects: Project[];
   total: number;
 }
+
+const searchParams = {
+  sort: parseAsJson(findProjectsSortSchema).withDefault([
+    { id: "createdAt", desc: true },
+  ]),
+  tags: parseAsArrayOf(z.string()).withDefault([]),
+};
+
+const serialize = createSerializer(searchParams);
 
 const columnHelper = createColumnHelper<Project>();
 
@@ -48,17 +60,24 @@ const columns = [
 
   columnHelper.accessor("description", {
     header: "Description",
-    cell: ({ row }) => (
+    cell: ({ row: { original: project } }) => (
       <div className="flex flex-col gap-2">
-        {row.original.description}
-        {row.original.repo?.archived && (
+        {project.description}
+        {project.repo?.archived && (
           <div>
             <Badge variant="destructive">Archived</Badge>
           </div>
         )}
+        <div>
+          {project.tags.map((tag) => (
+            <Link key={tag} href={`/projects${serialize({ tags: [tag] })}`}>
+              <Badge variant="outline">{tag}</Badge>
+            </Link>
+          ))}
+        </div>
       </div>
     ),
-    minSize: 300,
+    minSize: 400,
   }),
   columnHelper.accessor("status", {
     header: "Status",
@@ -108,13 +127,15 @@ const columns = [
 ];
 
 export function ProjectTable({ projects, total, limit, sort }: Props) {
+  console.log("sort", sort);
   const { table } = useDataTable<Project>({
     columns,
     data: projects,
     pageCount: Math.ceil(total / (limit ?? 100)),
-    initialState: {
-      sorting: sort,
-    },
+    sorting: sort || [],
+    // initialState: {
+    //   sorting: sort,
+    // },
   });
   return (
     <DataTable table={table}>

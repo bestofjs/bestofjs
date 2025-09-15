@@ -1,37 +1,19 @@
 import { and, eq, ilike, inArray, or, sql } from "drizzle-orm";
-import { z } from "zod";
 
 import type { DB } from "../index";
 import * as schema from "../schema";
-import {
-  getSortQuery,
-  getTotalNumberOfProjects,
-  getTotalNumberOfRows,
-} from "../utils/queries-utils";
+import type { ProjectsSortableColumnName } from "../shared-schemas";
+import { getSortQuery, getTotalNumberOfProjects } from "../utils/queries-utils";
 
 const { projects, tags, packages, projectsToTags, repos } = schema;
-
-export const columnIdsSchema = z.enum([
-  "name",
-  "slug",
-  "description",
-  "status",
-  "comments",
-  "createdAt",
-  "stars",
-  "lastCommit",
-  "commitCount",
-]);
-
-type SortableColumnName = z.infer<typeof columnIdsSchema>;
 
 export interface FindProjectsOptions {
   page?: number;
   limit?: number;
   owner?: string;
   full_name?: string;
-  sort?: { id: SortableColumnName; desc: boolean }[];
-  tag?: string;
+  sort?: { id: ProjectsSortableColumnName; desc: boolean }[];
+  tagCodes?: string[];
   text?: string;
 }
 
@@ -46,11 +28,11 @@ export async function findProjects({
   full_name,
   owner,
   sort = [{ id: "createdAt", desc: true }],
-  tag,
+  tagCodes,
   text,
 }: Props) {
   const orderBy = getSortQuery(projects, sort);
-  console.log("orderBy", sort);
+  console.log("orderBy", sort, tagCodes);
 
   const offset = (page - 1) * limit;
   const query = db
@@ -111,8 +93,8 @@ export async function findProjects({
     if (text) {
       return getWhereClauseSearchByText(text);
     }
-    if (tag) {
-      return getWhereClauseSearchByTag(db, tag);
+    if (tagCodes && tagCodes.length > 0) {
+      return getWhereClauseSearchByTag(db, tagCodes);
     }
     if (owner) {
       return eq(repos.owner, owner);
@@ -135,15 +117,17 @@ export async function findProjects({
   return { projects: foundProjects, total };
 }
 
-function getWhereClauseSearchByTag(db: DB, tagCode: string) {
+/** Select project IDs that have ALL the requested tags */
+function getWhereClauseSearchByTag(db: DB, tagCodes: string[]) {
   return inArray(
     projects.id,
     db
       .select({ id: projectsToTags.projectId })
       .from(projectsToTags)
       .innerJoin(tags, eq(projectsToTags.tagId, tags.id))
-      .where(eq(tags.code, tagCode))
-      .leftJoin(repos, eq(projects.repoId, repos.id)),
+      .where(inArray(tags.code, tagCodes))
+      .groupBy(projectsToTags.projectId)
+      .having(sql`count(distinct ${tags.code}) = ${tagCodes.length}`),
   );
 }
 

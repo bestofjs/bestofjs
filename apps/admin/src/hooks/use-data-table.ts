@@ -60,6 +60,7 @@ interface UseDataTableProps<TData>
   clearOnDefault?: boolean;
   enableAdvancedFilter?: boolean;
   scroll?: boolean;
+  sorting: ExtendedColumnSort<TData>[];
   shallow?: boolean;
   startTransition?: React.TransitionStartFunction;
 }
@@ -76,6 +77,7 @@ export function useDataTable<TData>(props: UseDataTableProps<TData>) {
     enableAdvancedFilter = false,
     scroll = true,
     shallow = false,
+    sorting,
     startTransition,
     ...tableProps
   } = props;
@@ -147,7 +149,7 @@ export function useDataTable<TData>(props: UseDataTableProps<TData>) {
     );
   }, [columns]);
 
-  const [sorting, setSorting] = useQueryState(
+  const [, setSorting] = useQueryState(
     SORT_KEY,
     getSortingStateParser<TData>(columnIds)
       .withOptions(queryStateOptions)

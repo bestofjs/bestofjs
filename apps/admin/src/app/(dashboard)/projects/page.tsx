@@ -20,15 +20,14 @@ type PageProps = {
 export default async function ProjectsPage(props: PageProps) {
   const searchParams = await props.searchParams;
   const searchOptions = searchParamsCache.parse(searchParams);
-  const { limit, page, sort /*tag, text*/ } = searchOptions;
+  const { limit, page, sort, tags: tagCodes } = searchOptions;
 
   const { projects, total } = await findProjects({
     db,
     limit,
     page,
     sort,
-    /*tag,
-    text,*/
+    tagCodes,
   });
 
   return (
