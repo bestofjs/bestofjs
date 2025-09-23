@@ -85,6 +85,10 @@ function ViewRepoData({ repo }: { repo: typeof schema.repos.$inferSelect }) {
       <p>{repo.commit_count}</p>
       <p>Contributors</p>
       <p>{repo.contributor_count}</p>
+      <p>Commit count</p>
+      <p>{repo.commit_count}</p>
+      <p>License</p>
+      <p>{repo.license}</p>
     </div>
   );
 }
