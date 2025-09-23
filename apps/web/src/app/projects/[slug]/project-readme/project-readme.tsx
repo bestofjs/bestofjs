@@ -2,10 +2,16 @@ import { Suspense } from "react";
 import { BookOpenTextIcon } from "lucide-react";
 
 import { createGitHubClient } from "@repo/api/github";
-import type { ProjectDetails } from "@repo/db/projects";
+import {
+  getProjectRepositoryURL,
+  type ProjectDetails,
+} from "@repo/db/projects";
 
 import { ErrorBoundary } from "@/app/error-handling";
+import { ExternalLinkIcon } from "@/components/core";
+import { buttonVariants } from "@/components/ui/button";
 import { Card, CardHeader } from "@/components/ui/card";
+import { cn } from "@/lib/utils";
 
 export async function ReadmeCard({ project }: { project: ProjectDetails }) {
   return (
@@ -22,6 +28,18 @@ export async function ReadmeCard({ project }: { project: ProjectDetails }) {
             <ReadmeContent project={project} />
           </Suspense>
         </ErrorBoundary>
+      </div>
+      <div className="border-t p-4">
+        <a
+          href={getProjectRepositoryURL(project)}
+          className={cn(
+            buttonVariants({ variant: "link" }),
+            "w-full text-md text-secondary-foreground",
+          )}
+        >
+          View {project.name} on GitHub
+          <ExternalLinkIcon size={16} />
+        </a>
       </div>
     </Card>
   );
