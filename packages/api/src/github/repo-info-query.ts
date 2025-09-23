@@ -20,6 +20,9 @@ export const queryRepoInfo = `query getRepoInfo($owner: String!, $name: String!)
 		stargazers{
       totalCount
     }
+    licenseInfo {
+      name
+    }
     repositoryTopics(last: 20) {
       totalCount
       edges {
@@ -65,6 +68,7 @@ export function extractRepoInfo(response: any) {
       stargazers: { totalCount: stargazers_count },
       repositoryTopics: { edges: topicEdges },
       isArchived,
+      licenseInfo,
       defaultBranchRef: {
         name: default_branch,
         target: {
@@ -78,6 +82,7 @@ export function extractRepoInfo(response: any) {
   const last_commit = new Date(commitEdges[0].node.committedDate);
   const owner_id = extractOwnerIdFromAvatarURL(avatarUrl);
   const full_name = `${login}/${name}`;
+  const license = licenseInfo?.name || null;
 
   return {
     name,
@@ -94,6 +99,7 @@ export function extractRepoInfo(response: any) {
     archived: isArchived,
     commit_count,
     last_commit,
+    license,
   };
 }
 

@@ -34,6 +34,7 @@ export const repos = pgTable(
 
     pushed_at: timestamp("pushed_at").notNull(),
     created_at: timestamp("created_at").notNull(),
+    license: text("license"),
 
     // From GitHub GraphQL API
     last_commit: timestamp("last_commit"),
