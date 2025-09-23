@@ -54,6 +54,8 @@
     --input: var(--border);
     --ring: var(--primary);
     --radius: 0.5rem;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 60 9.1% 97.8%;
 
     --link-foreground: var(--orange-11);
     --link-underline: var(--orange-8);
@@ -97,6 +99,8 @@
     --background: var(--sand-1);
     --overlay: rgba(17, 17, 16, 0.8);
     --app-background: var(--sand-1);
+    --destructive: 0 72.2% 50.6%;
+    --destructive-foreground: 60 9.1% 97.8%;
 
     --card: var(--sand-2);
     --border: var(--sand-6);
@@ -121,9 +125,7 @@
   }
   body {
     @apply bg-background text-foreground;
-    font-feature-settings:
-      "rlig" 1,
-      "calt" 1;
+    font-feature-settings: "rlig" 1, "calt" 1;
   }
 }
 
