@@ -94,3 +94,31 @@ export function isProjectIncludedInRankings(
 export function generateProjectDefaultSlug(name: string) {
   return slugify(name).toLowerCase().replaceAll(".", "").replaceAll("'", "");
 }
+
+export function isGPLProject(project: ProjectDetails) {
+  return project.repo.license?.includes("General Public License");
+}
+
+export function getLicenseShortName(license: string | null) {
+  if (!license) {
+    return null;
+  }
+  if (license.includes("Affero General Public License")) {
+    return "AGPL";
+  }
+  if (license.includes("General Public License")) {
+    return "GPL";
+  }
+  return null;
+}
+
+/** Customize the license name provided by GitHub */
+export function getLicenseLongName(license: string | null) {
+  if (!license) {
+    return null;
+  }
+  if (license === "Other") {
+    return "Custom license";
+  }
+  return license;
+}
