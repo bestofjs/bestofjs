@@ -10,8 +10,12 @@ import {
   getProjectCustomLogoURL,
 } from "./project-utils";
 
-type Props = {
-  project: { name: string; owner_id: number } | { name: string; logo: string };
+type BaseProject =
+  | { name: string; owner_id: number }
+  | { name: string; logo: string };
+
+type Props<T extends BaseProject> = {
+  project: T;
   size?: number;
   className?: string;
 };
@@ -20,7 +24,11 @@ type Props = {
  * - the GitHub owner avatar (by default if no `logo` property is specified)
  * - A custom SVG file if project's `logo` property is specified.
  */
-export const ProjectLogo = ({ project, size = 100, className }: Props) => {
+export function ProjectLogo<T extends BaseProject>({
+  project,
+  size = 100,
+  className,
+}: Props<T>) {
   if ("logo" in project && project.logo) {
     return (
       <ProjectCustomLogo
@@ -43,7 +51,7 @@ export const ProjectLogo = ({ project, size = 100, className }: Props) => {
     );
   }
   return null;
-};
+}
 
 type BaseProps = {
   name: string;
