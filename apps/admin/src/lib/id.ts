@@ -1,14 +1,12 @@
 import { customAlphabet } from "nanoid";
 
-const prefixes: Record<string, unknown> = {};
-
 interface GenerateIdOptions {
   length?: number;
   separator?: string;
 }
 
 export function generateId(
-  prefixOrOptions?: keyof typeof prefixes | GenerateIdOptions,
+  prefixOrOptions?: GenerateIdOptions,
   inputOptions: GenerateIdOptions = {},
 ) {
   const finalOptions =
@@ -23,5 +21,5 @@ export function generateId(
     length,
   )();
 
-  return prefix ? `${prefixes[prefix]}${separator}${id}` : id;
+  return prefix ? `${prefix}${separator}${id}` : id;
 }
