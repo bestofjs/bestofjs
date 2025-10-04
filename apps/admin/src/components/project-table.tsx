@@ -9,8 +9,12 @@ import {
   StarIcon,
 } from "lucide-react";
 import Link from "next/link";
-import { createSerializer, parseAsArrayOf, parseAsJson } from "nuqs";
-import { z } from "zod";
+import {
+  createSerializer,
+  parseAsArrayOf,
+  parseAsJson,
+  parseAsString,
+} from "nuqs";
 
 import { PROJECT_STATUSES } from "@repo/db/constants";
 import type {
@@ -43,7 +47,7 @@ const searchParams = {
   sort: parseAsJson(findProjectsSortSchema).withDefault([
     { id: "createdAt", desc: true },
   ]),
-  tags: parseAsArrayOf(z.string()).withDefault([]),
+  tags: parseAsArrayOf(parseAsString).withDefault([]),
 };
 
 const serialize = createSerializer(searchParams);

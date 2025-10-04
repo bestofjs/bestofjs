@@ -6,7 +6,6 @@ import {
   parseAsString,
   parseAsStringEnum,
 } from "nuqs/server";
-import * as z from "zod";
 
 /** Raw search params in Next.js page.tsx props */
 export interface PageSearchParams {
@@ -31,9 +30,11 @@ export const searchParamsCache = createSearchParamsCache({
   ]),
   name: parseAsString.withDefault(""),
   title: parseAsString.withDefault(""),
-  status: parseAsArrayOf(z.enum(PROJECT_STATUSES)).withDefault([]),
-  tags: parseAsArrayOf(z.string()).withDefault([]),
-  createdAt: parseAsArrayOf(z.coerce.number()).withDefault([]),
+  status: parseAsArrayOf(
+    parseAsStringEnum(PROJECT_STATUSES.slice()),
+  ).withDefault([]),
+  tags: parseAsArrayOf(parseAsString).withDefault([]),
+  createdAt: parseAsArrayOf(parseAsInteger).withDefault([]),
   // advanced filter
   filters: getFiltersStateParser().withDefault([]),
   joinOperator: parseAsStringEnum(["and", "or"]).withDefault("and"),
