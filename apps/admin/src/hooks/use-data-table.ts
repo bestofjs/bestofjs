@@ -156,18 +156,15 @@ export function useDataTable<TData>(props: UseDataTableProps<TData>) {
       .withDefault(initialState?.sorting ?? []),
   );
 
-  const onSortingChange = React.useCallback(
-    (updaterOrValue: Updater<SortingState>) => {
-      setPage(1);
-      if (typeof updaterOrValue === "function") {
-        const newSorting = updaterOrValue(sorting);
-        setSorting(newSorting as ExtendedColumnSort<TData>[]);
-      } else {
-        setSorting(updaterOrValue as ExtendedColumnSort<TData>[]);
-      }
-    },
-    [sorting, setSorting],
-  );
+  const onSortingChange = (updaterOrValue: Updater<SortingState>) => {
+    setPage(1);
+    if (typeof updaterOrValue === "function") {
+      const newSorting = updaterOrValue(sorting);
+      setSorting(newSorting as ExtendedColumnSort<TData>[]);
+    } else {
+      setSorting(updaterOrValue as ExtendedColumnSort<TData>[]);
+    }
+  };
 
   const filterableColumns = React.useMemo(() => {
     if (enableAdvancedFilter) return [];

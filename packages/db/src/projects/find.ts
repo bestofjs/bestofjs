@@ -34,8 +34,6 @@ export async function findProjects({
   tagCodes,
 }: Props) {
   const orderBy = getSortQuery(projects, sort);
-  console.log("orderBy", sort, tagCodes, name, status);
-
   const offset = (page - 1) * limit;
   const query = db
     .select({

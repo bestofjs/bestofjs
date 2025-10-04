@@ -414,7 +414,7 @@ function DataTableFilterItem<TData>({
               <SelectContent
                 id={joinOperatorListboxId}
                 position="popper"
-                className="min-w-(--radix-select-trigger-width) lowercase"
+                className="min-w-[var(--radix-select-trigger-width)] lowercase"
               >
                 {dataTableConfig.joinOperators.map((joinOperator) => (
                   <SelectItem key={joinOperator} value={joinOperator}>
