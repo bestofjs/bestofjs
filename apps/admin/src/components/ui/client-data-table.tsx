@@ -24,17 +24,17 @@ import {
   TableRow,
 } from "@/components/ui/table";
 
-interface DataTableProps<TData, TValue> {
-  columns: ColumnDef<TData, TValue>[];
+interface DataTableProps<TData> {
+  columns: ColumnDef<TData>[];
   data: TData[];
   getRowId: (row: TData) => string;
 }
 
-export function DataTable<TData, TValue>({
+export function ClientDataTable<TData>({
   columns,
   getRowId,
   data,
-}: DataTableProps<TData, TValue>) {
+}: DataTableProps<TData>) {
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
 
@@ -85,14 +85,12 @@ export function DataTable<TData, TValue>({
                 {headerGroup.headers.map((header) => {
                   return (
                     <TableHead key={header.id}>
-                      {
-                        header.isPlaceholder
-                          ? null
-                          : (flexRender(
-                              header.column.columnDef.header,
-                              header.getContext(),
-                            ) as React.ReactNode) // TODO: fix typing, error introduced when upgrading to React 19
-                      }
+                      {header.isPlaceholder
+                        ? null
+                        : flexRender(
+                            header.column.columnDef.header,
+                            header.getContext(),
+                          )}
                     </TableHead>
                   );
                 })}
@@ -109,12 +107,10 @@ export function DataTable<TData, TValue>({
                   >
                     {row.getVisibleCells().map((cell) => (
                       <TableCell key={cell.id}>
-                        {
-                          flexRender(
-                            cell.column.columnDef.cell,
-                            cell.getContext(),
-                          ) as React.ReactNode // TODO: fix typing, error introduced when upgrading to React 19
-                        }
+                        {flexRender(
+                          cell.column.columnDef.cell,
+                          cell.getContext(),
+                        )}
                       </TableCell>
                     ))}
                   </TableRow>

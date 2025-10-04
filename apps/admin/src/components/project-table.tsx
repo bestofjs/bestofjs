@@ -1,97 +1,206 @@
-import Link from "next/link";
+"use client";
 
-import type { findProjects } from "@repo/db/projects";
-
-import { ProjectLogo } from "@/components/project-logo";
-import { Badge, badgeVariants } from "@/components/ui/badge";
+import { createColumnHelper } from "@tanstack/react-table";
+import { format } from "date-fns";
 import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
-import { formatStars } from "@/lib/format-helpers";
+  ArrowBigUpIcon,
+  CircleCheckIcon,
+  CircleXIcon,
+  StarIcon,
+} from "lucide-react";
+import Link from "next/link";
+import {
+  createSerializer,
+  parseAsArrayOf,
+  parseAsJson,
+  parseAsString,
+} from "nuqs";
 
-type Props = {
-  projects: Awaited<ReturnType<typeof findProjects>>;
+import { PROJECT_STATUSES } from "@repo/db/constants";
+import type {
+  FindProjectsOptions,
+  findProjects,
+  ProjectDetails,
+} from "@repo/db/projects";
+import { findProjectsSortSchema } from "@repo/db/shared-schemas";
+
+import { DataTable } from "@/components/data-table/data-table";
+import { ProjectLogo } from "@/components/project-logo";
+import { Badge } from "@/components/ui/badge";
+import { useDataTable } from "@/hooks/use-data-table";
+import { formatDateOnly, formatStars } from "@/lib/format-helpers";
+
+import { DataTableColumnHeader } from "./data-table/data-table-column-header";
+import { DataTableFilterList } from "./data-table/data-table-filter-list";
+import { DataTableSortList } from "./data-table/data-table-sort-list";
+import { DataTableToolbar } from "./data-table/data-table-toolbar";
+
+type Project = Awaited<ReturnType<typeof findProjects>>["projects"][number];
+
+interface Props extends FindProjectsOptions {
+  projects: Project[];
+  allTags?: ProjectDetails["tags"];
+  total: number;
+}
+
+const searchParams = {
+  sort: parseAsJson(findProjectsSortSchema).withDefault([
+    { id: "createdAt", desc: true },
+  ]),
+  tags: parseAsArrayOf(parseAsString).withDefault([]),
 };
 
-export function ProjectTable({ projects }: Props) {
+const serialize = createSerializer(searchParams);
+
+const columnHelper = createColumnHelper<Project>();
+
+export function ProjectTable({ allTags, projects, total, limit, sort }: Props) {
+  const columns = [
+    columnHelper.accessor("logo", {
+      header: () => null,
+      cell: ({ row }) => <ProjectLogo project={row.original} size={50} />,
+      enableSorting: false,
+      size: 50,
+      maxSize: 50,
+    }),
+    columnHelper.accessor("name", {
+      id: "name",
+      header: "Name",
+      cell: ({ row }) => (
+        <Link href={`/projects/${row.original.slug}`}>{row.original.name}</Link>
+      ),
+      enableColumnFilter: true,
+      meta: {
+        label: "Name",
+        variant: "text",
+      },
+    }),
+
+    columnHelper.accessor("description", {
+      id: "tags",
+      header: "Description",
+      cell: ({ row: { original: project } }) => (
+        <div className="flex flex-col gap-2">
+          {project.description}
+          {project.repo?.archived && (
+            <div>
+              <Badge variant="destructive">Archived</Badge>
+            </div>
+          )}
+          <div>
+            {project.tags.map((tag) => (
+              <Link key={tag} href={`/projects${serialize({ tags: [tag] })}`}>
+                <Badge variant="outline">{tag}</Badge>
+              </Link>
+            ))}
+          </div>
+        </div>
+      ),
+      minSize: 400,
+      enableColumnFilter: true,
+      meta: {
+        label: "Tags",
+        variant: "multiSelect",
+        options: (allTags || []).map((tag) => ({
+          label: tag.name,
+          value: tag.code,
+        })),
+      },
+    }),
+    columnHelper.accessor("status", {
+      id: "status",
+      header: "Status",
+      cell: ({ row }) => <StatusIcon status={row.original.status} />,
+      enableColumnFilter: true,
+      meta: {
+        label: "Status",
+        variant: "multiSelect",
+        options: PROJECT_STATUSES.map((status) => ({
+          label: status,
+          value: status,
+        })),
+      },
+    }),
+    columnHelper.accessor("stars", {
+      id: "stars",
+      header: ({ column }) => (
+        <DataTableColumnHeader column={column} title="Stars" />
+      ),
+      cell: ({ getValue }) => formatStars(getValue()),
+      // enableColumnFilter: true,
+      // meta: {
+      //   label: "Stars",
+      //   variant: "range",
+      // },
+    }),
+    columnHelper.accessor("lastCommit", {
+      header: ({ column }) => (
+        <DataTableColumnHeader column={column} title="Last commit" />
+      ),
+      cell: ({ row }) =>
+        row.original.lastCommit ? formatDateOnly(row.original.lastCommit) : "-",
+    }),
+    columnHelper.accessor("commitCount", {
+      header: ({ column }) => (
+        <DataTableColumnHeader column={column} title="Commits" />
+      ),
+      cell: ({ row }) =>
+        row.original.commitCount ? row.original.commitCount : "-",
+    }),
+    columnHelper.accessor("packages", {
+      header: "Packages",
+      cell: ({ row: { original: project } }) => {
+        return project.packages.filter(Boolean).length > 0 ? (
+          <div className="flex flex-col gap-4">
+            {project.packages.map((pkg) => (
+              <div key={pkg}>{pkg}</div>
+            ))}
+          </div>
+        ) : (
+          <span className="text-muted-foreground italic">No package</span>
+        );
+      },
+    }),
+
+    columnHelper.accessor("createdAt", {
+      header: ({ column }) => (
+        <DataTableColumnHeader column={column} title="Added at" />
+      ),
+      cell: ({ getValue }) => format(getValue(), "yyyy-MM-dd"),
+    }),
+  ];
+
+  const { table } = useDataTable<Project>({
+    columns,
+    data: projects,
+    pageCount: Math.ceil(total / (limit ?? 100)),
+    sorting: sort || [],
+    // initialState: {
+    //   sorting: sort,
+    // },
+  });
   return (
-    <Table>
-      <TableHeader>
-        <TableRow>
-          <TableHead className="w-[100px]">Logo</TableHead>
-          <TableHead>Name</TableHead>
-          <TableHead>Added at</TableHead>
-          <TableHead>GitHub</TableHead>
-          <TableHead>Packages</TableHead>
-          <TableHead className="text-right">Stars</TableHead>
-        </TableRow>
-      </TableHeader>
-      <TableBody>
-        {projects.map((project) => (
-          <TableRow key={project.slug}>
-            <TableCell>
-              <ProjectLogo project={project} size={50} />
-            </TableCell>
-            <TableCell>
-              <div className="flex flex-col gap-4">
-                <Link
-                  href={`/projects/${project.slug}`}
-                  className="hover:underline"
-                >
-                  {project.name}
-                </Link>
-                <span className="text-muted-foreground">
-                  {project.description}
-                </span>
-                {project.comments && <div>{project.comments}</div>}
-                <div className="flex flex-wrap gap-2">
-                  {project.tags.map((tag) => (
-                    <a
-                      href={`/projects/?tag=${tag}`}
-                      className={badgeVariants({ variant: "secondary" })}
-                      key={tag}
-                    >
-                      {tag}
-                    </a>
-                  ))}
-                </div>
-              </div>
-            </TableCell>
-            <TableCell>
-              {project.createdAt.toISOString().slice(0, 10)}
-            </TableCell>
-            <TableCell>
-              <div className="flex flex-col gap-4">
-                {project.repo?.full_name || "No repo"}
-                {project.repo?.archived && (
-                  <div>
-                    <Badge variant="destructive">Archived</Badge>
-                  </div>
-                )}
-              </div>
-            </TableCell>
-            <TableCell>
-              {project.packages.filter(Boolean).length > 0 ? (
-                <div className="flex flex-col gap-4">
-                  {project.packages.map((pkg) => (
-                    <div key={pkg}>{pkg}</div>
-                  ))}
-                </div>
-              ) : (
-                <span className="text-muted-foreground italic">No package</span>
-              )}
-            </TableCell>
-            <TableCell className="text-right">
-              {formatStars(project.stars)}
-            </TableCell>
-          </TableRow>
-        ))}
-      </TableBody>
-    </Table>
+    <DataTable table={table}>
+      <DataTableToolbar table={table}>
+        <DataTableFilterList table={table} />
+        <DataTableSortList table={table} />
+      </DataTableToolbar>
+    </DataTable>
   );
+}
+
+function StatusIcon({ status }: { status: Project["status"] }) {
+  if (status === "active") {
+    return <CircleCheckIcon className="text-green-500" />;
+  }
+  if (status === "featured") {
+    return <StarIcon className="text-yellow-500" />;
+  }
+  if (status === "promoted") {
+    return <ArrowBigUpIcon className="text-blue-500" />;
+  }
+  if (status === "deprecated") {
+    return <CircleXIcon className="text-red-500" />;
+  }
+  return null;
 }

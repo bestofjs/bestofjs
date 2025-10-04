@@ -1,44 +1,30 @@
-import Link from "next/link";
-import type { z } from "zod";
-
 import { db } from "@repo/db";
-import {
-  countProjects,
-  findProjects,
-  type ProjectListOrderByKey,
-} from "@repo/db/projects";
+import { findProjects, getAllTags } from "@repo/db/projects";
 
 import { AddProjectButton } from "@/components/add-project-button";
 import { ProjectTable } from "@/components/project-table";
 import { Badge } from "@/components/ui/badge";
-import { buttonVariants } from "@/components/ui/button";
+import {
+  type PageSearchParams,
+  searchParamsCache,
+} from "@/lib/projects-search-params";
 
-import { ProjectTablePagination } from "./project-table-pagination";
-import { SearchBox } from "./search-box";
-import { searchSchema } from "./search-schema";
-import { ProjectListSortOptionPicker } from "./sort-option-picker";
-
-type PageProps = {
-  searchParams: Promise<{
-    limit?: string;
-    page?: string;
-    sort?: string;
-  }>;
-};
+type PageProps = { searchParams: Promise<PageSearchParams> };
 
 export default async function ProjectsPage(props: PageProps) {
   const searchParams = await props.searchParams;
-  const searchOptions = searchSchema.parse(searchParams);
-  const { limit, offset, sort, tag, text } = searchOptions;
+  const allTags = await getAllTags();
+  const searchOptions = searchParamsCache.parse(searchParams);
+  const { limit, page, sort, tags: tagCodes, name, status } = searchOptions;
 
-  const total = await countProjects({ db, tag, text });
-  const projects = await findProjects({
+  const { projects, total } = await findProjects({
     db,
     limit,
-    offset,
-    sort: sort as ProjectListOrderByKey,
-    tag,
-    text,
+    name,
+    page,
+    sort,
+    tagCodes,
+    status,
   });
 
   return (
@@ -51,60 +37,24 @@ export default async function ProjectsPage(props: PageProps) {
         <AddProjectButton />
       </div>
 
-      <SearchBox text={text} />
-
-      {projects.length > 0 ? (
-        <PaginatedProjectTable
-          projects={projects}
-          searchOptions={searchOptions}
-          total={total}
-        />
-      ) : (
-        <div className="flex h-40 flex-col items-center justify-center gap-6 border">
-          No projects found
-          <Link
-            href="/projects"
-            className={buttonVariants({ variant: "secondary" })}
-          >
-            Reset
-          </Link>
-        </div>
-      )}
+      <ProjectTable
+        allTags={allTags}
+        projects={projects}
+        total={total}
+        limit={limit}
+        page={page}
+        sort={sort}
+      />
     </div>
   );
 }
 
-function PaginatedProjectTable({
-  projects,
-  searchOptions,
-  total,
-}: {
-  projects: Awaited<ReturnType<typeof findProjects>>;
-  searchOptions: z.infer<typeof searchSchema>;
-  total: number;
-}) {
-  const { limit, offset, sort } = searchOptions;
-
-  return (
-    <>
-      <div className="flex w-full justify-between">
-        <ProjectListSortOptionPicker sort={sort as ProjectListOrderByKey} />
-        <ProjectTablePagination
-          offset={offset}
-          limit={limit}
-          sort={sort}
-          total={total}
-        />
-      </div>
-
-      <ProjectTable projects={projects} />
-
-      <ProjectTablePagination
-        offset={offset}
-        limit={limit}
-        sort={sort}
-        total={total}
-      />
-    </>
-  );
-}
+// function SearchFilters({ tags }: { tags: string[] }) {
+//   return (
+//     <div>
+//       {tags.map((tag) => (
+//         <Badge key={tag}>{tag}</Badge>
+//       ))}
+//     </div>
+//   );
+// }

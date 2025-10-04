@@ -18,6 +18,7 @@
     "./schema": "./src/schema.ts",
     "./constants": "./src/constants.ts",
     "./projects": "./src/projects/index.ts",
+    "./shared-schemas": "./src/shared-schemas.ts",
     "./snapshots": "./src/snapshots/index.ts",
     "./tags": "./src/tags/index.ts",
     "./hall-of-fame": "./src/hall-of-fame.ts",
