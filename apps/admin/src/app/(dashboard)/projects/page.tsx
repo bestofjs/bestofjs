@@ -1,33 +1,30 @@
-import Link from "next/link";
-
 import { db } from "@repo/db";
-import { findProjects } from "@repo/db/projects";
+import { findProjects, getAllTags } from "@repo/db/projects";
 
 import { AddProjectButton } from "@/components/add-project-button";
 import { ProjectTable } from "@/components/project-table";
 import { Badge } from "@/components/ui/badge";
-import { buttonVariants } from "@/components/ui/button";
-import { searchParamsCache } from "@/lib/search-params";
+import {
+  type PageSearchParams,
+  searchParamsCache,
+} from "@/lib/projects-search-params";
 
-type PageProps = {
-  searchParams: Promise<{
-    limit?: string;
-    page?: string;
-    sort?: string;
-  }>;
-};
+type PageProps = { searchParams: Promise<PageSearchParams> };
 
 export default async function ProjectsPage(props: PageProps) {
   const searchParams = await props.searchParams;
+  const allTags = await getAllTags();
   const searchOptions = searchParamsCache.parse(searchParams);
-  const { limit, page, sort, tags: tagCodes } = searchOptions;
+  const { limit, page, sort, tags: tagCodes, name, status } = searchOptions;
 
   const { projects, total } = await findProjects({
     db,
     limit,
+    name,
     page,
     sort,
     tagCodes,
+    status,
   });
 
   return (
@@ -40,27 +37,24 @@ export default async function ProjectsPage(props: PageProps) {
         <AddProjectButton />
       </div>
 
-      {/* <SearchBox text={text} /> */}
-
-      {projects.length > 0 ? (
-        <ProjectTable
-          projects={projects}
-          total={total}
-          limit={limit}
-          page={page}
-          sort={sort}
-        />
-      ) : (
-        <div className="flex h-40 flex-col items-center justify-center gap-6 border">
-          No projects found
-          <Link
-            href="/projects"
-            className={buttonVariants({ variant: "secondary" })}
-          >
-            Reset
-          </Link>
-        </div>
-      )}
+      <ProjectTable
+        allTags={allTags}
+        projects={projects}
+        total={total}
+        limit={limit}
+        page={page}
+        sort={sort}
+      />
     </div>
   );
 }
+
+// function SearchFilters({ tags }: { tags: string[] }) {
+//   return (
+//     <div>
+//       {tags.map((tag) => (
+//         <Badge key={tag}>{tag}</Badge>
+//       ))}
+//     </div>
+//   );
+// }

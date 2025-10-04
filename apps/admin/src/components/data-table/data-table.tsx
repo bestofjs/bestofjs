@@ -25,6 +25,8 @@ export function DataTable<TData>({
   className,
   ...props
 }: DataTableProps<TData>) {
+  const rows = table.getRowModel().rows;
+
   return (
     <div
       className={cn("flex w-full flex-col gap-2.5 overflow-auto", className)}
@@ -56,7 +58,7 @@ export function DataTable<TData>({
             ))}
           </TableHeader>
           <TableBody>
-            {table.getRowModel().rows?.length ? (
+            {rows.length ? (
               table.getRowModel().rows.map((row) => (
                 <TableRow
                   key={row.id}
@@ -90,12 +92,14 @@ export function DataTable<TData>({
           </TableBody>
         </Table>
       </div>
-      <div className="flex flex-col gap-2.5">
-        <DataTablePagination table={table} />
-        {actionBar &&
-          table.getFilteredSelectedRowModel().rows.length > 0 &&
-          actionBar}
-      </div>
+      {rows.length > 0 && (
+        <div className="flex flex-col gap-2.5">
+          <DataTablePagination table={table} />
+          {actionBar &&
+            table.getFilteredSelectedRowModel().rows.length > 0 &&
+            actionBar}
+        </div>
+      )}
     </div>
   );
 }

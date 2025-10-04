@@ -133,15 +133,17 @@ export function DataTableSliderFilter<TData>({
       <PopoverTrigger asChild>
         <Button variant="outline" size="sm" className="border-dashed">
           {columnFilterValue ? (
-            <Button
+            // biome-ignore lint/a11y/useKeyWithClickEvents: this ia button nested in a button!
+            // biome-ignore lint/a11y/useSemanticElements: button inside a button!
+            <div
               aria-label={`Clear ${title} filter`}
               tabIndex={0}
               className="rounded-sm opacity-70 transition-opacity hover:opacity-100 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
               onClick={onReset}
-              size="icon"
+              role="button"
             >
               <XCircle />
-            </Button>
+            </div>
           ) : (
             <PlusCircle />
           )}

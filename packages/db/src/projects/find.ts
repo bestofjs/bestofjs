@@ -1,5 +1,6 @@
 import { and, eq, ilike, inArray, or, sql } from "drizzle-orm";
 
+import type { PROJECT_STATUSES } from "../constants";
 import type { DB } from "../index";
 import * as schema from "../schema";
 import type { ProjectsSortableColumnName } from "../shared-schemas";
@@ -11,12 +12,12 @@ export interface FindProjectsOptions {
   page?: number;
   limit?: number;
   owner?: string;
+  name?: string;
   full_name?: string;
   sort?: { id: ProjectsSortableColumnName; desc: boolean }[];
+  status?: string[];
   tagCodes?: string[];
-  text?: string;
 }
-
 interface Props extends FindProjectsOptions {
   db: DB;
 }
@@ -27,12 +28,13 @@ export async function findProjects({
   page = 1,
   full_name,
   owner,
+  name,
   sort = [{ id: "createdAt", desc: true }],
+  status,
   tagCodes,
-  text,
 }: Props) {
   const orderBy = getSortQuery(projects, sort);
-  console.log("orderBy", sort, tagCodes);
+  console.log("orderBy", sort, tagCodes, name, status);
 
   const offset = (page - 1) * limit;
   const query = db
@@ -90,20 +92,20 @@ export async function findProjects({
   }
 
   function getWhereClause() {
-    if (text) {
-      return getWhereClauseSearchByText(text);
-    }
-    if (tagCodes && tagCodes.length > 0) {
-      return getWhereClauseSearchByTag(db, tagCodes);
-    }
-    if (owner) {
-      return eq(repos.owner, owner);
-    }
-    if (full_name) {
-      const [owner, name] = full_name.split("/");
-      return and(eq(repos.owner, owner), eq(repos.name, name));
-    }
-    return undefined;
+    return and(
+      name ? getWhereClauseSearchByText(name) : undefined,
+      tagCodes && tagCodes.length > 0
+        ? getWhereClauseSearchByTag(db, tagCodes)
+        : undefined,
+      owner ? eq(repos.owner, owner) : undefined,
+      full_name ? getWhereClauseSearchByFullName(full_name) : undefined,
+      status && status.length > 0
+        ? inArray(
+            projects.status,
+            status as (typeof PROJECT_STATUSES)[number][],
+          )
+        : undefined,
+    );
   }
 
   const where = getWhereClause();
@@ -136,4 +138,9 @@ function getWhereClauseSearchByText(text: string) {
     ilike(projects.name, `%${text}%`),
     ilike(projects.description, `%${text}%`),
   );
+}
+
+function getWhereClauseSearchByFullName(full_name: string) {
+  const [owner, name] = full_name.split("/");
+  return and(eq(repos.owner, owner), eq(repos.name, name));
 }

@@ -8,6 +8,11 @@ import {
 } from "nuqs/server";
 import * as z from "zod";
 
+/** Raw search params in Next.js page.tsx props */
+export interface PageSearchParams {
+  [key: string]: string | string[] | undefined;
+}
+
 import { PROJECT_STATUSES } from "@repo/db/constants";
 import { findProjectsSortSchema } from "@repo/db/shared-schemas";
 
@@ -24,6 +29,7 @@ export const searchParamsCache = createSearchParamsCache({
   sort: parseAsJson(findProjectsSortSchema).withDefault([
     { id: "createdAt", desc: true },
   ]),
+  name: parseAsString.withDefault(""),
   title: parseAsString.withDefault(""),
   status: parseAsArrayOf(z.enum(PROJECT_STATUSES)).withDefault([]),
   tags: parseAsArrayOf(z.string()).withDefault([]),
