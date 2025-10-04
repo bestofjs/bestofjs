@@ -1,13 +1,16 @@
 import type React from "react";
 
 import {
+  getLicenseShortName,
   getProjectDescription,
   getProjectURL,
+  isGPLProject,
   type ProjectDetails,
 } from "@repo/db/projects";
 
 import { GitHubIcon, HomeIcon, NpmIcon, ProjectLogo } from "@/components/core";
 import { ProjectTagGroup } from "@/components/tags/project-tag";
+import { Badge } from "@/components/ui/badge";
 import { buttonVariants } from "@/components/ui/button";
 import { formatUrl } from "@/helpers/url";
 import { cn } from "@/lib/utils";
@@ -27,15 +30,24 @@ export function ProjectHeader({ project }: Props) {
         <div className="pr-4">
           <ProjectLogo
             project={{
-              logo: project.logo || "",
               name: project.name,
               owner_id: project.repo.owner_id,
+              logo: project.logo,
             }}
             size={75}
           />
         </div>
-        <div className="flex flex-col space-y-4 pl-4">
-          <h2 className="font-serif text-4xl">{project.name}</h2>
+        <div className="flex flex-col space-y-4 px-4">
+          <div className="flex flex-col items-center justify-between sm:flex-row">
+            <h2 className="font-serif text-4xl">{project.name}</h2>
+            {isGPLProject(project) && (
+              <div>
+                <Badge variant="destructive" className="text-base">
+                  {getLicenseShortName(project.repo.license)}
+                </Badge>
+              </div>
+            )}
+          </div>
           <div>{getProjectDescription(project)}</div>
           <div>
             <ProjectTagGroup tags={project.tags} />

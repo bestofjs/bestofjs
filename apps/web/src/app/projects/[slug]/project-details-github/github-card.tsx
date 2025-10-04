@@ -1,8 +1,15 @@
-import { GitCommitHorizontalIcon, UsersIcon } from "lucide-react";
+import {
+  GitCommitHorizontalIcon,
+  ScaleIcon,
+  TriangleAlertIcon,
+  UsersIcon,
+} from "lucide-react";
 
 import {
+  getLicenseLongName,
   getProjectMonthlyTrends,
   getProjectTrends,
+  isGPLProject,
   type OneYearSnapshots,
   type ProjectDetails,
 } from "@repo/db/projects";
@@ -67,6 +74,7 @@ const GitHubData = ({ project }: { project: ProjectDetails }) => {
       created_at,
       full_name,
       last_commit,
+      license,
     },
   } = project;
   const url = `https://github.com/${full_name}`;
@@ -103,6 +111,13 @@ const GitHubData = ({ project }: { project: ProjectDetails }) => {
             <GitCommitHorizontalIcon className="icon size-5" />
             {formatNumber(commit_count, "compact")} commits
           </>
+        )}
+      </div>
+      <div className="flex items-center gap-2">
+        <ScaleIcon className="icon size-5" />
+        {getLicenseLongName(license) ?? <i>No license</i>}
+        {isGPLProject(project) && (
+          <TriangleAlertIcon className="icon size-6 text-destructive" />
         )}
       </div>
     </div>
