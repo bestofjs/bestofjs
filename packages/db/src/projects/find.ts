@@ -9,6 +9,7 @@ import { getSortQuery, getTotalNumberOfProjects } from "../utils/queries-utils";
 const { projects, tags, packages, projectsToTags, repos } = schema;
 
 export interface FindProjectsOptions {
+  archived?: boolean;
   page?: number;
   limit?: number;
   owner?: string;
@@ -24,6 +25,7 @@ interface Props extends FindProjectsOptions {
 
 export async function findProjects({
   db,
+  archived,
   limit = 100,
   page = 1,
   full_name,
@@ -91,6 +93,7 @@ export async function findProjects({
 
   function getWhereClause() {
     return and(
+      archived ? eq(repos.archived, archived) : undefined,
       name ? getWhereClauseSearchByText(name) : undefined,
       tagCodes && tagCodes.length > 0
         ? getWhereClauseSearchByTag(db, tagCodes)

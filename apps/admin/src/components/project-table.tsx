@@ -3,6 +3,7 @@
 import { createColumnHelper } from "@tanstack/react-table";
 import { format } from "date-fns";
 import {
+  ArchiveIcon,
   ArrowBigUpIcon,
   CircleCheckIcon,
   CircleXIcon,
@@ -82,11 +83,6 @@ export function ProjectTable({ allTags, projects, total, limit, sort }: Props) {
       cell: ({ row: { original: project } }) => (
         <div className="flex flex-col gap-2">
           {project.description}
-          {project.repo?.archived && (
-            <div>
-              <Badge variant="destructive">Archived</Badge>
-            </div>
-          )}
           <div>
             {project.tags.map((tag) => (
               <Link key={tag} href={`/projects${serialize({ tags: [tag] })}`}>
@@ -132,6 +128,19 @@ export function ProjectTable({ allTags, projects, total, limit, sort }: Props) {
       //   label: "Stars",
       //   variant: "range",
       // },
+    }),
+    columnHelper.accessor((row) => row.repo?.archived, {
+      id: "archived",
+      header: ({ column }) => (
+        <DataTableColumnHeader column={column} title="Archived" />
+      ),
+      cell: ({ getValue }) =>
+        getValue() ? <ArchiveIcon className="text-red-500" /> : null,
+      enableColumnFilter: true,
+      meta: {
+        label: "Archived",
+        variant: "boolean",
+      },
     }),
     columnHelper.accessor("lastCommit", {
       header: ({ column }) => (

@@ -1,6 +1,7 @@
 import {
   createSearchParamsCache,
   parseAsArrayOf,
+  parseAsBoolean,
   parseAsInteger,
   parseAsJson,
   parseAsString,
@@ -23,6 +24,7 @@ export const searchParamsCache = createSearchParamsCache({
   // filterFlag: parseAsStringEnum(
   //   flagConfig.featureFlags.map((flag) => flag.value),
   // ),
+  archived: parseAsBoolean.withDefault(false),
   page: parseAsInteger.withDefault(1),
   limit: parseAsInteger.withDefault(10),
   sort: parseAsJson(findProjectsSortSchema).withDefault([
