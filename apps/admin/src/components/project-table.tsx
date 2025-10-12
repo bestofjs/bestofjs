@@ -10,12 +10,6 @@ import {
   StarIcon,
 } from "lucide-react";
 import Link from "next/link";
-import {
-  createSerializer,
-  parseAsArrayOf,
-  parseAsJson,
-  parseAsString,
-} from "nuqs";
 
 import { PROJECT_STATUSES } from "@repo/db/constants";
 import type {
@@ -23,7 +17,6 @@ import type {
   findProjects,
   ProjectDetails,
 } from "@repo/db/projects";
-import { findProjectsSortSchema } from "@repo/db/shared-schemas";
 
 import { DataTable } from "@/components/data-table/data-table";
 import { ProjectLogo } from "@/components/project-logo";
@@ -43,15 +36,6 @@ interface Props extends FindProjectsOptions {
   allTags?: ProjectDetails["tags"];
   total: number;
 }
-
-const searchParams = {
-  sort: parseAsJson(findProjectsSortSchema).withDefault([
-    { id: "createdAt", desc: true },
-  ]),
-  tags: parseAsArrayOf(parseAsString).withDefault([]),
-};
-
-const serialize = createSerializer(searchParams);
 
 const columnHelper = createColumnHelper<Project>();
 
@@ -80,14 +64,19 @@ export function ProjectTable({ allTags, projects, total, limit, sort }: Props) {
     columnHelper.accessor("description", {
       id: "tags",
       header: "Description",
-      cell: ({ row: { original: project } }) => (
+      cell: ({ column, row: { original: project } }) => (
         <div className="flex flex-col gap-2">
           {project.description}
-          <div>
+          <div className="flex flex-wrap gap-2">
             {project.tags.map((tag) => (
-              <Link key={tag} href={`/projects${serialize({ tags: [tag] })}`}>
-                <Badge variant="outline">{tag}</Badge>
-              </Link>
+              <Badge
+                key={tag}
+                onClick={() => column.setFilterValue([tag])}
+                variant="secondary"
+                asChild
+              >
+                <button type="button">{tag}</button>
+              </Badge>
             ))}
           </div>
         </div>
