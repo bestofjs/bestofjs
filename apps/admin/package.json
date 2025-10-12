@@ -37,7 +37,7 @@
     "nanoid": "^5.1.5",
     "next": "catalog:",
     "next-themes": "^0.4.4",
-    "nuqs": "^2.6.0",
+    "nuqs": "^2.7.1",
     "pretty-bytes": "^6.1.1",
     "radix-ui": "catalog:",
     "react": "catalog:",
