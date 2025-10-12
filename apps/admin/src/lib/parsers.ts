@@ -96,3 +96,17 @@ export const getFiltersStateParser = <TData>(
       ),
   });
 };
+
+export const parseAsNullableBoolean = createParser<boolean | undefined>({
+  parse: (value) => {
+    if (value === "true") return true;
+    if (value === "false") return false;
+    return undefined;
+  },
+  serialize: (value) => {
+    if (value === true) return "true";
+    if (value === false) return "false";
+    return ""; // server-side serializer must return a string
+  },
+  eq: (a, b) => a === b,
+});

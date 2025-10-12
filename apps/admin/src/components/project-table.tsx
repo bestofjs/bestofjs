@@ -128,7 +128,11 @@ export function ProjectTable({ allTags, projects, total, limit, sort }: Props) {
       enableColumnFilter: true,
       meta: {
         label: "Archived",
-        variant: "boolean",
+        variant: "select", // we don't use the boolean variant because we want to reset the filter which is not supported by the boolean variant
+        options: [
+          { label: "Archived", value: "true" },
+          { label: "Not archived", value: "false" },
+        ],
       },
     }),
     columnHelper.accessor("lastCommit", {

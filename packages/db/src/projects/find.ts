@@ -93,7 +93,7 @@ export async function findProjects({
 
   function getWhereClause() {
     return and(
-      archived ? eq(repos.archived, archived) : undefined,
+      archived !== undefined ? eq(repos.archived, archived) : undefined,
       name ? getWhereClauseSearchByText(name) : undefined,
       tagCodes && tagCodes.length > 0
         ? getWhereClauseSearchByTag(db, tagCodes)

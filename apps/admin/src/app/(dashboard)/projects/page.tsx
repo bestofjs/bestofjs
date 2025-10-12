@@ -27,7 +27,7 @@ export default async function ProjectsPage(props: PageProps) {
 
   const { projects, total } = await findProjects({
     db,
-    archived,
+    archived: archived ?? undefined,
     limit,
     name,
     page,

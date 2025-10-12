@@ -1,7 +1,6 @@
 import {
   createSearchParamsCache,
   parseAsArrayOf,
-  parseAsBoolean,
   parseAsInteger,
   parseAsJson,
   parseAsString,
@@ -18,13 +17,13 @@ import { findProjectsSortSchema } from "@repo/db/shared-schemas";
 
 // import { flagConfig } from "@/config/flag";
 // import { type Task, tasks } from "@/db/schema";
-import { getFiltersStateParser } from "@/lib/parsers";
+import { getFiltersStateParser, parseAsNullableBoolean } from "@/lib/parsers";
 
 export const searchParamsCache = createSearchParamsCache({
   // filterFlag: parseAsStringEnum(
   //   flagConfig.featureFlags.map((flag) => flag.value),
   // ),
-  archived: parseAsBoolean.withDefault(false),
+  archived: parseAsNullableBoolean,
   page: parseAsInteger.withDefault(1),
   limit: parseAsInteger.withDefault(10),
   sort: parseAsJson(findProjectsSortSchema).withDefault([
