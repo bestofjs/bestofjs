@@ -62,7 +62,7 @@ export function ProjectTable({ allTags, projects, total, limit, sort }: Props) {
     }),
 
     columnHelper.accessor("description", {
-      id: "tags",
+      id: "tags", // filter key
       header: "Description",
       cell: ({ column, row: { original: project } }) => (
         <div className="flex flex-col gap-2">
@@ -112,11 +112,6 @@ export function ProjectTable({ allTags, projects, total, limit, sort }: Props) {
         <DataTableColumnHeader column={column} title="Stars" />
       ),
       cell: ({ getValue }) => formatStars(getValue()),
-      // enableColumnFilter: true,
-      // meta: {
-      //   label: "Stars",
-      //   variant: "range",
-      // },
     }),
     columnHelper.accessor((row) => row.repo?.archived, {
       id: "archived",
