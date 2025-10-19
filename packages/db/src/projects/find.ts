@@ -138,6 +138,8 @@ function getWhereClauseSearchByText(text: string) {
   return or(
     ilike(projects.name, `%${text}%`),
     ilike(projects.description, `%${text}%`),
+    ilike(repos.name, `%${text}%`),
+    ilike(repos.owner, `%${text}%`),
   );
 }
 
