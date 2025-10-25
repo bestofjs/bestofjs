@@ -177,15 +177,17 @@ export function DataTableDateFilter<TData>({
       <PopoverTrigger asChild>
         <Button variant="outline" size="sm" className="border-dashed">
           {hasValue ? (
-            <Button
+            // biome-ignore lint/a11y/useKeyWithClickEvents: nested button from DiceUI
+            // biome-ignore lint/a11y/useSemanticElements: nested button from DiceUI
+            <div
+              role="button"
               aria-label={`Clear ${title} filter`}
               tabIndex={0}
               onClick={onReset}
               className="rounded-sm opacity-70 transition-opacity hover:opacity-100 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
-              size="icon"
             >
               <XCircle />
-            </Button>
+            </div>
           ) : (
             <CalendarIcon />
           )}
@@ -195,7 +197,7 @@ export function DataTableDateFilter<TData>({
       <PopoverContent className="w-auto p-0" align="start">
         {multiple ? (
           <Calendar
-            initialFocus
+            captionLayout="dropdown"
             mode="range"
             selected={
               getIsDateRange(selectedDates)
@@ -206,7 +208,7 @@ export function DataTableDateFilter<TData>({
           />
         ) : (
           <Calendar
-            initialFocus
+            captionLayout="dropdown"
             mode="single"
             selected={
               !getIsDateRange(selectedDates) ? selectedDates[0] : undefined

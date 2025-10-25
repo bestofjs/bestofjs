@@ -1,4 +1,5 @@
-import { and, eq, ilike, inArray, or, sql } from "drizzle-orm";
+import { and, desc, eq, ilike, inArray, or, sql } from "drizzle-orm";
+import { isBoolean } from "es-toolkit";
 
 import type { PROJECT_STATUSES } from "../constants";
 import type { DB } from "../index";
@@ -9,6 +10,7 @@ import { getSortQuery, getTotalNumberOfProjects } from "../utils/queries-utils";
 const { projects, tags, packages, projectsToTags, repos } = schema;
 
 export interface FindProjectsOptions {
+  archived?: boolean | null;
   page?: number;
   limit?: number;
   owner?: string;
@@ -24,16 +26,17 @@ interface Props extends FindProjectsOptions {
 
 export async function findProjects({
   db,
+  archived,
   limit = 100,
   page = 1,
   full_name,
   owner,
   name,
-  sort = [{ id: "createdAt", desc: true }],
+  sort,
   status,
   tagCodes,
 }: Props) {
-  const orderBy = getSortQuery(projects, sort);
+  const orderBy = getFinalSortQuery({ sort, name });
   const offset = (page - 1) * limit;
   const query = db
     .select({
@@ -91,6 +94,7 @@ export async function findProjects({
 
   function getWhereClause() {
     return and(
+      isBoolean(archived) ? eq(repos.archived, archived) : undefined,
       name ? getWhereClauseSearchByText(name) : undefined,
       tagCodes && tagCodes.length > 0
         ? getWhereClauseSearchByTag(db, tagCodes)
@@ -135,10 +139,40 @@ function getWhereClauseSearchByText(text: string) {
   return or(
     ilike(projects.name, `%${text}%`),
     ilike(projects.description, `%${text}%`),
+    ilike(repos.name, `%${text}%`),
+    ilike(repos.owner, `%${text}%`),
   );
 }
 
 function getWhereClauseSearchByFullName(full_name: string) {
   const [owner, name] = full_name.split("/");
   return and(eq(repos.owner, owner), eq(repos.name, name));
+}
+
+function getFinalSortQuery({
+  sort,
+  name,
+}: Pick<FindProjectsOptions, "sort" | "name">) {
+  if (!name) {
+    const defaultSort = [{ id: "createdAt", desc: true }];
+    return getSortQuery(projects, sort ?? defaultSort);
+  }
+  if (sort?.length) {
+    return [...getSortByMatchName(name), ...getSortQuery(projects, sort)];
+  }
+  return [...getSortByMatchName(name), desc(repos.stars)];
+}
+
+/** Make the projects the most relevant appear first */
+function getSortByMatchName(name: string) {
+  const relevanceScore = sql`
+    (CASE
+      WHEN ${projects.name} ILIKE ${name} THEN 4
+      WHEN ${projects.name} ILIKE ${name + "%"} THEN 3
+      WHEN ${projects.name} ILIKE ${"%" + name + "%"} THEN 2
+      WHEN ${projects.description} ILIKE ${"%" + name + "%"} THEN 1
+      ELSE 0
+    END)
+  `;
+  return [desc(relevanceScore)];
 }

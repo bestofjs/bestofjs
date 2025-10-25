@@ -138,8 +138,8 @@ importers:
         specifier: ^0.4.4
         version: 0.4.4(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       nuqs:
-        specifier: ^2.6.0
-        version: 2.7.0(next@15.5.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react@19.1.0)
+        specifier: ^2.7.1
+        version: 2.7.1(next@15.5.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react@19.1.0)
       pretty-bytes:
         specifier: ^6.1.1
         version: 6.1.1
@@ -6327,8 +6327,8 @@ packages:
   numeral@1.5.6:
     resolution: {integrity: sha512-ajp+xurmcvkOLZURhHP2O7AyyF+v2xQDeCODlzALrNeAQnriYaWu0c8I/mu985WaVl2O2lgdOt0QgQHlCAQ3UA==}
 
-  nuqs@2.7.0:
-    resolution: {integrity: sha512-p6j6AuOVbnIlMSOlymKVDQtDkSCgjKxikwrqE9zThEOrP0UMfB/dwHuc6nKCuBPveoNghbh15zwoyTTv0XLp+A==}
+  nuqs@2.7.1:
+    resolution: {integrity: sha512-3WDgrOZWat0QyOheyljTlXK4TGFh1JKSLvXMgusMDcTyMJXe1xL8+q3zuQ6ke1vyeGnpJwztlZl2aDkMW2eIUg==}
     peerDependencies:
       '@remix-run/react': '>=2'
       '@tanstack/react-router': ^1
@@ -14213,7 +14213,7 @@ snapshots:
 
   numeral@1.5.6: {}
 
-  nuqs@2.7.0(next@15.5.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react@19.1.0):
+  nuqs@2.7.1(next@15.5.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react@19.1.0):
     dependencies:
       '@standard-schema/spec': 1.0.0
       react: 19.1.0

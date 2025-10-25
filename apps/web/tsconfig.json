@@ -23,6 +23,8 @@
       }
     ],
     "strictNullChecks": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
     "target": "ES2017"
   },
   "include": [

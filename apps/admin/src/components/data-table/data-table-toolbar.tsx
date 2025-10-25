@@ -12,6 +12,9 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
 
+import { Checkbox } from "../ui/checkbox";
+import { Label } from "../ui/label";
+
 interface DataTableToolbarProps<TData> extends React.ComponentProps<"div"> {
   table: Table<TData>;
 }
@@ -136,6 +139,18 @@ function DataTableToolbarFilter<TData>({
             options={columnMeta.options ?? []}
             multiple={columnMeta.variant === "multiSelect"}
           />
+        );
+
+      case "boolean":
+        return (
+          <>
+            <Checkbox
+              id={column.id}
+              checked={Boolean(column.getFilterValue())}
+              onCheckedChange={(checked) => column.setFilterValue(checked)}
+            />
+            <Label htmlFor={column.id}>{columnMeta.label ?? column.id}</Label>
+          </>
         );
 
       default:

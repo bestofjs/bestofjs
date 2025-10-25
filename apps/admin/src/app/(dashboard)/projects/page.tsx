@@ -15,10 +15,19 @@ export default async function ProjectsPage(props: PageProps) {
   const searchParams = await props.searchParams;
   const allTags = await getAllTags();
   const searchOptions = searchParamsCache.parse(searchParams);
-  const { limit, page, sort, tags: tagCodes, name, status } = searchOptions;
+  const {
+    archived,
+    limit,
+    page,
+    sort,
+    tags: tagCodes,
+    name,
+    status,
+  } = searchOptions;
 
   const { projects, total } = await findProjects({
     db,
+    archived,
     limit,
     name,
     page,
@@ -48,13 +57,3 @@ export default async function ProjectsPage(props: PageProps) {
     </div>
   );
 }
-
-// function SearchFilters({ tags }: { tags: string[] }) {
-//   return (
-//     <div>
-//       {tags.map((tag) => (
-//         <Badge key={tag}>{tag}</Badge>
-//       ))}
-//     </div>
-//   );
-// }
