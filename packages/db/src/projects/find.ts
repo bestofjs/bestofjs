@@ -165,10 +165,14 @@ function getFinalSortQuery({
 
 /** Make the projects the most relevant appear first */
 function getSortByMatchName(name: string) {
-  return [
-    desc(ilike(projects.name, name)), // TOP ranking: exact match,
-    desc(ilike(projects.name, `${name}%`)), // then: the project whose name starts with the query
-    desc(ilike(projects.name, `%${name}%`)), // then: the project whose name contains the query
-    desc(ilike(projects.description, `%${name}%`)),
-  ];
+  const relevanceScore = sql`
+    (CASE
+      WHEN ${projects.name} ILIKE ${name} THEN 4
+      WHEN ${projects.name} ILIKE ${name + "%"} THEN 3
+      WHEN ${projects.name} ILIKE ${"%" + name + "%"} THEN 2
+      WHEN ${projects.description} ILIKE ${"%" + name + "%"} THEN 1
+      ELSE 0
+    END)
+  `;
+  return [desc(relevanceScore)];
 }
