@@ -1,4 +1,5 @@
 import { and, desc, eq, ilike, inArray, or, sql } from "drizzle-orm";
+import { isBoolean } from "es-toolkit";
 
 import type { PROJECT_STATUSES } from "../constants";
 import type { DB } from "../index";
@@ -9,7 +10,7 @@ import { getSortQuery, getTotalNumberOfProjects } from "../utils/queries-utils";
 const { projects, tags, packages, projectsToTags, repos } = schema;
 
 export interface FindProjectsOptions {
-  archived?: boolean;
+  archived?: boolean | null;
   page?: number;
   limit?: number;
   owner?: string;
@@ -93,7 +94,7 @@ export async function findProjects({
 
   function getWhereClause() {
     return and(
-      archived !== undefined ? eq(repos.archived, archived) : undefined,
+      isBoolean(archived) ? eq(repos.archived, archived) : undefined,
       name ? getWhereClauseSearchByText(name) : undefined,
       tagCodes && tagCodes.length > 0
         ? getWhereClauseSearchByTag(db, tagCodes)
