@@ -15,28 +15,28 @@ export interface PageSearchParams {
 import { PROJECT_STATUSES } from "@repo/db/constants";
 import { findProjectsSortSchema } from "@repo/db/shared-schemas";
 
-// import { flagConfig } from "@/config/flag";
-// import { type Task, tasks } from "@/db/schema";
 import { getFiltersStateParser, parseAsNullableBoolean } from "@/lib/parsers";
 
 export const searchParamsCache = createSearchParamsCache({
-  // filterFlag: parseAsStringEnum(
-  //   flagConfig.featureFlags.map((flag) => flag.value),
-  // ),
-  archived: parseAsNullableBoolean,
+  // Pagination
   page: parseAsInteger.withDefault(1),
   limit: parseAsInteger.withDefault(10),
-  sort: parseAsJson(findProjectsSortSchema).withDefault([
-    { id: "createdAt", desc: true },
-  ]),
+
+  // No default sort specified to preserve the semantic difference between “no user preference” and “user explicitly chose an order”,
+  sort: parseAsJson(findProjectsSortSchema).withDefault([]),
+
+  // Used to search a specific project by name/description
   name: parseAsString.withDefault(""),
-  title: parseAsString.withDefault(""),
+
+  // Normal filters
+  archived: parseAsNullableBoolean,
   status: parseAsArrayOf(
     parseAsStringEnum(PROJECT_STATUSES.slice()),
   ).withDefault([]),
   tags: parseAsArrayOf(parseAsString).withDefault([]),
   createdAt: parseAsArrayOf(parseAsInteger).withDefault([]),
-  // advanced filter
+
+  // Advanced filter: not implemented yet
   filters: getFiltersStateParser().withDefault([]),
   joinOperator: parseAsStringEnum(["and", "or"]).withDefault("and"),
 });

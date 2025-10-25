@@ -1,4 +1,4 @@
-import { and, eq, ilike, inArray, or, sql } from "drizzle-orm";
+import { and, desc, eq, ilike, inArray, or, sql } from "drizzle-orm";
 
 import type { PROJECT_STATUSES } from "../constants";
 import type { DB } from "../index";
@@ -31,11 +31,11 @@ export async function findProjects({
   full_name,
   owner,
   name,
-  sort = [{ id: "createdAt", desc: true }],
+  sort,
   status,
   tagCodes,
 }: Props) {
-  const orderBy = getSortQuery(projects, sort);
+  const orderBy = getFinalSortQuery({ sort, name });
   const offset = (page - 1) * limit;
   const query = db
     .select({
@@ -146,4 +146,28 @@ function getWhereClauseSearchByText(text: string) {
 function getWhereClauseSearchByFullName(full_name: string) {
   const [owner, name] = full_name.split("/");
   return and(eq(repos.owner, owner), eq(repos.name, name));
+}
+
+function getFinalSortQuery({
+  sort,
+  name,
+}: Pick<FindProjectsOptions, "sort" | "name">) {
+  if (!name) {
+    const defaultSort = [{ id: "createdAt", desc: true }];
+    return getSortQuery(projects, sort ?? defaultSort);
+  }
+  if (sort?.length) {
+    return [...getSortByMatchName(name), ...getSortQuery(projects, sort)];
+  }
+  return [...getSortByMatchName(name), desc(repos.stars)];
+}
+
+/** Make the projects the most relevant appear first */
+function getSortByMatchName(name: string) {
+  return [
+    desc(ilike(projects.name, name)), // TOP ranking: exact match,
+    desc(ilike(projects.name, `${name}%`)), // then: the project whose name starts with the query
+    desc(ilike(projects.name, `%${name}%`)), // then: the project whose name contains the query
+    desc(ilike(projects.description, `%${name}%`)),
+  ];
 }
