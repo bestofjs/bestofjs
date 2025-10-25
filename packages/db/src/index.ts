@@ -10,7 +10,10 @@ export * as schema from "./schema";
 
 export type DB = ReturnType<typeof drizzle<typeof schema>>;
 
-export const db = drizzle(sql, { schema });
+export const db = drizzle(sql, {
+  schema,
+  logger: process.env.ENABLE_SQL_LOGGING === "1",
+});
 
 export async function runQuery(callback: (db: DB) => Promise<void>) {
   const service = new VercelPostgresService();
