@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import invariant from "tiny-invariant";
 
 import { getAllTags } from "@repo/db/projects";
@@ -17,8 +18,6 @@ type PageProps = {
   }>;
 };
 
-export const revalidate = 0;
-
 export default async function ViewProjectPage(props: PageProps) {
   const params = await props.params;
 
@@ -36,28 +35,30 @@ export default async function ViewProjectPage(props: PageProps) {
   invariant(project.repoId, "Project must have a repository");
 
   return (
-    <div className="flex flex-col gap-6">
-      <div className="flex items-center gap-4">
-        <ProjectLogo project={project} size={100} />
-        <div className="flex flex-col gap-4">
-          <h1 className="flex scroll-m-20 items-center gap-2 font-extrabold text-3xl tracking-tight lg:text-4xl">
-            {project.name}
-          </h1>
-          <div>{project.description}</div>
+    <Suspense fallback={<div>Loading {slug} project...</div>}>
+      <div className="flex flex-col gap-6">
+        <div className="flex items-center gap-4">
+          <ProjectLogo project={project} size={100} />
+          <div className="flex flex-col gap-4">
+            <h1 className="flex scroll-m-20 items-center gap-2 font-extrabold text-3xl tracking-tight lg:text-4xl">
+              {project.name}
+            </h1>
+            <div>{project.description}</div>
+          </div>
         </div>
+        <ViewProject project={project} />
+        <ViewTags project={project} allTags={allTags} />
+        {project.repo ? <ViewRepo project={project} /> : <>No repository!</>}
+        <ViewProjectPackages project={project} />
+        {project.repo && (
+          <ViewSnapshots
+            snapshots={repo.snapshots}
+            repoId={project.repoId}
+            repoFullName={repo.owner + "/" + repo.name}
+            slug={project.slug}
+          />
+        )}
       </div>
-      <ViewProject project={project} />
-      <ViewTags project={project} allTags={allTags} />
-      {project.repo ? <ViewRepo project={project} /> : <>No repository!</>}
-      <ViewProjectPackages project={project} />
-      {project.repo && (
-        <ViewSnapshots
-          snapshots={repo.snapshots}
-          repoId={project.repoId}
-          repoFullName={repo.owner + "/" + repo.name}
-          slug={project.slug}
-        />
-      )}
-    </div>
+    </Suspense>
   );
 }

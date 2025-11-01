@@ -1,4 +1,11 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {};
+const nextConfig = {
+  cacheComponents: true,
+  logging: {
+    fetches: {
+      fullUrl: true,
+    },
+  },
+};
 
 export default nextConfig;
