@@ -1,7 +1,5 @@
 import { api } from "@/server/api-remote-json";
 
-export const runtime = "edge";
-
 export async function GET() {
   const projects = await api.projects.getSearchIndex();
   const { tags } = await api.tags.findTags({

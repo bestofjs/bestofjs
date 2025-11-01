@@ -11,8 +11,6 @@ import { formatMonthlyDate } from "@/app/rankings/monthly/monthly-rankings-utils
 import { formatNumber } from "@/helpers/numbers";
 import { api } from "@/server/api-remote-json";
 
-export const runtime = "edge";
-
 type Context = { params: Promise<{ year: string; month: string }> };
 export async function GET(_: Request, props: Context) {
   const params = await props.params;

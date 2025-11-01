@@ -1,9 +1,8 @@
-import withBundleAnalyzer from "@next/bundle-analyzer";
-
 import { env } from "./src/env.mjs";
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  cacheComponents: true,
   reactStrictMode: true,
   images: {
     remotePatterns: [
@@ -34,6 +33,11 @@ const nextConfig = {
       },
     ];
   },
+  logging: {
+    fetches: {
+      fullUrl: true,
+    },
+  },
 };
 
 function fetchLatestRankings() {
@@ -44,8 +48,4 @@ function fetchLatestRankings() {
   return data;
 }
 
-const bundleAnalyzer = withBundleAnalyzer({
-  enabled: process.env.ANALYZE === "true",
-});
-
-export default bundleAnalyzer(nextConfig);
+export default nextConfig;

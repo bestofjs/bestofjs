@@ -11,6 +11,7 @@ import { cn } from "@/lib/utils";
 import { api } from "@/server/api";
 
 export async function LatestMonthlyRankings() {
+  "use cache";
   const { year, month, projects } = await api.rankings.getMonthlyRankings({
     limit: 5,
   });

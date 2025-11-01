@@ -8,8 +8,6 @@ import {
 import { ImageLayout } from "../og-image-layout";
 import { Box, generateImageResponse } from "../og-utils";
 
-export const runtime = "edge";
-
 const NUMBER_OF_CARD = 16;
 
 export async function GET() {

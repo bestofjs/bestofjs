@@ -11,8 +11,6 @@ import {
   StarIcon,
 } from "./og-utils";
 
-export const runtime = "edge";
-
 export async function GET() {
   const NUMBER_OF_PROJECTS = 3;
   const { projects } = await api.projects.findProjects(

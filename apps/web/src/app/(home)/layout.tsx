@@ -1,3 +1,5 @@
+import { Suspense } from "react";
+
 import { FeaturedProjects } from "@/components/home/home-featured-projects";
 import { HomeIntroSection } from "@/components/home/home-intro-section";
 import {
@@ -38,7 +40,9 @@ export default async function TrendsLayout({
         </div>
       </div>
 
-      <LatestMonthlyRankings />
+      <Suspense fallback={<div>Loading...</div>}>
+        <LatestMonthlyRankings />
+      </Suspense>
 
       <Separator className="-mx-4 w-auto sm:mx-0" />
 

@@ -11,8 +11,6 @@ import { api } from "@/server/api-remote-json";
 
 import { ImageLayout } from "../../og-image-layout";
 
-export const runtime = "edge";
-
 type Context = { params: Promise<{ slug: string }> };
 export async function GET(_req: Request, props: Context) {
   const params = await props.params;
