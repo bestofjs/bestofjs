@@ -1,7 +1,7 @@
-import { orderBy } from "es-toolkit";
+import { orderBy, shuffle } from "es-toolkit";
 
-import { schema } from "@repo/db";
-import { notInArray } from "@repo/db/drizzle";
+import { db, schema } from "@repo/db";
+import { eq, notInArray } from "@repo/db/drizzle";
 import {
   getPackageData,
   getProjectDescription,
@@ -9,6 +9,7 @@ import {
   getProjectURL,
   type ProjectDetails,
 } from "@repo/db/projects";
+import { normalizeDate } from "@repo/db/snapshots";
 
 import { truncate } from "@/shared/utils";
 import { createTask } from "@/task-runner";
@@ -32,6 +33,7 @@ export const buildStaticApiTask = createTask({
     const data = aggregatedData.data.filter((item) => !!item); // remove {data: null} items
     await buildMainList(data);
     await buildFullList(data);
+    await buildFeaturedShuffledProjects();
     return aggregatedData;
 
     async function buildProjectItem(project: ProjectDetails) {
@@ -103,6 +105,7 @@ export const buildStaticApiTask = createTask({
 
     function shouldIncludeProjectInMainList(project: ProjectItem) {
       const isNew = project.trends.daily === undefined;
+      const isFeatured = isFeaturedProject(project);
       const isPromoted = isPromotedProject(project);
       const isCold = isColdProject(project);
       const isInactive = isInactiveProject(project);
@@ -111,7 +114,7 @@ export const buildStaticApiTask = createTask({
       logger.debug(project.name, { isPromoted, isPopular, isCold, isInactive });
 
       if (isNew) return false; // projects need at least 2 days of data (to show the daily trend)...
-      if (isPromoted || isPopular) return true; // promoted and popular (by number of downloads) projects are always included...
+      if (isPromoted || isPopular || isFeatured) return true; // promoted and popular (by number of downloads) projects are always included...
       if (isInactive) return false; // exclude projects without recent Git activity...
       return !isCold; // finally take into account the trend over the last 12 months.
     }
@@ -150,6 +153,10 @@ function isPromotedProject(project: ProjectItem) {
   return project.status === "promoted";
 }
 
+function isFeaturedProject(project: ProjectItem) {
+  return project.status === "featured";
+}
+
 function getYearsSinceLastCommit(project: ProjectItem) {
   const today = new Date();
   const lastCommit = new Date(project.pushed_at);
@@ -171,4 +178,32 @@ function getDailyHotProjects(projects: ProjectItem[]) {
 
 function formatDate(date: Date | null) {
   return date ? date.toISOString().slice(0, 10) : "";
+}
+
+/** The list of "Featured" projects in the home page is shuffled every day. */
+export async function buildFeaturedShuffledProjects() {
+  const featuredProjects = await db
+    .select({ slug: schema.projects.slug })
+    .from(schema.projects)
+    .where(eq(schema.projects.status, "featured"));
+  const featuredProjectSlugs = featuredProjects.map((project) => project.slug);
+  const shuffledProjectSlugs = shuffle(featuredProjectSlugs);
+  const day = dateToDailyRecordKey(new Date());
+  await db
+    .insert(schema.dailyFeaturedProjects)
+    .values({
+      day,
+      projectSlugs: shuffledProjectSlugs,
+    })
+    .onConflictDoUpdate({
+      target: schema.dailyFeaturedProjects.day,
+      set: { projectSlugs: shuffledProjectSlugs, updatedAt: new Date() },
+    });
+}
+
+function dateToDailyRecordKey(input: Date) {
+  const date = normalizeDate(input);
+  return [date.year, date.month, date.day]
+    .map((value) => value.toString().padStart(2, "0"))
+    .join("-");
 }
