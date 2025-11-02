@@ -114,9 +114,13 @@ export function createProjectsAPI({ getData }: APIContext) {
         await db.query.dailyFeaturedProjects.findFirst({
           orderBy: desc(schema.dailyFeaturedProjects.createdAt),
         });
-      const featuredProjectSlugs = featuredProjectSlugsRecord?.projectSlugs || [];
+      const featuredProjectSlugs =
+        featuredProjectSlugsRecord?.projectSlugs || [];
       const slugs = featuredProjectSlugs.slice(skip, skip + limit);
-      const projects = slugs.map((slug) => populate(projectsBySlug[slug]));
+      const projects = slugs
+        .map((slug) => projectsBySlug[slug])
+        .filter(Boolean)
+        .map(populate);
       return { projects, total: featuredProjectSlugs.length };
     },
 
