@@ -4,7 +4,6 @@ import { createTagsAPI } from "./api-tags";
 import {
   type APIContext,
   type Data,
-  getFeaturedRandomList,
   getTagsByKey,
   populateProject,
   type RawData,
@@ -18,11 +17,9 @@ export function createAPI(fetchProjectData: () => Promise<RawData>) {
     projects.forEach((project) => {
       projectsBySlug[project.slug] = project;
     });
-    const featuredProjectIds = getFeaturedRandomList(projects);
 
     return {
       projectCollection: projects,
-      featuredProjectIds,
       tagCollection: Object.values(tagsByKey),
       populate: populateProject(tagsByKey),
       tagsByKey,
