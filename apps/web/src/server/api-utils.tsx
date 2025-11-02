@@ -1,5 +1,3 @@
-import { shuffle } from "es-toolkit";
-
 export type RawData = {
   projects: BestOfJS.RawProject[];
   tags: BestOfJS.RawTag[];
@@ -8,7 +6,6 @@ export type RawData = {
 
 export type Data = {
   projectCollection: BestOfJS.RawProject[];
-  featuredProjectIds: BestOfJS.Project["slug"][];
   tagCollection: BestOfJS.RawTag[];
   tagsByKey: { [key: string]: BestOfJS.Tag };
   populate: (project: BestOfJS.RawProject) => BestOfJS.Project;
@@ -32,14 +29,6 @@ export const populateProject =
 
     return populated;
   };
-
-export function getFeaturedRandomList(projects: BestOfJS.RawProject[]) {
-  const slugs = projects
-    .filter((project) => project.status === "featured")
-    .map((project) => project.slug);
-
-  return shuffle(slugs);
-}
 
 export function getTagsByKey(
   tags: BestOfJS.RawTag[],
