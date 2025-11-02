@@ -204,7 +204,6 @@ export async function buildFeaturedShuffledProjects() {
 function dateToDailyRecordKey(input: Date) {
   const date = normalizeDate(input);
   return [date.year, date.month, date.day]
-    .map(String)
-    .map((s) => s.padStart(2, "0"))
+    .map((value) => value.toString().padStart(2, "0"))
     .join("-");
 }
