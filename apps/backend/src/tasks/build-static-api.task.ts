@@ -1,7 +1,7 @@
-import { orderBy } from "es-toolkit";
+import { orderBy, shuffle } from "es-toolkit";
 
-import { schema } from "@repo/db";
-import { notInArray } from "@repo/db/drizzle";
+import { db, schema } from "@repo/db";
+import { eq, notInArray } from "@repo/db/drizzle";
 import {
   getPackageData,
   getProjectDescription,
@@ -9,6 +9,7 @@ import {
   getProjectURL,
   type ProjectDetails,
 } from "@repo/db/projects";
+import { normalizeDate } from "@repo/db/snapshots";
 
 import { truncate } from "@/shared/utils";
 import { createTask } from "@/task-runner";
@@ -32,6 +33,7 @@ export const buildStaticApiTask = createTask({
     const data = aggregatedData.data.filter((item) => !!item); // remove {data: null} items
     await buildMainList(data);
     await buildFullList(data);
+    await buildFeaturedShuffledProjects();
     return aggregatedData;
 
     async function buildProjectItem(project: ProjectDetails) {
@@ -171,4 +173,33 @@ function getDailyHotProjects(projects: ProjectItem[]) {
 
 function formatDate(date: Date | null) {
   return date ? date.toISOString().slice(0, 10) : "";
+}
+
+/** The list of "Featured" projects in the home page is shuffled every day. */
+export async function buildFeaturedShuffledProjects() {
+  const featuredProjects = await db
+    .select({ slug: schema.projects.slug })
+    .from(schema.projects)
+    .where(eq(schema.projects.status, "featured"));
+  const featuredProjectSlugs = featuredProjects.map((project) => project.slug);
+  const shuffledProjectSlugs = shuffle(featuredProjectSlugs);
+  const day = dateToDailyRecordKey(new Date());
+  await db
+    .insert(schema.dailyFeaturedProjects)
+    .values({
+      day,
+      projectSlugs: shuffledProjectSlugs,
+    })
+    .onConflictDoUpdate({
+      target: schema.dailyFeaturedProjects.day,
+      set: { projectSlugs: shuffledProjectSlugs, updatedAt: new Date() },
+    });
+}
+
+function dateToDailyRecordKey(input: Date) {
+  const date = normalizeDate(input);
+  return [date.year, date.month, date.day]
+    .map(String)
+    .map((s) => s.padStart(2, "0"))
+    .join("-");
 }
