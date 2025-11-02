@@ -1,4 +1,5 @@
 export * from "./bundles";
+export * from "./daily-featured-projects";
 export * from "./hall-of-fame";
 export * from "./packages";
 export * from "./projects";

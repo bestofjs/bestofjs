@@ -1,6 +1,9 @@
 import * as mingo from "mingo";
 import type { RawObject } from "mingo/types";
 
+import { db, schema } from "@repo/db";
+import { desc } from "@repo/db/drizzle";
+
 import {
   filterProjectsByQuery,
   getResultRelevantTags,
@@ -106,10 +109,19 @@ export function createProjectsAPI({ getData }: APIContext) {
       skip = 0,
       limit = 5,
     }: Pick<QueryParams, "skip" | "limit">) {
-      const { featuredProjectIds, populate, projectsBySlug } = await getData();
-      const slugs = featuredProjectIds.slice(skip, skip + limit);
-      const projects = slugs.map((slug) => populate(projectsBySlug[slug]));
-      return { projects, total: featuredProjectIds.length };
+      const { populate, projectsBySlug } = await getData();
+      const featuredProjectSlugsRecord =
+        await db.query.dailyFeaturedProjects.findFirst({
+          orderBy: desc(schema.dailyFeaturedProjects.createdAt),
+        });
+      const featuredProjectSlugs =
+        featuredProjectSlugsRecord?.projectSlugs || [];
+      const slugs = featuredProjectSlugs.slice(skip, skip + limit);
+      const projects = slugs
+        .map((slug) => projectsBySlug[slug])
+        .filter(Boolean)
+        .map(populate);
+      return { projects, total: featuredProjectSlugs.length };
     },
 
     async getStats() {

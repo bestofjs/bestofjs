@@ -14,11 +14,11 @@ export function FeaturedProjectList({
   projects: BestOfJS.Project[];
 }) {
   return (
-    <div className="divide-y">
+    <ProjectListContainer>
       {projects.map((project) => (
         <FeaturedProject key={project.slug} project={project} metrics="daily" />
       ))}
-    </div>
+    </ProjectListContainer>
   );
 }
 
@@ -65,7 +65,7 @@ export function ProjectListSkeleton({
   numberOfItems: number;
 }) {
   return (
-    <div className="divide-y">
+    <ProjectListContainer>
       {[...Array(numberOfItems)].map((_, index) => (
         <div key={index} className="flex gap-4 px-4 py-6">
           <div className="grow space-y-2 overflow-hidden text-center">
@@ -78,6 +78,10 @@ export function ProjectListSkeleton({
           </div>
         </div>
       ))}
-    </div>
+    </ProjectListContainer>
   );
+}
+
+function ProjectListContainer({ children }: React.PropsWithChildren) {
+  return <div className="min-h-[150px] divide-y">{children}</div>;
 }
