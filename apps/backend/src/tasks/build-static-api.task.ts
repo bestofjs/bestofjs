@@ -105,6 +105,7 @@ export const buildStaticApiTask = createTask({
 
     function shouldIncludeProjectInMainList(project: ProjectItem) {
       const isNew = project.trends.daily === undefined;
+      const isFeatured = isFeaturedProject(project);
       const isPromoted = isPromotedProject(project);
       const isCold = isColdProject(project);
       const isInactive = isInactiveProject(project);
@@ -113,7 +114,7 @@ export const buildStaticApiTask = createTask({
       logger.debug(project.name, { isPromoted, isPopular, isCold, isInactive });
 
       if (isNew) return false; // projects need at least 2 days of data (to show the daily trend)...
-      if (isPromoted || isPopular) return true; // promoted and popular (by number of downloads) projects are always included...
+      if (isPromoted || isPopular || isFeatured) return true; // promoted and popular (by number of downloads) projects are always included...
       if (isInactive) return false; // exclude projects without recent Git activity...
       return !isCold; // finally take into account the trend over the last 12 months.
     }
@@ -150,6 +151,10 @@ function isInactiveProject(project: ProjectItem) {
 // we want to show "promoted" projects in the UI even if they are cold or inactive
 function isPromotedProject(project: ProjectItem) {
   return project.status === "promoted";
+}
+
+function isFeaturedProject(project: ProjectItem) {
+  return project.status === "featured";
 }
 
 function getYearsSinceLastCommit(project: ProjectItem) {
