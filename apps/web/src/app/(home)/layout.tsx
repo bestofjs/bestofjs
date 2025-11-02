@@ -1,3 +1,4 @@
+"use cache";
 import { Suspense } from "react";
 
 import { FeaturedProjects } from "@/components/home/home-featured-projects";
