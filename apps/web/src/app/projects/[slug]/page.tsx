@@ -49,7 +49,7 @@ export default async function ProjectDetailsPage(props: PageProps) {
   const params = await props.params;
   const { slug } = params;
 
-  const project = await projectService.getProjectBySlug(slug);
+  const project = await getProjectDetailsData(slug);
   if (!project) {
     // TODO show a better page when an invalid slug is provided
     return <>Project not found!</>;
