@@ -14,7 +14,6 @@ import { getHotProjectsRequest } from "@/app/backend-search-requests";
 import { projectService } from "@/app/db";
 import { Card, CardContent } from "@/components/ui/card";
 import { APP_CANONICAL_URL, APP_DISPLAY_NAME } from "@/config/site";
-// import { addCacheBustingParam } from "@/helpers/url";
 import { api } from "@/server/api";
 
 import { ProjectDetailsNpmCard } from "./project-details-npm/project-details-npm";
