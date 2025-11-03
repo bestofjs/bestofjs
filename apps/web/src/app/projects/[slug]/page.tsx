@@ -1,5 +1,6 @@
 import { Suspense } from "react";
 import type { Metadata } from "next";
+import { cacheLife, cacheTag } from "next/cache";
 
 import type { ProjectDetails } from "@repo/db/projects";
 
@@ -49,8 +50,12 @@ export async function generateMetadata(props: PageProps): Promise<Metadata> {
 }
 
 export default async function ProjectDetailsPage(props: PageProps) {
+  "use cache";
+  cacheLife("daily");
+  cacheTag("project-details");
   const params = await props.params;
   const { slug } = params;
+  cacheTag("project-details", slug);
   const project = await projectService.getProjectBySlug(slug);
   if (!project) {
     // TODO show a better page when an invalid slug is provided

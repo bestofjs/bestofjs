@@ -1,8 +1,21 @@
 import { env } from "./src/env.mjs";
 
-/** @type {import('next').NextConfig} */
+const ONE_DAY = 60 * 60 * 24;
+
 const nextConfig = {
   cacheComponents: true,
+  cacheLife: {
+    daily: {
+      state: ONE_DAY,
+      revalidate: ONE_DAY,
+      expire: ONE_DAY * 7,
+    },
+    monthly: {
+      state: ONE_DAY * 30,
+      revalidate: ONE_DAY * 30,
+      expire: ONE_DAY * 30 * 12,
+    },
+  },
   reactStrictMode: true,
   images: {
     remotePatterns: [
