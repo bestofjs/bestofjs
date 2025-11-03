@@ -1,17 +1,19 @@
+import type { NextConfig } from "next";
+
 import { env } from "./src/env.mjs";
 
 const ONE_DAY = 60 * 60 * 24;
 
-const nextConfig = {
+const nextConfig: NextConfig = {
   cacheComponents: true,
   cacheLife: {
     daily: {
-      state: ONE_DAY,
+      stale: ONE_DAY,
       revalidate: ONE_DAY,
       expire: ONE_DAY * 7,
     },
     monthly: {
-      state: ONE_DAY * 30,
+      stale: ONE_DAY * 30,
       revalidate: ONE_DAY * 30,
       expire: ONE_DAY * 30 * 12,
     },
