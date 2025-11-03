@@ -1,4 +1,5 @@
 import { CalendarIcon } from "lucide-react";
+import { cacheLife, cacheTag } from "next/cache";
 import NextLink from "next/link";
 
 import { formatMonthlyDate } from "@/app/rankings/monthly/monthly-rankings-utils";
@@ -11,6 +12,9 @@ import { cn } from "@/lib/utils";
 import { api } from "@/server/api";
 
 export async function LatestMonthlyRankings() {
+  "use cache";
+  cacheLife("monthly");
+  cacheTag("monthly");
   const { year, month, projects } = await api.rankings.getMonthlyRankings({
     limit: 5,
   });

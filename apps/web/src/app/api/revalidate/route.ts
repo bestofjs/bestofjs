@@ -1,7 +1,5 @@
 import { revalidatePath, revalidateTag } from "next/cache";
 
-export const runtime = "edge";
-
 // API end-point to be called when we need to purge the cache for a given tag or path
 // Doc: https://nextjs.org/docs/app/building-your-application/caching
 export async function GET(request: Request) {
@@ -11,7 +9,7 @@ export async function GET(request: Request) {
     const path = searchParams.get("path");
 
     if (tag) {
-      revalidateTag(tag);
+      revalidateTag(tag, { expire: 0 });
       return sendResponse({ tag });
     }
 

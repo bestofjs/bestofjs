@@ -1,6 +1,7 @@
 "use client";
 
 import type * as React from "react";
+import { Suspense } from "react";
 import NextLink, { type LinkProps } from "next/link";
 import { usePathname } from "next/navigation";
 
@@ -18,16 +19,18 @@ export function Header() {
         <NextLink href="/" className="font-bold text-lg">
           Best of JS Admin
         </NextLink>
-        <NavigationMenu className="relative z-10 flex max-w-max flex-1 items-center justify-center">
-          <NavigationMenuList className="group flex flex-1 list-none items-center justify-center space-x-1">
-            <NavigationMenuItem>
-              <Link href="/projects">Projects</Link>
-            </NavigationMenuItem>
-            <NavigationMenuItem>
-              <Link href="/tags">Tags</Link>
-            </NavigationMenuItem>
-          </NavigationMenuList>
-        </NavigationMenu>
+        <Suspense fallback={<div>Loading...</div>}>
+          <NavigationMenu className="relative z-10 flex max-w-max flex-1 items-center justify-center">
+            <NavigationMenuList className="group flex flex-1 list-none items-center justify-center space-x-1">
+              <NavigationMenuItem>
+                <Link href="/projects">Projects</Link>
+              </NavigationMenuItem>
+              <NavigationMenuItem>
+                <Link href="/tags">Tags</Link>
+              </NavigationMenuItem>
+            </NavigationMenuList>
+          </NavigationMenu>
+        </Suspense>
       </div>
     </header>
   );

@@ -1,7 +1,5 @@
 import { api } from "@/server/api-remote-json";
 
-export const runtime = "edge";
-
 type Context = { params: Promise<{ slug: string }> };
 export async function GET(_req: Request, props: Context) {
   const params = await props.params;

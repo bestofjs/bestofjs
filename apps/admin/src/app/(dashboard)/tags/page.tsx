@@ -6,6 +6,7 @@ import { Badge } from "@/components/ui/badge";
 import { TagsDataTable } from "./tags-data-table";
 
 export default async function TagsPage() {
+  "use cache";
   const tags = await findTags();
   return (
     <div className="flex flex-col gap-4">

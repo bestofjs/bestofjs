@@ -5,6 +5,7 @@ export const triggerBuildWebappTask = createTask({
   description: "Trigger the build of the Next.js app",
 
   run: async ({ logger }) => {
+    await invalidateWebAppCacheByTag("daily");
     await invalidateWebAppCacheByTag("all-projects");
     await invalidateWebAppCacheByTag("project-details");
     await invalidateWebAppCacheByTag("package-downloads");

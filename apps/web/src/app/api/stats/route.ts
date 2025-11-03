@@ -1,7 +1,5 @@
 import { api } from "@/server/api-remote-json";
 
-export const runtime = "edge";
-
 // This end-point is used to check the freshness of the static API data
 // that is supposed to be revalidated every day
 export async function GET() {

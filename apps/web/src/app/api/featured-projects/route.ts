@@ -1,7 +1,5 @@
 import { api } from "@/server/api-remote-json";
 
-export const runtime = "edge";
-
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
   const skipParam = searchParams.get("skip");

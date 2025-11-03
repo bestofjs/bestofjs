@@ -2,6 +2,7 @@
 /** biome-ignore-all lint/a11y/noSvgWithoutTitle: titles are rendered! */
 
 import type React from "react";
+import { headers } from "next/headers";
 import { ImageResponse } from "next/og";
 
 import { getProjectLogoURL } from "@/components/core/project-utils";
@@ -10,9 +11,10 @@ import { APP_CANONICAL_URL } from "@/config/site";
 export const mutedColor = `rgba(255, 255, 255, 0.7)`;
 export const borderColor = `rgba(255, 255, 255, 0.2)`;
 
-export function generateImageResponse(
+export async function generateImageResponse(
   content: ConstructorParameters<typeof ImageResponse>[0],
 ) {
+  await headers(); // force dynamic behavior to avoid multiple errors when fetching images at build time
   return new ImageResponse(content, {
     width: 1200,
     height: 630,

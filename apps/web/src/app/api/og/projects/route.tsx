@@ -22,8 +22,6 @@ import { ImageLayout } from "../og-image-layout";
 
 const searchStateParser = new ProjectSearchStateParser();
 
-export const runtime = "edge";
-
 export async function GET(req: Request) {
   const NUMBER_OF_PROJECTS = 3;
   const {
