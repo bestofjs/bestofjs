@@ -1,3 +1,5 @@
+import { cacheTag } from "next/cache";
+
 import { db } from "@repo/db";
 import { findHallOfFameMembers } from "@repo/db/hall-of-fame";
 
@@ -11,6 +13,8 @@ const forceLoadingState = false; // set to true when debugging the loading state
 const searchStateParser = new HallOfFameSearchStateParser();
 
 export default async function HallOfFamePage() {
+  "use cache";
+  cacheTag("hall-of-fame");
   if (forceLoadingState) return <Loading />;
 
   const { searchState, buildPageURL } = searchStateParser.parse({});
