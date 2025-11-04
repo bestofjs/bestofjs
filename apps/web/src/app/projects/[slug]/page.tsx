@@ -1,3 +1,5 @@
+"use cache";
+
 import { Suspense } from "react";
 import type { Metadata } from "next";
 import { cacheLife, cacheTag } from "next/cache";
@@ -73,7 +75,6 @@ export default async function ProjectDetailsPage(props: PageProps) {
 }
 
 async function getProjectDetailsData(slug: string) {
-  "use cache";
   cacheLife("daily");
   cacheTag("project-details", slug);
   return await projectService.getProjectBySlug(slug);
