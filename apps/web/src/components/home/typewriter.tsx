@@ -11,15 +11,27 @@ type Props = {
 export function TypeWriter({ topics, sleepTime, loop = false }: Props) {
   const typeWriterRef = useRef<HTMLSpanElement | null>(null);
   const defaultTopic = topics[0];
-  let currentTopicIndex = 0;
-  let reverse = true;
+  const startedRef = useRef(false);
+  const cancelledRef = useRef(false);
+  const currentTopicIndexRef = useRef(0);
+  const reverseRef = useRef(true);
 
   useEffect(() => {
+    // When (re)mounted or made visible again, allow running and clear cancellation
+    cancelledRef.current = false;
+    if (startedRef.current) return;
+    startedRef.current = true;
+
     const timeout = setTimeout(() => {
-      animateText();
+      if (!cancelledRef.current) {
+        animateText();
+      }
     }, 3000);
 
     return () => {
+      // Mark as cancelled and allow a future restart on visibility/remount
+      cancelledRef.current = true;
+      startedRef.current = false;
       clearTimeout(timeout);
     };
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
@@ -27,9 +39,11 @@ export function TypeWriter({ topics, sleepTime, loop = false }: Props) {
   async function animateText() {
     let index = 0;
     while (loop || index < topics.length) {
-      const currentTopic = topics[currentTopicIndex];
+      if (cancelledRef.current) return;
 
-      if (reverse) {
+      const currentTopic = topics[currentTopicIndexRef.current];
+
+      if (reverseRef.current) {
         await reduceText(currentTopic);
         await sleep(sleepTime * 5);
       } else {
@@ -41,16 +55,17 @@ export function TypeWriter({ topics, sleepTime, loop = false }: Props) {
       }
 
       index++;
-      if (currentTopicIndex === topics.length - 1) {
-        currentTopicIndex = 0;
+      if (currentTopicIndexRef.current === topics.length - 1) {
+        currentTopicIndexRef.current = 0;
       } else {
-        currentTopicIndex++;
+        currentTopicIndexRef.current++;
       }
     }
   }
 
   async function incrementText(currentTopic: string) {
     for (let i = 0; i < currentTopic.length; i++) {
+      if (cancelledRef.current) return;
       if (typeWriterRef.current) {
         typeWriterRef.current.textContent = currentTopic.substring(0, i + 1);
         await sleep(sleepTime);
@@ -60,10 +75,11 @@ export function TypeWriter({ topics, sleepTime, loop = false }: Props) {
 
   async function reduceText(currentTopic: string) {
     for (let i = currentTopic.length; i > 0; i--) {
+      if (cancelledRef.current) return;
       if (typeWriterRef.current) {
         typeWriterRef.current.textContent = currentTopic.substring(0, i - 1);
         if (i === 1) {
-          reverse = false;
+          reverseRef.current = false;
           await sleep(sleepTime);
         }
         await sleep(sleepTime);
