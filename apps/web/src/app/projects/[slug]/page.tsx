@@ -1,3 +1,5 @@
+"use cache";
+
 import { Suspense } from "react";
 import type { Metadata } from "next";
 import { cacheLife, cacheTag } from "next/cache";
@@ -14,7 +16,6 @@ import { getHotProjectsRequest } from "@/app/backend-search-requests";
 import { projectService } from "@/app/db";
 import { Card, CardContent } from "@/components/ui/card";
 import { APP_CANONICAL_URL, APP_DISPLAY_NAME } from "@/config/site";
-import { addCacheBustingParam } from "@/helpers/url";
 import { api } from "@/server/api";
 
 import { ProjectDetailsNpmCard } from "./project-details-npm/project-details-npm";
@@ -28,20 +29,17 @@ type PageProps = {
 export async function generateMetadata(props: PageProps): Promise<Metadata> {
   const params = await props.params;
   const { slug } = params;
-  const project = await projectService.getProjectBySlug(slug);
+  const project = await getProjectDetailsData(slug);
   if (!project) return { title: "Project not found" };
 
   const title = project.name;
   const description = `Trends and data about ${project.name} project. ${project.description}`;
-  const urlSearchParams = new URLSearchParams();
-  const lastUpdateDate = project.repo.updated_at || new Date(); // TODO
-  addCacheBustingParam(urlSearchParams, lastUpdateDate);
 
   return {
     title: title,
     description: description,
     openGraph: {
-      images: [`/api/og/projects/${slug}?${urlSearchParams.toString()}`],
+      images: [`/api/og/projects/${slug}`],
       url: `${APP_CANONICAL_URL}/projects/${slug}`,
       title: `#${title} on ${APP_DISPLAY_NAME}`,
       description,
@@ -50,13 +48,10 @@ export async function generateMetadata(props: PageProps): Promise<Metadata> {
 }
 
 export default async function ProjectDetailsPage(props: PageProps) {
-  "use cache";
-  cacheLife("daily");
-  cacheTag("project-details");
   const params = await props.params;
   const { slug } = params;
-  cacheTag("project-details", slug);
-  const project = await projectService.getProjectBySlug(slug);
+
+  const project = await getProjectDetailsData(slug);
   if (!project) {
     // TODO show a better page when an invalid slug is provided
     return <>Project not found!</>;
@@ -77,6 +72,12 @@ export default async function ProjectDetailsPage(props: PageProps) {
       <ReadmeCard project={project} />
     </div>
   );
+}
+
+async function getProjectDetailsData(slug: string) {
+  cacheLife("daily");
+  cacheTag("project-details", slug);
+  return await projectService.getProjectBySlug(slug);
 }
 
 async function ProjectDetailsCards({ project }: { project: ProjectDetails }) {
