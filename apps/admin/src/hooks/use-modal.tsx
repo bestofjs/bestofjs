@@ -32,7 +32,7 @@ export function ModalProvider({ children }: PropsWithChildren) {
   return (
     <ModalContext.Provider value={{ modal, setModal }}>
       <Dialog
-        open={Boolean(modal?.renderContent)}
+        open={Boolean(modal)}
         onOpenChange={() => {
           // resolve with `null` when the modal is closed by clicking outside, from the X button, or by pressing ESC
           modal?.cancel();
