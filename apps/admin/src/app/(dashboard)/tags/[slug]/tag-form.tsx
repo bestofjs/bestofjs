@@ -17,14 +17,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
+import { Field, FieldError, FieldLabel } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 
@@ -42,7 +35,12 @@ export function TagForm({ tag }: Props) {
   const router = useRouter();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
-    ...{ defaultValues: tag },
+    ...{
+      defaultValues: {
+        ...tag,
+        description: tag.description ?? "",
+      },
+    },
   });
 
   const isPending = form.formState.isSubmitting;
@@ -65,55 +63,29 @@ export function TagForm({ tag }: Props) {
         )}
       </CardHeader>
       <CardContent>
-        <Form {...form}>
-          <form className="space-y-8" onSubmit={form.handleSubmit(onSubmit)}>
-            <FormField
-              control={form.control}
-              name="name"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Name</FormLabel>
-                  <FormControl>
-                    <Input placeholder="Name" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
+        <form className="space-y-8" onSubmit={form.handleSubmit(onSubmit)}>
+          <Field data-invalid={!!form.formState.errors.name}>
+            <FieldLabel htmlFor="name">Name</FieldLabel>
+            <Input id="name" placeholder="Name" {...form.register("name")} />
+            <FieldError errors={[form.formState.errors.name]} />
+          </Field>
+          <Field data-invalid={!!form.formState.errors.code}>
+            <FieldLabel htmlFor="code">Code</FieldLabel>
+            <Input id="code" placeholder="Code" {...form.register("code")} />
+            <FieldError errors={[form.formState.errors.code]} />
+          </Field>
+          <Field data-invalid={!!form.formState.errors.description}>
+            <FieldLabel htmlFor="description">Description</FieldLabel>
+            <Textarea
+              id="description"
+              placeholder="Description"
+              {...form.register("description")}
             />
-            <FormField
-              control={form.control}
-              name="code"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Code</FormLabel>
-                  <FormControl>
-                    <Input placeholder="Code" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="description"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Description</FormLabel>
-                  <FormControl>
-                    <Textarea
-                      placeholder="Description"
-                      {...field}
-                      value={field.value || ""}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+            <FieldError errors={[form.formState.errors.description]} />
+          </Field>
 
-            <SubmitButton isPending={isPending}>Save</SubmitButton>
-          </form>
-        </Form>
+          <SubmitButton isPending={isPending}>Save</SubmitButton>
+        </form>
       </CardContent>
     </Card>
   );
