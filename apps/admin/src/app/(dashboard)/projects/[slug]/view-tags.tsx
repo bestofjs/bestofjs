@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { ReloadIcon } from "@radix-ui/react-icons";
 import { XIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
@@ -10,7 +9,7 @@ import type { ProjectDetails } from "@repo/db/projects";
 
 import { TagPicker } from "@/components/tag-picker";
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
+import { Button, SubmitButton } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -101,10 +100,14 @@ export function ViewTags({ project, allTags }: Props) {
         >
           Discard
         </Button>
-        <Button disabled={!isChanged} onClick={handleSave}>
-          {isPending && <ReloadIcon className="mr-2 size-4 animate-spin" />}
+        <SubmitButton
+          type="button"
+          isPending={isPending}
+          disabled={!isChanged}
+          onClick={handleSave}
+        >
           Save
-        </Button>
+        </SubmitButton>
       </CardFooter>
     </Card>
   );

@@ -3,14 +3,13 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { ReloadIcon } from "@radix-ui/react-icons";
 import { Plus } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { z } from "zod";
 
 import { addProjectToRepoAction } from "@/actions/projects-actions";
-import { Button } from "@/components/ui/button";
+import { Button, SubmitButton } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
@@ -101,12 +100,7 @@ export function AddProjectToRepoButton({ repoId }: { repoId: string }) {
               />
             </div>
             <DialogFooter>
-              <Button type="submit" disabled={isPending}>
-                {isPending && (
-                  <ReloadIcon className="mr-2 size-4 animate-spin" />
-                )}
-                Add
-              </Button>
+              <SubmitButton isPending={isPending}>Add</SubmitButton>
             </DialogFooter>
           </form>
         </DialogContent>

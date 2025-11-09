@@ -3,14 +3,13 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { ReloadIcon } from "@radix-ui/react-icons";
 import { PlusIcon } from "lucide-react";
 import { toast } from "sonner";
 import { z } from "zod";
 
 import type { ProjectDetails } from "@repo/db/projects";
 
-import { Button } from "@/components/ui/button";
+import { Button, SubmitButton } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
@@ -99,12 +98,7 @@ export function AddPackageButton({ project }: Props) {
               />
             </div>
             <DialogFooter>
-              <Button type="submit" disabled={isPending}>
-                {isPending && (
-                  <ReloadIcon className="mr-2 size-4 animate-spin" />
-                )}
-                Add
-              </Button>
+              <SubmitButton isPending={isPending}>Add</SubmitButton>
             </DialogFooter>
           </form>
         </DialogContent>

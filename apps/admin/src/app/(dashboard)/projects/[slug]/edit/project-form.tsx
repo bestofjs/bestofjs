@@ -2,7 +2,6 @@
 
 import { Controller, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { ReloadIcon } from "@radix-ui/react-icons";
 import { TriangleAlert } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -12,7 +11,7 @@ import { z } from "zod";
 import { PROJECT_STATUSES } from "@repo/db/constants";
 import type { ProjectData } from "@repo/db/projects";
 
-import { Button, buttonVariants } from "@/components/ui/button";
+import { buttonVariants, SubmitButton } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -202,10 +201,7 @@ export function ProjectForm({ project }: Props) {
           >
             Cancel
           </Link>
-          <Button type="submit" disabled={isPending}>
-            {isPending && <ReloadIcon className="mr-2 size-4 animate-spin" />}
-            Save Project
-          </Button>
+          <SubmitButton isPending={isPending}>Save Project</SubmitButton>
         </CardFooter>
       </Card>
     </form>
