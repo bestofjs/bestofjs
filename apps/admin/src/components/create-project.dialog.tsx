@@ -20,11 +20,6 @@ const formSchema = z.object({
   gitHubURL: z.url().startsWith("https://github.com/"),
 });
 
-// type Props = {
-//   onSubmit: (values: z.infer<typeof formSchema>) => void;
-//   isPending: boolean;
-// };
-
 type Props = {
   close: (slug: string) => void;
 };
@@ -61,7 +56,6 @@ export function CreateProjectDialog({ close }: Props) {
           <Input
             id="gitHubURL"
             placeholder="https://github.com/..."
-            aria-invalid={!!form.formState.errors.gitHubURL}
             {...form.register("gitHubURL")}
           />
           <FieldError errors={[form.formState.errors.gitHubURL]} />
