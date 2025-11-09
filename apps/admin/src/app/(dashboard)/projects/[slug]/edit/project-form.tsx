@@ -52,23 +52,24 @@ const formSchema = z.object({
   twitter: z.string().nullable(),
 });
 
+type FormValues = z.infer<typeof formSchema>;
+
 type Props = {
   project: ProjectData;
 };
 export function ProjectForm({ project }: Props) {
   const router = useRouter();
-  const form = useForm<z.input<typeof formSchema>>({
+  const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: project,
   });
 
   const isPending = form.formState.isSubmitting;
 
-  async function onSubmit(values: z.input<typeof formSchema>) {
-    const parsed = formSchema.parse(values);
-    await updateProjectData(project.id, parsed);
+  async function onSubmit(values: FormValues) {
+    await updateProjectData(project.id, values);
     toast.success("Project updated");
-    router.push(`/projects/${parsed.slug}`);
+    router.push(`/projects/${values.slug}`);
   }
 
   return (
@@ -167,8 +168,9 @@ export function ProjectForm({ project }: Props) {
               name="status"
               render={({ field }) => (
                 <Select
+                  name={field.name}
+                  value={field.value}
                   onValueChange={field.onChange}
-                  value={field.value || undefined}
                 >
                   <SelectTrigger>
                     <SelectValue placeholder="Status" />
