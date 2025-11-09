@@ -8,13 +8,13 @@ import { Button } from "@/components/ui/button";
 import { useModal } from "@/hooks/use-modal";
 
 export function ActionBar() {
-  const { showModal } = useModal();
+  const modal = useModal();
   const router = useRouter();
   return (
     <div>
       <Button
         onClick={async () => {
-          const slug = await showModal<string>((close) => (
+          const slug = await modal.show<string>((close) => (
             <CreateProjectDialog close={close} />
           ));
           if (slug) {

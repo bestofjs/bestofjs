@@ -22,7 +22,11 @@ const ModalContext = createContext<{
   setModal: () => {},
 });
 
-export function ModalRoot({ children }: PropsWithChildren) {
+/**
+ * Provides modal state and renders the active modal.
+ * Wrap your app with this provider to enable the `useModal` hook.
+ */
+export function ModalProvider({ children }: PropsWithChildren) {
   const [modal, setModal] = useState<ModalState | null>(null);
 
   return (
@@ -41,12 +45,16 @@ export function ModalRoot({ children }: PropsWithChildren) {
   );
 }
 
+/**
+ * Hook to open modals imperatively.
+ * `show(render)` returns a Promise that resolves with:
+ * - the value passed to `close(value)` from your dialog, or
+ * - `null` if the modal is dismissed (ESC, click outside, close button).
+ */
 export function useModal() {
   const { setModal } = useModalContext();
 
-  function showModal<T>(
-    renderFn: (close: (value: T) => void) => React.ReactNode,
-  ) {
+  function show<T>(renderFn: (close: (value: T) => void) => React.ReactNode) {
     return new Promise<T | null>((resolve) => {
       const cancel = () => {
         setModal(null);
@@ -60,13 +68,8 @@ export function useModal() {
     });
   }
 
-  function closeModal() {
-    setModal(null);
-  }
-
   return {
-    showModal,
-    closeModal,
+    show,
   };
 }
 

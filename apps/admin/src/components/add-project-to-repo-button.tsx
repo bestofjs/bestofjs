@@ -8,14 +8,14 @@ import { Button } from "@/components/ui/button";
 import { useModal } from "@/hooks/use-modal";
 
 export function AddProjectToRepoButton({ repoId }: { repoId: string }) {
-  const { showModal } = useModal();
+  const modal = useModal();
   const router = useRouter();
 
   return (
     <Button
       variant="default"
       onClick={async () => {
-        const slug = await showModal<string>((close) => (
+        const slug = await modal.show<string>((close) => (
           <AddProjectToRepoDialog repoId={repoId} close={close} />
         ));
         if (slug) {

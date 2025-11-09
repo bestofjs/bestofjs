@@ -35,13 +35,13 @@ type Props = {
 };
 
 export function AddPackageButton({ project }: Props) {
-  const { showModal } = useModal();
+  const modal = useModal();
 
   return (
     <Button
       variant="default"
       onClick={async () => {
-        await showModal<void>((close) => (
+        await modal.show<void>((close) => (
           <AddPackageDialog project={project} close={close} />
         ));
       }}
