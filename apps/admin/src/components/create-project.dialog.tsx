@@ -16,7 +16,12 @@ import { Field, FieldError, FieldLabel } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 
 const formSchema = z.object({
-  gitHubURL: z.url().startsWith("https://github.com/"),
+  gitHubURL: z
+    .string()
+    .regex(
+      /^https:\/\/github\.com\/[A-Za-z0-9_.-]+\/[A-Za-z0-9_.-]+$/,
+      "Enter a valid GitHub repository URL",
+    ),
 });
 
 type Props = {
