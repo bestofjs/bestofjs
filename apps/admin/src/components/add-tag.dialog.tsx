@@ -38,7 +38,7 @@ export function AddTagDialog({ close }: Props) {
       toast.success(`Tag added: ${tag.code}`);
       close(tag.code);
     } catch (error) {
-      toast.error(`Unable to create the project ${(error as Error).message}`);
+      toast.error(`Unable to create the tag ${(error as Error).message}`);
     }
   }
 

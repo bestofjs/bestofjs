@@ -52,8 +52,6 @@ const formSchema = z.object({
   twitter: z.string().nullable(),
 });
 
-// type FormValues = z.input<typeof formSchema>;
-
 type Props = {
   project: ProjectData;
 };

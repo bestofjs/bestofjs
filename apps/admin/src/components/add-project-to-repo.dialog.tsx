@@ -41,7 +41,9 @@ export function AddProjectToRepoDialog({ repoId, close }: Props) {
       toast.success(`Project added: ${project.name}`);
       close(project.slug);
     } catch (error) {
-      toast.error(`Unable to create the project ${(error as Error).message}`);
+      toast.error(
+        `Unable to add the project to the repository ${(error as Error).message}`,
+      );
     }
   }
 
