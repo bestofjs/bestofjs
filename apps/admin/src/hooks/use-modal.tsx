@@ -14,13 +14,9 @@ type ModalState = {
   cancel: () => void;
 };
 
-const ModalContext = createContext<{
-  modal: ModalState | null;
-  setModal: (modal: ModalState | null) => void;
-}>({
-  modal: null,
-  setModal: () => {},
-});
+const ModalContext = createContext<((modal: ModalState | null) => void) | null>(
+  null,
+);
 
 /**
  * Provides modal state and renders the active modal.
@@ -30,7 +26,7 @@ export function ModalProvider({ children }: PropsWithChildren) {
   const [modal, setModal] = useState<ModalState | null>(null);
 
   return (
-    <ModalContext.Provider value={{ modal, setModal }}>
+    <ModalContext.Provider value={setModal}>
       <Dialog
         open={Boolean(modal)}
         onOpenChange={() => {
@@ -52,7 +48,7 @@ export function ModalProvider({ children }: PropsWithChildren) {
  * - `null` if the modal is dismissed (ESC, click outside, close button).
  */
 export function useModal() {
-  const { setModal } = useModalContext();
+  const setModal = useModalContext();
 
   function show<T>(renderFn: (close: (value: T) => void) => React.ReactNode) {
     return new Promise<T | null>((resolve) => {
