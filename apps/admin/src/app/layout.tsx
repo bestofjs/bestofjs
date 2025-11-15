@@ -6,6 +6,7 @@ import { NuqsAdapter } from "nuqs/adapters/next/app";
 import { Header } from "@/components/header";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Toaster } from "@/components/ui/sonner";
+import { ModalProvider } from "@/hooks/use-modal";
 import { cn } from "@/lib/utils";
 
 export const metadata: Metadata = {
@@ -38,9 +39,11 @@ export default function RootLayout({
             enableSystem
             disableTransitionOnChange
           >
-            <Header />
-            <main className="container py-4">{children}</main>
-            <Toaster />
+            <ModalProvider>
+              <Header />
+              <main className="container py-4">{children}</main>
+              <Toaster />
+            </ModalProvider>
           </ThemeProvider>
         </NuqsAdapter>
       </body>

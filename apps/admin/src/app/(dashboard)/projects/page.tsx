@@ -1,13 +1,14 @@
 import { db } from "@repo/db";
 import { findProjects, getAllTags } from "@repo/db/projects";
 
-import { AddProjectButton } from "@/components/add-project-button";
 import { ProjectTable } from "@/components/project-table";
 import { Badge } from "@/components/ui/badge";
 import {
   type PageSearchParams,
   searchParamsCache,
 } from "@/lib/projects-search-params";
+
+import { ActionBar } from "./action-bar";
 
 type PageProps = { searchParams: Promise<PageSearchParams> };
 
@@ -43,7 +44,7 @@ export default async function ProjectsPage(props: PageProps) {
           Projects
           <Badge className="text-sm">{total}</Badge>
         </h1>
-        <AddProjectButton />
+        <ActionBar />
       </div>
 
       <ProjectTable

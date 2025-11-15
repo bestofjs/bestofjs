@@ -1,8 +1,7 @@
 "use client";
 
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { ReloadIcon } from "@radix-ui/react-icons";
 import { TriangleAlert } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -10,9 +9,8 @@ import { toast } from "sonner";
 import { z } from "zod";
 
 import { PROJECT_STATUSES } from "@repo/db/constants";
-import type { ProjectData } from "@repo/db/projects";
 
-import { Button, buttonVariants } from "@/components/ui/button";
+import { buttonVariants, SubmitButton } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -23,14 +21,11 @@ import {
 } from "@/components/ui/card";
 import { Checkbox } from "@/components/ui/checkbox";
 import {
-  Form,
-  FormControl,
-  FormDescription,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
+  Field,
+  FieldDescription,
+  FieldError,
+  FieldLabel,
+} from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import {
   Select,
@@ -45,215 +40,169 @@ import { updateProjectData } from "../actions";
 
 const formSchema = z.object({
   name: z.string().min(2).max(50),
-  slug: z.string(),
+  slug: z.string().min(1),
   description: z.string().min(10).max(500),
-  overrideDescription: z.coerce.boolean().nullable(),
-  url: z.string().url().nullable().or(z.literal("")),
-  overrideURL: z.coerce.boolean().nullable(),
-  status: z.enum(PROJECT_STATUSES).default("active"),
+  overrideDescription: z.boolean().nullable(),
+  url: z.url().or(z.literal("")).nullable(),
+  overrideURL: z.boolean().nullable(),
+  status: z.enum(PROJECT_STATUSES),
   logo: z.string().nullable(),
   comments: z.string().nullable(),
   twitter: z.string().nullable(),
 });
 
+type FormValues = z.infer<typeof formSchema>;
+
 type Props = {
-  project: ProjectData;
+  project: FormValues & { id: string };
 };
 export function ProjectForm({ project }: Props) {
   const router = useRouter();
-  const form = useForm<z.infer<typeof formSchema>>({
+  const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: project,
   });
 
   const isPending = form.formState.isSubmitting;
 
-  async function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values);
+  async function onSubmit(values: FormValues) {
     await updateProjectData(project.id, values);
     toast.success("Project updated");
     router.push(`/projects/${values.slug}`);
   }
 
   return (
-    <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)}>
-        <Card>
-          <CardHeader>
-            <CardTitle>Project data</CardTitle>
-            <CardDescription>
-              <code>{project.id}</code>
-            </CardDescription>
-          </CardHeader>
-          <CardContent className="space-y-8">
-            <FormField
-              control={form.control}
-              name="name"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Name</FormLabel>
-                  <FormControl>
-                    <Input placeholder="Name" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
+    <form onSubmit={form.handleSubmit(onSubmit)}>
+      <Card>
+        <CardHeader>
+          <CardTitle>Project data</CardTitle>
+          <CardDescription>
+            <code>{project.id}</code>
+          </CardDescription>
+        </CardHeader>
+        <CardContent className="space-y-8">
+          <Field data-invalid={!!form.formState.errors.name}>
+            <FieldLabel htmlFor="name">Name</FieldLabel>
+            <Input id="name" placeholder="Name" {...form.register("name")} />
+            <FieldError errors={[form.formState.errors.name]} />
+          </Field>
+
+          <Field data-invalid={!!form.formState.errors.slug}>
+            <FieldLabel htmlFor="slug">Slug</FieldLabel>
+            <Input id="slug" placeholder="Slug" {...form.register("slug")} />
+            <FieldDescription className="flex items-center gap-2">
+              <TriangleAlert className="size-4" />
+              Edit with care, the slug may be referenced a lot of places
+            </FieldDescription>
+            <FieldError errors={[form.formState.errors.slug]} />
+          </Field>
+
+          <Field data-invalid={!!form.formState.errors.description}>
+            <FieldLabel htmlFor="description">Description</FieldLabel>
+            <Input
+              id="description"
+              placeholder="Description"
+              {...form.register("description")}
             />
-            <FormField
-              control={form.control}
-              name="slug"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Slug</FormLabel>
-                  <FormControl>
-                    <Input placeholder="Slug" {...field} />
-                  </FormControl>
-                  <FormDescription className="flex items-center gap-2">
-                    <TriangleAlert className="size-4" />
-                    Edit with care, the slug may be referenced a lot of places
-                  </FormDescription>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="description"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Description</FormLabel>
-                  <FormControl>
-                    <Input placeholder="Description" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
+            <FieldError errors={[form.formState.errors.description]} />
+          </Field>
+
+          <Field data-invalid={!!form.formState.errors.overrideDescription}>
+            <Controller
               control={form.control}
               name="overrideDescription"
               render={({ field }) => (
-                <FormItem className="flex flex-row items-start space-x-3 space-y-0">
-                  <FormControl>
-                    <Checkbox
-                      checked={field.value || false}
-                      onCheckedChange={field.onChange}
-                    />
-                  </FormControl>
+                <div className="flex flex-row items-start space-x-3 space-y-0">
+                  <Checkbox
+                    checked={field.value ?? false}
+                    onCheckedChange={field.onChange}
+                  />
                   <div className="space-y-1 leading-none">
-                    <FormLabel>Override description</FormLabel>
-                    <FormDescription>
+                    <FieldLabel>Override description</FieldLabel>
+                    <FieldDescription>
                       Used to override the description coming from GitHub data
-                    </FormDescription>
+                    </FieldDescription>
                   </div>
-                </FormItem>
+                </div>
               )}
             />
-            <FormField
-              control={form.control}
-              name="logo"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Logo</FormLabel>
-                  <FormControl>
-                    <Input
-                      placeholder="Logo"
-                      {...field}
-                      value={field.value || ""}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="url"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>URL</FormLabel>
-                  <FormControl>
-                    <Input
-                      placeholder="URL"
-                      {...field}
-                      value={field.value || ""}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
+            <FieldError errors={[form.formState.errors.overrideDescription]} />
+          </Field>
+
+          <Field data-invalid={!!form.formState.errors.logo}>
+            <FieldLabel htmlFor="logo">Logo</FieldLabel>
+            <Input id="logo" placeholder="Logo" {...form.register("logo")} />
+            <FieldError errors={[form.formState.errors.logo]} />
+          </Field>
+
+          <Field data-invalid={!!form.formState.errors.url}>
+            <FieldLabel htmlFor="url">URL</FieldLabel>
+            <Input id="url" placeholder="URL" {...form.register("url")} />
+            <FieldError errors={[form.formState.errors.url]} />
+          </Field>
+
+          <Field data-invalid={!!form.formState.errors.overrideURL}>
+            <Controller
               control={form.control}
               name="overrideURL"
               render={({ field }) => (
-                <FormItem className="flex flex-row items-start space-x-3 space-y-0">
-                  <FormControl>
-                    <Checkbox
-                      checked={field.value || false}
-                      onCheckedChange={field.onChange}
-                    />
-                  </FormControl>
+                <div className="flex flex-row items-start space-x-3 space-y-0">
+                  <Checkbox
+                    checked={field.value ?? false}
+                    onCheckedChange={field.onChange}
+                  />
                   <div className="space-y-1 leading-none">
-                    <FormLabel>Override URL</FormLabel>
+                    <FieldLabel>Override URL</FieldLabel>
                   </div>
-                </FormItem>
+                </div>
               )}
             />
-            <FormField
+            <FieldError errors={[form.formState.errors.overrideURL]} />
+          </Field>
+
+          <Field data-invalid={!!form.formState.errors.status}>
+            <FieldLabel>Status</FieldLabel>
+            <Controller
               control={form.control}
               name="status"
               render={({ field }) => (
-                <FormItem className="">
-                  <FormLabel>Status</FormLabel>
-                  <FormControl>
-                    <Select
-                      onValueChange={field.onChange}
-                      defaultValue={field.value || undefined}
-                    >
-                      <SelectTrigger>
-                        <SelectValue placeholder="Status" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        {PROJECT_STATUSES.map((status) => (
-                          <SelectItem key={status} value={status}>
-                            {status}
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
-                  </FormControl>
-                </FormItem>
+                <Select
+                  name={field.name}
+                  value={field.value}
+                  onValueChange={field.onChange}
+                >
+                  <SelectTrigger>
+                    <SelectValue placeholder="Status" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {PROJECT_STATUSES.map((status) => (
+                      <SelectItem key={status} value={status}>
+                        {status}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
               )}
             />
-            <FormField
-              control={form.control}
-              name="comments"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Comments</FormLabel>
-                  <FormControl>
-                    <Textarea {...field} value={field.value || ""} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-          </CardContent>
-          <CardFooter className="flex justify-end gap-4">
-            <Link
-              href={`/projects/${project.slug}`}
-              className={buttonVariants({ variant: "secondary" })}
-            >
-              Cancel
-            </Link>
-            <Button type="submit" disabled={isPending}>
-              {isPending && <ReloadIcon className="mr-2 size-4 animate-spin" />}
-              Save Project
-            </Button>
-          </CardFooter>
-        </Card>
-      </form>
-    </Form>
+            <FieldError errors={[form.formState.errors.status]} />
+          </Field>
+
+          <Field data-invalid={!!form.formState.errors.comments}>
+            <FieldLabel htmlFor="comments">Comments</FieldLabel>
+            <Textarea id="comments" {...form.register("comments")} />
+            <FieldError errors={[form.formState.errors.comments]} />
+          </Field>
+        </CardContent>
+        <CardFooter className="flex justify-end gap-4">
+          <Link
+            href={`/projects/${project.slug}`}
+            className={buttonVariants({ variant: "secondary" })}
+          >
+            Cancel
+          </Link>
+          <SubmitButton isPending={isPending}>Save Project</SubmitButton>
+        </CardFooter>
+      </Card>
+    </form>
   );
 }

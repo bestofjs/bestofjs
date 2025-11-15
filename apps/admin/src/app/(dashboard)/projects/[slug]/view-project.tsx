@@ -46,7 +46,7 @@ export function ViewProject({ project }: Props) {
                 {project.url}
               </a>
             ) : (
-              "-"
+              <EmptyValue />
             )}
             {project.overrideURL && (
               <div className="mt-2 flex items-center gap-2">
@@ -56,11 +56,11 @@ export function ViewProject({ project }: Props) {
             )}
           </div>
           <p>Logo</p>
-          <p>{project.logo}</p>
-          <p>Comments</p>
-          <p>{project.comments}</p>
+          <p>{project.logo ? project.logo : <EmptyValue />}</p>
           <p>Status</p>
           <p>{project.status}</p>
+          <p>Comments</p>
+          <p>{project.comments ? project.comments : <EmptyValue />}</p>
         </div>
       </CardContent>
       <CardFooter className="flex justify-end">
@@ -73,4 +73,8 @@ export function ViewProject({ project }: Props) {
       </CardFooter>
     </Card>
   );
+}
+
+function EmptyValue() {
+  return <span className="text-muted-foreground">—</span>;
 }

@@ -1,12 +1,11 @@
 "use client";
 
 import { useState } from "react";
-import { ReloadIcon } from "@radix-ui/react-icons";
 import { toast } from "sonner";
 
 import type { ProjectDetails } from "@repo/db/projects";
 
-import { Button } from "@/components/ui/button";
+import { Button, SubmitButton } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
@@ -59,10 +58,9 @@ export function RemovePackageButton({ project, packageName }: Props) {
             <code>{packageName}</code>?
           </div>
           <DialogFooter>
-            <Button type="submit" disabled={isPending} variant="destructive">
-              {isPending && <ReloadIcon className="mr-2 size-4 animate-spin" />}
+            <SubmitButton isPending={isPending} variant="destructive">
               Remove {packageName}
-            </Button>
+            </SubmitButton>
           </DialogFooter>
         </form>
       </DialogContent>
