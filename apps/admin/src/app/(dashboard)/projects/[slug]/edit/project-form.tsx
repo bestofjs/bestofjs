@@ -9,7 +9,6 @@ import { toast } from "sonner";
 import { z } from "zod";
 
 import { PROJECT_STATUSES } from "@repo/db/constants";
-import type { ProjectData } from "@repo/db/projects";
 
 import { buttonVariants, SubmitButton } from "@/components/ui/button";
 import {
@@ -46,7 +45,7 @@ const formSchema = z.object({
   overrideDescription: z.boolean().nullable(),
   url: z.url().or(z.literal("")).nullable(),
   overrideURL: z.boolean().nullable(),
-  status: z.enum(PROJECT_STATUSES).default("active"),
+  status: z.enum(PROJECT_STATUSES),
   logo: z.string().nullable(),
   comments: z.string().nullable(),
   twitter: z.string().nullable(),
@@ -55,11 +54,11 @@ const formSchema = z.object({
 type FormValues = z.infer<typeof formSchema>;
 
 type Props = {
-  project: ProjectData;
+  project: FormValues & { id: string };
 };
 export function ProjectForm({ project }: Props) {
   const router = useRouter();
-  const form = useForm({
+  const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: project,
   });
