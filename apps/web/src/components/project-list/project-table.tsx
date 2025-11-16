@@ -1,10 +1,7 @@
+import { Suspense } from "react";
 import NextLink from "next/link";
 
 import type { ProjectSearchUrlBuilder } from "@/app/projects/project-search-state";
-import { formatNumber } from "@/helpers/numbers";
-import { cn } from "@/lib/utils";
-
-import { fromNow } from "../../helpers/from-now";
 import {
   DownloadCount,
   GitHubIcon,
@@ -13,10 +10,13 @@ import {
   ProjectLogo,
   StarDelta,
   StarTotal,
-} from "../core";
-import { ProjectTagGroup } from "../tags/project-tag";
-import { buttonVariants } from "../ui/button";
-import { linkVariants } from "../ui/link";
+} from "@/components/core";
+import { FromNow } from "@/components/helpers.client";
+import { ProjectTagGroup } from "@/components/tags/project-tag";
+import { buttonVariants } from "@/components/ui/button";
+import { linkVariants } from "@/components/ui/link";
+import { formatNumber } from "@/helpers/numbers";
+import { cn } from "@/lib/utils";
 
 type Props = {
   projects: BestOfJS.Project[];
@@ -124,13 +124,23 @@ const ProjectTableRow = ({
 
       {showDetails && (
         <Cell className="hidden w-[180px] space-y-2 p-4 text-sm md:table-cell">
-          <div>Pushed {fromNow(project.pushed_at)}</div>
+          <div>
+            Pushed{" "}
+            <Suspense fallback="...">
+              <FromNow date={project.pushed_at} />
+            </Suspense>
+          </div>
           {project.contributor_count > 0 && (
             <div>
               {formatNumber(project.contributor_count, "compact")} contributors
             </div>
           )}
-          <div>Created {fromNow(project.created_at)}</div>
+          <div>
+            Created{" "}
+            <Suspense fallback="...">
+              <FromNow date={project.created_at} />
+            </Suspense>
+          </div>
         </Cell>
       )}
 

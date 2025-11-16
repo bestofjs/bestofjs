@@ -17,6 +17,12 @@ const nextConfig: NextConfig = {
       revalidate: ONE_DAY * 30,
       expire: ONE_DAY * 30 * 12,
     },
+    forever: {
+      // For historical data that never changes (like past monthly rankings)
+      stale: ONE_DAY * 365 * 10, // 10 years
+      revalidate: ONE_DAY * 365 * 10,
+      expire: ONE_DAY * 365 * 10,
+    },
   },
   reactStrictMode: true,
   images: {

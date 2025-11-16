@@ -1,35 +1,26 @@
+import { invalidateWebAppCacheTags } from "@/shared/cache";
 import { createTask } from "@/task-runner";
 
 export const triggerBuildWebappTask = createTask({
   name: "trigger-build-webapp",
   description: "Trigger the build of the Next.js app",
 
-  run: async ({ logger }) => {
-    await invalidateWebAppCacheByTag("daily");
-    await invalidateWebAppCacheByTag("all-projects");
-    await invalidateWebAppCacheByTag("project-details");
-    await invalidateWebAppCacheByTag("package-downloads");
+  run: async (context) => {
+    const { logger } = context;
+
+    // Invalidate multiple cache tags for daily updates
+    const tags = [
+      "daily",
+      "all-projects",
+      "project-details",
+      "package-downloads",
+    ];
+    await invalidateWebAppCacheTags(tags, context);
+
+    // Trigger the build webhook
     await triggerWebAppBuild();
 
     return { data: null, meta: { sent: true } };
-
-    async function invalidateWebAppCacheByTag(tag: string) {
-      const rootURL = "https://bestofjs.org"; // TODO: use env variable?
-      const invalidateCacheURL = `${rootURL}/api/revalidate?tag=${tag}`;
-      try {
-        const result = await fetch(invalidateCacheURL).then((res) =>
-          res.json(),
-        );
-        logger.debug(result);
-        logger.info(`Invalid cache request for "${tag}" tag sent!`);
-      } catch (error) {
-        throw new Error(
-          `Unable to invalid the cache for "${tag}" tag ${
-            (error as Error).message
-          }`,
-        );
-      }
-    }
 
     async function triggerWebAppBuild() {
       const webhookURL = process.env.FRONTEND_BUILD_WEB_HOOK;

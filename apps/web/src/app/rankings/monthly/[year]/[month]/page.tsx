@@ -1,5 +1,6 @@
 import { CalendarIcon } from "lucide-react";
 import type { Metadata } from "next";
+import { cacheLife, cacheTag } from "next/cache";
 import Link from "next/link";
 
 import {
@@ -25,14 +26,20 @@ type PageProps = {
   }>;
 };
 
+// All monthly rankings are historical snapshots that never change
+// Cache them forever, tagged by their specific month for targeted revalidation
+async function getCachedMonthlyRankings(date: MonthlyDate, limit: number) {
+  "use cache";
+  cacheLife("forever"); // Historical data is frozen forever
+  cacheTag("monthly", `${date.year}-${date.month}`);
+  return api.rankings.getMonthlyRankings({ date, limit });
+}
+
 export async function generateMetadata(props: PageProps): Promise<Metadata> {
   const params = await props.params;
   const date = parsePageParams(params);
 
-  const { projects } = await api.rankings.getMonthlyRankings({
-    date,
-    limit: 10,
-  });
+  const { projects } = await getCachedMonthlyRankings(date, 10);
   const projectNames = projects.map((project) => project.name).join(", ");
 
   const title = `Rankings ${formatMonthlyDate(date)}`;
@@ -55,11 +62,9 @@ export async function generateMetadata(props: PageProps): Promise<Metadata> {
 export default async function MonthlyRankingPage(props: PageProps) {
   const params = await props.params;
   const date = parsePageParams(params);
-  const { isFirst, isLatest, projects } = await api.rankings.getMonthlyRankings(
-    {
-      date,
-      limit: 50,
-    },
+  const { isFirst, isLatest, projects } = await getCachedMonthlyRankings(
+    date,
+    50,
   );
 
   return (
