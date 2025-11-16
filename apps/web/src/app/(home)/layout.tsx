@@ -1,5 +1,4 @@
 "use cache"; // needed at the file level to avoid errors `Route "/" used `require('node:crypto').randomBytes(size)` before accessing either uncached data`
-import { Suspense } from "react";
 import { cacheLife, cacheTag } from "next/cache";
 
 import { FeaturedProjects } from "@/components/home/home-featured-projects";
@@ -42,9 +41,7 @@ export default async function TrendsLayout({
         </div>
       </div>
 
-      <Suspense fallback={<div>Loading...</div>}>
-        <LatestMonthlyRankings />
-      </Suspense>
+      <LatestMonthlyRankings />
 
       <Separator className="-mx-4 w-auto sm:mx-0" />
 
