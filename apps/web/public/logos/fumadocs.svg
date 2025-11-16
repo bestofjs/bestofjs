@@ -1,0 +1,7 @@
+<svg  xmlns="http://www.w3.org/2000/svg" width="80" height="80" viewBox="0 0 180 180">
+<circle cx="90" cy="90" r="60" fill="url(#_R_4ir5ulb_-iconGradient)" stroke="#dd7627" stroke-width="1"></circle>
+<defs><linearGradient id="_R_4ir5ulb_-iconGradient" gradientTransform="rotate(45)">
+<stop offset="45%" stop-color="#f5f5f5"></stop>
+<stop offset="100%" stop-color="#dd7627"></stop>
+</linearGradient></defs>
+</svg>
