@@ -1,4 +1,5 @@
 "use cache"; // needed at the file level to avoid errors `Route "/" used `require('node:crypto').randomBytes(size)` before accessing either uncached data`
+import { Suspense } from "react";
 import { cacheLife, cacheTag } from "next/cache";
 
 import { FeaturedProjects } from "@/components/home/home-featured-projects";
@@ -30,26 +31,28 @@ export default async function TrendsLayout({
     <div className="flex flex-col gap-8">
       <HomeIntroSection />
 
-      <div className="flex flex-col gap-8 lg:flex-row">
-        <div className="flex-1 space-y-8">
-          {children}
-          <NewestProjectList projects={newestProjects} />
+      <Suspense fallback={<div>Loading...</div>}>
+        <div className="flex flex-col gap-8 lg:flex-row">
+          <div className="flex-1 space-y-8">
+            {children}
+            <NewestProjectList projects={newestProjects} />
+          </div>
+          <div className="shrink-0 space-y-8 lg:w-[300px]">
+            <FeaturedProjects />
+            <PopularTagsList tags={popularTags} />
+          </div>
         </div>
-        <div className="shrink-0 space-y-8 lg:w-[300px]">
-          <FeaturedProjects />
-          <PopularTagsList tags={popularTags} />
-        </div>
-      </div>
 
-      <LatestMonthlyRankings />
+        <LatestMonthlyRankings />
 
-      <Separator className="-mx-4 w-auto sm:mx-0" />
+        <Separator className="-mx-4 w-auto sm:mx-0" />
 
-      <BestOfJSSection project={bestOfJSProject} />
+        <BestOfJSSection project={bestOfJSProject} />
 
-      <Separator className="-mx-4 w-auto sm:mx-0" />
+        <Separator className="-mx-4 w-auto sm:mx-0" />
 
-      <MoreProjectsSection lastUpdateDate={lastUpdateDate} total={total} />
+        <MoreProjectsSection lastUpdateDate={lastUpdateDate} total={total} />
+      </Suspense>
     </div>
   );
 }
