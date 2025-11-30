@@ -10,7 +10,7 @@ import { api } from "@/server/api-local-json";
 export default async function WeeklyTrendsPage() {
   cacheLife("daily");
   cacheTag("daily", "home");
-  
+
   const { projects } = await api.projects.findProjects(
     getHotProjectsRequest(5, "weekly"),
   );
