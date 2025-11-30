@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { useRouter } from "next/navigation";
 
 import { ChevronDownIcon } from "@/components/core";
@@ -30,9 +31,21 @@ type Props = {
 export function TimeRangePicker({ value }: Props) {
   const sortOption = getSortOptionByKey(value);
   const router = useRouter();
+  const [isOpen, setIsOpen] = useState(false);
+
+  const handleOpenChange = (open: boolean) => {
+    if (open) {
+      // Prefetch RSC payloads for all trend routes
+      router.prefetch("/");
+      router.prefetch("/trends/weekly");
+      router.prefetch("/trends/monthly");
+      router.prefetch("/trends/yearly");
+    }
+    setIsOpen(open);
+  };
 
   return (
-    <DropdownMenu>
+    <DropdownMenu open={isOpen} onOpenChange={handleOpenChange}>
       <DropdownMenuTrigger asChild>
         <Button variant="outline">
           {sortOption.shortLabel || sortOption.label}
