@@ -7,8 +7,9 @@ import {
   flattenSnapshots,
   isProjectIncludedInRankings,
 } from "@repo/db/projects";
-import { getMonthlyDelta } from "@repo/db/snapshots";
+import { getMonthlyDelta, getPreviousMonth } from "@repo/db/snapshots";
 
+import { invalidateWebAppCacheByTag } from "@/shared/cache";
 import { truncate } from "@/shared/utils";
 import { createTask } from "@/task-runner";
 
@@ -106,6 +107,16 @@ export const buildMonthlyRankingsTask = createTask({
         .map((project) => `${project.name} (${project.relativeGrowth})`),
     });
     await saveJSON(output, `monthly/${year}/${formatDate(year, month)}.json`);
+
+    // Invalidate caches after building new rankings:
+    // 1. Previous month: Updates navigation (Next button becomes enabled)
+    // 2. "latest" tag: Updates homepage and current month components
+    const prevMonth = getPreviousMonth({ year, month });
+    await invalidateWebAppCacheByTag(
+      `${prevMonth.year}-${prevMonth.month}`,
+      context,
+    );
+    await invalidateWebAppCacheByTag("latest", context);
 
     return results;
   },

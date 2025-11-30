@@ -13,8 +13,8 @@ import { api } from "@/server/api";
 
 export async function LatestMonthlyRankings() {
   "use cache";
-  cacheLife("monthly");
-  cacheTag("monthly");
+  cacheLife("monthly"); // Revalidate every 30 days for latest rankings
+  cacheTag("monthly", "latest");
   const { year, month, projects } = await api.rankings.getMonthlyRankings({
     limit: 5,
   });

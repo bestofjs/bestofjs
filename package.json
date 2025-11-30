@@ -21,7 +21,7 @@
   "devDependencies": {
     "@biomejs/biome": "2.1.1",
     "dotenv-cli": "catalog:",
-    "next-devtools-mcp": "^0.3.2",
+    "next-devtools-mcp": "^0.3.3",
     "shadcn": "^3.5.0",
     "tsx": "catalog:",
     "turbo": "^2.5.6",
