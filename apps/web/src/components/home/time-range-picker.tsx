@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
 
 import { ChevronDownIcon } from "@/components/core";
@@ -16,6 +16,7 @@ import {
   DropdownMenuGroup,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { Spinner } from "@/components/ui/spinner";
 
 const sortOptionKeys: SortOptionKey[] = [
   "daily",
@@ -32,10 +33,11 @@ export function TimeRangePicker({ value }: Props) {
   const sortOption = getSortOptionByKey(value);
   const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
+  const [isPending, startTransition] = useTransition();
 
   const handleOpenChange = (open: boolean) => {
     if (open) {
-      // Prefetch RSC payloads for all trend routes
+      // Prefetch RSC payloads for all trend routes when dropdown opens
       router.prefetch("/");
       router.prefetch("/trends/weekly");
       router.prefetch("/trends/monthly");
@@ -44,12 +46,26 @@ export function TimeRangePicker({ value }: Props) {
     setIsOpen(open);
   };
 
+  const handleNavigate = (path: string) => {
+    startTransition(() => {
+      router.push(path);
+    });
+  };
+
   return (
     <DropdownMenu open={isOpen} onOpenChange={handleOpenChange}>
       <DropdownMenuTrigger asChild>
-        <Button variant="outline">
-          {sortOption.shortLabel || sortOption.label}
-          <ChevronDownIcon size={24} aria-hidden="true" />
+        <Button variant="outline" disabled={isPending}>
+          {isPending ? (
+            <>
+              <Spinner /> Loading...
+            </>
+          ) : (
+            <>
+              {sortOption.shortLabel || sortOption.label}
+              <ChevronDownIcon size={24} aria-hidden="true" />
+            </>
+          )}
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
@@ -62,7 +78,8 @@ export function TimeRangePicker({ value }: Props) {
               <DropdownMenuCheckboxItem
                 key={sortOptionKey}
                 checked={sortOptionKey === value}
-                onCheckedChange={() => router.push(nextPath)}
+                disabled={isPending}
+                onCheckedChange={() => handleNavigate(nextPath)}
               >
                 {item.shortLabel || item.label}
               </DropdownMenuCheckboxItem>
