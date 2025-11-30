@@ -1,3 +1,5 @@
+"use cache";
+
 import type { Metadata } from "next";
 import { cacheLife, cacheTag } from "next/cache";
 
@@ -6,11 +8,6 @@ import { HotProjectList } from "@/components/home/hot-project-list";
 import { api } from "@/server/api-local-json";
 
 export default async function YearlyTrendsPage() {
-  return <YearlyTrendsContent />;
-}
-
-async function YearlyTrendsContent() {
-  "use cache";
   cacheLife("daily");
   cacheTag("daily", "home");
   
