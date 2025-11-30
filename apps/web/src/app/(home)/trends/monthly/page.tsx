@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import type { Metadata } from "next";
 
 import { getHotProjectsRequest } from "@/app/backend-search-requests";
@@ -8,7 +9,11 @@ export default async function MonthlyTrendsPage() {
   const { projects } = await api.projects.findProjects(
     getHotProjectsRequest(5, "monthly"),
   );
-  return <HotProjectList projects={projects} sortOptionKey="monthly" />;
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <HotProjectList projects={projects} sortOptionKey="monthly" />
+    </Suspense>
+  );
 }
 
 export async function generateMetadata(): Promise<Metadata> {
