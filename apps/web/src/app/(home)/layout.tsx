@@ -2,6 +2,7 @@
 import { Suspense } from "react";
 import { cacheLife, cacheTag } from "next/cache";
 
+import { ProjectListCardLoading } from "@/app/projects/loading-state";
 import { FeaturedProjects } from "@/components/home/home-featured-projects";
 import { HomeIntroSection } from "@/components/home/home-intro-section";
 import {
@@ -20,6 +21,18 @@ import { getLatestProjects } from "../backend-search-requests";
 export default async function TrendsLayout({
   children,
 }: React.PropsWithChildren) {
+  return (
+    <div className="flex flex-col gap-8">
+      <HomeIntroSection />
+
+      <Suspense fallback={<ProjectListCardLoading />}>
+        <TrendsLayoutMain>{children}</TrendsLayoutMain>
+      </Suspense>
+    </div>
+  );
+}
+
+async function TrendsLayoutMain({ children }: React.PropsWithChildren) {
   const {
     newestProjects,
     bestOfJSProject,
@@ -28,32 +41,28 @@ export default async function TrendsLayout({
     total,
   } = await getData();
   return (
-    <div className="flex flex-col gap-8">
-      <HomeIntroSection />
-
-      <Suspense fallback={<div>Loading...</div>}>
-        <div className="flex flex-col gap-8 lg:flex-row">
-          <div className="flex-1 space-y-8">
-            {children}
-            <NewestProjectList projects={newestProjects} />
-          </div>
-          <div className="shrink-0 space-y-8 lg:w-[300px]">
-            <FeaturedProjects />
-            <PopularTagsList tags={popularTags} />
-          </div>
+    <>
+      <div className="flex flex-col gap-8 lg:flex-row">
+        <div className="flex-1 space-y-8">
+          {children}
+          <NewestProjectList projects={newestProjects} />
         </div>
+        <div className="shrink-0 space-y-8 lg:w-[300px]">
+          <FeaturedProjects />
+          <PopularTagsList tags={popularTags} />
+        </div>
+      </div>
 
-        <LatestMonthlyRankings />
+      <LatestMonthlyRankings />
 
-        <Separator className="-mx-4 w-auto sm:mx-0" />
+      <Separator className="-mx-4 w-auto sm:mx-0" />
 
-        <BestOfJSSection project={bestOfJSProject} />
+      <BestOfJSSection project={bestOfJSProject} />
 
-        <Separator className="-mx-4 w-auto sm:mx-0" />
+      <Separator className="-mx-4 w-auto sm:mx-0" />
 
-        <MoreProjectsSection lastUpdateDate={lastUpdateDate} total={total} />
-      </Suspense>
-    </div>
+      <MoreProjectsSection lastUpdateDate={lastUpdateDate} total={total} />
+    </>
   );
 }
 

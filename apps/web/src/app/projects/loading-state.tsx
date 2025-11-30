@@ -6,17 +6,27 @@ export function ProjectListLoading() {
   return (
     <>
       <PageHeading title={<>Projects</>} />
-      <Card>
-        <CardHeader className="border-b text-muted-foreground">
-          Loading project list...
-        </CardHeader>
-        <div className="divide-y">
-          {[...Array(5)].map((_, index) => (
-            <LoadingProject key={index} />
-          ))}
-        </div>
-      </Card>
+      <ProjectListCardLoading />
     </>
+  );
+}
+
+export function ProjectListCardLoading({
+  numberOfProjects = 5,
+}: {
+  numberOfProjects?: number;
+}) {
+  return (
+    <Card>
+      <CardHeader className="border-b text-muted-foreground">
+        Loading projects...
+      </CardHeader>
+      <div className="divide-y">
+        {[...Array(numberOfProjects)].map((_, index) => (
+          <LoadingProject key={index} />
+        ))}
+      </div>
+    </Card>
   );
 }
 
