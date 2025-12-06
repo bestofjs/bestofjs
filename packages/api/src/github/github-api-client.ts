@@ -125,7 +125,7 @@ export function createGitHubClient() {
       { path, branch = "main" }: { path?: string | null; branch?: string } = {},
     ) {
       const baseEndpoint = `repos/${fullName}/readme`;
-      const apiEndpoint = path ? `${baseEndpoint}?path=${path}` : baseEndpoint;
+      const apiEndpoint = path ? `${baseEndpoint}/${path}` : baseEndpoint;
       const html = await makeRestApiRequest(
         apiEndpoint,
         "application/vnd.github.VERSION.html",

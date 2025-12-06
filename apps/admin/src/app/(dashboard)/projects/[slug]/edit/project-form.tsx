@@ -202,7 +202,7 @@ export function ProjectForm({ project }: Props) {
               {...form.register("packagePath")}
             />
             <FieldDescription>
-              Path to package in monorepos (e.g., <code>packages/react</code>).
+              Path to package in monorepos (e.g., <code>packages/core</code>).
               Leave empty for root-level projects.
             </FieldDescription>
             <FieldError errors={[form.formState.errors.packagePath]} />
