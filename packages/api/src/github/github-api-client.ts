@@ -120,9 +120,14 @@ export function createGitHubClient() {
         .then(extractUserInfo);
     },
 
-    async fetchRepoReadMeAsHtml(fullName: string, branch = "main") {
+    async fetchRepoReadMeAsHtml(
+      fullName: string,
+      { path, branch = "main" }: { path?: string | null; branch?: string } = {},
+    ) {
+      const baseEndpoint = `repos/${fullName}/readme`;
+      const apiEndpoint = path ? `${baseEndpoint}?path=${path}` : baseEndpoint;
       const html = await makeRestApiRequest(
-        `repos/${fullName}/readme`,
+        apiEndpoint,
         "application/vnd.github.VERSION.html",
       ).then((response) => response.text());
       const readme = processReadMeHtml(html, fullName, branch);

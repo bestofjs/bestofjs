@@ -28,6 +28,7 @@ export const projects = pgTable("projects", {
   comments: text("comments"),
   createdAt: timestamp("created_at").notNull().defaultNow(),
   updatedAt: timestamp("updated_at"),
+  packagePath: text("package_path"), // Relative path to package directory in monorepos (e.g., "packages/core"), null for root
   repoId: text("repoId")
     .references(() => repos.id, { onDelete: "cascade" })
     .notNull(),
