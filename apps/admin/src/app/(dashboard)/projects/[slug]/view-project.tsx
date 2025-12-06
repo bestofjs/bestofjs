@@ -61,6 +61,16 @@ export function ViewProject({ project }: Props) {
           <p>{project.status}</p>
           <p>Comments</p>
           <p>{project.comments ? project.comments : <EmptyValue />}</p>
+          <p>Package Path</p>
+          <p>
+            {project.packagePath ? (
+              <code className="rounded bg-muted px-1 py-0.5">
+                {project.packagePath}
+              </code>
+            ) : (
+              <EmptyValue />
+            )}
+          </p>
         </div>
       </CardContent>
       <CardFooter className="flex justify-end">

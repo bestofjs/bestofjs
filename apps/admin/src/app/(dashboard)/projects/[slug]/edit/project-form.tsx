@@ -49,6 +49,7 @@ const formSchema = z.object({
   logo: z.string().nullable(),
   comments: z.string().nullable(),
   twitter: z.string().nullable(),
+  packagePath: z.string().nullable(),
 });
 
 type FormValues = z.infer<typeof formSchema>;
@@ -191,6 +192,20 @@ export function ProjectForm({ project }: Props) {
             <FieldLabel htmlFor="comments">Comments</FieldLabel>
             <Textarea id="comments" {...form.register("comments")} />
             <FieldError errors={[form.formState.errors.comments]} />
+          </Field>
+
+          <Field data-invalid={!!form.formState.errors.packagePath}>
+            <FieldLabel htmlFor="packagePath">Package Path</FieldLabel>
+            <Input
+              id="packagePath"
+              placeholder="e.g., packages/core"
+              {...form.register("packagePath")}
+            />
+            <FieldDescription>
+              Path to package in monorepos (e.g., <code>packages/core</code>).
+              Leave empty for root-level projects.
+            </FieldDescription>
+            <FieldError errors={[form.formState.errors.packagePath]} />
           </Field>
         </CardContent>
         <CardFooter className="flex justify-end gap-4">
