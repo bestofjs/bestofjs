@@ -155,7 +155,7 @@ const GraphBar = ({
     <>
       <BarTopLabel>{formattedValue}</BarTopLabel>
       <div
-        className="mt-1 w-3/4 max-w-8 bg-gradient-to-b from-[var(--graphBackgroundColor1)] to-[var(--graphBackgroundColor2)]"
+        className="mt-1 w-3/4 max-w-8 bg-linear-to-b from-(--graphBackgroundColor1) to-(--graphBackgroundColor2)"
         style={{ height }}
         onClick={onClick}
       ></div>
@@ -169,7 +169,7 @@ const EmptyGraphBar = ({ value }: { value: number | undefined }) => {
       <BarTopLabel className="text-muted-foreground">
         {value === undefined ? "N/A" : 0}
       </BarTopLabel>
-      <div className="mt-1 h-px w-3/4 max-w-8 border-[var(--graphBackgroundColor1)] border-b border-dashed" />
+      <div className="mt-1 h-px w-3/4 max-w-8 border-(--graphBackgroundColor1) border-b border-dashed" />
     </>
   );
 };
@@ -182,7 +182,7 @@ const BarTopLabel = (props: React.HTMLProps<HTMLDivElement>) => {
 
 const MonthLabelGroup = ({ items }: { items: BarGraphItem[] }) => {
   return (
-    <div className="mt-1 grid grid-cols-12 divide-x divide-solid border-[var(--graphBackgroundColor1)] border-x">
+    <div className="mt-1 grid grid-cols-12 divide-x divide-solid border-(--graphBackgroundColor1) border-x">
       {items.map(({ year, month }) => {
         const monthName = monthNames[month - 1];
         const shortMonthName = month; // Show the month number (from 1 to 12) on small screens
@@ -190,7 +190,7 @@ const MonthLabelGroup = ({ items }: { items: BarGraphItem[] }) => {
         return (
           <div
             key={`${year}/${month}`}
-            className="border-[var(--graphBackgroundColor1)] py-1 text-center text-sm uppercase"
+            className="border-(--graphBackgroundColor1) py-1 text-center text-sm uppercase"
           >
             <div className="hidden md:block">{monthName}</div>
             <div className="text-sm md:hidden">{shortMonthName}</div>
@@ -205,14 +205,14 @@ const YearLabelGroup = ({ items }: { items: BarGraphItem[] }) => {
   const yearDataItems = getYearData(items);
 
   return (
-    <div className="grid grid-cols-12 divide-x divide-solid border-[var(--graphBackgroundColor1)] border-x">
+    <div className="grid grid-cols-12 divide-x divide-solid border-(--graphBackgroundColor1) border-x">
       {yearDataItems.map((item) => {
         const colSpan = item.months.length;
         return (
           <div
             key={item.year}
             style={{ gridColumn: `span ${colSpan} / span ${colSpan}` }}
-            className="border-[var(--graphBackgroundColor1)] border-b py-1 text-center text-sm"
+            className="border-(--graphBackgroundColor1) border-b py-1 text-center text-sm"
           >
             {item.year}
           </div>

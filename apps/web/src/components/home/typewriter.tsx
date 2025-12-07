@@ -95,7 +95,7 @@ export function TypeWriter({ topics, sleepTime, loop = false }: Props) {
     <div className="flex whitespace-pre-wrap">
       The Best of{" "}
       <span
-        className="underline decoration-[var(--logo-color)]"
+        className="underline decoration-(--logo-color)"
         ref={typeWriterRef}
       >
         {defaultTopic}

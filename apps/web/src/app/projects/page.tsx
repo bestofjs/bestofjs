@@ -201,7 +201,7 @@ function ProjectPageHeader({
 function ShowNumberOfProject({ count }: { count: number }) {
   return (
     <>
-      <span className="px-2 text-[var(--icon-color)]">•</span>
+      <span className="px-2 text-(--icon-color)">•</span>
       <span className="text-muted-foreground">
         {count === 1
           ? "One project"

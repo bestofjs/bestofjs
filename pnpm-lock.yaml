@@ -294,7 +294,7 @@ importers:
         version: 1.7.16(react-dom@17.0.2(react@17.0.2))(react@17.0.2)
       '@vitejs/plugin-react':
         specifier: ^2.0.0
-        version: 2.2.0(vite@5.4.21(@types/node@20.12.14)(terser@5.19.2))
+        version: 2.2.0(vite@5.4.21(@types/node@20.12.14)(lightningcss@1.30.2)(terser@5.19.2))
       cross-env:
         specifier: ^7.0.3
         version: 7.0.3
@@ -366,16 +366,16 @@ importers:
         version: 2.4.2
       vite:
         specifier: ^5.4.21
-        version: 5.4.21(@types/node@20.12.14)(terser@5.19.2)
+        version: 5.4.21(@types/node@20.12.14)(lightningcss@1.30.2)(terser@5.19.2)
       vite-plugin-checker:
         specifier: ^0.4.9
-        version: 0.4.9(vite@5.4.21(@types/node@20.12.14)(terser@5.19.2))
+        version: 0.4.9(vite@5.4.21(@types/node@20.12.14)(lightningcss@1.30.2)(terser@5.19.2))
       vite-plugin-html:
         specifier: ^3.2.0
-        version: 3.2.0(vite@5.4.21(@types/node@20.12.14)(terser@5.19.2))
+        version: 3.2.0(vite@5.4.21(@types/node@20.12.14)(lightningcss@1.30.2)(terser@5.19.2))
       vite-tsconfig-paths:
         specifier: ^3.4.1
-        version: 3.6.0(vite@5.4.21(@types/node@20.12.14)(terser@5.19.2))
+        version: 3.6.0(vite@5.4.21(@types/node@20.12.14)(lightningcss@1.30.2)(terser@5.19.2))
     devDependencies:
       '@swc/core':
         specifier: ^1.3.73
@@ -470,6 +470,9 @@ importers:
       '@t3-oss/env-nextjs':
         specifier: ^0.11.1
         version: 0.11.1(typescript@5.9.2)(zod@4.1.8)
+      '@tailwindcss/postcss':
+        specifier: ^4.1.17
+        version: 4.1.17
       '@types/debug':
         specifier: 'catalog:'
         version: 4.1.12
@@ -491,9 +494,6 @@ importers:
       '@vercel/analytics':
         specifier: ^1.0.1
         version: 1.0.1
-      autoprefixer:
-        specifier: ^10.4.14
-        version: 10.4.14(postcss@8.5.3)
       class-variance-authority:
         specifier: ^0.7.0
         version: 0.7.0
@@ -561,11 +561,11 @@ importers:
         specifier: ^1.12.0
         version: 1.14.0
       tailwindcss:
-        specifier: ^3.4.0
-        version: 3.4.15
+        specifier: ^4.1.17
+        version: 4.1.17
       tailwindcss-animate:
         specifier: ^1.0.5
-        version: 1.0.6(tailwindcss@3.4.15)
+        version: 1.0.6(tailwindcss@4.1.17)
       tiny-invariant:
         specifier: ^1.3.3
         version: 1.3.3
@@ -583,10 +583,10 @@ importers:
         version: 2.4.2
       vite-tsconfig-paths:
         specifier: ^5.1.3
-        version: 5.1.3(typescript@5.9.2)(vite@5.4.14(@types/node@22.4.0)(terser@5.19.2))
+        version: 5.1.3(typescript@5.9.2)(vite@5.4.14(@types/node@22.4.0)(lightningcss@1.30.2)(terser@5.19.2))
       vitest:
         specifier: ^2.1.9
-        version: 2.1.9(@types/node@22.4.0)(jsdom@16.7.0(bufferutil@4.0.8))(msw@2.12.0(@types/node@22.4.0)(typescript@5.9.2))(terser@5.19.2)
+        version: 2.1.9(@types/node@22.4.0)(jsdom@16.7.0(bufferutil@4.0.8))(lightningcss@1.30.2)(msw@2.12.0(@types/node@22.4.0)(typescript@5.9.2))(terser@5.19.2)
       zod:
         specifier: 'catalog:'
         version: 4.1.8
@@ -594,6 +594,9 @@ importers:
       '@playwright/test':
         specifier: ^1.47.2
         version: 1.47.2
+      shadcn:
+        specifier: ^3.5.1
+        version: 3.5.1(@types/node@22.4.0)(babel-plugin-macros@3.1.0)(typescript@5.9.2)
 
   packages/api:
     dependencies:
@@ -3919,6 +3922,94 @@ packages:
       zod:
         optional: true
 
+  '@tailwindcss/node@4.1.17':
+    resolution: {integrity: sha512-csIkHIgLb3JisEFQ0vxr2Y57GUNYh447C8xzwj89U/8fdW8LhProdxvnVH6U8M2Y73QKiTIH+LWbK3V2BBZsAg==}
+
+  '@tailwindcss/oxide-android-arm64@4.1.17':
+    resolution: {integrity: sha512-BMqpkJHgOZ5z78qqiGE6ZIRExyaHyuxjgrJ6eBO5+hfrfGkuya0lYfw8fRHG77gdTjWkNWEEm+qeG2cDMxArLQ==}
+    engines: {node: '>= 10'}
+    cpu: [arm64]
+    os: [android]
+
+  '@tailwindcss/oxide-darwin-arm64@4.1.17':
+    resolution: {integrity: sha512-EquyumkQweUBNk1zGEU/wfZo2qkp/nQKRZM8bUYO0J+Lums5+wl2CcG1f9BgAjn/u9pJzdYddHWBiFXJTcxmOg==}
+    engines: {node: '>= 10'}
+    cpu: [arm64]
+    os: [darwin]
+
+  '@tailwindcss/oxide-darwin-x64@4.1.17':
+    resolution: {integrity: sha512-gdhEPLzke2Pog8s12oADwYu0IAw04Y2tlmgVzIN0+046ytcgx8uZmCzEg4VcQh+AHKiS7xaL8kGo/QTiNEGRog==}
+    engines: {node: '>= 10'}
+    cpu: [x64]
+    os: [darwin]
+
+  '@tailwindcss/oxide-freebsd-x64@4.1.17':
+    resolution: {integrity: sha512-hxGS81KskMxML9DXsaXT1H0DyA+ZBIbyG/sSAjWNe2EDl7TkPOBI42GBV3u38itzGUOmFfCzk1iAjDXds8Oh0g==}
+    engines: {node: '>= 10'}
+    cpu: [x64]
+    os: [freebsd]
+
+  '@tailwindcss/oxide-linux-arm-gnueabihf@4.1.17':
+    resolution: {integrity: sha512-k7jWk5E3ldAdw0cNglhjSgv501u7yrMf8oeZ0cElhxU6Y2o7f8yqelOp3fhf7evjIS6ujTI3U8pKUXV2I4iXHQ==}
+    engines: {node: '>= 10'}
+    cpu: [arm]
+    os: [linux]
+
+  '@tailwindcss/oxide-linux-arm64-gnu@4.1.17':
+    resolution: {integrity: sha512-HVDOm/mxK6+TbARwdW17WrgDYEGzmoYayrCgmLEw7FxTPLcp/glBisuyWkFz/jb7ZfiAXAXUACfyItn+nTgsdQ==}
+    engines: {node: '>= 10'}
+    cpu: [arm64]
+    os: [linux]
+
+  '@tailwindcss/oxide-linux-arm64-musl@4.1.17':
+    resolution: {integrity: sha512-HvZLfGr42i5anKtIeQzxdkw/wPqIbpeZqe7vd3V9vI3RQxe3xU1fLjss0TjyhxWcBaipk7NYwSrwTwK1hJARMg==}
+    engines: {node: '>= 10'}
+    cpu: [arm64]
+    os: [linux]
+
+  '@tailwindcss/oxide-linux-x64-gnu@4.1.17':
+    resolution: {integrity: sha512-M3XZuORCGB7VPOEDH+nzpJ21XPvK5PyjlkSFkFziNHGLc5d6g3di2McAAblmaSUNl8IOmzYwLx9NsE7bplNkwQ==}
+    engines: {node: '>= 10'}
+    cpu: [x64]
+    os: [linux]
+
+  '@tailwindcss/oxide-linux-x64-musl@4.1.17':
+    resolution: {integrity: sha512-k7f+pf9eXLEey4pBlw+8dgfJHY4PZ5qOUFDyNf7SI6lHjQ9Zt7+NcscjpwdCEbYi6FI5c2KDTDWyf2iHcCSyyQ==}
+    engines: {node: '>= 10'}
+    cpu: [x64]
+    os: [linux]
+
+  '@tailwindcss/oxide-wasm32-wasi@4.1.17':
+    resolution: {integrity: sha512-cEytGqSSoy7zK4JRWiTCx43FsKP/zGr0CsuMawhH67ONlH+T79VteQeJQRO/X7L0juEUA8ZyuYikcRBf0vsxhg==}
+    engines: {node: '>=14.0.0'}
+    cpu: [wasm32]
+    bundledDependencies:
+      - '@napi-rs/wasm-runtime'
+      - '@emnapi/core'
+      - '@emnapi/runtime'
+      - '@tybys/wasm-util'
+      - '@emnapi/wasi-threads'
+      - tslib
+
+  '@tailwindcss/oxide-win32-arm64-msvc@4.1.17':
+    resolution: {integrity: sha512-JU5AHr7gKbZlOGvMdb4722/0aYbU+tN6lv1kONx0JK2cGsh7g148zVWLM0IKR3NeKLv+L90chBVYcJ8uJWbC9A==}
+    engines: {node: '>= 10'}
+    cpu: [arm64]
+    os: [win32]
+
+  '@tailwindcss/oxide-win32-x64-msvc@4.1.17':
+    resolution: {integrity: sha512-SKWM4waLuqx0IH+FMDUw6R66Hu4OuTALFgnleKbqhgGU30DY20NORZMZUKgLRjQXNN2TLzKvh48QXTig4h4bGw==}
+    engines: {node: '>= 10'}
+    cpu: [x64]
+    os: [win32]
+
+  '@tailwindcss/oxide@4.1.17':
+    resolution: {integrity: sha512-F0F7d01fmkQhsTjXezGBLdrl1KresJTcI3DB8EkScCldyKp3Msz4hub4uyYaVnk88BAS1g5DQjjF6F5qczheLA==}
+    engines: {node: '>= 10'}
+
+  '@tailwindcss/postcss@4.1.17':
+    resolution: {integrity: sha512-+nKl9N9mN5uJ+M7dBOOCzINw94MPstNR/GtIhz1fpZysxL/4a+No64jCBD6CPN+bIHWFx3KWuu8XJRrj/572Dw==}
+
   '@tanstack/react-table@8.21.3':
     resolution: {integrity: sha512-5nNMTSETP4ykGegmVkhjcS8tTLW6Vl4axfEGQN3v0zdHYbK4UfoqfPChclTrJ4EoK9QynqAu9oUf8VEmrpZ5Ww==}
     engines: {node: '>=12'}
@@ -5284,6 +5375,10 @@ packages:
   end-of-stream@1.4.4:
     resolution: {integrity: sha512-+uw1inIHVPQoaVuHzRyXd21icM+cnt4CzD5rW+NC1wjOUSTOs+Te7FOv7AhN7vS9x/oIyhLP5PR1H+phQAHu5Q==}
 
+  enhanced-resolve@5.18.3:
+    resolution: {integrity: sha512-d4lC8xfavMeBjzGr2vECC3fsGXziXZQyJxD868h2M/mBI3PwAuODxAkLkq5HYuvrPYcUtiLzsTo8U3PgX3Ocww==}
+    engines: {node: '>=10.13.0'}
+
   entities@2.2.0:
     resolution: {integrity: sha512-p92if5Nz619I0w+akJrLZH0MX0Pb5DX39XOwQTtXSdQQOaYH03S1uIQp4mhOZtAXrxq4ViO67YTiLBo2638o9A==}
 
@@ -6444,6 +6539,10 @@ packages:
     resolution: {integrity: sha512-2yTgeWTWzMWkHu6Jp9NKgePDaYHbntiwvYuuJLbbN9vl7DC9DvXKOB2BC3ZZ92D3cvV/aflH0osDfwpHepQ53w==}
     hasBin: true
 
+  jiti@2.6.1:
+    resolution: {integrity: sha512-ekilCSN1jwRvIbgeg/57YFh8qQDNbwDb9xT/qu2DAHbFFZUicIl4ygVaAvzveMhMVr3LnpSKTNnwt8PoOfmKhQ==}
+    hasBin: true
+
   js-base64@3.7.8:
     resolution: {integrity: sha512-hNngCeKxIUQiEUN3GPJOkz4wF/YvdUdbNL9hsBcMQTkKzboD7T/q3OYOuuPZLUE6dBxSGpwhk5mwuDud7JVAow==}
 
@@ -6523,6 +6622,76 @@ packages:
   levn@0.4.1:
     resolution: {integrity: sha512-+bT2uH4E5LGE7h/n3evcS/sQlJXCpIp6ym8OWJ5eV6+67Dsql/LaaT7qJBAt2rzfoa/5QBGBhxDix1dMt2kQKQ==}
     engines: {node: '>= 0.8.0'}
+
+  lightningcss-android-arm64@1.30.2:
+    resolution: {integrity: sha512-BH9sEdOCahSgmkVhBLeU7Hc9DWeZ1Eb6wNS6Da8igvUwAe0sqROHddIlvU06q3WyXVEOYDZ6ykBZQnjTbmo4+A==}
+    engines: {node: '>= 12.0.0'}
+    cpu: [arm64]
+    os: [android]
+
+  lightningcss-darwin-arm64@1.30.2:
+    resolution: {integrity: sha512-ylTcDJBN3Hp21TdhRT5zBOIi73P6/W0qwvlFEk22fkdXchtNTOU4Qc37SkzV+EKYxLouZ6M4LG9NfZ1qkhhBWA==}
+    engines: {node: '>= 12.0.0'}
+    cpu: [arm64]
+    os: [darwin]
+
+  lightningcss-darwin-x64@1.30.2:
+    resolution: {integrity: sha512-oBZgKchomuDYxr7ilwLcyms6BCyLn0z8J0+ZZmfpjwg9fRVZIR5/GMXd7r9RH94iDhld3UmSjBM6nXWM2TfZTQ==}
+    engines: {node: '>= 12.0.0'}
+    cpu: [x64]
+    os: [darwin]
+
+  lightningcss-freebsd-x64@1.30.2:
+    resolution: {integrity: sha512-c2bH6xTrf4BDpK8MoGG4Bd6zAMZDAXS569UxCAGcA7IKbHNMlhGQ89eRmvpIUGfKWNVdbhSbkQaWhEoMGmGslA==}
+    engines: {node: '>= 12.0.0'}
+    cpu: [x64]
+    os: [freebsd]
+
+  lightningcss-linux-arm-gnueabihf@1.30.2:
+    resolution: {integrity: sha512-eVdpxh4wYcm0PofJIZVuYuLiqBIakQ9uFZmipf6LF/HRj5Bgm0eb3qL/mr1smyXIS1twwOxNWndd8z0E374hiA==}
+    engines: {node: '>= 12.0.0'}
+    cpu: [arm]
+    os: [linux]
+
+  lightningcss-linux-arm64-gnu@1.30.2:
+    resolution: {integrity: sha512-UK65WJAbwIJbiBFXpxrbTNArtfuznvxAJw4Q2ZGlU8kPeDIWEX1dg3rn2veBVUylA2Ezg89ktszWbaQnxD/e3A==}
+    engines: {node: '>= 12.0.0'}
+    cpu: [arm64]
+    os: [linux]
+
+  lightningcss-linux-arm64-musl@1.30.2:
+    resolution: {integrity: sha512-5Vh9dGeblpTxWHpOx8iauV02popZDsCYMPIgiuw97OJ5uaDsL86cnqSFs5LZkG3ghHoX5isLgWzMs+eD1YzrnA==}
+    engines: {node: '>= 12.0.0'}
+    cpu: [arm64]
+    os: [linux]
+
+  lightningcss-linux-x64-gnu@1.30.2:
+    resolution: {integrity: sha512-Cfd46gdmj1vQ+lR6VRTTadNHu6ALuw2pKR9lYq4FnhvgBc4zWY1EtZcAc6EffShbb1MFrIPfLDXD6Xprbnni4w==}
+    engines: {node: '>= 12.0.0'}
+    cpu: [x64]
+    os: [linux]
+
+  lightningcss-linux-x64-musl@1.30.2:
+    resolution: {integrity: sha512-XJaLUUFXb6/QG2lGIW6aIk6jKdtjtcffUT0NKvIqhSBY3hh9Ch+1LCeH80dR9q9LBjG3ewbDjnumefsLsP6aiA==}
+    engines: {node: '>= 12.0.0'}
+    cpu: [x64]
+    os: [linux]
+
+  lightningcss-win32-arm64-msvc@1.30.2:
+    resolution: {integrity: sha512-FZn+vaj7zLv//D/192WFFVA0RgHawIcHqLX9xuWiQt7P0PtdFEVaxgF9rjM/IRYHQXNnk61/H/gb2Ei+kUQ4xQ==}
+    engines: {node: '>= 12.0.0'}
+    cpu: [arm64]
+    os: [win32]
+
+  lightningcss-win32-x64-msvc@1.30.2:
+    resolution: {integrity: sha512-5g1yc73p+iAkid5phb4oVFMB45417DkRevRbt/El/gKXJk4jid+vPFF/AXbxn05Aky8PapwzZrdJShv5C0avjw==}
+    engines: {node: '>= 12.0.0'}
+    cpu: [x64]
+    os: [win32]
+
+  lightningcss@1.30.2:
+    resolution: {integrity: sha512-utfs7Pr5uJyyvDETitgsaqSyjCb2qNRAtuqUeWIAKztsOYdcACf2KtARYXg2pSvhkt+9NfoaNY7fxjl6nuMjIQ==}
+    engines: {node: '>= 12.0.0'}
 
   lilconfig@2.1.0:
     resolution: {integrity: sha512-utWOt/GHzuUxnLKxB6dk81RoOeoNeHgbrXiuGk4yyF5qlRz+iIVWu56E2fqGHFrXz0QNUhLB/8nKqvRH66JKGQ==}
@@ -6622,6 +6791,9 @@ packages:
 
   magic-string@0.30.17:
     resolution: {integrity: sha512-sNPKHvyjVf7gyjwS4xGTaW/mCnF8wnjtifKBEhxfZ7E/S8tQ0rssrwGNn6q8JH/ohItJfSQp9mBtQYuTlH5QnA==}
+
+  magic-string@0.30.21:
+    resolution: {integrity: sha512-vd2F4YUyEXKGcLHoq+TEyCjxueSeHnFxyyjNp80yg0XV4vUhnDer/lvvlqM/arB5bXQN5K2/3oinyCRyx8T2CQ==}
 
   make-dir@3.1.0:
     resolution: {integrity: sha512-g3FeP20LNwhALb/6Cz6Dd4F2ngze0jz7tbzrD2wAV+o9FeNHe4rL+yK2md0J/fiSf1sa1ADhXqi5+oVwOM/eGw==}
@@ -7878,6 +8050,10 @@ packages:
     resolution: {integrity: sha512-5f9tn7gHOiI8CqJ8LGrUEmX6dOivGgSbHkMCeOMCzxHZy9cPwyuRXt7ZyjwukO8QH9kGqi6oiKOpfvTXNGBP4g==}
     hasBin: true
 
+  shadcn@3.5.1:
+    resolution: {integrity: sha512-yLbIDouYv8Xz25BxV/GAGC/46R7/oNwoXIs/IFIYXK47+fKcFIYzThtBqJwFEZTzkkvqJCo+MBg0K9QLTmhFmQ==}
+    hasBin: true
+
   sharp@0.32.6:
     resolution: {integrity: sha512-KyLTWwgcR9Oe4d9HwCwNM2l7+J0dUQwn/yf7S0EnTtb0eVS4RxO0eUSvxPtzT4F3SY+C4K6fqdv/DO27sJ/v/w==}
     engines: {node: '>=14.15.0'}
@@ -8183,6 +8359,13 @@ packages:
     resolution: {integrity: sha512-r4MeXnfBmSOuKUWmXe6h2CcyfzJCEk4F0pptO5jlnYSIViUkVmsawj80N5h2lO3gwcmSb4n3PuN+e+GC1Guylw==}
     engines: {node: '>=14.0.0'}
     hasBin: true
+
+  tailwindcss@4.1.17:
+    resolution: {integrity: sha512-j9Ee2YjuQqYT9bbRTfTZht9W/ytp5H+jJpZKiYdP/bpnXARAuELt9ofP0lPnmHjbga7SNQIxdTAXCmtKVYjN+Q==}
+
+  tapable@2.3.0:
+    resolution: {integrity: sha512-g9ljZiwki/LfxmQADO3dEY1CbpmXT5Hm2fJ+QaGKwSXUylMybePR7/67YW7jOrrvjEgL1Fmz5kzyAjWVWLlucg==}
+    engines: {node: '>=6'}
 
   tar-fs@2.1.1:
     resolution: {integrity: sha512-V0r2Y9scmbDRLCNex/+hYzvp/zyYjvFbHPNgVTKfQvVrb6guiE/fxP+XblDNR011utopbkex2nM4dHNV6GDsng==}
@@ -8978,7 +9161,7 @@ snapshots:
 
   '@babel/generator@7.28.3':
     dependencies:
-      '@babel/parser': 7.28.3
+      '@babel/parser': 7.28.5
       '@babel/types': 7.28.2
       '@jridgewell/gen-mapping': 0.3.13
       '@jridgewell/trace-mapping': 0.3.30
@@ -9005,7 +9188,7 @@ snapshots:
       '@babel/compat-data': 7.22.9
       '@babel/core': 7.22.9
       '@babel/helper-validator-option': 7.22.5
-      browserslist: 4.21.10
+      browserslist: 4.27.0
       lru-cache: 5.1.1
       semver: 6.3.1
 
@@ -9089,7 +9272,7 @@ snapshots:
 
   '@babel/helper-simple-access@7.22.5':
     dependencies:
-      '@babel/types': 7.28.2
+      '@babel/types': 7.28.5
 
   '@babel/helper-skip-transparent-expression-wrappers@7.27.1':
     dependencies:
@@ -9100,7 +9283,7 @@ snapshots:
 
   '@babel/helper-split-export-declaration@7.22.6':
     dependencies:
-      '@babel/types': 7.28.2
+      '@babel/types': 7.28.5
 
   '@babel/helper-string-parser@7.27.1': {}
 
@@ -9133,30 +9316,30 @@ snapshots:
     dependencies:
       '@babel/types': 7.28.5
 
-  '@babel/plugin-syntax-async-generators@7.8.4(@babel/core@7.22.9)':
+  '@babel/plugin-syntax-async-generators@7.8.4(@babel/core@7.28.5)':
     dependencies:
-      '@babel/core': 7.22.9
-      '@babel/helper-plugin-utils': 7.22.5
+      '@babel/core': 7.28.5
+      '@babel/helper-plugin-utils': 7.27.1
 
-  '@babel/plugin-syntax-bigint@7.8.3(@babel/core@7.22.9)':
+  '@babel/plugin-syntax-bigint@7.8.3(@babel/core@7.28.5)':
     dependencies:
-      '@babel/core': 7.22.9
-      '@babel/helper-plugin-utils': 7.22.5
+      '@babel/core': 7.28.5
+      '@babel/helper-plugin-utils': 7.27.1
 
-  '@babel/plugin-syntax-class-properties@7.12.13(@babel/core@7.22.9)':
+  '@babel/plugin-syntax-class-properties@7.12.13(@babel/core@7.28.5)':
     dependencies:
-      '@babel/core': 7.22.9
-      '@babel/helper-plugin-utils': 7.22.5
+      '@babel/core': 7.28.5
+      '@babel/helper-plugin-utils': 7.27.1
 
-  '@babel/plugin-syntax-import-meta@7.10.4(@babel/core@7.22.9)':
+  '@babel/plugin-syntax-import-meta@7.10.4(@babel/core@7.28.5)':
     dependencies:
-      '@babel/core': 7.22.9
-      '@babel/helper-plugin-utils': 7.22.5
+      '@babel/core': 7.28.5
+      '@babel/helper-plugin-utils': 7.27.1
 
-  '@babel/plugin-syntax-json-strings@7.8.3(@babel/core@7.22.9)':
+  '@babel/plugin-syntax-json-strings@7.8.3(@babel/core@7.28.5)':
     dependencies:
-      '@babel/core': 7.22.9
-      '@babel/helper-plugin-utils': 7.22.5
+      '@babel/core': 7.28.5
+      '@babel/helper-plugin-utils': 7.27.1
 
   '@babel/plugin-syntax-jsx@7.22.5(@babel/core@7.22.9)':
     dependencies:
@@ -9168,45 +9351,45 @@ snapshots:
       '@babel/core': 7.28.5
       '@babel/helper-plugin-utils': 7.27.1
 
-  '@babel/plugin-syntax-logical-assignment-operators@7.10.4(@babel/core@7.22.9)':
+  '@babel/plugin-syntax-logical-assignment-operators@7.10.4(@babel/core@7.28.5)':
     dependencies:
-      '@babel/core': 7.22.9
-      '@babel/helper-plugin-utils': 7.22.5
+      '@babel/core': 7.28.5
+      '@babel/helper-plugin-utils': 7.27.1
 
-  '@babel/plugin-syntax-nullish-coalescing-operator@7.8.3(@babel/core@7.22.9)':
+  '@babel/plugin-syntax-nullish-coalescing-operator@7.8.3(@babel/core@7.28.5)':
     dependencies:
-      '@babel/core': 7.22.9
-      '@babel/helper-plugin-utils': 7.22.5
+      '@babel/core': 7.28.5
+      '@babel/helper-plugin-utils': 7.27.1
 
-  '@babel/plugin-syntax-numeric-separator@7.10.4(@babel/core@7.22.9)':
+  '@babel/plugin-syntax-numeric-separator@7.10.4(@babel/core@7.28.5)':
     dependencies:
-      '@babel/core': 7.22.9
-      '@babel/helper-plugin-utils': 7.22.5
+      '@babel/core': 7.28.5
+      '@babel/helper-plugin-utils': 7.27.1
 
-  '@babel/plugin-syntax-object-rest-spread@7.8.3(@babel/core@7.22.9)':
+  '@babel/plugin-syntax-object-rest-spread@7.8.3(@babel/core@7.28.5)':
     dependencies:
-      '@babel/core': 7.22.9
-      '@babel/helper-plugin-utils': 7.22.5
+      '@babel/core': 7.28.5
+      '@babel/helper-plugin-utils': 7.27.1
 
-  '@babel/plugin-syntax-optional-catch-binding@7.8.3(@babel/core@7.22.9)':
+  '@babel/plugin-syntax-optional-catch-binding@7.8.3(@babel/core@7.28.5)':
     dependencies:
-      '@babel/core': 7.22.9
-      '@babel/helper-plugin-utils': 7.22.5
+      '@babel/core': 7.28.5
+      '@babel/helper-plugin-utils': 7.27.1
 
-  '@babel/plugin-syntax-optional-chaining@7.8.3(@babel/core@7.22.9)':
+  '@babel/plugin-syntax-optional-chaining@7.8.3(@babel/core@7.28.5)':
     dependencies:
-      '@babel/core': 7.22.9
-      '@babel/helper-plugin-utils': 7.22.5
+      '@babel/core': 7.28.5
+      '@babel/helper-plugin-utils': 7.27.1
 
-  '@babel/plugin-syntax-top-level-await@7.14.5(@babel/core@7.22.9)':
+  '@babel/plugin-syntax-top-level-await@7.14.5(@babel/core@7.28.5)':
     dependencies:
-      '@babel/core': 7.22.9
-      '@babel/helper-plugin-utils': 7.22.5
+      '@babel/core': 7.28.5
+      '@babel/helper-plugin-utils': 7.27.1
 
-  '@babel/plugin-syntax-typescript@7.22.5(@babel/core@7.22.9)':
+  '@babel/plugin-syntax-typescript@7.22.5(@babel/core@7.28.5)':
     dependencies:
-      '@babel/core': 7.22.9
-      '@babel/helper-plugin-utils': 7.22.5
+      '@babel/core': 7.28.5
+      '@babel/helper-plugin-utils': 7.27.1
 
   '@babel/plugin-syntax-typescript@7.27.1(@babel/core@7.28.5)':
     dependencies:
@@ -9274,7 +9457,7 @@ snapshots:
   '@babel/template@7.27.2':
     dependencies:
       '@babel/code-frame': 7.27.1
-      '@babel/parser': 7.28.3
+      '@babel/parser': 7.28.5
       '@babel/types': 7.28.2
 
   '@babel/traverse@7.28.3':
@@ -9282,7 +9465,7 @@ snapshots:
       '@babel/code-frame': 7.27.1
       '@babel/generator': 7.28.3
       '@babel/helper-globals': 7.28.0
-      '@babel/parser': 7.28.3
+      '@babel/parser': 7.28.5
       '@babel/template': 7.27.2
       '@babel/types': 7.28.2
       debug: 4.4.1
@@ -10652,7 +10835,7 @@ snapshots:
 
   '@jest/transform@27.5.1':
     dependencies:
-      '@babel/core': 7.22.9
+      '@babel/core': 7.28.5
       '@jest/types': 27.5.1
       babel-plugin-istanbul: 6.1.1
       chalk: 4.1.2
@@ -12096,33 +12279,65 @@ snapshots:
     dependencies:
       '@babel/core': 7.22.9
 
+  '@svgr/babel-plugin-add-jsx-attribute@6.5.1(@babel/core@7.28.5)':
+    dependencies:
+      '@babel/core': 7.28.5
+
   '@svgr/babel-plugin-remove-jsx-attribute@8.0.0(@babel/core@7.22.9)':
     dependencies:
       '@babel/core': 7.22.9
+
+  '@svgr/babel-plugin-remove-jsx-attribute@8.0.0(@babel/core@7.28.5)':
+    dependencies:
+      '@babel/core': 7.28.5
 
   '@svgr/babel-plugin-remove-jsx-empty-expression@8.0.0(@babel/core@7.22.9)':
     dependencies:
       '@babel/core': 7.22.9
 
+  '@svgr/babel-plugin-remove-jsx-empty-expression@8.0.0(@babel/core@7.28.5)':
+    dependencies:
+      '@babel/core': 7.28.5
+
   '@svgr/babel-plugin-replace-jsx-attribute-value@6.5.1(@babel/core@7.22.9)':
     dependencies:
       '@babel/core': 7.22.9
+
+  '@svgr/babel-plugin-replace-jsx-attribute-value@6.5.1(@babel/core@7.28.5)':
+    dependencies:
+      '@babel/core': 7.28.5
 
   '@svgr/babel-plugin-svg-dynamic-title@6.5.1(@babel/core@7.22.9)':
     dependencies:
       '@babel/core': 7.22.9
 
+  '@svgr/babel-plugin-svg-dynamic-title@6.5.1(@babel/core@7.28.5)':
+    dependencies:
+      '@babel/core': 7.28.5
+
   '@svgr/babel-plugin-svg-em-dimensions@6.5.1(@babel/core@7.22.9)':
     dependencies:
       '@babel/core': 7.22.9
+
+  '@svgr/babel-plugin-svg-em-dimensions@6.5.1(@babel/core@7.28.5)':
+    dependencies:
+      '@babel/core': 7.28.5
 
   '@svgr/babel-plugin-transform-react-native-svg@6.5.1(@babel/core@7.22.9)':
     dependencies:
       '@babel/core': 7.22.9
 
+  '@svgr/babel-plugin-transform-react-native-svg@6.5.1(@babel/core@7.28.5)':
+    dependencies:
+      '@babel/core': 7.28.5
+
   '@svgr/babel-plugin-transform-svg-component@6.5.1(@babel/core@7.22.9)':
     dependencies:
       '@babel/core': 7.22.9
+
+  '@svgr/babel-plugin-transform-svg-component@6.5.1(@babel/core@7.28.5)':
+    dependencies:
+      '@babel/core': 7.28.5
 
   '@svgr/babel-preset@6.5.1(@babel/core@7.22.9)':
     dependencies:
@@ -12136,6 +12351,18 @@ snapshots:
       '@svgr/babel-plugin-transform-react-native-svg': 6.5.1(@babel/core@7.22.9)
       '@svgr/babel-plugin-transform-svg-component': 6.5.1(@babel/core@7.22.9)
 
+  '@svgr/babel-preset@6.5.1(@babel/core@7.28.5)':
+    dependencies:
+      '@babel/core': 7.28.5
+      '@svgr/babel-plugin-add-jsx-attribute': 6.5.1(@babel/core@7.28.5)
+      '@svgr/babel-plugin-remove-jsx-attribute': 8.0.0(@babel/core@7.28.5)
+      '@svgr/babel-plugin-remove-jsx-empty-expression': 8.0.0(@babel/core@7.28.5)
+      '@svgr/babel-plugin-replace-jsx-attribute-value': 6.5.1(@babel/core@7.28.5)
+      '@svgr/babel-plugin-svg-dynamic-title': 6.5.1(@babel/core@7.28.5)
+      '@svgr/babel-plugin-svg-em-dimensions': 6.5.1(@babel/core@7.28.5)
+      '@svgr/babel-plugin-transform-react-native-svg': 6.5.1(@babel/core@7.28.5)
+      '@svgr/babel-plugin-transform-svg-component': 6.5.1(@babel/core@7.28.5)
+
   '@svgr/core@6.5.1':
     dependencies:
       '@babel/core': 7.22.9
@@ -12148,13 +12375,13 @@ snapshots:
 
   '@svgr/hast-util-to-babel-ast@6.5.1':
     dependencies:
-      '@babel/types': 7.28.2
+      '@babel/types': 7.28.5
       entities: 4.5.0
 
   '@svgr/plugin-jsx@6.5.1(@svgr/core@6.5.1)':
     dependencies:
-      '@babel/core': 7.22.9
-      '@svgr/babel-preset': 6.5.1(@babel/core@7.22.9)
+      '@babel/core': 7.28.5
+      '@svgr/babel-preset': 6.5.1(@babel/core@7.28.5)
       '@svgr/core': 6.5.1
       '@svgr/hast-util-to-babel-ast': 6.5.1
       svg-parser: 2.0.4
@@ -12244,6 +12471,75 @@ snapshots:
       typescript: 5.9.2
       zod: 4.1.8
 
+  '@tailwindcss/node@4.1.17':
+    dependencies:
+      '@jridgewell/remapping': 2.3.5
+      enhanced-resolve: 5.18.3
+      jiti: 2.6.1
+      lightningcss: 1.30.2
+      magic-string: 0.30.21
+      source-map-js: 1.2.1
+      tailwindcss: 4.1.17
+
+  '@tailwindcss/oxide-android-arm64@4.1.17':
+    optional: true
+
+  '@tailwindcss/oxide-darwin-arm64@4.1.17':
+    optional: true
+
+  '@tailwindcss/oxide-darwin-x64@4.1.17':
+    optional: true
+
+  '@tailwindcss/oxide-freebsd-x64@4.1.17':
+    optional: true
+
+  '@tailwindcss/oxide-linux-arm-gnueabihf@4.1.17':
+    optional: true
+
+  '@tailwindcss/oxide-linux-arm64-gnu@4.1.17':
+    optional: true
+
+  '@tailwindcss/oxide-linux-arm64-musl@4.1.17':
+    optional: true
+
+  '@tailwindcss/oxide-linux-x64-gnu@4.1.17':
+    optional: true
+
+  '@tailwindcss/oxide-linux-x64-musl@4.1.17':
+    optional: true
+
+  '@tailwindcss/oxide-wasm32-wasi@4.1.17':
+    optional: true
+
+  '@tailwindcss/oxide-win32-arm64-msvc@4.1.17':
+    optional: true
+
+  '@tailwindcss/oxide-win32-x64-msvc@4.1.17':
+    optional: true
+
+  '@tailwindcss/oxide@4.1.17':
+    optionalDependencies:
+      '@tailwindcss/oxide-android-arm64': 4.1.17
+      '@tailwindcss/oxide-darwin-arm64': 4.1.17
+      '@tailwindcss/oxide-darwin-x64': 4.1.17
+      '@tailwindcss/oxide-freebsd-x64': 4.1.17
+      '@tailwindcss/oxide-linux-arm-gnueabihf': 4.1.17
+      '@tailwindcss/oxide-linux-arm64-gnu': 4.1.17
+      '@tailwindcss/oxide-linux-arm64-musl': 4.1.17
+      '@tailwindcss/oxide-linux-x64-gnu': 4.1.17
+      '@tailwindcss/oxide-linux-x64-musl': 4.1.17
+      '@tailwindcss/oxide-wasm32-wasi': 4.1.17
+      '@tailwindcss/oxide-win32-arm64-msvc': 4.1.17
+      '@tailwindcss/oxide-win32-x64-msvc': 4.1.17
+
+  '@tailwindcss/postcss@4.1.17':
+    dependencies:
+      '@alloc/quick-lru': 5.2.0
+      '@tailwindcss/node': 4.1.17
+      '@tailwindcss/oxide': 4.1.17
+      postcss: 8.5.6
+      tailwindcss: 4.1.17
+
   '@tanstack/react-table@8.21.3(react-dom@19.2.0(react@19.2.0))(react@19.2.0)':
     dependencies:
       '@tanstack/table-core': 8.21.3
@@ -12302,24 +12598,24 @@ snapshots:
 
   '@types/babel__core@7.20.1':
     dependencies:
-      '@babel/parser': 7.28.3
-      '@babel/types': 7.28.2
+      '@babel/parser': 7.28.5
+      '@babel/types': 7.28.5
       '@types/babel__generator': 7.6.4
       '@types/babel__template': 7.4.1
       '@types/babel__traverse': 7.20.1
 
   '@types/babel__generator@7.6.4':
     dependencies:
-      '@babel/types': 7.28.2
+      '@babel/types': 7.28.5
 
   '@types/babel__template@7.4.1':
     dependencies:
-      '@babel/parser': 7.28.3
-      '@babel/types': 7.28.2
+      '@babel/parser': 7.28.5
+      '@babel/types': 7.28.5
 
   '@types/babel__traverse@7.20.1':
     dependencies:
-      '@babel/types': 7.28.2
+      '@babel/types': 7.28.5
 
   '@types/bun@1.2.21(@types/react@19.1.2)':
     dependencies:
@@ -12582,7 +12878,7 @@ snapshots:
     transitivePeerDependencies:
       - utf-8-validate
 
-  '@vitejs/plugin-react@2.2.0(vite@5.4.21(@types/node@20.12.14)(terser@5.19.2))':
+  '@vitejs/plugin-react@2.2.0(vite@5.4.21(@types/node@20.12.14)(lightningcss@1.30.2)(terser@5.19.2))':
     dependencies:
       '@babel/core': 7.22.9
       '@babel/plugin-transform-react-jsx': 7.22.5(@babel/core@7.22.9)
@@ -12591,7 +12887,7 @@ snapshots:
       '@babel/plugin-transform-react-jsx-source': 7.22.5(@babel/core@7.22.9)
       magic-string: 0.26.7
       react-refresh: 0.14.0
-      vite: 5.4.21(@types/node@20.12.14)(terser@5.19.2)
+      vite: 5.4.21(@types/node@20.12.14)(lightningcss@1.30.2)(terser@5.19.2)
     transitivePeerDependencies:
       - supports-color
 
@@ -12602,14 +12898,14 @@ snapshots:
       chai: 5.2.0
       tinyrainbow: 1.2.0
 
-  '@vitest/mocker@2.1.9(msw@2.12.0(@types/node@22.4.0)(typescript@5.9.2))(vite@5.4.14(@types/node@22.4.0)(terser@5.19.2))':
+  '@vitest/mocker@2.1.9(msw@2.12.0(@types/node@22.4.0)(typescript@5.9.2))(vite@5.4.14(@types/node@22.4.0)(lightningcss@1.30.2)(terser@5.19.2))':
     dependencies:
       '@vitest/spy': 2.1.9
       estree-walker: 3.0.3
       magic-string: 0.30.17
     optionalDependencies:
       msw: 2.12.0(@types/node@22.4.0)(typescript@5.9.2)
-      vite: 5.4.14(@types/node@22.4.0)(terser@5.19.2)
+      vite: 5.4.14(@types/node@22.4.0)(lightningcss@1.30.2)(terser@5.19.2)
 
   '@vitest/pretty-format@2.1.9':
     dependencies:
@@ -12807,14 +13103,14 @@ snapshots:
 
   b4a@1.6.4: {}
 
-  babel-jest@27.5.1(@babel/core@7.22.9):
+  babel-jest@27.5.1(@babel/core@7.28.5):
     dependencies:
-      '@babel/core': 7.22.9
+      '@babel/core': 7.28.5
       '@jest/transform': 27.5.1
       '@jest/types': 27.5.1
       '@types/babel__core': 7.20.1
       babel-plugin-istanbul: 6.1.1
-      babel-preset-jest: 27.5.1(@babel/core@7.22.9)
+      babel-preset-jest: 27.5.1(@babel/core@7.28.5)
       chalk: 4.1.2
       graceful-fs: 4.2.11
       slash: 3.0.0
@@ -12823,7 +13119,7 @@ snapshots:
 
   babel-plugin-istanbul@6.1.1:
     dependencies:
-      '@babel/helper-plugin-utils': 7.22.5
+      '@babel/helper-plugin-utils': 7.27.1
       '@istanbuljs/load-nyc-config': 1.1.0
       '@istanbuljs/schema': 0.1.3
       istanbul-lib-instrument: 5.2.1
@@ -12834,7 +13130,7 @@ snapshots:
   babel-plugin-jest-hoist@27.5.1:
     dependencies:
       '@babel/template': 7.27.2
-      '@babel/types': 7.28.2
+      '@babel/types': 7.28.5
       '@types/babel__core': 7.20.1
       '@types/babel__traverse': 7.20.1
 
@@ -12844,27 +13140,27 @@ snapshots:
       cosmiconfig: 7.1.0
       resolve: 1.22.8
 
-  babel-preset-current-node-syntax@1.0.1(@babel/core@7.22.9):
+  babel-preset-current-node-syntax@1.0.1(@babel/core@7.28.5):
     dependencies:
-      '@babel/core': 7.22.9
-      '@babel/plugin-syntax-async-generators': 7.8.4(@babel/core@7.22.9)
-      '@babel/plugin-syntax-bigint': 7.8.3(@babel/core@7.22.9)
-      '@babel/plugin-syntax-class-properties': 7.12.13(@babel/core@7.22.9)
-      '@babel/plugin-syntax-import-meta': 7.10.4(@babel/core@7.22.9)
-      '@babel/plugin-syntax-json-strings': 7.8.3(@babel/core@7.22.9)
-      '@babel/plugin-syntax-logical-assignment-operators': 7.10.4(@babel/core@7.22.9)
-      '@babel/plugin-syntax-nullish-coalescing-operator': 7.8.3(@babel/core@7.22.9)
-      '@babel/plugin-syntax-numeric-separator': 7.10.4(@babel/core@7.22.9)
-      '@babel/plugin-syntax-object-rest-spread': 7.8.3(@babel/core@7.22.9)
-      '@babel/plugin-syntax-optional-catch-binding': 7.8.3(@babel/core@7.22.9)
-      '@babel/plugin-syntax-optional-chaining': 7.8.3(@babel/core@7.22.9)
-      '@babel/plugin-syntax-top-level-await': 7.14.5(@babel/core@7.22.9)
+      '@babel/core': 7.28.5
+      '@babel/plugin-syntax-async-generators': 7.8.4(@babel/core@7.28.5)
+      '@babel/plugin-syntax-bigint': 7.8.3(@babel/core@7.28.5)
+      '@babel/plugin-syntax-class-properties': 7.12.13(@babel/core@7.28.5)
+      '@babel/plugin-syntax-import-meta': 7.10.4(@babel/core@7.28.5)
+      '@babel/plugin-syntax-json-strings': 7.8.3(@babel/core@7.28.5)
+      '@babel/plugin-syntax-logical-assignment-operators': 7.10.4(@babel/core@7.28.5)
+      '@babel/plugin-syntax-nullish-coalescing-operator': 7.8.3(@babel/core@7.28.5)
+      '@babel/plugin-syntax-numeric-separator': 7.10.4(@babel/core@7.28.5)
+      '@babel/plugin-syntax-object-rest-spread': 7.8.3(@babel/core@7.28.5)
+      '@babel/plugin-syntax-optional-catch-binding': 7.8.3(@babel/core@7.28.5)
+      '@babel/plugin-syntax-optional-chaining': 7.8.3(@babel/core@7.28.5)
+      '@babel/plugin-syntax-top-level-await': 7.14.5(@babel/core@7.28.5)
 
-  babel-preset-jest@27.5.1(@babel/core@7.22.9):
+  babel-preset-jest@27.5.1(@babel/core@7.28.5):
     dependencies:
-      '@babel/core': 7.22.9
+      '@babel/core': 7.28.5
       babel-plugin-jest-hoist: 27.5.1
-      babel-preset-current-node-syntax: 1.0.1(@babel/core@7.22.9)
+      babel-preset-current-node-syntax: 1.0.1(@babel/core@7.28.5)
 
   balanced-match@1.0.2: {}
 
@@ -13485,8 +13781,7 @@ snapshots:
 
   detect-libc@2.0.4: {}
 
-  detect-libc@2.1.2:
-    optional: true
+  detect-libc@2.1.2: {}
 
   detect-newline@3.1.0: {}
 
@@ -13655,6 +13950,11 @@ snapshots:
   end-of-stream@1.4.4:
     dependencies:
       once: 1.4.0
+
+  enhanced-resolve@5.18.3:
+    dependencies:
+      graceful-fs: 4.2.11
+      tapable: 2.3.0
 
   entities@2.2.0: {}
 
@@ -14364,7 +14664,7 @@ snapshots:
     dependencies:
       array-union: 2.1.0
       dir-glob: 3.0.1
-      fast-glob: 3.3.2
+      fast-glob: 3.3.3
       ignore: 5.2.4
       merge2: 1.4.1
       slash: 3.0.0
@@ -14738,8 +15038,8 @@ snapshots:
 
   istanbul-lib-instrument@5.2.1:
     dependencies:
-      '@babel/core': 7.22.9
-      '@babel/parser': 7.28.3
+      '@babel/core': 7.28.5
+      '@babel/parser': 7.28.5
       '@istanbuljs/schema': 0.1.3
       istanbul-lib-coverage: 3.2.0
       semver: 6.3.1
@@ -14833,10 +15133,10 @@ snapshots:
 
   jest-config@27.5.1(bufferutil@4.0.8):
     dependencies:
-      '@babel/core': 7.22.9
+      '@babel/core': 7.28.5
       '@jest/test-sequencer': 27.5.1
       '@jest/types': 27.5.1
-      babel-jest: 27.5.1(@babel/core@7.22.9)
+      babel-jest: 27.5.1(@babel/core@7.28.5)
       chalk: 4.1.2
       ci-info: 3.8.0
       deepmerge: 4.3.1
@@ -15113,16 +15413,16 @@ snapshots:
 
   jest-snapshot@27.5.1:
     dependencies:
-      '@babel/core': 7.22.9
+      '@babel/core': 7.28.5
       '@babel/generator': 7.28.3
-      '@babel/plugin-syntax-typescript': 7.22.5(@babel/core@7.22.9)
+      '@babel/plugin-syntax-typescript': 7.22.5(@babel/core@7.28.5)
       '@babel/traverse': 7.28.3
       '@babel/types': 7.28.2
       '@jest/transform': 27.5.1
       '@jest/types': 27.5.1
       '@types/babel__traverse': 7.20.1
       '@types/prettier': 2.7.3
-      babel-preset-current-node-syntax: 1.0.1(@babel/core@7.22.9)
+      babel-preset-current-node-syntax: 1.0.1(@babel/core@7.28.5)
       chalk: 4.1.2
       expect: 27.5.1
       graceful-fs: 4.2.11
@@ -15217,6 +15517,8 @@ snapshots:
 
   jiti@1.21.6: {}
 
+  jiti@2.6.1: {}
+
   js-base64@3.7.8:
     optional: true
 
@@ -15308,6 +15610,55 @@ snapshots:
       prelude-ls: 1.2.1
       type-check: 0.4.0
 
+  lightningcss-android-arm64@1.30.2:
+    optional: true
+
+  lightningcss-darwin-arm64@1.30.2:
+    optional: true
+
+  lightningcss-darwin-x64@1.30.2:
+    optional: true
+
+  lightningcss-freebsd-x64@1.30.2:
+    optional: true
+
+  lightningcss-linux-arm-gnueabihf@1.30.2:
+    optional: true
+
+  lightningcss-linux-arm64-gnu@1.30.2:
+    optional: true
+
+  lightningcss-linux-arm64-musl@1.30.2:
+    optional: true
+
+  lightningcss-linux-x64-gnu@1.30.2:
+    optional: true
+
+  lightningcss-linux-x64-musl@1.30.2:
+    optional: true
+
+  lightningcss-win32-arm64-msvc@1.30.2:
+    optional: true
+
+  lightningcss-win32-x64-msvc@1.30.2:
+    optional: true
+
+  lightningcss@1.30.2:
+    dependencies:
+      detect-libc: 2.1.2
+    optionalDependencies:
+      lightningcss-android-arm64: 1.30.2
+      lightningcss-darwin-arm64: 1.30.2
+      lightningcss-darwin-x64: 1.30.2
+      lightningcss-freebsd-x64: 1.30.2
+      lightningcss-linux-arm-gnueabihf: 1.30.2
+      lightningcss-linux-arm64-gnu: 1.30.2
+      lightningcss-linux-arm64-musl: 1.30.2
+      lightningcss-linux-x64-gnu: 1.30.2
+      lightningcss-linux-x64-musl: 1.30.2
+      lightningcss-win32-arm64-msvc: 1.30.2
+      lightningcss-win32-x64-msvc: 1.30.2
+
   lilconfig@2.1.0: {}
 
   lilconfig@3.1.2: {}
@@ -15380,6 +15731,10 @@ snapshots:
       sourcemap-codec: 1.4.8
 
   magic-string@0.30.17:
+    dependencies:
+      '@jridgewell/sourcemap-codec': 1.5.5
+
+  magic-string@0.30.21:
     dependencies:
       '@jridgewell/sourcemap-codec': 1.5.5
 
@@ -16818,6 +17173,45 @@ snapshots:
       - supports-color
       - typescript
 
+  shadcn@3.5.1(@types/node@22.4.0)(babel-plugin-macros@3.1.0)(typescript@5.9.2):
+    dependencies:
+      '@antfu/ni': 25.0.0
+      '@babel/core': 7.28.5
+      '@babel/parser': 7.28.5
+      '@babel/plugin-transform-typescript': 7.28.5(@babel/core@7.28.5)
+      '@babel/preset-typescript': 7.28.5(@babel/core@7.28.5)
+      '@dotenvx/dotenvx': 1.51.1
+      '@modelcontextprotocol/sdk': 1.21.1
+      browserslist: 4.27.0
+      commander: 14.0.2
+      cosmiconfig: 9.0.0(typescript@5.9.2)
+      dedent: 1.7.0(babel-plugin-macros@3.1.0)
+      deepmerge: 4.3.1
+      diff: 8.0.2
+      execa: 9.6.0
+      fast-glob: 3.3.3
+      fs-extra: 11.3.2
+      fuzzysort: 3.1.0
+      https-proxy-agent: 7.0.6
+      kleur: 4.1.5
+      msw: 2.12.0(@types/node@22.4.0)(typescript@5.9.2)
+      node-fetch: 3.3.2
+      ora: 8.2.0
+      postcss: 8.5.6
+      prompts: 2.4.2
+      recast: 0.23.11
+      stringify-object: 5.0.0
+      ts-morph: 26.0.0
+      tsconfig-paths: 4.2.0
+      zod: 3.25.76
+      zod-to-json-schema: 3.24.6(zod@3.25.76)
+    transitivePeerDependencies:
+      - '@cfworker/json-schema'
+      - '@types/node'
+      - babel-plugin-macros
+      - supports-color
+      - typescript
+
   sharp@0.32.6:
     dependencies:
       color: 4.2.3
@@ -17140,6 +17534,10 @@ snapshots:
     dependencies:
       tailwindcss: 3.4.15
 
+  tailwindcss-animate@1.0.6(tailwindcss@4.1.17):
+    dependencies:
+      tailwindcss: 4.1.17
+
   tailwindcss@3.4.15:
     dependencies:
       '@alloc/quick-lru': 5.2.0
@@ -17166,6 +17564,10 @@ snapshots:
       sucrase: 3.35.0
     transitivePeerDependencies:
       - ts-node
+
+  tailwindcss@4.1.17: {}
+
+  tapable@2.3.0: {}
 
   tar-fs@2.1.1:
     dependencies:
@@ -17544,13 +17946,13 @@ snapshots:
 
   vary@1.1.2: {}
 
-  vite-node@2.1.9(@types/node@22.4.0)(terser@5.19.2):
+  vite-node@2.1.9(@types/node@22.4.0)(lightningcss@1.30.2)(terser@5.19.2):
     dependencies:
       cac: 6.7.14
       debug: 4.4.1
       es-module-lexer: 1.6.0
       pathe: 1.1.2
-      vite: 5.4.21(@types/node@22.4.0)(terser@5.19.2)
+      vite: 5.4.21(@types/node@22.4.0)(lightningcss@1.30.2)(terser@5.19.2)
     transitivePeerDependencies:
       - '@types/node'
       - less
@@ -17562,7 +17964,7 @@ snapshots:
       - supports-color
       - terser
 
-  vite-plugin-checker@0.4.9(vite@5.4.21(@types/node@20.12.14)(terser@5.19.2)):
+  vite-plugin-checker@0.4.9(vite@5.4.21(@types/node@20.12.14)(lightningcss@1.30.2)(terser@5.19.2)):
     dependencies:
       '@babel/code-frame': 7.27.1
       ansi-escapes: 4.3.2
@@ -17575,13 +17977,13 @@ snapshots:
       npm-run-path: 4.0.1
       strip-ansi: 6.0.1
       tiny-invariant: 1.3.3
-      vite: 5.4.21(@types/node@20.12.14)(terser@5.19.2)
+      vite: 5.4.21(@types/node@20.12.14)(lightningcss@1.30.2)(terser@5.19.2)
       vscode-languageclient: 7.0.0
       vscode-languageserver: 7.0.0
       vscode-languageserver-textdocument: 1.0.8
       vscode-uri: 3.0.7
 
-  vite-plugin-html@3.2.0(vite@5.4.21(@types/node@20.12.14)(terser@5.19.2)):
+  vite-plugin-html@3.2.0(vite@5.4.21(@types/node@20.12.14)(lightningcss@1.30.2)(terser@5.19.2)):
     dependencies:
       '@rollup/pluginutils': 4.2.1
       colorette: 2.0.20
@@ -17595,30 +17997,30 @@ snapshots:
       html-minifier-terser: 6.1.0
       node-html-parser: 5.4.2
       pathe: 0.2.0
-      vite: 5.4.21(@types/node@20.12.14)(terser@5.19.2)
+      vite: 5.4.21(@types/node@20.12.14)(lightningcss@1.30.2)(terser@5.19.2)
 
-  vite-tsconfig-paths@3.6.0(vite@5.4.21(@types/node@20.12.14)(terser@5.19.2)):
+  vite-tsconfig-paths@3.6.0(vite@5.4.21(@types/node@20.12.14)(lightningcss@1.30.2)(terser@5.19.2)):
     dependencies:
       debug: 4.4.1
       globrex: 0.1.2
       recrawl-sync: 2.2.3
       tsconfig-paths: 4.2.0
-      vite: 5.4.21(@types/node@20.12.14)(terser@5.19.2)
+      vite: 5.4.21(@types/node@20.12.14)(lightningcss@1.30.2)(terser@5.19.2)
     transitivePeerDependencies:
       - supports-color
 
-  vite-tsconfig-paths@5.1.3(typescript@5.9.2)(vite@5.4.14(@types/node@22.4.0)(terser@5.19.2)):
+  vite-tsconfig-paths@5.1.3(typescript@5.9.2)(vite@5.4.14(@types/node@22.4.0)(lightningcss@1.30.2)(terser@5.19.2)):
     dependencies:
       debug: 4.4.1
       globrex: 0.1.2
       tsconfck: 3.1.4(typescript@5.9.2)
     optionalDependencies:
-      vite: 5.4.14(@types/node@22.4.0)(terser@5.19.2)
+      vite: 5.4.14(@types/node@22.4.0)(lightningcss@1.30.2)(terser@5.19.2)
     transitivePeerDependencies:
       - supports-color
       - typescript
 
-  vite@5.4.14(@types/node@22.4.0)(terser@5.19.2):
+  vite@5.4.14(@types/node@22.4.0)(lightningcss@1.30.2)(terser@5.19.2):
     dependencies:
       esbuild: 0.21.5
       postcss: 8.5.6
@@ -17626,9 +18028,10 @@ snapshots:
     optionalDependencies:
       '@types/node': 22.4.0
       fsevents: 2.3.3
+      lightningcss: 1.30.2
       terser: 5.19.2
 
-  vite@5.4.21(@types/node@20.12.14)(terser@5.19.2):
+  vite@5.4.21(@types/node@20.12.14)(lightningcss@1.30.2)(terser@5.19.2):
     dependencies:
       esbuild: 0.21.5
       postcss: 8.5.6
@@ -17636,9 +18039,10 @@ snapshots:
     optionalDependencies:
       '@types/node': 20.12.14
       fsevents: 2.3.3
+      lightningcss: 1.30.2
       terser: 5.19.2
 
-  vite@5.4.21(@types/node@22.4.0)(terser@5.19.2):
+  vite@5.4.21(@types/node@22.4.0)(lightningcss@1.30.2)(terser@5.19.2):
     dependencies:
       esbuild: 0.21.5
       postcss: 8.5.6
@@ -17646,12 +18050,13 @@ snapshots:
     optionalDependencies:
       '@types/node': 22.4.0
       fsevents: 2.3.3
+      lightningcss: 1.30.2
       terser: 5.19.2
 
-  vitest@2.1.9(@types/node@22.4.0)(jsdom@16.7.0(bufferutil@4.0.8))(msw@2.12.0(@types/node@22.4.0)(typescript@5.9.2))(terser@5.19.2):
+  vitest@2.1.9(@types/node@22.4.0)(jsdom@16.7.0(bufferutil@4.0.8))(lightningcss@1.30.2)(msw@2.12.0(@types/node@22.4.0)(typescript@5.9.2))(terser@5.19.2):
     dependencies:
       '@vitest/expect': 2.1.9
-      '@vitest/mocker': 2.1.9(msw@2.12.0(@types/node@22.4.0)(typescript@5.9.2))(vite@5.4.14(@types/node@22.4.0)(terser@5.19.2))
+      '@vitest/mocker': 2.1.9(msw@2.12.0(@types/node@22.4.0)(typescript@5.9.2))(vite@5.4.14(@types/node@22.4.0)(lightningcss@1.30.2)(terser@5.19.2))
       '@vitest/pretty-format': 2.1.9
       '@vitest/runner': 2.1.9
       '@vitest/snapshot': 2.1.9
@@ -17667,8 +18072,8 @@ snapshots:
       tinyexec: 0.3.2
       tinypool: 1.0.2
       tinyrainbow: 1.2.0
-      vite: 5.4.14(@types/node@22.4.0)(terser@5.19.2)
-      vite-node: 2.1.9(@types/node@22.4.0)(terser@5.19.2)
+      vite: 5.4.14(@types/node@22.4.0)(lightningcss@1.30.2)(terser@5.19.2)
+      vite-node: 2.1.9(@types/node@22.4.0)(lightningcss@1.30.2)(terser@5.19.2)
       why-is-node-running: 2.3.0
     optionalDependencies:
       '@types/node': 22.4.0
@@ -17860,7 +18265,7 @@ snapshots:
   yargs@17.7.2:
     dependencies:
       cliui: 8.0.1
-      escalade: 3.1.1
+      escalade: 3.2.0
       get-caller-file: 2.0.5
       require-directory: 2.1.1
       string-width: 4.2.3
