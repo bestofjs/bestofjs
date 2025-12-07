@@ -4,7 +4,13 @@ import type * as React from "react";
 import { Command as CommandPrimitive } from "cmdk";
 
 import { SearchIcon } from "@/components/core";
-import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 import { cn } from "@/lib/utils";
 
 function Command({
