@@ -1,6 +1,17 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 
+@utility container {
+  margin-inline: auto;
+  padding-inline: 2rem;
+  @media (width >= --theme(--breakpoint-sm)) {
+    max-width: none;
+  }
+  @media (width >= 1064px) {
+    max-width: 1064px;
+  }
+}
+
 @theme {
   --color-border: var(--border);
   --color-input: var(--input);
@@ -42,26 +53,7 @@
     var(--font-serif), ui-serif, Georgia, Cambria, "Times New Roman", Times,
     serif;
 
-  --animate-accordion-down: accordion-down 0.2s ease-out;
-  --animate-accordion-up: accordion-up 0.2s ease-out;
-  --animate-cursor-pulse: cursor-pulse 1s linear infinite;
-
-  @keyframes accordion-down {
-    from {
-      height: 0;
-    }
-    to {
-      height: var(--radix-accordion-content-height);
-    }
-  }
-  @keyframes accordion-up {
-    from {
-      height: var(--radix-accordion-content-height);
-    }
-    to {
-      height: 0;
-    }
-  }
+  /* Used by typewriter effect */
   @keyframes cursor-pulse {
     from {
       opacity: 0;
