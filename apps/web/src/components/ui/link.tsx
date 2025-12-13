@@ -2,8 +2,8 @@ import { cva } from "class-variance-authority";
 
 export const linkVariants = cva(
   [
-    "whitespace-nowrap font-sans text-[var(--link-foreground)]",
-    "decoration-[var(--link-underline)] hover:underline",
+    "whitespace-nowrap font-sans text-(--link-foreground)",
+    "decoration-(--link-underline) hover:underline",
   ],
   {
     variants: {

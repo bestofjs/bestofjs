@@ -39,8 +39,6 @@ export function ProjectSearchResult({
             className={cn(
               buttonVariants({ variant: "ghost" }),
               "size-10 rounded-full p-0 text-muted-foreground",
-              "group-aria-[selected]:hover:text-[var(--project-color)]",
-              "group-aria-[selected]:hover:bg-[var(--project-bg)]",
             )}
           >
             <GitHubIcon size={24} />
@@ -57,8 +55,6 @@ export function ProjectSearchResult({
               className={cn(
                 buttonVariants({ variant: "ghost" }),
                 "size-10 rounded-full p-0 text-muted-foreground",
-                "group-aria-[selected]:hover:text-[var(--project-color)]",
-                "group-aria-[selected]:hover:bg-[var(--project-bg)]",
               )}
             >
               <HomeIcon size={24} />

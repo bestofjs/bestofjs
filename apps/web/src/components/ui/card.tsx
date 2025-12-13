@@ -9,7 +9,7 @@ const Card = React.forwardRef<
   <div
     ref={ref}
     className={cn(
-      "-mx-4 border-y bg-card text-card-foreground shadow-sm sm:mx-0 sm:rounded-md sm:border",
+      "-mx-4 border-y bg-card text-card-foreground shadow-xs sm:mx-0 sm:rounded-md sm:border",
       className,
     )}
     {...props}
@@ -25,7 +25,7 @@ const CardHeader = React.forwardRef<
     ref={ref}
     className={cn(
       "flex flex-row items-center space-y-1.5 border-b p-4",
-      "dark:bg-gradient-to-bl dark:from-[var(--sand-3)] dark:to-[var(--sand-2)]", // gradient BG only for dark mode
+      "dark:bg-linear-to-bl dark:from-(--sand-3) dark:to-(--sand-2)", // gradient BG only for dark mode
       className,
     )}
     {...props}
