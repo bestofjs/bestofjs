@@ -163,3 +163,8 @@ footer::after {
     #9c0042 80%
   );
 }
+
+.dark .light-mode-only,
+.light .dark-mode-only {
+  display: none;
+}
