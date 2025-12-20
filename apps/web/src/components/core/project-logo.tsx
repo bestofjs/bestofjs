@@ -1,7 +1,7 @@
 "use client";
 
+import { Fragment } from "react";
 import Image from "next/image";
-import { useTheme } from "next-themes";
 
 import { cn } from "@/lib/utils";
 
@@ -67,16 +67,23 @@ export function ProjectCustomLogo({
 }: {
   filename: string;
 } & BaseProps) {
-  const colorMode = useColorMode();
-  const imageURL = getProjectCustomLogoURL(filename, colorMode);
   return (
-    <Image
-      src={imageURL}
-      width={size}
-      height={size}
-      alt={name}
-      className={cn(className, "project-logo")}
-    />
+    <Fragment>
+      <Image
+        src={getProjectCustomLogoURL(filename, "light")}
+        width={size}
+        height={size}
+        alt={name}
+        className={cn(className, "project-logo", "light-mode-only")}
+      />
+      <Image
+        src={getProjectCustomLogoURL(filename, "dark")}
+        width={size}
+        height={size}
+        alt={name}
+        className={cn(className, "project-logo", "dark-mode-only")}
+      />
+    </Fragment>
   );
 }
 
@@ -98,9 +105,4 @@ export function GitHubAvatar({
       className={cn(className, "project-logo")}
     />
   );
-}
-
-function useColorMode() {
-  const { resolvedTheme } = useTheme();
-  return (resolvedTheme || "dark") as "dark" | "light";
 }

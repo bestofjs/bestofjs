@@ -74,7 +74,7 @@ export function getProjectLogoUrl(
   return url;
 }
 
-function getProjectLogoURL(input: string, colorMode: string) {
+function getProjectLogoURL(input: string, colorMode: "dark" | "light") {
   const [main, extension] = input.split(".");
   const filename = colorMode === "dark" ? `${main}.dark.${extension}` : input;
   return `https://bestofjs.org/logos/${filename}`;
