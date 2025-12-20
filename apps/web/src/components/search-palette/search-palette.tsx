@@ -369,7 +369,11 @@ function LoadingTag({ tags }: { tags: BestOfJS.Tag[] }) {
     <div className="w-full p-4">
       <div className="grid w-full grid-cols-[75px_1fr] items-center gap-4">
         <div className="flex w-full items-center justify-center">
-          {tags.length === 1 ? <TagIcon className="size-[50px]" /> : <TagsIcons className="size-[50px]" />}
+          {tags.length === 1 ? (
+            <TagIcon className="size-[50px]" />
+          ) : (
+            <TagsIcons className="size-[50px]" />
+          )}
         </div>
         <div className="space-y-2">
           {tags.length === 1 ? (
