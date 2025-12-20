@@ -25,7 +25,7 @@ export function MobileMenuButton() {
     <Sheet open={isOpen} onOpenChange={setIsOpen}>
       <SheetTrigger asChild>
         <Button variant="outline" size="icon" aria-label="Menu">
-          <HamburgerMenuIcon size={20} />
+          <HamburgerMenuIcon className="size-5" />
         </Button>
       </SheetTrigger>
       <SheetContent side="left">
@@ -53,7 +53,7 @@ function SidebarContent({
         <BestOfJSLogo
           width={130}
           height={37.15}
-          className="h-[37.15px] w-[130px] text-[var(--logo-color)]"
+          className="h-[37.15px] w-[130px] text-(--logo-color)"
         />
       </Link>
       <div className="w-full space-y-2">

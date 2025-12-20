@@ -38,7 +38,7 @@ export async function ReadmeCard({ project }: { project: ProjectDetails }) {
           )}
         >
           View {project.name} on GitHub
-          <ExternalLinkIcon size={16} />
+          <ExternalLinkIcon className="size-4" />
         </a>
       </div>
     </Card>

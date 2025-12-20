@@ -92,7 +92,7 @@ const ProjectTableRow = ({
                 "size-10 rounded-full p-0",
               )}
             >
-              <GitHubIcon size={24} />
+              <GitHubIcon className="size-5" />
             </a>
             {project.url && (
               <a
@@ -105,7 +105,7 @@ const ProjectTableRow = ({
                   "size-10 rounded-full p-0",
                 )}
               >
-                <HomeIcon size={24} />
+                <HomeIcon className="size-5" />
               </a>
             )}
           </div>

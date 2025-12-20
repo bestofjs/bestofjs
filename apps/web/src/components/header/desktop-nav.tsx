@@ -39,7 +39,7 @@ export function MainNav() {
           <BestOfJSLogo
             width={130}
             height={37.15}
-            className="h-[37.15px] w-[130px] text-[var(--logo-color)]"
+            className="h-[37.15px] w-[130px] text-(--logo-color)"
           />
         </Link>
         <div className="hidden gap-2 lg:flex">
@@ -52,7 +52,7 @@ export function MainNav() {
                     href={item.href}
                     className={cn(
                       "flex h-9 items-center p-2 font-medium text-sm",
-                      "text-muted-foreground hover:bg-[var(--sand-3)] hover:text-foreground",
+                      "text-muted-foreground hover:bg-(--sand-3) hover:text-foreground",
                       "rounded",
                       item.isActive(pathname) ? "text-foreground" : undefined,
 
@@ -77,7 +77,7 @@ export function MoreLinksButton() {
       <DropdownMenuTrigger asChild>
         <Button variant="ghost" className="text-muted-foreground">
           More
-          <ChevronDownIcon size={16} />
+          <ChevronDownIcon className="size-4" />
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-60" align="end" sideOffset={0}>

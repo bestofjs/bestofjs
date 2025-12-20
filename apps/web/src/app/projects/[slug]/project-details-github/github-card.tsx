@@ -43,7 +43,7 @@ export const ProjectDetailsGitHubCard = ({ project }: Props) => {
       <CardHeader className="border-b">
         <div className="flex items-center space-x-2">
           <div>
-            <GitHubIcon size={24} />
+            <GitHubIcon className="size-6" />
           </div>
           <div>GitHub</div>
           <StarTotal value={stars || 0} />
@@ -84,7 +84,7 @@ const GitHubData = ({ project }: { project: ProjectDetails }) => {
       <div>
         <ExternalLink url={url} className="flex items-center gap-1 font-sans">
           {full_name}
-          <ExternalLinkIcon size={16} />
+          <ExternalLinkIcon className="size-4" />
         </ExternalLink>
       </div>
       <div>

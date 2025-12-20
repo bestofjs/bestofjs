@@ -26,8 +26,8 @@ export function ProjectHeader({ project }: Props) {
 
   return (
     <div className="flex flex-col space-y-4 sm:flex-row sm:space-y-0 sm:divide-x">
-      <div className="flex min-h-[120px] grow items-center divide-x">
-        <div className="pr-4">
+      <div className="grid grow auto-cols-[auto_1fr] grid-flow-col items-stretch divide-x">
+        <div className="flex items-center pr-4">
           <ProjectLogo
             project={{
               name: project.name,
@@ -37,8 +37,8 @@ export function ProjectHeader({ project }: Props) {
             size={75}
           />
         </div>
-        <div className="flex flex-col space-y-4 px-4">
-          <div className="flex flex-col items-center justify-between sm:flex-row">
+        <div className="flex flex-col justify-center space-y-4 px-4">
+          <div className="flex flex-col justify-between sm:flex-row sm:items-center">
             <h2 className="font-serif text-4xl">{project.name}</h2>
             {isGPLProject(project) && (
               <div>
@@ -55,11 +55,11 @@ export function ProjectHeader({ project }: Props) {
         </div>
       </div>
       <aside className="flex flex-col justify-center space-y-2 font-sans sm:w-[280px] sm:pl-4">
-        <ButtonLink href={repository} icon={<GitHubIcon size={20} />}>
+        <ButtonLink href={repository} icon={<GitHubIcon className="size-5" />}>
           {full_name}
         </ButtonLink>
         {url && (
-          <ButtonLink href={url} icon={<HomeIcon size={20} />}>
+          <ButtonLink href={url} icon={<HomeIcon className="size-5" />}>
             {formatUrl(url)}
           </ButtonLink>
         )}

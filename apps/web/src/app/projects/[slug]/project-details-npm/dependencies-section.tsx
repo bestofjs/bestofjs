@@ -56,7 +56,7 @@ export async function DependenciesSection({
                         href={`https://npmjs.org/package/${dependency}`}
                       >
                         {dependency}
-                        <ExternalLinkIcon size={16} />
+                        <ExternalLinkIcon className="size-4" />
                       </a>
                     </TableCell>
                   </TableRow>

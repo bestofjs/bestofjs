@@ -74,7 +74,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
             <TooltipProvider>
               <div className="relative flex min-h-screen flex-col">
                 <SiteHeader />
-                <main className="flex-1 bg-[var(--app-background)]">
+                <main className="flex-1 bg-(--app-background)">
                   <div className="container pt-6 pb-8 md:py-8">{children}</div>
                 </main>
                 <Footer />

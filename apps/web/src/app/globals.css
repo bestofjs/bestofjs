@@ -1,122 +1,241 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+@import "tw-animate-css";
 
+@custom-variant dark (&:is(.dark *));
+
+@utility container {
+  margin-inline: auto;
+  padding-inline: 2rem;
+  @media (width >= --theme(--breakpoint-sm)) {
+    max-width: none;
+  }
+  @media (width >= 1064px) {
+    max-width: 1064px;
+  }
+}
+
+@theme {
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+
+  --color-primary: var(--primary);
+  --color-primary-hover: var(--primary-hover);
+  --color-primary-foreground: var(--primary-foreground);
+
+  --color-secondary: var(--secondary);
+  --color-secondary-hover: var(--secondary-hover);
+  --color-secondary-foreground: var(--secondary-foreground);
+
+  --color-destructive: hsl(var(--destructive));
+  --color-destructive-foreground: hsl(var(--destructive-foreground));
+
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+
+  --radius-lg: var(--radius);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-sm: calc(var(--radius) - 4px);
+
+  --font-sans:
+    var(--font-sans), ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji",
+    "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  --font-serif:
+    var(--font-serif), ui-serif, Georgia, Cambria, "Times New Roman", Times,
+    serif;
+
+  /* Used by typewriter effect */
+  @keyframes cursor-pulse {
+    from {
+      opacity: 0;
+    }
+    25% {
+      opacity: 1;
+    }
+    75% {
+      opacity: 1;
+    }
+    to {
+      opacity: 0;
+    }
+  }
+}
+
+/*
+  The default border color has changed to `currentcolor` in Tailwind CSS v4,
+  so we've added these compatibility styles to make sure everything still
+  looks the same as it did with Tailwind CSS v3.
+
+  If we ever want to remove these styles, we need to add an explicit border
+  color utility to any element that depends on these defaults.
+*/
 @layer base {
-  :root {
-    /* `orange` scale from Radix colors */
-    --orange-1: #fefcfb;
-    --orange-2: #fff7ed;
-    --orange-3: #ffefd6;
-    --orange-4: #ffdfb5;
-    --orange-5: #ffd19a;
-    --orange-6: #ffc182;
-    --orange-7: #f5ae73;
-    --orange-8: #ec9455;
-    --orange-9: #f76b15;
-    --orange-10: #ef5f00;
-    --orange-11: #cc4e00;
-    --orange-12: #582d1d;
-
-    /* `sand` scale from Radix colors */
-    --sand-1: #fdfdfc;
-    --sand-2: #f9f9f8;
-    --sand-3: #f1f0ef;
-    --sand-4: #e9e8e6;
-    --sand-5: #e2e1de;
-    --sand-6: #dad9d6;
-    --sand-7: #cfceca;
-    --sand-8: #bcbbb5;
-    --sand-9: #8d8d86;
-    --sand-10: #82827c;
-    --sand-11: #63635e;
-    --sand-12: #21201c;
-
-    --background: white;
-    --overlay: rgba(255, 255, 255, 0.8);
-    --app-background: var(--sand-2);
-    --foreground: var(--sand-12);
-    --card: white;
-    --card-foreground: var(--foreground);
-    --popover: white;
-    --popover-foreground: var(--foreground);
-    --primary: var(--orange-9);
-    --primary-hover: var(--orange-10);
-    --primary-foreground: white;
-    --secondary: var(--sand-3);
-    --secondary-hover: var(--sand-4);
-    --secondary-foreground: var(--sand-11);
-    --muted: var(--sand-5);
-    --muted-foreground: var(--sand-11);
-    --accent: var(--sand-2);
-    --accent-foreground: black;
-    --border: var(--sand-4);
-    --input: var(--border);
-    --ring: var(--primary);
-    --radius: 0.5rem;
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 60 9.1% 97.8%;
-
-    --link-foreground: var(--orange-11);
-    --link-underline: var(--orange-8);
-
-    --graphBackgroundColor1: var(--orange-6);
-    --graphBackgroundColor2: var(--orange-7);
-
-    --logo-color: var(--primary);
-    --icon-color: var(--orange-9);
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-200, currentcolor);
   }
+}
 
-  .dark {
-    /* orangeDark scale */
-    --orange-1: #17120e;
-    --orange-2: #1e160f;
-    --orange-3: #331e0b;
-    --orange-4: #462100;
-    --orange-5: #562800;
-    --orange-6: #66350c;
-    --orange-7: #7e451d;
-    --orange-8: #a35829;
-    --orange-9: #f76b15;
-    --orange-10: #ff801f;
-    --orange-11: #ffa057;
-    --orange-12: #ffe0c2;
+:root {
+  /* `orange` scale from Radix colors */
+  --orange-1: oklch(0.9923 0.0025 48.72);
+  --orange-2: oklch(0.9796 0.0158 73.68);
+  --orange-3: oklch(0.9583 0.0371 79.11);
+  --orange-4: oklch(0.92 0.0651 74.37);
+  --orange-5: oklch(0.8879 0.0875 71.31);
+  --orange-6: oklch(0.8537 0.1068 66.02);
+  --orange-7: oklch(0.8059 0.1123 59.96);
+  --orange-8: oklch(0.745 0.1322 54.68);
+  --orange-9: oklch(0.745 0.1322 54.68);
+  --orange-10: oklch(0.6624 0.194559 43.4582);
+  --orange-11: oklch(0.5855 0.174261 42.7357);
+  --orange-12: oklch(0.3499 0.0685 40.83);
 
-    /* sandDark scale */
-    --sand-1: #111110;
-    --sand-2: #191918;
-    --sand-3: #222221;
-    --sand-4: #2a2a28;
-    --sand-5: #31312e;
-    --sand-6: #3b3a37;
-    --sand-7: #494844;
-    --sand-8: #62605b;
-    --sand-9: #6f6d66;
-    --sand-10: #7c7b74;
-    --sand-11: #b5b3ad;
-    --sand-12: #eeeeec;
+  /* `sand` scale from Radix colors */
+  --sand-1: oklch(0.9938 0.0013 106.42);
+  --sand-2: oklch(0.9818 0.0013 106.42);
+  --sand-3: oklch(0.9556 0.0017 67.8);
+  --sand-4: oklch(0.9312 0.0029 84.56);
+  --sand-5: oklch(0.9097 0.0042 91.45);
+  --sand-6: oklch(0.8852 0.0042 91.45);
+  --sand-7: oklch(0.8511 0.0056 95.11);
+  --sand-8: oklch(0.7911 0.0084 98.91);
+  --sand-9: oklch(0.6413 0.0102 106.68);
+  --sand-10: oklch(0.6048 0.0089 106.66);
+  --sand-11: oklch(0.4981 0.0078 106.68);
+  --sand-12: oklch(0.2431 0.0076 95.37);
 
-    --background: var(--sand-1);
-    --overlay: rgba(17, 17, 16, 0.8);
-    --app-background: var(--sand-1);
-    --destructive: 0 72.2% 50.6%;
-    --destructive-foreground: 60 9.1% 97.8%;
+  --app-background: var(--sand-2);
 
-    --card: var(--sand-2);
-    --border: var(--sand-6);
+  --radius: 0.65rem;
+  --background: oklch(1 0 0);
+  --foreground: oklch(0.141 0.005 285.823);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.141 0.005 285.823);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.141 0.005 285.823);
+  --primary: oklch(0.646 0.222 41.116);
+  --primary-foreground: oklch(0.98 0.016 73.684);
+  --secondary: oklch(0.967 0.001 286.375);
+  --secondary-foreground: oklch(0.21 0.006 285.885);
+  --muted: oklch(0.967 0.001 286.375);
+  --muted-foreground: oklch(0.552 0.016 285.938);
+  --accent: oklch(0.967 0.001 286.375);
+  --accent-foreground: oklch(0.21 0.006 285.885);
+  --destructive: oklch(0.577 0.245 27.325);
+  --border: oklch(0.92 0.004 286.32);
+  --input: oklch(0.92 0.004 286.32);
+  --ring: oklch(0.75 0.183 55.934);
+  --chart-1: oklch(0.837 0.128 66.29);
+  --chart-2: oklch(0.705 0.213 47.604);
+  --chart-3: oklch(0.646 0.222 41.116);
+  --chart-4: oklch(0.553 0.195 38.402);
+  --chart-5: oklch(0.47 0.157 37.304);
+  --sidebar: oklch(0.985 0 0);
+  --sidebar-foreground: oklch(0.141 0.005 285.823);
+  --sidebar-primary: oklch(0.646 0.222 41.116);
+  --sidebar-primary-foreground: oklch(0.98 0.016 73.684);
+  --sidebar-accent: oklch(0.967 0.001 286.375);
+  --sidebar-accent-foreground: oklch(0.21 0.006 285.885);
+  --sidebar-border: oklch(0.92 0.004 286.32);
+  --sidebar-ring: oklch(0.75 0.183 55.934);
 
-    /* Add a lighter background for elements displayed inside a card (E.g. code block inside README) */
-    --card-element: var(--sand-3);
+  --logo-color: var(--primary);
+  --icon-color: var(--orange-9);
 
-    /* Make popover less dark to match the card bg (original L=3.9%;) */
-    --popover: var(--sand-2);
+  --link-foreground: var(--orange-11);
+  --link-underline: var(--orange-8);
 
-    --accent: var(--sand-3);
-    --accent-foreground: white;
+  --graphBackgroundColor1: var(--orange-6);
+  --graphBackgroundColor2: var(--orange-7);
+}
 
-    --logo-color: var(--orange-11);
-    --icon-color: var(--orange-10);
-  }
+.dark {
+  /* Radix orangeDark scale in oklch format */
+  --orange-1: oklch(0.1869 0.0114 60.68);
+  --orange-2: oklch(0.2078 0.0185 62.72);
+  --orange-3: oklch(0.2579 0.0447 60.79);
+  --orange-4: oklch(0.2937 0.0713 56.7);
+  --orange-5: oklch(0.3339 0.0833 54.38);
+  --orange-6: oklch(0.3849 0.0867 54.98);
+  --orange-7: oklch(0.4523 0.0945 52.66);
+  --orange-8: oklch(0.5406 0.1156 50.05);
+  --orange-9: oklch(0.6908 0.1909 45.02);
+  --orange-10: oklch(0.7327 0.1818 50.86);
+  --orange-11: oklch(0.7888 0.143364 56.2128);
+  --orange-12: oklch(0.9247 0.0524 66.17);
+
+  /* sandDark scale */
+  --sand-1: oklch(0.1772 0.002 106.6);
+  --sand-2: oklch(0.213 0.0019 106.56);
+  --sand-3: oklch(0.2516 0.0019 106.53);
+  --sand-4: oklch(0.2843 0.0036 106.63);
+  --sand-5: oklch(0.3121 0.0052 106.7);
+  --sand-6: oklch(0.3484 0.0053 91.54);
+  --sand-7: oklch(0.4013 0.0067 95.22);
+  --sand-8: oklch(0.4893 0.0082 88.7);
+  --sand-9: oklch(0.5344 0.011 93.67);
+  --sand-10: oklch(0.5816 0.0106 100.11);
+  --sand-11: oklch(0.7666 0.0087 91.51);
+  --sand-12: oklch(0.9486 0.0027 106.45);
+
+  --app-background: var(--sand-1);
+
+  --background: var(--sand-1);
+  --foreground: oklch(0.985 0 0);
+  --card-foreground: oklch(0.985 0 0);
+  --popover-foreground: oklch(0.985 0 0);
+  --primary: oklch(0.705 0.213 47.604);
+  --primary-foreground: oklch(0.98 0.016 73.684);
+  --secondary: oklch(0.274 0.006 286.033);
+  --secondary-foreground: oklch(0.985 0 0);
+  --muted: oklch(0.274 0.006 286.033);
+  --muted-foreground: oklch(0.705 0.015 286.067);
+  --destructive: oklch(0.704 0.191 22.216);
+  --input: oklch(1 0 0 / 15%);
+  --ring: oklch(0.408 0.123 38.172);
+  --chart-1: oklch(0.837 0.128 66.29);
+  --chart-2: oklch(0.705 0.213 47.604);
+  --chart-3: oklch(0.646 0.222 41.116);
+  --chart-4: oklch(0.553 0.195 38.402);
+  --chart-5: oklch(0.47 0.157 37.304);
+  --sidebar: oklch(0.21 0.006 285.885);
+  --sidebar-foreground: oklch(0.985 0 0);
+  --sidebar-primary: oklch(0.705 0.213 47.604);
+  --sidebar-primary-foreground: oklch(0.98 0.016 73.684);
+  --sidebar-accent: oklch(0.274 0.006 286.033);
+  --sidebar-accent-foreground: oklch(0.985 0 0);
+  --sidebar-border: oklch(1 0 0 / 10%);
+  --sidebar-ring: oklch(0.408 0.123 38.172);
+
+  --card: var(--sand-2);
+  --border: var(--sand-6);
+
+  /* Add a lighter background for elements displayed inside a card (E.g. code block inside README) */
+  --card-element: var(--sand-3);
+
+  /* Make popover less dark to match the card bg (original L=3.9%;) */
+  --popover: var(--sand-2);
+
+  --accent: var(--sand-3);
+  --accent-foreground: white;
+
+  --logo-color: var(--orange-11);
+  --icon-color: var(--orange-10);
 }
 
 @layer base {

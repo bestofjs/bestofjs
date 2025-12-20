@@ -121,7 +121,8 @@ export function BestOfJSSection({
           >
             Star on GitHub
             <span className="ml-4 inline-flex align-center">
-              {formatNumber(project.stars, "full")} <StarIcon size={24} />
+              {formatNumber(project.stars, "full")}{" "}
+              <StarIcon className="size-6" />
             </span>
           </a>
         )}

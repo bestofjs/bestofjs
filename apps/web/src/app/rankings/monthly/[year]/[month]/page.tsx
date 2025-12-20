@@ -118,7 +118,7 @@ const MonthlyRankingsNavigator = ({
         url={buildRankingsURL(previousMonth)}
         label="Previous month"
       >
-        <ChevronLeftIcon size={28} />
+        <ChevronLeftIcon className="size-7" />
         <span className="hidden sm:block">
           {formatMonthlyDate(previousMonth)}
         </span>
@@ -130,7 +130,7 @@ const MonthlyRankingsNavigator = ({
         label="Next month"
       >
         <span className="hidden sm:block">{formatMonthlyDate(nextMonth)}</span>
-        <ChevronRightIcon size={28} />
+        <ChevronRightIcon className="size-7" />
       </NavigationButton>
     </div>
   );

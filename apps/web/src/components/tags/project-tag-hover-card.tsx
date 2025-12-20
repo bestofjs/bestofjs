@@ -25,8 +25,8 @@ export const ProjectTagHoverCard = ({
         <div className="justify-start divide-y text-left text-sm">
           <div className="pb-2">
             <div className="flex items-center gap-2">
-              <div className="text-[var(--icon-color)]">
-                <TagIcon size={24} />
+              <div className="text-(--icon-color)">
+                <TagIcon className="size-6" />
               </div>
               <div>{name}</div>
             </div>
