@@ -1,6 +1,8 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 
+@custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
+
 @utility container {
   margin-inline: auto;
   padding-inline: 2rem;
@@ -90,32 +92,32 @@
 
 :root {
   /* `orange` scale from Radix colors */
-  --orange-1: #fefcfb;
-  --orange-2: #fff7ed;
-  --orange-3: #ffefd6;
-  --orange-4: #ffdfb5;
-  --orange-5: #ffd19a;
-  --orange-6: #ffc182;
-  --orange-7: #f5ae73;
-  --orange-8: #ec9455;
-  --orange-9: #f76b15;
-  --orange-10: #ef5f00;
-  --orange-11: #cc4e00;
-  --orange-12: #582d1d;
+  --orange-1: oklch(0.9923 0.0025 48.72);
+  --orange-2: oklch(0.9796 0.0158 73.68);
+  --orange-3: oklch(0.9583 0.0371 79.11);
+  --orange-4: oklch(0.92 0.0651 74.37);
+  --orange-5: oklch(0.8879 0.0875 71.31);
+  --orange-6: oklch(0.8537 0.1068 66.02);
+  --orange-7: oklch(0.8059 0.1123 59.96);
+  --orange-8: oklch(0.745 0.1322 54.68);
+  --orange-9: oklch(0.745 0.1322 54.68);
+  --orange-10: oklch(0.6624 0.194559 43.4582);
+  --orange-11: oklch(0.5855 0.174261 42.7357);
+  --orange-12: oklch(0.3499 0.0685 40.83);
 
   /* `sand` scale from Radix colors */
-  --sand-1: #fdfdfc;
-  --sand-2: #f9f9f8;
-  --sand-3: #f1f0ef;
-  --sand-4: #e9e8e6;
-  --sand-5: #e2e1de;
-  --sand-6: #dad9d6;
-  --sand-7: #cfceca;
-  --sand-8: #bcbbb5;
-  --sand-9: #8d8d86;
-  --sand-10: #82827c;
-  --sand-11: #63635e;
-  --sand-12: #21201c;
+  --sand-1: oklch(0.9938 0.0013 106.42);
+  --sand-2: oklch(0.9818 0.0013 106.42);
+  --sand-3: oklch(0.9556 0.0017 67.8);
+  --sand-4: oklch(0.9312 0.0029 84.56);
+  --sand-5: oklch(0.9097 0.0042 91.45);
+  --sand-6: oklch(0.8852 0.0042 91.45);
+  --sand-7: oklch(0.8511 0.0056 95.11);
+  --sand-8: oklch(0.7911 0.0084 98.91);
+  --sand-9: oklch(0.6413 0.0102 106.68);
+  --sand-10: oklch(0.6048 0.0089 106.66);
+  --sand-11: oklch(0.4981 0.0078 106.68);
+  --sand-12: oklch(0.2431 0.0076 95.37);
 
   --app-background: var(--sand-2);
 
@@ -164,32 +166,32 @@
 
 .dark {
   /* Radix orangeDark scale in oklch format */
-  --orange-1: #17120e;
-  --orange-2: #1e160f;
-  --orange-3: #331e0b;
-  --orange-4: #462100;
-  --orange-5: #562800;
-  --orange-6: #66350c;
-  --orange-7: #7e451d;
-  --orange-8: #a35829;
-  --orange-9: #f76b15;
-  --orange-10: #ff801f;
-  --orange-11: #ffa057;
-  --orange-12: #ffe0c2;
+  --orange-1: oklch(0.1869 0.0114 60.68);
+  --orange-2: oklch(0.2078 0.0185 62.72);
+  --orange-3: oklch(0.2579 0.0447 60.79);
+  --orange-4: oklch(0.2937 0.0713 56.7);
+  --orange-5: oklch(0.3339 0.0833 54.38);
+  --orange-6: oklch(0.3849 0.0867 54.98);
+  --orange-7: oklch(0.4523 0.0945 52.66);
+  --orange-8: oklch(0.5406 0.1156 50.05);
+  --orange-9: oklch(0.6908 0.1909 45.02);
+  --orange-10: oklch(0.7327 0.1818 50.86);
+  --orange-11: oklch(0.7888 0.143364 56.2128);
+  --orange-12: oklch(0.9247 0.0524 66.17);
 
   /* sandDark scale */
-  --sand-1: #111110;
-  --sand-2: #191918;
-  --sand-3: #222221;
-  --sand-4: #2a2a28;
-  --sand-5: #31312e;
-  --sand-6: #3b3a37;
-  --sand-7: #494844;
-  --sand-8: #62605b;
-  --sand-9: #6f6d66;
-  --sand-10: #7c7b74;
-  --sand-11: #b5b3ad;
-  --sand-12: #eeeeec;
+  --sand-1: oklch(0.1772 0.002 106.6);
+  --sand-2: oklch(0.213 0.0019 106.56);
+  --sand-3: oklch(0.2516 0.0019 106.53);
+  --sand-4: oklch(0.2843 0.0036 106.63);
+  --sand-5: oklch(0.3121 0.0052 106.7);
+  --sand-6: oklch(0.3484 0.0053 91.54);
+  --sand-7: oklch(0.4013 0.0067 95.22);
+  --sand-8: oklch(0.4893 0.0082 88.7);
+  --sand-9: oklch(0.5344 0.011 93.67);
+  --sand-10: oklch(0.5816 0.0106 100.11);
+  --sand-11: oklch(0.7666 0.0087 91.51);
+  --sand-12: oklch(0.9486 0.0027 106.45);
 
   --app-background: var(--sand-1);
 
