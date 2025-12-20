@@ -41,7 +41,7 @@ export function ProjectSearchResult({
               "size-10 rounded-full p-0 text-muted-foreground",
             )}
           >
-            <GitHubIcon size={24} />
+            <GitHubIcon className="size-6" />
           </a>
         </div>
         {project.url && (
@@ -57,7 +57,7 @@ export function ProjectSearchResult({
                 "size-10 rounded-full p-0 text-muted-foreground",
               )}
             >
-              <HomeIcon size={24} />
+              <HomeIcon className="size-6" />
             </a>
           </div>
         )}
@@ -110,9 +110,9 @@ export function TagSearchResult({
           )}
         >
           {currentTags.length === 0 ? (
-            <TagIcon size={32} />
+            <TagIcon className="size-8" />
           ) : (
-            <TagsIcons size={32} />
+            <TagsIcons className="size-8" />
           )}
         </div>
         <div className="pl-4 text-md">
@@ -135,7 +135,7 @@ export function ViewAllTagsCommand({ onSelect }: { onSelect: () => void }) {
     <CommandItem value="all-tags" onSelect={() => onSelect()}>
       <div className="flex min-h-[50px] items-center">
         <div className="flex size-12 items-center justify-center">
-          <TagsIcons size={32} />
+          <TagsIcons className="size-8" />
         </div>
         <div className="pl-4">View all tags</div>
       </div>
@@ -157,7 +157,7 @@ export function SearchForTextCommand({
       className="group grid w-full grid-cols-[32px_1fr] items-center gap-4"
     >
       <div className="flex size-12 items-center justify-center">
-        <SearchIcon size={24} />
+        <SearchIcon className="size-6" />
       </div>
       <div>
         Search for

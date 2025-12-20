@@ -45,14 +45,14 @@ export function BundleSizeSection({ project }: Props) {
             Bundle in the browser with{" "}
             <ExternalLink url={urls.bundleJs}>
               <span className="font-sans">bundlejs online bundler</span>
-              <ExternalLinkIcon size={16} />
+              <ExternalLinkIcon className="size-4" />
             </ExternalLink>
           </li>
           <li className="list-disc">
             View details on{" "}
             <ExternalLink url={urls.bundlePhobia}>
               <span className="font-sans">Bundle Phobia</span>
-              <ExternalLinkIcon size={16} />
+              <ExternalLinkIcon className="size-4" />
             </ExternalLink>
           </li>
         </ul>

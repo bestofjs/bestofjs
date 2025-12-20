@@ -40,7 +40,7 @@ export function FeaturedProjectsClient({
     <>
       <CardHeader>
         <SectionHeading
-          icon={<StarIcon size={32} />}
+          icon={<StarIcon className="size-8" />}
           title="Featured"
           subtitle={
             <>
@@ -55,7 +55,7 @@ export function FeaturedProjectsClient({
                     className="h-6 w-8"
                     disabled={pageNumber === 0}
                   >
-                    <ChevronLeftIcon size={24} />
+                    <ChevronLeftIcon className="size-6" />
                   </Button>
                   <Button
                     aria-label="Next"
@@ -65,7 +65,7 @@ export function FeaturedProjectsClient({
                     className="h-6 w-8"
                     disabled={pageNumber === lastPageNumber}
                   >
-                    <ChevronRightIcon size={24} />
+                    <ChevronRightIcon className="size-6" />
                   </Button>
                 </div>
               </div>

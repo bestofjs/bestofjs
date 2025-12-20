@@ -55,11 +55,11 @@ export function ProjectHeader({ project }: Props) {
         </div>
       </div>
       <aside className="flex flex-col justify-center space-y-2 font-sans sm:w-[280px] sm:pl-4">
-        <ButtonLink href={repository} icon={<GitHubIcon size={20} />}>
+        <ButtonLink href={repository} icon={<GitHubIcon className="size-5" />}>
           {full_name}
         </ButtonLink>
         {url && (
-          <ButtonLink href={url} icon={<HomeIcon size={20} />}>
+          <ButtonLink href={url} icon={<HomeIcon className="size-5" />}>
             {formatUrl(url)}
           </ButtonLink>
         )}

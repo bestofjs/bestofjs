@@ -182,7 +182,7 @@ function ProjectPageHeader({
             <ShowNumberOfProject count={total} />
           </>
         }
-        icon={<TagIcon size={32} />}
+        icon={<TagIcon className="size-8" />}
       />
     );
   }
@@ -237,7 +237,7 @@ function RelevantTags({
             className={buttonVariants({ variant: "outline", size: "sm" })}
           >
             {tag.name}
-            {showIcon && <PlusIcon size={20} />}
+            {showIcon && <PlusIcon className="size-5" />}
           </NextLink>
         );
       })}
@@ -270,7 +270,7 @@ function CurrentTags({
             className={cn(badgeVariants({ variant: "default" }), "text-md")}
           >
             {tag.name}
-            <XMarkIcon size={20} />
+            <XMarkIcon className="size-5" />
           </NextLink>
         );
       })}
@@ -283,8 +283,8 @@ function CurrentTags({
           }))}
           className={cn(badgeVariants({ variant: "default" }), "text-md")}
         >
-          “{textQuery}”
-          <XMarkIcon size={20} />
+          "{textQuery}"
+          <XMarkIcon className="size-5" />
         </NextLink>
       )}
     </div>

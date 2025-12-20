@@ -34,7 +34,7 @@ export function ProjectDetailsNpmCard({
               className="flex items-center gap-1 font-sans"
             >
               {packageName}
-              <ExternalLinkIcon size={16} />
+              <ExternalLinkIcon className="size-4" />
             </ExternalLink>
             <Badge className="">{packageData.version}</Badge>
           </div>

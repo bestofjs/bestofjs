@@ -37,7 +37,7 @@ export function ProjectSortOrderPicker({ value, buildPageURL }: Props) {
       <DropdownMenuTrigger asChild>
         <Button variant="outline">
           Sort: {currentOption?.label || ""}
-          <ChevronDownIcon size={24} aria-hidden="true" />
+          <ChevronDownIcon className="size-6" aria-hidden="true" />
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-[300px] divide-y">

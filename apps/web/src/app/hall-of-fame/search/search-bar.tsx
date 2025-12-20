@@ -29,11 +29,11 @@ export function HallOfFameSearchBar() {
         className={buttonVariants({ variant: "outline" })}
       >
         <span className="mr-2 hidden md:inline">Reset</span>
-        <XMarkIcon size={20} />
+        <XMarkIcon className="size-5" />
       </Link>
       <Button type="submit">
         <span className="mr-2 hidden md:inline">Search</span>
-        <SearchIcon size={20} />
+        <SearchIcon className="size-5" />
       </Button>
     </form>
   );

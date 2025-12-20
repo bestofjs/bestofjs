@@ -23,7 +23,7 @@ export default async function FeaturedProjectsPage(props: PageProps) {
   return (
     <>
       <PageHeading
-        icon={<StarIcon size={36} />}
+        icon={<StarIcon className="size-9" />}
         title={<>Featured Projects</>}
         subtitle={<>A collection of awesome projects chosen by our team!</>}
       />

@@ -63,7 +63,7 @@ export function TimeRangePicker({ value }: Props) {
           ) : (
             <>
               {sortOption.shortLabel || sortOption.label}
-              <ChevronDownIcon size={24} aria-hidden="true" />
+              <ChevronDownIcon className="size-6" aria-hidden="true" />
             </>
           )}
         </Button>

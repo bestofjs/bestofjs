@@ -88,7 +88,7 @@ function ImageCaption({
     <Box style={{ gap: 16, alignItems: "center" }}>
       {tags.length > 0 && !query && (
         <Box style={{ paddingLeft: 5, color: "#F59E0B" }}>
-          <TagIcon size="1.75em" />
+          <TagIcon className="size-[1.75em]" />
         </Box>
       )}
       <Box style={{ flexDirection: "column", paddingLeft: 0 }}>
