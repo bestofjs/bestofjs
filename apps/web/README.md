@@ -1,4 +1,4 @@
-# Best of JS Next.js 14 application
+# Best of JS Next.js 16 application
 
 ## Technology
 
@@ -10,7 +10,7 @@
 
 Requirements:
 
-- Node.js 20
+- Node.js 22
 - [PNPM](https://pnpm.io/) 10
 
 The app is part of a monorepo built using [PNPM workspace](https://pnpm.io/workspaces) feature.
