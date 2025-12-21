@@ -34,17 +34,17 @@ function rankAndFilterProjects<T extends ProjectItem>(
   // return how much "relevant" is the project in the search results
   // `tags` is an array of tags that match the text
   function rankProject<T extends ProjectItem>(project: T) {
-    if (equals.test(project.name)) {
+    if (equals.test(project.name) || equals.test(project.npm)) {
       // top level relevance: project whose name or package name is what the user entered
       return 1;
     }
 
-    if (startsWith.test(project.name)) {
+    if (startsWith.test(project.name) || startsWith.test(project.npm)) {
       return 0.7;
     }
 
     if (query.length > 1) {
-      if (contains.test(project.name)) {
+      if (contains.test(project.name) || contains.test(project.npm)) {
         return 0.5;
       }
     }

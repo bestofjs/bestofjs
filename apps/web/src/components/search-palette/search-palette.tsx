@@ -67,7 +67,12 @@ export function SearchPalette() {
   return (
     <>
       <SearchTrigger onClick={() => setOpen(true)} />
-      <CommandDialog open={open} onOpenChange={onOpenChange}>
+      <CommandDialog
+        open={open}
+        onOpenChange={onOpenChange}
+        className="h-[85vh] sm:h-[60vh] sm:max-w-3xl"
+        shouldFilter={false}
+      >
         {isPending && selectedItem ? (
           <div className="flex h-[300px] items-center justify-center">
             <Loading item={selectedItem} />
@@ -96,7 +101,7 @@ export function SearchPalette() {
                 })}
               </div>
             )}
-            <CommandList>
+            <CommandList className="max-h-none flex-1">
               {!canTriggerSearch ? (
                 <DefaultTags
                   currentTags={currentTags}
@@ -193,13 +198,11 @@ function CombinedSearchResults({
           <React.Fragment key={key}>
             {isProject(result) ? (
               <ProjectSearchResult
-                key={key}
                 project={result}
                 onSelectProject={onSelectProject}
               />
             ) : (
               <TagSearchResult
-                key={key}
                 tag={result}
                 onSelectTag={onSelectTag}
                 currentTags={currentTags}
