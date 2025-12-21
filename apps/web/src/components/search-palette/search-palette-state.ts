@@ -120,10 +120,13 @@ export function useSearchPaletteState() {
   };
 
   const goToURL = (url: string) => {
-    // only close the popup when the page is ready to show
-    // otherwise the popup closes showing the previous page, before going to the page!
+    // Use startTransition to defer state updates (closing popup, resetting state) until
+    // React has prepared the next route. This prevents a jarring flash where the popup
+    // closes immediately while the old page is still visible. Instead, the popup stays
+    // open (showing loading state via `isPending`) and closes at the same moment the new
+    // page appears, creating a smooth transition.
     startTransition(() => {
-      // oddly `onOpenChange` is not triggered when moving to another page, so we "reset" the state before closing
+      // Note: `onOpenChange` is not triggered when navigating, so we manually reset state
       resetCurrentTags();
       setSearchQuery("");
       setOpen(false);
