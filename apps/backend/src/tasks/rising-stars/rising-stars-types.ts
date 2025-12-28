@@ -1,6 +1,7 @@
 import { z } from "zod";
 
-export const projectSchema = z.object({
+/** A repo showing up in Rising Stars rankings, usually maps to a single project except for monorepos such as OXC */
+export const risingStarsEntrySchema = z.object({
   name: z.string(),
   slug: z.string(),
   full_name: z.string(),
@@ -12,7 +13,7 @@ export const projectSchema = z.object({
   owner_id: z.number(),
   icon: z.string().optional(),
   created_at: z.coerce.date(),
-  url: z.string().optional(),
+  url: z.url().optional(),
 });
 
-export type Project = z.infer<typeof projectSchema>;
+export type RisingStarsEntry = z.infer<typeof risingStarsEntrySchema>;

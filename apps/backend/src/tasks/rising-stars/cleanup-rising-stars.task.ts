@@ -7,7 +7,10 @@ import { generateProjectDefaultSlug, ProjectService } from "@repo/db/projects";
 
 import { createTask } from "@/task-runner";
 
-import { type Project, projectSchema } from "./projects";
+import {
+  type RisingStarsEntry,
+  risingStarsEntrySchema,
+} from "./rising-stars-types";
 
 export const cleanupRisingStars = createTask({
   name: "cleanup-rising-stars",
@@ -30,12 +33,12 @@ export const cleanupRisingStars = createTask({
       "projects.json",
     );
     const rawData = await fs.readJSON(filepath);
-    const inputSchema = z.object({ projects: z.array(projectSchema) });
+    const inputSchema = z.object({ projects: z.array(risingStarsEntrySchema) });
     const data = inputSchema.parse(rawData);
     const projects = data.projects;
 
     let errors = 0;
-    const processProject = async (project: Project) => {
+    const processProject = async (project: RisingStarsEntry) => {
       const data = await getProjectData(project);
       if (!data) return project;
       const { slug, logo } = data;
@@ -55,7 +58,7 @@ export const cleanupRisingStars = createTask({
 
     return { data: null, meta: { processed: projects.length, errors } };
 
-    async function getProjectData(project: Project) {
+    async function getProjectData(project: RisingStarsEntry) {
       const slug = project.slug || generateProjectDefaultSlug(project.name);
       const foundRecord = await service.getProjectBySlug(slug);
       if (!foundRecord) {
