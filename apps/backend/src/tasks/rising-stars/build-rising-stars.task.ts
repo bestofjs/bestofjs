@@ -139,9 +139,16 @@ function createRisingStarsEntry(repo: Repo) {
     throw new Error(`Repo ${repo.full_name} has no projects`);
   }
 
+  const getName = () => {
+    if (projects.length === 1) {
+      return projects[0].name;
+    }
+    return projects.map((p) => p.name).join(" + ");
+  };
+
   const getDescription = () => {
     const repoDescription = repo.description;
-    const fallback = firstProject?.description;
+    const fallback = firstProject.description;
     if (projects.length > 1) {
       return repoDescription || fallback;
     }
@@ -150,42 +157,25 @@ function createRisingStarsEntry(repo: Repo) {
       : repoDescription || fallback;
   };
 
-  const getURL = (project: (typeof projects)[0]) => {
-    if (project.overrideURL) return project.url;
+  const getURL = () => {
+    if (firstProject.overrideURL) return firstProject.url;
     const homepage = repo.homepage;
-    // Simple URL validation (similar to isValidProjectURL)
-    const isValidURL = (url: string | null) => {
-      if (!url) return false;
-      return url.startsWith("http://") || url.startsWith("https://");
-    };
-    return homepage && isValidURL(homepage) ? homepage : project.url;
+    return homepage || firstProject.url;
   };
 
-  // If only one project, use it directly
-  if (projects.length === 1) {
-    return {
-      name: firstProject.name,
-      slug: firstProject.slug,
-      description: getDescription(),
-      tags: firstProject.tags.map((tag) => tag.code),
-      url: getURL(firstProject) || undefined,
-      icon: firstProject.logo || undefined,
-    };
-  }
-
-  // Multiple projects: aggregate data
-  const mergedName = projects.map((p) => p.name).join(" + ");
-
-  // Aggregate all tags from all projects, removing duplicates
-  const allTags = projects.flatMap((p) => p.tags.map((tag) => tag.code));
-  const uniqueTags = uniq(allTags);
+  const getTags = () => {
+    if (projects.length === 1) {
+      return firstProject.tags.map((tag) => tag.code);
+    }
+    return uniq(projects.flatMap((p) => p.tags.map((tag) => tag.code)));
+  };
 
   return {
-    name: mergedName,
-    slug: firstProject.slug,
+    name: getName(),
     description: getDescription(),
-    tags: uniqueTags,
-    url: getURL(firstProject) || undefined,
+    slug: firstProject.slug,
+    tags: getTags(),
+    url: getURL() || undefined,
     icon: firstProject.logo || undefined,
   };
 }
