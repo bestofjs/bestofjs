@@ -140,7 +140,7 @@ function createRisingStarsEntry(repo: Repo) {
   }
 
   const getName = () => {
-    return projects.map((p) => p.name).join(" + ");
+    return projects.map((p) => p.name).join("/");
   };
 
   const getDescription = () => {
