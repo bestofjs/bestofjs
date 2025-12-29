@@ -140,9 +140,6 @@ function createRisingStarsEntry(repo: Repo) {
   }
 
   const getName = () => {
-    if (projects.length === 1) {
-      return projects[0].name;
-    }
     return projects.map((p) => p.name).join(" + ");
   };
 
