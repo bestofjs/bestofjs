@@ -134,9 +134,9 @@ function getNumberOfStarsAt(year: number, snapshots: Snapshot[]) {
 function createRisingStarsEntry(repo: Repo) {
   const { projects } = repo;
 
-  const firstProject = projects.at(0);
+  const firstProject = projects[0];
   if (!firstProject) {
-    throw new Error(`Repo ${repo.full_name} has no projects`);
+    throw new Error(`Repo ${repo.full_name} should have one project at least`);
   }
 
   const getName = () => {
