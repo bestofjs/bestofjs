@@ -1,66 +1,62 @@
-import { orderBy } from "es-toolkit";
+import { orderBy, uniq } from "es-toolkit";
 import { z } from "zod";
 
 import { schema } from "@repo/db";
 import { TAGS_EXCLUDED_FROM_RANKINGS } from "@repo/db/constants";
 import { eq, inArray } from "@repo/db/drizzle";
-import {
-  flattenSnapshots,
-  getProjectDescription,
-  getProjectURL,
-  type ProjectDetails,
-} from "@repo/db/projects";
+import { flattenSnapshots } from "@repo/db/projects";
 import { getMonthlyDelta, type Snapshot } from "@repo/db/snapshots";
 
+import type { Repo } from "@/iteration-helpers/repo-processor";
 import { createTask } from "@/task-runner";
 
 import { type Category, fetchCategories } from "./categories";
-import type { Project } from "./projects";
+import type { RisingStarsEntry } from "./rising-stars-types";
 
 export const buildRisingStarsTask = createTask({
   name: "build-rising-stars",
   description: "Build Rising Stars data",
-  flags: {
-    year: { type: Number, default: 2024 },
-  },
+  flags: { year: { type: Number } },
   schema: z.object({ year: z.number() }),
   run: async (context, flags) => {
     const { year } = flags;
 
-    const { data: allProjects, meta } = await context.processProjects(
-      async (project) => {
+    const { data: allProjects, meta } = await context.processRepos(
+      async (repo) => {
         const currentYear = new Date().getFullYear();
-        const snapshots = project.repo.snapshots;
-        const flattenedSnapshots = flattenSnapshots(snapshots);
+        const flattenedSnapshots = flattenSnapshots(repo.snapshots);
         const stars =
           currentYear === year
-            ? project.repo.stars
+            ? repo.stars
             : getNumberOfStarsAt(year, flattenedSnapshots);
 
-        const delta = getYearlyDelta(project, flattenedSnapshots, year);
+        const delta = getYearlyDelta(repo, flattenedSnapshots, year);
 
         const months = [12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1];
         const monthly = months.map(
           (month) => getMonthlyDelta(flattenedSnapshots, { year, month }).delta,
         );
-        const url = getProjectURL(project);
 
-        const data: Project = {
-          name: project.name,
-          slug: project.slug,
-          full_name: project.repo.full_name,
-          description: getProjectDescription(project),
+        // Create a Rising Stars entry from the repo
+        // Most of the time it maps to a single project, but sometimes multiple projects
+        const entry = createRisingStarsEntry(repo);
+
+        const data: RisingStarsEntry = {
+          name: entry.name,
+          slug: entry.slug,
+          full_name: repo.full_name,
+          description: entry.description,
           stars,
           delta,
           monthly,
-          tags: project.tags.map((tag) => tag.code),
-          owner_id: project.repo.owner_id,
-          created_at: project.repo.created_at,
-          ...(url && { url }),
-          ...(project.logo && { icon: project.logo }),
+          tags: entry.tags,
+          owner_id: repo.owner_id,
+          created_at: repo.created_at,
+          ...(entry.url && { url: entry.url }),
+          ...(entry.icon && { icon: entry.icon }),
         };
         return {
-          meta: { processed: true },
+          meta: { processed: true, projectCount: repo.projects.length },
           data,
         };
       },
@@ -75,7 +71,7 @@ export const buildRisingStarsTask = createTask({
       },
     );
 
-    const sortedProjects = orderBy(
+    const sortedEntries = orderBy(
       allProjects
         .filter((item) => item !== null)
         .filter((item) => item.delta > 0),
@@ -85,32 +81,30 @@ export const buildRisingStarsTask = createTask({
 
     const categories = await fetchCategories(year);
 
-    const projects = filterProjects(sortedProjects, categories);
+    const entries = filterProjects(sortedEntries, categories);
 
     const allTags = await fetchTags();
-    const tags = allTags.filter((tag) => isTagIncluded(tag.code, projects));
+    const tags = allTags.filter((tag) => isTagIncluded(tag.code, entries));
 
     context.logger.info(
-      `${projects.length} projects included in Rising Stars, ${tags.length} tags`,
+      `${entries.length} entries included in Rising Stars, ${tags.length} tags`,
     );
     context.logger.info(
-      projects
-        .slice(0, 10)
-        .map((project) => `${project.name}: +${project.delta}`),
+      entries.slice(0, 10).map((entry) => `${entry.name}: +${entry.delta}`),
     );
 
     await context.saveJSON(
       {
         date: new Date(),
-        count: projects.length,
-        projects,
+        count: entries.length,
+        projects: entries,
         tags,
       },
       "rising-stars.json",
     );
 
     return {
-      meta: { count: projects.length, ...meta },
+      meta: { count: entries.length, ...meta },
       data: null,
     };
 
@@ -129,15 +123,65 @@ function getNumberOfStarsAt(year: number, snapshots: Snapshot[]) {
   return snapshots.find((snapshot) => snapshot.year === year + 1)?.stars || 0;
 }
 
-function getYearlyDelta(
-  project: ProjectDetails,
-  snapshots: Snapshot[],
-  year: number,
-) {
+/**
+ * Create a Rising Stars entry from a repo.
+ * Maps a repo to an entry, handling cases where multiple projects share the same repo.
+ * When multiple projects exist:
+ * - Merges project names (e.g., "Project A + Project B")
+ * - Aggregates tags from all projects
+ * - Uses the primary project's (first by priority) slug, logo, and URL
+ */
+function createRisingStarsEntry(repo: Repo) {
+  const { projects } = repo;
+
+  const firstProject = projects[0];
+  if (!firstProject) {
+    throw new Error(`Repo ${repo.full_name} should have one project at least`);
+  }
+
+  const getName = () => {
+    return projects.map((p) => p.name).join("/");
+  };
+
+  const getDescription = () => {
+    const repoDescription = repo.description;
+    const fallback = firstProject.description;
+    if (projects.length > 1) {
+      return repoDescription || fallback;
+    }
+    return firstProject.overrideDescription
+      ? firstProject.description
+      : repoDescription || fallback;
+  };
+
+  const getURL = () => {
+    if (firstProject.overrideURL) return firstProject.url;
+    const homepage = repo.homepage;
+    return homepage || firstProject.url;
+  };
+
+  const getTags = () => {
+    if (projects.length === 1) {
+      return firstProject.tags.map((tag) => tag.code);
+    }
+    return uniq(projects.flatMap((p) => p.tags.map((tag) => tag.code)));
+  };
+
+  return {
+    name: getName(),
+    description: getDescription(),
+    slug: firstProject.slug,
+    tags: getTags(),
+    url: getURL() || undefined,
+    icon: firstProject.logo || undefined,
+  };
+}
+
+function getYearlyDelta(repo: Repo, snapshots: Snapshot[], year: number) {
   const finalSnapshot = getFinalSnapshot(snapshots, year);
   if (!finalSnapshot) return 0;
   const finalValue = finalSnapshot.stars;
-  const initialValue = wasCreatedThisYear(project, year)
+  const initialValue = wasCreatedThisYear(repo, year)
     ? 0
     : getInitialSnapshot(snapshots, year)?.stars || 0;
 
@@ -145,8 +189,8 @@ function getYearlyDelta(
   return delta;
 }
 
-function wasCreatedThisYear(project: ProjectDetails, year: number) {
-  const { created_at } = project.repo;
+function wasCreatedThisYear(repo: Repo, year: number) {
+  const { created_at } = repo;
   const createdYear = created_at.getFullYear();
   return createdYear === year;
 }
@@ -165,74 +209,70 @@ function getFinalSnapshot(snapshots: Snapshot[], year: number) {
   return reversedSnapshots.find((snapshot) => snapshot.year === year);
 }
 
-function isTagIncluded(tagCode: string, projects: Project[]) {
-  return !!projects.find((project) => project.tags.includes(tagCode));
+function isTagIncluded(tagCode: string, entries: RisingStarsEntry[]) {
+  return !!entries.find((entry) => entry.tags.includes(tagCode));
 }
 
-// Given an array of projects sorted by the star added over one year,
+// Given an array of Rising Stars entries sorted by the stars added over one year,
 // and an array of categories defined in Rising Stars
-// Return the projects to be loaded by Rising Stars app
-function filterProjects(projects: Project[], categories: Category[]) {
+// Return the entries to be loaded by Rising Stars app
+function filterProjects(entries: RisingStarsEntry[], categories: Category[]) {
   const set = new Set();
-  addProjectsFromOverallCategory();
-  addProjectsFromCategories();
-  return getFilteredProjects();
+  addEntriesFromOverallCategory();
+  addEntriesFromCategories();
+  return getFilteredEntries();
 
-  function addProjectsFromOverallCategory() {
+  function addEntriesFromOverallCategory() {
     const category = categories.find((category) => category.key === "all");
     if (!category) throw new Error("Category 'all' not found");
     const count = category.count;
-    const selectedProjects = projects
-      .filter(
-        (project) =>
-          !TAGS_EXCLUDED_FROM_RANKINGS.some((tag) =>
-            project.tags.includes(tag),
-          ),
-      )
+    const selectedEntries = entries
+      .filter((entry) => !isExcludedFromRankings(entry))
       .slice(0, count);
-    selectedProjects.forEach((project) => set.add(project.full_name));
+    selectedEntries.forEach((entry) => set.add(entry.full_name));
   }
 
-  function addProjectsFromCategories() {
+  function addEntriesFromCategories() {
     const subCategories = categories
       .filter((category) => category.key !== "all")
       .filter((category) => category.disabled !== true);
     subCategories.forEach((category) => {
-      const selectedProjects = projects
+      const selectedEntries = entries
+        .filter((entry) => !isExcludedFromRankings(entry))
         .filter(
-          (project) =>
-            hasOneOfTags(project, category.tags || [category.key]) &&
-            hasNotOneOfTags(project, category.excludedTags),
+          (entry) =>
+            hasOneOfTags(entry, category.tags || [category.key]) &&
+            hasNotOneOfTags(entry, category.excludedTags),
         )
-        .filter((project) =>
-          filterExcludeProjectBySlug(project, category.excluded),
-        )
+        .filter((entry) => filterExcludeEntryBySlug(entry, category.excluded))
         .slice(0, category.count);
-      selectedProjects.forEach((project) => {
-        set.add(project.full_name);
+      selectedEntries.forEach((entry) => {
+        set.add(entry.full_name);
       });
     });
   }
 
-  function getFilteredProjects() {
-    const selectedProjects = projects.filter((project) =>
-      set.has(project.full_name),
-    );
-    return selectedProjects;
+  function getFilteredEntries() {
+    const selectedEntries = entries.filter((entry) => set.has(entry.full_name));
+    return selectedEntries;
   }
 }
 
-function hasOneOfTags(project: Project, tags: string[]) {
+function hasOneOfTags(entry: RisingStarsEntry, tags: string[]) {
   if (!tags) return false;
-  return project.tags.some((tag) => tags.includes(tag));
+  return entry.tags.some((tag) => tags.includes(tag));
 }
 
-function hasNotOneOfTags(project: Project, tags?: string[]) {
+function hasNotOneOfTags(entry: RisingStarsEntry, tags?: string[]) {
   if (!tags) return true;
-  return !project.tags.some((tag) => tags.includes(tag));
+  return !entry.tags.some((tag) => tags.includes(tag));
 }
 
-function filterExcludeProjectBySlug(project: Project, slugs?: string[]) {
+function filterExcludeEntryBySlug(entry: RisingStarsEntry, slugs?: string[]) {
   if (!slugs) return true;
-  return !slugs.includes(project.slug);
+  return !slugs.includes(entry.slug);
+}
+
+function isExcludedFromRankings(entry: RisingStarsEntry) {
+  return TAGS_EXCLUDED_FROM_RANKINGS.some((tag) => entry.tags.includes(tag));
 }

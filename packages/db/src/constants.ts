@@ -6,4 +6,9 @@ export const PROJECT_STATUSES = [
   "hidden",
 ] as const;
 
-export const TAGS_EXCLUDED_FROM_RANKINGS = ["meta", "learning", "wildcard"];
+export const TAGS_EXCLUDED_FROM_RANKINGS = [
+  "meta",
+  "learning",
+  "wildcard",
+  "ai-methodology",
+];
