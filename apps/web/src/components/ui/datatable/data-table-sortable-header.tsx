@@ -25,6 +25,13 @@ export function DataTableSortableHeader<TData, TValue>({
       variant="ghost"
       className={cn("-ml-2", className)}
       onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+      aria-label={`Sort by ${
+        sorted === "asc"
+          ? "descending"
+          : sorted === "desc"
+            ? "unsorted"
+            : "ascending"
+      }`}
       {...props}
     >
       {children}
