@@ -12,9 +12,15 @@ import {
   type SortingState,
   useReactTable,
 } from "@tanstack/react-table";
+import { XIcon } from "lucide-react";
 
 import { computePaginationState } from "@/components/core/pagination/pagination-state";
-import { Input } from "@/components/ui/input";
+import {
+  InputGroup,
+  InputGroupAddon,
+  InputGroupButton,
+  InputGroupInput,
+} from "@/components/ui/input-group";
 import {
   Table,
   TableBody,
@@ -121,12 +127,27 @@ export function ClientDataTable<TData>({
   return (
     <div className="flex flex-col gap-4">
       <div className="flex items-center">
-        <Input
-          placeholder={searchPlaceholder}
-          value={globalFilter}
-          onChange={(event) => setGlobalFilter(event.target.value)}
-          className="max-w-sm"
-        />
+        <InputGroup className="max-w-sm">
+          <InputGroupInput
+            placeholder={searchPlaceholder}
+            value={globalFilter}
+            onChange={(event) => setGlobalFilter(event.target.value)}
+            // Suppress base Input's ring-offset so the group's focus ring is continuous (no gap between input and clear button).
+            className="focus-visible:ring-offset-0"
+          />
+          {globalFilter.length > 0 && (
+            <InputGroupAddon align="inline-end">
+              <InputGroupButton
+                type="button"
+                size="icon-xs"
+                aria-label="Clear search"
+                onClick={() => setGlobalFilter("")}
+              >
+                <XIcon className="size-4" />
+              </InputGroupButton>
+            </InputGroupAddon>
+          )}
+        </InputGroup>
       </div>
       <div className="rounded-md border">
         <Table>
