@@ -131,40 +131,33 @@ export async function findTagsWithProjects(options?: {
     .orderBy(asc(tagsWithCount.name), asc(topProjects.rn));
 
   // Group flat rows by tag code into TagWithProjectsItem[]
-  const byCode = new Map<
-    string,
-    {
-      tag: Omit<TagWithProjectsItem, "projects">;
-      projects: TagProject[];
-    }
-  >();
-  for (const row of flatRows) {
-    const key = row.code;
-    let entry = byCode.get(key);
-    if (!entry) {
-      entry = {
-        tag: {
-          name: row.name,
-          code: row.code,
-          createdAt: row.createdAt,
-          description: row.description,
-          count: row.count,
-        },
-        projects: [],
-      };
-      byCode.set(key, entry);
-    }
-    if (row.slug != null && row.projectName != null && row.owner_id != null) {
-      entry.projects.push({
+  const byCode = Map.groupBy(flatRows, (row) => row.code);
+  return Array.from(byCode.values(), (rows) => {
+    const first = rows[0];
+    const projects: TagProject[] = rows
+      .filter(
+        (
+          row,
+        ): row is typeof row & {
+          slug: string;
+          projectName: string;
+          owner_id: number;
+        } =>
+          row.slug != null && row.projectName != null && row.owner_id != null,
+      )
+      .map((row) => ({
         slug: row.slug,
         name: row.projectName,
         logo: row.logo,
         owner_id: row.owner_id,
-      });
-    }
-  }
-  return Array.from(byCode.values(), (v) => ({
-    ...v.tag,
-    projects: v.projects,
-  }));
+      }));
+    return {
+      name: first.name,
+      code: first.code,
+      createdAt: first.createdAt,
+      description: first.description,
+      count: first.count,
+      projects,
+    };
+  });
 }
