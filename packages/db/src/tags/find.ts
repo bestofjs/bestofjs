@@ -1,4 +1,4 @@
-import { asc, count, eq, sql } from "drizzle-orm";
+import { asc, count, eq, lte, notInArray, sql } from "drizzle-orm";
 
 import { db } from "../index";
 import * as schema from "../schema";
@@ -41,59 +41,130 @@ export type TagProject = {
 };
 
 /**
- * Fetch all tags with counts and their top 5 most-starred projects.
- * Uses two queries:
- * 1. `findTags()` for tag metadata + project counts
- * 2. A window-function query to get the top 5 projects per tag in one round-trip
+ * Fetch all tags with counts and their top projects per tag (by stars). N is configurable via options (default 5).
+ * Single query using subqueries: tags with count, ranked projects (ROW_NUMBER), top N per tag, then group in JS.
  */
-export async function findTagsWithProjects(): Promise<TagWithProjectsItem[]> {
-  const tags = await findTags();
+export async function findTagsWithProjects(options?: {
+  /** Max number of top (by stars) projects to return per tag. Default 5. */
+  topProjectsPerTag?: number;
+}): Promise<TagWithProjectsItem[]> {
+  const { topProjectsPerTag = 5 } = options ?? {};
 
-  // Get top 5 projects per tag using ROW_NUMBER() window function
-  const topProjects = await db.execute<{
-    tag_code: string;
-    slug: string;
-    name: string;
-    logo: string | null;
-    owner_id: number;
-  }>(sql`
-    SELECT tag_code, slug, name, logo, owner_id
-    FROM (
-      SELECT
-        t.code AS tag_code,
-        p.slug,
-        p.name,
-        p.logo,
-        r.owner_id,
-        ROW_NUMBER() OVER (PARTITION BY t.id ORDER BY r.stargazers_count DESC NULLS LAST) AS rn
-      FROM tags t
-      INNER JOIN projects_to_tags pt ON pt.tag_id = t.id
-      INNER JOIN projects p ON p.id = pt.project_id
-      INNER JOIN repos r ON r.id = p."repoId"
-      WHERE p.status NOT IN ('deprecated', 'hidden')
-    ) ranked
-    WHERE rn <= 5
-    ORDER BY tag_code, rn
-  `);
+  // Sub-query 1: Tags with project count (same logic as findTags()). Used in main query FROM.
+  const tagsWithCount = db
+    .select({
+      name: schema.tags.name,
+      code: schema.tags.code,
+      createdAt: schema.tags.createdAt,
+      description: schema.tags.description,
+      count: count(schema.projectsToTags.projectId).as("count"),
+    })
+    .from(schema.tags)
+    .leftJoin(
+      schema.projectsToTags,
+      eq(schema.projectsToTags.tagId, schema.tags.id),
+    )
+    .groupBy(() => [
+      schema.tags.name,
+      schema.tags.code,
+      schema.tags.createdAt,
+      schema.tags.description,
+    ])
+    .as("tags_with_count");
 
-  // Build a map from tag code to projects array
-  const projectsByTag = new Map<string, TagProject[]>();
-  for (const row of topProjects.rows) {
-    const tagCode = row.tag_code;
-    if (!projectsByTag.has(tagCode)) {
-      projectsByTag.set(tagCode, []);
+  // Sub-query 2: All tag–project rows with ROW_NUMBER() per tag by stars; excludes deprecated/hidden. Used only inside sub-query 3.
+  const ranked = db
+    .select({
+      tagCode: schema.tags.code,
+      slug: schema.projects.slug,
+      name: schema.projects.name,
+      logo: schema.projects.logo,
+      owner_id: schema.repos.owner_id,
+      // assigns a per-tag rank so you can keep the top N (here 5) per tag.
+      rn: sql<number>`ROW_NUMBER() OVER (PARTITION BY ${schema.tags.id} ORDER BY ${schema.repos.stars} DESC NULLS LAST)`.as(
+        "rn",
+      ),
+    })
+    .from(schema.tags)
+    .innerJoin(
+      schema.projectsToTags,
+      eq(schema.projectsToTags.tagId, schema.tags.id),
+    )
+    .innerJoin(
+      schema.projects,
+      eq(schema.projects.id, schema.projectsToTags.projectId),
+    )
+    .innerJoin(schema.repos, eq(schema.repos.id, schema.projects.repoId))
+    .where(notInArray(schema.projects.status, ["deprecated", "hidden"]))
+    .as("ranked");
+
+  // Sub-query 3: From sub-query 2, keep only rows with rn <= topProjectsPerTag (top N projects per tag). Used in main query LEFT JOIN.
+  const topProjects = db
+    .select({
+      tagCode: ranked.tagCode,
+      slug: ranked.slug,
+      name: ranked.name,
+      logo: ranked.logo,
+      owner_id: ranked.owner_id,
+      rn: ranked.rn,
+    })
+    .from(ranked)
+    .where(lte(ranked.rn, topProjectsPerTag))
+    .as("top_projects");
+
+  // Main query (single round-trip): Select from sub-query 1 left-joined to sub-query 3; this is the only await, so one DB round-trip.
+  const flatRows = await db
+    .select({
+      name: tagsWithCount.name,
+      code: tagsWithCount.code,
+      createdAt: tagsWithCount.createdAt,
+      description: tagsWithCount.description,
+      count: tagsWithCount.count,
+      slug: topProjects.slug,
+      projectName: topProjects.name,
+      logo: topProjects.logo,
+      owner_id: topProjects.owner_id,
+      rn: topProjects.rn,
+    })
+    .from(tagsWithCount)
+    .leftJoin(topProjects, eq(tagsWithCount.code, topProjects.tagCode))
+    .orderBy(asc(tagsWithCount.name), asc(topProjects.rn));
+
+  // Group flat rows by tag code into TagWithProjectsItem[]
+  const byCode = new Map<
+    string,
+    {
+      tag: Omit<TagWithProjectsItem, "projects">;
+      projects: TagProject[];
     }
-    projectsByTag.get(tagCode)!.push({
-      slug: row.slug,
-      name: row.name,
-      logo: row.logo,
-      owner_id: row.owner_id,
-    });
+  >();
+  for (const row of flatRows) {
+    const key = row.code;
+    let entry = byCode.get(key);
+    if (!entry) {
+      entry = {
+        tag: {
+          name: row.name,
+          code: row.code,
+          createdAt: row.createdAt,
+          description: row.description,
+          count: row.count,
+        },
+        projects: [],
+      };
+      byCode.set(key, entry);
+    }
+    if (row.slug != null && row.projectName != null && row.owner_id != null) {
+      entry.projects.push({
+        slug: row.slug,
+        name: row.projectName,
+        logo: row.logo,
+        owner_id: row.owner_id,
+      });
+    }
   }
-
-  // Merge projects into tags
-  return tags.map((tag) => ({
-    ...tag,
-    projects: projectsByTag.get(tag.code) ?? [],
+  return Array.from(byCode.values(), (v) => ({
+    ...v.tag,
+    projects: v.projects,
   }));
 }
