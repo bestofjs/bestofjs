@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 
 export default async function TagsPage() {
   cacheLife("hours"); // Time-based: after 1h, next request serves cached then revalidates in background; later users get fresh data.
-  cacheTag("tags"); // On-demand: revalidateTag("tags") or ?tag=tags when tags are updated.
+  cacheTag("tags"); // On-demand: ?api/revalidate?tag=<tag>
 
   const tags = await findTagsWithProjects();
 

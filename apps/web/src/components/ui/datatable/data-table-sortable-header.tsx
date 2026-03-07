@@ -19,13 +19,14 @@ export function DataTableSortableHeader<TData, TValue>({
   ...props
 }: DataTableSortableHeaderProps<TData, TValue>) {
   const sorted = column.getIsSorted();
+  const columnLabel = column.columnDef.meta?.label ?? column.id;
 
   return (
     <Button
       variant="ghost"
       className={cn("-ml-2", className)}
       onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-      aria-label={`Sort by ${
+      aria-label={`Sort by ${columnLabel} ${
         sorted === "asc"
           ? "descending"
           : sorted === "desc"

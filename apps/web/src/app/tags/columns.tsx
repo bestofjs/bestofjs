@@ -20,6 +20,7 @@ import { cn } from "@/lib/utils";
 export const columns: ColumnDef<TagWithProjectsItem>[] = [
   {
     accessorKey: "name",
+    meta: { label: "Tag" },
     header: ({ column }) => (
       <DataTableSortableHeader column={column}>Tag</DataTableSortableHeader>
     ),
@@ -44,6 +45,7 @@ export const columns: ColumnDef<TagWithProjectsItem>[] = [
   },
   {
     accessorKey: "count",
+    meta: { label: "Projects" },
     header: ({ column }) => (
       <DataTableSortableHeader column={column}>
         Projects
