@@ -25,8 +25,10 @@ export function TagsDataTable({ tags }: { tags: TagWithProjectsItem[] }) {
       onGlobalFilterChange={setSearchQuery}
       searchPlaceholder="Filter tags by name, code, or description..."
       initialSorting={COUNT_DESC_SORT}
-      sorting={hasSearch ? [] : COUNT_DESC_SORT}
-      onSortingChange={() => {}}
+      {...(hasSearch && {
+        sorting: [] as const,
+        onSortingChange: () => {},
+      })}
       pageSize={50}
       pageSizeOptions={[10, 25, 50, 100]}
     />
