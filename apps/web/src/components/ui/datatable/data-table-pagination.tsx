@@ -60,7 +60,7 @@ export function DataTablePagination({
   const showNextEllipsis =
     pageNumbers.length > 0 &&
     pageNumbers[pageNumbers.length - 1] < numberOfPages &&
-    onPageChange;
+    Boolean(onPageChange);
 
   return (
     <div

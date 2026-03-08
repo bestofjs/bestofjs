@@ -134,6 +134,7 @@ export function ClientDataTable<TData>({
       <div className="flex items-center">
         <InputGroup className="max-w-sm">
           <InputGroupInput
+            aria-label="Search"
             placeholder={searchPlaceholder}
             value={globalFilter}
             onChange={(event) => setGlobalFilter(event.target.value)}
