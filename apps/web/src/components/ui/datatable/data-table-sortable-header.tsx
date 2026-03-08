@@ -1,5 +1,6 @@
 "use client";
 
+import type * as React from "react";
 import type { Column } from "@tanstack/react-table";
 import { ArrowDown, ArrowUp, ArrowUpDown } from "lucide-react";
 

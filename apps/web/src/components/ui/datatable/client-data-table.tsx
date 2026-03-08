@@ -95,7 +95,10 @@ export function ClientDataTable<TData>({
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
     getSortedRowModel: getSortedRowModel(),
-    getFilteredRowModel: getFilteredRowModel(),
+    ...(isControlledFilter
+      ? {}
+      : { getFilteredRowModel: getFilteredRowModel() }),
+    manualFiltering: isControlledFilter,
     onSortingChange: setSorting,
     onColumnFiltersChange: setColumnFilters,
     onGlobalFilterChange: setGlobalFilter,
@@ -117,7 +120,9 @@ export function ClientDataTable<TData>({
   });
 
   const { pageIndex, pageSize: currentPageSize } = table.getState().pagination;
-  const totalRows = table.getFilteredRowModel().rows.length;
+  const totalRows = isControlledFilter
+    ? table.getPreFilteredRowModel().rows.length
+    : table.getFilteredRowModel().rows.length;
   const paginationState = computePaginationState({
     total: totalRows,
     page: pageIndex + 1,
