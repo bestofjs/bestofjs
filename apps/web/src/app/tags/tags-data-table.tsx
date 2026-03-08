@@ -26,7 +26,7 @@ export function TagsDataTable({ tags }: { tags: TagWithProjectsItem[] }) {
       searchPlaceholder="Filter tags by name, code, or description..."
       initialSorting={COUNT_DESC_SORT}
       {...(hasSearch && {
-        sorting: [] as const,
+        sorting: [],
         onSortingChange: () => {},
       })}
       pageSize={50}
