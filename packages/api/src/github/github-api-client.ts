@@ -1,6 +1,5 @@
 import debugPackage from "debug";
 import { GraphQLClient } from "graphql-request";
-import scrapeIt from "scrape-it";
 
 import { processReadMeHtml } from "./process-readme-html";
 import { extractRepoInfo, queryRepoInfo } from "./repo-info-query";
@@ -100,17 +99,23 @@ export function createGitHubClient() {
     fetchRepoInfoFallback,
 
     async fetchContributorCount(fullName: string) {
-      debug(`Fetching the number of contributors by scraping`, fullName);
-      const url = `https://github.com/${fullName}`;
-      const {
-        data: { contributor_count },
-      } = await scrapeIt<{ contributor_count: number }>(url, {
-        contributor_count: {
-          selector: `a[href="/${fullName}/graphs/contributors"] .Counter`,
-          convert: toInteger,
-        },
-      });
-      return contributor_count;
+      debug(`Fetching contributor count from REST API`, fullName);
+      const query = new URLSearchParams({ per_page: "1", anon: "true" });
+      const response = await makeRestApiRequest(
+        `repos/${fullName}/contributors?${query}`,
+      );
+      if (!response.ok) {
+        const body = await response.text();
+        throw new Error(
+          `GitHub contributors request failed (${response.status}): ${body}`,
+        );
+      }
+      const data: unknown = await response.json();
+      const contributors = Array.isArray(data) ? data : [];
+      const lastPage = parseLastPageFromLinkHeader(
+        response.headers.get("link"),
+      );
+      return lastPage ?? contributors.length;
     },
 
     async fetchUserInfo(login: string) {
@@ -136,10 +141,19 @@ export function createGitHubClient() {
   };
 }
 
-// Convert a String from the web page E.g. `1,300` into an Integer
-const toInteger = (source: string) => {
-  const onlyNumbers = source.replace(/[^\d]/, "");
-  return !onlyNumbers || Number.isNaN(Number(onlyNumbers))
-    ? 0
-    : parseInt(onlyNumbers, 10);
-};
+/** GitHub pagination: `Link` header entry with `rel="last"` includes `page=N`. */
+function parseLastPageFromLinkHeader(link: string | null): number | undefined {
+  if (!link) return undefined;
+  for (const part of link.split(",")) {
+    const trimmed = part.trim();
+    if (!trimmed.includes('rel="last"')) continue;
+    const urlMatch = trimmed.match(/^<([^>]+)>/);
+    if (!urlMatch) continue;
+    const page = new URL(urlMatch[1]).searchParams.get("page");
+    if (page) {
+      const n = parseInt(page, 10);
+      if (!Number.isNaN(n)) return n;
+    }
+  }
+  return undefined;
+}

@@ -37,7 +37,14 @@ describe("GitHub API client", async () => {
   test("Contributor count", async () => {
     const contributorCount =
       await client.fetchContributorCount("expressjs/express");
-    expect(contributorCount).toBeGreaterThan(300);
+    expect(contributorCount).toBeGreaterThan(350);
+  });
+
+  test("Contributor count (bestofjs/bestofjs)", async () => {
+    const contributorCount =
+      await client.fetchContributorCount("bestofjs/bestofjs");
+    expect(contributorCount).toBeGreaterThanOrEqual(25);
+    expect(contributorCount).toBeLessThanOrEqual(50);
   });
 
   test("User info", async () => {
