@@ -4,6 +4,7 @@ import { GraphQLClient } from "graphql-request";
 import { processReadMeHtml } from "./process-readme-html";
 import { extractRepoInfo, queryRepoInfo } from "./repo-info-query";
 import { extractUserInfo, queryUserInfo } from "./user-info-query";
+import { parseLastPageFromLinkHeader } from "./utils";
 
 const debug = debugPackage("github");
 
@@ -139,21 +140,4 @@ export function createGitHubClient() {
       return readme;
     },
   };
-}
-
-/** GitHub pagination: `Link` header entry with `rel="last"` includes `page=N`. */
-function parseLastPageFromLinkHeader(link: string | null): number | undefined {
-  if (!link) return undefined;
-  for (const part of link.split(",")) {
-    const trimmed = part.trim();
-    if (!trimmed.includes('rel="last"')) continue;
-    const urlMatch = trimmed.match(/^<([^>]+)>/);
-    if (!urlMatch) continue;
-    const page = new URL(urlMatch[1]).searchParams.get("page");
-    if (page) {
-      const n = parseInt(page, 10);
-      if (!Number.isNaN(n)) return n;
-    }
-  }
-  return undefined;
 }
