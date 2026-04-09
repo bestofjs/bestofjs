@@ -29,12 +29,13 @@ Decimal phases appear between their surrounding integers in numeric order.
   3. Monorepo siblings sharing a repo produce exactly one repo_trends row (keyed by repo_id), not one per project
   4. Projects without packages receive usage_score of 0 and an adjusted relevance_score that does not penalize them unfairly
   5. Deprecated project repos are excluded from star tracking and cache table population
-**Plans:** 3 plans
+**Plans:** 4 plans
 
 Plans:
 - [ ] 01-01-PLAN.md — Define repo_trends and project_trends Drizzle schemas and generate migration
 - [ ] 01-02-PLAN.md — TDD scoring functions (popularity, activity, usage, relevance) and primary package resolution
 - [ ] 01-03-PLAN.md — Build daily refresh task with two-pass cache population and CLI registration
+- [ ] 01-04-PLAN.md — Add scores export to packages/db/package.json
 
 ### Phase 2: Listing Query Module
 **Goal**: A standalone query module in packages/db can sort, filter, search, and paginate projects using cache table data
@@ -88,7 +89,7 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Cache Foundation | 0/3 | Planning complete | - |
+| 1. Cache Foundation | 0/4 | Planning complete | - |
 | 2. Listing Query Module | 0/2 | Not started | - |
 | 3. Web Integration | 0/2 | Not started | - |
 | 4. Validation and Cutover | 0/1 | Not started | - |
