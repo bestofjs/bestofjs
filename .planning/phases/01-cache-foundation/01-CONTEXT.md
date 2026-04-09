@@ -2,6 +2,7 @@
 
 **Gathered:** 2026-04-09
 **Status:** Ready for planning
+**Source:** PRD Express Path (.planning/quick/3-module-boundary-design-for-phase-1-cache/3-SUMMARY.md)
 
 <domain>
 ## Phase Boundary
@@ -46,6 +47,34 @@ Create `repo_trends` and `project_trends` cache tables with Drizzle schema, impl
 - `active`, `featured`, `promoted`: included in cache population
 - Eligibility query: `WHERE p.status IN ('active', 'featured', 'promoted')`
 
+### Module boundaries (from PRD)
+- Four new modules: `schema/repo-trends.ts`, `schema/project-trends.ts`, `scores/` directory, `refresh-cache.task.ts`
+- **`scores/` is a zero-dependency leaf** — no project imports, no drizzle-orm, no schema imports. Pure functions with locally-defined structural types
+- Structural typing over shared types: each scoring function defines its own minimal input type (e.g., `TrendDeltas` in `popularity.ts`), preventing transitive drizzle-orm coupling
+- Schema modules import only FK target schemas (`repos.ts`, `projects.ts`), nothing else
+- Refresh task is the top-level application service orchestrator — no import restrictions
+- Dependency direction: application layer (refresh task) → domain layer (scores, schema), never the reverse
+
+### Package.json exports
+- One new export: `"./scores": "./src/scores/index.ts"` in `packages/db/package.json`
+- Schema tables use existing barrel (`schema/index.ts`) — no new export needed
+- Backend imports via `@repo/db/scores`
+
+### Import rules (enforced during code review)
+| Module | CAN Import | CANNOT Import |
+|--------|-----------|--------------|
+| `scores/*` | Nothing | `schema/*`, `drizzle-orm`, `snapshots/*`, `projects/*`, `db`, `constants` |
+| `schema/repo-trends.ts` | `schema/repos.ts`, `drizzle-orm` | `scores/*`, `snapshots/*`, `projects/*` |
+| `schema/project-trends.ts` | `schema/projects.ts`, `drizzle-orm` | `scores/*`, `snapshots/*`, `schema/repos.ts` |
+| `refresh-cache.task.ts` | Everything | No restrictions (top-level orchestrator) |
+
+### Scoring function signatures (from PRD)
+- `computePopularityScore(trends: TrendDeltas): number` — local `TrendDeltas` type
+- `computeActivityScore(lastCommit: Date | null, contributorCount: number, referenceDate?: Date): number`
+- `computeUsageScore(monthlyDownloads: number | null): number`
+- `computeRelevanceScore(popularityScore: number, activityScore: number, usageScore: number, hasPackage: boolean): number`
+- `resolvePrimaryPackage(packages: PackageInfo[]): PackageInfo | null` — local `PackageInfo` type
+
 ### Claude's Discretion
 - Drizzle migration file naming and structure
 - Whether to batch upserts or process one-by-one (performance choice for ~3.5K rows)
@@ -75,7 +104,8 @@ Create `repo_trends` and `project_trends` cache tables with Drizzle schema, impl
 - New schema files: `packages/db/src/schema/repo-trends.ts` and `project-trends.ts`, added to `schema/index.ts` barrel
 - New task file: `apps/backend/src/tasks/` directory, registered alongside existing tasks
 - Relations: `repo_trends.repoId` → `repos.id`, `project_trends.projectId` → `projects.id`
-- Scoring functions: new module in `packages/db/src/` (e.g., `scores/` or `trends/`) — pure functions, no DB dependency
+- Scoring functions: `packages/db/src/scores/` — pure functions, zero project imports (leaf node per MODULE-BOUNDARIES.md)
+- New package.json export: `"./scores": "./src/scores/index.ts"` enables `@repo/db/scores` imports
 
 </code_context>
 
@@ -98,4 +128,4 @@ None — discussion stayed within phase scope
 ---
 
 *Phase: 01-cache-foundation*
-*Context gathered: 2026-04-09*
+*Context gathered: 2026-04-09 via PRD Express Path*
