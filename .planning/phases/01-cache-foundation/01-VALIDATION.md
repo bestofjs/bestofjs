@@ -38,17 +38,18 @@ created: 2026-04-09
 
 | Task ID | Plan | Wave | Requirement | Test Type | Automated Command | File Exists | Status |
 |---------|------|------|-------------|-----------|-------------------|-------------|--------|
-| 01-01-01 | 01 | 1 | SCORE-01 | unit | `cd packages/db && bun test src/scores/popularity.test.ts` | ❌ W0 | ⬜ pending |
-| 01-01-02 | 01 | 1 | SCORE-02 | unit | `cd packages/db && bun test src/scores/activity.test.ts` | ❌ W0 | ⬜ pending |
-| 01-01-03 | 01 | 1 | SCORE-03 | unit | `cd packages/db && bun test src/scores/usage.test.ts` | ❌ W0 | ⬜ pending |
-| 01-01-04 | 01 | 1 | SCORE-04 | unit | `cd packages/db && bun test src/scores/relevance.test.ts` | ❌ W0 | ⬜ pending |
-| 01-01-05 | 01 | 1 | CACHE-05 | unit | `cd packages/db && bun test src/scores/primary-package.test.ts` | ❌ W0 | ⬜ pending |
-| 01-02-01 | 02 | 1 | CACHE-01 | integration | manual — verify repo_trends populated after refresh | N/A | ⬜ pending |
-| 01-02-02 | 02 | 1 | CACHE-02 | integration | manual — verify project_trends populated after refresh | N/A | ⬜ pending |
-| 01-02-03 | 02 | 1 | CACHE-04 | integration | manual — verify row count matches unique repos | N/A | ⬜ pending |
-| 01-02-04 | 02 | 1 | DATA-01 | integration | manual — verify deprecated repos absent from repo_trends | N/A | ⬜ pending |
+| 01-02-01 | 02 | 1 | SCORE-01 | unit | `cd packages/db && bun test src/scores/popularity.test.ts` | W0 | pending |
+| 01-02-02 | 02 | 1 | SCORE-02 | unit | `cd packages/db && bun test src/scores/activity.test.ts` | W0 | pending |
+| 01-02-03 | 02 | 1 | SCORE-03 | unit | `cd packages/db && bun test src/scores/usage.test.ts` | W0 | pending |
+| 01-02-04 | 02 | 1 | SCORE-04 | unit | `cd packages/db && bun test src/scores/relevance.test.ts` | W0 | pending |
+| 01-02-05 | 02 | 1 | CACHE-05 | unit | `cd packages/db && bun test src/scores/primary-package.test.ts` | W0 | pending |
+| 01-03-01 | 03 | 2 | CACHE-01 | integration | manual — verify repo_trends populated after refresh | N/A | pending |
+| 01-03-02 | 03 | 2 | CACHE-02 | integration | manual — verify project_trends populated after refresh | N/A | pending |
+| 01-03-03 | 03 | 2 | CACHE-04 | integration | manual — verify row count matches unique repos | N/A | pending |
+| 01-03-04 | 03 | 2 | DATA-01 | integration | manual — verify deprecated repos absent from repo_trends | N/A | pending |
+| 01-04-01 | 04 | 2 | SCORE-01..04, CACHE-05 | integration | `cd /home/ubuwarudo/Project/PERSONAL/dev/bestofjs && grep -c '"./scores"' packages/db/package.json` | N/A | pending |
 
-*Status: ⬜ pending · ✅ green · ❌ red · ⚠️ flaky*
+*Status: pending / green / red / flaky*
 
 ---
 
