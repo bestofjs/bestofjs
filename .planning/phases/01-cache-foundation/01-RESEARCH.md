@@ -44,16 +44,16 @@ None -- discussion stayed within phase scope
 
 | ID | Description | Research Support |
 |----|-------------|-----------------|
-| CACHE-01 | `repo_trends` table stores per-repo star counts, trend deltas, popularity_score, activity_score | Schema definition pattern verified from existing `repos.ts`, `packages.ts`; Drizzle 0.44.5 supports `.desc().nullsLast()` on index columns |
+| CACHE-01 | `repo_trends` table stores per-repo star counts, trend deltas, popularity_score, activity_score | Schema definition pattern verified from existing `repos.ts`, `packages.ts`; Drizzle 0.44.5 supports `.desc().nullsLast()` on index columns (since v0.31.0) |
 | CACHE-02 | `project_trends` table stores per-project primary package name, monthly downloads, usage_score, relevance_score | Same schema patterns; FK reference to `projects.id` with ON DELETE CASCADE matches existing `packages.ts` |
 | CACHE-03 | Daily refresh task computes and upserts all cache table data | `createTask()` pattern in `task-runner.ts`; task registration in `cli.ts`; upsert via `onConflictDoUpdate()` confirmed in `build-static-api.task.ts` and `update-bundle-size.task.ts` |
-| CACHE-04 | Refresh task deduplicates repo-level computation for monorepo siblings | `RepoProcessor.getAllItemsIds()` already queries distinct repos; `findRepoById()` includes related projects. Pass 1 iterates repos, not projects |
-| CACHE-05 | Refresh task resolves primary package as highest monthly downloads | `packages` table has `monthlyDownloads` (column: `downloads`) and `projectId`; SQL `ORDER BY downloads DESC LIMIT 1` per project or in-memory max from project's packages array |
+| CACHE-04 | Refresh task deduplicates repo-level computation for monorepo siblings | `RepoProcessor.getAllItemsIds()` already queries distinct repos via GROUP BY; `findRepoById()` includes related projects. Pass 1 iterates repos, not projects |
+| CACHE-05 | Refresh task resolves primary package as highest monthly downloads | `packages` table has `monthlyDownloads` (column: `downloads`) and `projectId`; use `maxBy` from es-toolkit or SQL `ORDER BY downloads DESC LIMIT 1` |
 | SCORE-01 | popularity_score computed as signed log scale of blended star trends | Pure function; `computeTrends()` returns `{daily, weekly, monthly, quarterly, yearly}` -- all inputs available |
 | SCORE-02 | activity_score computed as log2 decay from last commit with contributor bonus | `repos.last_commit` and `repos.contributor_count` columns exist; pure function over repo data |
 | SCORE-03 | usage_score computed as log10 of monthly downloads | `packages.monthlyDownloads` column exists; pure function, 0 when no package |
 | SCORE-04 | relevance_score computed as weighted blend with adjusted weights for no-package projects | Depends on popularity_score, activity_score, usage_score outputs; pure function |
-| DATA-01 | Only repos linked to active/featured/promoted projects included in daily star tracking | `PROJECT_STATUSES` constant exists; filter: `WHERE p.status IN ('active', 'featured', 'promoted')` |
+| DATA-01 | Only repos linked to active/featured/promoted projects included in daily star tracking | `PROJECT_STATUSES` constant in `packages/db/src/constants.ts`; filter: `WHERE p.status IN ('active', 'featured', 'promoted')` |
 | DATA-03 | `repo_trends` keyed by `repo_id` (not `project_id`) for monorepo siblings | Schema design uses `text("repo_id").primaryKey().references(() => repos.id)` |
 </phase_requirements>
 
@@ -71,13 +71,13 @@ None -- discussion stayed within phase scope
 |---------|---------|---------|-------------|
 | tiny-invariant | 1.3.3 | Assert preconditions in scoring functions | Already a dependency of `@repo/db` |
 | consola | (current) | Logger in task context | Already provided via `TaskContext.logger` |
-| es-toolkit | 1.39.10 | `orderBy`, `maxBy` for primary package resolution | Already a dependency of `@repo/db` |
+| es-toolkit | 1.39.10 | `maxBy` for primary package resolution | Already a dependency of `@repo/db` |
 
 ### Alternatives Considered
 | Instead of | Could Use | Tradeoff |
 |------------|-----------|----------|
-| Individual upserts | Batch INSERT with VALUES array | Batch is faster for 3.5K rows; individual is simpler for error isolation. Recommend batch with chunking (100-500 rows per batch) |
-| Application-side scoring | INSERT...SELECT with SQL math | SQL-side avoids round-trips but scoring formulas are complex and harder to test. Keep as pure TS functions for testability |
+| Individual upserts | Batch INSERT with VALUES array + `sql.raw('excluded.column')` | Batch is faster for 3.5K rows but requires `sql.raw()` references in set clause; individual is simpler. Recommend individual upserts first, optimize later if needed |
+| Application-side scoring | INSERT...SELECT with SQL math | SQL-side avoids round-trips but scoring formulas with log/sign are complex and harder to test. Keep as pure TS functions for testability |
 
 **Installation:**
 ```bash
@@ -94,10 +94,10 @@ packages/db/src/
     project-trends.ts       # NEW: pgTable + relations + indexes
     index.ts                # MODIFIED: add two new exports
   scores/                   # NEW: pure scoring functions
-    popularity.ts           # popularityScore(trends) -> number
-    activity.ts             # activityScore(lastCommit, contributors) -> number
-    usage.ts                # usageScore(monthlyDownloads) -> number
-    relevance.ts            # relevanceScore(pop, act, usage, hasPackage) -> number
+    popularity.ts           # computePopularityScore(trends) -> number
+    activity.ts             # computeActivityScore(lastCommit, contributors) -> number
+    usage.ts                # computeUsageScore(monthlyDownloads) -> number
+    relevance.ts            # computeRelevanceScore(pop, act, usage, hasPackage) -> number
     index.ts                # barrel export
 
 apps/backend/src/
@@ -149,12 +149,51 @@ export const repoTrendsRelations = relations(repoTrends, ({ one }) => ({
 }));
 ```
 
-### Pattern 2: Upsert (matching existing codebase pattern)
+### Pattern 2: Project Trends Schema
+**What:** Cache table for project-level signals
+**When to use:** The project_trends schema file
+**Example:**
+```typescript
+// packages/db/src/schema/project-trends.ts
+import { relations } from "drizzle-orm";
+import { index, integer, pgTable, text, timestamp } from "drizzle-orm/pg-core";
+import { projects } from "./projects";
+
+export const projectTrends = pgTable(
+  "project_trends",
+  {
+    projectId: text("project_id")
+      .primaryKey()
+      .references(() => projects.id, { onDelete: "cascade" }),
+    packageName: text("package_name"),
+    monthlyDownloads: integer("monthly_downloads"),
+    usageScore: integer("usage_score").notNull().default(0),
+    relevanceScore: integer("relevance_score").notNull().default(0),
+    refreshedAt: timestamp("refreshed_at").notNull().defaultNow(),
+  },
+  (table) => [
+    index("project_trends_usage_idx").on(table.usageScore.desc()),
+    index("project_trends_relevance_idx").on(table.relevanceScore.desc()),
+    index("project_trends_downloads_idx").on(
+      table.monthlyDownloads.desc().nullsLast(),
+    ),
+  ],
+);
+
+export const projectTrendsRelations = relations(projectTrends, ({ one }) => ({
+  project: one(projects, {
+    fields: [projectTrends.projectId],
+    references: [projects.id],
+  }),
+}));
+```
+
+### Pattern 3: Upsert (matching existing codebase pattern)
 **What:** INSERT ... ON CONFLICT DO UPDATE for atomic cache refresh
 **When to use:** Both Pass 1 (repo_trends) and Pass 2 (project_trends)
 **Example:**
 ```typescript
-// Source: existing pattern in build-static-api.task.ts:198 and update-bundle-size.task.ts:63
+// Source: existing pattern in build-static-api.task.ts:196-201
 await db
   .insert(schema.repoTrends)
   .values({
@@ -180,7 +219,7 @@ await db
   });
 ```
 
-### Pattern 3: Task Creation (matching existing pattern)
+### Pattern 4: Task Creation (matching existing pattern)
 **What:** Use `createTask()` factory and register in `cli.ts`
 **When to use:** The refresh-cache task
 **Example:**
@@ -192,14 +231,15 @@ export const refreshCacheTask = createTask({
   name: "refresh-cache",
   description: "Refresh repo_trends and project_trends cache tables",
   run: async ({ db, logger }) => {
-    // Pass 1: repo trends (deduplicated)
-    // Pass 2: project trends
+    // Step 1: Cleanup -- delete repo_trends rows for repos linked only to deprecated projects
+    // Step 2: Pass 1 -- per-repo (deduplicated): compute trends + repo scores, upsert repo_trends
+    // Step 3: Pass 2 -- per-project: resolve primary package, compute project scores, upsert project_trends
     return { data: null, meta: { repos: repoCount, projects: projectCount } };
   },
 });
 ```
 
-### Pattern 4: Pure Scoring Functions
+### Pattern 5: Pure Scoring Functions
 **What:** Each score formula as an isolated pure function for testability
 **When to use:** All four scoring functions
 **Example:**
@@ -220,20 +260,54 @@ export function computePopularityScore(trends: TrendDeltas): number {
 }
 ```
 
+### Pattern 6: Batch Upsert (if optimization needed)
+**What:** Multi-row INSERT with `sql.raw('excluded.column')` references for batch upserts
+**When to use:** If individual upserts are too slow for ~3.5K rows (unlikely but available)
+**Example:**
+```typescript
+// Source: Drizzle ORM official upsert guide (https://orm.drizzle.team/docs/guides/upsert)
+import { sql } from "drizzle-orm";
+
+const rows = repoData.map((r) => ({
+  repoId: r.id,
+  stars: r.stars,
+  daily: r.trends.daily ?? null,
+  // ... other columns
+}));
+
+// Chunk into batches of ~200
+for (const chunk of chunks(rows, 200)) {
+  await db
+    .insert(schema.repoTrends)
+    .values(chunk)
+    .onConflictDoUpdate({
+      target: schema.repoTrends.repoId,
+      set: {
+        stars: sql.raw(`excluded.${schema.repoTrends.stars.name}`),
+        daily: sql.raw(`excluded.${schema.repoTrends.daily.name}`),
+        // ... other columns use same pattern
+        refreshedAt: new Date(),
+      },
+    });
+}
+```
+
 ### Anti-Patterns to Avoid
-- **One upsert per row in a loop with await:** Use batched inserts (chunk into arrays of 100-500 and upsert each batch). Drizzle supports `.values([...array])` for multi-row inserts.
+- **One upsert per row in a loop with await (premature optimization concern):** Individual upserts are fine at ~3.5K scale. Only batch if measured to be slow.
 - **Computing trends per project instead of per repo:** Monorepo siblings share a repo. `repo_trends` is keyed by `repo_id`. Compute trends once per repo, not once per project.
 - **Querying snapshots inside the per-repo loop:** The existing `RepoProcessor.getItemById()` fetches snapshots eagerly. For the refresh task, consider a single query that fetches all eligible repos with their snapshots in one go, to reduce N+1 queries.
 - **Nullable score columns:** CONTEXT.md specifies scores as `INTEGER NOT NULL DEFAULT 0`. Trend deltas are nullable (NULL = insufficient data). Do not confuse the two.
+- **Reusing `getPackageData()`:** It picks `packages[0]` (first package), not highest downloads. Must implement explicit max-by-downloads logic.
 
 ## Don't Hand-Roll
 
 | Problem | Don't Build | Use Instead | Why |
 |---------|-------------|-------------|-----|
-| Star trend deltas | Custom snapshot diff logic | `computeTrends(flattenSnapshots())` | Already handles edge cases: missing days, exact/approximate matching, daily delta interpolation from 2-day gaps |
+| Star trend deltas | Custom snapshot diff logic | `computeTrends(flattenSnapshots())` from `@repo/db/projects` and `@repo/db/snapshots` | Already handles edge cases: missing days, exact/approximate matching, daily delta interpolation from 2-day gaps |
 | Task orchestration | Custom CLI / cron wrapper | `createTask()` + register in `cli.ts` | Gets logging, error handling, concurrency control, dry-run mode for free |
-| Snapshot flattening | Manual JSONB extraction | `flattenSnapshots()` from `project-helpers.ts` | Handles the nested `{year, months: [{month, snapshots: [{day, stars}]}]}` JSONB structure correctly |
-| Migration files | Hand-written SQL | `pnpm --filter @repo/db generate` | Drizzle Kit reads schema files and generates correct migration SQL with proper index syntax |
+| Snapshot flattening | Manual JSONB extraction | `flattenSnapshots()` from `packages/db/src/projects/project-helpers.ts` | Handles the nested `{year, months: [{month, snapshots: [{day, stars}]}]}` JSONB structure correctly |
+| Migration files | Hand-written SQL | `pnpm --filter @repo/db generate` then `pnpm --filter @repo/db migrate` | Drizzle Kit reads schema files and generates correct migration SQL with proper index syntax |
+| Array max selection | Custom loop for primary package | `maxBy()` from `es-toolkit` | Already a dependency; handles edge cases like empty arrays |
 
 **Key insight:** The entire trend computation pipeline (snapshot flattening + delta calculation) is already battle-tested. The scoring functions are the only genuinely new logic in this phase.
 
@@ -242,8 +316,8 @@ export function computePopularityScore(trends: TrendDeltas): number {
 ### Pitfall 1: Monorepo Deduplication Failure
 **What goes wrong:** Multiple projects sharing a repo cause duplicate `repo_trends` rows or redundant computation
 **Why it happens:** Iterating projects instead of repos for Pass 1
-**How to avoid:** Pass 1 queries `SELECT DISTINCT r.id FROM repos r JOIN projects p ON p.repoId = r.id WHERE p.status IN (...)`. This is exactly what `RepoProcessor.getAllItemsIds()` does (it GROUP BY repos.id after left join)
-**Warning signs:** `repo_trends` row count exceeds distinct repo count
+**How to avoid:** Pass 1 queries `SELECT DISTINCT r.id FROM repos r JOIN projects p ON p."repoId" = r.id WHERE p.status IN (...)`. This is what `RepoProcessor.getAllItemsIds()` does (it GROUP BY repos.id after left join)
+**Warning signs:** `repo_trends` row count exceeds distinct repo count for eligible projects
 
 ### Pitfall 2: NULL vs 0 Confusion in Trend Deltas
 **What goes wrong:** Sorting treats NULL and 0 the same, or NULL projects appear at the top of descending sorts
@@ -254,7 +328,7 @@ export function computePopularityScore(trends: TrendDeltas): number {
 ### Pitfall 3: Primary Package Resolution Picks Wrong Package
 **What goes wrong:** `getPackageData()` in `project-helpers.ts` picks `project.packages[0]` (first package), not highest downloads
 **Why it happens:** Using existing helper instead of implementing the CONTEXT.md requirement
-**How to avoid:** For the refresh task, explicitly select `maxBy(project.packages, p => p.monthlyDownloads)` or SQL `ORDER BY downloads DESC LIMIT 1`. Do NOT reuse `getPackageData()` which picks `[0]`
+**How to avoid:** For the refresh task, use `maxBy(project.packages, (p) => p.monthlyDownloads ?? 0)` from es-toolkit. Do NOT reuse `getPackageData()` which picks `[0]`
 **Warning signs:** Projects with multiple packages showing the wrong npm name in `project_trends`
 
 ### Pitfall 4: Snapshot Sorting Assumption
@@ -266,13 +340,19 @@ export function computePopularityScore(trends: TrendDeltas): number {
 ### Pitfall 5: Missing Task Return Type
 **What goes wrong:** TypeScript errors when task does not return `{ data, meta }` structure
 **Why it happens:** `Task.run` must return `Promise<{ data: unknown; meta: MetaResult }>` -- see `task-types.ts` line 20-25
-**How to avoid:** Always return `{ data: null, meta: { repos: N, projects: N } }` or similar. The meta object values must be `boolean | number | undefined` (see `utils.ts` `MetaValue` type)
+**How to avoid:** Always return `{ data: null, meta: { repos: N, projects: N } }` or similar. The meta object values must be `boolean | number | undefined` (see `MetaValue` type in `iteration-helpers/utils.ts`)
 
-### Pitfall 6: Batch Upsert with Drizzle
-**What goes wrong:** Drizzle's `onConflictDoUpdate()` with multi-row `.values([...])` requires the `set` clause to reference the excluded row, not static values
-**Why it happens:** The `set` object with static values only uses the last row's data
-**How to avoid:** For batch upserts, use `sql` template to reference excluded values: `set: { stars: sql`excluded.stars` }`. Alternatively, process rows individually if the dataset is small (~3.5K rows, each upsert is fast)
-**Warning signs:** All rows getting the same values after batch upsert
+### Pitfall 6: Deprecated Cleanup Must Be First Step
+**What goes wrong:** Stale `repo_trends` rows for deprecated projects persist after refresh
+**Why it happens:** Running Pass 1 before cleanup, or only excluding deprecated from insert without deleting old rows
+**How to avoid:** Step 1 of the task must DELETE from `repo_trends` WHERE `repoId` IN (repos linked ONLY to deprecated projects). This must run before Pass 1 upserts.
+**Warning signs:** `repo_trends` contains rows for repos that have no active/featured/promoted projects
+
+### Pitfall 7: `computeTrends()` Mutates Input Array
+**What goes wrong:** The input snapshot array is reversed in place by `computeTrends()` (line 18: `snapshots.reverse()`)
+**Why it happens:** JavaScript `.reverse()` mutates the array
+**How to avoid:** Either pass a copy (`computeTrends([...flatSnapshots])`) or be aware that the array is consumed. If the same snapshot data is needed after trends computation, clone first.
+**Warning signs:** Subsequent operations on the same snapshot array see reversed order
 
 ## Code Examples
 
@@ -337,6 +417,24 @@ const commands = [
 ].map(getCommand);
 ```
 
+### Verified: Migration Generation & Application
+```bash
+# From monorepo root:
+pnpm --filter @repo/db generate  # Reads schema/, generates SQL in packages/db/drizzle/
+pnpm --filter @repo/db migrate   # Applies pending migrations to POSTGRES_URL
+# Requires: .env.development (or STAGE env var) with POSTGRES_URL
+```
+
+### Verified: Repo Query for Distinct Eligible Repos
+```typescript
+// Source: apps/backend/src/iteration-helpers/repo-processor.ts:16-52
+// RepoProcessor.getAllItemsIds() does:
+//   SELECT repos.id FROM repos LEFT JOIN projects ON projects."repoId" = repos.id
+//   GROUP BY repos.id ORDER BY repos.added_at DESC
+// Adding WHERE: inArray(projects.status, ["active", "featured", "promoted"])
+// gives exactly the deduplicated repo set needed for Pass 1
+```
+
 ## State of the Art
 
 | Old Approach | Current Approach | When Changed | Impact |
@@ -351,9 +449,9 @@ const commands = [
 ## Open Questions
 
 1. **Batch size for upserts**
-   - What we know: ~3,500 projects, ~3,000 distinct repos. Individual upserts work but are slower. Batch upserts with `excluded` references are more complex.
-   - What's unclear: Whether the Drizzle ORM `onConflictDoUpdate` with multi-row values properly supports `sql\`excluded.column\`` in the `set` clause at version 0.44.5
-   - Recommendation: Start with individual upserts (simpler, still fast at this scale -- ~3.5K individual INSERTs take seconds on Postgres). Optimize to batch only if refresh takes >30 seconds.
+   - What we know: ~3,500 projects, ~3,000 distinct repos. Individual upserts work. Batch upserts with `sql.raw('excluded.column_name')` are verified in Drizzle docs.
+   - What's unclear: Whether individual upserts at this scale complete within a reasonable time window (<30s)
+   - Recommendation: Start with individual upserts (simpler, reliable). The batch pattern using `sql.raw('excluded...')` is available as a verified optimization path if needed.
 
 2. **Score rounding strategy**
    - What we know: Formulas produce floats; schema uses INTEGER columns
@@ -362,8 +460,13 @@ const commands = [
 
 3. **Refresh task execution context**
    - What we know: Tasks receive `{ db, logger, processProjects, processRepos, ... }` via `TaskContext`
-   - What's unclear: Whether to use the existing `processRepos` iterator (which fetches each repo individually) or write a custom bulk query
-   - Recommendation: Use `processRepos` for Pass 1 (it already handles deduplication, error isolation, and logging) with a custom `where` clause for status filtering. For Pass 2, use `processProjects` with status filter. This reuses existing infrastructure and gets error handling for free.
+   - What's unclear: Whether to use the existing `processRepos` iterator (which fetches each repo individually with N+1 queries) or write a custom bulk query
+   - Recommendation: The task can use `processRepos` for Pass 1 with a custom `where` clause for status filtering -- it already handles deduplication, error isolation, and logging. For Pass 2, use `processProjects`. This reuses existing infrastructure. If performance is an issue, optimize to a bulk query later.
+
+4. **Cleanup step for deprecated repos**
+   - What we know: The PRD specifies "delete repo_trends rows for repos linked only to deprecated projects" as Step 1
+   - What's unclear: Whether a repo linked to BOTH a deprecated and an active project should keep its row
+   - Recommendation: YES -- keep the row. Only delete when ALL linked projects are deprecated. The cleanup query should be: `DELETE FROM repo_trends WHERE repo_id NOT IN (SELECT DISTINCT "repoId" FROM projects WHERE status IN ('active', 'featured', 'promoted'))`.
 
 ## Validation Architecture
 
@@ -402,21 +505,23 @@ const commands = [
 
 ### Primary (HIGH confidence)
 - Codebase: `packages/db/src/schema/repos.ts`, `projects.ts`, `packages.ts`, `snapshots.ts` -- existing schema patterns
-- Codebase: `packages/db/src/snapshots/compute-trends.ts` -- trend computation logic
-- Codebase: `packages/db/src/projects/project-helpers.ts` -- `flattenSnapshots()`, `getPackageData()`
+- Codebase: `packages/db/src/snapshots/compute-trends.ts` -- trend computation logic (returns `undefined` for missing data, calls `reverse()` internally)
+- Codebase: `packages/db/src/projects/project-helpers.ts` -- `flattenSnapshots()`, `getPackageData()` (picks `[0]`, NOT max downloads)
+- Codebase: `packages/db/src/projects/get.ts` -- `snapshotsSchema` Zod parser, `OneYearSnapshots` type
 - Codebase: `apps/backend/src/task-runner.ts` -- `createTask()` factory pattern
-- Codebase: `apps/backend/src/cli.ts` -- task registration pattern
+- Codebase: `apps/backend/src/task-types.ts` -- `Task`, `TaskContext` type definitions
+- Codebase: `apps/backend/src/cli.ts` -- task registration pattern (import + add to commands array)
 - Codebase: `apps/backend/src/tasks/build-static-api.task.ts` -- upsert pattern, status filtering, trend computation flow
 - Codebase: `apps/backend/src/iteration-helpers/` -- `RepoProcessor`, `ProjectProcessor`, `ItemProcessor` patterns
-- [Drizzle ORM indexes docs](https://orm.drizzle.team/docs/indexes-constraints) -- `.desc()`, `.nullsLast()` on index columns (since v0.31.0)
-- `.planning/research/STACK.md` -- technology stack decisions
+- Codebase: `packages/db/src/constants.ts` -- `PROJECT_STATUSES` enum: `['active', 'featured', 'promoted', 'deprecated', 'hidden']`
 
 ### Secondary (MEDIUM confidence)
-- [Drizzle ORM v0.31.0 release notes](https://orm.drizzle.team/docs/latest-releases/drizzle-orm-v0310) -- new index API with desc/nullsLast support
-- [Drizzle index issue #1981](https://github.com/drizzle-team/drizzle-orm/issues/1981) -- confirms desc/nullsLast generate correct SQL in migrations since v0.31.0
+- [Drizzle ORM v0.31.0 release notes](https://orm.drizzle.team/docs/latest-releases/drizzle-orm-v0310) -- new index API with `.desc()`, `.nullsLast()` per-column support
+- [Drizzle ORM upsert guide](https://orm.drizzle.team/docs/guides/upsert) -- batch upsert with `sql.raw('excluded.column_name')` pattern verified
+- [Drizzle index issue #1981](https://github.com/drizzle-team/drizzle-orm/issues/1981) -- confirms desc/nullsLast generate correct SQL since v0.31.0
 
 ### Tertiary (LOW confidence)
-- Batch upsert with `excluded` references in Drizzle 0.44.5 -- not verified with official docs; recommend individual upserts as safe default
+- None remaining -- batch upsert pattern elevated to MEDIUM after verification with official docs
 
 ## Metadata
 
@@ -424,8 +529,9 @@ const commands = [
 - Standard stack: HIGH -- entirely existing codebase dependencies, no new packages
 - Architecture: HIGH -- follows established patterns verbatim (`createTask`, `pgTable`, `onConflictDoUpdate`)
 - Scoring formulas: HIGH -- fully specified in CONTEXT.md, pure functions with no external dependencies
-- Pitfalls: HIGH -- identified from direct codebase analysis (snapshot ordering, package selection, monorepo dedup)
+- Pitfalls: HIGH -- identified from direct codebase analysis (snapshot ordering, array mutation, package selection, monorepo dedup)
 - Index syntax: HIGH -- Drizzle `.desc().nullsLast()` confirmed available since v0.31.0, project uses v0.44.5
+- Batch upsert: MEDIUM -- `sql.raw('excluded.column')` syntax verified via Drizzle official docs
 
 **Research date:** 2026-04-09
 **Valid until:** 2026-05-09 (stable domain -- Drizzle ORM 0.44.x, no breaking changes expected)
