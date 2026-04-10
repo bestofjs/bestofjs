@@ -34,7 +34,7 @@ flowchart TB
     BSA[build-static-api.task]
   end
 
-  subgraph DB[(PostgreSQL)]
+  subgraph DB[PostgreSQL]
     REPOS[repos]
     PROJS[projects]
     PKGS[packages]

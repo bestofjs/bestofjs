@@ -3,14 +3,20 @@
 Reviewer-facing document set for the Phase 1 pull request.
 **Goal of Phase 1:** introduce a denormalized, daily-refreshed cache layer (`repo_trends`, `project_trends`) and a pure scoring module so later phases can replace the mingo-on-static-JSON read path with real Drizzle queries.
 
-## Reading order
+## 🟢 Start here
 
-| # | Document | Purpose |
+**[PHASE-1-PACKAGE.md](./PHASE-1-PACKAGE.md)** — the single consolidated reviewer document. Architecture, modules, concepts, ontomics-verified module health, and a review checklist in one scroll. Start here unless you need a deep reference on one specific topic below.
+
+## Deep-read appendices
+
+Read these only if `PHASE-1-PACKAGE.md` points you into one of them, or if you're debating a specific topic in detail:
+
+| # | Document | When to open |
 |---|---|---|
-| 1 | [OVERVIEW.md](./OVERVIEW.md) | Current domains & modules, what's being added, plan-step mapping |
-| 2 | [ARCHITECTURE-CURRENT.md](./ARCHITECTURE-CURRENT.md) | Mermaid diagrams of the system **before** Phase 1 |
-| 3 | [ARCHITECTURE-AFTER.md](./ARCHITECTURE-AFTER.md) | Mermaid diagrams of the system **after** Phase 1 |
-| 4 | [CONCEPTS.md](./CONCEPTS.md) | Ubiquitous language: existing terms + new terms + three DDD refinements |
+| 1 | [OVERVIEW.md](./OVERVIEW.md) | Full module-by-module before/after table and plan-step mapping |
+| 2 | [ARCHITECTURE-CURRENT.md](./ARCHITECTURE-CURRENT.md) | Full Mermaid diagram set of the system **before** Phase 1 |
+| 3 | [ARCHITECTURE-AFTER.md](./ARCHITECTURE-AFTER.md) | Full Mermaid diagram set of the system **after** Phase 1 |
+| 4 | [CONCEPTS.md](./CONCEPTS.md) | Complete ubiquitous language and the three DDD refinements with applied/deferred status |
 
 ## Scope boundary
 
