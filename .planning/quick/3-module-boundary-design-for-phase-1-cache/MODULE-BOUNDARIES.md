@@ -54,9 +54,9 @@ This document defines the exact boundaries, exports, dependencies, and import ru
 
 ---
 
-### 1.3 `packages/db/src/scores/` -- Scoring Domain Services
+### 1.3 `packages/db/src/scores/` -- Scoring Cohesive Mechanism
 
-**Responsibility:** Houses all pure scoring functions and primary package resolution. These are the Domain Services of the Trend Analytics context -- stateless operations that compute quality signals from raw inputs.
+**Responsibility:** Houses all pure scoring functions and primary package resolution. These form a **Cohesive Mechanism** (Evans's term) for the Trend Analytics context -- algorithmic machinery that computes quality signals from primitive inputs, factored out so the core domain can focus on *what* rather than *how*. They are **not** Domain Services by Evans's own criterion: Domain Service parameters and results "should be domain objects," whereas these functions operate on primitives (`number`, `Date | null`) and a locally-defined structural shape. See `DDD-DESIGN.md §5` for the full rationale. The zero-dependency leaf-node property defined below is the structural consequence of this pattern -- a Cohesive Mechanism is meant to be isolated from domain objects.
 
 **Barrel export:** `packages/db/src/scores/index.ts`
 
@@ -92,7 +92,7 @@ This document defines the exact boundaries, exports, dependencies, and import ru
 
 ### 1.4 `apps/backend/src/tasks/refresh-cache.task.ts` -- Daily Refresh Application Service
 
-**Responsibility:** Orchestrates the daily cache population using a two-pass approach: Pass 1 computes repo-level metrics (deduplicated by repo_id), Pass 2 computes project-level metrics. This is an Application Service -- it coordinates Domain Services and Repository operations but contains no domain logic itself.
+**Responsibility:** Orchestrates the daily cache population using a two-pass approach: Pass 1 computes repo-level metrics (deduplicated by repo_id), Pass 2 computes project-level metrics. This is an Application Service -- it coordinates the scoring Cohesive Mechanism (`@repo/db/scores`) and Repository operations but contains no domain logic itself.
 
 **Exports:**
 - `refreshCacheTask` (Task) -- created via `createTask()` from `@/task-runner`

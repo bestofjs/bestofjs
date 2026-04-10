@@ -20,7 +20,7 @@ Phase 1 operates across two bounded contexts that share a database (Shared Kerne
 - Language: "trend delta," "popularity score," "cache refresh," "primary package"
 - Files: `packages/db/src/schema/repo-trends.ts`, `project-trends.ts`, `packages/db/src/scores/`
 
-**Context relationship:** Trend Analytics is a *downstream consumer* of Project Catalog. It reads from `repos`, `projects`, `packages`, and `snapshots` but never writes to them. The cache tables are projections -- derived read models that Trend Analytics owns exclusively.
+**Context relationship:** Trend Analytics is a *downstream consumer* of Project Catalog. It reads from `repos`, `projects`, `packages`, and `snapshots` but never writes to them. The cache tables are **denormalized, derived data** that Trend Analytics owns exclusively. (Note: earlier drafts used the terms "projection" and "read model" here. Those are CQRS-era vocabulary — Evans's 2003 book uses *denormalization* and *derived data/attributes* for this pattern. The reasoning is unchanged; only the label is corrected.)
 
 The two contexts share the same PostgreSQL database (Shared Kernel), which is pragmatic at bestofjs's scale (~3.5K projects). A formal anti-corruption layer between contexts would be over-engineering. Instead, the boundary is maintained by convention: scoring functions and the refresh task treat Project Catalog entities as read-only inputs.
 
@@ -28,7 +28,7 @@ The two contexts share the same PostgreSQL database (Shared Kernel), which is pr
 +---------------------------+       reads from       +---------------------------+
 |    PROJECT CATALOG        |  <-------------------  |    TREND ANALYTICS        |
 |                           |                        |                           |
-|  repos                    |                        |  repo_trends (projection) |
+|  repos                    |                        |  repo_trends (derived)    |
 |  projects                 |                        |  project_trends (proj.)   |
 |  packages                 |                        |  scoring functions        |
 |  snapshots                |                        |  refresh task             |
@@ -47,7 +47,7 @@ The following terms form the ubiquitous language for the Trend Analytics context
 | **Popularity score** | `popularity_score` column | A signed log-scale metric blending star trend deltas across windows. Not "star rating" -- it measures momentum, not absolute count. |
 | **Activity score** | `activity_score` column | A 0-100 metric based on recency of last commit and contributor count. Not "freshness" -- it includes a contributor bonus. |
 | **Usage score** | `usage_score` column | A 0-100 metric based on monthly npm downloads. Not "downloads" -- it's a normalized log scale. |
-| **Relevance score** | `relevance_score` column | A weighted composite of the three dimension scores. Used as a quality floor filter, never as a sort key. |
+| **Relevance score** | `relevance_score` column on `project_trends` | A weighted composite of the three dimension scores. Used as a quality floor filter, never as a sort key. **Not to be confused with** the text-match rank currently called `relevanceScore` (local `sql` fragment) in `packages/db/src/projects/find.ts:168`. That is a **false cognate** (Evans's term for two contexts using the same word for different concepts) and must be resolved before Phase 2 wires cache-table reads into the find path. Phase 1 only introduces the schema and scoring mechanism -- no read path touches `find.ts`, so the rename is deferred. |
 | **Primary package** | Resolved via `resolvePrimaryPackage()` | The package with highest `monthlyDownloads` for a project. Not "main package" or "first package" -- selection is by download volume, not array order. |
 | **Cache refresh** | The daily refresh task | The process of recomputing all scores and upserting cache tables. Not "sync" -- there is no external system being synchronized with. |
 | **Eligible project** | `status IN ('active', 'featured', 'promoted')` | A project that participates in cache population. Deprecated and hidden projects are excluded. |
@@ -57,6 +57,7 @@ The following terms form the ubiquitous language for the Trend Analytics context
 - `repos.stars` is stored as column `stargazers_count` (GitHub API naming) -- the domain says "stars"
 - `packages.monthlyDownloads` is stored as column `downloads` -- the domain says "monthly downloads"
 - `getPackageData()` in `project-helpers.ts` picks `packages[0]` (first by array order), contradicting the domain concept of "primary package" (highest downloads)
+- `relevanceScore` is a local `sql` fragment name in `packages/db/src/projects/find.ts:168` meaning "text-match rank" (a CASE expression ordering search results). That is a **false cognate** with Trend Analytics's `relevance_score` (quality floor). Phase 1 only documents the collision; the rename is deferred to Phase 2 (when the listing query module actually touches `find.ts` or its successor) so that Phase 1 stays purely additive in the `packages/db` module
 
 ## 3. Aggregates and Aggregate Roots
 
@@ -73,7 +74,7 @@ The following terms form the ubiquitous language for the Trend Analytics context
 - A snapshot belongs to exactly one repo (enforced by FK + composite PK)
 - `owner` + `name` is unique (enforced by `name_owner_index`)
 
-**Boundary:** The `repo_trends` cache row is NOT part of the Repo aggregate. It is a **projection** -- a derived, read-optimized view maintained by the Trend Analytics context. The Repo aggregate's invariants do not include cached scores. If `repo_trends` is stale or missing, the Repo aggregate is still consistent.
+**Boundary:** The `repo_trends` cache row is NOT part of the Repo aggregate. It is **derived, denormalized data** -- a read-optimized view maintained by the Trend Analytics context. The Repo aggregate's invariants do not include cached scores. If `repo_trends` is stale or missing, the Repo aggregate is still consistent.
 
 ### Project Aggregate
 
@@ -90,9 +91,11 @@ The following terms form the ubiquitous language for the Trend Analytics context
 - Project name and slug are unique
 - Packages belong to exactly one project (FK with CASCADE)
 
-**Boundary:** The `project_trends` cache row is NOT part of the Project aggregate. Same reasoning as above -- it is a projection owned by Trend Analytics.
+**Boundary:** The `project_trends` cache row is NOT part of the Project aggregate. Same reasoning as above -- it is **derived, denormalized data** owned by Trend Analytics.
 
-### Why cache tables are projections, not aggregate members
+### Why cache tables are derived data, not aggregate members
+
+Evans's 2003 *Domain-Driven Design* does not use the terms "projection" or "read model" (those are CQRS-era vocabulary that postdates the book). Evans's own terminology for this pattern is **denormalization** -- "storing multiple copies of the same data... when access time is more critical than storage space or simplicity of maintenance" -- and **derived data/attributes** (values calculated from other data). The reasoning below uses his words.
 
 Cache tables fail the aggregate membership test on three counts:
 
@@ -157,33 +160,32 @@ type PrimaryPackageInfo = {
 - **No identity:** Defined by attributes, not by a primary key
 - **Derived value:** Selected by a domain policy (highest downloads), not stored as a first-class entity
 
-## 5. Domain Services
+## 5. Cohesive Mechanism (not Domain Services)
 
-### ScoringService
+### Scoring Cohesive Mechanism
 
-The four scoring functions are Domain Services -- stateless operations that don't belong to any entity.
+The five functions in `packages/db/src/scores/` form a **Cohesive Mechanism**, not a Domain Service.
 
-| Function | File | Why a Service |
-|----------|------|---------------|
-| `computePopularityScore(trends)` | `packages/db/src/scores/popularity.ts` | A Repo doesn't "know" its popularity -- scoring is an analytical concern that varies independently of the entity |
-| `computeActivityScore(lastCommit, contributors)` | `packages/db/src/scores/activity.ts` | Activity scoring combines repo attributes with a time-dependent formula. The formula is a domain rule, not entity behavior |
-| `computeUsageScore(monthlyDownloads)` | `packages/db/src/scores/usage.ts` | Downloads belong to packages, but the score belongs to the analytics context. Cross-entity computation = service |
-| `computeRelevanceScore(pop, act, usage, hasPackage)` | `packages/db/src/scores/relevance.ts` | Composites multiple scores with policy-driven weights. A meta-computation over other service outputs |
+**Why not a Domain Service?** Evans is explicit: *"Parameters and results [of a Domain Service] should be domain objects."* The scoring functions take primitives (`number`, `Date | null`, and a locally-defined structural `TrendDeltas` shape) and return primitives. Forcing them into the Domain Service pattern would be a mismatch with Evans's own criterion.
 
-**Why services, not entity methods:** The scoring formulas are domain rules that vary independently of the entities they score. Changing the popularity formula (e.g., adjusting the blending weights `yearly + monthly*6 + daily*180`) should not require modifying the Repo entity. Evans' guideline: "When a significant process or transformation is not a natural responsibility of an Entity or Value Object, add an operation as a Service."
+**Why a Cohesive Mechanism fits:** Evans introduces Cohesive Mechanism as the pattern for "a sticky computational problem" factored out of the domain so the core domain objects can "remain focused on expressing the problem" (the *what*) while the mechanism solves "the how." A Cohesive Mechanism *"does not represent the domain"* -- it implements algorithmic machinery the domain depends on.
 
-All four functions are **pure** (no database dependency, no side effects), making them trivially testable via `bun:test`.
+That description matches `scores/` exactly:
+- The score formulas are algorithmic machinery (log scales, weighted composites, recency decay), not domain expression
+- The mechanism is deliberately isolated from domain objects -- see MODULE-BOUNDARIES.md §4, which enforces zero project imports into `scores/`
+- Changing a formula (e.g., the popularity blending weights `yearly + monthly*6 + daily*180`) must not require modifying the Repo entity -- a property the Cohesive Mechanism framing directly guarantees
 
-### PrimaryPackageResolver
+| Function | File | Role in the mechanism |
+|----------|------|----------------------|
+| `computePopularityScore(trends)` | `packages/db/src/scores/popularity.ts` | Signed log-scale metric blending star trend deltas across windows |
+| `computeActivityScore(lastCommit, contributors)` | `packages/db/src/scores/activity.ts` | 0-100 metric from commit recency with a contributor bonus |
+| `computeUsageScore(monthlyDownloads)` | `packages/db/src/scores/usage.ts` | 0-100 log-normalized metric over monthly npm downloads |
+| `computeRelevanceScore(pop, act, usage, hasPackage)` | `packages/db/src/scores/relevance.ts` | Weighted composite quality floor (see RelevanceWeightPolicy in §6) |
+| `resolvePrimaryPackage(packages)` | `packages/db/src/scores/primary-package.ts` | Stateless selection: `argmax(monthlyDownloads)`. Encodes the PrimaryPackageSelectionPolicy (see §6) |
 
-```typescript
-// packages/db/src/scores/primary-package.ts
-resolvePrimaryPackage(packages: PackageInfo[]): PackageInfo | null
-```
+All five functions are **pure** (no database dependency, no side effects, no logging), making them trivially testable via `bun:test`. The leaf-node property of `scores/` is not an accidental architectural convenience -- it is the structural consequence of the Cohesive Mechanism pattern.
 
-- **Stateless selection logic** operating across a collection of packages
-- Not a method on Project because the selection rule (max downloads) is a domain policy that could change (see Strategy/Policy section below)
-- Not a Repository method because it operates on in-memory data, not persistence
+**Note on earlier drafts:** Previous versions of this document labeled these functions as "Domain Services." That label was wrong by Evans's own criterion (Domain Service parameters must be domain objects). The label has been corrected here; the implementation plans in `.planning/phases/01-cache-foundation/01-02-PLAN.md` do not change.
 
 ## 6. Strategy/Policy Pattern
 
@@ -349,7 +351,7 @@ apps/backend/src/
 
 **The `schema/` module** is a technical grouping (horizontal layer) rather than a domain grouping. This is acceptable because schema definitions are inherently technical artifacts. Mixing `repo-trends.ts` with `repos.ts` in the same directory makes sense -- they're both table definitions, and Drizzle Kit needs them in one place for migration generation.
 
-**The refresh task** in `apps/backend/src/tasks/` is correctly placed outside the domain layer. It is an Application Service that orchestrates Domain Services (scoring functions) and Repository operations (upserts). Application Services coordinate but contain no domain logic -- the formulas live in `scores/`, the data access pattern lives in the schema.
+**The refresh task** in `apps/backend/src/tasks/` is correctly placed outside the domain layer. It is an Application Service that orchestrates the scoring Cohesive Mechanism (`scores/`) and Repository operations (upserts). Application Services coordinate but contain no domain logic -- the formulas live in `scores/`, the data access pattern lives in the schema.
 
 ## 10. Making Implicit Concepts Explicit
 
@@ -405,32 +407,32 @@ The 1:N `repos`-to-`projects` relationship creates a deduplication need. The con
 ## 11. Domain Model Diagram
 
 ```
- AGGREGATES                         VALUE OBJECTS              DOMAIN SERVICES
-+---------------------------+
-|  REPO AGGREGATE           |
-|  [Root: repos]            |       +----------------+
-|                           |       | TrendDeltas    |        +------------------------+
-|  - id (PK)                |       |                |        | ScoringService         |
-|  - stars                  |  ---> | daily          |        |                        |
-|  - last_commit            |       | weekly         |  <-->  | computePopularityScore |
-|  - contributor_count      |       | monthly        |        | computeActivityScore   |
-|  - owner, name            |       | quarterly      |        | computeUsageScore      |
-|                           |       | yearly         |        | computeRelevanceScore  |
-|  Children:                |       +----------------+        +------------------------+
-|    snapshots[] (JSONB/yr) |
-+---------------------------+       +----------------+        +------------------------+
-         |                          | RepoScoreSet   |        | PrimaryPackageResolver |
-         | 1:N                      |                |        |                        |
-         v                          | popularityScore|        | resolvePrimaryPackage  |
-+---------------------------+       | activityScore  |        +------------------------+
-|  PROJECT AGGREGATE        |       +----------------+
-|  [Root: projects]         |
-|                           |       +------------------+
-|  - id (PK)                |       | ProjectScoreSet  |
-|  - name, slug             |       |                  |
-|  - status                 |       | usageScore       |
-|  - repoId (ref by ID)     |       | relevanceScore   |
-|                           |       +------------------+
+ AGGREGATES                         VALUE OBJECTS              COHESIVE MECHANISM
++---------------------------+                                  (scores/ leaf module,
+|  REPO AGGREGATE           |       +----------------+          zero project imports)
+|  [Root: repos]            |       | TrendDeltas    |
+|                           |       |                |         +------------------------+
+|  - id (PK)                |  ---> | daily          |  <-->   | computePopularityScore |
+|  - stars                  |       | weekly         |         | computeActivityScore   |
+|  - last_commit            |       | monthly        |         | computeUsageScore      |
+|  - contributor_count      |       | quarterly      |         | computeRelevanceScore  |
+|  - owner, name            |       | yearly         |         | resolvePrimaryPackage  |
+|                           |       +----------------+         +------------------------+
+|  Children:                |
+|    snapshots[] (JSONB/yr) |       +----------------+
++---------------------------+       | RepoScoreSet   |
+         |                          |                |
+         | 1:N                      | popularityScore|
+         v                          | activityScore  |
++---------------------------+       +----------------+
+|  PROJECT AGGREGATE        |       +------------------+
+|  [Root: projects]         |       | ProjectScoreSet  |
+|                           |       |                  |
+|  - id (PK)                |       |                  |
+|  - name, slug             |       | usageScore       |
+|  - status                 |       | relevanceScore   |
+|  - repoId (ref by ID)     |       +------------------+
+|                           |
 |  Children:                |
 |    packages[] (0..N)      |       +------------------+      SPECIFICATIONS
 |    tags[] (via join)      |       | PrimaryPkgInfo   |
@@ -440,7 +442,7 @@ The 1:N `repos`-to-`projects` relationship creates a deduplication need. The con
                                     +------------------+      |   featured, promoted)     |
                                                               +---------------------------+
                                                               | EligibleRepoSpec          |
- PROJECTIONS (not aggregate members)                          |   has >= 1 eligible proj  |
+ DERIVED DATA (not aggregate members)                         |   has >= 1 eligible proj  |
 +---------------------------+                                 +---------------------------+
 |  repo_trends              |
 |  (keyed by repo_id)       |      POLICIES
@@ -462,8 +464,8 @@ The 1:N `repos`-to-`projects` relationship creates a deduplication need. The con
 |  refreshedAt              |      |   Pass 1: repo scoring    |
 +---------------------------+      |   Pass 2: project scoring |
                                    |                           |
-                                   | Uses: ScoringService,     |
-                                   |   PrimaryPackageResolver, |
+                                   | Uses: scores/ (cohesive   |
+                                   |   mechanism),             |
                                    |   EligibleProjectSpec,    |
                                    |   computeTrends()         |
                                    +---------------------------+
@@ -495,8 +497,8 @@ At bestofjs's scale (~3,500 projects, ~3,000 repos, single daily refresh), not e
 
 | Concept | Why |
 |---------|-----|
-| **Aggregate boundaries** (Repo vs Project, cache as projection) | Prevents the mistake of treating cache tables as part of the core domain model. Keeps the source-of-truth clear. |
-| **Domain Services** (pure scoring functions) | Already implemented this way. Pure functions in `scores/` are testable, composable, and independently deployable. |
+| **Aggregate boundaries** (Repo vs Project, cache as derived data) | Prevents the mistake of treating cache tables as part of the core domain model. Keeps the source-of-truth clear. |
+| **Cohesive Mechanism** (pure scoring functions in `scores/`) | Zero-dependency leaf module. Pure functions are testable, composable, and independently deployable. Isolates algorithmic machinery from domain expression. |
 | **Ubiquitous Language** | Prevents confusion between "primary package" (highest downloads) and "first package" (array[0]). The `getPackageData()` bug proves this matters. |
 | **Specifications** (eligibility predicates) | Naming the inclusion rule makes it a deliberate design choice rather than an ad-hoc WHERE clause. |
 | **Value Objects** (TrendDeltas) | The NULL vs 0 distinction is critical for correct sorting. Naming TrendDeltas as a coherent unit makes this invariant explicit. |

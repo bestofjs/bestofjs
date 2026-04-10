@@ -3,6 +3,12 @@
 **Domain:** Database-backed listing migration for Best of JS
 **Researched:** 2026-04-09
 
+> **Phase 1 PR direction diagrams (Mermaid):**
+> - [`../quick/6-phase-1-pr-direction/ARCHITECTURE-CURRENT.md`](../quick/6-phase-1-pr-direction/ARCHITECTURE-CURRENT.md) — pre-Phase-1 system view (C4 context, backend daily tasks, read path sequence, domain model, module layout, pain points)
+> - [`../quick/6-phase-1-pr-direction/ARCHITECTURE-AFTER.md`](../quick/6-phase-1-pr-direction/ARCHITECTURE-AFTER.md) — post-Phase-1 system view (bounded contexts, `scores/` leaf module, two-pass refresh sequence, unchanged read path)
+>
+> Those two documents are the reviewer-facing version of what this research doc describes in prose. Use them when you need to *show* the change to someone; keep reading this doc for the underlying patterns, query-translation mapping, and build-order rationale.
+
 ## Current Architecture (Before Migration)
 
 ```
