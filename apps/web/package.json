@@ -43,7 +43,7 @@
     "mingo": "6.4.15",
     "next": "catalog:",
     "next-themes": "^0.4.6",
-    "postcss": "^8.4.31",
+    "postcss": "^8.5.10",
     "pretty-bytes": "^6.1.1",
     "qss": "^3.0.0",
     "radix-ui": "catalog:",
