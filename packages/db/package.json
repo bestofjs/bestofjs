@@ -33,7 +33,7 @@
     "debug": "^4.4.1",
     "dotenv-cli": "catalog:",
     "drizzle-kit": "^0.31.4",
-    "drizzle-orm": "^0.44.5",
+    "drizzle-orm": "^0.45.2",
     "es-toolkit": "^1.39.10",
     "is-absolute-url": "^4.0.1",
     "luxon": "^3.7.1",
