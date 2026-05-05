@@ -3,6 +3,8 @@ export * from "./daily-featured-projects";
 export * from "./hall-of-fame";
 export * from "./packages";
 export * from "./projects";
+export * from "./repo-trends";
+export * from "./repo-trends-view";
 export * from "./repos";
 export * from "./snapshots";
 export * from "./tags";
