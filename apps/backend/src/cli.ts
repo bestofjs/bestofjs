@@ -22,6 +22,7 @@ import { updateBundleSizeTask } from "./tasks/update-bundle-size.task";
 import { updateGitHubDataTask } from "./tasks/update-github-data.task";
 import { updateHallOfFameTask } from "./tasks/update-hall-of-fame.task";
 import { updatePackageDataTask } from "./tasks/update-package-data.task";
+import { updateRepoTrendsTask } from "./tasks/update-repo-trends.task";
 
 const commands = [
   notifyDailyTask,
@@ -36,6 +37,7 @@ const commands = [
   updatePackageDataTask,
   updateHallOfFameTask,
   updateBundleSizeTask,
+  updateRepoTrendsTask,
   buildMonthlyRankingsTask,
   buildRisingStarsTask,
   cleanupRisingStars,
