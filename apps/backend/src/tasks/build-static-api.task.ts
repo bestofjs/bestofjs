@@ -27,7 +27,7 @@ export const buildStaticApiTask = createTask({
 
   run: async ({ db, logger, processProjects, saveJSON }) => {
     const aggregatedData = await processProjects(buildProjectItem, {
-      where: notInArray(schema.projects.status, ["deprecated", "hidden"]),
+      where: notInArray(schema.projects.status, ["deprecated"]),
     });
 
     const data = aggregatedData.data.filter((item) => !!item); // remove {data: null} items
