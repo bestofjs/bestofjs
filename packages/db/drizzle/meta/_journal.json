@@ -71,6 +71,13 @@
       "when": 1764991674471,
       "tag": "0009_fixed_human_cannonball",
       "breakpoints": true
+    },
+    {
+      "idx": 10,
+      "version": "7",
+      "when": 1777980955503,
+      "tag": "0010_condemned_doctor_strange",
+      "breakpoints": true
     }
   ]
 }
