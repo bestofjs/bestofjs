@@ -73,7 +73,7 @@ export const buildMonthlyRankingsTask = createTask({
         };
         return { data, meta: { success: true } };
       },
-      { where: notInArray(schema.projects.status, ["deprecated", "hidden"]) },
+      { where: notInArray(schema.projects.status, ["deprecated"]) },
     );
 
     const projects = uniqBy(

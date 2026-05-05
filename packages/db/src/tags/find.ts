@@ -72,7 +72,7 @@ export async function findTagsWithProjects(options?: {
     ])
     .as("tags_with_count");
 
-  // Sub-query 2: All tag–project rows with ROW_NUMBER() per tag by stars; excludes deprecated/hidden. Used only inside sub-query 3.
+  // Sub-query 2: All tag–project rows with ROW_NUMBER() per tag by stars; excludes deprecated. Used only inside sub-query 3.
   const ranked = db
     .select({
       tagCode: schema.tags.code,
@@ -95,7 +95,7 @@ export async function findTagsWithProjects(options?: {
       eq(schema.projects.id, schema.projectsToTags.projectId),
     )
     .innerJoin(schema.repos, eq(schema.repos.id, schema.projects.repoId))
-    .where(notInArray(schema.projects.status, ["deprecated", "hidden"]))
+    .where(notInArray(schema.projects.status, ["deprecated"]))
     .as("ranked");
 
   // Sub-query 3: From sub-query 2, keep only rows with rn <= topProjectsPerTag (top N projects per tag). Used in main query LEFT JOIN.
