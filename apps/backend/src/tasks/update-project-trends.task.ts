@@ -62,7 +62,7 @@ export const updateProjectTrendsTask = createTask({
           });
       }
 
-      logger.info(
+      logger.debug(
         dryRun
           ? "project_trends scores (dry run, no write)"
           : "project_trends upserted",
