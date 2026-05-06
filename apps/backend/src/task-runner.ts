@@ -59,7 +59,17 @@ export function createTaskRunner(tasks: Task<RawFlags | undefined>[]) {
             const context = createTaskContext(db);
 
             const result = await task.run(context, taskFlags);
-            logger.success("Task", task.name, "completed", result.meta);
+            const errorCount = Number(result.meta?.error ?? 0);
+            if (errorCount > 0) {
+              logger.warn(
+                "Task",
+                task.name,
+                "completed with errors",
+                result.meta,
+              );
+            } else {
+              logger.success("Task", task.name, "completed", result.meta);
+            }
           }
           resolve(true);
         });

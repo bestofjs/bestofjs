@@ -70,7 +70,7 @@ const dailyUpdateTrendsTask = command(
   {
     name: "daily-update-trends",
     description:
-      "Daily trends pipeline: cleanup → repo_trends Pass 1 → project_trends Pass 2. Early-exit on failure; previous day's data is retained.",
+      "Daily trends pipeline: cleanup → repo_trends Pass 1 → project_trends Pass 2. Stops if a task throws; per-row errors are logged and the row keeps yesterday's value.",
     flags: sharedFlags,
   },
   (argv) => {
