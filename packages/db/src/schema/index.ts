@@ -2,6 +2,8 @@ export * from "./bundles";
 export * from "./daily-featured-projects";
 export * from "./hall-of-fame";
 export * from "./packages";
+export * from "./project-trends";
+export * from "./project-trends-view";
 export * from "./projects";
 export * from "./repo-trends";
 export * from "./repo-trends-view";

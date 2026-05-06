@@ -10,6 +10,10 @@ import {
 
 import { repos } from "./repos";
 
+/**
+ * Per-repo trend cache: star counts, snapshot deltas, and heuristic scores, upserted daily by backend tasks.
+ * Derived data for fast queries—not canonical repo metadata.
+ */
 export const repoTrends = pgTable(
   "repo_trends",
   {
@@ -22,8 +26,8 @@ export const repoTrends = pgTable(
     monthly: integer("monthly"),
     quarterly: integer("quarterly"),
     yearly: integer("yearly"),
-    popularityScore: real("popularity_score").notNull(),
-    activityScore: real("activity_score").notNull(),
+    popularityScore: real("popularity_score").notNull(), // heuristic: star momentum (from deltas)
+    activityScore: real("activity_score").notNull(), // heuristic: maintenance / recency + contributors
     updatedAt: timestamp("updated_at").notNull().defaultNow(),
   },
   (table) => [
