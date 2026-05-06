@@ -6,6 +6,7 @@ import { createTaskRunner } from "./task-runner";
 import type { Task } from "./task-types";
 import { buildMonthlyRankingsTask } from "./tasks/build-monthly-rankings.task";
 import { buildStaticApiTask } from "./tasks/build-static-api.task";
+import { cleanupRepoTrendsTask } from "./tasks/cleanup-repo-trends.task";
 import {
   helloWorldHallOfFameTask,
   helloWorldProjectsTask,
@@ -22,6 +23,7 @@ import { updateBundleSizeTask } from "./tasks/update-bundle-size.task";
 import { updateGitHubDataTask } from "./tasks/update-github-data.task";
 import { updateHallOfFameTask } from "./tasks/update-hall-of-fame.task";
 import { updatePackageDataTask } from "./tasks/update-package-data.task";
+import { updateProjectTrendsTask } from "./tasks/update-project-trends.task";
 import { updateRepoTrendsTask } from "./tasks/update-repo-trends.task";
 
 const commands = [
@@ -37,7 +39,9 @@ const commands = [
   updatePackageDataTask,
   updateHallOfFameTask,
   updateBundleSizeTask,
+  cleanupRepoTrendsTask,
   updateRepoTrendsTask,
+  updateProjectTrendsTask,
   buildMonthlyRankingsTask,
   buildRisingStarsTask,
   cleanupRisingStars,
@@ -62,9 +66,27 @@ const staticApiDailyTask = command(
   },
 );
 
+const dailyUpdateTrendsTask = command(
+  {
+    name: "daily-update-trends",
+    description:
+      "Daily trends pipeline: cleanup → repo_trends Pass 1 → project_trends Pass 2. Early-exit on failure; previous day's data is retained.",
+    flags: sharedFlags,
+  },
+  (argv) => {
+    const tasks: Task<any>[] = [
+      cleanupRepoTrendsTask,
+      updateRepoTrendsTask,
+      updateProjectTrendsTask,
+    ];
+    const runner = createTaskRunner(tasks);
+    runner.run(argv.flags);
+  },
+);
+
 cli({
   name: "bestofjs-cli",
-  commands: [staticApiDailyTask, ...commands],
+  commands: [staticApiDailyTask, dailyUpdateTrendsTask, ...commands],
 });
 
 function getCommand(task: Task<any>) {
