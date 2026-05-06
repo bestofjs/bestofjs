@@ -11,6 +11,7 @@
     "daily-update-package-data": "dotenv -e ../../.env tsx ./src/cli.ts update-package-data -- --logLevel 3 --concurrency 5",
     "daily-update-bundle-size": "dotenv -e ../../.env tsx ./src/cli.ts update-bundle-size -- --logLevel 3",
     "daily-update-repo-trends": "dotenv -e ../../.env tsx ./src/cli.ts update-repo-trends -- --logLevel 3 --concurrency 5",
+    "daily-update-trends": "dotenv -e ../../.env tsx ./src/cli.ts daily-update-trends -- --logLevel 3 --concurrency 5",
     "typecheck": "tsc --noEmit",
     "typecheck:watch": "tsc --noEmit --incremental --watch",
     "lint": "biome check ./src",

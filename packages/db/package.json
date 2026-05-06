@@ -19,6 +19,7 @@
     "./constants": "./src/constants.ts",
     "./projects": "./src/projects/index.ts",
     "./shared-schemas": "./src/shared-schemas.ts",
+    "./project-trends": "./src/project-trends/index.ts",
     "./repo-trends": "./src/repo-trends/index.ts",
     "./snapshots": "./src/snapshots/index.ts",
     "./tags": "./src/tags/index.ts",

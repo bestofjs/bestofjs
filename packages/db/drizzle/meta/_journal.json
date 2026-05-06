@@ -78,6 +78,13 @@
       "when": 1777980955503,
       "tag": "0010_condemned_doctor_strange",
       "breakpoints": true
+    },
+    {
+      "idx": 11,
+      "version": "7",
+      "when": 1777989340517,
+      "tag": "0011_simple_peter_quill",
+      "breakpoints": true
     }
   ]
 }
