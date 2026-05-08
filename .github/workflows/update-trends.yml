@@ -1,0 +1,49 @@
+name: Update Trends
+
+on:
+  workflow_run:
+    workflows: ["Update GitHub Data"]
+    types: [completed]
+  workflow_dispatch:
+    inputs:
+      logLevel:
+        description: "Log level: 3 => info, 4 => debug"
+        required: true
+        default: 3
+        type: choice
+        options:
+          - 3
+          - 4
+      limit:
+        description: "Number of projects to process (0 = all)"
+        required: false
+        type: number
+        default: 0
+      skip:
+        description: "Number of projects to skip"
+        required: false
+        type: number
+        default: 0
+      concurrency:
+        description: "Number of projects to process concurrently"
+        required: false
+        type: number
+        default: 5
+
+env:
+  POSTGRES_URL: ${{ secrets.POSTGRES_URL }}
+
+jobs:
+  update-trends:
+    if: ${{ github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Code Checkout
+        uses: actions/checkout@v4
+      - name: Setup Environment
+        uses: ./.github/tooling/github-actions/install
+      - name: Install Dependencies
+        shell: bash
+        run: pnpm -F backend... install
+      - name: Update Trends
+        run: pnpm -F backend daily-update-trends --loglevel ${{ inputs.logLevel || 3 }} --limit ${{ inputs.limit || 0 }} --skip ${{ inputs.skip || 0 }} --concurrency ${{ inputs.concurrency || 5 }}
