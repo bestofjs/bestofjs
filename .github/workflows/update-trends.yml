@@ -1,7 +1,9 @@
-name: Update Package Data
+name: Update Trends
+
 on:
-  schedule:
-    - cron: "0 19 * * *"
+  workflow_run:
+    workflows: ["Update GitHub Data"]
+    types: [completed]
   workflow_dispatch:
     inputs:
       logLevel:
@@ -13,12 +15,12 @@ on:
           - 3
           - 4
       limit:
-        description: "Number of projects to process (mainly for debugging, keep the default value of 0 to process everything)"
+        description: "Number of projects to process (0 = all)"
         required: false
         type: number
         default: 0
       skip:
-        description: "Number of projects to skip (when paginating)"
+        description: "Number of projects to skip"
         required: false
         type: number
         default: 0
@@ -26,16 +28,14 @@ on:
         description: "Number of projects to process concurrently"
         required: false
         type: number
-        default: 1
-      throttleInterval:
-        description: "Interval in milliseconds to wait between requests, to avoid rate limit errors"
-        required: false
-        type: number
-        default: 0
+        default: 5
+
 env:
   POSTGRES_URL: ${{ secrets.POSTGRES_URL }}
+
 jobs:
-  update-package-data:
+  update-trends:
+    if: ${{ github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
     steps:
       - name: Code Checkout
@@ -45,5 +45,5 @@ jobs:
       - name: Install Dependencies
         shell: bash
         run: pnpm -F backend... install
-      - name: Update Packages Data
-        run: pnpm -F backend daily-update-package-data --loglevel ${{ inputs.logLevel || 3 }} --limit ${{ inputs.limit || 0 }} --skip ${{ inputs.skip || 0 }} --concurrency ${{ inputs.concurrency || 5 }} --throttleInterval ${{ inputs.throttleInterval || 0 }}
+      - name: Update Trends
+        run: pnpm -F backend daily-update-trends --loglevel ${{ inputs.logLevel || 3 }} --limit ${{ inputs.limit || 0 }} --skip ${{ inputs.skip || 0 }} --concurrency ${{ inputs.concurrency || 5 }}
