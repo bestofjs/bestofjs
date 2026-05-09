@@ -12,7 +12,10 @@ export * as schema from "./schema";
 
 export type DB = ReturnType<typeof drizzle<typeof schema>>;
 
-const pool = new Pool({ connectionString: process.env.POSTGRES_URL });
+const connectionString = process.env.POSTGRES_URL;
+if (!connectionString) throw new Error("POSTGRES_URL is not set");
+
+const pool = new Pool({ connectionString });
 
 export const db = drizzle(pool, {
   schema,
@@ -27,7 +30,7 @@ export async function runQuery(callback: (db: DB) => Promise<void>) {
   } catch (error) {
     console.error(error);
   } finally {
-    service.disconnect();
+    await service.disconnect();
   }
 }
 
@@ -45,6 +48,6 @@ class NeonDbService {
   }
 
   disconnect() {
-    pool.end();
+    return pool.end();
   }
 }
