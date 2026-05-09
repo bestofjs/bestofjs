@@ -1,7 +1,9 @@
+import { Pool } from "@neondatabase/serverless";
 import createDebug from "debug";
-import { drizzle } from "drizzle-orm/vercel-postgres";
+import { drizzle } from "drizzle-orm/neon-serverless";
 
-import { sql } from "./db";
+import "./db"; // applies neonConfig side effects before the pool is created
+
 import * as schema from "./schema";
 
 const debug = createDebug("db");
@@ -10,37 +12,24 @@ export * as schema from "./schema";
 
 export type DB = ReturnType<typeof drizzle<typeof schema>>;
 
-export const db = drizzle(sql, {
+const connectionString = process.env.POSTGRES_URL;
+if (!connectionString) throw new Error("POSTGRES_URL is not set");
+
+const pool = new Pool({ connectionString });
+pool.on("connect", () => debug("DB connected"));
+pool.on("remove", () => debug("DB disconnected"));
+
+export const db = drizzle(pool, {
   schema,
   logger: process.env.ENABLE_SQL_LOGGING === "1",
 });
 
 export async function runQuery(callback: (db: DB) => Promise<void>) {
-  const service = new VercelPostgresService();
-
   try {
-    await callback(service.db);
+    await callback(db);
   } catch (error) {
     console.error(error);
   } finally {
-    service.disconnect();
-  }
-}
-
-class VercelPostgresService {
-  db: DB;
-
-  constructor() {
-    this.db = db;
-    sql.on("connect", () => {
-      debug("Vercel DB connected");
-    });
-    sql.on("remove", () => {
-      debug("Vercel DB disconnected");
-    });
-  }
-
-  disconnect() {
-    sql.end();
+    await pool.end();
   }
 }
