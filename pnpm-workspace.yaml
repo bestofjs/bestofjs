@@ -2,6 +2,22 @@ packages:
   - apps/*
   - packages/*
 
+autoInstallPeers: true
+sharedWorkspaceLockfile: true
+dedupePeerDependents: true
+
+allowBuilds:
+  '@swc/core': true
+  bufferutil: true
+  dprint: true
+  esbuild: true
+  husky: true
+  jest-preview: true
+  msw: true
+  react-vertical-timeline-component: true
+  sharp: true
+  utf-8-validate: true
+
 catalog:
   '@types/debug': ^4.1.12
   '@types/node': ^22

@@ -22,7 +22,7 @@ docs/        Architecture documentation
 
 ## Commands
 
-**Package manager:** pnpm 10.15.0+ required. **Node:** 22.x+.
+**Package manager:** pnpm 11.0.8+ required. **Node:** 22.x+.
 
 ### Root (Turbo-orchestrated)
 ```bash
