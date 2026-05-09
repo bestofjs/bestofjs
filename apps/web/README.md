@@ -10,7 +10,7 @@
 
 Requirements:
 
-- Node.js 22
+- Node.js 24
 - [PNPM](https://pnpm.io/) 11
 
 The app is part of a monorepo built using [PNPM workspace](https://pnpm.io/workspaces) feature.

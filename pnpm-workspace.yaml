@@ -20,7 +20,7 @@ allowBuilds:
 
 catalog:
   '@types/debug': ^4.1.12
-  '@types/node': ^22
+  '@types/node': ^24
   '@types/react': 19.1.2
   '@types/react-dom': 19.1.2
   dotenv-cli: ^7.4.4
