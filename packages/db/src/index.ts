@@ -1,8 +1,9 @@
-import createDebug from "debug";
 import { Pool } from "@neondatabase/serverless";
+import createDebug from "debug";
 import { drizzle } from "drizzle-orm/neon-serverless";
 
 import "./db"; // applies neonConfig side effects before the pool is created
+
 import * as schema from "./schema";
 
 const debug = createDebug("db");
