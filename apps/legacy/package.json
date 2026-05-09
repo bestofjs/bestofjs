@@ -3,7 +3,7 @@
   "version": "0.36.0",
   "description": "Best of JS front-end web application",
   "engines": {
-    "node": "22.x"
+    "node": ">=24"
   },
   "scripts": {
     "start": "cross-env VITE_APP_VERSION=$npm_package_version vite",
@@ -77,7 +77,7 @@
     "@types/debug": "^4.1.12",
     "@types/dompurify": "^2.3.3",
     "@types/jest": "^26.0.4",
-    "@types/node": "^20",
+    "@types/node": "^24",
     "@types/react": "^17.0.38",
     "@types/react-dom": "^17.0.11",
     "@types/react-router-dom": "^5.3.3",
