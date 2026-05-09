@@ -1,5 +1,3 @@
-// Setup to run locally with Vercel Postgres
-// Copied from https://vercel.com/docs/storage/vercel-postgres/local-development
 import { neonConfig } from "@neondatabase/serverless";
 
 if (process.env.VERCEL_ENV === "development") {
@@ -9,4 +7,4 @@ if (process.env.VERCEL_ENV === "development") {
   neonConfig.pipelineConnect = false;
 }
 
-export * from "@vercel/postgres";
+export * from "@neondatabase/serverless";

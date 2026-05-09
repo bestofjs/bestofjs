@@ -31,7 +31,6 @@
     "@t3-oss/env-nextjs": "^0.13.8",
     "@types/debug": "catalog:",
     "@types/luxon": "^3.7.1",
-    "@vercel/postgres": "^0.10.0",
     "debug": "^4.4.1",
     "dotenv-cli": "catalog:",
     "drizzle-kit": "^0.31.4",
@@ -46,6 +45,7 @@
   },
   "devDependencies": {
     "@clack/prompts": "^0.11.0",
-    "@types/bun": "^1.2.21"
+    "@types/bun": "^1.2.21",
+    "postgres": "^3.4.9"
   }
 }
