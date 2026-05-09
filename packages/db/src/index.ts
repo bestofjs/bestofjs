@@ -16,6 +16,8 @@ const connectionString = process.env.POSTGRES_URL;
 if (!connectionString) throw new Error("POSTGRES_URL is not set");
 
 const pool = new Pool({ connectionString });
+pool.on("connect", () => debug("DB connected"));
+pool.on("remove", () => debug("DB disconnected"));
 
 export const db = drizzle(pool, {
   schema,
@@ -23,31 +25,11 @@ export const db = drizzle(pool, {
 });
 
 export async function runQuery(callback: (db: DB) => Promise<void>) {
-  const service = new NeonDbService();
-
   try {
-    await callback(service.db);
+    await callback(db);
   } catch (error) {
     console.error(error);
   } finally {
-    await service.disconnect();
-  }
-}
-
-class NeonDbService {
-  db: DB;
-
-  constructor() {
-    this.db = db;
-    pool.on("connect", () => {
-      debug("DB connected");
-    });
-    pool.on("remove", () => {
-      debug("DB disconnected");
-    });
-  }
-
-  disconnect() {
-    return pool.end();
+    await pool.end();
   }
 }
