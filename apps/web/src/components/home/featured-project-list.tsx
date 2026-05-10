@@ -5,13 +5,14 @@ import type { SortOptionKey } from "@/components/project-list/sort-order-options
 import { ProjectTag } from "@/components/tags/project-tag";
 import { Skeleton } from "@/components/ui/skeleton";
 import { cn } from "@/lib/utils";
+import type { FeaturedProject as FeaturedProjectData } from "@/server/featured-projects";
 
 import { linkVariants } from "../ui/link";
 
 export function FeaturedProjectList({
   projects,
 }: {
-  projects: BestOfJS.Project[];
+  projects: FeaturedProjectData[];
 }) {
   return (
     <ProjectListContainer>
@@ -26,7 +27,7 @@ function FeaturedProject({
   project,
   metrics,
 }: {
-  project: BestOfJS.Project;
+  project: FeaturedProjectData;
   metrics: SortOptionKey;
 }) {
   const delta = getDeltaByDay(metrics)(project);

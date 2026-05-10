@@ -134,3 +134,5 @@ A good test verifies observable behavior (query results, score values for known 
 Both new tables are small (~200KB + ~150KB for ~3k projects). Sub-millisecond queries even without indexes, but indexes are defined on all sort columns for future scale.
 
 Migration is incremental: the daily task and new tables can be deployed and validated before any web app page is switched over. Parity validation: deploy DB-backed branch to a Vercel preview URL and compare against production — total project counts within ~5%, top-20 overlap >80% per sort option, spot-check popular tags (react, vue, typescript).
+
+Featured projects currently use a small web-server wrapper around the DB query (`apps/web/src/server/featured-projects.ts`); revisit this once listing/search queries are fully migrated so query access follows one consistent pattern.

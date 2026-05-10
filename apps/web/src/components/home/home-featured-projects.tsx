@@ -4,7 +4,6 @@ import { FeaturedProjectList } from "@/components/home/featured-project-list";
 import { buttonVariants } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
-import { api } from "@/server/api";
 import { findRandomFeaturedProjects } from "@/server/featured-projects";
 
 import { FeaturedProjectsClient } from "./home-featured-projects.client";
@@ -13,9 +12,10 @@ type Props = {
   numberOfProjectPerPage?: number;
 };
 export async function FeaturedProjects({ numberOfProjectPerPage = 5 }: Props) {
-  const { projects, total } = await fetchFeaturedProjects(
-    numberOfProjectPerPage,
-  );
+  const { projects, total } = await findRandomFeaturedProjects({
+    skip: 0,
+    limit: numberOfProjectPerPage,
+  });
   return (
     <Card>
       <FeaturedProjectsClient
@@ -37,12 +37,4 @@ export async function FeaturedProjects({ numberOfProjectPerPage = 5 }: Props) {
       </div>
     </Card>
   );
-}
-
-async function fetchFeaturedProjects(numberOfProjectPerPage: number) {
-  const { projects, total } = await findRandomFeaturedProjects(
-    api.projects.getProjectBySlug,
-    { skip: 0, limit: numberOfProjectPerPage },
-  );
-  return { projects, total };
 }
