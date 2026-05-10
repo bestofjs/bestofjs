@@ -1,22 +1,17 @@
-import { db, schema } from "@repo/db";
-import { desc } from "@repo/db/drizzle";
+import { db } from "@repo/db";
+import { findFeaturedProjects } from "@repo/db/projects";
 
-type GetProjectBySlug = (
-  slug: string,
-) => Promise<{ project: BestOfJS.Project | undefined }>;
+export type { FeaturedProject } from "@repo/db/projects";
 
-export async function findRandomFeaturedProjects(
-  getProjectBySlug: GetProjectBySlug,
-  { skip = 0, limit = 5 }: { skip?: number; limit?: number } = {},
-) {
-  const record = await db.query.dailyFeaturedProjects.findFirst({
-    orderBy: desc(schema.dailyFeaturedProjects.createdAt),
-  });
-  const allSlugs = record?.projectSlugs ?? [];
-  const slugs = allSlugs.slice(skip, skip + limit);
-  const results = await Promise.all(slugs.map(getProjectBySlug));
-  const projects = results
-    .map((r) => r.project)
-    .filter((p): p is BestOfJS.Project => p !== undefined);
-  return { projects, total: allSlugs.length };
+// TODO: Revisit this wrapper once listings are fully DB-driven
+// (see docs/prd/replace-static-api-with-db.md): keep a consistent server
+// boundary across listing queries or inline direct DB calls.
+export async function findRandomFeaturedProjects({
+  skip = 0,
+  limit = 5,
+}: {
+  skip?: number;
+  limit?: number;
+} = {}) {
+  return findFeaturedProjects(db, { skip, limit });
 }

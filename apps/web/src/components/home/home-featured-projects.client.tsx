@@ -11,6 +11,7 @@ import {
 } from "@/components/home/featured-project-list";
 import { Button } from "@/components/ui/button";
 import { CardHeader } from "@/components/ui/card";
+import type { FeaturedProject } from "@/server/featured-projects";
 
 const forceLoadingState = false; // for debugging
 
@@ -121,7 +122,7 @@ function DynamicFeaturedProjectList({
     return <ProjectListSkeleton numberOfItems={numberOfProjectPerPage} />;
   }
 
-  return <FeaturedProjectList projects={projects as BestOfJS.Project[]} />;
+  return <FeaturedProjectList projects={projects as FeaturedProject[]} />;
 }
 
 async function fetchRandomProjects(
@@ -133,5 +134,5 @@ async function fetchRandomProjects(
   params.set("limit", numberOfProjectPerPage.toString());
   const url = "/api/featured-projects?" + params.toString();
   const data = await fetch(url).then((res) => res.json());
-  return data.projects as BestOfJS.Project[];
+  return data.projects as FeaturedProject[];
 }
