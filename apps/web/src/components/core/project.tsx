@@ -47,13 +47,13 @@ function StarDeltaNormal({ value }: Props) {
   );
 }
 
-/** Display: integer when |value| >= 100; one decimal when |value| < 100. */
+/** Integer when one-decimal-rounded magnitude is >= 100; else one decimal. */
 function formatAverageStarDeltaMagnitude(value: number): string {
-  const abs = Math.abs(value);
-  if (abs >= 100) {
-    return String(Math.round(abs));
+  const roundedOneDecimal = Math.round(Math.abs(value) * 10) / 10;
+  if (roundedOneDecimal >= 100) {
+    return String(Math.round(roundedOneDecimal));
   }
-  return (Math.round(abs * 10) / 10).toFixed(1);
+  return roundedOneDecimal.toFixed(1);
 }
 
 export function StarDeltaAverage({ value }: Props) {
