@@ -20,7 +20,7 @@ export type FeaturedProject = {
   };
   tags: Array<{ code: string; name: string; description: string | null }>;
 };
-
+[];
 export async function findFeaturedProjects(
   db: DB,
   { skip = 0, limit = 5 }: { skip?: number; limit?: number } = {},
@@ -55,7 +55,7 @@ export async function findFeaturedProjects(
     .filter((p): p is NonNullable<typeof p> => p != null)
     .map((p) => {
       const yearRows = snapshotsSchema.parse(p.repo?.snapshots ?? []);
-      const snapshots = yearRows.flatMap(({ year, months }) =>
+      const dailySnapshots = yearRows.flatMap(({ year, months }) =>
         months.flatMap(({ month, snapshots }) =>
           snapshots.map(
             ({ day, stars }): Snapshot => ({ year, month, day, stars }),
@@ -66,8 +66,8 @@ export async function findFeaturedProjects(
         slug: p.slug,
         name: p.name,
         logo: p.logo,
-        owner_id: p.repo?.owner_id ?? 0,
-        trends: computeTrends(snapshots),
+        owner_id: p.repo.owner_id,
+        trends: computeTrends(dailySnapshots),
         tags: p.projectsToTags.map((pt) => ({
           code: pt.tag.code,
           name: pt.tag.name,
