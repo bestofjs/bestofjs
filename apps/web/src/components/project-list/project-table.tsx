@@ -145,7 +145,7 @@ const ProjectTableRow = ({
       )}
 
       {metricsCell && (
-        <Cell className="hidden w-[100px] p-4 text-right md:table-cell">
+        <Cell className="hidden w-[128px] p-4 text-right md:table-cell">
           {metricsCell(project)}
         </Cell>
       )}

@@ -53,13 +53,13 @@ export const StarDeltaAverage = ({ value }: Props) => {
     return <div className="star-delta text-muted-foreground text-sm">N/A</div>;
 
   return (
-    <div className="flex items-center">
+    <div className="inline-flex items-center whitespace-nowrap">
       <div>
         <span>{sign}</span>
         <span>{integerPart}</span>
         <span>.{decimalPart}</span>
       </div>
-      <div className="inline-flex items-center">
+      <div className="inline-flex items-center whitespace-nowrap">
         <StarIcon />
         <span> /day</span>
       </div>
