@@ -1,24 +1,11 @@
-<svg viewBox="0 0 800 800" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <g filter="url(#a)" fill="#E8F2FF">
-    <path fill-rule="evenodd" clip-rule="evenodd" d="M587.95 527.77c4.25 54.65 4.25 80.27 4.25 108.23H465.76c0-6.1.1-11.66.22-17.31.34-17.57.7-35.88-2.15-72.87-3.76-54.15-27.08-66.19-69.96-66.19H195v-98.52h204.89c54.16 0 81.24-16.48 81.24-60.1 0-38.36-27.08-61.6-81.24-61.6H195V163h227.46C545.06 163 606 220.91 606 313.42c0 69.2-42.88 114.32-100.8 121.84 48.9 9.78 77.48 37.6 82.75 92.5Z"/>
-    <path d="M195 636v-73.45h133.7c22.33 0 27.18 16.57 27.18 26.44V636H195Z"/>
-  </g>
-  <defs>
-    <filter id="a" x="131" y="99" width="539" height="601" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
-      <feFlood flood-opacity="0" result="BackgroundImageFix"/>
-      <feColorMatrix in="SourceAlpha" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
-      <feOffset/>
-      <feGaussianBlur stdDeviation="28"/>
-      <feComposite in2="hardAlpha" operator="out"/>
-      <feColorMatrix values="0 0 0 0 0.223529 0 0 0 0 0.572549 0 0 0 0 1 0 0 0 1 0"/>
-      <feBlend in2="BackgroundImageFix" result="effect1_dropShadow_126_53"/>
-      <feColorMatrix in="SourceAlpha" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
-      <feOffset/>
-      <feGaussianBlur stdDeviation="32"/>
-      <feComposite in2="hardAlpha" operator="out"/>
-      <feColorMatrix values="0 0 0 0 0.223529 0 0 0 0 0.572549 0 0 0 0 1 0 0 0 0.9 0"/>
-      <feBlend in2="effect1_dropShadow_126_53" result="effect2_dropShadow_126_53"/>
-      <feBlend in="SourceGraphic" in2="effect2_dropShadow_126_53" result="shape"/>
-    </filter>
-  </defs>
+<svg width="144" height="144" viewBox="0 0 144 144" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect width="144" height="144" rx="72" fill="white"/>
+<g clip-path="url(#clip0_2008_2428)">
+<path d="M102.763 51.2382L102.762 51.2391V51.2401C113.767 51.2402 121.369 56.1787 119.744 62.2714L118.643 66.3973C117.017 72.4901 106.778 77.4286 95.7734 77.4286H94.6475L117.765 92.5868H80.6504L61.9629 78.163C61.2148 77.6833 60.3465 77.4286 59.459 77.4286H28.2197L31.1631 66.3954H85.8799C87.9367 66.3954 89.8519 65.4721 90.1562 64.3329H90.1572C90.4613 63.1935 89.0394 62.2694 86.9814 62.2694H32.2646L35.207 51.2382H102.763ZM54.1865 81.2362C55.2231 81.2363 55.9785 82.2245 55.71 83.2303L53.2139 92.5858H24.1768L27.2041 81.2362H54.1865Z" fill="black"/>
+</g>
+<defs>
+<clipPath id="clip0_2008_2428">
+<rect width="96" height="41.5862" fill="white" transform="translate(24 51.2069)"/>
+</clipPath>
+</defs>
 </svg>
