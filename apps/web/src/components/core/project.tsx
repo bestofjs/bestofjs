@@ -6,26 +6,31 @@ type Props = {
   value: number;
 };
 
-export const DownloadCount = ({ value }: Props) => {
+export function DownloadCount({ value }: Props) {
   if (value === undefined) {
     return <div className="star-delta text-sm">N/A</div>;
   }
 
   return <span>{formatNumber(value, "compact")}</span>;
-};
+}
 
-const getSign = (value: number) => {
+function getSign(value: number) {
   if (value === 0) return "";
   return value > 0 ? "+" : "-";
-};
+}
 
-export const StarDelta = ({
+export function StarDelta({
   average,
   ...props
-}: Props & { average?: boolean }) =>
-  average ? <StarDeltaAverage {...props} /> : <StarDeltaNormal {...props} />;
+}: Props & { average?: boolean }) {
+  return average ? (
+    <StarDeltaAverage {...props} />
+  ) : (
+    <StarDeltaNormal {...props} />
+  );
+}
 
-const StarDeltaNormal = ({ value }: Props) => {
+function StarDeltaNormal({ value }: Props) {
   const sign = getSign(value);
   return (
     <div className="inline-flex items-center">
@@ -40,24 +45,29 @@ const StarDeltaNormal = ({ value }: Props) => {
       )}
     </div>
   );
-};
+}
 
-export const StarDeltaAverage = ({ value }: Props) => {
-  const integerPart = Math.abs(Math.trunc(value));
-  const decimalPart = (Math.abs(value - integerPart) * 10)
-    .toFixed()
-    .slice(0, 1);
-  const sign = getSign(value);
+/** Display: integer when |value| >= 100; one decimal when |value| < 100. */
+function formatAverageStarDeltaMagnitude(value: number): string {
+  const abs = Math.abs(value);
+  if (abs >= 100) {
+    return String(Math.round(abs));
+  }
+  return (Math.round(abs * 10) / 10).toFixed(1);
+}
 
+export function StarDeltaAverage({ value }: Props) {
   if (value === undefined)
     return <div className="star-delta text-muted-foreground text-sm">N/A</div>;
+
+  const sign = getSign(value);
+  const magnitude = formatAverageStarDeltaMagnitude(value);
 
   return (
     <div className="inline-flex items-center whitespace-nowrap">
       <div>
         <span>{sign}</span>
-        <span>{integerPart}</span>
-        <span>.{decimalPart}</span>
+        <span>{magnitude}</span>
       </div>
       <div className="inline-flex items-center whitespace-nowrap">
         <StarIcon />
@@ -65,20 +75,19 @@ export const StarDeltaAverage = ({ value }: Props) => {
       </div>
     </div>
   );
-};
+}
 
-export const StarTotal = ({ value }: Props) => {
+export function StarTotal({ value }: Props) {
   return (
     <div className="inline-flex items-center">
       <span>{formatNumber(value, "compact")}</span>
       <StarIcon />
     </div>
   );
-};
+}
 
-export const getDeltaByDay =
-  (period: string) =>
-  ({ trends }: { trends: BestOfJS.Project["trends"] }) => {
+export function getDeltaByDay(period: string) {
+  function deltaForProject({ trends }: { trends: BestOfJS.Project["trends"] }) {
     const periods = {
       daily: 1,
       weekly: 7,
@@ -90,7 +99,10 @@ export const getDeltaByDay =
     const delta = trends[period as keyof BestOfJS.Project["trends"]];
     const numberOfDays = periods[period as keyof BestOfJS.Project["trends"]];
     return average(delta, numberOfDays);
-  };
+  }
+
+  return deltaForProject;
+}
 
 function average(delta: number | undefined, numberOfDays: number) {
   if (delta === undefined) return undefined; // handle recently added projects, without `yearly`, `monthly` data available
