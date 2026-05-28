@@ -24,7 +24,7 @@
     "next-devtools-mcp": "^0.3.3",
     "shadcn": "^3.5.0",
     "tsx": "catalog:",
-    "turbo": "^2.5.6",
+    "turbo": "^2.9.14",
     "typescript": "catalog:"
   },
   "private": true
