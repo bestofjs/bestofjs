@@ -41,7 +41,7 @@
     "@headlessui/react": "^1.4.0",
     "@vitejs/plugin-react": "^2.0.0",
     "cross-env": "^7.0.3",
-    "dompurify": "^3.4.0",
+    "dompurify": "^3.4.11",
     "framer-motion": "^4.1.17",
     "numeral": "^1.5.3",
     "qs": "^6.15.2",
@@ -63,7 +63,7 @@
     "unstated-next": "^1.1.0",
     "use-debounce": "^3.0.0",
     "vague-time": "^2.4.2",
-    "vite": "^6.4.2",
+    "vite": "^6.4.3",
     "vite-plugin-checker": "^0.4.9",
     "vite-plugin-html": "^3.2.0",
     "vite-tsconfig-paths": "^3.4.1"
