@@ -9,6 +9,7 @@ import {
   resolveBackupPath,
 } from "./backup-utils";
 
+// Matches `POSTGRES_DB` in docker-compose.yaml (the local dev database).
 const TARGET_DB_DEFAULT = "bestofjs-dev";
 
 main();
@@ -208,21 +209,9 @@ function swapDatabase(url: string, dbName: string): string {
   return parsed.toString();
 }
 
-/**
- * Hostnames that can never route to a remote/prod database. restore-backup is a
- * local-dev-only tool that DROPs its target, so we refuse to run against any
- * host outside this set — even on `--dryRun`, so a dry run against a stray prod
- * URL can't be mistaken for safety.
- */
-const LOCAL_HOSTS = new Set(["localhost", "127.0.0.1", "::1", "postgres"]);
-
 function assertLocalDb(url: string): void {
-  let hostname: string;
-  try {
-    hostname = new URL(url).hostname;
-  } catch {
-    throw new Error(`POSTGRES_URL is not a valid URL: ${url}`);
-  }
+  const LOCAL_HOSTS = new Set(["localhost", "127.0.0.1", "::1", "postgres"]);
+  const hostname = parseHostname(url);
   // `new URL` keeps brackets around IPv6 hostnames.
   const normalized = hostname.replace(/^\[|\]$/g, "");
   if (!LOCAL_HOSTS.has(normalized)) {
@@ -231,5 +220,14 @@ function assertLocalDb(url: string): void {
         "restore-backup DROPs its target database and is local-dev-only. " +
         `Point POSTGRES_URL at a local database (one of: ${Array.from(LOCAL_HOSTS).join(", ")}).`,
     );
+  }
+}
+
+/** Parse the hostname out of a connection URL, throwing a clear error if invalid. */
+function parseHostname(url: string): string {
+  try {
+    return new URL(url).hostname;
+  } catch {
+    throw new Error(`POSTGRES_URL is not a valid URL: ${url}`);
   }
 }
