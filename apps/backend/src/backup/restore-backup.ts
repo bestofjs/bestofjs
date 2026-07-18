@@ -75,6 +75,8 @@ async function run(flags: RunFlags, selector?: string) {
     return;
   }
 
+  assertLocalDb(url);
+
   const targetDb = flags.dbName;
   const filepath = resolveBackupPath(selector);
   if (!existsSync(filepath))
@@ -192,4 +194,30 @@ function swapDatabase(url: string, dbName: string): string {
   const parsed = new URL(url);
   parsed.pathname = `/${dbName}`;
   return parsed.toString();
+}
+
+/**
+ * Hostnames that can never route to a remote/prod database. restore-backup is a
+ * local-dev-only tool that DROPs its target, so we refuse to run against any
+ * host outside this set — even on `--dryRun`, so a dry run against a stray prod
+ * URL can't be mistaken for safety.
+ */
+const LOCAL_HOSTS = new Set(["localhost", "127.0.0.1", "::1", "postgres"]);
+
+function assertLocalDb(url: string): void {
+  let hostname: string;
+  try {
+    hostname = new URL(url).hostname;
+  } catch {
+    throw new Error(`POSTGRES_URL is not a valid URL: ${url}`);
+  }
+  // `new URL` keeps brackets around IPv6 hostnames.
+  const normalized = hostname.replace(/^\[|\]$/g, "");
+  if (!LOCAL_HOSTS.has(normalized)) {
+    throw new Error(
+      `Refusing to restore: POSTGRES_URL host "${normalized}" is not a known local host. ` +
+        "restore-backup DROPs its target database and is local-dev-only. " +
+        `Point POSTGRES_URL at a local database (one of: ${Array.from(LOCAL_HOSTS).join(", ")}).`,
+    );
+  }
 }

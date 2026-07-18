@@ -16,7 +16,9 @@ pnpm backup
 ## Restore
 
 Drop and recreate the local database, then load a `db-backup` dump into it.
-Targets the local Docker database via `.env.development` so it can never hit a remote DB.
+Targets the local Docker database via `.env.development`, and refuses to run
+against any non-local host (see `LOCAL_HOSTS` in the script), so it can never
+hit a remote DB.
 
 ```sh
 pnpm restore                  # restore the latest backup (prompts for confirmation)

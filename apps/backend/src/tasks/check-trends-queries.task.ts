@@ -225,8 +225,7 @@ const COLUMNS = {
     formatCompactNumber(p.trends?.monthly ?? null),
   yearly: (p: ProjectWithTrends) =>
     formatCompactNumber(p.trends?.yearly ?? null),
-  downloads: (p: ProjectWithTrends) =>
-    formatCompactNumber(p.monthlyDownloads ?? 0),
+  downloads: (p: ProjectWithTrends) => formatCompactNumber(p.monthlyDownloads),
   relevance: (p: ProjectWithTrends) => roundScore(p.relevanceScore),
   popularity: (p: ProjectWithTrends) => roundScore(p.popularityScore),
   activity: (p: ProjectWithTrends) => roundScore(p.activityScore),
