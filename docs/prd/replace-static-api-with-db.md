@@ -1,5 +1,7 @@
 This is the PRD created from #371 using https://github.com/mattpocock/skills/blob/main/write-a-prd/SKILL.md
 
+> **Note:** this is a point-in-time document. The scoring formulas and sort keys have evolved since — see [docs/architecture/scoring.md](../architecture/scoring.md) for the current source of truth and the decision log.
+
 ## Problem Statement
 
 The web app loads a static `projects.json` (~2,000 projects) built once daily, queries it in-memory using `mingo`, and computes star trends per-request via `computeTrends()` on raw snapshots. This has hard limits:

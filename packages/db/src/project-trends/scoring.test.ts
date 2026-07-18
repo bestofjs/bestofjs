@@ -2,20 +2,28 @@ import { computeRelevanceScore, computeUsageScore } from "./scoring";
 import { describe, expect, test } from "bun:test";
 
 describe("computeUsageScore", () => {
-  test("anchor: 10M downloads → 100", () => {
-    expect(computeUsageScore(10_000_000)).toBeCloseTo(100, 6);
+  test("anchor: 2B downloads → 100 (the ceiling)", () => {
+    expect(computeUsageScore(2_000_000_000)).toBeCloseTo(100, 6);
   });
 
-  test("anchor: 1M downloads → 80", () => {
-    expect(computeUsageScore(1_000_000)).toBeCloseTo(80, 6);
+  test("anchor: 1B downloads → ~96", () => {
+    expect(computeUsageScore(1_000_000_000)).toBeCloseTo(95.88, 1);
   });
 
-  test("anchor: 100k downloads → 60", () => {
-    expect(computeUsageScore(100_000)).toBeCloseTo(60, 6);
+  test("anchor: 100M downloads → ~82", () => {
+    expect(computeUsageScore(100_000_000)).toBeCloseTo(82.18, 1);
   });
 
-  test("anchor: 10k downloads → 40", () => {
-    expect(computeUsageScore(10_000)).toBeCloseTo(40, 6);
+  test("anchor: 10M downloads → ~68", () => {
+    expect(computeUsageScore(10_000_000)).toBeCloseTo(68.48, 1);
+  });
+
+  test("anchor: 1M downloads → ~55", () => {
+    expect(computeUsageScore(1_000_000)).toBeCloseTo(54.79, 1);
+  });
+
+  test("anchor: 10k downloads → ~27", () => {
+    expect(computeUsageScore(10_000)).toBeCloseTo(27.39, 1);
   });
 
   test("clamps below 100 floor (no/zero downloads → 0)", () => {
@@ -25,9 +33,9 @@ describe("computeUsageScore", () => {
     expect(computeUsageScore(50)).toBe(0); // below 100, clamped to 0
   });
 
-  test("clamps above 10M ceiling (>10M → 100)", () => {
-    expect(computeUsageScore(100_000_000)).toBe(100);
-    expect(computeUsageScore(1_000_000_000)).toBe(100);
+  test("clamps above the 2B ceiling", () => {
+    expect(computeUsageScore(5_000_000_000)).toBe(100);
+    expect(computeUsageScore(20_000_000_000)).toBe(100);
   });
 
   test("monotonic — more downloads ranks higher", () => {
@@ -68,7 +76,7 @@ describe("computeRelevanceScore", () => {
     expect(score).toBeCloseTo(73, 6);
   });
 
-  test("deprecated malus is exactly -20", () => {
+  test("deprecated malus is exactly -17", () => {
     const inputs = {
       popularityScore: 50,
       activityScore: 50,
@@ -76,18 +84,29 @@ describe("computeRelevanceScore", () => {
     } as const;
     const active = computeRelevanceScore(inputs);
     const deprecated = computeRelevanceScore({ ...inputs, isDeprecated: true });
-    expect(active - deprecated).toBeCloseTo(20, 6);
+    expect(active - deprecated).toBeCloseTo(17, 6);
   });
 
-  test("deprecated with strong NPM usage clears the floor (≥ 0)", () => {
-    // 10M downloads → usage 100, no popularity/activity, deprecated
+  test("deprecated with strong NPM usage (~10M downloads) clears the floor (≥ 0)", () => {
+    // usage 68 ≈ 10M monthly downloads, no popularity/activity, deprecated
     const score = computeRelevanceScore({
       popularityScore: 0,
       activityScore: 0,
-      usageScore: 100,
+      usageScore: 68,
       isDeprecated: true,
     });
-    expect(score).toBeGreaterThanOrEqual(0); // 0 + 0 + 25 - 20 = 5
+    expect(score).toBeGreaterThanOrEqual(0); // 0 + 0 + 17 - 17 = 0
+  });
+
+  test("deprecated with moderate NPM usage falls below the floor", () => {
+    // usage 60 ≈ 2.4M monthly downloads
+    const score = computeRelevanceScore({
+      popularityScore: 0,
+      activityScore: 0,
+      usageScore: 60,
+      isDeprecated: true,
+    });
+    expect(score).toBeLessThan(0); // 0 + 0 + 15 - 17 = -2
   });
 
   test("deprecated with no signal falls below the floor", () => {

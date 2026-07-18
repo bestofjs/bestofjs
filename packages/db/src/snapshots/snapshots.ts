@@ -3,11 +3,8 @@ import { and, eq } from "drizzle-orm";
 import { groupBy, isEqual, orderBy, pick } from "es-toolkit";
 
 import type { DB } from "..";
-import {
-  flattenSnapshots,
-  type MonthSnapshots,
-  type OneYearSnapshots,
-} from "../projects";
+import type { MonthSnapshots, OneYearSnapshots } from "../projects";
+import { flattenSnapshots } from "../projects/project-helpers";
 import * as schema from "../schema";
 import type { Snapshot } from "./types";
 import { normalizeDate } from "./utils";

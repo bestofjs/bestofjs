@@ -95,3 +95,4 @@ pnpm biome check --write .   # Auto-fix formatting/lint issues
 - `docs/architecture/overview.md` — full system design
 - `docs/architecture/backend-app.md` — task system and data collection
 - `docs/architecture/web-app.md` — frontend architecture
+- `docs/architecture/scoring.md` — project scoring formulas, calibration decisions, and how to tune them

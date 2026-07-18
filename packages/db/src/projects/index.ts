@@ -1,6 +1,7 @@
 export * from "./create";
 export * from "./find";
 export * from "./find-featured";
+export * from "./find-with-trends";
 export * from "./get";
 export * from "./packages";
 export * from "./project-helpers";

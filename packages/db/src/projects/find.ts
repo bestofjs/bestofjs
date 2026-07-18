@@ -122,7 +122,7 @@ export async function findProjects({
 }
 
 /** Select project IDs that have ALL the requested tags */
-function getWhereClauseSearchByTag(db: DB, tagCodes: string[]) {
+export function getWhereClauseSearchByTag(db: DB, tagCodes: string[]) {
   return inArray(
     projects.id,
     db
@@ -135,7 +135,7 @@ function getWhereClauseSearchByTag(db: DB, tagCodes: string[]) {
   );
 }
 
-function getWhereClauseSearchByText(text: string) {
+export function getWhereClauseSearchByText(text: string) {
   return or(
     ilike(projects.name, `%${text}%`),
     ilike(projects.description, `%${text}%`),
