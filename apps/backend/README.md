@@ -47,3 +47,15 @@ Some flag are available at the global level (for all tasks):
 Additional flags can be available at the task level, the task definition will get extra `flags` and `schema` parameters to handle them.
 
 Check the `--help` command related to each task for more details.
+
+## Manual tests
+
+The `check-trends-queries` task is a manual test for the web listing queries (`findProjectsWithTrends()` in `@repo/db`), to be run against the local or production database. It prints the query results and checks invariants on real data: the relevance floor, the sort order (`NULLS LAST`), and the tag filter.
+
+```sh
+pnpm -F backend check-trends-queries
+bun run apps/backend/src/cli.ts check-trends-queries --sort most-used --tags react,ui
+bun run apps/backend/src/cli.ts check-trends-queries --search jquery --fullCatalog
+```
+
+The task exits with a warning if any invariant is violated.

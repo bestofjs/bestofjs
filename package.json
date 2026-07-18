@@ -4,6 +4,7 @@
   "description": "Best of JS monorepo",
   "scripts": {
     "backup": "NODE_ENV=production bun run ./apps/backend/src/backup/make-backup.ts",
+    "restore": "dotenv -e .env.development -- bun run ./apps/backend/src/backup/restore-backup.ts",
     "build": "turbo run build -F=!legacy",
     "lint": "turbo run lint -F=!legacy",
     "typecheck": "turbo run typecheck -F=!legacy",

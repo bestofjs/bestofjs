@@ -6,6 +6,7 @@ import { createTaskRunner } from "./task-runner";
 import type { Task } from "./task-types";
 import { buildMonthlyRankingsTask } from "./tasks/build-monthly-rankings.task";
 import { buildStaticApiTask } from "./tasks/build-static-api.task";
+import { checkTrendsQueriesTask } from "./tasks/check-trends-queries.task";
 import { cleanupRepoTrendsTask } from "./tasks/cleanup-repo-trends.task";
 import {
   helloWorldHallOfFameTask,
@@ -42,6 +43,7 @@ const commands = [
   cleanupRepoTrendsTask,
   updateRepoTrendsTask,
   updateProjectTrendsTask,
+  checkTrendsQueriesTask,
   buildMonthlyRankingsTask,
   buildRisingStarsTask,
   cleanupRisingStars,
