@@ -163,8 +163,12 @@ async function restoreDump(
     console.log(`  psql ${targetUrl} < ${filepath}`);
     return;
   }
-  // ON_ERROR_STOP=0 so owner/permission warnings from the dump don't abort the load.
-  await runPsql([targetUrl, "-v", "ON_ERROR_STOP=0"], { stdinFile: filepath });
+  // ON_ERROR_STOP=1 so any real restore error (corrupt dump, failed CREATE, missing
+  // extension) aborts psql with a non-zero exit code that runPsql surfaces, instead of
+  // being swallowed and reported as a successful partial restore. The dump's OWNER
+  // clauses target the `default` role, which nukeDatabase creates first, and psql
+  // NOTICE/WARNING messages never abort regardless of this setting.
+  await runPsql([targetUrl, "-v", "ON_ERROR_STOP=1"], { stdinFile: filepath });
 }
 
 async function runPsql(
