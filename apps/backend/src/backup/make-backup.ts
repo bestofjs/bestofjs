@@ -1,7 +1,8 @@
-import { existsSync, readdirSync } from "node:fs";
 import path from "node:path";
 import consola from "consola";
 import prettyMs from "pretty-ms";
+
+import { getBackupFolderFullPath, getNextBackupFilename } from "./backup-utils";
 
 main();
 
@@ -12,7 +13,7 @@ async function main() {
   const nextBackupFilename = getNextBackupFilename();
   console.log(nextBackupFilename);
 
-  const filepath = path.join(getFolderFullPath(), nextBackupFilename);
+  const filepath = path.join(getBackupFolderFullPath(), nextBackupFilename);
   await launchBackupCommand(url, filepath);
 }
 
@@ -29,40 +30,4 @@ async function launchBackupCommand(dbURL: string, filepath: string) {
   } catch (error) {
     consola.error("Backup failed", error);
   }
-}
-
-function getFolderFullPath() {
-  const year = new Date().getFullYear();
-  return path.join(process.cwd(), "db-backup", year.toString());
-}
-
-function getNextBackupFilename() {
-  const nextBackupNumber = getNextBackupNumber();
-  const formattedNumber = nextBackupNumber.toString().padStart(3, "0");
-  return `backup-${formattedNumber}.sql`;
-}
-
-function getNextBackupNumber() {
-  const fileNames = getPreviousBackupFilenames();
-  const lastFileName = fileNames.at(-1);
-  if (!lastFileName) return 1;
-  const lastBackupNumber = extractBackupNumber(lastFileName);
-  if (!lastBackupNumber) {
-    throw new Error("Invalid backup filename");
-  }
-  return lastBackupNumber + 1;
-}
-
-function getPreviousBackupFilenames() {
-  const filepath = getFolderFullPath();
-  if (!existsSync(filepath))
-    throw new Error(`Backup folder not found: ${filepath}`);
-  const fileNames = readdirSync(filepath);
-  fileNames.sort();
-  return fileNames;
-}
-
-function extractBackupNumber(fileName: string): number | null {
-  const match = fileName.match(/backup-(\d+)\.sql/);
-  return match ? parseInt(match[1], 10) : null;
 }
