@@ -3,7 +3,8 @@ import slugify from "slugify";
 import invariant from "tiny-invariant";
 
 import { TAGS_EXCLUDED_FROM_RANKINGS } from "../constants";
-import { computeTrends, getMonthlyTrends } from "../snapshots/index";
+import { computeTrends } from "../snapshots/compute-trends";
+import { getMonthlyTrends } from "../snapshots/monthly-trends";
 import type { OneYearSnapshots, ProjectDetails } from ".";
 
 export function getProjectDescription(project: ProjectDetails) {

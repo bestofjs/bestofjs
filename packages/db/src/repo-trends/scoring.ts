@@ -1,23 +1,35 @@
 type RepoTrendDeltas = {
-  daily?: number;
-  monthly?: number;
-  yearly?: number;
+  daily?: number | null;
+  weekly?: number | null;
+  monthly?: number | null;
+  yearly?: number | null;
 };
 
 /**
- * Signed log-scale blend of star momentum across daily, monthly, and yearly windows.
+ * Signed log-scale blend of star momentum over the monthly and yearly windows.
  * Range ~ -100 to +100. Used as the sort key for "trending".
  *
- * raw = yearly + monthly*6 + daily*180
+ * raw = yearly + monthly*6
  * score = sign(raw) * log10(1 + |raw| / 10) * 30
+ *
+ * Daily and weekly deltas are deliberately excluded: GitHub stars have
+ * mysterious one-day spikes (spam-account purges, viral bursts) that would
+ * otherwise outweigh a whole year of genuine growth. They are only used as
+ * a fallback for repos tracked for less than a month (no monthly delta yet),
+ * extrapolating the freshest window available: weekly*4, then daily*30.
  */
 export function computePopularityScore(trends: RepoTrendDeltas): number {
   const yearly = trends.yearly ?? 0;
-  const monthly = trends.monthly ?? 0;
-  const daily = trends.daily ?? 0;
-  const raw = yearly + monthly * 6 + daily * 180;
+  const monthly = trends.monthly ?? estimateMonthlyDelta(trends);
+  const raw = yearly + monthly * 6;
   if (raw === 0) return 0;
   return Math.sign(raw) * Math.log10(1 + Math.abs(raw) / 10) * 30;
+}
+
+function estimateMonthlyDelta({ weekly, daily }: RepoTrendDeltas): number {
+  if (weekly != null) return weekly * 4;
+  if (daily != null) return daily * 30;
+  return 0;
 }
 
 type ActivityInputs = {

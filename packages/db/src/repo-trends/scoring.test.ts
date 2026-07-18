@@ -60,6 +60,37 @@ describe("computePopularityScore", () => {
     });
     expect(a).toBeCloseTo(b, 6);
   });
+
+  test("a one-day spike or purge does not affect the score", () => {
+    // TanStack Query profile: -30 stars yesterday (spam purge) but healthy
+    // monthly/yearly growth — the daily delta must be ignored
+    const purgeDay = computePopularityScore({
+      daily: -30,
+      weekly: -16,
+      monthly: 164,
+      yearly: 4100,
+    });
+    const normalDay = computePopularityScore({
+      daily: 26,
+      weekly: 180,
+      monthly: 164,
+      yearly: 4100,
+    });
+    expect(purgeDay).toBeCloseTo(normalDay, 6);
+    expect(purgeDay).toBeGreaterThan(50);
+  });
+
+  test("young repo without monthly data: extrapolates from weekly", () => {
+    const estimated = computePopularityScore({ daily: 100, weekly: 250 });
+    const fullMonth = computePopularityScore({ monthly: 1000 });
+    expect(estimated).toBeCloseTo(fullMonth, 6);
+  });
+
+  test("young repo on day one: extrapolates from daily", () => {
+    const score = computePopularityScore({ daily: 40 });
+    expect(score).toBeGreaterThan(0);
+    expect(score).toBeCloseTo(computePopularityScore({ monthly: 1200 }), 6);
+  });
 });
 
 describe("computeActivityScore", () => {

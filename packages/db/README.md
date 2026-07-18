@@ -41,3 +41,13 @@ To generate migration files after updating the schema file (this will run `drizz
 ```sh
 pnpm -F db generate
 ```
+
+## Tests
+
+Unit tests cover the pure functions (scoring formulas, snapshot logic) and never touch the database:
+
+```sh
+pnpm -F db test
+```
+
+Database queries are checked manually against real data (local or production) with the `check-trends-queries` task in `apps/backend` — see the backend README.

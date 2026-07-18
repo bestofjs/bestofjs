@@ -19,3 +19,15 @@ export const findProjectsSortSchema = z.array(
 );
 
 export type ProjectsSortableColumnName = z.infer<typeof columnIdsSchema>;
+
+/** Sort options for the trends-backed queries used by the public web app */
+export const trendsSortKeySchema = z.enum([
+  "trending",
+  "hot-today",
+  "most-stars",
+  "most-active",
+  "most-used",
+  "newest",
+]);
+
+export type TrendsSortKey = z.infer<typeof trendsSortKeySchema>;

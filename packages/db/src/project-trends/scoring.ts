@@ -1,14 +1,20 @@
 /**
- * Log10 of monthly downloads, scaled into 0–100. Used as the sort key for "most used".
+ * Log10 of monthly downloads, scaled into 0–100. Feeds the relevance blend;
+ * the "most used" sort uses raw monthly downloads, not this score.
  *
- * score = max(0, min(100, (log10(downloads) - 2) * 20))
+ * score = max(0, min(100, (log10(downloads) - 2) * slope))
  *
- * Anchors: 100 downloads → 0, 10k → 40, 100k → 60, 1M → 80, 10M → 100.
+ * The slope is calibrated so that 100 downloads → 0 and 2 billion → 100,
+ * the ceiling only the most downloaded npm packages approach.
+ * Anchors: 10k → ~27, 1M → ~55, 10M → ~68, 100M → ~82, 1B → ~96.
  * No or zero downloads → 0.
  */
+const MAX_MONTHLY_DOWNLOADS = 2_000_000_000;
+const USAGE_SLOPE = 100 / (Math.log10(MAX_MONTHLY_DOWNLOADS) - 2);
+
 export function computeUsageScore(monthlyDownloads: number | null | undefined) {
   if (!monthlyDownloads || monthlyDownloads <= 0) return 0;
-  const raw = (Math.log10(monthlyDownloads) - 2) * 20;
+  const raw = (Math.log10(monthlyDownloads) - 2) * USAGE_SLOPE;
   return Math.max(0, Math.min(100, raw));
 }
 
@@ -19,7 +25,8 @@ export function computeUsageScore(monthlyDownloads: number | null | undefined) {
  *
  *   with package:    0.50 * popularity + 0.25 * activity + 0.25 * usage
  *   no package:      0.65 * popularity + 0.35 * activity
- *   minus 20 if deprecated.
+ *   minus 17 if deprecated — calibrated so a deprecated project needs
+ *   usage ≥ 68 (~10M monthly downloads) to stay above the `>= 0` floor.
  */
 export function computeRelevanceScore({
   popularityScore,
@@ -36,5 +43,5 @@ export function computeRelevanceScore({
   const blend = hasPackage
     ? popularityScore * 0.5 + activityScore * 0.25 + usageScore * 0.25
     : popularityScore * 0.65 + activityScore * 0.35;
-  return isDeprecated ? blend - 20 : blend;
+  return isDeprecated ? blend - 17 : blend;
 }
