@@ -143,16 +143,17 @@ async function nukeDatabase(
   ];
 
   consola.info("Dropping and recreating database...");
-  if (dryRun) {
-    for (const statement of sql) console.log(`  psql -c ${statement}`);
-    return;
-  }
-
   const args = ["-v", "ON_ERROR_STOP=1"];
   for (const statement of sql) {
     args.push("-c", statement);
   }
-  await runPsql([maintenanceUrl, ...args]);
+  const fullArgs = [maintenanceUrl, ...args];
+  if (dryRun) {
+    console.log(`  ${shellCommand("psql", fullArgs)}`);
+    return;
+  }
+
+  await runPsql(fullArgs);
 }
 
 async function restoreDump(
@@ -161,8 +162,9 @@ async function restoreDump(
   dryRun: boolean,
 ) {
   consola.info("Restoring dump...");
+  const args = [targetUrl, "-v", "ON_ERROR_STOP=1"];
   if (dryRun) {
-    console.log(`  psql ${targetUrl} < ${filepath}`);
+    console.log(`  ${shellCommand("psql", args)} < ${shellQuote(filepath)}`);
     return;
   }
   // ON_ERROR_STOP=1 so any real restore error (corrupt dump, failed CREATE, missing
@@ -170,7 +172,7 @@ async function restoreDump(
   // being swallowed and reported as a successful partial restore. The dump's OWNER
   // clauses target the `default` role, which nukeDatabase creates first, and psql
   // NOTICE/WARNING messages never abort regardless of this setting.
-  await runPsql([targetUrl, "-v", "ON_ERROR_STOP=1"], { stdinFile: filepath });
+  await runPsql(args, { stdinFile: filepath });
 }
 
 async function runPsql(
@@ -187,6 +189,16 @@ async function runPsql(
   if (exitCode !== 0) {
     throw new Error(`psql exited with code ${exitCode}`);
   }
+}
+
+/** Shell-quote a single arg so it survives copy/paste into a POSIX shell. */
+function shellQuote(arg: string): string {
+  return `'${arg.replace(/'/g, "'\\''")}'`;
+}
+
+/** Render `command` + `args` as a copy-pasteable shell command matching `Bun.spawn`. */
+function shellCommand(command: string, args: string[]): string {
+  return [command, ...args.map(shellQuote)].join(" ");
 }
 
 /** Return a copy of `url` pointing at `dbName` (replaces the path segment). */
