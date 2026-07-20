@@ -46,9 +46,20 @@ export const trendsSortOrderOptions: TrendsSortOption[] = [
     shortLabel: "Active",
   },
   {
-    key: "most-used",
-    label: "Most used (NPM downloads)",
-    shortLabel: "Downloads",
+    key: "last-commit",
+    label: "By date of the latest commit",
+  },
+  {
+    key: "contributors",
+    label: "By number of contributors",
+  },
+  {
+    key: "monthly-downloads",
+    label: "By downloads the last 30 days",
+  },
+  {
+    key: "created",
+    label: "By date of creation (Oldest first)",
   },
   {
     key: "newest",

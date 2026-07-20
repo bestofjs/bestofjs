@@ -29,7 +29,10 @@ export const trendsSortKeySchema = z.enum([
   "yearly",
   "most-stars",
   "most-active",
-  "most-used",
+  "last-commit",
+  "contributors",
+  "monthly-downloads",
+  "created",
   "newest",
 ]);
 

@@ -192,7 +192,7 @@ export const ProjectScore = ({
   }
 
   const showDelta = ["daily", "weekly", "monthly", "yearly"].includes(sort);
-  const showDownloads = sort === "monthly-downloads" || sort === "most-used";
+  const showDownloads = sort === "monthly-downloads";
 
   if (showDelta) {
     const value = getDeltaByDay(sort)(project);

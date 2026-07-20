@@ -22,9 +22,13 @@ const sortExpressionByKey: Record<TrendsSortKey, SQL> = {
   yearly: sql`${repoTrends.yearly}`,
   "most-stars": starsExpression,
   "most-active": sql`${repoTrends.activityScore}`,
+  "last-commit": sql`${repos.last_commit}`,
+  contributors: sql`${repos.contributor_count}`,
   // raw downloads, not `usage_score`: the log-scale score buckets projects
   // together (ties), raw counts give an exact order
-  "most-used": sql`${projectTrends.monthlyDownloads}`,
+  "monthly-downloads": sql`${projectTrends.monthlyDownloads}`,
+  // ascending: oldest GitHub repo first (see `getOrderByQuery`)
+  created: sql`${repos.created_at}`,
   newest: sql`${projects.createdAt}`,
 };
 
@@ -92,6 +96,7 @@ export async function findProjectsWithTrends({
         archived: repos.archived,
         last_commit: repos.last_commit,
         contributor_count: repos.contributor_count,
+        created_at: repos.created_at,
       },
       stars: starsExpression,
       trends: {
@@ -138,10 +143,16 @@ export async function findProjectsWithTrends({
 
 function getOrderByQuery(sort: TrendsSortKey) {
   const expression = sortExpressionByKey[sort];
+  const primary =
+    // "created" is the one sort that means "oldest first"; `repos.created_at`
+    // is NOT NULL so no nulls-handling is needed. Every other sort is
+    // descending, with `NULLS LAST` keeping projects without a `repo_trends`
+    // row (deprecated) at the bottom instead of the top.
+    sort === "created"
+      ? sql`${expression} asc`
+      : sql`${expression} desc nulls last`;
   return [
-    // Every sort option is descending; `NULLS LAST` keeps projects without
-    // a `repo_trends` row (deprecated) at the bottom instead of the top.
-    sql`${expression} desc nulls last`,
+    primary,
     // Tiebreaker to make pagination deterministic
     sql`${projects.slug} asc`,
   ];

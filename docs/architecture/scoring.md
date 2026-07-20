@@ -57,7 +57,7 @@ Calibrated so **100 requires 2 billion downloads/month** — a ceiling only the 
 
 The original slope (100 at 10M/month) saturated hundreds of popular packages at 100.
 
-**Not a sort key:** the **Most used** sort orders by raw `monthly_downloads`. Any log-scale score buckets projects into ties (the listing then degrades to alphabetical order); raw counts give an exact order. The score only feeds the relevance blend, where clamping is harmless.
+**Not a sort key:** the **Monthly downloads** sort orders by raw `monthly_downloads`. Any log-scale score buckets projects into ties (the listing then degrades to alphabetical order); raw counts give an exact order. The score only feeds the relevance blend, where clamping is harmless.
 
 ## `relevance_score` — the quality floor
 
@@ -83,16 +83,23 @@ Because deprecated repos have no `repo_trends` row, the listing query (`findProj
 | Monthly | `repo_trends.monthly` |
 | Yearly | `repo_trends.yearly` |
 | Trending | `repo_trends.popularity_score` |
+| Monthly downloads | `project_trends.monthly_downloads` |
+| Last commit | `repos.last_commit` |
+| Contributors | `repos.contributor_count` |
 | Most active | `repo_trends.activity_score` |
-| Most used | `project_trends.monthly_downloads` |
+| Created (oldest first) | `repos.created_at` |
 | Newest | `projects.created_at` |
 
-All descending, `NULLS LAST`, tie-broken by `slug ASC` for deterministic pagination. Weekly/Monthly/
-Yearly restore the pre-migration per-window star-delta sorts alongside Trending's blended score;
-their metric column shows the plain per-day average for that window (`getDeltaByDay()` + `StarDelta`
-on the web app), while Trending's column shows the freshest raw delta available (yearly, falling
-back to monthly then daily) rather than the score itself, since sorting by a metric should display
-that metric.
+All descending except **Created**, which is ascending (oldest GitHub repo first — the one
+pre-migration sort that inverts direction); `NULLS LAST`, tie-broken by `slug ASC` for deterministic
+pagination. Weekly/Monthly/Yearly restore the pre-migration per-window star-delta sorts alongside
+Trending's blended score; their metric column shows the plain per-day average for that window
+(`getDeltaByDay()` + `StarDelta` on the web app), while Trending's column shows the freshest raw
+delta available (yearly, falling back to monthly then daily) rather than the score itself, since
+sorting by a metric should display that metric. **Last commit** and **Contributors** are raw signals
+kept alongside — not instead of — the blended **Most active** score; they sort by `repos.last_commit`
+/`repos.contributor_count` directly with no metric-column treatment (same as pre-migration, where
+these two, like most other sorts, just displayed the star count).
 
 ## How to tune
 
@@ -102,6 +109,14 @@ that metric.
 
 ## Decision log
 
+- **2026-07-20** — Restored the remaining pre-migration sort keys dropped by the initial DB
+  migration: **Monthly downloads** (renamed back from `"most-used"` — same underlying data, just the
+  literal old key, matching the `daily` rename below), and **Last commit** / **Contributors** /
+  **Created** as their own standalone sorts (`repos.last_commit`, `repos.contributor_count`,
+  `repos.created_at`, all already joined in `findProjectsWithTrends()`). Last commit/Contributors sit
+  alongside — not instead of — the blended **Most active** score, which was a deliberate
+  consolidation the PRD made; that design intent is preserved, these are additive. Created is
+  ascending (oldest first), the one sort that inverts direction.
 - **2026-07-20** — Renamed the `"hot-today"` sort key to `"daily"` for consistency with
   `weekly`/`monthly`/`yearly` (all four now use their literal pre-migration key names). Caught
   because `/projects?sort=daily` — a valid URL on the pre-migration page — silently fell back to the

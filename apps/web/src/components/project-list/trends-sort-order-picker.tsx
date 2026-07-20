@@ -19,9 +19,10 @@ const sortOptionGroups: TrendsSortKey[][] = [
   ["most-stars"],
   ["daily", "weekly", "monthly", "yearly"],
   ["trending"],
+  ["monthly-downloads"],
+  ["last-commit", "contributors"],
   ["most-active"],
-  ["most-used"],
-  ["newest"],
+  ["created", "newest"],
 ];
 
 type Props = {

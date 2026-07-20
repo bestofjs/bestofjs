@@ -169,7 +169,8 @@ function ProjectScore({
   project: TrendsProject;
   sortOptionKey: TrendsSortKey;
 }) {
-  const { created_at, pushed_at, downloads, trends } = project;
+  const { created_at, pushed_at, contributor_count, downloads, trends } =
+    project;
   switch (sortOptionKey) {
     case "trending": {
       // Same freshest-window fallback used in the /projects table: no single
@@ -191,11 +192,13 @@ function ProjectScore({
       return <ShowStarsAverage value={getDeltaByDay("yearly")(project)} />;
     case "most-active":
       return <Box>{pushed_at}</Box>;
-    case "most-used":
+    case "contributors":
+      return <Box>{formatNumber(contributor_count, "compact")}</Box>;
+    case "monthly-downloads":
       return <Box>{formatNumber(downloads, "compact")}</Box>;
     case "newest":
       return <Box>{created_at}</Box>;
-    default: // "most-stars"
+    default: // "most-stars", "last-commit", "created"
       return <ShowStarsTotal value={project.stars} />;
   }
 }
