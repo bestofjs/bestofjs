@@ -22,7 +22,7 @@ score = sign(raw) * log10(1 + |raw| / 10) * 30
 
 Range ~ −100 to +100 (raw +1000/year ≈ 60, +10k/year ≈ 90). Sort key for **Trending**.
 
-**Why daily and weekly are excluded:** GitHub stars have mysterious one-day spikes and drops — spam-account purges, viral bursts. The original formula (`yearly + monthly*6 + daily*180`) let a single day outweigh a year: TanStack Query, at +4.1K stars/year, scored **−46.8** because of one −30 purge day (`−30 × 180 = −5400` vs `4100 + 984` of genuine growth). Monthly and yearly windows dilute this noise. The daily signal keeps its own dedicated sort ("Hot today").
+**Why daily and weekly are excluded:** GitHub stars have mysterious one-day spikes and drops — spam-account purges, viral bursts. The original formula (`yearly + monthly*6 + daily*180`) let a single day outweigh a year: TanStack Query, at +4.1K stars/year, scored **−46.8** because of one −30 purge day (`−30 × 180 = −5400` vs `4100 + 984` of genuine growth). Monthly and yearly windows dilute this noise. The daily signal keeps its own dedicated sort ("Daily").
 
 **Young-repo fallback:** repos tracked for less than a month have no monthly delta yet. The monthly momentum is then extrapolated from the freshest window available — `weekly*4`, then `daily*30` — so a hot new project still surfaces in "Trending" during its first weeks. Once a real monthly delta exists, daily/weekly are ignored entirely.
 
@@ -77,14 +77,22 @@ Because deprecated repos have no `repo_trends` row, the listing query (`findProj
 
 | UI label | ORDER BY |
 |---|---|
+| Most stars (default) | `COALESCE(repo_trends.stars, repos.stars)` |
+| Daily | `repo_trends.daily` |
+| Weekly | `repo_trends.weekly` |
+| Monthly | `repo_trends.monthly` |
+| Yearly | `repo_trends.yearly` |
 | Trending | `repo_trends.popularity_score` |
-| Hot today | `repo_trends.daily` |
-| Most stars | `COALESCE(repo_trends.stars, repos.stars)` |
 | Most active | `repo_trends.activity_score` |
 | Most used | `project_trends.monthly_downloads` |
 | Newest | `projects.created_at` |
 
-All descending, `NULLS LAST`, tie-broken by `slug ASC` for deterministic pagination.
+All descending, `NULLS LAST`, tie-broken by `slug ASC` for deterministic pagination. Weekly/Monthly/
+Yearly restore the pre-migration per-window star-delta sorts alongside Trending's blended score;
+their metric column shows the plain per-day average for that window (`getDeltaByDay()` + `StarDelta`
+on the web app), while Trending's column shows the freshest raw delta available (yearly, falling
+back to monthly then daily) rather than the score itself, since sorting by a metric should display
+that metric.
 
 ## How to tune
 
@@ -94,5 +102,16 @@ All descending, `NULLS LAST`, tie-broken by `slug ASC` for deterministic paginat
 
 ## Decision log
 
+- **2026-07-20** — Renamed the `"hot-today"` sort key to `"daily"` for consistency with
+  `weekly`/`monthly`/`yearly` (all four now use their literal pre-migration key names). Caught
+  because `/projects?sort=daily` — a valid URL on the pre-migration page — silently fell back to the
+  default instead of sorting by the daily delta, since only this one key had been renamed.
+- **2026-07-20** — Restored **Weekly**/**Monthly**/**Yearly** as their own sort options (dropped in
+  the initial DB migration in favor of the blended Trending score alone) after user feedback that it
+  was a real capability loss versus the pre-migration listing. Default sort changed from Trending to
+  **Most stars** (Trending as a default was judged too obscure). Trending's and Most active's metric
+  columns changed from showing the raw computed score (e.g. "98.3", "84") to showing a recognizable
+  signal instead — Trending shows the freshest star-delta window available, Most active shows "last
+  commit N days ago" — since sorting by a metric should display that metric.
 - **2026-07-18** — `usage_score` recalibrated from "100 at 10M downloads/month" to "100 at 2B/month" (score saturation caused alphabetical ties); **Most used** sort switched from `usage_score` to raw `monthly_downloads`; deprecated malus adjusted −20 → −17 to preserve the ~10M visibility threshold; `popularity_score` blend changed from `yearly + monthly*6 + daily*180` to `yearly + monthly*6` with a weekly/daily extrapolation fallback for repos tracked < 1 month (one-day GitHub star purges were dominating the score — the TanStack Query case).
 - **2026-05** (tasks 1–2, issues #422/#423) — initial scoring system per the [PRD](../prd/replace-static-api-with-db.md).

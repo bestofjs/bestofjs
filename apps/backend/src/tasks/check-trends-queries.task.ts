@@ -30,8 +30,8 @@ export const checkTrendsQueriesTask = createTask({
     sort: {
       type: String,
       description:
-        "Sort option: trending, hot-today, most-stars, most-active, most-used, newest",
-      default: "trending",
+        "Sort option: trending, daily, weekly, monthly, yearly, most-stars, most-active, most-used, newest",
+      default: "most-stars",
     },
     tags: {
       type: String,
@@ -60,7 +60,7 @@ export const checkTrendsQueriesTask = createTask({
     },
   },
   schema: z.object({
-    sort: trendsSortKeySchema.optional().default("trending"),
+    sort: trendsSortKeySchema.optional().default("most-stars"),
     tags: z.string().optional(),
     search: z.string().optional(),
     fullCatalog: z.boolean().optional().default(false),
@@ -182,8 +182,14 @@ function getSortValue(project: ProjectWithTrends, sort: TrendsSortKey) {
   switch (sort) {
     case "trending":
       return project.popularityScore;
-    case "hot-today":
+    case "daily":
       return project.trends?.daily ?? null;
+    case "weekly":
+      return project.trends?.weekly ?? null;
+    case "monthly":
+      return project.trends?.monthly ?? null;
+    case "yearly":
+      return project.trends?.yearly ?? null;
     case "most-stars":
       return project.stars;
     case "most-active":

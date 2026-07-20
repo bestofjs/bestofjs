@@ -1,18 +1,22 @@
 import NextLink from "next/link";
 
-import type { ProjectSearchUrlBuilder } from "@/app/projects/project-search-state";
+import type { TagFilterState } from "@/components/project-list/project-table";
 import { badgeVariants } from "@/components/ui/badge";
+import type { PageSearchUrlBuilder } from "@/lib/page-search-state";
 import { cn } from "@/lib/utils";
 
 import { ProjectTagHoverCard } from "./project-tag-hover-card";
 
-type Props = {
+type Props<T extends TagFilterState = TagFilterState> = {
   tags: BestOfJS.RawTag[];
   appendTag?: boolean;
-  buildPageURL?: ProjectSearchUrlBuilder;
+  buildPageURL?: PageSearchUrlBuilder<T>;
 };
 
-export const ProjectTagGroup = ({ tags, ...otherProps }: Props) => {
+export function ProjectTagGroup<T extends TagFilterState = TagFilterState>({
+  tags,
+  ...otherProps
+}: Props<T>) {
   return (
     <div className="-m-1 flex flex-wrap">
       {tags.map((tag) => (
@@ -22,19 +26,19 @@ export const ProjectTagGroup = ({ tags, ...otherProps }: Props) => {
       ))}
     </div>
   );
-};
+}
 
-export const ProjectTag = ({
+export function ProjectTag<T extends TagFilterState = TagFilterState>({
   tag,
   buildPageURL,
   appendTag,
   className,
 }: {
   tag: BestOfJS.RawTag;
-  buildPageURL?: Props["buildPageURL"];
+  buildPageURL?: Props<T>["buildPageURL"];
   appendTag?: boolean;
   className?: string;
-}) => {
+}) {
   const url = buildPageURL
     ? buildPageURL(
         (state) => ({
@@ -60,4 +64,4 @@ export const ProjectTag = ({
       </NextLink>
     </ProjectTagHoverCard>
   );
-};
+}

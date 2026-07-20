@@ -16,7 +16,10 @@ const starsExpression = sql<number>`COALESCE(${repoTrends.stars}, ${repos.stars}
 
 const sortExpressionByKey: Record<TrendsSortKey, SQL> = {
   trending: sql`${repoTrends.popularityScore}`,
-  "hot-today": sql`${repoTrends.daily}`,
+  daily: sql`${repoTrends.daily}`,
+  weekly: sql`${repoTrends.weekly}`,
+  monthly: sql`${repoTrends.monthly}`,
+  yearly: sql`${repoTrends.yearly}`,
   "most-stars": starsExpression,
   "most-active": sql`${repoTrends.activityScore}`,
   // raw downloads, not `usage_score`: the log-scale score buckets projects
@@ -58,7 +61,7 @@ export async function findProjectsWithTrends({
   page = 1,
   query,
   relevanceFloor = true,
-  sort = "trending",
+  sort = "most-stars",
   tagCodes,
 }: FindProjectsWithTrendsOptions) {
   const offset = (page - 1) * limit;

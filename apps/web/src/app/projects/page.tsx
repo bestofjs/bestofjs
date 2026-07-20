@@ -1,40 +1,48 @@
 import { Suspense } from "react";
 import type { Metadata } from "next";
+import { cacheLife, cacheTag } from "next/cache";
 import NextLink from "next/link";
 
+import { db } from "@repo/db";
+import { findProjectsWithTrends } from "@repo/db/projects";
+import { findRelevantTags, findTags } from "@repo/db/tags";
+
+import {
+  buildTagsByCode,
+  type TrendsProject,
+  toTrendsProject,
+} from "@/app/projects/project-adapter";
 import { PlusIcon, TagIcon, XMarkIcon } from "@/components/core";
 import { PageHeading } from "@/components/core/typography";
-import { ProjectPaginatedList } from "@/components/project-list/project-paginated-list";
-import { getSortOptionByKey } from "@/components/project-list/sort-order-options";
+import { TrendsProjectPaginatedList } from "@/components/project-list/trends-project-paginated-list";
+import { getTrendsSortOptionByKey } from "@/components/project-list/trends-sort-order-options";
 import { badgeVariants } from "@/components/ui/badge";
 import { buttonVariants } from "@/components/ui/button";
 import { APP_CANONICAL_URL, APP_DISPLAY_NAME } from "@/config/site";
 import { formatNumber } from "@/helpers/numbers";
-import { addCacheBustingParam } from "@/helpers/url";
 import { cn } from "@/lib/utils";
-import { api } from "@/server/api";
 
 import { ProjectListLoading } from "./loading-state";
 import {
-  type ProjectSearchState,
-  ProjectSearchStateParser,
-  type ProjectSearchUrlBuilder,
-} from "./project-search-state";
+  type TrendsProjectSearchState,
+  TrendsProjectSearchStateParser,
+  type TrendsProjectSearchUrlBuilder,
+} from "./trends-project-search-state";
+
+type TagSummary = { code: string; name: string };
 
 type ProjectsPageData = {
-  projects: BestOfJS.Project[];
+  projects: TrendsProject[];
   total: number;
-  selectedTags: BestOfJS.Tag[];
-  relevantTags: BestOfJS.Tag[];
-  allTags: BestOfJS.Tag[];
-  lastUpdateDate: Date;
+  selectedTags: TagSummary[];
+  relevantTags: TagSummary[];
 };
 
 type PageProps = {
   searchParams: Promise<Record<string, string | string[]>>;
 };
 
-const searchStateParser = new ProjectSearchStateParser();
+const searchStateParser = new TrendsProjectSearchStateParser();
 
 export async function generateMetadata(props: PageProps): Promise<Metadata> {
   const searchParams = await props.searchParams;
@@ -45,14 +53,12 @@ export async function generateMetadata(props: PageProps): Promise<Metadata> {
   const description = getPageDescription(data, searchState);
 
   const queryString = searchStateParser.stringify(searchState);
-  const urlSearchParams = new URLSearchParams(queryString);
-  addCacheBustingParam(urlSearchParams, data.lastUpdateDate);
 
   return {
     title,
     description,
     openGraph: {
-      images: [`api/og/projects/?${urlSearchParams.toString()}`],
+      images: [`api/og/projects/?${queryString}`],
       url: `${APP_CANONICAL_URL}/projects/?${queryString}`,
       title: `${title} • ${APP_DISPLAY_NAME}`,
       description,
@@ -60,7 +66,10 @@ export async function generateMetadata(props: PageProps): Promise<Metadata> {
   };
 }
 
-function getPageTitle(data: ProjectsPageData, searchState: ProjectSearchState) {
+function getPageTitle(
+  data: ProjectsPageData,
+  searchState: TrendsProjectSearchState,
+) {
   const { query } = searchState;
   const { selectedTags: tags } = data;
 
@@ -76,7 +85,7 @@ function getPageTitle(data: ProjectsPageData, searchState: ProjectSearchState) {
 
 function getPageDescription(
   data: ProjectsPageData,
-  searchState: ProjectSearchState,
+  searchState: TrendsProjectSearchState,
 ) {
   const { query, sort } = searchState;
   const NUMBER_OF_PROJECTS = 8;
@@ -86,8 +95,7 @@ function getPageDescription(
     .slice(0, NUMBER_OF_PROJECTS)
     .join(", ");
   const tagNames = tags.map((tag) => `“${tag.name}“`).join(" + ");
-  const sortOption = getSortOptionByKey(sort);
-  const sortOptionLabel = sortOption.label.toLowerCase();
+  const sortOptionLabel = getTrendsSortOptionByKey(sort).label.toLowerCase();
 
   if (!query && tags.length === 0) {
     return `All the ${total} projects tracked by ${APP_DISPLAY_NAME}, ${sortOptionLabel}: ${projectNames}...`;
@@ -113,7 +121,7 @@ async function ProjectsPageContent(props: PageProps) {
   const searchParams = await props.searchParams;
 
   const { searchState, buildPageURL } = searchStateParser.parse(searchParams);
-  const { projects, total, selectedTags, relevantTags, allTags } =
+  const { projects, total, selectedTags, relevantTags } =
     await fetchPageData(searchState);
 
   const { query } = searchState;
@@ -129,7 +137,6 @@ async function ProjectsPageContent(props: PageProps) {
         <CurrentTags
           tags={selectedTags}
           buildPageURL={buildPageURL}
-          allTags={allTags}
           textQuery={query}
         />
       )}
@@ -140,7 +147,7 @@ async function ProjectsPageContent(props: PageProps) {
           showIcon={selectedTags.length > 0}
         />
       )}
-      <ProjectPaginatedList
+      <TrendsProjectPaginatedList
         projects={projects}
         total={total}
         searchState={searchState}
@@ -155,8 +162,8 @@ function ProjectPageHeader({
   searchState,
   total,
 }: {
-  tags: BestOfJS.Tag[];
-  searchState: ProjectSearchState;
+  tags: TagSummary[];
+  searchState: TrendsProjectSearchState;
   total: number;
 }) {
   const { query } = searchState;
@@ -217,8 +224,8 @@ function RelevantTags({
   showIcon,
   limit = 16,
 }: {
-  tags: BestOfJS.Tag[];
-  buildPageURL: ProjectSearchUrlBuilder;
+  tags: TagSummary[];
+  buildPageURL: TrendsProjectSearchUrlBuilder;
   showIcon?: boolean;
   limit?: number;
 }) {
@@ -250,9 +257,8 @@ function CurrentTags({
   textQuery,
   buildPageURL,
 }: {
-  tags: BestOfJS.Tag[];
-  buildPageURL: ProjectSearchUrlBuilder;
-  allTags: BestOfJS.Tag[];
+  tags: TagSummary[];
+  buildPageURL: TrendsProjectSearchUrlBuilder;
   textQuery?: string;
 }) {
   return (
@@ -276,7 +282,7 @@ function CurrentTags({
       })}
       {textQuery && (
         <NextLink
-          href={buildPageURL((state: ProjectSearchState) => ({
+          href={buildPageURL((state: TrendsProjectSearchState) => ({
             ...state,
             page: 1,
             query: "",
@@ -292,28 +298,28 @@ function CurrentTags({
 }
 
 async function fetchPageData(
-  searchState: ProjectSearchState,
+  searchState: TrendsProjectSearchState,
 ): Promise<ProjectsPageData> {
-  const { tags, sort, page, limit, query } = searchState;
-  const sortOption = getSortOptionByKey(sort);
+  "use cache";
+  cacheLife("hours");
+  cacheTag("projects");
 
-  const { projects, selectedTags, relevantTags, total, lastUpdateDate } =
-    await api.projects.findProjects({
-      criteria: tags.length > 0 ? { tags: { $all: tags } } : {},
-      query,
-      sort: sortOption.sort,
-      skip: limit * (page - 1),
-      limit,
-    });
+  const { tags: tagCodes, sort, page, limit, query } = searchState;
 
-  const { tags: allTags } = await api.tags.findTags({});
+  const [{ projects: rows, total }, allTags, relevantTags] = await Promise.all([
+    findProjectsWithTrends({ db, limit, page, query, sort, tagCodes }),
+    findTags(),
+    findRelevantTags({ db, tagCodes, query }),
+  ]);
+
+  const tagsByCode = buildTagsByCode(allTags);
+  const projects = rows.map((row) => toTrendsProject(row, tagsByCode));
+  const selectedTags = allTags.filter((tag) => tagCodes.includes(tag.code));
 
   return {
     projects,
     total,
     selectedTags,
     relevantTags,
-    allTags,
-    lastUpdateDate,
   };
 }

@@ -23,7 +23,10 @@ export type ProjectsSortableColumnName = z.infer<typeof columnIdsSchema>;
 /** Sort options for the trends-backed queries used by the public web app */
 export const trendsSortKeySchema = z.enum([
   "trending",
-  "hot-today",
+  "daily",
+  "weekly",
+  "monthly",
+  "yearly",
   "most-stars",
   "most-active",
   "most-used",
