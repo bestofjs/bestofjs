@@ -184,6 +184,10 @@ export const ProjectScore = ({
   }
 
   if (sort === "most-active") {
+    // No `last_commit` (nullable, e.g. GraphQL commit-history lookup
+    // skipped/failed) → same "fully inactive" state `computeActivityScore`
+    // treats as 0, so nothing to show rather than "Invalid Date".
+    if (!project.pushed_at) return null;
     return (
       <Suspense fallback="...">
         <FromNow date={project.pushed_at} />
