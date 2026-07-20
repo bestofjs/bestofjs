@@ -20,6 +20,7 @@ import { badgeVariants } from "@/components/ui/badge";
 import { buttonVariants } from "@/components/ui/button";
 import { APP_CANONICAL_URL, APP_DISPLAY_NAME } from "@/config/site";
 import { formatNumber } from "@/helpers/numbers";
+import { addCacheBustingParam, getStartOfUtcDay } from "@/helpers/url";
 import { cn } from "@/lib/utils";
 
 import { ProjectListLoading } from "./loading-state";
@@ -53,12 +54,14 @@ export async function generateMetadata(props: PageProps): Promise<Metadata> {
   const description = getPageDescription(data, searchState);
 
   const queryString = searchStateParser.stringify(searchState);
+  const imageSearchParams = new URLSearchParams(queryString);
+  addCacheBustingParam(imageSearchParams, getStartOfUtcDay());
 
   return {
     title,
     description,
     openGraph: {
-      images: [`api/og/projects/?${queryString}`],
+      images: [`api/og/projects/?${imageSearchParams.toString()}`],
       url: `${APP_CANONICAL_URL}/projects/?${queryString}`,
       title: `${title} • ${APP_DISPLAY_NAME}`,
       description,
