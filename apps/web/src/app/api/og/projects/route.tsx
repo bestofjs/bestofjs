@@ -28,6 +28,7 @@ import {
   getTrendsSortOptionByKey,
   type TrendsSortOption,
 } from "@/components/project-list/trends-sort-order-options";
+import { fromNow } from "@/helpers/from-now";
 import { formatNumber } from "@/helpers/numbers";
 import { getSearchParamsKeyValues } from "@/lib/url-search-params";
 
@@ -191,7 +192,10 @@ function ProjectScore({
     case "yearly":
       return <ShowStarsAverage value={getDeltaByDay("yearly")(project)} />;
     case "most-active":
-      return <Box>{pushed_at}</Box>;
+      // No `last_commit` (nullable, e.g. GraphQL commit-history lookup
+      // skipped/failed) → same "fully inactive" state `computeActivityScore`
+      // treats as 0, so nothing to show rather than "Invalid Date".
+      return pushed_at ? <Box>{fromNow(pushed_at)}</Box> : null;
     case "contributors":
       return <Box>{formatNumber(contributor_count, "compact")}</Box>;
     case "monthly-downloads":
