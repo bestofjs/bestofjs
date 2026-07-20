@@ -13,6 +13,12 @@ pnpm backup
 # or: NODE_ENV=production bun run ./apps/backend/src/backup/make-backup.ts
 ```
 
+Dumps are taken with `pg_dump --no-owner --no-privileges`, so they omit
+`OWNER`/`GRANT`/`REVOKE`/`ALTER DEFAULT PRIVILEGES` clauses. This makes them
+portable: they restore cleanly into any Postgres (e.g. local Docker) without
+the source host's platform roles (Neon's `neon_superuser`, `cloud_admin`, …)
+needing to exist. The connecting user at restore time owns everything.
+
 ## Restore
 
 Drop and recreate the local database, then load a `db-backup` dump into it.
@@ -30,3 +36,16 @@ pnpm restore --yes            # skip the confirmation prompt
 ```
 
 The restore recreates the `default` role used by the dump's `OWNER` clauses, drops and recreates the target database, then pipes the SQL file into `psql`.
+
+> **Note on older dumps:** backups made before the `--no-owner --no-privileges`
+> change still contain `ALTER DEFAULT PRIVILEGES … TO neon_superuser` clauses
+> referencing Neon platform roles. Restoring those into a fresh local cluster
+> fails with `role "neon_superuser" does not exist`. Either re-take the backup
+> with `pnpm backup` (recommended), or create the roles once in the local
+> cluster before restoring:
+>
+> ```sh
+> psql "$POSTGRES_URL" \
+>   -c 'CREATE ROLE "neon_superuser" LOGIN;' \
+>   -c 'CREATE ROLE "cloud_admin" LOGIN;'
+> ```

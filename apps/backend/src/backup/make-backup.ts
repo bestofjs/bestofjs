@@ -21,9 +21,15 @@ async function launchBackupCommand(dbURL: string, filepath: string) {
   consola.box("Backup...", filepath);
   const start = Date.now();
   try {
-    const proc = Bun.spawn(["pg_dump", dbURL], {
-      stdout: Bun.file(filepath),
-    });
+    // --no-owner --no-privileges strip OWNER / GRANT / REVOKE / ALTER DEFAULT
+    // PRIVILEGES clauses so the dump is portable: it can be restored into any
+    // Postgres (e.g. local Docker) without the source host's platform roles
+    // (Neon's `neon_superuser`, `cloud_admin`, …) needing to exist. The
+    // connecting user at restore time owns everything.
+    const proc = Bun.spawn(
+      ["pg_dump", "--no-owner", "--no-privileges", dbURL],
+      { stdout: Bun.file(filepath) },
+    );
     proc.stdout;
     await proc.exited;
     consola.success("Backup done", prettyMs(Date.now() - start));
