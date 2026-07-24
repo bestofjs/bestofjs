@@ -182,7 +182,7 @@ function ProjectScore({
       ) : null;
     }
     case "daily":
-      return trends.daily ? (
+      return trends.daily !== undefined ? (
         <ShowStarsTotal value={trends.daily} showPrefix />
       ) : null;
     case "weekly":
