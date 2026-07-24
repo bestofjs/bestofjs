@@ -137,12 +137,14 @@ function ProjectTableRow<T extends TagFilterState = TagFilterState>({
 
       {showDetails && (
         <Cell className="hidden w-[180px] space-y-2 p-4 text-sm md:table-cell">
-          <div>
-            Pushed{" "}
-            <Suspense fallback="...">
-              <FromNow date={project.pushed_at} />
-            </Suspense>
-          </div>
+          {project.pushed_at ? (
+            <div>
+              Pushed{" "}
+              <Suspense fallback="...">
+                <FromNow date={project.pushed_at} />
+              </Suspense>
+            </div>
+          ) : null}
           {project.contributor_count > 0 && (
             <div>
               {formatNumber(project.contributor_count, "compact")} contributors
