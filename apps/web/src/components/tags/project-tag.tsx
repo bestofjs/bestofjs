@@ -1,3 +1,4 @@
+"use client";
 import NextLink from "next/link";
 
 import type { TagFilterState } from "@/components/project-list/project-table";
