@@ -170,8 +170,7 @@ function ProjectScore({
   project: TrendsProject;
   sortOptionKey: TrendsSortKey;
 }) {
-  const { added_at, pushed_at, contributor_count, downloads, trends } =
-    project;
+  const { added_at, pushed_at, contributor_count, downloads, trends } = project;
   switch (sortOptionKey) {
     case "trending": {
       // Same freshest-window fallback used in the /projects table: no single
