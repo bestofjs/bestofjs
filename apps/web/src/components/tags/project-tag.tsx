@@ -2,9 +2,10 @@
 
 import NextLink from "next/link";
 
-import { ProjectTagHoverCard } from "./project-tag-hover-card";
 import { badgeVariants } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
+
+import { ProjectTagHoverCard } from "./project-tag-hover-card";
 
 export function ProjectTag({
   tag,
