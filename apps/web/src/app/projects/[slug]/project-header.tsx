@@ -9,7 +9,7 @@ import {
 } from "@repo/db/projects";
 
 import { GitHubIcon, HomeIcon, NpmIcon, ProjectLogo } from "@/components/core";
-import { ProjectTagGroup } from "@/components/tags/project-tag";
+import { ProjectTagGroup } from "@/components/tags/project-tag-group";
 import { Badge } from "@/components/ui/badge";
 import { buttonVariants } from "@/components/ui/button";
 import { formatUrl } from "@/helpers/url";

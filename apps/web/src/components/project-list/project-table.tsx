@@ -11,7 +11,7 @@ import {
   StarTotal,
 } from "@/components/core";
 import { FromNow } from "@/components/helpers.client";
-import { ProjectTagGroup } from "@/components/tags/project-tag";
+import { ProjectTagGroup } from "@/components/tags/project-tag-group";
 import { buttonVariants } from "@/components/ui/button";
 import { linkVariants } from "@/components/ui/link";
 import { formatNumber } from "@/helpers/numbers";

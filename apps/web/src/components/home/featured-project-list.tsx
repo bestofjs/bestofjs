@@ -53,6 +53,7 @@ function FeaturedProject({
         )}
         <ProjectTag
           tag={project.tags[0]}
+          url={`/projects?tags=${project.tags[0].code}`}
           className="inline-block max-w-full truncate"
         />
       </div>
