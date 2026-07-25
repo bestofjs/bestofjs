@@ -10,6 +10,11 @@ export type TrendsProject = BestOfJS.Project & {
   activityScore: number | null;
 };
 
+/** Matches the pre-migration static API's `formatDate()` (`YYYY-MM-DD`). */
+function formatDateOnly(date: Date): string {
+  return date.toISOString().slice(0, 10);
+}
+
 /**
  * Adapts a `findProjectsWithTrends()` row (nested `repo.*`, tag codes as plain
  * strings) into the flat `BestOfJS.Project` shape the existing list/table/tag
@@ -26,11 +31,13 @@ export function toTrendsProject(
     // `added_at` = Best of JS addition date (`projects.created_at`);
     // `created_at` = GitHub repo creation date (`repos.created_at`), matching
     // the pre-migration static API and the "Created" sort key.
-    added_at: row.createdAt.toISOString(),
-    created_at: row.repo.created_at.toISOString(),
+    // Both are serialized as `YYYY-MM-DD` to preserve shape parity with the
+    // static JSON (`build-static-api.task.ts`'s `formatDate()`).
+    added_at: formatDateOnly(row.createdAt),
+    created_at: formatDateOnly(row.repo.created_at),
     full_name: row.repo.full_name,
     owner_id: row.repo.owner_id,
-    pushed_at: row.repo.last_commit?.toISOString() ?? "",
+    pushed_at: row.repo.last_commit ? formatDateOnly(row.repo.last_commit) : "",
     contributor_count: row.repo.contributor_count ?? 0,
     stars: row.stars,
     // LEFT JOIN repo_trends: null for deprecated repos (no daily tracking);
