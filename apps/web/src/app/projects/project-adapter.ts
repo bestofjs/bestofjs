@@ -23,10 +23,11 @@ export function toTrendsProject(
     slug: row.slug,
     name: row.name,
     description: row.description,
-    // Best-of-JS row creation date stands in for both: the new schema
-    // doesn't separately track "GitHub repo created" vs "added to the site".
+    // `added_at` = Best of JS addition date (`projects.created_at`);
+    // `created_at` = GitHub repo creation date (`repos.created_at`), matching
+    // the pre-migration static API and the "Created" sort key.
     added_at: row.createdAt.toISOString(),
-    created_at: row.createdAt.toISOString(),
+    created_at: row.repo.created_at.toISOString(),
     full_name: row.repo.full_name,
     owner_id: row.repo.owner_id,
     pushed_at: row.repo.last_commit?.toISOString() ?? "",

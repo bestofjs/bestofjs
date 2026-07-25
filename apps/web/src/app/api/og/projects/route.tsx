@@ -170,7 +170,7 @@ function ProjectScore({
   project: TrendsProject;
   sortOptionKey: TrendsSortKey;
 }) {
-  const { created_at, pushed_at, contributor_count, downloads, trends } =
+  const { added_at, pushed_at, contributor_count, downloads, trends } =
     project;
   switch (sortOptionKey) {
     case "trending": {
@@ -201,7 +201,7 @@ function ProjectScore({
     case "monthly-downloads":
       return <Box>{formatNumber(downloads, "compact")}</Box>;
     case "newest":
-      return <Box>{created_at}</Box>;
+      return <Box>{added_at}</Box>;
     default: // "most-stars", "last-commit", "created"
       return <ShowStarsTotal value={project.stars} />;
   }
