@@ -53,8 +53,9 @@ export function createTaskRunner(tasks: Task<RawFlags | undefined>[]) {
           for (const task of tasks) {
             i++;
             const taskFlags = task.schema?.parse(rawFlags);
+            const flagsText = stringifyFlags(flags, taskFlags);
             logger.box(
-              `Running task ${i}/${tasks.length} "${task.name}" ${stringifyFlags(flags, taskFlags)}`,
+              `Running task ${i}/${tasks.length} "${task.name}"${flagsText ? `\n\n${flagsText}` : ""}`,
             );
             const context = createTaskContext(db);
 
@@ -139,17 +140,22 @@ function stringifyFlags(flags: ParsedFlags, taskFlags?: RawFlags) {
   const { dryRun, limit, logLevel, skip, concurrency, throttleInterval } =
     flags;
 
-  return [
-    `logLevel: ${logLevel}`,
-    limit ? `limit: ${limit}` : "",
-    skip ? `skip: ${skip}` : "",
-    concurrency > 1 ? `concurrency: ${concurrency}` : "",
-    throttleInterval ? `throttleInterval: ${throttleInterval}` : "",
-    dryRun ? "DRY RUN" : "",
-  ]
-    .concat(
-      Object.entries(taskFlags || {}).map(([key, value]) => `${key}: ${value}`),
-    )
-    .filter(Boolean)
-    .join(", ");
+  return (
+    [
+      `logLevel: ${logLevel}`,
+      limit ? `limit: ${limit}` : "",
+      skip ? `skip: ${skip}` : "",
+      concurrency > 1 ? `concurrency: ${concurrency}` : "",
+      throttleInterval ? `throttleInterval: ${throttleInterval}` : "",
+      dryRun ? "DRY RUN" : "",
+    ]
+      .concat(
+        Object.entries(taskFlags || {})
+          .filter(([, value]) => value !== undefined)
+          .map(([key, value]) => `${key}: ${value}`),
+      )
+      .filter(Boolean)
+      // one flag per line so long flag sets don't overflow the box
+      .join("\n")
+  );
 }
