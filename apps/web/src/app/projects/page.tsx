@@ -60,6 +60,9 @@ export async function generateMetadata(props: PageProps): Promise<Metadata> {
   return {
     title,
     description,
+    // Text-search result pages are ephemeral/near-infinite; keep them out of
+    // the index. The bare listing and tag-filtered pages stay indexable.
+    ...(searchState.query ? { robots: { index: false } } : {}),
     openGraph: {
       images: [`api/og/projects/?${imageSearchParams.toString()}`],
       url: `${APP_CANONICAL_URL}/projects/?${queryString}`,

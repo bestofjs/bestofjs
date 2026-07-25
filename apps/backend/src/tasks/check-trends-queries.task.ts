@@ -145,7 +145,10 @@ function checkRelevanceFloor(
 ) {
   if (fullCatalog) return [];
   return projects
-    .filter((project) => project.relevanceScore < 0)
+    .filter(
+      (project) =>
+        project.relevanceScore !== null && project.relevanceScore < 0,
+    )
     .map(
       (project) =>
         `"${project.slug}" has a negative relevance score (${project.relevanceScore}) but the floor is enabled`,
