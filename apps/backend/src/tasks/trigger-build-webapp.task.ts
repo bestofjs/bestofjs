@@ -12,6 +12,9 @@ export const triggerBuildWebappTask = createTask({
     const tags = [
       "daily",
       "all-projects",
+      // DB-backed /projects page + /api/og/projects OG route (migrated off
+      // the static-JSON "all-projects" tag in #424).
+      "projects",
       "project-details",
       "package-downloads",
     ];

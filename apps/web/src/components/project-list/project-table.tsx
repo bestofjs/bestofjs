@@ -1,7 +1,6 @@
 import { Suspense } from "react";
 import NextLink from "next/link";
 
-import type { ProjectSearchUrlBuilder } from "@/app/projects/project-search-state";
 import {
   DownloadCount,
   GitHubIcon,
@@ -16,17 +15,28 @@ import { ProjectTagGroup } from "@/components/tags/project-tag";
 import { buttonVariants } from "@/components/ui/button";
 import { linkVariants } from "@/components/ui/link";
 import { formatNumber } from "@/helpers/numbers";
+import type {
+  PageSearchUrlBuilder,
+  PaginationProps,
+} from "@/lib/page-search-state";
 import { cn } from "@/lib/utils";
 
-type Props = {
+/** Shared shape both the old (static-JSON) and new (DB-trends) search states satisfy. */
+export type TagFilterState = PaginationProps & { tags: string[] };
+
+type Props<T extends TagFilterState = TagFilterState> = {
   projects: BestOfJS.Project[];
-  buildPageURL?: ProjectSearchUrlBuilder;
+  buildPageURL?: PageSearchUrlBuilder<T>;
   footer?: React.ReactNode;
   metricsCell?: (project: BestOfJS.Project) => React.ReactNode;
   showDetails?: boolean;
 };
 
-export const ProjectTable = ({ projects, footer, ...otherProps }: Props) => {
+export function ProjectTable<T extends TagFilterState = TagFilterState>({
+  projects,
+  footer,
+  ...otherProps
+}: Props<T>) {
   return (
     <table className="w-full">
       <tbody className="[&_tr:last-child]:border-0">
@@ -52,17 +62,20 @@ export const ProjectTable = ({ projects, footer, ...otherProps }: Props) => {
       )}
     </table>
   );
-};
+}
 
-type RowProps = Pick<Props, "buildPageURL" | "metricsCell" | "showDetails"> & {
+type RowProps<T extends TagFilterState = TagFilterState> = Pick<
+  Props<T>,
+  "buildPageURL" | "metricsCell" | "showDetails"
+> & {
   project: BestOfJS.Project;
 };
-const ProjectTableRow = ({
+function ProjectTableRow<T extends TagFilterState = TagFilterState>({
   project,
   buildPageURL,
   showDetails = true,
   metricsCell,
-}: RowProps) => {
+}: RowProps<T>) {
   const path = `/projects/${project.slug}`;
 
   return (
@@ -124,12 +137,14 @@ const ProjectTableRow = ({
 
       {showDetails && (
         <Cell className="hidden w-[180px] space-y-2 p-4 text-sm md:table-cell">
-          <div>
-            Pushed{" "}
-            <Suspense fallback="...">
-              <FromNow date={project.pushed_at} />
-            </Suspense>
-          </div>
+          {project.pushed_at ? (
+            <div>
+              Pushed{" "}
+              <Suspense fallback="...">
+                <FromNow date={project.pushed_at} />
+              </Suspense>
+            </div>
+          ) : null}
           {project.contributor_count > 0 && (
             <div>
               {formatNumber(project.contributor_count, "compact")} contributors
@@ -151,7 +166,7 @@ const ProjectTableRow = ({
       )}
     </tr>
   );
-};
+}
 
 export const ProjectScore = ({
   project,
@@ -160,6 +175,28 @@ export const ProjectScore = ({
   project: BestOfJS.Project;
   sort: string;
 }) => {
+  if (sort === "trending") {
+    // No single raw signal maps 1:1 to the blended popularity score; show the
+    // freshest star-delta window available (same fallback chain the score
+    // itself uses for young repos without a yearly delta yet).
+    const value =
+      project.trends.yearly ?? project.trends.monthly ?? project.trends.daily;
+    if (value === undefined) return null;
+    return <StarDelta average={false} value={value} />;
+  }
+
+  if (sort === "most-active") {
+    // No `last_commit` (nullable, e.g. GraphQL commit-history lookup
+    // skipped/failed) → same "fully inactive" state `computeActivityScore`
+    // treats as 0, so nothing to show rather than "Invalid Date".
+    if (!project.pushed_at) return null;
+    return (
+      <Suspense fallback="...">
+        <FromNow date={project.pushed_at} />
+      </Suspense>
+    );
+  }
+
   const showDelta = ["daily", "weekly", "monthly", "yearly"].includes(sort);
   const showDownloads = sort === "monthly-downloads";
 

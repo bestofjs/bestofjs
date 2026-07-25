@@ -1,3 +1,10 @@
+import { cacheLife, cacheTag } from "next/cache";
+
+import { db } from "@repo/db";
+import { findProjectsWithTrends } from "@repo/db/projects";
+import type { TrendsSortKey } from "@repo/db/shared-schemas";
+import { findTags } from "@repo/db/tags";
+
 import {
   Box,
   generateImageResponse,
@@ -7,34 +14,33 @@ import {
   StarIcon,
   TagIcon,
 } from "@/app/api/og/og-utils";
-import { ProjectSearchStateParser } from "@/app/projects/project-search-state";
+import {
+  buildTagsByCode,
+  type TrendsProject,
+  toTrendsProject,
+} from "@/app/projects/project-adapter";
+import {
+  type TrendsProjectSearchState,
+  TrendsProjectSearchStateParser,
+} from "@/app/projects/trends-project-search-state";
 import { getDeltaByDay } from "@/components/core";
 import {
-  getSortOptionByKey,
-  type SortOption,
-  type SortOptionKey,
-} from "@/components/project-list/sort-order-options";
+  getTrendsSortOptionByKey,
+  type TrendsSortOption,
+} from "@/components/project-list/trends-sort-order-options";
+import { fromNow } from "@/helpers/from-now";
 import { formatNumber } from "@/helpers/numbers";
 import { getSearchParamsKeyValues } from "@/lib/url-search-params";
-import { api } from "@/server/api-remote-json";
 
 import { ImageLayout } from "../og-image-layout";
 
-const searchStateParser = new ProjectSearchStateParser();
+const searchStateParser = new TrendsProjectSearchStateParser();
 
 export async function GET(req: Request) {
-  const NUMBER_OF_PROJECTS = 3;
-  const {
-    searchState: { tags, query, sort, page },
-  } = getSearchStateFromURL(req.url);
-  const sortOption = getSortOptionByKey(sort);
-  const { projects, selectedTags } = await api.projects.findProjects({
-    criteria: tags.length > 0 ? { tags: { $all: tags } } : {},
-    query,
-    sort: sortOption.sort,
-    skip: NUMBER_OF_PROJECTS * (page - 1),
-    limit: NUMBER_OF_PROJECTS,
-  });
+  const { searchState } = getSearchStateFromURL(req.url);
+  const { query, sort } = searchState;
+  const sortOption = getTrendsSortOptionByKey(sort);
+  const { projects, selectedTags } = await fetchOgProjects(searchState);
 
   return generateImageResponse(
     <ImageLayout>
@@ -59,7 +65,34 @@ export async function GET(req: Request) {
   );
 }
 
-function getImageTitle(tags: BestOfJS.Tag[], query?: string) {
+async function fetchOgProjects(searchState: TrendsProjectSearchState) {
+  "use cache";
+  cacheLife("hours");
+  cacheTag("projects");
+
+  const NUMBER_OF_PROJECTS = 3;
+  const { tags: tagCodes, query, sort, page } = searchState;
+
+  const [{ projects: rows }, allTags] = await Promise.all([
+    findProjectsWithTrends({
+      db,
+      limit: NUMBER_OF_PROJECTS,
+      page,
+      query,
+      sort,
+      tagCodes,
+    }),
+    findTags(),
+  ]);
+
+  const tagsByCode = buildTagsByCode(allTags);
+  const projects = rows.map((row) => toTrendsProject(row, tagsByCode));
+  const selectedTags = allTags.filter((tag) => tagCodes.includes(tag.code));
+
+  return { projects, selectedTags };
+}
+
+function getImageTitle(tags: { name: string }[], query?: string) {
   if (!query && tags.length === 0) {
     return "All Projects";
   }
@@ -80,9 +113,9 @@ function ImageCaption({
   query,
   sortOption,
 }: {
-  tags: BestOfJS.Tag[];
+  tags: { name: string }[];
   query?: string;
-  sortOption: SortOption;
+  sortOption: TrendsSortOption;
 }) {
   return (
     <Box style={{ gap: 16, alignItems: "center" }}>
@@ -106,8 +139,8 @@ function ProjectRow({
   sortOption,
   index,
 }: {
-  project: BestOfJS.Project;
-  sortOption: SortOption;
+  project: TrendsProject;
+  sortOption: TrendsSortOption;
   index: number;
 }) {
   return (
@@ -134,34 +167,41 @@ function ProjectScore({
   project,
   sortOptionKey,
 }: {
-  project: BestOfJS.Project;
-  sortOptionKey: SortOptionKey;
+  project: TrendsProject;
+  sortOptionKey: TrendsSortKey;
 }) {
-  const { contributor_count, created_at, downloads, trends } = project;
+  const { added_at, pushed_at, contributor_count, downloads, trends } = project;
   switch (sortOptionKey) {
+    case "trending": {
+      // Same freshest-window fallback used in the /projects table: no single
+      // raw signal maps 1:1 to the blended popularity score.
+      const value = trends.yearly ?? trends.monthly ?? trends.daily;
+      return value !== undefined ? (
+        <ShowStarsTotal value={value} showPrefix />
+      ) : null;
+    }
     case "daily":
-      return trends.daily ? (
+      return trends.daily !== undefined ? (
         <ShowStarsTotal value={trends.daily} showPrefix />
       ) : null;
     case "weekly":
-      return trends.weekly ? (
-        <ShowStarsAverage value={getDeltaByDay("weekly")(project)} />
-      ) : null;
+      return <ShowStarsAverage value={getDeltaByDay("weekly")(project)} />;
     case "monthly":
-      return trends.monthly ? (
-        <ShowStarsAverage value={getDeltaByDay("monthly")(project)} />
-      ) : null;
+      return <ShowStarsAverage value={getDeltaByDay("monthly")(project)} />;
     case "yearly":
-      return trends.yearly ? (
-        <ShowStarsAverage value={getDeltaByDay("yearly")(project)} />
-      ) : null;
-    case "monthly-downloads":
-      return <Box>{formatNumber(downloads, "compact")}</Box>;
+      return <ShowStarsAverage value={getDeltaByDay("yearly")(project)} />;
+    case "most-active":
+      // No `last_commit` (nullable, e.g. GraphQL commit-history lookup
+      // skipped/failed) → same "fully inactive" state `computeActivityScore`
+      // treats as 0, so nothing to show rather than "Invalid Date".
+      return pushed_at ? <Box>{fromNow(pushed_at)}</Box> : null;
     case "contributors":
       return <Box>{formatNumber(contributor_count, "compact")}</Box>;
-    case "created":
-      return <Box>{created_at}</Box>;
-    default:
+    case "monthly-downloads":
+      return <Box>{formatNumber(downloads, "compact")}</Box>;
+    case "newest":
+      return <Box>{added_at}</Box>;
+    default: // "most-stars", "last-commit", "created"
       return <ShowStarsTotal value={project.stars} />;
   }
 }

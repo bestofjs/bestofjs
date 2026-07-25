@@ -30,8 +30,8 @@ export const checkTrendsQueriesTask = createTask({
     sort: {
       type: String,
       description:
-        "Sort option: trending, hot-today, most-stars, most-active, most-used, newest",
-      default: "trending",
+        "Sort option: trending, daily, weekly, monthly, yearly, most-stars, most-active, last-commit, contributors, monthly-downloads, created, newest",
+      default: "most-stars",
     },
     tags: {
       type: String,
@@ -60,7 +60,7 @@ export const checkTrendsQueriesTask = createTask({
     },
   },
   schema: z.object({
-    sort: trendsSortKeySchema.optional().default("trending"),
+    sort: trendsSortKeySchema.optional().default("most-stars"),
     tags: z.string().optional(),
     search: z.string().optional(),
     fullCatalog: z.boolean().optional().default(false),
@@ -152,7 +152,11 @@ function checkRelevanceFloor(
     );
 }
 
+// "created" means oldest-GitHub-repo-first; every other sort is descending.
+const ASCENDING_SORT_KEYS: TrendsSortKey[] = ["created"];
+
 function checkSortOrder(projects: ProjectWithTrends[], sort: TrendsSortKey) {
+  const ascending = ASCENDING_SORT_KEYS.includes(sort);
   const violations: string[] = [];
   let previous: number | undefined;
   let seenNull = false;
@@ -168,10 +172,13 @@ function checkSortOrder(projects: ProjectWithTrends[], sort: TrendsSortKey) {
       );
       continue;
     }
-    if (previous !== undefined && value > previous) {
-      violations.push(
-        `"${project.slug}" (${value}) is ranked after a project with a lower "${sort}" value (${previous})`,
-      );
+    if (previous !== undefined) {
+      const outOfOrder = ascending ? value < previous : value > previous;
+      if (outOfOrder) {
+        violations.push(
+          `"${project.slug}" (${value}) is ranked after a project with a ${ascending ? "higher" : "lower"} "${sort}" value (${previous})`,
+        );
+      }
     }
     previous = value;
   }
@@ -182,14 +189,26 @@ function getSortValue(project: ProjectWithTrends, sort: TrendsSortKey) {
   switch (sort) {
     case "trending":
       return project.popularityScore;
-    case "hot-today":
+    case "daily":
       return project.trends?.daily ?? null;
+    case "weekly":
+      return project.trends?.weekly ?? null;
+    case "monthly":
+      return project.trends?.monthly ?? null;
+    case "yearly":
+      return project.trends?.yearly ?? null;
     case "most-stars":
       return project.stars;
     case "most-active":
       return project.activityScore;
-    case "most-used":
+    case "last-commit":
+      return project.repo.last_commit?.getTime() ?? null;
+    case "contributors":
+      return project.repo.contributor_count ?? null;
+    case "monthly-downloads":
       return project.monthlyDownloads;
+    case "created":
+      return project.repo.created_at.getTime();
     case "newest":
       return project.createdAt.getTime();
   }
@@ -230,6 +249,11 @@ const COLUMNS = {
   popularity: (p: ProjectWithTrends) => roundScore(p.popularityScore),
   activity: (p: ProjectWithTrends) => roundScore(p.activityScore),
   usage: (p: ProjectWithTrends) => roundScore(p.usageScore),
+  contributors: (p: ProjectWithTrends) => p.repo.contributor_count,
+  lastCommit: (p: ProjectWithTrends) =>
+    p.repo.last_commit?.toISOString().slice(0, 10) ?? null,
+  createdAt: (p: ProjectWithTrends) =>
+    p.repo.created_at.toISOString().slice(0, 10),
   tags: (p: ProjectWithTrends) => p.tags.join(", "),
 } as const satisfies Record<
   string,
