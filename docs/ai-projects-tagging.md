@@ -50,7 +50,7 @@ These tags refine and categorize projects beyond the general `ai` tag:
 
 ### `ai-agents`
 
-**Description:** Frameworks for building autonomous agents with reasoning, tool use, and orchestration capabilities beyond simple LLM API calls.
+**Description:** Frameworks for building autonomous agents with reasoning, tool use, and orchestration capabilities beyond simple LLM API calls. Also covers **agent orchestration / control planes** — tools whose primary value is running, racing, reviewing, or managing multiple existing agents rather than building agent logic from scratch.
 
 **Key Characteristics:**
 - Multi-step reasoning and planning
@@ -59,17 +59,25 @@ These tags refine and categorize projects beyond the general `ai` tag:
 - Workflow and chain composition
 - Observability and tracing
 - RAG (Retrieval Augmented Generation) support
+- Agent orchestration: best-of-N races, cross-family review/arbitration, credential/quota/budget management, typed audit/evidence
 
-**Examples:**
+**Examples (build-agent frameworks):**
 - **Mastra**: TypeScript AI agent framework with assistants, RAG, and observability
 - **VoltAgent**: Open Source TypeScript AI Agent Framework with built-in LLM Observability
 - **Vercel AI SDK**: AI Toolkit for TypeScript with agent orchestration, multi-step workflows, and tool integration
 - **LangChain.js**: Building applications with LLMs through composability
 - **LlamaIndexTS**: Data framework for LLM applications with server-side focus
 
+**Examples (agent orchestration / control planes):**
+- **Claudexor**: Local-first control plane that runs Codex CLI, Claude Code, Cursor CLI, and OpenCode behind one typed interface — best-of-N races, cross-family review, arbitration, credential/quota tracking, budget gates, typed audit
+- **ralph-tui**: Terminal UI for orchestrating AI coding agent loops
+- **paperclip**: Open-source app to manage agents at work
+- **OpenClaw**: Open agent platform that runs on your machine
+
 **What is NOT `ai-agents`:**
 - Pure API clients (e.g., OpenAI Node API, MCP-SDK)
 - HuggingFace.js (API wrapper without orchestration)
+- Coding agents themselves (e.g., Tura, Pi, Cline, OpenCode, Gemini CLI) — these are end-user agent *products*, not frameworks to build or orchestrate agents. Use `coding-agent` for those.
 
 ---
 
@@ -94,6 +102,39 @@ These tags refine and categorize projects beyond the general `ai` tag:
 - IDEs with AI assistance (e.g., Void - these help you write code, not generate complete apps)
 - Code completion tools (these assist, not generate full apps)
 - Agent frameworks (these orchestrate AI logic, not build apps)
+- Coding agents (e.g., Cline, OpenCode, Gemini CLI) — these edit existing repos, not generate greenfield apps. Use `coding-agent` for those.
+
+---
+
+### `coding-agent`
+
+**Description:** End-user AI agent products that operate inside an existing codebase or developer environment to perform multi-step coding work: editing files, running shell/build/test commands, fixing bugs, refactoring, and agentic repo-level loops. Delivered as CLI, TUI, IDE extension, or SDK.
+
+**Key Characteristics:**
+- Operates inside an existing repo or developer environment (not greenfield app generation)
+- Multi-step agentic loops with tool use (file edits, shell, build, test)
+- Session/context management, compaction, task state
+- Consumes LLM provider APIs (does not train or run models directly — so no `ml`)
+- Identity is "agent," not "editor" — even when shipped as an IDE extension
+
+**Examples:**
+- **Tura**: Local, open-source coding agent (CLI/TUI/GUI) for existing repos; macro `command_run`, backward reasoning, runtime context manager
+- **Pi**: Minimal terminal coding harness extended via TypeScript extensions, skills, and packages
+- **Cline**: Autonomous coding agent as an SDK, IDE extension, or CLI assistant
+- **OpenCode**: The open source coding agent
+- **Gemini CLI**: Open-source AI agent that brings Gemini into the terminal
+- **Aider**, **Continue**, **Codex CLI**, **Goose**, **OpenHands**, **Roo Code**, **Crush**, **Sweep**, **PR-Agent**: canonical coding agents in the ecosystem
+
+**What is NOT `coding-agent`:**
+- `ai-builder` — greenfield prompt → complete runnable app (deps + runtime + preview + deploy). Output is a *new app*, not changes to existing code.
+- `ai-agents` — frameworks to *build* agents, or orchestrators that *run/race/review* multiple agents (e.g., Claudexor). A coding agent is the thing being orchestrated, not the orchestrator.
+- `ide` — AI-augmented editors (e.g., Void, Cursor, Zed). If the product is primarily an editor, tag `ide`; if primarily an agent delivered as CLI/extension/SDK, tag `coding-agent`.
+- `ml` — coding agents call LLM APIs; they don't train or infer models themselves.
+
+**Boundary tests:**
+- *vs `ai-builder`*: Does it primarily generate a complete new app from a prompt (→ `ai-builder`), or primarily edit/repair an existing repo with agentic loops (→ `coding-agent`)?
+- *vs `ide`*: Is the product primarily an editor (→ `ide`), or primarily an agent that plugs into your existing editor or runs standalone (→ `coding-agent`)?
+- *vs `ai-agents`*: Is it an end-user agent product (→ `coding-agent`), or a framework to build agents / an orchestrator that manages multiple agents (→ `ai-agents`)?
 
 ---
 
@@ -165,5 +206,5 @@ These existing tags frequently combine with `ai`:
 
 ---
 
-*Last updated: December 2025*
+*Last updated: July 2026*
 
