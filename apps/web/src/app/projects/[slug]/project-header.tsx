@@ -8,7 +8,13 @@ import {
   type ProjectDetails,
 } from "@repo/db/projects";
 
-import { GitHubIcon, HomeIcon, NpmIcon, ProjectLogo } from "@/components/core";
+import {
+  GitHubIcon,
+  HomeIcon,
+  NpmIcon,
+  ProjectLabel,
+  ProjectLogo,
+} from "@/components/core";
 import { ProjectTagGroup } from "@/components/tags/project-tag-group";
 import { Badge } from "@/components/ui/badge";
 import { buttonVariants } from "@/components/ui/button";
@@ -40,13 +46,19 @@ export function ProjectHeader({ project }: Props) {
         <div className="flex flex-col justify-center space-y-4 px-4">
           <div className="flex flex-col justify-between sm:flex-row sm:items-center">
             <h2 className="font-serif text-4xl">{project.name}</h2>
-            {isGPLProject(project) && (
-              <div>
+            <div className="flex flex-wrap items-center gap-2">
+              {/* Deprecation is the one signal a visitor arriving from a shared
+                  link can't infer from the charts below. The score labels stay
+                  listing-only: this page shows the raw signals already. */}
+              {project.status === "deprecated" && (
+                <ProjectLabel label="deprecated" className="text-base" />
+              )}
+              {isGPLProject(project) && (
                 <Badge variant="destructive" className="text-base">
                   {getLicenseShortName(project.repo.license)}
                 </Badge>
-              </div>
-            )}
+              )}
+            </div>
           </div>
           <div>{getProjectDescription(project)}</div>
           <div>

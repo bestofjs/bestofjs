@@ -16,6 +16,9 @@ export const trendsProjectSearchStateSchema = paginationSchema.extend({
     .default([]),
   query: z.string().optional(),
   sort: trendsSortKeySchema.catch("most-stars").default("most-stars"),
+  // Defaults to the filtered view: a bare /projects URL hides the projects the
+  // UI would badge as a warning, and `?scope=all` opts into the full catalog.
+  scope: z.enum(["all", "active"]).catch("active").default("active"),
 });
 
 export type TrendsProjectSearchState = z.infer<

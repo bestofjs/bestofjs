@@ -1,6 +1,20 @@
-import { and, count, eq, gte, type SQL, sql } from "drizzle-orm";
+import {
+  and,
+  count,
+  eq,
+  gte,
+  isNull,
+  ne,
+  or,
+  type SQL,
+  sql,
+} from "drizzle-orm";
 
 import type { DB } from "../index";
+import {
+  COLD_YEARLY_STARS,
+  INACTIVE_ACTIVITY_SCORE,
+} from "../project-trends/labels";
 import * as schema from "../schema";
 import type { TrendsSortKey } from "../shared-schemas";
 import { getWhereClauseSearchByTag, getWhereClauseSearchByText } from "./find";
@@ -32,12 +46,64 @@ const sortExpressionByKey: Record<TrendsSortKey, SQL> = {
   newest: sql`${projects.createdAt}`,
 };
 
+/**
+ * `"active"` hides every project the UI would badge as a warning — deprecated,
+ * inactive (over a year without a commit) or cold (under 50 new stars in a
+ * year). It is the honest, switchable successor to the old static API's veto
+ * rules, and the default: `"all"` opts into the complete catalog.
+ *
+ * **A text `query` overrides this to `"all"`** — see `resolveScope()`.
+ */
+export type ProjectScope = "all" | "active";
+
+/**
+ * Browsing is curated; searching is not. Someone typing a name is looking for
+ * one specific project, and hiding it because it is deprecated or unmaintained
+ * makes the search look broken — the palette's "Search all projects" fallback
+ * exists precisely to reach those projects, and its own index already excludes
+ * deprecated ones.
+ *
+ * The rule lives here rather than in each caller so the listing page, the OG
+ * image route and the `check-trends-queries` task cannot disagree about it.
+ */
+export function resolveScope(
+  scope: ProjectScope,
+  query?: string,
+): ProjectScope {
+  return query ? "all" : scope;
+}
+
+/**
+ * Keeps only projects with no warning badge. Written as three independent
+ * "pass" conditions rather than `NOT (a OR b OR c)` on purpose: in SQL's
+ * three-valued logic, a project with no `repo_trends` row yet (added since the
+ * last daily run) makes that negation `NULL` and vanishes from the listing.
+ * Null scores mean "not computed yet", which is not a reason to hide anything —
+ * the same rule `getProjectLabel()` follows when it renders no badge.
+ */
+export function getWhereClauseActiveScope() {
+  return and(
+    ne(projects.status, "deprecated"),
+    or(
+      isNull(repoTrends.activityScore),
+      gte(repoTrends.activityScore, INACTIVE_ACTIVITY_SCORE),
+    ),
+    or(isNull(repoTrends.yearly), gte(repoTrends.yearly, COLD_YEARLY_STARS)),
+  );
+}
+
 export interface FindProjectsWithTrendsOptions {
   db: DB;
   limit?: number;
   page?: number;
   /** Text search on project name/description and repo owner/name */
   query?: string;
+  /**
+   * Quality view: `"active"` (default) hides badged projects, `"all"` shows
+   * everything. Ignored when `query` is set — text search always searches the
+   * whole catalog.
+   */
+  scope?: ProjectScope;
   /**
    * Quality floor: keep only projects with `relevance_score >= 0`.
    * Off by default — the public listing/search shows the full catalog
@@ -68,16 +134,25 @@ export async function findProjectsWithTrends({
   page = 1,
   query,
   relevanceFloor = false,
+  scope = "active",
   sort = "most-stars",
   tagCodes,
 }: FindProjectsWithTrendsOptions) {
   const offset = (page - 1) * limit;
 
-  const where = and(
+  // Everything except the scope filter, so the unfiltered total can reuse it.
+  const baseWhere = and(
     relevanceFloor ? gte(projectTrends.relevanceScore, 0) : undefined,
     query ? getWhereClauseSearchByText(query) : undefined,
     tagCodes && tagCodes.length > 0
       ? getWhereClauseSearchByTag(db, tagCodes)
+      : undefined,
+  );
+
+  const where = and(
+    baseWhere,
+    resolveScope(scope, query) === "active"
+      ? getWhereClauseActiveScope()
       : undefined,
   );
 
@@ -141,6 +216,8 @@ export async function findProjectsWithTrends({
     totalQuery,
   ]);
 
+  // `total` counts what the current filters match, `scope` included — it is a
+  // filter like `tagCodes` or `query`, not a window onto a larger set.
   return { projects: foundProjects, total: totalResults[0].count };
 }
 

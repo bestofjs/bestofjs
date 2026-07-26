@@ -93,7 +93,7 @@ function getPageDescription(
   data: ProjectsPageData,
   searchState: TrendsProjectSearchState,
 ) {
-  const { query, sort } = searchState;
+  const { query, sort, scope } = searchState;
   const NUMBER_OF_PROJECTS = 8;
   const { projects, selectedTags: tags, total } = data;
   const projectNames = projects
@@ -104,7 +104,11 @@ function getPageDescription(
   const sortOptionLabel = getTrendsSortOptionByKey(sort).label.toLowerCase();
 
   if (!query && tags.length === 0) {
-    return `All the ${total} projects tracked by ${APP_DISPLAY_NAME}, ${sortOptionLabel}: ${projectNames}...`;
+    // "All the N projects" would be a false claim under the default `active`
+    // scope, which hides deprecated, inactive and cold projects.
+    return scope === "all"
+      ? `All the ${total} projects tracked by ${APP_DISPLAY_NAME}, ${sortOptionLabel}: ${projectNames}...`
+      : `${total} actively maintained projects tracked by ${APP_DISPLAY_NAME}, ${sortOptionLabel}: ${projectNames}...`;
   }
   if (!query && tags.length > 0) {
     return `${total} projects tagged with ${tagNames}, ${sortOptionLabel}: ${projectNames}...`;
@@ -310,12 +314,14 @@ async function fetchPageData(
   cacheLife("hours");
   cacheTag("projects");
 
-  const { tags: tagCodes, sort, page, limit, query } = searchState;
+  const { tags: tagCodes, sort, page, limit, query, scope } = searchState;
 
   const [{ projects: rows, total }, allTags, relevantTags] = await Promise.all([
-    findProjectsWithTrends({ db, limit, page, query, sort, tagCodes }),
+    findProjectsWithTrends({ db, limit, page, query, scope, sort, tagCodes }),
     findTags(),
-    findRelevantTags({ db, tagCodes, query }),
+    // Same `scope` as the listing: a suggested tag whose projects are all
+    // filtered out would lead to an empty page.
+    findRelevantTags({ db, tagCodes, query, scope }),
   ]);
 
   const tagsByCode = buildTagsByCode(allTags);

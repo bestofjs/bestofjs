@@ -5,9 +5,15 @@ import {
   getWhereClauseSearchByTag,
   getWhereClauseSearchByText,
 } from "../projects/find";
+import {
+  getWhereClauseActiveScope,
+  type ProjectScope,
+  resolveScope,
+} from "../projects/find-with-trends";
 import * as schema from "../schema";
 
-const { projects, projectTrends, projectsToTags, repos, tags } = schema;
+const { projects, projectTrends, projectsToTags, repoTrends, repos, tags } =
+  schema;
 
 export interface FindRelevantTagsOptions {
   db: DB;
@@ -17,6 +23,11 @@ export interface FindRelevantTagsOptions {
   query?: string;
   /** Quality floor matching findProjectsWithTrends()'s default (off — full catalog); enable to hide low-signal projects */
   relevanceFloor?: boolean;
+  /**
+   * Must match the listing's scope. A suggestion derived from projects the
+   * listing filters out is a dead end: the chip leads to "No projects found".
+   */
+  scope?: ProjectScope;
   limit?: number;
 }
 
@@ -36,10 +47,16 @@ export async function findRelevantTags({
   tagCodes,
   query,
   relevanceFloor = false,
+  scope = "active",
   limit = 20,
 }: FindRelevantTagsOptions): Promise<RelevantTag[]> {
   const where = and(
     relevanceFloor ? gte(projectTrends.relevanceScore, 0) : undefined,
+    // Same predicate and the same query-wins rule as the listing, imported
+    // rather than restated so the two cannot drift.
+    resolveScope(scope, query) === "active"
+      ? getWhereClauseActiveScope()
+      : undefined,
     query ? getWhereClauseSearchByText(query) : undefined,
     tagCodes && tagCodes.length > 0
       ? getWhereClauseSearchByTag(db, tagCodes)
@@ -49,20 +66,25 @@ export async function findRelevantTags({
       : undefined,
   );
 
-  return db
-    .select({
-      code: tags.code,
-      name: tags.name,
-      description: tags.description,
-      count: count(projectsToTags.projectId),
-    })
-    .from(tags)
-    .innerJoin(projectsToTags, eq(projectsToTags.tagId, tags.id))
-    .innerJoin(projects, eq(projects.id, projectsToTags.projectId))
-    .leftJoin(projectTrends, eq(projectTrends.projectId, projects.id))
-    .innerJoin(repos, eq(projects.repoId, repos.id))
-    .where(where)
-    .groupBy(tags.id)
-    .orderBy(desc(count(projectsToTags.projectId)))
-    .limit(limit);
+  return (
+    db
+      .select({
+        code: tags.code,
+        name: tags.name,
+        description: tags.description,
+        count: count(projectsToTags.projectId),
+      })
+      .from(tags)
+      .innerJoin(projectsToTags, eq(projectsToTags.tagId, tags.id))
+      .innerJoin(projects, eq(projects.id, projectsToTags.projectId))
+      .leftJoin(projectTrends, eq(projectTrends.projectId, projects.id))
+      .innerJoin(repos, eq(projects.repoId, repos.id))
+      // LEFT, like the listing: deprecated repos have no row, and neither do
+      // projects added since the last daily run.
+      .leftJoin(repoTrends, eq(repoTrends.repoId, repos.id))
+      .where(where)
+      .groupBy(tags.id)
+      .orderBy(desc(count(projectsToTags.projectId)))
+      .limit(limit)
+  );
 }

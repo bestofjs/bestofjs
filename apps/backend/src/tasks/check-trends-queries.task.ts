@@ -1,8 +1,10 @@
 import { z } from "zod";
 
+import { getProjectLabel } from "@repo/db/project-trends";
 import {
   findProjectsWithTrends,
   type ProjectWithTrends,
+  resolveScope,
 } from "@repo/db/projects";
 import {
   type TrendsSortKey,
@@ -49,6 +51,12 @@ export const checkTrendsQueriesTask = createTask({
         "Show the full catalog with the relevance floor disabled — the live site default. Pass --no-fullCatalog to preview the legacy floored listing.",
       default: true,
     },
+    scope: {
+      type: String,
+      description:
+        "Which projects to show, as the web listing's `scope` param: 'active' (the site default — hides deprecated, inactive and cold projects) or 'all'.",
+      default: "active",
+    },
     page: {
       type: Number,
       description: "Page number",
@@ -65,12 +73,13 @@ export const checkTrendsQueriesTask = createTask({
     tags: z.string().optional(),
     search: z.string().optional(),
     fullCatalog: z.boolean().optional().default(true),
+    scope: z.enum(["all", "active"]).optional().default("active"),
     page: z.number().optional().default(1),
     limit: z.number().optional().default(0), // shared flag; 0 means "not provided"
     columns: z.string().optional(),
   }),
   run: async ({ db, logger }, flags) => {
-    const { sort, search, fullCatalog, page } = flags;
+    const { sort, search, fullCatalog, scope, page } = flags;
     const limit = flags.limit || 25;
     const tagCodes = flags.tags
       ?.split(",")
@@ -84,10 +93,18 @@ export const checkTrendsQueriesTask = createTask({
       tagCodes,
       page,
       limit,
+      scope,
     };
-    const [floored, full] = await Promise.all([
+    // A text search always searches the whole catalog, whatever `--scope` says.
+    const effectiveScope = resolveScope(scope, search);
+    const [floored, full, scopeAll] = await Promise.all([
       findProjectsWithTrends({ ...options, relevanceFloor: true }),
       findProjectsWithTrends({ ...options, relevanceFloor: false }),
+      // Only to report how much the scope filter removes — the web listing
+      // doesn't need this, `scope` is just another filter there.
+      effectiveScope === "active"
+        ? findProjectsWithTrends({ ...options, scope: "all", limit: 1 })
+        : undefined,
     ]);
     const { projects, total } = fullCatalog ? full : floored;
 
@@ -111,12 +128,18 @@ export const checkTrendsQueriesTask = createTask({
     logger.info(
       `${projects.length} projects shown (page ${page}), ${total} matching in total`,
     );
+    if (scopeAll) {
+      logger.info(
+        `The "active" scope hides ${scopeAll.total - total} of the ${scopeAll.total} matching projects (deprecated, inactive or cold)`,
+      );
+    }
     logger.info(
       `The relevance floor hides ${full.total - floored.total} of the ${full.total} matching projects`,
     );
 
     const violations = [
       ...checkRelevanceFloor(projects, fullCatalog),
+      ...checkScope(projects, effectiveScope),
       ...checkSortOrder(projects, sort),
       ...checkTagFilter(projects, tagCodes),
       ...(full.total >= floored.total
@@ -153,6 +176,29 @@ function checkRelevanceFloor(
     .map(
       (project) =>
         `"${project.slug}" has a negative relevance score (${project.relevanceScore}) but the floor is enabled`,
+    );
+}
+
+/**
+ * The `scope: "active"` filter is expressed in SQL while the badge that names
+ * the same projects is expressed in TypeScript, so the two can drift. This
+ * catches that directly: under the filter, no row may carry a warning badge.
+ */
+function checkScope(projects: ProjectWithTrends[], scope: "all" | "active") {
+  if (scope === "all") return [];
+  return projects
+    .map((project) => ({
+      project,
+      label: getProjectLabel({
+        status: project.status,
+        activityScore: project.activityScore,
+        yearlyStars: project.trends?.yearly,
+      }),
+    }))
+    .filter(({ label }) => label !== null)
+    .map(
+      ({ project, label }) =>
+        `"${project.slug}" is labelled "${label}" but the "active" scope should have hidden it`,
     );
 }
 
@@ -259,6 +305,14 @@ const COLUMNS = {
   createdAt: (p: ProjectWithTrends) =>
     p.repo.created_at.toISOString().slice(0, 10),
   tags: (p: ProjectWithTrends) => p.tags.join(", "),
+  // The badge the web listing renders for this row, so thresholds can be
+  // eyeballed across the whole catalog before tuning them in the browser.
+  label: (p: ProjectWithTrends) =>
+    getProjectLabel({
+      status: p.status,
+      activityScore: p.activityScore,
+      yearlyStars: p.trends?.yearly,
+    }),
 } as const satisfies Record<
   string,
   (p: ProjectWithTrends, ctx: RowContext) => unknown

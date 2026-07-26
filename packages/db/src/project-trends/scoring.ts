@@ -25,6 +25,12 @@ export function computeUsageScore(monthlyDownloads: number | null | undefined) {
  *
  *   with package:    0.50 * popularity + 0.25 * activity + 0.25 * usage
  *   no package:      0.65 * popularity + 0.35 * activity
+ *
+ * `activity` is signed since the 1-year recalibration (see
+ * `computeActivityScore`), so inactivity now subtracts here instead of merely
+ * contributing nothing. Note this score has had no consumer since the listing's
+ * relevance floor was removed — it is computed and stored, read only by the
+ * `check-trends-queries` task.
  *   minus 17 if deprecated — calibrated so a deprecated project needs
  *   usage ≥ 68 (~10M monthly downloads) to stay above the `>= 0` floor.
  */
