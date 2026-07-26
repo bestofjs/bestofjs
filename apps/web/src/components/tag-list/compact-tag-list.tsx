@@ -1,3 +1,4 @@
+"use client";
 import Link from "next/link";
 
 import { ProjectTagHoverCard } from "@/components/tags/project-tag-hover-card";

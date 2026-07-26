@@ -40,8 +40,9 @@ export interface FindProjectsWithTrendsOptions {
   query?: string;
   /**
    * Quality floor: keep only projects with `relevance_score >= 0`.
-   * Disable to query the full catalog, including deprecated projects
-   * with no meaningful signals (used by the `/search` route).
+   * Off by default — the public listing/search shows the full catalog
+   * (curation lives in sort order + visible badges, not a numeric cutoff).
+   * Enable to opt into a "hide low-signal projects" view.
    */
   relevanceFloor?: boolean;
   sort?: TrendsSortKey;
@@ -56,15 +57,17 @@ export type ProjectWithTrends = Awaited<
 /**
  * Web-facing variant of `findProjects()`, backed by the `repo_trends` and
  * `project_trends` cache tables populated daily by the backend tasks.
- * Projects added since the last daily run have no cache row and are not
- * returned; the admin app should keep using `findProjects()`.
+ * `project_trends` is LEFT-joined, so projects added since the last daily run
+ * (no cache row yet) are still returned, with null scores — this keeps the
+ * listing count equal to the tag count. The admin app keeps using
+ * `findProjects()`.
  */
 export async function findProjectsWithTrends({
   db,
   limit = 30,
   page = 1,
   query,
-  relevanceFloor = true,
+  relevanceFloor = false,
   sort = "most-stars",
   tagCodes,
 }: FindProjectsWithTrendsOptions) {
@@ -115,7 +118,7 @@ export async function findProjectsWithTrends({
     })
     .from(projects)
     .innerJoin(repos, eq(projects.repoId, repos.id))
-    .innerJoin(projectTrends, eq(projectTrends.projectId, projects.id))
+    .leftJoin(projectTrends, eq(projectTrends.projectId, projects.id))
     .leftJoin(repoTrends, eq(repoTrends.repoId, repos.id))
     .leftJoin(projectsToTags, eq(projectsToTags.projectId, projects.id))
     .leftJoin(tags, eq(projectsToTags.tagId, tags.id))
@@ -129,7 +132,7 @@ export async function findProjectsWithTrends({
     .select({ count: count() })
     .from(projects)
     .innerJoin(repos, eq(projects.repoId, repos.id))
-    .innerJoin(projectTrends, eq(projectTrends.projectId, projects.id))
+    .leftJoin(projectTrends, eq(projectTrends.projectId, projects.id))
     .leftJoin(repoTrends, eq(repoTrends.repoId, repos.id))
     .where(where);
 

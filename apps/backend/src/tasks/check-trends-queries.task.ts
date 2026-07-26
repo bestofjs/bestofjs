@@ -17,7 +17,8 @@ import { createTask } from "@/task-runner";
  * local or production database. Prints the results of
  * `findProjectsWithTrends()` for the given flags and checks invariants that
  * fixtures-free testing can verify on real data:
- * - relevance floor: no project with `relevance_score < 0` unless `--fullCatalog`
+ * - relevance floor: when the legacy floored view is selected (`--no-fullCatalog`),
+ *   no shown project has `relevance_score < 0`
  * - sort order: values non-increasing, NULLs (missing `repo_trends` row) last
  * - tag filter: every result has ALL the requested tags
  * - the full catalog is never smaller than the floored listing
@@ -45,8 +46,8 @@ export const checkTrendsQueriesTask = createTask({
     fullCatalog: {
       type: Boolean,
       description:
-        "Disable the relevance-score floor, querying the full catalog (`/search` mode)",
-      default: false,
+        "Show the full catalog with the relevance floor disabled — the live site default. Pass --no-fullCatalog to preview the legacy floored listing.",
+      default: true,
     },
     page: {
       type: Number,
@@ -63,7 +64,7 @@ export const checkTrendsQueriesTask = createTask({
     sort: trendsSortKeySchema.optional().default("most-stars"),
     tags: z.string().optional(),
     search: z.string().optional(),
-    fullCatalog: z.boolean().optional().default(false),
+    fullCatalog: z.boolean().optional().default(true),
     page: z.number().optional().default(1),
     limit: z.number().optional().default(0), // shared flag; 0 means "not provided"
     columns: z.string().optional(),
@@ -145,7 +146,10 @@ function checkRelevanceFloor(
 ) {
   if (fullCatalog) return [];
   return projects
-    .filter((project) => project.relevanceScore < 0)
+    .filter(
+      (project) =>
+        project.relevanceScore !== null && project.relevanceScore < 0,
+    )
     .map(
       (project) =>
         `"${project.slug}" has a negative relevance score (${project.relevanceScore}) but the floor is enabled`,

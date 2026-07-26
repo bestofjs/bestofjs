@@ -15,7 +15,7 @@ export interface FindRelevantTagsOptions {
   tagCodes?: string[];
   /** Text search on project name/description and repo owner/name, same scoping as findProjectsWithTrends() */
   query?: string;
-  /** Quality floor matching findProjectsWithTrends()'s default; disable for the future /search route */
+  /** Quality floor matching findProjectsWithTrends()'s default (off — full catalog); enable to hide low-signal projects */
   relevanceFloor?: boolean;
   limit?: number;
 }
@@ -35,7 +35,7 @@ export async function findRelevantTags({
   db,
   tagCodes,
   query,
-  relevanceFloor = true,
+  relevanceFloor = false,
   limit = 20,
 }: FindRelevantTagsOptions): Promise<RelevantTag[]> {
   const where = and(
@@ -59,7 +59,7 @@ export async function findRelevantTags({
     .from(tags)
     .innerJoin(projectsToTags, eq(projectsToTags.tagId, tags.id))
     .innerJoin(projects, eq(projects.id, projectsToTags.projectId))
-    .innerJoin(projectTrends, eq(projectTrends.projectId, projects.id))
+    .leftJoin(projectTrends, eq(projectTrends.projectId, projects.id))
     .innerJoin(repos, eq(projects.repoId, repos.id))
     .where(where)
     .groupBy(tags.id)
