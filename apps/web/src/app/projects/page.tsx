@@ -105,10 +105,14 @@ function getPageDescription(
 
   if (!query && tags.length === 0) {
     // "All the N projects" would be a false claim under the default `active`
-    // scope, which hides deprecated, inactive and cold projects.
+    // scope, which hides deprecated, inactive and cold projects. "Active" is
+    // the word the scope picker uses, and it means exactly "what this filter
+    // keeps" — unlike "actively maintained", which would describe the rows
+    // correctly but imply the count covers every maintained project (it does
+    // not: maintained-but-cold projects are filtered out too).
     return scope === "all"
       ? `All the ${total} projects tracked by ${APP_DISPLAY_NAME}, ${sortOptionLabel}: ${projectNames}...`
-      : `${total} actively maintained projects tracked by ${APP_DISPLAY_NAME}, ${sortOptionLabel}: ${projectNames}...`;
+      : `${total} active projects tracked by ${APP_DISPLAY_NAME}, ${sortOptionLabel}: ${projectNames}...`;
   }
   if (!query && tags.length > 0) {
     return `${total} projects tagged with ${tagNames}, ${sortOptionLabel}: ${projectNames}...`;
