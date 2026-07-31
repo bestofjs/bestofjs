@@ -53,7 +53,8 @@ const BarGraph = ({ items, ...rest }: BarGraphProps) => {
   const values = items
     .map(({ value }) => value)
     .filter((value) => value !== undefined);
-  const maxValue = Math.max(...(values as number[]));
+  const positiveValues = (values as number[]).filter((v) => v > 0);
+  const maxValue = Math.max(0, ...positiveValues) || 1;
 
   const [selectedItem, setSelectedItem] = useState<BarGraphItem | undefined>(
     undefined,
@@ -66,7 +67,10 @@ const BarGraph = ({ items, ...rest }: BarGraphProps) => {
         {items.map((item) => {
           const { year, month, value } = item;
           const maxHeight = 120;
-          const height = Math.round(((value || 0) / maxValue) * maxHeight);
+          const height =
+            value && value > 0
+              ? Math.round((value / maxValue) * maxHeight)
+              : 0;
 
           return (
             <div
@@ -133,6 +137,7 @@ const MonthSummary = ({
 const GraphBar = ({
   height,
   value,
+  unit,
   showPlusSymbol,
   onClick,
 }: {
@@ -142,8 +147,14 @@ const GraphBar = ({
   month: number;
   onClick?: () => void;
 } & FormattingOptions) => {
-  if (!value) {
-    return <EmptyGraphBar value={value} />;
+  if (!value || value <= 0) {
+    return (
+      <EmptyGraphBar
+        value={value}
+        unit={unit}
+        showPlusSymbol={showPlusSymbol}
+      />
+    );
   }
 
   const formattedValue = formatValue(value, { showPlusSymbol });
@@ -163,12 +174,21 @@ const GraphBar = ({
   );
 };
 
-const EmptyGraphBar = ({ value }: { value: number | undefined }) => {
+const EmptyGraphBar = ({
+  value,
+  showPlusSymbol,
+}: {
+  value: number | undefined;
+} & FormattingOptions) => {
+  const label =
+    value === undefined
+      ? "N/A"
+      : value < 0
+        ? formatValue(value, { showPlusSymbol })
+        : 0;
   return (
     <>
-      <BarTopLabel className="text-muted-foreground">
-        {value === undefined ? "N/A" : 0}
-      </BarTopLabel>
+      <BarTopLabel className="text-muted-foreground">{label}</BarTopLabel>
       <div className="mt-1 h-px w-3/4 max-w-8 border-(--graphBackgroundColor1) border-b border-dashed" />
     </>
   );
