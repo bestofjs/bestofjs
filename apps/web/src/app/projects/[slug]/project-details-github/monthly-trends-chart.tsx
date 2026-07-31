@@ -68,9 +68,7 @@ const BarGraph = ({ items, ...rest }: BarGraphProps) => {
           const { year, month, value } = item;
           const maxHeight = 120;
           const height =
-            value && value > 0
-              ? Math.round((value / maxValue) * maxHeight)
-              : 0;
+            value && value > 0 ? Math.round((value / maxValue) * maxHeight) : 0;
 
           return (
             <div
