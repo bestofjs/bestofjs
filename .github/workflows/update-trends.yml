@@ -32,6 +32,7 @@ on:
 
 env:
   POSTGRES_URL: ${{ secrets.POSTGRES_URL }}
+  API_TRIGGER_BUILD_WEBHOOK_URL: ${{ secrets.API_TRIGGER_BUILD_WEBHOOK_URL }}
 
 jobs:
   update-trends:
@@ -47,3 +48,15 @@ jobs:
         run: pnpm -F backend... install
       - name: Update Trends
         run: pnpm -F backend daily-update-trends --loglevel ${{ inputs.logLevel || 3 }} --limit ${{ inputs.limit || 0 }} --skip ${{ inputs.skip || 0 }} --concurrency ${{ inputs.concurrency || 5 }}
+      # Last link of the daily chain: builds the static API on Vercel, whose own
+      # build command then rebuilds the web app (it bakes `projects.json` in at
+      # build time) and sends the daily notifications.
+      #
+      # `!cancelled()` rather than the default `success()`: the static API is
+      # consumed by clients outside this repo and does not read the trend tables
+      # at all (it derives trends from `snapshots`), so a trends failure must not
+      # hold it back. This preserves the pre-chain behaviour, where the webhook
+      # was sent from the "Update GitHub Data" workflow.
+      - name: Send Webhook to Vercel
+        if: ${{ !cancelled() }}
+        run: pnpm -F backend trigger-build-static-api

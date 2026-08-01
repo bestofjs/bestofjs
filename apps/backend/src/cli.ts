@@ -13,6 +13,7 @@ import {
   helloWorldProjectsTask,
   helloWorldReposTask,
 } from "./tasks/hello-world.task";
+import { invalidateTrendsCacheTask } from "./tasks/invalidate-trends-cache.task";
 import { notifyDailyTask } from "./tasks/notify-daily.task";
 import { notifyMonthlyTask } from "./tasks/notify-monthly.task";
 import { buildRisingStarsTask } from "./tasks/rising-stars/build-rising-stars.task";
@@ -43,6 +44,7 @@ const commands = [
   cleanupRepoTrendsTask,
   updateRepoTrendsTask,
   updateProjectTrendsTask,
+  invalidateTrendsCacheTask,
   checkTrendsQueriesTask,
   buildMonthlyRankingsTask,
   buildRisingStarsTask,
@@ -72,7 +74,7 @@ const dailyUpdateTrendsTask = command(
   {
     name: "daily-update-trends",
     description:
-      "Daily trends pipeline: cleanup → repo_trends Pass 1 → project_trends Pass 2. Stops if a task throws; per-row errors are logged and the row keeps yesterday's value.",
+      "Daily trends pipeline: cleanup → repo_trends Pass 1 → project_trends Pass 2 → web app cache invalidation. Stops if a task throws; per-row errors are logged and the row keeps yesterday's value.",
     flags: sharedFlags,
   },
   (argv) => {
@@ -80,6 +82,9 @@ const dailyUpdateTrendsTask = command(
       cleanupRepoTrendsTask,
       updateRepoTrendsTask,
       updateProjectTrendsTask,
+      // Must stay last: the home page and the /trends pages read the tables the
+      // two passes above write. See the task's own doc comment.
+      invalidateTrendsCacheTask,
     ];
     const runner = createTaskRunner(tasks);
     runner.run(argv.flags);

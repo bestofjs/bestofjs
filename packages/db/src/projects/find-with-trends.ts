@@ -17,7 +17,11 @@ import {
 } from "../project-trends/labels";
 import * as schema from "../schema";
 import type { TrendsSortKey } from "../shared-schemas";
-import { getWhereClauseSearchByTag, getWhereClauseSearchByText } from "./find";
+import {
+  getWhereClauseExcludeTags,
+  getWhereClauseSearchByTag,
+  getWhereClauseSearchByText,
+} from "./find";
 
 const { projects, projectTrends, projectsToTags, repos, repoTrends, tags } =
   schema;
@@ -94,6 +98,14 @@ export function getWhereClauseActiveScope() {
 
 export interface FindProjectsWithTrendsOptions {
   db: DB;
+  /**
+   * Drop projects carrying ANY of these tag codes. Editorial, not quality:
+   * the home page and the `/trends/*` rankings pass
+   * `TAGS_EXCLUDED_FROM_RANKINGS` so meta/learning projects don't crowd out
+   * libraries. The `/projects` listing deliberately does not — see
+   * `docs/architecture/web-app.md`.
+   */
+  excludeTagCodes?: string[];
   limit?: number;
   page?: number;
   /** Text search on project name/description and repo owner/name */
@@ -130,6 +142,7 @@ export type ProjectWithTrends = Awaited<
  */
 export async function findProjectsWithTrends({
   db,
+  excludeTagCodes,
   limit = 30,
   page = 1,
   query,
@@ -146,6 +159,9 @@ export async function findProjectsWithTrends({
     query ? getWhereClauseSearchByText(query) : undefined,
     tagCodes && tagCodes.length > 0
       ? getWhereClauseSearchByTag(db, tagCodes)
+      : undefined,
+    excludeTagCodes && excludeTagCodes.length > 0
+      ? getWhereClauseExcludeTags(db, excludeTagCodes)
       : undefined,
   );
 

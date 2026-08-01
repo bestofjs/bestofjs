@@ -5,5 +5,6 @@ export * from "./find-with-trends";
 export * from "./get";
 export * from "./packages";
 export * from "./project-helpers";
+export * from "./stats";
 export * from "./tags";
 export * from "./update";

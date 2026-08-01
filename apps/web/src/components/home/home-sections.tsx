@@ -88,11 +88,8 @@ export function PopularTagsList({ tags }: { tags: BestOfJS.Tag[] }) {
   );
 }
 
-export function BestOfJSSection({
-  project,
-}: {
-  project: BestOfJS.Project | null;
-}) {
+/** `stars` is null when the repo has no star count yet — the button is hidden. */
+export function BestOfJSSection({ stars }: { stars: number | null }) {
   return (
     <div className="flex flex-col justify-between gap-4 sm:px-4 md:flex-row">
       <div>
@@ -111,7 +108,7 @@ export function BestOfJSSection({
         </div>
       </div>
       <div className="flex flex-col gap-4">
-        {project && (
+        {stars !== null && (
           <a
             href={APP_REPO_URL}
             className={cn(
@@ -121,8 +118,7 @@ export function BestOfJSSection({
           >
             Star on GitHub
             <span className="ml-4 inline-flex align-center">
-              {formatNumber(project.stars, "full")}{" "}
-              <StarIcon className="size-6" />
+              {formatNumber(stars, "full")} <StarIcon className="size-6" />
             </span>
           </a>
         )}
@@ -144,10 +140,13 @@ export function BestOfJSSection({
 }
 
 export function MoreProjectsSection({
+  activeTotal,
   lastUpdateDate,
   total,
 }: {
-  lastUpdateDate: Date;
+  activeTotal: number;
+  /** Null before the daily trends pipeline has ever run. */
+  lastUpdateDate: Date | null;
   total: number;
 }) {
   function formatDateGMT(date: Date) {
@@ -163,8 +162,12 @@ export function MoreProjectsSection({
       />
       <div className="space-y-4 pl-10 font-serif">
         <p>
-          {APP_DISPLAY_NAME} is a curated list of {formatNumber(total, "full")}{" "}
-          open-source projects related to the web platform and Node.js.
+          {APP_DISPLAY_NAME} tracks {formatNumber(total, "full")} open-source
+          projects related to the web platform and Node.js,{" "}
+          <NextLink href="/projects" className="underline">
+            {formatNumber(activeTotal, "full")} of them currently active
+          </NextLink>
+          .
           <br />
           If you want to suggest a new project, please click on the following
           link:{" "}
@@ -173,13 +176,15 @@ export function MoreProjectsSection({
           </ExternalLink>
           .
         </p>
-        <p>
-          Data is updated from GitHub every 24 hours, the last update was at{" "}
-          <code className="relative mr-2 rounded bg-muted px-[0.3rem] py-[0.2rem] font-mono font-semibold text-sm">
-            {formatDateGMT(lastUpdateDate)}
-          </code>
-          (GMT).
-        </p>
+        {lastUpdateDate && (
+          <p>
+            Data is updated from GitHub every 24 hours, the last update was at{" "}
+            <code className="relative mr-2 rounded bg-muted px-[0.3rem] py-[0.2rem] font-mono font-semibold text-sm">
+              {formatDateGMT(lastUpdateDate)}
+            </code>
+            (GMT).
+          </p>
+        )}
       </div>
     </div>
   );

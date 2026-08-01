@@ -12,11 +12,9 @@ import { ReadmeCard } from "./project-readme/project-readme";
 
 import "./project-readme/readme.css";
 
-import { getHotProjectsRequest } from "@/app/backend-search-requests";
 import { projectService } from "@/app/db";
 import { Card, CardContent } from "@/components/ui/card";
 import { APP_CANONICAL_URL, APP_DISPLAY_NAME } from "@/config/site";
-import { api } from "@/server/api";
 
 import { ProjectDetailsNpmCard } from "./project-details-npm/project-details-npm";
 
@@ -88,12 +86,4 @@ async function ProjectDetailsCards({ project }: { project: ProjectDetails }) {
       {packageName && <ProjectDetailsNpmCard project={project} />}
     </>
   );
-}
-
-export async function generateStaticParams() {
-  const { projects: hotProjects } = await api.projects.findProjects(
-    getHotProjectsRequest(),
-  );
-
-  return hotProjects.map((project) => ({ slug: project.slug }));
 }

@@ -1,4 +1,13 @@
-import { and, desc, eq, ilike, inArray, or, sql } from "drizzle-orm";
+import {
+  and,
+  desc,
+  eq,
+  ilike,
+  inArray,
+  notInArray,
+  or,
+  sql,
+} from "drizzle-orm";
 import { isBoolean } from "es-toolkit";
 
 import type { PROJECT_STATUSES } from "../constants";
@@ -135,6 +144,27 @@ export function getWhereClauseSearchByTag(db: DB, tagCodes: string[]) {
   );
 }
 
+/**
+ * Select project IDs carrying NONE of the given tags — the mirror image of
+ * `getWhereClauseSearchByTag()`'s "has ALL of them". Used by the editorial
+ * ranking exclusion (`TAGS_EXCLUDED_FROM_RANKINGS`).
+ *
+ * `notInArray` is safe here: `projects_to_tags.project_id` is NOT NULL, so the
+ * sub-query can never yield a NULL that would make the whole predicate NULL and
+ * empty the result set.
+ */
+export function getWhereClauseExcludeTags(db: DB, tagCodes: string[]) {
+  return notInArray(
+    projects.id,
+    db
+      .select({ id: projectsToTags.projectId })
+      .from(projectsToTags)
+      .innerJoin(tags, eq(projectsToTags.tagId, tags.id))
+      .where(inArray(tags.code, tagCodes))
+      .groupBy(projectsToTags.projectId),
+  );
+}
+
 export function getWhereClauseSearchByText(text: string) {
   return or(
     ilike(projects.name, `%${text}%`),
@@ -147,6 +177,20 @@ export function getWhereClauseSearchByText(text: string) {
 function getWhereClauseSearchByFullName(full_name: string) {
   const [owner, name] = full_name.split("/");
   return and(eq(repos.owner, owner), eq(repos.name, name));
+}
+
+/**
+ * GitHub star count for one repo, by `owner/name`. Exists for the home page's
+ * "Star on GitHub" button, which needs a single integer for a single repo —
+ * `findProjects()` would join tags, packages and bundles to get it.
+ */
+export async function getRepoStarsByFullName(db: DB, full_name: string) {
+  const rows = await db
+    .select({ stars: repos.stars })
+    .from(repos)
+    .where(getWhereClauseSearchByFullName(full_name))
+    .limit(1);
+  return rows[0]?.stars ?? null;
 }
 
 function getFinalSortQuery({

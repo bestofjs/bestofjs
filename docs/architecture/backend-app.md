@@ -115,14 +115,34 @@ The Backend Application tasks are typically executed on a schedule via GitHub Ac
 
 ### Daily Update Workflow
 
-The `update-github-data` workflow runs daily to:
+The daily job is a strict chain across two GitHub Actions workflows and one Vercel build. Each link refreshes only after the data it reads has been written.
 
-1. Update GitHub data for all projects
-2. Generate new snapshots for trend tracking
-3. Build the static API
-4. Trigger a rebuild of the web application
+```
+21:00 UTC   Update GitHub Data              (.github/workflows/update-github-data.yml, cron)
+              daily-update-github-data      → repos, snapshots
+                │ workflow_run: completed, conclusion == success
+            Update Trends                   (.github/workflows/update-trends.yml)
+              daily-update-trends
+                cleanup-repo-trends
+                update-repo-trends          → repo_trends
+                update-project-trends       → project_trends
+                invalidate-trends-cache     → revalidate `daily`, `home`
+              trigger-build-static-api      → Vercel webhook   [if: !cancelled()]
+                │
+            Vercel build of the static API  (build command: `static-api-daily`)
+              build-static-api              → projects.json et al.
+              trigger-build-webapp          → revalidate tags + rebuild the web app
+              notify-daily                  → Slack / Discord top 5
+```
 
-This workflow is scheduled to run at 21:00 UTC daily (via a cron expression) and can also be triggered manually via the GitHub UI.
+"Update GitHub Data" is scheduled at 21:00 UTC (06:00 JST) via cron; both workflows can also be dispatched manually from the GitHub UI.
+
+Two ordering constraints shape this chain:
+
+- The web app's DB-backed pages read `repo_trends` / `project_trends`, so anything that invalidates their cache must run *after* the trends passes. This is why the Vercel webhook is sent from "Update Trends" rather than from "Update GitHub Data".
+- The web app's build bakes `projects.json` into `public/data/` (`build-project-data`), so its rebuild must run *after* the static API is deployed. This is why `trigger-build-webapp` lives inside the Vercel build rather than in a workflow.
+
+`build-static-api` does **not** read the trend tables — it derives trends from `snapshots` — so it has no data dependency on "Update Trends". It is sequenced after it only to keep one ordered chain, and its step is guarded with `if: !cancelled()` so a trends failure cannot stop external consumers of the static API from getting fresh data.
 
 ## Item Processors
 
