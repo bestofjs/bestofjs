@@ -4,7 +4,7 @@ import { cacheLife, cacheTag } from "next/cache";
 import NextLink from "next/link";
 
 import { db } from "@repo/db";
-import { findProjectsWithTrends } from "@repo/db/projects";
+import { findProjectsWithTrends, resolveScope } from "@repo/db/projects";
 import { findRelevantTags, findTags } from "@repo/db/tags";
 
 import {
@@ -15,6 +15,7 @@ import {
 import { PlusIcon, TagIcon, XMarkIcon } from "@/components/core";
 import { PageHeading } from "@/components/core/typography";
 import { TrendsProjectPaginatedList } from "@/components/project-list/trends-project-paginated-list";
+import { TrendsProjectScopePicker } from "@/components/project-list/trends-scope-picker";
 import { getTrendsSortOptionByKey } from "@/components/project-list/trends-sort-order-options";
 import { badgeVariants } from "@/components/ui/badge";
 import { buttonVariants } from "@/components/ui/button";
@@ -146,6 +147,7 @@ async function ProjectsPageContent(props: PageProps) {
         searchState={searchState}
         tags={selectedTags}
         total={total}
+        buildPageURL={buildPageURL}
       />
       {(selectedTags.length > 0 || query) && (
         <CurrentTags
@@ -175,61 +177,103 @@ function ProjectPageHeader({
   tags,
   searchState,
   total,
+  buildPageURL,
 }: {
   tags: TagSummary[];
   searchState: TrendsProjectSearchState;
   total: number;
+  buildPageURL: TrendsProjectSearchUrlBuilder;
 }) {
-  const { query } = searchState;
-  const showingAllProjects = !query && tags.length === 0;
-  if (showingAllProjects) {
+  const { query, scope } = searchState;
+  // The schema normalises an empty query away, so this is just "is a query set".
+  const isSearching = Boolean(query);
+  // The scope the count was actually produced under, not the one in the URL: a
+  // text query forces `"all"`, so a search page must not claim "active
+  // projects" while listing the whole catalog.
+  const effectiveScope = resolveScope(scope, query);
+  // Searching always covers the whole catalog, so the picker would be inert
+  // there — on those pages the subtitle carries the count alone.
+  const scopePicker = isSearching ? undefined : (
+    <TrendsProjectScopePicker value={scope} buildPageURL={buildPageURL} />
+  );
+  if (!isSearching && tags.length === 0) {
     return (
       <PageHeading
-        title={
-          <>
-            All Projects
-            <ShowNumberOfProject count={total} />
-          </>
+        // The title names the scope, so the count below it needs no qualifier:
+        // "Active Projects" over "1,607 projects", never "1,607 active
+        // projects", which would say "active" twice.
+        title={effectiveScope === "active" ? "Active Projects" : "All Projects"}
+        subtitle={
+          <HeadingDetails
+            count={total}
+            noun="project"
+            scopePicker={scopePicker}
+          />
         }
       />
     );
   }
-  if (query === "") {
+  if (!isSearching) {
     return (
       <PageHeading
-        title={
-          <>
-            {tags.map((tag) => tag.name).join(" + ")}
-            <ShowNumberOfProject count={total} />
-          </>
+        title={tags.map((tag) => tag.name).join(" + ")}
+        subtitle={
+          <HeadingDetails
+            count={total}
+            // The title is tag names, so the scope has to ride on the count.
+            noun={getNoun(effectiveScope)}
+            scopePicker={scopePicker}
+          />
         }
-        icon={<TagIcon className="size-8" />}
+        icon={<TagIcon className="size-6 sm:size-8" />}
       />
     );
   }
   return (
     <PageHeading
-      title={
-        <>
-          Search results
-          <ShowNumberOfProject count={total} />
-        </>
-      }
+      title="Search results"
+      subtitle={<HeadingDetails count={total} noun={getNoun(effectiveScope)} />}
     />
   );
 }
 
-function ShowNumberOfProject({ count }: { count: number }) {
+function getNoun(scope: TrendsProjectSearchState["scope"]) {
+  return scope === "active" ? "active project" : "project";
+}
+
+/**
+ * The second line of the heading: how many results, and the control that
+ * changes them. Its own row rather than trailing the `h1` — the count is
+ * metadata about the results, not part of the page's name, and at heading size
+ * it wrapped badly on phones.
+ *
+ * Some form of the scope always reaches the heading, in the title or in the
+ * noun. That is what lets `TrendsProjectScopePicker` shrink to an icon: the
+ * heading reports the state, so the control only has to offer the change. Same
+ * wording as `getPageDescription()` — "active" means exactly "what the filter
+ * keeps".
+ */
+function HeadingDetails({
+  count,
+  noun,
+  scopePicker,
+}: {
+  count: number;
+  noun: string;
+  scopePicker?: React.ReactNode;
+}) {
   return (
-    <>
-      <span className="px-2 text-(--icon-color)">•</span>
-      <span className="text-muted-foreground">
-        {count === 1
-          ? "One project"
-          : `${formatNumber(count, "full")} projects`}
-      </span>
-    </>
+    <div className="flex items-center gap-2">
+      <span>{formatCount(count, noun)}</span>
+      {scopePicker}
+    </div>
   );
+}
+
+function formatCount(count: number, noun: string) {
+  return count === 1
+    ? `One ${noun}`
+    : `${formatNumber(count, "full")} ${noun}s`;
 }
 
 function RelevantTags({

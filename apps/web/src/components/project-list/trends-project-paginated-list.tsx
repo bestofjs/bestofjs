@@ -14,7 +14,6 @@ import {
 } from "../core/pagination/pagination-controls";
 import { computePaginationState } from "../core/pagination/pagination-state";
 import { ProjectScore, ProjectTable } from "./project-table";
-import { TrendsProjectScopePicker } from "./trends-scope-picker";
 import { TrendsProjectSortOrderPicker } from "./trends-sort-order-picker";
 
 type Props = {
@@ -29,7 +28,7 @@ export const TrendsProjectPaginatedList = ({
   searchState,
   total,
 }: Props) => {
-  const { page, limit, sort, scope, query } = searchState;
+  const { page, limit, sort } = searchState;
   const showPagination = total > limit;
   const showSortOptions = total > 1;
   const paginationState = computePaginationState({ page, limit, total });
@@ -46,18 +45,13 @@ export const TrendsProjectPaginatedList = ({
     <Card>
       <CardHeader className="space-y-3">
         <div className="flex w-full flex-col justify-between gap-4 md:flex-row md:items-center">
+          {/* Kept as a wrapper even with a single child: when `showSortOptions`
+              is false it holds the left column open so the pagination info
+              stays right-aligned. */}
           <div className="flex flex-wrap items-center gap-3">
             {showSortOptions && (
               <TrendsProjectSortOrderPicker
                 value={sort}
-                buildPageURL={buildPageURL}
-              />
-            )}
-            {/* A text query always searches the whole catalog (see
-                `resolveScope()`), so the picker would be inert here. */}
-            {!query && (
-              <TrendsProjectScopePicker
-                value={scope}
                 buildPageURL={buildPageURL}
               />
             )}
