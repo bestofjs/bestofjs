@@ -27,7 +27,7 @@ export type ProjectsStats = {
  * for "when was the data computed": it is the last write of the daily pipeline
  * and it comes from the very tables the page renders from, so a failed run
  * makes the displayed date visibly stop advancing instead of a rebuilt page
- * claiming false freshness. `GREATEST` over both tables rather than just
+ * claiming false freshness. The newer of the two maxima rather than just
  * `project_trends` so it survives a reordering of the two passes.
  */
 export async function getProjectsStats({
@@ -47,16 +47,22 @@ export async function getProjectsStats({
         // treats its null scores as "not computed", not as a reason to hide it.
         .leftJoin(repoTrends, eq(repoTrends.repoId, repos.id))
         .where(getWhereClauseActiveScope()),
-      db.select({ updatedAt: max(repoTrends.updatedAt) }).from(repoTrends),
+      // `max()` keeps the column itself as the decoder, so these come back as
+      // `Date`s built the same way as everywhere else: the columns are
+      // `timestamp without time zone` holding UTC, and Drizzle's timestamp
+      // decoder appends `+0000` before parsing. No local-timezone shift.
+      db
+        .select({ updatedAt: max(repoTrends.updatedAt) })
+        .from(repoTrends),
       db
         .select({ updatedAt: max(projectTrends.updatedAt) })
         .from(projectTrends),
     ]);
 
   const updateDates = [
-    toDate(repoTrendsRows[0]?.updatedAt),
-    toDate(projectTrendsRows[0]?.updatedAt),
-  ].filter((date): date is Date => date !== null);
+    repoTrendsRows[0]?.updatedAt,
+    projectTrendsRows[0]?.updatedAt,
+  ].filter((date): date is Date => date != null);
 
   return {
     total: totalRows[0].count,
@@ -65,13 +71,4 @@ export async function getProjectsStats({
       ? new Date(Math.max(...updateDates.map((date) => date.getTime())))
       : null,
   };
-}
-
-/**
- * Aggregates bypass Drizzle's per-column decoder, so `max()` on a timestamp can
- * come back as the driver's raw value rather than a `Date`.
- */
-function toDate(value: Date | string | null | undefined): Date | null {
-  if (!value) return null;
-  return value instanceof Date ? value : new Date(value);
 }
