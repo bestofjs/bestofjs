@@ -14,7 +14,6 @@ import { Badge } from "@/components/ui/badge";
 import { Checkbox } from "@/components/ui/checkbox";
 import {
   CommandDialog,
-  CommandEmpty,
   CommandGroup,
   CommandInput,
   CommandList,
@@ -177,7 +176,22 @@ function CombinedSearchResults({
   usePrefetchFirstProject(filteredProjects);
 
   if (isEmptySearchResults) {
-    return <CommandEmpty>No results found.</CommandEmpty>;
+    // No local match is precisely when the full-catalog search is worth
+    // offering, so keep the "Search for ..." entry. It's a plain <div> rather
+    // than `CommandEmpty` on purpose: cmdk renders `Command.Empty` only while
+    // the list holds zero items, and the entry below is an item — it would
+    // hide this message.
+    return (
+      <CommandGroup>
+        <div className="py-6 text-center text-sm">
+          No quick match for <span className="italic">{searchQuery}</span>.
+        </div>
+        <SearchForTextCommand
+          searchQuery={searchQuery}
+          onSelectSearchForText={onSelectSearchForText}
+        />
+      </CommandGroup>
+    );
   }
   return (
     <CommandGroup
@@ -211,12 +225,10 @@ function CombinedSearchResults({
           </React.Fragment>
         );
       })}
-      {!isEmptySearchResults && (
-        <SearchForTextCommand
-          searchQuery={searchQuery}
-          onSelectSearchForText={onSelectSearchForText}
-        />
-      )}
+      <SearchForTextCommand
+        searchQuery={searchQuery}
+        onSelectSearchForText={onSelectSearchForText}
+      />
     </CommandGroup>
   );
 }

@@ -1,12 +1,15 @@
+import type { ProjectStatus } from "@repo/db/constants";
 import type { ProjectWithTrends } from "@repo/db/projects";
 
 /**
- * `BestOfJS.Project` shape plus the two trends-only scores (`popularityScore`,
- * `activityScore`) that don't exist on the shared static-JSON type — kept as a
- * local intersection rather than widening `BestOfJS.Project` for every consumer.
+ * `BestOfJS.Project` shape plus `activityScore`, which doesn't exist on the
+ * shared static-JSON type — kept as a local intersection rather than widening
+ * `BestOfJS.Project` for every consumer. With `status` and `trends.yearly` it is
+ * everything `getProjectLabel()` needs.
  */
-export type TrendsProject = BestOfJS.Project & {
-  popularityScore: number | null;
+export type TrendsProject = Omit<BestOfJS.Project, "status"> & {
+  /** Narrowed from the static-JSON `string`: the DB column is an enum. */
+  status: ProjectStatus;
   activityScore: number | null;
 };
 
@@ -59,7 +62,6 @@ export function toTrendsProject(
     tags: row.tags
       .map((code) => tagsByCode.get(code))
       .filter((tag): tag is BestOfJS.Tag => Boolean(tag)),
-    popularityScore: row.popularityScore,
     activityScore: row.activityScore,
   };
 }

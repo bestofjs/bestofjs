@@ -160,7 +160,10 @@ export function SearchForTextCommand({
         <SearchIcon className="size-6" />
       </div>
       <div>
-        Search for
+        {/* "all projects": this leaves the palette's quick list — a subset that
+            excludes deprecated and newly added projects — for the full-catalog
+            search on /projects. */}
+        Search all projects for
         <span className="ml-1 font-bold italic">{searchQuery}</span>
       </div>
     </CommandItem>

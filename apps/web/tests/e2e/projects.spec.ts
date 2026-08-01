@@ -21,7 +21,7 @@ test("go to all projects page", async ({ page }) => {
     .click();
 
   await expect(
-    page.getByRole("heading", { name: "All Projects" })
+    page.getByRole("heading", { name: "Active Projects" })
   ).toBeVisible();
 });
 

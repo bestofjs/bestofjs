@@ -24,19 +24,27 @@ import { cn } from "@/lib/utils";
 /** Shared shape both the old (static-JSON) and new (DB-trends) search states satisfy. */
 export type TagFilterState = PaginationProps & { tags: string[] };
 
-type Props<T extends TagFilterState = TagFilterState> = {
-  projects: BestOfJS.Project[];
+type Props<
+  P extends BestOfJS.Project = BestOfJS.Project,
+  T extends TagFilterState = TagFilterState,
+> = {
+  projects: P[];
   buildPageURL?: PageSearchUrlBuilder<T>;
   footer?: React.ReactNode;
-  metricsCell?: (project: BestOfJS.Project) => React.ReactNode;
+  metricsCell?: (project: P) => React.ReactNode;
+  /**
+   * Status/score badges rendered next to the project name. A render prop
+   * because the labels need the trends scores, which only the DB-backed
+   * surfaces have — the static-JSON callers just omit it.
+   */
+  labels?: (project: P) => React.ReactNode;
   showDetails?: boolean;
 };
 
-export function ProjectTable<T extends TagFilterState = TagFilterState>({
-  projects,
-  footer,
-  ...otherProps
-}: Props<T>) {
+export function ProjectTable<
+  P extends BestOfJS.Project = BestOfJS.Project,
+  T extends TagFilterState = TagFilterState,
+>({ projects, footer, ...otherProps }: Props<P, T>) {
   return (
     <table className="w-full">
       <tbody className="[&_tr:last-child]:border-0">
@@ -64,37 +72,54 @@ export function ProjectTable<T extends TagFilterState = TagFilterState>({
   );
 }
 
-type RowProps<T extends TagFilterState = TagFilterState> = Pick<
-  Props<T>,
-  "buildPageURL" | "metricsCell" | "showDetails"
+type RowProps<
+  P extends BestOfJS.Project = BestOfJS.Project,
+  T extends TagFilterState = TagFilterState,
+> = Pick<
+  Props<P, T>,
+  "buildPageURL" | "metricsCell" | "labels" | "showDetails"
 > & {
-  project: BestOfJS.Project;
+  project: P;
 };
-function ProjectTableRow<T extends TagFilterState = TagFilterState>({
+function ProjectTableRow<
+  P extends BestOfJS.Project = BestOfJS.Project,
+  T extends TagFilterState = TagFilterState,
+>({
   project,
   buildPageURL,
   showDetails = true,
   metricsCell,
-}: RowProps<T>) {
+  labels,
+}: RowProps<P, T>) {
   const path = `/projects/${project.slug}`;
+  // De-emphasize the whole row, but never the badges: the `deprecated` badge
+  // has to stay vivid, so the muting is applied per element instead of as a
+  // single `opacity` on the `<tr>`.
+  const isDeprecated = project.status === "deprecated";
 
   return (
     <tr data-testid="project-card" className="border-b">
       <Cell className="w-[50px] pl-4 sm:p-4">
-        <NextLink href={path}>
+        <NextLink href={path} className={cn(isDeprecated && "grayscale")}>
           <ProjectLogo project={project} size={48} />
         </NextLink>
       </Cell>
 
       <Cell className="max-w-0 py-4 pl-4 md:pl-2">
-        <div className="relative flex items-center space-x-2">
+        <div className="relative flex flex-wrap items-center gap-2">
           <NextLink
             href={path}
-            className={linkVariants({ variant: "project" })}
+            className={cn(
+              linkVariants({ variant: "project" }),
+              isDeprecated && "text-muted-foreground",
+            )}
           >
             {project.name}
           </NextLink>
-          <div className="hidden w-full space-x-1 md:flex">
+          {labels?.(project)}
+          {/* `grow`, not `w-full`: the row wraps now (badges can be long), and
+              a 100%-width child would always claim a line of its own. */}
+          <div className="hidden grow space-x-1 md:flex">
             <a
               href={"https://github.com/" + project.full_name}
               aria-label="GitHub repository"
@@ -123,20 +148,30 @@ function ProjectTableRow<T extends TagFilterState = TagFilterState>({
             )}
           </div>
           {metricsCell && (
-            <div className="flex w-full justify-end pr-4 text-right md:hidden">
+            <div className="flex grow justify-end pr-4 text-right md:hidden">
               {metricsCell(project)}
             </div>
           )}
         </div>
 
-        <div className="mt-2 mb-4 truncate pr-4 font-serif text-sm sm:pr-0">
+        <div
+          className={cn(
+            "mt-2 mb-4 truncate pr-4 font-serif text-sm sm:pr-0",
+            isDeprecated && "text-muted-foreground",
+          )}
+        >
           {project.description}
         </div>
         <ProjectTagGroup tags={project.tags} buildPageURL={buildPageURL} />
       </Cell>
 
       {showDetails && (
-        <Cell className="hidden w-[180px] space-y-2 p-4 text-sm md:table-cell">
+        <Cell
+          className={cn(
+            "hidden w-[180px] space-y-2 p-4 text-sm md:table-cell",
+            isDeprecated && "text-muted-foreground",
+          )}
+        >
           {project.pushed_at ? (
             <div>
               Pushed{" "}
@@ -160,7 +195,12 @@ function ProjectTableRow<T extends TagFilterState = TagFilterState>({
       )}
 
       {metricsCell && (
-        <Cell className="hidden w-[128px] p-4 text-right md:table-cell">
+        <Cell
+          className={cn(
+            "hidden w-[128px] p-4 text-right md:table-cell",
+            isDeprecated && "opacity-70",
+          )}
+        >
           {metricsCell(project)}
         </Cell>
       )}

@@ -9,7 +9,7 @@ Two cache tables store pre-computed scores, refreshed daily by the `daily-update
 - **`repo_trends`** (one row per repo): raw star deltas (`daily`, `weekly`, `monthly`, `quarterly`, `yearly`) plus `popularity_score` and `activity_score`
 - **`project_trends`** (one row per project, including deprecated ones): primary package, `monthly_downloads`, `usage_score` and `relevance_score`
 
-The three dimension scores (popularity, activity, usage) serve as **sort keys**. The composite `relevance_score` is only a **quality floor** (`WHERE relevance_score >= 0`), never an `ORDER BY`.
+The three dimension scores (popularity, activity, usage) serve as **sort keys**, and popularity and activity also drive the [UI labels and the `scope` filter](#ui-labels-and-the-scope-filter). The composite `relevance_score` was the listing's quality floor and now has **no consumer** — see below.
 
 The pure functions live in `packages/db/src/repo-trends/scoring.ts` and `packages/db/src/project-trends/scoring.ts`, with unit tests pinning the anchors. Scores are stored, not computed at query time: after changing a formula, re-run the pipeline to see any effect.
 
@@ -29,12 +29,24 @@ Range ~ −100 to +100 (raw +1000/year ≈ 60, +10k/year ≈ 90). Sort key for *
 ## `activity_score` — maintenance
 
 ```
-decay = max(0, 100 - log2(days_since_last_commit + 1) * 10)
-bonus = min(10, log2(contributors) * 3)   when contributors > 1
-score = decay + bonus
+base  = 100 * (1 - log2(days_since_last_commit / 30) / log2(365 / 30))   clamped to [-100, 100]
+bonus = min(10, log2(contributors) * 3)   when contributors > 1 AND base > 0
+score = base + bonus
 ```
 
-Range 0–110. Sort key for **Most active**. Anchors: commit yesterday ≈ 90–100, 1 week ≈ 70, 1 month ≈ 50, 1 year ≈ 15, ~3 years → 0. No commit date → 0 (fully inactive, the "frozen" UI label). The small contributor bonus rewards bus-factor without letting community size dominate recency.
+Range −100…110, mirroring `popularity_score`'s signed shape. Sort key for **Most active**.
+
+| Last commit | ≤30d | 90d | 180d | **1 year** | 2y | 3y | 10y | none |
+|---|---|---|---|---|---|---|---|---|
+| Score | 100 | 56 | 28 | **0** | −28 | −44 | −93 | −100 |
+
+**Why one year is the neutral line:** it is where Best of JS has always drawn "inactive". The static API's `isInactive` rule excluded any project with no commit for over a year from the curated list, and a signed score lets that judgement flow into `relevance_score` and the `scope` filter instead of bottoming out at zero.
+
+**Why the bonus is gated on a positive base:** community size must never soften an inactivity verdict. A 5-contributor repo dead for two years stays at −28 rather than drifting to −18.
+
+**Why no commit date maps to −100, not 0:** under the signed scale, `0` means "a year ago" — mid-range. Returning 0 for missing commit data would quietly promote it to merely-stale.
+
+**Ties under 30 days.** Everything committed within the last month scores 100 (plus the bonus, so contributor count breaks ties there). Exact recency ordering lives in the dedicated **Last commit** sort — the same division of labour `usage_score` has with **Monthly downloads**.
 
 ## `usage_score` — NPM adoption
 
@@ -59,7 +71,7 @@ The original slope (100 at 10M/month) saturated hundreds of popular packages at 
 
 **Not a sort key:** the **Monthly downloads** sort orders by raw `monthly_downloads`. Any log-scale score buckets projects into ties (the listing then degrades to alphabetical order); raw counts give an exact order. The score only feeds the relevance blend, where clamping is harmless.
 
-## `relevance_score` — the quality floor
+## `relevance_score` — currently unused
 
 ```
 with package:    popularity * 0.50 + activity * 0.25 + usage * 0.25
@@ -67,13 +79,39 @@ without package: popularity * 0.65 + activity * 0.35
 deprecated:      minus 17
 ```
 
-Used **only** as `WHERE relevance_score >= 0` in listings — never for ordering. The `/search` route drops the filter so the full catalog (including deprecated, low-signal projects) stays findable.
+**This score has no consumer.** It was the listing's quality floor (`WHERE relevance_score >= 0`) until that floor was removed, and it is now computed and stored daily but read only by the `check-trends-queries` task. Since the activity recalibration, `activity` is signed here too, so inactivity subtracts rather than merely contributing nothing.
 
-**Why the malus is −17:** deprecated repos lose their `repo_trends` row daily (star tracking stops, a cost saving), so their popularity and activity are 0 and only usage can keep them above the floor: `usage * 0.25 − 17 ≥ 0` requires usage ≈ 68, i.e. **~10M downloads/month**. That keeps jquery-class legacy packages visible in listings while hiding deprecated projects with no meaningful adoption. (−17 preserves the ~10M threshold the original −20 malus had under the old usage slope.)
+**Why a weighted sum replaced curation badly.** The static API filtered with a **veto**: over a year without a commit meant excluded, regardless of stars, unless the project was featured, promoted, or above 100k monthly downloads. A weighted sum cannot express that — any dimension compensates for any other, so a project with decent star momentum and no commits for two years still scores positive. That is why the `scope` filter (below) tests the raw signals directly instead of reviving this score.
+
+**Why the malus is −17:** deprecated repos lose their `repo_trends` row daily (star tracking stops, a cost saving), so only usage can lift them: `usage * 0.25 − 17 ≥ 0` requires usage ≈ 68, i.e. **~10M downloads/month**.
+
+## UI labels and the `scope` filter
+
+Labels are derived at render time by `getProjectLabel()` (`packages/db/src/project-trends/labels.ts`) from data already on the row — no stored flags, no extra queries. **At most one badge per project**, first match wins, because the signals overlap heavily: a project untouched for two years has almost always stopped gaining stars too.
+
+| | Condition | Badge |
+|---|---|---|
+| 1 | `projects.status = 'deprecated'` | `deprecated` |
+| 2 | `activity_score < 0` (over a year without a commit) | `inactive` |
+| 3 | `repo_trends.yearly < 50` | `cold` |
+
+Null scores render no badge — they mean "not computed yet" (a project added since the last daily run), never zero.
+
+**Every label is a caution, and that is deliberate.** There is no "trending" badge: the momentum sorts are how you look for hot projects, and an endorsement sharing this channel would weaken the warnings — plus the badge fired on most of page 1 under the default sort while being pure noise on the momentum sorts, where every top row qualifies. Removing it also removed the sort-dependent suppression the badge needed, so `getProjectLabel()` is a pure function of the project alone.
+
+**Why `cold` reads the raw yearly delta rather than `popularity_score`:** stars almost never go *down*, so abandonment shows up as *zero* growth — and `computePopularityScore` returns exactly `0` for that, on the wrong side of any `< 0` test. The 50-stars-a-year threshold is inherited from the static API's `YEARLY_STARS_THRESHOLD`, which gated the curated list for years.
+
+**The `scope` filter** (`findProjectsWithTrends()`'s `scope: "all" | "active"`, the listing's `?scope=` param) hides precisely the rows the first three badges name. It defaults to `"active"`, so a bare `/projects` URL is curated and `?scope=all` opts into the complete catalog — curation that is visible and switchable rather than hidden behind a number. The thresholds are exported from `labels.ts` so the SQL predicate and the badge share them; `check-trends-queries` asserts the two agree.
+
+Its predicate is written as three independent "pass" conditions rather than `NOT (a OR b OR c)`: in SQL's three-valued logic, a project with no `repo_trends` row makes that negation `NULL` and disappears, which would silently hide every newly added project.
+
+The reported total counts what the current filters match, `scope` included — it is a filter like the tag or text query, not a window onto a larger set, so the listing says "23 projects" rather than "23 of 64".
+
+**Browsing is curated; searching is not.** A text `query` forces the scope to `"all"` (`resolveScope()` in `find-with-trends.ts`), and the listing hides the scope picker while a query is active. Someone typing a name wants that one project, and hiding it for being deprecated or unmaintained makes search look broken — the command palette's "Search all projects" fallback exists precisely to reach projects its own index omits, and that index already excludes deprecated ones. The rule lives in the query function so the listing page, the OG image route and `check-trends-queries` cannot disagree about it.
 
 ## Interplay with queries
 
-Because deprecated repos have no `repo_trends` row, the listing query (`findProjectsWithTrends()` in `packages/db`) uses `INNER JOIN project_trends` + `LEFT JOIN repo_trends`, sorts with `NULLS LAST` (trend-less projects sink instead of floating to the top of `DESC` sorts), and falls back to `COALESCE(repo_trends.stars, repos.stars)` for the star count.
+Because deprecated repos have no `repo_trends` row, the listing query (`findProjectsWithTrends()` in `packages/db`) `LEFT JOIN`s both cache tables — `project_trends` too, so projects added since the last daily run are still returned, with null scores — sorts with `NULLS LAST` (trend-less projects sink instead of floating to the top of `DESC` sorts), and falls back to `COALESCE(repo_trends.stars, repos.stars)` for the star count.
 
 | UI label | ORDER BY |
 |---|---|
@@ -103,12 +141,39 @@ these two, like most other sorts, just displayed the star count).
 
 ## How to tune
 
-1. Edit the formulas in `packages/db/src/{repo-trends,project-trends}/scoring.ts` and update the unit tests (`pnpm -F db test`)
-2. Recompute the stored scores: `pnpm -F backend daily-update-trends`
-3. Eyeball the result against real data: `bun run apps/backend/src/cli.ts check-trends-queries --sort trending` (see flags with `--help`; it also verifies the floor / sort-order / tag-filter invariants)
+1. Edit the formulas in `packages/db/src/{repo-trends,project-trends}/scoring.ts`, or the label thresholds in `project-trends/labels.ts`, and update the unit tests (`pnpm -F db test`)
+2. Recompute the stored scores: `pnpm -F backend daily-update-trends`. **Scores are stored, not computed at query time** — until this runs, a formula change has no visible effect anywhere
+3. Eyeball the result against real data: `bun run apps/backend/src/cli.ts check-trends-queries --sort trending` (see flags with `--help`; it also verifies the floor / scope / sort-order / tag-filter invariants)
+
+To judge label thresholds across the whole catalog rather than 30 rows in a browser:
+
+```bash
+pnpm -F backend check-trends-queries --tags state --scope all --limit 64 \
+  --columns rank,slug,status,popularity,activity,lastCommit,yearly,label
+```
 
 ## Decision log
 
+- **2026-07-26** — **Recalibrated `activity_score` to a signed scale** (1 year = 0, ≤30 days = 100,
+  negative beyond, no commit date = −100) and rebuilt the UI labels around it. Three findings drove
+  this. (1) The old `frozen` label (`activity_score === 0`) was **unreachable**: the score returned
+  `decay + bonus` with an unconditional contributor bonus, so any repo with ≥2 contributors scored ≥3
+  forever. (2) The old `cold` label (`popularity_score < 0`) tested the wrong side of the boundary —
+  stars rarely fall, so abandonment reads as *zero* growth, which `computePopularityScore` returns
+  exactly. `retalk` (no stars in 12 months, last commit 2 years ago) escaped both labels *and* the old
+  relevance floor, which scored it **+7**. (3) The static API filtered with veto rules, not a score,
+  which no weighted sum can reproduce.
+  Consequences: labels became **one badge per row** by precedence (`deprecated` → `inactive` →
+  `cold`) since the signals correlate; `frozen` became `inactive` at a reachable threshold; `cold`
+  reads the raw yearly delta; and the `scope` filter was added so the curation the badges describe is
+  also actionable. The contributor bonus is now gated on a positive base so community size cannot
+  soften an inactivity verdict.
+  Two labels from the original spec were dropped. **`widely used but unmaintained`** had no user
+  story behind it, and adoption is already legible from rank and star count. **`trending`** (user
+  story 12) was dropped because the momentum sorts already answer "what's hot" — the badge was noise
+  on those sorts, where every top row qualifies, and near-ubiquitous on page 1 of the default sort. It
+  also made every badge a caution, which is a stronger signal, and let `getProjectLabel()` go back to
+  being a pure function of the project (no `sort` input, no suppression list).
 - **2026-07-20** — Restored the remaining pre-migration sort keys dropped by the initial DB
   migration: **Monthly downloads** (renamed back from `"most-used"` — same underlying data, just the
   literal old key, matching the `daily` rename below), and **Last commit** / **Contributors** /

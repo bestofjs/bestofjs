@@ -14,8 +14,20 @@ export const trendsProjectSearchStateSchema = paginationSchema.extend({
   tags: z
     .preprocess(makeArray, z.array(z.string())) // accept string or array and convert to array
     .default([]),
-  query: z.string().optional(),
+  // An absent query and an empty one both mean "not searching", and the UI
+  // produces both: clearing the text-query chip sets `query: ""`, which `qss`
+  // encodes as a bare `?query=`. Collapsing the two here leaves consumers
+  // (`resolveScope()`, the page heading, the OG route) a single representation
+  // to test — the alternative already caused one bug, where a check for `""`
+  // sent every tag-filtered page down the "Search results" branch.
+  query: z
+    .string()
+    .optional()
+    .transform((value) => value || undefined),
   sort: trendsSortKeySchema.catch("most-stars").default("most-stars"),
+  // Defaults to the filtered view: a bare /projects URL hides the projects the
+  // UI would badge as a warning, and `?scope=all` opts into the full catalog.
+  scope: z.enum(["all", "active"]).catch("active").default("active"),
 });
 
 export type TrendsProjectSearchState = z.infer<

@@ -29,8 +29,10 @@
   --color-secondary-hover: var(--secondary-hover);
   --color-secondary-foreground: var(--secondary-foreground);
 
-  --color-destructive: hsl(var(--destructive));
-  --color-destructive-foreground: hsl(var(--destructive-foreground));
+  /* `hsl()` here used to wrap an `oklch()` value, which is invalid CSS: every
+     `bg-destructive` resolved to transparent. */
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
 
   --color-muted: var(--muted);
   --color-muted-foreground: var(--muted-foreground);
@@ -137,6 +139,7 @@
   --accent: oklch(0.967 0.001 286.375);
   --accent-foreground: oklch(0.21 0.006 285.885);
   --destructive: oklch(0.577 0.245 27.325);
+  --destructive-foreground: oklch(0.985 0 0);
   --border: oklch(0.92 0.004 286.32);
   --input: oklch(0.92 0.004 286.32);
   --ring: oklch(0.75 0.183 55.934);
@@ -206,6 +209,9 @@
   --muted: oklch(0.274 0.006 286.033);
   --muted-foreground: oklch(0.705 0.015 286.067);
   --destructive: oklch(0.704 0.191 22.216);
+  /* Dark theme's destructive is a light red: dark text on it reaches ~4.8:1,
+     white only ~3.2:1, which badge-sized text can't afford. */
+  --destructive-foreground: oklch(0.141 0.005 285.823);
   --input: oklch(1 0 0 / 15%);
   --ring: oklch(0.408 0.123 38.172);
   --chart-1: oklch(0.837 0.128 66.29);

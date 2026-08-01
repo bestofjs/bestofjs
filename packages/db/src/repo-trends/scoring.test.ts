@@ -109,33 +109,72 @@ describe("computeActivityScore", () => {
     expect(score).toBeLessThanOrEqual(110);
   });
 
-  test("commit 2 weeks ago → ~60-70", () => {
+  test("anchor: within 30 days → the full 100 (plus contributor bonus)", () => {
     const score = computeActivityScore({
       lastCommit: daysAgo(14),
       contributors: 5,
       now,
     });
-    expect(score).toBeGreaterThan(60);
-    expect(score).toBeLessThan(75);
+    expect(score).toBeGreaterThanOrEqual(100);
+    expect(score).toBeLessThanOrEqual(110);
   });
 
-  test("commit 1 year ago → low (<25)", () => {
+  test("anchor: 90 days → ~56, 180 days → ~28", () => {
+    const contributors = 1; // isolate the base from the bonus
+    expect(
+      computeActivityScore({ lastCommit: daysAgo(90), contributors, now }),
+    ).toBeCloseTo(56, 0);
+    expect(
+      computeActivityScore({ lastCommit: daysAgo(180), contributors, now }),
+    ).toBeCloseTo(28, 0);
+  });
+
+  test("anchor: 1 year is the neutral line → 0", () => {
+    expect(
+      computeActivityScore({ lastCommit: daysAgo(365), contributors: 3, now }),
+    ).toBeCloseTo(0, 1);
+  });
+
+  test("beyond a year the score goes negative: 2y → ~-28, 3y → ~-44", () => {
+    expect(
+      computeActivityScore({ lastCommit: daysAgo(730), contributors: 3, now }),
+    ).toBeCloseTo(-28, 0);
+    expect(
+      computeActivityScore({ lastCommit: daysAgo(1095), contributors: 3, now }),
+    ).toBeCloseTo(-44, 0);
+  });
+
+  test("the contributor bonus never softens an inactivity verdict", () => {
+    const solo = computeActivityScore({
+      lastCommit: daysAgo(730),
+      contributors: 1,
+      now,
+    });
+    const crowded = computeActivityScore({
+      lastCommit: daysAgo(730),
+      contributors: 500,
+      now,
+    });
+    expect(crowded).toBe(solo);
+    expect(crowded).toBeLessThan(0);
+  });
+
+  test("no commit date → the floor, not 0 (0 now means 'a year ago')", () => {
+    expect(
+      computeActivityScore({ lastCommit: null, contributors: 5, now }),
+    ).toBe(-100);
+    expect(
+      computeActivityScore({ lastCommit: undefined, contributors: 5, now }),
+    ).toBe(-100);
+  });
+
+  test("clamps at the -100 floor for very old commits", () => {
     const score = computeActivityScore({
-      lastCommit: daysAgo(365),
+      lastCommit: daysAgo(365 * 30),
       contributors: 3,
       now,
     });
-    expect(score).toBeGreaterThan(0);
-    expect(score).toBeLessThan(25);
-  });
-
-  test("no commit date → 0", () => {
-    expect(
-      computeActivityScore({ lastCommit: null, contributors: 5, now }),
-    ).toBe(0);
-    expect(
-      computeActivityScore({ lastCommit: undefined, contributors: 5, now }),
-    ).toBe(0);
+    expect(score).toBe(-100);
   });
 
   test("recent activity ranks above stale activity", () => {
@@ -152,7 +191,7 @@ describe("computeActivityScore", () => {
     expect(recent).toBeGreaterThan(stale);
   });
 
-  test("contributor bonus capped at 10", () => {
+  test("contributor bonus capped at 10 (only where the base is positive)", () => {
     const fewContributors = computeActivityScore({
       lastCommit: daysAgo(1),
       contributors: 2,

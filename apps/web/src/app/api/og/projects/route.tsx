@@ -79,6 +79,15 @@ async function fetchOgProjects(searchState: TrendsProjectSearchState) {
       limit: NUMBER_OF_PROJECTS,
       page,
       query,
+      // `scope` is deliberately NOT forwarded, so this always previews the
+      // default (active) view. The image is a 3-row teaser, not a mirror of the
+      // page, and previewing maintained projects is the right thing to put in
+      // front of someone who hasn't clicked yet.
+      //
+      // Consequence, accepted: on an explicit `?scope=all` page a deprecated or
+      // cold project can sit in the top 3 and won't appear here. Search pages
+      // are unaffected — passing `query` makes `resolveScope()` force `"all"` on
+      // both sides. Forwarding it would double the cached image variants.
       sort,
       tagCodes,
     }),
