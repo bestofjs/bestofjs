@@ -2,7 +2,19 @@
 import { Suspense } from "react";
 import { cacheLife, cacheTag } from "next/cache";
 
+import { db } from "@repo/db";
+import {
+  findProjectsWithTrends,
+  getProjectsStats,
+  getRepoStarsByFullName,
+} from "@repo/db/projects";
+import { findTags } from "@repo/db/tags";
+
 import { ProjectListCardLoading } from "@/app/projects/loading-state";
+import {
+  buildTagsByCode,
+  toTrendsProject,
+} from "@/app/projects/project-adapter";
 import { FeaturedProjects } from "@/components/home/home-featured-projects";
 import { HomeIntroSection } from "@/components/home/home-intro-section";
 import {
@@ -14,9 +26,6 @@ import {
 import { LatestMonthlyRankings } from "@/components/home/latest-monthly-rankings";
 import { Separator } from "@/components/ui/separator";
 import { APP_REPO_FULL_NAME } from "@/config/site";
-import { api } from "@/server/api-local-json";
-
-import { getLatestProjects } from "../backend-search-requests";
 
 export default async function TrendsLayout({
   children,
@@ -34,10 +43,11 @@ export default async function TrendsLayout({
 
 async function TrendsLayoutMain({ children }: React.PropsWithChildren) {
   const {
-    newestProjects,
-    bestOfJSProject,
-    popularTags,
+    activeTotal,
+    bestOfJSStars,
     lastUpdateDate,
+    newestProjects,
+    popularTags,
     total,
   } = await getData();
   return (
@@ -57,34 +67,64 @@ async function TrendsLayoutMain({ children }: React.PropsWithChildren) {
 
       <Separator className="-mx-4 w-auto sm:mx-0" />
 
-      <BestOfJSSection project={bestOfJSProject} />
+      <BestOfJSSection stars={bestOfJSStars} />
 
       <Separator className="-mx-4 w-auto sm:mx-0" />
 
-      <MoreProjectsSection lastUpdateDate={lastUpdateDate} total={total} />
+      <MoreProjectsSection
+        activeTotal={activeTotal}
+        lastUpdateDate={lastUpdateDate}
+        total={total}
+      />
     </>
   );
 }
 
+const NUMBER_OF_NEWEST_PROJECTS = 5;
+const NUMBER_OF_POPULAR_TAGS = 10;
+
 async function getData() {
   cacheLife("daily");
   cacheTag("daily", "home");
-  const { lastUpdateDate, total } = await api.projects.getStats();
-  const { projects: newestProjects } = await api.projects.findProjects(
-    getLatestProjects(),
-  );
-  const bestOfJSProject = await api.projects.findOne({
-    full_name: APP_REPO_FULL_NAME,
-  });
-  const { tags: popularTags } = await api.tags.findTags({
-    sort: { counter: -1 },
-    limit: 10,
-  });
+
+  const [{ projects: newestRows }, allTags, stats, bestOfJSStars] =
+    await Promise.all([
+      findProjectsWithTrends({
+        db,
+        limit: NUMBER_OF_NEWEST_PROJECTS,
+        // "Recently Added" is a chronological feed of editorial admissions, not
+        // a quality ranking — curation already happened when a human added the
+        // project. `scope: "active"` would hide the newest entries of all:
+        // until the daily GitHub commit-history fetch reaches a repo, its
+        // `activity_score` is the `-100` sentinel, which the active filter
+        // reads as "dead" rather than "unknown".
+        scope: "all",
+        sort: "newest",
+      }),
+      findTags(),
+      getProjectsStats({ db }),
+      getRepoStarsByFullName(db, APP_REPO_FULL_NAME),
+    ]);
+
+  const tagsByCode = buildTagsByCode(allTags);
+
   return {
-    bestOfJSProject,
-    lastUpdateDate,
-    newestProjects,
-    popularTags,
-    total,
+    activeTotal: stats.activeTotal,
+    bestOfJSStars,
+    lastUpdateDate: stats.lastUpdateDate,
+    newestProjects: newestRows.map((row) => toTrendsProject(row, tagsByCode)),
+    // Sorted and sliced in JS from the same `findTags()` result the tag lookup
+    // above uses: no second query, and the counts are *provably* the ones the
+    // /tags page shows rather than merely intended to match.
+    popularTags: allTags
+      .toSorted((a, b) => b.count - a.count)
+      .slice(0, NUMBER_OF_POPULAR_TAGS)
+      .map((tag) => ({
+        code: tag.code,
+        name: tag.name,
+        description: tag.description,
+        counter: tag.count,
+      })),
+    total: stats.total,
   };
 }

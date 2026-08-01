@@ -36,7 +36,6 @@ env:
   POSTGRES_URL: ${{ secrets.POSTGRES_URL }}
   # caution: `GITHUB_` is not a valid prefix for secrets!
   GITHUB_ACCESS_TOKEN: ${{ secrets.GH_ACCESS_TOKEN }}
-  API_TRIGGER_BUILD_WEBHOOK_URL: ${{ secrets.API_TRIGGER_BUILD_WEBHOOK_URL }}
 jobs:
   update-github-data:
     runs-on: ubuntu-latest
@@ -48,7 +47,9 @@ jobs:
       - name: Install Dependencies
         shell: bash
         run: pnpm -F backend... install
+      # The "Update Trends" workflow takes over from here (`workflow_run` on this
+      # workflow completing): it recomputes the trend tables, then triggers the
+      # static API build, which in turn rebuilds the web app. Keeping that chain
+      # strictly ordered is why this workflow no longer sends the Vercel webhook.
       - name: Update GitHub Data and take snapshots
         run: pnpm -F backend daily-update-github-data --loglevel ${{ inputs.logLevel || 3 }} --limit ${{ inputs.limit || 0 }} --skip ${{ inputs.skip || 0 }} --concurrency ${{ inputs.concurrency || 1 }} --throttleInterval ${{ inputs.throttleInterval || 750 }}
-      - name: Send Webhook to Vercel
-        run: pnpm -F backend trigger-build-static-api

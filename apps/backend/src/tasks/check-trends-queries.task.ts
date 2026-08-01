@@ -1,5 +1,6 @@
 import { z } from "zod";
 
+import { TAGS_EXCLUDED_FROM_RANKINGS } from "@repo/db/constants";
 import { getProjectLabel } from "@repo/db/project-trends";
 import {
   findProjectsWithTrends,
@@ -23,6 +24,7 @@ import { createTask } from "@/task-runner";
  *   no shown project has `relevance_score < 0`
  * - sort order: values non-increasing, NULLs (missing `repo_trends` row) last
  * - tag filter: every result has ALL the requested tags
+ * - excluded tag filter: no result carries ANY of the excluded tags
  * - the full catalog is never smaller than the floored listing
  */
 export const checkTrendsQueriesTask = createTask({
@@ -39,6 +41,11 @@ export const checkTrendsQueriesTask = createTask({
     tags: {
       type: String,
       description: "Comma-separated tag codes; projects must have ALL of them",
+    },
+    excludeTags: {
+      type: String,
+      description:
+        "Comma-separated tag codes; projects must have NONE of them. Pass 'rankings' for the home/trends exclusion (TAGS_EXCLUDED_FROM_RANKINGS).",
     },
     search: {
       type: String,
@@ -71,6 +78,7 @@ export const checkTrendsQueriesTask = createTask({
   schema: z.object({
     sort: trendsSortKeySchema.optional().default("most-stars"),
     tags: z.string().optional(),
+    excludeTags: z.string().optional(),
     search: z.string().optional(),
     fullCatalog: z.boolean().optional().default(true),
     scope: z.enum(["all", "active"]).optional().default("active"),
@@ -81,16 +89,20 @@ export const checkTrendsQueriesTask = createTask({
   run: async ({ db, logger }, flags) => {
     const { sort, search, fullCatalog, scope, page } = flags;
     const limit = flags.limit || 25;
-    const tagCodes = flags.tags
-      ?.split(",")
-      .map((code) => code.trim())
-      .filter(Boolean);
+    const tagCodes = parseTagCodes(flags.tags);
+    // `--excludeTags rankings` is a shorthand for the exclusion the home page
+    // and the /trends pages apply, so it can be checked without retyping it.
+    const excludeTagCodes =
+      flags.excludeTags === "rankings"
+        ? TAGS_EXCLUDED_FROM_RANKINGS
+        : parseTagCodes(flags.excludeTags);
 
     const options = {
       db,
       sort,
       query: search,
       tagCodes,
+      excludeTagCodes,
       page,
       limit,
       scope,
@@ -142,6 +154,7 @@ export const checkTrendsQueriesTask = createTask({
       ...checkScope(projects, effectiveScope),
       ...checkSortOrder(projects, sort),
       ...checkTagFilter(projects, tagCodes),
+      ...checkExcludedTagFilter(projects, excludeTagCodes),
       ...(full.total >= floored.total
         ? []
         : [
@@ -274,6 +287,28 @@ function checkTagFilter(projects: ProjectWithTrends[], tagCodes?: string[]) {
       (project) =>
         `"${project.slug}" is missing one of the requested tags (found: ${project.tags.join(", ")})`,
     );
+}
+
+function checkExcludedTagFilter(
+  projects: ProjectWithTrends[],
+  excludeTagCodes?: string[],
+) {
+  if (!excludeTagCodes || excludeTagCodes.length === 0) return [];
+  return projects
+    .filter((project) =>
+      excludeTagCodes.some((tagCode) => project.tags.includes(tagCode)),
+    )
+    .map(
+      (project) =>
+        `"${project.slug}" carries an excluded tag (found: ${project.tags.join(", ")})`,
+    );
+}
+
+function parseTagCodes(raw: string | undefined) {
+  return raw
+    ?.split(",")
+    .map((code) => code.trim())
+    .filter(Boolean);
 }
 
 function roundScore(score: number | null) {

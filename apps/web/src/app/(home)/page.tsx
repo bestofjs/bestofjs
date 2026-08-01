@@ -3,17 +3,15 @@
 import type { Metadata } from "next";
 import { cacheLife, cacheTag } from "next/cache";
 
-import { getHotProjectsRequest } from "@/app/backend-search-requests";
 import { HotProjectList } from "@/components/home/hot-project-list";
-import { api } from "@/server/api-local-json";
+
+import { getHotProjects } from "./hot-projects";
 
 export default async function DailyTrendsPage() {
   cacheLife("daily");
   cacheTag("daily", "home");
 
-  const { projects } = await api.projects.findProjects(
-    getHotProjectsRequest(5, "daily"),
-  );
+  const projects = await getHotProjects("daily");
   return <HotProjectList projects={projects} sortOptionKey="daily" />;
 }
 

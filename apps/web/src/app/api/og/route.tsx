@@ -1,5 +1,5 @@
-import { getHotProjectsRequest } from "@/app/backend-search-requests";
-import { api } from "@/server/api-remote-json";
+import { getHotProjects } from "@/app/(home)/hot-projects";
+import type { TrendsProject } from "@/app/projects/project-adapter";
 
 import { ImageLayout } from "./og-image-layout";
 import {
@@ -11,11 +11,12 @@ import {
   StarIcon,
 } from "./og-utils";
 
+const NUMBER_OF_PROJECTS = 3;
+
 export async function GET() {
-  const NUMBER_OF_PROJECTS = 3;
-  const { projects } = await api.projects.findProjects(
-    getHotProjectsRequest(NUMBER_OF_PROJECTS),
-  );
+  // Same helper the home page uses, tag exclusion included, so the page and its
+  // own social preview cannot rank "hot projects" differently.
+  const projects = await getHotProjects("daily", NUMBER_OF_PROJECTS);
 
   return generateImageResponse(
     <ImageLayout>
@@ -40,7 +41,7 @@ function ProjectRow({
   project,
   index,
 }: {
-  project: BestOfJS.Project;
+  project: TrendsProject;
   index: number;
 }) {
   return (
@@ -64,7 +65,10 @@ function ProjectRow({
   );
 }
 
-function ShowStars({ project }: { project: BestOfJS.Project }) {
+function ShowStars({ project }: { project: TrendsProject }) {
+  // Undefined before a repo's first daily snapshot pair: render nothing rather
+  // than "+undefined".
+  if (project.trends.daily === undefined) return null;
   return (
     <Box style={{ flexDirection: "row", alignItems: "center" }}>
       <Box>{`+${project.trends.daily}`}</Box>

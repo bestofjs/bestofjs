@@ -86,14 +86,6 @@ export function createProjectsAPI({ getData }: APIContext) {
       };
     },
 
-    async findOne(criteria: RawObject): Promise<BestOfJS.Project | null> {
-      const { projectCollection, populate } = await getData();
-      const query = new mingo.Query(criteria);
-      const cursor = query.find(projectCollection);
-      const projects = cursor.limit(1).all() as BestOfJS.RawProject[];
-      return projects.length ? populate(projects[0]) : null;
-    },
-
     async getProjectBySlug(slug: string) {
       const { populate, projectsBySlug, lastUpdateDate } = await getData();
       const project = projectsBySlug[slug]

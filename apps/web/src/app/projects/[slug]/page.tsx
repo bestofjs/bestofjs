@@ -1,6 +1,7 @@
 "use cache";
 
 import { Suspense } from "react";
+import { uniq } from "es-toolkit";
 import type { Metadata } from "next";
 import { cacheLife, cacheTag } from "next/cache";
 
@@ -12,11 +13,13 @@ import { ReadmeCard } from "./project-readme/project-readme";
 
 import "./project-readme/readme.css";
 
-import { getHotProjectsRequest } from "@/app/backend-search-requests";
+import {
+  getHotProjects,
+  type HotProjectsSortKey,
+} from "@/app/(home)/hot-projects";
 import { projectService } from "@/app/db";
 import { Card, CardContent } from "@/components/ui/card";
 import { APP_CANONICAL_URL, APP_DISPLAY_NAME } from "@/config/site";
-import { api } from "@/server/api";
 
 import { ProjectDetailsNpmCard } from "./project-details-npm/project-details-npm";
 
@@ -80,6 +83,30 @@ async function getProjectDetailsData(slug: string) {
   return await projectService.getProjectBySlug(slug);
 }
 
+const PRERENDERED_WINDOWS: HotProjectsSortKey[] = [
+  "daily",
+  "weekly",
+  "monthly",
+  "yearly",
+];
+
+/**
+ * Prerender the "Hot Projects" of every time window the home page's picker
+ * offers, from the same `getHotProjects()` the cards themselves render from —
+ * so what is built is exactly what visitors click. The windows overlap heavily,
+ * so this is ~20 pages at most.
+ *
+ * `dynamicParams` stays on (the default): the rest of the catalog renders on
+ * demand and fills its own `getProjectDetailsData()` cache entry on first hit.
+ */
+export async function generateStaticParams() {
+  const lists = await Promise.all(
+    PRERENDERED_WINDOWS.map((sort) => getHotProjects(sort)),
+  );
+  const slugs = uniq(lists.flat().map((project) => project.slug));
+  return slugs.map((slug) => ({ slug }));
+}
+
 async function ProjectDetailsCards({ project }: { project: ProjectDetails }) {
   const packageName = project.packages?.[0]?.name;
   return (
@@ -88,12 +115,4 @@ async function ProjectDetailsCards({ project }: { project: ProjectDetails }) {
       {packageName && <ProjectDetailsNpmCard project={project} />}
     </>
   );
-}
-
-export async function generateStaticParams() {
-  const { projects: hotProjects } = await api.projects.findProjects(
-    getHotProjectsRequest(),
-  );
-
-  return hotProjects.map((project) => ({ slug: project.slug }));
 }
