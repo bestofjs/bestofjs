@@ -194,6 +194,35 @@ export function getWhereClauseSearchByPackageName(
   );
 }
 
+/**
+ * Maps npm package names to the slug of the project that owns them, for the
+ * project detail page's dependency list: it has to tell "this dependency is on
+ * Best of JS" from "it is not", and a project may own the name as a *secondary*
+ * package, which `project_trends.package_name` does not record.
+ *
+ * Returns one row per matched package name, not per project — a project owning
+ * two of the requested names appears twice, once under each name.
+ */
+export async function findProjectSlugsByPackageNames({
+  db,
+  packageNames,
+}: {
+  db: DB;
+  packageNames: string[];
+}) {
+  if (packageNames.length === 0) return [];
+  return await db
+    .select({
+      packageName: packages.name,
+      slug: projects.slug,
+    })
+    .from(packages)
+    .innerJoin(projects, eq(projects.id, packages.projectId))
+    .where(
+      and(inArray(packages.name, packageNames), isNotNull(packages.projectId)),
+    );
+}
+
 export function getWhereClauseSearchByText(text: string) {
   return or(
     ilike(projects.name, `%${text}%`),

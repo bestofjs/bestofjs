@@ -18,9 +18,11 @@ export async function GET(_req: Request, props: Context) {
     status: 200,
     headers: {
       "content-type": "application/json",
-      // No CDN `Cache-Control` on purpose: `revalidateTag()` clears the Next
-      // cache below but not Vercel's edge cache, so an `s-maxage` would outlive
-      // — and defeat — `/api/revalidate?tag=tags`.
+      // No `Cache-Control` on purpose: caching is handled at the Next.js level
+      // by `getTagData()`'s `"use cache"` below. The route itself stays dynamic,
+      // so Next already sends `no-store` — and an `s-maxage` would put the
+      // response in Vercel's edge cache, which `revalidateTag()` does not clear,
+      // outliving and defeating `/api/revalidate?tag=tags`.
     },
   });
 }
