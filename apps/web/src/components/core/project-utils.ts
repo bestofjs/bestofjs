@@ -1,5 +1,16 @@
+/**
+ * The fields a project logo is derived from. Widened from `BestOfJS.Project` so
+ * the narrow DB rows the OG image routes select (where `projects.logo` is
+ * nullable) type-check too; every existing caller passes a full project.
+ */
+export type ProjectLogoSource = {
+  name: string;
+  logo?: string | null;
+  owner_id: number;
+};
+
 export function getProjectLogoURL(
-  project: BestOfJS.Project,
+  project: Pick<ProjectLogoSource, "logo" | "owner_id">,
   size: number,
   colorMode: "dark" | "light",
 ) {

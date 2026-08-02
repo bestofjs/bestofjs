@@ -1,5 +1,17 @@
-import type { ProjectDetails } from "@repo/db/projects";
+import { cacheLife, cacheTag } from "next/cache";
 
+import { db } from "@repo/db";
+import {
+  findProjectSlugsByPackageNames,
+  findProjectsWithTrends,
+  type ProjectDetails,
+} from "@repo/db/projects";
+import { findTags } from "@repo/db/tags";
+
+import {
+  buildTagsByCode,
+  toTrendsProject,
+} from "@/app/projects/project-adapter";
 import { ChevronRightIcon, ExternalLinkIcon } from "@/components/core";
 import { ProjectTable } from "@/components/project-list/project-table";
 import { Badge } from "@/components/ui/badge";
@@ -10,7 +22,6 @@ import {
   CollapsibleTrigger,
 } from "@/components/ui/collapsible";
 import { Table, TableBody, TableCell, TableRow } from "@/components/ui/table";
-import { api } from "@/server/api";
 
 export async function DependenciesSection({
   project,
@@ -22,11 +33,9 @@ export async function DependenciesSection({
   if (dependencies.length === 0) {
     return <div>No dependencies</div>;
   }
-  const { projects } = await api.projects.findProjects({
-    criteria: { npm: { $in: dependencies } },
-  });
-  const dependenciesNotOnBestOfJS = dependencies.filter(
-    (dependency) => !projects.find((project) => project.npm === dependency),
+  const { projects, dependenciesNotOnBestOfJS } = await fetchDependencyProjects(
+    project.slug,
+    dependencies,
   );
 
   return (
@@ -68,4 +77,50 @@ export async function DependenciesSection({
       </CollapsibleContent>
     </Collapsible>
   );
+}
+
+/**
+ * Splits a package's dependencies into "tracked by Best of JS" (rendered as a
+ * project table) and "not tracked" (rendered as bare npm links).
+ *
+ * The split is driven by `findProjectSlugsByPackageNames()` rather than by
+ * matching the listing rows' `npm` field: that field is
+ * `project_trends.package_name`, a project's *primary* package only, so a
+ * dependency a project publishes as a secondary package matched the listing
+ * query but not the `npm` comparison — landing in both buckets at once.
+ *
+ * `limit: dependencies.length` because the default (20) silently truncated the
+ * table *and*, since the "not on Best of JS" bucket was derived from the
+ * truncated list, pushed tracked dependency #21 onwards into the bare-links
+ * bucket. `scope: "all"` because a deprecated dependency is still on Best of JS
+ * and has a page to link to.
+ */
+async function fetchDependencyProjects(slug: string, dependencies: string[]) {
+  "use cache";
+  cacheLife("days");
+  cacheTag("project-details", slug);
+
+  const [{ projects: rows }, ownedPackages, allTags] = await Promise.all([
+    findProjectsWithTrends({
+      db,
+      limit: dependencies.length,
+      packageNames: dependencies,
+      scope: "all",
+      sort: "most-stars",
+    }),
+    findProjectSlugsByPackageNames({ db, packageNames: dependencies }),
+    findTags(),
+  ]);
+
+  const trackedDependencies = new Set(
+    ownedPackages.map(({ packageName }) => packageName),
+  );
+  const tagsByCode = buildTagsByCode(allTags);
+
+  return {
+    projects: rows.map((row) => toTrendsProject(row, tagsByCode)),
+    dependenciesNotOnBestOfJS: dependencies.filter(
+      (dependency) => !trackedDependencies.has(dependency),
+    ),
+  };
 }

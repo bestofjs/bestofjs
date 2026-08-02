@@ -10,6 +10,7 @@ import {
   sql,
 } from "drizzle-orm";
 
+import type { ProjectStatus } from "../constants";
 import type { DB } from "../index";
 import {
   COLD_YEARLY_STARS,
@@ -19,6 +20,7 @@ import * as schema from "../schema";
 import type { TrendsSortKey } from "../shared-schemas";
 import {
   getWhereClauseExcludeTags,
+  getWhereClauseSearchByPackageName,
   getWhereClauseSearchByTag,
   getWhereClauseSearchByText,
 } from "./find";
@@ -29,8 +31,12 @@ const { projects, projectTrends, projectsToTags, repos, repoTrends, tags } =
 /**
  * Deprecated projects have no `repo_trends` row (deleted by the daily cleanup
  * task), so fall back to the canonical GitHub star count from `repos`.
+ *
+ * Exported so single-project queries that join the same two tables (the OG
+ * image route's `getProjectCardData()`) reuse the fallback instead of restating
+ * it and quietly showing `null` stars for a deprecated project.
  */
-const starsExpression = sql<number>`COALESCE(${repoTrends.stars}, ${repos.stars})`;
+export const starsExpression = sql<number>`COALESCE(${repoTrends.stars}, ${repos.stars})`;
 
 const sortExpressionByKey: Record<TrendsSortKey, SQL> = {
   trending: sql`${repoTrends.popularityScore}`,
@@ -107,6 +113,13 @@ export interface FindProjectsWithTrendsOptions {
    */
   excludeTagCodes?: string[];
   limit?: number;
+  /**
+   * Keep only projects owning ANY of these npm package names, primary or
+   * secondary — matched against the `packages` table, not the single
+   * `project_trends.package_name`. Used by the project detail page's dependency
+   * list.
+   */
+  packageNames?: string[];
   page?: number;
   /** Text search on project name/description and repo owner/name */
   query?: string;
@@ -124,6 +137,12 @@ export interface FindProjectsWithTrendsOptions {
    */
   relevanceFloor?: boolean;
   sort?: TrendsSortKey;
+  /**
+   * Editorial status filter, ANDed with `scope`. A single value rather than an
+   * array: the one caller (`/featured`) wants exactly one, and widening it
+   * later is a one-line change.
+   */
+  status?: ProjectStatus;
   /** Keep only projects that have ALL the requested tags */
   tagCodes?: string[];
 }
@@ -144,11 +163,13 @@ export async function findProjectsWithTrends({
   db,
   excludeTagCodes,
   limit = 30,
+  packageNames,
   page = 1,
   query,
   relevanceFloor = false,
   scope = "active",
   sort = "most-stars",
+  status,
   tagCodes,
 }: FindProjectsWithTrendsOptions) {
   const offset = (page - 1) * limit;
@@ -156,7 +177,11 @@ export async function findProjectsWithTrends({
   // Everything except the scope filter, so the unfiltered total can reuse it.
   const baseWhere = and(
     relevanceFloor ? gte(projectTrends.relevanceScore, 0) : undefined,
+    status ? eq(projects.status, status) : undefined,
     query ? getWhereClauseSearchByText(query) : undefined,
+    packageNames && packageNames.length > 0
+      ? getWhereClauseSearchByPackageName(db, packageNames)
+      : undefined,
     tagCodes && tagCodes.length > 0
       ? getWhereClauseSearchByTag(db, tagCodes)
       : undefined,

@@ -4,6 +4,7 @@ import {
   eq,
   ilike,
   inArray,
+  isNotNull,
   notInArray,
   or,
   sql,
@@ -162,6 +163,34 @@ export function getWhereClauseExcludeTags(db: DB, tagCodes: string[]) {
       .innerJoin(tags, eq(projectsToTags.tagId, tags.id))
       .where(inArray(tags.code, tagCodes))
       .groupBy(projectsToTags.projectId),
+  );
+}
+
+/**
+ * Select project IDs owning ANY of the given npm package names.
+ *
+ * Matches the `packages` table rather than `project_trends.package_name`: the
+ * latter holds only a project's *primary* package, so a lookup keyed on it
+ * misses projects that publish the requested name as a secondary package.
+ *
+ * `packages.project_id` is nullable (a package row can exist before it is
+ * attached to a project), so the sub-query filters nulls out explicitly.
+ */
+export function getWhereClauseSearchByPackageName(
+  db: DB,
+  packageNames: string[],
+) {
+  return inArray(
+    projects.id,
+    db
+      .select({ id: packages.projectId })
+      .from(packages)
+      .where(
+        and(
+          inArray(packages.name, packageNames),
+          isNotNull(packages.projectId),
+        ),
+      ),
   );
 }
 

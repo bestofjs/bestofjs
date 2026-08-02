@@ -1,4 +1,13 @@
-import { asc, count, eq, lte, notInArray, sql } from "drizzle-orm";
+import {
+  and,
+  asc,
+  count,
+  eq,
+  inArray,
+  lte,
+  notInArray,
+  sql,
+} from "drizzle-orm";
 
 import { db } from "../index";
 import * as schema from "../schema";
@@ -45,10 +54,14 @@ export type TagProject = {
  * Single query using subqueries: tags with count, ranked projects (ROW_NUMBER), top N per tag, then group in JS.
  */
 export async function findTagsWithProjects(options?: {
+  /** Restrict to these tag codes. Omit for every tag (the /tags page). */
+  codes?: string[];
   /** Max number of top (by stars) projects to return per tag. Default 5. */
   topProjectsPerTag?: number;
 }): Promise<TagWithProjectsItem[]> {
-  const { topProjectsPerTag = 5 } = options ?? {};
+  const { codes, topProjectsPerTag = 5 } = options ?? {};
+  const codeFilter =
+    codes && codes.length > 0 ? inArray(schema.tags.code, codes) : undefined;
 
   // Sub-query 1: Tags with project count (same logic as findTags()). Used in main query FROM.
   const tagsWithCount = db
@@ -64,6 +77,7 @@ export async function findTagsWithProjects(options?: {
       schema.projectsToTags,
       eq(schema.projectsToTags.tagId, schema.tags.id),
     )
+    .where(codeFilter)
     .groupBy(() => [
       schema.tags.name,
       schema.tags.code,
@@ -95,7 +109,7 @@ export async function findTagsWithProjects(options?: {
       eq(schema.projects.id, schema.projectsToTags.projectId),
     )
     .innerJoin(schema.repos, eq(schema.repos.id, schema.projects.repoId))
-    .where(notInArray(schema.projects.status, ["deprecated"]))
+    .where(and(notInArray(schema.projects.status, ["deprecated"]), codeFilter))
     .as("ranked");
 
   // Sub-query 3: From sub-query 2, keep only rows with rn <= topProjectsPerTag (top N projects per tag). Used in main query LEFT JOIN.
@@ -160,4 +174,19 @@ export async function findTagsWithProjects(options?: {
       projects,
     };
   });
+}
+
+/**
+ * One tag with its top projects, for the tag hover card. A thin wrapper rather
+ * than its own query so "top 5 by stars, deprecated excluded" has a single
+ * implementation and the hover card cannot drift from the /tags page.
+ *
+ * Returns `null` for an unknown code.
+ */
+export async function findTagWithProjects(
+  code: string,
+  options?: { topProjectsPerTag?: number },
+): Promise<TagWithProjectsItem | null> {
+  const [tag] = await findTagsWithProjects({ ...options, codes: [code] });
+  return tag ?? null;
 }

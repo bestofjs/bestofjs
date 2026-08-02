@@ -3,6 +3,8 @@
 import Link from "next/link";
 import useSWR, { type SWRConfiguration } from "swr";
 
+import type { TagProject, TagWithProjectsItem } from "@repo/db/tags";
+
 import { ProjectLogo, TagIcon } from "@/components/core";
 import {
   HoverCard,
@@ -64,9 +66,14 @@ const FetchTagProjects = ({ tag }: { tag: BestOfJS.RawTag }) => {
 
   const fetchTagData = async () => {
     const url = `/api/tags/${tag.code}`;
-    const data = await fetch(url).then((res) => res.json());
+    const res = await fetch(url);
+    // Without this check a JSON error body (404 on an unknown code) would be
+    // truthy, and `data.projects` `undefined` — crashing `TagProjectList`'s
+    // `.map` instead of showing the error state.
+    if (!res.ok) throw new Error(`Unable to fetch tag data ${tag.code}`);
+    const data: TagWithProjectsItem = await res.json();
     if (!data) throw new Error(`Unable to fetch tag data ${tag.code}`);
-    return data as BestOfJS.TagWithProjects;
+    return data;
   };
 
   const { data, error, isLoading } = useSWR(tag.code, fetchTagData, options);
@@ -77,7 +84,7 @@ const FetchTagProjects = ({ tag }: { tag: BestOfJS.RawTag }) => {
   return <TagProjectList projects={data.projects} />;
 };
 
-const TagProjectList = ({ projects }: { projects: BestOfJS.Project[] }) => (
+const TagProjectList = ({ projects }: { projects: TagProject[] }) => (
   <div className="flex flex-col gap-3">
     {projects.map((project) => (
       <Link
