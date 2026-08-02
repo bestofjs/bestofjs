@@ -1,8 +1,13 @@
 import { z } from "zod";
 
-import { TAGS_EXCLUDED_FROM_RANKINGS } from "@repo/db/constants";
+import {
+  PROJECT_STATUSES,
+  type ProjectStatus,
+  TAGS_EXCLUDED_FROM_RANKINGS,
+} from "@repo/db/constants";
 import { getProjectLabel } from "@repo/db/project-trends";
 import {
+  findProjectSlugsByPackageNames,
   findProjectsWithTrends,
   type ProjectWithTrends,
   resolveScope,
@@ -25,6 +30,9 @@ import { createTask } from "@/task-runner";
  * - sort order: values non-increasing, NULLs (missing `repo_trends` row) last
  * - tag filter: every result has ALL the requested tags
  * - excluded tag filter: no result carries ANY of the excluded tags
+ * - status filter: every result carries the requested status
+ * - package filter: every result owns at least one requested package name,
+ *   primary or secondary
  * - the full catalog is never smaller than the floored listing
  */
 export const checkTrendsQueriesTask = createTask({
@@ -51,6 +59,15 @@ export const checkTrendsQueriesTask = createTask({
       type: String,
       description:
         "Text search on project name/description and repo owner/name",
+    },
+    status: {
+      type: String,
+      description: `Filter by project status (${PROJECT_STATUSES.join("|")}). The /featured page passes 'featured'.`,
+    },
+    packages: {
+      type: String,
+      description:
+        "Comma-separated npm package names; projects owning ANY of them, primary or secondary (the project detail page's dependency list)",
     },
     fullCatalog: {
       type: Boolean,
@@ -80,6 +97,8 @@ export const checkTrendsQueriesTask = createTask({
     tags: z.string().optional(),
     excludeTags: z.string().optional(),
     search: z.string().optional(),
+    status: z.enum(PROJECT_STATUSES).optional(),
+    packages: z.string().optional(),
     fullCatalog: z.boolean().optional().default(true),
     scope: z.enum(["all", "active"]).optional().default("active"),
     page: z.number().optional().default(1),
@@ -87,15 +106,16 @@ export const checkTrendsQueriesTask = createTask({
     columns: z.string().optional(),
   }),
   run: async ({ db, logger }, flags) => {
-    const { sort, search, fullCatalog, scope, page } = flags;
+    const { sort, search, fullCatalog, scope, page, status } = flags;
     const limit = flags.limit || 25;
-    const tagCodes = parseTagCodes(flags.tags);
+    const tagCodes = parseList(flags.tags);
+    const packageNames = parseList(flags.packages);
     // `--excludeTags rankings` is a shorthand for the exclusion the home page
     // and the /trends pages apply, so it can be checked without retyping it.
     const excludeTagCodes =
       flags.excludeTags === "rankings"
         ? TAGS_EXCLUDED_FROM_RANKINGS
-        : parseTagCodes(flags.excludeTags);
+        : parseList(flags.excludeTags);
 
     const options = {
       db,
@@ -103,9 +123,11 @@ export const checkTrendsQueriesTask = createTask({
       query: search,
       tagCodes,
       excludeTagCodes,
+      packageNames,
       page,
       limit,
       scope,
+      status,
     };
     // A text search always searches the whole catalog, whatever `--scope` says.
     const effectiveScope = resolveScope(scope, search);
@@ -149,12 +171,22 @@ export const checkTrendsQueriesTask = createTask({
       `The relevance floor hides ${full.total - floored.total} of the ${full.total} matching projects`,
     );
 
+    // `ProjectWithTrends` only carries `packageName`, the *primary* package, so
+    // the package invariant is checked against the same `packages`-table lookup
+    // the dependency list uses — which is exactly the drift being guarded
+    // against.
+    const ownedPackages = packageNames?.length
+      ? await findProjectSlugsByPackageNames({ db, packageNames })
+      : [];
+
     const violations = [
       ...checkRelevanceFloor(projects, fullCatalog),
       ...checkScope(projects, effectiveScope),
       ...checkSortOrder(projects, sort),
       ...checkTagFilter(projects, tagCodes),
       ...checkExcludedTagFilter(projects, excludeTagCodes),
+      ...checkStatusFilter(projects, status),
+      ...checkPackageFilter(projects, packageNames, ownedPackages),
       ...(full.total >= floored.total
         ? []
         : [
@@ -304,7 +336,42 @@ function checkExcludedTagFilter(
     );
 }
 
-function parseTagCodes(raw: string | undefined) {
+function checkStatusFilter(
+  projects: ProjectWithTrends[],
+  status: ProjectStatus | undefined,
+) {
+  if (!status) return [];
+  return projects
+    .filter((project) => project.status !== status)
+    .map(
+      (project) =>
+        `"${project.slug}" has status "${project.status}" but "${status}" was requested`,
+    );
+}
+
+/**
+ * Proves the `packages`-table match: a result whose *primary* package is none
+ * of the requested names must still own one of them as a secondary package, or
+ * the filter returned a project it should not have.
+ */
+function checkPackageFilter(
+  projects: ProjectWithTrends[],
+  packageNames: string[] | undefined,
+  ownedPackages: { packageName: string; slug: string }[],
+) {
+  if (!packageNames || packageNames.length === 0) return [];
+  const slugsOwningARequestedPackage = new Set(
+    ownedPackages.map(({ slug }) => slug),
+  );
+  return projects
+    .filter((project) => !slugsOwningARequestedPackage.has(project.slug))
+    .map(
+      (project) =>
+        `"${project.slug}" owns none of the requested packages (its primary package is "${project.packageName ?? "none"}")`,
+    );
+}
+
+function parseList(raw: string | undefined) {
   return raw
     ?.split(",")
     .map((code) => code.trim())

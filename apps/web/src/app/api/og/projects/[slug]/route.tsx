@@ -1,3 +1,8 @@
+import { cacheLife, cacheTag } from "next/cache";
+
+import { db } from "@repo/db";
+import { getProjectCardData, type ProjectCardData } from "@repo/db/projects";
+
 import {
   Box,
   borderColor,
@@ -7,7 +12,6 @@ import {
   StarIcon,
 } from "@/app/api/og/og-utils";
 import { formatNumber } from "@/helpers/numbers";
-import { api } from "@/server/api-remote-json";
 
 import { ImageLayout } from "../../og-image-layout";
 
@@ -17,7 +21,7 @@ export async function GET(_req: Request, props: Context) {
 
   const { slug } = params;
 
-  const { project } = await api.projects.getProjectBySlug(slug);
+  const project = await getProjectData(slug);
   if (!project)
     return generateImageResponse(
       <ImageLayout>
@@ -58,6 +62,18 @@ export async function GET(_req: Request, props: Context) {
   );
 }
 
+/**
+ * Same cache tag as the project detail page (`projects/[slug]/page.tsx`), so a
+ * project and its social image refresh together.
+ */
+async function getProjectData(slug: string) {
+  "use cache";
+  cacheLife("days");
+  cacheTag("project-details", slug);
+
+  return await getProjectCardData({ db, slug });
+}
+
 function getTitleFontSize(title: string) {
   if (title.length < 16) return 72;
   if (title.length < 25) return 52;
@@ -75,10 +91,12 @@ function ShowStarsTotal({ value }: { value: number }) {
   );
 }
 
-function Trend({ project }: { project: BestOfJS.Project }) {
-  const value = project.trends.weekly;
+function Trend({ project }: { project: ProjectCardData }) {
+  // LEFT JOIN on `repo_trends`: null for a deprecated project (no daily
+  // tracking), where the card shows the star total alone.
+  const value = project.weeklyStars;
   const sign = value && value > 0 ? "+" : "";
-  return value !== undefined ? (
+  return value !== null ? (
     <Box style={{ justifyContent: "space-between" }}>
       <Box>
         <div style={{ marginRight: 8 }}>This week:</div>

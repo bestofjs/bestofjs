@@ -1,7 +1,10 @@
 import type { MetadataRoute } from "next";
 
+import { findTags } from "@repo/db/tags";
+
 import { APP_CANONICAL_URL } from "@/config/site";
-import { api } from "@/server/api";
+
+const NUMBER_OF_POPULAR_TAGS = 10;
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const tagSearchPages = await getTagSearchPages();
@@ -47,9 +50,16 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   ];
 }
 
+/**
+ * Sorted and sliced in JS rather than in SQL, mirroring the home page's popular
+ * tags (`(home)/layout.tsx`): there are ~50 tags, so ordering and limiting them
+ * is not worth extra options on the shared `findTags()` query.
+ */
 async function getPopularTags() {
-  const { tags } = await api.tags.findTags({ sort: { count: -1 }, limit: 10 });
-  return tags;
+  const tags = await findTags();
+  return tags
+    .toSorted((a, b) => b.count - a.count)
+    .slice(0, NUMBER_OF_POPULAR_TAGS);
 }
 
 async function getTagSearchPages(): Promise<MetadataRoute.Sitemap> {

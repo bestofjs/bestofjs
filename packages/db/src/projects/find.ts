@@ -4,6 +4,7 @@ import {
   eq,
   ilike,
   inArray,
+  isNotNull,
   notInArray,
   or,
   sql,
@@ -163,6 +164,63 @@ export function getWhereClauseExcludeTags(db: DB, tagCodes: string[]) {
       .where(inArray(tags.code, tagCodes))
       .groupBy(projectsToTags.projectId),
   );
+}
+
+/**
+ * Select project IDs owning ANY of the given npm package names.
+ *
+ * Matches the `packages` table rather than `project_trends.package_name`: the
+ * latter holds only a project's *primary* package, so a lookup keyed on it
+ * misses projects that publish the requested name as a secondary package.
+ *
+ * `packages.project_id` is nullable (a package row can exist before it is
+ * attached to a project), so the sub-query filters nulls out explicitly.
+ */
+export function getWhereClauseSearchByPackageName(
+  db: DB,
+  packageNames: string[],
+) {
+  return inArray(
+    projects.id,
+    db
+      .select({ id: packages.projectId })
+      .from(packages)
+      .where(
+        and(
+          inArray(packages.name, packageNames),
+          isNotNull(packages.projectId),
+        ),
+      ),
+  );
+}
+
+/**
+ * Maps npm package names to the slug of the project that owns them, for the
+ * project detail page's dependency list: it has to tell "this dependency is on
+ * Best of JS" from "it is not", and a project may own the name as a *secondary*
+ * package, which `project_trends.package_name` does not record.
+ *
+ * Returns one row per matched package name, not per project — a project owning
+ * two of the requested names appears twice, once under each name.
+ */
+export async function findProjectSlugsByPackageNames({
+  db,
+  packageNames,
+}: {
+  db: DB;
+  packageNames: string[];
+}) {
+  if (packageNames.length === 0) return [];
+  return await db
+    .select({
+      packageName: packages.name,
+      slug: projects.slug,
+    })
+    .from(packages)
+    .innerJoin(projects, eq(projects.id, packages.projectId))
+    .where(
+      and(inArray(packages.name, packageNames), isNotNull(packages.projectId)),
+    );
 }
 
 export function getWhereClauseSearchByText(text: string) {

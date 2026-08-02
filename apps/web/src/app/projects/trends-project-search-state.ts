@@ -45,11 +45,20 @@ export class TrendsProjectSearchStateParser extends SearchStateParser<
 > {
   path = "/projects";
 
+  /**
+   * `sort` and `scope` are overridable alongside `limit` because a listing page
+   * that is not `/projects` needs different defaults — `/featured` opens on the
+   * newest projects and over the whole catalog. Before this, the constructor
+   * accepted the whole state but silently applied only `limit`, so passing
+   * `{ sort: "newest" }` was a no-op.
+   */
   constructor(options: Partial<TrendsProjectSearchState> = {}) {
-    const { limit = 30 } = options;
+    const { limit = 30, scope = "active", sort = "most-stars" } = options;
 
     const extendedSchema = trendsProjectSearchStateSchema.extend({
       limit: limitSchema.default(limit),
+      scope: z.enum(["all", "active"]).catch(scope).default(scope),
+      sort: trendsSortKeySchema.catch(sort).default(sort),
     });
 
     super(extendedSchema);

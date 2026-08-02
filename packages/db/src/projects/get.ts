@@ -5,8 +5,46 @@ import { z } from "zod";
 
 import type { DB } from "../index";
 import * as schema from "../schema";
+import { starsExpression } from "./find-with-trends";
 
 export type ProjectData = typeof schema.projects.$inferSelect;
+
+export type ProjectCardData = NonNullable<
+  Awaited<ReturnType<typeof getProjectCardData>>
+>;
+
+/**
+ * The handful of fields a project's OG image renders: logo, name, description,
+ * star total and weekly delta. Deliberately not `getProjectBySlug()`, which
+ * loads every yearly snapshot row, the tags and the packages to draw one card.
+ *
+ * `repo_trends` is LEFT-joined so a deprecated project (no trends row) still
+ * gets an image, with `starsExpression` falling back to `repos.stars`.
+ */
+export async function getProjectCardData({
+  db,
+  slug,
+}: {
+  db: DB;
+  slug: string;
+}) {
+  const [row] = await db
+    .select({
+      name: schema.projects.name,
+      description: schema.projects.description,
+      logo: schema.projects.logo,
+      owner_id: schema.repos.owner_id,
+      stars: starsExpression,
+      weeklyStars: schema.repoTrends.weekly,
+    })
+    .from(schema.projects)
+    .innerJoin(schema.repos, eq(schema.projects.repoId, schema.repos.id))
+    .leftJoin(schema.repoTrends, eq(schema.repoTrends.repoId, schema.repos.id))
+    .where(eq(schema.projects.slug, slug))
+    .limit(1);
+
+  return row ?? null;
+}
 
 export class ProjectService {
   db: DB;

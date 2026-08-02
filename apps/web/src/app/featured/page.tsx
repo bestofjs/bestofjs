@@ -1,18 +1,29 @@
+import { cacheLife, cacheTag } from "next/cache";
+
+import { db } from "@repo/db";
+import { findProjectsWithTrends } from "@repo/db/projects";
+import { findTags } from "@repo/db/tags";
+
 import {
-  type ProjectSearchState,
-  ProjectSearchStateParser,
-} from "@/app/projects/project-search-state";
+  buildTagsByCode,
+  toTrendsProject,
+} from "@/app/projects/project-adapter";
+import {
+  type TrendsProjectSearchState,
+  TrendsProjectSearchStateParser,
+} from "@/app/projects/trends-project-search-state";
 import { StarIcon } from "@/components/core";
 import { PageHeading } from "@/components/core/typography";
-import { ProjectPaginatedList } from "@/components/project-list/project-paginated-list";
-import { getSortOptionByKey } from "@/components/project-list/sort-order-options";
-import { api } from "@/server/api";
+import { TrendsProjectPaginatedList } from "@/components/project-list/trends-project-paginated-list";
 
 type PageProps = {
   searchParams: Promise<Record<string, string | string[]>>;
 };
 
-const searchStateParser = new ProjectSearchStateParser({ sort: "newest" });
+const searchStateParser = new TrendsProjectSearchStateParser({
+  sort: "newest",
+  scope: "all",
+});
 searchStateParser.path = "/featured";
 
 export default async function FeaturedProjectsPage(props: PageProps) {
@@ -28,7 +39,7 @@ export default async function FeaturedProjectsPage(props: PageProps) {
         subtitle={<>A collection of awesome projects chosen by our team!</>}
       />
 
-      <ProjectPaginatedList
+      <TrendsProjectPaginatedList
         projects={projects}
         total={total}
         searchState={searchState}
@@ -38,22 +49,36 @@ export default async function FeaturedProjectsPage(props: PageProps) {
   );
 }
 
-async function fetchFeaturedProjects({
-  sort,
-  page,
-  limit,
-}: ProjectSearchState) {
-  const sortOption = getSortOptionByKey(sort);
+async function fetchFeaturedProjects(searchState: TrendsProjectSearchState) {
+  "use cache";
+  cacheLife("hours");
+  cacheTag("projects");
 
-  const { projects, total } = await api.projects.findProjects({
-    criteria: { status: "featured" },
-    sort: sortOption.sort,
-    skip: limit * (page - 1),
-    limit,
-  });
+  const { sort, page, limit } = searchState;
+
+  const [{ projects: rows, total }, allTags] = await Promise.all([
+    findProjectsWithTrends({
+      db,
+      limit,
+      page,
+      // Hardcoded, not read from `searchState`: "featured" is an editorial
+      // signal, and `status: "featured"` already excludes deprecated projects
+      // (`projects.status` is a single enum column). `"active"` would only
+      // *additionally* hide featured projects that went cold or quiet — exactly
+      // the ones a curator needs listed — and would hide freshly-added ones
+      // until their first commit-history fetch replaces the
+      // `activity_score = -100` sentinel.
+      scope: "all",
+      sort,
+      status: "featured",
+    }),
+    findTags(),
+  ]);
+
+  const tagsByCode = buildTagsByCode(allTags);
 
   return {
-    projects,
+    projects: rows.map((row) => toTrendsProject(row, tagsByCode)),
     total,
   };
 }
