@@ -2,10 +2,7 @@ import { Suspense } from "react";
 import Link from "next/link";
 
 import { DiscordIcon, GitHubIcon } from "@/components/core/icons";
-import {
-  MainNav,
-  MainNavFallback,
-} from "@/components/header/desktop-nav";
+import { MainNav, MainNavFallback } from "@/components/header/desktop-nav";
 import { ClientSearchRoot } from "@/components/search-palette/search-root";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { buttonVariants } from "@/components/ui/button";
