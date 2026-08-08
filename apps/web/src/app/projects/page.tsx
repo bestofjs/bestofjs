@@ -21,7 +21,7 @@ import { badgeVariants } from "@/components/ui/badge";
 import { buttonVariants } from "@/components/ui/button";
 import { APP_CANONICAL_URL, APP_DISPLAY_NAME } from "@/config/site";
 import { formatNumber } from "@/helpers/numbers";
-import { addCacheBustingParam, getStartOfUtcDay } from "@/helpers/url";
+import { addCacheBustingParam } from "@/helpers/url";
 import { cn } from "@/lib/utils";
 
 import { ProjectListLoading } from "./loading-state";
@@ -76,7 +76,10 @@ export async function generateMetadata(props: PageProps): Promise<Metadata> {
 async function getOgImageCacheDate() {
   "use cache";
   cacheLife("daily");
-  return getStartOfUtcDay();
+  // Rotate the OG image URL roughly once a day. This intentionally follows a
+  // rolling 24-hour window rather than UTC midnight because daily rebuild
+  // durations vary. A short overlap or a few premature cache misses are fine.
+  return new Date();
 }
 
 function getPageTitle(
