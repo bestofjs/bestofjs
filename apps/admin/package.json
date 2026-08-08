@@ -9,7 +9,7 @@
     "start": "dotenv -e ../../.env.${STAGE:=development} next start",
     "lint": "biome check ./src",
     "lint:fix": "biome check --write ./src",
-    "typecheck": "tsc --noEmit",
+    "typecheck": "next typegen && tsc --noEmit",
     "typecheck:watch": "tsc --noEmit --incremental --watch"
   },
   "dependencies": {
