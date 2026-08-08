@@ -39,7 +39,7 @@
     "es-toolkit": "^1.39.10",
     "is-absolute-url": "^4.0.1",
     "luxon": "^3.7.1",
-    "nanoid": "^5.1.5",
+    "nanoid": "^5.1.16",
     "slugify": "^1.6.6",
     "tiny-invariant": "^1.3.3",
     "zod": "catalog:"
