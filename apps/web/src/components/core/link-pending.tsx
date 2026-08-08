@@ -33,6 +33,7 @@ export function LinkPendingIcon({
       )}
     >
       <span
+        aria-hidden={pending}
         className={cn(
           "inline-flex transition-opacity",
           pending ? "opacity-0" : "opacity-100",
