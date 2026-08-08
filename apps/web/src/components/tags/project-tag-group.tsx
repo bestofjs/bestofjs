@@ -29,7 +29,15 @@ export function ProjectTagGroup<T extends TagFilterState = TagFilterState>({
           : `/projects?tags=${tag.code}`;
         return (
           <div key={tag.code} className="m-1">
-            <ProjectTag tag={tag} url={url} />
+            <ProjectTag
+              tag={tag}
+              url={url}
+              // A `buildPageURL` means the caller is a listing page, so the link
+              // only changes its search params: the list stays mounted and no
+              // loading shell appears. Without it the chip leads to /projects
+              // from somewhere else, and that route's skeleton covers the wait.
+              showPendingIndicator={Boolean(buildPageURL)}
+            />
           </div>
         );
       })}

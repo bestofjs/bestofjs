@@ -13,6 +13,10 @@ import {
   toTrendsProject,
 } from "@/app/projects/project-adapter";
 import { PlusIcon, TagIcon, XMarkIcon } from "@/components/core";
+import {
+  LinkPendingIcon,
+  LinkPendingOverlay,
+} from "@/components/core/link-pending";
 import { PageHeading } from "@/components/core/typography";
 import { TrendsProjectPaginatedList } from "@/components/project-list/trends-project-paginated-list";
 import { TrendsProjectScopePicker } from "@/components/project-list/trends-scope-picker";
@@ -308,10 +312,19 @@ function RelevantTags({
           <NextLink
             key={tag.code}
             href={url}
-            className={buttonVariants({ variant: "outline", size: "sm" })}
+            className={cn(
+              buttonVariants({ variant: "outline", size: "sm" }),
+              "relative px-2.5",
+            )}
           >
             {tag.name}
-            {showIcon && <PlusIcon className="size-5" />}
+            {showIcon ? (
+              <LinkPendingIcon>
+                <PlusIcon className="size-5" />
+              </LinkPendingIcon>
+            ) : (
+              <LinkPendingOverlay />
+            )}
           </NextLink>
         );
       })}
@@ -343,7 +356,9 @@ function CurrentTags({
             className={cn(badgeVariants({ variant: "default" }), "text-md")}
           >
             {tag.name}
-            <XMarkIcon className="size-5" />
+            <LinkPendingIcon>
+              <XMarkIcon className="size-5" />
+            </LinkPendingIcon>
           </NextLink>
         );
       })}
@@ -357,7 +372,9 @@ function CurrentTags({
           className={cn(badgeVariants({ variant: "default" }), "text-md")}
         >
           "{textQuery}"
-          <XMarkIcon className="size-5" />
+          <LinkPendingIcon>
+            <XMarkIcon className="size-5" />
+          </LinkPendingIcon>
         </NextLink>
       )}
     </div>
