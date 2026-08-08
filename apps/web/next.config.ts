@@ -6,6 +6,7 @@ const ONE_DAY = 60 * 60 * 24;
 
 const nextConfig: NextConfig = {
   cacheComponents: true,
+  partialPrefetching: true,
   cacheLife: {
     daily: {
       stale: ONE_DAY,

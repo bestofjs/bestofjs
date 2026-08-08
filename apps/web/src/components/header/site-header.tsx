@@ -2,7 +2,10 @@ import { Suspense } from "react";
 import Link from "next/link";
 
 import { DiscordIcon, GitHubIcon } from "@/components/core/icons";
-import { MainNav } from "@/components/header/desktop-nav";
+import {
+  MainNav,
+  MainNavFallback,
+} from "@/components/header/desktop-nav";
 import { ClientSearchRoot } from "@/components/search-palette/search-root";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { buttonVariants } from "@/components/ui/button";
@@ -12,7 +15,9 @@ export function SiteHeader() {
   return (
     <header className="sticky top-0 z-40 w-full border-b bg-background">
       <div className="container flex h-16 items-center space-x-4 sm:justify-between sm:space-x-0">
-        <MainNav />
+        <Suspense fallback={<MainNavFallback />}>
+          <MainNav />
+        </Suspense>
         <div className="flex flex-1 items-center justify-end space-x-4">
           {/*
           Suspense block needed to avoid the "deopted into client-side rendering"

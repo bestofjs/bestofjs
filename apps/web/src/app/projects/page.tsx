@@ -56,7 +56,7 @@ export async function generateMetadata(props: PageProps): Promise<Metadata> {
 
   const queryString = searchStateParser.stringify(searchState);
   const imageSearchParams = new URLSearchParams(queryString);
-  addCacheBustingParam(imageSearchParams, getStartOfUtcDay());
+  addCacheBustingParam(imageSearchParams, await getOgImageCacheDate());
 
   return {
     title,
@@ -71,6 +71,12 @@ export async function generateMetadata(props: PageProps): Promise<Metadata> {
       description,
     },
   };
+}
+
+async function getOgImageCacheDate() {
+  "use cache";
+  cacheLife("daily");
+  return getStartOfUtcDay();
 }
 
 function getPageTitle(
