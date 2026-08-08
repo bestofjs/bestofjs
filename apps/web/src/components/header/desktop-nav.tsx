@@ -24,7 +24,14 @@ import { MobileMenuButton } from "./mobile-nav";
 
 export function MainNav() {
   const pathname = usePathname();
+  return <MainNavContent pathname={pathname} />;
+}
 
+export function MainNavFallback() {
+  return <MainNavContent />;
+}
+
+function MainNavContent({ pathname }: { pathname?: string }) {
   return (
     <>
       <div className="mr-4 lg:hidden">
@@ -54,7 +61,9 @@ export function MainNav() {
                       "flex h-9 items-center p-2 font-medium text-sm",
                       "text-muted-foreground hover:bg-(--sand-3) hover:text-foreground",
                       "rounded",
-                      item.isActive(pathname) ? "text-foreground" : undefined,
+                      pathname && item.isActive(pathname)
+                        ? "text-foreground"
+                        : undefined,
 
                       item.disabled && "cursor-not-allowed opacity-80",
                     )}

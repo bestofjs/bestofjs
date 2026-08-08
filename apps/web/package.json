@@ -14,7 +14,7 @@
     "test:ci": "pnpm build-project-data && vitest run",
     "test:e2e": "playwright test",
     "test:e2e:ui": "playwright test --ui",
-    "typecheck": "tsc --noEmit",
+    "typecheck": "next typegen && tsc --noEmit",
     "typecheck:watch": "tsc --noEmit --watch"
   },
   "dependencies": {
