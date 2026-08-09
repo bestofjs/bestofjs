@@ -3,7 +3,10 @@ import fs from "fs-extra";
 import pMap from "p-map";
 import { z } from "zod";
 
-import { generateProjectDefaultSlug, ProjectService } from "@repo/db/projects";
+import {
+  generateProjectDefaultSlug,
+  ProjectService,
+} from "@repo/core/projects";
 
 import { createTask } from "@/task-runner";
 

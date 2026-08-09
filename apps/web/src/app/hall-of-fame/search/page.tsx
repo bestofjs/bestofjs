@@ -1,5 +1,5 @@
-import { db } from "@repo/db";
-import { findHallOfFameMembers } from "@repo/db/hall-of-fame";
+import { db } from "@repo/core";
+import { findHallOfFameMembers } from "@repo/core/hall-of-fame";
 
 import { HallOfFamePaginatedList } from "../hall-of-fame-paginated-list";
 import { HallOfFameSearchStateParser } from "./hall-of-fame-search-state";

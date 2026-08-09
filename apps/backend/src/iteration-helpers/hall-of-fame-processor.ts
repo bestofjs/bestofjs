@@ -1,7 +1,7 @@
 import { omit } from "es-toolkit";
 
-import { type DB, schema } from "@repo/db";
-import { desc, eq } from "@repo/db/drizzle";
+import { type DB, schema } from "@repo/core";
+import { desc, eq } from "@repo/core/drizzle";
 
 import { ItemProcessor } from "./abstract-item-processor";
 

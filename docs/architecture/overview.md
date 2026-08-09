@@ -15,7 +15,7 @@ Best of JS is structured as a monorepo containing multiple applications and shar
 | Web App | Next.js application | Public-facing website showing project stats |
 | Legacy App | Older React application | Previous version of the web interface |
 | @repo/api Package | Shared utilities | API interfaces and utility functions |
-| @repo/db Package | Database access | Schema definitions and database operations |
+| @repo/core Package | Database access | Schema definitions and database operations |
 
 The build process is managed by Turbo, which orchestrates building the applications and packages in the correct order, as defined in the root `package.json`.
 
@@ -83,7 +83,7 @@ Best of JS uses a PostgreSQL database to store project data, GitHub repository i
 | bundles | Package bundle size | name, size, gzip | Belongs to a package |
 | tags | Categories for projects | id, code, name | Many-to-many with projects |
 
-The PostgreSQL database is accessed through the `@repo/db` package, which provides database connection handling, schema definitions, and utility functions for common database operations.
+The PostgreSQL database is accessed through the `@repo/core` package, which provides database connection handling, schema definitions, and utility functions for common database operations.
 
 Sources: [packages/db/package.json 14-23](https://github.com/bestofjs/bestofjs/blob/a93905ae/packages/db/package.json#L14-L23) [packages/db/drizzle/meta/0000\_snapshot.json 1-581](https://github.com/bestofjs/bestofjs/blob/a93905ae/packages/db/drizzle/meta/0000_snapshot.json#L1-L581)
 

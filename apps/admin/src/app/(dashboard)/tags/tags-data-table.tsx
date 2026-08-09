@@ -1,6 +1,6 @@
 "use client";
 
-import type { findTags } from "@repo/db/tags";
+import type { findTags } from "@repo/core/tags";
 
 import { ClientDataTable } from "@/components/ui/client-data-table";
 

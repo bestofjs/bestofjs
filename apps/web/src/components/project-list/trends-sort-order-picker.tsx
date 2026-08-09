@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-import type { TrendsSortKey } from "@repo/db/shared-schemas";
+import type { TrendsSortKey } from "@repo/core/shared-schemas";
 
 import type { TrendsProjectSearchUrlBuilder } from "@/app/projects/trends-project-search-state";
 import { Button } from "@/components/ui/button";

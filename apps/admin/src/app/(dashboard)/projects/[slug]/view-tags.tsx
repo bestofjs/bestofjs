@@ -5,7 +5,7 @@ import { XIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 
-import type { ProjectDetails } from "@repo/db/projects";
+import type { ProjectDetails } from "@repo/core/projects";
 
 import { TagPicker } from "@/components/tag-picker";
 import { Badge } from "@/components/ui/badge";

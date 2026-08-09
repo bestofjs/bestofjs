@@ -1,5 +1,5 @@
-import type { schema } from "@repo/db";
-import type { ProjectDetails } from "@repo/db/projects";
+import type { schema } from "@repo/core";
+import type { ProjectDetails } from "@repo/core/projects";
 
 import { Badge } from "@/components/ui/badge";
 import {

@@ -1,5 +1,5 @@
-import type { ProjectStatus } from "@repo/db/constants";
-import type { ProjectWithTrends } from "@repo/db/projects";
+import type { ProjectStatus } from "@repo/core/constants";
+import type { ProjectWithTrends } from "@repo/core/projects";
 
 /**
  * `BestOfJS.Project` shape plus `activityScore`, which doesn't exist on the

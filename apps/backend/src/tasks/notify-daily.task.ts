@@ -1,6 +1,6 @@
 import { orderBy } from "es-toolkit";
 
-import { TAGS_EXCLUDED_FROM_RANKINGS } from "@repo/db/constants";
+import { TAGS_EXCLUDED_FROM_RANKINGS } from "@repo/core/constants";
 
 import { notifyDiscordProjectList } from "@/shared/discord";
 import { projectToSlackAttachment, sendMessageToSlack } from "@/shared/slack";

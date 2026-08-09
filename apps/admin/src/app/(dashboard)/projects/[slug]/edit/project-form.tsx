@@ -8,7 +8,7 @@ import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { z } from "zod";
 
-import { PROJECT_STATUSES } from "@repo/db/constants";
+import { PROJECT_STATUSES } from "@repo/core/constants";
 
 import { buttonVariants, SubmitButton } from "@/components/ui/button";
 import {

@@ -19,7 +19,7 @@
   },
   "dependencies": {
     "@repo/api": "workspace:*",
-    "@repo/db": "workspace:*",
+    "@repo/core": "workspace:*",
     "@t3-oss/env-nextjs": "^0.11.1",
     "@tailwindcss/postcss": "^4.1.18",
     "@tanstack/react-table": "^8.21.3",

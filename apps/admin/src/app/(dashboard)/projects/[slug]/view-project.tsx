@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-import type { ProjectData } from "@repo/db/projects";
+import type { ProjectData } from "@repo/core/projects";
 
 import { buttonVariants } from "@/components/ui/button";
 import {

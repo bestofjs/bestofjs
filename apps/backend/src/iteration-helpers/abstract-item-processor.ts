@@ -2,7 +2,7 @@ import pMap from "p-map";
 import pThrottle from "p-throttle";
 import prettyMilliseconds from "pretty-ms";
 
-import type { SQL } from "@repo/db/drizzle";
+import type { SQL } from "@repo/core/drizzle";
 
 import type { TaskLoopOptions, TaskRunnerContext } from "@/task-types";
 

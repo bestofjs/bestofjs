@@ -1,7 +1,7 @@
 import {
   getProjectMonthlyTrends,
   type OneYearSnapshots,
-} from "@repo/db/projects";
+} from "@repo/core/projects";
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {

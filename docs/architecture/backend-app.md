@@ -325,7 +325,7 @@ The `ProjectProcessor` and `RepoProcessor` classes extend an abstract `ItemProce
 
 ## Data Storage
 
-After collection, data is stored in the PostgreSQL database using the schemas defined in the `@repo/db` package. Key tables include:
+After collection, data is stored in the PostgreSQL database using the schemas defined in the `@repo/core` package. Key tables include:
 
 | Table | Description | Updated by |
 | --- | --- | --- |
@@ -368,7 +368,7 @@ Each task is designed to be:
 
 The data collection tasks integrate with other components:
 
-- Database package (`@repo/db`): For schema definitions and database operations
+- Database package (`@repo/core`): For schema definitions and database operations
 - API package (`@repo/api`): For client implementations to external APIs
 - Task runner: For scheduling and executing tasks
 - Notification systems: To alert about significant changes or new projects

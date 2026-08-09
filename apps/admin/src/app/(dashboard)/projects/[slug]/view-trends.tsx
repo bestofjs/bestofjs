@@ -1,4 +1,4 @@
-import { getProjectTrends, type OneYearSnapshots } from "@repo/db/projects";
+import { getProjectTrends, type OneYearSnapshots } from "@repo/core/projects";
 
 import { formatStars } from "@/lib/format-helpers";
 

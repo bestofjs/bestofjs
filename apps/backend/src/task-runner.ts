@@ -5,7 +5,7 @@ import * as prettier from "prettier";
 import prettyBytes from "pretty-bytes";
 import type { z } from "zod";
 
-import { type DB, runQuery } from "@repo/db";
+import { type DB, runQuery } from "@repo/core";
 
 import { type ParsedFlags, sharedFlagsSchema } from "./flags";
 import {

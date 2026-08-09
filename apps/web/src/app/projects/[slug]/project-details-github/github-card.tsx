@@ -12,7 +12,7 @@ import {
   isGPLProject,
   type OneYearSnapshots,
   type ProjectDetails,
-} from "@repo/db/projects";
+} from "@repo/core/projects";
 
 import {
   ExternalLinkIcon,

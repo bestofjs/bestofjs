@@ -50,7 +50,7 @@ This brief synthesizes the project’s purpose and scope using the existing repo
 
 - **Frontend**: Next.js (React) web application (`apps/web`).
 - **Backend jobs**: Node.js tasks and scripts (`apps/backend`) to fetch, process, and publish data.
-- **Database**: PostgreSQL with Drizzle ORM (`packages/db`).
+- **Database**: PostgreSQL with Drizzle ORM (`packages/core`).
 - **Services/Packages**: Internal `packages/api` for integrations (e.g., GitHub API).
 - **Hosting/Operations**: Cloud deployment for the web app; scheduled jobs via CI (e.g., GitHub Actions) for daily updates.
 

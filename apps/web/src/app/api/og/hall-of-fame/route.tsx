@@ -1,9 +1,9 @@
 /* eslint-disable @next/next/no-img-element */
-import { db } from "@repo/db";
+import { db } from "@repo/core";
 import {
   findHallOfFameMembers,
   type HallOfFameMember,
-} from "@repo/db/hall-of-fame";
+} from "@repo/core/hall-of-fame";
 
 import { ImageLayout } from "../og-image-layout";
 import { Box, generateImageResponse } from "../og-utils";

@@ -5,7 +5,7 @@ import { createGitHubClient } from "@repo/api/github";
 import {
   getProjectRepositoryURL,
   type ProjectDetails,
-} from "@repo/db/projects";
+} from "@repo/core/projects";
 
 import { ErrorBoundary } from "@/app/error-handling";
 import { ExternalLinkIcon } from "@/components/core";

@@ -1,5 +1,5 @@
-import { db } from "@repo/db";
-import { getProjectsStats } from "@repo/db/projects";
+import { db } from "@repo/core";
+import { getProjectsStats } from "@repo/core/projects";
 
 // This end-point is used to check the freshness of the data the app renders:
 // how many projects are tracked, and when the daily trends pipeline last wrote.

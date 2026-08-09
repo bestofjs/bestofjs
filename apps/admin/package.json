@@ -19,7 +19,7 @@
     "@dnd-kit/utilities": "^3.2.2",
     "@hookform/resolvers": "^5.2.2",
     "@repo/api": "workspace:*",
-    "@repo/db": "workspace:*",
+    "@repo/core": "workspace:*",
     "@t3-oss/env-nextjs": "^0.11.1",
     "@tanstack/react-table": "^8.21.3",
     "@types/debug": "catalog:",

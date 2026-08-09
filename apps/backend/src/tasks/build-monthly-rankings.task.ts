@@ -1,13 +1,13 @@
 import { orderBy, round, uniqBy } from "es-toolkit";
 import { z } from "zod";
 
-import { schema } from "@repo/db";
-import { notInArray } from "@repo/db/drizzle";
+import { schema } from "@repo/core";
+import { notInArray } from "@repo/core/drizzle";
 import {
   flattenSnapshots,
   isProjectIncludedInRankings,
-} from "@repo/db/projects";
-import { getMonthlyDelta, getPreviousMonth } from "@repo/db/snapshots";
+} from "@repo/core/projects";
+import { getMonthlyDelta, getPreviousMonth } from "@repo/core/snapshots";
 
 import { invalidateWebAppCacheByTag } from "@/shared/cache";
 import { truncate } from "@/shared/utils";

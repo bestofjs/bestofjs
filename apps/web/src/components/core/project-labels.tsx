@@ -1,4 +1,4 @@
-import type { ProjectLabelKey } from "@repo/db/project-trends";
+import type { ProjectLabelKey } from "@repo/core/project-trends";
 
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";

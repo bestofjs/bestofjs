@@ -1,9 +1,9 @@
-import { schema } from "@repo/db";
+import { schema } from "@repo/core";
 import {
   computeRelevanceScore,
   computeUsageScore,
-} from "@repo/db/project-trends";
-import type { ProjectDetails } from "@repo/db/projects";
+} from "@repo/core/project-trends";
+import type { ProjectDetails } from "@repo/core/projects";
 
 import { createTask } from "@/task-runner";
 
