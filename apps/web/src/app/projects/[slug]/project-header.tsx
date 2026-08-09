@@ -6,7 +6,7 @@ import {
   getProjectURL,
   isGPLProject,
   type ProjectDetails,
-} from "@repo/db/projects";
+} from "@repo/core/projects";
 
 import {
   GitHubIcon,

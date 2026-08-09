@@ -1,6 +1,6 @@
 import { createGitHubClient } from "@repo/api/github";
-import { schema } from "@repo/db";
-import { eq } from "@repo/db/drizzle";
+import { schema } from "@repo/core";
+import { eq } from "@repo/core/drizzle";
 
 import type { HallOfFameMember } from "@/iteration-helpers";
 import { createTask } from "@/task-runner";

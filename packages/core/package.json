@@ -1,5 +1,5 @@
 {
-  "name": "@repo/db",
+  "name": "@repo/core",
   "private": true,
   "type": "module",
   "scripts": {
@@ -16,7 +16,7 @@
   "exports": {
     ".": "./src/index.ts",
     "./drizzle": "./src/drizzle.ts",
-    "./schema": "./src/schema.ts",
+    "./schema": "./src/schema/index.ts",
     "./constants": "./src/constants.ts",
     "./projects": "./src/projects/index.ts",
     "./shared-schemas": "./src/shared-schemas.ts",
@@ -24,8 +24,7 @@
     "./repo-trends": "./src/repo-trends/index.ts",
     "./snapshots": "./src/snapshots/index.ts",
     "./tags": "./src/tags/index.ts",
-    "./hall-of-fame": "./src/hall-of-fame.ts",
-    "./types": "./src/types.ts"
+    "./hall-of-fame": "./src/hall-of-fame.ts"
   },
   "dependencies": {
     "@neondatabase/serverless": "0.9.5",

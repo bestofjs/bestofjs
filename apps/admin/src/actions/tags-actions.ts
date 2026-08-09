@@ -2,7 +2,7 @@
 
 import { revalidatePath } from "next/cache";
 
-import { createTag as apiCreateTag } from "@repo/db/tags";
+import { createTag as apiCreateTag } from "@repo/core/tags";
 
 export async function createTag(tagName: string) {
   const createdTag = await apiCreateTag(tagName);

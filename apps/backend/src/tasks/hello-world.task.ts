@@ -1,9 +1,9 @@
 import { countBy } from "es-toolkit";
 import { z } from "zod";
 
-import { schema } from "@repo/db";
-import { PROJECT_STATUSES } from "@repo/db/constants";
-import { and, eq, type SQL } from "@repo/db/drizzle";
+import { schema } from "@repo/core";
+import { PROJECT_STATUSES } from "@repo/core/constants";
+import { and, eq, type SQL } from "@repo/core/drizzle";
 
 import type { HallOfFameMember } from "@/iteration-helpers";
 import { createTask } from "@/task-runner";

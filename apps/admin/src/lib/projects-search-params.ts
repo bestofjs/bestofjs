@@ -12,8 +12,8 @@ export interface PageSearchParams {
   [key: string]: string | string[] | undefined;
 }
 
-import { PROJECT_STATUSES } from "@repo/db/constants";
-import { findProjectsSortSchema } from "@repo/db/shared-schemas";
+import { PROJECT_STATUSES } from "@repo/core/constants";
+import { findProjectsSortSchema } from "@repo/core/shared-schemas";
 
 import { getFiltersStateParser, parseAsNullableBoolean } from "@/lib/parsers";
 

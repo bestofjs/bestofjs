@@ -1,15 +1,15 @@
 import { orderBy, shuffle } from "es-toolkit";
 
-import { db, schema } from "@repo/db";
-import { eq, notInArray } from "@repo/db/drizzle";
+import { db, schema } from "@repo/core";
+import { eq, notInArray } from "@repo/core/drizzle";
 import {
   getPackageData,
   getProjectDescription,
   getProjectTrends,
   getProjectURL,
   type ProjectDetails,
-} from "@repo/db/projects";
-import { normalizeDate } from "@repo/db/snapshots";
+} from "@repo/core/projects";
+import { normalizeDate } from "@repo/core/snapshots";
 
 import { truncate } from "@/shared/utils";
 import { createTask } from "@/task-runner";

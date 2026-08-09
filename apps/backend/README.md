@@ -50,7 +50,7 @@ Check the `--help` command related to each task for more details.
 
 ## Manual tests
 
-The `check-trends-queries` task is a manual test for the web listing queries (`findProjectsWithTrends()` in `@repo/db`), to be run against the local or production database. It prints the query results and checks invariants on real data: the relevance floor, the sort order (`NULLS LAST`), and the tag filter.
+The `check-trends-queries` task is a manual test for the web listing queries (`findProjectsWithTrends()` in `@repo/core`), to be run against the local or production database. It prints the query results and checks invariants on real data: the relevance floor, the sort order (`NULLS LAST`), and the tag filter.
 
 ```sh
 pnpm -F backend check-trends-queries

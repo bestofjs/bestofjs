@@ -1,7 +1,7 @@
 import { Suspense } from "react";
 import invariant from "tiny-invariant";
 
-import { getAllTags } from "@repo/db/projects";
+import { getAllTags } from "@repo/core/projects";
 
 import { ProjectLogo } from "@/components/project-logo";
 import { projectService } from "@/db";

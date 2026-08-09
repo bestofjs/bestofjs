@@ -1,7 +1,7 @@
 import { createGitHubClient } from "@repo/api/github";
-import { schema } from "@repo/db";
-import { eq, not } from "@repo/db/drizzle";
-import { SnapshotsService } from "@repo/db/snapshots";
+import { schema } from "@repo/core";
+import { eq, not } from "@repo/core/drizzle";
+import { SnapshotsService } from "@repo/core/snapshots";
 
 import { createTask } from "@/task-runner";
 

@@ -4,18 +4,18 @@ import {
   PROJECT_STATUSES,
   type ProjectStatus,
   TAGS_EXCLUDED_FROM_RANKINGS,
-} from "@repo/db/constants";
-import { getProjectLabel } from "@repo/db/project-trends";
+} from "@repo/core/constants";
+import { getProjectLabel } from "@repo/core/project-trends";
 import {
   findProjectSlugsByPackageNames,
   findProjectsWithTrends,
   type ProjectWithTrends,
   resolveScope,
-} from "@repo/db/projects";
+} from "@repo/core/projects";
 import {
   type TrendsSortKey,
   trendsSortKeySchema,
-} from "@repo/db/shared-schemas";
+} from "@repo/core/shared-schemas";
 
 import { formatCompactNumber } from "@/shared/utils";
 import { createTask } from "@/task-runner";

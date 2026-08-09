@@ -1,5 +1,5 @@
-import { schema } from "@repo/db";
-import { count, ne, notInArray } from "@repo/db/drizzle";
+import { schema } from "@repo/core";
+import { count, ne, notInArray } from "@repo/core/drizzle";
 
 import { createTask } from "@/task-runner";
 

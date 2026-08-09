@@ -1,4 +1,4 @@
-import { findProjects, type ProjectDetails } from "@repo/db/projects";
+import { findProjects, type ProjectDetails } from "@repo/core/projects";
 
 import { AddProjectToRepoButton } from "@/components/add-project-to-repo-button";
 import { ProjectTable } from "@/components/project-table";

@@ -1,11 +1,11 @@
-import { schema } from "@repo/db";
-import { eq, not } from "@repo/db/drizzle";
-import { flattenSnapshots } from "@repo/db/projects";
+import { schema } from "@repo/core";
+import { eq, not } from "@repo/core/drizzle";
+import { flattenSnapshots } from "@repo/core/projects";
 import {
   computeActivityScore,
   computePopularityScore,
-} from "@repo/db/repo-trends";
-import { computeTrends } from "@repo/db/snapshots";
+} from "@repo/core/repo-trends";
+import { computeTrends } from "@repo/core/snapshots";
 
 import { createTask } from "@/task-runner";
 

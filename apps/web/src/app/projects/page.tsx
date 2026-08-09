@@ -3,9 +3,9 @@ import type { Metadata } from "next";
 import { cacheLife, cacheTag } from "next/cache";
 import NextLink from "next/link";
 
-import { db } from "@repo/db";
-import { findProjectsWithTrends, resolveScope } from "@repo/db/projects";
-import { findRelevantTags, findTags } from "@repo/db/tags";
+import { db } from "@repo/core";
+import { findProjectsWithTrends, resolveScope } from "@repo/core/projects";
+import { findRelevantTags, findTags } from "@repo/core/tags";
 
 import {
   buildTagsByCode,

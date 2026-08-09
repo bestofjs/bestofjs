@@ -2,7 +2,7 @@ import type { Command } from "cleye";
 import type { ConsolaInstance } from "consola";
 import type { z } from "zod";
 
-import type { DB } from "@repo/db";
+import type { DB } from "@repo/core";
 
 import type { ParsedFlags } from "./flags";
 import type {

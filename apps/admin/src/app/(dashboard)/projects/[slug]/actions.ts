@@ -9,8 +9,8 @@ import {
   removePackage,
   saveTags,
   updateProjectById,
-} from "@repo/db/projects";
-import { type EditableTagData, updateTagById } from "@repo/db/tags";
+} from "@repo/core/projects";
+import { type EditableTagData, updateTagById } from "@repo/core/tags";
 
 import { snapshotsService } from "@/db";
 

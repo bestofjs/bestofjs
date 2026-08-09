@@ -1,12 +1,12 @@
 import { cacheLife, cacheTag } from "next/cache";
 
-import { db } from "@repo/db";
+import { db } from "@repo/core";
 import {
   findProjectSlugsByPackageNames,
   findProjectsWithTrends,
   type ProjectDetails,
-} from "@repo/db/projects";
-import { findTags } from "@repo/db/tags";
+} from "@repo/core/projects";
+import { findTags } from "@repo/core/tags";
 
 import {
   buildTagsByCode,

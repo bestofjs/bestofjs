@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-import { trendsSortKeySchema } from "@repo/db/shared-schemas";
+import { trendsSortKeySchema } from "@repo/core/shared-schemas";
 
 import {
   limitSchema,

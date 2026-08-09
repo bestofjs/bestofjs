@@ -1,6 +1,6 @@
-import { schema } from "@repo/db";
-import { notInArray } from "@repo/db/drizzle";
-import type { ProjectDetails } from "@repo/db/projects";
+import { schema } from "@repo/core";
+import { notInArray } from "@repo/core/drizzle";
+import type { ProjectDetails } from "@repo/core/projects";
 
 import { createNpmClient } from "@/apis/npm-api-client";
 import { createTask } from "@/task-runner";

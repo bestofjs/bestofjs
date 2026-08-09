@@ -1,9 +1,9 @@
 import { cacheLife, cacheTag } from "next/cache";
 
-import { db } from "@repo/db";
-import { findProjectsWithTrends } from "@repo/db/projects";
-import type { TrendsSortKey } from "@repo/db/shared-schemas";
-import { findTags } from "@repo/db/tags";
+import { db } from "@repo/core";
+import { findProjectsWithTrends } from "@repo/core/projects";
+import type { TrendsSortKey } from "@repo/core/shared-schemas";
+import { findTags } from "@repo/core/tags";
 
 import {
   Box,

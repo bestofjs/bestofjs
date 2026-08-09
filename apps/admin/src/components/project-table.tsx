@@ -11,12 +11,12 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 
-import { PROJECT_STATUSES } from "@repo/db/constants";
+import { PROJECT_STATUSES } from "@repo/core/constants";
 import type {
   FindProjectsOptions,
   findProjects,
   ProjectDetails,
-} from "@repo/db/projects";
+} from "@repo/core/projects";
 
 import { DataTable } from "@/components/data-table/data-table";
 import { ProjectLogo } from "@/components/project-logo";

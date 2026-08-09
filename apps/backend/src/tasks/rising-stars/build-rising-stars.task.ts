@@ -1,11 +1,11 @@
 import { orderBy, uniq } from "es-toolkit";
 import { z } from "zod";
 
-import { schema } from "@repo/db";
-import { TAGS_EXCLUDED_FROM_RANKINGS } from "@repo/db/constants";
-import { eq, inArray } from "@repo/db/drizzle";
-import { flattenSnapshots } from "@repo/db/projects";
-import { getMonthlyDelta, type Snapshot } from "@repo/db/snapshots";
+import { schema } from "@repo/core";
+import { TAGS_EXCLUDED_FROM_RANKINGS } from "@repo/core/constants";
+import { eq, inArray } from "@repo/core/drizzle";
+import { flattenSnapshots } from "@repo/core/projects";
+import { getMonthlyDelta, type Snapshot } from "@repo/core/snapshots";
 
 import type { Repo } from "@/iteration-helpers/repo-processor";
 import { createTask } from "@/task-runner";

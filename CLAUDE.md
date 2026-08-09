@@ -43,9 +43,9 @@ pnpm -F admin dev                 # Admin dev server
 pnpm -F backend daily-update-github-data    # Fetch GitHub stars/metadata
 pnpm -F backend daily-update-package-data   # Fetch NPM info
 pnpm -F backend static-api-daily            # Full daily data pipeline
-pnpm -F db generate               # Generate Drizzle migrations
-pnpm -F db push                   # Apply schema to DB
-pnpm -F db studio                 # Drizzle Studio GUI
+pnpm -F core generate               # Generate Drizzle migrations
+pnpm -F core push                   # Apply schema to DB
+pnpm -F core studio                 # Drizzle Studio GUI
 ```
 
 ### Backend task flags
@@ -66,7 +66,7 @@ pnpm -F db studio                 # Drizzle Studio GUI
 4. **Web app** fetches static JSON (no direct DB access)
 5. **Admin app** has direct DB access for curating projects/tags (local use only)
 
-### Database Schema (`packages/db/src/schema/`)
+### Database Schema (`packages/core/src/schema/`)
 Key tables: `repos` (GitHub data), `projects` (metadata), `snapshots` (daily star history), `packages` (NPM info), `bundles` (bundle sizes), `tags`, `hall_of_fame`.
 
 ### Backend Task Pattern

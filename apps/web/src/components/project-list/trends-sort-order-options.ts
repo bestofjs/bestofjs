@@ -1,6 +1,6 @@
 import { keyBy } from "es-toolkit";
 
-import type { TrendsSortKey } from "@repo/db/shared-schemas";
+import type { TrendsSortKey } from "@repo/core/shared-schemas";
 
 export type TrendsSortOption = {
   key: TrendsSortKey;

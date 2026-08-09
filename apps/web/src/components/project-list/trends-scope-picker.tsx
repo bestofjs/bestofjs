@@ -1,7 +1,7 @@
 import { CheckIcon, ListFilterIcon } from "lucide-react";
 import NextLink from "next/link";
 
-import type { ProjectScope } from "@repo/db/projects";
+import type { ProjectScope } from "@repo/core/projects";
 
 import type { TrendsProjectSearchUrlBuilder } from "@/app/projects/trends-project-search-state";
 import { Button } from "@/components/ui/button";

@@ -1,6 +1,6 @@
 import { cacheLife, cacheTag } from "next/cache";
 
-import { findTagWithProjects } from "@repo/db/tags";
+import { findTagWithProjects } from "@repo/core/tags";
 
 type Context = { params: Promise<{ slug: string }> };
 export async function GET(_req: Request, props: Context) {

@@ -8,22 +8,22 @@ To use it in an application within the monorepo, add this to `package.json`:
 
 ```json
 "dependencies": {
-  "@repo/db": "workspace:*"
+  "@repo/core": "workspace:*"
 }
 ```
 
 Example of imports:
 
 ```ts
-import { db, schema } from "@repo/db";
-import { schema } from "@repo/db";
-import { ProjectDetails } from "@repo/db/projects";
+import { db, schema } from "@repo/core";
+import { schema } from "@repo/core";
+import { ProjectDetails } from "@repo/core/projects";
 ```
 
 The entire Drizzle ORM library is included, allowing you to handle SQL queries from any application without needing to add Drizzle ORM as a dependency.
 
 ```ts
-import { and, eq, SQL } from "@repo/db/drizzle";
+import { and, eq, SQL } from "@repo/core/drizzle";
 ```
 
 ## Database Client
@@ -31,7 +31,7 @@ import { and, eq, SQL } from "@repo/db/drizzle";
 To visualize the database structure and data, launch Drizzle Studio:
 
 ```sh
-pnpm -F db studio
+pnpm -F core studio
 ```
 
 ## Migrations
@@ -39,7 +39,7 @@ pnpm -F db studio
 To generate migration files after updating the schema file (this will run `drizzle-kit generate`):
 
 ```sh
-pnpm -F db generate
+pnpm -F core generate
 ```
 
 ## Tests
@@ -47,7 +47,7 @@ pnpm -F db generate
 Unit tests cover the pure functions (scoring formulas, snapshot logic) and never touch the database:
 
 ```sh
-pnpm -F db test
+pnpm -F core test
 ```
 
 Database queries are checked manually against real data (local or production) with the `check-trends-queries` task in `apps/backend` — see the backend README.

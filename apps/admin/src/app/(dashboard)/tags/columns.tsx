@@ -4,7 +4,7 @@ import type { ColumnDef } from "@tanstack/react-table";
 import { ArrowUpDown } from "lucide-react";
 import Link from "next/link";
 
-import type { findTags } from "@repo/db/tags";
+import type { findTags } from "@repo/core/tags";
 
 import { Button } from "@/components/ui/button";
 

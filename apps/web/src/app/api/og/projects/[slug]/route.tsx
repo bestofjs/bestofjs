@@ -1,7 +1,7 @@
 import { cacheLife, cacheTag } from "next/cache";
 
-import { db } from "@repo/db";
-import { getProjectCardData, type ProjectCardData } from "@repo/db/projects";
+import { db } from "@repo/core";
+import { getProjectCardData, type ProjectCardData } from "@repo/core/projects";
 
 import {
   Box,

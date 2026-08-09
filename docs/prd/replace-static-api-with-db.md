@@ -82,7 +82,7 @@ New task runs alongside the existing `buildStaticApiTask` during migration. Thre
 
 Every listing query follows the same pattern: `INNER JOIN` to both cache tables, `WHERE relevance_score >= 0`, `ORDER BY` user-chosen metric, offset-based pagination. New projects are invisible until the next daily run (acceptable: data is already daily).
 
-Extend the existing `findProjects()` function in `packages/db` with joins to `repo_trends` and `project_trends`.
+Extend the existing `findProjects()` function in `packages/core` with joins to `repo_trends` and `project_trends`.
 
 Wrap DB calls in `unstable_cache` with a ~1-hour `revalidate`.
 

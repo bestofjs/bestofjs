@@ -1,9 +1,9 @@
 import { cacheLife, cacheTag } from "next/cache";
 
-import { db } from "@repo/db";
-import { TAGS_EXCLUDED_FROM_RANKINGS } from "@repo/db/constants";
-import { findProjectsWithTrends } from "@repo/db/projects";
-import { findTags } from "@repo/db/tags";
+import { db } from "@repo/core";
+import { TAGS_EXCLUDED_FROM_RANKINGS } from "@repo/core/constants";
+import { findProjectsWithTrends } from "@repo/core/projects";
+import { findTags } from "@repo/core/tags";
 
 import {
   buildTagsByCode,

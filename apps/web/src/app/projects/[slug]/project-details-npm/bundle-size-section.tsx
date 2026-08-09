@@ -1,6 +1,6 @@
 import prettyBytes from "pretty-bytes";
 
-import type { ProjectDetails } from "@repo/db/projects";
+import type { ProjectDetails } from "@repo/core/projects";
 
 import { ChevronRightIcon, ExternalLinkIcon } from "@/components/core";
 import { ExternalLink } from "@/components/core/typography";

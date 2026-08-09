@@ -1,4 +1,4 @@
-import type { ProjectDetails } from "@repo/db/projects";
+import type { ProjectDetails } from "@repo/core/projects";
 
 import { ExternalLinkIcon, NpmIcon } from "@/components/core";
 import { ExternalLink } from "@/components/core/typography";
