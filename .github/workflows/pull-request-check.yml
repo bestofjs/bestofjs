@@ -1,9 +1,9 @@
 name: PR check
 
-on: # event list
-  pull_request: # on a pull request to each of these branches
-    branches:
-      - develop
+on:
+  # Every pull request, whatever its base branch — a base filter would skip
+  # stacked PRs, whose base is the branch below them rather than `develop`.
+  pull_request:
 
 jobs:
   check_before_merge:
