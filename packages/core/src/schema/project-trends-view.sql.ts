@@ -1,9 +1,9 @@
 import { eq, sql } from "drizzle-orm";
 import { pgView } from "drizzle-orm/pg-core";
 
-import { projectTrends } from "./project-trends";
-import { projects } from "./projects";
-import { repos } from "./repos";
+import { projectTrends } from "./project-trends.sql";
+import { projects } from "./projects.sql";
+import { repos } from "./repos.sql";
 
 export const projectTrendsView = pgView("project_trends_view").as((qb) =>
   qb

@@ -1,7 +1,7 @@
 import { relations } from "drizzle-orm";
 import { jsonb, pgTable, text, timestamp } from "drizzle-orm/pg-core";
 
-import { projectsToTags } from "./projects";
+import { projectsToTags } from "./projects.sql";
 
 export const tags = pgTable("tags", {
   id: text("id").primaryKey(),

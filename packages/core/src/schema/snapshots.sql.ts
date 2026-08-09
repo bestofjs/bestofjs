@@ -8,7 +8,7 @@ import {
   timestamp,
 } from "drizzle-orm/pg-core";
 
-import { repos } from "./repos";
+import { repos } from "./repos.sql";
 
 export const snapshots = pgTable(
   "snapshots",

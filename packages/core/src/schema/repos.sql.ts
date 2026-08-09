@@ -9,9 +9,9 @@ import {
   uniqueIndex,
 } from "drizzle-orm/pg-core";
 
-import { hallOfFame } from "./hall-of-fame";
-import { projects } from "./projects";
-import { snapshots } from "./snapshots";
+import { hallOfFame } from "./hall-of-fame.sql";
+import { projects } from "./projects.sql";
+import { snapshots } from "./snapshots.sql";
 
 export const repos = pgTable(
   "repos",

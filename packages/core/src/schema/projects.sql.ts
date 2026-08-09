@@ -9,9 +9,9 @@ import {
 } from "drizzle-orm/pg-core";
 
 import { PROJECT_STATUSES } from "../constants";
-import { packages } from "./packages";
-import { repos } from "./repos";
-import { tags } from "./tags";
+import { packages } from "./packages.sql";
+import { repos } from "./repos.sql";
+import { tags } from "./tags.sql";
 
 export const projects = pgTable("projects", {
   id: text("id").primaryKey(),

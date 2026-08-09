@@ -8,7 +8,7 @@ import {
   timestamp,
 } from "drizzle-orm/pg-core";
 
-import { projects } from "./projects";
+import { projects } from "./projects.sql";
 
 /**
  * Per-project trend cache: primary package, download signal, and heuristic scores, upserted daily by backend tasks.

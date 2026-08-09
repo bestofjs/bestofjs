@@ -7,8 +7,8 @@ import {
   timestamp,
 } from "drizzle-orm/pg-core";
 
-import { projects } from "./projects";
-import { repos } from "./repos";
+import { projects } from "./projects.sql";
+import { repos } from "./repos.sql";
 
 export const hallOfFame = pgTable("hall_of_fame", {
   username: text("username").primaryKey(),
