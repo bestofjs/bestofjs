@@ -2,6 +2,7 @@ import type React from "react";
 import NextLink from "next/link";
 
 import { ChevronLeftIcon, ChevronRightIcon } from "@/components/core/icons";
+import { LinkPendingIcon } from "@/components/core/link-pending";
 import { buttonVariants } from "@/components/ui/button";
 import { formatNumber } from "@/helpers/numbers";
 import type {
@@ -58,12 +59,16 @@ export function BottomPaginationControls<T extends PaginationProps>(
   return (
     <div className="flex gap-2">
       <PaginationButton href={previousPageURL} isDisabled={!hasPreviousPage}>
-        <ChevronLeftIcon className="size-4" />
+        <LinkPendingIcon className="size-4">
+          <ChevronLeftIcon className="size-4" />
+        </LinkPendingIcon>
         Prev
       </PaginationButton>
       <PaginationButton href={nextPageURL} isDisabled={!hasNextPage}>
         Next
-        <ChevronRightIcon className="size-4" />
+        <LinkPendingIcon className="size-4">
+          <ChevronRightIcon className="size-4" />
+        </LinkPendingIcon>
       </PaginationButton>
     </div>
   );
