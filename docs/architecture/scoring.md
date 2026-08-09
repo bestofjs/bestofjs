@@ -141,7 +141,7 @@ these two, like most other sorts, just displayed the star count).
 
 ## How to tune
 
-1. Edit the formulas in `packages/core/src/services/{repo-trends,project-trends}/scoring.ts`, or the label thresholds in `project-trends/labels.ts`, and update the unit tests (`pnpm -F core test`)
+1. Edit the formulas in `packages/core/src/services/{repo-trends,project-trends}/scoring.ts`, or the label thresholds in `packages/core/src/services/project-trends/labels.ts`, and update the unit tests (`pnpm -F core test`)
 2. Recompute the stored scores: `pnpm -F backend daily-update-trends`. **Scores are stored, not computed at query time** — until this runs, a formula change has no visible effect anywhere
 3. Eyeball the result against real data: `bun run apps/backend/src/cli.ts check-trends-queries --sort trending` (see flags with `--help`; it also verifies the floor / scope / sort-order / tag-filter invariants)
 
