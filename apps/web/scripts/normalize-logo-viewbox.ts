@@ -6,7 +6,7 @@
 import { readFileSync, writeFileSync } from "node:fs";
 import { round } from "es-toolkit";
 
-const VIEW_BOX_RE = /viewBox="([\d.]+) ([\d.]+) ([\d.]+) ([\d.]+)"/;
+const VIEW_BOX_RE = /viewBox="(-?[\d.]+) (-?[\d.]+) ([\d.]+) ([\d.]+)"/;
 const WIDTH_HEIGHT_RE = /width="[\d.]+" height="[\d.]+"/;
 
 function main() {
