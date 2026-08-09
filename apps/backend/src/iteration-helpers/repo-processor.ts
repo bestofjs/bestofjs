@@ -1,6 +1,6 @@
 import { type DB, schema } from "@repo/core";
 import { and, asc, desc, eq, type SQL } from "@repo/core/drizzle";
-import { snapshotsSchema } from "@repo/core/projects";
+import { snapshotsSchema } from "@repo/core/services/projects";
 
 import { ItemProcessor } from "./abstract-item-processor";
 

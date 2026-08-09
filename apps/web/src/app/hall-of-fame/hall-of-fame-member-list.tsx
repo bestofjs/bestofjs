@@ -1,6 +1,6 @@
 import NextLink from "next/link";
 
-import type { HallOfFameMember } from "@repo/core/hall-of-fame";
+import type { HallOfFameMember } from "@repo/core/services/hall-of-fame";
 
 import { ProjectCustomLogo } from "@/components/core";
 import { ExternalLink } from "@/components/core/typography";

@@ -5,7 +5,7 @@ import {
   normalizeDate,
   type Snapshot,
   type YearMonthDay,
-} from "@repo/core/snapshots";
+} from "@repo/core/services/snapshots";
 
 import { EventCounter } from "./utils";
 

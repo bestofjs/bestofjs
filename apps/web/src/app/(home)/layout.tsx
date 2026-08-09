@@ -7,8 +7,8 @@ import {
   findProjectsWithTrends,
   getProjectsStats,
   getRepoStarsByFullName,
-} from "@repo/core/projects";
-import { findTags } from "@repo/core/tags";
+} from "@repo/core/services/projects";
+import { findTags } from "@repo/core/services/tags";
 
 import { ProjectListCardLoading } from "@/app/projects/loading-state";
 import {

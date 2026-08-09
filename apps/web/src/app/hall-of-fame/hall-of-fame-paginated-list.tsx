@@ -1,6 +1,6 @@
 import { InfoIcon } from "lucide-react";
 
-import type { HallOfFameMember } from "@repo/core/hall-of-fame";
+import type { HallOfFameMember } from "@repo/core/services/hall-of-fame";
 
 import {
   BottomPaginationControls,

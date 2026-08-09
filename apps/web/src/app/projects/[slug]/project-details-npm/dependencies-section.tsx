@@ -5,8 +5,8 @@ import {
   findProjectSlugsByPackageNames,
   findProjectsWithTrends,
   type ProjectDetails,
-} from "@repo/core/projects";
-import { findTags } from "@repo/core/tags";
+} from "@repo/core/services/projects";
+import { findTags } from "@repo/core/services/tags";
 
 import {
   buildTagsByCode,

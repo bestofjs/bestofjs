@@ -3,7 +3,7 @@
 import type { ColumnDef } from "@tanstack/react-table";
 import NextLink from "next/link";
 
-import type { TagWithProjectsItem } from "@repo/core/tags";
+import type { TagWithProjectsItem } from "@repo/core/services/tags";
 
 import { ChevronRightIcon, ProjectLogo } from "@/components/core";
 import { Badge } from "@/components/ui/badge";

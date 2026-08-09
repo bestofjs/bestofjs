@@ -1,6 +1,6 @@
 import { schema } from "@repo/core";
 import { eq, notInArray } from "@repo/core/drizzle";
-import type { ProjectDetails } from "@repo/core/projects";
+import type { ProjectDetails } from "@repo/core/services/projects";
 
 import { createNpmClient } from "@/apis/npm-api-client";
 import { createTask } from "@/task-runner";

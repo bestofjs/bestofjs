@@ -1,4 +1,4 @@
-import { findTags } from "@repo/core/tags";
+import { findTags } from "@repo/core/services/tags";
 
 import { AddTagButton } from "@/components/add-tag-button";
 import { Badge } from "@/components/ui/badge";

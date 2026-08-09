@@ -1,6 +1,6 @@
 import type { MetadataRoute } from "next";
 
-import { findTags } from "@repo/core/tags";
+import { findTags } from "@repo/core/services/tags";
 
 import { APP_CANONICAL_URL } from "@/config/site";
 

@@ -1,5 +1,5 @@
 import { db } from "@repo/core";
-import { findProjects, getAllTags } from "@repo/core/projects";
+import { findProjects, getAllTags } from "@repo/core/services/projects";
 
 import { ProjectTable } from "@/components/project-table";
 import { Badge } from "@/components/ui/badge";

@@ -8,8 +8,8 @@ import {
   getProjectTrends,
   getProjectURL,
   type ProjectDetails,
-} from "@repo/core/projects";
-import { normalizeDate } from "@repo/core/snapshots";
+} from "@repo/core/services/projects";
+import { normalizeDate } from "@repo/core/services/snapshots";
 
 import { truncate } from "@/shared/utils";
 import { createTask } from "@/task-runner";

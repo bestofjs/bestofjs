@@ -11,7 +11,7 @@ Two cache tables store pre-computed scores, refreshed daily by the `daily-update
 
 The three dimension scores (popularity, activity, usage) serve as **sort keys**, and popularity and activity also drive the [UI labels and the `scope` filter](#ui-labels-and-the-scope-filter). The composite `relevance_score` was the listing's quality floor and now has **no consumer** — see below.
 
-The pure functions live in `packages/core/src/repo-trends/scoring.ts` and `packages/core/src/project-trends/scoring.ts`, with unit tests pinning the anchors. Scores are stored, not computed at query time: after changing a formula, re-run the pipeline to see any effect.
+The pure functions live in `packages/core/src/services/repo-trends/scoring.ts` and `packages/core/src/services/project-trends/scoring.ts`, with unit tests pinning the anchors. Scores are stored, not computed at query time: after changing a formula, re-run the pipeline to see any effect.
 
 ## `popularity_score` — star momentum
 
@@ -87,7 +87,7 @@ deprecated:      minus 17
 
 ## UI labels and the `scope` filter
 
-Labels are derived at render time by `getProjectLabel()` (`packages/core/src/project-trends/labels.ts`) from data already on the row — no stored flags, no extra queries. **At most one badge per project**, first match wins, because the signals overlap heavily: a project untouched for two years has almost always stopped gaining stars too.
+Labels are derived at render time by `getProjectLabel()` (`packages/core/src/services/project-trends/labels.ts`) from data already on the row — no stored flags, no extra queries. **At most one badge per project**, first match wins, because the signals overlap heavily: a project untouched for two years has almost always stopped gaining stars too.
 
 | | Condition | Badge |
 |---|---|---|
@@ -141,7 +141,7 @@ these two, like most other sorts, just displayed the star count).
 
 ## How to tune
 
-1. Edit the formulas in `packages/core/src/{repo-trends,project-trends}/scoring.ts`, or the label thresholds in `project-trends/labels.ts`, and update the unit tests (`pnpm -F core test`)
+1. Edit the formulas in `packages/core/src/services/{repo-trends,project-trends}/scoring.ts`, or the label thresholds in `project-trends/labels.ts`, and update the unit tests (`pnpm -F core test`)
 2. Recompute the stored scores: `pnpm -F backend daily-update-trends`. **Scores are stored, not computed at query time** — until this runs, a formula change has no visible effect anywhere
 3. Eyeball the result against real data: `bun run apps/backend/src/cli.ts check-trends-queries --sort trending` (see flags with `--help`; it also verifies the floor / scope / sort-order / tag-filter invariants)
 

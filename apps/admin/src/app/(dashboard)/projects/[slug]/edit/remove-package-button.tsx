@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { toast } from "sonner";
 
-import type { ProjectDetails } from "@repo/core/projects";
+import type { ProjectDetails } from "@repo/core/services/projects";
 
 import { Button, SubmitButton } from "@/components/ui/button";
 import {

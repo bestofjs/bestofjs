@@ -16,19 +16,18 @@
   "exports": {
     ".": "./src/index.ts",
     "./drizzle": "./src/drizzle.ts",
-    "./schema": "./src/schema/index.ts",
+    "./schema": "./src/schema.ts",
     "./constants": "./src/constants.ts",
-    "./projects": "./src/projects/index.ts",
     "./shared-schemas": "./src/shared-schemas.ts",
-    "./project-trends": "./src/project-trends/index.ts",
-    "./repo-trends": "./src/repo-trends/index.ts",
-    "./snapshots": "./src/snapshots/index.ts",
-    "./tags": "./src/tags/index.ts",
-    "./hall-of-fame": "./src/hall-of-fame.ts"
+    "./services/projects": "./src/services/projects/index.ts",
+    "./services/tags": "./src/services/tags/index.ts",
+    "./services/snapshots": "./src/services/snapshots/index.ts",
+    "./services/hall-of-fame": "./src/services/hall-of-fame/index.ts",
+    "./services/project-trends": "./src/services/project-trends/index.ts",
+    "./services/repo-trends": "./src/services/repo-trends/index.ts"
   },
   "dependencies": {
     "@neondatabase/serverless": "0.9.5",
-    "@t3-oss/env-nextjs": "^0.13.8",
     "@types/debug": "catalog:",
     "@types/luxon": "^3.7.1",
     "debug": "^4.4.1",

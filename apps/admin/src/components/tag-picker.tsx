@@ -3,7 +3,7 @@
 import * as React from "react";
 import { Check, PlusIcon } from "lucide-react";
 
-import type { ProjectDetails } from "@repo/core/projects";
+import type { ProjectDetails } from "@repo/core/services/projects";
 
 import { Button } from "@/components/ui/button";
 import {

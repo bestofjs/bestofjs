@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { z } from "zod";
 
-import type { getTagBySlug } from "@repo/core/tags";
+import type { getTagBySlug } from "@repo/core/services/tags";
 
 import { updateTagData } from "@/app/(dashboard)/projects/[slug]/actions";
 import { SubmitButton } from "@/components/ui/button";

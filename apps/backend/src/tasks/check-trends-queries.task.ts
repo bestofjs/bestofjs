@@ -5,13 +5,13 @@ import {
   type ProjectStatus,
   TAGS_EXCLUDED_FROM_RANKINGS,
 } from "@repo/core/constants";
-import { getProjectLabel } from "@repo/core/project-trends";
+import { getProjectLabel } from "@repo/core/services/project-trends";
 import {
   findProjectSlugsByPackageNames,
   findProjectsWithTrends,
   type ProjectWithTrends,
   resolveScope,
-} from "@repo/core/projects";
+} from "@repo/core/services/projects";
 import {
   type TrendsSortKey,
   trendsSortKeySchema,
