@@ -1,8 +1,8 @@
 import { cacheLife, cacheTag } from "next/cache";
 
 import { db } from "@repo/core";
-import { findProjectsWithTrends } from "@repo/core/projects";
-import { findTags } from "@repo/core/tags";
+import { findProjectsWithTrends } from "@repo/core/services/projects";
+import { findTags } from "@repo/core/services/tags";
 
 import {
   buildTagsByCode,

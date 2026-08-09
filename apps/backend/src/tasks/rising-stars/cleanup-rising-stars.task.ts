@@ -6,7 +6,7 @@ import { z } from "zod";
 import {
   generateProjectDefaultSlug,
   ProjectService,
-} from "@repo/core/projects";
+} from "@repo/core/services/projects";
 
 import { createTask } from "@/task-runner";
 

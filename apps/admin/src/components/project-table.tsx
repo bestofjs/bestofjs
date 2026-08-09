@@ -16,7 +16,7 @@ import type {
   FindProjectsOptions,
   findProjects,
   ProjectDetails,
-} from "@repo/core/projects";
+} from "@repo/core/services/projects";
 
 import { DataTable } from "@/components/data-table/data-table";
 import { ProjectLogo } from "@/components/project-logo";

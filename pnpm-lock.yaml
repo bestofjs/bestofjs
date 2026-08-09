@@ -631,9 +631,6 @@ importers:
       '@neondatabase/serverless':
         specifier: 0.9.5
         version: 0.9.5
-      '@t3-oss/env-nextjs':
-        specifier: ^0.13.8
-        version: 0.13.8(typescript@5.9.2)(zod@4.1.8)
       '@types/debug':
         specifier: 'catalog:'
         version: 4.1.12
@@ -3874,23 +3871,6 @@ packages:
       typescript:
         optional: true
 
-  '@t3-oss/env-core@0.13.8':
-    resolution: {integrity: sha512-L1inmpzLQyYu4+Q1DyrXsGJYCXbtXjC4cICw1uAKv0ppYPQv656lhZPU91Qd1VS6SO/bou1/q5ufVzBGbNsUpw==}
-    peerDependencies:
-      arktype: ^2.1.0
-      typescript: '>=5.0.0'
-      valibot: ^1.0.0-beta.7 || ^1.0.0
-      zod: ^3.24.0 || ^4.0.0-beta.0
-    peerDependenciesMeta:
-      arktype:
-        optional: true
-      typescript:
-        optional: true
-      valibot:
-        optional: true
-      zod:
-        optional: true
-
   '@t3-oss/env-nextjs@0.11.1':
     resolution: {integrity: sha512-rx2XL9+v6wtOqLNJbD5eD8OezKlQD1BtC0WvvtHwBgK66jnF5+wGqtgkKK4Ygie1LVmoDClths2T4tdFmRvGrQ==}
     peerDependencies:
@@ -3898,23 +3878,6 @@ packages:
       zod: ^3.0.0
     peerDependenciesMeta:
       typescript:
-        optional: true
-
-  '@t3-oss/env-nextjs@0.13.8':
-    resolution: {integrity: sha512-QmTLnsdQJ8BiQad2W2nvV6oUpH4oMZMqnFEjhVpzU0h3sI9hn8zb8crjWJ1Amq453mGZs6A4v4ihIeBFDOrLeQ==}
-    peerDependencies:
-      arktype: ^2.1.0
-      typescript: '>=5.0.0'
-      valibot: ^1.0.0-beta.7 || ^1.0.0
-      zod: ^3.24.0 || ^4.0.0-beta.0
-    peerDependenciesMeta:
-      arktype:
-        optional: true
-      typescript:
-        optional: true
-      valibot:
-        optional: true
-      zod:
         optional: true
 
   '@tailwindcss/node@4.1.18':
@@ -12203,24 +12166,12 @@ snapshots:
     optionalDependencies:
       typescript: 5.9.2
 
-  '@t3-oss/env-core@0.13.8(typescript@5.9.2)(zod@4.1.8)':
-    optionalDependencies:
-      typescript: 5.9.2
-      zod: 4.1.8
-
   '@t3-oss/env-nextjs@0.11.1(typescript@5.9.2)(zod@4.1.8)':
     dependencies:
       '@t3-oss/env-core': 0.11.1(typescript@5.9.2)(zod@4.1.8)
       zod: 4.1.8
     optionalDependencies:
       typescript: 5.9.2
-
-  '@t3-oss/env-nextjs@0.13.8(typescript@5.9.2)(zod@4.1.8)':
-    dependencies:
-      '@t3-oss/env-core': 0.13.8(typescript@5.9.2)(zod@4.1.8)
-    optionalDependencies:
-      typescript: 5.9.2
-      zod: 4.1.8
 
   '@tailwindcss/node@4.1.18':
     dependencies:

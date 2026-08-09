@@ -6,8 +6,11 @@ import { notInArray } from "@repo/core/drizzle";
 import {
   flattenSnapshots,
   isProjectIncludedInRankings,
-} from "@repo/core/projects";
-import { getMonthlyDelta, getPreviousMonth } from "@repo/core/snapshots";
+} from "@repo/core/services/projects";
+import {
+  getMonthlyDelta,
+  getPreviousMonth,
+} from "@repo/core/services/snapshots";
 
 import { invalidateWebAppCacheByTag } from "@/shared/cache";
 import { truncate } from "@/shared/utils";

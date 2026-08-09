@@ -6,7 +6,7 @@ import { PlusIcon } from "lucide-react";
 import { toast } from "sonner";
 import { z } from "zod";
 
-import type { ProjectDetails } from "@repo/core/projects";
+import type { ProjectDetails } from "@repo/core/services/projects";
 
 import { Button, SubmitButton } from "@/components/ui/button";
 import {

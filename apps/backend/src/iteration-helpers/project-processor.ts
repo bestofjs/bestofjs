@@ -1,6 +1,9 @@
 import { schema } from "@repo/core";
 import { and, desc, eq, type SQL } from "@repo/core/drizzle";
-import { type ProjectDetails, ProjectService } from "@repo/core/projects";
+import {
+  type ProjectDetails,
+  ProjectService,
+} from "@repo/core/services/projects";
 
 import type { TaskLoopOptions, TaskRunnerContext } from "@/task-types";
 

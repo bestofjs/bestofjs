@@ -4,8 +4,11 @@ import { cacheLife, cacheTag } from "next/cache";
 import NextLink from "next/link";
 
 import { db } from "@repo/core";
-import { findProjectsWithTrends, resolveScope } from "@repo/core/projects";
-import { findRelevantTags, findTags } from "@repo/core/tags";
+import {
+  findProjectsWithTrends,
+  resolveScope,
+} from "@repo/core/services/projects";
+import { findRelevantTags, findTags } from "@repo/core/services/tags";
 
 import {
   buildTagsByCode,

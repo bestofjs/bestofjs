@@ -1,7 +1,7 @@
 import { z } from "zod";
 
-import { ProjectService } from "@repo/core/projects";
-import { SnapshotsService, toDate } from "@repo/core/snapshots";
+import { ProjectService } from "@repo/core/services/projects";
+import { SnapshotsService, toDate } from "@repo/core/services/snapshots";
 
 import { createTask } from "@/task-runner";
 

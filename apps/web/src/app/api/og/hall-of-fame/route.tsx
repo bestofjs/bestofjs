@@ -3,7 +3,7 @@ import { db } from "@repo/core";
 import {
   findHallOfFameMembers,
   type HallOfFameMember,
-} from "@repo/core/hall-of-fame";
+} from "@repo/core/services/hall-of-fame";
 
 import { ImageLayout } from "../og-image-layout";
 import { Box, generateImageResponse } from "../og-utils";

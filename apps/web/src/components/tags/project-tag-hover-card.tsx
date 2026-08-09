@@ -3,7 +3,7 @@
 import Link from "next/link";
 import useSWR, { type SWRConfiguration } from "swr";
 
-import type { TagProject, TagWithProjectsItem } from "@repo/core/tags";
+import type { TagProject, TagWithProjectsItem } from "@repo/core/services/tags";
 
 import { ProjectLogo, TagIcon } from "@/components/core";
 import {

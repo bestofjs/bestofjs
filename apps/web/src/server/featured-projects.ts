@@ -1,7 +1,7 @@
 import { db } from "@repo/core";
-import { findFeaturedProjects } from "@repo/core/projects";
+import { findFeaturedProjects } from "@repo/core/services/projects";
 
-export type { FeaturedProject } from "@repo/core/projects";
+export type { FeaturedProject } from "@repo/core/services/projects";
 
 // TODO: Revisit this wrapper once listings are fully DB-driven
 // (see docs/prd/replace-static-api-with-db.md): keep a consistent server

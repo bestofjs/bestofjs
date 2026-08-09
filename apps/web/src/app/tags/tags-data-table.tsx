@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { orderBy } from "es-toolkit";
 
-import type { TagWithProjectsItem } from "@repo/core/tags";
+import type { TagWithProjectsItem } from "@repo/core/services/tags";
 
 import { ClientDataTable } from "@/components/ui/datatable";
 

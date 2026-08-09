@@ -4,8 +4,8 @@ import { z } from "zod";
 import { schema } from "@repo/core";
 import { TAGS_EXCLUDED_FROM_RANKINGS } from "@repo/core/constants";
 import { eq, inArray } from "@repo/core/drizzle";
-import { flattenSnapshots } from "@repo/core/projects";
-import { getMonthlyDelta, type Snapshot } from "@repo/core/snapshots";
+import { flattenSnapshots } from "@repo/core/services/projects";
+import { getMonthlyDelta, type Snapshot } from "@repo/core/services/snapshots";
 
 import type { Repo } from "@/iteration-helpers/repo-processor";
 import { createTask } from "@/task-runner";

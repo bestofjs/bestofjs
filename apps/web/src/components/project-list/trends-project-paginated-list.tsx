@@ -1,4 +1,4 @@
-import { getProjectLabel } from "@repo/core/project-trends";
+import { getProjectLabel } from "@repo/core/services/project-trends";
 
 import type { TrendsProject } from "@/app/projects/project-adapter";
 import type {

@@ -368,7 +368,7 @@ Each task is designed to be:
 
 The data collection tasks integrate with other components:
 
-- Database package (`@repo/core`): For schema definitions and database operations
+- Core package (`@repo/core`): For schema definitions, the `db` client, and the domain services (`@repo/core/services/projects`, `/services/tags`, ...)
 - API package (`@repo/api`): For client implementations to external APIs
 - Task runner: For scheduling and executing tasks
 - Notification systems: To alert about significant changes or new projects

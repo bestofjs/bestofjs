@@ -5,7 +5,7 @@ import { uniq } from "es-toolkit";
 import type { Metadata } from "next";
 import { cacheLife, cacheTag } from "next/cache";
 
-import type { ProjectDetails } from "@repo/core/projects";
+import type { ProjectDetails } from "@repo/core/services/projects";
 
 import { ProjectDetailsGitHubCard } from "./project-details-github/github-card";
 import { ProjectHeader } from "./project-header";

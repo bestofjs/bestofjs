@@ -16,7 +16,7 @@ apps/
   legacy/    Deprecated Vite/React app
 packages/
   api/       Shared GitHub/NPM API utilities
-  db/        PostgreSQL schema (Drizzle ORM), queries, and migrations
+  core/      Domain services (projects, tags, snapshots, ...), Drizzle schema, migrations
 docs/        Architecture documentation
 ```
 
@@ -66,10 +66,17 @@ pnpm -F core studio                 # Drizzle Studio GUI
 4. **Web app** fetches static JSON (no direct DB access)
 5. **Admin app** has direct DB access for curating projects/tags (local use only)
 
-### Database Schema (`packages/core/src/schema/`)
-Key tables: `repos` (GitHub data), `projects` (metadata), `snapshots` (daily star history), `packages` (NPM info), `bundles` (bundle sizes), `tags`, `hall_of_fame`.
+### Core Package (`packages/core/`)
+Every domain lives in `src/services/<domain>/`: `projects`, `tags`, `snapshots`, `hall-of-fame`, `project-trends`, `repo-trends`, plus `repos` and `packages` (table definitions only, no logic yet). Each service with logic has an `index.ts` barrel wired to a subpath export, so consumers write `import { createProject } from "@repo/core/services/projects"`.
 
-Drizzle table definitions are named `*.sql.ts` and picked up by the `./src/**/*.sql.ts` glob in `drizzle.config.ts`, so they can live next to the service that owns them rather than in a single folder.
+Infra stays at `src/`: `index.ts` (the `db` client, `DB` type, `runQuery`), `db.ts`, `drizzle.ts`, `constants.ts`, `shared-schemas.ts`, `schema.ts`.
+
+Drizzle table definitions are named `<name>.sql.ts` and live next to the service that owns them — `src/services/tags/tags.sql.ts` beside `src/services/tags/find.ts`. `drizzle.config.ts` picks them up with the `./src/**/*.sql.ts` glob. Key tables: `repos` (GitHub data), `projects` (metadata), `snapshots` (daily star history), `packages` (NPM info), `bundles` (bundle sizes), `tags`, `hall_of_fame`.
+
+`src/schema.ts` re-exports all of them, and `src/index.ts` republishes it as `export * as schema`, so consumers keep reaching tables via `schema.projects`. Two rules keep the module graph acyclic — services import `db` from the package root, so a cycle there leaves `db` undefined at module init:
+
+1. `schema.ts` imports the `.sql.ts` files **directly**, never through a service barrel.
+2. Service barrels do **not** re-export their `.sql.ts` files.
 
 ### Backend Task Pattern
 Tasks are created with a `createTask` factory:
