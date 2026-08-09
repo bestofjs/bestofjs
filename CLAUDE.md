@@ -69,6 +69,8 @@ pnpm -F core studio                 # Drizzle Studio GUI
 ### Database Schema (`packages/core/src/schema/`)
 Key tables: `repos` (GitHub data), `projects` (metadata), `snapshots` (daily star history), `packages` (NPM info), `bundles` (bundle sizes), `tags`, `hall_of_fame`.
 
+Drizzle table definitions are named `*.sql.ts` and picked up by the `./src/**/*.sql.ts` glob in `drizzle.config.ts`, so they can live next to the service that owns them rather than in a single folder.
+
 ### Backend Task Pattern
 Tasks are created with a `createTask` factory:
 ```typescript

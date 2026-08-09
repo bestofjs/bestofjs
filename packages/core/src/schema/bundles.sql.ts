@@ -1,7 +1,7 @@
 import { relations } from "drizzle-orm";
 import { integer, pgTable, text, timestamp } from "drizzle-orm/pg-core";
 
-import { packages } from "./packages";
+import { packages } from "./packages.sql";
 
 export const bundles = pgTable("bundles", {
   name: text("name")

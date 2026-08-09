@@ -8,7 +8,7 @@ import {
   timestamp,
 } from "drizzle-orm/pg-core";
 
-import { repos } from "./repos";
+import { repos } from "./repos.sql";
 
 /**
  * Per-repo trend cache: star counts, snapshot deltas, and heuristic scores, upserted daily by backend tasks.

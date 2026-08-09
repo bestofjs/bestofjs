@@ -8,8 +8,8 @@ import {
   timestamp,
 } from "drizzle-orm/pg-core";
 
-import { bundles } from "./bundles";
-import { projects } from "./projects";
+import { bundles } from "./bundles.sql";
+import { projects } from "./projects.sql";
 
 export const packages = pgTable("packages", {
   name: text("name").primaryKey(),
