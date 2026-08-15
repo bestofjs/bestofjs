@@ -155,15 +155,22 @@ export function getWhereClauseSearchByTag(db: DB, tagCodes: string[]) {
  * empty the result set.
  */
 export function getWhereClauseExcludeTags(db: DB, tagCodes: string[]) {
-  return notInArray(
-    projects.id,
-    db
-      .select({ id: projectsToTags.projectId })
-      .from(projectsToTags)
-      .innerJoin(tags, eq(projectsToTags.tagId, tags.id))
-      .where(inArray(tags.code, tagCodes))
-      .groupBy(projectsToTags.projectId),
-  );
+  return notInArray(projects.id, selectProjectIdsHavingAnyTag(db, tagCodes));
+}
+
+/**
+ * The sub-query behind `getWhereClauseExcludeTags()`, exported on its own so
+ * queries that filter `projects_to_tags` rather than `projects` — the tag
+ * counts in `services/tags` — exclude by exactly the same definition of
+ * "carries one of these tags" instead of restating it.
+ */
+export function selectProjectIdsHavingAnyTag(db: DB, tagCodes: string[]) {
+  return db
+    .select({ id: projectsToTags.projectId })
+    .from(projectsToTags)
+    .innerJoin(tags, eq(projectsToTags.tagId, tags.id))
+    .where(inArray(tags.code, tagCodes))
+    .groupBy(projectsToTags.projectId);
 }
 
 /**

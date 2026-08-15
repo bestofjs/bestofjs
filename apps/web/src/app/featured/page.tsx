@@ -1,9 +1,6 @@
 import { cacheLife, cacheTag } from "next/cache";
 
-import { db } from "@repo/core";
-import { findProjectsWithTrends } from "@repo/core/services/projects";
-import { findTags } from "@repo/core/services/tags";
-
+import { findProjectsWithTrends, findTags } from "@/app/db";
 import {
   buildTagsByCode,
   toTrendsProject,
@@ -58,7 +55,6 @@ async function fetchFeaturedProjects(searchState: TrendsProjectSearchState) {
 
   const [{ projects: rows, total }, allTags] = await Promise.all([
     findProjectsWithTrends({
-      db,
       limit,
       page,
       // Hardcoded, not read from `searchState`: "featured" is an editorial

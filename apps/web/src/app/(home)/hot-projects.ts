@@ -1,10 +1,8 @@
 import { cacheLife, cacheTag } from "next/cache";
 
-import { db } from "@repo/core";
 import { TAGS_EXCLUDED_FROM_RANKINGS } from "@repo/core/constants";
-import { findProjectsWithTrends } from "@repo/core/services/projects";
-import { findTags } from "@repo/core/services/tags";
 
+import { findProjectsWithTrends, findTags } from "@/app/db";
 import {
   buildTagsByCode,
   type TrendsProject,
@@ -26,7 +24,7 @@ export type HotProjectsSortKey = "daily" | "weekly" | "monthly" | "yearly";
  * be redundant — and would risk a top-5 hole from the `activity_score = -100`
  * sentinel a repo carries until its first GitHub commit-history fetch.
  *
- * `excludeTagCodes` reproduces the pre-migration static API's editorial
+ * `excludedTagCodes` reproduces the pre-migration static API's editorial
  * exclusion, which applied to the home page and the rankings only.
  */
 export async function getHotProjects(
@@ -39,8 +37,7 @@ export async function getHotProjects(
 
   const [{ projects: rows }, allTags] = await Promise.all([
     findProjectsWithTrends({
-      db,
-      excludeTagCodes: TAGS_EXCLUDED_FROM_RANKINGS,
+      excludedTagCodes: TAGS_EXCLUDED_FROM_RANKINGS,
       limit,
       scope: "all",
       sort,

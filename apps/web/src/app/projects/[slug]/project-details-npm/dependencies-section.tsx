@@ -3,11 +3,10 @@ import { cacheLife, cacheTag } from "next/cache";
 import { db } from "@repo/core";
 import {
   findProjectSlugsByPackageNames,
-  findProjectsWithTrends,
   type ProjectDetails,
 } from "@repo/core/services/projects";
-import { findTags } from "@repo/core/services/tags";
 
+import { findProjectsWithTrends, findTags } from "@/app/db";
 import {
   buildTagsByCode,
   toTrendsProject,
@@ -102,7 +101,6 @@ async function fetchDependencyProjects(slug: string, dependencies: string[]) {
 
   const [{ projects: rows }, ownedPackages, allTags] = await Promise.all([
     findProjectsWithTrends({
-      db,
       limit: dependencies.length,
       packageNames: dependencies,
       scope: "all",

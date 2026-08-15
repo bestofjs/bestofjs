@@ -4,12 +4,11 @@ import { cacheLife, cacheTag } from "next/cache";
 
 import { db } from "@repo/core";
 import {
-  findProjectsWithTrends,
   getProjectsStats,
   getRepoStarsByFullName,
 } from "@repo/core/services/projects";
-import { findTags } from "@repo/core/services/tags";
 
+import { findProjectsWithTrends, findTags } from "@/app/db";
 import { ProjectListCardLoading } from "@/app/projects/loading-state";
 import {
   buildTagsByCode,
@@ -90,7 +89,6 @@ async function getData() {
   const [{ projects: newestRows }, allTags, stats, bestOfJSStars] =
     await Promise.all([
       findProjectsWithTrends({
-        db,
         limit: NUMBER_OF_NEWEST_PROJECTS,
         // "Recently Added" is a chronological feed of editorial admissions, not
         // a quality ranking — curation already happened when a human added the

@@ -1,8 +1,5 @@
 import { cacheLife, cacheTag } from "next/cache";
 
-import { db } from "@repo/core";
-import { findProjectsWithTrends } from "@repo/core/services/projects";
-import { findTags } from "@repo/core/services/tags";
 import type { TrendsSortKey } from "@repo/core/shared-schemas";
 
 import {
@@ -14,6 +11,7 @@ import {
   StarIcon,
   TagIcon,
 } from "@/app/api/og/og-utils";
+import { findProjectsWithTrends, findTags } from "@/app/db";
 import {
   buildTagsByCode,
   type TrendsProject,
@@ -75,7 +73,6 @@ async function fetchOgProjects(searchState: TrendsProjectSearchState) {
 
   const [{ projects: rows }, allTags] = await Promise.all([
     findProjectsWithTrends({
-      db,
       limit: NUMBER_OF_PROJECTS,
       page,
       query,
