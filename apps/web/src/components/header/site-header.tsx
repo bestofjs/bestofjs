@@ -2,6 +2,7 @@ import { Suspense } from "react";
 import Link from "next/link";
 
 import { DiscordIcon, GitHubIcon } from "@/components/core/icons";
+import { AppBadge } from "@/components/header/app-badge";
 import { MainNav, MainNavFallback } from "@/components/header/desktop-nav";
 import { ClientSearchRoot } from "@/components/search-palette/search-root";
 import { ThemeToggle } from "@/components/theme-toggle";
@@ -15,6 +16,7 @@ export function SiteHeader() {
         <Suspense fallback={<MainNavFallback />}>
           <MainNav />
         </Suspense>
+        <AppBadge />
         <div className="flex flex-1 items-center justify-end space-x-4">
           {/*
           Suspense block needed to avoid the "deopted into client-side rendering"

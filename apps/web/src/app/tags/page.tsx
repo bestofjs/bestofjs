@@ -2,7 +2,7 @@
 import type { Metadata } from "next";
 import { cacheLife, cacheTag } from "next/cache";
 
-import { findTagsWithProjects } from "@repo/core/services/tags";
+import { findTagsWithProjects } from "@/app/db";
 
 import { TagsDataTable } from "./tags-data-table";
 import { TagsPageShell } from "./tags-page-shell";

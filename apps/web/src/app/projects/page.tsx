@@ -3,13 +3,9 @@ import type { Metadata } from "next";
 import { cacheLife, cacheTag } from "next/cache";
 import NextLink from "next/link";
 
-import { db } from "@repo/core";
-import {
-  findProjectsWithTrends,
-  resolveScope,
-} from "@repo/core/services/projects";
-import { findRelevantTags, findTags } from "@repo/core/services/tags";
+import { resolveScope } from "@repo/core/services/projects";
 
+import { findProjectsWithTrends, findRelevantTags, findTags } from "@/app/db";
 import {
   buildTagsByCode,
   type TrendsProject,
@@ -391,14 +387,25 @@ async function fetchPageData(
   cacheLife("hours");
   cacheTag("projects");
 
-  const { tags: tagCodes, sort, page, limit, query, scope } = searchState;
+  const { ai, tags: tagCodes, sort, page, limit, query, scope } = searchState;
+  // `?ai=1` asks this deployment for the tags it hides; on the main deployment
+  // there are none, so the flag is inert there.
+  const showExcludedTags = ai === "1";
 
   const [{ projects: rows, total }, allTags, relevantTags] = await Promise.all([
-    findProjectsWithTrends({ db, limit, page, query, scope, sort, tagCodes }),
+    findProjectsWithTrends({
+      limit,
+      page,
+      query,
+      scope,
+      showExcludedTags,
+      sort,
+      tagCodes,
+    }),
     findTags(),
     // Same `scope` as the listing: a suggested tag whose projects are all
     // filtered out would lead to an empty page.
-    findRelevantTags({ db, tagCodes, query, scope }),
+    findRelevantTags({ tagCodes, query, scope, showExcludedTags }),
   ]);
 
   const tagsByCode = buildTagsByCode(allTags);
