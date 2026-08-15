@@ -13,10 +13,16 @@ export function SiteHeader() {
   return (
     <header className="sticky top-0 z-40 w-full border-b bg-background">
       <div className="container flex h-16 items-center space-x-4 sm:justify-between sm:space-x-0">
-        <Suspense fallback={<MainNavFallback />}>
-          <MainNav />
+        {/*
+        The badge is passed down rather than rendered here: it is positioned
+        against the logo, which lives inside `MainNav`. `MainNav` is a client
+        component and cannot read the server-only `BESTOFJS_APP` itself, so the
+        server renders the badge and hands it over as a slot. Both the nav and
+        its fallback get it, so it does not blink in during hydration.
+        */}
+        <Suspense fallback={<MainNavFallback badge={<AppBadge />} />}>
+          <MainNav badge={<AppBadge />} />
         </Suspense>
-        <AppBadge />
         <div className="flex flex-1 items-center justify-end space-x-4">
           {/*
           Suspense block needed to avoid the "deopted into client-side rendering"
