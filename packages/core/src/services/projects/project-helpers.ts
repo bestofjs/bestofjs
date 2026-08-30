@@ -9,10 +9,11 @@ import type { OneYearSnapshots, ProjectDetails } from ".";
 
 export function getProjectDescription(project: ProjectDetails) {
   invariant(project.repo);
-  const repoDescription = project.repo.description;
-  return project.overrideDescription
-    ? project.description
-    : repoDescription || project.description;
+  return resolveProjectDescription({
+    description: project.description,
+    overrideDescription: project.overrideDescription,
+    repoDescription: project.repo.description,
+  });
 }
 
 export function getProjectRepositoryURL(project: ProjectDetails) {
@@ -21,10 +22,42 @@ export function getProjectRepositoryURL(project: ProjectDetails) {
 
 export function getProjectURL(project: ProjectDetails) {
   invariant(project.repo);
-  if (project.overrideURL) return project.url;
-  const homepage = project.repo.homepage;
+  return resolveProjectURL({
+    overrideURL: project.overrideURL,
+    repoHomepage: project.repo.homepage,
+    url: project.url,
+  });
+}
 
-  return homepage && isValidProjectURL(homepage) ? homepage : project.url;
+/**
+ * Shared by `getProjectDescription()` and any query (e.g.
+ * `findProjectsWithTrends()`) that needs the same override rule without
+ * loading the full `ProjectDetails` shape.
+ */
+export function resolveProjectDescription({
+  description,
+  overrideDescription,
+  repoDescription,
+}: {
+  description: string;
+  overrideDescription: boolean | null;
+  repoDescription: string | null;
+}) {
+  return overrideDescription ? description : repoDescription || description;
+}
+
+/** Shared by `getProjectURL()` and `findProjectsWithTrends()` — see `resolveProjectDescription()`. */
+export function resolveProjectURL({
+  overrideURL,
+  repoHomepage,
+  url,
+}: {
+  overrideURL: boolean | null;
+  repoHomepage: string | null;
+  url: string | null;
+}) {
+  if (overrideURL) return url;
+  return repoHomepage && isValidProjectURL(repoHomepage) ? repoHomepage : url;
 }
 
 export function getProjectTrends(snapshots: OneYearSnapshots[], date?: Date) {
