@@ -112,7 +112,7 @@ export const checkTrendsQueriesTask = createTask({
     const packageNames = parseList(flags.packages);
     // `--excludeTags rankings` is a shorthand for the exclusion the home page
     // and the /trends pages apply, so it can be checked without retyping it.
-    const excludeTagCodes =
+    const excludedTagCodes =
       flags.excludeTags === "rankings"
         ? TAGS_EXCLUDED_FROM_RANKINGS
         : parseList(flags.excludeTags);
@@ -122,7 +122,7 @@ export const checkTrendsQueriesTask = createTask({
       sort,
       query: search,
       tagCodes,
-      excludeTagCodes,
+      excludedTagCodes,
       packageNames,
       page,
       limit,
@@ -184,7 +184,7 @@ export const checkTrendsQueriesTask = createTask({
       ...checkScope(projects, effectiveScope),
       ...checkSortOrder(projects, sort),
       ...checkTagFilter(projects, tagCodes),
-      ...checkExcludedTagFilter(projects, excludeTagCodes),
+      ...checkExcludedTagFilter(projects, excludedTagCodes),
       ...checkStatusFilter(projects, status),
       ...checkPackageFilter(projects, packageNames, ownedPackages),
       ...(full.total >= floored.total
@@ -323,12 +323,12 @@ function checkTagFilter(projects: ProjectWithTrends[], tagCodes?: string[]) {
 
 function checkExcludedTagFilter(
   projects: ProjectWithTrends[],
-  excludeTagCodes?: string[],
+  excludedTagCodes?: string[],
 ) {
-  if (!excludeTagCodes || excludeTagCodes.length === 0) return [];
+  if (!excludedTagCodes || excludedTagCodes.length === 0) return [];
   return projects
     .filter((project) =>
-      excludeTagCodes.some((tagCode) => project.tags.includes(tagCode)),
+      excludedTagCodes.some((tagCode) => project.tags.includes(tagCode)),
     )
     .map(
       (project) =>

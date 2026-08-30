@@ -1,15 +1,13 @@
-"use cache"; // needed at the file level to avoid errors `Route "/" used `require('node:crypto').randomBytes(size)` before accessing either uncached data`
 import { Suspense } from "react";
-import { cacheLife, cacheTag } from "next/cache";
+import { cacheLife } from "next/cache";
 
 import { db } from "@repo/core";
 import {
-  findProjectsWithTrends,
   getProjectsStats,
   getRepoStarsByFullName,
 } from "@repo/core/services/projects";
-import { findTags } from "@repo/core/services/tags";
 
+import { findProjectsWithTrends, findTags } from "@/app/db";
 import { ProjectListCardLoading } from "@/app/projects/loading-state";
 import {
   buildTagsByCode,
@@ -25,7 +23,9 @@ import {
 } from "@/components/home/home-sections";
 import { LatestMonthlyRankings } from "@/components/home/latest-monthly-rankings";
 import { Separator } from "@/components/ui/separator";
+import { currentApp, type WebApp } from "@/config/apps";
 import { APP_REPO_FULL_NAME } from "@/config/site";
+import { cacheTagForApp } from "@/server/cache";
 
 export default async function TrendsLayout({
   children,
@@ -42,6 +42,21 @@ export default async function TrendsLayout({
 }
 
 async function TrendsLayoutMain({ children }: React.PropsWithChildren) {
+  return renderTrendsLayoutMain(currentApp, children);
+}
+
+// A component rendered as JSX can't take extra arguments, so the cached
+// rendering is split into this inner function: `app` needs to be a real
+// parameter (not a module-scope import) since Next's "use cache" excludes
+// module-scope values from the cache key (github.com/vercel/next.js#74498).
+// This is also the sole cache boundary needed to satisfy PPR's requirement
+// that a cached function run before any dynamic API is accessed in this route
+// (see the old file-level `"use cache"` this replaced).
+async function renderTrendsLayoutMain(app: WebApp, children: React.ReactNode) {
+  "use cache";
+  cacheLife("daily");
+  cacheTagForApp(app, "daily", "home");
+
   const {
     activeTotal,
     bestOfJSStars,
@@ -84,13 +99,9 @@ const NUMBER_OF_NEWEST_PROJECTS = 5;
 const NUMBER_OF_POPULAR_TAGS = 10;
 
 async function getData() {
-  cacheLife("daily");
-  cacheTag("daily", "home");
-
   const [{ projects: newestRows }, allTags, stats, bestOfJSStars] =
     await Promise.all([
       findProjectsWithTrends({
-        db,
         limit: NUMBER_OF_NEWEST_PROJECTS,
         // "Recently Added" is a chronological feed of editorial admissions, not
         // a quality ranking — curation already happened when a human added the

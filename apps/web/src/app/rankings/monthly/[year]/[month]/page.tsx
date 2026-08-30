@@ -1,6 +1,6 @@
 import { CalendarIcon } from "lucide-react";
 import type { Metadata } from "next";
-import { cacheLife, cacheTag } from "next/cache";
+import { cacheLife } from "next/cache";
 import Link from "next/link";
 
 import {
@@ -12,10 +12,12 @@ import { PageHeading } from "@/components/core/typography";
 import { ProjectTable } from "@/components/project-list/project-table";
 import { Button, buttonVariants } from "@/components/ui/button";
 import { Card, CardHeader } from "@/components/ui/card";
+import { currentApp, type WebApp } from "@/config/apps";
 import { APP_CANONICAL_URL, APP_DISPLAY_NAME } from "@/config/site";
 import { cn } from "@/lib/utils";
 import { api } from "@/server/api";
 import type { MonthlyDate } from "@/server/api-rankings";
+import { cacheTagForApp } from "@/server/cache";
 
 import { formatMonthlyDate } from "../../monthly-rankings-utils";
 
@@ -26,12 +28,21 @@ type PageProps = {
   }>;
 };
 
-// All monthly rankings are historical snapshots that never change
-// Cache them forever, tagged by their specific month for targeted revalidation
-async function getCachedMonthlyRankings(date: MonthlyDate, limit: number) {
+// All monthly rankings are historical snapshots that never change, so cache
+// forever, tagged by their specific month for targeted revalidation. `app` is
+// a real function parameter (not a module-scope import) because Next's
+// "use cache" excludes module-scope values from the cache key
+// (github.com/vercel/next.js#74498) — the Data Cache persists across
+// deployments, and `getMonthlyRankings()` depends on this deployment's
+// excluded tags by way of a call several modules deep.
+async function getCachedMonthlyRankings(
+  date: MonthlyDate,
+  limit: number,
+  app: WebApp,
+) {
   "use cache";
   cacheLife("forever"); // Historical data is frozen forever
-  cacheTag("monthly", `${date.year}-${date.month}`);
+  cacheTagForApp(app, "monthly", `${date.year}-${date.month}`);
   return api.rankings.getMonthlyRankings({ date, limit });
 }
 
@@ -39,7 +50,7 @@ export async function generateMetadata(props: PageProps): Promise<Metadata> {
   const params = await props.params;
   const date = parsePageParams(params);
 
-  const { projects } = await getCachedMonthlyRankings(date, 10);
+  const { projects } = await getCachedMonthlyRankings(date, 10, currentApp);
   const projectNames = projects.map((project) => project.name).join(", ");
 
   const title = `Rankings ${formatMonthlyDate(date)}`;
@@ -65,6 +76,7 @@ export default async function MonthlyRankingPage(props: PageProps) {
   const { isFirst, isLatest, projects } = await getCachedMonthlyRankings(
     date,
     50,
+    currentApp,
   );
 
   return (

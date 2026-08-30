@@ -1,8 +1,5 @@
-import { cacheLife, cacheTag } from "next/cache";
+import { cacheLife } from "next/cache";
 
-import { db } from "@repo/core";
-import { findProjectsWithTrends } from "@repo/core/services/projects";
-import { findTags } from "@repo/core/services/tags";
 import type { TrendsSortKey } from "@repo/core/shared-schemas";
 
 import {
@@ -14,6 +11,7 @@ import {
   StarIcon,
   TagIcon,
 } from "@/app/api/og/og-utils";
+import { findProjectsWithTrends, findTags } from "@/app/db";
 import {
   buildTagsByCode,
   type TrendsProject,
@@ -28,9 +26,11 @@ import {
   getTrendsSortOptionByKey,
   type TrendsSortOption,
 } from "@/components/project-list/trends-sort-order-options";
+import { currentApp, type WebApp } from "@/config/apps";
 import { fromNow } from "@/helpers/from-now";
 import { formatNumber } from "@/helpers/numbers";
 import { getSearchParamsKeyValues } from "@/lib/url-search-params";
+import { cacheTagForApp } from "@/server/cache";
 
 import { ImageLayout } from "../og-image-layout";
 
@@ -40,7 +40,10 @@ export async function GET(req: Request) {
   const { searchState } = getSearchStateFromURL(req.url);
   const { query, sort } = searchState;
   const sortOption = getTrendsSortOptionByKey(sort);
-  const { projects, selectedTags } = await fetchOgProjects(searchState);
+  const { projects, selectedTags } = await fetchOgProjects(
+    searchState,
+    currentApp,
+  );
 
   return generateImageResponse(
     <ImageLayout>
@@ -65,17 +68,19 @@ export async function GET(req: Request) {
   );
 }
 
-async function fetchOgProjects(searchState: TrendsProjectSearchState) {
+async function fetchOgProjects(
+  searchState: TrendsProjectSearchState,
+  app: WebApp,
+) {
   "use cache";
   cacheLife("hours");
-  cacheTag("projects");
+  cacheTagForApp(app, "projects");
 
   const NUMBER_OF_PROJECTS = 3;
   const { tags: tagCodes, query, sort, page } = searchState;
 
   const [{ projects: rows }, allTags] = await Promise.all([
     findProjectsWithTrends({
-      db,
       limit: NUMBER_OF_PROJECTS,
       page,
       query,

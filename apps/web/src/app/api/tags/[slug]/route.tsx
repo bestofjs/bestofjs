@@ -1,12 +1,14 @@
-import { cacheLife, cacheTag } from "next/cache";
+import { cacheLife } from "next/cache";
 
-import { findTagWithProjects } from "@repo/core/services/tags";
+import { findTagWithProjects } from "@/app/db";
+import { currentApp, type WebApp } from "@/config/apps";
+import { cacheTagForApp } from "@/server/cache";
 
 type Context = { params: Promise<{ slug: string }> };
 export async function GET(_req: Request, props: Context) {
   const { slug } = await props.params;
 
-  const tag = await getTagData(slug);
+  const tag = await getTagData(slug, currentApp);
   if (!tag) {
     return new Response(JSON.stringify({ error: `Tag not found: ${slug}` }), {
       status: 404,
@@ -27,10 +29,10 @@ export async function GET(_req: Request, props: Context) {
   });
 }
 
-async function getTagData(slug: string) {
+async function getTagData(slug: string, app: WebApp) {
   "use cache";
   cacheLife("days");
-  cacheTag("tags"); // same tag as /tags, so one revalidation clears both
+  cacheTagForApp(app, "tags"); // same tag as /tags, so one revalidation clears both
 
   return await findTagWithProjects(slug);
 }

@@ -19,6 +19,7 @@ import {
 } from "@/app/(home)/hot-projects";
 import { projectService } from "@/app/db";
 import { Card, CardContent } from "@/components/ui/card";
+import { currentApp } from "@/config/apps";
 import { APP_CANONICAL_URL, APP_DISPLAY_NAME } from "@/config/site";
 
 import { ProjectDetailsNpmCard } from "./project-details-npm/project-details-npm";
@@ -101,7 +102,7 @@ const PRERENDERED_WINDOWS: HotProjectsSortKey[] = [
  */
 export async function generateStaticParams() {
   const lists = await Promise.all(
-    PRERENDERED_WINDOWS.map((sort) => getHotProjects(sort)),
+    PRERENDERED_WINDOWS.map((sort) => getHotProjects(sort, currentApp)),
   );
   const slugs = uniq(lists.flat().map((project) => project.slug));
   return slugs.map((slug) => ({ slug }));
