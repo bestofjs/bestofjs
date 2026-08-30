@@ -1,5 +1,5 @@
 import { CalendarIcon } from "lucide-react";
-import { cacheLife, cacheTag } from "next/cache";
+import { cacheLife } from "next/cache";
 import NextLink from "next/link";
 
 import { formatMonthlyDate } from "@/app/rankings/monthly/monthly-rankings-utils";
@@ -11,6 +11,7 @@ import { Card, CardHeader } from "@/components/ui/card";
 import { currentApp, type WebApp } from "@/config/apps";
 import { cn } from "@/lib/utils";
 import { api } from "@/server/api";
+import { cacheTagForApp } from "@/server/cache";
 
 export async function LatestMonthlyRankings() {
   return renderLatestMonthlyRankings(currentApp);
@@ -23,7 +24,7 @@ export async function LatestMonthlyRankings() {
 async function renderLatestMonthlyRankings(app: WebApp) {
   "use cache";
   cacheLife("monthly"); // Revalidate every 30 days for latest rankings
-  cacheTag("monthly", "latest", app);
+  cacheTagForApp(app, "monthly", "latest");
   const { year, month, projects } = await api.rankings.getMonthlyRankings({
     limit: 5,
   });

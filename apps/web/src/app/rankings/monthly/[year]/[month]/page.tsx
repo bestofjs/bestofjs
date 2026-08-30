@@ -1,6 +1,6 @@
 import { CalendarIcon } from "lucide-react";
 import type { Metadata } from "next";
-import { cacheLife, cacheTag } from "next/cache";
+import { cacheLife } from "next/cache";
 import Link from "next/link";
 
 import {
@@ -17,6 +17,7 @@ import { APP_CANONICAL_URL, APP_DISPLAY_NAME } from "@/config/site";
 import { cn } from "@/lib/utils";
 import { api } from "@/server/api";
 import type { MonthlyDate } from "@/server/api-rankings";
+import { cacheTagForApp } from "@/server/cache";
 
 import { formatMonthlyDate } from "../../monthly-rankings-utils";
 
@@ -41,7 +42,7 @@ async function getCachedMonthlyRankings(
 ) {
   "use cache";
   cacheLife("forever"); // Historical data is frozen forever
-  cacheTag("monthly", `${date.year}-${date.month}`, app);
+  cacheTagForApp(app, "monthly", `${date.year}-${date.month}`);
   return api.rankings.getMonthlyRankings({ date, limit });
 }
 

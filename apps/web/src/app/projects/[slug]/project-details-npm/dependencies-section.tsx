@@ -1,4 +1,4 @@
-import { cacheLife, cacheTag } from "next/cache";
+import { cacheLife } from "next/cache";
 
 import { db } from "@repo/core";
 import {
@@ -22,6 +22,7 @@ import {
 } from "@/components/ui/collapsible";
 import { Table, TableBody, TableCell, TableRow } from "@/components/ui/table";
 import { currentApp, type WebApp } from "@/config/apps";
+import { cacheTagForApp } from "@/server/cache";
 
 export async function DependenciesSection({
   project,
@@ -103,12 +104,7 @@ async function fetchDependencyProjects(
 ) {
   "use cache";
   cacheLife("days");
-  // `app` is a real function parameter (not a module-scope import) because
-  // Next's "use cache" excludes module-scope values from the cache key
-  // (github.com/vercel/next.js#74498) — and `findProjectsWithTrends()` applies
-  // this deployment's excluded tags inside `@/app/db`, which the compiler
-  // can't see into from here.
-  cacheTag("project-details", slug, app);
+  cacheTagForApp(app, "project-details", slug);
 
   const [{ projects: rows }, ownedPackages, allTags] = await Promise.all([
     findProjectsWithTrends({

@@ -1,6 +1,6 @@
 import { Suspense } from "react";
 import type { Metadata } from "next";
-import { cacheLife, cacheTag } from "next/cache";
+import { cacheLife } from "next/cache";
 import NextLink from "next/link";
 
 import { resolveScope } from "@repo/core/services/projects";
@@ -27,6 +27,7 @@ import { APP_CANONICAL_URL, APP_DISPLAY_NAME } from "@/config/site";
 import { formatNumber } from "@/helpers/numbers";
 import { addCacheBustingParam } from "@/helpers/url";
 import { cn } from "@/lib/utils";
+import { cacheTagForApp } from "@/server/cache";
 
 import { ProjectListLoading } from "./loading-state";
 import {
@@ -389,12 +390,7 @@ async function fetchPageData(
 ): Promise<ProjectsPageData> {
   "use cache";
   cacheLife("hours");
-  // `app` is a real function parameter (not a module-scope import) because
-  // Next's "use cache" excludes module-scope values from the cache key
-  // (github.com/vercel/next.js#74498) — and `findProjectsWithTrends()` /
-  // `findRelevantTags()` below apply this deployment's excluded tags inside
-  // `@/app/db`, which the compiler can't see into from here.
-  cacheTag("projects", app);
+  cacheTagForApp(app, "projects");
 
   const { ai, tags: tagCodes, sort, page, limit, query, scope } = searchState;
   // `?ai=1` asks this deployment for the tags it hides; on the main deployment

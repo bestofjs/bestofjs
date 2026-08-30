@@ -1,4 +1,4 @@
-import { cacheLife, cacheTag } from "next/cache";
+import { cacheLife } from "next/cache";
 
 import { TAGS_EXCLUDED_FROM_RANKINGS } from "@repo/core/constants";
 
@@ -9,6 +9,7 @@ import {
   toTrendsProject,
 } from "@/app/projects/project-adapter";
 import type { WebApp } from "@/config/apps";
+import { cacheTagForApp } from "@/server/cache";
 
 /** The four star-delta windows the home page's time range picker offers. */
 export type HotProjectsSortKey = "daily" | "weekly" | "monthly" | "yearly";
@@ -35,12 +36,7 @@ export async function getHotProjects(
 ): Promise<TrendsProject[]> {
   "use cache";
   cacheLife("daily");
-  // `app` is a real function parameter (not a module-scope import) because
-  // Next's "use cache" excludes module-scope values from the cache key
-  // (github.com/vercel/next.js#74498) — only genuine arguments count, and
-  // `findProjectsWithTrends()` below applies this deployment's excluded tags
-  // inside `@/app/db`, which the compiler can't see into from here.
-  cacheTag("daily", "home", app);
+  cacheTagForApp(app, "daily", "home");
 
   const [{ projects: rows }, allTags] = await Promise.all([
     findProjectsWithTrends({

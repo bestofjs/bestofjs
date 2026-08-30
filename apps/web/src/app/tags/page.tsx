@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
-import { cacheLife, cacheTag } from "next/cache";
+import { cacheLife } from "next/cache";
 
 import { findTagsWithProjects } from "@/app/db";
 import { currentApp, type WebApp } from "@/config/apps";
+import { cacheTagForApp } from "@/server/cache";
 
 import { TagsDataTable } from "./tags-data-table";
 import { TagsPageShell } from "./tags-page-shell";
@@ -22,7 +23,7 @@ export default async function TagsPage() {
 async function renderTagsPage(app: WebApp) {
   "use cache";
   cacheLife("hours"); // Time-based: after 1h, next request serves cached then revalidates in background; later users get fresh data.
-  cacheTag("tags", app); // On-demand: ?api/revalidate?tag=<tag>
+  cacheTagForApp(app, "tags"); // On-demand: ?api/revalidate?tag=<tag>
 
   const tags = await findTagsWithProjects();
 

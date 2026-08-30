@@ -1,7 +1,8 @@
-import { cacheLife, cacheTag } from "next/cache";
+import { cacheLife } from "next/cache";
 
 import { findTagWithProjects } from "@/app/db";
 import { currentApp, type WebApp } from "@/config/apps";
+import { cacheTagForApp } from "@/server/cache";
 
 type Context = { params: Promise<{ slug: string }> };
 export async function GET(_req: Request, props: Context) {
@@ -31,12 +32,7 @@ export async function GET(_req: Request, props: Context) {
 async function getTagData(slug: string, app: WebApp) {
   "use cache";
   cacheLife("days");
-  // `app` is a real function parameter (not a module-scope import) because
-  // Next's "use cache" excludes module-scope values from the cache key
-  // (github.com/vercel/next.js#74498) — and `findTagWithProjects()` applies
-  // this deployment's excluded tags inside `@/app/db`, which the compiler
-  // can't see into from here.
-  cacheTag("tags", app); // same tag as /tags, so one revalidation clears both
+  cacheTagForApp(app, "tags"); // same tag as /tags, so one revalidation clears both
 
   return await findTagWithProjects(slug);
 }

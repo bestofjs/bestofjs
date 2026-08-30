@@ -1,5 +1,5 @@
 import { Suspense } from "react";
-import { cacheLife, cacheTag } from "next/cache";
+import { cacheLife } from "next/cache";
 
 import { db } from "@repo/core";
 import {
@@ -25,6 +25,7 @@ import { LatestMonthlyRankings } from "@/components/home/latest-monthly-rankings
 import { Separator } from "@/components/ui/separator";
 import { currentApp, type WebApp } from "@/config/apps";
 import { APP_REPO_FULL_NAME } from "@/config/site";
+import { cacheTagForApp } from "@/server/cache";
 
 export default async function TrendsLayout({
   children,
@@ -54,7 +55,7 @@ async function TrendsLayoutMain({ children }: React.PropsWithChildren) {
 async function renderTrendsLayoutMain(app: WebApp, children: React.ReactNode) {
   "use cache";
   cacheLife("daily");
-  cacheTag("daily", "home", app);
+  cacheTagForApp(app, "daily", "home");
 
   const {
     activeTotal,

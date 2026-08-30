@@ -1,4 +1,4 @@
-import { cacheLife, cacheTag } from "next/cache";
+import { cacheLife } from "next/cache";
 
 import type { TrendsSortKey } from "@repo/core/shared-schemas";
 
@@ -30,6 +30,7 @@ import { currentApp, type WebApp } from "@/config/apps";
 import { fromNow } from "@/helpers/from-now";
 import { formatNumber } from "@/helpers/numbers";
 import { getSearchParamsKeyValues } from "@/lib/url-search-params";
+import { cacheTagForApp } from "@/server/cache";
 
 import { ImageLayout } from "../og-image-layout";
 
@@ -73,12 +74,7 @@ async function fetchOgProjects(
 ) {
   "use cache";
   cacheLife("hours");
-  // `app` is a real function parameter (not a module-scope import) because
-  // Next's "use cache" excludes module-scope values from the cache key
-  // (github.com/vercel/next.js#74498) — and `findProjectsWithTrends()` applies
-  // this deployment's excluded tags inside `@/app/db`, which the compiler
-  // can't see into from here.
-  cacheTag("projects", app);
+  cacheTagForApp(app, "projects");
 
   const NUMBER_OF_PROJECTS = 3;
   const { tags: tagCodes, query, sort, page } = searchState;

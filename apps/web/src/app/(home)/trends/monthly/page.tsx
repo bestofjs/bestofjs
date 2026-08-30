@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
-import { cacheLife, cacheTag } from "next/cache";
+import { cacheLife } from "next/cache";
 
 import { getHotProjects } from "@/app/(home)/hot-projects";
 import { HotProjectList } from "@/components/home/hot-project-list";
 import { currentApp, type WebApp } from "@/config/apps";
+import { cacheTagForApp } from "@/server/cache";
 
 export default async function MonthlyTrendsPage() {
   return renderMonthlyTrendsPage(currentApp);
@@ -15,7 +16,7 @@ export default async function MonthlyTrendsPage() {
 async function renderMonthlyTrendsPage(app: WebApp) {
   "use cache";
   cacheLife("daily");
-  cacheTag("daily", "home", app);
+  cacheTagForApp(app, "daily", "home");
 
   const projects = await getHotProjects("monthly", app);
   return <HotProjectList projects={projects} sortOptionKey="monthly" />;
