@@ -1,4 +1,3 @@
-"use cache"; // needed at the file level to avoid errors `Route "/" used `require('node:crypto').randomBytes(size)` before accessing either uncached data`
 import { Suspense } from "react";
 import { cacheLife, cacheTag } from "next/cache";
 
@@ -24,6 +23,7 @@ import {
 } from "@/components/home/home-sections";
 import { LatestMonthlyRankings } from "@/components/home/latest-monthly-rankings";
 import { Separator } from "@/components/ui/separator";
+import { currentApp, type WebApp } from "@/config/apps";
 import { APP_REPO_FULL_NAME } from "@/config/site";
 
 export default async function TrendsLayout({
@@ -41,6 +41,21 @@ export default async function TrendsLayout({
 }
 
 async function TrendsLayoutMain({ children }: React.PropsWithChildren) {
+  return renderTrendsLayoutMain(currentApp, children);
+}
+
+// A component rendered as JSX can't take extra arguments, so the cached
+// rendering is split into this inner function: `app` needs to be a real
+// parameter (not a module-scope import) since Next's "use cache" excludes
+// module-scope values from the cache key (github.com/vercel/next.js#74498).
+// This is also the sole cache boundary needed to satisfy PPR's requirement
+// that a cached function run before any dynamic API is accessed in this route
+// (see the old file-level `"use cache"` this replaced).
+async function renderTrendsLayoutMain(app: WebApp, children: React.ReactNode) {
+  "use cache";
+  cacheLife("daily");
+  cacheTag("daily", "home", app);
+
   const {
     activeTotal,
     bestOfJSStars,
@@ -83,9 +98,6 @@ const NUMBER_OF_NEWEST_PROJECTS = 5;
 const NUMBER_OF_POPULAR_TAGS = 10;
 
 async function getData() {
-  cacheLife("daily");
-  cacheTag("daily", "home");
-
   const [{ projects: newestRows }, allTags, stats, bestOfJSStars] =
     await Promise.all([
       findProjectsWithTrends({

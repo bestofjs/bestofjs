@@ -12,6 +12,7 @@ import {
 import { StarIcon } from "@/components/core";
 import { PageHeading } from "@/components/core/typography";
 import { TrendsProjectPaginatedList } from "@/components/project-list/trends-project-paginated-list";
+import { currentApp, type WebApp } from "@/config/apps";
 
 type PageProps = {
   searchParams: Promise<Record<string, string | string[]>>;
@@ -26,7 +27,10 @@ searchStateParser.path = "/featured";
 export default async function FeaturedProjectsPage(props: PageProps) {
   const searchParams = await props.searchParams;
   const { searchState, buildPageURL } = searchStateParser.parse(searchParams);
-  const { projects, total } = await fetchFeaturedProjects(searchState);
+  const { projects, total } = await fetchFeaturedProjects(
+    searchState,
+    currentApp,
+  );
 
   return (
     <>
@@ -46,10 +50,18 @@ export default async function FeaturedProjectsPage(props: PageProps) {
   );
 }
 
-async function fetchFeaturedProjects(searchState: TrendsProjectSearchState) {
+async function fetchFeaturedProjects(
+  searchState: TrendsProjectSearchState,
+  app: WebApp,
+) {
   "use cache";
   cacheLife("hours");
-  cacheTag("projects");
+  // `app` is a real function parameter (not a module-scope import) because
+  // Next's "use cache" excludes module-scope values from the cache key
+  // (github.com/vercel/next.js#74498) — and `findProjectsWithTrends()` applies
+  // this deployment's excluded tags inside `@/app/db`, which the compiler
+  // can't see into from here.
+  cacheTag("projects", app);
 
   const { sort, page, limit } = searchState;
 

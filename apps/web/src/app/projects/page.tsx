@@ -22,6 +22,7 @@ import { TrendsProjectScopePicker } from "@/components/project-list/trends-scope
 import { getTrendsSortOptionByKey } from "@/components/project-list/trends-sort-order-options";
 import { badgeVariants } from "@/components/ui/badge";
 import { buttonVariants } from "@/components/ui/button";
+import { currentApp, type WebApp } from "@/config/apps";
 import { APP_CANONICAL_URL, APP_DISPLAY_NAME } from "@/config/site";
 import { formatNumber } from "@/helpers/numbers";
 import { addCacheBustingParam } from "@/helpers/url";
@@ -52,7 +53,7 @@ const searchStateParser = new TrendsProjectSearchStateParser();
 export async function generateMetadata(props: PageProps): Promise<Metadata> {
   const searchParams = await props.searchParams;
   const { searchState } = searchStateParser.parse(searchParams);
-  const data = await fetchPageData(searchState);
+  const data = await fetchPageData(searchState, currentApp);
 
   const title = getPageTitle(data, searchState);
   const description = getPageDescription(data, searchState);
@@ -148,8 +149,10 @@ async function ProjectsPageContent(props: PageProps) {
   const searchParams = await props.searchParams;
 
   const { searchState, buildPageURL } = searchStateParser.parse(searchParams);
-  const { projects, total, selectedTags, relevantTags } =
-    await fetchPageData(searchState);
+  const { projects, total, selectedTags, relevantTags } = await fetchPageData(
+    searchState,
+    currentApp,
+  );
 
   const { query } = searchState;
 
@@ -382,10 +385,16 @@ function CurrentTags({
 
 async function fetchPageData(
   searchState: TrendsProjectSearchState,
+  app: WebApp,
 ): Promise<ProjectsPageData> {
   "use cache";
   cacheLife("hours");
-  cacheTag("projects");
+  // `app` is a real function parameter (not a module-scope import) because
+  // Next's "use cache" excludes module-scope values from the cache key
+  // (github.com/vercel/next.js#74498) — and `findProjectsWithTrends()` /
+  // `findRelevantTags()` below apply this deployment's excluded tags inside
+  // `@/app/db`, which the compiler can't see into from here.
+  cacheTag("projects", app);
 
   const { ai, tags: tagCodes, sort, page, limit, query, scope } = searchState;
   // `?ai=1` asks this deployment for the tags it hides; on the main deployment

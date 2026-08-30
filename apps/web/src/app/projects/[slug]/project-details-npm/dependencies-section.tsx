@@ -21,6 +21,7 @@ import {
   CollapsibleTrigger,
 } from "@/components/ui/collapsible";
 import { Table, TableBody, TableCell, TableRow } from "@/components/ui/table";
+import { currentApp, type WebApp } from "@/config/apps";
 
 export async function DependenciesSection({
   project,
@@ -35,6 +36,7 @@ export async function DependenciesSection({
   const { projects, dependenciesNotOnBestOfJS } = await fetchDependencyProjects(
     project.slug,
     dependencies,
+    currentApp,
   );
 
   return (
@@ -94,10 +96,19 @@ export async function DependenciesSection({
  * bucket. `scope: "all"` because a deprecated dependency is still on Best of JS
  * and has a page to link to.
  */
-async function fetchDependencyProjects(slug: string, dependencies: string[]) {
+async function fetchDependencyProjects(
+  slug: string,
+  dependencies: string[],
+  app: WebApp,
+) {
   "use cache";
   cacheLife("days");
-  cacheTag("project-details", slug);
+  // `app` is a real function parameter (not a module-scope import) because
+  // Next's "use cache" excludes module-scope values from the cache key
+  // (github.com/vercel/next.js#74498) — and `findProjectsWithTrends()` applies
+  // this deployment's excluded tags inside `@/app/db`, which the compiler
+  // can't see into from here.
+  cacheTag("project-details", slug, app);
 
   const [{ projects: rows }, ownedPackages, allTags] = await Promise.all([
     findProjectsWithTrends({

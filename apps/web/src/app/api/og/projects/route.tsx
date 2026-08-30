@@ -26,6 +26,7 @@ import {
   getTrendsSortOptionByKey,
   type TrendsSortOption,
 } from "@/components/project-list/trends-sort-order-options";
+import { currentApp, type WebApp } from "@/config/apps";
 import { fromNow } from "@/helpers/from-now";
 import { formatNumber } from "@/helpers/numbers";
 import { getSearchParamsKeyValues } from "@/lib/url-search-params";
@@ -38,7 +39,10 @@ export async function GET(req: Request) {
   const { searchState } = getSearchStateFromURL(req.url);
   const { query, sort } = searchState;
   const sortOption = getTrendsSortOptionByKey(sort);
-  const { projects, selectedTags } = await fetchOgProjects(searchState);
+  const { projects, selectedTags } = await fetchOgProjects(
+    searchState,
+    currentApp,
+  );
 
   return generateImageResponse(
     <ImageLayout>
@@ -63,10 +67,18 @@ export async function GET(req: Request) {
   );
 }
 
-async function fetchOgProjects(searchState: TrendsProjectSearchState) {
+async function fetchOgProjects(
+  searchState: TrendsProjectSearchState,
+  app: WebApp,
+) {
   "use cache";
   cacheLife("hours");
-  cacheTag("projects");
+  // `app` is a real function parameter (not a module-scope import) because
+  // Next's "use cache" excludes module-scope values from the cache key
+  // (github.com/vercel/next.js#74498) — and `findProjectsWithTrends()` applies
+  // this deployment's excluded tags inside `@/app/db`, which the compiler
+  // can't see into from here.
+  cacheTag("projects", app);
 
   const NUMBER_OF_PROJECTS = 3;
   const { tags: tagCodes, query, sort, page } = searchState;

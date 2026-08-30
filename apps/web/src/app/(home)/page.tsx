@@ -1,17 +1,25 @@
-"use cache";
-
 import type { Metadata } from "next";
 import { cacheLife, cacheTag } from "next/cache";
 
 import { HotProjectList } from "@/components/home/hot-project-list";
+import { currentApp, type WebApp } from "@/config/apps";
 
 import { getHotProjects } from "./hot-projects";
 
 export default async function DailyTrendsPage() {
-  cacheLife("daily");
-  cacheTag("daily", "home");
+  return renderDailyTrendsPage(currentApp);
+}
 
-  const projects = await getHotProjects("daily");
+// A page component can't take extra arguments, so the cached rendering is
+// split into this inner function: `app` needs to be a real parameter (not a
+// module-scope import) since Next's "use cache" excludes module-scope values
+// from the cache key (github.com/vercel/next.js#74498).
+async function renderDailyTrendsPage(app: WebApp) {
+  "use cache";
+  cacheLife("daily");
+  cacheTag("daily", "home", app);
+
+  const projects = await getHotProjects("daily", app);
   return <HotProjectList projects={projects} sortOptionKey="daily" />;
 }
 
