@@ -1,5 +1,9 @@
 import type { ProjectStatus } from "@repo/core/constants";
-import type { ProjectWithTrends } from "@repo/core/services/projects";
+import {
+  type ProjectWithTrends,
+  resolveProjectDescription,
+  resolveProjectURL,
+} from "@repo/core/services/projects";
 
 /**
  * `BestOfJS.Project` shape plus `activityScore`, which doesn't exist on the
@@ -30,7 +34,11 @@ export function toTrendsProject(
   return {
     slug: row.slug,
     name: row.name,
-    description: row.description,
+    description: resolveProjectDescription({
+      description: row.description,
+      overrideDescription: row.overrideDescription,
+      repoDescription: row.repo.description,
+    }),
     // `added_at` = Best of JS addition date (`projects.created_at`);
     // `created_at` = GitHub repo creation date (`repos.created_at`), matching
     // the pre-migration static API and the "Created" sort key.
@@ -57,7 +65,12 @@ export function toTrendsProject(
     npm: row.packageName ?? "",
     downloads: row.monthlyDownloads ?? 0,
     logo: row.logo ?? "",
-    url: row.url ?? "",
+    url:
+      resolveProjectURL({
+        overrideURL: row.overrideURL,
+        repoHomepage: row.repo.homepage,
+        url: row.url,
+      }) ?? "",
     status: row.status,
     tags: row.tags
       .map((code) => tagsByCode.get(code))
