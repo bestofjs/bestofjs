@@ -202,7 +202,9 @@ export async function findProjectsWithTrends({
       slug: projects.slug,
       name: projects.name,
       description: projects.description,
+      overrideDescription: projects.overrideDescription,
       url: projects.url,
+      overrideURL: projects.overrideURL,
       createdAt: projects.createdAt,
       status: projects.status,
       logo: projects.logo,
@@ -216,6 +218,8 @@ export async function findProjectsWithTrends({
         last_commit: repos.last_commit,
         contributor_count: repos.contributor_count,
         created_at: repos.created_at,
+        description: repos.description,
+        homepage: repos.homepage,
       },
       stars: starsExpression,
       trends: {
