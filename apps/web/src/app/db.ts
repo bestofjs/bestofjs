@@ -78,8 +78,17 @@ export function findRelevantTags({
   });
 }
 
-export function findTags() {
-  return findTagsQuery({ excludedTagCodes: mergeExcludedTags() });
+/**
+ * Takes `showExcludedTags` like the listing queries do: the tag lookup feeds the
+ * page heading, the removable tag chips and the tag labels on project cards, so
+ * a page opting into the hidden tags needs their metadata too — otherwise it
+ * lists AI projects under "All Projects", with no way to drop the `ai` chip and
+ * no `ai` label on the cards.
+ */
+export function findTags({ showExcludedTags }: AppQueryOptions = {}) {
+  return findTagsQuery({
+    excludedTagCodes: mergeExcludedTags(undefined, showExcludedTags),
+  });
 }
 
 export function findTagsWithProjects(

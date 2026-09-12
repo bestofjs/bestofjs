@@ -407,7 +407,9 @@ async function fetchPageData(
       sort,
       tagCodes,
     }),
-    findTags(),
+    // Same opt-out as the listing: the heading, the removable tag chips and the
+    // tag labels on the cards all read from this lookup.
+    findTags({ showExcludedTags }),
     // Same `scope` as the listing: a suggested tag whose projects are all
     // filtered out would lead to an empty page.
     findRelevantTags({ tagCodes, query, scope, showExcludedTags }),

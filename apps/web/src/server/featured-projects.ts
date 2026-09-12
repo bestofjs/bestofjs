@@ -15,21 +15,13 @@ export async function findRandomFeaturedProjects({
   skip?: number;
   limit?: number;
 } = {}) {
-  if (excludedTagCodes.length === 0) {
-    return findFeaturedProjects(db, { skip, limit });
-  }
-
-  // Featured projects come from a precomputed daily slug list, so the tags are
-  // only known once the rows are fetched — the exclusion cannot be pushed into
-  // the query. Over-fetch, then filter, then cut back to `limit`, so the
-  // carousel still shows a full set instead of a short one.
-  const { projects, total } = await findFeaturedProjects(db, {
+  // `excludedTagCodes` is applied to the whole featured ordering inside the
+  // query, before pagination: the carousel pages by `skip`, so filtering after
+  // the slice would make pages overlap and leave the last ones empty.
+  return findFeaturedProjects(db, {
     skip,
-    limit: limit * 2,
+    limit,
+    excludedTagCodes:
+      excludedTagCodes.length > 0 ? excludedTagCodes : undefined,
   });
-  const kept = projects.filter(
-    (project) =>
-      !project.tags.some((tag) => excludedTagCodes.includes(tag.code)),
-  );
-  return { projects: kept.slice(0, limit), total };
 }
