@@ -102,10 +102,16 @@ export function findTagsWithProjects(
 
 export function findTagWithProjects(
   code: string,
-  options?: Parameters<typeof findTagWithProjectsQuery>[1],
+  {
+    showExcludedTags,
+    ...options
+  }: Parameters<typeof findTagWithProjectsQuery>[1] & AppQueryOptions = {},
 ) {
   return findTagWithProjectsQuery(code, {
     ...options,
-    excludedTagCodes: mergeExcludedTags(options?.excludedTagCodes),
+    excludedTagCodes: mergeExcludedTags(
+      options?.excludedTagCodes,
+      showExcludedTags,
+    ),
   });
 }

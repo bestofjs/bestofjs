@@ -1,7 +1,7 @@
 import { cacheLife } from "next/cache";
 
 import { findTagWithProjects } from "@/app/db";
-import { currentApp, type WebApp } from "@/config/apps";
+import { currentApp, excludedTagCodes, type WebApp } from "@/config/apps";
 import { cacheTagForApp } from "@/server/cache";
 
 type Context = { params: Promise<{ slug: string }> };
@@ -34,5 +34,13 @@ async function getTagData(slug: string, app: WebApp) {
   cacheLife("days");
   cacheTagForApp(app, "tags"); // same tag as /tags, so one revalidation clears both
 
-  return await findTagWithProjects(slug);
+  // A tag this deployment hides is never linked from a listing, so a request
+  // for one by code can only come from a project page's raw tag chips — and
+  // those pages stay reachable by design. Answering with the tag beats a 404
+  // rendering as an error in the hover card. Listings are unaffected: they
+  // never emit a link to a hidden tag, and hover cards for *visible* tags keep
+  // the deployment's filtering (their counts and top projects stay curated).
+  const showExcludedTags = excludedTagCodes.includes(slug);
+
+  return await findTagWithProjects(slug, { showExcludedTags });
 }

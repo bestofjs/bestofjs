@@ -86,7 +86,8 @@ Each deployment has its own cache and its own build, so the daily pipeline has t
 ## Known gaps
 
 - Global counts on the home page (`MoreProjectsSection`) come from `getProjectsStats()`, which has no excluded-tag predicate: the No AI deployment announces a total that includes AI projects, while its `/projects` listing is smaller. Same root cause as the out-of-scope items above — the stats service needs the `excludedTagCodes` parameter the listing queries got.
-- `findTagsWithProjects()` / `findTagWithProjects()` in the façade have no `showExcludedTags` opt-out. No caller needs one today (`?ai=1` only reaches `/projects`); add it if a tag page ever gets the same opt-out.
+- A hidden tag's chip on a project page links to `/projects?tags=ai`, which renders an empty list under an "All Projects" heading — the tag is filtered out of `findTags()`, so it is not even shown as a removable chip. The hover card works (see below); the click-through does not. Fixing it means detail-page chips linking to `?tags=ai&ai=1`, which is more plumbing than the spike needs.
+- `findTagsWithProjects()` in the façade still has no `showExcludedTags` opt-out. No caller needs one today; add it if a tag page ever gets the same opt-out. `findTagWithProjects()` has one — `/api/tags/[slug]` passes it when the requested code is one this deployment hides, so a project page's raw `ai` chip gets a working hover card instead of a 404. Listings are unaffected: they never link to a hidden tag, and hover cards for visible tags keep their curated counts and top projects.
 
 ## Future: a "No AI" mode inside the main app
 
