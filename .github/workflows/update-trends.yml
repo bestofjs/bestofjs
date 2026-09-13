@@ -38,7 +38,10 @@ env:
   # back to `https://bestofjs.org` alone — which is why this was invisible while
   # there was only one deployment, and why the No AI one would otherwise keep
   # serving yesterday's trends whenever the static API build fails.
-  WEBAPP_URLS: ${{ secrets.WEBAPP_URLS }}
+  #
+  # A repository *variable*, not a secret: these are the public URLs of the
+  # deployments. Masking them would only turn the revalidation log into `***`.
+  WEBAPP_URLS: ${{ vars.WEBAPP_URLS }}
 
 jobs:
   update-trends:
