@@ -52,9 +52,20 @@ Rules:
 ## Not in this spike
 
 - UI copy, explanations and cross-links between variants (only a header badge + a popover pointing to the other host).
-- `robots` / `sitemap` / canonical per deployment — `APP_CANONICAL_URL` is hardcoded; that is the real blocker before pointing DNS.
+- Per-deployment `APP_CANONICAL_URL` / sitemap / `alternates.canonical` — see "Indexing" below, which settles the question for now without touching them.
 - Hall of Fame and the global project count.
 - Widening excluded tags beyond `ai` (`skills`, `mcp`, ...) — depends on the tagging pass, see `docs/ai-projects-tagging.md`.
+
+## Indexing
+
+**Best of JS is the canonical app; the variant is not indexed.** Decided because the variant's long-term future is undecided, and it costs one branch in `robots.ts`.
+
+- `robots.ts` returns `disallow: "/"` on any non-main deployment, and the usual `allow` + sitemap line on main.
+- `APP_CANONICAL_URL` stays hardcoded to `https://bestofjs.org`. So does `sitemap.ts` — it is simply never crawled on the variant.
+- `og:url` on variant pages points at bestofjs.org, which matches the decision: a share from the No AI site credits Best of JS.
+- No `alternates.canonical` anywhere. Nothing emits one today, and it only matters for a crawlable variant.
+- Distribution is the link from the main site (the popover in the home intro), not search.
+- Upgrade path if the variant proves itself, one line: `APP_CANONICAL_URL = \`https://${hostByApp[currentApp]}\``. Robots, sitemap and every `og:url` follow automatically; consolidating variant pages into bestofjs.org vs. letting them rank on their own then becomes a separate `alternates.canonical` decision.
 
 ## Daily refresh
 
