@@ -1,23 +1,46 @@
 import { invalidateWebAppCacheTags } from "@/shared/cache";
 import { createTask } from "@/task-runner";
 
+type BuildWebHook = {
+  /** Names the deployment in the logs — a hook URL is a credential. */
+  label: string;
+  /** The flagship: a failure against it fails the task. */
+  required: boolean;
+  url: string;
+};
+
 /**
  * One Vercel deploy hook per web app deployment (see
- * `docs/features/noai-app.md`). `FRONTEND_BUILD_WEB_HOOKS` is a comma-separated
- * list; unset, it falls back to the single `FRONTEND_BUILD_WEB_HOOK` this used
- * to read.
+ * `docs/features/noai-app.md`), one environment variable each.
+ *
+ * Deliberately *not* a comma-separated list, unlike the human-readable
+ * `WEBAPP_URLS` next door: a deploy hook is an opaque token URL, so two of them
+ * concatenated into one value cannot be told apart by eye. Pasting the same
+ * hook twice, or the wrong project's, would fire successfully and leave a
+ * deployment silently unbuilt. A variable per deployment makes the mistake
+ * visible in the Vercel UI, and lets `noai` be optional (unset = not deployed)
+ * and non-fatal, while main is neither.
+ *
+ * A third deployment would mean editing this list. That is fine: none is
+ * planned, and this whole mechanism may be replaced by a warming pass once
+ * bestofjs/bestofjs#503 removes the last build-time-baked data.
  */
-function getBuildWebHooks() {
-  const webhookURLs = (
-    process.env.FRONTEND_BUILD_WEB_HOOKS ||
-    process.env.FRONTEND_BUILD_WEB_HOOK ||
-    ""
-  )
-    .split(",")
-    .map((url) => url.trim())
-    .filter(Boolean);
+function getBuildWebHooks(): BuildWebHook[] {
+  // Main is checked first and on its own: a list that happens to be non-empty is
+  // not proof the flagship is in it. Set only the `noai` hook — one fat-fingered
+  // rename away, since both variables are edited in the same place — and a
+  // length check would pass, `noai` would build, and the task would report
+  // success while main silently kept yesterday's baked data.
+  const main = process.env.FRONTEND_BUILD_WEB_HOOK?.trim();
+  if (!main)
+    throw new Error(`No webhook URL specified (FRONTEND_BUILD_WEB_HOOK)`);
 
-  return Array.from(new Set(webhookURLs));
+  const noai = process.env.FRONTEND_NOAI_BUILD_WEB_HOOK?.trim();
+
+  return [
+    { label: "main", required: true, url: main },
+    ...(noai ? [{ label: "noai", required: false, url: noai }] : []),
+  ];
 }
 
 export const triggerBuildWebappTask = createTask({
@@ -39,51 +62,83 @@ export const triggerBuildWebappTask = createTask({
     ];
     await invalidateWebAppCacheTags(tags, context);
 
-    // Trigger the build webhook of every deployment. A rebuild — not just the
-    // cache invalidation above — is what refreshes the surfaces fed by the
-    // static JSON: `build-project-data.mjs` bakes `projects.json` into the
-    // bundle, so the search palette and the rankings lookup only change on a
-    // deploy.
+    // Trigger the build webhook of every deployment. The invalidation above is
+    // not a substitute, for two reasons:
+    //
+    // 1. `build-project-data.mjs` bakes `projects.json` into the bundle and the
+    //    monthly-rankings lookup reads it from disk (`server/api-local-json`),
+    //    where no tag reaches it — so those pages only change on a deploy.
+    //    (The ⌘K palette is *not* in this category any more: it fetches the
+    //    static API over HTTP under the `all-projects` tag. Once the rankings
+    //    lookup moves to the DB — bestofjs/bestofjs#503 — nothing baked is left
+    //    and this reason disappears.)
+    // 2. Warming. `/api/revalidate` calls `revalidateTag(tag, { expire: 0 })`,
+    //    which empties entries rather than marking them stale, and Next
+    //    revalidates on request, not on the call. The build is what refills the
+    //    prerendered set (home, the `/trends/*` windows, `/projects`, and the
+    //    hot slugs from `generateStaticParams`); without it the first visitor
+    //    after each daily run pays the full render. `{ expire: 0 }` is
+    //    deliberate: "Trends today" serving yesterday's numbers until the
+    //    visitor reloads is worse than a slow first hit.
+    //
+    // Reason 2 survives #503, which is why this stays after the baked JSON is
+    // gone. Replacing it with a warming pass (GET those URLs on each
+    // `WEBAPP_URLS` target, no credentials, no second Vercel build) is the open
+    // alternative — to be evaluated once #503 lands, which is why the hook
+    // plumbing is kept confined to this file.
     const sent = await triggerWebAppBuilds();
 
     return { data: null, meta: { sent } };
 
     async function triggerWebAppBuilds() {
-      const webhookURLs = getBuildWebHooks();
-      if (webhookURLs.length === 0)
-        throw new Error(
-          `No webhook URL specified (FRONTEND_BUILD_WEB_HOOKS or FRONTEND_BUILD_WEB_HOOK)`,
-        );
+      const webhooks = getBuildWebHooks();
 
       const results = await Promise.allSettled(
-        webhookURLs.map((webhookURL, index) =>
-          triggerOneWebAppBuild(webhookURL, index),
-        ),
+        webhooks.map((webhook) => triggerOneWebAppBuild(webhook)),
       );
-      const failed = results.filter((result) => result.status === "rejected");
+      const failed = webhooks.filter(
+        (_, index) => results[index]?.status === "rejected",
+      );
 
-      if (failed.length === webhookURLs.length)
+      // Main failing is the pre-existing failure mode and still throws: the
+      // flagship not rebuilding means its rankings pages keep yesterday's baked
+      // data. A secondary deployment failing costs that one site a slower first
+      // visit — an error line, not a red daily pipeline.
+      const failedRequired = failed.filter((webhook) => webhook.required);
+      if (failedRequired.length > 0)
         throw new Error(
-          `Unable to send the daily build webhook to any deployment`,
+          `Unable to send the daily build webhook to: ${failedRequired
+            .map((webhook) => webhook.label)
+            .join(", ")}`,
         );
 
       if (failed.length > 0)
         logger.error(
-          `Daily build webhook failed for ${failed.length}/${webhookURLs.length} deployment(s)`,
+          `Daily build webhook failed for: ${failed
+            .map((webhook) => webhook.label)
+            .join(", ")}`,
         );
 
-      return webhookURLs.length - failed.length;
+      return webhooks.length - failed.length;
     }
 
-    async function triggerOneWebAppBuild(webhookURL: string, index: number) {
+    async function triggerOneWebAppBuild({ label, url }: BuildWebHook) {
       try {
-        const result = await fetch(webhookURL).then((res) => res.json());
+        const response = await fetch(url);
+
+        // `fetch` only rejects on network failures, and Vercel refuses a hook
+        // with a JSON body (`{"error":{"code":"forbidden"}}` for a deleted hook,
+        // a disabled one, the wrong project) — so without this check the
+        // response parses cleanly and the deployment is counted as built.
+        if (!response.ok)
+          throw new Error(`${response.status} ${response.statusText}`);
+
+        const result = await response.json();
         logger.debug(result);
-        // Indexed rather than named: a deploy hook URL is a credential, so it
-        // must not reach the logs.
-        logger.info(`Daily build webhook request #${index + 1} sent!`);
+        // The label, never the URL: a deploy hook URL is a credential.
+        logger.info(`Daily build webhook sent to the ${label} deployment!`);
       } catch (error) {
-        const errorMessage = `Unable to send daily build webhook #${index + 1}: ${
+        const errorMessage = `Unable to send daily build webhook to the ${label} deployment: ${
           (error as Error).message
         }`;
         logger.error(errorMessage);
