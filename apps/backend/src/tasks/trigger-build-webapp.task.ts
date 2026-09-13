@@ -26,11 +26,19 @@ type BuildWebHook = {
  * bestofjs/bestofjs#503 removes the last build-time-baked data.
  */
 function getBuildWebHooks(): BuildWebHook[] {
+  // Main is checked first and on its own: a list that happens to be non-empty is
+  // not proof the flagship is in it. Set only the `noai` hook — one fat-fingered
+  // rename away, since both variables are edited in the same place — and a
+  // length check would pass, `noai` would build, and the task would report
+  // success while main silently kept yesterday's baked data.
   const main = process.env.FRONTEND_BUILD_WEB_HOOK?.trim();
+  if (!main)
+    throw new Error(`No webhook URL specified (FRONTEND_BUILD_WEB_HOOK)`);
+
   const noai = process.env.FRONTEND_NOAI_BUILD_WEB_HOOK?.trim();
 
   return [
-    ...(main ? [{ label: "main", required: true, url: main }] : []),
+    { label: "main", required: true, url: main },
     ...(noai ? [{ label: "noai", required: false, url: noai }] : []),
   ];
 }
@@ -84,8 +92,6 @@ export const triggerBuildWebappTask = createTask({
 
     async function triggerWebAppBuilds() {
       const webhooks = getBuildWebHooks();
-      if (webhooks.length === 0)
-        throw new Error(`No webhook URL specified (FRONTEND_BUILD_WEB_HOOK)`);
 
       const results = await Promise.allSettled(
         webhooks.map((webhook) => triggerOneWebAppBuild(webhook)),
