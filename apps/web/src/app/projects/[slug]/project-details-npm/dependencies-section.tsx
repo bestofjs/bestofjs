@@ -1,12 +1,13 @@
-import { cacheLife } from "next/cache";
+import { cacheLife, cacheTag } from "next/cache";
 
 import { db } from "@repo/core";
 import {
   findProjectSlugsByPackageNames,
+  findProjectsWithTrends,
   type ProjectDetails,
 } from "@repo/core/services/projects";
+import { findTags } from "@repo/core/services/tags";
 
-import { findProjectsWithTrends, findTags } from "@/app/db";
 import {
   buildTagsByCode,
   toTrendsProject,
@@ -21,8 +22,6 @@ import {
   CollapsibleTrigger,
 } from "@/components/ui/collapsible";
 import { Table, TableBody, TableCell, TableRow } from "@/components/ui/table";
-import { currentApp, type WebApp } from "@/config/apps";
-import { cacheTagForApp } from "@/server/cache";
 
 export async function DependenciesSection({
   project,
@@ -37,7 +36,6 @@ export async function DependenciesSection({
   const { projects, dependenciesNotOnBestOfJS } = await fetchDependencyProjects(
     project.slug,
     dependencies,
-    currentApp,
   );
 
   return (
@@ -96,25 +94,27 @@ export async function DependenciesSection({
  * truncated list, pushed tracked dependency #21 onwards into the bare-links
  * bucket. `scope: "all"` because a deprecated dependency is still on Best of JS
  * and has a page to link to.
+ *
+ * Reads `@repo/core` directly rather than the `@/app/db` façade, on purpose:
+ * a package's dependency graph is a fact about the package, not a curated
+ * listing, so it is identical on every deployment. Filtering it would make the
+ * card app-dependent — and this page caches at file level, keyed by slug alone.
  */
-async function fetchDependencyProjects(
-  slug: string,
-  dependencies: string[],
-  app: WebApp,
-) {
+async function fetchDependencyProjects(slug: string, dependencies: string[]) {
   "use cache";
   cacheLife("days");
-  cacheTagForApp(app, "project-details", slug);
+  cacheTag("project-details", slug);
 
   const [{ projects: rows }, ownedPackages, allTags] = await Promise.all([
     findProjectsWithTrends({
+      db,
       limit: dependencies.length,
       packageNames: dependencies,
       scope: "all",
       sort: "most-stars",
     }),
     findProjectSlugsByPackageNames({ db, packageNames: dependencies }),
-    findTags(),
+    findTags({}),
   ]);
 
   const trackedDependencies = new Set(

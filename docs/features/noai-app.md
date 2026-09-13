@@ -20,6 +20,8 @@ Spike for issue #459. Branch: `noai`.
 - Tag counts stay truthful: a project carrying a hidden tag stops counting towards the other tags it shares. A tag never advertises a count the listing cannot deliver.
 - `/projects` gains `?ai=1|0`, modelled on the existing `scope` filter: same control on both deployments, only the *default* differs.
 - Project detail pages are unchanged on both. The deployment changes what is **surfaced**, not what exists — which is what makes the `?ai=1` opt-out coherent.
+- Detail pages therefore read `@repo/core` **directly**, not the façade: a dependency graph (and tomorrow, related projects) is a fact about the package, not a curated listing, and a non-AI project depending on an AI one is vanishingly rare. That keeps the whole route app-independent, so it can keep its file-level `"use cache"` keyed by slug alone — no `app` parameter, no `cacheTagForApp`.
+- The façade is for **listings** — what the deployment chooses to put in front of people. Anything reached *from* a project someone already opened is not a listing.
 
 ## Naming
 
@@ -46,7 +48,7 @@ Rules:
 - An out-of-registry value fails env validation and the build stops. Deliberate — a silent fallback to `main` would serve AI projects on the No AI site while looking completely normal.
 - `BESTOFJS_APP` is declared in `turbo.json` `env` so Turbo's build cache is keyed by it (otherwise both variants share one cached build).
 - The build logs the app name (`next.config.ts`), since every symptom of a wrong value looks like a normal site.
-- Next.js `"use cache"` excludes module-scope values from the cache key, so cached functions must take `app` as a real parameter and tag via `cacheTagForApp()` (`@/server/cache`). Without it, two deployments behind the same cache poison each other.
+- Next.js `"use cache"` excludes module-scope values from the cache key, so any cached function whose result depends on the deployment must take `app` as a real parameter and tag via `cacheTagForApp()` (`@/server/cache`). Without it, two deployments behind the same cache poison each other. The cheaper answer, where it applies, is to keep the route app-independent instead — see project detail pages above.
 - Data pipeline, DB and static JSON are shared: one backend, one dataset, filtering happens at read time only.
 
 ## Not in this spike
