@@ -50,10 +50,7 @@ export function createAPI(fetchProjectData: () => Promise<RawData>) {
   const tagsAPI = createTagsAPI(context);
 
   // Dependent APIs
-  const rankingAPI = createRankingsAPI(
-    projectsAPI,
-    excludedTagCodes.length > 0,
-  );
+  const rankingAPI = createRankingsAPI(projectsAPI);
 
   return {
     projects: projectsAPI,

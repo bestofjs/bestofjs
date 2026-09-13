@@ -17,12 +17,6 @@ export type MonthlyDate = {
 
 export function createRankingsAPI(
   projectsAPI: ReturnType<typeof createProjectsAPI>,
-  /**
-   * Whether this deployment hides some tags — only used to keep the
-   * "project not found" log meaningful. The filtering itself happens once, in
-   * `createAPI()`'s `getData()`.
-   */
-  hasExcludedTags = false,
 ) {
   return {
     async getMonthlyRankings({
@@ -64,9 +58,14 @@ export function createRankingsAPI(
             (project) => project.full_name === full_name,
           );
           if (!project) {
-            // Expected, not an anomaly, on a deployment that hides tags: the
-            // archived entry was resolved against a filtered collection.
-            if (!hasExcludedTags) console.log("Not found", full_name);
+            // TODO (#503): resolve rankings against the DB by `slug` instead of
+            // against the build-time static collection by `full_name`. Until
+            // then this log cannot say *why* an entry is missing — a renamed
+            // repo, a project dropped from the static API, and a project this
+            // deployment filters out all look identical here. Kept anyway: it
+            // is the only signal a ranking page silently lost rows, and it
+            // fires on a cache miss only (pages are cached forever, per month).
+            console.log("Not found", full_name);
 
             return;
           }
