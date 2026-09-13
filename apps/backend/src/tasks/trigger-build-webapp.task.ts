@@ -118,7 +118,16 @@ export const triggerBuildWebappTask = createTask({
 
     async function triggerOneWebAppBuild({ label, url }: BuildWebHook) {
       try {
-        const result = await fetch(url).then((res) => res.json());
+        const response = await fetch(url);
+
+        // `fetch` only rejects on network failures, and Vercel refuses a hook
+        // with a JSON body (`{"error":{"code":"forbidden"}}` for a deleted hook,
+        // a disabled one, the wrong project) — so without this check the
+        // response parses cleanly and the deployment is counted as built.
+        if (!response.ok)
+          throw new Error(`${response.status} ${response.statusText}`);
+
+        const result = await response.json();
         logger.debug(result);
         // The label, never the URL: a deploy hook URL is a credential.
         logger.info(`Daily build webhook sent to the ${label} deployment!`);

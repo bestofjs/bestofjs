@@ -86,6 +86,15 @@ async function invalidateOneWebAppCacheByTag(
 
   try {
     const response = await fetch(revalidateURL);
+
+    // `fetch` only rejects on network failures, and `/api/revalidate` answers a
+    // bad request with a JSON body and `status: 400` — so without this check the
+    // response parses cleanly and a target that invalidated nothing is counted
+    // as a success, hiding it from both the partial-failure warning and the
+    // all-targets-failed throw.
+    if (!response.ok)
+      throw new Error(`${response.status} ${response.statusText}`);
+
     const result = await response.json();
 
     logger.debug(result);
