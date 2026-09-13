@@ -77,7 +77,9 @@ async function fetchOgProjects(
   cacheTagForApp(app, "projects");
 
   const NUMBER_OF_PROJECTS = 3;
-  const { tags: tagCodes, query, sort, page } = searchState;
+  const { ai, tags: tagCodes, query, sort, page } = searchState;
+  // Same opt-out as the page, so the preview matches what the link opens.
+  const showExcludedTags = ai === "1";
 
   const [{ projects: rows }, allTags] = await Promise.all([
     findProjectsWithTrends({
@@ -93,10 +95,19 @@ async function fetchOgProjects(
       // cold project can sit in the top 3 and won't appear here. Search pages
       // are unaffected — passing `query` makes `resolveScope()` force `"all"` on
       // both sides. Forwarding it would double the cached image variants.
+      //
+      // `ai` *is* forwarded, unlike `scope`: it decides whether the deployment
+      // shows the projects it exists to hide, so a preview that disagrees with
+      // the page reads as a bug rather than as a teaser. It costs nothing
+      // either — `searchState` already keys this cache entry, so the `?ai=1`
+      // image was always a separate entry, it just ignored the flag.
+      showExcludedTags,
       sort,
       tagCodes,
     }),
-    findTags(),
+    // The tag lookup feeds the caption and the tag labels, so it needs the
+    // hidden tags' metadata whenever the listing above includes them.
+    findTags({ showExcludedTags }),
   ]);
 
   const tagsByCode = buildTagsByCode(allTags);
