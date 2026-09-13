@@ -33,6 +33,12 @@ on:
 env:
   POSTGRES_URL: ${{ secrets.POSTGRES_URL }}
   API_TRIGGER_BUILD_WEBHOOK_URL: ${{ secrets.API_TRIGGER_BUILD_WEBHOOK_URL }}
+  # The deployments `invalidate-trends-cache` refreshes at the end of
+  # `daily-update-trends` (see docs/features/noai-app.md). Unset, the task falls
+  # back to `https://bestofjs.org` alone — which is why this was invisible while
+  # there was only one deployment, and why the No AI one would otherwise keep
+  # serving yesterday's trends whenever the static API build fails.
+  WEBAPP_URLS: ${{ secrets.WEBAPP_URLS }}
 
 jobs:
   update-trends:

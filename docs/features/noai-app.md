@@ -56,6 +56,20 @@ Rules:
 - Hall of Fame and the global project count.
 - Widening excluded tags beyond `ai` (`skills`, `mcp`, ...) — depends on the tagging pass, see `docs/ai-projects-tagging.md`.
 
+## Daily refresh
+
+Each deployment has its own cache and its own build, so the daily pipeline has to reach both.
+
+- Cache invalidation alone is **not** enough: `apps/web/scripts/build-project-data.mjs` bakes `projects.json` into the bundle at build time and `server/api.ts` reads it from disk, so the ⌘K palette and the monthly-rankings lookup only change on a deploy.
+- `WEBAPP_URLS` — comma-separated list of deployments to revalidate (`https://bestofjs.org,https://noai.bestofjs.org`). Falls back to the single `WEBAPP_URL`.
+- `FRONTEND_BUILD_WEB_HOOKS` — comma-separated list of Vercel deploy hooks, one per deployment. Falls back to the single `FRONTEND_BUILD_WEB_HOOK`.
+- Both unset = today's behaviour exactly, one target. Set them wherever the backend tasks run:
+  - the static API Vercel project's env (it runs `static-api-daily`, hence `trigger-build-webapp`) — both vars;
+  - repo secrets for `update-trends.yml`, which runs `invalidate-trends-cache` — `WEBAPP_URLS` only. A secret is not ambient env in Actions: it is mapped in that workflow's `env:` block, so a new var needs a line there too.
+- Tag names are unchanged: `revalidateTag()` runs inside the deployment that receives the request, so the `app` tag appended by `cacheTagForApp` separates cache *entries*, not these calls.
+- Failures are per-target: one deployment failing does not stop the others, and the task only throws when every target failed.
+- Operational cost, honestly: a second deploy hook and URL to keep in sync, and a daily build of a second Vercel project.
+
 ## Known gaps
 
 - Global counts on the home page (`MoreProjectsSection`) come from `getProjectsStats()`, which has no excluded-tag predicate: the No AI deployment announces a total that includes AI projects, while its `/projects` listing is smaller. Same root cause as the out-of-scope items above — the stats service needs the `excludedTagCodes` parameter the listing queries got.
