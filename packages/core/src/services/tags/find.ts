@@ -11,8 +11,42 @@ import {
 
 import { db } from "../../index";
 import * as schema from "../../schema";
+import { selectProjectIdsHavingAnyTag } from "../projects/find";
 
-export async function findTags() {
+/**
+ * Drop the excluded tags themselves from a tag listing, and stop projects
+ * carrying them from counting towards the tags they share with other projects.
+ *
+ * Both halves are needed: without the first, a deployment excluding `ai` still
+ * offers an `ai` chip leading to an empty page; without the second, a tag like
+ * `react` advertises a count the listing then fails to deliver.
+ */
+function getExcludedTagsFilters(excludedTagCodes: string[] | undefined) {
+  if (!excludedTagCodes || excludedTagCodes.length === 0) {
+    return { tagFilter: undefined, projectFilter: undefined };
+  }
+  return {
+    tagFilter: notInArray(schema.tags.code, excludedTagCodes),
+    projectFilter: notInArray(
+      schema.projectsToTags.projectId,
+      selectProjectIdsHavingAnyTag(db, excludedTagCodes),
+    ),
+  };
+}
+
+export interface ExcludedTagsOption {
+  /**
+   * Hide these tags, and every project carrying them, from the result. Set per
+   * deployment by the web app — see `apps/web/src/config/apps.ts`.
+   */
+  excludedTagCodes?: string[];
+}
+
+export async function findTags(options?: ExcludedTagsOption) {
+  const { tagFilter, projectFilter } = getExcludedTagsFilters(
+    options?.excludedTagCodes,
+  );
+
   const tags = await db
     .select({
       name: schema.tags.name,
@@ -24,8 +58,12 @@ export async function findTags() {
     .from(schema.tags)
     .leftJoin(
       schema.projectsToTags,
-      eq(schema.projectsToTags.tagId, schema.tags.id),
+      // ANDed into the JOIN, not the WHERE: a tag whose every project is
+      // excluded must still appear with a count of 0 rather than vanish
+      // (`count()` on the LEFT-joined column yields 0, which is the truth).
+      and(eq(schema.projectsToTags.tagId, schema.tags.id), projectFilter),
     )
+    .where(tagFilter)
     .groupBy(() => [
       schema.tags.name,
       schema.tags.code,
@@ -53,15 +91,18 @@ export type TagProject = {
  * Fetch all tags with counts and their top projects per tag (by stars). N is configurable via options (default 5).
  * Single query using subqueries: tags with count, ranked projects (ROW_NUMBER), top N per tag, then group in JS.
  */
-export async function findTagsWithProjects(options?: {
-  /** Restrict to these tag codes. Omit for every tag (the /tags page). */
-  codes?: string[];
-  /** Max number of top (by stars) projects to return per tag. Default 5. */
-  topProjectsPerTag?: number;
-}): Promise<TagWithProjectsItem[]> {
-  const { codes, topProjectsPerTag = 5 } = options ?? {};
+export async function findTagsWithProjects(
+  options?: ExcludedTagsOption & {
+    /** Restrict to these tag codes. Omit for every tag (the /tags page). */
+    codes?: string[];
+    /** Max number of top (by stars) projects to return per tag. Default 5. */
+    topProjectsPerTag?: number;
+  },
+): Promise<TagWithProjectsItem[]> {
+  const { codes, excludedTagCodes, topProjectsPerTag = 5 } = options ?? {};
   const codeFilter =
     codes && codes.length > 0 ? inArray(schema.tags.code, codes) : undefined;
+  const { tagFilter, projectFilter } = getExcludedTagsFilters(excludedTagCodes);
 
   // Sub-query 1: Tags with project count (same logic as findTags()). Used in main query FROM.
   const tagsWithCount = db
@@ -75,9 +116,9 @@ export async function findTagsWithProjects(options?: {
     .from(schema.tags)
     .leftJoin(
       schema.projectsToTags,
-      eq(schema.projectsToTags.tagId, schema.tags.id),
+      and(eq(schema.projectsToTags.tagId, schema.tags.id), projectFilter),
     )
-    .where(codeFilter)
+    .where(and(codeFilter, tagFilter))
     .groupBy(() => [
       schema.tags.name,
       schema.tags.code,
@@ -109,7 +150,14 @@ export async function findTagsWithProjects(options?: {
       eq(schema.projects.id, schema.projectsToTags.projectId),
     )
     .innerJoin(schema.repos, eq(schema.repos.id, schema.projects.repoId))
-    .where(and(notInArray(schema.projects.status, ["deprecated"]), codeFilter))
+    .where(
+      and(
+        notInArray(schema.projects.status, ["deprecated"]),
+        codeFilter,
+        tagFilter,
+        projectFilter,
+      ),
+    )
     .as("ranked");
 
   // Sub-query 3: From sub-query 2, keep only rows with rn <= topProjectsPerTag (top N projects per tag). Used in main query LEFT JOIN.
@@ -185,7 +233,7 @@ export async function findTagsWithProjects(options?: {
  */
 export async function findTagWithProjects(
   code: string,
-  options?: { topProjectsPerTag?: number },
+  options?: ExcludedTagsOption & { topProjectsPerTag?: number },
 ): Promise<TagWithProjectsItem | null> {
   const [tag] = await findTagsWithProjects({ ...options, codes: [code] });
   return tag ?? null;

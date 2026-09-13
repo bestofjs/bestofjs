@@ -1,5 +1,6 @@
 import { getHotProjects } from "@/app/(home)/hot-projects";
 import type { TrendsProject } from "@/app/projects/project-adapter";
+import { currentApp } from "@/config/apps";
 
 import { ImageLayout } from "./og-image-layout";
 import {
@@ -16,7 +17,11 @@ const NUMBER_OF_PROJECTS = 3;
 export async function GET() {
   // Same helper the home page uses, tag exclusion included, so the page and its
   // own social preview cannot rank "hot projects" differently.
-  const projects = await getHotProjects("daily", NUMBER_OF_PROJECTS);
+  const projects = await getHotProjects(
+    "daily",
+    currentApp,
+    NUMBER_OF_PROJECTS,
+  );
 
   return generateImageResponse(
     <ImageLayout>

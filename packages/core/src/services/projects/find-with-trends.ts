@@ -111,7 +111,7 @@ export interface FindProjectsWithTrendsOptions {
    * libraries. The `/projects` listing deliberately does not — see
    * `docs/architecture/web-app.md`.
    */
-  excludeTagCodes?: string[];
+  excludedTagCodes?: string[];
   limit?: number;
   /**
    * Keep only projects owning ANY of these npm package names, primary or
@@ -161,7 +161,7 @@ export type ProjectWithTrends = Awaited<
  */
 export async function findProjectsWithTrends({
   db,
-  excludeTagCodes,
+  excludedTagCodes,
   limit = 30,
   packageNames,
   page = 1,
@@ -185,8 +185,8 @@ export async function findProjectsWithTrends({
     tagCodes && tagCodes.length > 0
       ? getWhereClauseSearchByTag(db, tagCodes)
       : undefined,
-    excludeTagCodes && excludeTagCodes.length > 0
-      ? getWhereClauseExcludeTags(db, excludeTagCodes)
+    excludedTagCodes && excludedTagCodes.length > 0
+      ? getWhereClauseExcludeTags(db, excludedTagCodes)
       : undefined,
   );
 

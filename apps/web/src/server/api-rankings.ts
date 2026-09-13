@@ -38,28 +38,41 @@ export function createRankingsAPI(
         res.json(),
       )) as RankingsData;
       const { isFirst, isLatest, month, year } = data;
-      const projects = data.trending.slice(0, limit);
-      const fullNames = projects.map((project) => project.full_name);
+      // The whole archived ranking is resolved before `limit` is applied, so a
+      // deployment that hides some tags still renders a *full* page rather than
+      // a truncated one: the lookup below drops the hidden projects, and the
+      // slice then takes the top `limit` of what is left. The archive holds ~100
+      // entries and the collection is already in memory, so this costs nothing.
+      const entries = data.trending;
+      const fullNames = entries.map((project) => project.full_name);
 
       const { projects: foundProjects } = await projectsAPI.findProjects({
         criteria: { full_name: { $in: fullNames } },
-        limit,
+        limit: entries.length,
       });
 
-      const sortedProjects = projects
+      const sortedProjects = entries
         .map(({ full_name, delta }) => {
           // we use `findLast` to lookup data because the oldest projects have a higher priority. TODO don't lookup by full_name, use a unique key
           const project = foundProjects.findLast(
             (project) => project.full_name === full_name,
           );
           if (!project) {
+            // TODO (#503): resolve rankings against the DB by `slug` instead of
+            // against the build-time static collection by `full_name`. Until
+            // then this log cannot say *why* an entry is missing — a renamed
+            // repo, a project dropped from the static API, and a project this
+            // deployment filters out all look identical here. Kept anyway: it
+            // is the only signal a ranking page silently lost rows, and it
+            // fires on a cache miss only (pages are cached forever, per month).
             console.log("Not found", full_name);
 
             return;
           }
           return { ...project, score: delta };
         })
-        .filter(Boolean);
+        .filter(Boolean)
+        .slice(0, limit);
       return {
         isFirst,
         isLatest,

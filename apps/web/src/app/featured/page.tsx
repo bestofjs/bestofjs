@@ -1,9 +1,6 @@
-import { cacheLife, cacheTag } from "next/cache";
+import { cacheLife } from "next/cache";
 
-import { db } from "@repo/core";
-import { findProjectsWithTrends } from "@repo/core/services/projects";
-import { findTags } from "@repo/core/services/tags";
-
+import { findProjectsWithTrends, findTags } from "@/app/db";
 import {
   buildTagsByCode,
   toTrendsProject,
@@ -15,6 +12,8 @@ import {
 import { StarIcon } from "@/components/core";
 import { PageHeading } from "@/components/core/typography";
 import { TrendsProjectPaginatedList } from "@/components/project-list/trends-project-paginated-list";
+import { currentApp, type WebApp } from "@/config/apps";
+import { cacheTagForApp } from "@/server/cache";
 
 type PageProps = {
   searchParams: Promise<Record<string, string | string[]>>;
@@ -29,7 +28,10 @@ searchStateParser.path = "/featured";
 export default async function FeaturedProjectsPage(props: PageProps) {
   const searchParams = await props.searchParams;
   const { searchState, buildPageURL } = searchStateParser.parse(searchParams);
-  const { projects, total } = await fetchFeaturedProjects(searchState);
+  const { projects, total } = await fetchFeaturedProjects(
+    searchState,
+    currentApp,
+  );
 
   return (
     <>
@@ -49,16 +51,18 @@ export default async function FeaturedProjectsPage(props: PageProps) {
   );
 }
 
-async function fetchFeaturedProjects(searchState: TrendsProjectSearchState) {
+async function fetchFeaturedProjects(
+  searchState: TrendsProjectSearchState,
+  app: WebApp,
+) {
   "use cache";
   cacheLife("hours");
-  cacheTag("projects");
+  cacheTagForApp(app, "projects");
 
   const { sort, page, limit } = searchState;
 
   const [{ projects: rows, total }, allTags] = await Promise.all([
     findProjectsWithTrends({
-      db,
       limit,
       page,
       // Hardcoded, not read from `searchState`: "featured" is an editorial

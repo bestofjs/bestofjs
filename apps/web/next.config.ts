@@ -2,6 +2,11 @@ import type { NextConfig } from "next";
 
 import { env } from "./src/env.mjs";
 
+// Which deployment is being built. Logged because every other symptom of a
+// wrong `BESTOFJS_APP` looks like a normal site: the No AI build serving AI
+// projects is indistinguishable from the main one at a glance.
+console.info(`Building Best of JS — app: "${env.BESTOFJS_APP}"`);
+
 const ONE_DAY = 60 * 60 * 24;
 
 const nextConfig: NextConfig = {

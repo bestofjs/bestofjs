@@ -18,6 +18,13 @@ export const env = createEnv({
       .string()
       .url()
       .default("https://bestofjs-rankings.vercel.app"),
+    /**
+     * Which deployment of the app this is — see `@/config/apps`. A `z.enum`
+     * rather than `z.string()` on purpose: a typo in the Vercel dashboard
+     * (`no-ai`) would otherwise fall back to `main` and silently serve AI
+     * projects on the No AI site, which looks entirely normal from the outside.
+     */
+    BESTOFJS_APP: z.enum(["main", "noai"]).default("main"),
   },
   client: {
     /** Show time spent in search palette filter functions */

@@ -94,6 +94,11 @@ export async function DependenciesSection({
  * truncated list, pushed tracked dependency #21 onwards into the bare-links
  * bucket. `scope: "all"` because a deprecated dependency is still on Best of JS
  * and has a page to link to.
+ *
+ * Reads `@repo/core` directly rather than the `@/app/db` façade, on purpose:
+ * a package's dependency graph is a fact about the package, not a curated
+ * listing, so it is identical on every deployment. Filtering it would make the
+ * card app-dependent — and this page caches at file level, keyed by slug alone.
  */
 async function fetchDependencyProjects(slug: string, dependencies: string[]) {
   "use cache";
@@ -109,7 +114,7 @@ async function fetchDependencyProjects(slug: string, dependencies: string[]) {
       sort: "most-stars",
     }),
     findProjectSlugsByPackageNames({ db, packageNames: dependencies }),
-    findTags(),
+    findTags({}),
   ]);
 
   const trackedDependencies = new Set(

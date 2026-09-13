@@ -22,33 +22,52 @@ import { ChevronDownIcon } from "../core";
 import { BestOfJSLogo } from "../svg-logos";
 import { MobileMenuButton } from "./mobile-nav";
 
-export function MainNav() {
+export function MainNav({ badge }: { badge?: React.ReactNode }) {
   const pathname = usePathname();
-  return <MainNavContent pathname={pathname} />;
+  return <MainNavContent pathname={pathname} badge={badge} />;
 }
 
-export function MainNavFallback() {
-  return <MainNavContent />;
+export function MainNavFallback({ badge }: { badge?: React.ReactNode }) {
+  return <MainNavContent badge={badge} />;
 }
 
-function MainNavContent({ pathname }: { pathname?: string }) {
+function MainNavContent({
+  pathname,
+  badge,
+}: {
+  pathname?: string;
+  badge?: React.ReactNode;
+}) {
   return (
     <>
       <div className="mr-4 lg:hidden">
         <MobileMenuButton />
       </div>
       <div className="flex gap-6 lg:gap-8">
-        <Link
-          href="/"
-          className="flex items-center space-x-2"
-          aria-label="Best of JS"
-        >
-          <BestOfJSLogo
-            width={130}
-            height={37.15}
-            className="h-[37.15px] w-[130px] text-(--logo-color)"
-          />
-        </Link>
+        {/*
+        `relative` so the deployment badge can hang off the logo's top-right
+        corner, `z-0` so the badge's negative z-index stays trapped in this
+        wrapper: without it the badge would slide behind the header's own
+        background — the header is `sticky z-40`, so it paints as one layer —
+        and disappear entirely instead of tucking under the logo.
+
+        The badge sits outside the `<Link>` on purpose: the link's `aria-label`
+        would hide any text nested inside it from screen readers.
+        */}
+        <div className="relative z-0 flex items-center">
+          <Link
+            href="/"
+            className="flex items-center space-x-2"
+            aria-label="Best of JS"
+          >
+            <BestOfJSLogo
+              width={130}
+              height={37.15}
+              className="h-[37.15px] w-[130px] text-(--logo-color)"
+            />
+          </Link>
+          {badge}
+        </div>
         <div className="hidden gap-2 lg:flex">
           <nav className="flex items-center gap-2">
             {mainNavItems?.map(

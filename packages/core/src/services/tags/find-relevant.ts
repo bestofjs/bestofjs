@@ -3,6 +3,7 @@ import { and, count, desc, eq, gte, notInArray } from "drizzle-orm";
 import type { DB } from "../../index";
 import * as schema from "../../schema";
 import {
+  getWhereClauseExcludeTags,
   getWhereClauseSearchByTag,
   getWhereClauseSearchByText,
 } from "../projects/find";
@@ -17,6 +18,12 @@ const { projects, projectTrends, projectsToTags, repoTrends, repos, tags } =
 
 export interface FindRelevantTagsOptions {
   db: DB;
+  /**
+   * Hide these tags, and every project carrying them, from the suggestions.
+   * Must match what the listing excludes — a suggestion the listing filters out
+   * is the same dead end the `scope` note below describes.
+   */
+  excludedTagCodes?: string[];
   /** Already-selected tag codes: scope to projects having ALL of them, exclude them from the output */
   tagCodes?: string[];
   /** Text search on project name/description and repo owner/name, same scoping as findProjectsWithTrends() */
@@ -44,14 +51,20 @@ export interface RelevantTag {
  */
 export async function findRelevantTags({
   db,
+  excludedTagCodes,
   tagCodes,
   query,
   relevanceFloor = false,
   scope = "active",
   limit = 20,
 }: FindRelevantTagsOptions): Promise<RelevantTag[]> {
+  const hasExcludedTags = excludedTagCodes && excludedTagCodes.length > 0;
   const where = and(
     relevanceFloor ? gte(projectTrends.relevanceScore, 0) : undefined,
+    hasExcludedTags ? notInArray(tags.code, excludedTagCodes) : undefined,
+    hasExcludedTags
+      ? getWhereClauseExcludeTags(db, excludedTagCodes)
+      : undefined,
     // Same predicate and the same query-wins rule as the listing, imported
     // rather than restated so the two cannot drift.
     resolveScope(scope, query) === "active"

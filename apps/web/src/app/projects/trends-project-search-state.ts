@@ -2,6 +2,7 @@ import { z } from "zod";
 
 import { trendsSortKeySchema } from "@repo/core/shared-schemas";
 
+import { showExcludedTagsByDefault } from "@/config/apps";
 import {
   limitSchema,
   type PageSearchStateUpdater,
@@ -9,6 +10,14 @@ import {
   paginationSchema,
   SearchStateParser,
 } from "@/lib/page-search-state";
+
+/**
+ * `"1"` / `"0"` rather than `true` / `false`: the value reads as a switch in the
+ * URL, and keeping it a string means the state round-trips through the URL
+ * builder unchanged.
+ */
+const aiSchema = z.enum(["0", "1"]);
+const defaultAi = showExcludedTagsByDefault ? "1" : "0";
 
 export const trendsProjectSearchStateSchema = paginationSchema.extend({
   tags: z
@@ -28,6 +37,10 @@ export const trendsProjectSearchStateSchema = paginationSchema.extend({
   // Defaults to the filtered view: a bare /projects URL hides the projects the
   // UI would badge as a warning, and `?scope=all` opts into the full catalog.
   scope: z.enum(["all", "active"]).catch("active").default("active"),
+  // Same shape as `scope`: a filter whose default the deployment sets and the
+  // URL opts out of. This is the whole mechanism — no deployment-specific code
+  // path, just a different default value.
+  ai: aiSchema.catch(defaultAi).default(defaultAi),
 });
 
 export type TrendsProjectSearchState = z.infer<
@@ -53,9 +66,15 @@ export class TrendsProjectSearchStateParser extends SearchStateParser<
    * `{ sort: "newest" }` was a no-op.
    */
   constructor(options: Partial<TrendsProjectSearchState> = {}) {
-    const { limit = 30, scope = "active", sort = "most-stars" } = options;
+    const {
+      ai = defaultAi,
+      limit = 30,
+      scope = "active",
+      sort = "most-stars",
+    } = options;
 
     const extendedSchema = trendsProjectSearchStateSchema.extend({
+      ai: aiSchema.catch(ai).default(ai),
       limit: limitSchema.default(limit),
       scope: z.enum(["all", "active"]).catch(scope).default(scope),
       sort: trendsSortKeySchema.catch(sort).default(sort),

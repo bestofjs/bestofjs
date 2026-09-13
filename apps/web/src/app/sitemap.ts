@@ -1,7 +1,6 @@
 import type { MetadataRoute } from "next";
 
-import { findTags } from "@repo/core/services/tags";
-
+import { findTags } from "@/app/db";
 import { APP_CANONICAL_URL } from "@/config/site";
 
 const NUMBER_OF_POPULAR_TAGS = 10;

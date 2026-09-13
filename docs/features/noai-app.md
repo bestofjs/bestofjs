@@ -1,0 +1,100 @@
+# "No AI" edition
+
+Spike for issue #459. Branch: `noai`.
+
+## Problem
+
+- AI projects flood the JS ecosystem: they dominate Hot Projects, Recently Added and monthly rankings.
+- Part of the audience wants Best of JS without them — not "AI ranked lower", but "AI absent".
+- Filtering them out for everyone is not an option: AI projects are legitimately part of the ecosystem.
+- A `/no-ai` route prefix or a separate app would duplicate routing, layouts and data loading for a site that is ~99% identical.
+
+## Strategy: one codebase, two deployments
+
+- One env var, `BESTOFJS_APP` (`main` | `noai`), decides which app a deployment *is*.
+- A registry (`apps/web/src/config/apps.ts`) maps that key to: excluded tag codes, header badge label, canonical host.
+- Nothing else in the codebase branches on the app. `git diff` between the two deployments is empty — same commit, different env.
+- The domain layer stays app-agnostic: `@repo/core` gains `excludedTagCodes` as an ordinary query parameter (project listings, tag listings, tag counts, related tags). It never learns `noai` exists — the admin app could reuse the same parameter.
+- Bound in exactly one place: `apps/web/src/app/db.ts`, a data façade that pre-binds the deployment's excluded tags to every listing query. Per-call-site passing was the alternative and fails silently — a page that forgets looks normal, it just serves the projects the deployment exists to hide.
+- Editorial exclusions (`TAGS_EXCLUDED_FROM_RANKINGS`) and deployment exclusions **merge**, never replace each other.
+- Tag counts stay truthful: a project carrying a hidden tag stops counting towards the other tags it shares. A tag never advertises a count the listing cannot deliver.
+- `/projects` gains `?ai=1|0`, modelled on the existing `scope` filter: same control on both deployments, only the *default* differs.
+- Project detail pages are unchanged on both. The deployment changes what is **surfaced**, not what exists — which is what makes the `?ai=1` opt-out coherent.
+- Detail pages therefore read `@repo/core` **directly**, not the façade: a dependency graph (and tomorrow, related projects) is a fact about the package, not a curated listing, and a non-AI project depending on an AI one is vanishingly rare. That keeps the whole route app-independent, so it can keep its file-level `"use cache"` keyed by slug alone — no `app` parameter, no `cacheTagForApp`.
+- The façade is for **listings** — what the deployment chooses to put in front of people. Anything reached *from* a project someone already opened is not a listing.
+
+## Naming
+
+Call the two a **variant** of the same app (registry keys already `main` / `noai`):
+
+| Concept | Value | Where |
+| --- | --- | --- |
+| Env var | `BESTOFJS_APP=main` \| `noai` | Vercel env, `env.mjs` |
+| Registry key | `webApps.MAIN` / `webApps.NOAI` | `config/apps.ts` |
+| Public name | "Best of JS" / "Best of JS — No AI" | header badge, meta |
+| Host | `bestofjs.org` / `noai.bestofjs.org` | `hostByApp` |
+
+Rules:
+
+- `main` is the unmarked default — no badge, no suffix, identical to today.
+- `noai` (one word, lowercase) everywhere in code, env and host. Never `no-ai` / `noAI` — env validation rejects them on purpose.
+- Avoid "mode", "flavor" and "flag" in code names: today it is a deployment identity, not a runtime toggle.
+
+## What it means on Vercel
+
+- **Same Git repo, same project code, two Vercel deployments.** The `noai` variant is a deployment whose environment sets `BESTOFJS_APP=noai` — not a fork, not a branch that keeps diverging.
+- Spike setup: set `BESTOFJS_APP=noai` in the Vercel dashboard scoped to the **Preview** environment / the `noai` branch. Long term: a second Vercel project on the same repo, Production env var `noai`, custom domain `noai.bestofjs.org`.
+- Unset defaults to `main`: production and local dev untouched.
+- An out-of-registry value fails env validation and the build stops. Deliberate — a silent fallback to `main` would serve AI projects on the No AI site while looking completely normal.
+- `BESTOFJS_APP` is declared in `turbo.json` `env` so Turbo's build cache is keyed by it (otherwise both variants share one cached build).
+- The build logs the app name (`next.config.ts`), since every symptom of a wrong value looks like a normal site.
+- Next.js `"use cache"` excludes module-scope values from the cache key, so any cached function whose result depends on the deployment must take `app` as a real parameter and tag via `cacheTagForApp()` (`@/server/cache`). Without it, two deployments behind the same cache poison each other. The cheaper answer, where it applies, is to keep the route app-independent instead — see project detail pages above.
+- Data pipeline, DB and static JSON are shared: one backend, one dataset, filtering happens at read time only.
+
+## Not in this spike
+
+- UI copy, explanations and cross-links between variants (only a header badge + a popover pointing to the other host).
+- Per-deployment `APP_CANONICAL_URL` / sitemap / `alternates.canonical` — see "Indexing" below, which settles the question for now without touching them.
+- Hall of Fame and the global project count.
+- Widening excluded tags beyond `ai` (`skills`, `mcp`, ...) — depends on the tagging pass, see `docs/ai-projects-tagging.md`.
+
+## Indexing
+
+**Best of JS is the canonical app; the variant is not indexed.** Decided because the variant's long-term future is undecided, and it costs one branch in `robots.ts`.
+
+- `robots.ts` returns `disallow: "/"` on any non-main deployment, and the usual `allow` + sitemap line on main.
+- `APP_CANONICAL_URL` stays hardcoded to `https://bestofjs.org`. So does `sitemap.ts` — it is simply never crawled on the variant.
+- `og:url` on variant pages points at bestofjs.org, which matches the decision: a share from the No AI site credits Best of JS.
+- No `alternates.canonical` anywhere. Nothing emits one today, and it only matters for a crawlable variant.
+- Distribution is the link from the main site (the popover in the home intro), not search.
+- Upgrade path if the variant proves itself, one line: `APP_CANONICAL_URL = \`https://${hostByApp[currentApp]}\``. Robots, sitemap and every `og:url` follow automatically; consolidating variant pages into bestofjs.org vs. letting them rank on their own then becomes a separate `alternates.canonical` decision.
+
+## Daily refresh
+
+Each deployment has its own cache and its own build, so the daily pipeline has to reach both.
+
+- Cache invalidation alone is **not** enough: `apps/web/scripts/build-project-data.mjs` bakes `projects.json` into the bundle at build time and `server/api.ts` reads it from disk, so the ⌘K palette and the monthly-rankings lookup only change on a deploy.
+- `WEBAPP_URLS` — comma-separated list of deployments to revalidate (`https://bestofjs.org,https://noai.bestofjs.org`). Falls back to the single `WEBAPP_URL`.
+- `FRONTEND_BUILD_WEB_HOOKS` — comma-separated list of Vercel deploy hooks, one per deployment. Falls back to the single `FRONTEND_BUILD_WEB_HOOK`.
+- Both unset = today's behaviour exactly, one target. Set them wherever the backend tasks run:
+  - the static API Vercel project's env (it runs `static-api-daily`, hence `trigger-build-webapp`) — both vars;
+  - repo secrets for `update-trends.yml`, which runs `invalidate-trends-cache` — `WEBAPP_URLS` only. A secret is not ambient env in Actions: it is mapped in that workflow's `env:` block, so a new var needs a line there too.
+- Tag names are unchanged: `revalidateTag()` runs inside the deployment that receives the request, so the `app` tag appended by `cacheTagForApp` separates cache *entries*, not these calls.
+- Failures are per-target: one deployment failing does not stop the others, and the task only throws when every target failed.
+- Operational cost, honestly: a second deploy hook and URL to keep in sync, and a daily build of a second Vercel project.
+
+## Known gaps
+
+- Global counts on the home page (`MoreProjectsSection`) come from `getProjectsStats()`, which has no excluded-tag predicate: the No AI deployment announces a total that includes AI projects, while its `/projects` listing is smaller. Same root cause as the out-of-scope items above — the stats service needs the `excludedTagCodes` parameter the listing queries got.
+- Monthly rankings still resolve their archived entries against the build-time static collection by `full_name`, so on the variant a "Not found" log can mean a filtered project just as easily as a data regression. Left as-is rather than plumbed around: the real fix is resolving against the DB by `slug` (bestofjs/bestofjs#503), after which the ambiguity disappears entirely.
+- A hidden tag's chip on a project page links to `/projects?tags=ai`, which renders an empty list under an "All Projects" heading — the tag is filtered out of `findTags()`, so it is not even shown as a removable chip. The hover card works (see below); the click-through does not. Fixing it means detail-page chips linking to `?tags=ai&ai=1`, which is more plumbing than the spike needs.
+- `findTagsWithProjects()` in the façade still has no `showExcludedTags` opt-out. No caller needs one today; add it if a tag page ever gets the same opt-out. `findTagWithProjects()` has one — `/api/tags/[slug]` passes it when the requested code is one this deployment hides, so a project page's raw `ai` chip gets a working hover card instead of a 404. Listings are unaffected: they never link to a hidden tag, and hover cards for visible tags keep their curated counts and top projects.
+
+## Future: a "No AI" mode inside the main app
+
+The deployment approach was chosen mainly to avoid changing the main UI. It does not close that door:
+
+- The filtering already lives in a query parameter (`excludedTagCodes`) and a single façade — not in the deployment.
+- A user-level preference (cookie or account setting) would only replace *where* `excludedTagCodes` comes from in `config/apps.ts` / `app/db.ts`. Pages, core and queries stay as they are.
+- `?ai=1|0` on `/projects` is already the per-request version of that toggle.
+- What a mode would additionally need: UI to set it, a cache key per preference instead of per deployment, and a decision on what the shared static JSON / OG images do.
