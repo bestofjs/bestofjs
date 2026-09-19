@@ -52,14 +52,26 @@ function mergeExcludedTags(callerTagCodes?: string[], optOut = false) {
  */
 type AppQueryOptions = { showExcludedTags?: boolean };
 
-export function findProjectsBySlugs({
-  ...options
-}: Omit<FindProjectsBySlugsOptions, "db" | "excludedTagCodes">) {
-  return findProjectsBySlugsQuery({
+export async function findProjectsBySlugs(
+  options: Omit<FindProjectsBySlugsOptions, "db">,
+) {
+  const { projects } = await findProjectsBySlugsQuery({
     ...options,
     db,
-    excludedTagCodes: mergeExcludedTags(),
   });
+  const foundSlugs = new Set(projects.map((project) => project.slug));
+  const missingSlugs = Array.from(new Set(options.slugs)).filter(
+    (slug) => !foundSlugs.has(slug),
+  );
+  const tagCodesToExclude = mergeExcludedTags();
+  const visibleProjects = tagCodesToExclude
+    ? projects.filter(
+        (project) =>
+          !project.tags.some((tag) => tagCodesToExclude.includes(tag)),
+      )
+    : projects;
+
+  return { projects: visibleProjects, missingSlugs };
 }
 
 export function findProjectsWithTrends({

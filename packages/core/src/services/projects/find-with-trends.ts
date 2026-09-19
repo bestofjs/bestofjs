@@ -264,50 +264,26 @@ export async function findProjectsWithTrends({
 
 export interface FindProjectsBySlugsOptions {
   db: DB;
-  excludedTagCodes?: string[];
   slugs: string[];
 }
 
 /**
- * Resolves an externally ordered slug list without applying the browsing
- * query's active-project scope. `missingSlugs` is computed against the
- * unfiltered projects table, so deployment-level tag exclusions never
- * masquerade as missing database rows.
+ * Resolves a slug set without applying the browsing query's active-project
+ * scope. Input ordering and deployment policy belong to the calling façade.
  */
 export async function findProjectsBySlugs({
   db,
-  excludedTagCodes,
   slugs,
 }: FindProjectsBySlugsOptions) {
-  const uniqueSlugs = Array.from(new Set(slugs));
-  if (uniqueSlugs.length === 0) {
-    return { projects: [], missingSlugs: [] };
+  if (slugs.length === 0) {
+    return { projects: [] };
   }
 
-  const slugFilter = inArray(projects.slug, uniqueSlugs);
-  const visibleFilter = and(
-    slugFilter,
-    excludedTagCodes && excludedTagCodes.length > 0
-      ? getWhereClauseExcludeTags(db, excludedTagCodes)
-      : undefined,
-  );
+  const foundProjects = await selectProjectsWithTrends(db)
+    .where(inArray(projects.slug, slugs))
+    .groupBy(projects.id, repos.id, repoTrends.repoId, projectTrends.projectId);
 
-  const [foundProjects, existingRows] = await Promise.all([
-    selectProjectsWithTrends(db)
-      .where(visibleFilter)
-      .groupBy(
-        projects.id,
-        repos.id,
-        repoTrends.repoId,
-        projectTrends.projectId,
-      ),
-    db.select({ slug: projects.slug }).from(projects).where(slugFilter),
-  ]);
-
-  const existingSlugs = new Set(existingRows.map((row) => row.slug));
-  const missingSlugs = uniqueSlugs.filter((slug) => !existingSlugs.has(slug));
-
-  return { projects: foundProjects, missingSlugs };
+  return { projects: foundProjects };
 }
 
 function selectProjectsWithTrends(db: DB) {
