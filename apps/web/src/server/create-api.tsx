@@ -1,7 +1,6 @@
 import { excludedTagCodes } from "@/config/apps";
 
 import { createProjectsAPI } from "./api-projects";
-import { createRankingsAPI } from "./api-rankings";
 import { createTagsAPI } from "./api-tags";
 import {
   type APIContext,
@@ -20,10 +19,10 @@ export function createAPI(fetchProjectData: () => Promise<RawData>) {
     } = await fetchProjectData();
 
     // The single place this deployment's tag exclusion is applied to the static
-    // JSON collection: every consumer of `getData()` (the search palette index,
-    // the monthly rankings lookup) reads the filtered set, so none of them can
-    // forget. Filtering before `getTagsByKey()` also means the tag counters are
-    // computed on the filtered collection rather than corrected afterwards.
+    // JSON collection: every static-API consumer reads the filtered set, so none
+    // of them can forget. Filtering before `getTagsByKey()` also means the tag
+    // counters are computed on the filtered collection rather than corrected
+    // afterwards.
     const { projects, rawTags } = excludeTags(allProjects, allTags);
 
     const tagsByKey = getTagsByKey(rawTags, projects);
@@ -49,13 +48,9 @@ export function createAPI(fetchProjectData: () => Promise<RawData>) {
   const projectsAPI = createProjectsAPI(context);
   const tagsAPI = createTagsAPI(context);
 
-  // Dependent APIs
-  const rankingAPI = createRankingsAPI(projectsAPI);
-
   return {
     projects: projectsAPI,
     tags: tagsAPI,
-    rankings: rankingAPI,
   };
 }
 

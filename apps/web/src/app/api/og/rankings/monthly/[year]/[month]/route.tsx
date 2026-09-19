@@ -9,7 +9,7 @@ import {
 } from "@/app/api/og/og-utils";
 import { formatMonthlyDate } from "@/app/rankings/monthly/monthly-rankings-utils";
 import { formatNumber } from "@/helpers/numbers";
-import { api } from "@/server/api-remote-json";
+import { api } from "@/server/api";
 
 type Context = { params: Promise<{ year: string; month: string }> };
 export async function GET(_: Request, props: Context) {

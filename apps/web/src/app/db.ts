@@ -1,6 +1,8 @@
 import { db } from "@repo/core";
 import {
+  type FindProjectsBySlugsOptions,
   type FindProjectsWithTrendsOptions,
+  findProjectsBySlugs as findProjectsBySlugsQuery,
   findProjectsWithTrends as findProjectsWithTrendsQuery,
   ProjectService,
 } from "@repo/core/services/projects";
@@ -49,6 +51,16 @@ function mergeExcludedTags(callerTagCodes?: string[], optOut = false) {
  * deployment's.
  */
 type AppQueryOptions = { showExcludedTags?: boolean };
+
+export function findProjectsBySlugs({
+  ...options
+}: Omit<FindProjectsBySlugsOptions, "db" | "excludedTagCodes">) {
+  return findProjectsBySlugsQuery({
+    ...options,
+    db,
+    excludedTagCodes: mergeExcludedTags(),
+  });
+}
 
 export function findProjectsWithTrends({
   showExcludedTags,

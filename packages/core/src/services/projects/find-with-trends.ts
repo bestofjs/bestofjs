@@ -3,6 +3,7 @@ import {
   count,
   eq,
   gte,
+  inArray,
   isNull,
   ne,
   or,
@@ -37,6 +38,45 @@ const { projects, projectTrends, projectsToTags, repos, repoTrends, tags } =
  * it and quietly showing `null` stars for a deprecated project.
  */
 export const starsExpression = sql<number>`COALESCE(${repoTrends.stars}, ${repos.stars})`;
+
+const projectWithTrendsSelection = {
+  slug: projects.slug,
+  name: projects.name,
+  description: projects.description,
+  overrideDescription: projects.overrideDescription,
+  url: projects.url,
+  overrideURL: projects.overrideURL,
+  createdAt: projects.createdAt,
+  status: projects.status,
+  logo: projects.logo,
+  tags: sql<
+    string[]
+  >`COALESCE(json_agg(distinct ${tags.code}) FILTER (WHERE ${tags.code} IS NOT NULL), '[]')`,
+  repo: {
+    full_name: sql<string>`${repos.owner} || '/' || ${repos.name}`,
+    owner_id: repos.owner_id,
+    archived: repos.archived,
+    last_commit: repos.last_commit,
+    contributor_count: repos.contributor_count,
+    created_at: repos.created_at,
+    description: repos.description,
+    homepage: repos.homepage,
+  },
+  stars: starsExpression,
+  trends: {
+    daily: repoTrends.daily,
+    weekly: repoTrends.weekly,
+    monthly: repoTrends.monthly,
+    quarterly: repoTrends.quarterly,
+    yearly: repoTrends.yearly,
+  },
+  popularityScore: repoTrends.popularityScore,
+  activityScore: repoTrends.activityScore,
+  usageScore: projectTrends.usageScore,
+  relevanceScore: projectTrends.relevanceScore,
+  packageName: projectTrends.packageName,
+  monthlyDownloads: projectTrends.monthlyDownloads,
+};
 
 const sortExpressionByKey: Record<TrendsSortKey, SQL> = {
   trending: sql`${repoTrends.popularityScore}`,
@@ -197,51 +237,7 @@ export async function findProjectsWithTrends({
       : undefined,
   );
 
-  const projectsQuery = db
-    .select({
-      slug: projects.slug,
-      name: projects.name,
-      description: projects.description,
-      overrideDescription: projects.overrideDescription,
-      url: projects.url,
-      overrideURL: projects.overrideURL,
-      createdAt: projects.createdAt,
-      status: projects.status,
-      logo: projects.logo,
-      tags: sql<
-        string[]
-      >`COALESCE(json_agg(distinct ${tags.code}) FILTER (WHERE ${tags.code} IS NOT NULL), '[]')`, // avoid [null], return empty arrays instead
-      repo: {
-        full_name: sql<string>`${repos.owner} || '/' || ${repos.name}`,
-        owner_id: repos.owner_id,
-        archived: repos.archived,
-        last_commit: repos.last_commit,
-        contributor_count: repos.contributor_count,
-        created_at: repos.created_at,
-        description: repos.description,
-        homepage: repos.homepage,
-      },
-      stars: starsExpression,
-      trends: {
-        daily: repoTrends.daily,
-        weekly: repoTrends.weekly,
-        monthly: repoTrends.monthly,
-        quarterly: repoTrends.quarterly,
-        yearly: repoTrends.yearly,
-      },
-      popularityScore: repoTrends.popularityScore,
-      activityScore: repoTrends.activityScore,
-      usageScore: projectTrends.usageScore,
-      relevanceScore: projectTrends.relevanceScore,
-      packageName: projectTrends.packageName,
-      monthlyDownloads: projectTrends.monthlyDownloads,
-    })
-    .from(projects)
-    .innerJoin(repos, eq(projects.repoId, repos.id))
-    .leftJoin(projectTrends, eq(projectTrends.projectId, projects.id))
-    .leftJoin(repoTrends, eq(repoTrends.repoId, repos.id))
-    .leftJoin(projectsToTags, eq(projectsToTags.projectId, projects.id))
-    .leftJoin(tags, eq(projectsToTags.tagId, tags.id))
+  const projectsQuery = selectProjectsWithTrends(db)
     .where(where)
     .groupBy(projects.id, repos.id, repoTrends.repoId, projectTrends.projectId)
     .orderBy(...getOrderByQuery(sort))
@@ -264,6 +260,65 @@ export async function findProjectsWithTrends({
   // `total` counts what the current filters match, `scope` included — it is a
   // filter like `tagCodes` or `query`, not a window onto a larger set.
   return { projects: foundProjects, total: totalResults[0].count };
+}
+
+export interface FindProjectsBySlugsOptions {
+  db: DB;
+  excludedTagCodes?: string[];
+  slugs: string[];
+}
+
+/**
+ * Resolves an externally ordered slug list without applying the browsing
+ * query's active-project scope. `missingSlugs` is computed against the
+ * unfiltered projects table, so deployment-level tag exclusions never
+ * masquerade as missing database rows.
+ */
+export async function findProjectsBySlugs({
+  db,
+  excludedTagCodes,
+  slugs,
+}: FindProjectsBySlugsOptions) {
+  const uniqueSlugs = Array.from(new Set(slugs));
+  if (uniqueSlugs.length === 0) {
+    return { projects: [], missingSlugs: [] };
+  }
+
+  const slugFilter = inArray(projects.slug, uniqueSlugs);
+  const visibleFilter = and(
+    slugFilter,
+    excludedTagCodes && excludedTagCodes.length > 0
+      ? getWhereClauseExcludeTags(db, excludedTagCodes)
+      : undefined,
+  );
+
+  const [foundProjects, existingRows] = await Promise.all([
+    selectProjectsWithTrends(db)
+      .where(visibleFilter)
+      .groupBy(
+        projects.id,
+        repos.id,
+        repoTrends.repoId,
+        projectTrends.projectId,
+      ),
+    db.select({ slug: projects.slug }).from(projects).where(slugFilter),
+  ]);
+
+  const existingSlugs = new Set(existingRows.map((row) => row.slug));
+  const missingSlugs = uniqueSlugs.filter((slug) => !existingSlugs.has(slug));
+
+  return { projects: foundProjects, missingSlugs };
+}
+
+function selectProjectsWithTrends(db: DB) {
+  return db
+    .select(projectWithTrendsSelection)
+    .from(projects)
+    .innerJoin(repos, eq(projects.repoId, repos.id))
+    .leftJoin(projectTrends, eq(projectTrends.projectId, projects.id))
+    .leftJoin(repoTrends, eq(repoTrends.repoId, repos.id))
+    .leftJoin(projectsToTags, eq(projectsToTags.projectId, projects.id))
+    .leftJoin(tags, eq(projectsToTags.tagId, tags.id));
 }
 
 function getOrderByQuery(sort: TrendsSortKey) {

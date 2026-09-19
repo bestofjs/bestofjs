@@ -4,7 +4,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "build": "pnpm build-project-data && dotenv -e ../../.env.${STAGE:=development} next build --turbopack",
+    "build": "dotenv -e ../../.env.${STAGE:=development} next build --turbopack",
     "build-project-data": "dotenv -e ../../.env.${STAGE:=development} node ./scripts/build-project-data.mjs",
     "dev": "dotenv -e ../../.env.${STAGE:=development} next dev --turbopack",
     "lint": "biome check ./src",
