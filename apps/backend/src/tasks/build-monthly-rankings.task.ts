@@ -65,6 +65,7 @@ export const buildMonthlyRankingsTask = createTask({
         const data = {
           name: project.name,
           full_name: repo.full_name,
+          slug: project.slug,
           description: truncate(description, 75),
           stars: stars || 0,
           delta,

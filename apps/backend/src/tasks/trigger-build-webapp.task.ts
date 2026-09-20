@@ -62,30 +62,22 @@ export const triggerBuildWebappTask = createTask({
     ];
     await invalidateWebAppCacheTags(tags, context);
 
-    // Trigger the build webhook of every deployment. The invalidation above is
-    // not a substitute, for two reasons:
+    // Trigger the build webhook of every deployment for warming.
+    // `/api/revalidate` calls `revalidateTag(tag, { expire: 0 })`, which empties
+    // entries rather than marking them stale, and Next revalidates on request,
+    // not on the call. The build is what refills the prerendered set (home, the
+    // `/trends/*` windows, `/projects`, and the hot slugs from
+    // `generateStaticParams`); without it the first visitor after each daily run
+    // pays the full render. `{ expire: 0 }` is deliberate: "Trends today"
+    // serving yesterday's numbers until the visitor reloads is worse than a
+    // slow first hit.
     //
-    // 1. `build-project-data.mjs` bakes `projects.json` into the bundle and the
-    //    monthly-rankings lookup reads it from disk (`server/api-local-json`),
-    //    where no tag reaches it — so those pages only change on a deploy.
-    //    (The ⌘K palette is *not* in this category any more: it fetches the
-    //    static API over HTTP under the `all-projects` tag. Once the rankings
-    //    lookup moves to the DB — bestofjs/bestofjs#503 — nothing baked is left
-    //    and this reason disappears.)
-    // 2. Warming. `/api/revalidate` calls `revalidateTag(tag, { expire: 0 })`,
-    //    which empties entries rather than marking them stale, and Next
-    //    revalidates on request, not on the call. The build is what refills the
-    //    prerendered set (home, the `/trends/*` windows, `/projects`, and the
-    //    hot slugs from `generateStaticParams`); without it the first visitor
-    //    after each daily run pays the full render. `{ expire: 0 }` is
-    //    deliberate: "Trends today" serving yesterday's numbers until the
-    //    visitor reloads is worse than a slow first hit.
-    //
-    // Reason 2 survives #503, which is why this stays after the baked JSON is
-    // gone. Replacing it with a warming pass (GET those URLs on each
-    // `WEBAPP_URLS` target, no credentials, no second Vercel build) is the open
-    // alternative — to be evaluated once #503 lands, which is why the hook
-    // plumbing is kept confined to this file.
+    // The web app no longer reads the `projects.json` copy baked into its build;
+    // the ⌘K palette fetches the static API remotely and monthly rankings
+    // resolve against Postgres. Replacing this build with a warming pass (GET
+    // those URLs on each `WEBAPP_URLS` target, no credentials, no second Vercel
+    // build) remains an open deployment optimization, which is why the hook
+    // plumbing stays confined to this file.
     const sent = await triggerWebAppBuilds();
 
     return { data: null, meta: { sent } };

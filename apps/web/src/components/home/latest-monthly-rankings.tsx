@@ -24,7 +24,7 @@ export async function LatestMonthlyRankings() {
 async function renderLatestMonthlyRankings(app: WebApp) {
   "use cache";
   cacheLife("monthly"); // Revalidate every 30 days for latest rankings
-  cacheTagForApp(app, "monthly", "latest");
+  cacheTagForApp(app, "monthly", "latest", "projects");
   const { year, month, projects } = await api.rankings.getMonthlyRankings({
     limit: 5,
   });

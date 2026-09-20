@@ -479,9 +479,6 @@ importers:
       '@types/debug':
         specifier: 'catalog:'
         version: 4.1.12
-      '@types/fs-extra':
-        specifier: ^11.0.1
-        version: 11.0.1
       '@types/node':
         specifier: 'catalog:'
         version: 24.12.3
@@ -521,9 +518,6 @@ importers:
       es-toolkit:
         specifier: ^1.31.0
         version: 1.39.10
-      fs-extra:
-        specifier: ^11.2.0
-        version: 11.2.0
       lucide-react:
         specifier: 0.428.0
         version: 0.428.0(react@19.2.8)

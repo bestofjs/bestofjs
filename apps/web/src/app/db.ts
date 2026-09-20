@@ -1,6 +1,8 @@
 import { db } from "@repo/core";
 import {
+  type FindProjectsBySlugsOptions,
   type FindProjectsWithTrendsOptions,
+  findProjectsBySlugs as findProjectsBySlugsQuery,
   findProjectsWithTrends as findProjectsWithTrendsQuery,
   ProjectService,
 } from "@repo/core/services/projects";
@@ -49,6 +51,28 @@ function mergeExcludedTags(callerTagCodes?: string[], optOut = false) {
  * deployment's.
  */
 type AppQueryOptions = { showExcludedTags?: boolean };
+
+export async function findProjectsBySlugs(
+  options: Omit<FindProjectsBySlugsOptions, "db">,
+) {
+  const { projects } = await findProjectsBySlugsQuery({
+    ...options,
+    db,
+  });
+  const foundSlugs = new Set(projects.map((project) => project.slug));
+  const missingSlugs = Array.from(new Set(options.slugs)).filter(
+    (slug) => !foundSlugs.has(slug),
+  );
+  const tagCodesToExclude = mergeExcludedTags();
+  const visibleProjects = tagCodesToExclude
+    ? projects.filter(
+        (project) =>
+          !project.tags.some((tag) => tagCodesToExclude.includes(tag)),
+      )
+    : projects;
+
+  return { projects: visibleProjects, missingSlugs };
+}
 
 export function findProjectsWithTrends({
   showExcludedTags,

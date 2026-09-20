@@ -45,12 +45,6 @@ pnpm -F bestofjs-nextjs dev
 
 #### Development mode with automatic reloads
 
-First, we need to build a JSON file that will be queried by the backend:
-
-```bash
-pnpm build-project-data
-```
-
 ```bash
 pnpm dev
 ```

@@ -137,10 +137,11 @@ The daily job is a strict chain across two GitHub Actions workflows and one Verc
 
 "Update GitHub Data" is scheduled at 21:00 UTC (06:00 JST) via cron; both workflows can also be dispatched manually from the GitHub UI.
 
-Two ordering constraints shape this chain:
+One ordering constraint shapes this chain:
 
 - The web app's DB-backed pages read `repo_trends` / `project_trends`, so anything that invalidates their cache must run *after* the trends passes. This is why the Vercel webhook is sent from "Update Trends" rather than from "Update GitHub Data".
-- The web app's build bakes `projects.json` into `public/data/` (`build-project-data`), so its rebuild must run *after* the static API is deployed. This is why `trigger-build-webapp` lives inside the Vercel build rather than in a workflow.
+
+`trigger-build-webapp` still runs inside the static API build for now, but the web app no longer has a data dependency on that build: monthly rankings resolve against Postgres and the search palette fetches `projects.json` remotely. The remaining rebuild is a warming mechanism and can eventually be replaced by direct GET requests after cache invalidation.
 
 `build-static-api` does **not** read the trend tables — it derives trends from `snapshots` — so it has no data dependency on "Update Trends". It is sequenced after it only to keep one ordered chain, and its step is guarded with `if: !cancelled()` so a trends failure cannot stop external consumers of the static API from getting fresh data.
 

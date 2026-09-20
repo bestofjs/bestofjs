@@ -28,8 +28,9 @@ type PageProps = {
   }>;
 };
 
-// All monthly rankings are historical snapshots that never change, so cache
-// forever, tagged by their specific month for targeted revalidation. `app` is
+// Monthly scores are historical snapshots, while the project metadata used to
+// render them comes from the DB. Cache forever, but also attach the `projects`
+// tag so the daily project refresh can invalidate that metadata. `app` is
 // a real function parameter (not a module-scope import) because Next's
 // "use cache" excludes module-scope values from the cache key
 // (github.com/vercel/next.js#74498) — the Data Cache persists across
@@ -42,7 +43,7 @@ async function getCachedMonthlyRankings(
 ) {
   "use cache";
   cacheLife("forever"); // Historical data is frozen forever
-  cacheTagForApp(app, "monthly", `${date.year}-${date.month}`);
+  cacheTagForApp(app, "monthly", `${date.year}-${date.month}`, "projects");
   return api.rankings.getMonthlyRankings({ date, limit });
 }
 
