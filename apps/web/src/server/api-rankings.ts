@@ -8,10 +8,14 @@ import { env } from "@/env.mjs";
 
 import { type RankingEntry, resolveRankingProjects } from "./ranking-resolver";
 
+type ArchivedRankingEntry = Omit<RankingEntry, "slug"> & {
+  slug: string | null;
+};
+
 type RankingsData = {
   year: number;
   month: number;
-  trending: RankingEntry[];
+  trending: ArchivedRankingEntry[];
   isFirst: boolean;
   isLatest: boolean;
 };
@@ -58,7 +62,10 @@ export function createRankingsAPI({
 
       // Resolve the whole archive before applying the limit. A deployment that
       // hides some tags must still render a full page from the remaining rows.
-      const entries = data.trending;
+      // Edge case: popular ranked projects are not expected to be removed from the catalog.
+      const entries = data.trending.filter(
+        (entry): entry is RankingEntry => entry.slug !== null,
+      );
       const [{ projects: foundRows, missingSlugs }, allTags] =
         await Promise.all([
           findProjectsBySlugs({ slugs: entries.map((entry) => entry.slug) }),
