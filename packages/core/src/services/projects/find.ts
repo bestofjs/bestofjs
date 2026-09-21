@@ -17,7 +17,7 @@ import * as schema from "../../schema";
 import type { ProjectsSortableColumnName } from "../../shared-schemas";
 import { getSortQuery, getTotalNumberOfProjects } from "./queries-utils";
 
-const { projects, tags, packages, projectsToTags, repos } = schema;
+const { projects, tags, packages, projectsToTags, repos, tagClosure } = schema;
 
 export interface FindProjectsOptions {
   archived?: boolean | null;
@@ -74,7 +74,8 @@ export async function findProjects({
     .from(projects)
     .leftJoin(projectsToTags, eq(projectsToTags.projectId, projects.id))
     .leftJoin(repos, eq(projects.repoId, repos.id))
-    .leftJoin(tags, eq(projectsToTags.tagId, tags.id))
+    .leftJoin(tagClosure, eq(projectsToTags.tagId, tagClosure.descendantId))
+    .leftJoin(tags, eq(tagClosure.ancestorId, tags.id))
     .leftJoin(schema.packages, eq(schema.packages.projectId, projects.id))
     .orderBy(...orderBy)
     .offset(offset)
@@ -138,7 +139,8 @@ export function getWhereClauseSearchByTag(db: DB, tagCodes: string[]) {
     db
       .select({ id: projectsToTags.projectId })
       .from(projectsToTags)
-      .innerJoin(tags, eq(projectsToTags.tagId, tags.id))
+      .innerJoin(tagClosure, eq(projectsToTags.tagId, tagClosure.descendantId))
+      .innerJoin(tags, eq(tagClosure.ancestorId, tags.id))
       .where(inArray(tags.code, tagCodes))
       .groupBy(projectsToTags.projectId)
       .having(sql`count(distinct ${tags.code}) = ${tagCodes.length}`),
@@ -168,7 +170,8 @@ export function selectProjectIdsHavingAnyTag(db: DB, tagCodes: string[]) {
   return db
     .select({ id: projectsToTags.projectId })
     .from(projectsToTags)
-    .innerJoin(tags, eq(projectsToTags.tagId, tags.id))
+    .innerJoin(tagClosure, eq(projectsToTags.tagId, tagClosure.descendantId))
+    .innerJoin(tags, eq(tagClosure.ancestorId, tags.id))
     .where(inArray(tags.code, tagCodes))
     .groupBy(projectsToTags.projectId);
 }

@@ -1,7 +1,7 @@
 import type React from "react";
 import prettyBytes from "pretty-bytes";
 
-import type { ProjectDetails } from "@repo/core/services/projects";
+import type { DirectProjectDetails } from "@repo/core/services/projects";
 
 import { Badge } from "@/components/ui/badge";
 import {
@@ -18,7 +18,7 @@ import { AddPackageButton } from "./edit/add-package-button";
 import { RemovePackageButton } from "./edit/remove-package-button";
 
 type Props = {
-  project: ProjectDetails;
+  project: DirectProjectDetails;
 };
 
 export function ViewProjectPackages({ project }: Props) {
@@ -112,7 +112,7 @@ function ViewDependencies({ dependencies }: { dependencies: string[] }) {
 function ViewBundle({
   bundle,
 }: {
-  bundle: ProjectDetails["packages"][number]["bundles"];
+  bundle: DirectProjectDetails["packages"][number]["bundles"];
 }) {
   return (
     <div className="flex flex-col gap-2">

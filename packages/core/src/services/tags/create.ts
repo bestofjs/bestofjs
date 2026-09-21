@@ -3,6 +3,7 @@ import slugify from "slugify";
 
 import { db } from "../..";
 import * as schema from "../../schema";
+import { lockTagTaxonomy } from "./closure";
 
 export async function createTag(tagName: string) {
   const values = {
@@ -11,7 +12,17 @@ export async function createTag(tagName: string) {
     code: slugify(tagName).toLowerCase(),
   };
 
-  const createdTags = await db.insert(schema.tags).values(values).returning();
-  console.log("Tag created", createdTags[0]);
-  return createdTags[0];
+  return await db.transaction(async (tx) => {
+    await lockTagTaxonomy(tx);
+    const [createdTag] = await tx
+      .insert(schema.tags)
+      .values(values)
+      .returning();
+    await tx.insert(schema.tagClosure).values({
+      descendantId: createdTag.id,
+      ancestorId: createdTag.id,
+      depth: 0,
+    });
+    return createdTag;
+  });
 }

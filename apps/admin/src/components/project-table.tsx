@@ -13,9 +13,9 @@ import Link from "next/link";
 
 import { PROJECT_STATUSES } from "@repo/core/constants";
 import type {
+  DirectProjectDetails,
   FindProjectsOptions,
   findProjects,
-  ProjectDetails,
 } from "@repo/core/services/projects";
 
 import { DataTable } from "@/components/data-table/data-table";
@@ -33,7 +33,7 @@ type Project = Awaited<ReturnType<typeof findProjects>>["projects"][number];
 
 interface Props extends FindProjectsOptions {
   projects: Project[];
-  allTags?: ProjectDetails["tags"];
+  allTags?: DirectProjectDetails["tags"];
   total: number;
 }
 

@@ -3,7 +3,7 @@
 import * as React from "react";
 import { Check, PlusIcon } from "lucide-react";
 
-import type { ProjectDetails } from "@repo/core/services/projects";
+import type { DirectProjectDetails } from "@repo/core/services/projects";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -21,7 +21,7 @@ import {
 } from "@/components/ui/popover";
 import { cn } from "@/lib/utils";
 
-type Tag = ProjectDetails["tags"][number];
+type Tag = DirectProjectDetails["tags"][number];
 
 type Props = {
   allTags: Tag[];

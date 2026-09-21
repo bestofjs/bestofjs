@@ -1,5 +1,5 @@
 import type { schema } from "@repo/core";
-import type { ProjectDetails } from "@repo/core/services/projects";
+import type { DirectProjectDetails } from "@repo/core/services/projects";
 
 import { Badge } from "@/components/ui/badge";
 import {
@@ -16,7 +16,7 @@ import { ViewRelatedProjects } from "./view-related-projects";
 import { ViewTrends } from "./view-trends";
 
 type Props = {
-  project: ProjectDetails;
+  project: DirectProjectDetails;
 };
 export function ViewRepo({ project }: Props) {
   const repo = project.repo;

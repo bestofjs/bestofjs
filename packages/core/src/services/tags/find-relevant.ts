@@ -1,4 +1,13 @@
-import { and, count, desc, eq, gte, notInArray } from "drizzle-orm";
+import {
+  and,
+  countDistinct,
+  desc,
+  eq,
+  gte,
+  inArray,
+  notInArray,
+} from "drizzle-orm";
+import { alias } from "drizzle-orm/pg-core";
 
 import type { DB } from "../../index";
 import * as schema from "../../schema";
@@ -13,8 +22,15 @@ import {
   resolveScope,
 } from "../projects/find-with-trends";
 
-const { projects, projectTrends, projectsToTags, repoTrends, repos, tags } =
-  schema;
+const {
+  projects,
+  projectTrends,
+  projectsToTags,
+  repoTrends,
+  repos,
+  tagClosure,
+  tags,
+} = schema;
 
 export interface FindRelevantTagsOptions {
   db: DB;
@@ -59,6 +75,35 @@ export async function findRelevantTags({
   limit = 20,
 }: FindRelevantTagsOptions): Promise<RelevantTag[]> {
   const hasExcludedTags = excludedTagCodes && excludedTagCodes.length > 0;
+  const selectedAncestors = alias(tags, "selected_ancestors");
+  const selectedDescendants = alias(tags, "selected_descendants");
+  const relatedToSelection =
+    tagCodes && tagCodes.length > 0
+      ? and(
+          notInArray(
+            tags.id,
+            db
+              .select({ id: tagClosure.descendantId })
+              .from(tagClosure)
+              .innerJoin(
+                selectedAncestors,
+                eq(selectedAncestors.id, tagClosure.ancestorId),
+              )
+              .where(inArray(selectedAncestors.code, tagCodes)),
+          ),
+          notInArray(
+            tags.id,
+            db
+              .select({ id: tagClosure.ancestorId })
+              .from(tagClosure)
+              .innerJoin(
+                selectedDescendants,
+                eq(selectedDescendants.id, tagClosure.descendantId),
+              )
+              .where(inArray(selectedDescendants.code, tagCodes)),
+          ),
+        )
+      : undefined;
   const where = and(
     relevanceFloor ? gte(projectTrends.relevanceScore, 0) : undefined,
     hasExcludedTags ? notInArray(tags.code, excludedTagCodes) : undefined,
@@ -74,9 +119,7 @@ export async function findRelevantTags({
     tagCodes && tagCodes.length > 0
       ? getWhereClauseSearchByTag(db, tagCodes)
       : undefined,
-    tagCodes && tagCodes.length > 0
-      ? notInArray(tags.code, tagCodes)
-      : undefined,
+    tagCodes && tagCodes.length > 0 ? relatedToSelection : undefined,
   );
 
   return (
@@ -85,10 +128,14 @@ export async function findRelevantTags({
         code: tags.code,
         name: tags.name,
         description: tags.description,
-        count: count(projectsToTags.projectId),
+        count: countDistinct(projectsToTags.projectId),
       })
       .from(tags)
-      .innerJoin(projectsToTags, eq(projectsToTags.tagId, tags.id))
+      .innerJoin(tagClosure, eq(tagClosure.ancestorId, tags.id))
+      .innerJoin(
+        projectsToTags,
+        eq(projectsToTags.tagId, tagClosure.descendantId),
+      )
       .innerJoin(projects, eq(projects.id, projectsToTags.projectId))
       .leftJoin(projectTrends, eq(projectTrends.projectId, projects.id))
       .innerJoin(repos, eq(projects.repoId, repos.id))
@@ -97,7 +144,7 @@ export async function findRelevantTags({
       .leftJoin(repoTrends, eq(repoTrends.repoId, repos.id))
       .where(where)
       .groupBy(tags.id)
-      .orderBy(desc(count(projectsToTags.projectId)))
+      .orderBy(desc(countDistinct(projectsToTags.projectId)))
       .limit(limit)
   );
 }

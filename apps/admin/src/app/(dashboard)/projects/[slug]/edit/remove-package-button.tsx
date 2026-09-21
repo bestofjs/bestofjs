@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { toast } from "sonner";
 
-import type { ProjectDetails } from "@repo/core/services/projects";
+import type { DirectProjectDetails } from "@repo/core/services/projects";
 
 import { Button, SubmitButton } from "@/components/ui/button";
 import {
@@ -18,7 +18,7 @@ import {
 import { removePackageAction } from "../actions";
 
 type Props = {
-  project: ProjectDetails;
+  project: DirectProjectDetails;
   packageName: string;
 };
 

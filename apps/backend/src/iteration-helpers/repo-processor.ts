@@ -1,6 +1,7 @@
 import { type DB, schema } from "@repo/core";
 import { and, asc, desc, eq, type SQL } from "@repo/core/drizzle";
 import { snapshotsSchema } from "@repo/core/services/projects";
+import { findEffectiveTagsByProjectIds } from "@repo/core/services/tags";
 
 import { ItemProcessor } from "./abstract-item-processor";
 
@@ -67,13 +68,6 @@ async function findRepoById(db: DB, id: string) {
     with: {
       projects: {
         orderBy: asc(schema.projects.priority),
-        with: {
-          projectsToTags: {
-            with: {
-              tag: true,
-            },
-          },
-        },
       },
       snapshots: {
         orderBy: asc(schema.snapshots.year),
@@ -83,8 +77,13 @@ async function findRepoById(db: DB, id: string) {
 
   if (!repo) throw new Error(`Repo not found by id: ${id}`);
 
+  const effectiveTags = await findEffectiveTagsByProjectIds(
+    db,
+    repo.projects.map((project) => project.id),
+  );
+
   const projects = repo.projects.map((project) => {
-    const tags = project.projectsToTags.map((ptt) => ptt.tag);
+    const tags = effectiveTags.get(project.id) ?? [];
     return { ...project, tags };
   });
 

@@ -4,6 +4,7 @@ import {
   type ProjectDetails,
   ProjectService,
 } from "@repo/core/services/projects";
+import { findEffectiveTagsByProjectIds } from "@repo/core/services/tags";
 
 import type { TaskLoopOptions, TaskRunnerContext } from "@/task-types";
 
@@ -12,6 +13,9 @@ import { ItemProcessor } from "./abstract-item-processor";
 export class ProjectProcessor extends ItemProcessor<ProjectDetails> {
   type = "project";
   service: ProjectService;
+  effectiveTagsByProjectId: Awaited<
+    ReturnType<typeof findEffectiveTagsByProjectIds>
+  > = new Map();
 
   constructor(context: TaskRunnerContext, loopOptions: TaskLoopOptions) {
     super(context, loopOptions);
@@ -61,10 +65,19 @@ export class ProjectProcessor extends ItemProcessor<ProjectDetails> {
     if (!foundProjects.length) logger.error("No projects found");
 
     const ids = foundProjects.map((repo) => repo.id);
+    this.effectiveTagsByProjectId = await findEffectiveTagsByProjectIds(
+      db,
+      ids,
+    );
     return ids;
   }
 
   async getItemById(id: string) {
-    return await this.service.getProjectById(id);
+    const project = await this.service.getProjectWithDirectTagsById(id);
+    if (!project) throw new Error(`Project not found by id: ${id}`);
+    return {
+      ...project,
+      tags: this.effectiveTagsByProjectId.get(id) ?? [],
+    };
   }
 }

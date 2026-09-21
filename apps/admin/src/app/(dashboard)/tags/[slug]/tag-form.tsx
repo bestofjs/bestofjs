@@ -7,8 +7,10 @@ import { toast } from "sonner";
 import { z } from "zod";
 
 import type { getTagBySlug } from "@repo/core/services/tags";
+import { TAG_FACETS } from "@repo/core/services/tags/taxonomy";
 
-import { updateTagData } from "@/app/(dashboard)/projects/[slug]/actions";
+import { updateTagData } from "@/actions/tags-actions";
+import { Alert, AlertDescription } from "@/components/ui/alert";
 import { SubmitButton } from "@/components/ui/button";
 import {
   Card,
@@ -19,12 +21,20 @@ import {
 } from "@/components/ui/card";
 import { Field, FieldError, FieldLabel } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 
 const formSchema = z.object({
   name: z.string(),
   code: z.string().toLowerCase().trim(),
   description: z.string().nullable(),
+  facet: z.enum(TAG_FACETS).nullable(),
 });
 
 type Props = {
@@ -39,6 +49,7 @@ export function TagForm({ tag }: Props) {
       defaultValues: {
         ...tag,
         description: tag.description ?? "",
+        facet: tag.facet,
       },
     },
   });
@@ -47,7 +58,11 @@ export function TagForm({ tag }: Props) {
 
   async function onSubmit(data: z.infer<typeof formSchema>) {
     console.log("Submit", data);
-    await updateTagData(tag.id, data);
+    const result = await updateTagData(tag.id, data);
+    if (result.error) {
+      form.setError("root", { message: result.error });
+      return;
+    }
     toast.success("Tag updated");
     router.push("/tags");
   }
@@ -83,6 +98,42 @@ export function TagForm({ tag }: Props) {
             />
             <FieldError errors={[form.formState.errors.description]} />
           </Field>
+          <Field data-invalid={!!form.formState.errors.facet}>
+            <FieldLabel htmlFor="facet">Facet</FieldLabel>
+            <Select
+              value={form.watch("facet") ?? "none"}
+              onValueChange={(value) =>
+                form.setValue(
+                  "facet",
+                  value === "none"
+                    ? null
+                    : (value as (typeof TAG_FACETS)[number]),
+                  { shouldDirty: true },
+                )
+              }
+            >
+              <SelectTrigger id="facet">
+                <SelectValue placeholder="No facet" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="none">No facet</SelectItem>
+                {TAG_FACETS.map((facet) => (
+                  <SelectItem key={facet} value={facet}>
+                    {facet}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+            <FieldError errors={[form.formState.errors.facet]} />
+          </Field>
+
+          {form.formState.errors.root?.message ? (
+            <Alert variant="destructive">
+              <AlertDescription>
+                {form.formState.errors.root.message}
+              </AlertDescription>
+            </Alert>
+          ) : null}
 
           <SubmitButton isPending={isPending}>Save</SubmitButton>
         </form>

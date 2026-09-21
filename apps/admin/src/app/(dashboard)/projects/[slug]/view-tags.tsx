@@ -5,7 +5,7 @@ import { XIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 
-import type { ProjectDetails } from "@repo/core/services/projects";
+import type { DirectProjectDetails } from "@repo/core/services/projects";
 
 import { TagPicker } from "@/components/tag-picker";
 import { Badge } from "@/components/ui/badge";
@@ -21,8 +21,8 @@ import {
 import { updateProjectTags } from "./actions";
 
 type Props = {
-  project: ProjectDetails;
-  allTags: ProjectDetails["tags"];
+  project: DirectProjectDetails;
+  allTags: DirectProjectDetails["tags"];
 };
 
 /**

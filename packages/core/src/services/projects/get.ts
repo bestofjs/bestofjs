@@ -5,6 +5,7 @@ import { z } from "zod";
 
 import type { DB } from "../../index";
 import * as schema from "../../schema";
+import { findEffectiveTagsByProjectIds } from "../tags/effective";
 import { starsExpression } from "./find-with-trends";
 
 export type ProjectData = typeof schema.projects.$inferSelect;
@@ -53,16 +54,32 @@ export class ProjectService {
   }
 
   async getProjectBySlug(slug: string) {
-    return await this.getProjectByKey(schema.projects.slug, slug);
+    const project = await this.getDirectProjectByKey(
+      schema.projects.slug,
+      slug,
+    );
+    return await this.withEffectiveTags(project);
+  }
+
+  async getProjectWithDirectTagsBySlug(slug: string) {
+    return await this.getDirectProjectByKey(schema.projects.slug, slug);
+  }
+
+  async getProjectWithDirectTagsById(id: string) {
+    return await this.getDirectProjectByKey(schema.projects.id, id);
   }
 
   async getProjectById(id: string) {
-    const project = await this.getProjectByKey(schema.projects.id, id);
+    const directProject = await this.getDirectProjectByKey(
+      schema.projects.id,
+      id,
+    );
+    const project = await this.withEffectiveTags(directProject);
     if (!project) throw new Error(`Project not found by id: ${id}`);
     return project;
   }
 
-  async getProjectByKey(key: PgColumn, value: string) {
+  private async getDirectProjectByKey(key: PgColumn, value: string) {
     const project = await this.db.query.projects.findFirst({
       where: eq(key, value),
       with: {
@@ -100,10 +117,25 @@ export class ProjectService {
 
     return { ...project, repo, tags };
   }
+
+  private async withEffectiveTags(
+    project: Awaited<ReturnType<ProjectService["getDirectProjectByKey"]>>,
+  ) {
+    if (!project) return null;
+    const tags =
+      (await findEffectiveTagsByProjectIds(this.db, [project.id])).get(
+        project.id,
+      ) ?? [];
+    return { ...project, tags };
+  }
 }
 
 export type ProjectDetails = NonNullable<
   Awaited<ReturnType<ProjectService["getProjectBySlug"]>>
+>;
+
+export type DirectProjectDetails = NonNullable<
+  Awaited<ReturnType<ProjectService["getProjectWithDirectTagsBySlug"]>>
 >;
 
 const MonthSchema = z.object({
