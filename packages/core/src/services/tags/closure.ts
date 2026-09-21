@@ -5,7 +5,10 @@ import * as schema from "../../schema";
 import { buildTagClosure } from "./taxonomy.shared";
 
 type TaxonomyReader = Pick<DB, "select">;
-type TaxonomyDatabase = Pick<DB, "delete" | "execute" | "insert" | "select">;
+type TaxonomyDatabase = Pick<DB, "delete" | "insert" | "select">;
+
+// Three bound values per row; 5,000 stays well below PostgreSQL's 65,535 limit.
+const INSERT_BATCH_SIZE = 5_000;
 
 /** Serialize graph writers, including ordinary writes to the tags table. */
 export async function lockTagTaxonomy(database: Pick<DB, "execute">) {
@@ -34,8 +37,10 @@ export async function rebuildTagClosure(database: TaxonomyDatabase) {
   const closure = await deriveTagClosure(database);
 
   await database.delete(schema.tagClosure);
-  if (closure.length > 0) {
-    await database.insert(schema.tagClosure).values(closure);
+  for (let offset = 0; offset < closure.length; offset += INSERT_BATCH_SIZE) {
+    await database
+      .insert(schema.tagClosure)
+      .values(closure.slice(offset, offset + INSERT_BATCH_SIZE));
   }
   return closure;
 }
