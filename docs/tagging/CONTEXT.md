@@ -16,6 +16,18 @@ The role a tag plays in the taxonomy. A tag may have one of four facets:
 `ecosystem`, `category`, `capability`, or `property`. A tag without a facet is
 intentionally or temporarily unfaceted.
 
+## Category
+
+A tag for a coherent project landscape or recognizable project family. A
+project may have multiple category identities, and a narrower category may be
+a strict subset of a broader category.
+
+## Capability
+
+A tag for functionality that cuts across otherwise different project
+categories. A capability describes what a project supports or enables rather
+than the project landscape it belongs to.
+
 ## Parent relationship
 
 A directed relationship from a child tag to at most one parent tag. It asserts

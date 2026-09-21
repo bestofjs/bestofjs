@@ -10,12 +10,12 @@ import { describe, expect, it } from "bun:test";
 describe("tag taxonomy", () => {
   it("accepts only the documented facet edges", () => {
     expect(isValidEdge("ecosystem", "ecosystem")).toBe(true);
+    expect(isValidEdge("category", "category")).toBe(true);
     expect(isValidEdge("category", "capability")).toBe(true);
     expect(isValidEdge("category", "property")).toBe(true);
     expect(isValidEdge("capability", "capability")).toBe(false);
     expect(isValidEdge("property", "property")).toBe(false);
     expect(isValidEdge("ecosystem", "category")).toBe(false);
-    expect(isValidEdge("category", "category")).toBe(false);
     expect(isValidEdge(null, "ecosystem")).toBe(false);
     expect(isValidEdge("ecosystem", null)).toBe(false);
   });

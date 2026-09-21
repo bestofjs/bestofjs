@@ -4,11 +4,17 @@
 
 - **Ecosystem** identifies the technology community or platform a project is
   built for, such as React or Vue.
-- **Category** identifies what kind of project it is, such as a test framework
-  or state-management library.
-- **Capability** identifies what a project enables someone to do, such as test,
-  authentication, or AI.
+- **Category** identifies a coherent project landscape or recognizable project
+  family, such as Testing, a testing framework, or a charting library. A
+  project may have multiple categories when it has multiple meaningful
+  identities.
+- **Capability** identifies cross-cutting functionality a project supports or
+  enables, such as authentication, AI, or design-system support.
 - **Property** identifies a defining characteristic, such as self-hosted.
+
+A broad range of projects that merits comparison or a yearly ranking is a
+strong signal for a top-level category, not a requirement for every category.
+A niche may remain a narrower category rather than becoming a capability.
 
 Leave a tag unfaceted when its role is unresolved. Do not choose a facet merely
 to make it eligible for a parent relationship.
@@ -18,6 +24,10 @@ to make it eligible for a parent relationship.
 Use a parent relationship only when every project carrying the child must also
 belong to the parent. For example, `nextjs -> react` is inheritance because a
 Next.js project necessarily belongs to the React ecosystem.
+
+Categories may form broad-to-narrow hierarchies. For example,
+`test-framework -> test` is valid because every testing framework belongs to
+the broader Testing landscape.
 
 Use direct tags in composition when the concepts are independent. A project may
 carry both `automation` and `test`, but neither concept necessarily implies the
@@ -32,12 +42,13 @@ than introducing multiple inheritance.
 Parent edges are limited to:
 
 - `ecosystem -> ecosystem`
+- `category -> category`
 - `category -> capability`
 - `category -> property`
 
-Capabilities and properties cannot be children. Categories cannot be parents.
-Unfaceted tags cannot participate in an edge. An edge must not create a direct
-or transitive cycle.
+Capabilities and properties cannot be children. Categories may be parents only
+of other categories. Unfaceted tags cannot participate in an edge. An edge must
+not create a direct or transitive cycle.
 
 ## Proposal review
 
