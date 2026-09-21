@@ -10,7 +10,6 @@ import {
   saveTags,
   updateProjectById,
 } from "@repo/core/services/projects";
-import { type EditableTagData, updateTagById } from "@repo/core/services/tags";
 
 import { snapshotsService } from "@/db";
 
@@ -35,12 +34,6 @@ export async function updateProjectTags(
 ) {
   await saveTags(projectId, tagIds);
   revalidatePath(`/projects/${projectSlug}`);
-}
-
-export async function updateTagData(tagId: string, tagData: EditableTagData) {
-  await updateTagById(tagId, tagData);
-  revalidatePath(`/tags/${tagData.code}`);
-  revalidatePath(`/tags`);
 }
 
 export async function addPackageAction(

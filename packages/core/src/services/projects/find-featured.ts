@@ -4,6 +4,7 @@ import type { DB } from "../../index";
 import * as schema from "../../schema";
 import { computeTrends } from "../snapshots/compute-trends";
 import type { Snapshot } from "../snapshots/types";
+import { findEffectiveTagsByProjectIds } from "../tags/effective";
 import { selectProjectIdsHavingAnyTag } from "./find";
 import { snapshotsSchema } from "./get";
 
@@ -56,9 +57,12 @@ export async function findFeaturedProjects(
           },
         },
       },
-      projectsToTags: { with: { tag: true } },
     },
   });
+  const effectiveTags = await findEffectiveTagsByProjectIds(
+    db,
+    rawProjects.map((project) => project.id),
+  );
 
   // Preserve the random order from the slug list
   const bySlug = new Map(rawProjects.map((p) => [p.slug, p]));
@@ -80,10 +84,10 @@ export async function findFeaturedProjects(
         logo: p.logo,
         owner_id: p.repo.owner_id,
         trends: computeTrends(dailySnapshots),
-        tags: p.projectsToTags.map((pt) => ({
-          code: pt.tag.code,
-          name: pt.tag.name,
-          description: pt.tag.description,
+        tags: (effectiveTags.get(p.id) ?? []).map((tag) => ({
+          code: tag.code,
+          name: tag.name,
+          description: tag.description,
         })),
       };
     });

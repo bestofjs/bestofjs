@@ -5,6 +5,7 @@ import { z } from "zod";
 
 import type { DB } from "../../index";
 import * as schema from "../../schema";
+import { findEffectiveTagsByProjectIds } from "../tags/effective";
 import { starsExpression } from "./find-with-trends";
 
 export type ProjectData = typeof schema.projects.$inferSelect;
@@ -53,16 +54,28 @@ export class ProjectService {
   }
 
   async getProjectBySlug(slug: string) {
-    return await this.getProjectByKey(schema.projects.slug, slug);
+    return await this.getProjectByKey(schema.projects.slug, slug, "effective");
+  }
+
+  async getProjectWithDirectTagsBySlug(slug: string) {
+    return await this.getProjectByKey(schema.projects.slug, slug, "direct");
   }
 
   async getProjectById(id: string) {
-    const project = await this.getProjectByKey(schema.projects.id, id);
+    const project = await this.getProjectByKey(
+      schema.projects.id,
+      id,
+      "effective",
+    );
     if (!project) throw new Error(`Project not found by id: ${id}`);
     return project;
   }
 
-  async getProjectByKey(key: PgColumn, value: string) {
+  private async getProjectByKey(
+    key: PgColumn,
+    value: string,
+    tagView: "direct" | "effective",
+  ) {
     const project = await this.db.query.projects.findFirst({
       where: eq(key, value),
       with: {
@@ -96,7 +109,13 @@ export class ProjectService {
       snapshots,
     };
 
-    const tags = project.projectsToTags.map((ptt) => ptt.tag);
+    const directTags = project.projectsToTags.map((ptt) => ptt.tag);
+    const tags =
+      tagView === "direct"
+        ? directTags
+        : ((await findEffectiveTagsByProjectIds(this.db, [project.id])).get(
+            project.id,
+          ) ?? []);
 
     return { ...project, repo, tags };
   }
@@ -104,6 +123,10 @@ export class ProjectService {
 
 export type ProjectDetails = NonNullable<
   Awaited<ReturnType<ProjectService["getProjectBySlug"]>>
+>;
+
+export type DirectProjectDetails = NonNullable<
+  Awaited<ReturnType<ProjectService["getProjectWithDirectTagsBySlug"]>>
 >;
 
 const MonthSchema = z.object({

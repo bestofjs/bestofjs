@@ -44,7 +44,7 @@ export const buildStaticApiTask = createTask({
         return { data: null, meta: { "no snapshot": true } };
 
       const trends = getProjectTrends(repo.snapshots);
-      const tags = project.projectsToTags.map((ptt) => ptt.tag.code);
+      const tags = project.tags.map((tag) => tag.code);
 
       // optional data
       const url = getProjectURL(project);

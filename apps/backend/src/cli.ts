@@ -16,6 +16,7 @@ import {
 import { invalidateTrendsCacheTask } from "./tasks/invalidate-trends-cache.task";
 import { notifyDailyTask } from "./tasks/notify-daily.task";
 import { notifyMonthlyTask } from "./tasks/notify-monthly.task";
+import { rebuildTagClosureTask } from "./tasks/rebuild-tag-closure.task";
 import { buildRisingStarsTask } from "./tasks/rising-stars/build-rising-stars.task";
 import { cleanupRisingStars } from "./tasks/rising-stars/cleanup-rising-stars.task";
 import { fetchMissingSnapshotsTask } from "./tasks/rising-stars/fetch-missing-snapshots.task";
@@ -50,6 +51,7 @@ const commands = [
   buildRisingStarsTask,
   cleanupRisingStars,
   fetchMissingSnapshotsTask,
+  rebuildTagClosureTask,
 ].map(getCommand);
 
 const staticApiDailyTask = command(

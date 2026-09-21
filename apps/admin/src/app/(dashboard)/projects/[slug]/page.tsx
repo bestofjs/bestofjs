@@ -23,7 +23,7 @@ export default async function ViewProjectPage(props: PageProps) {
 
   const { slug } = params;
 
-  const project = await projectService.getProjectBySlug(slug);
+  const project = await projectService.getProjectWithDirectTagsBySlug(slug);
   const allTags = await getAllTags();
 
   if (!project) {

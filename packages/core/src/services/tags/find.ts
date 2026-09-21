@@ -1,7 +1,7 @@
 import {
   and,
   asc,
-  count,
+  countDistinct,
   eq,
   inArray,
   lte,
@@ -50,23 +50,36 @@ export async function findTags(options?: ExcludedTagsOption) {
   const tags = await db
     .select({
       name: schema.tags.name,
+      id: schema.tags.id,
       code: schema.tags.code,
+      facet: schema.tags.facet,
+      parentTagId: schema.tags.parentTagId,
       createdAt: schema.tags.createdAt,
       description: schema.tags.description,
-      count: count(schema.projectsToTags.projectId),
+      count: countDistinct(schema.projectsToTags.projectId),
     })
     .from(schema.tags)
+    .leftJoin(
+      schema.tagClosure,
+      eq(schema.tagClosure.ancestorId, schema.tags.id),
+    )
     .leftJoin(
       schema.projectsToTags,
       // ANDed into the JOIN, not the WHERE: a tag whose every project is
       // excluded must still appear with a count of 0 rather than vanish
       // (`count()` on the LEFT-joined column yields 0, which is the truth).
-      and(eq(schema.projectsToTags.tagId, schema.tags.id), projectFilter),
+      and(
+        eq(schema.projectsToTags.tagId, schema.tagClosure.descendantId),
+        projectFilter,
+      ),
     )
     .where(tagFilter)
     .groupBy(() => [
+      schema.tags.id,
       schema.tags.name,
       schema.tags.code,
+      schema.tags.facet,
+      schema.tags.parentTagId,
       schema.tags.createdAt,
       schema.tags.description,
     ])
@@ -108,42 +121,57 @@ export async function findTagsWithProjects(
   const tagsWithCount = db
     .select({
       name: schema.tags.name,
+      id: schema.tags.id,
       code: schema.tags.code,
+      facet: schema.tags.facet,
+      parentTagId: schema.tags.parentTagId,
       createdAt: schema.tags.createdAt,
       description: schema.tags.description,
-      count: count(schema.projectsToTags.projectId).as("count"),
+      count: countDistinct(schema.projectsToTags.projectId).as("count"),
     })
     .from(schema.tags)
     .leftJoin(
+      schema.tagClosure,
+      eq(schema.tagClosure.ancestorId, schema.tags.id),
+    )
+    .leftJoin(
       schema.projectsToTags,
-      and(eq(schema.projectsToTags.tagId, schema.tags.id), projectFilter),
+      and(
+        eq(schema.projectsToTags.tagId, schema.tagClosure.descendantId),
+        projectFilter,
+      ),
     )
     .where(and(codeFilter, tagFilter))
     .groupBy(() => [
+      schema.tags.id,
       schema.tags.name,
       schema.tags.code,
+      schema.tags.facet,
+      schema.tags.parentTagId,
       schema.tags.createdAt,
       schema.tags.description,
     ])
     .as("tags_with_count");
 
   // Sub-query 2: All tag–project rows with ROW_NUMBER() per tag by stars; excludes deprecated. Used only inside sub-query 3.
-  const ranked = db
+  const tagProjects = db
     .select({
+      tagId: schema.tags.id,
       tagCode: schema.tags.code,
       slug: schema.projects.slug,
       name: schema.projects.name,
       logo: schema.projects.logo,
       owner_id: schema.repos.owner_id,
-      // assigns a per-tag rank so you can keep the top N (here 5) per tag.
-      rn: sql<number>`ROW_NUMBER() OVER (PARTITION BY ${schema.tags.id} ORDER BY ${schema.repos.stars} DESC NULLS LAST)`.as(
-        "rn",
-      ),
+      stars: schema.repos.stars,
     })
     .from(schema.tags)
     .innerJoin(
+      schema.tagClosure,
+      eq(schema.tagClosure.ancestorId, schema.tags.id),
+    )
+    .innerJoin(
       schema.projectsToTags,
-      eq(schema.projectsToTags.tagId, schema.tags.id),
+      eq(schema.projectsToTags.tagId, schema.tagClosure.descendantId),
     )
     .innerJoin(
       schema.projects,
@@ -158,6 +186,30 @@ export async function findTagsWithProjects(
         projectFilter,
       ),
     )
+    .groupBy(
+      schema.tags.id,
+      schema.tags.code,
+      schema.projects.id,
+      schema.projects.slug,
+      schema.projects.name,
+      schema.projects.logo,
+      schema.repos.owner_id,
+      schema.repos.stars,
+    )
+    .as("tag_projects");
+
+  const ranked = db
+    .select({
+      tagCode: tagProjects.tagCode,
+      slug: tagProjects.slug,
+      name: tagProjects.name,
+      logo: tagProjects.logo,
+      owner_id: tagProjects.owner_id,
+      rn: sql<number>`ROW_NUMBER() OVER (PARTITION BY ${tagProjects.tagId} ORDER BY ${tagProjects.stars} DESC NULLS LAST, ${tagProjects.slug} ASC)`.as(
+        "rn",
+      ),
+    })
+    .from(tagProjects)
     .as("ranked");
 
   // Sub-query 3: From sub-query 2, keep only rows with rn <= topProjectsPerTag (top N projects per tag). Used in main query LEFT JOIN.
@@ -178,7 +230,10 @@ export async function findTagsWithProjects(
   const flatRows = await db
     .select({
       name: tagsWithCount.name,
+      id: tagsWithCount.id,
       code: tagsWithCount.code,
+      facet: tagsWithCount.facet,
+      parentTagId: tagsWithCount.parentTagId,
       createdAt: tagsWithCount.createdAt,
       description: tagsWithCount.description,
       count: tagsWithCount.count,
@@ -215,7 +270,10 @@ export async function findTagsWithProjects(
       }));
     return {
       name: first.name,
+      id: first.id,
       code: first.code,
+      facet: first.facet,
+      parentTagId: first.parentTagId,
       createdAt: first.createdAt,
       description: first.description,
       count: first.count,

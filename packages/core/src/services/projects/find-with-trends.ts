@@ -26,8 +26,15 @@ import {
   getWhereClauseSearchByText,
 } from "./find";
 
-const { projects, projectTrends, projectsToTags, repos, repoTrends, tags } =
-  schema;
+const {
+  projects,
+  projectTrends,
+  projectsToTags,
+  repos,
+  repoTrends,
+  tagClosure,
+  tags,
+} = schema;
 
 /**
  * Deprecated projects have no `repo_trends` row (deleted by the daily cleanup
@@ -51,7 +58,7 @@ const projectWithTrendsSelection = {
   logo: projects.logo,
   tags: sql<
     string[]
-  >`COALESCE(json_agg(distinct ${tags.code}) FILTER (WHERE ${tags.code} IS NOT NULL), '[]')`,
+  >`COALESCE(json_agg(distinct ${tags.code} order by ${tags.code}) FILTER (WHERE ${tags.code} IS NOT NULL), '[]')`,
   repo: {
     full_name: sql<string>`${repos.owner} || '/' || ${repos.name}`,
     owner_id: repos.owner_id,
@@ -294,7 +301,8 @@ function selectProjectsWithTrends(db: DB) {
     .leftJoin(projectTrends, eq(projectTrends.projectId, projects.id))
     .leftJoin(repoTrends, eq(repoTrends.repoId, repos.id))
     .leftJoin(projectsToTags, eq(projectsToTags.projectId, projects.id))
-    .leftJoin(tags, eq(projectsToTags.tagId, tags.id));
+    .leftJoin(tagClosure, eq(projectsToTags.tagId, tagClosure.descendantId))
+    .leftJoin(tags, eq(tagClosure.ancestorId, tags.id));
 }
 
 function getOrderByQuery(sort: TrendsSortKey) {
