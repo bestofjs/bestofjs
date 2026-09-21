@@ -8,6 +8,7 @@ import { buildMonthlyRankingsTask } from "./tasks/build-monthly-rankings.task";
 import { buildStaticApiTask } from "./tasks/build-static-api.task";
 import { checkTrendsQueriesTask } from "./tasks/check-trends-queries.task";
 import { cleanupRepoTrendsTask } from "./tasks/cleanup-repo-trends.task";
+import { exportTaggingCatalogTask } from "./tasks/export-tagging-catalog.task";
 import {
   helloWorldHallOfFameTask,
   helloWorldProjectsTask,
@@ -52,6 +53,7 @@ const commands = [
   cleanupRisingStars,
   fetchMissingSnapshotsTask,
   rebuildTagClosureTask,
+  exportTaggingCatalogTask,
 ].map(getCommand);
 
 const staticApiDailyTask = command(
