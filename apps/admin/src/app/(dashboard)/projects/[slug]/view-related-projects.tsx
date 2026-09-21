@@ -1,6 +1,6 @@
 import {
+  type DirectProjectDetails,
   findProjects,
-  type ProjectDetails,
 } from "@repo/core/services/projects";
 
 import { AddProjectToRepoButton } from "@/components/add-project-to-repo-button";
@@ -8,7 +8,7 @@ import { ProjectTable } from "@/components/project-table";
 import { projectService } from "@/db";
 
 type Props = {
-  project: ProjectDetails;
+  project: DirectProjectDetails;
 };
 
 export async function ViewRelatedProjects({ project }: Props) {

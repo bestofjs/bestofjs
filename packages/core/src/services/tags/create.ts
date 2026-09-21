@@ -3,6 +3,7 @@ import slugify from "slugify";
 
 import { db } from "../..";
 import * as schema from "../../schema";
+import { lockTagTaxonomy } from "./closure";
 
 export async function createTag(tagName: string) {
   const values = {
@@ -12,6 +13,7 @@ export async function createTag(tagName: string) {
   };
 
   return await db.transaction(async (tx) => {
+    await lockTagTaxonomy(tx);
     const [createdTag] = await tx
       .insert(schema.tags)
       .values(values)

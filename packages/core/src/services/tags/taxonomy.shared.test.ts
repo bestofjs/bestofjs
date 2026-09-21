@@ -51,6 +51,15 @@ describe("tag taxonomy", () => {
   it("rejects invalid source state before deriving closure rows", () => {
     expect(() =>
       buildTagClosure([
+        {
+          id: "invalid-root",
+          facet: "invalid" as TaxonomyTag["facet"],
+          parentTagId: null,
+        },
+      ]),
+    ).toThrow("Invalid tag facet");
+    expect(() =>
+      buildTagClosure([
         { id: "test", facet: "capability", parentTagId: null },
         { id: "automation", facet: "capability", parentTagId: "test" },
       ]),

@@ -2,7 +2,7 @@ import { countDistinct, eq } from "drizzle-orm";
 
 import { db } from "../..";
 import * as schema from "../../schema";
-import { rebuildTagClosure } from "./closure";
+import { lockTagTaxonomy, rebuildTagClosure } from "./closure";
 import { buildTagClosure, type TagFacet } from "./taxonomy.shared";
 
 export type EditableTagData = Omit<
@@ -28,6 +28,7 @@ export async function updateTagById(
 
 export async function setTagParent(tagId: string, parentTagId: string | null) {
   return await db.transaction(async (tx) => {
+    await lockTagTaxonomy(tx);
     const tags = await tx
       .select({
         id: schema.tags.id,
@@ -53,7 +54,16 @@ export async function setTagParent(tagId: string, parentTagId: string | null) {
 }
 
 export async function setTagFacet(tagId: string, facet: TagFacet | null) {
+  return await updateTagWithFacetById(tagId, { facet });
+}
+
+/** Atomically update ordinary tag fields and its guarded facet. */
+export async function updateTagWithFacetById(
+  tagId: string,
+  data: Partial<EditableTagData> & { facet: TagFacet | null },
+) {
   return await db.transaction(async (tx) => {
+    await lockTagTaxonomy(tx);
     const tags = await tx
       .select({
         id: schema.tags.id,
@@ -64,17 +74,18 @@ export async function setTagFacet(tagId: string, facet: TagFacet | null) {
     const tag = tags.find((item) => item.id === tagId);
     if (!tag) throw new Error(`Tag not found: ${tagId}`);
 
-    tag.facet = facet;
+    tag.facet = data.facet;
     buildTagClosure(tags);
     await tx
       .update(schema.tags)
-      .set({ facet, updatedAt: new Date() })
+      .set({ ...data, updatedAt: new Date() })
       .where(eq(schema.tags.id, tagId));
   });
 }
 
 export async function deleteTag(tagId: string) {
   return await db.transaction(async (tx) => {
+    await lockTagTaxonomy(tx);
     const children = await tx
       .select({ id: schema.tags.id })
       .from(schema.tags)
@@ -96,5 +107,8 @@ export async function deleteTag(tagId: string) {
 
 /** Repair/audit entry point for imports and restores. */
 export async function rebuildTagClosureIndex() {
-  return await db.transaction((tx) => rebuildTagClosure(tx));
+  return await db.transaction(async (tx) => {
+    await lockTagTaxonomy(tx);
+    return await rebuildTagClosure(tx);
+  });
 }

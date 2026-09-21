@@ -6,7 +6,7 @@ import { PlusIcon } from "lucide-react";
 import { toast } from "sonner";
 import { z } from "zod";
 
-import type { ProjectDetails } from "@repo/core/services/projects";
+import type { DirectProjectDetails } from "@repo/core/services/projects";
 
 import { Button, SubmitButton } from "@/components/ui/button";
 import {
@@ -31,7 +31,7 @@ const formSchema = z.object({
 });
 
 type Props = {
-  project: ProjectDetails;
+  project: DirectProjectDetails;
 };
 
 export function AddPackageButton({ project }: Props) {
@@ -53,7 +53,7 @@ export function AddPackageButton({ project }: Props) {
 }
 
 type DialogProps = {
-  project: ProjectDetails;
+  project: DirectProjectDetails;
   close: () => void;
 };
 

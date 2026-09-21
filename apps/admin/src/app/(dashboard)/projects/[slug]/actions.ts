@@ -1,6 +1,6 @@
 "use server";
 
-import { unstable_noStore as noStore, revalidatePath } from "next/cache";
+import { revalidatePath, revalidateTag } from "next/cache";
 
 import { createGitHubClient } from "@repo/api/github";
 import {
@@ -22,7 +22,6 @@ export async function updateProjectData(
   projectId: string,
   projectData: Partial<EditableProjectData>,
 ) {
-  noStore();
   await updateProjectById(projectId, projectData);
   revalidatePath(`/projects/${projectData.slug}`);
 }
@@ -33,6 +32,8 @@ export async function updateProjectTags(
   tagIds: string[],
 ) {
   await saveTags(projectId, tagIds);
+  revalidateTag("tags", { expire: 0 });
+  revalidatePath("/tags");
   revalidatePath(`/projects/${projectSlug}`);
 }
 

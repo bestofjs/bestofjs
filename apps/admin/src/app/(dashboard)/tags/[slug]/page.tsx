@@ -61,6 +61,7 @@ export default async function TagDetailsPage(props: PageProps) {
         <CardContent className="space-y-6">
           <ParentPicker
             tagId={tag.id}
+            tagCode={tag.code}
             parentTagId={tag.parentTagId}
             candidates={candidates}
           />

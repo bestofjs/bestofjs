@@ -8,7 +8,7 @@ import {
   setTagFacet,
   setTagParent,
   TAG_FACETS,
-  updateTagById,
+  updateTagWithFacetById,
 } from "@repo/core/services/tags";
 
 const facetSchema = z.enum(TAG_FACETS).nullable();
@@ -35,11 +35,11 @@ export async function createTag(tagName: string) {
 export async function updateTagData(tagId: string, input: unknown) {
   try {
     const data = tagDataSchema.parse(input);
-    await setTagFacet(tagId, data.facet);
-    await updateTagById(tagId, {
+    await updateTagWithFacetById(tagId, {
       name: data.name,
       code: data.code,
       description: data.description,
+      facet: data.facet,
     });
     revalidateTag("tags", { expire: 0 });
     revalidatePath("/tags");
@@ -62,12 +62,17 @@ export async function updateTagFacet(tagId: string, input: unknown) {
   }
 }
 
-export async function updateTagParent(tagId: string, input: unknown) {
+export async function updateTagParent(
+  tagId: string,
+  tagCode: string,
+  input: unknown,
+) {
   try {
     const parentTagId = z.string().nullable().parse(input);
     await setTagParent(tagId, parentTagId);
     revalidateTag("tags", { expire: 0 });
     revalidatePath("/tags");
+    revalidatePath(`/tags/${tagCode}`);
     return { error: null };
   } catch (error) {
     return { error: getErrorMessage(error) };

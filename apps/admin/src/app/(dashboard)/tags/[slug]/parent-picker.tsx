@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useTransition } from "react";
+import { useRouter } from "next/navigation";
 
 import { updateTagParent } from "@/actions/tags-actions";
 import { Field, FieldLabel } from "@/components/ui/field";
@@ -16,13 +17,16 @@ type ParentOption = { id: string; name: string; code: string };
 
 export function ParentPicker({
   tagId,
+  tagCode,
   parentTagId,
   candidates,
 }: {
   tagId: string;
+  tagCode: string;
   parentTagId: string | null;
   candidates: ParentOption[];
 }) {
+  const router = useRouter();
   const [error, setError] = useState<string | null>(null);
   const [isPending, startTransition] = useTransition();
 
@@ -37,9 +41,11 @@ export function ParentPicker({
           startTransition(async () => {
             const result = await updateTagParent(
               tagId,
+              tagCode,
               value === "none" ? null : value,
             );
             setError(result.error);
+            if (!result.error) router.refresh();
           });
         }}
       >

@@ -20,6 +20,10 @@ export type TagClosureRow = {
   depth: number;
 };
 
+export function isTagFacet(value: unknown): value is TagFacet {
+  return TAG_FACETS.some((facet) => facet === value);
+}
+
 /** A parent edge is subset inheritance, not similarity or co-occurrence. */
 export function isValidEdge(
   childFacet: TagFacet | null,
@@ -58,6 +62,9 @@ export function buildTagClosure(tags: TaxonomyTag[]): TagClosureRow[] {
   const byId = new Map(tags.map((tag) => [tag.id, tag]));
 
   for (const tag of tags) {
+    if (tag.facet !== null && !isTagFacet(tag.facet)) {
+      throw new Error(`Invalid tag facet for ${tag.id}: ${String(tag.facet)}`);
+    }
     if (!tag.parentTagId) continue;
     const parent = byId.get(tag.parentTagId);
     if (!parent) {
