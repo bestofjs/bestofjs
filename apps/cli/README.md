@@ -7,14 +7,15 @@ agent-operated workflows. Run all commands from the repository root:
 pnpm cli
 bun cli
 pnpm cli tagging --help
-pnpm cli tagging changes preview --json '{"schemaVersion":1,"operations":[]}'
+pnpm cli tagging changes --json '{"schemaVersion":1,"operations":[]}'
+pnpm cli tagging changes --dryRun --json ./tagging-changes.json
 ```
 
 The CLI loads `.env.development` by default. Set `STAGE` before the command to
 select another repository environment file:
 
 ```bash
-STAGE=production pnpm cli tagging changes preview --json plan.json
+STAGE=production pnpm cli tagging changes --json plan.json
 ```
 
 `STAGE` selects `.env.<stage>` before Bun starts, so database-backed commands
@@ -28,8 +29,8 @@ groups do not show help successfully by default, so the CLI has a generic
 argument adapter that recognizes discovered command-path prefixes and appends
 `--help`; unknown paths remain errors.
 
-The tagging commands currently validate a representative plan schema. The
+The tagging command currently validates a representative plan schema. The
 schema uses core's exported facet vocabulary to avoid duplicating domain
-values. Database-backed preview and apply are the next implementation step.
-Until then, preview reports only successful input validation, while apply
-performs no writes and exits 2.
+values. Database-backed execution is the next implementation step. Until then,
+the command performs no writes and exits 2. Like the backend task runner,
+normal execution will apply changes while `--dryRun` will only report them.

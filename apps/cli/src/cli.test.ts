@@ -8,11 +8,7 @@ const repositoryRoot = resolve(import.meta.dir, "../../..");
 const entryPoint = resolve(import.meta.dir, "cli.ts");
 
 describe("bare command groups", () => {
-  const commands = [
-    { path: ["tagging"] },
-    { path: ["tagging", "changes"] },
-    { path: ["tagging", "changes", "preview"] },
-  ];
+  const commands = [{ path: ["tagging"] }, { path: ["tagging", "changes"] }];
 
   it("turns the root and bare groups into help requests", () => {
     expect(showHelpForBareGroup([], commands)).toEqual(["--help"]);
@@ -20,17 +16,13 @@ describe("bare command groups", () => {
       "tagging",
       "--help",
     ]);
-    expect(showHelpForBareGroup(["tagging", "changes"], commands)).toEqual([
-      "tagging",
-      "changes",
-      "--help",
-    ]);
   });
 
   it("leaves leaf commands, options, and unknown commands unchanged", () => {
-    expect(
-      showHelpForBareGroup(["tagging", "changes", "preview"], commands),
-    ).toEqual(["tagging", "changes", "preview"]);
+    expect(showHelpForBareGroup(["tagging", "changes"], commands)).toEqual([
+      "tagging",
+      "changes",
+    ]);
     expect(showHelpForBareGroup(["tagging", "--help"], commands)).toEqual([
       "tagging",
       "--help",
@@ -44,7 +36,9 @@ describe("CLI process", () => {
     const [root, tagging, changes] = await Promise.all([
       captureProgramRun(await createCliRunOptions([])),
       captureProgramRun(await createCliRunOptions(["tagging"])),
-      captureProgramRun(await createCliRunOptions(["tagging", "changes"])),
+      captureProgramRun(
+        await createCliRunOptions(["tagging", "changes", "--help"]),
+      ),
     ]);
 
     expect(root.exitCode).toBe(0);
@@ -52,23 +46,24 @@ describe("CLI process", () => {
     expect(tagging.exitCode).toBe(0);
     expect(tagging.stdout).toContain("changes");
     expect(changes.exitCode).toBe(0);
-    expect(changes.stdout).toContain("preview");
-    expect(changes.stdout).toContain("apply");
+    expect(changes.stdout).toContain("--dryRun");
   });
 
-  it("parses a typed inline plan", () => {
+  it("parses a typed inline plan in dry-run mode", () => {
     const result = runCli([
       "tagging",
       "changes",
-      "preview",
+      "--dryRun",
       "--json",
       '{"schemaVersion":1,"operations":[]}',
     ]);
 
-    expect(result.exitCode).toBe(0);
+    expect(result.exitCode).toBe(2);
     expect(JSON.parse(result.stdout)).toMatchObject({
-      status: "validated",
+      status: "not-implemented",
+      dryRun: true,
       databaseConnected: false,
+      applied: false,
       operationCount: 0,
     });
   });
@@ -77,7 +72,6 @@ describe("CLI process", () => {
     const stageOption = runCli([
       "tagging",
       "changes",
-      "preview",
       "--stage",
       "staging",
       "--json",
@@ -93,17 +87,17 @@ describe("CLI process", () => {
     expect(command.stderr).toContain("Error:");
   });
 
-  it("keeps unimplemented apply non-mutating and non-successful", () => {
+  it("keeps unimplemented execution non-mutating and non-successful", () => {
     const result = runCli([
       "tagging",
       "changes",
-      "apply",
       "--json",
       '{"schemaVersion":1,"operations":[]}',
     ]);
 
     expect(result.exitCode).toBe(2);
     expect(JSON.parse(result.stdout)).toMatchObject({
+      dryRun: false,
       databaseConnected: false,
       applied: false,
     });
