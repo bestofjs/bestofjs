@@ -89,7 +89,7 @@ These tags refine and categorize projects beyond the general `ai` tag:
 
 - Pure API clients (e.g., OpenAI Node API, MCP-SDK)
 - HuggingFace.js (API wrapper without orchestration)
-- Coding agents themselves (e.g., Tura, Pi, Cline, OpenCode, Gemini CLI) — these are end-user agent _products_, not frameworks to build or orchestrate agents. Use `coding-agent` for those.
+- Coding agents themselves (e.g., Tura, Pi, Cline, OpenCode, Gemini CLI) — these are end-user agent _products_, not frameworks to build or orchestrate agents. Use `ai-coding-agent` for those.
 
 ---
 
@@ -117,11 +117,11 @@ These tags refine and categorize projects beyond the general `ai` tag:
 - IDEs with AI assistance (e.g., Void - these help you write code, not generate complete apps)
 - Code completion tools (these assist, not generate full apps)
 - Agent frameworks (these orchestrate AI logic, not build apps)
-- Coding agents (e.g., Cline, OpenCode, Gemini CLI) — these edit existing repos, not generate greenfield apps. Use `coding-agent` for those.
+- Coding agents (e.g., Cline, OpenCode, Gemini CLI) — these edit existing repos, not generate greenfield apps. Use `ai-coding-agent` for those.
 
 ---
 
-### `coding-agent`
+### `ai-coding-agent`
 
 **Description:** End-user AI agent products that operate inside an existing codebase or developer environment to perform multi-step coding work: editing files, running shell/build/test commands, fixing bugs, refactoring, and agentic repo-level loops. Delivered as CLI, TUI, IDE extension, or SDK.
 
@@ -142,18 +142,18 @@ These tags refine and categorize projects beyond the general `ai` tag:
 - **Gemini CLI**: Open-source AI agent that brings Gemini into the terminal
 - **Aider**, **Continue**, **Codex CLI**, **Goose**, **OpenHands**, **Roo Code**, **Crush**, **Sweep**, **PR-Agent**: canonical coding agents in the ecosystem
 
-**What is NOT `coding-agent`:**
+**What is NOT `ai-coding-agent`:**
 
 - `ai-builder` — greenfield prompt → complete runnable app (deps + runtime + preview + deploy). Output is a _new app_, not changes to existing code.
 - `ai-agents` — frameworks to _build_ agents, or orchestrators that _run/race/review_ multiple agents (e.g., Claudexor). A coding agent is the thing being orchestrated, not the orchestrator.
-- `ide` — AI-augmented editors (e.g., Void, Cursor, Zed). If the product is primarily an editor, tag `ide`; if primarily an agent delivered as CLI/extension/SDK, tag `coding-agent`.
+- `ide` — AI-augmented editors (e.g., Void, Cursor, Zed). If the product is primarily an editor, tag `ide`; if primarily an agent delivered as CLI/extension/SDK, tag `ai-coding-agent`.
 - `ml` — coding agents call LLM APIs; they don't train or infer models themselves.
 
 **Boundary tests:**
 
-- _vs `ai-builder`_: Does it primarily generate a complete new app from a prompt (→ `ai-builder`), or primarily edit/repair an existing repo with agentic loops (→ `coding-agent`)?
-- _vs `ide`_: Is the product primarily an editor (→ `ide`), or primarily an agent that plugs into your existing editor or runs standalone (→ `coding-agent`)?
-- _vs `ai-agents`_: Is it an end-user agent product (→ `coding-agent`), or a framework to build agents / an orchestrator that manages multiple agents (→ `ai-agents`)?
+- _vs `ai-builder`_: Does it primarily generate a complete new app from a prompt (→ `ai-builder`), or primarily edit/repair an existing repo with agentic loops (→ `ai-coding-agent`)?
+- _vs `ide`_: Is the product primarily an editor (→ `ide`), or primarily an agent that plugs into your existing editor or runs standalone (→ `ai-coding-agent`)?
+- _vs `ai-agents`_: Is it an end-user agent product (→ `ai-coding-agent`), or a framework to build agents / an orchestrator that manages multiple agents (→ `ai-agents`)?
 
 ---
 
@@ -221,8 +221,8 @@ Only create new AI sub-tags when:
 
 These existing tags frequently combine with `ai`:
 
-- `api-wrapper` (being renamed to `sdk`) - API clients and SDKs for AI services
-- `auto` - Automation tools
+- `sdk` - API clients and SDKs for AI services
+- `automation` - Browser automation tools
 - `bot` - Chatbots and conversational AI
 - `chat` - Chat/conversational interfaces
 - `component` - UI components
