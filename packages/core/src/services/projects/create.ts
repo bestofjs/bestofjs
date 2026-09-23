@@ -2,12 +2,11 @@
 
 import { eq } from "drizzle-orm";
 import { nanoid } from "nanoid";
-import slugify from "slugify";
 import { z } from "zod";
 
 import { db } from "../..";
 import * as schema from "../../schema";
-import { generateProjectDefaultSlug } from "./project-helpers";
+import { generateDefaultSlug } from "../../shared-schemas";
 
 /** Add a new project (and its related repository) from a modal in Admin app  */
 export async function createProject(gitHubURL: string) {
@@ -15,9 +14,9 @@ export async function createProject(gitHubURL: string) {
   const repoData = await fetchGitHubRepoData(fullName);
 
   const repoId = nanoid();
-  const generatedSlug = generateProjectDefaultSlug(repoData.name);
+  const generatedSlug = generateDefaultSlug(repoData.name);
   const isSlugAvailable = await checkIfSlugIsAvailable(generatedSlug);
-  const slug = isSlugAvailable ? generatedSlug : `${generatedSlug}-FIXME`;
+  const slug = isSlugAvailable ? generatedSlug : `${generatedSlug}-fixme`;
 
   const createdProjects = await db.transaction(async (tx) => {
     await tx.insert(schema.repos).values({ id: repoId, ...repoData });
@@ -88,7 +87,7 @@ export async function addProjectToRepo({
       repoId,
       name,
       description,
-      slug: slugify(name).toLowerCase(),
+      slug: generateDefaultSlug(name),
       status: "active",
     })
     .returning();

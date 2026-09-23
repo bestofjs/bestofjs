@@ -3,6 +3,7 @@ import { z } from "zod";
 
 import type { DB } from "../..";
 import * as schema from "../../schema";
+import { projectSlugSchema, tagCodeSchema } from "../../shared-schemas";
 import { TAG_FACETS } from "./taxonomy.shared";
 import { type TagUpdateData, updateTagWithTaxonomy } from "./update";
 
@@ -10,14 +11,14 @@ const facetSchema = z.enum(TAG_FACETS);
 
 const updateTagOperationSchema = z.object({
   operation: z.literal("update-tag"),
-  code: z.string().trim().min(1),
+  code: tagCodeSchema,
   set: z
     .object({
       name: z.string().trim().min(1).optional(),
       description: z.string().nullable().optional(),
       aliases: z.array(z.string().trim().min(1)).nullable().optional(),
       facet: facetSchema.nullable().optional(),
-      parentCode: z.string().trim().min(1).nullable().optional(),
+      parentCode: tagCodeSchema.nullable().optional(),
     })
     .refine((value) => Object.keys(value).length > 0, {
       message: "At least one tag field must be supplied",
@@ -26,14 +27,14 @@ const updateTagOperationSchema = z.object({
 
 const addProjectTagsOperationSchema = z.object({
   operation: z.literal("add-project-tags"),
-  project: z.string().trim().min(1),
-  tags: z.array(z.string().trim().min(1)).min(1),
+  project: projectSlugSchema,
+  tags: z.array(tagCodeSchema).min(1),
 });
 
 const removeProjectTagsOperationSchema = z.object({
   operation: z.literal("remove-project-tags"),
-  project: z.string().trim().min(1),
-  tags: z.array(z.string().trim().min(1)).min(1),
+  project: projectSlugSchema,
+  tags: z.array(tagCodeSchema).min(1),
 });
 
 export const taggingPlanSchema = z.object({
