@@ -13,5 +13,5 @@ understand the tagging model and review taxonomy changes:
   proposal and its unresolved classifications.
 - Read [domains/ai.md](./domains/ai.md) when classifying AI-related projects.
 - Use `catalog.json` as generated evidence of the curated catalog. Generate it
-  with `pnpm -F backend export-tagging-catalog`. The database remains the source
-  of truth; never edit the catalog manually.
+  with `pnpm cli tagging export-catalog`. The database remains the source of
+  truth; never edit the catalog manually.
