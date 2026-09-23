@@ -9,6 +9,7 @@ import { toast } from "sonner";
 import { z } from "zod";
 
 import { PROJECT_STATUSES } from "@repo/core/constants";
+import { projectSlugSchema } from "@repo/core/shared-schemas";
 
 import { buttonVariants, SubmitButton } from "@/components/ui/button";
 import {
@@ -40,7 +41,7 @@ import { updateProjectData } from "../actions";
 
 const formSchema = z.object({
   name: z.string().min(2).max(50),
-  slug: z.string().min(1),
+  slug: projectSlugSchema,
   description: z.string().min(10).max(500),
   overrideDescription: z.boolean().nullable(),
   url: z.url().or(z.literal("")).nullable(),

@@ -1,15 +1,15 @@
 import { nanoid } from "nanoid";
-import slugify from "slugify";
 
 import { db } from "../..";
 import * as schema from "../../schema";
+import { generateDefaultTagCode } from "../../shared-schemas";
 import { lockTagTaxonomy } from "./closure";
 
 export async function createTag(tagName: string) {
   const values = {
     id: nanoid(),
     name: tagName,
-    code: slugify(tagName).toLowerCase(),
+    code: generateDefaultTagCode(tagName),
   };
 
   return await db.transaction(async (tx) => {

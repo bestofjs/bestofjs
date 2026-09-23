@@ -1,8 +1,8 @@
 import { eq } from "drizzle-orm";
-import slugify from "slugify";
 
 import { DB } from "../src/index";
 import * as schema from "../src/schema";
+import { generateDefaultSlug } from "../src/shared-schemas";
 import {
   fetchAllProjects,
   fetchFeaturedProjects,
@@ -106,7 +106,7 @@ function getId(doc: MongoProject) {
 }
 
 export function getProjectSlug(project: MongoProject) {
-  return slugify(project.name, { lower: true, remove: /[.'/]/g });
+  return generateDefaultSlug(project.name);
 }
 
 function getProjectRecord(project: MongoProject) {

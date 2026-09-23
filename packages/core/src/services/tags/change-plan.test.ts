@@ -4,10 +4,47 @@ import { beforeAll, describe, expect, it } from "bun:test";
 type ChangePlanModule = typeof import("./change-plan");
 
 let runTaggingPlan: ChangePlanModule["runTaggingPlan"];
+let taggingPlanSchema: ChangePlanModule["taggingPlanSchema"];
 
 beforeAll(async () => {
   process.env.POSTGRES_URL ??= "postgresql://test:test@localhost:5432/test";
-  ({ runTaggingPlan } = await import("./change-plan"));
+  ({ runTaggingPlan, taggingPlanSchema } = await import("./change-plan"));
+});
+
+describe("taggingPlanSchema", () => {
+  it("rejects invalid project slugs and tag codes", () => {
+    const invalidPlans = [
+      {
+        operation: "update-tag",
+        code: "SSE",
+        set: { name: "Server-sent events" },
+      },
+      {
+        operation: "update-tag",
+        code: "sse",
+        set: { parentCode: "node.js" },
+      },
+      {
+        operation: "add-project-tags",
+        project: "Pongo",
+        tags: ["database"],
+      },
+      {
+        operation: "remove-project-tags",
+        project: "pongo",
+        tags: ["node.js"],
+      },
+    ];
+
+    for (const operation of invalidPlans) {
+      expect(
+        taggingPlanSchema.safeParse({
+          schemaVersion: 1,
+          operations: [operation],
+        }).success,
+      ).toBe(false);
+    }
+  });
 });
 
 describe("runTaggingPlan", () => {
