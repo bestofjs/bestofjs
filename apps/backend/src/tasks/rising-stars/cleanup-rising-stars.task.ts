@@ -3,10 +3,8 @@ import fs from "fs-extra";
 import pMap from "p-map";
 import { z } from "zod";
 
-import {
-  generateProjectDefaultSlug,
-  ProjectService,
-} from "@repo/core/services/projects";
+import { ProjectService } from "@repo/core/services/projects";
+import { generateDefaultSlug } from "@repo/core/shared-schemas";
 
 import { createTask } from "@/task-runner";
 
@@ -62,7 +60,7 @@ export const cleanupRisingStars = createTask({
     return { data: null, meta: { processed: projects.length, errors } };
 
     async function getProjectData(project: RisingStarsEntry) {
-      const slug = project.slug || generateProjectDefaultSlug(project.name);
+      const slug = project.slug || generateDefaultSlug(project.name);
       const foundRecord = await service.getProjectBySlug(slug);
       if (!foundRecord) {
         logger.warn("Record not found", slug);

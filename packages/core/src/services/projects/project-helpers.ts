@@ -1,5 +1,4 @@
 import isAbsoluteURL from "is-absolute-url";
-import slugify from "slugify";
 import invariant from "tiny-invariant";
 
 import { TAGS_EXCLUDED_FROM_RANKINGS } from "../../constants";
@@ -123,10 +122,6 @@ export function isProjectIncludedInRankings(
     project.tags.map((tag) => tag.code).includes(tagCode),
   );
   return !hasExcludedTag;
-}
-
-export function generateProjectDefaultSlug(name: string) {
-  return slugify(name).toLowerCase().replaceAll(".", "").replaceAll("'", "");
 }
 
 export function isGPLProject(project: ProjectDetails) {

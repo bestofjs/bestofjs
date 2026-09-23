@@ -10,11 +10,12 @@ import {
   TAG_FACETS,
   updateTagWithFacetById,
 } from "@repo/core/services/tags";
+import { tagCodeSchema } from "@repo/core/shared-schemas";
 
 const facetSchema = z.enum(TAG_FACETS).nullable();
 const tagDataSchema = z.object({
   name: z.string().trim().min(1),
-  code: z.string().trim().toLowerCase().min(1),
+  code: tagCodeSchema,
   description: z.string().nullable(),
   facet: facetSchema,
 });

@@ -8,6 +8,7 @@ import { z } from "zod";
 
 import type { getTagBySlug } from "@repo/core/services/tags";
 import { TAG_FACETS } from "@repo/core/services/tags/taxonomy";
+import { tagCodeSchema } from "@repo/core/shared-schemas";
 
 import { updateTagData } from "@/actions/tags-actions";
 import { Alert, AlertDescription } from "@/components/ui/alert";
@@ -32,7 +33,7 @@ import { Textarea } from "@/components/ui/textarea";
 
 const formSchema = z.object({
   name: z.string(),
-  code: z.string().toLowerCase().trim(),
+  code: tagCodeSchema,
   description: z.string().nullable(),
   facet: z.enum(TAG_FACETS).nullable(),
 });

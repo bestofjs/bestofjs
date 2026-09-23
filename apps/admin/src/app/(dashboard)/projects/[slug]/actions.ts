@@ -10,6 +10,7 @@ import {
   saveTags,
   updateProjectById,
 } from "@repo/core/services/projects";
+import { projectSlugSchema } from "@repo/core/shared-schemas";
 
 import { snapshotsService } from "@/db";
 
@@ -22,6 +23,9 @@ export async function updateProjectData(
   projectId: string,
   projectData: Partial<EditableProjectData>,
 ) {
+  if (projectData.slug !== undefined) {
+    projectData.slug = projectSlugSchema.parse(projectData.slug);
+  }
   await updateProjectById(projectId, projectData);
   revalidatePath(`/projects/${projectData.slug}`);
 }
