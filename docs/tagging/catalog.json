@@ -9,13 +9,6 @@
       "parentCode": null
     },
     {
-      "code": "SSE",
-      "name": "Server-Side Events",
-      "description": null,
-      "facet": null,
-      "parentCode": null
-    },
-    {
       "code": "access",
       "name": "Accessibility",
       "description": "Tools to help with accessibility concerns",
@@ -1024,13 +1017,6 @@
       "parentCode": null
     },
     {
-      "code": "node.js",
-      "name": "Node.js core",
-      "description": "",
-      "facet": null,
-      "parentCode": null
-    },
-    {
       "code": "nodejs-framework",
       "name": "Node.js framework",
       "description": "Tools that abstract client-server interactions for the developer, so they can focus on their own API and routes rather than handling the network layer itself",
@@ -1482,6 +1468,13 @@
       "parentCode": null
     },
     {
+      "code": "sse",
+      "name": "Server-Side Events",
+      "description": "",
+      "facet": null,
+      "parentCode": null
+    },
+    {
       "code": "ssg",
       "name": "Static site generator",
       "description": "",
@@ -1882,80 +1875,6 @@
         "component",
         "react",
         "tailwind"
-      ]
-    },
-    {
-      "slug": "@shopifyrestyle",
-      "name": "@shopify/restyle",
-      "description": "A type-enforced system for building UI components in React Native with TypeScript. ",
-      "repository": "Shopify/restyle",
-      "status": "active",
-      "directTags": [
-        "css-in-js",
-        "design-system",
-        "react-native"
-      ]
-    },
-    {
-      "slug": "@xataioscreenshot",
-      "name": "@xata.io/screenshot",
-      "description": "A zero-dependency browser-native way to take screenshots powered by the native web MediaDevices API.",
-      "repository": "xataio/screenshot",
-      "status": "active",
-      "directTags": [
-        "screenshot"
-      ]
-    },
-    {
-      "slug": "Fraction.js",
-      "name": "Fraction.js",
-      "description": "A rational numbers library written in JavaScript",
-      "repository": "rawify/Fraction.js",
-      "status": "active",
-      "directTags": [
-        "math"
-      ]
-    },
-    {
-      "slug": "LlamaIndexTS",
-      "name": "LlamaIndexTS",
-      "description": "LlamaIndex in TypeScript",
-      "repository": "run-llama/LlamaIndexTS",
-      "status": "active",
-      "directTags": [
-        "ai",
-        "ai-agents"
-      ]
-    },
-    {
-      "slug": "Pongo",
-      "name": "Pongo",
-      "description": "Mongo but on Postgres and with strong consistency benefits",
-      "repository": "event-driven-io/Pongo",
-      "status": "active",
-      "directTags": [
-        "db",
-        "mongodb"
-      ]
-    },
-    {
-      "slug": "VMPrint",
-      "name": "VMPrint",
-      "description": "A pure-JS, tiny typesetting engine with bit-perfect PDF output on everything—from Cloudflare Workers to the browser. No more Headless Chrome to just print text. AND -- try the static demos on the home page below and see for yourself.",
-      "repository": "cosmiciron/vmprint",
-      "status": "active",
-      "directTags": [
-        "font"
-      ]
-    },
-    {
-      "slug": "_deprecated_arjs",
-      "name": "_deprecated_AR.js",
-      "description": "Efficient Augmented Reality for the Web - 60fps on mobile!",
-      "repository": "jeromeetienne/AR.js",
-      "status": "deprecated",
-      "directTags": [
-        "virtual"
       ]
     },
     {
@@ -3200,7 +3119,7 @@
       ]
     },
     {
-      "slug": "are-the-types-wrong?",
+      "slug": "are-the-types-wrong",
       "name": "Are the types wrong?",
       "description": "Tool for analyzing TypeScript types of npm packages",
       "repository": "arethetypeswrong/arethetypeswrong.github.io",
@@ -3238,6 +3157,16 @@
       "description": "Image tracking, Location Based AR, Marker tracking. All on the Web.",
       "repository": "AR-js-org/AR.js",
       "status": "active",
+      "directTags": [
+        "virtual"
+      ]
+    },
+    {
+      "slug": "arjs-deprecated",
+      "name": "_deprecated_AR.js",
+      "description": "Efficient Augmented Reality for the Web - 60fps on mobile!",
+      "repository": "jeromeetienne/AR.js",
+      "status": "deprecated",
       "directTags": [
         "virtual"
       ]
@@ -3768,7 +3697,7 @@
       ]
     },
     {
-      "slug": "awejs_deprecated",
+      "slug": "awejs-deprecated",
       "name": "awe.js_DEPRECATED",
       "description": "The jQuery for the Augmented Web",
       "repository": "buildar/awe.js",
@@ -4346,8 +4275,8 @@
       "repository": "MatthewWid/better-sse",
       "status": "active",
       "directTags": [
-        "SSE",
-        "realtime"
+        "realtime",
+        "sse"
       ]
     },
     {
@@ -6843,7 +6772,7 @@
       ]
     },
     {
-      "slug": "colorsjs_deprecated",
+      "slug": "colorsjs-deprecated",
       "name": "colors.js_DEPRECATED",
       "description": "get colors in your node.js console ",
       "repository": "Marak/colors.js",
@@ -8781,7 +8710,7 @@
       ]
     },
     {
-      "slug": "dojo-core-(deprecated)",
+      "slug": "dojo-core-deprecated",
       "name": "Dojo-core (deprecated)",
       "description": "A Progressive Framework for Modern Web Apps ",
       "repository": "dojo/core",
@@ -12017,6 +11946,16 @@
       "directTags": [
         "fp",
         "util"
+      ]
+    },
+    {
+      "slug": "fraction.js",
+      "name": "Fraction.js",
+      "description": "A rational numbers library written in JavaScript",
+      "repository": "rawify/Fraction.js",
+      "status": "active",
+      "directTags": [
+        "math"
       ]
     },
     {
@@ -15491,7 +15430,7 @@
       ]
     },
     {
-      "slug": "istanbul_moved",
+      "slug": "istanbul-moved",
       "name": "Istanbul_MOVED",
       "description": "Yet another JS code coverage tool that computes statement, line, function and branch coverage with module loader hooks to transparently add coverage when running tests. Supports all JS coverage use cases including unit tests, server side functional tests and browser tests. Built for scale.",
       "repository": "gotwarlost/istanbul",
@@ -17889,6 +17828,17 @@
         "db",
         "realtime",
         "state"
+      ]
+    },
+    {
+      "slug": "llamaindex-ts",
+      "name": "LlamaIndexTS",
+      "description": "LlamaIndex in TypeScript",
+      "repository": "run-llama/LlamaIndexTS",
+      "status": "active",
+      "directTags": [
+        "ai",
+        "ai-agents"
       ]
     },
     {
@@ -23850,7 +23800,7 @@
       ]
     },
     {
-      "slug": "paperclip-DEPRECATED",
+      "slug": "paperclip-deprecated",
       "name": "Paperclip-DEPRECATED",
       "description": "Build UIs at the speed of thought",
       "repository": "paperclip-ui/paperclip",
@@ -25170,6 +25120,17 @@
       ]
     },
     {
+      "slug": "pongo",
+      "name": "Pongo",
+      "description": "Mongo but on Postgres and with strong consistency benefits",
+      "repository": "event-driven-io/Pongo",
+      "status": "active",
+      "directTags": [
+        "db",
+        "mongodb"
+      ]
+    },
+    {
       "slug": "poolifier",
       "name": "Poolifier",
       "description": "Fast and small Node.js worker_threads and cluster worker pool",
@@ -26464,7 +26425,7 @@
       ]
     },
     {
-      "slug": "ran!",
+      "slug": "ran",
       "name": "RAN!",
       "description": "RAN! React . Apollo (GraphQL) . Next.js Boilerplate ⚡️ - SEO-Ready, Production-Ready, SSR, Hot-Reload, CSS-in-JS, Caching and more...",
       "repository": "Sly777/ran",
@@ -26636,16 +26597,6 @@
       "status": "active",
       "directTags": [
         "regexp"
-      ]
-    },
-    {
-      "slug": "re:dom",
-      "name": "RE:DOM",
-      "description": "Tiny turboboosted JavaScript library for creating user interfaces. 100 % test coverage! ",
-      "repository": "redom/redom",
-      "status": "active",
-      "directTags": [
-        "framework"
       ]
     },
     {
@@ -29422,7 +29373,7 @@
       ]
     },
     {
-      "slug": "reasoninkclack",
+      "slug": "reasonink-clack",
       "name": "@reasonink/clack",
       "description": "A modern keyboard shortcut library written in Typescript",
       "repository": "ulisesantana/clack",
@@ -29587,6 +29538,16 @@
       ]
     },
     {
+      "slug": "redom",
+      "name": "RE:DOM",
+      "description": "Tiny turboboosted JavaScript library for creating user interfaces. 100 % test coverage! ",
+      "repository": "redom/redom",
+      "status": "active",
+      "directTags": [
+        "framework"
+      ]
+    },
+    {
       "slug": "redux",
       "name": "Redux",
       "description": "Atomic Flux with hot reloading",
@@ -29594,6 +29555,7 @@
       "status": "featured",
       "directTags": [
         "flux",
+        "react",
         "redux",
         "state"
       ]
@@ -30058,7 +30020,7 @@
       ]
     },
     {
-      "slug": "release-it!",
+      "slug": "release-it",
       "name": "Release it!",
       "description": "Automate versioning and package publishing-related tasks",
       "repository": "release-it/release-it",
@@ -30828,7 +30790,7 @@
       "repository": "Bewinxed/river.ts",
       "status": "active",
       "directTags": [
-        "SSE"
+        "sse"
       ]
     },
     {
@@ -32271,6 +32233,18 @@
       "directTags": [
         "component",
         "webcomponent"
+      ]
+    },
+    {
+      "slug": "shopify-restyle",
+      "name": "@shopify/restyle",
+      "description": "A type-enforced system for building UI components in React Native with TypeScript. ",
+      "repository": "Shopify/restyle",
+      "status": "active",
+      "directTags": [
+        "css-in-js",
+        "design-system",
+        "react-native"
       ]
     },
     {
@@ -38931,6 +38905,16 @@
       ]
     },
     {
+      "slug": "vmprint",
+      "name": "VMPrint",
+      "description": "A pure-JS, tiny typesetting engine with bit-perfect PDF output on everything—from Cloudflare Workers to the browser. No more Headless Chrome to just print text. AND -- try the static demos on the home page below and see for yourself.",
+      "repository": "cosmiciron/vmprint",
+      "status": "active",
+      "directTags": [
+        "font"
+      ]
+    },
+    {
       "slug": "voca",
       "name": "Voca",
       "description": "The ultimate JavaScript string library",
@@ -39847,9 +39831,9 @@
       "repository": "jcubic/wayne",
       "status": "promoted",
       "directTags": [
-        "SSE",
         "routing",
-        "serviceworker"
+        "serviceworker",
+        "sse"
       ]
     },
     {
@@ -40591,6 +40575,16 @@
       ]
     },
     {
+      "slug": "xata-io-screenshot",
+      "name": "@xata.io/screenshot",
+      "description": "A zero-dependency browser-native way to take screenshots powered by the native web MediaDevices API.",
+      "repository": "xataio/screenshot",
+      "status": "active",
+      "directTags": [
+        "screenshot"
+      ]
+    },
+    {
       "slug": "xior",
       "name": "xior",
       "description": "A liteweight fetch wrapper with plugins support and similar API to axios.",
@@ -40764,7 +40758,7 @@
       ]
     },
     {
-      "slug": "yarn-classic-(v1)",
+      "slug": "yarn-classic-v1",
       "name": "Yarn Classic (v1)",
       "description": "Fast, reliable, and secure dependency management for JavaScript (The 1.x line is frozen)",
       "repository": "yarnpkg/yarn",
