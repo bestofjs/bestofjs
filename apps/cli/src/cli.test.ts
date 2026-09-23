@@ -1,6 +1,7 @@
 import { resolve } from "node:path";
 import { captureProgramRun } from "@optique/testing/discover";
 
+import { getCatalogPath } from "./commands/tagging/export-catalog";
 import { createCliRunOptions, showHelpForBareGroup } from "./run-cli";
 import { describe, expect, it } from "bun:test";
 
@@ -34,6 +35,14 @@ describe("bare command groups", () => {
   });
 });
 
+describe("tagging export-catalog", () => {
+  it("writes to the repository-relative catalog path", () => {
+    expect(getCatalogPath(repositoryRoot)).toBe(
+      resolve(repositoryRoot, "docs/tagging/catalog.json"),
+    );
+  });
+});
+
 describe("CLI process", () => {
   it("shows root and nested discovery with database configuration", async () => {
     const [root, tagging, changes] = await Promise.all([
@@ -59,7 +68,7 @@ describe("CLI process", () => {
       "--stage",
       "staging",
       "--json",
-      '{"schemaVersion":1,"operations":[]}',
+      '{"ops":[]}',
     ]);
     const command = await captureProgramRun(
       await createCliRunOptions(["unknown"]),
@@ -72,18 +81,13 @@ describe("CLI process", () => {
   });
 
   it("applies an empty plan successfully by default", () => {
-    const result = runCli([
-      "tagging",
-      "changes",
-      "--json",
-      '{"schemaVersion":1,"operations":[]}',
-    ]);
+    const result = runCli(["tagging", "changes", "--json", '{"ops":[]}']);
 
     expect(result.exitCode).toBe(0);
     expect(JSON.parse(result.stdout)).toMatchObject({
       status: "applied",
       summary: { changed: 0, unchanged: 0 },
-      operations: [],
+      ops: [],
     });
   });
 });
