@@ -32,9 +32,9 @@ describe("runTaggingPlan", () => {
       { db },
       {
         schemaVersion: 1,
-        operations: [
+        ops: [
           {
-            operation: "update-tag",
+            op: "update-tag",
             code: "optic",
             set: { facet: "ecosystem" },
           },
@@ -44,10 +44,10 @@ describe("runTaggingPlan", () => {
 
     expect(result).toEqual({
       summary: { changed: 0, unchanged: 1 },
-      operations: [
+      ops: [
         {
           index: 0,
-          operation: "update-tag",
+          op: "update-tag",
           target: "optic",
           status: "unchanged",
         },
@@ -84,9 +84,9 @@ describe("runTaggingPlan", () => {
       { db },
       {
         schemaVersion: 1,
-        operations: [
+        ops: [
           {
-            operation: "add-project-tags",
+            op: "add-project-tags",
             project: "optic",
             tags: ["web-development", "typescript", "typescript"],
           },
@@ -95,7 +95,7 @@ describe("runTaggingPlan", () => {
     );
 
     expect(inserted).toEqual([{ projectId: "project-1", tagId: "tag-2" }]);
-    expect(result.operations[0]).toMatchObject({
+    expect(result.ops[0]).toMatchObject({
       status: "added",
       tags: ["typescript"],
     });
@@ -132,9 +132,9 @@ describe("runTaggingPlan", () => {
     } as unknown as DB;
     const plan = {
       schemaVersion: 1 as const,
-      operations: [
+      ops: [
         {
-          operation: "remove-project-tags" as const,
+          op: "remove-project-tags" as const,
           project: "optic",
           tags: ["web-development", "typescript", "web-development"],
         },
@@ -145,17 +145,17 @@ describe("runTaggingPlan", () => {
     const secondResult = await runTaggingPlan({ db }, plan);
 
     expect(deletionCount).toBe(1);
-    expect(firstResult.operations[0]).toMatchObject({
+    expect(firstResult.ops[0]).toMatchObject({
       status: "removed",
       tags: ["web-development"],
     });
-    expect(secondResult.operations[0]).toMatchObject({
+    expect(secondResult.ops[0]).toMatchObject({
       status: "unchanged",
       tags: [],
     });
   });
 
-  it("keeps completed operations when a later operation fails", async () => {
+  it("keeps completed ops when a later op fails", async () => {
     const inserted: unknown[] = [];
     let projectLookupCount = 0;
     const db = {
@@ -185,14 +185,14 @@ describe("runTaggingPlan", () => {
       { db },
       {
         schemaVersion: 1,
-        operations: [
+        ops: [
           {
-            operation: "add-project-tags",
+            op: "add-project-tags",
             project: "optic",
             tags: ["typescript"],
           },
           {
-            operation: "add-project-tags",
+            op: "add-project-tags",
             project: "missing",
             tags: ["typescript"],
           },
