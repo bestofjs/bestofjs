@@ -21,6 +21,7 @@
     "./shared-schemas": "./src/shared-schemas.ts",
     "./services/projects": "./src/services/projects/index.ts",
     "./services/tags": "./src/services/tags/index.ts",
+    "./services/tags/change-plan": "./src/services/tags/change-plan.ts",
     "./services/tags/taxonomy": "./src/services/tags/taxonomy.shared.ts",
     "./services/snapshots": "./src/services/snapshots/index.ts",
     "./services/hall-of-fame": "./src/services/hall-of-fame/index.ts",
