@@ -1,6 +1,7 @@
 import { resolve } from "node:path";
 import { captureProgramRun } from "@optique/testing/discover";
 
+import { getCatalogPath } from "./commands/tagging/export-catalog";
 import { createCliRunOptions, showHelpForBareGroup } from "./run-cli";
 import { describe, expect, it } from "bun:test";
 
@@ -31,6 +32,14 @@ describe("bare command groups", () => {
       "--help",
     ]);
     expect(showHelpForBareGroup(["unknown"], commands)).toEqual(["unknown"]);
+  });
+});
+
+describe("tagging export-catalog", () => {
+  it("writes to the repository-relative catalog path", () => {
+    expect(getCatalogPath(repositoryRoot)).toBe(
+      resolve(repositoryRoot, "docs/tagging/catalog.json"),
+    );
   });
 });
 

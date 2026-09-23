@@ -10,10 +10,11 @@ import { PROJECT_STATUSES } from "@repo/core/constants";
 import { eq } from "@repo/core/drizzle";
 import { TAG_FACETS, type TagFacet } from "@repo/core/services/tags/taxonomy";
 
-const catalogPath = resolve(
-  import.meta.dir,
-  "../../../../../docs/tagging/catalog.json",
-);
+export function getCatalogPath(cwd: string) {
+  return resolve(cwd, "docs/tagging/catalog.json");
+}
+
+const catalogPath = getCatalogPath(process.cwd());
 
 const catalogTagSchema = z
   .object({
