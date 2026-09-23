@@ -9,7 +9,7 @@ import { type TagUpdateData, updateTagWithTaxonomy } from "./update";
 const facetSchema = z.enum(TAG_FACETS);
 
 const updateTagOperationSchema = z.object({
-  operation: z.literal("update-tag"),
+  op: z.literal("update-tag"),
   code: z.string().trim().min(1),
   set: z
     .object({
@@ -25,21 +25,21 @@ const updateTagOperationSchema = z.object({
 });
 
 const addProjectTagsOperationSchema = z.object({
-  operation: z.literal("add-project-tags"),
+  op: z.literal("add-project-tags"),
   project: z.string().trim().min(1),
   tags: z.array(z.string().trim().min(1)).min(1),
 });
 
 const removeProjectTagsOperationSchema = z.object({
-  operation: z.literal("remove-project-tags"),
+  op: z.literal("remove-project-tags"),
   project: z.string().trim().min(1),
   tags: z.array(z.string().trim().min(1)).min(1),
 });
 
 export const taggingPlanSchema = z.object({
-  schemaVersion: z.literal(1),
-  operations: z.array(
-    z.discriminatedUnion("operation", [
+  schemaVersion: z.literal(1).optional().default(1),
+  ops: z.array(
+    z.discriminatedUnion("op", [
       updateTagOperationSchema,
       addProjectTagsOperationSchema,
       removeProjectTagsOperationSchema,
@@ -51,12 +51,12 @@ export type TaggingPlan = z.infer<typeof taggingPlanSchema>;
 
 export const EMPTY_TAGGING_PLAN: TaggingPlan = {
   schemaVersion: 1,
-  operations: [],
+  ops: [],
 };
 
 type OperationResult = {
   index: number;
-  operation: TaggingPlan["operations"][number]["operation"];
+  op: TaggingPlan["ops"][number]["op"];
   target: string;
   status: "added" | "removed" | "unchanged" | "updated";
   changes?: Record<string, { from: unknown; to: unknown }>;
@@ -64,65 +64,63 @@ type OperationResult = {
 };
 
 export async function runTaggingPlan({ db }: { db: DB }, plan: TaggingPlan) {
-  const operations: OperationResult[] = [];
+  const ops: OperationResult[] = [];
 
-  for (let index = 0; index < plan.operations.length; index++) {
-    const operation = plan.operations[index];
-    switch (operation.operation) {
+  for (let index = 0; index < plan.ops.length; index++) {
+    const op = plan.ops[index];
+    switch (op.op) {
       case "update-tag":
-        operations.push(await updateTag(db, operation, index));
+        ops.push(await updateTag(db, op, index));
         break;
       case "add-project-tags":
-        operations.push(await addProjectTags(db, operation, index));
+        ops.push(await addProjectTags(db, op, index));
         break;
       case "remove-project-tags":
-        operations.push(await removeProjectTags(db, operation, index));
+        ops.push(await removeProjectTags(db, op, index));
         break;
     }
   }
 
-  const unchanged = operations.filter(
-    ({ status }) => status === "unchanged",
-  ).length;
+  const unchanged = ops.filter(({ status }) => status === "unchanged").length;
 
   return {
     summary: {
-      changed: operations.length - unchanged,
+      changed: ops.length - unchanged,
       unchanged,
     },
-    operations,
+    ops,
   };
 }
 
 async function updateTag(
   db: DB,
-  operation: z.infer<typeof updateTagOperationSchema>,
+  op: z.infer<typeof updateTagOperationSchema>,
   index: number,
 ): Promise<OperationResult> {
   const tag = await db.query.tags.findFirst({
-    where: eq(schema.tags.code, operation.code),
+    where: eq(schema.tags.code, op.code),
   });
-  if (!tag) throw new Error(`Tag not found: ${operation.code}`);
+  if (!tag) throw new Error(`Tag not found: ${op.code}`);
 
   const data: TagUpdateData = {};
   const changes: NonNullable<OperationResult["changes"]> = {};
 
   for (const key of ["name", "description", "aliases", "facet"] as const) {
-    if (!(key in operation.set)) continue;
-    const next = operation.set[key];
+    if (!(key in op.set)) continue;
+    const next = op.set[key];
     if (sameValue(tag[key], next)) continue;
     changes[key] = { from: tag[key], to: next };
     data[key] = next as never;
   }
 
-  if ("parentCode" in operation.set) {
-    const nextParent = operation.set.parentCode
+  if ("parentCode" in op.set) {
+    const nextParent = op.set.parentCode
       ? await db.query.tags.findFirst({
-          where: eq(schema.tags.code, operation.set.parentCode),
+          where: eq(schema.tags.code, op.set.parentCode),
         })
       : null;
-    if (operation.set.parentCode && !nextParent) {
-      throw new Error(`Parent tag not found: ${operation.set.parentCode}`);
+    if (op.set.parentCode && !nextParent) {
+      throw new Error(`Parent tag not found: ${op.set.parentCode}`);
     }
 
     const nextParentId = nextParent?.id ?? null;
@@ -134,7 +132,7 @@ async function updateTag(
         : null;
       changes.parentCode = {
         from: currentParent?.code ?? null,
-        to: operation.set.parentCode ?? null,
+        to: op.set.parentCode ?? null,
       };
       data.parentTagId = nextParentId;
     }
@@ -143,8 +141,8 @@ async function updateTag(
   if (Object.keys(changes).length === 0) {
     return {
       index,
-      operation: operation.operation,
-      target: operation.code,
+      op: op.op,
+      target: op.code,
       status: "unchanged",
     };
   }
@@ -153,8 +151,8 @@ async function updateTag(
 
   return {
     index,
-    operation: operation.operation,
-    target: operation.code,
+    op: op.op,
+    target: op.code,
     status: "updated",
     changes,
   };
@@ -162,12 +160,12 @@ async function updateTag(
 
 async function addProjectTags(
   db: DB,
-  operation: z.infer<typeof addProjectTagsOperationSchema>,
+  op: z.infer<typeof addProjectTagsOperationSchema>,
   index: number,
 ): Promise<OperationResult> {
   const { project, requestedCodes, tags, tagByCode } = await resolveProjectTags(
     db,
-    operation,
+    op,
   );
 
   const tagIds = tags.map(({ id }) => id);
@@ -185,8 +183,8 @@ async function addProjectTags(
   if (addedCodes.length === 0) {
     return {
       index,
-      operation: operation.operation,
-      target: operation.project,
+      op: op.op,
+      target: op.project,
       status: "unchanged",
       tags: [],
     };
@@ -204,8 +202,8 @@ async function addProjectTags(
 
   return {
     index,
-    operation: operation.operation,
-    target: operation.project,
+    op: op.op,
+    target: op.project,
     status: "added",
     tags: addedCodes,
   };
@@ -213,12 +211,12 @@ async function addProjectTags(
 
 async function removeProjectTags(
   db: DB,
-  operation: z.infer<typeof removeProjectTagsOperationSchema>,
+  op: z.infer<typeof removeProjectTagsOperationSchema>,
   index: number,
 ): Promise<OperationResult> {
   const { project, requestedCodes, tags, tagByCode } = await resolveProjectTags(
     db,
-    operation,
+    op,
   );
   const tagIds = tags.map(({ id }) => id);
   const existing = await db.query.projectsToTags.findMany({
@@ -235,8 +233,8 @@ async function removeProjectTags(
   if (removedCodes.length === 0) {
     return {
       index,
-      operation: operation.operation,
-      target: operation.project,
+      op: op.op,
+      target: op.project,
       status: "unchanged",
       tags: [],
     };
@@ -254,8 +252,8 @@ async function removeProjectTags(
 
   return {
     index,
-    operation: operation.operation,
-    target: operation.project,
+    op: op.op,
+    target: op.project,
     status: "removed",
     tags: removedCodes,
   };
@@ -263,14 +261,14 @@ async function removeProjectTags(
 
 async function resolveProjectTags(
   db: DB,
-  operation: { project: string; tags: string[] },
+  op: { project: string; tags: string[] },
 ) {
   const project = await db.query.projects.findFirst({
-    where: eq(schema.projects.slug, operation.project),
+    where: eq(schema.projects.slug, op.project),
   });
-  if (!project) throw new Error(`Project not found: ${operation.project}`);
+  if (!project) throw new Error(`Project not found: ${op.project}`);
 
-  const requestedCodes = Array.from(new Set(operation.tags));
+  const requestedCodes = Array.from(new Set(op.tags));
   const tags = await db.query.tags.findMany({
     where: inArray(schema.tags.code, requestedCodes),
   });
