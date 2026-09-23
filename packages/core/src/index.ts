@@ -24,6 +24,15 @@ export const db = drizzle(pool, {
   logger: process.env.ENABLE_SQL_LOGGING === "1",
 });
 
+/** Run one CLI-style database command and always release the shared pool. */
+export async function withDatabase<T>(callback: (db: DB) => Promise<T>) {
+  try {
+    return await callback(db);
+  } finally {
+    await pool.end();
+  }
+}
+
 export async function runQuery(callback: (db: DB) => Promise<void>) {
   try {
     await callback(db);

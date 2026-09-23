@@ -29,8 +29,7 @@ groups do not show help successfully by default, so the CLI has a generic
 argument adapter that recognizes discovered command-path prefixes and appends
 `--help`; unknown paths remain errors.
 
-The tagging command currently validates a representative plan schema. The
-schema uses core's exported facet vocabulary to avoid duplicating domain
-values. Database-backed execution is the next implementation step. Until then,
-the command performs no writes and exits 2. Like the backend task runner,
-normal execution will apply changes while `--dryRun` will only report them.
+The tagging plan schema and execution live in the core package. Like the
+backend task runner, normal execution applies idempotent changes while
+`--dryRun` queries the selected database and reports the changes without
+writing them. Results are emitted as structured JSON.

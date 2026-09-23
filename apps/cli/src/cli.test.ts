@@ -6,6 +6,9 @@ import { describe, expect, it } from "bun:test";
 
 const repositoryRoot = resolve(import.meta.dir, "../../..");
 const entryPoint = resolve(import.meta.dir, "cli.ts");
+const testDatabaseUrl = "postgresql://test:test@localhost:5432/test";
+
+process.env.POSTGRES_URL ??= testDatabaseUrl;
 
 describe("bare command groups", () => {
   const commands = [{ path: ["tagging"] }, { path: ["tagging", "changes"] }];
@@ -32,7 +35,7 @@ describe("bare command groups", () => {
 });
 
 describe("CLI process", () => {
-  it("shows root and nested discovery without database configuration", async () => {
+  it("shows root and nested discovery with database configuration", async () => {
     const [root, tagging, changes] = await Promise.all([
       captureProgramRun(await createCliRunOptions([])),
       captureProgramRun(await createCliRunOptions(["tagging"])),
@@ -58,13 +61,12 @@ describe("CLI process", () => {
       '{"schemaVersion":1,"operations":[]}',
     ]);
 
-    expect(result.exitCode).toBe(2);
+    expect(result.exitCode).toBe(0);
     expect(JSON.parse(result.stdout)).toMatchObject({
-      status: "not-implemented",
+      status: "dry-run",
       dryRun: true,
-      databaseConnected: false,
-      applied: false,
-      operationCount: 0,
+      summary: { changed: 0, unchanged: 0 },
+      operations: [],
     });
   });
 
@@ -87,7 +89,7 @@ describe("CLI process", () => {
     expect(command.stderr).toContain("Error:");
   });
 
-  it("keeps unimplemented execution non-mutating and non-successful", () => {
+  it("applies an empty plan successfully by default", () => {
     const result = runCli([
       "tagging",
       "changes",
@@ -95,23 +97,21 @@ describe("CLI process", () => {
       '{"schemaVersion":1,"operations":[]}',
     ]);
 
-    expect(result.exitCode).toBe(2);
+    expect(result.exitCode).toBe(0);
     expect(JSON.parse(result.stdout)).toMatchObject({
+      status: "applied",
       dryRun: false,
-      databaseConnected: false,
-      applied: false,
+      summary: { changed: 0, unchanged: 0 },
+      operations: [],
     });
   });
 });
 
 function runCli(args: string[]) {
-  const env = Object.fromEntries(
-    Object.entries(process.env).filter(([key]) => key !== "POSTGRES_URL"),
-  );
   const result = Bun.spawnSync({
     cmd: [process.execPath, "run", "--silent", entryPoint, ...args],
     cwd: repositoryRoot,
-    env,
+    env: { ...process.env, POSTGRES_URL: testDatabaseUrl },
     stdout: "pipe",
     stderr: "pipe",
   });
