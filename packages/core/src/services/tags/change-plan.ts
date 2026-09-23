@@ -30,12 +30,19 @@ const addProjectTagsOperationSchema = z.object({
   tags: z.array(z.string().trim().min(1)).min(1),
 });
 
+const removeProjectTagsOperationSchema = z.object({
+  operation: z.literal("remove-project-tags"),
+  project: z.string().trim().min(1),
+  tags: z.array(z.string().trim().min(1)).min(1),
+});
+
 export const taggingPlanSchema = z.object({
   schemaVersion: z.literal(1),
   operations: z.array(
     z.discriminatedUnion("operation", [
       updateTagOperationSchema,
       addProjectTagsOperationSchema,
+      removeProjectTagsOperationSchema,
     ]),
   ),
 });
@@ -51,24 +58,27 @@ type OperationResult = {
   index: number;
   operation: TaggingPlan["operations"][number]["operation"];
   target: string;
-  status: "added" | "unchanged" | "updated" | "would-add" | "would-update";
+  status: "added" | "removed" | "unchanged" | "updated";
   changes?: Record<string, { from: unknown; to: unknown }>;
   tags?: string[];
 };
 
-export async function runTaggingPlan(
-  { db, dryRun }: { db: DB; dryRun: boolean },
-  plan: TaggingPlan,
-) {
+export async function runTaggingPlan({ db }: { db: DB }, plan: TaggingPlan) {
   const operations: OperationResult[] = [];
 
   for (let index = 0; index < plan.operations.length; index++) {
     const operation = plan.operations[index];
-    operations.push(
-      operation.operation === "update-tag"
-        ? await updateTag(db, operation, index, dryRun)
-        : await addProjectTags(db, operation, index, dryRun),
-    );
+    switch (operation.operation) {
+      case "update-tag":
+        operations.push(await updateTag(db, operation, index));
+        break;
+      case "add-project-tags":
+        operations.push(await addProjectTags(db, operation, index));
+        break;
+      case "remove-project-tags":
+        operations.push(await removeProjectTags(db, operation, index));
+        break;
+    }
   }
 
   const unchanged = operations.filter(
@@ -76,7 +86,6 @@ export async function runTaggingPlan(
   ).length;
 
   return {
-    dryRun,
     summary: {
       changed: operations.length - unchanged,
       unchanged,
@@ -89,7 +98,6 @@ async function updateTag(
   db: DB,
   operation: z.infer<typeof updateTagOperationSchema>,
   index: number,
-  dryRun: boolean,
 ): Promise<OperationResult> {
   const tag = await db.query.tags.findFirst({
     where: eq(schema.tags.code, operation.code),
@@ -141,13 +149,13 @@ async function updateTag(
     };
   }
 
-  if (!dryRun) await updateTagWithTaxonomy(db, tag.id, data);
+  await updateTagWithTaxonomy(db, tag.id, data);
 
   return {
     index,
     operation: operation.operation,
     target: operation.code,
-    status: dryRun ? "would-update" : "updated",
+    status: "updated",
     changes,
   };
 }
@@ -156,22 +164,11 @@ async function addProjectTags(
   db: DB,
   operation: z.infer<typeof addProjectTagsOperationSchema>,
   index: number,
-  dryRun: boolean,
 ): Promise<OperationResult> {
-  const project = await db.query.projects.findFirst({
-    where: eq(schema.projects.slug, operation.project),
-  });
-  if (!project) throw new Error(`Project not found: ${operation.project}`);
-
-  const requestedCodes = Array.from(new Set(operation.tags));
-  const tags = await db.query.tags.findMany({
-    where: inArray(schema.tags.code, requestedCodes),
-  });
-  const tagByCode = new Map(tags.map((tag) => [tag.code, tag]));
-  const missingCodes = requestedCodes.filter((code) => !tagByCode.has(code));
-  if (missingCodes.length > 0) {
-    throw new Error(`Tags not found: ${missingCodes.join(", ")}`);
-  }
+  const { project, requestedCodes, tags, tagByCode } = await resolveProjectTags(
+    db,
+    operation,
+  );
 
   const tagIds = tags.map(({ id }) => id);
   const existing = await db.query.projectsToTags.findMany({
@@ -195,25 +192,95 @@ async function addProjectTags(
     };
   }
 
-  if (!dryRun) {
-    await db
-      .insert(schema.projectsToTags)
-      .values(
-        addedCodes.map((code) => ({
-          projectId: project.id,
-          tagId: tagByCode.get(code)?.id ?? "",
-        })),
-      )
-      .onConflictDoNothing();
-  }
+  await db
+    .insert(schema.projectsToTags)
+    .values(
+      addedCodes.map((code) => ({
+        projectId: project.id,
+        tagId: tagByCode.get(code)?.id ?? "",
+      })),
+    )
+    .onConflictDoNothing();
 
   return {
     index,
     operation: operation.operation,
     target: operation.project,
-    status: dryRun ? "would-add" : "added",
+    status: "added",
     tags: addedCodes,
   };
+}
+
+async function removeProjectTags(
+  db: DB,
+  operation: z.infer<typeof removeProjectTagsOperationSchema>,
+  index: number,
+): Promise<OperationResult> {
+  const { project, requestedCodes, tags, tagByCode } = await resolveProjectTags(
+    db,
+    operation,
+  );
+  const tagIds = tags.map(({ id }) => id);
+  const existing = await db.query.projectsToTags.findMany({
+    where: and(
+      eq(schema.projectsToTags.projectId, project.id),
+      inArray(schema.projectsToTags.tagId, tagIds),
+    ),
+  });
+  const existingIds = new Set(existing.map(({ tagId }) => tagId));
+  const removedCodes = requestedCodes.filter((code) =>
+    existingIds.has(tagByCode.get(code)?.id ?? ""),
+  );
+
+  if (removedCodes.length === 0) {
+    return {
+      index,
+      operation: operation.operation,
+      target: operation.project,
+      status: "unchanged",
+      tags: [],
+    };
+  }
+
+  await db.delete(schema.projectsToTags).where(
+    and(
+      eq(schema.projectsToTags.projectId, project.id),
+      inArray(
+        schema.projectsToTags.tagId,
+        removedCodes.map((code) => tagByCode.get(code)?.id ?? ""),
+      ),
+    ),
+  );
+
+  return {
+    index,
+    operation: operation.operation,
+    target: operation.project,
+    status: "removed",
+    tags: removedCodes,
+  };
+}
+
+async function resolveProjectTags(
+  db: DB,
+  operation: { project: string; tags: string[] },
+) {
+  const project = await db.query.projects.findFirst({
+    where: eq(schema.projects.slug, operation.project),
+  });
+  if (!project) throw new Error(`Project not found: ${operation.project}`);
+
+  const requestedCodes = Array.from(new Set(operation.tags));
+  const tags = await db.query.tags.findMany({
+    where: inArray(schema.tags.code, requestedCodes),
+  });
+  const tagByCode = new Map(tags.map((tag) => [tag.code, tag]));
+  const missingCodes = requestedCodes.filter((code) => !tagByCode.has(code));
+  if (missingCodes.length > 0) {
+    throw new Error(`Tags not found: ${missingCodes.join(", ")}`);
+  }
+
+  return { project, requestedCodes, tags, tagByCode };
 }
 
 function sameValue(left: unknown, right: unknown) {

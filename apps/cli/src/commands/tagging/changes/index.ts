@@ -1,7 +1,6 @@
 import { object } from "@optique/core/constructs";
 import { message } from "@optique/core/message";
-import { withDefault } from "@optique/core/modifiers";
-import { flag, option } from "@optique/core/primitives";
+import { option } from "@optique/core/primitives";
 import { defineCommand } from "@optique/discover/command";
 
 import { withDatabase } from "@repo/core";
@@ -15,29 +14,21 @@ import { jsonPayload } from "../../../json-payload";
 
 export default defineCommand({
   parser: object({
-    dryRun: withDefault(
-      flag("--dryRun", {
-        description: message`Validate and report changes without writing them.`,
-      }),
-      false,
-    ),
     plan: option("--json", jsonPayload(taggingPlanSchema, EMPTY_TAGGING_PLAN), {
       description: message`Inline JSON or a JSON file relative to the repository root. Samples: apps/cli/src/commands/tagging/changes/samples/`,
     }),
   }),
   metadata: {
     brief: message`Apply a declarative tagging plan.`,
-    description: message`Apply idempotent tagging changes, or report them without writing with --dryRun.`,
+    description: message`Apply idempotent tagging changes sequentially.`,
   },
-  async handler({ dryRun, plan }) {
+  async handler({ plan }) {
     try {
-      const result = await withDatabase((db) =>
-        runTaggingPlan({ db, dryRun }, plan),
-      );
+      const result = await withDatabase((db) => runTaggingPlan({ db }, plan));
       process.stdout.write(
         `${JSON.stringify(
           {
-            status: dryRun ? "dry-run" : "applied",
+            status: "applied",
             command: "tagging changes",
             ...result,
           },
@@ -50,7 +41,6 @@ export default defineCommand({
         `${JSON.stringify({
           status: "error",
           command: "tagging changes",
-          dryRun,
           error: error instanceof Error ? error.message : String(error),
         })}\n`,
       );

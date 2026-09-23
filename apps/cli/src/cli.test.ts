@@ -49,25 +49,7 @@ describe("CLI process", () => {
     expect(tagging.exitCode).toBe(0);
     expect(tagging.stdout).toContain("changes");
     expect(changes.exitCode).toBe(0);
-    expect(changes.stdout).toContain("--dryRun");
-  });
-
-  it("parses a typed inline plan in dry-run mode", () => {
-    const result = runCli([
-      "tagging",
-      "changes",
-      "--dryRun",
-      "--json",
-      '{"schemaVersion":1,"operations":[]}',
-    ]);
-
-    expect(result.exitCode).toBe(0);
-    expect(JSON.parse(result.stdout)).toMatchObject({
-      status: "dry-run",
-      dryRun: true,
-      summary: { changed: 0, unchanged: 0 },
-      operations: [],
-    });
+    expect(changes.stdout).not.toContain("--dryRun");
   });
 
   it("rejects the removed stage option and unknown commands", async () => {
@@ -100,7 +82,6 @@ describe("CLI process", () => {
     expect(result.exitCode).toBe(0);
     expect(JSON.parse(result.stdout)).toMatchObject({
       status: "applied",
-      dryRun: false,
       summary: { changed: 0, unchanged: 0 },
       operations: [],
     });
