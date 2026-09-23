@@ -680,9 +680,6 @@ importers:
       nanoid:
         specifier: ^5.1.16
         version: 5.1.16
-      slugify:
-        specifier: ^1.6.6
-        version: 1.6.6
       tiny-invariant:
         specifier: ^1.3.3
         version: 1.3.3
@@ -8112,10 +8109,6 @@ packages:
   slash@4.0.0:
     resolution: {integrity: sha512-3dOsAHXXUkQTpOYcoAxLIorMTp4gIQr5IW3iVb7A7lFIp0VHhnynm9izx6TssdrIcVIESAlVjtnO2K8bg+Coew==}
     engines: {node: '>=12'}
-
-  slugify@1.6.6:
-    resolution: {integrity: sha512-h+z7HKHYXj6wJU+AnS/+IH8Uh9fdcX1Lrhg1/VMdf9PwoBQXFcXiAdsy2tSK0P6gKwJLXp02r90ahUCqHk9rrw==}
-    engines: {node: '>=8.0.0'}
 
   sonner@1.4.0:
     resolution: {integrity: sha512-nvkTsIuOmi9e5Wz5If8ldasJjZNVfwiXYijBi2dbijvTQnQppvMcXTFNxL/NUFWlI2yJ1JX7TREDsg+gYm9WyA==}
@@ -17050,8 +17043,6 @@ snapshots:
   slash@3.0.0: {}
 
   slash@4.0.0: {}
-
-  slugify@1.6.6: {}
 
   sonner@1.4.0(react-dom@19.2.8(react@19.2.8))(react@19.2.8):
     dependencies:
