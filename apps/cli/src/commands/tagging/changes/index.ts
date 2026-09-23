@@ -22,7 +22,7 @@ export default defineCommand({
       false,
     ),
     plan: option("--json", jsonPayload(taggingPlanSchema, EMPTY_TAGGING_PLAN), {
-      description: message`Inline JSON or a JSON file relative to the repository root.`,
+      description: message`Inline JSON or a JSON file relative to the repository root. Samples: apps/cli/src/commands/tagging/changes/samples/`,
     }),
   }),
   metadata: {

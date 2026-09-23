@@ -1,0 +1,25 @@
+{
+  "schemaVersion": 1,
+  "operations": [
+    {
+      "operation": "update-tag",
+      "code": "react",
+      "set": { "facet": "ecosystem" }
+    },
+    {
+      "operation": "update-tag",
+      "code": "nextjs",
+      "set": { "parentCode": "react", "facet": "ecosystem" }
+    },
+    {
+      "operation": "update-tag",
+      "code": "state",
+      "set": { "parentCode": null, "facet": "category" }
+    },
+    {
+      "operation": "add-project-tags",
+      "project": "redux",
+      "tags": ["react", "state"]
+    }
+  ]
+}

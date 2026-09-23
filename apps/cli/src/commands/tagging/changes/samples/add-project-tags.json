@@ -1,0 +1,10 @@
+{
+  "schemaVersion": 1,
+  "operations": [
+    {
+      "operation": "add-project-tags",
+      "project": "redux",
+      "tags": ["react", "state"]
+    }
+  ]
+}

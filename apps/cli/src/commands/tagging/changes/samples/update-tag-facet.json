@@ -1,0 +1,10 @@
+{
+  "schemaVersion": 1,
+  "operations": [
+    {
+      "operation": "update-tag",
+      "code": "react",
+      "set": { "facet": "ecosystem" }
+    }
+  ]
+}
