@@ -1,6 +1,6 @@
 import { countDistinct, eq } from "drizzle-orm";
 
-import { db } from "../..";
+import { type DB, db } from "../..";
 import * as schema from "../../schema";
 import { lockTagTaxonomy, rebuildTagClosure } from "./closure";
 import { buildTagClosure, type TagFacet } from "./taxonomy.shared";
@@ -9,6 +9,11 @@ export type EditableTagData = Omit<
   typeof schema.tags.$inferInsert,
   "id" | "createdAt" | "updatedAt" | "facet" | "parentTagId"
 >;
+
+export type TagUpdateData = Partial<EditableTagData> & {
+  facet?: TagFacet | null;
+  parentTagId?: string | null;
+};
 
 export async function updateTagById(
   tagId: string,
@@ -27,7 +32,23 @@ export async function updateTagById(
 }
 
 export async function setTagParent(tagId: string, parentTagId: string | null) {
-  return await db.transaction(async (tx) => {
+  return await updateTagWithTaxonomyById(tagId, { parentTagId });
+}
+
+/** Atomically validate and update any combination of tag and taxonomy fields. */
+export async function updateTagWithTaxonomyById(
+  tagId: string,
+  data: TagUpdateData,
+) {
+  return await updateTagWithTaxonomy(db, tagId, data);
+}
+
+export async function updateTagWithTaxonomy(
+  database: DB,
+  tagId: string,
+  data: TagUpdateData,
+) {
+  return await database.transaction(async (tx) => {
     await lockTagTaxonomy(tx);
     const tags = await tx
       .select({
@@ -38,18 +59,25 @@ export async function setTagParent(tagId: string, parentTagId: string | null) {
       .from(schema.tags);
     const tag = tags.find((item) => item.id === tagId);
     if (!tag) throw new Error(`Tag not found: ${tagId}`);
-    if (parentTagId && !tags.some((item) => item.id === parentTagId)) {
-      throw new Error(`Parent tag not found: ${parentTagId}`);
+
+    if (
+      data.parentTagId &&
+      !tags.some((item) => item.id === data.parentTagId)
+    ) {
+      throw new Error(`Parent tag not found: ${data.parentTagId}`);
     }
 
-    tag.parentTagId = parentTagId;
+    if ("facet" in data) tag.facet = data.facet ?? null;
+    if ("parentTagId" in data) tag.parentTagId = data.parentTagId ?? null;
+
     // Validation happens before either persisted table is changed.
     buildTagClosure(tags);
     await tx
       .update(schema.tags)
-      .set({ parentTagId, updatedAt: new Date() })
+      .set({ ...data, updatedAt: new Date() })
       .where(eq(schema.tags.id, tagId));
-    await rebuildTagClosure(tx);
+
+    if ("parentTagId" in data) await rebuildTagClosure(tx);
   });
 }
 
@@ -62,25 +90,7 @@ export async function updateTagWithFacetById(
   tagId: string,
   data: Partial<EditableTagData> & { facet: TagFacet | null },
 ) {
-  return await db.transaction(async (tx) => {
-    await lockTagTaxonomy(tx);
-    const tags = await tx
-      .select({
-        id: schema.tags.id,
-        facet: schema.tags.facet,
-        parentTagId: schema.tags.parentTagId,
-      })
-      .from(schema.tags);
-    const tag = tags.find((item) => item.id === tagId);
-    if (!tag) throw new Error(`Tag not found: ${tagId}`);
-
-    tag.facet = data.facet;
-    buildTagClosure(tags);
-    await tx
-      .update(schema.tags)
-      .set({ ...data, updatedAt: new Date() })
-      .where(eq(schema.tags.id, tagId));
-  });
+  return await updateTagWithTaxonomyById(tagId, data);
 }
 
 export async function deleteTag(tagId: string) {
