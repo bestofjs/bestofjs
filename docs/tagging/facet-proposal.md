@@ -1,8 +1,12 @@
 # Initial tag facet proposal
 
-This proposal is based on production catalog schema v1: 259 tags and 3,626
+This proposal is based on production catalog schema v1: 258 tags and 3,626
 projects. It assigns one proposed facet to every tag. It does not propose or
 activate parent relationships, and it does not change production.
+
+**Revision:** updated after the production catalog changed: `node.js` was
+removed (Ecosystem 39 → 38) and `SSE` was renamed to `sse`. Totals are now
+258 tags.
 
 The proposal applies the definitions in the
 [tagging conventions](https://github.com/bestofjs/bestofjs/blob/develop/docs/tagging/conventions.md):
@@ -17,11 +21,11 @@ capability and the stable exclusion anchor for the `noai` deployment.
 
 | Facet      |    Tags |
 | ---------- | ------: |
-| Ecosystem  |      39 |
+| Ecosystem  |      38 |
 | Category   |      75 |
 | Capability |     138 |
 | Property   |       7 |
-| **Total**  | **259** |
+| **Total**  | **258** |
 
 ## Reviewed choices
 
@@ -43,8 +47,8 @@ capability and the stable exclusion anchor for the `noai` deployment.
 ### Ecosystem
 
 `angular`, `astro`, `bootstrap`, `bun`, `d3`, `deno`, `express`, `material`,
-`meteor`, `mongodb`, `nextjs`, `node.js`, `react`, `react-native`, `redux`,
-`remix`, `rust`, `shadcn`, `solid`, `svelte`, `tailwind`, `vite`, `vue`
+`meteor`, `mongodb`, `nextjs`, `react`, `react-native`, `redux`, `remix`,
+`rust`, `shadcn`, `solid`, `svelte`, `tailwind`, `vite`, `vue`
 
 ### Category
 
@@ -131,7 +135,7 @@ therefore significantly harder to change than names or descriptions.
 
 | Tag name               | Code              | Plausible alternative | Reason and catalog evidence                                                                                                                             |
 | ---------------------- | ----------------- | --------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Server-Side Events     | `SSE`             | ecosystem             | better-sse, river.ts, and wayne provide or use an event-streaming capability; the code names the protocol rather than a community.                      |
+| Server-Side Events     | `sse`             | ecosystem             | better-sse, river.ts, and wayne provide or use an event-streaming capability; the code names the protocol rather than a community.                      |
 | Web Analytics          | `analytics`       | category              | Ackee and OpenPanel enable web analytics, while some tagged projects are complete analytics products.                                                   |
 | Browser storage        | `browser-storage` | ecosystem             | Dexie.js and LocalForage enable persistence in browser storage APIs; those APIs could be treated as a web-platform ecosystem.                           |
 | Canvas                 | `canvas`          | ecosystem             | Atrament and Canvacord enable canvas rendering; the tag is named after the browser platform API.                                                        |
@@ -207,8 +211,7 @@ a separate migration audits consumers and provides compatibility.
   name.
 - Keep the stable `wildcard` code, but rely on its clear “Editor's pick” display
   name (property) in human-facing review.
-- Leave `SSE` and `node.js` unchanged. Normalizing these codes would provide
-  little taxonomy value compared with the compatibility work it would require.
+- `SSE` has since been normalized to `sse`, and `node.js` has been removed.
 
 ## Review checkpoint
 

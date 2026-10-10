@@ -2858,6 +2858,16 @@
       ]
     },
     {
+      "slug": "ant",
+      "name": "Ant",
+      "description": "Lightweight, high-performance JavaScript runtime built from scratch",
+      "repository": "theMackabu/ant",
+      "status": "active",
+      "directTags": [
+        "runtime"
+      ]
+    },
+    {
       "slug": "ant-design",
       "name": "Ant Design",
       "description": "An enterprise-class UI design language and React-based implementation.",
@@ -3617,7 +3627,7 @@
       "slug": "automock",
       "name": "Automock",
       "description": "Easier Unit Testing for TypeScript Dependency Injection Frameworks",
-      "repository": "suites-dev/suites",
+      "repository": "suites-dev/suites-unit",
       "status": "active",
       "directTags": [
         "di",
@@ -7748,6 +7758,16 @@
       ]
     },
     {
+      "slug": "cyclewire",
+      "name": "CycleWire",
+      "description": "Zero-initial-JS selective activation engine. Turn server-rendered HTML into instant interactivity on intent.",
+      "repository": "CycleChain/CycleWire",
+      "status": "active",
+      "directTags": [
+        "framework"
+      ]
+    },
+    {
       "slug": "cyclow",
       "name": "cyclow",
       "description": "A reactive frontend framework for JavaScript ",
@@ -11013,7 +11033,7 @@
       "slug": "fibre",
       "name": "Fibre",
       "description": "WebGL 3d dynamical systems visualization",
-      "repository": "portsmouth/fibre",
+      "repository": "jamportz/fibre",
       "status": "active",
       "directTags": [
         "3d",
@@ -11630,6 +11650,16 @@
       "status": "active",
       "directTags": [
         "self-hosted"
+      ]
+    },
+    {
+      "slug": "foldkit",
+      "name": "Foldkit",
+      "description": "Frontend framework built on Effect",
+      "repository": "foldkit/foldkit",
+      "status": "active",
+      "directTags": [
+        "framework"
       ]
     },
     {
@@ -12622,6 +12652,20 @@
       "status": "active",
       "directTags": [
         "http"
+      ]
+    },
+    {
+      "slug": "gdp-ts",
+      "name": "gdp-ts",
+      "description": "A tiny library + linter and AI skill implementation of Ghosts of Departed Proofs for TypeScript, a verification system to make API contracts more secure at compile (type check) time.",
+      "repository": "rauchg/gdp-ts",
+      "status": "active",
+      "directTags": [
+        "ai",
+        "auth",
+        "security",
+        "skills",
+        "types"
       ]
     },
     {
@@ -15001,6 +15045,16 @@
       "status": "active",
       "directTags": [
         "vdom"
+      ]
+    },
+    {
+      "slug": "incur",
+      "name": "incur",
+      "description": "CLI framework for agents and humans",
+      "repository": "wevm/incur",
+      "status": "active",
+      "directTags": [
+        "cli"
       ]
     },
     {
@@ -18673,7 +18727,7 @@
       "slug": "marionette",
       "name": "Marionette",
       "description": "Marionette is a composite application library for Backbone.js that aims to simplify the construction of large scale JavaScript applications. It is a collection of common design and implementation patterns found in applications.",
-      "repository": "marionettejs/backbone.marionette",
+      "repository": "marionettejs/marionette",
       "status": "active",
       "directTags": [
         "framework"
@@ -23380,6 +23434,17 @@
       ]
     },
     {
+      "slug": "ordewell",
+      "name": "ordewell",
+      "description": "Multi-agent task orchestration for coding agents. Turn one goal into an ordered plan of tasks — each with its own runner, model and mode — then execute and verify the results.",
+      "repository": "ordewell/ordewell",
+      "status": "active",
+      "directTags": [
+        "ai",
+        "ai-agents"
+      ]
+    },
+    {
       "slug": "orgchart",
       "name": "OrgChart",
       "description": "A simple and direct organization tree-like chart plugin",
@@ -23387,6 +23452,18 @@
       "status": "active",
       "directTags": [
         "tree"
+      ]
+    },
+    {
+      "slug": "orkas",
+      "name": "Orkas",
+      "description": "Command a team of AI agents from one desktop chat",
+      "repository": "Orkas-AI/Orkas",
+      "status": "active",
+      "directTags": [
+        "ai",
+        "ai-agents",
+        "desktop-app"
       ]
     },
     {
@@ -25179,6 +25256,16 @@
       "directTags": [
         "compiler",
         "runtime"
+      ]
+    },
+    {
+      "slug": "portless",
+      "name": "portless",
+      "description": "Replace port numbers with stable, named local URLs. For humans and agents.",
+      "repository": "vercel-labs/portless",
+      "status": "active",
+      "directTags": [
+        "devtool"
       ]
     },
     {
@@ -28053,7 +28140,7 @@
       "slug": "react-native-skia",
       "name": "React Native Skia",
       "description": "High-performance React Native Graphics using Skia",
-      "repository": "Shopify/react-native-skia",
+      "repository": "wcandillon/react-native-skia",
       "status": "active",
       "directTags": [
         "animation",
@@ -29496,6 +29583,14 @@
       ]
     },
     {
+      "slug": "redact",
+      "name": "redact",
+      "description": "An alternative logical projection of React with 100% API compliancy but simpler implementation resulting in smaller bundle size and better performance.",
+      "repository": "TanStack/redact",
+      "status": "active",
+      "directTags": []
+    },
+    {
       "slug": "redaxios",
       "name": "redaxios",
       "description": "The Axios API, as an 800 byte Fetch wrapper. ",
@@ -29555,7 +29650,6 @@
       "status": "featured",
       "directTags": [
         "flux",
-        "react",
         "redux",
         "state"
       ]
@@ -29713,7 +29807,7 @@
       "slug": "redux-persist",
       "name": "Redux Persist",
       "description": "persist and rehydrate a redux store",
-      "repository": "rt2zz/redux-persist",
+      "repository": "endograph/redux-persist",
       "status": "active",
       "directTags": [
         "redux"
@@ -33361,7 +33455,7 @@
       "slug": "squeezer",
       "name": "Squeezer",
       "description": "Squeezer Framework - Build serverless dApps",
-      "repository": "SqueezerIO/squeezer",
+      "repository": "cortex-docs/cortex",
       "status": "active",
       "directTags": [
         "decentralized"
@@ -35804,6 +35898,14 @@
       ]
     },
     {
+      "slug": "tinyjs",
+      "name": "TinyJS",
+      "description": "Build native apps in JS. Backend, frontend. ~5Mb.",
+      "repository": "tarwin/tinyjsapp",
+      "status": "active",
+      "directTags": []
+    },
+    {
       "slug": "tinykeys",
       "name": "Tinykeys",
       "description": "A tiny (~400 B) & modern library for keybindings.",
@@ -37678,6 +37780,16 @@
       ]
     },
     {
+      "slug": "unifont",
+      "name": "unifont",
+      "description": "Framework agnostic tools for accessing data from font CDNs and providers",
+      "repository": "unjs/unifont",
+      "status": "active",
+      "directTags": [
+        "font"
+      ]
+    },
+    {
       "slug": "uniforms",
       "name": "uniforms",
       "description": "Bunch of React components and helpers to easily generate and validate forms.",
@@ -37707,6 +37819,8 @@
       "repository": "dream-num/univer",
       "status": "active",
       "directTags": [
+        "ai",
+        "pdf",
         "spreadsheet"
       ]
     },
@@ -37919,6 +38033,16 @@
       "status": "active",
       "directTags": [
         "chart"
+      ]
+    },
+    {
+      "slug": "upm",
+      "name": "upm",
+      "description": "📦 A fast, tiny package manager for the npm registry, written in TypeScript.",
+      "repository": "unjs/upm",
+      "status": "active",
+      "directTags": [
+        "package"
       ]
     },
     {

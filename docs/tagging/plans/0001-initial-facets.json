@@ -1,0 +1,1810 @@
+{
+  "ops": [
+    {
+      "op": "update-tag",
+      "code": "3d",
+      "set": {
+        "facet": "capability"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "access",
+      "set": {
+        "facet": "capability"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "ai",
+      "set": {
+        "facet": "capability"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "ai-agents",
+      "set": {
+        "facet": "category"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "ai-builder",
+      "set": {
+        "facet": "category"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "ai-coding-agent",
+      "set": {
+        "facet": "category"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "ai-methodology",
+      "set": {
+        "facet": "category"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "analytics",
+      "set": {
+        "facet": "capability"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "angular",
+      "set": {
+        "facet": "ecosystem"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "animation",
+      "set": {
+        "facet": "capability"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "api",
+      "set": {
+        "facet": "category"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "archive",
+      "set": {
+        "facet": "capability"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "astro",
+      "set": {
+        "facet": "ecosystem"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "atomic-css",
+      "set": {
+        "facet": "category"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "audio",
+      "set": {
+        "facet": "capability"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "auth",
+      "set": {
+        "facet": "capability"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "autocomplete",
+      "set": {
+        "facet": "capability"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "automation",
+      "set": {
+        "facet": "capability"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "baas",
+      "set": {
+        "facet": "category"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "blockchain",
+      "set": {
+        "facet": "ecosystem"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "blog",
+      "set": {
+        "facet": "category"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "boilerplate",
+      "set": {
+        "facet": "category"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "book",
+      "set": {
+        "facet": "category"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "bootstrap",
+      "set": {
+        "facet": "ecosystem"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "bot",
+      "set": {
+        "facet": "category"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "browser-storage",
+      "set": {
+        "facet": "capability"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "build",
+      "set": {
+        "facet": "category"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "bun",
+      "set": {
+        "facet": "ecosystem"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "caching",
+      "set": {
+        "facet": "capability"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "cad",
+      "set": {
+        "facet": "category"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "canvas",
+      "set": {
+        "facet": "capability"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "chart",
+      "set": {
+        "facet": "category"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "chat",
+      "set": {
+        "facet": "capability"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "classname",
+      "set": {
+        "facet": "capability"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "cli",
+      "set": {
+        "facet": "category"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "cms",
+      "set": {
+        "facet": "category"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "code-editor",
+      "set": {
+        "facet": "category"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "code-parser",
+      "set": {
+        "facet": "category"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "color",
+      "set": {
+        "facet": "capability"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "compatibility",
+      "set": {
+        "facet": "capability"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "compiler",
+      "set": {
+        "facet": "category"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "component",
+      "set": {
+        "facet": "category"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "config",
+      "set": {
+        "facet": "capability"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "crdt",
+      "set": {
+        "facet": "capability"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "crm",
+      "set": {
+        "facet": "category"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "cron",
+      "set": {
+        "facet": "capability"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "crypto",
+      "set": {
+        "facet": "capability"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "crypto-currency",
+      "set": {
+        "facet": "ecosystem"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "css-in-js",
+      "set": {
+        "facet": "category"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "css-lib",
+      "set": {
+        "facet": "category"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "css-tool",
+      "set": {
+        "facet": "category"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "csv",
+      "set": {
+        "facet": "capability"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "d3",
+      "set": {
+        "facet": "ecosystem"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "dashboard",
+      "set": {
+        "facet": "category"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "data",
+      "set": {
+        "facet": "capability"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "data-analysis",
+      "set": {
+        "facet": "capability"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "data-structure",
+      "set": {
+        "facet": "category"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "date",
+      "set": {
+        "facet": "capability"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "db",
+      "set": {
+        "facet": "category"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "debug",
+      "set": {
+        "facet": "capability"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "decentralized",
+      "set": {
+        "facet": "property"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "deno",
+      "set": {
+        "facet": "ecosystem"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "dependencies",
+      "set": {
+        "facet": "capability"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "design-system",
+      "set": {
+        "facet": "capability"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "desktop",
+      "set": {
+        "facet": "category"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "desktop-app",
+      "set": {
+        "facet": "category"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "devtool",
+      "set": {
+        "facet": "category"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "di",
+      "set": {
+        "facet": "capability"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "diagram",
+      "set": {
+        "facet": "category"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "diff",
+      "set": {
+        "facet": "capability"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "dnd",
+      "set": {
+        "facet": "capability"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "doc",
+      "set": {
+        "facet": "category"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "dom",
+      "set": {
+        "facet": "capability"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "drawing",
+      "set": {
+        "facet": "capability"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "ecommerce",
+      "set": {
+        "facet": "category"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "email",
+      "set": {
+        "facet": "capability"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "emoji",
+      "set": {
+        "facet": "capability"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "error",
+      "set": {
+        "facet": "capability"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "event-sourcing",
+      "set": {
+        "facet": "capability"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "express",
+      "set": {
+        "facet": "ecosystem"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "extension",
+      "set": {
+        "facet": "category"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "filesystem",
+      "set": {
+        "facet": "capability"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "flow",
+      "set": {
+        "facet": "capability"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "flux",
+      "set": {
+        "facet": "capability"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "font",
+      "set": {
+        "facet": "capability"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "form",
+      "set": {
+        "facet": "capability"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "format",
+      "set": {
+        "facet": "capability"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "formatter",
+      "set": {
+        "facet": "category"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "fp",
+      "set": {
+        "facet": "capability"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "framework",
+      "set": {
+        "facet": "category"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "fullstack",
+      "set": {
+        "facet": "category"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "fulltext",
+      "set": {
+        "facet": "capability"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "fuzzy",
+      "set": {
+        "facet": "capability"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "game",
+      "set": {
+        "facet": "category"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "geometry",
+      "set": {
+        "facet": "capability"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "geospatial",
+      "set": {
+        "facet": "capability"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "git",
+      "set": {
+        "facet": "capability"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "glob",
+      "set": {
+        "facet": "capability"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "gpu",
+      "set": {
+        "facet": "capability"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "graph",
+      "set": {
+        "facet": "capability"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "graphql",
+      "set": {
+        "facet": "ecosystem"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "headless",
+      "set": {
+        "facet": "property"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "highlight",
+      "set": {
+        "facet": "capability"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "hook",
+      "set": {
+        "facet": "category"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "html",
+      "set": {
+        "facet": "category"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "html-tagging",
+      "set": {
+        "facet": "category"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "http",
+      "set": {
+        "facet": "capability"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "i18n",
+      "set": {
+        "facet": "capability"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "icon",
+      "set": {
+        "facet": "category"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "ide",
+      "set": {
+        "facet": "category"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "image",
+      "set": {
+        "facet": "capability"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "iot",
+      "set": {
+        "facet": "ecosystem"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "json",
+      "set": {
+        "facet": "capability"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "keyboard",
+      "set": {
+        "facet": "capability"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "kv",
+      "set": {
+        "facet": "capability"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "layout",
+      "set": {
+        "facet": "capability"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "learning",
+      "set": {
+        "facet": "category"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "lint",
+      "set": {
+        "facet": "category"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "load",
+      "set": {
+        "facet": "capability"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "log",
+      "set": {
+        "facet": "capability"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "lowcode",
+      "set": {
+        "facet": "category"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "map",
+      "set": {
+        "facet": "capability"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "markup",
+      "set": {
+        "facet": "category"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "mask",
+      "set": {
+        "facet": "capability"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "material",
+      "set": {
+        "facet": "ecosystem"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "math",
+      "set": {
+        "facet": "capability"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "mcp",
+      "set": {
+        "facet": "ecosystem"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "md",
+      "set": {
+        "facet": "capability"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "md-editor-app",
+      "set": {
+        "facet": "category"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "menu",
+      "set": {
+        "facet": "capability"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "meta",
+      "set": {
+        "facet": "category"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "meteor",
+      "set": {
+        "facet": "ecosystem"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "microfontend",
+      "set": {
+        "facet": "capability"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "microservice",
+      "set": {
+        "facet": "capability"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "middleware",
+      "set": {
+        "facet": "category"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "ml",
+      "set": {
+        "facet": "capability"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "mobile",
+      "set": {
+        "facet": "capability"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "modal",
+      "set": {
+        "facet": "capability"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "module",
+      "set": {
+        "facet": "category"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "money",
+      "set": {
+        "facet": "capability"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "mongodb",
+      "set": {
+        "facet": "ecosystem"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "monorepo",
+      "set": {
+        "facet": "capability"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "neural",
+      "set": {
+        "facet": "capability"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "nextjs",
+      "set": {
+        "facet": "ecosystem"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "nlp",
+      "set": {
+        "facet": "capability"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "nodejs-framework",
+      "set": {
+        "facet": "category"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "notify",
+      "set": {
+        "facet": "capability"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "npm-scripts",
+      "set": {
+        "facet": "capability"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "nvm",
+      "set": {
+        "facet": "capability"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "offline",
+      "set": {
+        "facet": "property"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "openapi",
+      "set": {
+        "facet": "ecosystem"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "orm",
+      "set": {
+        "facet": "category"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "package",
+      "set": {
+        "facet": "category"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "parsing",
+      "set": {
+        "facet": "capability"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "pdf",
+      "set": {
+        "facet": "capability"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "performance",
+      "set": {
+        "facet": "capability"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "physics",
+      "set": {
+        "facet": "capability"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "playground",
+      "set": {
+        "facet": "category"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "plugin",
+      "set": {
+        "facet": "category"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "polyfill",
+      "set": {
+        "facet": "category"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "prefetch",
+      "set": {
+        "facet": "capability"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "prerender",
+      "set": {
+        "facet": "capability"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "presentation",
+      "set": {
+        "facet": "category"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "print",
+      "set": {
+        "facet": "capability"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "process",
+      "set": {
+        "facet": "capability"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "protobuf",
+      "set": {
+        "facet": "ecosystem"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "publish",
+      "set": {
+        "facet": "capability"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "pubsub",
+      "set": {
+        "facet": "capability"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "pwa",
+      "set": {
+        "facet": "category"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "qrcode",
+      "set": {
+        "facet": "capability"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "queue",
+      "set": {
+        "facet": "capability"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "random",
+      "set": {
+        "facet": "capability"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "react",
+      "set": {
+        "facet": "ecosystem"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "react-native",
+      "set": {
+        "facet": "ecosystem"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "reactive",
+      "set": {
+        "facet": "capability"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "realtime",
+      "set": {
+        "facet": "capability"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "redux",
+      "set": {
+        "facet": "ecosystem"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "regexp",
+      "set": {
+        "facet": "capability"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "registry",
+      "set": {
+        "facet": "category"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "remix",
+      "set": {
+        "facet": "ecosystem"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "rich-text-editor",
+      "set": {
+        "facet": "category"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "routing",
+      "set": {
+        "facet": "capability"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "rpc",
+      "set": {
+        "facet": "capability"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "rsc",
+      "set": {
+        "facet": "ecosystem"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "rss",
+      "set": {
+        "facet": "capability"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "runtime",
+      "set": {
+        "facet": "category"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "rust",
+      "set": {
+        "facet": "ecosystem"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "rwd",
+      "set": {
+        "facet": "capability"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "scaffolding",
+      "set": {
+        "facet": "category"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "schema",
+      "set": {
+        "facet": "capability"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "scraping",
+      "set": {
+        "facet": "capability"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "screenshot",
+      "set": {
+        "facet": "capability"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "scrolling",
+      "set": {
+        "facet": "capability"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "sdk",
+      "set": {
+        "facet": "category"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "search",
+      "set": {
+        "facet": "capability"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "security",
+      "set": {
+        "facet": "capability"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "self-hosted",
+      "set": {
+        "facet": "property"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "serverless",
+      "set": {
+        "facet": "property"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "serviceworker",
+      "set": {
+        "facet": "ecosystem"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "shadcn",
+      "set": {
+        "facet": "ecosystem"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "shell",
+      "set": {
+        "facet": "capability"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "skills",
+      "set": {
+        "facet": "category"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "slider",
+      "set": {
+        "facet": "capability"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "social",
+      "set": {
+        "facet": "capability"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "solid",
+      "set": {
+        "facet": "ecosystem"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "spinner",
+      "set": {
+        "facet": "capability"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "spreadsheet",
+      "set": {
+        "facet": "capability"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "sql",
+      "set": {
+        "facet": "ecosystem"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "sse",
+      "set": {
+        "facet": "capability"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "ssg",
+      "set": {
+        "facet": "category"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "state",
+      "set": {
+        "facet": "category"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "state-machine",
+      "set": {
+        "facet": "capability"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "stats",
+      "set": {
+        "facet": "capability"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "stream",
+      "set": {
+        "facet": "capability"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "string",
+      "set": {
+        "facet": "capability"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "styleguide",
+      "set": {
+        "facet": "category"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "svelte",
+      "set": {
+        "facet": "ecosystem"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "svg",
+      "set": {
+        "facet": "capability"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "system",
+      "set": {
+        "facet": "capability"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "table",
+      "set": {
+        "facet": "capability"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "tailwind",
+      "set": {
+        "facet": "ecosystem"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "template",
+      "set": {
+        "facet": "category"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "terminal",
+      "set": {
+        "facet": "category"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "test",
+      "set": {
+        "facet": "category"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "test-framework",
+      "set": {
+        "facet": "category"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "text-processing",
+      "set": {
+        "facet": "capability"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "thread",
+      "set": {
+        "facet": "capability"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "timeline",
+      "set": {
+        "facet": "capability"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "tooltip",
+      "set": {
+        "facet": "capability"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "touch",
+      "set": {
+        "facet": "capability"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "tour",
+      "set": {
+        "facet": "capability"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "tree",
+      "set": {
+        "facet": "capability"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "types",
+      "set": {
+        "facet": "capability"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "typo",
+      "set": {
+        "facet": "capability"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "universal",
+      "set": {
+        "facet": "property"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "upload",
+      "set": {
+        "facet": "capability"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "util",
+      "set": {
+        "facet": "capability"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "validation",
+      "set": {
+        "facet": "capability"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "vdom",
+      "set": {
+        "facet": "capability"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "video",
+      "set": {
+        "facet": "capability"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "viewer",
+      "set": {
+        "facet": "category"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "virtual",
+      "set": {
+        "facet": "capability"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "virtual-list",
+      "set": {
+        "facet": "capability"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "visual-programming",
+      "set": {
+        "facet": "category"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "vite",
+      "set": {
+        "facet": "ecosystem"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "vue",
+      "set": {
+        "facet": "ecosystem"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "web3",
+      "set": {
+        "facet": "ecosystem"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "webassembly",
+      "set": {
+        "facet": "ecosystem"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "webcomponent",
+      "set": {
+        "facet": "category"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "webgl",
+      "set": {
+        "facet": "ecosystem"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "webhook",
+      "set": {
+        "facet": "capability"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "webrtc",
+      "set": {
+        "facet": "ecosystem"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "websocket",
+      "set": {
+        "facet": "ecosystem"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "webworker",
+      "set": {
+        "facet": "ecosystem"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "wildcard",
+      "set": {
+        "facet": "property"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "window-management",
+      "set": {
+        "facet": "capability"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "workflow",
+      "set": {
+        "facet": "capability"
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "xml",
+      "set": {
+        "facet": "capability"
+      }
+    }
+  ]
+}
