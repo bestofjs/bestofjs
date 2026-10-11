@@ -1,0 +1,82 @@
+{
+  "ops": [
+    {
+      "op": "update-tag",
+      "code": "chat",
+      "set": {
+        "description": "Chat and messaging: chat interfaces, SDKs for messaging platforms, and chat applications."
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "data",
+      "set": {
+        "description": "Clients and tools that fetch, cache, and type remote data from APIs (GraphQL, REST, OpenAPI, RPC)."
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "db",
+      "set": {
+        "description": "Databases and storage engines usable from JavaScript: in-memory, in-browser, embedded, or syncing, including low-level drivers. ORMs and query builders are not databases."
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "decentralized",
+      "set": {
+        "description": "Peer-to-peer and decentralized web projects that work without a central server, such as IPFS, ActivityPub, or P2P file sharing."
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "design-system",
+      "set": {
+        "description": "Projects that provide or help build a design system: a set of design guidelines implemented as reusable components and tokens."
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "fullstack",
+      "set": {
+        "description": "Frameworks that run on both the client and the server. Server-only frameworks belong in Node.js framework."
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "headless",
+      "set": {
+        "description": "Unstyled UI components that provide behavior and accessibility, leaving styling to the user."
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "hook",
+      "set": {
+        "description": "Libraries of reusable hooks or composables for UI frameworks, such as React hooks or Vue composables. Combine with the framework's ecosystem tag."
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "md-editor-app",
+      "set": {
+        "description": "Desktop apps for writing and organizing notes in Markdown."
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "meta",
+      "set": {
+        "description": "Projects about the JavaScript ecosystem itself, such as catalogs, curated lists, and package browsers, including Best of JS."
+      }
+    },
+    {
+      "op": "update-tag",
+      "code": "offline",
+      "set": {
+        "facet": "capability",
+        "description": "Run without a network connection, or detect online and offline status."
+      }
+    }
+  ]
+}

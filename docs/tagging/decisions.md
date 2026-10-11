@@ -63,3 +63,18 @@ not activate parent relationships in production.
 - **Reject `baas -> self-hosted`:** A backend-as-a-service may be hosted only by
   its provider, so the category does not necessarily have the self-hosted
   property.
+
+## Technical dependency is decided case by case
+
+**Accepted:** "Built on top of" does not by itself justify a parent
+relationship. Each such pair is discussed individually, weighing how the
+community and the catalog treat the two tags and what users expect to find
+under the parent.
+
+- **Not now: `react-native -> react`.** React Native uses React, but it is
+  widely seen as its own ecosystem, and the catalog agrees: only 5 of 73 React
+  Native projects carry `react`. Inheriting would add 68 mobile-only projects
+  to React pages and rankings. Projects that support both carry both tags
+  directly. Revisit if expectations change.
+- **Proposed: `nextjs -> react`.** Next.js projects are React web projects, so
+  they match what users expect under React.

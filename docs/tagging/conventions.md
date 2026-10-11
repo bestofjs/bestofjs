@@ -29,6 +29,10 @@ Categories may form broad-to-narrow hierarchies. For example,
 `test-framework -> test` is valid because every testing framework belongs to
 the broader Testing landscape.
 
+A technical dependency ("built on top of") is not enough on its own. Decide
+those pairs case by case, based on how the community and the catalog treat the
+two tags; see [decisions.md](./decisions.md).
+
 Use direct tags in composition when the concepts are independent. A project may
 carry both `automation` and `test`, but neither concept necessarily implies the
 other.
