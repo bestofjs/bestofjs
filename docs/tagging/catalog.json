@@ -5,1022 +5,1022 @@
       "code": "3d",
       "name": "3D",
       "description": null,
-      "facet": null,
+      "facet": "capability",
       "parentCode": null
     },
     {
       "code": "access",
       "name": "Accessibility",
       "description": "Tools to help with accessibility concerns",
-      "facet": null,
+      "facet": "capability",
       "parentCode": null
     },
     {
       "code": "ai",
       "name": "AI",
       "description": "Projects with built-in AI/LLM integrations, capabilities, or features.",
-      "facet": null,
+      "facet": "capability",
       "parentCode": null
     },
     {
       "code": "ai-agents",
       "name": "AI Agents",
       "description": "Frameworks for building autonomous agents with reasoning, tool use, and orchestration capabilities beyond simple LLM API calls.",
-      "facet": null,
+      "facet": "category",
       "parentCode": null
     },
     {
       "code": "ai-builder",
       "name": "AI Builder",
       "description": "Tools that generate complete, running applications from prompts or descriptions, handling the full development lifecycle including code generation, dependencies, runtime, and often deployment.",
-      "facet": null,
+      "facet": "category",
       "parentCode": null
     },
     {
       "code": "ai-coding-agent",
       "name": "Coding agent",
       "description": "End-user AI agent products that operate inside an existing codebase or developer environment to perform multi-step coding work: editing files, running shell/build/test commands, fixing bugs, refactoring, and agentic repo-level loops.\nDelivered as CLI, TUI, IDE extension, or SDK",
-      "facet": null,
+      "facet": "category",
       "parentCode": null
     },
     {
       "code": "ai-methodology",
       "name": "AI Methodology",
       "description": "Frameworks, patterns, and systematic approaches for AI-assisted development workflows. These are meta-tools that guide how teams work with AI agents, rather than libraries to build AI features.",
-      "facet": null,
+      "facet": "category",
       "parentCode": null
     },
     {
       "code": "analytics",
       "name": "Web Analytics",
       "description": null,
-      "facet": null,
+      "facet": "capability",
       "parentCode": null
     },
     {
       "code": "angular",
       "name": "Angular",
       "description": "Ecosystem related to the `Angular` library",
-      "facet": null,
+      "facet": "ecosystem",
       "parentCode": null
     },
     {
       "code": "animation",
       "name": "Animation",
       "description": "Libraries to animate things in the browser",
-      "facet": null,
+      "facet": "capability",
       "parentCode": null
     },
     {
       "code": "api",
       "name": "API builder",
       "description": "Tools to create and manage REST APIs: CRUD routes, authentication...",
-      "facet": null,
+      "facet": "category",
       "parentCode": null
     },
     {
       "code": "archive",
       "name": "Archive",
       "description": "",
-      "facet": null,
+      "facet": "capability",
       "parentCode": null
     },
     {
       "code": "astro",
       "name": "Astro",
       "description": "Ecosystem around Astro project (the web site/app builder)",
-      "facet": null,
+      "facet": "ecosystem",
       "parentCode": null
     },
     {
       "code": "atomic-css",
       "name": "Atomic CSS",
       "description": null,
-      "facet": null,
+      "facet": "category",
       "parentCode": null
     },
     {
       "code": "audio",
       "name": "Audio",
       "description": null,
-      "facet": null,
+      "facet": "capability",
       "parentCode": null
     },
     {
       "code": "auth",
       "name": "Authentication / Authorization",
       "description": "",
-      "facet": null,
+      "facet": "capability",
       "parentCode": null
     },
     {
       "code": "autocomplete",
       "name": "Autocomplete",
       "description": "Libraries to implement input fields with \"Autocomplete\" feature (to get automatic suggestions while typing)",
-      "facet": null,
+      "facet": "capability",
       "parentCode": null
     },
     {
       "code": "automation",
       "name": "Browser automation",
       "description": "",
-      "facet": null,
+      "facet": "capability",
       "parentCode": null
     },
     {
       "code": "baas",
       "name": "Backend-as-a-Service",
       "description": null,
-      "facet": null,
+      "facet": "category",
       "parentCode": null
     },
     {
       "code": "blockchain",
       "name": "Blockchain",
       "description": null,
-      "facet": null,
+      "facet": "ecosystem",
       "parentCode": null
     },
     {
       "code": "blog",
       "name": "Blog",
       "description": "Tools to build Blog application with node.js",
-      "facet": null,
+      "facet": "category",
       "parentCode": null
     },
     {
       "code": "boilerplate",
       "name": "Boilerplate",
       "description": "",
-      "facet": null,
+      "facet": "category",
       "parentCode": null
     },
     {
       "code": "book",
       "name": "Book",
       "description": "Books related to JavaScript, whose content is available on GitHub",
-      "facet": null,
+      "facet": "category",
       "parentCode": null
     },
     {
       "code": "bootstrap",
       "name": "Bootstrap",
       "description": null,
-      "facet": null,
+      "facet": "ecosystem",
       "parentCode": null
     },
     {
       "code": "bot",
       "name": "Bot",
       "description": "",
-      "facet": null,
+      "facet": "category",
       "parentCode": null
     },
     {
       "code": "browser-storage",
       "name": "Browser storage",
       "description": "",
-      "facet": null,
+      "facet": "capability",
       "parentCode": null
     },
     {
       "code": "build",
       "name": "Building tool",
       "description": "",
-      "facet": null,
+      "facet": "category",
       "parentCode": null
     },
     {
       "code": "bun",
       "name": "Bun",
       "description": null,
-      "facet": null,
+      "facet": "ecosystem",
       "parentCode": null
     },
     {
       "code": "caching",
       "name": "Caching",
       "description": null,
-      "facet": null,
+      "facet": "capability",
       "parentCode": null
     },
     {
       "code": "cad",
       "name": "CAD",
       "description": null,
-      "facet": null,
+      "facet": "category",
       "parentCode": null
     },
     {
       "code": "canvas",
       "name": "Canvas",
       "description": "Libraries that manipulate the `<canvas>` HTML element",
-      "facet": null,
+      "facet": "capability",
       "parentCode": null
     },
     {
       "code": "chart",
       "name": "Charting",
       "description": "Charting libraries to visualize data in the browser",
-      "facet": null,
+      "facet": "category",
       "parentCode": null
     },
     {
       "code": "chat",
       "name": "Chat",
       "description": null,
-      "facet": null,
+      "facet": "capability",
       "parentCode": null
     },
     {
       "code": "classname",
       "name": "ClassName",
       "description": "Tools to manipulate DOM elements classname property",
-      "facet": null,
+      "facet": "capability",
       "parentCode": null
     },
     {
       "code": "cli",
       "name": "CLI",
       "description": "Libraries to build Node.js Command Line Interactive applications that run in the terminal",
-      "facet": null,
+      "facet": "category",
       "parentCode": null
     },
     {
       "code": "cms",
       "name": "CMS",
       "description": "Tools to build Content Management Systems with node.js",
-      "facet": null,
+      "facet": "category",
       "parentCode": null
     },
     {
       "code": "code-editor",
       "name": "Code Editor",
       "description": null,
-      "facet": null,
+      "facet": "category",
       "parentCode": null
     },
     {
       "code": "code-parser",
       "name": "Code Parser",
       "description": null,
-      "facet": null,
+      "facet": "category",
       "parentCode": null
     },
     {
       "code": "color",
       "name": "Colors",
       "description": "",
-      "facet": null,
+      "facet": "capability",
       "parentCode": null
     },
     {
       "code": "compatibility",
       "name": "Browser compatibility",
       "description": "Tools to address browser compatibility issues",
-      "facet": null,
+      "facet": "capability",
       "parentCode": null
     },
     {
       "code": "compiler",
       "name": "Compiler",
       "description": "Languages that compile to JavaScript",
-      "facet": null,
+      "facet": "category",
       "parentCode": null
     },
     {
       "code": "component",
       "name": "Component library",
       "description": "Collections of styled components for specific UI libraries (React, Vue.js...)",
-      "facet": null,
+      "facet": "category",
       "parentCode": null
     },
     {
       "code": "config",
       "name": "Configuration",
       "description": "",
-      "facet": null,
+      "facet": "capability",
       "parentCode": null
     },
     {
       "code": "crdt",
       "name": "CRDT",
       "description": null,
-      "facet": null,
+      "facet": "capability",
       "parentCode": null
     },
     {
       "code": "crm",
       "name": "CRM",
       "description": "Tools to build Customer Relationship Management apps",
-      "facet": null,
+      "facet": "category",
       "parentCode": null
     },
     {
       "code": "cron",
       "name": "CRON",
       "description": null,
-      "facet": null,
+      "facet": "capability",
       "parentCode": null
     },
     {
       "code": "crypto",
       "name": "Crypto",
       "description": null,
-      "facet": null,
+      "facet": "capability",
       "parentCode": null
     },
     {
       "code": "crypto-currency",
       "name": "Crypto-currency",
       "description": "Projects related to the crypto-currency world",
-      "facet": null,
+      "facet": "ecosystem",
       "parentCode": null
     },
     {
       "code": "css-in-js",
       "name": "CSS in JS",
       "description": "Tools to produce CSS from JavaScript",
-      "facet": null,
+      "facet": "category",
       "parentCode": null
     },
     {
       "code": "css-lib",
       "name": "CSS Toolkit",
       "description": "Set of CSS and JavaScript elements that can be included in any web page",
-      "facet": null,
+      "facet": "category",
       "parentCode": null
     },
     {
       "code": "css-tool",
       "name": "CSS Processor",
       "description": "Tools to build and optimize stylesheets (CSS preprocessors and processors)",
-      "facet": null,
+      "facet": "category",
       "parentCode": null
     },
     {
       "code": "csv",
       "name": "CSV",
       "description": null,
-      "facet": null,
+      "facet": "capability",
       "parentCode": null
     },
     {
       "code": "d3",
       "name": "D3",
       "description": "Tools built on top of `D3` library",
-      "facet": null,
+      "facet": "ecosystem",
       "parentCode": null
     },
     {
       "code": "dashboard",
       "name": "Dashboard",
       "description": "Tools to build easily dashboards/admin panels",
-      "facet": null,
+      "facet": "category",
       "parentCode": null
     },
     {
       "code": "data",
       "name": "Data fetching",
       "description": "",
-      "facet": null,
+      "facet": "capability",
       "parentCode": null
     },
     {
       "code": "data-analysis",
       "name": "Data analysis",
       "description": null,
-      "facet": null,
+      "facet": "capability",
       "parentCode": null
     },
     {
       "code": "data-structure",
       "name": "Data structure",
       "description": null,
-      "facet": null,
+      "facet": "category",
       "parentCode": null
     },
     {
       "code": "date",
       "name": "Date & time",
       "description": "Manipulate and show date and times",
-      "facet": null,
+      "facet": "capability",
       "parentCode": null
     },
     {
       "code": "db",
       "name": "Database",
       "description": "Tools to connect to database (SQL and no-SQL), ORM...",
-      "facet": null,
+      "facet": "category",
       "parentCode": null
     },
     {
       "code": "debug",
       "name": "Debugging",
       "description": "Tools to debug JavaScript code",
-      "facet": null,
+      "facet": "capability",
       "parentCode": null
     },
     {
       "code": "decentralized",
       "name": "Decentralized",
       "description": null,
-      "facet": null,
+      "facet": "property",
       "parentCode": null
     },
     {
       "code": "deno",
       "name": "Deno",
       "description": null,
-      "facet": null,
+      "facet": "ecosystem",
       "parentCode": null
     },
     {
       "code": "dependencies",
       "name": "Dependency analysis",
       "description": "Tools to analyze the dependency tree",
-      "facet": null,
+      "facet": "capability",
       "parentCode": null
     },
     {
       "code": "design-system",
       "name": "Design System",
       "description": null,
-      "facet": null,
+      "facet": "capability",
       "parentCode": null
     },
     {
       "code": "desktop",
       "name": "Desktop app framework",
       "description": "Tools to create desktop apps",
-      "facet": null,
+      "facet": "category",
       "parentCode": null
     },
     {
       "code": "desktop-app",
       "name": "Desktop app",
       "description": "Native desktop applications to be installed on a computer",
-      "facet": null,
+      "facet": "category",
       "parentCode": null
     },
     {
       "code": "devtool",
       "name": "Dev tool",
       "description": null,
-      "facet": null,
+      "facet": "category",
       "parentCode": null
     },
     {
       "code": "di",
       "name": "Dependency Injection",
       "description": null,
-      "facet": null,
+      "facet": "capability",
       "parentCode": null
     },
     {
       "code": "diagram",
       "name": "Diagram / Flow chart",
       "description": null,
-      "facet": null,
+      "facet": "category",
       "parentCode": null
     },
     {
       "code": "diff",
       "name": "Diff",
       "description": "Tools to compare differences between objects and arrays\n",
-      "facet": null,
+      "facet": "capability",
       "parentCode": null
     },
     {
       "code": "dnd",
       "name": "Drag and drop",
       "description": null,
-      "facet": null,
+      "facet": "capability",
       "parentCode": null
     },
     {
       "code": "doc",
       "name": "Documentation",
       "description": "Tools to generate documentation",
-      "facet": null,
+      "facet": "category",
       "parentCode": null
     },
     {
       "code": "dom",
       "name": "DOM manipulation",
       "description": "Tools to manipulate the html DOM (create, update, read html fragments...)",
-      "facet": null,
+      "facet": "capability",
       "parentCode": null
     },
     {
       "code": "drawing",
       "name": "Drawing",
       "description": "",
-      "facet": null,
+      "facet": "capability",
       "parentCode": null
     },
     {
       "code": "ecommerce",
       "name": "E-commerce",
       "description": null,
-      "facet": null,
+      "facet": "category",
       "parentCode": null
     },
     {
       "code": "email",
       "name": "Email",
       "description": null,
-      "facet": null,
+      "facet": "capability",
       "parentCode": null
     },
     {
       "code": "emoji",
       "name": "Emoji",
       "description": "",
-      "facet": null,
+      "facet": "capability",
       "parentCode": null
     },
     {
       "code": "error",
       "name": "Error handling",
       "description": null,
-      "facet": null,
+      "facet": "capability",
       "parentCode": null
     },
     {
       "code": "event-sourcing",
       "name": "Event sourcing",
       "description": null,
-      "facet": null,
+      "facet": "capability",
       "parentCode": null
     },
     {
       "code": "express",
       "name": "Express",
       "description": "Tools related to `Express` web framework",
-      "facet": null,
+      "facet": "ecosystem",
       "parentCode": null
     },
     {
       "code": "extension",
       "name": "Browser extension",
       "description": null,
-      "facet": null,
+      "facet": "category",
       "parentCode": null
     },
     {
       "code": "filesystem",
       "name": "File system",
       "description": null,
-      "facet": null,
+      "facet": "capability",
       "parentCode": null
     },
     {
       "code": "flow",
       "name": "Async flow / Promises",
       "description": "",
-      "facet": null,
+      "facet": "capability",
       "parentCode": null
     },
     {
       "code": "flux",
       "name": "Flux",
       "description": "Implementation of `Flux` event and state management system",
-      "facet": null,
+      "facet": "capability",
       "parentCode": null
     },
     {
       "code": "font",
       "name": "Font",
       "description": null,
-      "facet": null,
+      "facet": "capability",
       "parentCode": null
     },
     {
       "code": "form",
       "name": "Form",
       "description": "Form validation and generation",
-      "facet": null,
+      "facet": "capability",
       "parentCode": null
     },
     {
       "code": "format",
       "name": "Format tools",
       "description": "Libraries to format numbers and dates",
-      "facet": null,
+      "facet": "capability",
       "parentCode": null
     },
     {
       "code": "formatter",
       "name": "Formatter",
       "description": "Tools to format the code (in the spirit of `fmt` for golang)",
-      "facet": null,
+      "facet": "category",
       "parentCode": null
     },
     {
       "code": "fp",
       "name": "Functional programming",
       "description": "",
-      "facet": null,
+      "facet": "capability",
       "parentCode": null
     },
     {
       "code": "framework",
       "name": "UI Framework",
       "description": "Libraries and frameworks to build UI running in the browser",
-      "facet": null,
+      "facet": "category",
       "parentCode": null
     },
     {
       "code": "fullstack",
       "name": "Full-stack framework",
       "description": null,
-      "facet": null,
+      "facet": "category",
       "parentCode": null
     },
     {
       "code": "fulltext",
       "name": "Full-text search",
       "description": null,
-      "facet": null,
+      "facet": "capability",
       "parentCode": null
     },
     {
       "code": "fuzzy",
       "name": "Fuzzy search",
       "description": "",
-      "facet": null,
+      "facet": "capability",
       "parentCode": null
     },
     {
       "code": "game",
       "name": "Game engine",
       "description": "Librairies to create HTML5 games in the browser.",
-      "facet": null,
+      "facet": "category",
       "parentCode": null
     },
     {
       "code": "geometry",
       "name": "Geometry",
       "description": null,
-      "facet": null,
+      "facet": "capability",
       "parentCode": null
     },
     {
       "code": "geospatial",
       "name": "Geospatial",
       "description": "Libraries for working with geographic and spatial data",
-      "facet": null,
+      "facet": "capability",
       "parentCode": null
     },
     {
       "code": "git",
       "name": "Git",
       "description": null,
-      "facet": null,
+      "facet": "capability",
       "parentCode": null
     },
     {
       "code": "glob",
       "name": "Glob",
       "description": "Glob matching tools to match text, typically filenames or paths, using simple wildcard patterns",
-      "facet": null,
+      "facet": "capability",
       "parentCode": null
     },
     {
       "code": "gpu",
       "name": "GPU",
       "description": null,
-      "facet": null,
+      "facet": "capability",
       "parentCode": null
     },
     {
       "code": "graph",
       "name": "Graph",
       "description": null,
-      "facet": null,
+      "facet": "capability",
       "parentCode": null
     },
     {
       "code": "graphql",
       "name": "GraphQL",
       "description": null,
-      "facet": null,
+      "facet": "ecosystem",
       "parentCode": null
     },
     {
       "code": "headless",
       "name": "Headless components",
       "description": null,
-      "facet": null,
+      "facet": "property",
       "parentCode": null
     },
     {
       "code": "highlight",
       "name": "Syntax highlighting",
       "description": "",
-      "facet": null,
+      "facet": "capability",
       "parentCode": null
     },
     {
       "code": "hook",
       "name": "Hook",
       "description": null,
-      "facet": null,
+      "facet": "category",
       "parentCode": null
     },
     {
       "code": "html",
       "name": "HTML template",
       "description": "",
-      "facet": null,
+      "facet": "category",
       "parentCode": null
     },
     {
       "code": "html-tagging",
       "name": "HTML Tagging",
       "description": "HTML over the wire",
-      "facet": null,
+      "facet": "category",
       "parentCode": null
     },
     {
       "code": "http",
       "name": "HTTP client • Fetch • AJAX",
       "description": "Libraries to create HTTP requests in node.js or AJAX and `Fetch` requests in the browser",
-      "facet": null,
+      "facet": "capability",
       "parentCode": null
     },
     {
       "code": "i18n",
       "name": "Internationalization i18n",
       "description": "",
-      "facet": null,
+      "facet": "capability",
       "parentCode": null
     },
     {
       "code": "icon",
       "name": "Icon set",
       "description": "Font icons and SVG resources to add vector icons to pages",
-      "facet": null,
+      "facet": "category",
       "parentCode": null
     },
     {
       "code": "ide",
       "name": "IDE",
       "description": "Open source editors for web development",
-      "facet": null,
+      "facet": "category",
       "parentCode": null
     },
     {
       "code": "image",
       "name": "Image processing",
       "description": "Image processing: optimization, recognition...",
-      "facet": null,
+      "facet": "capability",
       "parentCode": null
     },
     {
       "code": "iot",
       "name": "IoT",
       "description": "",
-      "facet": null,
+      "facet": "ecosystem",
       "parentCode": null
     },
     {
       "code": "json",
       "name": "JSON",
       "description": null,
-      "facet": null,
+      "facet": "capability",
       "parentCode": null
     },
     {
       "code": "keyboard",
       "name": "Keyboard",
       "description": "Low levels libraries to handle keyboard events",
-      "facet": null,
+      "facet": "capability",
       "parentCode": null
     },
     {
       "code": "kv",
       "name": "Key-Value",
       "description": "Related to Key-Value storage",
-      "facet": null,
+      "facet": "capability",
       "parentCode": null
     },
     {
       "code": "layout",
       "name": "Layout",
       "description": "",
-      "facet": null,
+      "facet": "capability",
       "parentCode": null
     },
     {
       "code": "learning",
       "name": "Learning resource",
       "description": "Resources to learn about JavaScript, CSS, Node.js and web development in general",
-      "facet": null,
+      "facet": "category",
       "parentCode": null
     },
     {
       "code": "lint",
       "name": "Linter",
       "description": "",
-      "facet": null,
+      "facet": "category",
       "parentCode": null
     },
     {
       "code": "load",
       "name": "Resource loader",
       "description": "Tools to load resource (JavaScript, CSS, images...) in the browser",
-      "facet": null,
+      "facet": "capability",
       "parentCode": null
     },
     {
       "code": "log",
       "name": "Logging",
       "description": "",
-      "facet": null,
+      "facet": "capability",
       "parentCode": null
     },
     {
       "code": "lowcode",
       "name": "Low-code",
       "description": "Tools to create applications with minimal hand-coding, for component-based software development, allowing users to drag and drop components to build applications",
-      "facet": null,
+      "facet": "category",
       "parentCode": null
     },
     {
       "code": "map",
       "name": "Maps",
       "description": "",
-      "facet": null,
+      "facet": "capability",
       "parentCode": null
     },
     {
       "code": "markup",
       "name": "Markup language",
       "description": "Markup language (markdown, asciidoc...) to HTML processors",
-      "facet": null,
+      "facet": "category",
       "parentCode": null
     },
     {
       "code": "mask",
       "name": "Input Mask",
       "description": null,
-      "facet": null,
+      "facet": "capability",
       "parentCode": null
     },
     {
       "code": "material",
       "name": "Material design",
       "description": "",
-      "facet": null,
+      "facet": "ecosystem",
       "parentCode": null
     },
     {
       "code": "math",
       "name": "Math",
       "description": "Mathematics tools",
-      "facet": null,
+      "facet": "capability",
       "parentCode": null
     },
     {
       "code": "mcp",
       "name": "MCP",
       "description": null,
-      "facet": null,
+      "facet": "ecosystem",
       "parentCode": null
     },
     {
       "code": "md",
       "name": "Markdown",
       "description": "",
-      "facet": null,
+      "facet": "capability",
       "parentCode": null
     },
     {
       "code": "md-editor-app",
       "name": "Markdown Editor App",
       "description": null,
-      "facet": null,
+      "facet": "category",
       "parentCode": null
     },
     {
       "code": "menu",
       "name": "Menu",
       "description": null,
-      "facet": null,
+      "facet": "capability",
       "parentCode": null
     },
     {
       "code": "meta",
       "name": "Meta",
       "description": "",
-      "facet": null,
+      "facet": "category",
       "parentCode": null
     },
     {
       "code": "meteor",
       "name": "Meteor",
       "description": "",
-      "facet": null,
+      "facet": "ecosystem",
       "parentCode": null
     },
     {
       "code": "microfontend",
       "name": "Micro frontend",
       "description": null,
-      "facet": null,
+      "facet": "capability",
       "parentCode": null
     },
     {
       "code": "microservice",
       "name": "Microservices",
       "description": "",
-      "facet": null,
+      "facet": "capability",
       "parentCode": null
     },
     {
       "code": "middleware",
       "name": "Middleware",
       "description": "",
-      "facet": null,
+      "facet": "category",
       "parentCode": null
     },
     {
       "code": "ml",
       "name": "Machine Learning",
       "description": "",
-      "facet": null,
+      "facet": "capability",
       "parentCode": null
     },
     {
       "code": "mobile",
       "name": "Mobile",
       "description": "Tools to build mobile applications using web technologies",
-      "facet": null,
+      "facet": "capability",
       "parentCode": null
     },
     {
       "code": "modal",
       "name": "Modal",
       "description": "Libraries used to display modals (popup windows) in web applications",
-      "facet": null,
+      "facet": "capability",
       "parentCode": null
     },
     {
       "code": "module",
       "name": "Module - bundler",
       "description": "Tools that handle JavaScript modules (CommonJS and ES6 modules) in order to build JavaScript files consumed by web applications",
-      "facet": null,
+      "facet": "category",
       "parentCode": null
     },
     {
       "code": "money",
       "name": "Money",
       "description": "Libraries used to handle currency values: format, convert...",
-      "facet": null,
+      "facet": "capability",
       "parentCode": null
     },
     {
       "code": "mongodb",
       "name": "MongoDB",
       "description": null,
-      "facet": null,
+      "facet": "ecosystem",
       "parentCode": null
     },
     {
       "code": "monorepo",
       "name": "Monorepo",
       "description": null,
-      "facet": null,
+      "facet": "capability",
       "parentCode": null
     },
     {
       "code": "neural",
       "name": "Neural network",
       "description": "",
-      "facet": null,
+      "facet": "capability",
       "parentCode": null
     },
     {
       "code": "nextjs",
       "name": "Next.js",
       "description": null,
-      "facet": null,
+      "facet": "ecosystem",
       "parentCode": null
     },
     {
       "code": "nlp",
       "name": "NLP",
       "description": "Natural Language Processing",
-      "facet": null,
+      "facet": "capability",
       "parentCode": null
     },
     {
       "code": "nodejs-framework",
       "name": "Node.js framework",
       "description": "Tools that abstract client-server interactions for the developer, so they can focus on their own API and routes rather than handling the network layer itself",
-      "facet": null,
+      "facet": "category",
       "parentCode": null
     },
     {
@@ -1031,238 +1031,238 @@
         "alert",
         "prompt"
       ],
-      "facet": null,
+      "facet": "capability",
       "parentCode": null
     },
     {
       "code": "npm-scripts",
       "name": "NPM scripts",
       "description": "Tools to help organize and launch scripts defined in package.json",
-      "facet": null,
+      "facet": "capability",
       "parentCode": null
     },
     {
       "code": "nvm",
       "name": "Node.js version management",
       "description": null,
-      "facet": null,
+      "facet": "capability",
       "parentCode": null
     },
     {
       "code": "offline",
       "name": "Offline",
       "description": "",
-      "facet": null,
+      "facet": "property",
       "parentCode": null
     },
     {
       "code": "openapi",
       "name": "OpenAPI",
       "description": "Related to OpenAPI specification, formerly Swagger",
-      "facet": null,
+      "facet": "ecosystem",
       "parentCode": null
     },
     {
       "code": "orm",
       "name": "ORM",
       "description": null,
-      "facet": null,
+      "facet": "category",
       "parentCode": null
     },
     {
       "code": "package",
       "name": "Package Manager",
       "description": "",
-      "facet": null,
+      "facet": "category",
       "parentCode": null
     },
     {
       "code": "parsing",
       "name": "HTML & text parsing",
       "description": "",
-      "facet": null,
+      "facet": "capability",
       "parentCode": null
     },
     {
       "code": "pdf",
       "name": "PDF",
       "description": null,
-      "facet": null,
+      "facet": "capability",
       "parentCode": null
     },
     {
       "code": "performance",
       "name": "Performance",
       "description": "",
-      "facet": null,
+      "facet": "capability",
       "parentCode": null
     },
     {
       "code": "physics",
       "name": "Physics",
       "description": null,
-      "facet": null,
+      "facet": "capability",
       "parentCode": null
     },
     {
       "code": "playground",
       "name": "Playground",
       "description": null,
-      "facet": null,
+      "facet": "category",
       "parentCode": null
     },
     {
       "code": "plugin",
       "name": "Plugin / form widget",
       "description": "Utilities for forms: dropdown menus, slider...",
-      "facet": null,
+      "facet": "category",
       "parentCode": null
     },
     {
       "code": "polyfill",
       "name": "Polyfill",
       "description": "",
-      "facet": null,
+      "facet": "category",
       "parentCode": null
     },
     {
       "code": "prefetch",
       "name": "Prefetch",
       "description": null,
-      "facet": null,
+      "facet": "capability",
       "parentCode": null
     },
     {
       "code": "prerender",
       "name": "Prerender",
       "description": "Tools to render Single Page Applications server-side to makes pages faster",
-      "facet": null,
+      "facet": "capability",
       "parentCode": null
     },
     {
       "code": "presentation",
       "name": "Presentation",
       "description": "Librairies to create beautiful HTML presentations... no more Powerpoint!",
-      "facet": null,
+      "facet": "category",
       "parentCode": null
     },
     {
       "code": "print",
       "name": "Print",
       "description": "",
-      "facet": null,
+      "facet": "capability",
       "parentCode": null
     },
     {
       "code": "process",
       "name": "Process management",
       "description": "",
-      "facet": null,
+      "facet": "capability",
       "parentCode": null
     },
     {
       "code": "protobuf",
       "name": "Protobuf",
       "description": null,
-      "facet": null,
+      "facet": "ecosystem",
       "parentCode": null
     },
     {
       "code": "publish",
       "name": "Publish package",
       "description": "Tools to help publish packages on NPM",
-      "facet": null,
+      "facet": "capability",
       "parentCode": null
     },
     {
       "code": "pubsub",
       "name": "PubSub",
       "description": "",
-      "facet": null,
+      "facet": "capability",
       "parentCode": null
     },
     {
       "code": "pwa",
       "name": "PWA",
       "description": null,
-      "facet": null,
+      "facet": "category",
       "parentCode": null
     },
     {
       "code": "qrcode",
       "name": "QR code",
       "description": null,
-      "facet": null,
+      "facet": "capability",
       "parentCode": null
     },
     {
       "code": "queue",
       "name": "Queue",
       "description": null,
-      "facet": null,
+      "facet": "capability",
       "parentCode": null
     },
     {
       "code": "random",
       "name": "Random",
       "description": "Random data generators",
-      "facet": null,
+      "facet": "capability",
       "parentCode": null
     },
     {
       "code": "react",
       "name": "React",
       "description": "Ecosystem related to the `React` library",
-      "facet": null,
+      "facet": "ecosystem",
       "parentCode": null
     },
     {
       "code": "react-native",
       "name": "React Native",
       "description": null,
-      "facet": null,
+      "facet": "ecosystem",
       "parentCode": null
     },
     {
       "code": "reactive",
       "name": "Reactive programming",
       "description": "",
-      "facet": null,
+      "facet": "capability",
       "parentCode": null
     },
     {
       "code": "realtime",
       "name": "Real-time",
       "description": "Libraries and frameworks that help provide end-users real-time feedback when data changes",
-      "facet": null,
+      "facet": "capability",
       "parentCode": null
     },
     {
       "code": "redux",
       "name": "Redux",
       "description": "Ecosystem related to `Redux` library",
-      "facet": null,
+      "facet": "ecosystem",
       "parentCode": null
     },
     {
       "code": "regexp",
       "name": "Regular expression",
       "description": "",
-      "facet": null,
+      "facet": "capability",
       "parentCode": null
     },
     {
       "code": "registry",
       "name": "Registry",
       "description": "Tools to help distributing JS/TS code",
-      "facet": null,
+      "facet": "category",
       "parentCode": null
     },
     {
       "code": "remix",
       "name": "Remix",
       "description": "Projects related to Remix.run fullstack web framework",
-      "facet": null,
+      "facet": "ecosystem",
       "parentCode": null
     },
     {
@@ -1272,182 +1272,182 @@
       "aliases": [
         "wysiwyg"
       ],
-      "facet": null,
+      "facet": "category",
       "parentCode": null
     },
     {
       "code": "routing",
       "name": "Routing",
       "description": "",
-      "facet": null,
+      "facet": "capability",
       "parentCode": null
     },
     {
       "code": "rpc",
       "name": "RPC",
       "description": null,
-      "facet": null,
+      "facet": "capability",
       "parentCode": null
     },
     {
       "code": "rsc",
       "name": "React Server Components",
       "description": "Support for RSC (React Server Components)",
-      "facet": null,
+      "facet": "ecosystem",
       "parentCode": null
     },
     {
       "code": "rss",
       "name": "RSS",
       "description": "Tools to generate or parse RSS feeds",
-      "facet": null,
+      "facet": "capability",
       "parentCode": null
     },
     {
       "code": "runtime",
       "name": "Runtime",
       "description": "JavaScript runtime engines and plaforms",
-      "facet": null,
+      "facet": "category",
       "parentCode": null
     },
     {
       "code": "rust",
       "name": "Rust",
       "description": null,
-      "facet": null,
+      "facet": "ecosystem",
       "parentCode": null
     },
     {
       "code": "rwd",
       "name": "Responsive Web Design",
       "description": "Tools to help with media queries and Responsive Web Design",
-      "facet": null,
+      "facet": "capability",
       "parentCode": null
     },
     {
       "code": "scaffolding",
       "name": "Scaffolding - generator",
       "description": "",
-      "facet": null,
+      "facet": "category",
       "parentCode": null
     },
     {
       "code": "schema",
       "name": "Schema",
       "description": null,
-      "facet": null,
+      "facet": "capability",
       "parentCode": null
     },
     {
       "code": "scraping",
       "name": "Scraping",
       "description": "Tools to to web scraping and crawling",
-      "facet": null,
+      "facet": "capability",
       "parentCode": null
     },
     {
       "code": "screenshot",
       "name": "Screenshot",
       "description": null,
-      "facet": null,
+      "facet": "capability",
       "parentCode": null
     },
     {
       "code": "scrolling",
       "name": "Scrolling",
       "description": null,
-      "facet": null,
+      "facet": "capability",
       "parentCode": null
     },
     {
       "code": "sdk",
       "name": "SDK / API Wrappers",
       "description": "Type-safe client libraries and SDKs for integrating with external APIs and services",
-      "facet": null,
+      "facet": "category",
       "parentCode": null
     },
     {
       "code": "search",
       "name": "Search",
       "description": "",
-      "facet": null,
+      "facet": "capability",
       "parentCode": null
     },
     {
       "code": "security",
       "name": "Security",
       "description": null,
-      "facet": null,
+      "facet": "capability",
       "parentCode": null
     },
     {
       "code": "self-hosted",
       "name": "Self-Hosted",
       "description": "Open source alternative to popular solutions that can be hosted on one's infrastructure, this new tag is experimental as Best of JS does not aim to provide an exhaustive list of self-hosted solutions, please consider projects like https://github.com/awesome-selfhosted/awesome-selfhosted",
-      "facet": null,
+      "facet": "property",
       "parentCode": null
     },
     {
       "code": "serverless",
       "name": "Serverless",
       "description": "Tools to help writing code without having to worry about infrastructure (managed by cloud providers)",
-      "facet": null,
+      "facet": "property",
       "parentCode": null
     },
     {
       "code": "serviceworker",
       "name": "Service Worker",
       "description": "",
-      "facet": null,
+      "facet": "ecosystem",
       "parentCode": null
     },
     {
       "code": "shadcn",
       "name": "shadcn",
       "description": "Code available from shadcn registry (installed via shadcn CLI)",
-      "facet": null,
+      "facet": "ecosystem",
       "parentCode": null
     },
     {
       "code": "shell",
       "name": "Shell",
       "description": "Tools to launch shell script from JavaScript, alternative to `child_process` ",
-      "facet": null,
+      "facet": "capability",
       "parentCode": null
     },
     {
       "code": "skills",
       "name": "Skills",
       "description": "Packaged instructions and scripts that extend agent capabilities\n",
-      "facet": null,
+      "facet": "category",
       "parentCode": null
     },
     {
       "code": "slider",
       "name": "Slider",
       "description": "\r\n",
-      "facet": null,
+      "facet": "capability",
       "parentCode": null
     },
     {
       "code": "social",
       "name": "Social",
       "description": "Tools related to social networks (X, BlueSky, Discord, LinkedIn...)",
-      "facet": null,
+      "facet": "capability",
       "parentCode": null
     },
     {
       "code": "solid",
       "name": "Solid",
       "description": null,
-      "facet": null,
+      "facet": "ecosystem",
       "parentCode": null
     },
     {
       "code": "spinner",
       "name": "Progress / Spinner",
       "description": "",
-      "facet": null,
+      "facet": "capability",
       "parentCode": null
     },
     {
@@ -1457,21 +1457,21 @@
       "aliases": [
         "datagrid"
       ],
-      "facet": null,
+      "facet": "capability",
       "parentCode": null
     },
     {
       "code": "sql",
       "name": "SQL",
       "description": null,
-      "facet": null,
+      "facet": "ecosystem",
       "parentCode": null
     },
     {
       "code": "sse",
       "name": "Server-Side Events",
       "description": "",
-      "facet": null,
+      "facet": "capability",
       "parentCode": null
     },
     {
@@ -1481,175 +1481,175 @@
       "aliases": [
         "static-site-generator"
       ],
-      "facet": null,
+      "facet": "category",
       "parentCode": null
     },
     {
       "code": "state",
       "name": "State management",
       "description": null,
-      "facet": null,
+      "facet": "category",
       "parentCode": null
     },
     {
       "code": "state-machine",
       "name": "State machine",
       "description": null,
-      "facet": null,
+      "facet": "capability",
       "parentCode": null
     },
     {
       "code": "stats",
       "name": "Statistics",
       "description": "",
-      "facet": null,
+      "facet": "capability",
       "parentCode": null
     },
     {
       "code": "stream",
       "name": "Stream",
       "description": null,
-      "facet": null,
+      "facet": "capability",
       "parentCode": null
     },
     {
       "code": "string",
       "name": "String",
       "description": "Libraries that help with manipulating String variables",
-      "facet": null,
+      "facet": "capability",
       "parentCode": null
     },
     {
       "code": "styleguide",
       "name": "Styleguide",
       "description": null,
-      "facet": null,
+      "facet": "category",
       "parentCode": null
     },
     {
       "code": "svelte",
       "name": "Svelte",
       "description": "Ecosystem related to Svelte framework",
-      "facet": null,
+      "facet": "ecosystem",
       "parentCode": null
     },
     {
       "code": "svg",
       "name": "SVG",
       "description": "",
-      "facet": null,
+      "facet": "capability",
       "parentCode": null
     },
     {
       "code": "system",
       "name": "System",
       "description": "Cross-platform abstractions for OS operations (opening files/URLs/apps, clipboard, process spawning, file system operations, system info)",
-      "facet": null,
+      "facet": "capability",
       "parentCode": null
     },
     {
       "code": "table",
       "name": "Table",
       "description": "Tables used to visualize data",
-      "facet": null,
+      "facet": "capability",
       "parentCode": null
     },
     {
       "code": "tailwind",
       "name": "TailwindCSS",
       "description": null,
-      "facet": null,
+      "facet": "ecosystem",
       "parentCode": null
     },
     {
       "code": "template",
       "name": "Templating",
       "description": "Templating languages",
-      "facet": null,
+      "facet": "category",
       "parentCode": null
     },
     {
       "code": "terminal",
       "name": "Terminal",
       "description": null,
-      "facet": null,
+      "facet": "category",
       "parentCode": null
     },
     {
       "code": "test",
       "name": "Testing",
       "description": "Tools to help with automatic testing: unit tests, smoke tests, end-to-end tests...",
-      "facet": null,
+      "facet": "category",
       "parentCode": null
     },
     {
       "code": "test-framework",
       "name": "Testing framework",
       "description": "Libraries to write unit tests that can be run in the browser or in node.js",
-      "facet": null,
+      "facet": "category",
       "parentCode": null
     },
     {
       "code": "text-processing",
       "name": "Text processing",
       "description": "",
-      "facet": null,
+      "facet": "capability",
       "parentCode": null
     },
     {
       "code": "thread",
       "name": "Worker thread",
       "description": "",
-      "facet": null,
+      "facet": "capability",
       "parentCode": null
     },
     {
       "code": "timeline",
       "name": "Timeline",
       "description": null,
-      "facet": null,
+      "facet": "capability",
       "parentCode": null
     },
     {
       "code": "tooltip",
       "name": "Tooltip",
       "description": "",
-      "facet": null,
+      "facet": "capability",
       "parentCode": null
     },
     {
       "code": "touch",
       "name": "Gesture - Touch",
       "description": null,
-      "facet": null,
+      "facet": "capability",
       "parentCode": null
     },
     {
       "code": "tour",
       "name": "Tour - Guide",
       "description": null,
-      "facet": null,
+      "facet": "capability",
       "parentCode": null
     },
     {
       "code": "tree",
       "name": "Tree / Explorer component",
       "description": "Libraries to visualize hierarchical data as a tree (E.g.: file explorer)",
-      "facet": null,
+      "facet": "capability",
       "parentCode": null
     },
     {
       "code": "types",
       "name": "Types",
       "description": "Tools to use static types in JavaScript",
-      "facet": null,
+      "facet": "capability",
       "parentCode": null
     },
     {
       "code": "typo",
       "name": "Typography",
       "description": null,
-      "facet": null,
+      "facet": "capability",
       "parentCode": null
     },
     {
@@ -1659,168 +1659,168 @@
       "aliases": [
         "isomorphic"
       ],
-      "facet": null,
+      "facet": "property",
       "parentCode": null
     },
     {
       "code": "upload",
       "name": "File upload",
       "description": "Tools to upload files from the browser",
-      "facet": null,
+      "facet": "capability",
       "parentCode": null
     },
     {
       "code": "util",
       "name": "Utils",
       "description": "Useful Javascript utility libraries to speed your development.",
-      "facet": null,
+      "facet": "capability",
       "parentCode": null
     },
     {
       "code": "validation",
       "name": "Validation",
       "description": "Object schema validation",
-      "facet": null,
+      "facet": "capability",
       "parentCode": null
     },
     {
       "code": "vdom",
       "name": "Virtual DOM",
       "description": "",
-      "facet": null,
+      "facet": "capability",
       "parentCode": null
     },
     {
       "code": "video",
       "name": "Video",
       "description": "",
-      "facet": null,
+      "facet": "capability",
       "parentCode": null
     },
     {
       "code": "viewer",
       "name": "Image viewer",
       "description": "Libraries and component to view images (including lightbox components)",
-      "facet": null,
+      "facet": "category",
       "parentCode": null
     },
     {
       "code": "virtual",
       "name": "Virtual Reality",
       "description": "",
-      "facet": null,
+      "facet": "capability",
       "parentCode": null
     },
     {
       "code": "virtual-list",
       "name": "Virtual list",
       "description": null,
-      "facet": null,
+      "facet": "capability",
       "parentCode": null
     },
     {
       "code": "visual-programming",
       "name": "Visual Programming",
       "description": "Tools to create code through a graphical user interface, often with a focus on quick-launch or prototype development",
-      "facet": null,
+      "facet": "category",
       "parentCode": null
     },
     {
       "code": "vite",
       "name": "Vite",
       "description": null,
-      "facet": null,
+      "facet": "ecosystem",
       "parentCode": null
     },
     {
       "code": "vue",
       "name": "Vue",
       "description": "Ecosystem related to the `Vue.js` library",
-      "facet": null,
+      "facet": "ecosystem",
       "parentCode": null
     },
     {
       "code": "web3",
       "name": "Web3",
       "description": null,
-      "facet": null,
+      "facet": "ecosystem",
       "parentCode": null
     },
     {
       "code": "webassembly",
       "name": "Web Assembly",
       "description": "",
-      "facet": null,
+      "facet": "ecosystem",
       "parentCode": null
     },
     {
       "code": "webcomponent",
       "name": "Web Components",
       "description": null,
-      "facet": null,
+      "facet": "category",
       "parentCode": null
     },
     {
       "code": "webgl",
       "name": "WebGL",
       "description": null,
-      "facet": null,
+      "facet": "ecosystem",
       "parentCode": null
     },
     {
       "code": "webhook",
       "name": "Webhook",
       "description": null,
-      "facet": null,
+      "facet": "capability",
       "parentCode": null
     },
     {
       "code": "webrtc",
       "name": "WebRTC",
       "description": null,
-      "facet": null,
+      "facet": "ecosystem",
       "parentCode": null
     },
     {
       "code": "websocket",
       "name": "Websocket",
       "description": null,
-      "facet": null,
+      "facet": "ecosystem",
       "parentCode": null
     },
     {
       "code": "webworker",
       "name": "Web workers",
       "description": "Web workers are a web API that allow you to run code in a separate thread (not to be mistaken with \"Service workers\"!)",
-      "facet": null,
+      "facet": "ecosystem",
       "parentCode": null
     },
     {
       "code": "wildcard",
       "name": "Editor's pick",
       "description": "Projects that don't match the usual criteria about being either written in a language that compile to JavaScript or a build tool that emits JavaScript, picked by Best of JS authors.",
-      "facet": null,
+      "facet": "property",
       "parentCode": null
     },
     {
       "code": "window-management",
       "name": "Window management",
       "description": "",
-      "facet": null,
+      "facet": "capability",
       "parentCode": null
     },
     {
       "code": "workflow",
       "name": "Workflow automation",
       "description": "",
-      "facet": null,
+      "facet": "capability",
       "parentCode": null
     },
     {
       "code": "xml",
       "name": "XML",
       "description": "",
-      "facet": null,
+      "facet": "capability",
       "parentCode": null
     }
   ],

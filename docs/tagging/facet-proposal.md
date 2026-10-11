@@ -215,7 +215,7 @@ a separate migration audits consumers and provides compatibility.
 
 ## Review checkpoint
 
-No production changes should be made from this proposal until a human has
-approved the assignments and explicitly listed any deferred tags. Ambiguous
-rows should be resolved first; rename and split work can be scheduled
-separately if the facet itself is accepted.
+Approved in #510: every ambiguous row is accepted for the initial pass, with no
+deferred tags. The assignments are encoded in
+[plans/0001-initial-facets.json](./plans/0001-initial-facets.json). Rename and
+split work is scheduled separately.
