@@ -1,6 +1,6 @@
-# CLAUDE.md
+# AGENTS.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+This file provides guidance to coding agents working in this repository.
 
 ## Overview
 
@@ -25,6 +25,7 @@ docs/        Architecture documentation
 **Package manager:** pnpm 11.x required (repo pinned to 11.0.8). **Node:** 24.x+.
 
 ### Root (Turbo-orchestrated)
+
 ```bash
 pnpm build           # Build all apps/packages
 pnpm lint            # Lint with Biome
@@ -34,6 +35,7 @@ pnpm test:e2e        # Playwright E2E tests
 ```
 
 ### Per-app (use `-F <name>` filter)
+
 ```bash
 pnpm -F web dev                   # Next.js dev server (Turbopack)
 pnpm -F web test                  # Vitest unit tests
@@ -49,6 +51,7 @@ pnpm -F core studio                 # Drizzle Studio GUI
 ```
 
 ### Backend task flags
+
 ```bash
 --limit N          # Process only N items
 --dryRun           # Execute without making changes
@@ -60,6 +63,7 @@ pnpm -F core studio                 # Drizzle Studio GUI
 ## Architecture
 
 ### Data Flow
+
 1. **GitHub Actions** (daily 21:00 UTC) triggers backend CLI tasks
 2. **Backend tasks** fetch data from GitHub API and NPM registry, store in PostgreSQL
 3. **Static API generation** transforms DB data into JSON files hosted on Vercel
@@ -67,6 +71,7 @@ pnpm -F core studio                 # Drizzle Studio GUI
 5. **Admin app** has direct DB access for curating projects/tags (local use only)
 
 ### Core Package (`packages/core/`)
+
 Every domain lives in `src/services/<domain>/`: `projects`, `tags`, `snapshots`, `hall-of-fame`, `project-trends`, `repo-trends`, plus `repos` and `packages` (table definitions only, no logic yet). Each service with logic has an `index.ts` barrel wired to a subpath export, so consumers write `import { createProject } from "@repo/core/services/projects"`.
 
 Infra stays at `src/`: `index.ts` (the `db` client, `DB` type, `runQuery`), `db.ts`, `drizzle.ts`, `constants.ts`, `shared-schemas.ts`, `schema.ts`.
@@ -79,7 +84,9 @@ Drizzle table definitions are named `<name>.sql.ts` and live next to the service
 2. Service barrels do **not** re-export their `.sql.ts` files.
 
 ### Backend Task Pattern
+
 Tasks are created with a `createTask` factory:
+
 ```typescript
 export const myTask = createTask({
   name: "my-task",
@@ -90,6 +97,7 @@ export const myTask = createTask({
 ## Code Quality
 
 **Biome** (`biome.jsonc`) handles formatting and linting:
+
 - 2-space indent, 80-char line width, LF endings
 - Import order: React → NPM → `@repo/*` → aliases → relative
 - Kebab-case filenames enforced
@@ -105,3 +113,4 @@ pnpm biome check --write .   # Auto-fix formatting/lint issues
 - `docs/architecture/backend-app.md` — task system and data collection
 - `docs/architecture/web-app.md` — frontend architecture
 - `docs/architecture/scoring.md` — project scoring formulas, calibration decisions, and how to tune them
+- For tag schemas or assignments, taxonomy rules, or tag-aware agent tooling, read `docs/tagging/README.md`.

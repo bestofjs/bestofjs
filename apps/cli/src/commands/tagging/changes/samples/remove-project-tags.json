@@ -1,8 +1,7 @@
 {
-  "schemaVersion": 1,
-  "operations": [
+  "ops": [
     {
-      "operation": "remove-project-tags",
+      "op": "remove-project-tags",
       "project": "redux",
       "tags": ["react"]
     }

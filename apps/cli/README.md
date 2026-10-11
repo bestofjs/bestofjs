@@ -7,7 +7,7 @@ agent-operated workflows. Run all commands from the repository root:
 pnpm cli
 bun cli
 pnpm cli tagging --help
-pnpm cli tagging changes --json '{"schemaVersion":1,"operations":[]}'
+pnpm cli tagging changes --json '{"ops":[]}'
 ```
 
 The CLI loads `.env.development` by default. Set `STAGE` before the command to
@@ -22,8 +22,9 @@ can consume `POSTGRES_URL` through the existing core package convention.
 
 ## Tagging plans
 
-`tagging changes` applies a JSON plan (`schemaVersion: 1`) made of
-operations:
+`tagging changes` applies a JSON plan whose `ops` entries use `op` to identify
+the change. `schemaVersion` defaults to `1` and can be included when an
+explicit version is useful:
 
 - `add-project-tags`: add tags (by code) to a project (by slug). Tags already
   assigned are skipped.

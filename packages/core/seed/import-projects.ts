@@ -1,13 +1,13 @@
 import { eq } from "drizzle-orm";
 
-import { DB } from "../src/index";
+import type { DB } from "../src/index";
 import * as schema from "../src/schema";
 import { generateDefaultSlug } from "../src/shared-schemas";
 import {
   fetchAllProjects,
   fetchFeaturedProjects,
   getDateFromMongoValue,
-  MongoProject,
+  type MongoProject,
 } from "./read-data";
 import { runDbScript } from "./run-db-script";
 
@@ -26,7 +26,7 @@ runDbScript(async (db: DB, spinner) => {
   for (const project of projects) {
     i++;
     spinner.message(
-      `Importing project ${i}/${projects.length} ${project.name}`
+      `Importing project ${i}/${projects.length} ${project.name}`,
     );
 
     try {
@@ -55,7 +55,7 @@ runDbScript(async (db: DB, spinner) => {
           throw new Error(
             `Unable to process project tags for ${project.name} ${
               (error as Error).message
-            }`
+            }`,
           );
         }
 
@@ -88,7 +88,7 @@ runDbScript(async (db: DB, spinner) => {
   }
 
   async function shouldBeImported(project: MongoProject) {
-    if (!Boolean(project.github?.created_at)) return false; // some very old deprecated projects have no repo `created_at` date
+    if (!project.github?.created_at) return false; // some very old deprecated projects have no repo `created_at` date
     if (!CHECK_EXISTING_DATA) return true;
     return !(await isProjectAlreadyImported(project));
   }

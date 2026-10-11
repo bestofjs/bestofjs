@@ -1,8 +1,7 @@
 {
-  "schemaVersion": 1,
-  "operations": [
+  "ops": [
     {
-      "operation": "update-tag",
+      "op": "update-tag",
       "code": "react",
       "set": { "facet": "ecosystem" }
     }

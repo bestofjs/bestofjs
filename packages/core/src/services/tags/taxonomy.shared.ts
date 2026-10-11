@@ -32,7 +32,11 @@ export function isValidEdge(
   if (!childFacet || !parentFacet) return false;
   if (childFacet === "ecosystem") return parentFacet === "ecosystem";
   if (childFacet === "category") {
-    return parentFacet === "capability" || parentFacet === "property";
+    return (
+      parentFacet === "category" ||
+      parentFacet === "capability" ||
+      parentFacet === "property"
+    );
   }
   return false;
 }
