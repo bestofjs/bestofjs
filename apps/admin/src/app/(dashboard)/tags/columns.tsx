@@ -1,15 +1,16 @@
 "use client";
 
 import { useState, useTransition } from "react";
-import type { ColumnDef } from "@tanstack/react-table";
+import { rankItem, rankings } from "@tanstack/match-sorter-utils";
+import type { ColumnDef, FilterFn } from "@tanstack/react-table";
 import { ArrowUpDown } from "lucide-react";
 import Link from "next/link";
 
-import type { findTags } from "@repo/core/services/tags";
 import { TAG_FACETS } from "@repo/core/services/tags/taxonomy";
 
 import { updateTagFacet } from "@/actions/tags-actions";
 import { Button } from "@/components/ui/button";
+import type { ClientDataTableFeatures } from "@/components/ui/client-data-table";
 import {
   Select,
   SelectContent,
@@ -18,11 +19,43 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
-type Tag = Awaited<ReturnType<typeof findTags>>[0];
+import type { AdminTag as Tag } from "./get-tags";
 
-export const columns: ColumnDef<Tag>[] = [
+/**
+ * Rank a tag against the search box. `fuzzySort` breaks ties between equal
+ * ranks by accessor order, so name beats code beats aliases; a description hit
+ * is capped at "contains" so it never outranks a name, code or alias hit.
+ */
+const tagSearchFilter: FilterFn<ClientDataTableFeatures, Tag> = (
+  row,
+  _columnId,
+  value,
+  addMeta,
+) => {
+  const itemRank = rankItem(row.original, value, {
+    accessors: [
+      (tag) => tag.name,
+      (tag) => tag.code,
+      (tag) => tag.aliases,
+      {
+        accessor: (tag) => tag.description ?? "",
+        maxRanking: rankings.CONTAINS,
+      },
+    ],
+    // skip fuzzy "letters in order" matches, too noisy for a search box
+    threshold: rankings.CONTAINS,
+  });
+
+  addMeta?.({ itemRank });
+
+  return itemRank.passed;
+};
+
+export const columns: ColumnDef<ClientDataTableFeatures, Tag>[] = [
   {
     accessorKey: "name",
+    filterFn: tagSearchFilter,
+    sortFn: "fuzzy",
     header: ({ column }) => {
       return (
         <Button
