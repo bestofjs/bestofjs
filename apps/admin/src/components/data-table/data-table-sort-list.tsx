@@ -3,9 +3,9 @@
 import * as React from "react";
 import type {
   ColumnSort,
+  ReactTable,
   RowData,
   SortDirection,
-  Table,
 } from "@tanstack/react-table";
 import {
   ArrowDownUp,
@@ -52,7 +52,7 @@ const REMOVE_SORT_SHORTCUTS = ["backspace", "delete"];
 
 interface DataTableSortListProps<TData extends RowData>
   extends React.ComponentProps<typeof PopoverContent> {
-  table: Table<DataTableFeatures, TData>;
+  table: ReactTable<DataTableFeatures, TData>;
 }
 
 export function DataTableSortList<TData extends RowData>({
@@ -65,7 +65,7 @@ export function DataTableSortList<TData extends RowData>({
   const [open, setOpen] = React.useState(false);
   const addButtonRef = React.useRef<HTMLButtonElement>(null);
 
-  const sorting = table.store.state.sorting;
+  const sorting = table.state.sorting;
   const onSortingChange = table.setSorting;
 
   const { columnLabels, columns } = React.useMemo(() => {

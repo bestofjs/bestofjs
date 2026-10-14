@@ -46,9 +46,10 @@ export interface FuzzyFilterMeta {
 type FuzzyFeatures = TableFeatures & { filterMeta: FuzzyFilterMeta };
 
 /**
- * Sort by the rank the column's fuzzy filter stored, best match first. On equal
- * ranks the earlier accessor wins (`compareItems` only looks at the rank), then
- * alphanumeric, which is also the order when the column is not being filtered.
+ * Sort by the rank the column's fuzzy filter stored: the earlier accessor (the
+ * higher-priority field) first, then the better match (`compareItems` only
+ * looks at the rank), then alphanumeric, which is also the order when the
+ * column is not being filtered.
  */
 const fuzzySort: SortFn<FuzzyFeatures, RowData> = (rowA, rowB, columnId) => {
   let dir = 0;
@@ -58,7 +59,7 @@ const fuzzySort: SortFn<FuzzyFeatures, RowData> = (rowA, rowB, columnId) => {
   const rankB = rowB.columnFiltersMeta[columnId]?.itemRank;
   if (rankA && rankB) {
     dir =
-      compareItems(rankA, rankB) || rankA.accessorIndex - rankB.accessorIndex;
+      rankA.accessorIndex - rankB.accessorIndex || compareItems(rankA, rankB);
   }
 
   return dir === 0 ? sortFn_alphanumeric(rowA, rowB, columnId) : dir;
@@ -112,15 +113,19 @@ export function ClientDataTable<TData extends RowData>({
   });
 
   // Rank-sort search results: a fuzzy `sortFn` only orders rows by match
-  // quality while the table is sorted by the column being searched.
+  // quality while the table is sorted ascending by the column being searched
+  // (descending would put the worst matches first).
   const isSearching = table.state.columnFilters.some(
     (filter) => filter.id === SEARCH_COLUMN_ID,
   );
+  const primarySort = table.state.sorting[0];
+  const isRankSorted =
+    primarySort?.id === SEARCH_COLUMN_ID && !primarySort.desc;
   useEffect(() => {
-    if (isSearching && table.state.sorting[0]?.id !== SEARCH_COLUMN_ID) {
+    if (isSearching && !isRankSorted) {
       table.setSorting([{ id: SEARCH_COLUMN_ID, desc: false }]);
     }
-  }, [isSearching, table]);
+  }, [isSearching, isRankSorted, table]);
 
   return (
     <div>

@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import type { Column, RowData, Table } from "@tanstack/react-table";
+import type { Column, ReactTable, RowData } from "@tanstack/react-table";
 import { X } from "lucide-react";
 
 import { DataTableDateFilter } from "@/components/data-table/data-table-date-filter";
@@ -18,7 +18,7 @@ import { Label } from "../ui/label";
 
 interface DataTableToolbarProps<TData extends RowData>
   extends React.ComponentProps<"div"> {
-  table: Table<DataTableFeatures, TData>;
+  table: ReactTable<DataTableFeatures, TData>;
 }
 
 export function DataTableToolbar<TData extends RowData>({
@@ -27,7 +27,7 @@ export function DataTableToolbar<TData extends RowData>({
   className,
   ...props
 }: DataTableToolbarProps<TData>) {
-  const isFiltered = table.store.state.columnFilters.length > 0;
+  const isFiltered = table.state.columnFilters.length > 0;
 
   const columns = React.useMemo(
     () => table.getAllColumns().filter((column) => column.getCanFilter()),

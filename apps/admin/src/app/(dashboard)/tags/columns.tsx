@@ -21,10 +21,20 @@ import {
 
 import type { AdminTag as Tag } from "./get-tags";
 
+/** Searched fields, by priority: a match on an earlier field always wins. */
+const tagSearchAccessors: ((tag: Tag) => string | string[])[] = [
+  (tag) => tag.name,
+  (tag) => tag.code,
+  (tag) => tag.aliases,
+  (tag) => tag.description ?? "",
+];
+
 /**
- * Rank a tag against the search box. `fuzzySort` breaks ties between equal
- * ranks by accessor order, so name beats code beats aliases; a description hit
- * is capped at "contains" so it never outranks a name, code or alias hit.
+ * Rank a tag against the search box. Each field is ranked on its own and the
+ * first matching one is kept, its index stored as `accessorIndex`, so
+ * `fuzzySort` orders by field priority (name → code → aliases → description)
+ * before match quality. A single multi-accessor `rankItem` would keep the best
+ * rank across fields instead, letting an exact alias beat a partial name.
  */
 const tagSearchFilter: FilterFn<ClientDataTableFeatures, Tag> = (
   row,
@@ -32,23 +42,19 @@ const tagSearchFilter: FilterFn<ClientDataTableFeatures, Tag> = (
   value,
   addMeta,
 ) => {
-  const itemRank = rankItem(row.original, value, {
-    accessors: [
-      (tag) => tag.name,
-      (tag) => tag.code,
-      (tag) => tag.aliases,
-      {
-        accessor: (tag) => tag.description ?? "",
-        maxRanking: rankings.CONTAINS,
-      },
-    ],
-    // skip fuzzy "letters in order" matches, too noisy for a search box
-    threshold: rankings.CONTAINS,
-  });
+  for (const [index, accessor] of tagSearchAccessors.entries()) {
+    const fieldRank = rankItem(row.original, value, {
+      accessors: [accessor],
+      // skip fuzzy "letters in order" matches, too noisy for a search box
+      threshold: rankings.CONTAINS,
+    });
+    if (fieldRank.passed) {
+      addMeta?.({ itemRank: { ...fieldRank, accessorIndex: index } });
+      return true;
+    }
+  }
 
-  addMeta?.({ itemRank });
-
-  return itemRank.passed;
+  return false;
 };
 
 export const columns: ColumnDef<ClientDataTableFeatures, Tag>[] = [
