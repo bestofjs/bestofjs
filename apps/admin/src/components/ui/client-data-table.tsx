@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { compareItems, type RankingInfo } from "@tanstack/match-sorter-utils";
 import {
   type ColumnDef,
@@ -113,19 +113,18 @@ export function ClientDataTable<TData extends RowData>({
   });
 
   // Rank-sort search results: a fuzzy `sortFn` only orders rows by match
-  // quality while the table is sorted ascending by the column being searched
-  // (descending would put the worst matches first).
+  // quality while the table is sorted ascending by the column being searched.
+  // Apply it once when a search starts, so header sorts still work after.
   const isSearching = table.state.columnFilters.some(
     (filter) => filter.id === SEARCH_COLUMN_ID,
   );
-  const primarySort = table.state.sorting[0];
-  const isRankSorted =
-    primarySort?.id === SEARCH_COLUMN_ID && !primarySort.desc;
+  const wasSearching = useRef(isSearching);
   useEffect(() => {
-    if (isSearching && !isRankSorted) {
+    if (isSearching && !wasSearching.current) {
       table.setSorting([{ id: SEARCH_COLUMN_ID, desc: false }]);
     }
-  }, [isSearching, isRankSorted, table]);
+    wasSearching.current = isSearching;
+  }, [isSearching, table]);
 
   return (
     <div>
