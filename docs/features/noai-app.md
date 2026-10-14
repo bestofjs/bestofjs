@@ -31,7 +31,9 @@ Call the two a **variant** of the same app (registry keys already `main` / `noai
 | --- | --- | --- |
 | Env var | `BESTOFJS_APP=main` \| `noai` | Vercel env, `env.mjs` |
 | Registry key | `webApps.MAIN` / `webApps.NOAI` | `config/apps.ts` |
-| Public name | "Best of JS" / "Best of JS — No AI" | header badge, meta |
+| Brand name | "Best of JS" on both | body copy, `og:title` |
+| Display name | "Best of JS" / "Best of JS (No AI)" | `<title>` (`appDisplayName`) |
+| Badge | none / "No AI" | header |
 | Host | `bestofjs.org` / `noai.bestofjs.org` | `hostByApp` |
 
 Rules:
