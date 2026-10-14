@@ -1,12 +1,9 @@
 "use client";
 
-import type { findTags } from "@repo/core/services/tags";
-
 import { ClientDataTable } from "@/components/ui/client-data-table";
 
 import { columns } from "./columns";
-
-type Tag = Awaited<ReturnType<typeof findTags>>[0];
+import type { AdminTag as Tag } from "./get-tags";
 
 type Props = {
   tags: Tag[];

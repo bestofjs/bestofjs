@@ -18,7 +18,7 @@ export const tags = pgTable("tags", {
   code: text("code").notNull().unique(),
   name: text("name").notNull(),
   description: text("description"),
-  aliases: jsonb("aliases"),
+  aliases: jsonb("aliases").$type<string[]>(),
   facet: text("facet").$type<TagFacet>(),
   parentTagId: text("parent_tag_id").references((): AnyPgColumn => tags.id, {
     onDelete: "set null",

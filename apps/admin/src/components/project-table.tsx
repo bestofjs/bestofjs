@@ -22,6 +22,7 @@ import { DataTable } from "@/components/data-table/data-table";
 import { ProjectLogo } from "@/components/project-logo";
 import { Badge } from "@/components/ui/badge";
 import { useDataTable } from "@/hooks/use-data-table";
+import type { DataTableFeatures } from "@/lib/data-table-features";
 import { formatDateOnly, formatStars } from "@/lib/format-helpers";
 
 import { DataTableColumnHeader } from "./data-table/data-table-column-header";
@@ -37,10 +38,10 @@ interface Props extends FindProjectsOptions {
   total: number;
 }
 
-const columnHelper = createColumnHelper<Project>();
+const columnHelper = createColumnHelper<DataTableFeatures, Project>();
 
 export function ProjectTable({ allTags, projects, total, limit, sort }: Props) {
-  const columns = [
+  const columns = columnHelper.columns([
     columnHelper.accessor("logo", {
       header: () => null,
       cell: ({ row }) => <ProjectLogo project={row.original} size={50} />,
@@ -165,7 +166,7 @@ export function ProjectTable({ allTags, projects, total, limit, sort }: Props) {
       ),
       cell: ({ getValue }) => format(getValue(), "yyyy-MM-dd"),
     }),
-  ];
+  ]);
 
   const { table } = useDataTable<Project>({
     columns,

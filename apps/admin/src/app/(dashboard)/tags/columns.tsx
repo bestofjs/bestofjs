@@ -1,15 +1,16 @@
 "use client";
 
 import { useState, useTransition } from "react";
-import type { ColumnDef } from "@tanstack/react-table";
+import { rankItem, rankings } from "@tanstack/match-sorter-utils";
+import type { ColumnDef, FilterFn } from "@tanstack/react-table";
 import { ArrowUpDown } from "lucide-react";
 import Link from "next/link";
 
-import type { findTags } from "@repo/core/services/tags";
 import { TAG_FACETS } from "@repo/core/services/tags/taxonomy";
 
 import { updateTagFacet } from "@/actions/tags-actions";
 import { Button } from "@/components/ui/button";
+import type { ClientDataTableFeatures } from "@/components/ui/client-data-table";
 import {
   Select,
   SelectContent,
@@ -18,11 +19,49 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
-type Tag = Awaited<ReturnType<typeof findTags>>[0];
+import type { AdminTag as Tag } from "./get-tags";
 
-export const columns: ColumnDef<Tag>[] = [
+/** Searched fields, by priority: a match on an earlier field always wins. */
+const tagSearchAccessors: ((tag: Tag) => string | string[])[] = [
+  (tag) => tag.name,
+  (tag) => tag.code,
+  (tag) => tag.aliases,
+  (tag) => tag.description ?? "",
+];
+
+/**
+ * Rank a tag against the search box. Each field is ranked on its own and the
+ * first matching one is kept, its index stored as `accessorIndex`, so
+ * `fuzzySort` orders by field priority (name → code → aliases → description)
+ * before match quality. A single multi-accessor `rankItem` would keep the best
+ * rank across fields instead, letting an exact alias beat a partial name.
+ */
+const tagSearchFilter: FilterFn<ClientDataTableFeatures, Tag> = (
+  row,
+  _columnId,
+  value,
+  addMeta,
+) => {
+  for (const [index, accessor] of tagSearchAccessors.entries()) {
+    const fieldRank = rankItem(row.original, value, {
+      accessors: [accessor],
+      // skip fuzzy "letters in order" matches, too noisy for a search box
+      threshold: rankings.CONTAINS,
+    });
+    if (fieldRank.passed) {
+      addMeta?.({ itemRank: { ...fieldRank, accessorIndex: index } });
+      return true;
+    }
+  }
+
+  return false;
+};
+
+export const columns: ColumnDef<ClientDataTableFeatures, Tag>[] = [
   {
     accessorKey: "name",
+    filterFn: tagSearchFilter,
+    sortFn: "fuzzy",
     header: ({ column }) => {
       return (
         <Button
