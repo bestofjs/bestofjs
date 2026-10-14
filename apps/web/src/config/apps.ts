@@ -33,6 +33,16 @@ export const badgeLabelByApp: Record<WebApp, string | null> = {
   [webApps.NOAI]: "No AI",
 };
 
+/**
+ * Used only in the `<title>` tag. The brand stays "Best of JS" everywhere else
+ * (body copy, `og:title`): the No AI edition is a variant of the same project,
+ * not a new one.
+ */
+export const displayNameByApp: Record<WebApp, string> = {
+  [webApps.MAIN]: "Best of JS",
+  [webApps.NOAI]: "Best of JS (No AI)",
+};
+
 export const hostByApp: Record<WebApp, string> = {
   [webApps.MAIN]: "bestofjs.org",
   [webApps.NOAI]: "noai.bestofjs.org",
@@ -51,6 +61,8 @@ export const excludedTagCodes = excludedTagsByApp[currentApp];
 export const isMainApp = currentApp === webApps.MAIN;
 
 export const appBadgeLabel = badgeLabelByApp[currentApp];
+
+export const appDisplayName = displayNameByApp[currentApp];
 
 /**
  * The default value of the `/projects` `?ai=1|0` parameter: the *only*

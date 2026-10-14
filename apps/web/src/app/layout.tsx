@@ -8,6 +8,7 @@ import { SiteHeader } from "@/components/header/site-header";
 import { TailwindIndicator } from "@/components/tailwind-indicator";
 import { ThemeProvider } from "@/components/theme-provider";
 import { TooltipProvider } from "@/components/ui/tooltip";
+import { appDisplayName } from "@/config/apps";
 import {
   APP_CANONICAL_URL,
   APP_DESCRIPTION,
@@ -18,8 +19,8 @@ import { cn } from "@/lib/utils";
 
 export const metadata: Metadata = {
   title: {
-    default: APP_DISPLAY_NAME,
-    template: `${APP_DISPLAY_NAME} • %s`,
+    default: appDisplayName,
+    template: `${appDisplayName} • %s`,
   },
   description: APP_DESCRIPTION,
   icons: {
