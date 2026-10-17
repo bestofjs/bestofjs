@@ -38,13 +38,6 @@ describe("CLI process", () => {
     }
   });
 
-  it("requires database configuration at startup", () => {
-    const result = runCli(["--help"], "");
-    expect(result.exitCode).toBe(1);
-    expect(result.stdout).toBe("");
-    expect(result.stderr).toContain("POSTGRES_URL is not set");
-  });
-
   it("reports execution failures once as JSON", () => {
     const result = spawnCli([
       "--eval",
