@@ -1,20 +1,32 @@
 import { message } from "@optique/core/message";
-import {
-  type DiscoveredCommand,
-  discoverCommands,
-  type RunProgramStaticOptions,
-  runProgram,
-} from "@optique/discover";
+import { type RunProgramStaticOptions, runProgram } from "@optique/discover";
+
+import tagging from "./commands/tagging";
+import changes from "./commands/tagging/changes";
+import exportCatalog from "./commands/tagging/export-catalog";
+import { formatError } from "./format-error";
 
 export async function runCli(args = process.argv.slice(2)) {
-  await runProgram(await createCliRunOptions(args));
+  let command = "bestofjs";
+  try {
+    await runProgram({
+      ...createCliRunOptions(args),
+      hooks: {
+        beforeEach(invocation) {
+          command = invocation.path.join(" ") || "bestofjs";
+        },
+      },
+    });
+  } catch (error) {
+    process.exitCode = 1;
+    process.stderr.write(
+      `${JSON.stringify({ status: "error", command, error: formatError(error) })}\n`,
+    );
+  }
 }
 
-export async function createCliRunOptions(args: readonly string[]) {
-  const commands = await discoverCommands({
-    dir: new URL("./commands/", import.meta.url),
-    extensions: [".ts"],
-  });
+export function createCliRunOptions(args: readonly string[]) {
+  const commands = [tagging, changes, exportCatalog];
 
   return {
     args: showHelpForBareGroup(args, commands),
@@ -31,7 +43,7 @@ export async function createCliRunOptions(args: readonly string[]) {
 
 export function showHelpForBareGroup(
   args: readonly string[],
-  commands: readonly Pick<DiscoveredCommand, "path">[],
+  commands: readonly { path: readonly string[] }[],
 ) {
   if (args.length === 0) return ["--help"];
   if (args.some((arg) => arg.startsWith("-"))) return args;

@@ -1,15 +1,6 @@
 import type { DB } from "../..";
-import { beforeAll, describe, expect, it } from "bun:test";
-
-type ChangePlanModule = typeof import("./change-plan");
-
-let runTaggingPlan: ChangePlanModule["runTaggingPlan"];
-let taggingPlanSchema: ChangePlanModule["taggingPlanSchema"];
-
-beforeAll(async () => {
-  process.env.POSTGRES_URL ??= "postgresql://test:test@localhost:5432/test";
-  ({ runTaggingPlan, taggingPlanSchema } = await import("./change-plan"));
-});
+import { runTaggingPlan, taggingPlanSchema } from "./change-plan";
+import { describe, expect, it } from "bun:test";
 
 describe("taggingPlanSchema", () => {
   it("rejects invalid project slugs and tag codes", () => {

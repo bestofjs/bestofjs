@@ -1,59 +1,12 @@
 import { and, eq, inArray } from "drizzle-orm";
-import { z } from "zod";
 
-import type { DB } from "../..";
-import * as schema from "../../schema";
-import { projectSlugSchema, tagCodeSchema } from "../../shared-schemas";
-import { TAG_FACETS } from "./taxonomy.shared";
-import { type TagUpdateData, updateTagWithTaxonomy } from "./update";
-
-const facetSchema = z.enum(TAG_FACETS);
-
-const updateTagOperationSchema = z.object({
-  op: z.literal("update-tag"),
-  code: tagCodeSchema,
-  set: z
-    .object({
-      name: z.string().trim().min(1).optional(),
-      description: z.string().nullable().optional(),
-      aliases: z.array(z.string().trim().min(1)).nullable().optional(),
-      facet: facetSchema.nullable().optional(),
-      parentCode: tagCodeSchema.nullable().optional(),
-    })
-    .refine((value) => Object.keys(value).length > 0, {
-      message: "At least one tag field must be supplied",
-    }),
-});
-
-const addProjectTagsOperationSchema = z.object({
-  op: z.literal("add-project-tags"),
-  project: projectSlugSchema,
-  tags: z.array(tagCodeSchema).min(1),
-});
-
-const removeProjectTagsOperationSchema = z.object({
-  op: z.literal("remove-project-tags"),
-  project: projectSlugSchema,
-  tags: z.array(tagCodeSchema).min(1),
-});
-
-export const taggingPlanSchema = z.object({
-  schemaVersion: z.literal(1).optional().default(1),
-  ops: z.array(
-    z.discriminatedUnion("op", [
-      updateTagOperationSchema,
-      addProjectTagsOperationSchema,
-      removeProjectTagsOperationSchema,
-    ]),
-  ),
-});
-
-export type TaggingPlan = z.infer<typeof taggingPlanSchema>;
-
-export const EMPTY_TAGGING_PLAN: TaggingPlan = {
-  schemaVersion: 1,
-  ops: [],
-};
+import type { DB } from "../../..";
+import * as schema from "../../../schema";
+import {
+  type TagUpdateData,
+  updateTagWithTaxonomy,
+} from "../update-with-taxonomy";
+import type { TaggingPlan } from "./schema";
 
 type OperationResult = {
   index: number;
@@ -95,7 +48,7 @@ export async function runTaggingPlan({ db }: { db: DB }, plan: TaggingPlan) {
 
 async function updateTag(
   db: DB,
-  op: z.infer<typeof updateTagOperationSchema>,
+  op: Extract<TaggingPlan["ops"][number], { op: "update-tag" }>,
   index: number,
 ): Promise<OperationResult> {
   const tag = await db.query.tags.findFirst({
@@ -161,7 +114,7 @@ async function updateTag(
 
 async function addProjectTags(
   db: DB,
-  op: z.infer<typeof addProjectTagsOperationSchema>,
+  op: Extract<TaggingPlan["ops"][number], { op: "add-project-tags" }>,
   index: number,
 ): Promise<OperationResult> {
   const { project, requestedCodes, tags, tagByCode } = await resolveProjectTags(
@@ -212,7 +165,7 @@ async function addProjectTags(
 
 async function removeProjectTags(
   db: DB,
-  op: z.infer<typeof removeProjectTagsOperationSchema>,
+  op: Extract<TaggingPlan["ops"][number], { op: "remove-project-tags" }>,
   index: number,
 ): Promise<OperationResult> {
   const { project, requestedCodes, tags, tagByCode } = await resolveProjectTags(

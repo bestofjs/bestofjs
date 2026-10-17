@@ -5,9 +5,10 @@ import { message } from "@optique/core/message";
 import { defineCommand } from "@optique/discover/command";
 import { z } from "zod";
 
-import { schema, withDatabase } from "@repo/core";
+import { withDatabase } from "@repo/core";
 import { PROJECT_STATUSES } from "@repo/core/constants";
 import { eq } from "@repo/core/drizzle";
+import * as schema from "@repo/core/schema";
 import { TAG_FACETS, type TagFacet } from "@repo/core/services/tags/taxonomy";
 
 const catalogPath = resolve(process.cwd(), "docs/tagging/catalog.json");
@@ -63,81 +64,68 @@ type CatalogProjectSource = {
 };
 
 export default defineCommand({
+  path: ["tagging", "export-catalog"],
   parser: object({}),
   metadata: {
-    brief: message`Write the generated tagging catalog.`,
-    description: message`Export the deterministic, agent-readable tagging catalog from the database.`,
+    brief: message`Write docs/tagging/catalog.json.`,
+    description: message`Rebuild docs/tagging/catalog.json from database tags and projects.`,
   },
   async handler() {
-    try {
-      const catalog = await withDatabase(async (db) => {
-        const [tags, projects, directTagAssignments] = await Promise.all([
-          db
-            .select({
-              id: schema.tags.id,
-              code: schema.tags.code,
-              name: schema.tags.name,
-              description: schema.tags.description,
-              aliases: schema.tags.aliases,
-              facet: schema.tags.facet,
-              parentTagId: schema.tags.parentTagId,
-            })
-            .from(schema.tags),
-          db
-            .select({
-              id: schema.projects.id,
-              slug: schema.projects.slug,
-              name: schema.projects.name,
-              description: schema.projects.description,
-              repositoryOwner: schema.repos.owner,
-              repositoryName: schema.repos.name,
-              status: schema.projects.status,
-            })
-            .from(schema.projects)
-            .innerJoin(
-              schema.repos,
-              eq(schema.projects.repoId, schema.repos.id),
-            ),
-          db
-            .select({
-              projectId: schema.projectsToTags.projectId,
-              tagCode: schema.tags.code,
-            })
-            .from(schema.projectsToTags)
-            .innerJoin(
-              schema.tags,
-              eq(schema.projectsToTags.tagId, schema.tags.id),
-            ),
-        ]);
+    const catalog = await withDatabase(async (db) => {
+      const [tags, projects, directTagAssignments] = await Promise.all([
+        db
+          .select({
+            id: schema.tags.id,
+            code: schema.tags.code,
+            name: schema.tags.name,
+            description: schema.tags.description,
+            aliases: schema.tags.aliases,
+            facet: schema.tags.facet,
+            parentTagId: schema.tags.parentTagId,
+          })
+          .from(schema.tags),
+        db
+          .select({
+            id: schema.projects.id,
+            slug: schema.projects.slug,
+            name: schema.projects.name,
+            description: schema.projects.description,
+            repositoryOwner: schema.repos.owner,
+            repositoryName: schema.repos.name,
+            status: schema.projects.status,
+          })
+          .from(schema.projects)
+          .innerJoin(schema.repos, eq(schema.projects.repoId, schema.repos.id)),
+        db
+          .select({
+            projectId: schema.projectsToTags.projectId,
+            tagCode: schema.tags.code,
+          })
+          .from(schema.projectsToTags)
+          .innerJoin(
+            schema.tags,
+            eq(schema.projectsToTags.tagId, schema.tags.id),
+          ),
+      ]);
 
-        return buildTaggingCatalog({ tags, projects, directTagAssignments });
-      });
-      const contents = `${JSON.stringify(catalog, null, 2)}\n`;
-      await writeFile(catalogPath, contents);
-      process.stdout.write(
-        `${JSON.stringify(
-          {
-            status: "exported",
-            command: "tagging export-catalog",
-            path: catalogPath,
-            tags: catalog.tags.length,
-            projects: catalog.projects.length,
-            bytes: Buffer.byteLength(contents),
-          },
-          null,
-          2,
-        )}\n`,
-      );
-    } catch (error) {
-      process.stderr.write(
-        `${JSON.stringify({
-          status: "error",
+      return buildTaggingCatalog({ tags, projects, directTagAssignments });
+    });
+    const contents = `${JSON.stringify(catalog, null, 2)}\n`;
+    await writeFile(catalogPath, contents);
+    process.stdout.write(
+      `${JSON.stringify(
+        {
+          status: "exported",
           command: "tagging export-catalog",
-          error: error instanceof Error ? error.message : String(error),
-        })}\n`,
-      );
-      process.exitCode = 1;
-    }
+          path: catalogPath,
+          tags: catalog.tags.length,
+          projects: catalog.projects.length,
+          bytes: Buffer.byteLength(contents),
+        },
+        null,
+        2,
+      )}\n`,
+    );
   },
 });
 
