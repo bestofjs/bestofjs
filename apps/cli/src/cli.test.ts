@@ -8,8 +8,6 @@ const repositoryRoot = resolve(import.meta.dir, "../../..");
 const entryPoint = resolve(import.meta.dir, "cli.ts");
 const testDatabaseUrl = "postgresql://test:test@localhost:5432/test";
 
-process.env.POSTGRES_URL ??= testDatabaseUrl;
-
 describe("bare command groups", () => {
   const commands = [{ path: ["tagging"] }, { path: ["tagging", "changes"] }];
 
@@ -35,13 +33,11 @@ describe("bare command groups", () => {
 });
 
 describe("CLI process", () => {
-  it("shows root and nested discovery with database configuration", async () => {
+  it("shows root and nested help without database configuration", async () => {
     const [root, tagging, changes] = await Promise.all([
-      captureProgramRun(await createCliRunOptions([])),
-      captureProgramRun(await createCliRunOptions(["tagging"])),
-      captureProgramRun(
-        await createCliRunOptions(["tagging", "changes", "--help"]),
-      ),
+      captureProgramRun(createCliRunOptions([])),
+      captureProgramRun(createCliRunOptions(["tagging"])),
+      captureProgramRun(createCliRunOptions(["tagging", "changes", "--help"])),
     ]);
 
     expect(root.exitCode).toBe(0);
@@ -61,14 +57,47 @@ describe("CLI process", () => {
       "--json",
       '{"ops":[]}',
     ]);
-    const command = await captureProgramRun(
-      await createCliRunOptions(["unknown"]),
-    );
+    const command = await captureProgramRun(createCliRunOptions(["unknown"]));
 
     expect(stageOption.exitCode).toBe(1);
     expect(stageOption.stderr).toContain("--stage");
     expect(command.exitCode).toBe(1);
     expect(command.stderr).toContain("Error:");
+  });
+
+  it("runs help and argument validation without database configuration", () => {
+    for (const args of [
+      [],
+      ["tagging"],
+      ["tagging", "changes", "--help"],
+      ["tagging", "export-catalog", "--help"],
+    ]) {
+      const result = runCli(args, "");
+      expect(result.exitCode).toBe(0);
+      expect(result.stderr).toBe("");
+    }
+    const invalid = runCli(["tagging", "changes", "--json", "{bad}"], "");
+    expect(invalid.exitCode).toBe(1);
+    expect(invalid.stderr).toContain("Invalid");
+    expect(invalid.stderr).not.toContain("POSTGRES_URL");
+  });
+
+  it("reports configuration failures once as JSON for each command", () => {
+    for (const command of ["changes", "export-catalog"]) {
+      const args =
+        command === "changes"
+          ? ["tagging", command, "--json", '{"ops":[]}']
+          : ["tagging", command];
+      const result = runCli(args, "");
+      expect(result.exitCode).toBe(1);
+      expect(result.stdout).toBe("");
+      expect(result.stderr.trim().split("\n")).toHaveLength(1);
+      expect(JSON.parse(result.stderr)).toEqual({
+        status: "error",
+        command: `tagging ${command}`,
+        error: "POSTGRES_URL is not set",
+      });
+    }
   });
 
   it("applies an empty plan successfully by default", () => {
@@ -83,11 +112,18 @@ describe("CLI process", () => {
   });
 });
 
-function runCli(args: string[]) {
+function runCli(args: string[], databaseUrl = testDatabaseUrl) {
   const result = Bun.spawnSync({
-    cmd: [process.execPath, "run", "--silent", entryPoint, ...args],
+    cmd: [
+      process.execPath,
+      "--no-env-file",
+      "run",
+      "--silent",
+      entryPoint,
+      ...args,
+    ],
     cwd: repositoryRoot,
-    env: { ...process.env, POSTGRES_URL: testDatabaseUrl },
+    env: { ...process.env, POSTGRES_URL: databaseUrl },
     stdout: "pipe",
     stderr: "pipe",
   });

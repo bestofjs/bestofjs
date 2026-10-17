@@ -1,6 +1,6 @@
 # Best of JS CLI
 
-This app is the discoverable command interface for repository maintenance and
+This app is the command interface for repository maintenance and
 agent-operated workflows. Run all commands from the repository root:
 
 ```bash
@@ -17,8 +17,12 @@ select another repository environment file:
 STAGE=production pnpm cli tagging changes --json plan.json
 ```
 
-`STAGE` selects `.env.<stage>` before Bun starts, so database-backed commands
-can consume `POSTGRES_URL` through the existing core package convention.
+`STAGE` picks `.env.<stage>` through Bun `--env-file`. Only that file is
+loaded from the repository root. If the file is missing or it omits
+`POSTGRES_URL`, database commands fail. They do not fall back to
+`.env.development`. Variables already exported in the shell override file
+values. Unset `POSTGRES_URL` in the shell when the stage file should supply
+it.
 
 ## Tagging plans
 
@@ -61,19 +65,24 @@ when a later one fails. Inspect the resulting data before rerunning a failed
 plan. This initial command is intended for one maintainer working with reviewed
 plans against local development data; it is not a production mutation policy.
 
-Atomic plan execution, rollback-backed preview, and failure output that lists
-the failed operation and completed prior operations are deferred until an
-operational workflow justifies that hardening.
+Atomic plans, rollback preview, and partial-failure reports are not
+implemented yet.
 
 ## Current status
 
-Optique provides file-based discovery, scoped help, typed options, reusable
-value parsing, structured parser errors, and in-process test capture. Bare
-groups do not show help successfully by default, so the CLI has a generic
-argument adapter that recognizes discovered command-path prefixes and appends
-`--help`; unknown paths remain errors.
+Optique supplies help, typed options, JSON parsing, and parser errors. Bare
+command groups do not print help unless you pass `--help`, so `run-cli.ts`
+appends `--help` when the argv prefix matches a registered group. Unknown paths
+still error.
 
-The tagging plan schema and execution live in the core package. Supported
-operations are individually idempotent, and results are emitted as structured
-JSON. The CLI is non-interactive and returns a non-zero exit code with a JSON
-error when execution fails.
+Commands are imported in `src/run-cli.ts`. Each definition sets `path`.
+Handlers dynamically import `@repo/core`, so `--help` and flag parsing work
+without `POSTGRES_URL`. `runTaggingPlan` loads database code from `./run` only
+when a plan runs.
+
+Execution errors become one JSON line on stderr and a non-zero exit code.
+`formatError` walks `cause` chains with depth and cycle limits. Parser
+mistakes still use Optique stderr output.
+
+Plan schemas and `runTaggingPlan` live in `@repo/core`. Operations are
+idempotent. The CLI prints JSON on stdout for success and stderr for failure.
