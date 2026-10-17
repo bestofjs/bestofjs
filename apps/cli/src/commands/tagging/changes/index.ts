@@ -3,7 +3,7 @@ import { message } from "@optique/core/message";
 import { option } from "@optique/core/primitives";
 import { defineCommand } from "@optique/discover/command";
 
-import { withDatabase } from "@repo/core/database";
+import { withDatabase } from "@repo/core";
 import {
   EMPTY_TAGGING_PLAN,
   runTaggingPlan,

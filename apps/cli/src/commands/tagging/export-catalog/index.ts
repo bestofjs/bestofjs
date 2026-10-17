@@ -5,8 +5,8 @@ import { message } from "@optique/core/message";
 import { defineCommand } from "@optique/discover/command";
 import { z } from "zod";
 
+import { withDatabase } from "@repo/core";
 import { PROJECT_STATUSES } from "@repo/core/constants";
-import { withDatabase } from "@repo/core/database";
 import { eq } from "@repo/core/drizzle";
 import * as schema from "@repo/core/schema";
 import { TAG_FACETS, type TagFacet } from "@repo/core/services/tags/taxonomy";

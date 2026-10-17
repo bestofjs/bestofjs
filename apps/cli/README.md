@@ -76,9 +76,10 @@ appends `--help` when the argv prefix matches a registered group. Unknown paths
 still error.
 
 Commands are imported in `src/run-cli.ts`. Each definition sets `path`.
-Handlers dynamically import `@repo/core`, so `--help` and flag parsing work
-without `POSTGRES_URL`. `runTaggingPlan` loads database code from `./run` only
-when a plan runs.
+Commands use the existing shared database through `@repo/core` and require
+`POSTGRES_URL` at startup, including for help and flag parsing. `withDatabase`
+passes the shared `db` to the handler and closes its pool when execution ends.
+Plan schemas and execution are exposed through a regular barrel.
 
 Execution errors become one JSON line on stderr and a non-zero exit code.
 `formatError` walks `cause` chains with depth and cycle limits. Parser
