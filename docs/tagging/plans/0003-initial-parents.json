@@ -1,0 +1,54 @@
+{
+  "ops": [
+    {
+      "op": "update-tag",
+      "code": "nextjs",
+      "set": { "parentCode": "react" }
+    },
+    {
+      "op": "update-tag",
+      "code": "web3",
+      "set": { "parentCode": "blockchain" }
+    },
+    {
+      "op": "update-tag",
+      "code": "test-framework",
+      "set": { "parentCode": "test" }
+    },
+    {
+      "op": "update-tag",
+      "code": "book",
+      "set": { "parentCode": "learning" }
+    },
+    {
+      "op": "update-tag",
+      "code": "md-editor-app",
+      "set": { "parentCode": "desktop-app" }
+    },
+    {
+      "op": "update-tag",
+      "code": "ai-agents",
+      "set": { "parentCode": "ai" }
+    },
+    {
+      "op": "update-tag",
+      "code": "ai-builder",
+      "set": { "parentCode": "ai" }
+    },
+    {
+      "op": "update-tag",
+      "code": "ai-coding-agent",
+      "set": { "parentCode": "ai" }
+    },
+    {
+      "op": "update-tag",
+      "code": "ai-methodology",
+      "set": { "parentCode": "ai" }
+    },
+    {
+      "op": "update-tag",
+      "code": "skills",
+      "set": { "parentCode": "ai" }
+    }
+  ]
+}
