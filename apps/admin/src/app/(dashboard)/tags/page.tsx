@@ -7,7 +7,7 @@ import { Badge } from "@/components/ui/badge";
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
-import { getCachedTags } from "./get-tags";
+import { getTags } from "./get-tags";
 import { TagsDataTable } from "./tags-data-table";
 
 type PageProps = { searchParams: Promise<{ facet?: string }> };
@@ -17,7 +17,7 @@ export default async function TagsPage({ searchParams }: PageProps) {
   const selectedFacet = ["all", "none", ...TAG_FACETS].includes(requestedFacet)
     ? requestedFacet
     : "all";
-  const tags = await getCachedTags();
+  const tags = await getTags();
   const visibleTags = tags.filter((tag) => {
     if (selectedFacet === "all") return true;
     if (selectedFacet === "none") return tag.facet === null;

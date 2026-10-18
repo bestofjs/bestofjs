@@ -3,12 +3,12 @@ import Link from "next/link";
 import { Badge } from "@/components/ui/badge";
 import { buttonVariants } from "@/components/ui/button";
 
-import { getCachedTags } from "../get-tags";
+import { getTags } from "../get-tags";
 
-type Tag = Awaited<ReturnType<typeof getCachedTags>>[number];
+type Tag = Awaited<ReturnType<typeof getTags>>[number];
 
 export default async function TagTreePage() {
-  const tags = await getCachedTags();
+  const tags = await getTags();
   const childrenByParent = Map.groupBy(tags, (tag) => tag.parentTagId);
   const roots = childrenByParent.get(null) ?? [];
 

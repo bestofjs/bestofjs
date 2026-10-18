@@ -14,7 +14,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 
-import { getCachedTags } from "../get-tags";
+import { getTags } from "../get-tags";
 import { ParentPicker } from "./parent-picker";
 import { TagForm } from "./tag-form";
 
@@ -25,10 +25,7 @@ type PageProps = {
 };
 export default async function TagDetailsPage(props: PageProps) {
   const params = await props.params;
-  const [tag, tags] = await Promise.all([
-    getTagBySlug(params.slug),
-    getCachedTags(),
-  ]);
+  const [tag, tags] = await Promise.all([getTagBySlug(params.slug), getTags()]);
   if (!tag) {
     return <div>Tag not found</div>;
   }
