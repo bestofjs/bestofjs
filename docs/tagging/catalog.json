@@ -27,28 +27,28 @@
       "name": "AI Agents",
       "description": "Frameworks for building autonomous agents with reasoning, tool use, and orchestration capabilities beyond simple LLM API calls.",
       "facet": "category",
-      "parentCode": null
+      "parentCode": "ai"
     },
     {
       "code": "ai-builder",
       "name": "AI Builder",
       "description": "Tools that generate complete, running applications from prompts or descriptions, handling the full development lifecycle including code generation, dependencies, runtime, and often deployment.",
       "facet": "category",
-      "parentCode": null
+      "parentCode": "ai"
     },
     {
       "code": "ai-coding-agent",
       "name": "Coding agent",
       "description": "End-user AI agent products that operate inside an existing codebase or developer environment to perform multi-step coding work: editing files, running shell/build/test commands, fixing bugs, refactoring, and agentic repo-level loops.\nDelivered as CLI, TUI, IDE extension, or SDK",
       "facet": "category",
-      "parentCode": null
+      "parentCode": "ai"
     },
     {
       "code": "ai-methodology",
       "name": "AI Methodology",
       "description": "Frameworks, patterns, and systematic approaches for AI-assisted development workflows. These are meta-tools that guide how teams work with AI agents, rather than libraries to build AI features.",
       "facet": "category",
-      "parentCode": null
+      "parentCode": "ai"
     },
     {
       "code": "analytics",
@@ -160,7 +160,7 @@
       "name": "Book",
       "description": "Books related to JavaScript, whose content is available on GitHub",
       "facet": "category",
-      "parentCode": null
+      "parentCode": "learning"
     },
     {
       "code": "bootstrap",
@@ -228,7 +228,7 @@
     {
       "code": "chat",
       "name": "Chat",
-      "description": null,
+      "description": "Chat and messaging: chat interfaces, SDKs for messaging platforms, and chat applications.",
       "facet": "capability",
       "parentCode": null
     },
@@ -382,7 +382,7 @@
     {
       "code": "data",
       "name": "Data fetching",
-      "description": "",
+      "description": "Clients and tools that fetch, cache, and type remote data from APIs (GraphQL, REST, OpenAPI, RPC).",
       "facet": "capability",
       "parentCode": null
     },
@@ -410,7 +410,7 @@
     {
       "code": "db",
       "name": "Database",
-      "description": "Tools to connect to database (SQL and no-SQL), ORM...",
+      "description": "Databases and storage engines usable from JavaScript: in-memory, in-browser, embedded, or syncing, including low-level drivers. ORMs and query builders are not databases.",
       "facet": "category",
       "parentCode": null
     },
@@ -424,7 +424,7 @@
     {
       "code": "decentralized",
       "name": "Decentralized",
-      "description": null,
+      "description": "Peer-to-peer and decentralized web projects that work without a central server, such as IPFS, ActivityPub, or P2P file sharing.",
       "facet": "property",
       "parentCode": null
     },
@@ -445,7 +445,7 @@
     {
       "code": "design-system",
       "name": "Design System",
-      "description": null,
+      "description": "Projects that provide or help build a design system: a set of design guidelines implemented as reusable components and tokens.",
       "facet": "capability",
       "parentCode": null
     },
@@ -634,7 +634,7 @@
     {
       "code": "fullstack",
       "name": "Full-stack framework",
-      "description": null,
+      "description": "Frameworks that run on both the client and the server. Server-only frameworks belong in Node.js framework.",
       "facet": "category",
       "parentCode": null
     },
@@ -711,7 +711,7 @@
     {
       "code": "headless",
       "name": "Headless components",
-      "description": null,
+      "description": "Unstyled UI components that provide behavior and accessibility, leaving styling to the user.",
       "facet": "property",
       "parentCode": null
     },
@@ -725,7 +725,7 @@
     {
       "code": "hook",
       "name": "Hook",
-      "description": null,
+      "description": "Libraries of reusable hooks or composables for UI frameworks, such as React hooks or Vue composables. Combine with the framework's ecosystem tag.",
       "facet": "category",
       "parentCode": null
     },
@@ -900,9 +900,9 @@
     {
       "code": "md-editor-app",
       "name": "Markdown Editor App",
-      "description": null,
+      "description": "Desktop apps for writing and organizing notes in Markdown.",
       "facet": "category",
-      "parentCode": null
+      "parentCode": "desktop-app"
     },
     {
       "code": "menu",
@@ -914,7 +914,7 @@
     {
       "code": "meta",
       "name": "Meta",
-      "description": "",
+      "description": "Projects about the JavaScript ecosystem itself, such as catalogs, curated lists, and package browsers, including Best of JS.",
       "facet": "category",
       "parentCode": null
     },
@@ -1007,7 +1007,7 @@
       "name": "Next.js",
       "description": null,
       "facet": "ecosystem",
-      "parentCode": null
+      "parentCode": "react"
     },
     {
       "code": "nlp",
@@ -1051,7 +1051,7 @@
     {
       "code": "offline",
       "name": "Offline",
-      "description": "",
+      "description": "Run without a network connection, or detect online and offline status.",
       "facet": "property",
       "parentCode": null
     },
@@ -1420,7 +1420,7 @@
       "name": "Skills",
       "description": "Packaged instructions and scripts that extend agent capabilities\n",
       "facet": "category",
-      "parentCode": null
+      "parentCode": "ai"
     },
     {
       "code": "slider",
@@ -1587,7 +1587,7 @@
       "name": "Testing framework",
       "description": "Libraries to write unit tests that can be run in the browser or in node.js",
       "facet": "category",
-      "parentCode": null
+      "parentCode": "test"
     },
     {
       "code": "text-processing",
@@ -1744,7 +1744,7 @@
       "name": "Web3",
       "description": null,
       "facet": "ecosystem",
-      "parentCode": null
+      "parentCode": "blockchain"
     },
     {
       "code": "webassembly",
@@ -4607,6 +4607,19 @@
       ]
     },
     {
+      "slug": "blocks-fixme",
+      "name": "blocks",
+      "description": "An open-source library of UI blocks. Built with React, Tailwind and shadcn/ui",
+      "repository": "ephraimduncan/blocks",
+      "status": "active",
+      "directTags": [
+        "component",
+        "react",
+        "shadcn",
+        "tailwind"
+      ]
+    },
+    {
       "slug": "blocksuite",
       "name": "BlockSuite",
       "description": "🧩 Content editing tech stack for the web - BlockSuite is a toolkit for building editors and collaborative applications.",
@@ -5083,6 +5096,19 @@
       "status": "active",
       "directTags": [
         "cli"
+      ]
+    },
+    {
+      "slug": "browser-whisper",
+      "name": "browser-whisper",
+      "description": "In-browser Whisper speech-to-text with WebGPU (WASM fallback). Transcribe audio & video locally, no server.",
+      "repository": "tanpreetjolly/browser-whisper",
+      "status": "active",
+      "directTags": [
+        "ai",
+        "audio",
+        "gpu",
+        "ml"
       ]
     },
     {
@@ -10670,6 +10696,17 @@
       ]
     },
     {
+      "slug": "farmjs",
+      "name": "Farm.js",
+      "description": "a full-stack, renderer-agnostic framework with experimental AOT React compiler.",
+      "repository": "farming-labs/farm.js",
+      "status": "active",
+      "directTags": [
+        "fullstack",
+        "react"
+      ]
+    },
+    {
       "slug": "fast",
       "name": "FAST",
       "description": "The adaptive interface system for modern web experiences.",
@@ -15170,7 +15207,7 @@
       "slug": "inkline",
       "name": "Inkline",
       "description": "The customizable Vue.js UI/UX Library designed for creating flawless responsive websites",
-      "repository": "inkline/inkline",
+      "repository": "uxfront-com/inkline",
       "status": "active",
       "directTags": [
         "component",
@@ -32869,7 +32906,7 @@
       "slug": "snapcn",
       "name": "snapcn",
       "description": "A shadcn registry of Remotion components for product demo videos. Install a text reveal, device frame, terminal session, logo sting or a whole scene with a command.",
-      "repository": "snapcndev/snapcn",
+      "repository": "shadcn-labs/snapcn",
       "status": "active",
       "directTags": [
         "animation",
@@ -32919,6 +32956,16 @@
       "status": "deprecated",
       "directTags": [
         "build"
+      ]
+    },
+    {
+      "slug": "social-sdk",
+      "name": "Social SDK",
+      "description": "Typed TypeScript SDK for direct and managed social platform integrations, with capability checks, explicit outcomes, and deterministic testing.",
+      "repository": "opencoredev/social-sdk",
+      "status": "active",
+      "directTags": [
+        "sdk"
       ]
     },
     {
@@ -37901,7 +37948,7 @@
       "slug": "unplugin-fonts",
       "name": "unplugin-fonts",
       "description": "Universal Webfont loader - Unfonts - based on https://web.dev/optimize-webfont-loading/",
-      "repository": "cssninjaStudio/unplugin-fonts",
+      "repository": "stafyniaksacha/unplugin-fonts",
       "status": "active",
       "directTags": [
         "astro",
