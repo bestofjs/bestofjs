@@ -2,6 +2,13 @@
   "ops": [
     {
       "op": "update-tag",
+      "code": "ai",
+      "set": {
+        "description": "Projects that build, run, or extend AI systems: LLM integrations, agents, model tooling, and protocols or extensions for AI assistants."
+      }
+    },
+    {
+      "op": "update-tag",
       "code": "nextjs",
       "set": { "parentCode": "react" }
     },
@@ -49,6 +56,15 @@
       "op": "update-tag",
       "code": "skills",
       "set": { "parentCode": "ai" }
+    },
+    {
+      "op": "update-tag",
+      "code": "mcp",
+      "set": {
+        "facet": "category",
+        "description": "Model Context Protocol servers, clients, and SDKs.",
+        "parentCode": "ai"
+      }
     }
   ]
 }

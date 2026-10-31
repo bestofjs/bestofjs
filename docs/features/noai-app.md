@@ -58,7 +58,7 @@ Rules:
 - UI copy, explanations and cross-links between variants (only a header badge + a popover pointing to the other host).
 - Per-deployment `APP_CANONICAL_URL` / sitemap / `alternates.canonical` — see "Indexing" below, which settles the question for now without touching them.
 - Hall of Fame and the global project count.
-- Widening excluded tags beyond `ai` (`skills`, `mcp`, ...) — depends on the tagging pass, see `docs/ai-projects-tagging.md`.
+- Excluding tags beyond `ai`. Not needed: specialized AI tags (`skills`, `mcp`, `ai-agents`, ...) have `ai` as their parent, so excluding `ai` hides their projects too. See `docs/tagging/domains/ai.md`.
 
 ## Indexing
 

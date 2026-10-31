@@ -7,13 +7,16 @@ domain-specific rules.
 
 ## The Base `ai` Tag
 
-**Description:** Projects with built-in AI/LLM integrations, capabilities, or features.
+**Description:** Projects that build, run, or extend AI systems: LLM integrations, agents, model tooling, and protocols or extensions for AI assistants.
 
 **When to Use:**
 
 - Project ships with AI/LLM integrations out of the box
 - Has native AI capabilities or built-in AI features
 - Provides AI-specific APIs, SDKs, or tools
+- Extends AI systems, even without calling a model itself: MCP servers and clients, agent skills
+
+`ai` is the tag the `noai` deployment excludes. Specialized AI tags (`ai-agents`, `ai-builder`, `ai-coding-agent`, `ai-methodology`, `mcp`, `skills`) have `ai` as their parent, so their projects inherit `ai` without carrying it directly. A new specialized AI tag needs the same parent.
 
 **When NOT to Use:**
 
@@ -28,7 +31,7 @@ domain-specific rules.
 - ❌ **Workflow DevKit**: Generic workflow orchestration (AI is just a use case)
 - ❌ **Express.js**: Web framework (even though you can build AI apps with it)
 
-**The Rule:** If it ships with AI integrations or features → `ai` tag. If it's generic infrastructure you can use for AI → no `ai` tag.
+**The Rule:** If it ships with AI integrations or features, or exists to extend AI systems → `ai` tag. If it's generic infrastructure you can use for AI → no `ai` tag.
 
 ---
 

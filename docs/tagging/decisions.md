@@ -12,6 +12,33 @@ ecosystem or delivery category. It remains the stable exclusion anchor for the
 `noai` deployment described in [the No AI edition](../features/noai-app.md).
 Changing its meaning would alter which projects that deployment surfaces.
 
+## `ai` covers the AI ecosystem
+
+**Accepted:** Widen `ai` from "built-in AI/LLM integrations" to projects that
+build, run, or extend AI systems, including protocols and extensions for AI
+assistants.
+
+The `noai` deployment should hide the whole AI ecosystem, not only projects
+that call a model. MCP servers and agent skills extend AI systems without
+shipping an LLM integration of their own, so the narrow definition let them
+through. This is the deliberate change of meaning the previous entry warns
+about.
+
+Specialized AI tags reach the deployment through parent edges rather than a
+longer list of excluded tags: the `noai` deployment keeps excluding `ai` only,
+and every specialized AI tag has `ai` as its parent.
+
+## `mcp` is a category
+
+**Accepted:** Move `mcp` from `ecosystem` to `category`, with `ai` as its
+parent.
+
+MCP servers, clients, and SDKs form a recognizable project family rather than a
+platform projects are built for. As an ecosystem, `mcp` could not have a
+capability parent. With the wider `ai` meaning, every MCP project belongs to
+the AI ecosystem, including those that ship no AI features of their own, such
+as `mcp-ui`.
+
 ## Categories describe project landscapes
 
 **Accepted:** A category represents a coherent project landscape or
