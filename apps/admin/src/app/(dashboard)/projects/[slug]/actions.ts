@@ -1,6 +1,6 @@
 "use server";
 
-import { revalidatePath, revalidateTag } from "next/cache";
+import { revalidatePath } from "next/cache";
 
 import { createGitHubClient } from "@repo/api/github";
 import {
@@ -36,7 +36,6 @@ export async function updateProjectTags(
   tagIds: string[],
 ) {
   await saveTags(projectId, tagIds);
-  revalidateTag("tags", { expire: 0 });
   revalidatePath("/tags");
   revalidatePath(`/projects/${projectSlug}`);
 }

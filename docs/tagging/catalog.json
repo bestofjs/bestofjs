@@ -18,7 +18,7 @@
     {
       "code": "ai",
       "name": "AI",
-      "description": "Projects with built-in AI/LLM integrations, capabilities, or features.",
+      "description": "Projects that build, run, or extend AI systems: LLM integrations, agents, model tooling, and protocols or extensions for AI assistants.",
       "facet": "capability",
       "parentCode": null
     },
@@ -27,28 +27,28 @@
       "name": "AI Agents",
       "description": "Frameworks for building autonomous agents with reasoning, tool use, and orchestration capabilities beyond simple LLM API calls.",
       "facet": "category",
-      "parentCode": null
+      "parentCode": "ai"
     },
     {
       "code": "ai-builder",
       "name": "AI Builder",
       "description": "Tools that generate complete, running applications from prompts or descriptions, handling the full development lifecycle including code generation, dependencies, runtime, and often deployment.",
       "facet": "category",
-      "parentCode": null
+      "parentCode": "ai"
     },
     {
       "code": "ai-coding-agent",
       "name": "Coding agent",
       "description": "End-user AI agent products that operate inside an existing codebase or developer environment to perform multi-step coding work: editing files, running shell/build/test commands, fixing bugs, refactoring, and agentic repo-level loops.\nDelivered as CLI, TUI, IDE extension, or SDK",
       "facet": "category",
-      "parentCode": null
+      "parentCode": "ai"
     },
     {
       "code": "ai-methodology",
       "name": "AI Methodology",
       "description": "Frameworks, patterns, and systematic approaches for AI-assisted development workflows. These are meta-tools that guide how teams work with AI agents, rather than libraries to build AI features.",
       "facet": "category",
-      "parentCode": null
+      "parentCode": "ai"
     },
     {
       "code": "analytics",
@@ -160,7 +160,7 @@
       "name": "Book",
       "description": "Books related to JavaScript, whose content is available on GitHub",
       "facet": "category",
-      "parentCode": null
+      "parentCode": "learning"
     },
     {
       "code": "bootstrap",
@@ -886,9 +886,9 @@
     {
       "code": "mcp",
       "name": "MCP",
-      "description": null,
-      "facet": "ecosystem",
-      "parentCode": null
+      "description": "Model Context Protocol servers, clients, and SDKs.",
+      "facet": "category",
+      "parentCode": "ai"
     },
     {
       "code": "md",
@@ -902,7 +902,7 @@
       "name": "Markdown Editor App",
       "description": null,
       "facet": "category",
-      "parentCode": null
+      "parentCode": "desktop-app"
     },
     {
       "code": "menu",
@@ -1007,7 +1007,7 @@
       "name": "Next.js",
       "description": null,
       "facet": "ecosystem",
-      "parentCode": null
+      "parentCode": "react"
     },
     {
       "code": "nlp",
@@ -1420,7 +1420,7 @@
       "name": "Skills",
       "description": "Packaged instructions and scripts that extend agent capabilities\n",
       "facet": "category",
-      "parentCode": null
+      "parentCode": "ai"
     },
     {
       "code": "slider",
@@ -1587,7 +1587,7 @@
       "name": "Testing framework",
       "description": "Libraries to write unit tests that can be run in the browser or in node.js",
       "facet": "category",
-      "parentCode": null
+      "parentCode": "test"
     },
     {
       "code": "text-processing",
@@ -1744,7 +1744,7 @@
       "name": "Web3",
       "description": null,
       "facet": "ecosystem",
-      "parentCode": null
+      "parentCode": "blockchain"
     },
     {
       "code": "webassembly",
@@ -2141,6 +2141,17 @@
         "ai",
         "nextjs",
         "react",
+        "skills"
+      ]
+    },
+    {
+      "slug": "agent-skills-fixme",
+      "name": "Agent Skills",
+      "description": "Production-grade engineering skills for AI coding agents.",
+      "repository": "addyosmani/agent-skills",
+      "status": "active",
+      "directTags": [
+        "ai",
         "skills"
       ]
     },
@@ -3430,7 +3441,7 @@
       "slug": "astryx",
       "name": "Astryx",
       "description": "An open source design system that's fully customizable and agent ready",
-      "repository": "facebook/astryx",
+      "repository": "meta/astryx",
       "status": "active",
       "directTags": [
         "component",
@@ -4607,6 +4618,19 @@
       ]
     },
     {
+      "slug": "blocks-so",
+      "name": "blocks",
+      "description": "An open-source library of UI blocks. Built with React, Tailwind and shadcn/ui",
+      "repository": "ephraimduncan/blocks",
+      "status": "active",
+      "directTags": [
+        "component",
+        "react",
+        "shadcn",
+        "tailwind"
+      ]
+    },
+    {
       "slug": "blocksuite",
       "name": "BlockSuite",
       "description": "🧩 Content editing tech stack for the web - BlockSuite is a toolkit for building editors and collaborative applications.",
@@ -5083,6 +5107,19 @@
       "status": "active",
       "directTags": [
         "cli"
+      ]
+    },
+    {
+      "slug": "browser-whisper",
+      "name": "browser-whisper",
+      "description": "In-browser Whisper speech-to-text with WebGPU (WASM fallback). Transcribe audio & video locally, no server.",
+      "repository": "tanpreetjolly/browser-whisper",
+      "status": "active",
+      "directTags": [
+        "ai",
+        "audio",
+        "gpu",
+        "ml"
       ]
     },
     {
@@ -7723,6 +7760,17 @@
       ]
     },
     {
+      "slug": "cursor-plugins",
+      "name": "Cursor Plugins",
+      "description": "Cursor plugin specification and official plugins",
+      "repository": "cursor/plugins",
+      "status": "active",
+      "directTags": [
+        "ai",
+        "skills"
+      ]
+    },
+    {
       "slug": "curtainsjs",
       "name": "CurtainsJS",
       "description": "A lightweight vanilla WebGL javascript library that turns HTML DOM elements...",
@@ -8678,7 +8726,7 @@
       "slug": "docusaurus",
       "name": "Docusaurus",
       "description": "Easy to maintain open source documentation websites.",
-      "repository": "facebook/docusaurus",
+      "repository": "meta/docusaurus",
       "status": "featured",
       "directTags": [
         "doc",
@@ -10382,6 +10430,17 @@
       ]
     },
     {
+      "slug": "expo-desktop",
+      "name": "Expo Desktop",
+      "description": "Userland support for using Expo with out-of-tree platforms",
+      "repository": "shirakaba/expo-desktop",
+      "status": "active",
+      "directTags": [
+        "desktop",
+        "react-native"
+      ]
+    },
+    {
       "slug": "express",
       "name": "Express",
       "description": "Fast, unopinionated, minimalist web framework for Node.js",
@@ -10670,6 +10729,17 @@
       ]
     },
     {
+      "slug": "farmjs",
+      "name": "Farm.js",
+      "description": "a full-stack, renderer-agnostic framework with experimental AOT React compiler.",
+      "repository": "farming-labs/farm.js",
+      "status": "active",
+      "directTags": [
+        "fullstack",
+        "react"
+      ]
+    },
+    {
       "slug": "fast",
       "name": "FAST",
       "description": "The adaptive interface system for modern web experiences.",
@@ -10864,7 +10934,7 @@
       "slug": "fbt",
       "name": "FBT",
       "description": "A JavaScript Internationalization Framework",
-      "repository": "facebook/fbt",
+      "repository": "meta/fbt",
       "status": "active",
       "directTags": [
         "i18n"
@@ -11048,6 +11118,16 @@
       "status": "active",
       "directTags": [
         "md"
+      ]
+    },
+    {
+      "slug": "figwright",
+      "name": "Figwright",
+      "description": "Free, two-way Figma MCP server. Turn designs into framework-aware code, and push code back to the canvas. Works with Claude Code, Cursor, Codex, and any MCP client.",
+      "repository": "awdr74100/figwright",
+      "status": "active",
+      "directTags": [
+        "mcp"
       ]
     },
     {
@@ -11297,7 +11377,7 @@
       "slug": "flipper",
       "name": "Flipper",
       "description": "A desktop debugging platform for mobile developers",
-      "repository": "facebook/flipper",
+      "repository": "meta/flipper",
       "status": "active",
       "directTags": [
         "devtool",
@@ -11365,7 +11445,7 @@
       "slug": "flow",
       "name": "Flow",
       "description": "Adds static typing to JavaScript to improve developer productivity and code quality.",
-      "repository": "facebook/flow",
+      "repository": "meta/flow",
       "status": "active",
       "directTags": [
         "compiler",
@@ -12863,6 +12943,20 @@
       ]
     },
     {
+      "slug": "glassyui",
+      "name": "Glassy UI",
+      "description": "Glass components for React and React Native. Add them with the shadcn CLI and own the source.",
+      "repository": "alexburlis/glassyui",
+      "status": "active",
+      "directTags": [
+        "component",
+        "react",
+        "react-native",
+        "shadcn",
+        "tailwind"
+      ]
+    },
+    {
       "slug": "glide",
       "name": "Glide",
       "description": "A dependency-free JavaScript ES6 slider and carousel. It’s lightweight, flexible and fast. Designed to slide. No less, no more",
@@ -14090,7 +14184,7 @@
       "slug": "hermes",
       "name": "Hermes",
       "description": " A small and lightweight JavaScript engine optimized for running React Native on Android",
-      "repository": "facebook/hermes",
+      "repository": "meta/hermes",
       "status": "featured",
       "directTags": [
         "react-native",
@@ -15170,7 +15264,7 @@
       "slug": "inkline",
       "name": "Inkline",
       "description": "The customizable Vue.js UI/UX Library designed for creating flawless responsive websites",
-      "repository": "inkline/inkline",
+      "repository": "uxfront-com/inkline",
       "status": "active",
       "directTags": [
         "component",
@@ -15893,6 +15987,16 @@
       "directTags": [
         "dom",
         "util"
+      ]
+    },
+    {
+      "slug": "jquery-smartwizard",
+      "name": "jQuery Smart Wizard ",
+      "description": "A modern and accessible step wizard plugin for jQuery",
+      "repository": "techlab/jquery-smartwizard",
+      "status": "active",
+      "directTags": [
+        "plugin"
       ]
     },
     {
@@ -17458,7 +17562,7 @@
       "slug": "lexical",
       "name": "Lexical",
       "description": "An extensible text editor framework that provides excellent reliability, accessibility and performance.",
-      "repository": "facebook/lexical",
+      "repository": "meta/lexical",
       "status": "active",
       "directTags": [
         "react",
@@ -17827,7 +17931,7 @@
       "slug": "little-state-machine",
       "name": "Little State Machine",
       "description": "React hooks for persist state management based",
-      "repository": "beekai-oss/little-state-machine",
+      "repository": "bluebill1049/little-state-machine",
       "status": "active",
       "directTags": [
         "flux",
@@ -19422,7 +19526,7 @@
       "slug": "memlab",
       "name": "MemLab",
       "description": "A framework for finding JavaScript memory leaks and analyzing heap snapshots",
-      "repository": "facebook/memlab",
+      "repository": "meta/memlab",
       "status": "active",
       "directTags": [
         "performance",
@@ -23266,6 +23370,19 @@
       "status": "featured",
       "directTags": [
         "map"
+      ]
+    },
+    {
+      "slug": "openmausbot",
+      "name": "OpenMausBot",
+      "description": "Open-source Grok Bot alternative with a virtual machine that bots can use",
+      "repository": "milind-soni/OpenMausBot",
+      "status": "active",
+      "directTags": [
+        "ai",
+        "ai-agents",
+        "bot",
+        "chat"
       ]
     },
     {
@@ -28554,7 +28671,7 @@
       "slug": "react-simple-animate",
       "name": "React Simple Animate",
       "description": "React UI animation made easy",
-      "repository": "beekai-oss/react-simple-animate",
+      "repository": "bluebill1049/react-simple-animate",
       "status": "active",
       "directTags": [
         "animation",
@@ -30105,7 +30222,7 @@
       "slug": "relay",
       "name": "Relay",
       "description": "Relay is a JavaScript framework for building data-driven React applications.",
-      "repository": "facebook/relay",
+      "repository": "meta/relay",
       "status": "featured",
       "directTags": [
         "data",
@@ -32139,6 +32256,14 @@
       ]
     },
     {
+      "slug": "shadcnstore-dashboard",
+      "name": "Shadcnstore Dashboard",
+      "description": "Free, open-source shadcn/ui dashboard and landing page template for React, with Vite and Next.js versions, Base UI and Tailwind v4.",
+      "repository": "shadcnstore/shadcn-dashboard-landing-template",
+      "status": "active",
+      "directTags": []
+    },
+    {
       "slug": "shadcnui",
       "name": "shadcn/ui",
       "description": "Beautifully designed components built with Radix UI and Tailwind CSS. ",
@@ -32869,7 +32994,7 @@
       "slug": "snapcn",
       "name": "snapcn",
       "description": "A shadcn registry of Remotion components for product demo videos. Install a text reveal, device frame, terminal session, logo sting or a whole scene with a command.",
-      "repository": "snapcndev/snapcn",
+      "repository": "shadcn-labs/snapcn",
       "status": "active",
       "directTags": [
         "animation",
@@ -32919,6 +33044,16 @@
       "status": "deprecated",
       "directTags": [
         "build"
+      ]
+    },
+    {
+      "slug": "social-sdk",
+      "name": "Social SDK",
+      "description": "Typed TypeScript SDK for direct and managed social platform integrations, with capability checks, explicit outcomes, and deterministic testing.",
+      "repository": "opencoredev/social-sdk",
+      "status": "active",
+      "directTags": [
+        "sdk"
       ]
     },
     {
@@ -34065,7 +34200,7 @@
       "slug": "stylex",
       "name": "Stylex",
       "description": "The styling system for ambitious user interface",
-      "repository": "facebook/stylex",
+      "repository": "meta/stylex",
       "status": "featured",
       "directTags": [
         "atomic-css",
@@ -37901,7 +38036,7 @@
       "slug": "unplugin-fonts",
       "name": "unplugin-fonts",
       "description": "Universal Webfont loader - Unfonts - based on https://web.dev/optimize-webfont-loading/",
-      "repository": "cssninjaStudio/unplugin-fonts",
+      "repository": "stafyniaksacha/unplugin-fonts",
       "status": "active",
       "directTags": [
         "astro",
@@ -39135,6 +39270,18 @@
       "status": "active",
       "directTags": [
         "cli"
+      ]
+    },
+    {
+      "slug": "vovk",
+      "name": "Vovk.ts",
+      "description": "Make your Next.js app agent-ready: MCP tools, OpenAPI and typed TS/Python/Rust clients from route handlers",
+      "repository": "finom/vovk",
+      "status": "active",
+      "directTags": [
+        "mcp",
+        "nextjs",
+        "openapi"
       ]
     },
     {
@@ -40716,6 +40863,17 @@
       "status": "active",
       "directTags": [
         "http"
+      ]
+    },
+    {
+      "slug": "xmcp",
+      "name": "xmcp",
+      "description": "The TypeScript MCP framework",
+      "repository": "basementstudio/xmcp",
+      "status": "active",
+      "directTags": [
+        "ai",
+        "mcp"
       ]
     },
     {

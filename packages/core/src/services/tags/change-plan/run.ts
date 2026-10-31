@@ -17,11 +17,28 @@ type OperationResult = {
   tags?: string[];
 };
 
-export async function runTaggingPlan({ db }: { db: DB }, plan: TaggingPlan) {
+type Progress = {
+  index: number;
+  total: number;
+  op: TaggingPlan["ops"][number]["op"];
+  target: string;
+};
+
+export async function runTaggingPlan(
+  { db }: { db: DB },
+  plan: TaggingPlan,
+  { onProgress }: { onProgress?: (progress: Progress) => void } = {},
+) {
   const ops: OperationResult[] = [];
 
   for (let index = 0; index < plan.ops.length; index++) {
     const op = plan.ops[index];
+    onProgress?.({
+      index,
+      total: plan.ops.length,
+      op: op.op,
+      target: op.op === "update-tag" ? op.code : op.project,
+    });
     switch (op.op) {
       case "update-tag":
         ops.push(await updateTag(db, op, index));
