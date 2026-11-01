@@ -22,7 +22,7 @@ docs/        Architecture documentation
 
 ## Commands
 
-**Package manager:** pnpm 11.x required (repo pinned to 11.0.8). **Node:** 24.x+.
+**Package manager:** pnpm 12.x required (repo pinned to 12.3.4). **Node:** 24.x+.
 
 ### Root (Turbo-orchestrated)
 

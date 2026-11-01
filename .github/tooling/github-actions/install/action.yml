@@ -7,7 +7,7 @@ runs:
     - name: Install PNPM
       uses: pnpm/action-setup@v5
       with:
-        version: 11.0.8
+        version: 12.3.4
 
     - uses: actions/setup-node@v6
       with:
