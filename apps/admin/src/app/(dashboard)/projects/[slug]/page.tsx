@@ -1,4 +1,5 @@
 import { Suspense } from "react";
+import { connection } from "next/server";
 import invariant from "tiny-invariant";
 
 import { getAllTags } from "@repo/core/services/projects";
@@ -6,6 +7,7 @@ import { getAllTags } from "@repo/core/services/projects";
 import { ProjectLogo } from "@/components/project-logo";
 import { projectService } from "@/db";
 
+import { ProjectLoadingState } from "../loading-state";
 import { ViewProjectPackages } from "./view-packages";
 import { ViewProject } from "./view-project";
 import { ViewRepo } from "./view-repo";
@@ -18,16 +20,17 @@ type PageProps = {
   }>;
 };
 
-export default async function ViewProjectPage(props: PageProps) {
+export default function ViewProjectPage(props: PageProps) {
   return (
-    <Suspense fallback={<div>Loading project...</div>}>
-      <ProjectContent params={props.params} />
+    <Suspense fallback={<ProjectLoadingState />}>
+      <ViewProjectPageContent {...props} />
     </Suspense>
   );
 }
 
-async function ProjectContent({ params }: PageProps) {
-  const { slug } = await params;
+async function ViewProjectPageContent(props: PageProps) {
+  await connection();
+  const { slug } = await props.params;
 
   const project = await projectService.getProjectWithDirectTagsBySlug(slug);
   const allTags = await getAllTags();
