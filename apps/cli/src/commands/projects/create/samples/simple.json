@@ -1,0 +1,9 @@
+{
+  "repo": "colinhacks/zod",
+  "name": "Zod",
+  "slug": "zod",
+  "description": "TypeScript-first schema validation with static type inference",
+  "url": "https://zod.dev",
+  "packages": ["zod"],
+  "tags": ["validation", "typescript"]
+}

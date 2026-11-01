@@ -1,0 +1,9 @@
+{
+  "repo": "acme/toolkit",
+  "name": "Acme Toolkit",
+  "slug": "acme-toolkit",
+  "description": "CLI and library published as separate npm packages",
+  "packages": ["@acme/toolkit", "@acme/toolkit-cli"],
+  "tags": ["cli", "library"],
+  "comments": "Track both packages from the first release"
+}
