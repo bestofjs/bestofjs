@@ -15,7 +15,7 @@
   },
   "author": "Michael Rambeau",
   "license": "MIT",
-  "packageManager": "pnpm@11.0.8",
+  "packageManager": "pnpm@12.3.4",
   "engines": {
     "node": ">=24",
     "pnpm": ">=11"
