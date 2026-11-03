@@ -1,7 +1,13 @@
+import { useRef } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from "sonner";
 import { z } from "zod";
+
+import {
+  generateDefaultSlug,
+  projectSlugSchema,
+} from "@repo/core/shared-schemas";
 
 import { createProjectAction } from "@/actions/projects-actions";
 import { SubmitButton } from "@/components/ui/button";
@@ -19,9 +25,10 @@ const formSchema = z.object({
   gitHubURL: z
     .string()
     .regex(
-      /^https:\/\/github\.com\/[A-Za-z0-9_.-]+\/[A-Za-z0-9_.-]+$/,
+      /^https:\/\/github\.com\/[A-Za-z0-9_.-]+\/[A-Za-z0-9_.-]+\/?$/,
       "Enter a valid GitHub repository URL",
     ),
+  slug: projectSlugSchema,
 });
 
 type Props = {
@@ -29,16 +36,17 @@ type Props = {
 };
 
 export function CreateProjectDialog({ close }: Props) {
+  const slugEdited = useRef(false);
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
-    defaultValues: { gitHubURL: "" },
+    defaultValues: { gitHubURL: "", slug: "" },
   });
 
   const isPending = form.formState.isSubmitting;
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     try {
-      const project = await createProjectAction(values.gitHubURL);
+      const project = await createProjectAction(values.gitHubURL, values.slug);
       toast.success(`Project added: ${project.name}`);
       close(project.slug);
     } catch (error) {
@@ -60,9 +68,40 @@ export function CreateProjectDialog({ close }: Props) {
           <Input
             id="gitHubURL"
             placeholder="https://github.com/..."
-            {...form.register("gitHubURL")}
+            {...form.register("gitHubURL", {
+              onChange: (event) => {
+                if (slugEdited.current) return;
+                const match = event.target.value.match(
+                  /^https:\/\/github\.com\/[A-Za-z0-9_.-]+\/([A-Za-z0-9_.-]+)\/?$/,
+                );
+                const name = match?.[1]?.replace(/\.git$/i, "");
+                let slug = "";
+                if (name) {
+                  try {
+                    slug = generateDefaultSlug(name);
+                  } catch {
+                    // The repository name may not contain slug characters yet.
+                  }
+                }
+                form.setValue("slug", slug, {
+                  shouldValidate: form.formState.isSubmitted,
+                });
+              },
+            })}
           />
           <FieldError errors={[form.formState.errors.gitHubURL]} />
+        </Field>
+        <Field data-invalid={!!form.formState.errors.slug}>
+          <FieldLabel htmlFor="slug">Slug</FieldLabel>
+          <Input
+            id="slug"
+            {...form.register("slug", {
+              onChange: () => {
+                slugEdited.current = true;
+              },
+            })}
+          />
+          <FieldError errors={[form.formState.errors.slug]} />
         </Field>
         <DialogFooter>
           <SubmitButton isPending={isPending}>Add</SubmitButton>

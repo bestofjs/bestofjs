@@ -1,8 +1,12 @@
+import { Suspense } from "react";
+import { connection } from "next/server";
+
 import { getAllTags } from "@repo/core/services/projects";
 
 import { ProjectLogo } from "@/components/project-logo";
 import { projectService } from "@/db";
 
+import { ProjectLoadingState } from "../../loading-state";
 import { ViewTags } from "../view-tags";
 import { ProjectForm } from "./project-form";
 
@@ -12,10 +16,17 @@ type PageProps = {
   }>;
 };
 
-export default async function EditProjectPage(props: PageProps) {
-  const params = await props.params;
+export default function EditProjectPage(props: PageProps) {
+  return (
+    <Suspense fallback={<ProjectLoadingState />}>
+      <EditProjectPageContent {...props} />
+    </Suspense>
+  );
+}
 
-  const { slug } = params;
+async function EditProjectPageContent(props: PageProps) {
+  await connection();
+  const { slug } = await props.params;
 
   const project = await projectService.getProjectWithDirectTagsBySlug(slug);
   const allTags = await getAllTags();

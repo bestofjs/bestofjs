@@ -1,0 +1,9 @@
+{
+  "repo": "acme/widgets",
+  "name": "Widgets Core",
+  "slug": "widgets-core",
+  "description": "Shared runtime for the Widgets monorepo",
+  "packagePath": "packages/core",
+  "packages": ["@acme/widgets-core"],
+  "tags": ["monorepo"]
+}

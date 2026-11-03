@@ -68,6 +68,37 @@ plans against local development data; it is not a production mutation policy.
 Atomic plans, rollback preview, and partial-failure reports are not
 implemented yet.
 
+## Create a project
+
+`projects create` inserts one GitHub repository and its first project, plus
+any npm packages and tags, in a single transaction. `description` is required.
+`name` defaults to the GitHub repository name, and `slug` defaults to the slug
+generated from that name. A description you send is stored as an override.
+
+The command fails before it writes when the repository is already tracked
+(matched on owner and name without regard to case), or when the slug, the
+name, a tag code, or an npm package name is already used. `packagePath` is
+stored on the project for monorepos. It does not attach the project to a
+repository that is already tracked.
+
+Sample payloads live in
+[`src/commands/projects/create/samples/`](src/commands/projects/create/samples/):
+
+| File | Covers |
+| --- | --- |
+| `simple.json` | One package and its tags |
+| `monorepo-subpackage.json` | A first project that lives in a subdirectory |
+| `several-packages.json` | Several npm packages on one project |
+
+```bash
+pnpm cli projects create \
+  --json apps/cli/src/commands/projects/create/samples/simple.json
+```
+
+Pass `--verbose` to print progress on stderr. Adding another project to a
+repository that is already tracked is a separate operation and is not part of
+this command.
+
 ## Current status
 
 Optique supplies help, typed options, JSON parsing, and parser errors. Bare

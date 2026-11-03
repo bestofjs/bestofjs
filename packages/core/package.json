@@ -30,6 +30,7 @@
   },
   "dependencies": {
     "@neondatabase/serverless": "0.9.5",
+    "@repo/api": "workspace:*",
     "@types/debug": "catalog:",
     "@types/luxon": "^3.7.1",
     "debug": "^4.4.1",

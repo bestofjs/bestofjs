@@ -754,6 +754,9 @@ importers:
       '@neondatabase/serverless':
         specifier: 0.9.5
         version: 0.9.5
+      '@repo/api':
+        specifier: workspace:*
+        version: link:../api
       '@types/debug':
         specifier: 'catalog:'
         version: 4.1.12

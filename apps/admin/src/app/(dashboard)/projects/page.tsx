@@ -1,3 +1,6 @@
+import { Suspense } from "react";
+import { connection } from "next/server";
+
 import { db } from "@repo/core";
 import { findProjects, getAllTags } from "@repo/core/services/projects";
 
@@ -9,10 +12,21 @@ import {
 } from "@/lib/projects-search-params";
 
 import { ActionBar } from "./action-bar";
+import { ProjectLoadingState } from "./loading-state";
 
 type PageProps = { searchParams: Promise<PageSearchParams> };
 
-export default async function ProjectsPage(props: PageProps) {
+export default function ProjectsPage(props: PageProps) {
+  return (
+    <Suspense fallback={<ProjectLoadingState />}>
+      <ProjectsPageContent {...props} />
+    </Suspense>
+  );
+}
+
+async function ProjectsPageContent(props: PageProps) {
+  // Keep database connection setup and queries at request time.
+  await connection();
   const searchParams = await props.searchParams;
   const allTags = await getAllTags();
   const searchOptions = searchParamsCache.parse(searchParams);

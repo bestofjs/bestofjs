@@ -31,5 +31,9 @@
     ".next/types/**/*.ts",
     ".next/dev/types/**/*.ts"
   ],
-  "exclude": ["node_modules"]
+  "exclude": [
+    "node_modules",
+    // Work around https://github.com/vercel/next.js/issues/99919.
+    ".next/dev/types/validator.ts"
+  ]
 }

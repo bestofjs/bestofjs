@@ -1,6 +1,8 @@
 import { message } from "@optique/core/message";
 import { type RunProgramStaticOptions, runProgram } from "@optique/discover";
 
+import projects from "./commands/projects";
+import createProject from "./commands/projects/create";
 import tagging from "./commands/tagging";
 import changes from "./commands/tagging/changes";
 import exportCatalog from "./commands/tagging/export-catalog";
@@ -26,7 +28,7 @@ export async function runCli(args = process.argv.slice(2)) {
 }
 
 export function createCliRunOptions(args: readonly string[]) {
-  const commands = [tagging, changes, exportCatalog];
+  const commands = [projects, createProject, tagging, changes, exportCatalog];
 
   return {
     args: showHelpForBareGroup(args, commands),
