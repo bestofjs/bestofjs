@@ -36,6 +36,22 @@ describe("parseGitHubRepo", () => {
 });
 
 describe("createProjectInputSchema", () => {
+  it("validates and trims an optional homepage URL for both creation inputs", () => {
+    for (const schema of [
+      createProjectInputSchema,
+      createProjectCliInputSchema,
+    ]) {
+      const input = { repo: "acme/widgets", description: "Widgets" };
+      expect(schema.parse({ ...input, url: " https://zod.dev " }).url).toBe(
+        "https://zod.dev",
+      );
+      for (const url of ["zod.dev", "not-a-url", " "]) {
+        expect(schema.safeParse({ ...input, url }).success).toBe(false);
+      }
+      expect(schema.safeParse(input).success).toBe(true);
+    }
+  });
+
   it("accepts a repo without a description", () => {
     expect(
       createProjectInputSchema.safeParse({ repo: "acme/widgets" }).success,

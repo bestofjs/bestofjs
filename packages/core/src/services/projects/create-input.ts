@@ -10,7 +10,7 @@ const NPM_PACKAGE_NAME = /^(?:@[a-z0-9][a-z0-9._-]*\/)?[a-z0-9][a-z0-9._-]*$/;
 
 const optionalName = z.string().trim().min(1).optional();
 const optionalDescription = z.string().trim().min(1).optional();
-const optionalUrl = z.string().trim().min(1).optional();
+const optionalUrl = z.string().trim().pipe(z.url()).optional();
 const packageNameSchema = z
   .string()
   .trim()
