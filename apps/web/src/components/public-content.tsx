@@ -1,7 +1,15 @@
+import type { ReactNode } from "react";
+
 import { PageHeading } from "@/components/core/typography";
 import { Card } from "@/components/ui/card";
 import { publicContent } from "@/server/public-content";
-export function PublicContent({ page }: { page: keyof typeof publicContent }) {
+export function PublicContent({
+  page,
+  children,
+}: {
+  page: keyof typeof publicContent;
+  children?: ReactNode;
+}) {
   const content = publicContent[page];
   return (
     <>
@@ -16,7 +24,7 @@ export function PublicContent({ page }: { page: keyof typeof publicContent }) {
               </p>
             ))}
             {"links" in section && (
-              <ul className="space-y-1">
+              <ul className="list-inside list-disc space-y-1">
                 {section.links?.map((link) => (
                   <li key={link.url}>
                     <a className="underline" href={link.url}>
@@ -28,6 +36,7 @@ export function PublicContent({ page }: { page: keyof typeof publicContent }) {
             )}
           </section>
         ))}
+        {children}
       </Card>
     </>
   );

@@ -4,7 +4,7 @@ import { publicContent } from "@/server/public-content";
 export function GET() {
   const content = publicContent.about;
   return markdownResponse(
-    `# ${content.title}\n\n${content.sections.map((section) => `## ${section.title}\n\n${section.paragraphs.map(text).join("\n\n")}\n\n${"links" in section ? section.links?.map((item) => `- ${link(item.label, item.url)}`).join("\n") : ""}`).join("\n\n")}`,
+    `# ${content.title}\n\n${content.sections.map((section) => `## ${section.title}\n\n${section.paragraphs.map(text).join("\n\n")}\n\n${"links" in section ? section.links?.map((item) => `- ${link(item.label, item.url)}`).join("\n") : ""}`).join("\n\n")}\n\n${text(content.closing)}\n\n— ${text(content.signature)}`,
     "/about",
   );
 }

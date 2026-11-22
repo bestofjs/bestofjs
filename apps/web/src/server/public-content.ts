@@ -1,6 +1,5 @@
 import {
   ADD_PROJECT_REQUEST_URL,
-  APP_REPO_URL,
   ISSUE_TRACKER_URL,
   SPONSOR_URL,
 } from "@/config/site";
@@ -11,29 +10,44 @@ export const publicContent = {
       {
         title: "Why Best of JS?",
         paragraphs: [
-          "Best of JS was created in 2015 to help people discover JavaScript and web-platform projects and follow ecosystem trends.",
-          "JavaScript, TypeScript, HTML, CSS, and the web platform keep evolving. Best of JS follows a curated catalog rather than scanning every repository on GitHub.",
+          "I started Best of JS in 2015 because keeping up with JavaScript and the web was already a job in itself. I wanted a place where developers could find a library for the problem in front of them, see what else was out there, and come back later to see what had changed.",
         ],
       },
       {
-        title: "How it works",
+        title: "How I curate the catalog",
         paragraphs: [
-          "An automatic task collects GitHub project data and star snapshots every day. The site displays star totals and changes over time to show when projects gain popularity.",
-          "Projects and categories are curated by people. GitHub stars indicate popularity; they do not establish quality, security, or suitability for your project.",
+          "I look for projects in newsletters, blog posts, and suggestions from readers. I decide what to add and how to tag it, and I revisit those tags as the ecosystem changes. Good tags make it easier to find alternatives, especially when you know what you want to build but don’t know the names of the tools yet.",
         ],
       },
       {
-        title: "Suggest a project or support the site",
+        title: "What the stars tell you",
         paragraphs: [
-          "Some great projects will be missing. Suggest a project through GitHub, star the repository, or become a sponsor.",
+          "Best of JS takes a snapshot of GitHub stars every day. A star total tells you how much attention a project has received over its lifetime. The daily changes show what developers are paying attention to now. I use those trends as a starting point for exploring a project and deciding whether it’s worth a closer look.",
+        ],
+      },
+      {
+        title: "Help improve the catalog",
+        paragraphs: [
+          "If you’ve found a project that belongs here, I’d love to hear about it. Tell me what it does and why you think other developers should know about it.",
+        ],
+        links: [{ label: "Suggest a project", url: ADD_PROJECT_REQUEST_URL }],
+      },
+      {
+        title: "Support Best of JS",
+        paragraphs: [
+          "If Best of JS has helped you find a tool you now use, you can support my work through either of these platforms.",
         ],
         links: [
-          { label: "Suggest a project", url: ADD_PROJECT_REQUEST_URL },
-          { label: "Source code", url: APP_REPO_URL },
-          { label: "Sponsor", url: SPONSOR_URL },
+          { label: "GitHub sponsors", url: SPONSOR_URL },
+          {
+            label: "Open Collective",
+            url: "https://opencollective.com/bestofjs",
+          },
         ],
       },
     ],
+    closing: "Thank you for your support. We are all made of stars!",
+    signature: "Michael Rambeau",
   },
   privacy: {
     title: "Privacy",
