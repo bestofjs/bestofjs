@@ -42,9 +42,6 @@ export const Footer = () => {
               <NextLink href="/about" className="hover:underline">
                 About
               </NextLink>
-              <NextLink href="/contact" className="hover:underline">
-                Contact
-              </NextLink>
               <NextLink href="/privacy" className="hover:underline">
                 Privacy
               </NextLink>

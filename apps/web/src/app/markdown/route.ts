@@ -39,7 +39,7 @@ ${link("Full monthly ranking", `/rankings/monthly/${monthly.year}/${monthly.mont
 
 ## Explore
 
-[Projects](/projects.md) · [Tags](/tags.md) · [Featured](/featured.md) · [Hall of Fame](/hall-of-fame.md) · [About](/about.md) · [Contact](/contact.md) · [Privacy](/privacy.md)`,
+[Projects](/projects.md) · [Tags](/tags.md) · [Featured](/featured.md) · [Hall of Fame](/hall-of-fame.md) · [About](/about.md) · [Privacy](/privacy.md)`,
     "/",
   );
 }

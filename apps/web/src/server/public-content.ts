@@ -1,7 +1,6 @@
 import {
   ADD_PROJECT_REQUEST_URL,
   APP_REPO_URL,
-  DISCORD_URL,
   ISSUE_TRACKER_URL,
   SPONSOR_URL,
 } from "@/config/site";
@@ -36,28 +35,6 @@ export const publicContent = {
       },
     ],
   },
-  contact: {
-    title: "Contact",
-    sections: [
-      {
-        title: "Questions, suggestions, and bug reports",
-        paragraphs: [
-          "Use the public GitHub issue tracker to suggest projects, report incorrect information, or discuss improvements. Your issue and anything you include in it are public.",
-        ],
-        links: [
-          { label: "GitHub issues", url: `${ISSUE_TRACKER_URL}/issues` },
-          { label: "Suggest a project", url: ADD_PROJECT_REQUEST_URL },
-        ],
-      },
-      {
-        title: "Community",
-        paragraphs: [
-          "Join the Best of JS Discord community to discuss web projects and share feedback. GitHub and Discord operate under their own privacy policies.",
-        ],
-        links: [{ label: "Join Discord", url: DISCORD_URL }],
-      },
-    ],
-  },
   privacy: {
     title: "Privacy",
     sections: [
@@ -87,11 +64,11 @@ export const publicContent = {
         ],
       },
       {
-        title: "Contact and updates",
+        title: "Questions and updates",
         paragraphs: [
-          "Questions about this page or public catalog information can be raised through the contact channels. Do not include private information in a public GitHub issue. This page describes the services used by the public website and will be updated as they change.",
+          "Use GitHub issues for questions about this page or to report incorrect catalog information. GitHub issues are public. Do not include private information. This page describes the services used by the public website and will be updated as they change.",
         ],
-        links: [{ label: "Contact", url: "/contact" }],
+        links: [{ label: "GitHub issues", url: `${ISSUE_TRACKER_URL}/issues` }],
       },
     ],
   },

@@ -17,7 +17,6 @@ Use Best of JS to discover web projects, browse categories, and compare GitHub p
 - [Featured projects](https://bestofjs.org/featured.md): Editorial selection.
 - [Hall of Fame](https://bestofjs.org/hall-of-fame.md): People behind web projects.
 - [About](https://bestofjs.org/about.md)
-- [Contact](https://bestofjs.org/contact.md)
 - [Privacy](https://bestofjs.org/privacy.md)
 - [Sitemap](https://bestofjs.org/sitemap.xml)
 

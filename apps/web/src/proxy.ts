@@ -19,7 +19,7 @@ const markdownPages = [
   /^\/rankings\/monthly\/\d{4}\/\d{1,2}$/,
   /^\/featured$/,
   /^\/hall-of-fame(?:\/search)?$/,
-  /^\/(?:about|contact|privacy)$/,
+  /^\/(?:about|privacy)$/,
   /^\/trends\/(?:weekly|monthly|yearly)$/,
 ];
 export function proxy(request: NextRequest) {
