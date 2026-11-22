@@ -1,6 +1,7 @@
 import type { NextConfig } from "next";
 
 import { env } from "./src/env.mjs";
+import { MARKDOWN_FALLBACK_HEADER } from "./src/server/markdown/accept";
 
 // Which deployment is being built. Logged because every other symptom of a
 // wrong `BESTOFJS_APP` looks like a normal site: the No AI build serving AI
@@ -49,7 +50,7 @@ const nextConfig: NextConfig = {
     const { year, month } = await fetchLatestRankings();
     return [
       {
-        source: "/tags/:tag",
+        source: "/tags/:tag((?!markdown$|[^/]*\\.md$)[^/]+)",
         destination: "/projects?tags=:tag",
         permanent: false,
       },
@@ -60,6 +61,16 @@ const nextConfig: NextConfig = {
       },
     ];
   },
+  rewrites: async () => ({
+    // Run after Next.js has checked pages, route handlers, and static assets.
+    fallback: [
+      {
+        source: "/:path((?!_next/|api/|favicon.ico).+)",
+        has: [{ type: "header", key: MARKDOWN_FALLBACK_HEADER, value: "1" }],
+        destination: "/markdown/not-found",
+      },
+    ],
+  }),
   logging: {
     fetches: {
       fullUrl: true,

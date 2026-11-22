@@ -5,6 +5,7 @@ import { getHotProjects } from "@/app/(home)/hot-projects";
 import { HotProjectList } from "@/components/home/hot-project-list";
 import { currentApp, type WebApp } from "@/config/apps";
 import { cacheTagForApp } from "@/server/cache";
+import { markdownMetadata } from "@/server/markdown/metadata";
 
 export default async function WeeklyTrendsPage() {
   return renderWeeklyTrendsPage(currentApp);
@@ -24,6 +25,7 @@ async function renderWeeklyTrendsPage(app: WebApp) {
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
+    ...markdownMetadata("/trends/weekly"),
     title: "Trends last 7 days",
   };
 }

@@ -55,9 +55,14 @@ export function createRankingsAPI({
           tags: ["monthly", key], // to be able to revalidate via API calls, on-demand
         },
       };
-      const data = (await fetch(url, options).then((res) =>
-        res.json(),
-      )) as RankingsData;
+      const response = await fetch(url, options);
+      if (response.status === 404) return null;
+      if (!response.ok) {
+        throw new Error(
+          `Monthly rankings request failed (HTTP ${response.status}): ${url}`,
+        );
+      }
+      const data = (await response.json()) as RankingsData;
       const { isFirst, isLatest, month, year } = data;
 
       // Resolve the whole archive before applying the limit. A deployment that

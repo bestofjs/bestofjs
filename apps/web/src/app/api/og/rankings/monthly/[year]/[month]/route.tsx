@@ -1,5 +1,3 @@
-import { cacheLife } from "next/cache";
-
 import { ImageLayout } from "@/app/api/og/og-image-layout";
 import {
   Box,
@@ -10,17 +8,16 @@ import {
   StarIcon,
 } from "@/app/api/og/og-utils";
 import { formatMonthlyDate } from "@/app/rankings/monthly/monthly-rankings-utils";
-import { currentApp, type WebApp } from "@/config/apps";
+import { getCachedMonthlyRankings } from "@/app/rankings/monthly/page-data";
+import { currentApp } from "@/config/apps";
 import { formatNumber } from "@/helpers/numbers";
-import { api } from "@/server/api";
-import type { MonthlyDate } from "@/server/api-rankings";
-import { cacheTagForApp } from "@/server/cache";
 
 type Context = { params: Promise<{ year: string; month: string }> };
 export async function GET(_: Request, props: Context) {
   const params = await props.params;
   const date = parsePageParams(params);
-  const { projects } = await getCachedMonthlyRankings(date, currentApp);
+  const data = await getCachedMonthlyRankings(date, 3, currentApp);
+  if (!data) return new Response(null, { status: 404 });
 
   return generateImageResponse(
     <ImageLayout>
@@ -29,20 +26,13 @@ export async function GET(_: Request, props: Context) {
           <Box>Rankings {formatMonthlyDate(date)}</Box>
         </Box>
         <Box style={{ flexDirection: "column" }}>
-          {projects.map((project, index) => (
+          {data.projects.map((project, index) => (
             <ProjectRow key={project.slug} project={project} index={index} />
           ))}
         </Box>
       </Box>
     </ImageLayout>,
   );
-}
-
-async function getCachedMonthlyRankings(date: MonthlyDate, app: WebApp) {
-  "use cache";
-  cacheLife("forever");
-  cacheTagForApp(app, "monthly", `${date.year}-${date.month}`, "projects");
-  return api.rankings.getMonthlyRankings({ date, limit: 3 });
 }
 
 function ProjectRow({

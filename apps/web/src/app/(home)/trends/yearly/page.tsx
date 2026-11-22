@@ -5,6 +5,7 @@ import { getHotProjects } from "@/app/(home)/hot-projects";
 import { HotProjectList } from "@/components/home/hot-project-list";
 import { currentApp, type WebApp } from "@/config/apps";
 import { cacheTagForApp } from "@/server/cache";
+import { markdownMetadata } from "@/server/markdown/metadata";
 
 export default async function YearlyTrendsPage() {
   return renderYearlyTrendsPage(currentApp);
@@ -24,6 +25,7 @@ async function renderYearlyTrendsPage(app: WebApp) {
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
+    ...markdownMetadata("/trends/yearly"),
     title: "Trends last 12 months",
   };
 }

@@ -1,7 +1,5 @@
-import { db } from "@repo/core";
-import { findHallOfFameMembers } from "@repo/core/services/hall-of-fame";
-
 import { HallOfFamePaginatedList } from "../hall-of-fame-paginated-list";
+import { getMembers } from "../page-data";
 import { HallOfFameSearchStateParser } from "./hall-of-fame-search-state";
 import { HallOfFameSearchBar } from "./search-bar";
 
@@ -15,12 +13,7 @@ export default async function HallOfFameSearchPage(props: PageProps) {
   const searchParams = await props.searchParams;
   const { searchState, buildPageURL } = searchStateParser.parse(searchParams);
 
-  const { members, total } = await findHallOfFameMembers({
-    db,
-    page: searchState.page,
-    limit: searchState.limit,
-    searchQuery: searchState.query,
-  });
+  const { members, total } = await getMembers(searchState);
 
   return (
     <>

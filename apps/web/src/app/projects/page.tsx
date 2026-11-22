@@ -5,12 +5,6 @@ import NextLink from "next/link";
 
 import { resolveScope } from "@repo/core/services/projects";
 
-import { findProjectsWithTrends, findRelevantTags, findTags } from "@/app/db";
-import {
-  buildTagsByCode,
-  type TrendsProject,
-  toTrendsProject,
-} from "@/app/projects/project-adapter";
 import { PlusIcon, TagIcon, XMarkIcon } from "@/components/core";
 import {
   LinkPendingIcon,
@@ -22,28 +16,24 @@ import { TrendsProjectScopePicker } from "@/components/project-list/trends-scope
 import { getTrendsSortOptionByKey } from "@/components/project-list/trends-sort-order-options";
 import { badgeVariants } from "@/components/ui/badge";
 import { buttonVariants } from "@/components/ui/button";
-import { currentApp, type WebApp } from "@/config/apps";
+import { currentApp } from "@/config/apps";
 import { APP_CANONICAL_URL, APP_DISPLAY_NAME } from "@/config/site";
 import { formatNumber } from "@/helpers/numbers";
 import { addCacheBustingParam } from "@/helpers/url";
 import { cn } from "@/lib/utils";
-import { cacheTagForApp } from "@/server/cache";
+import { markdownMetadata } from "@/server/markdown/metadata";
 
 import { ProjectListLoading } from "./loading-state";
+import {
+  fetchPageData,
+  type ProjectsPageData,
+  type TagSummary,
+} from "./page-data";
 import {
   type TrendsProjectSearchState,
   TrendsProjectSearchStateParser,
   type TrendsProjectSearchUrlBuilder,
 } from "./trends-project-search-state";
-
-type TagSummary = { code: string; name: string };
-
-type ProjectsPageData = {
-  projects: TrendsProject[];
-  total: number;
-  selectedTags: TagSummary[];
-  relevantTags: TagSummary[];
-};
 
 type PageProps = {
   searchParams: Promise<Record<string, string | string[]>>;
@@ -65,6 +55,7 @@ export async function generateMetadata(props: PageProps): Promise<Metadata> {
 
   return {
     title,
+    ...markdownMetadata(`/projects?${queryString}`),
     description,
     // Text-search result pages are ephemeral/near-infinite; keep them out of
     // the index. The bare listing and tag-filtered pages stay indexable.
@@ -382,47 +373,4 @@ function CurrentTags({
       )}
     </div>
   );
-}
-
-async function fetchPageData(
-  searchState: TrendsProjectSearchState,
-  app: WebApp,
-): Promise<ProjectsPageData> {
-  "use cache";
-  cacheLife("hours");
-  cacheTagForApp(app, "projects");
-
-  const { ai, tags: tagCodes, sort, page, limit, query, scope } = searchState;
-  // `?ai=1` asks this deployment for the tags it hides; on the main deployment
-  // there are none, so the flag is inert there.
-  const showExcludedTags = ai === "1";
-
-  const [{ projects: rows, total }, allTags, relevantTags] = await Promise.all([
-    findProjectsWithTrends({
-      limit,
-      page,
-      query,
-      scope,
-      showExcludedTags,
-      sort,
-      tagCodes,
-    }),
-    // Same opt-out as the listing: the heading, the removable tag chips and the
-    // tag labels on the cards all read from this lookup.
-    findTags({ showExcludedTags }),
-    // Same `scope` as the listing: a suggested tag whose projects are all
-    // filtered out would lead to an empty page.
-    findRelevantTags({ tagCodes, query, scope, showExcludedTags }),
-  ]);
-
-  const tagsByCode = buildTagsByCode(allTags);
-  const projects = rows.map((row) => toTrendsProject(row, tagsByCode));
-  const selectedTags = allTags.filter((tag) => tagCodes.includes(tag.code));
-
-  return {
-    projects,
-    total,
-    selectedTags,
-    relevantTags,
-  };
 }
