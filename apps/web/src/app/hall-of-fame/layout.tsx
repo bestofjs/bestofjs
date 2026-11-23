@@ -7,12 +7,14 @@ import {
   APP_DISPLAY_NAME,
   APP_REPO_URL,
 } from "@/config/site";
+import { markdownMetadata } from "@/server/markdown/metadata";
 
 const description =
   "Some of the greatest developers, authors and speakers of the JavaScript community. Meet Evan, Dan, Sindre, TJ and friends!";
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
+    ...markdownMetadata("/hall-of-fame"),
     title: "Hall of Fame",
     description,
     openGraph: {

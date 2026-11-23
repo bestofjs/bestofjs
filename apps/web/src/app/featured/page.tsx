@@ -1,29 +1,14 @@
-import { cacheLife } from "next/cache";
-
-import { findProjectsWithTrends, findTags } from "@/app/db";
-import {
-  buildTagsByCode,
-  toTrendsProject,
-} from "@/app/projects/project-adapter";
-import {
-  type TrendsProjectSearchState,
-  TrendsProjectSearchStateParser,
-} from "@/app/projects/trends-project-search-state";
 import { StarIcon } from "@/components/core";
 import { PageHeading } from "@/components/core/typography";
 import { TrendsProjectPaginatedList } from "@/components/project-list/trends-project-paginated-list";
-import { currentApp, type WebApp } from "@/config/apps";
-import { cacheTagForApp } from "@/server/cache";
+import { currentApp } from "@/config/apps";
+import { markdownMetadata } from "@/server/markdown/metadata";
+
+import { fetchFeaturedProjects, searchStateParser } from "./page-data";
 
 type PageProps = {
   searchParams: Promise<Record<string, string | string[]>>;
 };
-
-const searchStateParser = new TrendsProjectSearchStateParser({
-  sort: "newest",
-  scope: "all",
-});
-searchStateParser.path = "/featured";
 
 export default async function FeaturedProjectsPage(props: PageProps) {
   const searchParams = await props.searchParams;
@@ -51,38 +36,12 @@ export default async function FeaturedProjectsPage(props: PageProps) {
   );
 }
 
-async function fetchFeaturedProjects(
-  searchState: TrendsProjectSearchState,
-  app: WebApp,
-) {
-  "use cache";
-  cacheLife("hours");
-  cacheTagForApp(app, "projects");
-
-  const { sort, page, limit } = searchState;
-
-  const [{ projects: rows, total }, allTags] = await Promise.all([
-    findProjectsWithTrends({
-      limit,
-      page,
-      // Hardcoded, not read from `searchState`: "featured" is an editorial
-      // signal, and `status: "featured"` already excludes deprecated projects
-      // (`projects.status` is a single enum column). `"active"` would only
-      // *additionally* hide featured projects that went cold or quiet — exactly
-      // the ones a curator needs listed — and would hide freshly-added ones
-      // until their first commit-history fetch replaces the
-      // `activity_score = -100` sentinel.
-      scope: "all",
-      sort,
-      status: "featured",
-    }),
-    findTags(),
-  ]);
-
-  const tagsByCode = buildTagsByCode(allTags);
-
-  return {
-    projects: rows.map((row) => toTrendsProject(row, tagsByCode)),
-    total,
-  };
+export async function generateMetadata(props: PageProps) {
+  const { searchState } = searchStateParser.parse(await props.searchParams);
+  const params = new URLSearchParams();
+  if (searchState.page > 1) params.set("page", String(searchState.page));
+  if (searchState.limit !== 30) params.set("limit", String(searchState.limit));
+  if (searchState.sort !== "newest") params.set("sort", searchState.sort);
+  const query = params.toString();
+  return markdownMetadata(query ? `/featured?${query}` : "/featured");
 }

@@ -1,8 +1,8 @@
 import { CalendarIcon } from "lucide-react";
-import { cacheLife } from "next/cache";
 import NextLink from "next/link";
 
 import { formatMonthlyDate } from "@/app/rankings/monthly/monthly-rankings-utils";
+import { getLatestMonthlyRankings } from "@/app/rankings/monthly/page-data";
 import { StarDelta } from "@/components/core";
 import { SectionHeading } from "@/components/core/section";
 import { ProjectTable } from "@/components/project-list/project-table";
@@ -10,8 +10,6 @@ import { buttonVariants } from "@/components/ui/button";
 import { Card, CardHeader } from "@/components/ui/card";
 import { currentApp, type WebApp } from "@/config/apps";
 import { cn } from "@/lib/utils";
-import { api } from "@/server/api";
-import { cacheTagForApp } from "@/server/cache";
 
 export async function LatestMonthlyRankings() {
   return renderLatestMonthlyRankings(currentApp);
@@ -22,12 +20,7 @@ export async function LatestMonthlyRankings() {
 // parameter (not a module-scope import) since Next's "use cache" excludes
 // module-scope values from the cache key (github.com/vercel/next.js#74498).
 async function renderLatestMonthlyRankings(app: WebApp) {
-  "use cache";
-  cacheLife("monthly"); // Revalidate every 30 days for latest rankings
-  cacheTagForApp(app, "monthly", "latest", "projects");
-  const { year, month, projects } = await api.rankings.getMonthlyRankings({
-    limit: 5,
-  });
+  const { year, month, projects } = await getLatestMonthlyRankings(app);
   return (
     <Card>
       <CardHeader className="border-b">

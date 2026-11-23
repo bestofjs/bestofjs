@@ -34,6 +34,12 @@ describe("project slugs", () => {
     expect(generateDefaultSlug("foo_bar")).toBe("foo-bar");
   });
 
+  it("reserves the .md suffix for Markdown URLs", () => {
+    expect(projectSlugSchema.safeParse(" example.md ").success).toBe(false);
+    expect(projectSlugSchema.parse("example.md.js")).toBe("example.md.js");
+    expect(() => generateDefaultSlug("example.md")).toThrow();
+  });
+
   it("rejects a name with no usable project slug characters", () => {
     expect(() => generateDefaultSlug("@!")).toThrow(
       'Cannot generate a project slug from "@!"',

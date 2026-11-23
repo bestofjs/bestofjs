@@ -1,7 +1,7 @@
 import { CalendarIcon } from "lucide-react";
 import type { Metadata } from "next";
-import { cacheLife } from "next/cache";
 import Link from "next/link";
+import { notFound } from "next/navigation";
 
 import {
   ChevronLeftIcon,
@@ -12,14 +12,17 @@ import { PageHeading } from "@/components/core/typography";
 import { ProjectTable } from "@/components/project-list/project-table";
 import { Button, buttonVariants } from "@/components/ui/button";
 import { Card, CardHeader } from "@/components/ui/card";
-import { currentApp, type WebApp } from "@/config/apps";
+import { currentApp } from "@/config/apps";
 import { APP_CANONICAL_URL, APP_DISPLAY_NAME } from "@/config/site";
 import { cn } from "@/lib/utils";
-import { api } from "@/server/api";
 import type { MonthlyDate } from "@/server/api-rankings";
-import { cacheTagForApp } from "@/server/cache";
+import { markdownMetadata } from "@/server/markdown/metadata";
 
 import { formatMonthlyDate } from "../../monthly-rankings-utils";
+import {
+  getCachedMonthlyRankings,
+  getLatestMonthlyRankings,
+} from "../../page-data";
 
 type PageProps = {
   params: Promise<{
@@ -36,23 +39,13 @@ type PageProps = {
 // (github.com/vercel/next.js#74498) — the Data Cache persists across
 // deployments, and `getMonthlyRankings()` depends on this deployment's
 // excluded tags by way of a call several modules deep.
-async function getCachedMonthlyRankings(
-  date: MonthlyDate,
-  limit: number,
-  app: WebApp,
-) {
-  "use cache";
-  cacheLife("forever"); // Historical data is frozen forever
-  cacheTagForApp(app, "monthly", `${date.year}-${date.month}`, "projects");
-  return api.rankings.getMonthlyRankings({ date, limit });
-}
-
 export async function generateMetadata(props: PageProps): Promise<Metadata> {
   const params = await props.params;
   const date = parsePageParams(params);
 
-  const { projects } = await getCachedMonthlyRankings(date, 10, currentApp);
-  const projectNames = projects.map((project) => project.name).join(", ");
+  const data = await getCachedMonthlyRankings(date, 10, currentApp);
+  if (!data) notFound();
+  const projectNames = data.projects.map((project) => project.name).join(", ");
 
   const title = `Rankings ${formatMonthlyDate(date)}`;
   const description = `The most popular projects on Best of JS in ${formatMonthlyDate(
@@ -61,6 +54,7 @@ export async function generateMetadata(props: PageProps): Promise<Metadata> {
 
   return {
     title,
+    ...markdownMetadata(`/rankings/monthly/${params.year}/${params.month}`),
     description,
     openGraph: {
       images: [`api/og/rankings/monthly/${params.year}/${params.month}`],
@@ -74,11 +68,9 @@ export async function generateMetadata(props: PageProps): Promise<Metadata> {
 export default async function MonthlyRankingPage(props: PageProps) {
   const params = await props.params;
   const date = parsePageParams(params);
-  const { isFirst, isLatest, projects } = await getCachedMonthlyRankings(
-    date,
-    50,
-    currentApp,
-  );
+  const data = await getCachedMonthlyRankings(date, 50, currentApp);
+  if (!data) notFound();
+  const { isFirst, isLatest, projects } = data;
 
   return (
     <>
@@ -106,7 +98,7 @@ export default async function MonthlyRankingPage(props: PageProps) {
 }
 
 export async function generateStaticParams() {
-  const { year, month } = await api.rankings.getMonthlyRankings({ limit: 0 });
+  const { year, month } = await getLatestMonthlyRankings(currentApp, 0);
   return [{ year, month }, getPreviousMonth({ year, month })].map((date) => ({
     year: date.year.toString(),
     month: date.month.toString(), // search params must be string

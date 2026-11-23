@@ -1,12 +1,14 @@
 "use cache";
-
 import { Suspense } from "react";
 import { uniq } from "es-toolkit";
 import type { Metadata } from "next";
-import { cacheLife, cacheTag } from "next/cache";
+import { notFound } from "next/navigation";
 
 import type { ProjectDetails } from "@repo/core/services/projects";
 
+import { markdownMetadata } from "@/server/markdown/metadata";
+
+import { getProjectDetailsData } from "./page-data";
 import { ProjectDetailsGitHubCard } from "./project-details-github/github-card";
 import { ProjectHeader } from "./project-header";
 import { ReadmeCard } from "./project-readme/project-readme";
@@ -17,7 +19,6 @@ import {
   getHotProjects,
   type HotProjectsSortKey,
 } from "@/app/(home)/hot-projects";
-import { projectService } from "@/app/db";
 import { Card, CardContent } from "@/components/ui/card";
 import { currentApp } from "@/config/apps";
 import { APP_CANONICAL_URL, APP_DISPLAY_NAME } from "@/config/site";
@@ -34,13 +35,14 @@ export async function generateMetadata(props: PageProps): Promise<Metadata> {
   const params = await props.params;
   const { slug } = params;
   const project = await getProjectDetailsData(slug);
-  if (!project) return { title: "Project not found" };
+  if (!project) notFound();
 
   const title = project.name;
   const description = `Trends and data about ${project.name} project. ${project.description}`;
 
   return {
     title: title,
+    ...markdownMetadata(`/projects/${slug}`),
     description: description,
     openGraph: {
       images: [`/api/og/projects/${slug}`],
@@ -56,10 +58,7 @@ export default async function ProjectDetailsPage(props: PageProps) {
   const { slug } = params;
 
   const project = await getProjectDetailsData(slug);
-  if (!project) {
-    // TODO show a better page when an invalid slug is provided
-    return <>Project not found!</>;
-  }
+  if (!project) notFound();
 
   return (
     <div className="flex flex-col space-y-8 font-serif">
@@ -76,12 +75,6 @@ export default async function ProjectDetailsPage(props: PageProps) {
       <ReadmeCard project={project} />
     </div>
   );
-}
-
-async function getProjectDetailsData(slug: string) {
-  cacheLife("daily");
-  cacheTag("project-details", slug);
-  return await projectService.getProjectBySlug(slug);
 }
 
 const PRERENDERED_WINDOWS: HotProjectsSortKey[] = [

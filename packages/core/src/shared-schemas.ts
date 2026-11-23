@@ -6,16 +6,22 @@ const PROJECT_SLUG_PATTERN = /^[a-z0-9]+(?:[.-][a-z0-9]+)*$/;
 const TAG_CODE_PATTERN = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
 
 const PROJECT_SLUG_ERROR =
-  "Use lowercase letters and numbers separated by single hyphens or dots";
+  "Use lowercase letters and numbers separated by single hyphens or dots. The slug 'markdown' and the '.md' suffix are reserved.";
 const TAG_CODE_ERROR =
-  "Use lowercase letters and numbers separated by single hyphens";
+  "Use lowercase letters and numbers separated by single hyphens; markdown is reserved";
 
 export function validateProjectSlug(value: string) {
-  return PROJECT_SLUG_PATTERN.test(value.trim());
+  const slug = value.trim();
+  // Public project URLs use the .md suffix to request Markdown.
+  return (
+    slug !== "markdown" &&
+    !slug.endsWith(".md") &&
+    PROJECT_SLUG_PATTERN.test(slug)
+  );
 }
 
 export function validateTagCode(value: string) {
-  return TAG_CODE_PATTERN.test(value.trim());
+  return value.trim() !== "markdown" && TAG_CODE_PATTERN.test(value.trim());
 }
 
 export const projectSlugSchema = z
