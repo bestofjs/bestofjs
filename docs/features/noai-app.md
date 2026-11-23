@@ -71,6 +71,9 @@ Rules:
 - Distribution is the link from the main site (the popover in the home intro), not search.
 - Upgrade path if the variant proves itself, one line: `APP_CANONICAL_URL = \`https://${hostByApp[currentApp]}\``. Robots, sitemap and every `og:url` follow automatically; consolidating variant pages into bestofjs.org vs. letting them rank on their own then becomes a separate `alternates.canonical` decision.
 
+Agent Markdown (`.md`, `/llms.txt`, `Accept: text/markdown`) runs on the main
+deployment only. See [`markdown-for-agents.md`](./markdown-for-agents.md).
+
 ## Daily refresh
 
 Each deployment has its own cache and its own build, so the daily pipeline has to reach both.

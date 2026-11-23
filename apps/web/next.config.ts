@@ -3,10 +3,9 @@ import type { NextConfig } from "next";
 import { env } from "./src/env.mjs";
 import { MARKDOWN_FALLBACK_HEADER } from "./src/server/markdown/accept";
 
-// Which deployment is being built. Logged because every other symptom of a
-// wrong `BESTOFJS_APP` looks like a normal site: the No AI build serving AI
-// projects is indistinguishable from the main one at a glance.
-console.info(`Building Best of JS — app: "${env.BESTOFJS_APP}"`);
+// Log which deployment is being built. A wrong `BESTOFJS_APP` still looks like a
+// normal site. The No AI build can serve AI projects and match the main UI.
+console.info(`Building Best of JS, app: "${env.BESTOFJS_APP}"`);
 
 const ONE_DAY = 60 * 60 * 24;
 

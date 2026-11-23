@@ -28,7 +28,7 @@ This Markdown page or resource is unavailable.
 - [Home](/index.md)
 - [Projects](/projects.md)
 - [Sitemap](/sitemap.xml)
-- [Agent guidance](/llms.txt)`,
+- [llms.txt](/llms.txt)`,
     "/",
     404,
   );

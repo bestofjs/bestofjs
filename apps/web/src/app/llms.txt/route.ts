@@ -22,11 +22,11 @@ Use Best of JS to discover web projects, browse categories, and compare GitHub p
 
 ## Markdown access
 
-Append .md to a supported page path: /projects/react.md. Use /index.md for the homepage. Alternatively send Accept: text/markdown to the HTML URL, including /. Query parameters are preserved: /projects.md?tags=react&sort=weekly&page=2. Follow pagination links for further results. Unsupported .md paths return a Markdown 404. HTML pages without a Markdown presentation remain HTML. Internal /markdown paths are reserved and are not public endpoints.
+Append .md to a supported path, for example /projects/react.md. Use /index.md for the homepage. You can also send Accept: text/markdown to the HTML URL, including /. Query parameters are preserved, for example /projects.md?tags=react&sort=weekly&page=2. Follow pagination links in Markdown responses for later pages. Unsupported .md paths return a Markdown 404. Pages without a Markdown route stay HTML. Paths under /markdown are reserved for rewrites and are not public endpoints.
 
 ## Freshness and data
 
-GitHub data is normally refreshed daily; monthly rankings are historical snapshots. Refreshes can be delayed. The website uses database-backed project metadata and trend queries, while historical monthly scores come from archived JSON. Static JSON exports may differ in filtering, schema, and freshness; this guide does not promise a supported public JSON API. Prefer the page representations and their update information.
+GitHub data is normally refreshed daily; monthly rankings are historical snapshots. Refreshes can be delayed. Live listings use the database. Historical monthly scores come from archived JSON. Static JSON exports may differ in filtering, schema, and freshness. There is no documented public JSON API. Use Markdown or HTML pages and read the dates they report.
 
 Markdown is available on the main bestofjs.org deployment only. Project Markdown links to the upstream README; it does not include the README body.
 `,

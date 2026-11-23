@@ -113,4 +113,5 @@ pnpm biome check --write .   # Auto-fix formatting/lint issues
 - `docs/architecture/backend-app.md` — task system and data collection
 - `docs/architecture/web-app.md` — frontend architecture
 - `docs/architecture/scoring.md` — project scoring formulas, calibration decisions, and how to tune them
+- `docs/features/markdown-for-agents.md`: Markdown, `/llms.txt`, and `apps/web/src/proxy.ts` routing for agents
 - For tag schemas or assignments, taxonomy rules, or tag-aware agent tooling, read `docs/tagging/README.md`.
