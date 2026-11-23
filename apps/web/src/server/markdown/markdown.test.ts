@@ -9,7 +9,7 @@ import { proxy } from "@/proxy";
 import { prefersMarkdown } from "./accept";
 import { link, searchParams, text } from "./format";
 import { markdownResponse } from "./response";
-import { markdownURL } from "./urls";
+import { githubReadmeURL, markdownURL } from "./urls";
 
 describe("Accept negotiation", () => {
   it.each([
@@ -131,5 +131,21 @@ describe("representation helpers", () => {
   it("escapes untrusted catalog text", () => {
     expect(text("<script>\n[x]")).toBe("\\<script\\> \\[x\\]");
     expect(link("x", "https://example.com/a(b)")).toContain("a%28b%29");
+  });
+  it("links to monorepo package READMEs when packagePath is set", () => {
+    expect(githubReadmeURL("facebook/react", "main", null)).toBe(
+      "https://github.com/facebook/react#readme",
+    );
+    expect(githubReadmeURL("facebook/react", "main", "   ")).toBe(
+      "https://github.com/facebook/react#readme",
+    );
+    expect(
+      githubReadmeURL("facebook/react", "canary", "/packages/react/"),
+    ).toBe(
+      "https://github.com/facebook/react/tree/canary/packages/react#readme",
+    );
+    expect(githubReadmeURL("owner/repo", null, "packages/core")).toBe(
+      "https://github.com/owner/repo/tree/main/packages/core#readme",
+    );
   });
 });
