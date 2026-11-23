@@ -48,7 +48,10 @@ describe("public routing", () => {
     for (const path of [
       "/missing.md",
       "/markdown",
+      "/%6darkdown",
       "/projects/react/markdown",
+      "/projects/%6darkdown",
+      "/%ZZ/%6darkdown",
     ]) {
       const response = proxy(request(path));
       expect(response.status).toBe(404);
@@ -81,8 +84,18 @@ describe("public routing", () => {
   it("disables the agent endpoints on No AI", () => {
     app.isMainApp = false;
     try {
-      for (const path of ["/index.md", "/llms.txt"])
-        expect(proxy(request(path)).status).toBe(404);
+      for (const path of [
+        "/index.md",
+        "/llms.txt",
+        "/llms%2etxt",
+        "/markdown",
+        "/projects/markdown",
+        "/projects/%6darkdown",
+      ]) {
+        const response = proxy(request(path));
+        expect(response.status).toBe(404);
+        expect(response.headers.get("content-type")).toBeNull();
+      }
       expect(
         proxy(request("/", { accept: "text/markdown" })).headers.has(
           "x-middleware-rewrite",

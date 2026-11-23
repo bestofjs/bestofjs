@@ -24,10 +24,15 @@ const markdownPages = [
 ];
 export function proxy(request: NextRequest) {
   const path = request.nextUrl.pathname.replace(/\/$/, "") || "/";
-  if (path.split("/").includes("markdown")) return markdownNotFound();
+  const decodedPath = decodePathname(path).replace(/\/$/, "") || "/";
+  if (decodedPath.split("/").includes("markdown")) {
+    return isMainApp
+      ? markdownNotFound()
+      : new NextResponse(null, { status: 404 });
+  }
   const explicit = path.endsWith(".md");
   if (!isMainApp) {
-    if (explicit || path === "/llms.txt")
+    if (explicit || decodedPath === "/llms.txt")
       return new NextResponse(null, { status: 404 });
     return continueRouting(request);
   }
@@ -62,6 +67,19 @@ export function proxy(request: NextRequest) {
   }
   response.headers.append("Vary", "Accept");
   return response;
+}
+
+function decodePathname(pathname: string) {
+  return pathname
+    .split("/")
+    .map((segment) => {
+      try {
+        return decodeURIComponent(segment);
+      } catch {
+        return segment;
+      }
+    })
+    .join("/");
 }
 
 function continueRouting(request: NextRequest, markdownFallback = false) {
