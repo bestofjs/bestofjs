@@ -36,4 +36,12 @@ export default async function FeaturedProjectsPage(props: PageProps) {
   );
 }
 
-export const metadata = markdownMetadata("/featured");
+export async function generateMetadata(props: PageProps) {
+  const { searchState } = searchStateParser.parse(await props.searchParams);
+  const params = new URLSearchParams();
+  if (searchState.page > 1) params.set("page", String(searchState.page));
+  if (searchState.limit !== 30) params.set("limit", String(searchState.limit));
+  if (searchState.sort !== "newest") params.set("sort", searchState.sort);
+  const query = params.toString();
+  return markdownMetadata(query ? `/featured?${query}` : "/featured");
+}
